@@ -83,10 +83,11 @@ Enter the component you want most in the components, leave the emojis and follow
 
 ## Thanks
 
-Thanks to [@radix_ui] for the inspiration and the great work they've done with [Radix Primitives](https://radix-ui.com/primitives/docs/primitives/introduction). We proceed through the initial stages of many codes by looking at them.
+Thanks to [@radix_ui](https://github.com/radix-ui/primitives) for the inspiration and the great work they've done with [Radix Primitives](https://radix-ui.com). We proceed through the initial stages of many codes by looking at them.
 
-Thanks to Johnson Chu [@johnsoncodehk]. Supported me in many issues that I was stuck in Typescript.
-Thanks to Daniel Roe [@danielroe]. Nuxt has helped me in many areas so far.
+Thanks to Johnson Chu [@johnsoncodehk](https://github.com/johnsoncodehk). Supported me in many issues that I was stuck in Typescript.
+
+Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped me in many areas so far.
 
 
 ---
