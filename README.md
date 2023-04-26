@@ -29,34 +29,36 @@ Oku Primitives is a low-level UI component library with a focus on accessibility
 
 # TODO Components - 3/28
 
-- [ ] Accordion
-- [ ] Alert Dialog
-- [x] Aspect Ratio - finished
-- [x] Avatar - working on
-- [ ] Checkbox
-- [ ] Collapsible
-- [ ] Context Menu
-- [ ] Dialog
-- [ ] Dropdown Menu
-- [ ] Form
-- [ ] Hover Card
-- [x] Label - finished
-- [ ] Menubar
-- [ ] Navigation Menu
-- [ ] Popover
-- [ ] Progress
-- [ ] Radio Group
-- [ ] Scroll Area
-- [ ] Select
-- [ ] Separator
-- [ ] Slider
-- [ ] Switch
-- [ ] Tabs
-- [ ] Toast
-- [ ] Toogle
-- [ ] Toogle Group
-- [ ] Toolbar
-- [ ] Tooltip
+Enter the component you want most in the components, leave the emojis and follow.
+
+- [ ] [Accordion](https://github.com/oku-ui/primitives/issues/3)
+- [ ] [Alert Dialog](https://github.com/oku-ui/primitives/issues/4)
+- [x] [Aspect Ratio](https://github.com/oku-ui/primitives/issues/1)
+- [x] [Avatar](https://github.com/oku-ui/primitives/issues/5)
+- [ ] [Checkbox](https://github.com/oku-ui/primitives/issues/6)
+- [ ] [Collapsible](https://github.com/oku-ui/primitives/issues/7)
+- [ ] [Context Menu](https://github.com/oku-ui/primitives/issues/8)
+- [ ] [Dialog](https://github.com/oku-ui/primitives/issues/9)
+- [ ] [Dropdown Menu](https://github.com/oku-ui/primitives/issues/10)
+- [ ] [Form](https://github.com/oku-ui/primitives/issues/11)
+- [ ] [Hover Card](https://github.com/oku-ui/primitives/issues/12)
+- [x] [Label](https://github.com/oku-ui/primitives/issues/2)
+- [ ] [Menubar](https://github.com/oku-ui/primitives/issues/13)
+- [ ] [Navigation Menu](https://github.com/oku-ui/primitives/issues/14)
+- [ ] [Popover](https://github.com/oku-ui/primitives/issues/15)
+- [ ] [Progress](https://github.com/oku-ui/primitives/issues/16)
+- [ ] [Radio Group](https://github.com/oku-ui/primitives/issues/17)
+- [ ] [Scroll Area](https://github.com/oku-ui/primitives/issues/18)
+- [ ] [Select](https://github.com/oku-ui/primitives/issues/19)
+- [ ] [Separator](https://github.com/oku-ui/primitives/issues/20)
+- [ ] [Slider](https://github.com/oku-ui/primitives/issues/21)
+- [ ] [Switch](https://github.com/oku-ui/primitives/issues/22)
+- [ ] [Tabs](https://github.com/oku-ui/primitives/issues/23)
+- [ ] [Toast](https://github.com/oku-ui/primitives/issues/24)
+- [ ] [Toogle](https://github.com/oku-ui/primitives/issues/25)
+- [ ] [Toogle Group](https://github.com/oku-ui/primitives/issues/26)
+- [ ] [Toolbar](https://github.com/oku-ui/primitives/issues/27)
+- [ ] [Tooltip](https://github.com/oku-ui/primitives/issues/28)
 
 
 
