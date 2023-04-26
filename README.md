@@ -25,6 +25,7 @@ Oku Primitives is a low-level UI component library with a focus on accessibility
 
 - [ ] Finding at least 1 sponsor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
 - [ ] Finding at least 1 contributor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
+- [ ] Website opening and documentation writing
 
 # TODO Components - 3/28
 
