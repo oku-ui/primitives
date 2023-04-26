@@ -8,8 +8,8 @@ Oku Primitives is currently in the development phase. We are working hard to pub
 
 - [ ] 1k star this repo
 - [ ] 500 followers on Twitter[@oku_ui](https://twitter.com/oku_ui)
-- [ ] 1000 followers on Twitter[@productdevbook](https://twitter.com/productdevbook)
-- [ ] 20 sponsors on Github[@productdevbook](https://github.com/sponsors/productdevbook)
+- [ ] 500 followers on Twitter[@productdevbook](https://twitter.com/productdevbook)
+- [ ] 10 sponsors on Github[@productdevbook](https://github.com/sponsors/productdevbook)
 
 ---
 
