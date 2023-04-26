@@ -77,7 +77,7 @@ Enter the component you want most in the components, leave the emojis and follow
 
 ## Community
 
-- Mehmet ([@peduarte](https://twitter.com/productdevbook))
+- Mehmet ([@productdevbook](https://twitter.com/productdevbook))
 - [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.
 - [Twitter](https://twitter.com/oku_ui) - To receive updates, announcements, blog posts, and general Oku tips.
 
