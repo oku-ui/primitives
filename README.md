@@ -1,5 +1,5 @@
 <a href="https://oku-ui.com/primitives" >
-  <img alt="Oku UI hero image" src="">
+  <img alt="Oku UI hero image" src="https://github.com/oku-ui/primitives/blob/main/.github/assets/oku-ui.png?raw=true"
 </a>
 
 # When will it be published
