@@ -85,6 +85,15 @@ Enter the component you want most in the components, leave the emojis and follow
 - [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.
 - [Twitter](https://twitter.com/oku_ui) - To receive updates, announcements, blog posts, and general Oku tips.
 
+## Sponsors
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/oku-ui/static/sponsors/sponsors.svg">
+    <img alt="sponsors" src='https://cdn.jsdelivr.net/gh/oku-ui/static/sponsors/sponsors.svg'/>
+  </a>
+</p>
+
+
 ## Thanks
 
 Thanks to [@radix_ui](https://github.com/radix-ui/primitives) for the inspiration and the great work they've done with [Radix Primitives](https://radix-ui.com). We proceed through the initial stages of many codes by looking at them.
