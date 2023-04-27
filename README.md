@@ -73,7 +73,7 @@ Enter the component you want most in the components, leave the emojis and follow
 
 ### Designer
 
-- Fatih Yıldız([@0fatihyildiz](https://github.com/0fatihyildiz)
+- Fatih Yıldız([@0fatihyildiz](https://github.com/0fatihyildiz))
 
 
 
@@ -92,6 +92,8 @@ Thanks to [@radix_ui](https://github.com/radix-ui/primitives) for the inspiratio
 Thanks to Johnson Chu [@johnsoncodehk](https://github.com/johnsoncodehk). Supported me in many issues that I was stuck in Typescript.
 
 Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped me in many areas so far.
+
+Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot in the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
 
 
 ---
