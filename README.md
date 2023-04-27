@@ -54,8 +54,8 @@ Enter the component you want most in the components, leave the emojis and follow
 - [ ] [Switch](https://github.com/oku-ui/primitives/issues/22)
 - [ ] [Tabs](https://github.com/oku-ui/primitives/issues/23)
 - [ ] [Toast](https://github.com/oku-ui/primitives/issues/24)
-- [ ] [Toogle](https://github.com/oku-ui/primitives/issues/25)
-- [ ] [Toogle Group](https://github.com/oku-ui/primitives/issues/26)
+- [ ] [Toggle](https://github.com/oku-ui/primitives/issues/25)
+- [ ] [Toggle Group](https://github.com/oku-ui/primitives/issues/26)
 - [ ] [Toolbar](https://github.com/oku-ui/primitives/issues/27)
 - [ ] [Tooltip](https://github.com/oku-ui/primitives/issues/28)
 
@@ -69,8 +69,13 @@ Enter the component you want most in the components, leave the emojis and follow
 
 
 ## Contributors
-
 - ...
+
+### Designer
+
+- Fatih Yıldız([@0fatihyildiz](https://github.com/0fatihyildiz)
+
+
 
 ---
 
