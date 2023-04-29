@@ -66,6 +66,15 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/vue/label:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      vue:
+        specifier: ^3.3.0-beta.2
+        version: 3.3.0-beta.2
+
   packages/vue/primitive:
     dependencies:
       vue:
