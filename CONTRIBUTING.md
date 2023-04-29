@@ -27,7 +27,7 @@ Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/prim
 
 ### Project Setup
 
-1. Fork the [supertokens-node](https://github.com/oku-ui/primitives) repository
+1. Fork the [oku-ui](https://github.com/oku-ui/primitives) repository
 2. Install the project dependencies  
    `pnpm install`
 3. Build the project  
