@@ -17,12 +17,10 @@ export default defineConfig({
   plugins: [
     dtsPlugin({
       include: ['./src/**/*.ts', './src/**/*.tsx', './src/**/*.vue'],
-      skipDiagnostics: false, //  Whether to skip type diagnostics
-      // aliasesExclude: ['./alert.vue'], // Exclude files from type generation
-      staticImport: true, // Whether to generate static import
-      outputDir: ['./dist/types'], // Output directory
-      // insertTypesEntry: true, // Whether to insert a type entry
-      cleanVueFileName: false, // Whether to convert '.vue.d.ts' filenames to '.d.ts'
+      skipDiagnostics: false,
+      staticImport: true,
+      outputDir: ['./dist/types'],
+      cleanVueFileName: false,
     }),
     VueMacros({
       plugins: {

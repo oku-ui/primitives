@@ -94,6 +94,16 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/vue/provide:
+    dependencies:
+      vue:
+        specifier: ^3.3.0-beta.2
+        version: 3.3.0-beta.2
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/vue/use-callback-ref:
     dependencies:
       vue:
