@@ -56,7 +56,7 @@ importers:
 
   packages/tsconfig: {}
 
-  packages/vue/provide:
+  packages/vue/example:
     dependencies:
       vue:
         specifier: ^3.2.47
