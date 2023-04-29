@@ -6,9 +6,9 @@
 
 Oku Primitives is currently in the development phase. We are working hard to publish it as soon as possible. `01.06.2023` is our target date for the first release. But We may publish this sooner. For this, our rules below apply. If it all comes true, we'll post it right away.
 
-- [ ] 1k star this repo
-- [ ] 500 followers on Twitter[@oku_ui](https://twitter.com/oku_ui)
-- [ ] 500 followers on Twitter[@productdevbook](https://twitter.com/productdevbook)
+- [ ] 384/1k star this repo
+- [ ] 371/500 followers on Twitter [@oku_ui](https://twitter.com/oku_ui)
+- [ ] 370/500 followers on Twitter [@productdevbook](https://twitter.com/productdevbook)
 
 ---
 
@@ -19,6 +19,10 @@ Oku Primitives is currently in the development phase. We are working hard to pub
 Oku Primitives is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system, or adopt them incrementally.
 
 ---
+
+# Contributing
+
+Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/master/CONTRIBUTING.md)
 
 # TODO Managements - 0/3
 
@@ -58,7 +62,6 @@ Enter the component you want most in the components, leave the emojis and follow
 - [ ] [Toggle Group](https://github.com/oku-ui/primitives/issues/26)
 - [ ] [Toolbar](https://github.com/oku-ui/primitives/issues/27)
 - [ ] [Tooltip](https://github.com/oku-ui/primitives/issues/28)
-
 
 
 
