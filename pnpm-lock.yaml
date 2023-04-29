@@ -69,7 +69,7 @@ importers:
   packages/vue/primitive:
     dependencies:
       vue:
-        specifier: ^3.3.0-alpha.12
+        specifier: ^3.3.0-beta.2
         version: 3.3.0-beta.2
     devDependencies:
       tsconfig:
