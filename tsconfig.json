@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Default",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "esnext",
+        "useDefineForClassFields": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "isolatedModules": true,
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "skipLibCheck": true,
+        "outDir": "dist",
+        "noUnusedLocals": true,
+        "strictNullChecks": true,
+        "types": [
+            "vue",
+            "vite/client",
+            "unplugin-vue-macros/macros-global"
+        ],
+        "paths": {
+            "@oku-ui/provide": [
+                "./packages/vue/provide/index.ts"
+            ]
+        }
+    },
+    "vueCompilerOptions": {
+        "plugins": [
+            "@vue-macros/volar/define-model",
+            "@vue-macros/volar/define-slots"
+        ]
+    },
+    "include": [
+        "packages/**/*"   
+    ]
+}
