@@ -16,6 +16,15 @@ We're so excited you're interested in helping with Oku! We are happy to help you
 -   [Min Nodejs 16] & [PNPM](https://pnpm.io) installed
 -   IDE: [VSCode](https://code.visualstudio.com/download)(recommended) or equivalent IDE
 
+
+### VScode Extensions
+
+-  [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+-  [Terminals Manager](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-terminals)
+-  [Commands](https://marketplace.visualstudio.com/items?itemName=knisterpeter.vscode-github)
+
+Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/primitives/issues/34#issuecomment-1528652790
+
 ### Project Setup
 
 1. Fork the [supertokens-node](https://github.com/oku-ui/primitives) repository
@@ -34,6 +43,12 @@ We're so excited you're interested in helping with Oku! We are happy to help you
    `pnpm test:watch`
 4. To run a specific test file name  
    `pnpm test testfilename`
+
+## ESLint
+1. To run the linter  
+   `pnpm lint`
+2. All linting errors will be automatically fixed on commit
+   `pnpm lint:fix`
 
 
 ## Pull Request
