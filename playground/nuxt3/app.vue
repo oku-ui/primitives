@@ -1,10 +1,16 @@
 <template>
-  <div class="h-screen w-full flex flex-col justify-center items-center">
-    <h1 class="font-sans text-cyan-900 m-0">
-      Oku UI
-    </h1>
-    <p class="text-zinc-400 text-sm font-sans">
-      Nuxt 3 playground
-    </p>
+  <div class="w-full h-full flex items-center justify-center">
+    <NuxtPage />
   </div>
 </template>
+
+<style>
+body {
+  margin: 0;
+}
+
+html,body, #__nuxt {
+  height: 100%;
+  font-family: sans;
+}
+</style>
