@@ -1,0 +1,40 @@
+{
+  "name": "@oku-ui/provide",
+  "version": "1.0.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "type": "module",
+  "module": "dist/provide.js",
+  "types": "dist/types/index.d.ts",
+  "main": "dist/provide.cjs",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/provide.js",
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/provide.cjs"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.47"
+  },
+  "homepage": "https://radix-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radix-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/radix-ui/primitives/issues"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  }
+}

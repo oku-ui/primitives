@@ -47,4 +47,5 @@
             "tooltip": "Fix Auto ESLint"
         },
     ],
+    "references.preferredLocation": "peek",
 }
