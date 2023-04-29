@@ -20,7 +20,9 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "vite build --mode production"
+    "build": "vite build --mode production",
+    "lint": "eslint --ext src",
+    "lint:fix": "eslint --ext src --fix"
   },
   "peerDependencies": {
     "vue": "^3.2.47"
