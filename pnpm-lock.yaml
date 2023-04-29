@@ -134,6 +134,16 @@ importers:
         version: link:../../tsconfig
 
   playground/nuxt3:
+    dependencies:
+      '@oku-ui/aspect-ratio':
+        specifier: workspace:^
+        version: link:../../packages/vue/aspect-ratio
+      '@oku-ui/avatar':
+        specifier: workspace:^
+        version: link:../../packages/vue/avatar
+      '@oku-ui/label':
+        specifier: workspace:^
+        version: link:../../packages/vue/label
     devDependencies:
       '@types/node':
         specifier: ^18
