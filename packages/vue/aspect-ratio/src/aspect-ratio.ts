@@ -1,6 +1,6 @@
 import { defineComponent, h, ref } from 'vue'
-import type { ComponentPropsWithoutRef, ElementRef } from '@productdevbook/okui-primitive'
-import { Primitive } from '@productdevbook/okui-primitive'
+import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 
 type PrimitiveAspectRatioProps = ComponentPropsWithoutRef<typeof Primitive.div>
 type AspectRatioElement = ElementRef<typeof Primitive.div>

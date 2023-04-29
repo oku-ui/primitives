@@ -17,6 +17,9 @@ const externals = [
 export default defineConfig({
   plugins: [
     dtsPlugin({
+      include: ['./src/**/*.ts', './src/**/*.tsx', './src/**/*.vue'],
+      skipDiagnostics: false,
+      staticImport: true,
       outputDir: ['./dist/types'],
       cleanVueFileName: false,
     }),

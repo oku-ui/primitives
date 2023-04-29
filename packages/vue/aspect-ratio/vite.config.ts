@@ -2,6 +2,7 @@ import path, { resolve } from 'node:path'
 
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+
 // https://github.com/qmhc/vite-plugin-dts
 import dtsPlugin from 'vite-plugin-dts'
 
@@ -17,6 +18,9 @@ const externals = [
 export default defineConfig({
   plugins: [
     dtsPlugin({
+      include: ['./src/**/*.ts', './src/**/*.tsx', './src/**/*.vue'],
+      skipDiagnostics: false,
+      staticImport: true,
       outputDir: ['./dist/types'],
       cleanVueFileName: false,
     }),
