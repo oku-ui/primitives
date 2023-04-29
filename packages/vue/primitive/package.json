@@ -1,0 +1,41 @@
+{
+  "name": "@oku-ui/primitive",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "source": "src/index.ts",
+  "module": "dist/primitive.js",
+  "types": "dist/types/index.d.ts",
+  "main": "dist/primitive.cjs",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/primitive.js",
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/primitive.cjs"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-alpha.12"
+  },
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "funding": "https://github.com/sponsors/productdevbook",
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  }
+}
