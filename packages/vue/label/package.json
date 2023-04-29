@@ -1,0 +1,41 @@
+{
+  "name": "@oku-ui/label",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "source": "src/index.ts",
+  "module": "dist/label.js",
+  "types": "dist/types/index.d.ts",
+  "main": "dist/label.cjs",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/label.js",
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/label.cjs"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode development --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.2"
+  },
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "funding": "https://github.com/sponsors/productdevbook",
+  "dependencies": {
+    "@oku-ui/primitive": "workspace:^"
+  }
+}
