@@ -4,11 +4,7 @@
 
 # When will it be published
 
-Oku Primitives is currently in the development phase. We are working hard to publish it as soon as possible. `01.06.2023` is our target date for the first release. But We may publish this sooner. For this, our rules below apply. If it all comes true, we'll post it right away.
-
-- [ ] 384/1k star this repo
-- [ ] 371/500 followers on Twitter [@oku_ui](https://twitter.com/oku_ui)
-- [ ] 370/500 followers on Twitter [@productdevbook](https://twitter.com/productdevbook)
+Check out the [roadmap](https://github.com/oku-ui/primitives/issues/45)
 
 ---
 
