@@ -65,6 +65,25 @@ importers:
         specifier: ^3.3.0-beta.2
         version: 3.3.0-beta.2
 
+  packages/vue/avatar:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-callback-ref':
+        specifier: workspace:^
+        version: link:../use-callback-ref
+      vue:
+        specifier: ^3.3.0-beta.2
+        version: 3.3.0-beta.2
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/vue/example:
     dependencies:
       vue:
