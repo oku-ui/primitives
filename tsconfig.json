@@ -25,12 +25,7 @@
             "vue",
             "vite/client",
             "unplugin-vue-macros/macros-global"
-        ],
-        "paths": {
-            "@oku-ui/provide": [
-                "./packages/vue/provide/index.ts"
-            ]
-        }
+        ]
     },
     "vueCompilerOptions": {
         "plugins": [
@@ -39,6 +34,6 @@
         ]
     },
     "include": [
-        "packages/**/*"   
+        "packages/**/*"
     ]
 }
