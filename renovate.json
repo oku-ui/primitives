@@ -20,7 +20,7 @@
             "groupName": "components",
             "commitMessageTopic": "components",
             "matchPaths": [
-                "packages/components/*"
+                "packages/components/**"
             ],
             "matchUpdateTypes": [
                 "major",
@@ -35,7 +35,7 @@
             "groupName": "core",
             "commitMessageTopic": "core",
             "matchPaths": [
-                "packages/core/*"
+                "packages/core/**"
             ],
             "matchUpdateTypes": [
                 "major",
@@ -50,7 +50,7 @@
             "groupName": "playground",
             "commitMessageTopic": "playground",
             "matchPaths": [
-                "playground/*"
+                "playground/**"
             ],
             "matchUpdateTypes": [
                 "major",
@@ -68,12 +68,13 @@
                 "major"
             ],
             "ignorePaths": [
-                "packages/components/*",
-                "packages/core/*",
-                "playground/*"
+                "**/packages/**",
+                "**/packages/**",
+                "**/playground/**"
             ],
             "matchDatasources": [
-                "npm"
+                "npm",
+                "github-actions"
             ],
             "labels": [
                 "dependencies"
