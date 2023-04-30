@@ -67,6 +67,11 @@
                 "minor",
                 "major"
             ],
+            "ignorePaths": [
+                "packages/components/*",
+                "packages/core/*",
+                "playground/*"
+            ],
             "matchDatasources": [
                 "npm"
             ],
