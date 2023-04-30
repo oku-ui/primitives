@@ -13,10 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v2.2.4
       - run: corepack enable
-      
+
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
