@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0 # 👈 Required to retrieve git history (https://www.chromatic.com/docs/github-actions)
 
 
-      - uses: pnpm/action-setup@v2.2.4
+      - uses: pnpm/action-setup@v2
       - run: corepack enable
 
       - uses: actions/setup-node@v3
@@ -41,5 +41,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          exitOnceUploaded: true
-          exitZeroOnChanges: true
+          # exitOnceUploaded: true
+          # exitZeroOnChanges: true
