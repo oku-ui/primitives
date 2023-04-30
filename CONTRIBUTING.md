@@ -32,7 +32,9 @@ Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/prim
    `pnpm install`
 3. Build the project  
    `pnpm build`
-4. If new package vue, go to `packages/example-package` example `packages/components` or `packages/core` copy. You can copy this file and build your new build on it.
+4. If new package vue, go to `packages/example-package` example `packages/components` or `packages/core` copy. You can copy 
+this file and build your new build on it.
+5. Storybook works with the command `pnpm dev`
 
 ## Testing
 
