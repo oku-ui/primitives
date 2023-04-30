@@ -1,4 +1,4 @@
-<a href="https://oku-ui.com/primitives" >
+<a>
   <img alt="Oku UI hero image" src="https://github.com/oku-ui/primitives/blob/main/.github/assets/oku-ui.png?raw=true"
 </a>
 
@@ -24,7 +24,7 @@ Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/m
 
 - [ ] Finding at least 1 sponsor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
 - [ ] Finding at least 1 contributor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
-- [ ] Website opening and documentation writing
+- [ ] Website opening and documentation writing [docs](https://github.com/oku-ui/docs)
 
 # TODO Components - 3/28
 
