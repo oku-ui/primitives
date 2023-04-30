@@ -26,22 +26,23 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # 👈 Required to retrieve git history (https://www.chromatic.com/docs/github-actions)
-          
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-            version: 8.x.x
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+
+      - uses: pnpm/action-setup@v2
+      - run: corepack enable
+
+      - uses: actions/setup-node@v3
         with:
-            node-version: 18
-            cache: pnpm
+          node-version: "18"
+          cache: pnpm
+
+      - name: 📦 Build
+        run: pnpm build
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          # exitOnceUploaded: true
-          # exitZeroOnChanges: true
+          exitOnceUploaded: true
+          exitZeroOnChanges: true
