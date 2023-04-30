@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { AvatarProps } from './avatar'
-import { OkuAvatar,OkuAvatarImage,OkuAvatarFallback } from './avatar'
+import { OkuAvatar } from './avatar'
 
 interface StoryProps extends AvatarProps {
 }

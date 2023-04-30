@@ -63,7 +63,6 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
     // const BaseProvide = provide(BaseProvideKey, defaultValue)
     const BaseScope = { key: BaseProvideKey, value: defaultValue }
-    console.log('BaseScope', BaseScope)
     const index = defaultProviders.length
     defaultProviders = [...defaultProviders, { [scopeName]: [{ key: BaseProvideKey, value: defaultValue }] }]
 
