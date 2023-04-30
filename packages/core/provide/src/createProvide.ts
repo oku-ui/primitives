@@ -1,10 +1,11 @@
+import type { InjectionKey } from 'vue'
 import { defineComponent, inject, provide, reactive } from 'vue'
 
 function createProvide<ProvideValueType extends object | null>(
   rootComponentName: string,
   defaultValue?: ProvideValueType,
 ) {
-  const ProviderKey = Symbol(rootComponentName) // unique key
+  const ProviderKey = Symbol(rootComponentName) as InjectionKey<ProvideValueType> // unique key
   const Provider = defineComponent({
     name: `${rootComponentName}Provider`,
     inheritAttrs: false,
