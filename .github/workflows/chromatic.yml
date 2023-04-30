@@ -14,7 +14,7 @@ on:
 
 permissions:
    contents: write
-   
+
 concurrency:
     group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
     # Allow snapshot updates to finish, so that we don't need to wait for Storybook to build again
@@ -31,13 +31,14 @@ jobs:
           fetch-depth: 0 # 👈 Required to retrieve git history (https://www.chromatic.com/docs/github-actions)
 
 
-      - uses: pnpm/action-setup@v2
+      # enables use to use the cache in actions/setup-node
+      - uses: pnpm/action-setup@v2.2.4
       - run: corepack enable
 
       - uses: actions/setup-node@v3
         with:
-          node-version: "18"
-          cache: pnpm
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -45,4 +46,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitOnceUploaded: true
-          exitZeroOnChanges: true
+          # exitZeroOnChanges: true
+          # onlyChanged: '!(main)' # turbosnap on non-main branches
