@@ -17,16 +17,67 @@
     ],
     "packageRules": [
         {
+            "groupName": "components",
+            "commitMessageTopic": "components",
+            "matchPaths": [
+                "packages/components/*"
+            ],
+            "matchUpdateTypes": [
+                "major",
+                "minor",
+                "patch"
+            ],
+            "matchDatasources": [
+                "npm"
+            ]
+        },
+        {
+            "groupName": "core",
+            "commitMessageTopic": "core",
+            "matchPaths": [
+                "packages/core/*"
+            ],
+            "matchUpdateTypes": [
+                "major",
+                "minor",
+                "patch"
+            ],
+            "matchDatasources": [
+                "npm"
+            ]
+        },
+        {
+            "groupName": "playground",
+            "commitMessageTopic": "playground",
+            "matchPaths": [
+                "playground/*"
+            ],
+            "matchUpdateTypes": [
+                "major",
+                "minor",
+                "patch"
+            ],
+            "matchDatasources": [
+                "npm"
+            ]
+        },
+        {
             "matchUpdateTypes": [
                 "patch",
                 "minor",
                 "major"
+            ],
+            "matchDatasources": [
+                "npm"
             ],
             "labels": [
                 "dependencies"
             ],
             "addLabels": [
                 "dependencies"
+            ],
+            "matchFiles": [
+                "package.json"
             ]
         }
     ]
