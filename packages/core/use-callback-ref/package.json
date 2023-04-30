@@ -1,30 +1,10 @@
 {
   "name": "@oku-ui/use-callback-ref",
+  "type": "module",
   "version": "0.0.0",
   "license": "MIT",
   "source": "src/index.ts",
-  "type": "module",
-  "module": "dist/use-callback-ref.js",
-  "types": "dist/types/index.d.ts",
-  "main": "dist/use-callback-ref.cjs",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/use-callback-ref.js",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/use-callback-ref.cjs"
-    }
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "build": "vite build --mode production"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.0-beta.2"
-  },
+  "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
@@ -33,7 +13,30 @@
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
-  "funding": "https://github.com/sponsors/productdevbook",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/use-callback-ref.cjs",
+      "import": "./dist/use-callback-ref.js"
+    }
+  },
+  "main": "dist/use-callback-ref.cjs",
+  "module": "dist/use-callback-ref.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.2"
+  },
   "devDependencies": {
     "tsconfig": "workspace:^"
   }

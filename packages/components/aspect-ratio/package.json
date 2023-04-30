@@ -1,31 +1,10 @@
 {
   "name": "@oku-ui/aspect-ratio",
+  "type": "module",
   "version": "1.0.0",
   "license": "MIT",
-  "type": "module",
   "source": "src/index.ts",
-  "module": "dist/aspect-ratio.js",
-  "types": "dist/types/index.d.ts",
-  "main": "dist/aspect-ratio.cjs",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/aspect-ratio.js",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/aspect-ratio.cjs"
-    }
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "build": "vite build --mode production",
-    "dev": "vite build --mode development --watch"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.0-beta.2"
-  },
+  "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
@@ -34,7 +13,30 @@
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
-  "funding": "https://github.com/sponsors/productdevbook",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/aspect-ratio.cjs",
+      "import": "./dist/aspect-ratio.js"
+    }
+  },
+  "main": "dist/aspect-ratio.cjs",
+  "module": "dist/aspect-ratio.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.2"
+  },
   "dependencies": {
     "@oku-ui/primitive": "workspace:^"
   }
