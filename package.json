@@ -11,7 +11,7 @@
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
     "dev": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build:storybook": "storybook build"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.7",
