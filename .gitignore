@@ -28,7 +28,10 @@ pnpm-debug.log*
 # turbo
 .turbo
 
+#storybook
 storybook-static
+build-storybook.log
+
 dist
 .nuxt
 public
