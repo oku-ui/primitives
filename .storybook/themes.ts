@@ -6,8 +6,8 @@ import { create } from '@storybook/theming'
 export const light = create({
   base: 'light',
 
-  colorPrimary: '#646cff',
-  colorSecondary: '#454ce1',
+  colorPrimary: '#3A6380',
+  colorSecondary: '#427898',
 
   // UI
   appBg: '#fff',
@@ -26,7 +26,7 @@ export const light = create({
 
   // Toolbar default and active colors
   barTextColor: '#1c1b1f',
-  barSelectedColor: '#647dee',
+  barSelectedColor: '#5F95B3',
   barBg: '#f3f2f8',
 
   // Form colors
@@ -35,17 +35,17 @@ export const light = create({
   inputTextColor: '#666',
   inputBorderRadius: 6,
 
-  brandTitle: 'Oku',
+//   brandTitle: 'Oku',
   // brandUrl: 'http://localhost:3000',
   // brandTarget: '_self',
-  brandImage: 'https://raw.githubusercontent.com/uno-ui/uno-ui/main/assets/logo.svg',
+  brandImage: 'https://raw.githubusercontent.com/oku-ui/static/main/logo/logo-dark.svg',
 })
 
 export const dark = create({
   base: 'dark',
 
-  colorPrimary: '#7f53ac',
-  colorSecondary: '#647dee',
+  colorPrimary: '#427898',
+  colorSecondary: '#5F95B3',
 
   // UI
   appBg: '#1c1b1f',
@@ -64,7 +64,7 @@ export const dark = create({
 
   // Toolbar default and active colors
   barTextColor: '#f2f2f3',
-  barSelectedColor: '#647dee',
+  barSelectedColor: '#5F95B3',
   barBg: '#24232a',
 
   // Form colors
@@ -76,4 +76,5 @@ export const dark = create({
   brandTitle: 'Oku',
   // brandUrl: 'http://localhost:3000',
   // brandTarget: '_self',
+  brandImage: 'https://raw.githubusercontent.com/oku-ui/static/main/logo/logo-white.svg',
 })
