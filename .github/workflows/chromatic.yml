@@ -52,7 +52,7 @@ jobs:
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          projectToken: a6e45b3693a3
           buildScriptName: build:storybook
           exitOnceUploaded: true
           exitZeroOnChanges: true
