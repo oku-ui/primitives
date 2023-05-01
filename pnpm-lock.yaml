@@ -93,8 +93,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/primitive
       vue:
-        specifier: ^3.3.0-beta.2
-        version: 3.3.0-beta.2
+        specifier: ^3.3.0-beta.3
+        version: 3.3.0-beta.3
 
   packages/components/avatar:
     dependencies:
@@ -108,8 +108,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/use-callback-ref
       vue:
-        specifier: ^3.3.0-beta.2
-        version: 3.3.0-beta.2
+        specifier: ^3.3.0-beta.3
+        version: 3.3.0-beta.3
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -121,8 +121,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/primitive
       vue:
-        specifier: ^3.3.0-beta.2
-        version: 3.3.0-beta.2
+        specifier: ^3.3.0-beta.3
+        version: 3.3.0-beta.3
 
   packages/core/primitive:
     dependencies:
