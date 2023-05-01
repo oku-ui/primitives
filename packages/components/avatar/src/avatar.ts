@@ -30,6 +30,11 @@ interface AvatarProps extends PrimitiveSpanProps {
 const Avatar = defineComponent<AvatarProps>({
   name: AVATAR_NAME,
   setup(_, { attrs, slots }) {
+    const innerRef = ref(null);
+
+    // expose innerRef as a prop
+    defineExpose({ innerRef });
+
     const { src, ...avatarProps } = attrs as AvatarProps
 
     const { loadingStatus } = useImageLoadingStatus(src)
@@ -42,6 +47,7 @@ const Avatar = defineComponent<AvatarProps>({
       h(
         Primitive.span, {
           ...avatarProps,
+          ref: innerRef,
         },
         slots.default && slots.default(),
       ),
@@ -65,10 +71,10 @@ const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots }) {
-    // const forwardedRef = ref<AvatarImageElement>()
-    // onMounted(() => {
-    //   emit('update:ref', forwardedRef.value)
-    // })
+    const innerRef = ref(null);
+
+    // expose innerRef as a prop
+    defineExpose({ innerRef });
 
     const { ...imageProps } = attrs as AvatarImageProps
     const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
@@ -78,7 +84,7 @@ const AvatarImage = defineComponent<AvatarImageProps>({
         Primitive.img, {
           ...imageProps,
           src: inject.src,
-          // ref: forwardedRef,
+          ref: innerRef,
         },
         slots.default && slots.default(),
       )
@@ -102,11 +108,10 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots }) {
-    // const forwardedRef = ref<PrimitiveSpanElement>()
+    const innerRef = ref(null);
 
-    // onMounted(() => {
-    //   emit('update:ref', forwardedRef.value)
-    // })
+    // expose innerRef as a prop
+    defineExpose({ innerRef });
 
     const inject = useAvatarInject(PROVIDER_KEY, FALLBACK_NAME)
 
@@ -125,7 +130,7 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
       ? h(
         Primitive.span, {
           ...fallbackProps,
-          // ref: forwardedRef,
+          ref: innerRef,
         },
         slots.default && slots.default(),
       )
