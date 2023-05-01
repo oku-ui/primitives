@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite --force",
+    "dev": "vite --force --port 3010",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --port 3010",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
