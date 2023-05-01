@@ -1,6 +1,10 @@
 {
   "name": "oku-ui",
   "private": true,
+  "engines": {
+    "node": ">=v18.10.0",
+    "pnpm": ">=8.3.0"
+  },
   "scripts": {
     "build": "turbo run build --filter='./packages/**'",
     "build:components": "turbo run build --filter='./packages/components/**'",
