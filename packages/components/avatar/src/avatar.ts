@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 import type { InjectionKey } from 'vue'
-import { defineComponent, h, ref, watchEffect } from 'vue'
+import { defineComponent, h, onUnmounted, ref, watchEffect } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { createProvide } from '@oku-ui/provide'
@@ -110,20 +110,18 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
 
     const inject = useAvatarInject(PROVIDER_KEY, FALLBACK_NAME)
 
-    const { ...fallbackProps } = attrs as any
-    // const provide = useAvatarInject(PROVIDER_KEY)
-    // const canRender = ref(delayms === undefined)
+    const { delayms, ...fallbackProps } = attrs as any
+    const canRender = ref(false)
 
-    // watchEffect(() => {
-    //   if (delayms === undefined) {
-    //     const timerID = window.setTimeout(() => {
-    //       canRender.value = true
-    //     }, delayms)
-    //     return () => window.clearTimeout(timerID)
-    //   }
-    // })
+    const timerId = setTimeout(() => {
+      canRender.value = true
+    }, delayms)
 
-    return () => inject.loadingStatus !== 'loaded'
+    onUnmounted(() => {
+      clearTimeout(timerId)
+    })
+
+    return () => (canRender.value && inject.loadingStatus !== 'loaded')
       ? h(
         Primitive.span, {
           ...fallbackProps,
