@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable vue/one-component-per-file */
-import { defineComponent, h, onMounted, ref, watchEffect } from 'vue'
+import { defineComponent, h, onMounted, ref } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { createProvide } from '@oku-ui/provide'
+import type { ImageLoadingStatus } from './types'
 
 const PROVIDER_KEY = 'Avatar'
 
@@ -12,14 +14,12 @@ const PROVIDER_KEY = 'Avatar'
 
 const AVATAR_NAME = PROVIDER_KEY
 
-type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
-
 type AvatarProvideValue = {
   imageLoadingStatus: ImageLoadingStatus
   onImageLoadingStatusChange(status: ImageLoadingStatus): void
 }
 
-const [AvatarProvider, useAvatarInject] = createProvide<AvatarProvideValue>(PROVIDER_KEY)
+const [AvatarProvider] = createProvide<AvatarProvideValue>(PROVIDER_KEY)
 
 type AvatarElement = ComponentPropsWithoutRef<typeof Primitive.span>
 type PrimitiveSpanProps = ComponentPropsWithoutRef<typeof Primitive.span>
@@ -27,7 +27,6 @@ interface AvatarProps extends PrimitiveSpanProps {}
 
 const Avatar = defineComponent<AvatarProps>({
   name: AVATAR_NAME,
-  inheritAttrs: false,
   setup(props, { attrs, slots, emit }) {
     const forwardedRef = ref<AvatarElement>()
 
@@ -37,12 +36,22 @@ const Avatar = defineComponent<AvatarProps>({
     const { ...avatarProps } = attrs as any
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
+    function onImageLoadingStatusChange(status: ImageLoadingStatus) {
+      imageLoadingStatus.value = status
+    }
+
     return () => h(
-      Primitive.span, {
-        ...avatarProps,
-        ref: forwardedRef,
+      AvatarProvider, {
+        imageLoadingStatus: imageLoadingStatus.value,
+        onImageLoadingStatusChange,
       },
-      slots.default && slots.default(),
+      h(
+        Primitive.span, {
+          ...avatarProps,
+          ref: forwardedRef,
+        },
+        slots.default && slots.default(),
+      ),
     )
   },
 })
@@ -53,24 +62,25 @@ const Avatar = defineComponent<AvatarProps>({
 
 const IMAGE_NAME = 'AvatarImage'
 
-type AvatarImageElement = ComponentPropsWithoutRef<typeof Primitive.img>
+// type AvatarImageElement = ComponentPropsWithoutRef<typeof Primitive.img>
 type PrimitiveImgProps = ComponentPropsWithoutRef<typeof Primitive.img>
 interface AvatarImageProps extends PrimitiveImgProps {
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void
 }
 
-const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
+const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots, emit }) {
-    const forwardedRef = ref<AvatarImageElement>()
-    onMounted(() => {
-      emit('update:ref', forwardedRef.value)
-    })
+  setup(props, { attrs, slots }) {
+    console.log(IMAGE_NAME, props, attrs)
+    // const forwardedRef = ref<AvatarImageElement>()
+    // onMounted(() => {
+    //   emit('update:ref', forwardedRef.value)
+    // })
 
-    const { __scopeAvatar, src, onLoadingStatusChange = () => {}, ...imageProps } = attrs as any
-    const inject = useAvatarInject(PROVIDER_KEY)
-    // const imageLoadingStatus = useImageLoadingStatus(src)
+    const { ...imageProps } = attrs as any
+    // const inject = useAvatarInject(PROVIDER_KEY)
+    // const imageLoadingStatus = useImageLoadingStatus(props.src)
 
     // const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
     //   onLoadingStatusChange(status)
@@ -87,16 +97,14 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
     //     handleLoadingStatusChange(newValue)
     // })
 
-    return () => imageLoadingStatus.value === 'loaded'
-      ? h(
-        Primitive.img, {
-          ...imageProps,
-          src,
-          ref: forwardedRef,
-        },
-        slots.default && slots.default(),
-      )
-      : null
+    return h(
+      Primitive.img, {
+        ...imageProps,
+        src: props.src,
+        // ref: forwardedRef,
+      },
+      slots.default && slots.default(),
+    )
   },
 })
 
@@ -107,7 +115,7 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
 const FALLBACK_NAME = 'AvatarFallback'
 
 type PrimitiveAvatarFallbackProps = ComponentPropsWithoutRef<typeof Primitive.span>
-type PrimitiveSpanElement = ComponentPropsWithoutRef<typeof Primitive.span>
+// type PrimitiveSpanElement = ComponentPropsWithoutRef<typeof Primitive.span>
 interface AvatarFallbackProps extends PrimitiveAvatarFallbackProps, PrimitiveSpanProps {
   delayms?: number
 }
@@ -115,35 +123,34 @@ interface AvatarFallbackProps extends PrimitiveAvatarFallbackProps, PrimitiveSpa
 const AvatarFallback = defineComponent<AvatarFallbackProps>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, emit, slots }) {
-    const forwardedRef = ref<PrimitiveSpanElement>()
+  setup(props, { attrs, slots }) {
+    console.log(FALLBACK_NAME, props, attrs)
+    // const forwardedRef = ref<PrimitiveSpanElement>()
 
-    onMounted(() => {
-      emit('update:ref', forwardedRef.value)
-    })
+    // onMounted(() => {
+    //   emit('update:ref', forwardedRef.value)
+    // })
 
-    const { __scopeAvatar, delayms, ...fallbackProps } = attrs as any
-    const provide = useAvatarInject(PROVIDER_KEY)
-    const canRender = ref(delayms === undefined)
+    const { ...fallbackProps } = attrs as any
+    // const provide = useAvatarInject(PROVIDER_KEY)
+    // const canRender = ref(delayms === undefined)
 
-    watchEffect(() => {
-      if (delayms === undefined) {
-        const timerID = window.setTimeout(() => {
-          canRender.value = true
-        }, delayms)
-        return () => window.clearTimeout(timerID)
-      }
-    })
+    // watchEffect(() => {
+    //   if (delayms === undefined) {
+    //     const timerID = window.setTimeout(() => {
+    //       canRender.value = true
+    //     }, delayms)
+    //     return () => window.clearTimeout(timerID)
+    //   }
+    // })
 
-    return () => (canRender.value && (provide.value.imageLoadingStatus !== 'loaded'))
-      ? h(
-        Primitive.span, {
-          ...fallbackProps,
-          ref: forwardedRef,
-        },
-        slots.default && slots.default(),
-      )
-      : null
+    return h(
+      Primitive.span, {
+        ...fallbackProps,
+        // ref: forwardedRef,
+      },
+      slots.default && slots.default(),
+    )
   },
 })
 
@@ -157,7 +164,6 @@ export {
   OkuAvatar,
   OkuAvatarImage,
   OkuAvatarFallback,
-  createAvatarScope,
 }
 
 export type {

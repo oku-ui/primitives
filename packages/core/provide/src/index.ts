@@ -1,2 +1,1 @@
-export { createProvide, createProvideScope } from './createProvide'
-export type { CreateScope, Scope } from './createProvide'
+export { createProvide } from './createProvide'
