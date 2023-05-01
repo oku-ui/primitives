@@ -1,6 +1,8 @@
 import type { Preview } from "@storybook/vue3";
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
+import { dark, light } from './themes'
+
 
 const preview: Preview = {
   parameters: {
@@ -11,6 +13,14 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    backgrounds: { disable: true },
+		darkMode: {
+			current: 'dark',
+			dark,
+			light,
+			stylePreview: true,
+		},
+		docs: { theme: dark },
   },
 };
 
