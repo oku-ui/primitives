@@ -1,54 +1,46 @@
-/* eslint-disable no-console */
 /* eslint-disable vue/one-component-per-file */
-import { defineComponent, h, onMounted, ref } from 'vue'
+import type { InjectionKey } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { createProvide } from '@oku-ui/provide'
 import type { ImageLoadingStatus } from './types'
-
-const PROVIDER_KEY = 'Avatar'
+import { useImageLoadingStatus } from './utils'
 
 /* -------------------------------------------------------------------------------------------------
  * Avatar
  * ----------------------------------------------------------------------------------------------- */
 
-const AVATAR_NAME = PROVIDER_KEY
+const AVATAR_NAME = 'Avatar'
 
 type AvatarProvideValue = {
-  imageLoadingStatus: ImageLoadingStatus
-  onImageLoadingStatusChange(status: ImageLoadingStatus): void
+  src?: string
 }
+const PROVIDER_KEY = Symbol(AVATAR_NAME) as InjectionKey<AvatarProvideValue>
 
-const [AvatarProvider] = createProvide<AvatarProvideValue>(PROVIDER_KEY)
+const [AvatarProvider, useAvatarInject] = createProvide<AvatarProvideValue>(PROVIDER_KEY, AVATAR_NAME)
 
-type AvatarElement = ComponentPropsWithoutRef<typeof Primitive.span>
+// type AvatarElement = ComponentPropsWithoutRef<typeof Primitive.span>
 type PrimitiveSpanProps = ComponentPropsWithoutRef<typeof Primitive.span>
-interface AvatarProps extends PrimitiveSpanProps {}
+interface AvatarProps extends PrimitiveSpanProps {
+  src?: string
+}
 
 const Avatar = defineComponent<AvatarProps>({
   name: AVATAR_NAME,
-  setup(props, { attrs, slots, emit }) {
-    const forwardedRef = ref<AvatarElement>()
+  setup(_, { attrs, slots }) {
+    const { src, ...avatarProps } = attrs as AvatarProps
 
-    onMounted(() => {
-      emit('update:ref', forwardedRef.value)
-    })
-    const { ...avatarProps } = attrs as any
-    const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
-
-    function onImageLoadingStatusChange(status: ImageLoadingStatus) {
-      imageLoadingStatus.value = status
-    }
+    const { loadingStatus } = useImageLoadingStatus(src)
 
     return () => h(
       AvatarProvider, {
-        imageLoadingStatus: imageLoadingStatus.value,
-        onImageLoadingStatusChange,
+        src,
+        loadingStatus,
       },
       h(
         Primitive.span, {
           ...avatarProps,
-          ref: forwardedRef,
         },
         slots.default && slots.default(),
       ),
@@ -72,14 +64,15 @@ const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots }) {
-    console.log(IMAGE_NAME, props, attrs)
     // const forwardedRef = ref<AvatarImageElement>()
     // onMounted(() => {
     //   emit('update:ref', forwardedRef.value)
     // })
 
     const { ...imageProps } = attrs as any
-    // const inject = useAvatarInject(PROVIDER_KEY)
+    const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
+
+    console.log('inject', inject)
     // const imageLoadingStatus = useImageLoadingStatus(props.src)
 
     // const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
@@ -97,7 +90,7 @@ const AvatarImage = defineComponent<AvatarImageProps>({
     //     handleLoadingStatusChange(newValue)
     // })
 
-    return h(
+    return () => h(
       Primitive.img, {
         ...imageProps,
         src: props.src,
@@ -124,7 +117,6 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots }) {
-    console.log(FALLBACK_NAME, props, attrs)
     // const forwardedRef = ref<PrimitiveSpanElement>()
 
     // onMounted(() => {
@@ -144,7 +136,7 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
     //   }
     // })
 
-    return h(
+    return () => h(
       Primitive.span, {
         ...fallbackProps,
         // ref: forwardedRef,

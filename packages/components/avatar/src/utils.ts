@@ -23,5 +23,5 @@ export function useImageLoadingStatus(src?: string) {
     image.src = src as string
   })
 
-  return loadingStatus
+  return { loadingStatus }
 }

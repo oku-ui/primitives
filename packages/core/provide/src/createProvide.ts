@@ -2,16 +2,16 @@ import type { InjectionKey } from 'vue'
 import { defineComponent, inject, provide, reactive } from 'vue'
 
 function createProvide<ProvideValueType extends object | null>(
+  key: InjectionKey<ProvideValueType>,
   rootComponentName: string,
   defaultValue?: ProvideValueType,
 ) {
-  const ProviderKey = Symbol(rootComponentName) as InjectionKey<ProvideValueType> // unique key
   const Provider = defineComponent({
     name: `${rootComponentName}Provider`,
     inheritAttrs: false,
     setup(props, { attrs, slots }) {
       const value = reactive({ ...defaultValue, ...attrs }) as ProvideValueType
-      provide(ProviderKey, value)
+      provide(key, value)
 
       if (!slots || !slots.default)
         throw new Error(`\`${rootComponentName}Provider\` must have a default slot :(`)
@@ -20,8 +20,8 @@ function createProvide<ProvideValueType extends object | null>(
     },
   })
 
-  function useInject(consumerName: string) {
-    const context = inject(ProviderKey)
+  function useInject(_key: InjectionKey<ProvideValueType>, consumerName: string) {
+    const context = inject(_key)
     if (context)
       return context
 
