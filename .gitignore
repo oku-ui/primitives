@@ -28,9 +28,9 @@ pnpm-debug.log*
 # turbo
 .turbo
 
-# vercel
-.vercel
-primitives-main
+#storybook
+storybook-static
+build-storybook.log
+
 dist
 .nuxt
-public

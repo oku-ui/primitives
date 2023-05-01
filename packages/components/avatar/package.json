@@ -1,34 +1,10 @@
 {
   "name": "@oku-ui/avatar",
+  "type": "module",
   "version": "0.0.0",
   "license": "MIT",
-  "type": "module",
   "source": "src/index.ts",
-  "module": "dist/avatar.js",
-  "types": "dist/types/index.d.ts",
-  "main": "dist/avatar.cjs",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/avatar.js",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/avatar.cjs"
-    }
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "build": "vite build --mode production",
-    "dev": "vite build --mode production --watch"
-  },
-  "devDependencies": {
-    "tsconfig": "workspace:^"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.0-beta.2"
-  },
+  "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
@@ -37,10 +13,36 @@
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
-  "funding": "https://github.com/sponsors/productdevbook",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/avatar.cjs",
+      "import": "./dist/avatar.js"
+    }
+  },
+  "main": "dist/avatar.cjs",
+  "module": "dist/avatar.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.3"
+  },
   "dependencies": {
     "@oku-ui/primitive": "workspace:^",
     "@oku-ui/provide": "workspace:^",
     "@oku-ui/use-callback-ref": "workspace:^"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
   }
 }

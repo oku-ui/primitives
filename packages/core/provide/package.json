@@ -1,31 +1,10 @@
 {
   "name": "@oku-ui/provide",
+  "type": "module",
   "version": "1.0.0",
   "license": "MIT",
   "source": "src/index.ts",
-  "type": "module",
-  "module": "dist/provide.js",
-  "types": "dist/types/index.d.ts",
-  "main": "dist/provide.cjs",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/provide.js",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/provide.cjs"
-    }
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "build": "vite build --mode production",
-    "dev": "vite build --mode production --watch"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.0-beta.2"
-  },
+  "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
@@ -34,7 +13,30 @@
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
-  "funding": "https://github.com/sponsors/productdevbook",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/provide.cjs",
+      "import": "./dist/provide.js"
+    }
+  },
+  "main": "dist/provide.cjs",
+  "module": "dist/provide.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.3"
+  },
   "devDependencies": {
     "tsconfig": "workspace:^"
   }

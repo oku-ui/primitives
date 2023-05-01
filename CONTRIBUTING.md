@@ -32,7 +32,35 @@ Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/prim
    `pnpm install`
 3. Build the project  
    `pnpm build`
-4. If new package vue, go to `packages/example-package` example `packages/components` or `packages/core` copy. You can copy this file and build your new build on it.
+4. If new package vue, go to `packages/example-package` example `packages/components` or `packages/core` copy. You can copy 
+this file and build your new build on it.
+5. Storybook works with the command `pnpm dev`
+
+### Scripts
+
+```shell
+pnpm build # Build all packages
+pnpm build:components # Build components package
+pnpm build:core # Build core package
+
+pnpm dev # Run Storybook
+pnpm build:storybook # Build Storybook
+
+pnpm dev:all # Run all packages 
+pnpm dev:components # Run components package
+pnpm dev:core # Run core package
+
+pnpm lint # Run ESLint
+pnpm lint:fix # Run ESLint and fix errors
+
+pnpm test # Run tests
+pnpm test:watch # Run tests in watch mode
+pnpm test testfilename # Run a specific test file name
+
+pnpm play # Run the playground
+pnpm play:vue # Run the playground with Vue
+pnpm play:nuxt # Run the playground with Nuxt
+``` 
 
 ## Testing
 

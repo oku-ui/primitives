@@ -2,6 +2,7 @@ import path, { resolve } from 'node:path'
 
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+
 // https://github.com/qmhc/vite-plugin-dts
 import dtsPlugin from 'vite-plugin-dts'
 

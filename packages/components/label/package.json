@@ -1,31 +1,10 @@
 {
   "name": "@oku-ui/label",
+  "type": "module",
   "version": "0.0.0",
   "license": "MIT",
-  "type": "module",
   "source": "src/index.ts",
-  "module": "dist/label.js",
-  "types": "dist/types/index.d.ts",
-  "main": "dist/label.cjs",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/label.js",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/label.cjs"
-    }
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "build": "vite build --mode production",
-    "dev": "vite build --mode development --watch"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.0-beta.2"
-  },
+  "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
@@ -34,7 +13,30 @@
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
-  "funding": "https://github.com/sponsors/productdevbook",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/label.cjs",
+      "import": "./dist/label.js"
+    }
+  },
+  "main": "dist/label.cjs",
+  "module": "dist/label.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.3"
+  },
   "dependencies": {
     "@oku-ui/primitive": "workspace:^"
   }
