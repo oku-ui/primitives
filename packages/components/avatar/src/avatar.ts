@@ -33,11 +33,11 @@ interface AvatarProps extends PrimitiveSpanProps {
 
 const Avatar = defineComponent<AvatarProps>({
   name: AVATAR_NAME,
-  setup(_, { attrs, slots,expose }) {
-    const innerRef = ref<typeof Primitive.span | null>(null);
+  setup(_, { attrs, slots, expose }) {
+    const innerRef = ref<typeof Primitive.span | null>(null)
 
     // expose innerRef as a prop
-    expose({ innerRef });
+    expose({ innerRef })
 
     const { src, ...avatarProps } = attrs as AvatarProps
 
@@ -74,12 +74,11 @@ interface AvatarImageProps extends PrimitiveImgProps {
 const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots,expose }) {
-    const innerRef = ref<typeof Primitive.img | null>(null);
-
+  setup(props, { attrs, slots, expose }) {
+    const innerRef = ref<typeof Primitive.img | null>(null)
 
     // expose innerRef as a prop
-    expose({ innerRef });
+    expose({ innerRef })
 
     const { ...imageProps } = attrs as AvatarImageProps
     const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
@@ -112,12 +111,11 @@ interface AvatarFallbackProps extends PrimitiveAvatarFallbackProps, PrimitiveSpa
 const AvatarFallback = defineComponent<AvatarFallbackProps>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots,expose }) {
-    const innerRef = ref<typeof Primitive.span | null>(null);
-
+  setup(props, { attrs, slots, expose }) {
+    const innerRef = ref<typeof Primitive.span | null>(null)
 
     // expose innerRef as a prop
-    expose({ innerRef });
+    expose({ innerRef })
 
     const inject = useAvatarInject(PROVIDER_KEY, FALLBACK_NAME)
 
@@ -148,7 +146,6 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
 
 function useImageLoadingStatus(src?: string) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
-
 
   watchEffect(() => {
     if (!src) {
