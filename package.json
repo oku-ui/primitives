@@ -3,14 +3,20 @@
   "private": true,
   "scripts": {
     "build": "turbo run build --filter='./packages/**'",
-    "dev:packages": "turbo run dev",
+    "build:components": "turbo run build --filter='./packages/components/**'",
+    "build:core": "turbo run build --filter='./packages/core/**'",
+    "dev": "pnpm storybook dev -p 6006",
+    "dev:all": "turbo run dev --filter='./packages/**'",
+    "dev:core": "turbo run dev --filter='./packages/core/**'",
+    "dev:components": "turbo run dev --filter='./packages/components/**'",
+    "play:vue": "turbo run dev --filter='./playground/vue3/**'",
+    "play:nuxt": "turbo run dev --filter='./playground/nuxt3/**'",
+    "play": "turbo run dev --filter='./playground/**'",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
-    "format": "turbo run format",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
-    "dev": "pnpm storybook dev -p 6006",
     "build:storybook": "pnpm storybook build"
   },
   "devDependencies": {
