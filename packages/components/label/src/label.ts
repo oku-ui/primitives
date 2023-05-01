@@ -7,7 +7,10 @@ type PrimitiveLabelProps = ComponentPropsWithoutRef<typeof Primitive.label>
 interface LabelProps extends PrimitiveLabelProps { }
 type LabelElement = ElementRef<typeof Primitive.label>
 
+const NAME = 'Label'
+
 const label = defineComponent<LabelProps>({
+  name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, emit }) {
     const forwardedRef = ref<LabelElement>()
