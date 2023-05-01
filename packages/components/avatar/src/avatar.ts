@@ -1,11 +1,11 @@
 /* eslint-disable vue/one-component-per-file */
-import type { InjectionKey } from 'vue'
-import { defineComponent, h } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
+import { defineComponent, h, ref, watchEffect } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { createProvide } from '@oku-ui/provide'
-import type { ImageLoadingStatus } from './types'
-import { useImageLoadingStatus } from './utils'
+
+type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
 /* -------------------------------------------------------------------------------------------------
  * Avatar
@@ -15,6 +15,7 @@ const AVATAR_NAME = 'Avatar'
 
 type AvatarProvideValue = {
   src?: string
+  loadingStatus: Ref<ImageLoadingStatus>
 }
 const PROVIDER_KEY = Symbol(AVATAR_NAME) as InjectionKey<AvatarProvideValue>
 
@@ -69,35 +70,19 @@ const AvatarImage = defineComponent<AvatarImageProps>({
     //   emit('update:ref', forwardedRef.value)
     // })
 
-    const { ...imageProps } = attrs as any
+    const { ...imageProps } = attrs as AvatarImageProps
     const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
 
-    console.log('inject', inject)
-    // const imageLoadingStatus = useImageLoadingStatus(props.src)
-
-    // const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
-    //   onLoadingStatusChange(status)
-    //   inject.value.onImageLoadingStatusChange(status)
-    // })
-
-    // onMounted(() => {
-    //   if (imageLoadingStatus.value !== 'idle')
-    //     handleLoadingStatusChange(imageLoadingStatus.value)
-    // })
-
-    // watch(imageLoadingStatus, (newValue) => {
-    //   if (newValue !== 'idle')
-    //     handleLoadingStatusChange(newValue)
-    // })
-
-    return () => h(
-      Primitive.img, {
-        ...imageProps,
-        src: props.src,
+    return () => inject.loadingStatus.value === 'loaded'
+      ? null
+      : h(
+        Primitive.img, {
+          ...imageProps,
+          src: inject.src,
         // ref: forwardedRef,
-      },
-      slots.default && slots.default(),
-    )
+        },
+        slots.default && slots.default(),
+      )
   },
 })
 
@@ -123,6 +108,8 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
     //   emit('update:ref', forwardedRef.value)
     // })
 
+    const inject = useAvatarInject(PROVIDER_KEY, FALLBACK_NAME)
+
     const { ...fallbackProps } = attrs as any
     // const provide = useAvatarInject(PROVIDER_KEY)
     // const canRender = ref(delayms === undefined)
@@ -136,17 +123,44 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
     //   }
     // })
 
-    return () => h(
-      Primitive.span, {
-        ...fallbackProps,
+    return () => inject.loadingStatus.value !== 'loaded'
+      ? h(
+        Primitive.span, {
+          ...fallbackProps,
         // ref: forwardedRef,
-      },
-      slots.default && slots.default(),
-    )
+        },
+        slots.default && slots.default(),
+      )
+      : null
   },
 })
 
 /* ----------------------------------------------------------------------------------------------- */
+
+function useImageLoadingStatus(src?: string) {
+  //   const [loadingStatus, setLoadingStatus] = React.useState<ImageLoadingStatus>('idle')
+  const loadingStatus = ref<ImageLoadingStatus>('idle')
+
+  watchEffect(() => {
+    if (!src) {
+      loadingStatus.value = 'error'
+      return
+    }
+
+    const image = new window.Image()
+
+    loadingStatus.value = 'loading'
+    image.onload = () => {
+      loadingStatus.value = 'loaded'
+    }
+    image.onerror = () => {
+      loadingStatus.value = 'error'
+    }
+    image.src = src as string
+  })
+
+  return { loadingStatus }
+}
 
 const OkuAvatar = Avatar
 const OkuAvatarImage = AvatarImage
