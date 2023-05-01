@@ -1,5 +1,5 @@
 /* eslint-disable vue/one-component-per-file */
-import type { InjectionKey, Ref } from 'vue'
+import type { InjectionKey } from 'vue'
 import { defineComponent, h, ref, watchEffect } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
@@ -15,7 +15,7 @@ const AVATAR_NAME = 'Avatar'
 
 type AvatarProvideValue = {
   src?: string
-  loadingStatus: Ref<ImageLoadingStatus>
+  loadingStatus: ImageLoadingStatus
 }
 const PROVIDER_KEY = Symbol(AVATAR_NAME) as InjectionKey<AvatarProvideValue>
 
@@ -73,16 +73,16 @@ const AvatarImage = defineComponent<AvatarImageProps>({
     const { ...imageProps } = attrs as AvatarImageProps
     const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
 
-    return () => inject.loadingStatus.value === 'loaded'
-      ? null
-      : h(
+    return () => inject.loadingStatus === 'loaded'
+      ? h(
         Primitive.img, {
           ...imageProps,
           src: inject.src,
-        // ref: forwardedRef,
+          // ref: forwardedRef,
         },
         slots.default && slots.default(),
       )
+      : null
   },
 })
 
@@ -123,11 +123,11 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
     //   }
     // })
 
-    return () => inject.loadingStatus.value !== 'loaded'
+    return () => inject.loadingStatus !== 'loaded'
       ? h(
         Primitive.span, {
           ...fallbackProps,
-        // ref: forwardedRef,
+          // ref: forwardedRef,
         },
         slots.default && slots.default(),
       )
@@ -141,6 +141,8 @@ function useImageLoadingStatus(src?: string) {
   //   const [loadingStatus, setLoadingStatus] = React.useState<ImageLoadingStatus>('idle')
   const loadingStatus = ref<ImageLoadingStatus>('idle')
 
+  console.log('useImageLoadingStatus', src)
+
   watchEffect(() => {
     if (!src) {
       loadingStatus.value = 'error'
@@ -152,9 +154,11 @@ function useImageLoadingStatus(src?: string) {
     loadingStatus.value = 'loading'
     image.onload = () => {
       loadingStatus.value = 'loaded'
+      console.log('loaded')
     }
     image.onerror = () => {
       loadingStatus.value = 'error'
+      console.log('error')
     }
     image.src = src as string
   })
