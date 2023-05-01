@@ -27,13 +27,17 @@ interface AvatarProps extends PrimitiveSpanProps {
   src?: string
 }
 
+/* -------------------------------------------------------------------------------------------------
+ * Avatar
+ * ----------------------------------------------------------------------------------------------- */
+
 const Avatar = defineComponent<AvatarProps>({
   name: AVATAR_NAME,
-  setup(_, { attrs, slots }) {
-    const innerRef = ref(null);
+  setup(_, { attrs, slots,expose }) {
+    const innerRef = ref<typeof Primitive.span | null>(null);
 
     // expose innerRef as a prop
-    defineExpose({ innerRef });
+    expose({ innerRef });
 
     const { src, ...avatarProps } = attrs as AvatarProps
 
@@ -70,11 +74,12 @@ interface AvatarImageProps extends PrimitiveImgProps {
 const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots }) {
-    const innerRef = ref(null);
+  setup(props, { attrs, slots,expose }) {
+    const innerRef = ref<typeof Primitive.img | null>(null);
+
 
     // expose innerRef as a prop
-    defineExpose({ innerRef });
+    expose({ innerRef });
 
     const { ...imageProps } = attrs as AvatarImageProps
     const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
@@ -107,11 +112,12 @@ interface AvatarFallbackProps extends PrimitiveAvatarFallbackProps, PrimitiveSpa
 const AvatarFallback = defineComponent<AvatarFallbackProps>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots }) {
-    const innerRef = ref(null);
+  setup(props, { attrs, slots,expose }) {
+    const innerRef = ref<typeof Primitive.span | null>(null);
+
 
     // expose innerRef as a prop
-    defineExpose({ innerRef });
+    expose({ innerRef });
 
     const inject = useAvatarInject(PROVIDER_KEY, FALLBACK_NAME)
 
@@ -141,10 +147,8 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
 /* ----------------------------------------------------------------------------------------------- */
 
 function useImageLoadingStatus(src?: string) {
-  //   const [loadingStatus, setLoadingStatus] = React.useState<ImageLoadingStatus>('idle')
   const loadingStatus = ref<ImageLoadingStatus>('idle')
 
-  console.log('useImageLoadingStatus', src)
 
   watchEffect(() => {
     if (!src) {
@@ -157,11 +161,9 @@ function useImageLoadingStatus(src?: string) {
     loadingStatus.value = 'loading'
     image.onload = () => {
       loadingStatus.value = 'loaded'
-      console.log('loaded')
     }
     image.onerror = () => {
       loadingStatus.value = 'error'
-      console.log('error')
     }
     image.src = src as string
   })
