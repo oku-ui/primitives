@@ -36,6 +36,26 @@ Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/prim
 this file and build your new build on it.
 5. Storybook works with the command `pnpm dev`
 
+### Scripts
+
+-   `pnpm build` - Build all packages
+-   `pnpm build:components` - Build components package
+-   `pnpm build:core` - Build core package
+
+-   `pnpm dev` - Run Storybook
+-   `pnpm build:storybook` - Build Storybook
+
+-   `pnpm dev:all` - Run all packages 
+-   `pnpm dev:components` - Run components package
+-   `pnpm dev:core` - Run core package
+
+-   `pnpm lint` - Run ESLint
+-   `pnpm lint:fix` - Run ESLint and fix errors
+
+-   `pnpm test` - Run tests
+-   `pnpm test:watch` - Run tests in watch mode
+-   `pnpm test testfilename` - Run a specific test file name
+
 ## Testing
 
 1. We use [Vitest](https://vitest.dev/) for testing
