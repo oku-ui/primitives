@@ -120,7 +120,7 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
       clearTimeout(timerId)
     })
 
-    return () => (canRender.value && inject.loadingStatus !== 'loaded')
+    return () => (canRender.value && inject.loadingStatus === 'error')
       ? h(
         Primitive.span, {
           ...fallbackProps,
@@ -147,11 +147,9 @@ function useImageLoadingStatus(src?: string) {
     loadingStatus.value = 'loading'
     image.onload = () => {
       loadingStatus.value = 'loaded'
-      console.log('loaded')
     }
     image.onerror = () => {
       loadingStatus.value = 'error'
-      console.log('error')
     }
     image.src = src as string
   })
