@@ -34,3 +34,6 @@ build-storybook.log
 
 dist
 .nuxt
+
+
+vite.config.ts.timestamp-*.mjs
