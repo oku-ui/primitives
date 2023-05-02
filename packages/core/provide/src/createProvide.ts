@@ -97,6 +97,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
    * --------------------------------------------------------------------------------------------- */
   const createScope: CreateScope = () => {
     const scopeProviders = defaultProviders
+    console.log('scopeProviders', scopeProviders)
     return function useScope(scope: Scope) {
       const providers = scope?.[scopeName] || scopeProviders
 

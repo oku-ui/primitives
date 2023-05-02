@@ -65,6 +65,7 @@ const Avatar = defineComponent<ScopedProps<AvatarProps>>({
     const forwardedRef = ref<AvatarElement>()
 
     onMounted(() => {
+      console.log('Avatar mounted #1')
       emit('update:ref', forwardedRef.value)
     })
     const { __scopeAvatar, ...avatarProps } = attrs as any
@@ -119,6 +120,7 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
     })
 
     onMounted(() => {
+      console.log('AvatarImage mounted #2')
       if (imageLoadingStatus.value !== 'idle')
         handleLoadingStatusChange(imageLoadingStatus.value)
     })
@@ -160,6 +162,7 @@ const AvatarFallback = defineComponent<ScopedProps<AvatarFallbackProps>>({
     const forwardedRef = ref<PrimitiveSpanElement>()
 
     onMounted(() => {
+      console.log('AvatarFallback mounted #2')
       emit('update:ref', forwardedRef.value)
     })
 
@@ -170,6 +173,7 @@ const AvatarFallback = defineComponent<ScopedProps<AvatarFallbackProps>>({
     watchEffect(() => {
       if (delayms === undefined) {
         const timerID = window.setTimeout(() => {
+          console.log('AvatarFallback watchEffect #1')
           canRender.value = true
         }, delayms)
         return () => window.clearTimeout(timerID)

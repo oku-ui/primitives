@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { AvatarProps } from './avatar'
-import { OkuAvatar } from './avatar'
+import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from './avatar'
 
 interface StoryProps extends AvatarProps {
 }
@@ -11,7 +11,7 @@ const meta = {
   tags: ['autodocs'],
   // TODO: `render` TS props same problem as above
   render: (args: StoryProps) => ({
-    components: { OkuAvatar },
+    components: { OkuAvatar, OkuAvatarImage, OkuAvatarFallback },
     setup() {
       return { args }
     },
@@ -24,7 +24,7 @@ const meta = {
           />
           <OkuAvatarFallback
             class="flex items-center text-white font-medium text-2xl h-full w-full justify-center"
-            :delayms="500"
+            :delayms="5100"
           >
             CT
           </OkuAvatarFallback>
