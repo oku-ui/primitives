@@ -30,7 +30,7 @@ function createProvide<ProvideValueType extends object | null>(
     name: `${rootComponentName}Provider`,
     inheritAttrs: false,
     setup(props, { attrs, slots }) {
-      const value = reactive({ ...defaultValue, ...attrs }) as ProvideValueType
+      const value = reactive({ ...defaultValue, ...attrs }) as ProvideValueType & typeof attrs
 
       provide(key, value)
 
@@ -44,6 +44,7 @@ function createProvide<ProvideValueType extends object | null>(
   // function returns the context
   function useInject(_key: InjectionKey<ProvideValueType>, consumerName: string) {
     const context = inject(_key)
+
     if (context)
       return context
 

@@ -1,5 +1,5 @@
 /* eslint-disable vue/one-component-per-file */
-import type { InjectionKey } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
 import { defineComponent, h, onUnmounted, ref, watchEffect } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
@@ -15,7 +15,7 @@ const AVATAR_NAME = 'Avatar'
 
 type AvatarProvideValue = {
   src?: string
-  loadingStatus: ImageLoadingStatus
+  loadingStatus: Ref<ImageLoadingStatus> | ImageLoadingStatus
 }
 const PROVIDER_KEY = Symbol(AVATAR_NAME) as InjectionKey<AvatarProvideValue>
 
@@ -24,7 +24,6 @@ const [AvatarProvider, useAvatarInject] = createProvide<AvatarProvideValue>(PROV
 // type AvatarElement = ComponentPropsWithoutRef<typeof Primitive.span>
 type PrimitiveSpanProps = ComponentPropsWithoutRef<typeof Primitive.span>
 interface AvatarProps extends PrimitiveSpanProps {
-  src?: string
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -39,14 +38,10 @@ const Avatar = defineComponent<AvatarProps>({
     // expose innerRef as a prop
     expose({ innerRef })
 
-    const { src, ...avatarProps } = attrs as AvatarProps
-
-    const { loadingStatus } = useImageLoadingStatus(src)
+    const { ...avatarProps } = attrs as AvatarProps
 
     return () => h(
       AvatarProvider, {
-        src,
-        loadingStatus,
       },
       h(
         Primitive.span, {
@@ -68,17 +63,20 @@ const IMAGE_NAME = 'AvatarImage'
 // type AvatarImageElement = ComponentPropsWithoutRef<typeof Primitive.img>
 type PrimitiveImgProps = ComponentPropsWithoutRef<typeof Primitive.img>
 interface AvatarImageProps extends PrimitiveImgProps {
-  onLoadingStatusChange?: (status: ImageLoadingStatus) => void
+  src: string
 }
 
 const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots }) {
+    const { src, ...imageProps } = attrs as unknown as AvatarImageProps
 
-
-    const { ...imageProps } = attrs as AvatarImageProps
     const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
+
+    inject.src = src
+    const { loadingStatus } = useImageLoadingStatus(inject.src)
+    inject.loadingStatus = loadingStatus
 
     return () => inject.loadingStatus === 'loaded'
       ? h(
@@ -108,9 +106,7 @@ interface AvatarFallbackProps extends PrimitiveAvatarFallbackProps, PrimitiveSpa
 const AvatarFallback = defineComponent<AvatarFallbackProps>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots, expose }) {
-
-
+  setup(props, { attrs, slots }) {
     const inject = useAvatarInject(PROVIDER_KEY, FALLBACK_NAME)
 
     const { delayms, ...fallbackProps } = attrs as any
@@ -151,9 +147,11 @@ function useImageLoadingStatus(src?: string) {
     loadingStatus.value = 'loading'
     image.onload = () => {
       loadingStatus.value = 'loaded'
+      console.log('loaded')
     }
     image.onerror = () => {
       loadingStatus.value = 'error'
+      console.log('error')
     }
     image.src = src as string
   })
