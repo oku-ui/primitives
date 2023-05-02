@@ -74,11 +74,8 @@ interface AvatarImageProps extends PrimitiveImgProps {
 const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots, expose }) {
-    const innerRef = ref<typeof Primitive.img | null>(null)
+  setup(props, { attrs, slots }) {
 
-    // expose innerRef as a prop
-    expose({ innerRef })
 
     const { ...imageProps } = attrs as AvatarImageProps
     const inject = useAvatarInject(PROVIDER_KEY, IMAGE_NAME)
@@ -88,7 +85,7 @@ const AvatarImage = defineComponent<AvatarImageProps>({
         Primitive.img, {
           ...imageProps,
           src: inject.src,
-          ref: innerRef,
+
         },
         slots.default && slots.default(),
       )
@@ -112,10 +109,7 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
-    const innerRef = ref<typeof Primitive.span | null>(null)
 
-    // expose innerRef as a prop
-    expose({ innerRef })
 
     const inject = useAvatarInject(PROVIDER_KEY, FALLBACK_NAME)
 
@@ -134,7 +128,6 @@ const AvatarFallback = defineComponent<AvatarFallbackProps>({
       ? h(
         Primitive.span, {
           ...fallbackProps,
-          ref: innerRef,
         },
         slots.default && slots.default(),
       )
