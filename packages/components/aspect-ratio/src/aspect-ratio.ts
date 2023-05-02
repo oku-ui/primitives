@@ -6,7 +6,7 @@ type PrimitiveAspectRatioProps = ComponentPropsWithoutRef<typeof Primitive.div>
 type AspectRatioElement = ElementRef<typeof Primitive.div>
 
 interface AspectRatioProps extends PrimitiveAspectRatioProps {
-  ratio?: string
+  ratio?: number
 }
 const NAME = 'AspectRatio'
 
@@ -18,7 +18,7 @@ const AspectRatio = defineComponent<AspectRatioProps>({
     const { ratio = 1 / 1, style, ...aspectRatioProps } = attrs as any
     const forwardedRef = ref<AspectRatioElement>()
     return () => h(
-      Primitive.div, {
+      'div', {
         'style': {
           position: 'relative',
           width: '100%',
