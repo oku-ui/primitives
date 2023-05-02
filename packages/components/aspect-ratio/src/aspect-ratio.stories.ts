@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { AspectRatioProps } from './aspect-ratio'
-import { OkuAspectRatio } from './aspect-ratio'
+import type { AspectRatioProps } from './AspectRatio.vue'
+import OkuAspectRatio from './AspectRatio.vue'
 
 interface StoryProps extends AspectRatioProps {
   imageurl: string

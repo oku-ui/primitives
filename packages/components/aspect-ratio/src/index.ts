@@ -1,5 +1,3 @@
-export {
-  AspectRatio,
-  OkuAspectRatio,
-} from './aspect-ratio'
-export type { AspectRatioProps } from './aspect-ratio'
+import AspectRatio from './AspectRatio.vue'
+
+export { AspectRatio }
