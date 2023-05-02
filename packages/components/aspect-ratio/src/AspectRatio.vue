@@ -1,17 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
-export type PrimitiveAspectRatioProps = ComponentPropsWithoutRef<typeof Primitive.div>
-export type AspectRatioElement = ElementRef<typeof Primitive.div>
-
-export interface AspectRatioProps extends PrimitiveAspectRatioProps {
-  ratio?: number
-}
+import type { AspectRatioElement, AspectRatioProps } from './types'
 
 withDefaults(defineProps<AspectRatioProps>(), {
-  ratio: 1 / 1,
+  ratio: 1,
 })
 
 defineOptions({
@@ -32,10 +26,13 @@ defineExpose({
       position: 'relative',
       width: '100%',
       paddingBottom: `${100 / ratio}%`,
-    }" data-radix-aspect-ratio-wrapper
+    }"
+    data-radix-aspect-ratio-wrapper
   >
     <Primitive.div
-      v-bind="$attrs" ref="forwardedRef" :style="{
+      v-bind="$attrs"
+      ref="forwardedRef"
+      :style="{
         position: 'absolute',
         top: 0,
         right: 0,

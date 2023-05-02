@@ -1,12 +1,10 @@
-import path, { resolve } from 'node:path'
+import path from 'node:path'
 
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 
-// https://github.com/qmhc/vite-plugin-dts
-import dtsPlugin from 'vite-plugin-dts'
-
 // https://github.com/sxzz/unplugin-vue-macros
+// @ts-expect-error - Missing types?
 import VueMacros from 'unplugin-vue-macros/vite'
 
 import * as pkg from './package.json'
@@ -17,24 +15,12 @@ const externals = [
 ]
 export default defineConfig({
   plugins: [
-    dtsPlugin({
-      include: ['./src/**/*.ts', './src/**/*.tsx', './src/**/*.vue'],
-      skipDiagnostics: false,
-      staticImport: true,
-      outputDir: ['./dist/types'],
-      cleanVueFileName: false,
-    }),
     VueMacros({
       plugins: {
         vue: Vue(),
       },
     }),
   ],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-    },
-  },
   build: {
     lib: {
       entry: path.resolve(__dirname, './src/index.ts'),
