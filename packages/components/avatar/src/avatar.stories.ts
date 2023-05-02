@@ -4,6 +4,7 @@ import type { AvatarProps } from './avatar'
 import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from './avatar'
 
 interface StoryProps extends AvatarProps {
+  imageSrc: string
 }
 
 const meta = {
@@ -20,7 +21,7 @@ const meta = {
         <OkuAvatar class="w-40 h-40 bg-gray-400 items-center inline-block overflow-hidden rounded-full">
           <OkuAvatarImage
             class="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
+            src="args.imageSrc"
           />
           <OkuAvatarFallback
             class="flex items-center text-white font-medium text-2xl h-full w-full justify-center"
@@ -39,6 +40,6 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-
+    imageSrc: 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80',
   },
 }

@@ -62,13 +62,14 @@ const IMAGE_NAME = 'AvatarImage'
 
 // type AvatarImageElement = ComponentPropsWithoutRef<typeof Primitive.img>
 type PrimitiveImgProps = ComponentPropsWithoutRef<typeof Primitive.img>
-interface AvatarImageProps extends PrimitiveImgProps {
+interface AvatarImageProps extends Partial<PrimitiveImgProps> {
   src: string
 }
 
 const AvatarImage = defineComponent<AvatarImageProps>({
   name: IMAGE_NAME,
   inheritAttrs: false,
+
   setup(props, { attrs, slots }) {
     const { src, ...imageProps } = attrs as unknown as AvatarImageProps
 
