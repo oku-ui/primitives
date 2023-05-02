@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { AspectRatioProps } from './AspectRatio.vue'
+import type { AspectRatioProps } from './types'
 import OkuAspectRatio from './AspectRatio.vue'
 
 interface StoryProps extends AspectRatioProps {
@@ -13,10 +13,10 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     // TODO: ratio number '16 / 9' not working how to send a string? with storybook controls
-    ratio: { type: 'number', defaultValue: '1' },
+    ratio: { type: 'number', defaultValue: 1 },
   },
   // TODO: ratio number '16 / 9' not working how to send a string? with storybook controls
-  args: { ratio: '1' },
+  args: { ratio: 1 },
   // TODO: `render` ts props same problem as above
   render: (args: StoryProps) => ({
     components: { OkuAspectRatio },
@@ -38,14 +38,14 @@ const meta = {
       </div>
     `,
   }),
-} satisfies Meta<typeof OkuAspectRatio>
+} as Meta<StoryProps>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    ratio: '1',
+    ratio: 1,
     imageurl: 'https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=300&dpr=2&q=80',
   },
 }

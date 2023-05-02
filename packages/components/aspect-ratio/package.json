@@ -15,14 +15,14 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/index.d.ts",
       "require": "./dist/aspect-ratio.cjs",
       "import": "./dist/aspect-ratio.js"
     }
   },
   "main": "dist/aspect-ratio.cjs",
   "module": "dist/aspect-ratio.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
@@ -30,6 +30,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "vite build --mode production",
+    "types": "vue-tsc --declaration --emitDeclarationOnly",
     "dev": "vite build --mode production --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

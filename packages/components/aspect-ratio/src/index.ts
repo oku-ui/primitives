@@ -1,3 +1,2 @@
-import AspectRatio from './AspectRatio.vue'
-
-export { AspectRatio }
+export * from './AspectRatio.vue'
+export * from './types'
