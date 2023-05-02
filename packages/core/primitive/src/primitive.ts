@@ -1,4 +1,4 @@
-import type { DefineComponent, FunctionalComponent, IntrinsicElementAttributes, Ref } from 'vue'
+import type { DefineComponent, FunctionalComponent, IntrinsicElementAttributes, VNodeRef } from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
 
 /* -------------------------------------------------------------------------------------------------
@@ -27,8 +27,8 @@ type ElementConstructor<P> =
   | (new () => { $props: P })
   | ((props: P, ...args: any) => FunctionalComponent<any, any>)
 
-// <T extends keyof JSX.IntrinsicElements | ElementConstructor<any>>
-type ComponentProps<T> =
+//  extends keyof JSX.IntrinsicElements | ElementConstructor<any>
+type ComponentProps<T extends keyof JSX.IntrinsicElements | ElementConstructor<any>> =
   T extends ElementConstructor<infer P>
     ? P
     : T extends keyof JSX.IntrinsicElements
@@ -37,7 +37,7 @@ type ComponentProps<T> =
 
  type ComponentType<T = {}> = DefineComponent<T> | FunctionalComponent<T>
 
- type ComponentPropsWithoutRef<T> = PropsWithoutRef<
+ type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<
   ComponentProps<T>
 >
 
@@ -46,20 +46,22 @@ type ComponentProps<T> =
  }[keyof JSX.IntrinsicElements] |
  ComponentType<P>
 
-type PropsWithoutRef<P> = P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref' | 'ref_for' | 'ref_key'>> : P) : P
+type PropsWithoutRef<P> = P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P) : P
 
 type PropsWithRef<P> =
   'ref' extends keyof P
     ? P extends { ref?: infer R | undefined }
       ? string extends R
-        ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
+        // TODO: ref dynamic `IntrinsicElements` support
+        ? PropsWithoutRef<P> & { ref?: VNodeRef | undefined }
         : any
       : any
     : any
 
 type VueComponentPropsWithRef<T extends ElementType> =
      T extends new () => { $props: infer P }
-       ? PropsWithoutRef<P> & { ref?: Ref<ComponentProps<T>> }
+       // TODO: ref dynamic `IntrinsicElements` support, `VNodeRef` dont support T
+       ? PropsWithoutRef<P> & { ref?: VNodeRef | undefined }
        : PropsWithRef<ComponentProps<T>>
 
 type Primitives = { [E in typeof NODES[number]]: PrimitiveDefineComponent<E> }
@@ -75,11 +77,7 @@ type ElementRef<T extends keyof JSX.IntrinsicElements | ElementConstructor<any>>
        : never
      : never
 
-interface PrimitiveDefineComponent<E extends ElementType> {
-  new (...args: any[]): {
-    $props: PrimitivePropsWithRef<E>
-  }
-}
+interface PrimitiveDefineComponent<E extends ElementType> extends DefineComponent<PrimitivePropsWithRef<E>> {}
 
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent<PrimitivePropsWithRef<typeof node>>({
