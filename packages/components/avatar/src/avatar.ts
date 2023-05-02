@@ -1,10 +1,11 @@
 /* eslint-disable vue/one-component-per-file */
-import { defineComponent, h, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
+import { defineComponent, h, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { useCallbackRef } from '@oku-ui/use-callback-ref'
+import { watchEffect } from 'vue'
 
 function useImageLoadingStatus(src?: string) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
@@ -62,12 +63,6 @@ const Avatar = defineComponent<ScopedProps<AvatarProps>>({
   name: AVATAR_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, emit }) {
-    const forwardedRef = ref<AvatarElement>()
-
-    onMounted(() => {
-      console.log('Avatar mounted #1')
-      emit('update:ref', forwardedRef.value)
-    })
     const { __scopeAvatar, ...avatarProps } = attrs as any
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
@@ -82,7 +77,6 @@ const Avatar = defineComponent<ScopedProps<AvatarProps>>({
     return () => h(
       Primitive.span, {
         ...avatarProps,
-        ref: forwardedRef,
       },
       slots.default && slots.default(),
     )
@@ -105,11 +99,6 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
   name: IMAGE_NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, emit }) {
-    const forwardedRef = ref<AvatarImageElement>()
-    onMounted(() => {
-      emit('update:ref', forwardedRef.value)
-    })
-
     const { __scopeAvatar, src, onLoadingStatusChange = () => {}, ...imageProps } = attrs as any
     const inject = useAvatarInject(IMAGE_NAME, __scopeAvatar)
     const imageLoadingStatus = useImageLoadingStatus(src)
@@ -120,7 +109,6 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
     })
 
     onMounted(() => {
-      console.log('AvatarImage mounted #2')
       if (imageLoadingStatus.value !== 'idle')
         handleLoadingStatusChange(imageLoadingStatus.value)
     })
@@ -135,7 +123,6 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
         Primitive.img, {
           ...imageProps,
           src,
-          ref: forwardedRef,
         },
         slots.default && slots.default(),
       )
@@ -159,36 +146,36 @@ const AvatarFallback = defineComponent<ScopedProps<AvatarFallbackProps>>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
   setup(props, { attrs, emit, slots }) {
-    const forwardedRef = ref<PrimitiveSpanElement>()
-
-    onMounted(() => {
-      console.log('AvatarFallback mounted #2')
-      emit('update:ref', forwardedRef.value)
-    })
-
     const { __scopeAvatar, delayms, ...fallbackProps } = attrs as any
     const provide = useAvatarInject(FALLBACK_NAME, __scopeAvatar)
     const canRender = ref(delayms === undefined)
 
+    onMounted(() => {
+      if (delayms === undefined)
+        canRender.value = true
+      else
+        canRender.value = false
+    })
+
     watchEffect(() => {
-      if (delayms === undefined) {
+      if (delayms !== undefined) {
         const timerID = window.setTimeout(() => {
-          console.log('AvatarFallback watchEffect #1')
           canRender.value = true
         }, delayms)
         return () => window.clearTimeout(timerID)
       }
     })
 
-    return () => (canRender.value && (provide.value.imageLoadingStatus !== 'loaded'))
-      ? h(
-        Primitive.span, {
-          ...fallbackProps,
-          ref: forwardedRef,
-        },
-        slots.default && slots.default(),
-      )
-      : null
+    return () => {
+      return (canRender.value && (provide.value.imageLoadingStatus !== 'loaded'))
+        ? h(
+          Primitive.span, {
+            ...fallbackProps,
+          },
+          slots.default && slots.default(),
+        )
+        : canRender.value
+    }
   },
 })
 

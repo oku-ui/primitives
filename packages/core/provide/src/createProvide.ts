@@ -97,7 +97,6 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
    * --------------------------------------------------------------------------------------------- */
   const createScope: CreateScope = () => {
     const scopeProviders = defaultProviders
-    console.log('scopeProviders', scopeProviders)
     return function useScope(scope: Scope) {
       const providers = scope?.[scopeName] || scopeProviders
 
@@ -119,7 +118,6 @@ function composeContextScopes(...scopes: CreateScope[]) {
       useScope: createScope(),
       scopeName: createScope.scopeName,
     }))
-
     return function useComposedScopes(overrideScopes) {
       const nextScopes = scopeHooks.reduce((nextScopes, { useScope, scopeName }) => {
         // We are calling a hook inside a callback which React warns against to avoid inconsistent
