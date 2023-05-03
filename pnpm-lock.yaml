@@ -157,6 +157,19 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/core/use-controllable-ref:
+    dependencies:
+      '@oku-ui/use-callback-ref':
+        specifier: workspace:^
+        version: link:../use-callback-ref
+      vue:
+        specifier: ^3.2.47
+        version: 3.2.47
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/eslint-config-custom:
     dependencies:
       '@antfu/eslint-config':

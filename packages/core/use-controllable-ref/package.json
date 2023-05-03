@@ -1,0 +1,45 @@
+{
+  "name": "@oku-ui/use-controllable-ref",
+  "type": "module",
+  "version": "1.0.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/use-controllable-ref.cjs",
+      "import": "./dist/use-controllable-ref.js"
+    }
+  },
+  "main": "dist/use-controllable-ref.cjs",
+  "module": "dist/use-controllable-ref.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.47"
+  },
+  "dependencies": {
+    "@oku-ui/use-callback-ref": "workspace:^"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  }
+}
