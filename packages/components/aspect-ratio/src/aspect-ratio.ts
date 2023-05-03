@@ -10,13 +10,18 @@ interface AspectRatioProps extends PrimitiveAspectRatioProps {
 }
 const NAME = 'AspectRatio'
 
-const AspectRatio = defineComponent<AspectRatioProps>({
+const AspectRatio = defineComponent<AspectRatioProps, { hello: string }>({
   name: NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs, slots, expose }) {
     // TODO: as any how to fix?
     const { ratio = 1 / 1, style, ...aspectRatioProps } = attrs as any
-    const forwardedRef = ref<AspectRatioElement>()
+    const inferRef = ref<AspectRatioElement>()
+
+    expose({
+      inferRef,
+    })
+
     return () => h(
       'div', {
         'style': {
@@ -31,7 +36,7 @@ const AspectRatio = defineComponent<AspectRatioProps>({
           Primitive.div,
           {
             ...aspectRatioProps,
-            ref: forwardedRef,
+            ref: inferRef,
             style: {
               ...style,
               position: 'absolute',

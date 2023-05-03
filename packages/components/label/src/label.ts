@@ -1,4 +1,4 @@
-import { defineComponent, h, onMounted, ref } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
@@ -12,16 +12,16 @@ const NAME = 'Label'
 const label = defineComponent<LabelProps>({
   name: NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots, emit }) {
-    const forwardedRef = ref<LabelElement>()
+  setup(props, { attrs, slots, expose }) {
+    const inferRef = ref<LabelElement>()
 
-    onMounted(() => {
-      emit('update:ref', forwardedRef.value)
+    expose({
+      inferRef,
     })
 
     return () => h(Primitive.label, {
       ...attrs,
-      ref: forwardedRef,
+      ref: inferRef,
       onMousedown: (event: MouseEvent) => {
         props.onMousedown?.(event)
         // prevent text selection when double clicking label
