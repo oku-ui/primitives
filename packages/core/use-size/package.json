@@ -1,0 +1,43 @@
+{
+  "name": "@oku-ui/use-size",
+  "type": "module",
+  "version": "1.0.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/use-size.cjs",
+      "import": "./dist/use-size.js"
+    }
+  },
+  "main": "dist/use-size.cjs",
+  "module": "dist/use-size.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@types/resize-observer-browser": "^0.1.7",
+    "tsconfig": "workspace:^"
+  }
+}

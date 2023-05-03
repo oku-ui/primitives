@@ -127,6 +127,16 @@ importers:
         specifier: ^3.3.0-beta.3
         version: 3.3.0-beta.3
 
+  packages/core/compose-refs:
+    dependencies:
+      vue:
+        specifier: ^3.2.47
+        version: 3.2.47
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/core/primitive:
     dependencies:
       vue:
@@ -166,6 +176,25 @@ importers:
         specifier: ^3.2.47
         version: 3.2.47
     devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/core/use-previous:
+    dependencies:
+      vue:
+        specifier: ^3.2.47
+        version: 3.2.47
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/core/use-size:
+    devDependencies:
+      '@types/resize-observer-browser':
+        specifier: ^0.1.7
+        version: 0.1.7
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
@@ -3713,6 +3742,10 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
+    dev: true
+
+  /@types/resize-observer-browser@0.1.7:
+    resolution: {integrity: sha512-G9eN0Sn0ii9PWQ3Vl72jDPgeJwRWhv2Qk/nQkJuWmRmOB4HX3/BhD5SE1dZs/hzPZL/WKnvF0RHdTSG54QJFyg==}
     dev: true
 
   /@types/resolve@1.20.2:
