@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/use-controllable-ref",
+  "name": "@oku-ui/compose-refs",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
@@ -16,12 +16,12 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/use-controllable-ref.cjs",
-      "import": "./dist/use-controllable-ref.js"
+      "require": "./dist/compose-refs.cjs",
+      "import": "./dist/compose-refs.js"
     }
   },
-  "main": "dist/use-controllable-ref.cjs",
-  "module": "dist/use-controllable-ref.js",
+  "main": "dist/compose-refs.cjs",
+  "module": "dist/compose-refs.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
@@ -35,9 +35,6 @@
   },
   "peerDependencies": {
     "vue": "^3.3.0-beta.3"
-  },
-  "dependencies": {
-    "@oku-ui/use-callback-ref": "workspace:^"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/use-controllable-ref",
+  "name": "@oku-ui/use-size",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
@@ -16,12 +16,12 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/use-controllable-ref.cjs",
-      "import": "./dist/use-controllable-ref.js"
+      "require": "./dist/use-size.cjs",
+      "import": "./dist/use-size.js"
     }
   },
-  "main": "dist/use-controllable-ref.cjs",
-  "module": "dist/use-controllable-ref.js",
+  "main": "dist/use-size.cjs",
+  "module": "dist/use-size.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
@@ -36,10 +36,8 @@
   "peerDependencies": {
     "vue": "^3.3.0-beta.3"
   },
-  "dependencies": {
-    "@oku-ui/use-callback-ref": "workspace:^"
-  },
   "devDependencies": {
+    "@types/resize-observer-browser": "^0.1.7",
     "tsconfig": "workspace:^"
   }
 }
