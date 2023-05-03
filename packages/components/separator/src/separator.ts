@@ -1,33 +1,37 @@
-import { defineComponent, h, onMounted, ref } from 'vue'
-import { Primitive } from '@oku-ui/primitive'
+import { defineComponent, h, ref } from "vue"
+import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
+import { Primitive } from "@oku-ui/primitive"
 
 type PrimitiveSeparatorProps = ComponentPropsWithoutRef<typeof Primitive.div>
 
-interface SeparatorProps extends PrimitiveSeparatorProps { }
+interface SeparatorProps extends PrimitiveSeparatorProps {}
 type SeparatorElement = ElementRef<typeof Primitive.div>
 
-const NAME = 'Separator'
+const NAME = "Separator"
 
-const separator = defineComponent<SeparatorProps>({
-    name: NAME,
-    inheritAttrs: false,
-    setup(props, { attrs, slots, expose }) {
-        const inferRef = ref<SeparatorElement>()
+const Separator = defineComponent<SeparatorProps>({
+  name: NAME,
+  inheritAttrs: false,
+  setup(props, { attrs, slots, expose }) {
+    const inferRef = ref<SeparatorElement>()
 
-        expose({
-            inferRef,
-        })
+    expose({
+      inferRef,
+    })
 
-        return () => h(Primitive.div, {
-            ...attrs,
-            ref: inferRef,
+    return () =>
+      h(
+        Primitive.div,
+        {
+          ...attrs,
+          ref: inferRef,
         },
-            slots.default?.(),
-        )
-    }
+        slots.default?.(),
+      )
+  },
 })
 
-const OkuSeparator = separator
+const OkuSeparator = Separator
 
-export { OkuSeparator, separator }
+export { OkuSeparator, Separator }
 export type { SeparatorProps }
