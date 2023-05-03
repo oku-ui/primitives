@@ -107,10 +107,10 @@ interface AvatarImageProps extends PrimitiveImgProps {
 const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
   name: IMAGE_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots, expose }) {
     const { __scopeAvatar, src, onLoadingStatusChange = () => {}, ...imageProps } = attrs as any
     const inject = useAvatarInject(IMAGE_NAME, __scopeAvatar)
-    const innerRef = ref()
+    const innerRef = ref<AvatarImageElement>()
     const imageLoadingStatus = useImageLoadingStatus(src)
 
     const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
@@ -126,6 +126,10 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
     watch(imageLoadingStatus, (newValue) => {
       if (newValue !== 'idle')
         handleLoadingStatusChange(newValue)
+    })
+
+    expose({
+      innerRef,
     })
 
     return () => imageLoadingStatus.value === 'loaded'
@@ -156,11 +160,11 @@ interface AvatarFallbackProps extends PrimitiveAvatarFallbackProps, PrimitiveSpa
 const AvatarFallback = defineComponent<ScopedProps<AvatarFallbackProps>>({
   name: FALLBACK_NAME,
   inheritAttrs: false,
-  setup(props, { attrs, emit, slots }) {
+  setup(props, { attrs, expose, slots }) {
     const { __scopeAvatar, delayms, ...fallbackProps } = attrs as any
     const provide = useAvatarInject(FALLBACK_NAME, __scopeAvatar)
     const canRender = ref(delayms === undefined)
-    const innerRef = ref()
+    const innerRef = ref<PrimitiveSpanElement>()
 
     onMounted(() => {
       if (delayms === undefined)
@@ -176,6 +180,10 @@ const AvatarFallback = defineComponent<ScopedProps<AvatarFallbackProps>>({
         }, delayms)
         return () => window.clearTimeout(timerID)
       }
+    })
+
+    expose({
+      innerRef,
     })
 
     return () => {
