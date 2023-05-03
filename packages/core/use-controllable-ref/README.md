@@ -1,9 +1,9 @@
-# `@oku-ui/example`
+# `@oku-ui/use-controllable-ref`
 
 ## Installation
 
 ```sh
-$ pnpm add @oku-ui/example
+$ pnpm add @oku-ui/use-controllable-ref
 ```
 
 ## Usage
