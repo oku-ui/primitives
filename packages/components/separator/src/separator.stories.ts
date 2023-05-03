@@ -1,15 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import {
-  OkuSeparator,
-} from './separator'
+import { OkuSeparator } from './separator'
 import type { SeparatorProps } from './separator'
 
 interface StoryProps extends SeparatorProps {
 }
 
 const meta = {
-  title: 'Components/Label',
+  title: 'Components/OkuSeparator',
   component: OkuSeparator,
   tags: ['autodocs'],
   // TODO: `render` TS props same problem as above
@@ -19,14 +17,27 @@ const meta = {
       return { args }
     },
     template: `
-      <div class="max-w-xl mx-auto h-full items-center justify-center">
-          <OkuLabel class="block text-sm font-medium leading-6 text-gray-900" for="email">
-            Email
-          </OkuLabel>
-          <div class="mt-2">
-            <input type="email" name="email" id="email" class="px-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="you@example.com" />
-          </div>
-      </div>
+      <div>
+        <OkuSeparator class="my-4 h-[1px] bg-slate-500" />
+        <h1>Horizontal</h1>
+        <p>The following separator is horizontal and has semantic meaning.</p>
+        <OkuSeparator class="border-0 bg-gray-300 my-4 h-[1px]" orientation="horizontal" />
+        <p>
+        The following separator is horizontal and is purely decorative. Assistive technology will
+        ignore this element.
+        </p>
+        <OkuSeparator orientation="horizontal" class="border-0 my-4 bg-gray-500 w-full h-[1px]" decorative />
+        <h1>Vertical</h1>
+        <div class="flex items-center h-full">
+            <p>The following separator is vertical and has semantic meaning.</p>
+            <OkuSeparator class="w-[1px] mx-4 bg-slate-500 h-12" orientation="vertical" />
+            <p>
+                The following separator is vertical and is purely decorative. Assistive technology will
+                ignore this element.
+            </p>
+            <OkuSeparator class="w-[1px] mr-4 bg-slate-400 h-12" orientation="vertical" decorative />
+        </div>
+        </div>
     `,
   }),
 } satisfies Meta<typeof OkuSeparator>
@@ -36,6 +47,5 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-
   },
 }
