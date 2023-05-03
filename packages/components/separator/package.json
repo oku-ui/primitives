@@ -1,0 +1,43 @@
+{
+  "name": "@oku-ui/separator",
+  "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/separator.cjs",
+      "import": "./dist/separator.js"
+    }
+  },
+  "main": "dist/separator.cjs",
+  "module": "dist/separator.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.3"
+  },
+  "dependencies": {
+    "@oku-ui/primitive": "workspace:^"
+  }
+}
