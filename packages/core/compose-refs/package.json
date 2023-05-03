@@ -1,0 +1,42 @@
+{
+  "name": "@oku-ui/compose-refs",
+  "type": "module",
+  "version": "1.0.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/compose-refs.cjs",
+      "import": "./dist/compose-refs.js"
+    }
+  },
+  "main": "dist/compose-refs.cjs",
+  "module": "dist/compose-refs.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  }
+}
