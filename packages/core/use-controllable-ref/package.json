@@ -36,10 +36,10 @@
   "peerDependencies": {
     "vue": "^3.2.47"
   },
-  "devDependencies": {
-    "tsconfig": "workspace:^"
-  },
   "dependencies": {
     "@oku-ui/use-callback-ref": "workspace:^"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
   }
 }
