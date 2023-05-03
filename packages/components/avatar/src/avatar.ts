@@ -74,10 +74,6 @@ const Avatar = defineComponent<ScopedProps<AvatarProps>>({
       },
     })
 
-    defineExpose({
-      innerRef,
-    })
-
     expose({
       innerRef,
     })
