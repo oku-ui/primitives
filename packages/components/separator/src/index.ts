@@ -1,5 +1,5 @@
 export {
-  OkuLabel,
-  label,
+  OkuSeparator,
+  Separator,
 } from './separator'
-export type { LabelProps } from './label'
+export type { SeparatorProps } from './separator'
