@@ -127,6 +127,15 @@ importers:
         specifier: ^3.3.0-beta.3
         version: 3.3.0-beta.3
 
+  packages/components/separator:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      vue:
+        specifier: ^3.3.0-beta.3
+        version: 3.3.0-beta.3
+
   packages/core/primitive:
     dependencies:
       vue:
