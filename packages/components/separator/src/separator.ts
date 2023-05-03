@@ -23,12 +23,21 @@ interface SeparatorProps extends PrimitiveSeparatorProps {
    * are updated so that that the rendered element is removed from the accessibility tree.
    */
   decorative?: boolean
+//   height?: string
+//   width?: string
 }
 
 const Separator = defineComponent<SeparatorProps>({
   name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
+    const { decorative, orientation: orientationProp = DEFAULT_ORIENTATION, style } = attrs as any
+
+    const orientation = ORIENTATIONS.includes(orientationProp) ? orientationProp : DEFAULT_ORIENTATION
+    // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
+    const ariaOrientation = orientation === 'vertical' ? orientation : undefined
+    const semanticProps = decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation, role: 'separator' }
+
     const inferRef = ref<SeparatorElement>()
 
     expose({
@@ -41,6 +50,12 @@ const Separator = defineComponent<SeparatorProps>({
         {
           ...attrs,
           ref: inferRef,
+          ...semanticProps,
+          dataOrientation: orientation,
+          style: {
+            ...style,
+            border: 'none',
+          },
         },
         slots.default?.(),
       )
