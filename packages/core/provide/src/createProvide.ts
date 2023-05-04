@@ -36,7 +36,11 @@ function createProvide<ProvideValueType extends object | null>(
  * createProvideScope
  * ----------------------------------------------------------------------------------------------- */
 
-type Scope<C = any> = { [scopeName: string]: { key: InjectionKey<C>; value: C }[] }
+type VueProvide<C> = {
+  key: InjectionKey<C>
+  value: C
+}
+type Scope<C = any> = { [scopeName: string]: VueProvide<C>[] } | undefined
 
 type ScopeHook = (scope: Scope) => ComputedRef<{ [__scopeProp: string]: Scope }>
 interface CreateScope {
@@ -44,14 +48,8 @@ interface CreateScope {
   (): ScopeHook
 }
 
-// function createInjectKey<ContextValueType extends object | null>(name: string): InjectionKey<ContextValueType> {
-//   return Symbol(name) as InjectionKey<ContextValueType>
-// }
-
-// type RefType<T> = ComputedRef<T> | Ref<T>
-
 function createProvideScope(scopeName: string, createProvideScopeDeps: CreateScope[] = []) {
-  let defaultProviders: Scope[] = []
+  let defaultProviders: any[] = []
   /* -----------------------------------------------------------------------------------------------
    * createContext
    * --------------------------------------------------------------------------------------------- */
@@ -60,9 +58,9 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     rootComponentName: string,
     defaultValue?: ProvideValueType,
   ) {
-    const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
+    const BaseProvideKey: InjectionKey<ProvideValueType | null> = rootComponentName as any
     // const BaseProvide = provide(BaseProvideKey, defaultValue)
-    const BaseScope = { key: BaseProvideKey, value: defaultValue }
+    const BaseScope = { key: BaseProvideKey, value: defaultValue } as VueProvide<ProvideValueType | null>
     const index = defaultProviders.length
     defaultProviders = [...defaultProviders, { [scopeName]: [{ key: BaseProvideKey, value: defaultValue }] }]
 
@@ -78,7 +76,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     }
 
     function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined>): ComputedRef<ProvideValueType> {
-      const Provide = scope?.[scopeName][index] || BaseScope as ProvideValueType
+      const Provide = scope?.[scopeName]?.[index] || BaseScope
       const provide = inject(Provide.key)
       if (provide)
         return provide as ComputedRef<ProvideValueType>
@@ -96,7 +94,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
    * createScope
    * --------------------------------------------------------------------------------------------- */
   const createScope: CreateScope = () => {
-    const scopeProviders = defaultProviders
+    const scopeProviders = defaultProviders[0]
     return function useScope(scope: Scope) {
       const providers = scope?.[scopeName] || scopeProviders
 

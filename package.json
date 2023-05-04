@@ -6,7 +6,7 @@
     "build:components": "turbo run build --filter='./packages/components/**'",
     "build:core": "turbo run build --filter='./packages/core/**'",
     "dev": "pnpm storybook dev -p 6006",
-    "dev:all": "turbo run dev --filter='./packages/**'",
+    "dev:all": "turbo run dev --filter='./packages/**' --concurrency $(($(ls -1 packages/components packages/core | wc -l)+3))",
     "dev:core": "turbo run dev --filter='./packages/core/**'",
     "dev:components": "turbo run dev --filter='./packages/components/**'",
     "play:vue": "turbo run dev --filter='./playground/vue3/**'",

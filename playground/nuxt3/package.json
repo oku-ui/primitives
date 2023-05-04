@@ -13,7 +13,8 @@
   "dependencies": {
     "@oku-ui/aspect-ratio": "workspace:^",
     "@oku-ui/avatar": "workspace:^",
-    "@oku-ui/label": "workspace:^"
+    "@oku-ui/label": "workspace:^",
+    "@oku-ui/separator": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^18.16.3",
