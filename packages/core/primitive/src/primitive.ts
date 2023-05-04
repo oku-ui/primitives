@@ -85,11 +85,11 @@ const Primitive = NODES.reduce((primitive, node) => {
     inheritAttrs: false,
     setup(props, { attrs, slots }) {
       onMounted(() => {
-        (window as any)[Symbol.for('okui-vue')] = true
+        (window as any)[Symbol.for('oku-ui')] = true
       })
       const Tag: any = props.asChild ? 'slot' : node
 
-      return () => h(Tag, attrs, slots.default && slots.default())
+      return () => props.asChild ? slots.default?.() : h(Tag, { ...attrs }, slots.default?.())
     },
   })
   return { ...primitive, [node]: Node }
