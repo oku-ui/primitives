@@ -1,10 +1,10 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
-import type { ComponentPublicInstance } from 'vue'
 import { onMounted, ref } from 'vue'
+import type { OkuLabelElement } from '@oku-ui/label'
 import { OkuLabel } from '@oku-ui/label'
 
-const labelRef = ref<Omit<InstanceType<typeof OkuLabel>, keyof ComponentPublicInstance>>()
+const labelRef = ref<OkuLabelElement>()
 onMounted(() => {
   console.log(labelRef.value?.innerRef)
 })

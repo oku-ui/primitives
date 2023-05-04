@@ -1,4 +1,4 @@
 export {
   OkuLabel,
 } from './label'
-export type { LabelProps } from './label'
+export type { LabelProps, OkuLabelElement } from './label'

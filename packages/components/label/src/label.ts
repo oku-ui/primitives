@@ -1,3 +1,4 @@
+import type { ComponentPublicInstance } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
@@ -13,7 +14,7 @@ const label = defineComponent({
   name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
-    const innerRef = ref()
+    const innerRef = ref<ComponentPublicInstance>()
     const { ...restAttrs } = attrs as LabelProps
 
     expose({
@@ -39,6 +40,7 @@ const label = defineComponent({
 })
 
 const OkuLabel = label as typeof label & (new () => { $props: LabelProps })
+type OkuLabelElement = Omit<InstanceType<typeof label>, keyof ComponentPublicInstance>
 
 export { OkuLabel }
-export type { LabelProps }
+export type { LabelProps, OkuLabelElement }

@@ -16,7 +16,7 @@ const AspectRatio = defineComponent({
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
     // TODO: as any how to fix?
-    const { ratio = 1 / 1, style, ...aspectRatioProps } = attrs as any
+    const { ratio = 1 / 1, style, ...aspectRatioProps } = attrs as AspectRatioProps
     const innerRef = ref<ComponentPublicInstance>()
 
     expose({
@@ -39,7 +39,7 @@ const AspectRatio = defineComponent({
             ...aspectRatioProps,
             ref: innerRef,
             style: {
-              ...style,
+              ...(style as any),
               position: 'absolute',
               top: 0,
               right: 0,
@@ -60,5 +60,7 @@ const AspectRatio = defineComponent({
 
 const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: AspectRatioProps })
 
+type OkuAspectRatioElement = Omit<InstanceType<typeof AspectRatio>, keyof ComponentPublicInstance>
+
 export { OkuAspectRatio }
-export type { AspectRatioProps }
+export type { AspectRatioProps, OkuAspectRatioElement }
