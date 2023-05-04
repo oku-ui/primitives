@@ -1,11 +1,9 @@
-import { defineComponent, h, ref } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
 type PrimitiveSeparatorProps = ComponentPropsWithoutRef<typeof Primitive.div>
-
-// interface SeparatorProps extends PrimitiveSeparatorProps {}
-// type SeparatorElement = ElementRef<typeof Primitive.div>
 
 const NAME = 'Separator'
 const DEFAULT_ORIENTATION = 'horizontal'
@@ -23,46 +21,47 @@ interface SeparatorProps extends PrimitiveSeparatorProps {
    * are updated so that that the rendered element is removed from the accessibility tree.
    */
   decorative?: boolean
-//   height?: string
-//   width?: string
 }
 
 const Separator = defineComponent<SeparatorProps>({
   name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
-    const { decorative, orientation: orientationProp = DEFAULT_ORIENTATION, style } = attrs as any
-
+    const { decorative, orientation: orientationProp = DEFAULT_ORIENTATION, ...domProps } = attrs as SeparatorProps
     const orientation = ORIENTATIONS.includes(orientationProp) ? orientationProp : DEFAULT_ORIENTATION
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = orientation === 'vertical' ? orientation : undefined
     const semanticProps = decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation, 'role': 'separator' }
 
-    const inferRef = ref<SeparatorElement>()
+    const innerRef = ref<ComponentPublicInstance>()
 
     expose({
-      inferRef,
+      innerRef: computed(() => innerRef.value?.$el),
     })
 
-    return () =>
+    const originalReturn = () =>
       h(
         Primitive.div,
         {
           ...attrs,
-          ref: inferRef,
+          ref: innerRef,
           ...semanticProps,
           dataOrientation: orientation,
           style: {
-            ...style,
+            ...domProps,
             border: 'none',
           },
         },
         slots.default?.(),
       )
+
+    return originalReturn as unknown as {
+      innerRef: SeparatorElement
+    }
   },
 })
 
-const OkuSeparator = Separator
+const OkuSeparator = Separator as typeof Separator & (new () => { $props: SeparatorProps })
 
-export { OkuSeparator, Separator }
+export { OkuSeparator }
 export type { SeparatorProps }

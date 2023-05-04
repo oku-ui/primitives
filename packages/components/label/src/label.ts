@@ -1,4 +1,4 @@
-import { defineComponent, h, ref } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
@@ -9,21 +9,22 @@ type LabelElement = ElementRef<typeof Primitive.label>
 
 const NAME = 'Label'
 
-const label = defineComponent<LabelProps>({
+const label = defineComponent({
   name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
-    const inferRef = ref<LabelElement>()
+    const innerRef = ref()
+    const { ...restAttrs } = attrs as LabelProps
 
     expose({
-      inferRef,
+      innerRef: computed(() => innerRef.value?.$el),
     })
 
-    return () => h(Primitive.label, {
-      ...attrs,
-      ref: inferRef,
+    const originalReturn = () => h(Primitive.label, {
+      ...restAttrs,
+      ref: innerRef,
       onMousedown: (event: MouseEvent) => {
-        props.onMousedown?.(event)
+        restAttrs.onMousedown?.(event)
         // prevent text selection when double clicking label
         if (!event.defaultPrevented && event.detail > 1)
           event.preventDefault()
@@ -31,10 +32,13 @@ const label = defineComponent<LabelProps>({
     },
     slots.default?.(),
     )
+    return originalReturn as unknown as {
+      innerRef: LabelElement
+    }
   },
 })
 
-const OkuLabel = label
+const OkuLabel = label as typeof label & (new () => { $props: LabelProps })
 
-export { OkuLabel, label }
+export { OkuLabel }
 export type { LabelProps }
