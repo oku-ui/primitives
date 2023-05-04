@@ -48,5 +48,4 @@
         },
     ],
     "references.preferredLocation": "peek",
-    "typescript.tsdk": "node_modules/typescript/lib",
 }
