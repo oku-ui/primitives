@@ -1,4 +1,5 @@
-import { defineComponent, h, ref } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
@@ -10,19 +11,19 @@ interface AspectRatioProps extends PrimitiveAspectRatioProps {
 }
 const NAME = 'AspectRatio'
 
-const AspectRatio = defineComponent<AspectRatioProps, { hello: string }>({
+const AspectRatio = defineComponent({
   name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
     // TODO: as any how to fix?
     const { ratio = 1 / 1, style, ...aspectRatioProps } = attrs as any
-    const inferRef = ref<AspectRatioElement>()
+    const innerRef = ref<ComponentPublicInstance>()
 
     expose({
-      inferRef,
+      innerRef: computed(() => innerRef.value?.$el),
     })
 
-    return () => h(
+    const originalReturn = () => h(
       'div', {
         'style': {
           position: 'relative',
@@ -36,7 +37,7 @@ const AspectRatio = defineComponent<AspectRatioProps, { hello: string }>({
           Primitive.div,
           {
             ...aspectRatioProps,
-            ref: inferRef,
+            ref: innerRef,
             style: {
               ...style,
               position: 'absolute',
@@ -50,10 +51,14 @@ const AspectRatio = defineComponent<AspectRatioProps, { hello: string }>({
         ),
       ],
     )
+
+    return originalReturn as unknown as {
+      innerRef: AspectRatioElement
+    }
   },
 })
 
-const OkuAspectRatio = AspectRatio
+const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: AspectRatioProps })
 
-export { OkuAspectRatio, AspectRatio }
+export { OkuAspectRatio }
 export type { AspectRatioProps }
