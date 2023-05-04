@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/example",
+  "name": "@oku-ui/compose-refs",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
@@ -16,12 +16,12 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/example.cjs",
-      "import": "./dist/example.js"
+      "require": "./dist/compose-refs.cjs",
+      "import": "./dist/compose-refs.js"
     }
   },
-  "main": "dist/example.cjs",
-  "module": "dist/example.js",
+  "main": "dist/compose-refs.cjs",
+  "module": "dist/compose-refs.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",

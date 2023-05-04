@@ -118,7 +118,6 @@ function composeContextScopes(...scopes: CreateScope[]) {
       useScope: createScope(),
       scopeName: createScope.scopeName,
     }))
-
     return function useComposedScopes(overrideScopes) {
       const nextScopes = scopeHooks.reduce((nextScopes, { useScope, scopeName }) => {
         // We are calling a hook inside a callback which React warns against to avoid inconsistent

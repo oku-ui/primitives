@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/example",
+  "name": "@oku-ui/use-previous",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
@@ -16,12 +16,12 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/example.cjs",
-      "import": "./dist/example.js"
+      "require": "./dist/use-previous.cjs",
+      "import": "./dist/use-previous.js"
     }
   },
-  "main": "dist/example.cjs",
-  "module": "dist/example.js",
+  "main": "dist/use-previous.cjs",
+  "module": "dist/use-previous.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
