@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OkuSeparator } from "@oku-ui/separator";
+import { OkuSeparator } from '@oku-ui/separator'
 </script>
 
 <template>

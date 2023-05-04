@@ -1,26 +1,26 @@
 <script setup lang="ts">
 interface Page {
-  name: string;
-  path: string;
+  name: string
+  path: string
 }
 const pages: Page[] = [
   {
-    name: "OkuLabel",
-    path: "/label",
+    name: 'OkuLabel',
+    path: '/label',
   },
   {
-    name: "OkuAvatar",
-    path: "/avatar",
+    name: 'OkuAvatar',
+    path: '/avatar',
   },
   {
-    name: "OkuAspectRatio",
-    path: "/aspect-ratio",
+    name: 'OkuAspectRatio',
+    path: '/aspect-ratio',
   },
   {
-    name: "OkuSeparator",
-    path: "/separator",
+    name: 'OkuSeparator',
+    path: '/separator',
   },
-];
+]
 </script>
 
 <template>
