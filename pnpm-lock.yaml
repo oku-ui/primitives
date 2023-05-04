@@ -195,6 +195,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
+      '@oku-ui/separator':
+        specifier: workspace:^
+        version: link:../../packages/components/separator
     devDependencies:
       '@types/node':
         specifier: ^18.16.3
