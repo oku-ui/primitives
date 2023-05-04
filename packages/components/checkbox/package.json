@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/use-size",
+  "name": "@oku-ui/checkbox",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
@@ -16,12 +16,12 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/use-size.cjs",
-      "import": "./dist/use-size.js"
+      "require": "./dist/checkbox.cjs",
+      "import": "./dist/checkbox.js"
     }
   },
-  "main": "dist/use-size.cjs",
-  "module": "dist/use-size.js",
+  "main": "dist/checkbox.cjs",
+  "module": "dist/checkbox.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
@@ -31,14 +31,20 @@
     "clean": "rm -rf dist",
     "build": "vite build --mode production",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "dev": "vite build --mode production --watch"
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
     "vue": "^3.3.0-beta.3"
   },
   "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.7",
     "tsconfig": "workspace:^"
+  },
+  "dependencies": {
+    "@oku-ui/compose-refs": "workspace:^",
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/provide": "workspace:^",
+    "@oku-ui/use-controllable-ref": "workspace:^",
+    "@oku-ui/use-previous": "workspace:^",
+    "@oku-ui/use-size": "workspace:^"
   }
 }

@@ -118,6 +118,31 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/checkbox:
+    dependencies:
+      '@oku-ui/compose-refs':
+        specifier: workspace:^
+        version: link:../../core/compose-refs
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/use-controllable-ref':
+        specifier: workspace:^
+        version: link:../../core/use-controllable-ref
+      '@oku-ui/use-previous':
+        specifier: workspace:^
+        version: link:../../core/use-previous
+      '@oku-ui/use-size':
+        specifier: workspace:^
+        version: link:../../core/use-size
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/label:
     dependencies:
       '@oku-ui/primitive':

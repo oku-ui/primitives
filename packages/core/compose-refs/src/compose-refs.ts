@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { onMounted, onUnmounted, ref } from 'vue'
 
-function useComposedRefs(refs: Ref[]) {
+function useComposedRefs(...refs: Ref[]) {
   const composedRef = ref(null)
 
   onMounted(() => {

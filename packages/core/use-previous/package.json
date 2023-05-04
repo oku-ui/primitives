@@ -31,7 +31,8 @@
     "clean": "rm -rf dist",
     "build": "vite build --mode production",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "dev": "vite build --mode production --watch"
   },
   "peerDependencies": {
     "vue": "^3.3.0-beta.3"
