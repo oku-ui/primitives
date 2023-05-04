@@ -4,4 +4,11 @@ export {
   OkuAvatarImage,
   createAvatarScope,
 } from './avatar'
-export type { AvatarFallbackProps, AvatarProps, AvatarImageProps } from './avatar'
+export type {
+  AvatarFallbackProps,
+  AvatarProps,
+  AvatarImageProps,
+  OkuAvatarElement,
+  OkuAvatarFallbackElement,
+  OkuAvatarImageElement,
+} from './avatar'

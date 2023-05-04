@@ -164,7 +164,7 @@ const AvatarFallback = defineComponent({
   name: FALLBACK_NAME,
   inheritAttrs: false,
   setup(props, { attrs, expose, slots }) {
-    const { __scopeAvatar, delayms, ...fallbackProps } = attrs as any
+    const { __scopeAvatar, delayms, ...fallbackProps } = attrs as ScopedProps<AvatarFallbackProps>
     const provide = useAvatarInject(FALLBACK_NAME, __scopeAvatar)
     const canRender = ref(delayms === undefined)
     const innerRef = ref<ComponentPublicInstance>()
@@ -213,6 +213,10 @@ const OkuAvatar = Avatar as typeof Avatar & (new () => { $props: ScopedProps<Ava
 const OkuAvatarImage = AvatarImage as typeof AvatarImage & (new () => { $props: ScopedProps<AvatarImageProps> })
 const OkuAvatarFallback = AvatarFallback as typeof AvatarFallback & (new () => { $props: ScopedProps<AvatarFallbackProps> })
 
+type OkuAvatarElement = Omit<InstanceType<typeof Avatar>, keyof ComponentPublicInstance>
+type OkuAvatarImageElement = Omit<InstanceType<typeof AvatarImage>, keyof ComponentPublicInstance>
+type OkuAvatarFallbackElement = Omit<InstanceType<typeof AvatarFallback>, keyof ComponentPublicInstance>
+
 export {
   OkuAvatar,
   OkuAvatarImage,
@@ -224,4 +228,7 @@ export type {
   AvatarProps,
   AvatarImageProps,
   AvatarFallbackProps,
+  OkuAvatarElement,
+  OkuAvatarImageElement,
+  OkuAvatarFallbackElement,
 }
