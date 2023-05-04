@@ -1,5 +1,5 @@
 import type { DefineComponent, FunctionalComponent, IntrinsicElementAttributes, VNodeRef } from 'vue'
-import { defineComponent, h, onMounted } from 'vue'
+import { defineComponent, h, onMounted, ref } from 'vue'
 
 /* -------------------------------------------------------------------------------------------------
  * Primitive
@@ -80,16 +80,21 @@ type ElementRef<T extends keyof JSX.IntrinsicElements | ElementConstructor<any>>
 interface PrimitiveDefineComponent<E extends ElementType> extends DefineComponent<PrimitivePropsWithRef<E>> {}
 
 const Primitive = NODES.reduce((primitive, node) => {
+  const innerRef = ref<HTMLElement>()
   const Node = defineComponent<PrimitivePropsWithRef<typeof node>>({
     name: `Primitive${node}`,
     inheritAttrs: false,
-    setup(props, { attrs, slots }) {
+    setup(props, { attrs, slots, expose }) {
+      expose({
+        innerRef,
+      })
+
       onMounted(() => {
         (window as any)[Symbol.for('okui-vue')] = true
       })
       const Tag: any = props.asChild ? 'slot' : node
 
-      return () => h(Tag, attrs, slots.default && slots.default())
+      return () => h(Tag, { ...attrs, ref: innerRef }, slots.default && slots.default())
     },
   })
   return { ...primitive, [node]: Node }

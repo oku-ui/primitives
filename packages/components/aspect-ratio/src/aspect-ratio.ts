@@ -1,9 +1,9 @@
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, onMounted, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
 type PrimitiveAspectRatioProps = ComponentPropsWithoutRef<typeof Primitive.div>
-type AspectRatioElement = ElementRef<typeof Primitive.div>
+type AspectRatioElement = ElementRef<typeof Primitive.div> & { innerRef: AspectRatioElement }
 
 interface AspectRatioProps extends PrimitiveAspectRatioProps {
   ratio?: number
@@ -16,10 +16,14 @@ const AspectRatio = defineComponent<AspectRatioProps, { hello: string }>({
   setup(props, { attrs, slots, expose }) {
     // TODO: as any how to fix?
     const { ratio = 1 / 1, style, ...aspectRatioProps } = attrs as any
-    const inferRef = ref<AspectRatioElement>()
+    const innerRef = ref<AspectRatioElement>()
+
+    onMounted(() => {
+      innerRef.value = innerRef.value?.innerRef
+    })
 
     expose({
-      inferRef,
+      innerRef,
     })
 
     return () => h(
@@ -36,7 +40,7 @@ const AspectRatio = defineComponent<AspectRatioProps, { hello: string }>({
           Primitive.div,
           {
             ...aspectRatioProps,
-            ref: inferRef,
+            ref: innerRef,
             style: {
               ...style,
               position: 'absolute',

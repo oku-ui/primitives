@@ -54,7 +54,7 @@ type AvatarProvideValue = {
 
 const [AvatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvideValue>(AVATAR_NAME)
 
-type AvatarElement = ComponentPropsWithoutRef<typeof Primitive.span>
+type AvatarElement = ComponentPropsWithoutRef<typeof Primitive.span> & { innerRef: AvatarElement }
 type PrimitiveSpanProps = ComponentPropsWithoutRef<typeof Primitive.span>
 interface AvatarProps extends PrimitiveSpanProps {}
 
@@ -72,6 +72,10 @@ const Avatar = defineComponent<ScopedProps<AvatarProps>>({
       onImageLoadingStatusChange: (status: ImageLoadingStatus) => {
         imageLoadingStatus.value = status
       },
+    })
+
+    onMounted(() => {
+      innerRef.value = innerRef.value?.innerRef
     })
 
     expose({
@@ -94,7 +98,7 @@ const Avatar = defineComponent<ScopedProps<AvatarProps>>({
 
 const IMAGE_NAME = 'AvatarImage'
 
-type AvatarImageElement = ComponentPropsWithoutRef<typeof Primitive.img>
+type AvatarImageElement = ComponentPropsWithoutRef<typeof Primitive.img> & { innerRef: AvatarImageElement }
 type PrimitiveImgProps = ComponentPropsWithoutRef<typeof Primitive.img>
 interface AvatarImageProps extends PrimitiveImgProps {
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void
@@ -115,6 +119,8 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
     })
 
     onMounted(() => {
+      innerRef.value = innerRef.value?.innerRef
+
       if (imageLoadingStatus.value !== 'idle')
         handleLoadingStatusChange(imageLoadingStatus.value)
     })
@@ -148,7 +154,7 @@ const AvatarImage = defineComponent<ScopedProps<AvatarImageProps>>({
 const FALLBACK_NAME = 'AvatarFallback'
 
 type PrimitiveAvatarFallbackProps = ComponentPropsWithoutRef<typeof Primitive.span>
-type PrimitiveSpanElement = ComponentPropsWithoutRef<typeof Primitive.span>
+type PrimitiveSpanElement = ComponentPropsWithoutRef<typeof Primitive.span> & { innerRef: PrimitiveSpanElement }
 interface AvatarFallbackProps extends PrimitiveAvatarFallbackProps, PrimitiveSpanProps {
   delayms?: number
 }
@@ -163,6 +169,8 @@ const AvatarFallback = defineComponent<ScopedProps<AvatarFallbackProps>>({
     const innerRef = ref<PrimitiveSpanElement>()
 
     onMounted(() => {
+      innerRef.value = innerRef.value?.innerRef
+
       if (delayms === undefined)
         canRender.value = true
       else
