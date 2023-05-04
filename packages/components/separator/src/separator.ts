@@ -63,5 +63,7 @@ const Separator = defineComponent<SeparatorProps>({
 
 const OkuSeparator = Separator as typeof Separator & (new () => { $props: SeparatorProps })
 
+type OkuSeparatorElement = Omit<InstanceType<typeof OkuSeparator>, keyof ComponentPublicInstance>
+
 export { OkuSeparator }
-export type { SeparatorProps }
+export type { SeparatorProps, OkuSeparatorElement }
