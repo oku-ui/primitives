@@ -45,6 +45,7 @@
     "@oku-ui/provide": "workspace:^",
     "@oku-ui/use-controllable-ref": "workspace:^",
     "@oku-ui/use-previous": "workspace:^",
-    "@oku-ui/use-size": "workspace:^"
+    "@oku-ui/use-size": "workspace:^",
+    "@oku-ui/utils": "workspace:^"
   }
 }

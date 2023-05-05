@@ -2,14 +2,14 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComponentPublicInstance, Ref } from 'vue'
 import { Transition, computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
-import { useComposedRefs } from '@oku-ui/compose-refs'
 
-// import { composeEventHandlers } from '@oku-ui/primitive';
 import { useControllableRef } from '@oku-ui/use-controllable-ref'
-
+import { composeEventHandlers } from '@oku-ui/utils'
 import { usePrevious } from '@oku-ui/use-previous'
 import { useSize } from '@oku-ui/use-size'
 import { Primitive } from '@oku-ui/primitive'
+
+// import { useComposedRefs } from '@oku-ui/compose-refs'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
@@ -105,12 +105,8 @@ const Checkbox = defineComponent({
   components: { BubbleInput },
   inheritAttrs: false,
   setup(_, { attrs, slots, expose }) {
-    const innerRef = ref<ComponentPublicInstance>()
+    const innerRef = ref()
     const _innerRef = computed(() => innerRef.value?.$el)
-
-    expose({
-      innerRef: _innerRef as Ref<CheckboxElement>,
-    })
 
     const {
       __scopeCheckbox,
@@ -125,7 +121,9 @@ const Checkbox = defineComponent({
     } = attrs as ScopedProps<CheckboxProps>
 
     const _button = computed<HTMLButtonElement>(() => _innerRef.value)
-    const composedRefs = useComposedRefs(inferRef, _inferRef)
+    // const button = ref<HTMLButtonElement>()
+    // TODO: Change the useComposedRefs structure here if necessary (https://github.com/radix-ui/primitives/blob/c3f2189034e690e9fb564d484733144fdcbc02d7/packages/react/checkbox/src/Checkbox.tsx#L56)
+    // const composedRefs = useComposedRefs(innerRef, button)
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
@@ -166,25 +164,22 @@ const Checkbox = defineComponent({
         'value': value,
         ...checkboxProps,
         'ref': innerRef,
-        'onKeyDown': (event: KeyboardEvent) => {
-        // According to WAI ARIA, Checkboxes don't activate on enter keypress
+        'onKeyDown': composeEventHandlers(checkboxProps.onKeydown, (event) => {
+          // According to WAI ARIA, Checkboxes don't activate on enter keypress
           if (event.key === 'Enter')
             event.preventDefault()
-        },
-        'onClick': (event: MouseEvent) => {
-          setChecked((prevChecked) => {
-            return (isIndeterminate(prevChecked) ? true : !prevChecked)
-          })
-
+        }),
+        'onClick': composeEventHandlers(checkboxProps.onClick, (event) => {
+          setChecked(prevChecked => (isIndeterminate(prevChecked) ? true : !prevChecked))
           if (isFormControl) {
-            // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
-            //   // if checkbox is in a form, stop propagation from the button so that we only propagate
-            //   // one click event (from the input). We propagate changes from an input so that native
+            // hasConsumerStoppedPropagationRef.value.current = event.isPropagationStopped()
+            // if checkbox is in a form, stop propagation from the button so that we only propagate
+            // one click event (from the input). We propagate changes from an input so that native
             // form validation works and form events reflect checkbox updates.
             if (!hasConsumerStoppedPropagationRef.value)
               event.stopPropagation()
           }
-        },
+        }),
       },
       slots.default?.(),
       ), isFormControl && h(

@@ -13,5 +13,6 @@ export default <Options>{
   target: 'node16',
   format: ['esm', 'cjs'],
   dts: true,
+  clean: true,
   external,
 }

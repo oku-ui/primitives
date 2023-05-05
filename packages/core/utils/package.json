@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "tsup --dts",
+    "build": "tsup",
     "dev": "tsup --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
