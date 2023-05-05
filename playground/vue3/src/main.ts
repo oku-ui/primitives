@@ -1,9 +1,10 @@
+import '@unocss/reset/tailwind.css'
+import 'virtual:uno.css'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createApp } from 'vue'
 import App from './App.vue'
 import routes from '~pages'
 import './style.css'
-import 'virtual:uno.css'
 
 const router = createRouter({
   history: createWebHistory(),

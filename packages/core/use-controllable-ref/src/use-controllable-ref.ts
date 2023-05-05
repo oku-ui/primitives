@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import type { Ref } from 'vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 import { useCallbackRef } from '@oku-ui/use-callback-ref'
 
 type UseControllableRefParams<T> = {
@@ -16,23 +18,31 @@ function useControllableRef<T>({
   onChange = () => {},
 }: UseControllableRefParams<T>) {
   const uncontrolledProp = useUncontrolledRef({ defaultProp, onChange })
-  const isControlled = computed(() => prop !== undefined)
-  const value = computed(() => isControlled.value ? prop : uncontrolledProp.value)
+  const isControlled = prop !== undefined
+  const state = computed(() => (isControlled ? prop : uncontrolledProp.value))
   const handleChange = computed(() => onChange)
 
-  const setValue = (nextValue: T | undefined) => {
-    if (isControlled.value) {
-      const setter = nextValue as SetRefFn<T>
-      const value = typeof nextValue === 'function' ? setter(prop) : nextValue
+  const setValue = (callback: (nextValue: T | undefined) => void | T): any => {
+    const refCallback = ref(callback)
+    const computedCallback = computed(() => refCallback.value)
+
+    watchEffect(() => {
+      refCallback.value = callback
+    })
+
+    if (isControlled) {
+      const setter = computedCallback.value as SetRefFn<T>
+      const value = typeof computedCallback.value === 'function' ? setter(prop) : computedCallback.value
       if (value !== prop)
         handleChange.value(value as T)
     }
     else {
-      uncontrolledProp.value = nextValue
+      const setter = callback as SetRefFn<T>
+      uncontrolledProp.value = typeof callback === 'function' ? setter(uncontrolledProp.value) : callback
     }
   }
 
-  return [value, setValue] as const
+  return [state, setValue] as const
 }
 
 function useUncontrolledRef<T>({
@@ -43,16 +53,35 @@ function useUncontrolledRef<T>({
   const prevValueRef = ref(defaultProp) as Ref<T | undefined>
   const handleChange = useCallbackRef(onChange)
 
-  onMounted(() => {
-    watch([uncontrolledRef, prevValueRef, handleChange], () => {
-      if (prevValueRef.value !== uncontrolledRef.value) {
-        handleChange(uncontrolledRef.value as T)
-        prevValueRef.value = uncontrolledRef.value
-      }
-    })
+  watch([uncontrolledRef, prevValueRef, handleChange], () => {
+    if (prevValueRef.value !== uncontrolledRef.value) {
+      handleChange(uncontrolledRef.value as T)
+      prevValueRef.value = uncontrolledRef.value
+    }
   })
 
   return uncontrolledRef
 }
 
 export { useControllableRef }
+
+// type Callback<T extends any[]> = (...args: T) => void
+
+// function useCallback<T extends any[]>(callback: Callback<T>, deps: any[]): (...args: T) => void {
+// const refCallback = ref(callback)
+// const computedCallback = computed(() => refCallback.value)
+
+// const memoizedCallback = (...args: T) => computedCallback.value(...args)
+
+// watchEffect(() => {
+//   refCallback.value = callback
+// })
+
+//   if (deps.length > 0) {
+//     watch(deps, () => {
+//       refCallback.value = callback
+//     })
+//   }
+
+//   return memoizedCallback
+// }

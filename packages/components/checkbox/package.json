@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/compose-refs",
+  "name": "@oku-ui/checkbox",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
@@ -16,12 +16,12 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/compose-refs.cjs",
-      "import": "./dist/compose-refs.js"
+      "require": "./dist/checkbox.cjs",
+      "import": "./dist/checkbox.js"
     }
   },
-  "main": "dist/compose-refs.cjs",
-  "module": "dist/compose-refs.js",
+  "main": "dist/checkbox.cjs",
+  "module": "dist/checkbox.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
@@ -31,11 +31,19 @@
     "clean": "rm -rf dist",
     "build": "vite build --mode production",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "dev": "vite build --mode production --watch"
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
     "vue": "^3.3.0-beta.3"
+  },
+  "dependencies": {
+    "@oku-ui/compose-refs": "workspace:^",
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/provide": "workspace:^",
+    "@oku-ui/use-controllable-ref": "workspace:^",
+    "@oku-ui/use-previous": "workspace:^",
+    "@oku-ui/use-size": "workspace:^",
+    "@oku-ui/utils": "workspace:^"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

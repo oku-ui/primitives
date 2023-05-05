@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@iconify-json/ph':
+        specifier: ^1.1.5
+        version: 1.1.5
       '@storybook/addon-essentials':
         specifier: ^7.0.7
         version: 7.0.7(react-dom@18.2.0)(react@18.2.0)
@@ -29,6 +32,9 @@ importers:
       '@storybook/vue3-vite':
         specifier: ^7.0.7
         version: 7.0.7(react-dom@18.2.0)(react@18.2.0)(typescript@5.0.4)(vite@4.3.1)(vue@3.3.0-beta.3)
+      '@unocss/preset-icons':
+        specifier: ^0.51.8
+        version: 0.51.8
       '@vitejs/plugin-vue':
         specifier: ^4.2.1
         version: 4.2.1(vite@4.3.1)(vue@3.3.0-beta.3)
@@ -113,6 +119,37 @@ importers:
       '@oku-ui/use-callback-ref':
         specifier: workspace:^
         version: link:../../core/use-callback-ref
+      vue:
+        specifier: ^3.3.0-beta.3
+        version: 3.3.0-beta.3
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/checkbox:
+    dependencies:
+      '@oku-ui/compose-refs':
+        specifier: workspace:^
+        version: link:../../core/compose-refs
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/use-controllable-ref':
+        specifier: workspace:^
+        version: link:../../core/use-controllable-ref
+      '@oku-ui/use-previous':
+        specifier: workspace:^
+        version: link:../../core/use-previous
+      '@oku-ui/use-size':
+        specifier: workspace:^
+        version: link:../../core/use-size
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
       vue:
         specifier: ^3.3.0-beta.3
         version: 3.3.0-beta.3
@@ -272,6 +309,9 @@ importers:
       '@oku-ui/avatar':
         specifier: workspace:^
         version: link:../../packages/components/avatar
+      '@oku-ui/checkbox':
+        specifier: workspace:^
+        version: link:../../packages/components/checkbox
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
@@ -1958,6 +1998,12 @@ packages:
 
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+
+  /@iconify-json/ph@1.1.5:
+    resolution: {integrity: sha512-iLXq3nohfGge22gL2tZmQ2WHBKkKkIbGWrkuyC8arckS4PWaONyh4A+uDPtSek9QbYDvi9AE2+NxWkNZhANotA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
 
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
