@@ -30,6 +30,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

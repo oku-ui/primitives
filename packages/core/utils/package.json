@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/use-previous",
+  "name": "@oku-ui/utils",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -11,31 +11,28 @@
     "url": "git+https://github.com/oku-ui/primitives.git"
   },
   "bugs": {
-    "url": "https://github.com/oku-ui/primitives/issues"
+    "url": "https://github.com/oku-ui/c/issues"
   },
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/use-previous.cjs",
-      "import": "./dist/use-previous.js"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     }
   },
-  "main": "dist/use-previous.cjs",
-  "module": "dist/use-previous.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "vite build --mode production",
-    "dev": "vite build --mode production --watch",
+    "build": "tsup --dts",
+    "dev": "tsup --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.0-beta.3"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

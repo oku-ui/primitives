@@ -39,6 +39,7 @@
     "react-dom": "^18.2.0",
     "storybook": "^7.0.7",
     "storybook-dark-mode": "^3.0.0",
+    "tsup": "^6.7.0",
     "turbo": "^1.9.3",
     "typescript": "^5.0.4",
     "unocss": "^0.51.8",
