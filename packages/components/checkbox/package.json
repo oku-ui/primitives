@@ -36,9 +36,6 @@
   "peerDependencies": {
     "vue": "^3.3.0-beta.3"
   },
-  "devDependencies": {
-    "tsconfig": "workspace:^"
-  },
   "dependencies": {
     "@oku-ui/compose-refs": "workspace:^",
     "@oku-ui/primitive": "workspace:^",
@@ -47,5 +44,8 @@
     "@oku-ui/use-previous": "workspace:^",
     "@oku-ui/use-size": "workspace:^",
     "@oku-ui/utils": "workspace:^"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
   }
 }
