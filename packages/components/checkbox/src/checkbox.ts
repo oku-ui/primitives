@@ -1,8 +1,7 @@
 /* eslint-disable vue/one-component-per-file */
-import { useComposedRefs } from '@oku-ui/compose-refs'
 import { createProvideScope } from '@oku-ui/provide'
-import type { Ref } from 'vue'
-import { Transition, defineComponent, h, ref, watchEffect } from 'vue'
+import type { ComponentPublicInstance, Ref } from 'vue'
+import { Transition, computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
 
 // import { composeEventHandlers } from '@oku-ui/primitive';
 import { useControllableRef } from '@oku-ui/use-controllable-ref'
@@ -43,7 +42,6 @@ const BubbleInput = defineComponent({
     const controlSize = useSize(control)
 
     watchEffect(() => {
-      console.log('BubbleInput', prevChecked, checked, bubbles)
       const input = _ref.value!
       const inputProto = window.HTMLInputElement.prototype
       const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
@@ -101,15 +99,16 @@ interface CheckboxProps extends Omit<PrimitiveButtonProps, 'checked' | 'defaultC
   onCheckedChange?(checked: CheckedState): void
 }
 const checkboxDisplayName = 'OkuCheckbox'
-const Checkbox = defineComponent<CheckboxProps>({
+const Checkbox = defineComponent({
   name: checkboxDisplayName,
   components: { BubbleInput },
   inheritAttrs: false,
   setup(_, { attrs, slots, expose }) {
-    const inferRef = ref<CheckboxElement>()
+    const innerRef = ref<ComponentPublicInstance>()
+    const _innerRef = computed(() => innerRef.value?.$el)
 
     expose({
-      inferRef,
+      innerRef: _innerRef as Ref<CheckboxElement>,
     })
 
     const {
@@ -124,20 +123,22 @@ const Checkbox = defineComponent<CheckboxProps>({
       ...checkboxProps
     } = attrs as ScopedProps<CheckboxProps>
 
-    const button = ref<HTMLButtonElement>()
-    const composedRefs = useComposedRefs(inferRef, button)
+    const _button = computed<HTMLButtonElement>(() => _innerRef.value)
     const hasConsumerStoppedPropagationRef = ref(false)
-    // We set this to true by default so that events bubble to forms without JS (SSR)
-    const isFormControl = button.value ? Boolean(button.value.closest('form')) : true
+
+    const isFormControl = _button.value ? Boolean(_button.value.closest('form')) : true
     const [checked, setChecked] = useControllableRef({
       prop: checkedProp,
       defaultProp: defaultChecked,
       onChange: onCheckedChange,
     })
 
-    const initialCheckedStateRef = ref(checked.value)
+    const initialCheckedStateRef = ref()
+    onMounted(() => {
+      initialCheckedStateRef.value = checked.value
+    })
     watchEffect(() => {
-      const form = button.value?.form
+      const form = _button.value?.form
       if (form) {
         const reset = () => setChecked(initialCheckedStateRef.value)
         form.addEventListener('reset', reset)
@@ -150,7 +151,7 @@ const Checkbox = defineComponent<CheckboxProps>({
       state: checked as Ref<CheckedState>,
       disabled: disabled as boolean,
     })
-    return () =>
+    const originalReturn = () =>
       [h(Primitive.button, {
         'type': 'button',
         'role': 'checkbox',
@@ -161,22 +162,21 @@ const Checkbox = defineComponent<CheckboxProps>({
         'disabled': disabled,
         'value': value,
         ...checkboxProps,
-        'ref': composedRefs,
+        'ref': innerRef,
         'onKeyDown': (event: KeyboardEvent) => {
         // According to WAI ARIA, Checkboxes don't activate on enter keypress
           if (event.key === 'Enter')
             event.preventDefault()
         },
         'onClick': (event: MouseEvent) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-          setChecked((prevChecked: any) => {
-            return true
+          setChecked((prevChecked) => {
+            return (isIndeterminate(prevChecked) ? true : !prevChecked)
           })
+
           if (isFormControl) {
-          //   hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
-          //   // if checkbox is in a form, stop propagation from the button so that we only propagate
-          //   // one click event (from the input). We propagate changes from an input so that native
+            // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
+            //   // if checkbox is in a form, stop propagation from the button so that we only propagate
+            //   // one click event (from the input). We propagate changes from an input so that native
             // form validation works and form events reflect checkbox updates.
             if (!hasConsumerStoppedPropagationRef.value)
               event.stopPropagation()
@@ -187,7 +187,7 @@ const Checkbox = defineComponent<CheckboxProps>({
       ), isFormControl && h(
         BubbleInput,
         {
-          control: button.value,
+          control: _button.value,
           bubbles: !hasConsumerStoppedPropagationRef.value,
           name,
           value,
@@ -201,6 +201,10 @@ const Checkbox = defineComponent<CheckboxProps>({
         },
       ),
       ]
+
+    return originalReturn as unknown as {
+      innerRef: Ref<CheckboxElement>
+    }
   },
 })
 
@@ -212,22 +216,19 @@ interface CheckboxIndicatorProps extends PrimitiveSpanProps {
 
 const INDICATOR_NAME = 'CheckboxIndicator'
 
-const CheckboxIndicator = defineComponent<CheckboxIndicatorProps>({
+const CheckboxIndicator = defineComponent({
   name: 'CheckboxIndicator',
   components: { Transition },
   setup(_, { attrs, expose, slots }) {
     const { __scopeCheckbox, forceMount, ...indicatorProps } = attrs as ScopedProps<CheckboxIndicatorProps>
-    const inferRef = ref<ChecknoxIndicatorElement>()
+    const innerRef = ref<ChecknoxIndicatorElement>()
     expose({
-      inferRef,
+      innerRef,
     })
 
-    const context = useCheckboxInject(INDICATOR_NAME, __scopeCheckbox as Scope)
-    watchEffect(() => {
-      console.log(context.value)
-      console.log((forceMount || isIndeterminate(context.value.state.value) || context.value.state.value === true))
-    })
-    return () => h(Transition, [
+    const context = useCheckboxInject(INDICATOR_NAME, __scopeCheckbox)
+
+    const originalReturn = () => h(Transition, [
       (forceMount || isIndeterminate(context.value.state.value) || context.value.state.value === true)
         ? h(Primitive.span, {
           'data-state': getState(context.value.state.value),
@@ -239,15 +240,26 @@ const CheckboxIndicator = defineComponent<CheckboxIndicatorProps>({
         )
         : null,
     ])
+
+    return originalReturn as unknown as {
+      innerRef: Ref<ChecknoxIndicatorElement>
+    }
   },
 })
 
+const OkuCheckbox = Checkbox as typeof Checkbox & (new () => { $props: ScopedProps<CheckboxProps> })
+const OkuCheckboxIndicator = CheckboxIndicator as typeof CheckboxIndicator & (new () => { $props: ScopedProps<CheckboxIndicatorProps> })
+
+type OkuCheckboxElement = Omit<InstanceType<typeof Checkbox>, keyof ComponentPublicInstance>
+type OkuCheckboxIndicatorElement = Omit<InstanceType<typeof CheckboxIndicator>, keyof ComponentPublicInstance>
 export {
-  Checkbox,
-  CheckboxIndicator,
+  OkuCheckbox,
+  OkuCheckboxIndicator,
 }
 
 export type {
   CheckboxProps,
   CheckboxIndicatorProps,
+  OkuCheckboxElement,
+  OkuCheckboxIndicatorElement,
 }

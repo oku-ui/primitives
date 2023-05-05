@@ -20,6 +20,10 @@ const pages: Page[] = [
     name: 'OkuSeparator',
     path: '/separator',
   },
+  {
+    name: 'OkuCheckbox',
+    path: '/checkbox',
+  },
 ]
 </script>
 

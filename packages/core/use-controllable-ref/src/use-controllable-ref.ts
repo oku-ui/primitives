@@ -22,19 +22,25 @@ function useControllableRef<T>({
   const state = computed(() => (isControlled ? prop : uncontrolledProp.value))
   const handleChange = computed(() => onChange)
 
-  const setValue = useCallback((nextValue: T | undefined) => {
+  const setValue = (callback: (nextValue: T | undefined) => void | T): any => {
+    const refCallback = ref(callback)
+    const computedCallback = computed(() => refCallback.value)
+
+    watchEffect(() => {
+      refCallback.value = callback
+    })
+
     if (isControlled) {
-      const setter = nextValue as SetRefFn<T>
-      const value = typeof nextValue === 'function' ? setter(prop) : nextValue
+      const setter = computedCallback.value as SetRefFn<T>
+      const value = typeof computedCallback.value === 'function' ? setter(prop) : computedCallback.value
       if (value !== prop)
         handleChange.value(value as T)
     }
     else {
-      uncontrolledProp.value = nextValue
+      const setter = callback as SetRefFn<T>
+      uncontrolledProp.value = typeof callback === 'function' ? setter(uncontrolledProp.value) : callback
     }
-    console.log(state.value)
-    console.log(uncontrolledProp.value)
-  }, [prop])
+  }
 
   return [state, setValue] as const
 }
@@ -59,23 +65,23 @@ function useUncontrolledRef<T>({
 
 export { useControllableRef }
 
-type Callback<T extends any[]> = (...args: T) => void
+// type Callback<T extends any[]> = (...args: T) => void
 
-function useCallback<T extends any[]>(callback: Callback<T>, deps: any[]): (...args: T) => void {
-  const refCallback = ref(callback)
-  const computedCallback = computed(() => refCallback.value)
+// function useCallback<T extends any[]>(callback: Callback<T>, deps: any[]): (...args: T) => void {
+// const refCallback = ref(callback)
+// const computedCallback = computed(() => refCallback.value)
 
-  const memoizedCallback = (...args: T) => computedCallback.value(...args)
+// const memoizedCallback = (...args: T) => computedCallback.value(...args)
 
-  watchEffect(() => {
-    refCallback.value = callback
-  })
+// watchEffect(() => {
+//   refCallback.value = callback
+// })
 
-  if (deps.length > 0) {
-    watch(deps, () => {
-      refCallback.value = callback
-    })
-  }
+//   if (deps.length > 0) {
+//     watch(deps, () => {
+//       refCallback.value = callback
+//     })
+//   }
 
-  return memoizedCallback
-}
+//   return memoizedCallback
+// }
