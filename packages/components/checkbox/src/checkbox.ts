@@ -2,6 +2,7 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComponentPublicInstance, Ref } from 'vue'
 import { Transition, computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
+import { useComposedRefs } from '@oku-ui/compose-refs'
 
 // import { composeEventHandlers } from '@oku-ui/primitive';
 import { useControllableRef } from '@oku-ui/use-controllable-ref'
@@ -124,6 +125,8 @@ const Checkbox = defineComponent({
     } = attrs as ScopedProps<CheckboxProps>
 
     const _button = computed<HTMLButtonElement>(() => _innerRef.value)
+    const composedRefs = useComposedRefs(inferRef, _inferRef)
+
     const hasConsumerStoppedPropagationRef = ref(false)
 
     const isFormControl = _button.value ? Boolean(_button.value.closest('form')) : true
