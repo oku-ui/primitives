@@ -20,6 +20,10 @@ const pages: Page[] = [
     name: 'OkuSeparator',
     path: '/separator',
   },
+  {
+    name: 'OkuProgress',
+    path: '/progress',
+  },
 ]
 </script>
 

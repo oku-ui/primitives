@@ -1,0 +1,46 @@
+{
+  "name": "@oku-ui/progress",
+  "type": "module",
+  "version": "1.0.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/progress.cjs",
+      "import": "./dist/progress.js"
+    }
+  },
+  "main": "dist/progress.cjs",
+  "module": "dist/progress.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "vite build --mode production",
+    "dev": "vite build --mode production --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0-beta.3"
+  },
+  "dependencies": {
+    "@oku-ui/primitive": "workspace:^"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  }
+}
