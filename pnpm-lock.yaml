@@ -11,6 +11,9 @@ importers:
       '@iconify-json/ph':
         specifier: ^1.1.5
         version: 1.1.5
+      '@oku-ui/label':
+        specifier: workspace:^
+        version: link:packages/components/label
       '@storybook/addon-essentials':
         specifier: ^7.0.7
         version: 7.0.7(react-dom@18.2.0)(react@18.2.0)

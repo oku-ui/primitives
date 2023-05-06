@@ -33,6 +33,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
+      '@oku-ui/label': './src/index.ts',
     },
   },
   build: {
