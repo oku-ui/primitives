@@ -257,6 +257,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
+      '@oku-ui/progress':
+        specifier: workspace:^
+        version: link:../../packages/components/progress
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
