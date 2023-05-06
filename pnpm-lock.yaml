@@ -132,6 +132,9 @@ importers:
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
       vue:
         specifier: ^3.3.0-beta.3
         version: 3.3.0-beta.3
