@@ -1,21 +1,47 @@
 <script setup lang="ts">
-import { OkuProgress } from '@oku-ui/progress'
+import { OkuProgress, OkuProgressIndicator } from '@oku-ui/progress'
 import { ref } from 'vue'
-import Sx from './sx.vue'
 
 const value = ref(20)
 
 function add() {
   value.value += 1
-  // console.log(value.value)
+}
+function sub() {
+  value.value -= 1
 }
 </script>
 
 <template>
+  <button style="margin: 10px;" @click="sub">
+    -1
+  </button>
   <button @click="add">
     +1
   </button>
-  {{ value }}
-  <OkuProgress :max="200" :value="value" />
-  <Sx :sx="value" />
+  <OkuProgress class="ProgressRoot" :value="value">
+    <OkuProgressIndicator id="value" class="ProgressIndicator" :style="{ transform: `translateX(-${100 - value}%)` }" />
+  </OkuProgress>
 </template>
+
+<style>
+.ProgressRoot {
+  position: relative;
+  overflow: hidden;
+  background: #c8cdd4;
+  border-radius: 99999px;
+  width: 300px;
+  height: 25px;
+
+  /* Fix overflow clipping in Safari */
+  /* https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0 */
+  transform: translateZ(0);
+}
+
+.ProgressIndicator {
+  background-color: #528ab3;
+  width: 100%;
+  height: 100%;
+  transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+</style>
