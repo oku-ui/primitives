@@ -9,7 +9,7 @@ export interface OkuLabelProps {
   template: '#1' | '#2'
 }
 
-const props = withDefaults(defineProps<OkuLabelProps>(), {
+withDefaults(defineProps<OkuLabelProps>(), {
   label: 'First Name',
   template: '#1',
 })

@@ -34,3 +34,6 @@ build-storybook.log
 
 dist
 .nuxt
+
+auto-imports.d.ts
+components.d.ts

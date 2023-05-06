@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { OkuLabelProps } from './label.demo.vue'
-import OkuLabelComponent from './label.demo.vue'
+import type { OkuLabelProps } from './LabelDemo.vue'
+import OkuLabelComponent from './LabelDemo.vue'
 
 interface StoryProps extends OkuLabelProps {
 }
