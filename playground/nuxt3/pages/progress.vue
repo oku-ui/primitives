@@ -2,25 +2,27 @@
 import { OkuProgress, OkuProgressIndicator } from '@oku-ui/progress'
 import { ref } from 'vue'
 
-const value = ref(20)
+const value = ref(13)
 
-function add() {
-  value.value += 1
+function startTimer() {
+  return setTimeout(() => {
+    value.value = 66
+  }, 500)
 }
-function sub() {
-  value.value -= 1
-}
+let timer: any = null
+
+onMounted(() => {
+  timer = startTimer()
+})
+
+onUnmounted(() => {
+  clearTimeout(timer)
+})
 </script>
 
 <template>
-  <button style="margin: 10px;" @click="sub">
-    -1
-  </button>
-  <button @click="add">
-    +1
-  </button>
   <OkuProgress class="ProgressRoot" :value="value">
-    <OkuProgressIndicator id="value" class="ProgressIndicator" :style="{ transform: `translateX(-${100 - value}%)` }" />
+    <OkuProgressIndicator class="ProgressIndicator" :style="{ transform: `translateX(-${100 - value}%)` }" />
   </OkuProgress>
 </template>
 

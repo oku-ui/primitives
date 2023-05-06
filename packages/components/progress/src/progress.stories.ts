@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import type { ProgressProps } from './progress'
 import { OkuProgress, OkuProgressIndicator } from './progress'
 
@@ -21,11 +21,19 @@ const meta = {
         }
       })
 
-      onMounted(() => {
-        const timer = setTimeout(() => {
+      const startTimer = () => {
+        return setTimeout(() => {
           value.value = 66
         }, 500)
-        return () => clearTimeout(timer)
+      }
+      let timer = null
+
+      onMounted(() => {
+        timer = startTimer()
+      })
+
+      onUnmounted(() => {
+        clearTimeout(timer)
       })
 
       return { value, style }
