@@ -167,6 +167,22 @@ importers:
         specifier: ^3.3.0-beta.3
         version: 3.3.0-beta.3
 
+  packages/components/progress:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      vue:
+        specifier: ^3.3.0-beta.3
+        version: 3.3.0-beta.3
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/separator:
     dependencies:
       '@oku-ui/primitive':
@@ -287,6 +303,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
+      '@oku-ui/progress':
+        specifier: workspace:^
+        version: link:../../packages/components/progress
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
@@ -315,6 +334,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
+      '@oku-ui/progress':
+        specifier: workspace:^
+        version: link:../../packages/components/progress
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
