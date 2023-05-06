@@ -20,6 +20,7 @@
     "build:storybook": "pnpm storybook build"
   },
   "devDependencies": {
+    "@iconify-json/ph": "^1.1.5",
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/addon-interactions": "^7.0.7",
     "@storybook/addon-links": "^7.0.7",
@@ -27,6 +28,7 @@
     "@storybook/testing-library": "^0.1.0",
     "@storybook/vue3": "^7.0.7",
     "@storybook/vue3-vite": "^7.0.7",
+    "@unocss/preset-icons": "^0.51.8",
     "@vitejs/plugin-vue": "^4.2.1",
     "@vitest/coverage-c8": "^0.30.1",
     "@vue/test-utils": "^2.3.2",
@@ -39,6 +41,7 @@
     "react-dom": "^18.2.0",
     "storybook": "^7.0.7",
     "storybook-dark-mode": "^3.0.0",
+    "tsup": "^6.7.0",
     "turbo": "^1.9.3",
     "typescript": "^5.0.4",
     "unocss": "^0.51.8",

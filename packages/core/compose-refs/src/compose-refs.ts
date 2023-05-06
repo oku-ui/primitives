@@ -1,34 +1,34 @@
-import type { Ref } from 'vue'
-import { onMounted, onUnmounted, ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
+import { computed } from 'vue'
 
-function useComposedRefs(refs: Ref[]) {
-  const composedRef = ref(null)
+type PossibleRef<T> = Ref<T> | ComputedRef<T> | undefined
 
-  onMounted(() => {
-    composedRef.value = refs.reduce((acc: any, ref) => {
-      if (!ref || !ref.value)
-        return acc
-      if (typeof acc === 'function') {
-        return (value: any) => {
-          ref.value = value
-          acc(value)
-        }
-      }
-      else {
-        ref.value = acc
-        return ref.value
-      }
-    }, null)
-  })
+/**
+ * Set a given ref to a given value
+ * This utility takes care of different types of refs: callback refs and RefObject(s)
+ */
+function setRef<T>(ref: PossibleRef<T>, value: T) {
+  if (typeof ref === 'function')
+    (ref as Function)(value)
 
-  onUnmounted(() => {
-    refs.forEach((ref) => {
-      if (ref && ref.value)
-        ref.value = null
-    })
-  })
-
-  return composedRef
+  else if (ref !== null && ref !== undefined)
+    (ref as Ref<T>).value = value
 }
 
-export { useComposedRefs }
+/**
+ * A utility to compose multiple refs together
+ * Accepts callback refs and RefObject(s)
+ */
+function composeRefs<T>(...refs: PossibleRef<T>[]) {
+  return (node: T) => refs.forEach(ref => setRef(ref, node))
+}
+
+/**
+ * A custom hook that composes multiple refs
+ * Accepts callback refs and RefObject(s)
+ */
+function useComposedRefs<T>(...refs: PossibleRef<T>[]) {
+  return computed(() => composeRefs(...refs))
+}
+
+export { composeRefs, useComposedRefs }

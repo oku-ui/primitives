@@ -13,6 +13,7 @@
   "dependencies": {
     "@oku-ui/aspect-ratio": "workspace:^",
     "@oku-ui/avatar": "workspace:^",
+    "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/separator": "workspace:^",
