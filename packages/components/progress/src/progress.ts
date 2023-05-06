@@ -2,41 +2,40 @@ import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
-import type { PropType } from 'vue'
+import type { ComponentPublicInstance, ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
+
+// ---------- Progress
 
 // ---type---
 
-type PrimitiveProgressProps = ComponentPropsWithoutRef<typeof Primitive.div>
+type PrimitiveDivProps = ComponentPropsWithoutRef<typeof Primitive.div>
 type ScopedProps<P> = P & { __scopeProgress?: Scope }
-type ProgressContextValue = { value: number | null; max: number }
-type ProgressElement = ComponentPropsWithoutRef<typeof Primitive.div>
+type ProgressContextValue = { value: ComputedRef<number> | null; max: ComputedRef<number> }
+type PrimitiveDivElement = ComponentPropsWithoutRef<typeof Primitive.div>
 type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
 // ---interface---
 
-interface ProgressProps extends PrimitiveProgressProps {
+interface ProgressProps extends PrimitiveDivProps {
   value?: number | null | undefined
   max?: number
   getValueLabel?(value: number, max: number): string
 }
 
-// ---enum---
-
-const NAME = 'Progress'
+// ---constants---
+const PROGRESS_NAME = 'Progress'
 const DEFAULT_MAX = 100
 
-// ---constants---
-
-const [createProgressContext, createProgressScope] = createProvideScope(NAME)
+const [createProgressContext, createProgressScope] = createProvideScope(PROGRESS_NAME)
 
 const [progressProvider, useProgressContext]
-  = createProgressContext<ProgressContextValue>(NAME)
+  = createProgressContext<ProgressContextValue>(PROGRESS_NAME)
 
 // ---component---
 
-const progress = defineComponent({
-  name: NAME,
+const Progress = defineComponent({
+  name: PROGRESS_NAME,
   inheritAttrs: false,
   props: {
     value: {
@@ -51,12 +50,12 @@ const progress = defineComponent({
       default: defaultGetValueLabel,
     },
   },
-  setup(props, { attrs, slots, expose, emit }) {
+  setup(props, { attrs, slots, expose }) {
     const { value, max, getValueLabel } = toRefs(props)
     const {
       __scopeProgress,
       ...progressProps
-    } = attrs as ScopedProps<PrimitiveProgressProps>
+    } = attrs as ScopedProps<PrimitiveDivProps>
 
     // propstype check
     if (max.value && !isValidMaxNumber(max.value))
@@ -65,7 +64,7 @@ const progress = defineComponent({
     if (value.value != null && !isValidValueNumber(value.value, max.value))
       console.error(getInvalidValueError(value.value))
 
-    const innerRef = ref()
+    const innerRef = ref<ComponentPublicInstance>()
     const maxProp = computed(() => isValidMaxNumber(max.value) ? max.value : DEFAULT_MAX)
     const valueProp = computed(() => isValidValueNumber(value.value, maxProp.value) ? value.value : null)
     const valueLabel = computed(() => isNumber(valueProp.value) ? getValueLabel.value(valueProp.value, maxProp.value) : undefined)
@@ -92,12 +91,12 @@ const progress = defineComponent({
 
     progressProvider({
       scope: __scopeProgress,
-      value: valueProp.value,
-      max: maxProp.value,
+      value: valueProp,
+      max: maxProp,
     })
 
     return originalReturn as unknown as {
-      innerRef: ProgressElement
+      innerRef: PrimitiveDivElement
     }
   },
 })
@@ -134,11 +133,11 @@ function getProgressState(value: number | undefined | null, maxValue: number): P
 }
 
 function getInvalidMaxError(propValue: string) {
-  return `Invalid prop \`max\` of value \`${propValue}\` supplied to \`${NAME}\`. Only numbers greater than 0 are valid max values. Defaulting to \`${DEFAULT_MAX}\`.`
+  return `Invalid prop \`max\` of value \`${propValue}\` supplied to \`${PROGRESS_NAME}\`. Only numbers greater than 0 are valid max values. Defaulting to \`${DEFAULT_MAX}\`.`
 }
 
 function getInvalidValueError(propValue: string) {
-  return `Invalid prop \`value\` of value \`${propValue}\` supplied to \`${NAME}\`. The \`value\` prop must be:
+  return `Invalid prop \`value\` of value \`${propValue}\` supplied to \`${PROGRESS_NAME}\`. The \`value\` prop must be:
   - a positive number
   - less than the value passed to \`max\` (or ${DEFAULT_MAX} if no \`max\` prop is set)
   - \`null\` if the progress is indeterminate.
@@ -146,10 +145,66 @@ function getInvalidValueError(propValue: string) {
 Defaulting to \`null\`.`
 }
 
+// ---------- ProgressIndicator
+
+// ---constants---
+
+const INDICATOR_NAME = 'ProgressIndicator'
+
+// ---component---
+
+interface ProgressIndicatorProps extends PrimitiveDivProps {}
+
+const ProgressIndicator = defineComponent({
+  name: INDICATOR_NAME,
+  inheritAttrs: true,
+  setup(props, { attrs, slots, expose }) {
+    const {
+      __scopeProgress,
+      ...indicatorProps
+    } = attrs as ScopedProps<ProgressIndicatorProps>
+
+    const innerRef = ref<ComponentPublicInstance>()
+    const context = useProgressContext(INDICATOR_NAME, __scopeProgress)
+
+    expose({
+      inferRef: computed(() => innerRef.value?.$el),
+    })
+
+    const originalReturn = () => h(
+      Primitive.div,
+      {
+        'data-state': getProgressState(context.value.value.value, context.value.max.value),
+        'data-value': context.value.value.value ?? undefined,
+        'data-max': context.value.max.value,
+        ...indicatorProps,
+        'ref': innerRef,
+      },
+      slots.default && slots.default())
+
+    return originalReturn as unknown as {
+      innerRef: PrimitiveDivElement
+    }
+  },
+})
+
 // ---export---
 
-const OkuProgress = progress
+const OkuProgress = Progress as typeof Progress & (new () => { $props: ScopedProps<ProgressProps> })
+const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator & (new () => { $props: ScopedProps<ProgressIndicatorProps> })
 
-export { OkuProgress }
+type OkuProgressElement = Omit<InstanceType<typeof Progress>, keyof ComponentPublicInstance>
+type OkuProgressIndicatorElement = Omit<InstanceType<typeof ProgressIndicator>, keyof ComponentPublicInstance>
 
-export type { ProgressProps, ProgressElement }
+export {
+  createProgressScope,
+  OkuProgress,
+  OkuProgressIndicator,
+}
+
+export type {
+  ProgressProps,
+  ProgressIndicatorProps,
+  OkuProgressElement,
+  OkuProgressIndicatorElement,
+}
