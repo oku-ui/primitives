@@ -33,7 +33,7 @@ const pages: Page[] = [
       v-for="page in pages"
       :key="page.name"
       :to="page.path"
-      class="bg-blue-900 hover:text-white text-white cursor-pointer hover:bg-blue-700 py-4 rounded-lg px-4"
+      class="bg-cyan-900 hover:text-white text-white cursor-pointer hover:bg-cyan-700 py-4 rounded-lg px-4"
     >
       {{ page.name }}
     </router-link>
