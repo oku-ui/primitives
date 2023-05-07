@@ -18,6 +18,9 @@ export default defineBuildConfig({
       pattern: ['*.ts', '!*.test.ts'],
     },
   ],
+  // rollup: {
+  //   emitCJS: true,
+  // },
   declaration: true,
   clean: true,
   externals: external,
