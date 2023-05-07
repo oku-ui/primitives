@@ -15,14 +15,12 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/primitive.cjs",
-      "import": "./dist/primitive.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
     }
   },
-  "main": "dist/primitive.cjs",
-  "module": "dist/primitive.js",
-  "types": "dist/types/index.d.ts",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"

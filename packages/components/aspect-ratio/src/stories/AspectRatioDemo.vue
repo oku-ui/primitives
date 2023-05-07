@@ -1,5 +1,6 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
+// @ts-nocheck
 import type { AspectRatioProps } from '@oku-ui/aspect-ratio'
 
 export interface IAspectRatioProps extends AspectRatioProps {

@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "p:build": "unbuild",
     "build": "turbo run build --filter='./packages/**'",
     "build:components": "turbo run build --filter='./packages/components/**'",
     "build:core": "turbo run build --filter='./packages/core/**'",
@@ -50,6 +51,7 @@
     "tsup": "^6.7.0",
     "turbo": "^1.9.3",
     "typescript": "^5.0.4",
+    "unbuild": "^1.2.1",
     "unocss": "^0.51.8",
     "unplugin-vue-macros": "^2.1.1",
     "vite": "^4.3.3",
