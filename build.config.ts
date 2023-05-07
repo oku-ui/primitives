@@ -7,7 +7,7 @@ export default defineBuildConfig({
             builder: 'mkdist',
             outDir: './packages/core/primitive/dist',
             format: 'esm',
-            declaration: false,
+            declaration: true,
         },
         {
             input: './packages/components/aspect-ratio/src',
