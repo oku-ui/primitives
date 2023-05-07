@@ -15,27 +15,25 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/compose-refs.cjs",
-      "import": "./dist/compose-refs.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
     }
   },
-  "main": "dist/compose-refs.cjs",
-  "module": "dist/compose-refs.js",
-  "types": "dist/types/index.d.ts",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "vite build --mode production",
+    "build": "unbuild",
+    "dev": "unbuild --stub",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "dev": "vite build --mode production --watch"
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
-    "vue": "^3.3.0-beta.4"
+    "vue": "^3.2.47"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

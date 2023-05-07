@@ -11,8 +11,9 @@ const meta = {
   component: OkuAspectRatioComponent,
   tags: ['autodocs'],
   args: {
-    ratio: 'Ratio',
+    ratio: 0.5,
     template: '#1',
+    imageurl: 'https://images.unsplash.com/photo-1682923875240-3ef0a52a9e7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
   },
   argTypes: {
     ratio: { type: 'number', defaultValue: '1' },
@@ -30,6 +31,7 @@ export const Styled: Story = {
   args: {
     ratio: 1,
     template: '#1',
+    imageurl: 'https://images.unsplash.com/photo-1682923875240-3ef0a52a9e7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
   },
   render: (args: any) => ({
     components: { OkuAspectRatioComponent },
@@ -37,7 +39,7 @@ export const Styled: Story = {
       return { args }
     },
     template: `
-      <OkuLabelComponent v-bind="args" />
+      <OkuAspectRatioComponent v-bind="args" />
     `,
   }),
 }

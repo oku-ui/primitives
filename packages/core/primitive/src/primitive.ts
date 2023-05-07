@@ -1,4 +1,5 @@
-import type { DefineComponent, FunctionalComponent, IntrinsicElementAttributes, VNodeRef } from 'vue'
+// TODO: IntrinsicElementAttributes vue 3.3 add
+import type { DefineComponent, FunctionalComponent, VNodeRef } from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
 
 /* -------------------------------------------------------------------------------------------------
@@ -73,11 +74,12 @@ type PrimitivePropsWithRef<E extends ElementType> = VueComponentPropsWithRef<E> 
 }
 
 type ElementRef<T extends keyof JSX.IntrinsicElements | ElementConstructor<any>> =
-   T extends PrimitiveDefineComponent<infer E>
-     ? E extends keyof IntrinsicElementAttributes
-       ? IntrinsicElementAttributes[E]
-       : never
-     : never
+T extends PrimitiveDefineComponent<infer E>
+// TODO: IntrinsicElementAttributes vue 3.3 add
+  ? E extends keyof JSX.IntrinsicElements
+    ? JSX.IntrinsicElements[E]
+    : never
+  : never
 
 interface PrimitiveDefineComponent<E extends ElementType> extends DefineComponent<PrimitivePropsWithRef<E>> {}
 
