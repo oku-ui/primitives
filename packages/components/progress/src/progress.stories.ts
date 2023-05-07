@@ -26,7 +26,7 @@ const meta = {
           value.value = 66
         }, 500)
       }
-      let timer = null
+      let timer: any = null
 
       onMounted(() => {
         timer = startTimer()
