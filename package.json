@@ -26,6 +26,7 @@
   "devDependencies": {
     "@iconify-json/ph": "^1.1.5",
     "@oku-ui/aspect-ratio": "workspace:^",
+    "@oku-ui/avatar": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/addon-interactions": "^7.0.7",

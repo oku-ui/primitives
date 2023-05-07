@@ -1,7 +1,8 @@
-import type { ComponentPublicInstance, VNodeProps } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import type { MergeProps } from '@oku-ui/utils'
 
 type PrimitiveAspectRatioProps = ComponentPropsWithoutRef<typeof Primitive.div>
 type AspectRatioElement = ElementRef<typeof Primitive.div>
@@ -49,7 +50,7 @@ const AspectRatio = defineComponent({
               left: 0,
             },
           },
-          () => slots.default?.(),
+          slots.default?.(),
         ),
       ],
     )
@@ -60,14 +61,8 @@ const AspectRatio = defineComponent({
   },
 })
 
-export type ComponentProps<T> =
-  T extends new () => { $props: infer P } ? NonNullable<P> :
-    T extends (props: infer P, ...args: any) => any ? P :
-        {}
+type AspectRatioProps = MergeProps<typeof AspectRatio, PrimitiveAspectRatioProps>
 
-type Merge<T, U> = Omit<ComponentProps<T>, keyof VNodeProps | 'class' | 'style'> & U
-
-type AspectRatioProps = Merge<typeof AspectRatio, PrimitiveAspectRatioProps>
 const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: AspectRatioProps })
 
 type OkuAspectRatioElement = Omit<InstanceType<typeof AspectRatio>, keyof ComponentPublicInstance>

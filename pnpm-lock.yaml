@@ -14,6 +14,9 @@ importers:
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
         version: link:packages/components/aspect-ratio
+      '@oku-ui/avatar':
+        specifier: workspace:^
+        version: link:packages/components/avatar
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
@@ -116,6 +119,9 @@ importers:
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
       vue:
         specifier: ^3.2.47
         version: 3.2.47
@@ -131,6 +137,9 @@ importers:
       '@oku-ui/use-callback-ref':
         specifier: workspace:^
         version: link:../../core/use-callback-ref
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
       vue:
         specifier: ^3.2.47
         version: 3.2.47
