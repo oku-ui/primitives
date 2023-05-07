@@ -46,7 +46,9 @@ type ComponentProps<T extends keyof JSX.IntrinsicElements | ElementConstructor<a
  }[keyof JSX.IntrinsicElements] |
  ComponentType<P>
 
-type PropsWithoutRef<P> = P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P) : P
+type PropsWithoutRef<P> = P extends object ? {
+  [K in keyof P as K extends 'ref' ? never : K]: P[K]
+} : P
 
 type PropsWithRef<P> =
   'ref' extends keyof P
