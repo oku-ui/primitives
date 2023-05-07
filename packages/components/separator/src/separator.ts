@@ -23,7 +23,7 @@ interface SeparatorProps extends PrimitiveSeparatorProps {
   decorative?: boolean
 }
 
-const Separator = defineComponent<SeparatorProps>({
+const Separator = defineComponent({
   name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
