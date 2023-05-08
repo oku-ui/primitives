@@ -12,7 +12,7 @@ export default defineBuildConfig({
     {
       input: './src',
       builder: 'mkdist',
-      outDir: './dist',
+      outDir: 'dist',
       format: 'esm',
       declaration: true,
       pattern: ['*.ts', '!*.test.ts'],
