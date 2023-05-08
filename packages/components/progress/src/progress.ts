@@ -11,7 +11,7 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 
 type PrimitiveDivProps = ComponentPropsWithoutRef<typeof Primitive.div>
 type ScopedProps<P> = P & { __scopeProgress?: Scope }
-type ProgressContextValue = { value: ComputedRef<number> | null; max: ComputedRef<number> }
+type ProgressContextValue = { value: ComputedRef<number | null> | null; max: ComputedRef<number> }
 type PrimitiveDivElement = ComponentPropsWithoutRef<typeof Primitive.div>
 type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
@@ -39,7 +39,7 @@ const Progress = defineComponent({
   inheritAttrs: false,
   props: {
     value: {
-      type: [Number, null, undefined],
+      type: [Number, null, undefined] as PropType<number | null | undefined>,
     },
     max: {
       type: Number,
@@ -77,7 +77,7 @@ const Progress = defineComponent({
         'aria-valuenow': isNumber(valueProp.value) ? valueProp.value : undefined,
         'aria-valuetext': valueLabel.value,
         'role': 'progressbar',
-        'data-state': getProgressState(valueProp.value, maxProp.value),
+        'data-state': getProgressState(maxProp.value, valueProp.value),
         'data-value': valueProp.value ?? undefined,
         'data-max': maxProp.value,
         ...progressProps,
@@ -128,7 +128,7 @@ function isValidValueNumber(value: any, max: number): value is number {
   )
 }
 
-function getProgressState(value: number | undefined | null, maxValue: number): ProgressState {
+function getProgressState(maxValue: number, value?: number | null): ProgressState {
   return value == null ? 'indeterminate' : value === maxValue ? 'complete' : 'loading'
 }
 
@@ -174,8 +174,8 @@ const ProgressIndicator = defineComponent({
     const originalReturn = () => h(
       Primitive.div,
       {
-        'data-state': getProgressState(context.value.value.value, context.value.max.value),
-        'data-value': context.value.value.value ?? undefined,
+        'data-state': getProgressState(context.value.max.value, context.value.value?.value),
+        'data-value': context.value.value?.value ?? undefined,
         'data-max': context.value.max.value,
         ...indicatorProps,
         'ref': innerRef,
