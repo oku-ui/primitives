@@ -205,6 +205,9 @@ importers:
       '@oku-ui/provide':
         specifier: workspace:^
         version: link:../../core/provide
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
       vue:
         specifier: ^3.3.0-beta.3
         version: 3.3.0-beta.3

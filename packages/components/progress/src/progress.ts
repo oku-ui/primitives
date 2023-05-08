@@ -4,6 +4,7 @@ import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComponentPublicInstance, ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import type { MergeProps } from '@oku-ui/utils'
 
 // ---------- Progress
 
@@ -17,11 +18,7 @@ type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
 // ---interface---
 
-interface ProgressProps extends PrimitiveDivProps {
-  value?: number | null | undefined
-  max?: number
-  getValueLabel?(value: number, max: number): string
-}
+type ProgressProps = MergeProps<typeof Progress, ScopedProps<PrimitiveDivProps>>
 
 // ---constants---
 const PROGRESS_NAME = 'Progress'
@@ -55,7 +52,7 @@ const Progress = defineComponent({
     const {
       __scopeProgress,
       ...progressProps
-    } = attrs as ScopedProps<PrimitiveDivProps>
+    } = attrs as ProgressProps
 
     // propstype check
     if (max.value && !isValidMaxNumber(max.value))
@@ -153,7 +150,7 @@ const INDICATOR_NAME = 'ProgressIndicator'
 
 // ---component---
 
-interface ProgressIndicatorProps extends PrimitiveDivProps {}
+type ProgressIndicatorProps = MergeProps<typeof ProgressIndicator, ScopedProps<PrimitiveDivProps>>
 
 const ProgressIndicator = defineComponent({
   name: INDICATOR_NAME,
@@ -162,7 +159,7 @@ const ProgressIndicator = defineComponent({
     const {
       __scopeProgress,
       ...indicatorProps
-    } = attrs as ScopedProps<ProgressIndicatorProps>
+    } = attrs as ProgressIndicatorProps
 
     const innerRef = ref<ComponentPublicInstance>()
     const context = useProgressContext(INDICATOR_NAME, __scopeProgress)
@@ -190,8 +187,8 @@ const ProgressIndicator = defineComponent({
 
 // ---export---
 
-const OkuProgress = Progress as typeof Progress & (new () => { $props: ScopedProps<ProgressProps> })
-const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator & (new () => { $props: ScopedProps<ProgressIndicatorProps> })
+const OkuProgress = Progress as typeof Progress & (new () => { $props: ProgressProps })
+const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator & (new () => { $props: ProgressIndicatorProps })
 
 type OkuProgressElement = Omit<InstanceType<typeof Progress>, keyof ComponentPublicInstance>
 type OkuProgressIndicatorElement = Omit<InstanceType<typeof ProgressIndicator>, keyof ComponentPublicInstance>

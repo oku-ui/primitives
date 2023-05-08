@@ -39,7 +39,8 @@
   },
   "dependencies": {
     "@oku-ui/primitive": "workspace:^",
-    "@oku-ui/provide": "workspace:^"
+    "@oku-ui/provide": "workspace:^",
+    "@oku-ui/utils": "workspace:^"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
