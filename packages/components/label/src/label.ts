@@ -33,7 +33,7 @@ const label = defineComponent({
           event.preventDefault()
       },
     },
-    slots.default?.(),
+    () => slots.default?.(),
     )
     return originalReturn as unknown as {
       innerRef: LabelElement
