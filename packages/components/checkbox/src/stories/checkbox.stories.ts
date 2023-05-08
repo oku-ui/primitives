@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { ICheckBoxPropsProps } from './CheckboxDemo.vue'
+import type { ICheckBoxProps } from './CheckboxDemo.vue'
 import OkuCheckboxComponent from './CheckboxDemo.vue'
 
-interface StoryProps extends ICheckBoxPropsProps {
+interface StoryProps extends ICheckBoxProps {
 }
 
 const meta = {
-  title: 'Components/Checkbox',
+  title: 'Components/OkuCheckbox',
   args: {
     template: '#1',
   },

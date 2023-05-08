@@ -7,7 +7,7 @@ interface StoryProps extends IAvatarPropsProps {
 }
 
 const meta = {
-  title: 'Components/Avatar',
+  title: 'Components/OkuAvatar',
   tags: ['autodocs'],
   args: {
     template: '#1',

@@ -3,12 +3,12 @@
 import type { CheckboxProps } from '@oku-ui/checkbox'
 import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
 
-export interface ICheckBoxPropsProps extends CheckboxProps {
+export interface ICheckBoxProps extends CheckboxProps {
   template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }
 
-withDefaults(defineProps<ICheckBoxPropsProps>(), {
+withDefaults(defineProps<ICheckBoxProps>(), {
 
 })
 </script>
