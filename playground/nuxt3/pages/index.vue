@@ -23,6 +23,10 @@ const pages: Page[] = [
   {
     name: 'OkuProgress',
     path: '/progress',
+   },
+   {
+    name: 'OkuCheckbox',
+    path: '/checkbox',
   },
 ]
 </script>
