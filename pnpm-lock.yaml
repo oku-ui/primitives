@@ -17,6 +17,9 @@ importers:
       '@oku-ui/avatar':
         specifier: workspace:^
         version: link:packages/components/avatar
+      '@oku-ui/checkbox':
+        specifier: workspace:^
+        version: link:packages/components/checkbox
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label

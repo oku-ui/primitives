@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 import { createProvideScope } from '@oku-ui/provide'
-import type { ComponentPublicInstance, Ref } from 'vue'
+import type { ComponentPublicInstance, PropType, Ref } from 'vue'
 import { Transition, computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
 
 import { useControllableRef } from '@oku-ui/use-controllable-ref'
@@ -8,6 +8,8 @@ import { composeEventHandlers } from '@oku-ui/utils'
 import { usePrevious } from '@oku-ui/use-previous'
 import { useSize } from '@oku-ui/use-size'
 import { Primitive } from '@oku-ui/primitive'
+
+import type { MergeProps } from '@oku-ui/utils'
 
 // import { useComposedRefs } from '@oku-ui/compose-refs'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
@@ -27,17 +29,28 @@ function getState(checked: CheckedState) {
  * ----------------------------------------------------------------------------------------------- */
 
 type InputProps = ComponentPropsWithoutRef<'input'>
-interface BubbleInputProps extends Omit<InputProps, 'checked'> {
-  checked: CheckedState
-  control: HTMLElement | null
-  bubbles: boolean
-}
+
+type BubbleInputProps = MergeProps<typeof BubbleInput, Omit<InputProps, 'checked'>>
 
 const BubbleInput = defineComponent({
   name: 'BubbleInput',
   inheritAttrs: false,
-  setup(_, { attrs }) {
-    const { control, checked, bubbles = true, ...inputProps } = attrs as unknown as BubbleInputProps
+  props: {
+    checked: {
+      type: [Boolean, 'indeterminate'] as PropType<boolean | 'indeterminate'>,
+      default: false,
+    },
+    control: {
+      type: Object as PropType<HTMLElement | null>,
+      default: null,
+    },
+    bubbles: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  setup(props, { attrs }) {
+    const { checked, control, bubbles } = props
     const _ref = ref<HTMLInputElement>()
     const prevChecked = usePrevious(checked)
     const controlSize = useSize(control)
@@ -61,7 +74,7 @@ const BubbleInput = defineComponent({
         'type': 'checkbox',
         'aria-hidden': true,
         'defaultChecked': isIndeterminate(checked) ? false : checked,
-        ...inputProps,
+        ...attrs,
         'tabIndex': -1,
         'ref': _ref,
         'style': {
@@ -108,6 +121,10 @@ const Checkbox = defineComponent({
     const innerRef = ref()
     const _innerRef = computed(() => innerRef.value?.$el)
 
+    expose({
+      innerRef: _innerRef,
+    })
+
     const {
       __scopeCheckbox,
       name,
@@ -135,9 +152,11 @@ const Checkbox = defineComponent({
     })
 
     const initialCheckedStateRef = ref()
+
     onMounted(() => {
       initialCheckedStateRef.value = checked.value
     })
+
     watchEffect(() => {
       const form = _button.value?.form
       if (form) {
@@ -152,6 +171,7 @@ const Checkbox = defineComponent({
       state: checked as Ref<CheckedState>,
       disabled: disabled as boolean,
     })
+
     const originalReturn = () =>
       [h(Primitive.button, {
         'type': 'button',
@@ -260,4 +280,5 @@ export type {
   CheckboxIndicatorProps,
   OkuCheckboxElement,
   OkuCheckboxIndicatorElement,
+  BubbleInputProps,
 }

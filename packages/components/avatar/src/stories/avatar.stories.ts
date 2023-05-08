@@ -36,3 +36,18 @@ export const Styled: Story = {
     `,
   }),
 }
+
+export const Template1: Story = {
+  args: {
+    template: '#3',
+  },
+  render: (args: any) => ({
+    components: { AvatarDemoComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <AvatarDemoComponent v-bind="args" />
+    `,
+  }),
+}

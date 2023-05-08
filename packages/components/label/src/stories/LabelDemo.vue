@@ -7,6 +7,7 @@ import { OkuLabel } from '@oku-ui/label'
 export interface OkuLabelProps {
   label: string
   template: '#1' | '#2'
+  allshow?: boolean
 }
 
 withDefaults(defineProps<OkuLabelProps>(), {
@@ -23,13 +24,13 @@ const alert = () => window.alert('clicked')
 
 <template>
   <div class="cursor-default inline-block">
-    <div v-if="template === '#1'" class="flex flex-col">
+    <div v-if="template === '#1' || allshow" class="flex flex-col">
       <OkuLabel ref="labelRef" class="text-black text-2xl border-2 border-gray-500 mb-4" for="firstName">
         {{ label }}
       </OkuLabel>
       <input id="firstName" class="mt-4 bg-gray-200 p-2 border-2 border-gray-500" type="text" defaultValue="Pedro Duarte">
     </div>
-    <div v-if="template === '#2'" class="flex flex-col">
+    <div v-if="template === '#2' || allshow" class="flex flex-col">
       <div>
         <h1>Wrapping control</h1>
         <OkuLabel>
