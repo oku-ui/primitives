@@ -193,6 +193,9 @@ importers:
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
       vue:
         specifier: ^3.2.47
         version: 3.2.47
