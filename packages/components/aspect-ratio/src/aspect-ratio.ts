@@ -2,21 +2,24 @@ import type { ComponentPublicInstance } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import type { MergeProps } from '@oku-ui/utils'
 
 type PrimitiveAspectRatioProps = ComponentPropsWithoutRef<typeof Primitive.div>
 type AspectRatioElement = ElementRef<typeof Primitive.div>
 
-interface AspectRatioProps extends PrimitiveAspectRatioProps {
-  ratio?: number
-}
 const NAME = 'AspectRatio'
 
 const AspectRatio = defineComponent({
   name: NAME,
   inheritAttrs: false,
+  props: {
+    ratio: {
+      type: Number,
+      default: 1 / 1,
+    },
+  },
   setup(props, { attrs, slots, expose }) {
-    // TODO: as any how to fix?
-    const { ratio = 1 / 1, style, ...aspectRatioProps } = attrs as AspectRatioProps
+    const { style, ...aspectRatioProps } = attrs as PrimitiveAspectRatioProps
     const innerRef = ref<ComponentPublicInstance>()
 
     expose({
@@ -28,7 +31,7 @@ const AspectRatio = defineComponent({
         'style': {
           position: 'relative',
           width: '100%',
-          paddingBottom: `${100 / ratio}%`,
+          paddingBottom: `${100 / props.ratio}%`,
         },
         'data-radix-aspect-ratio-wrapper': '',
       },
@@ -47,7 +50,7 @@ const AspectRatio = defineComponent({
               left: 0,
             },
           },
-          slots.default && slots.default(),
+          slots.default?.(),
         ),
       ],
     )
@@ -57,6 +60,8 @@ const AspectRatio = defineComponent({
     }
   },
 })
+
+type AspectRatioProps = MergeProps<typeof AspectRatio, PrimitiveAspectRatioProps>
 
 const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: AspectRatioProps })
 

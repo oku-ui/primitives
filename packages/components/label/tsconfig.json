@@ -1,7 +1,10 @@
 {
   "extends": "./../../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@oku-ui/label": ["./src/index.ts"]
+    }
   },
   "include": [
     "./"
