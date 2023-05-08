@@ -7,7 +7,7 @@ interface StoryProps extends ICheckBoxProps {
 }
 
 const meta = {
-  title: 'Components/OkuCheckbox',
+  title: 'Components/Checkbox',
   args: {
     template: '#1',
   },

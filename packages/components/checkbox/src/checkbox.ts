@@ -1,4 +1,3 @@
-/* eslint-disable vue/one-component-per-file */
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComponentPublicInstance, PropType, Ref } from 'vue'
 import { Transition, computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'

@@ -1,4 +1,3 @@
-/* eslint-disable vue/one-component-per-file */
 import type { ComponentPublicInstance, PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'

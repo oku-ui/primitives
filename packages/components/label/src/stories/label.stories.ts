@@ -7,7 +7,7 @@ interface StoryProps extends OkuLabelProps {
 }
 
 const meta = {
-  title: 'Components/OkuLabel',
+  title: 'Components/Label',
   component: OkuLabelComponent,
   args: {
     label: 'Label',

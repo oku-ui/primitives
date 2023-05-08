@@ -21,6 +21,10 @@ const pages: Page[] = [
     path: '/separator',
   },
   {
+    name: 'OkuProgress',
+    path: '/progress',
+  },
+  {
     name: 'OkuCheckbox',
     path: '/checkbox',
   },
