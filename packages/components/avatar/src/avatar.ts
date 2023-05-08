@@ -176,13 +176,15 @@ const AvatarFallback = defineComponent({
         canRender.value = false
     })
 
-    watchEffect(() => {
-      if (delayms !== undefined) {
-        const timerID = window.setTimeout(() => {
-          canRender.value = true
-        }, delayms)
-        return () => window.clearTimeout(timerID)
-      }
+    onMounted(() => {
+      watchEffect(() => {
+        if (delayms !== undefined) {
+          const timerID = window.setTimeout(() => {
+            canRender.value = true
+          }, delayms)
+          return () => window.clearTimeout(timerID)
+        }
+      })
     })
 
     expose({

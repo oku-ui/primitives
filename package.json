@@ -1,7 +1,9 @@
 {
   "name": "oku-ui",
   "private": true,
+  "type": "module",
   "scripts": {
+    "p:build": "unbuild",
     "build": "turbo run build --filter='./packages/**'",
     "build:components": "turbo run build --filter='./packages/components/**'",
     "build:core": "turbo run build --filter='./packages/core/**'",
@@ -9,18 +11,22 @@
     "dev:all": "turbo run dev --filter='./packages/**' --concurrency $(($(ls -1 packages/components packages/core | wc -l)+3))",
     "dev:core": "turbo run dev --filter='./packages/core/**'",
     "dev:components": "turbo run dev --filter='./packages/components/**'",
-    "play:vue": "turbo run dev --filter='./playground/vue3/**'",
-    "play:nuxt": "turbo run dev --filter='./playground/nuxt3/**'",
-    "play": "turbo run dev --filter='./playground/**'",
+    "play:vue": "pnpm cleanup:dts && turbo run dev --filter='./playground/vue3/**'",
+    "play:nuxt": "pnpm cleanup:dts && turbo run dev --filter='./playground/nuxt3/**'",
+    "play": "pnpm cleanup:dts && turbo run dev --filter='./playground/**'",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
-    "build:storybook": "pnpm storybook build"
+    "build:storybook": "pnpm storybook build",
+    "cleanup": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
+    "cleanup:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.5",
+    "@oku-ui/aspect-ratio": "workspace:^",
+    "@oku-ui/label": "workspace:^",
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/addon-interactions": "^7.0.7",
     "@storybook/addon-links": "^7.0.7",
@@ -39,25 +45,27 @@
     "jsdom": "^21.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rimraf": "^5.0.0",
     "storybook": "^7.0.7",
     "storybook-dark-mode": "^3.0.0",
     "tsup": "^6.7.0",
     "turbo": "^1.9.3",
     "typescript": "^5.0.4",
+    "unbuild": "^1.2.1",
     "unocss": "^0.51.8",
     "unplugin-vue-macros": "^2.1.1",
     "vite": "^4.3.3",
     "vite-plugin-dts": "^2.3.0",
     "vitest": "^0.30.1",
-    "vue": "^3.3.0-beta.3"
+    "vue": "^3.2.47"
   },
   "packageManager": "pnpm@8.3.0",
   "overrides": {
-    "vue": "^3.3.0-beta.3"
+    "vue": "^3.2.47"
   },
   "pnpm": {
     "overrides": {
-      "vue": "^3.3.0-beta.3",
+      "vue": "^3.2.47",
       "vite": "^4.3.1"
     }
   }
