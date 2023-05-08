@@ -38,7 +38,8 @@
   "dependencies": {
     "@oku-ui/primitive": "workspace:^",
     "@oku-ui/provide": "workspace:^",
-    "@oku-ui/use-callback-ref": "workspace:^"
+    "@oku-ui/use-callback-ref": "workspace:^",
+    "@oku-ui/utils": "workspace:^"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

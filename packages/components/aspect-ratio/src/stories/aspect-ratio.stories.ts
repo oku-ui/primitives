@@ -32,6 +32,7 @@ export const Styled: Story = {
     ratio: 1,
     template: '#1',
     imageurl: 'https://images.unsplash.com/photo-1682923875240-3ef0a52a9e7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    allShow: true,
   },
   render: (args: any) => ({
     components: { OkuAspectRatioComponent },
