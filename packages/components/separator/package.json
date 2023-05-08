@@ -36,6 +36,7 @@
     "vue": "^3.2.47"
   },
   "dependencies": {
-    "@oku-ui/primitive": "workspace:^"
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/utils": "workspace:^"
   }
 }

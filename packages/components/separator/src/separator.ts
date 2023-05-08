@@ -1,7 +1,8 @@
-import type { ComponentPublicInstance } from 'vue'
+import type { ComponentPublicInstance, PropType } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
 import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import type { MergeProps } from '@oku-ui/utils'
 
 type PrimitiveSeparatorProps = ComponentPropsWithoutRef<typeof Primitive.div>
 
@@ -11,27 +12,35 @@ const ORIENTATIONS = ['horizontal', 'vertical'] as const
 
 type Orientation = typeof ORIENTATIONS[number]
 type SeparatorElement = ElementRef<typeof Primitive.div>
-interface SeparatorProps extends PrimitiveSeparatorProps {
-  /**
-   * Either `vertical` or `horizontal`. Defaults to `horizontal`.
-   */
-  orientation?: Orientation
-  /**
-   * Whether or not the component is purely decorative. When true, accessibility-related attributes
-   * are updated so that that the rendered element is removed from the accessibility tree.
-   */
-  decorative?: boolean
-}
+
+type SeparatorProps = MergeProps<typeof Separator, PrimitiveSeparatorProps>
 
 const Separator = defineComponent({
   name: NAME,
   inheritAttrs: false,
+  props: {
+    /**
+     * Either `vertical` or `horizontal`. Defaults to `horizontal`.
+    */
+    decorative: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Whether or not the component is purely decorative. When true, accessibility-related attributes
+     * are updated so that that the rendered element is removed from the accessibility tree.
+     */
+    orientation: {
+      type: String as unknown as PropType<Orientation>,
+      default: DEFAULT_ORIENTATION,
+    },
+  },
   setup(props, { attrs, slots, expose }) {
-    const { decorative, orientation: orientationProp = DEFAULT_ORIENTATION, ...domProps } = attrs as SeparatorProps
-    const orientation = ORIENTATIONS.includes(orientationProp) ? orientationProp : DEFAULT_ORIENTATION
+    const { ...domProps } = attrs as PrimitiveSeparatorProps
+    const orientation = ORIENTATIONS.includes(props.orientation) ? props.orientation : DEFAULT_ORIENTATION
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = orientation === 'vertical' ? orientation : undefined
-    const semanticProps = decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation, 'role': 'separator' }
+    const semanticProps = props.decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation, 'role': 'separator' }
 
     const innerRef = ref<ComponentPublicInstance>()
 
