@@ -7,7 +7,7 @@ interface StoryProps extends IAspectRatioProps {
 }
 
 const meta = {
-  title: 'Components/OkuAspectRatio',
+  title: 'Components/AspectRatio',
   component: OkuAspectRatioComponent,
   tags: ['autodocs'],
   args: {

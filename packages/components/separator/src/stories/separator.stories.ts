@@ -7,7 +7,7 @@ interface StoryProps extends ISeparatorProps {
 }
 
 const meta = {
-  title: 'Components/OkuSeparator',
+  title: 'Components/Separator',
   component: OkuSeparatorComponent,
   args: {
     template: '#1',

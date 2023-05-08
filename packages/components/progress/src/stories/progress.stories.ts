@@ -7,7 +7,7 @@ interface StoryProps extends OkuProgressProps {
 }
 
 const meta = {
-  title: 'Components/OkuProgress',
+  title: 'Components/Progress',
   tags: ['autodocs'],
   args: {},
   component: OkuProgressComponent,
