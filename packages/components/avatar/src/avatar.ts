@@ -1,6 +1,6 @@
 import type { ComponentPublicInstance, PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
-import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
@@ -53,7 +53,7 @@ type AvatarProvideValue = {
 
 const [AvatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvideValue>(AVATAR_NAME)
 
-type AvatarElement = ElementRef<'span'>
+type AvatarElement = ElementType<'span'>
 
 interface AvatarProps extends PrimitiveProps {
   scopeAvatar?: Scope
@@ -104,7 +104,7 @@ const Avatar = defineComponent({
 
 const IMAGE_NAME = 'AvatarImage'
 
-type AvatarImageElement = ElementRef<'img'>
+type AvatarImageElement = ElementType<'img'>
 
 interface AvatarImageProps extends PrimitiveProps {
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void
@@ -173,7 +173,7 @@ const AvatarImage = defineComponent({
 
 const FALLBACK_NAME = 'AvatarFallback'
 
-type AvatarFallbackElement = ElementRef<'span'>
+type AvatarFallbackElement = ElementType<'span'>
 
 interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number
@@ -245,6 +245,10 @@ type _OkuAvatarProps = MergeProps<AvatarProps, AvatarElement>
 type _OkuAvatarImageProps = MergeProps<AvatarImageProps, AvatarImageElement>
 type _OkuAvatarFallbackProps = MergeProps<AvatarFallbackProps, AvatarFallbackElement>
 
+type AvatarRef = RefElement<typeof Avatar>
+type AvatarImageRef = RefElement<typeof AvatarImage>
+type AvatarFallbackRef = RefElement<typeof AvatarFallback>
+
 const OkuAvatar = Avatar as typeof Avatar & (new () => { $props: _OkuAvatarProps })
 const OkuAvatarImage = AvatarImage as typeof AvatarImage & (new () => { $props: _OkuAvatarImageProps })
 const OkuAvatarFallback = AvatarFallback as typeof AvatarFallback & (new () => { $props: _OkuAvatarFallbackProps })
@@ -263,4 +267,7 @@ export type {
   AvatarElement,
   AvatarImageElement,
   AvatarFallbackElement,
+  AvatarRef,
+  AvatarImageRef,
+  AvatarFallbackRef,
 }

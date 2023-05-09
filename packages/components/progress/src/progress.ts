@@ -1,6 +1,6 @@
-import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import type { RefElement, Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComponentPublicInstance, ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
@@ -10,7 +10,7 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 // ---type---
 
 type ProgressContextValue = { value: ComputedRef<number | null> | null; max: ComputedRef<number> }
-type ProgressElement = ElementRef<'div'>
+type ProgressElement = ElementType<'div'>
 type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
 interface ProgressProps extends PrimitiveProps {
@@ -35,7 +35,7 @@ const Progress = defineComponent({
   inheritAttrs: false,
   props: {
     value: {
-      type: [Number, null, undefined] as PropType<number | null | undefined>,
+      type: [Number, null] as PropType<number | null | undefined>,
     },
     max: {
       type: Number,
@@ -82,7 +82,7 @@ const Progress = defineComponent({
         ...progressProps,
         'ref': innerRef,
       },
-      slots.default && slots.default())
+      slots.default)
 
     expose({
       inferRef: computed(() => innerRef.value?.$el),
@@ -151,7 +151,7 @@ Defaulting to \`null\`.`
 const INDICATOR_NAME = 'ProgressIndicator'
 
 // ---component---
-type ProgressIndicatorElement = ElementRef<'div'>
+type ProgressIndicatorElement = ElementType<'div'>
 interface ProgressIndicatorProps extends PrimitiveProps {
   scopeProgress?: Scope
 }
@@ -199,6 +199,9 @@ const ProgressIndicator = defineComponent({
 type _OkuProgressProps = MergeProps<ProgressProps, ProgressIndicatorProps>
 type _OkuProgressIndicatorProps = MergeProps<ProgressIndicatorProps, PrimitiveProps>
 
+type ProgressRef = RefElement<typeof Progress>
+type ProgressIndicatorRef = RefElement<typeof ProgressIndicator>
+
 const OkuProgress = Progress as typeof Progress & (new () => { $props: _OkuProgressProps })
 const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator & (new () => { $props: _OkuProgressIndicatorProps })
 
@@ -213,4 +216,6 @@ export type {
   ProgressIndicatorProps,
   ProgressElement,
   ProgressIndicatorElement,
+  ProgressRef,
+  ProgressIndicatorRef,
 }

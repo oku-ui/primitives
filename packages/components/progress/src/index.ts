@@ -9,4 +9,6 @@ export type{
   ProgressIndicatorProps,
   ProgressElement,
   ProgressIndicatorElement,
+  ProgressRef,
+  ProgressIndicatorRef,
 } from './progress'
