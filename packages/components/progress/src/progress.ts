@@ -35,7 +35,7 @@ const Progress = defineComponent({
   inheritAttrs: false,
   props: {
     value: {
-      type: [Number, null, undefined] as PropType<number | null | undefined>,
+      type: [Number, null] as PropType<number | null | undefined>,
     },
     max: {
       type: Number,
@@ -82,7 +82,7 @@ const Progress = defineComponent({
         ...progressProps,
         'ref': innerRef,
       },
-      slots.default && slots.default())
+      slots.default)
 
     expose({
       inferRef: computed(() => innerRef.value?.$el),
