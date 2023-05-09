@@ -1,5 +1,5 @@
 // TODO: IntrinsicElementAttributes vue 3.3 add
-import type { DefineComponent, FunctionalComponent, IntrinsicElementAttributes } from 'vue'
+import type { ComponentPublicInstance, DefineComponent, FunctionalComponent, IntrinsicElementAttributes } from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
 
 /* -------------------------------------------------------------------------------------------------
@@ -36,6 +36,8 @@ type ComponentProps<T extends keyof JSX.IntrinsicElements | ElementConstructor<a
       ? JSX.IntrinsicElements[T]
       : {}
 
+type RefElement<T extends abstract new (...args: any) => any> = Omit<InstanceType<T>, keyof ComponentPublicInstance | 'class' | 'style'>
+
 type MergeProps<T, U> = U & T
 
 interface PrimitiveProps {
@@ -46,7 +48,7 @@ type Primitives = { [E in typeof NODES[number]]: DefineComponent<{
   asChild?: boolean
 }> }
 
-type ElementRef<T extends keyof IntrinsicElementAttributes> = Partial<IntrinsicElementAttributes[T]>
+type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<IntrinsicElementAttributes[T]>
 
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent({
@@ -73,4 +75,4 @@ export {
   OkuPrimitive,
   Primitive,
 }
-export type { ElementRef, ComponentProps, MergeProps, PrimitiveProps }
+export type { ComponentProps, MergeProps, PrimitiveProps, RefElement, ElementType }

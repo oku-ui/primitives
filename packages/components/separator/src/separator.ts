@@ -1,6 +1,6 @@
 import type { ComponentPublicInstance, PropType } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
-import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
 const NAME = 'Separator'
@@ -8,7 +8,7 @@ const DEFAULT_ORIENTATION = 'horizontal'
 const ORIENTATIONS = ['horizontal', 'vertical'] as const
 
 type Orientation = typeof ORIENTATIONS[number]
-type SeparatorElement = ElementRef<'div'>
+type SeparatorElement = ElementType<'div'>
 
 interface SeparatorProps extends PrimitiveProps {
   /**
@@ -79,8 +79,13 @@ const Separator = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _SeparatorProps = MergeProps<SeparatorProps, PrimitiveProps>
+type SeparatorRef = RefElement<typeof Separator>
 
 const OkuSeparator = Separator as typeof Separator & (new () => { $props: _SeparatorProps })
 
 export { OkuSeparator }
-export type { SeparatorProps, SeparatorElement }
+export type {
+  SeparatorProps,
+  SeparatorElement,
+  SeparatorRef,
+}
