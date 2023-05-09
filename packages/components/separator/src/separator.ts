@@ -1,19 +1,26 @@
 import type { ComponentPublicInstance, PropType } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
-import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
+import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { MergeProps } from '@oku-ui/utils'
-
-type PrimitiveSeparatorProps = ComponentPropsWithoutRef<typeof Primitive.div>
 
 const NAME = 'Separator'
 const DEFAULT_ORIENTATION = 'horizontal'
 const ORIENTATIONS = ['horizontal', 'vertical'] as const
 
 type Orientation = typeof ORIENTATIONS[number]
-type SeparatorElement = ElementRef<typeof Primitive.div>
+type SeparatorElement = ElementRef<'div'>
 
-type SeparatorProps = MergeProps<typeof Separator, PrimitiveSeparatorProps>
+interface SeparatorProps extends PrimitiveProps {
+  /**
+    * Either `vertical` or `horizontal`. Defaults to `horizontal`.
+  */
+  decorative?: boolean
+  /**
+    * Whether or not the component is purely decorative. When true, accessibility-related attributes
+    * are updated so that that the rendered element is removed from the accessibility tree.
+  */
+  orientation?: Orientation
+}
 
 const Separator = defineComponent({
   name: NAME,
@@ -31,12 +38,12 @@ const Separator = defineComponent({
      * are updated so that that the rendered element is removed from the accessibility tree.
      */
     orientation: {
-      type: String as unknown as PropType<Orientation>,
+      type: String as PropType<Orientation>,
       default: DEFAULT_ORIENTATION,
     },
   },
   setup(props, { attrs, slots, expose }) {
-    const { ...domProps } = attrs as PrimitiveSeparatorProps
+    const { ...domProps } = attrs as SeparatorElement
     const orientation = ORIENTATIONS.includes(props.orientation) ? props.orientation : DEFAULT_ORIENTATION
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = orientation === 'vertical' ? orientation : undefined
@@ -70,9 +77,10 @@ const Separator = defineComponent({
   },
 })
 
-const OkuSeparator = Separator as typeof Separator & (new () => { $props: SeparatorProps })
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _SeparatorProps = MergeProps<SeparatorProps, PrimitiveProps>
 
-type OkuSeparatorElement = Omit<InstanceType<typeof OkuSeparator>, keyof ComponentPublicInstance>
+const OkuSeparator = Separator as typeof Separator & (new () => { $props: _SeparatorProps })
 
 export { OkuSeparator }
-export type { SeparatorProps, OkuSeparatorElement }
+export type { SeparatorProps, SeparatorElement }

@@ -8,17 +8,11 @@ const external = [
 ]
 
 export default defineBuildConfig({
-  entries: [
-    {
-      input: './src',
-      builder: 'mkdist',
-      outDir: './dist',
-      format: 'esm',
-      declaration: true,
-      pattern: ['*.ts', '!*.test.ts'],
-    },
-  ],
+  entries: ['./src/index'],
   declaration: true,
   clean: true,
   externals: external,
+  rollup: {
+    emitCJS: true,
+  },
 })

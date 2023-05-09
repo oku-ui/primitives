@@ -20,8 +20,9 @@
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
     "build:storybook": "pnpm storybook build",
-    "cleanup": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
-    "cleanup:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
+    "clean": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
+    "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
+    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.5",
@@ -61,15 +62,15 @@
     "vite": "^4.3.3",
     "vite-plugin-dts": "^2.3.0",
     "vitest": "^0.30.1",
-    "vue": "^3.2.47"
+    "vue": "^3.3.0-beta.5"
   },
   "packageManager": "pnpm@8.3.0",
   "overrides": {
-    "vue": "^3.2.47"
+    "vue": "3.3.0-beta.5"
   },
   "pnpm": {
     "overrides": {
-      "vue": "^3.2.47",
+      "vue": "3.3.0-beta.5",
       "vite": "^4.3.1"
     }
   }

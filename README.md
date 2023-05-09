@@ -26,7 +26,7 @@ Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/m
 - [ ] Finding at least 1 contributor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
 - [ ] Website opening and documentation writing [docs](https://github.com/oku-ui/docs)
 
-# TODO Components - 3/28
+# TODO Components - 6/28
 
 Enter the component you want most in the components, leave the emojis and follow.
 
@@ -34,7 +34,7 @@ Enter the component you want most in the components, leave the emojis and follow
 - [ ] [Alert Dialog](https://github.com/oku-ui/primitives/issues/4)
 - [x] [Aspect Ratio](https://github.com/oku-ui/primitives/issues/1)
 - [x] [Avatar](https://github.com/oku-ui/primitives/issues/5)
-- [ ] [Checkbox](https://github.com/oku-ui/primitives/issues/6)
+- [x] [Checkbox](https://github.com/oku-ui/primitives/issues/6)
 - [ ] [Collapsible](https://github.com/oku-ui/primitives/issues/7)
 - [ ] [Context Menu](https://github.com/oku-ui/primitives/issues/8)
 - [ ] [Dialog](https://github.com/oku-ui/primitives/issues/9)
@@ -45,11 +45,11 @@ Enter the component you want most in the components, leave the emojis and follow
 - [ ] [Menubar](https://github.com/oku-ui/primitives/issues/13)
 - [ ] [Navigation Menu](https://github.com/oku-ui/primitives/issues/14)
 - [ ] [Popover](https://github.com/oku-ui/primitives/issues/15)
-- [ ] [Progress](https://github.com/oku-ui/primitives/issues/16)
+- [x] [Progress](https://github.com/oku-ui/primitives/issues/16)
 - [ ] [Radio Group](https://github.com/oku-ui/primitives/issues/17)
 - [ ] [Scroll Area](https://github.com/oku-ui/primitives/issues/18)
 - [ ] [Select](https://github.com/oku-ui/primitives/issues/19)
-- [ ] [Separator](https://github.com/oku-ui/primitives/issues/20)
+- [x] [Separator](https://github.com/oku-ui/primitives/issues/20)
 - [ ] [Slider](https://github.com/oku-ui/primitives/issues/21)
 - [ ] [Switch](https://github.com/oku-ui/primitives/issues/22)
 - [ ] [Tabs](https://github.com/oku-ui/primitives/issues/23)

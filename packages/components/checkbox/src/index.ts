@@ -3,6 +3,6 @@ export { OkuCheckbox, OkuCheckboxIndicator } from './checkbox'
 export type {
   CheckboxProps,
   CheckboxIndicatorProps,
-  OkuCheckboxElement,
-  OkuCheckboxIndicatorElement,
+  CheckboxElement,
+  CheckboxIndicatorElement,
 } from './checkbox'

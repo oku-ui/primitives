@@ -1,5 +1,5 @@
 // TODO: IntrinsicElementAttributes vue 3.3 add
-import type { DefineComponent, FunctionalComponent, VNodeRef } from 'vue'
+import type { DefineComponent, FunctionalComponent, IntrinsicElementAttributes } from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
 
 /* -------------------------------------------------------------------------------------------------
@@ -36,57 +36,25 @@ type ComponentProps<T extends keyof JSX.IntrinsicElements | ElementConstructor<a
       ? JSX.IntrinsicElements[T]
       : {}
 
- type ComponentType<T = {}> = DefineComponent<T> | FunctionalComponent<T>
+type MergeProps<T, U> = U & T
 
- type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<
-  ComponentProps<T>
->
-
- type ElementType<P = any> = {
-   [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
- }[keyof JSX.IntrinsicElements] |
- ComponentType<P>
-
-type PropsWithoutRef<P> = P extends object ? {
-  [K in keyof P as K extends 'ref' ? never : K]: P[K]
-} : P
-
-type PropsWithRef<P> =
-  'ref' extends keyof P
-    ? P extends { ref?: infer R | undefined }
-      ? string extends R
-        // TODO: ref dynamic `IntrinsicElements` support
-        ? PropsWithoutRef<P> & { ref?: VNodeRef | undefined }
-        : any
-      : any
-    : any
-
-type VueComponentPropsWithRef<T extends ElementType> =
-     T extends new () => { $props: infer P }
-       // TODO: ref dynamic `IntrinsicElements` support, `VNodeRef` dont support T
-       ? PropsWithoutRef<P> & { ref?: VNodeRef | undefined }
-       : PropsWithRef<ComponentProps<T>>
-
-type Primitives = { [E in typeof NODES[number]]: PrimitiveDefineComponent<E> }
-
-type PrimitivePropsWithRef<E extends ElementType> = VueComponentPropsWithRef<E> & {
+interface PrimitiveProps {
   asChild?: boolean
 }
 
-type ElementRef<T extends keyof JSX.IntrinsicElements | ElementConstructor<any>> =
-T extends PrimitiveDefineComponent<infer E>
-// TODO: IntrinsicElementAttributes vue 3.3 add
-  ? E extends keyof JSX.IntrinsicElements
-    ? JSX.IntrinsicElements[E]
-    : never
-  : never
+type Primitives = { [E in typeof NODES[number]]: DefineComponent<{
+  asChild?: boolean
+}> }
 
-interface PrimitiveDefineComponent<E extends ElementType> extends DefineComponent<PrimitivePropsWithRef<E>> {}
+type ElementRef<T extends keyof IntrinsicElementAttributes> = Partial<IntrinsicElementAttributes[T]>
 
 const Primitive = NODES.reduce((primitive, node) => {
-  const Node = defineComponent<PrimitivePropsWithRef<typeof node>>({
+  const Node = defineComponent({
     name: `Primitive${node}`,
     inheritAttrs: false,
+    props: {
+      asChild: Boolean,
+    },
     setup(props, { attrs, slots }) {
       onMounted(() => {
         (window as any)[Symbol.for('oku-ui')] = true
@@ -105,4 +73,4 @@ export {
   OkuPrimitive,
   Primitive,
 }
-export type { ComponentPropsWithoutRef, ElementRef }
+export type { ElementRef, ComponentProps, MergeProps, PrimitiveProps }

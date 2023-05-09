@@ -1,24 +1,24 @@
-import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
+import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComponentPublicInstance, ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
-import type { MergeProps } from '@oku-ui/utils'
 
 // ---------- Progress
 
 // ---type---
 
-type PrimitiveDivProps = ComponentPropsWithoutRef<typeof Primitive.div>
-type ScopedProps<P> = P & { __scopeProgress?: Scope }
 type ProgressContextValue = { value: ComputedRef<number | null> | null; max: ComputedRef<number> }
-type PrimitiveDivElement = ComponentPropsWithoutRef<typeof Primitive.div>
+type ProgressElement = ElementRef<'div'>
 type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
-// ---interface---
-
-type ProgressProps = MergeProps<typeof Progress, ScopedProps<PrimitiveDivProps>>
+interface ProgressProps extends PrimitiveProps {
+  value?: number | null
+  max?: number
+  getValueLabel?(value: number, max: number): string
+  scopeProgress?: Scope
+}
 
 // ---constants---
 const PROGRESS_NAME = 'Progress'
@@ -30,7 +30,6 @@ const [progressProvider, useProgressContext]
   = createProgressContext<ProgressContextValue>(PROGRESS_NAME)
 
 // ---component---
-
 const Progress = defineComponent({
   name: PROGRESS_NAME,
   inheritAttrs: false,
@@ -46,13 +45,16 @@ const Progress = defineComponent({
       type: Function as PropType<(value: number, max: number) => string>,
       default: defaultGetValueLabel,
     },
+    scopeProgress: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+    },
   },
   setup(props, { attrs, slots, expose }) {
-    const { value, max, getValueLabel } = toRefs(props)
+    const { value, max, getValueLabel, scopeProgress } = toRefs(props)
     const {
-      __scopeProgress,
       ...progressProps
-    } = attrs as ProgressProps
+    } = attrs as ProgressElement
 
     // propstype check
     if (max.value && !isValidMaxNumber(max.value))
@@ -87,13 +89,13 @@ const Progress = defineComponent({
     })
 
     progressProvider({
-      scope: __scopeProgress,
+      scope: scopeProgress.value,
       value: valueProp,
       max: maxProp,
     })
 
     return originalReturn as unknown as {
-      innerRef: PrimitiveDivElement
+      innerRef: ProgressElement
     }
   },
 })
@@ -149,20 +151,28 @@ Defaulting to \`null\`.`
 const INDICATOR_NAME = 'ProgressIndicator'
 
 // ---component---
-
-type ProgressIndicatorProps = MergeProps<typeof ProgressIndicator, ScopedProps<PrimitiveDivProps>>
+type ProgressIndicatorElement = ElementRef<'div'>
+interface ProgressIndicatorProps extends PrimitiveProps {
+  scopeProgress?: Scope
+}
 
 const ProgressIndicator = defineComponent({
   name: INDICATOR_NAME,
   inheritAttrs: true,
+  props: {
+    scopeProgress: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+    },
+  },
   setup(props, { attrs, slots, expose }) {
+    const { scopeProgress } = props
     const {
-      __scopeProgress,
       ...indicatorProps
     } = attrs as ProgressIndicatorProps
 
     const innerRef = ref<ComponentPublicInstance>()
-    const context = useProgressContext(INDICATOR_NAME, __scopeProgress)
+    const context = useProgressContext(INDICATOR_NAME, scopeProgress)
 
     expose({
       inferRef: computed(() => innerRef.value?.$el),
@@ -180,18 +190,17 @@ const ProgressIndicator = defineComponent({
       slots.default && slots.default())
 
     return originalReturn as unknown as {
-      innerRef: PrimitiveDivElement
+      innerRef: ProgressIndicatorElement
     }
   },
 })
 
-// ---export---
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _OkuProgressProps = MergeProps<ProgressProps, ProgressIndicatorProps>
+type _OkuProgressIndicatorProps = MergeProps<ProgressIndicatorProps, PrimitiveProps>
 
-const OkuProgress = Progress as typeof Progress & (new () => { $props: ProgressProps })
-const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator & (new () => { $props: ProgressIndicatorProps })
-
-type OkuProgressElement = Omit<InstanceType<typeof Progress>, keyof ComponentPublicInstance>
-type OkuProgressIndicatorElement = Omit<InstanceType<typeof ProgressIndicator>, keyof ComponentPublicInstance>
+const OkuProgress = Progress as typeof Progress & (new () => { $props: _OkuProgressProps })
+const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator & (new () => { $props: _OkuProgressIndicatorProps })
 
 export {
   createProgressScope,
@@ -202,6 +211,6 @@ export {
 export type {
   ProgressProps,
   ProgressIndicatorProps,
-  OkuProgressElement,
-  OkuProgressIndicatorElement,
+  ProgressElement,
+  ProgressIndicatorElement,
 }
