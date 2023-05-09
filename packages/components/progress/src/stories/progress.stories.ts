@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Primary: Story = {
+export const Styled: Story = {
   args: {
     template: '#1',
     allshow: true,
