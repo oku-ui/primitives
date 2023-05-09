@@ -1,91 +1,91 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "config:base"
-    ],
-    "rebaseWhen": "conflicted",
-    "schedule": [
-        "before 6am on the first day of the month"
-    ],
-    "baseBranches": [
-        "main"
-    ],
-    "rangeStrategy": "bump",
-    "ignoreDeps": [
-        "node",
-        "pnpm"
-    ],
-    "packageRules": [
-        {
-            "groupName": "components",
-            "commitMessageTopic": "components",
-            "matchPaths": [
-                "packages/components/**"
-            ],
-            "matchUpdateTypes": [
-                "major",
-                "minor",
-                "patch"
-            ],
-            "matchDatasources": [
-                "npm"
-            ]
-        },
-        {
-            "groupName": "core",
-            "commitMessageTopic": "core",
-            "matchPaths": [
-                "packages/core/**"
-            ],
-            "matchUpdateTypes": [
-                "major",
-                "minor",
-                "patch"
-            ],
-            "matchDatasources": [
-                "npm"
-            ]
-        },
-        {
-            "groupName": "playground",
-            "commitMessageTopic": "playground",
-            "matchPaths": [
-                "playground/**"
-            ],
-            "matchUpdateTypes": [
-                "major",
-                "minor",
-                "patch"
-            ],
-            "matchDatasources": [
-                "npm"
-            ]
-        },
-        {
-            "groupName": "root",
-            "matchUpdateTypes": [
-                "patch",
-                "minor",
-                "major"
-            ],
-            "ignorePaths": [
-                "**/packages/**",
-                "**/packages/**",
-                "**/playground/**"
-            ],
-            "matchDatasources": [
-                "npm",
-                "github-actions"
-            ],
-            "labels": [
-                "dependencies"
-            ],
-            "addLabels": [
-                "dependencies"
-            ],
-            "matchFiles": [
-                "package.json"
-            ]
-        }
-    ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "rebaseWhen": "conflicted",
+  "schedule": [
+    "before 6am on the first day of the month"
+  ],
+  "baseBranches": [
+    "main"
+  ],
+  "rangeStrategy": "bump",
+  "ignoreDeps": [
+    "node",
+    "pnpm"
+  ],
+  "packageRules": [
+    {
+      "groupName": "components",
+      "commitMessageTopic": "components",
+      "matchPaths": [
+        "packages/components/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "core",
+      "commitMessageTopic": "core",
+      "matchPaths": [
+        "packages/core/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "playground",
+      "commitMessageTopic": "playground",
+      "matchPaths": [
+        "playground/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "root",
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "major"
+      ],
+      "ignorePaths": [
+        "**/packages/**",
+        "**/packages/**",
+        "**/playground/**"
+      ],
+      "matchDatasources": [
+        "npm",
+        "github-actions"
+      ],
+      "labels": [
+        "dependencies"
+      ],
+      "addLabels": [
+        "dependencies"
+      ],
+      "matchFiles": [
+        "package.json"
+      ]
+    }
+  ]
 }

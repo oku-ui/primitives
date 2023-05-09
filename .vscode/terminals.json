@@ -1,40 +1,40 @@
 {
-    "autorun": false,
-    "terminals": [
-        {
-            "name": "build",
-            "description": "Build all packages",
-            "open": true,
-            "cwd": "./",
-            "command": "pnpm build"
-        },
-        {
-            "name": "test",
-            "description": "Running Test",
-            "open": true,
-            "cwd": "./",
-            "command": "pnpm test"
-        },
-        {
-            "name": "test:watch",
-            "description": "Running Test Watch",
-            "open": true,
-            "cwd": "./",
-            "command": "pnpm test:watch"
-        },
-        {
-            "name": "lint",
-            "description": "Eslint check",
-            "open": true,
-            "cwd": "./",
-            "command": "pnpm lint"
-        },
-        {
-            "name": "lint:fix",
-            "description": "Eslint fix",
-            "open": true,
-            "cwd": "./",
-            "command": "pnpm lint:fix"
-        }
-    ]
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "build",
+      "description": "Build all packages",
+      "open": true,
+      "cwd": "./",
+      "command": "pnpm build"
+    },
+    {
+      "name": "test",
+      "description": "Running Test",
+      "open": true,
+      "cwd": "./",
+      "command": "pnpm test"
+    },
+    {
+      "name": "test:watch",
+      "description": "Running Test Watch",
+      "open": true,
+      "cwd": "./",
+      "command": "pnpm test:watch"
+    },
+    {
+      "name": "lint",
+      "description": "Eslint check",
+      "open": true,
+      "cwd": "./",
+      "command": "pnpm lint"
+    },
+    {
+      "name": "lint:fix",
+      "description": "Eslint fix",
+      "open": true,
+      "cwd": "./",
+      "command": "pnpm lint:fix"
+    }
+  ]
 }
