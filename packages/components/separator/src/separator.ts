@@ -38,7 +38,7 @@ const Separator = defineComponent({
      * are updated so that that the rendered element is removed from the accessibility tree.
      */
     orientation: {
-      type: String as unknown as PropType<Orientation>,
+      type: String as PropType<Orientation>,
       default: DEFAULT_ORIENTATION,
     },
   },
