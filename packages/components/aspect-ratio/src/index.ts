@@ -3,5 +3,5 @@ export {
 } from './aspect-ratio'
 export type {
   AspectRatioProps,
-  OkuAspectRatioElement,
+  AspectRatioElement,
 } from './aspect-ratio'

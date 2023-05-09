@@ -1,11 +1,10 @@
 import type { ComponentPublicInstance, PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
-import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
+import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { useCallbackRef } from '@oku-ui/use-callback-ref'
-import type { MergeProps } from '@oku-ui/utils'
 
 function useImageLoadingStatus(src?: string) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
@@ -54,9 +53,11 @@ type AvatarProvideValue = {
 
 const [AvatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvideValue>(AVATAR_NAME)
 
-type AvatarElement = ComponentPropsWithoutRef<typeof Primitive.span>
-type PrimitiveSpanProps = ComponentPropsWithoutRef<typeof Primitive.span>
-type AvatarProps = MergeProps<typeof Avatar, PrimitiveSpanProps>
+type AvatarElement = ElementRef<'span'>
+
+interface AvatarProps extends PrimitiveProps {
+  scopeAvatar?: Scope
+}
 
 const Avatar = defineComponent({
   name: AVATAR_NAME,
@@ -68,7 +69,7 @@ const Avatar = defineComponent({
     },
   },
   setup(props, { attrs, slots, expose }) {
-    const { ...avatarProps } = attrs as AvatarProps
+    const { ...avatarProps } = attrs as AvatarElement
     const innerRef = ref()
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
@@ -103,9 +104,12 @@ const Avatar = defineComponent({
 
 const IMAGE_NAME = 'AvatarImage'
 
-type AvatarImageElement = ComponentPropsWithoutRef<typeof Primitive.img>
-type PrimitiveImgProps = ComponentPropsWithoutRef<typeof Primitive.img>
-type AvatarImageProps = MergeProps<typeof AvatarImage, PrimitiveImgProps>
+type AvatarImageElement = ElementRef<'img'>
+
+interface AvatarImageProps extends PrimitiveProps {
+  onLoadingStatusChange?: (status: ImageLoadingStatus) => void
+  scopeAvatar?: Scope
+}
 
 const AvatarImage = defineComponent({
   name: IMAGE_NAME,
@@ -122,7 +126,7 @@ const AvatarImage = defineComponent({
     },
   },
   setup(props, { attrs, slots, expose }) {
-    const { src, ...imageProps } = attrs as AvatarImageProps
+    const { src, ...imageProps } = attrs as AvatarImageElement
     const inject = useAvatarInject(IMAGE_NAME, props.scopeAvatar)
     const innerRef = ref<ComponentPublicInstance>()
     const imageLoadingStatus = useImageLoadingStatus(src)
@@ -169,10 +173,11 @@ const AvatarImage = defineComponent({
 
 const FALLBACK_NAME = 'AvatarFallback'
 
-type PrimitiveAvatarFallbackProps = ComponentPropsWithoutRef<typeof Primitive.span>
-type PrimitiveSpanElement = ComponentPropsWithoutRef<typeof Primitive.span>
+type AvatarFallbackElement = ElementRef<'span'>
 
-type AvatarFallbackProps = MergeProps<typeof AvatarFallback, PrimitiveAvatarFallbackProps>
+interface AvatarFallbackProps extends PrimitiveProps {
+  delayMs?: number
+}
 
 const AvatarFallback = defineComponent({
   name: FALLBACK_NAME,
@@ -228,20 +233,21 @@ const AvatarFallback = defineComponent({
     }
 
     return originalReturn as unknown as {
-      innerRef: PrimitiveSpanElement
+      innerRef: AvatarFallbackElement
     }
   },
 })
 
 /* ----------------------------------------------------------------------------------------------- */
 
-const OkuAvatar = Avatar as typeof Avatar & (new () => { $props: AvatarProps })
-const OkuAvatarImage = AvatarImage as typeof AvatarImage & (new () => { $props: AvatarImageProps })
-const OkuAvatarFallback = AvatarFallback as typeof AvatarFallback & (new () => { $props: AvatarFallbackProps })
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _OkuAvatarProps = MergeProps<AvatarProps, AvatarElement>
+type _OkuAvatarImageProps = MergeProps<AvatarImageProps, AvatarImageElement>
+type _OkuAvatarFallbackProps = MergeProps<AvatarFallbackProps, AvatarFallbackElement>
 
-type OkuAvatarElement = Omit<InstanceType<typeof Avatar>, keyof ComponentPublicInstance>
-type OkuAvatarImageElement = Omit<InstanceType<typeof AvatarImage>, keyof ComponentPublicInstance>
-type OkuAvatarFallbackElement = Omit<InstanceType<typeof AvatarFallback>, keyof ComponentPublicInstance>
+const OkuAvatar = Avatar as typeof Avatar & (new () => { $props: _OkuAvatarProps })
+const OkuAvatarImage = AvatarImage as typeof AvatarImage & (new () => { $props: _OkuAvatarImageProps })
+const OkuAvatarFallback = AvatarFallback as typeof AvatarFallback & (new () => { $props: _OkuAvatarFallbackProps })
 
 export {
   OkuAvatar,
@@ -254,7 +260,7 @@ export type {
   AvatarProps,
   AvatarImageProps,
   AvatarFallbackProps,
-  OkuAvatarElement,
-  OkuAvatarImageElement,
-  OkuAvatarFallbackElement,
+  AvatarElement,
+  AvatarImageElement,
+  AvatarFallbackElement,
 }

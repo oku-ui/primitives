@@ -8,7 +8,7 @@ export type {
   AvatarFallbackProps,
   AvatarProps,
   AvatarImageProps,
-  OkuAvatarElement,
-  OkuAvatarFallbackElement,
-  OkuAvatarImageElement,
+  AvatarElement,
+  AvatarFallbackElement,
+  AvatarImageElement,
 } from './avatar'

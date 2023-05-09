@@ -1,14 +1,10 @@
 import type { ComponentPublicInstance } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
-import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
+import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { MergeProps } from '@oku-ui/utils'
 
-type PrimitiveLabelProps = ComponentPropsWithoutRef<typeof Primitive.label>
-
-type LabelElement = ElementRef<typeof Primitive.label>
-
-type LabelProps = MergeProps<typeof label, PrimitiveLabelProps>
+type LabelElement = ElementRef<'label'>
+interface LabelProps extends PrimitiveProps {}
 
 const NAME = 'Label'
 
@@ -17,7 +13,7 @@ const label = defineComponent({
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
     const innerRef = ref<ComponentPublicInstance>()
-    const { ...restAttrs } = attrs as LabelProps
+    const { ...restAttrs } = attrs as LabelElement
 
     expose({
       innerRef: computed(() => innerRef.value?.$el),
@@ -41,8 +37,10 @@ const label = defineComponent({
   },
 })
 
-const OkuLabel = label as typeof label & (new () => { $props: LabelProps })
-type OkuLabelElement = Omit<InstanceType<typeof label>, keyof ComponentPublicInstance>
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _LabelProps = MergeProps<LabelProps, LabelElement>
+
+const OkuLabel = label as typeof label & (new () => { $props: _LabelProps })
 
 export { OkuLabel }
-export type { LabelProps, OkuLabelElement }
+export type { LabelProps, LabelElement }

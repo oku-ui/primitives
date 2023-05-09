@@ -7,6 +7,6 @@ export {
 export type{
   ProgressProps,
   ProgressIndicatorProps,
-  OkuProgressElement,
-  OkuProgressIndicatorElement,
+  ProgressElement,
+  ProgressIndicatorElement,
 } from './progress'
