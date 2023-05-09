@@ -1,5 +1,5 @@
 import { createProvideScope } from '@oku-ui/provide'
-import type { ComponentPublicInstance, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { Transition, computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
 
 import { useControllableRef } from '@oku-ui/use-controllable-ref'
@@ -8,10 +8,8 @@ import { usePrevious } from '@oku-ui/use-previous'
 import { useSize } from '@oku-ui/use-size'
 import { Primitive } from '@oku-ui/primitive'
 
-import type { MergeProps } from '@oku-ui/utils'
-
 // import { useComposedRefs } from '@oku-ui/compose-refs'
-import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
+import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 
@@ -27,9 +25,13 @@ function getState(checked: CheckedState) {
  * Checkbox
  * ----------------------------------------------------------------------------------------------- */
 
-type InputProps = ComponentPropsWithoutRef<'input'>
+type BubbleInputElement = ElementRef<'input'>
 
-type BubbleInputProps = MergeProps<typeof BubbleInput, Omit<InputProps, 'checked'>>
+interface BubbleInputProps extends PrimitiveProps {
+  checked: CheckedState
+  control: HTMLElement | null
+  bubbles: boolean
+}
 
 const BubbleInput = defineComponent({
   name: 'BubbleInput',
@@ -49,6 +51,7 @@ const BubbleInput = defineComponent({
     },
   },
   setup(props, { attrs }) {
+    const { ...inputAttrs } = attrs as BubbleInputElement
     const { checked, control, bubbles } = props
     const _ref = ref<HTMLInputElement>()
     const prevChecked = usePrevious(checked)
@@ -73,11 +76,11 @@ const BubbleInput = defineComponent({
         'type': 'checkbox',
         'aria-hidden': true,
         'defaultChecked': isIndeterminate(checked) ? false : checked,
-        ...attrs,
+        ...inputAttrs,
         'tabIndex': -1,
         'ref': _ref,
         'style': {
-          ...attrs.style as any,
+          ...inputAttrs.style as any,
           ...controlSize,
           position: 'absolute',
           pointerEvents: 'none',
@@ -90,7 +93,6 @@ const BubbleInput = defineComponent({
 
 const CHECKBOX_NAME = 'Checkbox'
 
-type ScopedProps<P> = P & { __scopeCheckbox?: Scope }
 const [createCheckboxProvider, _createCheckboxScope] = createProvideScope(CHECKBOX_NAME)
 
 type CheckedState = boolean | 'indeterminate'
@@ -103,20 +105,39 @@ type CheckboxInjectValue = {
 const [CheckboxProvider, useCheckboxInject]
   = createCheckboxProvider<CheckboxInjectValue>(CHECKBOX_NAME)
 
-type CheckboxElement = ElementRef<typeof Primitive.button>
-type PrimitiveButtonProps = ComponentPropsWithoutRef<typeof Primitive.button>
-interface CheckboxProps extends Omit<PrimitiveButtonProps, 'checked' | 'defaultChecked'> {
+type CheckboxElement = ElementRef<'button'>
+
+interface CheckboxProps extends PrimitiveProps {
   checked?: CheckedState
   defaultChecked?: CheckedState
   required?: boolean
   onCheckedChange?(checked: CheckedState): void
+  scopeCheckbox?: Scope
 }
+
 const checkboxDisplayName = 'OkuCheckbox'
 const Checkbox = defineComponent({
   name: checkboxDisplayName,
   components: { BubbleInput },
   inheritAttrs: false,
-  setup(_, { attrs, slots, expose }) {
+  props: {
+    checked: {
+      type: [Boolean, 'indeterminate'] as PropType<boolean | 'indeterminate'>,
+      default: false,
+    },
+    defaultChecked: {
+      type: [Boolean, 'indeterminate'] as PropType<boolean | 'indeterminate'>,
+      default: false,
+    },
+    required: Boolean,
+    onCheckedChange: Function as PropType<(checked: CheckedState) => void>,
+    scopeCheckbox: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+    },
+  },
+  setup(props, { attrs, slots, expose }) {
+    const { checked: checkedProp, scopeCheckbox, defaultChecked, onCheckedChange, required } = props
     const innerRef = ref()
     const _innerRef = computed(() => innerRef.value?.$el)
 
@@ -125,16 +146,11 @@ const Checkbox = defineComponent({
     })
 
     const {
-      __scopeCheckbox,
       name,
-      checked: checkedProp,
-      defaultChecked,
-      required,
       disabled,
       value = 'on',
-      onCheckedChange,
       ...checkboxProps
-    } = attrs as ScopedProps<CheckboxProps>
+    } = attrs as CheckboxElement
 
     const _button = computed<HTMLButtonElement>(() => _innerRef.value)
     // const button = ref<HTMLButtonElement>()
@@ -166,7 +182,7 @@ const Checkbox = defineComponent({
     })
 
     CheckboxProvider({
-      scope: __scopeCheckbox as Scope,
+      scope: scopeCheckbox as Scope,
       state: checked as Ref<CheckedState>,
       disabled: disabled as boolean,
     })
@@ -225,9 +241,9 @@ const Checkbox = defineComponent({
   },
 })
 
-type ChecknoxIndicatorElement = ElementRef<typeof Primitive.span>
-type PrimitiveSpanProps = ComponentPropsWithoutRef<typeof Primitive.span>
-interface CheckboxIndicatorProps extends PrimitiveSpanProps {
+type CheckboxIndicatorElement = ElementRef<'span'>
+
+interface CheckboxIndicatorProps extends PrimitiveProps {
   forceMount?: true
 }
 
@@ -236,14 +252,22 @@ const INDICATOR_NAME = 'CheckboxIndicator'
 const CheckboxIndicator = defineComponent({
   name: 'CheckboxIndicator',
   components: { Transition },
-  setup(_, { attrs, expose, slots }) {
-    const { __scopeCheckbox, forceMount, ...indicatorProps } = attrs as ScopedProps<CheckboxIndicatorProps>
-    const innerRef = ref<ChecknoxIndicatorElement>()
+  props: {
+    scopeCheckbox: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+    },
+    forceMount: Boolean,
+  },
+  setup(props, { attrs, expose, slots }) {
+    const { scopeCheckbox, forceMount } = props
+    const { ...indicatorProps } = attrs as CheckboxIndicatorElement
+    const innerRef = ref<CheckboxIndicatorElement>()
     expose({
       innerRef,
     })
 
-    const context = useCheckboxInject(INDICATOR_NAME, __scopeCheckbox)
+    const context = useCheckboxInject(INDICATOR_NAME, scopeCheckbox)
 
     const originalReturn = () => h(Transition, [
       (forceMount || isIndeterminate(context.value.state.value) || context.value.state.value === true)
@@ -259,16 +283,18 @@ const CheckboxIndicator = defineComponent({
     ])
 
     return originalReturn as unknown as {
-      innerRef: Ref<ChecknoxIndicatorElement>
+      innerRef: Ref<CheckboxIndicatorElement>
     }
   },
 })
 
-const OkuCheckbox = Checkbox as typeof Checkbox & (new () => { $props: ScopedProps<CheckboxProps> })
-const OkuCheckboxIndicator = CheckboxIndicator as typeof CheckboxIndicator & (new () => { $props: ScopedProps<CheckboxIndicatorProps> })
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _OkuCheckboxProps = MergeProps<CheckboxProps, CheckboxElement>
+type _OkuCheckboxIndicatorProps = MergeProps<CheckboxIndicatorProps, CheckboxIndicatorElement>
 
-type OkuCheckboxElement = Omit<InstanceType<typeof Checkbox>, keyof ComponentPublicInstance>
-type OkuCheckboxIndicatorElement = Omit<InstanceType<typeof CheckboxIndicator>, keyof ComponentPublicInstance>
+const OkuCheckbox = Checkbox as typeof Checkbox & (new () => { $props: _OkuCheckboxProps })
+const OkuCheckboxIndicator = CheckboxIndicator as typeof CheckboxIndicator & (new () => { $props: _OkuCheckboxIndicatorProps })
+
 export {
   OkuCheckbox,
   OkuCheckboxIndicator,
@@ -277,7 +303,7 @@ export {
 export type {
   CheckboxProps,
   CheckboxIndicatorProps,
-  OkuCheckboxElement,
-  OkuCheckboxIndicatorElement,
+  CheckboxElement,
+  CheckboxIndicatorElement,
   BubbleInputProps,
 }

@@ -1,11 +1,13 @@
 import type { ComponentPublicInstance } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
-import type { ComponentPropsWithoutRef, ElementRef } from '@oku-ui/primitive'
+import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { MergeProps } from '@oku-ui/utils'
 
-type PrimitiveAspectRatioProps = ComponentPropsWithoutRef<typeof Primitive.div>
-type AspectRatioElement = ElementRef<typeof Primitive.div>
+interface AspectRatioProps extends PrimitiveProps {
+  ratio?: number
+}
+
+type AspectRatioElement = ElementRef<'div'>
 
 const NAME = 'AspectRatio'
 
@@ -19,7 +21,7 @@ const AspectRatio = defineComponent({
     },
   },
   setup(props, { attrs, slots, expose }) {
-    const { style, ...aspectRatioProps } = attrs as PrimitiveAspectRatioProps
+    const { style, ...aspectRatioProps } = attrs as AspectRatioElement
     const innerRef = ref<ComponentPublicInstance>()
 
     expose({
@@ -61,11 +63,10 @@ const AspectRatio = defineComponent({
   },
 })
 
-type AspectRatioProps = MergeProps<typeof AspectRatio, PrimitiveAspectRatioProps>
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _AspectRatioProps = MergeProps<AspectRatioProps, AspectRatioElement>
 
-const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: AspectRatioProps })
-
-type OkuAspectRatioElement = Omit<InstanceType<typeof AspectRatio>, keyof ComponentPublicInstance>
+const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: _AspectRatioProps })
 
 export { OkuAspectRatio }
-export type { AspectRatioProps, OkuAspectRatioElement }
+export type { AspectRatioProps, AspectRatioElement }
