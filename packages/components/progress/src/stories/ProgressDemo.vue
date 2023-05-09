@@ -45,7 +45,7 @@ function toggleIndeterminate() {
       </OkuProgress>
       {{ value }}
       <br>
-      <button @click="toggleIndeterminate">
+      <button class="my-10 p-4 bg-gray-200 hover:bg-gray-400" @click="toggleIndeterminate">
         Toggle Indeterminate
       </button>
       <input v-model.number="value" type="range" min="0" :max="max" :disabled="value === null">
