@@ -1,8 +1,8 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { OkuProgress, OkuProgressIndicator } from '@oku-ui/progress'
 import type { ProgressProps } from '@oku-ui/progress'
+import { OkuProgress, OkuProgressIndicator } from '@oku-ui/progress'
+import { computed, ref, watch } from 'vue'
 
 export interface OkuProgressProps extends ProgressProps {
   template?: '#1' | '#2'
@@ -14,35 +14,31 @@ withDefaults(defineProps<OkuProgressProps>(), {
   template: '#1',
 })
 
+// #1
+const max = 150
 const value = ref(13)
-const style = computed(() => {
-  return {
-    transform: `translateX(-${100 - value.value}%)`,
-  }
-})
+const percentage = computed(() => value.value != null ? Math.round((value.value / max) * 100) : null)
 
-function startTimer() {
-  return setTimeout(() => {
-    value.value = 66
-  }, 500)
-}
-let timer: any = null
+console.log(typeof value.value)
 
-onMounted(() => {
-  timer = startTimer()
-})
-
-onUnmounted(() => {
-  clearTimeout(timer)
+watch(value, (newvalue) => {
+  console.log(typeof value.value)
+  console.log(typeof newvalue)
 })
 </script>
 
 <template>
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <OkuProgress class="relative overflow-hidden bg-gray-300 rounded-full w-300px h-25px transform translate-z-0" :value="value">
-        <OkuProgressIndicator class="bg-blue-500 h-full transition-transform duration-660 ease-out" :style="style" />
+      <OkuProgress class="w-400px h-25px max-w-full border-5 border-black bg-gray-200" :value="value" :max="max">
+        <OkuProgressIndicator
+          class="w-0 h-full bg-red transition duration-150 ease-out"
+          :style="{ width: percentage != null ? `${percentage}%` : undefined }"
+        />
       </OkuProgress>
+      {{ value }}
+      <input v-model.number="value" type="range" min="0" :max="max">
+      <input v-model="value" type="number">
     </div>
   </div>
 </template>
