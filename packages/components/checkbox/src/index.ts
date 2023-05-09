@@ -5,4 +5,6 @@ export type {
   CheckboxIndicatorProps,
   CheckboxElement,
   CheckboxIndicatorElement,
+  CheckboxRef,
+  CheckboxIndicatorRef,
 } from './checkbox'
