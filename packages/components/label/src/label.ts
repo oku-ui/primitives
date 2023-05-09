@@ -1,9 +1,9 @@
 import type { ComponentPublicInstance } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
-import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
-type LabelElement = ElementRef<'label'>
+type LabelElement = ElementType<'label'>
 interface LabelProps extends PrimitiveProps {}
 
 const NAME = 'Label'
@@ -39,8 +39,9 @@ const label = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _LabelProps = MergeProps<LabelProps, LabelElement>
+type LabelRef = RefElement<typeof label>
 
 const OkuLabel = label as typeof label & (new () => { $props: _LabelProps })
 
 export { OkuLabel }
-export type { LabelProps, LabelElement }
+export type { LabelProps, LabelElement, LabelRef }

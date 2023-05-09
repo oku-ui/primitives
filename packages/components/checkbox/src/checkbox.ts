@@ -9,7 +9,7 @@ import { useSize } from '@oku-ui/use-size'
 import { Primitive } from '@oku-ui/primitive'
 
 // import { useComposedRefs } from '@oku-ui/compose-refs'
-import type { ElementRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 
@@ -25,7 +25,7 @@ function getState(checked: CheckedState) {
  * Checkbox
  * ----------------------------------------------------------------------------------------------- */
 
-type BubbleInputElement = ElementRef<'input'>
+type BubbleInputElement = ElementType<'input'>
 
 interface BubbleInputProps extends PrimitiveProps {
   checked: CheckedState
@@ -105,7 +105,7 @@ type CheckboxInjectValue = {
 const [CheckboxProvider, useCheckboxInject]
   = createCheckboxProvider<CheckboxInjectValue>(CHECKBOX_NAME)
 
-type CheckboxElement = ElementRef<'button'>
+type CheckboxElement = ElementType<'button'>
 
 interface CheckboxProps extends PrimitiveProps {
   checked?: CheckedState
@@ -241,7 +241,7 @@ const Checkbox = defineComponent({
   },
 })
 
-type CheckboxIndicatorElement = ElementRef<'span'>
+type CheckboxIndicatorElement = ElementType<'span'>
 
 interface CheckboxIndicatorProps extends PrimitiveProps {
   forceMount?: true
@@ -292,6 +292,9 @@ const CheckboxIndicator = defineComponent({
 type _OkuCheckboxProps = MergeProps<CheckboxProps, CheckboxElement>
 type _OkuCheckboxIndicatorProps = MergeProps<CheckboxIndicatorProps, CheckboxIndicatorElement>
 
+type CheckboxRef = RefElement<typeof OkuCheckbox>
+type CheckboxIndicatorRef = RefElement<typeof OkuCheckboxIndicator>
+
 const OkuCheckbox = Checkbox as typeof Checkbox & (new () => { $props: _OkuCheckboxProps })
 const OkuCheckboxIndicator = CheckboxIndicator as typeof CheckboxIndicator & (new () => { $props: _OkuCheckboxIndicatorProps })
 
@@ -306,4 +309,6 @@ export type {
   CheckboxElement,
   CheckboxIndicatorElement,
   BubbleInputProps,
+  CheckboxRef,
+  CheckboxIndicatorRef,
 }

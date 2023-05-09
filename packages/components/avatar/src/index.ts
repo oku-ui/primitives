@@ -11,4 +11,7 @@ export type {
   AvatarElement,
   AvatarFallbackElement,
   AvatarImageElement,
+  AvatarRef,
+  AvatarFallbackRef,
+  AvatarImageRef,
 } from './avatar'
