@@ -23,7 +23,22 @@ type Story = StoryObj<typeof meta> & {
 export const Styled: Story = {
   args: {
     template: '#1',
-    allshow: true,
+    allshow: false,
+  },
+  render: (args: any) => ({
+    components: { OkuProgressComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuProgressComponent v-bind="args" />
+    `,
+  }),
+}
+export const Chromatic: Story = {
+  args: {
+    template: '#2',
+    allshow: false,
   },
   render: (args: any) => ({
     components: { OkuProgressComponent },
