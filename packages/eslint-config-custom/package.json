@@ -1,12 +1,10 @@
 {
   "name": "eslint-config-custom",
   "version": "0.0.0",
-  "main": "index.js",
+  "private": true,
   "license": "MIT",
+  "main": "index.js",
   "dependencies": {
     "@antfu/eslint-config": "^0.38.5"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

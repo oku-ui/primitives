@@ -1,51 +1,51 @@
 {
-    // icons -> https://primer.style/octicons/
-    "commands.commands": [
-        {
-            "command": "terminals.runTerminalByName",
-            "arguments": [
-                "build"
-            ],
-            "color": "#4ebb00",
-            "text": "$(rocket) Build",
-            "tooltip": "Packages Build"
-        },
-        {
-            "command": "terminals.runTerminalByName",
-            "arguments": [
-                "test"
-            ],
-            "color": "#ff0000",
-            "text": "$(bug) Test",
-            "tooltip": "Vitest Test"
-        },
-        {
-            "command": "terminals.runTerminalByName",
-            "arguments": [
-                "test:watch"
-            ],
-            "color": "#ff0000",
-            "text": "$(bug) Test:W",
-            "tooltip": "Vitest Test Watch Mode"
-        },
-        {
-            "command": "terminals.runTerminalByName",
-            "arguments": [
-                "lint"
-            ],
-            "color": "#00ff6a",
-            "text": "$(check) Lint",
-            "tooltip": "Check ESLint"
-        },
-        {
-            "command": "terminals.runTerminalByName",
-            "arguments": [
-                "lint:fix"
-            ],
-            "color": "#00ff6a",
-            "text": "$(check) Lint:fix",
-            "tooltip": "Fix Auto ESLint"
-        },
-    ],
-    "references.preferredLocation": "peek",
+  // icons -> https://primer.style/octicons/
+  "commands.commands": [
+    {
+      "command": "terminals.runTerminalByName",
+      "arguments": [
+        "build"
+      ],
+      "color": "#4ebb00",
+      "text": "$(rocket) Build",
+      "tooltip": "Packages Build"
+    },
+    {
+      "command": "terminals.runTerminalByName",
+      "arguments": [
+        "test"
+      ],
+      "color": "#ff0000",
+      "text": "$(bug) Test",
+      "tooltip": "Vitest Test"
+    },
+    {
+      "command": "terminals.runTerminalByName",
+      "arguments": [
+        "test:watch"
+      ],
+      "color": "#ff0000",
+      "text": "$(bug) Test:W",
+      "tooltip": "Vitest Test Watch Mode"
+    },
+    {
+      "command": "terminals.runTerminalByName",
+      "arguments": [
+        "lint"
+      ],
+      "color": "#00ff6a",
+      "text": "$(check) Lint",
+      "tooltip": "Check ESLint"
+    },
+    {
+      "command": "terminals.runTerminalByName",
+      "arguments": [
+        "lint:fix"
+      ],
+      "color": "#00ff6a",
+      "text": "$(check) Lint:fix",
+      "tooltip": "Fix Auto ESLint"
+    }
+  ],
+  "references.preferredLocation": "peek"
 }

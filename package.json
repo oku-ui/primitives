@@ -1,7 +1,8 @@
 {
   "name": "oku-ui",
-  "private": true,
   "type": "module",
+  "private": true,
+  "packageManager": "pnpm@8.3.0",
   "scripts": {
     "p:build": "unbuild",
     "build": "turbo run build --filter='./packages/**'",
@@ -11,11 +12,11 @@
     "dev:all": "turbo run dev --filter='./packages/**' --concurrency $(($(ls -1 packages/components packages/core | wc -l)+3))",
     "dev:core": "turbo run dev --filter='./packages/core/**'",
     "dev:components": "turbo run dev --filter='./packages/components/**'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "play:vue": "pnpm clean:dts && turbo run dev --filter='./playground/vue3/**'",
     "play:nuxt": "pnpm clean:dts && turbo run dev --filter='./playground/nuxt3/**'",
     "play": "pnpm clean:dts && turbo run dev --filter='./playground/**'",
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint:fix",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
@@ -64,14 +65,13 @@
     "vitest": "^0.30.1",
     "vue": "^3.3.0-beta.5"
   },
-  "packageManager": "pnpm@8.3.0",
-  "overrides": {
-    "vue": "3.3.0-beta.5"
-  },
   "pnpm": {
     "overrides": {
       "vue": "3.3.0-beta.5",
       "vite": "^4.3.1"
     }
+  },
+  "overrides": {
+    "vue": "3.3.0-beta.5"
   }
 }

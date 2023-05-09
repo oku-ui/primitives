@@ -8,7 +8,8 @@
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oku-ui/primitives.git"
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/core/utils"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/c/issues"
@@ -24,15 +25,11 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
     "build": "unbuild",
-    "dev": "unbuild --stub",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "dev": "unbuild --stub"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
