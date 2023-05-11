@@ -13,6 +13,10 @@ describe('OkuSeparator', () => {
     expect(wrapper.attributes('role')).toBe('separator')
   })
 
+  it('sets default orientation horizontal', async () => {
+    expect(wrapper.attributes('data-orientation')).toBe('horizontal')
+  })
+
   it('sets role as none on adding decorative', async () => {
     const wrapper = shallowMount(OkuSeparator, {
       propsData: {
