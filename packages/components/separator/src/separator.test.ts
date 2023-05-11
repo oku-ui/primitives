@@ -9,7 +9,16 @@ describe('OkuSeparator', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('sets role as separator decorative', async () => {
+  it('sets role as separator without decorative', async () => {
     expect(wrapper.attributes('role')).toBe('separator')
+  })
+
+  it('sets role as none on adding decorative', async () => {
+    const wrapper = shallowMount(OkuSeparator, {
+      propsData: {
+        decorative: true,
+      },
+    })
+    expect(wrapper.attributes('role')).toBe('none')
   })
 })
