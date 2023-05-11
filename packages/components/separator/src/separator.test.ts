@@ -8,4 +8,8 @@ describe('OkuSeparator', () => {
   it('renders correctly', async () => {
     expect(wrapper).toMatchSnapshot()
   })
+
+  it('sets role as separator decorative', async () => {
+    expect(wrapper.attributes('role')).toBe('separator')
+  })
 })
