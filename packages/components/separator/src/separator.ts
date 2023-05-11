@@ -48,6 +48,7 @@ const Separator = defineComponent({
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = orientation === 'vertical' ? orientation : undefined
     const semanticProps = props.decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation, 'role': 'separator' }
+    const dataOrientation = { 'data-orientation': orientation }
 
     const innerRef = ref<ComponentPublicInstance>()
 
@@ -62,7 +63,7 @@ const Separator = defineComponent({
           ...attrs,
           ref: innerRef,
           ...semanticProps,
-          dataOrientation: orientation,
+          ...dataOrientation,
           style: {
             ...domProps,
             border: 'none',
