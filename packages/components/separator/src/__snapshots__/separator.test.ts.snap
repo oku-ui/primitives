@@ -12,7 +12,7 @@ VueWrapper {
       data-v-app=""
     >
       <primitivediv-stub
-        dataorientation="horizontal"
+        data-orientation="horizontal"
         role="separator"
       />
     </div>,
@@ -93,7 +93,7 @@ VueWrapper {
       "ctx": {
         "VTU_COMPONENT": {
           "innerRef": <primitivediv-stub
-            dataorientation="horizontal"
+            data-orientation="horizontal"
             role="separator"
           />,
         },
@@ -106,13 +106,13 @@ VueWrapper {
           "__v_isShallow": false,
           "_rawValue": {
             "innerRef": <primitivediv-stub
-              dataorientation="horizontal"
+              data-orientation="horizontal"
               role="separator"
             />,
           },
           "_value": {
             "innerRef": <primitivediv-stub
-              dataorientation="horizontal"
+              data-orientation="horizontal"
               role="separator"
             />,
           },
@@ -163,7 +163,7 @@ VueWrapper {
       "proxy": {
         "VTU_COMPONENT": {
           "innerRef": <primitivediv-stub
-            dataorientation="horizontal"
+            data-orientation="horizontal"
             role="separator"
           />,
         },
@@ -171,7 +171,7 @@ VueWrapper {
       "refs": {
         "VTU_COMPONENT": {
           "innerRef": <primitivediv-stub
-            dataorientation="horizontal"
+            data-orientation="horizontal"
             role="separator"
           />,
         },
@@ -213,7 +213,7 @@ VueWrapper {
       "setupState": {
         "VTU_COMPONENT": {
           "innerRef": <primitivediv-stub
-            dataorientation="horizontal"
+            data-orientation="horizontal"
             role="separator"
           />,
         },
@@ -292,7 +292,7 @@ VueWrapper {
           "emitted": null,
           "exposeProxy": {
             "innerRef": <primitivediv-stub
-              dataorientation="horizontal"
+              data-orientation="horizontal"
               role="separator"
             />,
           },
@@ -304,7 +304,7 @@ VueWrapper {
               "_dirty": false,
               "_setter": [Function],
               "_value": <primitivediv-stub
-                dataorientation="horizontal"
+                data-orientation="horizontal"
                 role="separator"
               />,
               "dep": undefined,
@@ -379,7 +379,7 @@ VueWrapper {
                   "_dirty": false,
                   "_setter": [Function],
                   "_value": <primitivediv-stub
-                    dataorientation="horizontal"
+                    data-orientation="horizontal"
                     role="separator"
                   />,
                   "dep": undefined,
@@ -465,7 +465,7 @@ VueWrapper {
               "asyncResolved": false,
               "attrs": {
                 "aria-orientation": undefined,
-                "dataOrientation": "horizontal",
+                "data-orientation": "horizontal",
                 "role": "separator",
                 "style": {
                   "border": "none",
@@ -547,7 +547,7 @@ VueWrapper {
               "setupContext": {
                 "attrs": {
                   "aria-orientation": undefined,
-                  "dataOrientation": "horizontal",
+                  "data-orientation": "horizontal",
                   "role": "separator",
                   "style": {
                     "border": "none",
@@ -573,14 +573,14 @@ VueWrapper {
                 "dynamicChildren": null,
                 "dynamicProps": null,
                 "el": <primitivediv-stub
-                  dataorientation="horizontal"
+                  data-orientation="horizontal"
                   role="separator"
                 />,
                 "key": null,
                 "patchFlag": 16,
                 "props": {
                   "aria-orientation": undefined,
-                  "dataOrientation": "horizontal",
+                  "data-orientation": "horizontal",
                   "role": "separator",
                   "style": {
                     "border": "none",
@@ -619,14 +619,14 @@ VueWrapper {
             "dynamicChildren": null,
             "dynamicProps": null,
             "el": <primitivediv-stub
-              dataorientation="horizontal"
+              data-orientation="horizontal"
               role="separator"
             />,
             "key": null,
             "patchFlag": 0,
             "props": {
               "aria-orientation": undefined,
-              "dataOrientation": "horizontal",
+              "data-orientation": "horizontal",
               "ref": RefImpl {
                 "__v_isRef": true,
                 "__v_isShallow": false,
@@ -642,7 +642,7 @@ VueWrapper {
                       "_dirty": false,
                       "_setter": [Function],
                       "_value": <primitivediv-stub
-                        dataorientation="horizontal"
+                        data-orientation="horizontal"
                         role="separator"
                       />,
                       "dep": undefined,
@@ -681,7 +681,7 @@ VueWrapper {
                       "_dirty": false,
                       "_setter": [Function],
                       "_value": <primitivediv-stub
-                        dataorientation="horizontal"
+                        data-orientation="horizontal"
                         role="separator"
                       />,
                       "dep": undefined,
@@ -744,7 +744,7 @@ VueWrapper {
         "dynamicChildren": null,
         "dynamicProps": null,
         "el": <primitivediv-stub
-          dataorientation="horizontal"
+          data-orientation="horizontal"
           role="separator"
         />,
         "key": null,
@@ -838,7 +838,7 @@ VueWrapper {
         "dynamicChildren": null,
         "dynamicProps": null,
         "el": <primitivediv-stub
-          dataorientation="horizontal"
+          data-orientation="horizontal"
           role="separator"
         />,
         "key": null,
@@ -1060,7 +1060,7 @@ VueWrapper {
   ],
   "componentVM": {
     "innerRef": <primitivediv-stub
-      dataorientation="horizontal"
+      data-orientation="horizontal"
       role="separator"
     />,
   },
@@ -1068,13 +1068,13 @@ VueWrapper {
   "rootVM": {
     "VTU_COMPONENT": {
       "innerRef": <primitivediv-stub
-        dataorientation="horizontal"
+        data-orientation="horizontal"
         role="separator"
       />,
     },
   },
   "wrapperElement": <primitivediv-stub
-    dataorientation="horizontal"
+    data-orientation="horizontal"
     role="separator"
   />,
 }
