@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "unbuild --watch"
+    "dev": "tsup --watch"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
