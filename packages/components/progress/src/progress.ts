@@ -1,6 +1,6 @@
-import type { ElementType, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { RefElement, Scope } from '@oku-ui/provide'
+import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComponentPublicInstance, ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
@@ -13,7 +13,7 @@ type ProgressContextValue = { value: ComputedRef<number | null> | null; max: Com
 type ProgressElement = ElementType<'div'>
 type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
-interface ProgressProps extends PrimitiveProps {
+interface ProgressProps {
   value?: number | null
   max?: number
   getValueLabel?(value: number, max: number): string

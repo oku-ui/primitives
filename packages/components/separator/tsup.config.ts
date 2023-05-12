@@ -15,18 +15,10 @@ export default defineConfig((options) => {
       dts: true,
       clean: true,
       target: 'node16',
+      bundle: true,
+      skipNodeModulesBundle: true,
       format: ['esm'],
       outExtension: () => ({ js: '.mjs' }),
-    },
-    {
-      ...options,
-      entryPoints: ['src/index.ts'],
-      external,
-      dts: true,
-      clean: true,
-      target: 'node16',
-      format: ['cjs'],
-      outExtension: () => ({ js: '.cjs' }),
     },
   ]
 })

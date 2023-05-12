@@ -26,8 +26,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "dev": "unbuild --stub"
+    "build": "tsup",
+    "dev": "unbuild --watch"
   },
   "peerDependencies": {
     "vue": "^3.3.1"
@@ -35,5 +35,8 @@
   "dependencies": {
     "@oku-ui/primitive": "workspace:^",
     "@oku-ui/utils": "workspace:^"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
   }
 }

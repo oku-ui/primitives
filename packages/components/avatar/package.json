@@ -26,8 +26,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "dev": "unbuild --stub"
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "peerDependencies": {
     "vue": "^3.3.1"
