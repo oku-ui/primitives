@@ -1,4 +1,3 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import type { AspectRatioProps } from '@oku-ui/aspect-ratio'
 import { OkuAspectRatio } from '@oku-ui/aspect-ratio'
