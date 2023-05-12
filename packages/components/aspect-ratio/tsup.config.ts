@@ -18,15 +18,5 @@ export default defineConfig((options) => {
       format: ['esm'],
       outExtension: () => ({ js: '.mjs' }),
     },
-    {
-      ...options,
-      entryPoints: ['src/index.ts'],
-      external,
-      dts: true,
-      clean: true,
-      target: 'node16',
-      format: ['cjs'],
-      outExtension: () => ({ js: '.cjs' }),
-    },
   ]
 })

@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@8.3.0",
   "scripts": {
-    "p:build": "unbuild",
+    "p:build": "tsup",
     "build": "turbo run build --filter='./packages/**'",
     "build:components": "turbo run build --filter='./packages/components/**'",
     "build:core": "turbo run build --filter='./packages/core/**'",
