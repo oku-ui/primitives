@@ -244,6 +244,9 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
     devDependencies:
+      '@types/resize-observer-browser':
+        specifier: ^0.1.7
+        version: 0.1.7
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
@@ -4074,6 +4077,10 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
+    dev: true
+
+  /@types/resize-observer-browser@0.1.7:
+    resolution: {integrity: sha512-G9eN0Sn0ii9PWQ3Vl72jDPgeJwRWhv2Qk/nQkJuWmRmOB4HX3/BhD5SE1dZs/hzPZL/WKnvF0RHdTSG54QJFyg==}
     dev: true
 
   /@types/resolve@1.20.2:
