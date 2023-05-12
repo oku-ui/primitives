@@ -1,12 +1,21 @@
 import { describe, expect, it } from 'vitest'
-import { shallowMount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import { OkuSeparator } from './separator'
 
 describe('OkuSeparator', () => {
-  const wrapper = shallowMount(OkuSeparator)
+  const wrapper = mount(OkuSeparator)
 
   it('renders correctly', async () => {
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.html()).toBe(`<div role="separator" data-orientation="horizontal">
+  <!---->
+</div>`)
+  })
+
+  it('renders ref correctly', async () => {
+    // TODO: outerHTML is not available on VueWrapper
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    expect(wrapper.vm.innerRef.outerHTML).toBe('<div role="separator" data-orientation="horizontal"><!----></div>')
   })
 
   it('sets role as separator without decorative', async () => {

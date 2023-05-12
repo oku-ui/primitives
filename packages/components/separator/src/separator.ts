@@ -69,7 +69,9 @@ const Separator = defineComponent({
             border: 'none',
           },
         },
-        slots.default?.(),
+        {
+          default: () => slots.default?.(),
+        },
       )
 
     return originalReturn as unknown as {
