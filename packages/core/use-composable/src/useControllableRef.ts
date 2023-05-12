@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
 import type { Ref } from 'vue'
 import { computed, ref, watch, watchEffect } from 'vue'
-import { useCallbackRef } from '@oku-ui/use-callback-ref'
+import { useCallbackRef } from './useCallbackRef'
 
 type UseControllableRefParams<T> = {
   prop?: T | undefined

@@ -139,9 +139,9 @@ importers:
       '@oku-ui/provide':
         specifier: workspace:^
         version: link:../../core/provide
-      '@oku-ui/use-callback-ref':
+      '@oku-ui/use-composable':
         specifier: workspace:^
-        version: link:../../core/use-callback-ref
+        version: link:../../core/use-composable
       '@oku-ui/utils':
         specifier: workspace:^
         version: link:../../core/utils
@@ -155,24 +155,15 @@ importers:
 
   packages/components/checkbox:
     dependencies:
-      '@oku-ui/compose-refs':
-        specifier: workspace:^
-        version: link:../../core/compose-refs
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
         specifier: workspace:^
         version: link:../../core/provide
-      '@oku-ui/use-controllable-ref':
+      '@oku-ui/use-composable':
         specifier: workspace:^
-        version: link:../../core/use-controllable-ref
-      '@oku-ui/use-previous':
-        specifier: workspace:^
-        version: link:../../core/use-previous
-      '@oku-ui/use-size':
-        specifier: workspace:^
-        version: link:../../core/use-size
+        version: link:../../core/use-composable
       '@oku-ui/utils':
         specifier: workspace:^
         version: link:../../core/utils
@@ -227,16 +218,6 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
 
-  packages/core/compose-refs:
-    dependencies:
-      vue:
-        specifier: ^3.3.1
-        version: 3.3.1
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
   packages/core/primitive:
     dependencies:
       vue:
@@ -257,48 +238,12 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/use-callback-ref:
+  packages/core/use-composable:
     dependencies:
       vue:
         specifier: ^3.3.1
         version: 3.3.1
     devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/core/use-controllable-ref:
-    dependencies:
-      '@oku-ui/use-callback-ref':
-        specifier: workspace:^
-        version: link:../use-callback-ref
-      vue:
-        specifier: ^3.3.1
-        version: 3.3.1
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/core/use-previous:
-    dependencies:
-      vue:
-        specifier: ^3.3.1
-        version: 3.3.1
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/core/use-size:
-    dependencies:
-      vue:
-        specifier: ^3.3.1
-        version: 3.3.1
-    devDependencies:
-      '@types/resize-observer-browser':
-        specifier: ^0.1.7
-        version: 0.1.7
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
@@ -833,7 +778,6 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.21.5
-    dev: true
 
   /@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@7.18.6(@babel/core@7.21.5):
     resolution: {integrity: sha512-Dgxsyg54Fx1d4Nge8UnvTrED63vrwOdPmyvPzlNN/boaliRP54pm3pGzZD1SJUwrBA+Cs/xdG8kXX6Mn/RfISQ==}
@@ -4132,10 +4076,6 @@ packages:
       csstype: 3.1.2
     dev: true
 
-  /@types/resize-observer-browser@0.1.7:
-    resolution: {integrity: sha512-G9eN0Sn0ii9PWQ3Vl72jDPgeJwRWhv2Qk/nQkJuWmRmOB4HX3/BhD5SE1dZs/hzPZL/WKnvF0RHdTSG54QJFyg==}
-    dev: true
-
   /@types/resolve@1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
     dev: true
@@ -5055,7 +4995,7 @@ packages:
   /@vue/compiler-sfc@3.3.1:
     resolution: {integrity: sha512-G+FPwBbXSLaA4+Ry5/bdD9Oda+sRslQcE9o6JSZaougRiT4OjVL0vtkbQHPrGRTULZV28OcrAjRfSZOSB0OTXQ==}
     dependencies:
-      '@babel/parser': 7.21.5
+      '@babel/parser': 7.21.8
       '@vue/compiler-core': 3.3.1
       '@vue/compiler-dom': 3.3.1
       '@vue/compiler-ssr': 3.3.1
@@ -5078,7 +5018,7 @@ packages:
   /@vue/reactivity-transform@3.3.1:
     resolution: {integrity: sha512-MkOrJauAGH4MNdxGW/PmrDegMyOGX0wGIdKUZJRBXOTpotDONg7/TPJe2QeGeBCow/5v9iOqZOWCfvmOWIaDMg==}
     dependencies:
-      '@babel/parser': 7.21.5
+      '@babel/parser': 7.21.8
       '@vue/compiler-core': 3.3.1
       '@vue/shared': 3.3.1
       estree-walker: 2.0.2
@@ -13676,7 +13616,7 @@ packages:
   /vue-docgen-api@4.71.0(vue@3.3.1):
     resolution: {integrity: sha512-90uxlQ5VGJ42IxkZg8Tz9jb0eyFYaL+LyHhlNfkos66ODhGoKk22gA8XW1UjjSE7zMyQB7SvMBr6oaWEOorMJg==}
     dependencies:
-      '@babel/parser': 7.21.5
+      '@babel/parser': 7.21.8
       '@babel/types': 7.21.5
       '@vue/compiler-dom': 3.3.1
       '@vue/compiler-sfc': 3.3.1

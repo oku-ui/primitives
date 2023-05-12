@@ -4,7 +4,7 @@ import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-u
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
-import { useCallbackRef } from '@oku-ui/use-callback-ref'
+import { useCallbackRef } from '@oku-ui/use-composable'
 
 function useImageLoadingStatus(src?: string) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
