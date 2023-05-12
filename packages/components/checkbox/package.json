@@ -33,12 +33,9 @@
     "vue": "^3.3.1"
   },
   "dependencies": {
-    "@oku-ui/compose-refs": "workspace:^",
     "@oku-ui/primitive": "workspace:^",
     "@oku-ui/provide": "workspace:^",
-    "@oku-ui/use-controllable-ref": "workspace:^",
-    "@oku-ui/use-previous": "workspace:^",
-    "@oku-ui/use-size": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^"
   },
   "devDependencies": {

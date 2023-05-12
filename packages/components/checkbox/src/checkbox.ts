@@ -2,10 +2,8 @@ import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
 import { Transition, computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
 
-import { useControllableRef } from '@oku-ui/use-controllable-ref'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { usePrevious } from '@oku-ui/use-previous'
-import { useSize } from '@oku-ui/use-size'
+import { useControllableRef, usePrevious, useSize } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
 // import { useComposedRefs } from '@oku-ui/compose-refs'
@@ -216,8 +214,10 @@ const Checkbox = defineComponent({
           }
         }),
       },
-      slots.default?.(),
-      ), isFormControl && h(
+      {
+        default: () => slots.default?.(),
+      }),
+      isFormControl && h(
         BubbleInput,
         {
           control: _button.value,
@@ -277,7 +277,9 @@ const CheckboxIndicator = defineComponent({
           ...indicatorProps,
           'style': { pointerEvents: 'none', ...attrs.style as any },
         },
-        slots.default?.(),
+        {
+          default: () => slots.default?.(),
+        },
         )
         : null,
     ])

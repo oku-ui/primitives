@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/use-size",
+  "name": "@oku-ui/use-composable",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/core/use-size"
+    "directory": "packages/core/use-composable"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -18,18 +18,18 @@
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.js"
     }
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "dev": "unbuild --stub"
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "peerDependencies": {
     "vue": "^3.3.1"
