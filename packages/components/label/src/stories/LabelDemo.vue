@@ -25,7 +25,7 @@ const alert = () => window.alert('clicked')
 <template>
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <OkuLabel  ref="labelRef" class="text-black text-2xl border-2 border-gray-500 mb-4" for="firstName">
+      <OkuLabel ref="labelRef" class="text-black text-2xl border-2 border-gray-500 mb-4" for="firstName">
         {{ label }}
       </OkuLabel>
       <input id="firstName" class="mt-4 bg-gray-200 p-2 border-2 border-gray-500" type="text" defaultValue="Pedro Duarte">
