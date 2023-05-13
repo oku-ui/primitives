@@ -25,6 +25,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:packages/components/toggle
       '@storybook/addon-essentials':
         specifier: ^7.0.10
         version: 7.0.10(react-dom@18.2.0)(react@18.2.0)
@@ -219,6 +222,25 @@ importers:
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.1
+        version: 3.3.1
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/toggle:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
       '@oku-ui/utils':
         specifier: workspace:^
         version: link:../../core/utils
@@ -786,6 +808,7 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.21.5
+    dev: true
 
   /@babel/parser@7.21.8:
     resolution: {integrity: sha512-6zavDGdzG3gUqAdWvlLFfk+36RilI+Pwyuuh7HItyeScCWP3k6i8vKclAQ0bM/0y/Kz/xiwvxhMv9MgTJP5gmA==}
@@ -5000,7 +5023,7 @@ packages:
   /@vue/compiler-core@3.3.1:
     resolution: {integrity: sha512-5le1qYSBgLWg2jdLrbydlhnPJkkzMw46UrRUvTnOKlfg6pThtm9ohhqBhNPHbr0RcM1MCbK5WZe/3Ghz0SZjpQ==}
     dependencies:
-      '@babel/parser': 7.21.5
+      '@babel/parser': 7.21.8
       '@vue/shared': 3.3.1
       estree-walker: 2.0.2
       source-map-js: 1.0.2
