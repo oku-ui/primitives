@@ -5,11 +5,11 @@ import { OkuToggle } from './toggle'
 describe('OkuToggle', () => {
   const wrapper = mount(OkuToggle)
 
-  it('renders correctly', async () => {
+  it('renders correctly', () => {
     expect(wrapper.html()).toBe('<button type="button" aria-pressed="false" data-state="off"></button>')
   })
 
-  it('Active state', async () => {
+  it('Active state', () => {
     const wrapper = shallowMount(OkuToggle, {
       propsData: {
         defaultPressed: true,
@@ -18,7 +18,7 @@ describe('OkuToggle', () => {
     expect(wrapper.attributes('aria-pressed')).toBe('true')
   })
 
-  it('Inactive state', async () => {
+  it('Inactive state', () => {
     const wrapper = shallowMount(OkuToggle, {
       propsData: {
         defaultPressed: false,

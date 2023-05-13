@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { ComponentPublicInstance, PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
@@ -43,11 +43,11 @@ const Toggle = defineComponent({
   setup(props, { attrs, expose, slots }) {
     const { onPressedChange } = props
     const { pressed: pressedProp, defaultPressed } = toRefs(props)
-    const innerRef = ref()
-    const _innerRef = computed(() => innerRef.value?.$el)
+    const innerRef = ref<ComponentPublicInstance>()
+     computed(() => innerRef.value?.$el)
 
     expose({
-      innerRef: _innerRef,
+      innerRef: computed(() => innerRef.value?.$el)
     })
 
     const isControlled = computed(() => pressedProp.value !== undefined)
