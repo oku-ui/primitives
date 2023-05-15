@@ -30,6 +30,8 @@ Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/m
 
 Enter the component you want most in the components, leave the emojis and follow.
 
+**Developers can work on unclaimed components**.
+
 - [ ] [Accordion](https://github.com/oku-ui/primitives/issues/3)
 - [ ] [Alert Dialog](https://github.com/oku-ui/primitives/issues/4)
 - [x] [Aspect Ratio](https://github.com/oku-ui/primitives/issues/1)
