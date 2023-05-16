@@ -252,6 +252,9 @@ importers:
 
   packages/core/use-composable:
     dependencies:
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
       vue:
         specifier: ^3.3.1
         version: 3.3.1
