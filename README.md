@@ -56,7 +56,7 @@ Enter the component you want most in the components, leave the emojis and follow
 - [ ] [Switch](https://github.com/oku-ui/primitives/issues/22)
 - [ ] [Tabs](https://github.com/oku-ui/primitives/issues/23)
 - [ ] [Toast](https://github.com/oku-ui/primitives/issues/24)
-- [ ] [Toggle](https://github.com/oku-ui/primitives/issues/25)
+- [x] [Toggle](https://github.com/oku-ui/primitives/issues/25)
 - [ ] [Toggle Group](https://github.com/oku-ui/primitives/issues/26)
 - [ ] [Toolbar](https://github.com/oku-ui/primitives/issues/27)
 - [ ] [Tooltip](https://github.com/oku-ui/primitives/issues/28)

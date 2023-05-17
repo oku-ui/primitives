@@ -25,6 +25,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:packages/components/toggle
       '@storybook/addon-essentials':
         specifier: ^7.0.10
         version: 7.0.10(react-dom@18.2.0)(react@18.2.0)
@@ -224,6 +227,28 @@ importers:
         version: link:../../core/utils
       vue:
         specifier: ^3.3.2
+        version: 3.3.2
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/toggle:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.1
         version: 3.3.2
     devDependencies:
       tsconfig:
