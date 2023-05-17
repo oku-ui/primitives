@@ -241,6 +241,9 @@ importers:
       '@oku-ui/provide':
         specifier: workspace:^
         version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
       '@oku-ui/utils':
         specifier: workspace:^
         version: link:../../core/utils

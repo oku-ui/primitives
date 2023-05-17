@@ -1,8 +1,9 @@
-import type { ComponentPublicInstance, PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import type { PropType, Ref } from 'vue'
+import { defineComponent, h, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
+import { useControllableRef, useRef } from '@oku-ui/use-composable'
 
 const TOGGLE_NAME = 'Toggle'
 
@@ -43,45 +44,38 @@ const Toggle = defineComponent({
   setup(props, { attrs, expose, slots }) {
     const { onPressedChange } = props
     const { pressed: pressedProp, defaultPressed } = toRefs(props)
-    const innerRef = ref<ComponentPublicInstance>()
-    computed(() => innerRef.value?.$el)
+    const { _ref: toogleRef, refEl: toogleRefEl } = useRef<ToggleElement>()
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el),
+      innerRef: toogleRefEl,
     })
 
-    const isControlled = computed(() => pressedProp.value !== undefined)
-    const uncontrolledValue = ref(defaultPressed.value)
-    const pressed = computed(() => (isControlled.value ? pressedProp.value : uncontrolledValue.value))
-
-    function setPressed(value: boolean) {
-      if (isControlled.value)
-        onPressedChange?.(value)
-
-      else
-        uncontrolledValue.value = value
-    }
+    const { state } = useControllableRef({
+      prop: pressedProp.value,
+      onChange: onPressedChange,
+      defaultProp: defaultPressed.value,
+    })
 
     const { disabled, ...toggleProps } = attrs as ToggleElement
 
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
-        'aria-pressed': pressed.value,
-        'data-state': pressed.value ? 'on' : 'off',
+        'aria-pressed': state.value,
+        'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled ? '' : undefined,
         ...toggleProps,
-        'ref': innerRef,
+        'ref': toogleRef,
         'onClick': composeEventHandlers(toggleProps.onClick, () => {
           if (!disabled)
-            setPressed(!pressed.value)
+            state.value = !state.value
         }),
       },
       slots.default && slots.default?.(),
     )
 
     return originalReturn as unknown as {
-      innerRef: ToggleElement
+      innerRef: Ref<ToggleElement>
     }
   },
 })
