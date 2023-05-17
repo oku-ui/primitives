@@ -1,14 +1,12 @@
+import type { Ref, UnwrapRef } from 'vue'
 import { computed, ref, watchEffect } from 'vue'
-import type { Ref } from 'vue'
 
 /**
- * A custom hook that converts a callback to a ref to avoid triggering re-renders when passed as a
+ * A custom function that converts a callback to a ref to avoid triggering re-renders when passed as a
  * prop or avoid re-executing effects when passed as a dependency
  */
 function useCallbackRef<T extends (...args: any[]) => any>(callback: T | undefined): T {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const callbackRef: Ref<T | undefined> = ref(callback)
+  const callbackRef: Ref<UnwrapRef<T> | undefined | T> = ref(callback)
 
   watchEffect(() => {
     callbackRef.value = callback

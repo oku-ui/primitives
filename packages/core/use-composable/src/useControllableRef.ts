@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { computed, ref, watch, watchEffect } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 import { useCallbackRef } from './useCallbackRef'
 
 type UseControllableRefParams<T> = {
@@ -8,78 +8,55 @@ type UseControllableRefParams<T> = {
   onChange?: (ref: T) => void
 }
 
-type SetRefFn<T> = (prevRef?: T) => T
-
 function useControllableRef<T>({
   prop,
   defaultProp,
   onChange = () => {},
 }: UseControllableRefParams<T>) {
-  const uncontrolledProp = useUncontrolledRef({ defaultProp, onChange })
+  const uncontrolledRef = useUncontrolledRef({
+    defaultProp,
+    onChange,
+  })
+  const handleChange = useCallbackRef(onChange)
   const isControlled = prop !== undefined
-  const state = computed(() => (isControlled ? prop : uncontrolledProp.value))
-  const handleChange = computed(() => onChange)
 
-  const setValue = (callback: (nextValue: T | undefined) => void | T): any => {
-    const refCallback = ref(callback)
-    const computedCallback = computed(() => refCallback.value)
+  const state = ref(isControlled ? prop : uncontrolledRef) as Ref<T | undefined>
 
-    watchEffect(() => {
-      refCallback.value = callback
-    })
-
+  // TODO: How to add handleChange watch. handleChange add watch auto run when prop change :/ not good
+  watch([state, uncontrolledRef, prop], () => {
     if (isControlled) {
-      const setter = computedCallback.value as SetRefFn<T>
-      const value = typeof computedCallback.value === 'function' ? setter(prop) : computedCallback.value
+      const value = typeof state.value === 'function' ? state.value() : state.value
       if (value !== prop)
-        handleChange.value(value as T)
+        handleChange(prop)
     }
     else {
-      const setter = callback as SetRefFn<T>
-      uncontrolledProp.value = typeof callback === 'function' ? setter(uncontrolledProp.value) : callback
+      uncontrolledRef.value = state.value
     }
-  }
+  }, {
+    deep: true,
+  })
 
-  return [state, setValue] as const
+  return {
+    state,
+  }
 }
 
 function useUncontrolledRef<T>({
   defaultProp,
   onChange,
 }: Omit<UseControllableRefParams<T>, 'prop'>) {
-  const uncontrolledRef = ref(defaultProp) as Ref<T | undefined>
-  const prevValueRef = ref(defaultProp) as Ref<T | undefined>
+  const state = ref(defaultProp) as Ref<T | undefined>
+  const prevValue = ref(defaultProp) as Ref<T | undefined>
   const handleChange = useCallbackRef(onChange)
 
-  watch([uncontrolledRef, prevValueRef, handleChange], () => {
-    if (prevValueRef.value !== uncontrolledRef.value) {
-      handleChange(uncontrolledRef.value as T)
-      prevValueRef.value = uncontrolledRef.value
+  watchEffect(() => {
+    if (prevValue.value !== state.value) {
+      handleChange(state.value as T)
+      prevValue.value = state.value
     }
   })
 
-  return uncontrolledRef
+  return state
 }
 
 export { useControllableRef }
-
-// type Callback<T extends any[]> = (...args: T) => void
-
-// function useCallback<T extends any[]>(callback: Callback<T>, deps: any[]): (...args: T) => void {
-// const refCallback = ref(callback)
-// const computedCallback = computed(() => refCallback.value)
-
-// const memoizedCallback = (...args: T) => computedCallback.value(...args)
-
-// watchEffect(() => {
-//   refCallback.value = callback
-// })
-
-//   if (deps.length > 0) {
-//     watch(deps, () => {
-//       refCallback.value = callback
-//     })
-//   }
-
-//   return memoizedCallback
-// }
