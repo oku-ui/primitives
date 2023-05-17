@@ -3,7 +3,7 @@
 import type { CheckboxProps, CheckboxRef } from '@oku-ui/checkbox'
 import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
 import { OkuLabel } from '@oku-ui/label'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 export interface ICheckBoxProps extends CheckboxProps {
   template?: '#1' | '#2' | '#3'
@@ -16,12 +16,10 @@ withDefaults(defineProps<ICheckBoxProps>(), {
 
 const refdd = ref<CheckboxRef>()
 
-watch(refdd, (v) => {
-  console.log(v, 'refdd')
-})
 onMounted(() => {
-  if (window)
-    console.log(refdd.value?.innerRef, 'tt')
+  refdd.value?.innerRef?.id = 'checkbox'
+
+  console.log(refdd.value?.innerRef, 'tt')
 })
 </script>
 

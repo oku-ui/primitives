@@ -3,7 +3,7 @@ import type { PropType, Ref } from 'vue'
 import { Transition, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useControllableRef, usePrevious, useSize, useUnrefToRef } from '@oku-ui/use-composable'
+import { useControllableRef, usePrevious, useRef, useSize } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
@@ -139,11 +139,24 @@ const Checkbox = defineComponent({
   },
   setup(props, { attrs, slots, expose }) {
     const { checked: checkedProp, scopeCheckbox, defaultChecked, onCheckedChange, required } = toRefs(props)
-    const { mergedRef: button, nodeRef } = useUnrefToRef<HTMLButtonElement>()
+
+    const { _ref: buttonRef, refEl: buttonRefEl, innerRef } = useRef<HTMLButtonElement>()
+
+    const changeRef = (el?: Partial<HTMLButtonElement>) => {
+      if (el) {
+        buttonRefEl.value = buttonRefEl.value
+          ? {
+              ...(buttonRefEl.value || {}),
+              ...el,
+            } as HTMLButtonElement
+          : el as HTMLButtonElement
+      }
+    }
 
     expose({
-      innerRef: button,
+      innerRef,
     })
+
     const {
       name,
       disabled,
@@ -153,7 +166,7 @@ const Checkbox = defineComponent({
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
-    const isFormControl = button.value ? Boolean(button.value.closest('form')) : true
+    const isFormControl = buttonRefEl.value ? Boolean(buttonRefEl.value.closest('form')) : true
     const { state } = useControllableRef({
       prop: checkedProp.value,
       defaultProp: defaultChecked.value,
@@ -166,8 +179,8 @@ const Checkbox = defineComponent({
       initialCheckedStateRef.value = state.value
     })
 
-    watch([button, nodeRef, state], () => {
-      const form = button.value?.form
+    watch([buttonRefEl, state], () => {
+      const form = buttonRefEl.value?.form
       if (form) {
         const reset = () => (state.value = initialCheckedStateRef.value)
         form.addEventListener('reset', reset)
@@ -192,7 +205,7 @@ const Checkbox = defineComponent({
         'disabled': disabled,
         'value': value,
         ...checkboxProps,
-        'ref': nodeRef,
+        'ref': buttonRef,
         'onKeyDown': composeEventHandlers(checkboxProps.onKeydown, (event) => {
           // According to WAI ARIA, Checkboxes don't activate on enter keypress
           if (event.key === 'Enter')
@@ -216,7 +229,7 @@ const Checkbox = defineComponent({
       isFormControl && h(
         BubbleInput,
         {
-          control: button.value,
+          control: buttonRefEl.value,
           bubbles: !hasConsumerStoppedPropagationRef.value,
           name,
           value,
@@ -281,7 +294,7 @@ const CheckboxIndicator = defineComponent({
     ])
 
     return originalReturn as unknown as {
-      innerRef: Ref<CheckboxIndicatorElement>
+      innerRef: Ref<HTMLButtonElement>
     }
   },
 })
