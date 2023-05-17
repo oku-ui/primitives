@@ -17,8 +17,6 @@ withDefaults(defineProps<ICheckBoxProps>(), {
 const refdd = ref<CheckboxRef>()
 
 onMounted(() => {
-  refdd.value?.innerRef?.id = 'checkbox'
-
   console.log(refdd.value?.innerRef, 'tt')
 })
 </script>

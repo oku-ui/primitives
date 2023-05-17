@@ -140,21 +140,10 @@ const Checkbox = defineComponent({
   setup(props, { attrs, slots, expose }) {
     const { checked: checkedProp, scopeCheckbox, defaultChecked, onCheckedChange, required } = toRefs(props)
 
-    const { _ref: buttonRef, refEl: buttonRefEl, innerRef } = useRef<HTMLButtonElement>()
-
-    const changeRef = (el?: Partial<HTMLButtonElement>) => {
-      if (el) {
-        buttonRefEl.value = buttonRefEl.value
-          ? {
-              ...(buttonRefEl.value || {}),
-              ...el,
-            } as HTMLButtonElement
-          : el as HTMLButtonElement
-      }
-    }
+    const { _ref: buttonRef, refEl: buttonRefEl } = useRef<HTMLButtonElement>()
 
     expose({
-      innerRef,
+      innerRef: buttonRefEl,
     })
 
     const {
