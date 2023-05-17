@@ -34,11 +34,11 @@
   "peerDependencies": {
     "vue": "^3.3.1"
   },
+  "dependencies": {
+    "@oku-ui/utils": "workspace:^"
+  },
   "devDependencies": {
     "@types/resize-observer-browser": "^0.1.7",
     "tsconfig": "workspace:^"
-  },
-  "dependencies": {
-    "@oku-ui/utils": "workspace:^"
   }
 }
