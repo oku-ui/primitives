@@ -44,10 +44,10 @@ const Toggle = defineComponent({
     const { onPressedChange } = props
     const { pressed: pressedProp, defaultPressed } = toRefs(props)
     const innerRef = ref<ComponentPublicInstance>()
-     computed(() => innerRef.value?.$el)
+    computed(() => innerRef.value?.$el)
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el)
+      innerRef: computed(() => innerRef.value?.$el),
     })
 
     const isControlled = computed(() => pressedProp.value !== undefined)
@@ -78,7 +78,7 @@ const Toggle = defineComponent({
         }),
       },
       slots.default && slots.default?.(),
-      )
+    )
 
     return originalReturn as unknown as {
       innerRef: ToggleElement
