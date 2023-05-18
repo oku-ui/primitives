@@ -51,6 +51,7 @@ async function main() {
   // Get the current PR for this release, if it exists
   const [currentPR] = await $fetch(`https://api.github.com/repos/oku-ui/primitives/pulls?head=primitives:v${newVersion}`)
 
+  return
   const releaseNotes = [
     currentPR?.body.replace(/## 👉 Changelog[\s\S]*$/, '') || `> ${newVersion} is the next ${bumpType} release.\n>\n> **Timetable**: to be announced.`,
     '## 👉 Changelog',
