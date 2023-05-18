@@ -49,7 +49,7 @@ async function main() {
   }
 
   // Get the current PR for this release, if it exists
-  const [currentPR] = await $fetch(`https://api.github.com/repos/oku-ui/primitives/pulls?head=primitives:v${newVersion}`)
+  const [currentPR] = await $fetch(`https://api.github.com/repos/oku-ui/primitives/pulls?head=oku-ui:v${newVersion}`)
 
   return
   const releaseNotes = [
