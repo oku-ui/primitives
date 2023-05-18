@@ -29,7 +29,7 @@ async function main() {
   ))
   const bumpType = await determineBumpType()
 
-  const newVersion = inc(workspace.find('oku-ui').data.version, bumpType || 'patch')
+  const newVersion = inc(workspace.workspacePkg.data.version, bumpType || 'patch')
   const changelog = await generateMarkDown(commits, config)
 
   // Create and push a branch with bumped versions if it has not already been created
