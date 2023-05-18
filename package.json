@@ -3,6 +3,7 @@
   "type": "module",
   "private": true,
   "packageManager": "pnpm@8.3.0",
+  "repository": "oku-ui/primitives",
   "scripts": {
     "p:build": "tsup",
     "build": "turbo run build --filter='./packages/**'",
@@ -23,7 +24,11 @@
     "build:storybook": "pnpm storybook build",
     "clean": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
-    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
+    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
+    "chan": "changelogen --output=CHANGELOG.md"
+  },
+  "dependencies": {
+    "changelogen": "^0.5.3"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.5",
@@ -49,7 +54,9 @@
     "eslint": "8.39.0",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-storybook": "^0.6.12",
+    "jiti": "^1.18.2",
     "jsdom": "^22.0.0",
+    "ofetch": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.0",
