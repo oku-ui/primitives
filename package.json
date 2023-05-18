@@ -2,8 +2,8 @@
   "name": "oku-ui",
   "type": "module",
   "private": true,
-  "repository": "oku-ui/primitives",
   "packageManager": "pnpm@8.3.0",
+  "repository": "oku-ui/primitives",
   "scripts": {
     "p:build": "tsup",
     "build": "turbo run build --filter='./packages/**'",
@@ -26,6 +26,9 @@
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
     "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
     "chan": "changelogen --output=CHANGELOG.md"
+  },
+  "dependencies": {
+    "changelogen": "^0.5.3"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.5",
@@ -75,8 +78,5 @@
       "vue": "3.3.2",
       "vite": "4.3.5"
     }
-  },
-  "dependencies": {
-    "changelogen": "^0.5.3"
   }
 }
