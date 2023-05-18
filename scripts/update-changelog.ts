@@ -36,7 +36,7 @@ async function main() {
   const branchExists = execSync(`git ls-remote --heads origin v${newVersion}`).toString().trim().length > 0
   if (!branchExists) {
     execSync('git config --global user.email "hi@productdevbook.com"')
-    execSync('git config --global user.name "productdevbook"')
+    execSync('git config --global user.name "Mehmet"')
     execSync(`git checkout -b v${newVersion}`)
 
     workspace.setVersion(newVersion!)
