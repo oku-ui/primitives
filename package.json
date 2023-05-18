@@ -24,11 +24,7 @@
     "build:storybook": "pnpm storybook build",
     "clean": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
-    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
-    "chan": "changelogen --output=CHANGELOG.md"
-  },
-  "dependencies": {
-    "changelogen": "^0.5.3"
+    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.5",
@@ -50,6 +46,7 @@
     "@vitejs/plugin-vue": "^4.2.2",
     "@vitest/coverage-c8": "^0.31.0",
     "@vue/test-utils": "^2.3.2",
+    "changelogen": "^0.5.3",
     "chromatic": "^6.17.4",
     "eslint": "8.39.0",
     "eslint-config-custom": "workspace:*",
