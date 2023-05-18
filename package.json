@@ -2,6 +2,7 @@
   "name": "oku-ui",
   "type": "module",
   "private": true,
+  "version": "0.0.0",
   "packageManager": "pnpm@8.3.0",
   "repository": "oku-ui/primitives",
   "scripts": {
