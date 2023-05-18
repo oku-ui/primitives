@@ -39,17 +39,16 @@ async function main() {
     execSync('git config --global user.name "productdevbook"')
     execSync(`git checkout -b v${newVersion}`)
 
-    for (const pkg of workspace.packages.filter(p => !p.data.private))
-      workspace.setVersion(pkg.data.name, newVersion!)
+    workspace.setVersion(newVersion!)
 
-    // await workspace.save()
+    await workspace.save()
 
     execSync(`git commit -am v${newVersion}`)
     execSync(`git push -u origin v${newVersion}`)
   }
 
   // Get the current PR for this release, if it exists
-  const [currentPR] = await $fetch(`https://api.github.com/repos/oku-ui/primitives/pulls?head=primitives:v${newVersion}`)
+  const [currentPR] = await $fetch(`https://api.github.com/repos/oku-ui/primitives/pulls?head=oku-ui:v${newVersion}`)
 
   const releaseNotes = [
     currentPR?.body.replace(/## 👉 Changelog[\s\S]*$/, '') || `> ${newVersion} is the next ${bumpType} release.\n>\n> **Timetable**: to be announced.`,

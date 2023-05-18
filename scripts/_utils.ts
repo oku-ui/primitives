@@ -1,6 +1,5 @@
 import { promises as fsp } from 'node:fs'
 import { resolve } from 'pathe'
-import { globby } from 'globby'
 import { execaSync } from 'execa'
 import { determineSemverChange, getGitDiff, loadChangelogConfig, parseCommits } from 'changelogen'
 
@@ -42,57 +41,26 @@ export async function loadPackage(dir: string) {
 
 export async function loadWorkspace(dir: string) {
   const workspacePkg = await loadPackage(dir)
-  const pkgDirs = (await globby(['packages/*'], { onlyDirectories: true })).sort()
-
-  const packages: Package[] = []
-
-  for (const pkgDir of pkgDirs) {
-    const pkg = await loadPackage(pkgDir)
-    if (!pkg.data.name)
-      continue
-    packages.push(pkg)
-  }
-
-  const find = (name: string) => {
-    const pkg = packages.find(pkg => pkg.data.name === name)
-    if (!pkg)
-      throw new Error(`Workspace package not found: ${name}`)
-
-    return pkg
-  }
 
   const rename = (from: string, to: string) => {
-    find(from).data._name = find(from).data.name
-    find(from).data.name = to
-    for (const pkg of packages) {
-      pkg.updateDeps((dep) => {
-        if (dep.name === from && !dep.range.startsWith('npm:'))
-          dep.range = `npm:${to}@${dep.range}`
-      })
-    }
+    workspacePkg.data._name = workspacePkg.data.name
+    workspacePkg.data.name = to
+    workspacePkg.updateDeps((dep) => {
+      if (dep.name === from && !dep.range.startsWith('npm:'))
+        dep.range = `npm:${to}@${dep.range}`
+    })
   }
 
-  const setVersion = (name: string, newVersion: string, opts: { updateDeps?: boolean } = {}) => {
-    find(name).data.version = newVersion
-    if (!opts.updateDeps)
-      return
-
-    for (const pkg of packages) {
-      pkg.updateDeps((dep) => {
-        if (dep.name === name)
-          dep.range = newVersion
-      })
-    }
+  const setVersion = (newVersion: string, opts: { updateDeps?: boolean } = {}) => {
+    workspacePkg.data.version = newVersion
   }
 
-  const save = () => Promise.all(packages.map(pkg => pkg.save()))
+  const save = () => workspacePkg.save()
 
   return {
     dir,
     workspacePkg,
-    packages,
     save,
-    find,
     rename,
     setVersion,
   }
