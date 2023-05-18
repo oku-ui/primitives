@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   update-changelog:
-    if: github.repository_owner == 'nuxt'
+    if: github.repository_owner == 'oku-ui'
     runs-on: ubuntu-latest
 
     steps:
