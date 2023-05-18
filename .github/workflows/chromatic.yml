@@ -11,6 +11,7 @@ on:
       - 'packages/components/**'
       - '.storybook/**'
       - 'package.json'
+      - "!scripts/**"
 
 permissions:
    contents: write
