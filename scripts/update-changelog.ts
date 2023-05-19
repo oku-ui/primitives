@@ -22,6 +22,10 @@ async function main() {
       style: { title: '🎨 Styles' },
       ci: { title: '🤖 CI' },
     },
+    repo: {
+      provider: 'github',
+      repo: 'oku-ui/primitives',
+    },
   })
 
   const commits = await getLatestCommits().then(commits => commits.filter(
