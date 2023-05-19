@@ -1,10 +1,6 @@
-<a>
+<a href="https://oku-ui.com">
   <img alt="Oku UI hero image" src="https://github.com/oku-ui/primitives/blob/main/.github/assets/oku-ui.png?raw=true"
 </a>
-
-# When will it be published
-
-Check out the [roadmap](https://github.com/oku-ui/primitives/issues/45)
 
 ---
 
@@ -14,19 +10,21 @@ Check out the [roadmap](https://github.com/oku-ui/primitives/issues/45)
 
 Oku Primitives is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system, or adopt them incrementally.
 
+Website: [Oku Website](https://oku-ui.com)
+
 ---
 
 # Contributing
 
 Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/master/CONTRIBUTING.md)
 
-# TODO Managements - 0/3
+# TODO Managements - 1/3
 
 - [ ] Finding at least 1 sponsor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
 - [ ] Finding at least 1 contributor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
-- [ ] Website opening and documentation writing [docs](https://github.com/oku-ui/docs)
+- [x] Website opening and documentation writing [docs](https://github.com/oku-ui/docs)
 
-# TODO Components - 6/28
+# TODO Components - 7/28
 
 Enter the component you want most in the components, leave the emojis and follow.
 
@@ -60,23 +58,6 @@ Enter the component you want most in the components, leave the emojis and follow
 - [ ] [Toggle Group](https://github.com/oku-ui/primitives/issues/26)
 - [ ] [Toolbar](https://github.com/oku-ui/primitives/issues/27)
 - [ ] [Tooltip](https://github.com/oku-ui/primitives/issues/28)
-
-
-
-
-## Authors
-
-- Mehmet ([@productdevbook](https://twitter.com/productdevbook))
-
-
-## Contributors
-- ...
-
-### Designer
-
-- Fatih Yıldız([@0fatihyildiz](https://github.com/0fatihyildiz))
-
-
 
 ---
 
