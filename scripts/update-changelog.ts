@@ -7,7 +7,7 @@ import { determineBumpType, getLatestCommits, loadWorkspace } from './_utils'
 async function main() {
   const workspace = await loadWorkspace(process.cwd())
   const config = await loadChangelogConfig(process.cwd())
-
+  console.log(config)
   const commits = await getLatestCommits().then(commits => commits.filter(
     c => config.types[c.type] && !(c.type === 'chore' && c.scope === 'deps' && !c.isBreaking),
   ))
