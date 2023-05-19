@@ -57,6 +57,7 @@ async function main() {
     })
   }
   console.log(currentPR.number, 'currentPR.number')
+  console.log(releaseNotes, 'releaseNotes')
   // Update release notes if the pull request does exist
   await $fetch(`https://api.github.com/repos/oku-ui/primitives/pulls/${currentPR.number}`, {
     method: 'PATCH',
