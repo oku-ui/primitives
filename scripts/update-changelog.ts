@@ -16,6 +16,8 @@ async function main() {
   const newVersion = inc(workspace.workspacePkg.data.version, bumpType || 'patch')
   const changelog = await generateMarkDown(commits, config)
   console.log(newVersion, 'newVersion')
+  console.log(changelog, 'changelog')
+
   // Create and push a branch with bumped versions if it has not already been created
   const branchExists = execSync(`git ls-remote --heads origin v${newVersion}`).toString().trim().length > 0
   if (!branchExists) {

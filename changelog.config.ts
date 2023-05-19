@@ -20,6 +20,8 @@ function getDefaultConfig() {
     repo: {
       repo: 'oku-ui/primitives',
       provider: 'github',
+      domain: 'github.com',
+      token: process.env.GITHUB_TOKEN,
     },
   }
 }

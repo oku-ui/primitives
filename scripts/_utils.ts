@@ -77,7 +77,7 @@ export async function determineBumpType() {
 
 export async function getLatestCommits() {
   const config = await loadChangelogConfig(process.cwd())
-  const latestTag = execaSync('git', ['describe', '--tags', '--abbrev=0', '--always']).stdout
+  const latestTag = execaSync('git', ['describe', '--tags', '--abbrev=0']).stdout
 
   return parseCommits(await getGitDiff(latestTag), config)
 }
