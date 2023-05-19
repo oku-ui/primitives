@@ -6,27 +6,7 @@ import { determineBumpType, getLatestCommits, loadWorkspace } from './_utils'
 
 async function main() {
   const workspace = await loadWorkspace(process.cwd())
-  const config = await loadChangelogConfig(process.cwd(), {
-    types: {
-      version: { title: '🔖 Version', semver: 'patch' },
-      feat: { title: '🚀 Enhancements', semver: 'minor' },
-      perf: { title: '🔥 Performance', semver: 'patch' },
-      fix: { title: '🩹 Fixes', semver: 'patch' },
-      refactor: { title: '💅 Refactors', semver: 'patch' },
-      docs: { title: '📖 Documentation', semver: 'patch' },
-      build: { title: '📦 Build', semver: 'patch' },
-      types: { title: '🌊 Types', semver: 'patch' },
-      chore: { title: '🏡 Chora' },
-      examples: { title: '🏀 Examples' },
-      test: { title: '✅ Tests' },
-      style: { title: '🎨 Styles' },
-      ci: { title: '🤖 CI' },
-    },
-    repo: {
-      provider: 'github',
-      repo: 'oku-ui/primitives',
-    },
-  })
+  const config = await loadChangelogConfig(process.cwd())
 
   const commits = await getLatestCommits().then(commits => commits.filter(
     c => config.types[c.type] && !(c.type === 'chore' && c.scope === 'deps' && !c.isBreaking),
