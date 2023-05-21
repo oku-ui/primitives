@@ -269,8 +269,8 @@ const CheckboxIndicator = defineComponent({
 
     const context = useCheckboxInject(INDICATOR_NAME, scopeCheckbox.value)
 
-    const originalReturn = () => h(Transition, [
-      (forceMount.value || isIndeterminate(context.value.state.value) || context.value.state.value === true)
+    const originalReturn = () => h(Transition, {}, {
+      default: () => (forceMount.value || isIndeterminate(context.value.state.value) || context.value.state.value === true)
         ? h(Primitive.span, {
           'data-state': getState(context.value.state.value),
           'data-disabled': context.value.disabled ? '' : undefined,
@@ -282,7 +282,7 @@ const CheckboxIndicator = defineComponent({
         },
         )
         : null,
-    ])
+    })
 
     return originalReturn as unknown as {
       innerRef: Ref<HTMLButtonElement>
