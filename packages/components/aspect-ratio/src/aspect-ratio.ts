@@ -52,7 +52,9 @@ const AspectRatio = defineComponent({
               left: 0,
             },
           },
-          slots.default?.(),
+          {
+            default: () => slots.default?.(),
+          },
         ),
       ],
     )
