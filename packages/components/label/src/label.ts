@@ -18,7 +18,6 @@ const label = defineComponent({
     expose({
       innerRef: computed(() => innerRef.value?.$el),
     })
-
     const originalReturn = () => h(Primitive.label, {
       ...restAttrs,
       ref: innerRef,
