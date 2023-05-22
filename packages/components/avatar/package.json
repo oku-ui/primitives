@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/avatar",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
