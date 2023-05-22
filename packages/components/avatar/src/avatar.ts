@@ -90,7 +90,9 @@ const Avatar = defineComponent({
         ...avatarProps,
         ref: innerRef,
       },
-      slots.default && slots.default(),
+      {
+        default: () => slots.default?.(),
+      },
     )
     return originalReturn as unknown as {
       innerRef: AvatarElement
@@ -157,7 +159,9 @@ const AvatarImage = defineComponent({
           src,
           ref: innerRef,
         },
-        slots.default && slots.default(),
+        {
+          default: () => slots.default?.(),
+        },
       )
       : null
 
@@ -227,7 +231,9 @@ const AvatarFallback = defineComponent({
             ...fallbackProps,
             ref: innerRef,
           },
-          slots.default && slots.default(),
+          {
+            default: () => slots.default?.(),
+          },
         )
         : canRender.value
     }
