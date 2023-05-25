@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/progress",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -30,7 +30,7 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "vue": "^3.3.1"
+    "vue": "^3.3.2"
   },
   "dependencies": {
     "@oku-ui/primitive": "workspace:^",

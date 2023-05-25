@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+       - "!scripts/**"
+
   # "You must append a colon (:) to all events, including events without configuration."
   # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#example-using-multiple-events-with-activity-types-or-configuration
   pull_request:
@@ -11,6 +14,7 @@ on:
       - 'packages/components/**'
       - '.storybook/**'
       - 'package.json'
+      - "!scripts/**"
 
 permissions:
    contents: write
