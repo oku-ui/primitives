@@ -12,13 +12,13 @@ type SeparatorElement = ElementType<'div'>
 
 interface SeparatorProps extends PrimitiveProps {
   /**
-    * Either `vertical` or `horizontal`. Defaults to `horizontal`.
+  * Whether or not the component is purely decorative. When true, accessibility-related attributes
+  * are updated so that that the rendered element is removed from the accessibility tree.
   */
   decorative?: boolean
   /**
-    * Whether or not the component is purely decorative. When true, accessibility-related attributes
-    * are updated so that that the rendered element is removed from the accessibility tree.
-  */
+   * Either `vertical` or `horizontal`. Defaults to `horizontal`.
+   */
   orientation?: Orientation
 }
 
@@ -27,15 +27,15 @@ const Separator = defineComponent({
   inheritAttrs: false,
   props: {
     /**
-     * Either `vertical` or `horizontal`. Defaults to `horizontal`.
+    * Whether or not the component is purely decorative. When true, accessibility-related attributes
+    * are updated so that that the rendered element is removed from the accessibility tree.
     */
     decorative: {
       type: Boolean,
       default: false,
     },
     /**
-     * Whether or not the component is purely decorative. When true, accessibility-related attributes
-     * are updated so that that the rendered element is removed from the accessibility tree.
+     * Either `vertical` or `horizontal`. Defaults to `horizontal`.
      */
     orientation: {
       type: String as PropType<Orientation>,
