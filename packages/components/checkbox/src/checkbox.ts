@@ -54,18 +54,20 @@ const BubbleInput = defineComponent({
     const prevChecked = usePrevious(checked)
     const controlSize = useSize(control)
 
-    watchEffect(() => {
-      const input = _ref.value!
-      const inputProto = window.HTMLInputElement.prototype
-      const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
-      const setChecked = descriptor.set
+    onMounted(() => {
+      watchEffect(() => {
+        const input = _ref.value!
+        const inputProto = window.HTMLInputElement.prototype
+        const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
+        const setChecked = descriptor.set
 
-      if (prevChecked !== checked && setChecked) {
-        const event = new Event('click', { bubbles })
-        input.indeterminate = isIndeterminate(checked)
-        setChecked.call(input, isIndeterminate(checked) ? false : checked)
-        input.dispatchEvent(event)
-      }
+        if (prevChecked !== checked && setChecked) {
+          const event = new Event('click', { bubbles })
+          input.indeterminate = isIndeterminate(checked)
+          setChecked.call(input, isIndeterminate(checked) ? false : checked)
+          input.dispatchEvent(event)
+        }
+      })
     })
 
     return () =>
@@ -258,17 +260,17 @@ const CheckboxIndicator = defineComponent({
     forceMount: Boolean,
   },
   setup(props, { attrs, expose, slots }) {
-    const { scopeCheckbox, forceMount } = props
+    const { scopeCheckbox, forceMount } = toRefs(props)
     const { ...indicatorProps } = attrs as CheckboxIndicatorElement
     const innerRef = ref<CheckboxIndicatorElement>()
     expose({
       innerRef,
     })
 
-    const context = useCheckboxInject(INDICATOR_NAME, scopeCheckbox)
+    const context = useCheckboxInject(INDICATOR_NAME, scopeCheckbox.value)
 
-    const originalReturn = () => h(Transition, [
-      (forceMount || isIndeterminate(context.value.state.value) || context.value.state.value === true)
+    const originalReturn = () => h(Transition, {}, {
+      default: () => (forceMount.value || isIndeterminate(context.value.state.value) || context.value.state.value === true)
         ? h(Primitive.span, {
           'data-state': getState(context.value.state.value),
           'data-disabled': context.value.disabled ? '' : undefined,
@@ -280,7 +282,7 @@ const CheckboxIndicator = defineComponent({
         },
         )
         : null,
-    ])
+    })
 
     return originalReturn as unknown as {
       innerRef: Ref<HTMLButtonElement>
