@@ -176,16 +176,16 @@ importers:
   packages/components/checkbox:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.2
