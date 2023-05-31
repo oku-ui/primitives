@@ -1,9 +1,9 @@
-# `@oku-ui/example`
+# `@oku-ui/checkbox`
 
 ## Installation
 
 ```sh
-$ pnpm add @oku-ui/example
+$ pnpm add @oku-ui/checkbox
 ```
 
 ## Usage
