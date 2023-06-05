@@ -34,7 +34,6 @@ build-storybook.log
 
 dist
 .nuxt
-.idea
 
 auto-imports.d.ts
 components.d.ts
