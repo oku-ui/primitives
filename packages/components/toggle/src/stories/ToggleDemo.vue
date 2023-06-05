@@ -6,7 +6,7 @@ import { ref } from 'vue'
 
 export interface IToggleProps extends ToggleProps {
   template?: '#1' | '#2' | '#3'
-  allshow?: boolean
+  allShow?: boolean
 }
 
 withDefaults(defineProps<IToggleProps>(), {
@@ -21,7 +21,7 @@ function setPressed(value: boolean) {
 
 <template>
   <div>
-    <div v-if="template === '#1' || allshow" class="w-[300px]">
+    <div v-if="template === '#1' || allShow" class="w-[300px]">
       <div>
         <h1>Oku Default toggle</h1>
         <div class="max-w-xl mx-auto h-full items-center justify-center">
