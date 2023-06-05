@@ -49,7 +49,7 @@ function setPressed(value: boolean) {
         </div>
       </div>
       <div>
-        <h1>Oku toggle controlled ative true</h1>
+        <h1>Oku toggle controlled active true</h1>
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"
@@ -62,7 +62,7 @@ function setPressed(value: boolean) {
         </div>
       </div>
       <div>
-        <h1>Oku toggle controlled ative false</h1>
+        <h1>Oku toggle controlled active false</h1>
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"
