@@ -1,5 +1,5 @@
 import type { ComponentPublicInstance, Ref } from 'vue'
-import { onBeforeUpdate, onMounted, ref, watch } from 'vue'
+import { onBeforeMount, onMounted, ref, watch } from 'vue'
 
 // Source: https://github.com/chakra-ui/chakra-ui-vue-next/blob/develop/packages/utils/src/dom.ts
 
@@ -18,7 +18,7 @@ function useRef<T>(): {
   // Inner ref is used to pass the ref to the component
   const innerRef = ref<T | null>(null)
 
-  onBeforeUpdate(() => {
+  onBeforeMount(() => {
     // clear refs before DOM updates
     refEl.value = null
     innerRef.value = null

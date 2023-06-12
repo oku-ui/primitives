@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/use-composable",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
