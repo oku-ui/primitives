@@ -90,4 +90,58 @@ describe('Primitive', () => {
     expect(element.exists()).toBe(true);
     expect(element.classes()).toContain(customClass);
   });
+
+  it('renders button element with disabled attribute', () => {
+    const wrapper = mount(Primitive.button, {
+      props: {
+        disabled: true,
+      },
+    });
+
+    const element = wrapper.find('button');
+
+    expect(element.exists()).toBe(true);
+    expect(element.element.disabled).toBe(true);
+  });
+
+  it('renders button element with aria-label attribute', () => {
+    const ariaLabel = 'Close';
+    const wrapper = mount(Primitive.button, {
+      attrs: {
+        'aria-label': ariaLabel,
+      },
+    });
+
+    const element = wrapper.find('button');
+
+    expect(element.exists()).toBe(true);
+    expect(element.attributes('aria-label')).toBe(ariaLabel);
+  });
+
+  it('renders input element with type "text"', () => {
+    const wrapper = mount(Primitive.input, {
+      props: {
+        type: 'text',
+      },
+    });
+
+    const element = wrapper.find('input');
+    expect(element.exists()).toBe(true);
+    expect(element.attributes('type')).toBe('text');
+  });
+
+  it('renders input element with value prop', () => {
+    const value = 'Oku Primitives';
+
+    const wrapper = mount(Primitive.input, {
+      props: {
+        value,
+      },
+    });
+
+    const element = wrapper.find('input');
+
+    expect(element.exists()).toBe(true);
+    expect(element.element.value).toBe(value);
+  });
 });
