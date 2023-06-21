@@ -1,6 +1,6 @@
-import { defineConfig } from 'vitest/config'
-import Vue from '@vitejs/plugin-vue'
-import VueMacros from 'unplugin-vue-macros/vite'
+import { defineConfig } from 'vitest/config';
+import Vue from '@vitejs/plugin-vue';
+import VueMacros from 'unplugin-vue-macros/vite';
 
 export default defineConfig({
   plugins: [
@@ -13,13 +13,10 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     coverage: {
-      provider: 'c8', // or 'c8',
+      provider: 'v8', // or 'c8',
       reporter: ['text', 'json-summary', 'json', 'html'],
     },
-    exclude: [
-      '**/node_modules/**',
-      '**/dist/**',
-    ],
+    exclude: ['**/node_modules/**', '**/dist/**'],
     include: ['./**/*.test.ts'],
   },
-})
+});

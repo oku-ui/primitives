@@ -1,6 +1,11 @@
 // TODO: IntrinsicElementAttributes vue 3.3 add
-import type { ComponentPublicInstance, DefineComponent, FunctionalComponent, IntrinsicElementAttributes } from 'vue'
-import { defineComponent, h, onMounted } from 'vue'
+import type {
+  ComponentPublicInstance,
+  DefineComponent,
+  FunctionalComponent,
+  IntrinsicElementAttributes,
+} from 'vue';
+import { defineComponent, h, onMounted } from 'vue';
 
 /* -------------------------------------------------------------------------------------------------
  * Primitive
@@ -22,33 +27,41 @@ const NODES = [
   'span',
   'svg',
   'ul',
-] as const
+] as const;
 
 type ElementConstructor<P> =
   | (new () => { $props: P })
-  | ((props: P, ...args: any) => FunctionalComponent<any, any>)
+  | ((props: P, ...args: any) => FunctionalComponent<any, any>);
 
 //  extends keyof JSX.IntrinsicElements | ElementConstructor<any>
-type ComponentProps<T extends keyof JSX.IntrinsicElements | ElementConstructor<any>> =
-  T extends ElementConstructor<infer P>
-    ? P
-    : T extends keyof JSX.IntrinsicElements
-      ? JSX.IntrinsicElements[T]
-      : {}
+type ComponentProps<
+  T extends keyof JSX.IntrinsicElements | ElementConstructor<any>
+> = T extends ElementConstructor<infer P>
+  ? P
+  : T extends keyof JSX.IntrinsicElements
+  ? JSX.IntrinsicElements[T]
+  : {};
 
-type RefElement<T extends abstract new (...args: any) => any> = Omit<InstanceType<T>, keyof ComponentPublicInstance | 'class' | 'style'>
+type RefElement<T extends abstract new (...args: any) => any> = Omit<
+  InstanceType<T>,
+  keyof ComponentPublicInstance | 'class' | 'style'
+>;
 
-type MergeProps<T, U> = U & T
+type MergeProps<T, U> = U & T;
 
 interface PrimitiveProps {
-  asChild?: boolean
+  asChild?: boolean;
 }
 
-type Primitives = { [E in typeof NODES[number]]: DefineComponent<{
-  asChild?: boolean
-}> }
+type Primitives = {
+  [E in (typeof NODES)[number]]: DefineComponent<{
+    asChild?: boolean;
+  }>;
+};
 
-type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<IntrinsicElementAttributes[T]>
+type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<
+  IntrinsicElementAttributes[T]
+>;
 
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent({
@@ -59,20 +72,26 @@ const Primitive = NODES.reduce((primitive, node) => {
     },
     setup(props, { attrs, slots }) {
       onMounted(() => {
-        (window as any)[Symbol.for('oku-ui')] = true
-      })
-      const Tag: any = props.asChild ? 'slot' : node
+        (window as any)[Symbol.for('oku-ui')] = true;
+      });
+      const Tag: any = props.asChild ? 'slot' : node;
 
-      return () => props.asChild ? slots.default?.() : h(Tag, { ...attrs }, slots.default?.())
+      return () =>
+        props.asChild
+          ? slots.default?.()
+          : h(Tag, { ...attrs }, slots.default?.());
     },
-  })
-  return { ...primitive, [node]: Node }
-}, {} as Primitives)
+  });
+  return { ...primitive, [node]: Node };
+}, {} as Primitives);
 
-const OkuPrimitive = Primitive
+const OkuPrimitive = Primitive;
 
-export {
-  OkuPrimitive,
-  Primitive,
-}
-export type { ComponentProps, MergeProps, PrimitiveProps, RefElement, ElementType }
+export { OkuPrimitive, Primitive };
+export type {
+  ComponentProps,
+  MergeProps,
+  PrimitiveProps,
+  RefElement,
+  ElementType,
+};
