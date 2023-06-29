@@ -1,0 +1,46 @@
+{
+  "name": "@oku-ui/popper",
+  "type": "module",
+  "version": "0.1.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/components/popper"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.1"
+  },
+  "dependencies": {
+    "@floating-ui/vue": "^1.0.1",
+    "@oku-ui/arrow": "workspace:^",
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/provide": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^",
+    "@oku-ui/utils": "workspace:^"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  }
+}
