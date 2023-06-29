@@ -1,21 +1,21 @@
 /// <reference types="resize-observer-browser" />
 
-import type { WatchStopHandle } from 'vue'
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import type { Ref, WatchStopHandle } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 
 interface Size {
   width: number
   height: number
 }
 
-function useSize(element: HTMLElement | null) {
+function useSize(element: Ref<HTMLElement | null>) {
   const size = ref<Size>()
   let stopHandle: WatchStopHandle
   let resizeObserver: ResizeObserver
 
-  onMounted(() => {
-    if (element) {
-      size.value = { width: element.offsetWidth, height: element.offsetHeight }
+  watch(element, () => {
+    if (element.value) {
+      size.value = { width: element.value.offsetWidth, height: element.value.offsetHeight }
 
       resizeObserver = new ResizeObserver((entries) => {
         if (!Array.isArray(entries))
@@ -38,16 +38,22 @@ function useSize(element: HTMLElement | null) {
           height = borderSize.blockSize
         }
         else {
-        // for browsers that don't support `borderBoxSize`
-        // we calculate it ourselves to get the correct border box.
-          width = element.offsetWidth
-          height = element.offsetHeight
+          if (element.value) {
+            // for browsers that don't support `borderBoxSize`
+            // we calculate it ourselves to get the correct border box.
+            width = element.value.offsetWidth
+            height = element.value.offsetHeight
+          }
+          else {
+            width = 0
+            height = 0
+          }
         }
 
         size.value = { width, height }
       })
 
-      resizeObserver.observe(element)
+      resizeObserver.observe(element.value)
 
       stopHandle = watch(element, (newValue, oldValue) => {
         if (oldValue)
@@ -63,9 +69,9 @@ function useSize(element: HTMLElement | null) {
   })
 
   onUnmounted(() => {
-    if (element) {
+    if (element.value) {
       stopHandle()
-      resizeObserver.unobserve(element)
+      resizeObserver.unobserve(element.value)
     }
   })
 
