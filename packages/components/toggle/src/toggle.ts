@@ -44,10 +44,10 @@ const Toggle = defineComponent({
   setup(props, { attrs, expose, slots }) {
     const { onPressedChange } = props
     const { pressed: pressedProp, defaultPressed } = toRefs(props)
-    const { _ref: toggleRef, refEl: toggleRefEl } = useRef<ToggleElement>()
+    const { $el, newRef } = useRef<ToggleElement>()
 
     expose({
-      innerRef: toggleRefEl,
+      innerRef: $el,
     })
 
     const { state } = useControllableRef({
@@ -65,7 +65,7 @@ const Toggle = defineComponent({
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled ? '' : undefined,
         ...toggleProps,
-        'ref': toggleRef,
+        'ref': newRef,
         'onClick': composeEventHandlers(toggleProps.onClick, () => {
           if (!disabled)
             state.value = !state.value

@@ -82,7 +82,10 @@ const Progress = defineComponent({
         ...progressProps,
         'ref': innerRef,
       },
-      slots.default)
+      {
+        default: () => slots.default?.(),
+      },
+    )
 
     expose({
       inferRef: computed(() => innerRef.value?.$el),
@@ -113,7 +116,7 @@ function isNumber(value: any): value is number {
 function isValidMaxNumber(max: any): max is number {
   return (
     isNumber(max)
-    && !isNaN(max)
+    && !Number.isNaN(max)
     && max > 0
   )
 }
@@ -121,7 +124,7 @@ function isValidMaxNumber(max: any): max is number {
 function isValidValueNumber(value: any, max: number): value is number {
   return (
     isNumber(value)
-    && !isNaN(value)
+    && !Number.isNaN(value)
     && value <= max
     && value >= 0
   )
@@ -179,7 +182,7 @@ const ProgressIndicator = defineComponent({
     })
 
     const originalReturn = () => h(
-      Primitive.div,
+      'div',
       {
         'data-state': getProgressState(context.value.max.value, context.value.value?.value),
         'data-value': context.value.value?.value ?? undefined,
