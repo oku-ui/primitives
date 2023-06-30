@@ -39,9 +39,10 @@ describe('OkuAspectRatio', () => {
     const wrapperElement = wrapper.find('[data-radix-aspect-ratio-wrapper]')
     const computedStyle = wrapperElement.attributes('style')
 
-    const actualRatio = parseFloat(
-      computedStyle?.match(/padding-bottom: (.*?);/)[1],
-    )
+    if (!computedStyle)
+      throw new Error('No style attribute found')
+
+    const actualRatio = Number.parseFloat(computedStyle.split(':')[1].trim().replace('%', ''))
 
     const expectedRatio = 66.6667
 
