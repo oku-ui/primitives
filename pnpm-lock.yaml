@@ -147,8 +147,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.2
-        version: 3.3.2
+        specifier: ^3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -169,8 +169,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.2
-        version: 3.3.2
+        specifier: ^3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -191,8 +191,8 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.2
-        version: 3.3.2
+        specifier: ^3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -207,8 +207,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.2
-        version: 3.3.2
+        specifier: ^3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -226,8 +226,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.2
-        version: 3.3.2
+        specifier: ^3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -242,8 +242,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.2
-        version: 3.3.2
+        specifier: ^3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -264,8 +264,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.1
-        version: 3.3.2
+        specifier: ^3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
