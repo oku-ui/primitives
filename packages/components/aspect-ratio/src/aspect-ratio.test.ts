@@ -42,8 +42,7 @@ describe('OkuAspectRatio', () => {
     if (!computedStyle)
       throw new Error('No style attribute found')
 
-    const actualRatio = Number.parseFloat(computedStyle.split(':')[1].trim().replace('%', ''))
-
+    const actualRatio = Number.parseFloat(computedStyle.match(/padding-bottom: (.*)%/)?.[1] ?? '0')
     const expectedRatio = 66.6667
 
     expect(actualRatio).toBeCloseTo(expectedRatio, 4)
