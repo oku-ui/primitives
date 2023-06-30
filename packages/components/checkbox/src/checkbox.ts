@@ -39,7 +39,7 @@ const BubbleInput = defineComponent({
       default: false,
     },
     control: {
-      type: Object as PropType<HTMLElement | null>,
+      type: Object as PropType<Ref<HTMLElement | null>>,
       default: null,
     },
     bubbles: {
@@ -49,7 +49,7 @@ const BubbleInput = defineComponent({
   },
   setup(props, { attrs }) {
     const { ...inputAttrs } = attrs as BubbleInputElement
-    const { checked, control, bubbles } = props
+    const { checked, bubbles, control } = toRefs(props)
     const _ref = ref<HTMLInputElement>()
     const prevChecked = usePrevious(checked)
     const controlSize = useSize(control)
@@ -61,10 +61,10 @@ const BubbleInput = defineComponent({
         const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
         const setChecked = descriptor.set
 
-        if (prevChecked !== checked && setChecked) {
-          const event = new Event('click', { bubbles })
-          input.indeterminate = isIndeterminate(checked)
-          setChecked.call(input, isIndeterminate(checked) ? false : checked)
+        if (prevChecked !== checked.value && setChecked) {
+          const event = new Event('click', { bubbles: bubbles.value })
+          input.indeterminate = isIndeterminate(checked.value)
+          setChecked.call(input, isIndeterminate(checked.value) ? false : checked)
           input.dispatchEvent(event)
         }
       })
@@ -74,7 +74,7 @@ const BubbleInput = defineComponent({
       h('input', {
         'type': 'checkbox',
         'aria-hidden': true,
-        'defaultChecked': isIndeterminate(checked) ? false : checked,
+        'defaultChecked': isIndeterminate(checked.value) ? false : checked,
         ...inputAttrs,
         'tabIndex': -1,
         'ref': _ref,
@@ -142,10 +142,10 @@ const Checkbox = defineComponent({
   setup(props, { attrs, slots, expose }) {
     const { checked: checkedProp, scopeCheckbox, defaultChecked, onCheckedChange, required } = toRefs(props)
 
-    const { _ref: buttonRef, refEl: buttonRefEl } = useRef<HTMLButtonElement>()
+    const { newRef, $el } = useRef<HTMLButtonElement>()
 
     expose({
-      innerRef: buttonRefEl,
+      innerRef: $el,
     })
 
     const {
@@ -157,7 +157,7 @@ const Checkbox = defineComponent({
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
-    const isFormControl = buttonRefEl.value ? Boolean(buttonRefEl.value.closest('form')) : true
+    const isFormControl = newRef.value ? Boolean(newRef.value.closest('form')) : true
     const { state } = useControllableRef({
       prop: checkedProp.value,
       defaultProp: defaultChecked.value,
@@ -170,8 +170,8 @@ const Checkbox = defineComponent({
       initialCheckedStateRef.value = state.value
     })
 
-    watch([buttonRefEl, state], () => {
-      const form = buttonRefEl.value?.form
+    watch([newRef, state], () => {
+      const form = newRef.value?.form
       if (form) {
         const reset = () => (state.value = initialCheckedStateRef.value)
         form.addEventListener('reset', reset)
@@ -196,7 +196,7 @@ const Checkbox = defineComponent({
         'disabled': disabled,
         'value': value,
         ...checkboxProps,
-        'ref': buttonRef,
+        'ref': newRef,
         'onKeyDown': composeEventHandlers(checkboxProps.onKeydown, (event) => {
           // According to WAI ARIA, Checkboxes don't activate on enter keypress
           if (event.key === 'Enter')
@@ -220,7 +220,6 @@ const Checkbox = defineComponent({
       isFormControl && h(
         BubbleInput,
         {
-          control: buttonRefEl.value,
           bubbles: !hasConsumerStoppedPropagationRef.value,
           name,
           value,
