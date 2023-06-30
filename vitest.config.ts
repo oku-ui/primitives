@@ -21,5 +21,6 @@ export default defineConfig({
       '**/dist/**',
     ],
     include: ['./**/*.test.ts'],
+    setupFiles: ['./vitest-setup.ts'],
   },
 })

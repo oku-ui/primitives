@@ -22,7 +22,7 @@ const preview: Preview = {
 		},
 		docs: { theme: light },
     backgrounds: {
-      default: "potion",
+      default: "light",
       values: [
         {
           name: "light",
