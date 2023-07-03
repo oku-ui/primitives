@@ -63,12 +63,10 @@ const Primitive = NODES.reduce((primitive, node) => {
       })
       const Tag: any = props.asChild ? 'slot' : node
 
-      const _slots = slots.default?.() || null
-      return () => props.asChild
-        ? _slots
-        : h(Tag, { ...attrs }, {
-          default: () => _slots,
-        })
+      return () => {
+        const _slots = slots.default?.()
+        return props.asChild ? _slots : h(Tag, { ...attrs }, _slots)
+      }
     },
   })
   return { ...primitive, [node]: Node }
