@@ -15,6 +15,9 @@ importers:
       '@iconify-json/ph':
         specifier: ^1.1.5
         version: 1.1.5
+      '@oku-ui/arrow':
+        specifier: workspace:^
+        version: link:packages/components/arrow
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
         version: link:packages/components/aspect-ratio
@@ -150,6 +153,25 @@ importers:
       vue:
         specifier: 3.3.4
         version: 3.3.4
+
+  packages/components/arrow:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.2
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
 
   packages/components/aspect-ratio:
     dependencies:

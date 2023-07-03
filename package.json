@@ -29,6 +29,7 @@
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.1.0",
     "@iconify-json/ph": "^1.1.5",
+    "@oku-ui/arrow": "workspace:^",
     "@oku-ui/aspect-ratio": "workspace:^",
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
