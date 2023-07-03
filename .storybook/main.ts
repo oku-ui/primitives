@@ -1,5 +1,4 @@
 import type { StorybookConfig } from "@storybook/vue3-vite";
-import Unocss from 'unocss/vite'
 
 const config: StorybookConfig = {
   stories: ["../stories/**/*.mdx", "../packages/components/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -18,9 +17,6 @@ const config: StorybookConfig = {
   },
   viteFinal(config) {
       config.plugins = config.plugins || []
-      config.plugins.push(
-        Unocss()
-      )
 
      return config
   }
