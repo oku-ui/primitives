@@ -37,3 +37,19 @@ export const Styled: Story = {
     `,
   }),
 }
+
+export const indeterminate: Story = {
+  args: {
+    template: '#2',
+    allshow: false,
+  },
+  render: (args: any) => ({
+    components: { OkuCheckboxComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCheckboxComponent v-bind="args" />
+    `,
+  }),
+}
