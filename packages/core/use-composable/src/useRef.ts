@@ -6,13 +6,16 @@ import { computed, onBeforeMount, ref } from 'vue'
 /**
  * Interface for node provided by template ref
  */
-export type TemplateRef = Element | ComponentPublicInstance | undefined | null
+
+interface RefType<T> extends ComponentPublicInstance {
+  $el: T
+}
 
 function useRef<T>(): {
-  newRef: Ref<T | null>
-  $el: ComputedRef<TemplateRef>
+  newRef: Ref<RefType<T> | null | undefined>
+  $el: ComputedRef<T>
 } {
-  const refValue = ref<T | null>(null)
+  const refValue = ref()
 
   onBeforeMount(() => {
     // clear refs before DOM updates
@@ -21,12 +24,12 @@ function useRef<T>(): {
 
   // ComponentPublicInstance?.$el ?? el
   const returnNewref = computed(() => {
-    return (refValue.value as ComponentPublicInstance)?.$el ?? refValue.value
+    return (refValue.value)?.$el
   })
 
   return {
-    newRef: refValue as any as Ref<T | null>,
-    $el: returnNewref,
+    newRef: refValue as Ref<RefType<T> | null | undefined>,
+    $el: returnNewref as ComputedRef<T>,
   }
 }
 
