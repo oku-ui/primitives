@@ -14,13 +14,16 @@ withDefaults(defineProps<IToggleProps>(), {
 })
 
 const pressed = ref(true)
+const _setPressed = ref(false)
 function setPressed(value: boolean) {
-  pressed.value = value
+  _setPressed.value = value
 }
 </script>
 
 <template>
   <div>
+    {{ _setPressed }}
+    {{ pressed }}
     <div v-if="template === '#1' || allShow" class="w-[300px]">
       <div>
         <h1>Oku Default toggle</h1>
@@ -39,10 +42,10 @@ function setPressed(value: boolean) {
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"
-            :pressed="pressed"
-            :on-pressed-change="setPressed"
+            v-model="pressed"
             aria-label="Toggle italic"
             class="w-10 h-10 border-2 rounded text-black flex items-center justify-center data-[state=on]:border-green-500 data-[state=off]:border-gray-900 hover:bg-gray-400"
+            @on-pressed-change="setPressed"
           >
             {{ pressed ? 'on' : 'off' }}
           </OkuToggle>
