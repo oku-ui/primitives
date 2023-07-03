@@ -1,7 +1,7 @@
-import type { ComponentPublicInstance } from 'vue'
-import { cloneVNode, computed, defineComponent, h, ref } from 'vue'
+import { cloneVNode, defineComponent, h } from 'vue'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import { useRef } from '@oku-ui/use-composable'
 
 type ArrowElement = ElementType<'svg'>
 interface ArrowProps extends PrimitiveProps {}
@@ -18,11 +18,12 @@ const arrow = defineComponent({
     },
   },
   setup(props, { attrs, slots, expose }) {
-    const innerRef = ref<ComponentPublicInstance>()
+    const { $el, newRef } = useRef()
+
     const { width = '10px', height = '5px', ...arrowAttrs } = attrs as ArrowElement
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el),
+      innerRef: $el,
     })
     const defaultSlot = slots.default?.()[0] || null
 
@@ -38,7 +39,7 @@ const arrow = defineComponent({
         : null
       : h(Primitive.svg, {
         ...arrowAttrs,
-        ref: innerRef,
+        ref: newRef,
         width,
         height,
         viewBox: '0 0 30 10',
