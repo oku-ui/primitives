@@ -2,12 +2,11 @@ import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-u
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
-import type { ComponentPublicInstance, ComputedRef, PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import type { ComputedRef, PropType } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
+import { useRef } from '@oku-ui/use-composable'
 
-// ---------- Progress
-
-// ---type---
+// ---------- Progress ---------- //
 
 type ProgressContextValue = { value: ComputedRef<number | null> | null; max: ComputedRef<number> }
 type ProgressElement = ElementType<'div'>
@@ -63,7 +62,8 @@ const Progress = defineComponent({
     if (value.value != null && !isValidValueNumber(value.value, max.value))
       console.error(getInvalidValueError(value.value))
 
-    const innerRef = ref<ComponentPublicInstance>()
+    const { $el, newRef } = useRef<HTMLDivElement>()
+
     const maxProp = computed(() => isValidMaxNumber(max.value) ? max.value : DEFAULT_MAX)
     const valueProp = computed(() => isValidValueNumber(value.value, maxProp.value) ? value.value : null)
     const valueLabel = computed(() => isNumber(valueProp.value) ? getValueLabel.value(valueProp.value, maxProp.value) : undefined)
@@ -76,11 +76,11 @@ const Progress = defineComponent({
         'aria-valuenow': isNumber(valueProp.value) ? valueProp.value : undefined,
         'aria-valuetext': valueLabel.value,
         'role': 'progressbar',
-        'data-state': getProgressState(maxProp.value, valueProp.value),
+        'data-state': computed(() => getProgressState(maxProp.value, valueProp.value)).value,
         'data-value': valueProp.value ?? undefined,
         'data-max': maxProp.value,
         ...progressProps,
-        'ref': innerRef,
+        'ref': newRef,
       },
       {
         default: () => slots.default?.(),
@@ -88,7 +88,7 @@ const Progress = defineComponent({
     )
 
     expose({
-      inferRef: computed(() => innerRef.value?.$el),
+      inferRef: $el,
     })
 
     progressProvider({
@@ -174,11 +174,12 @@ const ProgressIndicator = defineComponent({
       ...indicatorProps
     } = attrs as ProgressIndicatorProps
 
-    const innerRef = ref<ComponentPublicInstance>()
+    const { $el, newRef } = useRef<HTMLDivElement>()
+
     const context = useProgressContext(INDICATOR_NAME, scopeProgress)
 
     expose({
-      inferRef: computed(() => innerRef.value?.$el),
+      inferRef: $el,
     })
 
     const originalReturn = () => h(
@@ -188,9 +189,11 @@ const ProgressIndicator = defineComponent({
         'data-value': context.value.value?.value ?? undefined,
         'data-max': context.value.max.value,
         ...indicatorProps,
-        'ref': innerRef,
+        'ref': newRef,
       },
-      slots.default && slots.default())
+      {
+        default: () => slots.default?.(),
+      })
 
     return originalReturn as unknown as {
       innerRef: ProgressIndicatorElement
