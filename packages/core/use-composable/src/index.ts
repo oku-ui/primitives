@@ -1,4 +1,4 @@
-export { useControllableRef } from './useControllableRef'
+export { useControllable } from './useControllable'
 export { useCallbackRef } from './useCallbackRef'
 export { useSize } from './useSize'
 export { usePrevious } from './usePrevious'
