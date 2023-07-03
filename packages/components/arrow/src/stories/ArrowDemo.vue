@@ -24,7 +24,7 @@ const alert = () => window.alert('clicked')
   <div>
     <template v-if="template === '#1'">
       <div class="grid grid-cols-4 gap-4">
-        <OkuArrow width="20" height="10" class="align-middle fill-blue-500" />
+        <OkuArrow ref="arrowRef" width="20" height="10" class="align-middle fill-blue-500" />
       </div>
     </template>
 

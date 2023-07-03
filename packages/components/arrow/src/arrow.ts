@@ -25,31 +25,33 @@ const arrow = defineComponent({
     expose({
       innerRef: $el,
     })
-    const defaultSlot = slots.default?.()[0] || null
 
-    const originalReturn = () => props.asChild
-      ? defaultSlot
-        ? cloneVNode(defaultSlot, {
+    const originalReturn = () => {
+      const defaultSlot = typeof slots.default === 'function' ? slots.default()[0] : slots.default ?? null
+      return props.asChild
+        ? defaultSlot
+          ? cloneVNode(defaultSlot, {
+            ...arrowAttrs,
+            width,
+            height,
+            viewBox: '0 0 30 10',
+            preserveAspectRatio: 'none',
+          })
+          : null
+        : h(Primitive.svg, {
           ...arrowAttrs,
+          ref: newRef,
           width,
           height,
           viewBox: '0 0 30 10',
           preserveAspectRatio: 'none',
+        },
+        {
+          default: () => h('polygon', {
+            points: '0,0 30,0 15,10',
+          }),
         })
-        : null
-      : h(Primitive.svg, {
-        ...arrowAttrs,
-        ref: newRef,
-        width,
-        height,
-        viewBox: '0 0 30 10',
-        preserveAspectRatio: 'none',
-      },
-      [
-        h('polygon', {
-          points: '0,0 30,0 15,10',
-        }),
-      ])
+    }
 
     return originalReturn as unknown as {
       innerRef: ArrowElement
