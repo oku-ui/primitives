@@ -1,13 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { mount, shallowMount } from '@vue/test-utils'
-import { OkuToggle } from './toggle'
+import { mount } from '@vue/test-utils'
+import { OkuPopper } from './popper'
 
-describe('OkuToggle', () => {
-  const wrapper = mount(OkuToggle)
-
-  // it('renders correctly', () => {
-  //   expect(wrapper.html()).toBe('<button type="button" aria-pressed="false" data-state="off"></button>')
-  // })
+describe('OkuPopper', () => {
+  it('renders correctly', () => {
+    const wrapper = mount(OkuPopper)
+    expect(wrapper.html()).toBe('')
+  })
 
   // it('Active state', () => {
   //   const wrapper = shallowMount(OkuToggle, {
