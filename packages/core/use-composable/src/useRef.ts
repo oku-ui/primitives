@@ -12,7 +12,7 @@ interface RefType<T> extends ComponentPublicInstance {
 }
 
 function useRef<T>(): {
-  newRef: Ref<RefType<T> | null | undefined>
+  newRef: Ref<RefType<T>>
   $el: ComputedRef<T>
 } {
   const refValue = ref()
@@ -28,7 +28,7 @@ function useRef<T>(): {
   })
 
   return {
-    newRef: refValue as Ref<RefType<T> | null | undefined>,
+    newRef: refValue as Ref<RefType<T>>,
     $el: returnNewref as ComputedRef<T>,
   }
 }
