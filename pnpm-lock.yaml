@@ -3232,21 +3232,6 @@ packages:
       rollup: 3.21.0
     dev: true
 
-  /@rollup/pluginutils@5.0.2(rollup@3.22.0):
-    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      '@types/estree': 1.0.1
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-      rollup: 3.22.0
-    dev: true
-
   /@rollup/pluginutils@5.0.2(rollup@3.26.2):
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
@@ -4094,7 +4079,7 @@ packages:
       memoizerific: 1.11.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      semver: 7.5.1
+      semver: 7.5.4
       store2: 2.14.2
       telejson: 7.1.0
       ts-dedent: 2.2.0
@@ -4755,7 +4740,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.1
+      semver: 7.5.4
       tsutils: 3.21.0(typescript@5.1.6)
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -14171,7 +14156,7 @@ packages:
       typescript: '*'
     dependencies:
       '@microsoft/api-extractor': 7.36.1
-      '@rollup/pluginutils': 5.0.2(rollup@3.22.0)
+      '@rollup/pluginutils': 5.0.2(rollup@3.26.2)
       '@rushstack/node-core-library': 3.59.5
       '@vue/language-core': 1.8.4(typescript@5.1.6)
       debug: 4.3.4
@@ -14179,7 +14164,7 @@ packages:
       typescript: 5.1.6
       vue-tsc: 1.8.3(typescript@5.1.6)
     optionalDependencies:
-      rollup: 3.22.0
+      rollup: 3.26.2
       vite: 4.3.5(@types/node@18.16.18)
     transitivePeerDependencies:
       - '@types/node'
