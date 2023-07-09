@@ -30,4 +30,4 @@ jobs:
         run: npm run lint:fix
       - uses: autofix-ci/action@commit-message
         with:
-          commit_message: "chore: fix lint issues"
+          commit_message: "fix: lint issues"
