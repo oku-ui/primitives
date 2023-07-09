@@ -19,7 +19,7 @@
     "play:nuxt": "pnpm clean:dts && turbo run dev --filter='./playground/nuxt3/**'",
     "play": "pnpm clean:dts && turbo run dev --filter='./playground/**'",
     "postinstall": "simple-git-hooks",
-    "test": "vitest",
+    "test": "vitest run",
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
     "build:storybook": "pnpm storybook build",
