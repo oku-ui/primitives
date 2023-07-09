@@ -38,3 +38,5 @@ dist
 
 auto-imports.d.ts
 components.d.ts
+
+.eslintcache
