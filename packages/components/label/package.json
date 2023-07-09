@@ -30,10 +30,11 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "vue": "^3.3.2"
+    "vue": "^3.3.4"
   },
   "dependencies": {
     "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^"
   },
   "devDependencies": {

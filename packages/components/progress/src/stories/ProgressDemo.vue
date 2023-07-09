@@ -19,8 +19,7 @@ const max = 150
 const value = ref<number | null>(13)
 const valueCopy = ref<number | null>(null)
 const percentage = computed(() => value.value != null ? Math.round((value.value / max) * 100) : null)
-const rootClass = ['w-400px', 'h-25px', 'max-w-full', 'border-5px', 'border-black', 'bg-gray-200']
-const styledClass = ['bg-blue-300', 'border-2px', 'border-black', 'p-10px']
+const rootClass = ['w-[400px]', 'h-[25px]', 'max-w-full', 'border-[5px]', 'border-black', 'bg-gray-200']
 
 function toggleIndeterminate() {
   if (value.value === null) {
@@ -78,18 +77,18 @@ function toggleIndeterminate() {
 
       <h1>State attributes</h1>
       <h2>Loading (started)</h2>
-      <OkuProgress :value="30" :class="styledClass">
-        <OkuProgressIndicator class="styles" :class="styledClass" />
+      <OkuProgress :value="30" class="styledClass">
+        <OkuProgressIndicator class="styledClass" />
       </OkuProgress>
 
       <h2>Indeterminate</h2>
-      <OkuProgress :value="null" :class="styledClass">
-        <OkuProgressIndicator class="styles" :class="styledClass" />
+      <OkuProgress :value="null" class="styledClass">
+        <OkuProgressIndicator class="styledClass" />
       </OkuProgress>
 
       <h2>Complete</h2>
-      <OkuProgress :value="100" :class="styledClass">
-        <OkuProgressIndicator class="styles" :class="styledClass" />
+      <OkuProgress :value="100" class="styledClass">
+        <OkuProgressIndicator class="styledClass" />
       </OkuProgress>
     </div>
   </div>
@@ -112,5 +111,20 @@ function toggleIndeterminate() {
 }
 .styles[data-state="indeterminate"] {
   border-color: purple;
+}
+.styledClass {
+  border: 2px solid blue;
+  padding: 10px;
+  background-color: #eee;
+
+  &[data-state="loading"] {
+    border-color: red;
+  }
+  &[data-state="indeterminate"] {
+    border-color: purple;
+  }
+  &[data-state="complete"] {
+    border-color: green;
+  }
 }
 </style>

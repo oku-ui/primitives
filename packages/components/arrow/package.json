@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/use-composable",
+  "name": "@oku-ui/arrow",
   "type": "module",
   "version": "0.1.0",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/core/use-composable"
+    "directory": "packages/components/arrow"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -17,11 +17,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
@@ -32,13 +30,14 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.2"
   },
   "dependencies": {
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^"
   },
   "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.7",
     "tsconfig": "workspace:^"
   },
   "publishConfig": {
