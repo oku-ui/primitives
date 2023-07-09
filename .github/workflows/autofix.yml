@@ -28,6 +28,6 @@ jobs:
 
       - name: Fix lint issues
         run: npm run lint:fix
-      - uses: autofix-ci/action@commit-message
+      - uses: autofix-ci/action@89762f9c25dd85f6b78cd40e521232e403357ec0
         with:
           commit-message: "fix: lint issues"
