@@ -5,7 +5,7 @@ import { resolve } from 'pathe'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@unocss/nuxt',
+    '@nuxtjs/tailwindcss',
     async () => {
       const components = globbySync('../../packages/components/**/src/stories/*.@(vue)')
       if (components.length > 0) {
@@ -15,8 +15,5 @@ export default defineNuxtConfig({
         })
       }
     },
-  ],
-  css: [
-    '@unocss/reset/tailwind.css',
   ],
 })
