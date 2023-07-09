@@ -13,11 +13,12 @@
     "dev:all": "turbo run dev --filter='./packages/**' --concurrency $(($(ls -1 packages/components packages/core | wc -l)+3))",
     "dev:core": "turbo run dev --filter='./packages/core/**'",
     "dev:components": "turbo run dev --filter='./packages/components/**'",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "eslint --cache .",
+    "lint:fix": "eslint --fix --cache .",
     "play:vue": "pnpm clean:dts && turbo run dev --filter='./playground/vue3/**'",
     "play:nuxt": "pnpm clean:dts && turbo run dev --filter='./playground/nuxt3/**'",
     "play": "pnpm clean:dts && turbo run dev --filter='./playground/**'",
+    "postinstall": "simple-git-hooks",
     "test": "vitest run",
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
@@ -56,11 +57,13 @@
     "eslint-plugin-storybook": "^0.6.12",
     "jiti": "^1.18.2",
     "jsdom": "^22.1.0",
+    "lint-staged": "^13.2.3",
     "ofetch": "^1.1.1",
     "postcss": "^8.4.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.1",
+    "simple-git-hooks": "^2.8.1",
     "storybook": "^7.0.24",
     "storybook-dark-mode": "^3.0.0",
     "tailwindcss": "^3.3.2",
@@ -82,5 +85,13 @@
       "@vue/runtime-core": "3.3.4",
       "vite": "4.3.5"
     }
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{[jt]s?(x),vue,md}": [
+      "eslint --cache --fix ."
+    ]
   }
 }
