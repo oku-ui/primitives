@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
 
 import type { ElementType, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
@@ -277,25 +277,24 @@ const PopperContent = defineComponent({
           'ref': newRef,
           'data-oku-popper-content-wrapper': '',
           'style': {
-            position: floatingStyles.value.position,
-            left: `${floatingStyles.value.left}px`,
-            top: `${floatingStyles.value.top}px`,
-            transform: isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
-            minWidth: 'max-content',
-            zIndex: contentZIndex.value,
+            'position': floatingStyles.value.position,
+            'left': `${floatingStyles.value.left}px`,
+            'top': `${floatingStyles.value.top}px`,
+            'transform': isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
+            'min-width': 'max-content',
+            'zIndex': contentZIndex.value,
             ['--oku-popper-transform-origin' as any]: [
               middlewareData.value.transformOrigin?.x,
               middlewareData.value.transformOrigin?.y,
             ].join(' '),
-          },
+          } as StyleValue,
           'dir': attrsElement.dir,
-
         },
         [
           h('div',
             {
-              'data-side': placedSide,
-              'data-align': placedAlign,
+              'data-side': placedSide.value,
+              'data-align': placedAlign.value,
               ...attrsElement,
               'style': {
                 ...attrsElement.style as any,
@@ -304,7 +303,7 @@ const PopperContent = defineComponent({
                 animation: !isPositioned.value ? 'none' : undefined,
                 // hide the content if using the hide middleware and should be hidden
                 opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
-              },
+              } as StyleValue,
             },
             {
               default: () => slots.default?.(),

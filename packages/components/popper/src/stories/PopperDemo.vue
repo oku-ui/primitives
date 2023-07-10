@@ -35,11 +35,11 @@ function setPressed(value: boolean) {
       </OkuPopperAnchor>
       <Teleport to="body">
         <Transition>
-          <OkuPopperContent v-if="pressed" :side-offset="5" side="top" align="start">
+          <OkuPopperContent v-if="pressed" :side-offset="15" side="top" align="start">
             <button class="bg-blue-500" @click="setPressed(!pressed)">
               close
             </button>
-            <OkuPopperArrow class="fill-red-500" width="20" height="20" offset="0" />
+            <OkuPopperArrow class="fill-red-500" width="12" height="12" offset="0" />
           </OkuPopperContent>
         </Transition>
       </Teleport>
