@@ -37,6 +37,7 @@
   "devDependencies": {
     "tsconfig": "workspace:^"
   },
+  "dependencies": {},
   "publishConfig": {
     "access": "public"
   }

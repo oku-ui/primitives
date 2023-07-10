@@ -33,7 +33,7 @@ describe('label', () => {
 
   it('shold have no accessibility violations', async () => {
     const results = await axe(_wrapper.element)
-    // TODO: toHaveNoViolations add types project
+    // @ts-expect-error toHaveNoViolations add types project
     expect(results).toHaveNoViolations()
   })
 
