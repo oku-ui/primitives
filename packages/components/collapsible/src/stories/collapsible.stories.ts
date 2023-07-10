@@ -27,7 +27,23 @@ type Story = StoryObj<typeof meta> & {
 export const Styled: Story = {
   args: {
     template: '#1',
-    allshow: true,
+    allshow: false,
+  },
+
+  render: (args: any) => ({
+    components: { OkuCollapsibleDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollapsibleDemo v-bind="args" />
+    `,
+  }),
+}
+export const Controlled: Story = {
+  args: {
+    template: '#2',
+    allshow: false,
   },
 
   render: (args: any) => ({

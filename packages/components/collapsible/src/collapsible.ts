@@ -1,17 +1,17 @@
 import type { ComponentPublicInstance, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import { Transition, computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { ElementType } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
-import { useId } from '@oku-ui/use-composable'
+import { useControllableRef, useId } from '@oku-ui/use-composable'
 
 // import { useId } from '../../../core/use-composable/src/index'
 
 // ---Collapsible---
-interface CollapsibleProps {}
+interface CollapsibleProps { }
 type CollapsibleElement = ElementType<'div'>
 type CollapsibleTriggerElement = ElementType<'button'>
 type CollapsibleContextValue = {
@@ -30,6 +30,9 @@ const Collapsible = defineComponent({
   name: COLLAPSIBLE_NAME,
   inheritAttrs: false,
   props: {
+    defaultOpen: {
+      type: Boolean,
+    },
     open: {
       type: Boolean,
       default: false,
@@ -42,12 +45,14 @@ const Collapsible = defineComponent({
       type: Object as unknown as PropType<Scope>,
       required: false,
     },
+    onOpenChange: {
+      type: Function as PropType<(open: boolean) => void>,
+    },
   },
   setup(props, { attrs, slots, expose }) {
     const innerRef = ref<ComponentPublicInstance>()
     const { ...CollapsibleProps } = attrs as CollapsibleElement
-    const { disable, scopeCollapsible } = toRefs(props)
-    const open = ref(props.open)
+    const { disable, scopeCollapsible, open, defaultOpen } = toRefs(props)
 
     // const { _ref: collapsibleRef, refEl: collapsibleRefEl } = useRef<CollapsibleElement>()
 
@@ -55,13 +60,19 @@ const Collapsible = defineComponent({
       innerRef: computed(() => innerRef.value?.$el),
     })
 
+    const { state } = useControllableRef({
+      prop: open.value,
+      onChange: props.onOpenChange,
+      defaultProp: defaultOpen.value,
+    })
+
     collapsibleProvider({
       contentId: useId(),
       disabled: disable,
-      open,
+      open: state,
       onOpenToggle() {
-        console.log('sx', open.value)
-        open.value = !open.value
+        // TODO: Need Help!!!
+        state.value = !state.value
       },
       scope: scopeCollapsible.value,
     })
@@ -69,7 +80,7 @@ const Collapsible = defineComponent({
     const originalReturn = () => h(
       Primitive.div,
       {
-        'data-state': getState(open.value),
+        'data-state': getState(state.value),
         'data-disable': disable.value ? '' : undefined,
         'ref': innerRef,
         ...CollapsibleProps,
@@ -102,8 +113,6 @@ const CollapsibleTrigger = defineComponent({
       innerRef: computed(() => innerRef.value?.$el),
     })
 
-    console.log('context', context.value)
-
     const originalReturn = () => h(
       Primitive.button,
       {
@@ -123,15 +132,91 @@ const CollapsibleTrigger = defineComponent({
   },
 })
 
-// ---CollapsibleContent---
+// ---CollapsibleContentImpl---
 const CONTENT_NAME = 'CollapsibleContent'
+
+const CollapsibleContentImpl = defineComponent({
+  inheritAttrs: false,
+  props: {
+    present: {
+      type: Boolean,
+    },
+    scopeCollapsible: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+    },
+  },
+  setup(props, { attrs, slots, expose }) {
+    const { scopeCollapsible, present } = toRefs(props)
+    const { ...contentProps } = attrs
+    const context = useCollapsibleContext(CONTENT_NAME, scopeCollapsible.value)
+    const innerRef = ref<ComponentPublicInstance>()
+
+    const isPresent = ref(present.value)
+    const isOpen = computed(() => context.value.open.value || isPresent.value)
+
+    expose({
+      innerRef: computed(() => innerRef.value?.$el),
+    })
+
+    const originalReturn = () => h(
+      Primitive.div,
+      {
+        'data-state': getState(context.value.open.value),
+        'data-disabled': context.value.disabled?.value ? '' : undefined,
+        'id': context.value.contentId,
+        'hidden': !isOpen.value,
+        ...contentProps,
+        'ref': innerRef,
+        'style': {
+          // ...attrs.style,
+        },
+      },
+      isOpen.value ? slots.default : undefined,
+    )
+
+    return originalReturn
+  },
+})
+
+// ---CollapsibleContent---
 
 const CollapsibleContent = defineComponent({
   name: CONTENT_NAME,
   inheritAttrs: false,
+  props: {
+    forceMount: {
+      type: Boolean,
+      default: true,
+    },
+    scopeCollapsible: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+    },
+  },
   setup(props, { attrs, slots, expose }) {
-    const { forceMount } = toRefs(props)
+    const { forceMount, scopeCollapsible } = toRefs(props)
     const { ...contentProps } = attrs
+    const innerRef = ref<ComponentPublicInstance>()
+    const context = useCollapsibleContext(CONTENT_NAME, scopeCollapsible.value)
+
+    expose({
+      innerRef: computed(() => innerRef.value?.$el),
+    })
+
+    const originalReturn = () => h(
+      Transition,
+      {},
+      h(
+        CollapsibleContentImpl,
+        {
+          ...contentProps,
+          ref: innerRef,
+        },
+        slots.default && slots.default(),
+      ),
+    )
+    return originalReturn
   },
 })
 
@@ -143,6 +228,7 @@ function getState(open?: boolean) {
 export {
   Collapsible,
   CollapsibleTrigger,
+  CollapsibleContent,
 }
 
 export type {
