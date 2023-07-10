@@ -7,7 +7,7 @@ concurrency:
 permissions:
   contents: read
   pull-requests: write
-  
+
 on:
   push:
     branches:
@@ -19,39 +19,46 @@ on:
 
 
 jobs:
+  lint:
+    name: "Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-and-cache
+
+      - name: Lint
+        run: pnpm run lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-and-cache
+      - uses: ./.github/actions/cache-build
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
   build-test:
-    name: 📚 Main
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
 
     strategy:
       matrix:
         os: [ubuntu-latest]
+        node_version: [16, 18]
 
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2.2.4
-
-      - run: corepack enable
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          cache: pnpm
-            
-      - name: 📦 Install deps (with cache)
-        run: pnpm install
-
-      - name: 👀 Lint
-        run: pnpm lint
-        
-      - name: 🚀 Build
-        run: pnpm build
+      - uses: ./.github/actions/setup-and-cache
+      - uses: ./.github/actions/cache-build
 
       - name: 🧪 Test
         run: pnpm test
 
       - name: 🧪 Test with coverage
         run: pnpm coverage
-      
+
       - name: 📝 Upload coverage
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
