@@ -31,11 +31,11 @@
     "build": "tsup",
     "dev": "tsup --watch"
   },
+  "peerDependencies": {},
+  "dependencies": {},
   "devDependencies": {
     "tsconfig": "workspace:^"
   },
-  "dependencies": {},
-  "peerDependencies": {},
   "publishConfig": {
     "access": "public"
   }

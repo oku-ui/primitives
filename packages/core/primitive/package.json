@@ -34,10 +34,10 @@
   "peerDependencies": {
     "vue": "^3.3.4"
   },
+  "dependencies": {},
   "devDependencies": {
     "tsconfig": "workspace:^"
   },
-  "dependencies": {},
   "publishConfig": {
     "access": "public"
   }
