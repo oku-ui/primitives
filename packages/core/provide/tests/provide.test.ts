@@ -5,7 +5,7 @@ import { createProvide } from '../src/index'
 
 describe('Provide', () => {
   test('createContext', async () => {
-    const [AvatarProvider, useAvatarContext] = createProvide('Avatar')
+    const [AvatarProvider] = createProvide('Avatar')
     const component = mount(AvatarProvider, {
       props: {
         test2: 'test2',

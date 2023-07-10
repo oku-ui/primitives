@@ -23,6 +23,7 @@
     "test:watch": "vitest --watch",
     "coverage": "vitest run --coverage",
     "build:storybook": "pnpm storybook build",
+    "typecheck": "tsc --noEmit",
     "clean": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
     "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
