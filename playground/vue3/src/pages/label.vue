@@ -1,10 +1,10 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
-import type { OkuLabelElement } from '@oku-ui/label'
+import type { LabelElement } from '@oku-ui/label'
 
-const labelRef = ref<OkuLabelElement>()
+const labelRef = ref<LabelElement>()
 onMounted(() => {
-  console.log(labelRef.value?.innerRef)
+  console.log(labelRef.value)
 })
 </script>
 
