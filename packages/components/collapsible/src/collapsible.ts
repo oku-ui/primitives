@@ -1,4 +1,4 @@
-import type { ComponentPublicInstance, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { Transition, computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { ElementType } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
@@ -6,9 +6,7 @@ import { createProvideScope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
-import { useControllableRef, useId } from '@oku-ui/use-composable'
-
-// import { useId } from '../../../core/use-composable/src/index'
+import { useControllable, useId, useRef } from '@oku-ui/use-composable'
 
 // ---Collapsible---
 interface CollapsibleProps { }
@@ -22,20 +20,25 @@ type CollapsibleContextValue = {
 }
 
 const COLLAPSIBLE_NAME = 'Collapsible'
-const [createCollapsibleContext, createCollapsibleScope] = createProvideScope(COLLAPSIBLE_NAME)
-const [collapsibleProvider, useCollapsibleContext]
-  = createCollapsibleContext<CollapsibleContextValue>(COLLAPSIBLE_NAME)
+const [createCollapsibleProvide, _createCollapsibleScope] = createProvideScope(COLLAPSIBLE_NAME)
+const [collapsibleProvider, useCollapsibleInject]
+  = createCollapsibleProvide<CollapsibleContextValue>(COLLAPSIBLE_NAME)
 
 const Collapsible = defineComponent({
   name: COLLAPSIBLE_NAME,
   inheritAttrs: false,
   props: {
+    modelValue: {
+      type: [Boolean, String, Number] as PropType<
+        boolean | string | number | undefined | 'indeterminate'
+      >,
+      default: undefined,
+    },
     defaultOpen: {
       type: Boolean,
     },
     open: {
-      type: Boolean,
-      default: false,
+      type: Boolean as PropType<boolean | undefined>,
     },
     disable: {
       type: Boolean,
@@ -49,32 +52,37 @@ const Collapsible = defineComponent({
       type: Function as PropType<(open: boolean) => void>,
     },
   },
-  setup(props, { attrs, slots, expose }) {
-    const innerRef = ref<ComponentPublicInstance>()
-    const { ...CollapsibleProps } = attrs as CollapsibleElement
+  emits: ['update:open', 'update:modelValue'],
+  setup(props, { attrs, slots, expose, emit }) {
+    const { ...collapsibleAttr } = attrs as CollapsibleElement
     const { disable, scopeCollapsible, open, defaultOpen } = toRefs(props)
 
-    // const { _ref: collapsibleRef, refEl: collapsibleRefEl } = useRef<CollapsibleElement>()
+    const { $el, newRef } = useRef<CollapsibleElement>()
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el),
+      innerRef: $el,
     })
 
-    const { state } = useControllableRef({
-      prop: open.value,
-      onChange: props.onOpenChange,
-      defaultProp: defaultOpen.value,
+    const { state, updateValue } = useControllable({
+      prop: computed(() => open.value),
+      defaultProp: computed(() => defaultOpen.value),
+      onChange: (open) => {
+        emit('update:open', open)
+        emit('update:modelValue', open)
+      },
     })
 
     collapsibleProvider({
       contentId: useId(),
       disabled: disable,
-      open: state,
       onOpenToggle() {
-        // TODO: Need Help!!!
-        state.value = !state.value
+        // eslint-disable-next-line no-console
+        console.log('onOpenToggle')
+        // TODO: Need Help!!! -> i say: this new function
+        updateValue(!state.value)
       },
       scope: scopeCollapsible.value,
+      open: state as Ref<boolean>,
     })
 
     const originalReturn = () => h(
@@ -82,10 +90,12 @@ const Collapsible = defineComponent({
       {
         'data-state': getState(state.value),
         'data-disable': disable.value ? '' : undefined,
-        'ref': innerRef,
-        ...CollapsibleProps,
+        'ref': newRef,
+        ...collapsibleAttr,
       },
-      slots.default && slots.default(),
+      {
+        default: () => slots.default && slots.default(),
+      },
     )
     return originalReturn
   },
@@ -105,12 +115,12 @@ const CollapsibleTrigger = defineComponent({
   },
   setup(props, { attrs, slots, expose }) {
     const { scopeCollapsible } = toRefs(props)
-    const innerRef = ref<ComponentPublicInstance>()
     const { ...triggerProps } = attrs as CollapsibleTriggerElement
-    const context = useCollapsibleContext(TRIGGER_NAME, scopeCollapsible.value)
+    const context = useCollapsibleInject(TRIGGER_NAME, scopeCollapsible.value)
+    const { $el, newRef } = useRef<CollapsibleElement>()
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el),
+      innerRef: $el,
     })
 
     const originalReturn = () => h(
@@ -119,14 +129,16 @@ const CollapsibleTrigger = defineComponent({
         'type': 'button',
         'aria-controls': context.value.contentId,
         'aria-expanded': context.value.open.value || false,
-        'data-state': getState(context.value.open.value),
+        'data-state': getState(context.value.open.value || false),
         'data-disabled': context.value.disabled?.value ? '' : undefined,
         'disabled': context.value.disabled?.value,
         ...triggerProps,
-        'ref': innerRef,
+        'ref': newRef,
         'onClick': composeEventHandlers(triggerProps.onClick, context.value.onOpenToggle),
       },
-      slots.default && slots.default(),
+      {
+        default: () => slots.default && slots.default(),
+      },
     )
     return originalReturn
   },
@@ -149,15 +161,14 @@ const CollapsibleContentImpl = defineComponent({
   setup(props, { attrs, slots, expose }) {
     const { scopeCollapsible, present } = toRefs(props)
     const { ...contentProps } = attrs
-    const context = useCollapsibleContext(CONTENT_NAME, scopeCollapsible.value)
-    const innerRef = ref<ComponentPublicInstance>()
-
-    const isPresent = ref(present.value)
-    const isOpen = computed(() => context.value.open.value || isPresent.value)
+    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
+    const { $el, newRef } = useRef<CollapsibleElement>()
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el),
+      innerRef: $el,
     })
+    const isPresent = ref(present.value)
+    const isOpen = computed(() => context.value.open.value || isPresent.value)
 
     const originalReturn = () => h(
       Primitive.div,
@@ -167,12 +178,16 @@ const CollapsibleContentImpl = defineComponent({
         'id': context.value.contentId,
         'hidden': !isOpen.value,
         ...contentProps,
-        'ref': innerRef,
+        'ref': newRef,
         'style': {
           // ...attrs.style,
         },
       },
-      isOpen.value ? slots.default : undefined,
+      isOpen.value
+        ? {
+            default: () => slots.default && slots.default(),
+          }
+        : undefined,
     )
 
     return originalReturn
@@ -183,6 +198,9 @@ const CollapsibleContentImpl = defineComponent({
 
 const CollapsibleContent = defineComponent({
   name: CONTENT_NAME,
+  components: {
+    CollapsibleContentImpl,
+  },
   inheritAttrs: false,
   props: {
     forceMount: {
@@ -197,24 +215,30 @@ const CollapsibleContent = defineComponent({
   setup(props, { attrs, slots, expose }) {
     const { forceMount, scopeCollapsible } = toRefs(props)
     const { ...contentProps } = attrs
-    const innerRef = ref<ComponentPublicInstance>()
-    const context = useCollapsibleContext(CONTENT_NAME, scopeCollapsible.value)
+    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
+
+    const { $el, newRef } = useRef<CollapsibleElement>()
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el),
+      innerRef: $el,
     })
 
     const originalReturn = () => h(
       Transition,
       {},
-      h(
-        CollapsibleContentImpl,
-        {
-          ...contentProps,
-          ref: innerRef,
-        },
-        slots.default && slots.default(),
-      ),
+      {
+        default: () => h(
+          CollapsibleContentImpl,
+          {
+            ...contentProps,
+            ref: newRef,
+            scopeCollapsible: scopeCollapsible.value,
+          },
+          {
+            default: () => slots.default && slots.default(),
+          },
+        ),
+      },
     )
     return originalReturn
   },
