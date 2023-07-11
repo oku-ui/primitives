@@ -19,8 +19,8 @@
     "@oku-ui/separator": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^18.16.16",
-    "@unocss/nuxt": "^0.52.7",
-    "nuxt": "^3.5.2"
+    "@nuxtjs/tailwindcss": "^6.8.0",
+    "@types/node": "^18.16.19",
+    "nuxt": "^3.6.2"
   }
 }

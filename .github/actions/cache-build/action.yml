@@ -1,0 +1,29 @@
+name: Cache build binaries
+description: "Cache or restore if necessary"
+inputs:
+  node_version:
+    required: false
+    description: Node version for cache-node
+    default: 18.x
+runs:
+  using: "composite"
+  steps:
+    - name: Cache build
+      uses: buildjet/cache@v3
+      id: cache-build
+      env:
+        cache-name: prod-build
+        key-1: ${{ inputs.node_version }}-${{ hashFiles('**/pnpm-lock') }}
+        key-2: ${{ hashFiles('*/**.[jt]s', '*/**.vue', 'packages/**/**.[jt]s', 'packages/**/**.vue', '!**/node_modules') }}
+        key-3: ${{ github.event.pull_request.number || github.ref }}
+        # Ensures production-build.yml will always be fresh
+        key-4: ${{ github.sha }}
+      with:
+        path: |
+          ${{ github.workspace }}/dist
+          **/dist/**
+        key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.key-1 }}-${{ env.key-2 }}-${{ env.key-3 }}-${{ env.key-4 }}
+
+    - run: pnpm build
+      if: steps.cache-build.outputs.cache-hit != 'true'
+      shell: bash

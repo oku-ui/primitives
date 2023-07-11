@@ -34,6 +34,13 @@
     ]
   },
   "include": [
-    "packages/**/*"
+    "packages/**/*",
+    "vitest-setup.ts",
+    "vitest.config.ts"
+  ],
+  "exclude": [
+    "**/*/*.stories.ts",
+    "**dist**",
+    "**node_modules**"
   ]
 }

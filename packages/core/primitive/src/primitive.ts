@@ -1,5 +1,10 @@
 // TODO: IntrinsicElementAttributes vue 3.3 add
-import type { ComponentPublicInstance, DefineComponent, FunctionalComponent, IntrinsicElementAttributes } from 'vue'
+import type {
+  ComponentPublicInstance,
+  DefineComponent,
+  FunctionalComponent,
+  IntrinsicElementAttributes,
+} from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
 
 /* -------------------------------------------------------------------------------------------------
@@ -29,14 +34,18 @@ type ElementConstructor<P> =
   | ((props: P, ...args: any) => FunctionalComponent<any, any>)
 
 //  extends keyof JSX.IntrinsicElements | ElementConstructor<any>
-type ComponentProps<T extends keyof JSX.IntrinsicElements | ElementConstructor<any>> =
-  T extends ElementConstructor<infer P>
-    ? P
-    : T extends keyof JSX.IntrinsicElements
-      ? JSX.IntrinsicElements[T]
-      : {}
+type ComponentProps<
+  T extends keyof JSX.IntrinsicElements | ElementConstructor<any>,
+> = T extends ElementConstructor<infer P>
+  ? P
+  : T extends keyof JSX.IntrinsicElements
+    ? JSX.IntrinsicElements[T]
+    : {}
 
-type RefElement<T extends abstract new (...args: any) => any> = Omit<InstanceType<T>, keyof ComponentPublicInstance | 'class' | 'style'>
+type RefElement<T extends abstract new (...args: any) => any> = Omit<
+  InstanceType<T>,
+  keyof ComponentPublicInstance | 'class' | 'style'
+>
 
 type MergeProps<T, U> = U & T
 
@@ -44,11 +53,15 @@ interface PrimitiveProps {
   asChild?: boolean
 }
 
-type Primitives = { [E in typeof NODES[number]]: DefineComponent<{
-  asChild?: boolean
-}> }
+type Primitives = {
+  [E in (typeof NODES)[number]]: DefineComponent<{
+    asChild?: boolean
+  }>;
+}
 
-type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<IntrinsicElementAttributes[T]>
+type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<
+  IntrinsicElementAttributes[T]
+>
 
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = defineComponent({
@@ -63,16 +76,23 @@ const Primitive = NODES.reduce((primitive, node) => {
       })
       const Tag: any = props.asChild ? 'slot' : node
 
-      return () => props.asChild ? slots.default?.() : h(Tag, { ...attrs }, slots.default?.())
+      return () => {
+        const _slots = slots.default?.()
+        return props.asChild ? _slots : h(Tag, { ...attrs }, _slots)
+      }
     },
   })
+
   return { ...primitive, [node]: Node }
 }, {} as Primitives)
 
 const OkuPrimitive = Primitive
 
-export {
-  OkuPrimitive,
-  Primitive,
+export { OkuPrimitive, Primitive }
+export type {
+  ComponentProps,
+  MergeProps,
+  PrimitiveProps,
+  RefElement,
+  ElementType,
 }
-export type { ComponentProps, MergeProps, PrimitiveProps, RefElement, ElementType }

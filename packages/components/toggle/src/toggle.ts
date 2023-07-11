@@ -1,9 +1,9 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useControllableRef, useRef } from '@oku-ui/use-composable'
+import { useControllable, useRef } from '@oku-ui/use-composable'
 
 const TOGGLE_NAME = 'Toggle'
 
@@ -20,16 +20,19 @@ interface ToggleProps extends PrimitiveProps {
    * @defaultValue false
    */
   defaultPressed?: boolean
-  /**
-   * The callback that fires when the state of the toggle changes.
-   */
-  onPressedChange?: (pressed: boolean) => void
+
 }
 
 const Toggle = defineComponent({
   name: TOGGLE_NAME,
   inheritAttrs: false,
   props: {
+    modelValue: {
+      type: [Boolean, String, Number] as PropType<
+        boolean | string | number | undefined
+      >,
+      default: undefined,
+    },
     pressed: {
       type: Boolean,
       default: undefined,
@@ -38,22 +41,23 @@ const Toggle = defineComponent({
       type: Boolean,
       default: false,
     },
-    onPressedChange: Function as PropType<(pressed: boolean) => void>,
   },
-
-  setup(props, { attrs, expose, slots }) {
-    const { onPressedChange } = props
-    const { pressed: pressedProp, defaultPressed } = toRefs(props)
-    const { _ref: toggleRef, refEl: toggleRefEl } = useRef<ToggleElement>()
+  emits: ['update:pressed', 'update:modelValue'],
+  setup(props, { attrs, expose, slots, emit }) {
+    const { pressed: pressedProp, defaultPressed, modelValue } = toRefs(props)
+    const { $el, newRef } = useRef<ToggleElement>()
 
     expose({
-      innerRef: toggleRefEl,
+      innerRef: $el,
     })
 
-    const { state } = useControllableRef({
-      prop: pressedProp.value,
-      onChange: onPressedChange,
-      defaultProp: defaultPressed.value,
+    const { state, updateValue } = useControllable({
+      prop: computed(() => modelValue.value ?? pressedProp.value),
+      defaultProp: computed(() => defaultPressed.value),
+      onChange: (pressed) => {
+        emit('update:pressed', pressed)
+        emit('update:modelValue', pressed)
+      },
     })
 
     const { disabled, ...toggleProps } = attrs as ToggleElement
@@ -65,13 +69,15 @@ const Toggle = defineComponent({
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled ? '' : undefined,
         ...toggleProps,
-        'ref': toggleRef,
+        'ref': newRef,
         'onClick': composeEventHandlers(toggleProps.onClick, () => {
           if (!disabled)
-            state.value = !state.value
+            updateValue(!state.value)
         }),
       },
-      slots.default && slots.default?.(),
+      {
+        default: () => slots.default?.(),
+      },
     )
 
     return originalReturn as unknown as {
