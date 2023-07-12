@@ -40,7 +40,7 @@ export const Styled: Story = {
     `,
   }),
 }
-export const Controlled: Story = {
+export const Chromatic: Story = {
   args: {
     template: '#2',
     allshow: false,

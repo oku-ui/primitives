@@ -76,9 +76,6 @@ const Collapsible = defineComponent({
       contentId: useId(),
       disabled: disable,
       onOpenToggle() {
-        // eslint-disable-next-line no-console
-        console.log('onOpenToggle')
-        // TODO: Need Help!!! -> i say: this new function
         updateValue(!state.value)
       },
       scope: scopeCollapsible.value,
@@ -200,6 +197,7 @@ const CollapsibleContent = defineComponent({
   name: CONTENT_NAME,
   components: {
     CollapsibleContentImpl,
+    Transition,
   },
   inheritAttrs: false,
   props: {
@@ -213,9 +211,8 @@ const CollapsibleContent = defineComponent({
     },
   },
   setup(props, { attrs, slots, expose }) {
-    const { forceMount, scopeCollapsible } = toRefs(props)
+    const { scopeCollapsible } = toRefs(props)
     const { ...contentProps } = attrs
-    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
 
     const { $el, newRef } = useRef<CollapsibleElement>()
 
@@ -223,6 +220,7 @@ const CollapsibleContent = defineComponent({
       innerRef: $el,
     })
 
+    // TODO: Transition
     const originalReturn = () => h(
       Transition,
       {},
