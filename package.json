@@ -92,5 +92,8 @@
     "*.{[jt]s?(x),vue,md}": [
       "eslint --cache --fix ."
     ]
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

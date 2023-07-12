@@ -40,5 +40,8 @@
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
