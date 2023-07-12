@@ -40,7 +40,7 @@ const Collapsible = defineComponent({
     open: {
       type: Boolean as PropType<boolean | undefined>,
     },
-    disable: {
+    disabled: {
       type: Boolean,
       default: false,
     },
@@ -55,7 +55,7 @@ const Collapsible = defineComponent({
   emits: ['update:open', 'update:modelValue'],
   setup(props, { attrs, slots, expose, emit }) {
     const { ...collapsibleAttr } = attrs as CollapsibleElement
-    const { disable, scopeCollapsible, open, defaultOpen } = toRefs(props)
+    const { disabled, scopeCollapsible, open, defaultOpen } = toRefs(props)
 
     const { $el, newRef } = useRef<CollapsibleElement>()
 
@@ -74,7 +74,7 @@ const Collapsible = defineComponent({
 
     collapsibleProvider({
       contentId: useId(),
-      disabled: disable,
+      disabled,
       onOpenToggle() {
         updateValue(!state.value)
       },
@@ -86,7 +86,7 @@ const Collapsible = defineComponent({
       Primitive.div,
       {
         'data-state': getState(state.value),
-        'data-disable': disable.value ? '' : undefined,
+        'data-disabled': disabled.value ? '' : undefined,
         'ref': newRef,
         ...collapsibleAttr,
       },

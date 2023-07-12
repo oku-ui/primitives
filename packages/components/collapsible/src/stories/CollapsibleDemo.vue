@@ -81,7 +81,7 @@ const open = ref(true)
       <h1 class="text-2xl">
         disabled
       </h1>
-      <Collapsible class="root" :open="false" disable>
+      <Collapsible class="root" :open="false" disabled>
         <CollapsibleTrigger class="trigger">
           close
         </CollapsibleTrigger>
