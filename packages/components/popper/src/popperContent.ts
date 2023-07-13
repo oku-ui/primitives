@@ -207,13 +207,13 @@ const PopperContent = defineComponent({
       ].filter(isDefined) as Middleware[]
     })
 
-    const { floatingStyles, placement, isPositioned, middlewareData, update } = useFloating(inject.value.anchor, newRef, {
+    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.value.anchor, newRef, {
       // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
       strategy: 'fixed',
       placement: desiredPlacement,
       whileElementsMounted: (...args) => {
         const cleanup = autoUpdate(...args, {
-          animationFrame: updatePositionStrategy.value === 'always',
+          animationFrame: updatePositionStrategy.value === 'optimized',
         })
         return cleanup
       },
@@ -243,6 +243,9 @@ const PopperContent = defineComponent({
         handlePlaced?.()
     })
 
+    const floatingTop = computed(() => `${y.value ?? 0}px`)
+    const floatingLeft = computed(() => `${x.value ?? 0}px`)
+
     const arrowX = computed(() => `${middlewareData.value.arrow?.x || 0}px`)
     const arrowY = computed(() => `${middlewareData.value.arrow?.y || 0}px`)
     const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffset !== 0)
@@ -265,14 +268,16 @@ const PopperContent = defineComponent({
       placedSide,
       anchor: inject.value.anchor,
     })
+
     const originalReturn = () =>
       h('div',
         {
           'ref': newRef,
           'data-oku-popper-content-wrapper': '',
           'style': {
-            ...floatingStyles.value,
-            'transform': isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
+            'top': floatingTop.value,
+            'left': floatingLeft.value,
+            'position': strategy.value,
             'min-width': 'max-content',
             'zIndex': contentZIndex.value,
             ['--oku-popper-transform-origin' as any]: [

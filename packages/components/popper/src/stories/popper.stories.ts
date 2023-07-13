@@ -41,7 +41,7 @@ export const Styled: Story = {
   }),
 }
 
-export const Template1: Story = {
+export const CustomArrow: Story = {
   args: {
     template: '#2',
   },
