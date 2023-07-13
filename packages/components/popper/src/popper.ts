@@ -16,6 +16,7 @@ export const [createPopperProvider, _createPopperScope] = createProvideScope(POP
 
 export type PopperInjectValue = {
   anchor: Ref<Measurable | null>
+  onAnchorChange(anchor: Measurable | null): void
 }
 
 export const [PopperProvider, usePopperInject]
@@ -42,6 +43,9 @@ const Popper = defineComponent({
     PopperProvider({
       scope: scopeCheckbox.value as Scope,
       anchor,
+      onAnchorChange(_anchor: Measurable | null) {
+        anchor.value = _anchor
+      },
     })
 
     const originalReturn = () => slots.default?.()

@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, toRefs, watch } from 'vue'
 
 import type { ElementType, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
@@ -41,16 +41,8 @@ const PopperAnchor = defineComponent({
     const inject = usePopperInject(ANCHOR_NAME, scopeCheckbox.value)
     const { $el, newRef } = useRef<Measurable>()
 
-    // watchEffect(() => {
-    //   inject.value.anchor.value = virtualRef.value?.value || valueEl.value as Measurable
-    // })
-
-    // onMounted(() => {
-    //   inject.value.anchor.value = virtualRef.value?.value || valueEl.value as Measurable
-    // })
-
-    watchEffect(() => {
-      inject.value.anchor.value = virtualRef.value?.value as Measurable || $el.value as Measurable
+    watch($el, () => {
+      inject.value.anchor.value = virtualRef.value?.value || $el.value as Measurable
     })
 
     const originalReturn = () => virtualRef.value

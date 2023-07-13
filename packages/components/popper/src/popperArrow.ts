@@ -38,7 +38,10 @@ const PopperArrow = defineComponent({
     })
     const originalReturn = () =>
       h('span', {
-        ref: contentInject.value.arrow,
+        ref: (el: any) => {
+          contentInject.value.onAnchorChange(el)
+          return undefined
+        },
         style: {
           position: 'absolute',
           left: contentInject.value.arrowX?.value,
@@ -62,6 +65,10 @@ const PopperArrow = defineComponent({
       [
         h(OkuArrow, {
           ...attrsElement,
+          style: {
+            ...attrsElement.style as any,
+            display: 'block',
+          },
         }),
       ])
     return originalReturn

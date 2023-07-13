@@ -1,9 +1,9 @@
 import type { PropType, Ref, StyleValue } from 'vue'
-import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
 import type { ElementType, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { useCallbackRef, useRef, useSize } from '@oku-ui/use-composable'
+import { computedEager, useCallbackRef, useRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
@@ -166,23 +166,19 @@ const PopperContent = defineComponent({
       altBoundary: hasExplicitBoundaries,
     } as DetectOverflowOptions
 
-    const _middleware = computed(() => {
-      const toReturn: Middleware[] = []
-      toReturn.push(
+    const computedMiddleware = computedEager(() => {
+      return [
         offset({ mainAxis: sideOffset.value + arrowHeight.value, alignmentAxis: alignOffset.value }),
-      )
 
-      if (avoidCollisions.value) {
-        toReturn.push(shift({
+        avoidCollisions.value && shift({
           mainAxis: true,
           crossAxis: false,
           limiter: sticky.value === 'partial' ? limitShift() : undefined,
           ...detectOverflowOptions,
-        }))
-        toReturn.push(flip({ ...detectOverflowOptions }))
-      }
+        }),
 
-      toReturn.push(
+        avoidCollisions.value && flip({ ...detectOverflowOptions }),
+
         size({
           ...detectOverflowOptions,
           apply: ({ elements, rects, availableWidth, availableHeight }) => {
@@ -194,43 +190,38 @@ const PopperContent = defineComponent({
             contentStyle.setProperty('--oku-popper-anchor-height', `${anchorHeight}px`)
           },
         }),
-      )
 
-      if (arrow.value)
-        toReturn.push(floatingUIarrow({ element: arrow.value, padding: arrowPadding.value }))
+        arrow.value && floatingUIarrow({ element: arrow.value, padding: arrowPadding.value }),
 
-      toReturn.push(transformOrigin({ arrowWidth: arrowWidth.value, arrowHeight: arrowHeight.value }))
+        transformOrigin({ arrowWidth: arrowWidth.value, arrowHeight: arrowHeight.value }),
 
-      if (hideWhenDetached.value)
-        toReturn.push(hide({ strategy: 'referenceHidden', ...detectOverflowOptions }))
-
-      return toReturn.filter(isDefined)
+        hideWhenDetached.value && hide({ strategy: 'referenceHidden', ...detectOverflowOptions }),
+      ].filter(isDefined) as Middleware[]
     })
 
-    const { x, y, floatingStyles, placement, isPositioned, middlewareData, update } = useFloating(inject.value.anchor, newRef, {
+    const { floatingStyles, placement, isPositioned, middlewareData, update } = useFloating(inject.value.anchor, newRef, {
       // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
       strategy: 'fixed',
       placement: desiredPlacement,
       whileElementsMounted: (...args) => {
         const cleanup = autoUpdate(...args, {
-          animationFrame: updatePositionStrategy.value === 'optimized',
+          animationFrame: updatePositionStrategy.value === 'always',
         })
         return cleanup
       },
-      middleware: _middleware,
+      middleware: computedMiddleware,
     })
 
-    // watch(arrowSize, () => {
+    const placedSide = computed(
+      () => getSideAndAlignFromPlacement(placement.value)[0],
+    )
+    const placedAlign = computed(
+      () => getSideAndAlignFromPlacement(placement.value)[1],
+    )
 
-    // })
-
-    const placedSide = ref<Side>(side.value)
-    const placedAlign = ref<Align>(align.value)
-
-    watch(placement, () => {
-      const [newSide, newAlign] = getSideAndAlignFromPlacement(placement.value)
-      placedSide.value = newSide
-      placedAlign.value = newAlign
+    watchEffect(() => {
+      if (isPositioned.value)
+        props.onPlaced?.()
     })
 
     onMounted(() => {
@@ -248,12 +239,6 @@ const PopperContent = defineComponent({
     const arrowY = computed(() => `${middlewareData.value.arrow?.y || 0}px`)
     const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffset !== 0)
 
-    // watch(middlewareData, () => {
-    //   arrowX.value = `${middlewareData.value.arrow?.x || 0}px`
-    //   arrowY.value = `${middlewareData.value.arrow?.y || 0}px`
-    //   cannotCenterArrow.value = middlewareData.value.arrow?.centerOffset !== 0
-    // })
-
     const contentZIndex = ref()
     watch(content, () => {
       if (content.value)
@@ -265,11 +250,12 @@ const PopperContent = defineComponent({
       arrowY,
       scope: scopePopper.value,
       shouldHideArrow: cannotCenterArrow,
+      onAnchorChange(anchor: HTMLElement | null) {
+        arrow.value = anchor
+      },
       arrow,
       placedSide,
       anchor: inject.value.anchor,
-      x,
-      y,
     })
     const originalReturn = () =>
       h('div',
@@ -277,9 +263,7 @@ const PopperContent = defineComponent({
           'ref': newRef,
           'data-oku-popper-content-wrapper': '',
           'style': {
-            'position': floatingStyles.value.position,
-            'left': `${floatingStyles.value.left}px`,
-            'top': `${floatingStyles.value.top}px`,
+            ...floatingStyles.value,
             'transform': isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
             'min-width': 'max-content',
             'zIndex': contentZIndex.value,
