@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <CheckboxDemo allshow />
+  <PopperDemo allshow />
 </template>
