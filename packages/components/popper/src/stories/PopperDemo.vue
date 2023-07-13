@@ -28,7 +28,7 @@ function setPressed(value: boolean) {
 <template>
   <div class="h-[200vh] flex justify-center items-center">
     <OkuPopper>
-      <OkuPopperAnchor class="h-10 w-10">
+      <OkuPopperAnchor class="h-10 w-10 flex items-center">
         <button class="bg-blue-500" @click="setPressed(!pressed)">
           Toggle
         </button>

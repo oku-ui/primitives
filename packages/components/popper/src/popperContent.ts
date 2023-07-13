@@ -1,7 +1,7 @@
 import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
-import type { ElementType, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import { type ElementType, type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { computedEager, useCallbackRef, useRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
@@ -118,6 +118,10 @@ const PopperContent = defineComponent({
       type: Object as unknown as PropType<Scope>,
       required: false,
     },
+    asChild: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { attrs, expose, slots }) {
     const {
@@ -142,6 +146,10 @@ const PopperContent = defineComponent({
 
     const content = ref<HTMLDivElement | null>(null)
     const { $el, newRef } = useRef<HTMLDivElement>()
+
+    expose({
+      innerRef: $el,
+    })
 
     const arrow = ref<HTMLSpanElement | null>(null)
     const arrowSize = useSize(arrow)
@@ -275,11 +283,12 @@ const PopperContent = defineComponent({
           'dir': attrsElement.dir,
         },
         [
-          h('div',
+          h(Primitive.div,
             {
               'data-side': placedSide.value,
               'data-align': placedAlign.value,
               ...attrsElement,
+              'asChild': props.asChild,
               'style': {
                 ...attrsElement.style as any,
                 // if the PopperContent hasn't been placed yet (not all measurements done)
@@ -293,7 +302,6 @@ const PopperContent = defineComponent({
               default: () => slots.default?.(),
             },
           ),
-
         ],
       )
 

@@ -34,6 +34,10 @@ const PopperAnchor = defineComponent({
       required: false,
       default: undefined,
     },
+    asChild: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { attrs, expose, slots }) {
     const { virtualRef, scopeCheckbox } = toRefs(props)
@@ -49,6 +53,7 @@ const PopperAnchor = defineComponent({
       ? null
       : h(Primitive.div, {
         ...attrsAnchor,
+        asChild: props.asChild,
         ref: newRef,
       },
       {
