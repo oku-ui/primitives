@@ -15,9 +15,6 @@ withDefaults(defineProps<IToggleProps>(), {
 
 const pressed = ref(true)
 const _setPressed = ref(false)
-function setPressed(value: boolean) {
-  _setPressed.value = value
-}
 </script>
 
 <template>
@@ -42,10 +39,9 @@ function setPressed(value: boolean) {
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"
-            v-model="pressed"
+            v-model:pressed="pressed"
             aria-label="Toggle italic"
             class="w-10 h-10 border-2 rounded text-black flex items-center justify-center data-[state=on]:border-green-500 data-[state=off]:border-gray-900 hover:bg-gray-400"
-            @on-pressed-change="setPressed"
           >
             {{ pressed ? 'on' : 'off' }}
           </OkuToggle>
@@ -82,7 +78,7 @@ function setPressed(value: boolean) {
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"
-            :disabled="true"
+            disabled
             :pressed="false"
             aria-label="Toggle italic"
             class="w-10 h-10 border-2 rounded flex items-center justify-center data-[state=on]:border-green-500 hover:bg-gray-400 data-[disabled]:border-gray-100"
