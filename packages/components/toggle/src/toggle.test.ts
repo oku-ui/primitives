@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import { OkuToggle } from './toggle'
 
 describe('OkuToggle', () => {
@@ -9,6 +9,24 @@ describe('OkuToggle', () => {
     expect(wrapper.html()).toBe(`<button type="button" aria-pressed="false" data-state="off">
   <!---->
 </button>`)
+  })
+
+  it('Active state', () => {
+    const wrapper = shallowMount(OkuToggle, {
+      propsData: {
+        pressed: true,
+      },
+    })
+    expect(wrapper.attributes('aria-pressed')).toBe('true')
+  })
+
+  it('Inactive state', () => {
+    const wrapper = shallowMount(OkuToggle, {
+      propsData: {
+        pressed: false,
+      },
+    })
+    expect(wrapper.attributes('aria-pressed')).toBe('false')
   })
 
   it('Toggle state', async () => {
