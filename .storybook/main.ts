@@ -1,7 +1,7 @@
 import type { StorybookConfig } from "@storybook/vue3-vite";
-
+import {globbySync} from "globby"
 const config: StorybookConfig = {
-  stories: ["../stories/**/*.mdx", "../packages/components/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: globbySync(['../stories/*.mdx', `../**/*.stories.@(js|jsx|ts|tsx)`, "!../**/node_modules/**/*"], { cwd: "./.storybook" }),
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
