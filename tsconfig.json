@@ -23,8 +23,7 @@
     "strictNullChecks": true,
     "types": [
       "vue",
-      "vite/client",
-      "unplugin-vue-macros/macros-global"
+      "vite/client"
     ]
   },
   "vueCompilerOptions": {
