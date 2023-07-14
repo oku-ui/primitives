@@ -5,7 +5,8 @@
   "packageManager": "pnpm@8.6.6",
   "repository": "oku-ui/primitives",
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "pnpm": ">=8.6.0"
   },
   "scripts": {
     "p:build": "tsup",

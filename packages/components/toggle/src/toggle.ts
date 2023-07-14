@@ -29,7 +29,7 @@ const Toggle = defineComponent({
     },
     pressed: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
   },
   emits: ['update:pressed'],

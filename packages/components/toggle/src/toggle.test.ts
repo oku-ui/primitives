@@ -6,7 +6,7 @@ describe('OkuToggle', () => {
   const wrapper = mount(OkuToggle)
 
   it('renders correctly', () => {
-    expect(wrapper.html()).toBe(`<button type="button" aria-pressed="false" data-state="off">
+    expect(wrapper.html()).toBe(`<button type="button" data-state="off">
   <!---->
 </button>`)
   })
