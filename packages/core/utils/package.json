@@ -31,6 +31,8 @@
     "build": "tsup",
     "dev": "tsup --watch"
   },
+  "peerDependencies": {},
+  "dependencies": {},
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

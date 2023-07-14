@@ -1,60 +1,35 @@
-import type { ComponentPublicInstance, Ref } from 'vue'
-import { onBeforeUpdate, onMounted, ref, watch } from 'vue'
+import type { ComponentPublicInstance, ComputedRef, Ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 
 // Source: https://github.com/chakra-ui/chakra-ui-vue-next/blob/develop/packages/utils/src/dom.ts
 
 /**
  * Interface for node provided by template ref
  */
-export type TemplateRef = Element | ComponentPublicInstance | undefined | null
+
+interface RefType<T> extends ComponentPublicInstance {
+  $el: T
+}
 
 function useRef<T>(): {
-  _ref: (el: TemplateRef | null) => void
-  refEl: Ref<T | null>
-  innerRef: Ref<T | null>
+  newRef: Ref<RefType<T>>
+  $el: ComputedRef<T>
 } {
-  const refEl = ref<T | null>(null)
+  const refValue = ref()
 
-  // Inner ref is used to pass the ref to the component
-  const innerRef = ref<T | null>(null)
-
-  onBeforeUpdate(() => {
+  onBeforeMount(() => {
     // clear refs before DOM updates
-    refEl.value = null
-    innerRef.value = null
+    refValue.value = null
   })
 
-  onMounted(() => {
-    innerRef.value = refEl.value
+  // ComponentPublicInstance?.$el ?? el
+  const returnNewref = computed(() => {
+    return (refValue.value)?.$el
   })
-
-  watch(
-    innerRef,
-    (el) => {
-      if (refEl.value) {
-        refEl.value = {
-          ...(refEl.value || {}),
-          ...el as any,
-        }
-      }
-      else {
-        refEl.value = el
-      }
-    },
-    { immediate: true },
-  )
-  /**
-   * Getter function to bind ref to value
-   * @param el Template ref value provided by Vue
-   */
-  const _ref = (el: TemplateRef | null) => {
-    refEl.value = (el as ComponentPublicInstance)?.$el ?? el
-  }
 
   return {
-    _ref,
-    refEl: refEl as any as Ref<T | null>,
-    innerRef: innerRef as any as Ref<T | null>,
+    newRef: refValue as Ref<RefType<T>>,
+    $el: returnNewref as ComputedRef<T>,
   }
 }
 

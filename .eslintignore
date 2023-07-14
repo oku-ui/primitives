@@ -1,1 +1,8 @@
 .github
+pnpm-lock.yaml
+node_modules
+*.d.ts
+coverage
+dist
+storybook-static
+.nuxt

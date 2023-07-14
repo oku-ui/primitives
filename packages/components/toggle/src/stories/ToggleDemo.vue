@@ -6,7 +6,7 @@ import { ref } from 'vue'
 
 export interface IToggleProps extends ToggleProps {
   template?: '#1' | '#2' | '#3'
-  allshow?: boolean
+  allShow?: boolean
 }
 
 withDefaults(defineProps<IToggleProps>(), {
@@ -14,14 +14,17 @@ withDefaults(defineProps<IToggleProps>(), {
 })
 
 const pressed = ref(true)
+const _setPressed = ref(false)
 function setPressed(value: boolean) {
-  pressed.value = value
+  _setPressed.value = value
 }
 </script>
 
 <template>
   <div>
-    <div v-if="template === '#1' || allshow" class="w-[300px]">
+    {{ _setPressed }}
+    {{ pressed }}
+    <div v-if="template === '#1' || allShow" class="w-[300px]">
       <div>
         <h1>Oku Default toggle</h1>
         <div class="max-w-xl mx-auto h-full items-center justify-center">
@@ -39,17 +42,17 @@ function setPressed(value: boolean) {
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"
-            :pressed="pressed"
-            :on-pressed-change="setPressed"
+            v-model="pressed"
             aria-label="Toggle italic"
             class="w-10 h-10 border-2 rounded text-black flex items-center justify-center data-[state=on]:border-green-500 data-[state=off]:border-gray-900 hover:bg-gray-400"
+            @on-pressed-change="setPressed"
           >
             {{ pressed ? 'on' : 'off' }}
           </OkuToggle>
         </div>
       </div>
       <div>
-        <h1>Oku toggle controlled ative true</h1>
+        <h1>Oku toggle controlled active true</h1>
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"
@@ -62,7 +65,7 @@ function setPressed(value: boolean) {
         </div>
       </div>
       <div>
-        <h1>Oku toggle controlled ative false</h1>
+        <h1>Oku toggle controlled active false</h1>
         <div class="max-w-xl mx-auto h-full items-center justify-center">
           <OkuToggle
             id="toggle"

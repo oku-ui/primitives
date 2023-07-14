@@ -13,13 +13,11 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     coverage: {
-      provider: 'c8', // or 'c8',
+      provider: 'v8',
       reporter: ['text', 'json-summary', 'json', 'html'],
     },
-    exclude: [
-      '**/node_modules/**',
-      '**/dist/**',
-    ],
+    exclude: ['**/node_modules/**', '**/dist/**'],
     include: ['./**/*.test.ts'],
+    setupFiles: ['./vitest-setup.ts'],
   },
 })

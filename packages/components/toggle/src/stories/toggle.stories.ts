@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta> & {
 export const Styled: Story = {
   args: {
     template: '#1',
-    allshow: true,
+    allShow: true,
   },
 
   render: (args: any) => ({

@@ -1,7 +1,7 @@
-import type { ComponentPublicInstance } from 'vue'
-import { computed, defineComponent, h, ref } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import { useRef } from '@oku-ui/use-composable'
 
 type LabelElement = ElementType<'label'>
 interface LabelProps extends PrimitiveProps {}
@@ -12,16 +12,16 @@ const label = defineComponent({
   name: NAME,
   inheritAttrs: false,
   setup(props, { attrs, slots, expose }) {
-    const innerRef = ref<ComponentPublicInstance>()
+    const { $el, newRef } = useRef()
     const { ...restAttrs } = attrs as LabelElement
 
     expose({
-      innerRef: computed(() => innerRef.value?.$el),
+      innerRef: $el,
     })
 
     const originalReturn = () => h(Primitive.label, {
       ...restAttrs,
-      ref: innerRef,
+      ref: newRef,
       onMousedown: (event: MouseEvent) => {
         restAttrs.onMousedown?.(event)
         // prevent text selection when double clicking label
@@ -29,7 +29,9 @@ const label = defineComponent({
           event.preventDefault()
       },
     },
-    () => slots.default?.(),
+    {
+      default: () => slots.default?.(),
+    },
     )
     return originalReturn as unknown as {
       innerRef: LabelElement
