@@ -35,7 +35,8 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@oku-ui/utils": "workspace:^"
+    "@oku-ui/utils": "workspace:^",
+    "@vueuse/core": "^10.2.1"
   },
   "devDependencies": {
     "@types/resize-observer-browser": "^0.1.7",

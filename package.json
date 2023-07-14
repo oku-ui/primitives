@@ -4,12 +4,15 @@
   "version": "0.1.5",
   "packageManager": "pnpm@8.6.6",
   "repository": "oku-ui/primitives",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "p:build": "tsup",
     "build": "turbo run build --filter='./packages/**'",
     "build:components": "turbo run build --filter='./packages/components/**'",
     "build:core": "turbo run build --filter='./packages/core/**'",
-    "dev": "pnpm storybook dev -p 6006",
+    "dev": "pnpm storybook dev -p 6006 --no-open",
     "dev:all": "turbo run dev --filter='./packages/**' --concurrency $(($(ls -1 packages/components packages/core | wc -l)+3))",
     "dev:core": "turbo run dev --filter='./packages/core/**'",
     "dev:components": "turbo run dev --filter='./packages/components/**'",
@@ -36,6 +39,7 @@
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/popper": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/toggle": "workspace:^",

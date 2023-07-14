@@ -42,11 +42,12 @@ jobs:
   build-test:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    needs: [lint, typecheck]
 
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [16, 18]
+        node_version: [18, 20]
 
     steps:
       - uses: actions/checkout@v3
