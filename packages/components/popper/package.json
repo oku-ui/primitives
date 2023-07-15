@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/popper",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0-beta.1",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
