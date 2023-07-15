@@ -29,7 +29,8 @@
     "typecheck": "tsc --noEmit",
     "clean": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
-    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
+    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
+    "update:version": "esno scripts/update-version.ts"
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.1.0",
@@ -59,6 +60,7 @@
     "eslint": "8.44.0",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-storybook": "^0.6.12",
+    "esno": "^0.17.0",
     "jiti": "^1.19.1",
     "jsdom": "^22.1.0",
     "lint-staged": "^13.2.3",
