@@ -31,7 +31,6 @@ function updateVersion() {
     writeFileSync(`${component}/package.json`, newPackage)
   })
 }
-
 function publishVersion() {
   selectType.forEach((component) => {
     try {
