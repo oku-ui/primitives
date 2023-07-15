@@ -1,5 +1,3 @@
-import '@unocss/reset/tailwind.css'
-import 'virtual:uno.css'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createApp } from 'vue'
 import App from './App.vue'

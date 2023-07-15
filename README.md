@@ -8,7 +8,7 @@
 
 **An open-source UI component library for building high-quality, accessible design systems and web apps.**
 
-Oku Primitives is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system, or adopt them incrementally.
+Oku Primitives is a low-level UI component library with a focus on accessibility, customization and developer experience. You can use these components either as the base layer of your design system or adopt them incrementally.
 
 Website: [Oku Website](https://oku-ui.com)
 
@@ -18,13 +18,7 @@ Website: [Oku Website](https://oku-ui.com)
 
 Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/master/CONTRIBUTING.md)
 
-# TODO Managements - 1/3
-
-- [ ] Finding at least 1 sponsor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
-- [ ] Finding at least 1 contributor - Contact us on twitter [@oku_ui](https://twitter.com/oku_ui)
-- [x] Website opening and documentation writing [docs](https://github.com/oku-ui/docs)
-
-# TODO Components - 7/28
+# TODO Components - 8/28
 
 Enter the component you want most in the components, leave the emojis and follow.
 
@@ -35,7 +29,7 @@ Enter the component you want most in the components, leave the emojis and follow
 - [x] [Aspect Ratio](https://github.com/oku-ui/primitives/issues/1)
 - [x] [Avatar](https://github.com/oku-ui/primitives/issues/5)
 - [x] [Checkbox](https://github.com/oku-ui/primitives/issues/6)
-- [ ] [Collapsible](https://github.com/oku-ui/primitives/issues/7)
+- [x] [Collapsible](https://github.com/oku-ui/primitives/issues/7)
 - [ ] [Context Menu](https://github.com/oku-ui/primitives/issues/8)
 - [ ] [Dialog](https://github.com/oku-ui/primitives/issues/9)
 - [ ] [Dropdown Menu](https://github.com/oku-ui/primitives/issues/10)
@@ -63,15 +57,14 @@ Enter the component you want most in the components, leave the emojis and follow
 
 ## Community
 
-- Mehmet ([@productdevbook](https://twitter.com/productdevbook))
 - [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.
 - [Twitter](https://twitter.com/oku_ui) - To receive updates, announcements, blog posts, and general Oku tips.
 
 ## Sponsors
 
 <p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/oku-ui/static/sponsors/sponsors.svg">
-    <img alt="sponsors" src='https://cdn.jsdelivr.net/gh/oku-ui/static/sponsors/sponsors.svg'/>
+  <a href="https://cdn.jsdelivr.net/gh/productdevbook/static/sponsors.svg">
+    <img alt="sponsors" src='https://cdn.jsdelivr.net/gh/productdevbook/static/sponsors.svg'/>
   </a>
 </p>
 
@@ -80,11 +73,11 @@ Enter the component you want most in the components, leave the emojis and follow
 
 Thanks to [@radix_ui](https://github.com/radix-ui/primitives) for the inspiration and the great work they've done with [Radix Primitives](https://radix-ui.com). We proceed through the initial stages of many codes by looking at them.
 
-Thanks to Johnson Chu [@johnsoncodehk](https://github.com/johnsoncodehk). Supported me in many issues that I was stuck in Typescript.
+Thanks to Johnson Chu [@johnsoncodehk](https://github.com/johnsoncodehk). Supported me with many issues that I was stuck in Typescript.
 
 Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped me in many areas so far.
 
-Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot in the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
+Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
 
 
 ---
