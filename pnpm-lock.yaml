@@ -327,16 +327,16 @@ importers:
   packages/components/progress:
     dependencies:
       '@oku-ui/primitive':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -349,10 +349,10 @@ importers:
   packages/components/separator:
     dependencies:
       '@oku-ui/primitive':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/utils':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -365,16 +365,16 @@ importers:
   packages/components/toggle:
     dependencies:
       '@oku-ui/primitive':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: lastest
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
