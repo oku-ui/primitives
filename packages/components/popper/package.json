@@ -34,11 +34,11 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.1",
-    "@oku-ui/arrow": "workspace:^",
-    "@oku-ui/primitive": "workspace:^",
-    "@oku-ui/provide": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^",
-    "@oku-ui/utils": "workspace:^"
+    "@oku-ui/arrow": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

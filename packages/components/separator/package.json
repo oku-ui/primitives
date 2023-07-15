@@ -36,8 +36,8 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@oku-ui/primitive": "workspace:^",
-    "@oku-ui/utils": "workspace:^"
+    "@oku-ui/primitive": "lastest",
+    "@oku-ui/utils": "lastest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
