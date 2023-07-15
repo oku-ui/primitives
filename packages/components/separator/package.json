@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/separator",
   "type": "module",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -36,8 +36,8 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@oku-ui/primitive": "workspace:^",
-    "@oku-ui/utils": "workspace:^"
+    "@oku-ui/primitive": "lastest",
+    "@oku-ui/utils": "lastest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

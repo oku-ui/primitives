@@ -31,21 +31,36 @@ importers:
       '@oku-ui/checkbox':
         specifier: workspace:^
         version: link:packages/components/checkbox
+      '@oku-ui/collapsible':
+        specifier: workspace:^
+        version: link:packages/components/collapsible
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
       '@oku-ui/popper':
         specifier: workspace:^
         version: link:packages/components/popper
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:packages/core/primitive
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:packages/components/progress
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:packages/core/provide
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
       '@oku-ui/toggle':
         specifier: workspace:^
         version: link:packages/components/toggle
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:packages/core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:packages/core/utils
       '@storybook/addon-essentials':
         specifier: ^7.0.26
         version: 7.0.26(react-dom@18.2.0)(react@18.2.0)
@@ -164,13 +179,13 @@ importers:
   packages/components/arrow:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -183,10 +198,10 @@ importers:
   packages/components/aspect-ratio:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -199,16 +214,16 @@ importers:
   packages/components/avatar:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -243,16 +258,16 @@ importers:
   packages/components/collapsible:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.2
@@ -265,13 +280,13 @@ importers:
   packages/components/label:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -287,19 +302,19 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(vue@3.3.4)
       '@oku-ui/arrow':
-        specifier: workspace:^
+        specifier: latest
         version: link:../arrow
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.1
@@ -312,16 +327,16 @@ importers:
   packages/components/progress:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -334,10 +349,10 @@ importers:
   packages/components/separator:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/primitive
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -350,16 +365,16 @@ importers:
   packages/components/toggle:
     dependencies:
       '@oku-ui/primitive':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: lastest
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
@@ -392,7 +407,7 @@ importers:
   packages/core/use-composable:
     dependencies:
       '@oku-ui/utils':
-        specifier: workspace:^
+        specifier: latest
         version: link:../utils
       '@vueuse/core':
         specifier: ^10.2.1
