@@ -1,15 +1,8 @@
 import { defineConfig } from 'vitest/config'
 import Vue from '@vitejs/plugin-vue'
-import VueMacros from 'unplugin-vue-macros/vite'
 
 export default defineConfig({
-  plugins: [
-    VueMacros({
-      plugins: {
-        vue: Vue(),
-      },
-    }),
-  ],
+  plugins: [Vue()],
   test: {
     environment: 'jsdom',
     coverage: {
