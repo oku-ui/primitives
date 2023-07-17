@@ -7,4 +7,5 @@ export default {
     extend: {},
   },
   plugins: [],
+  presets: [require('../../tailwind.config')],
 }

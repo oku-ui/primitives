@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -44,7 +44,9 @@ const Toggle = defineComponent({
   },
   emits: ['update:pressed', 'update:modelValue'],
   setup(props, { attrs, expose, slots, emit }) {
-    const { pressed: pressedProp, defaultPressed, modelValue } = toRefs(props)
+    const { pressed: pressedProp, defaultPressed } = toRefs(props)
+    const modelValue = useModel(props, 'modelValue')
+
     const { $el, newRef } = useRef<ToggleElement>()
 
     expose({

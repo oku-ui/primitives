@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/use-composable",
+  "name": "@oku-ui/collapsible",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/core/use-composable"
+    "directory": "packages/components/collapsible"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -17,11 +17,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
@@ -32,17 +30,15 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.2"
   },
   "dependencies": {
-    "@oku-ui/utils": "latest",
-    "@vueuse/core": "^10.2.1"
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.7",
     "tsconfig": "workspace:^"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

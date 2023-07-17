@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/arrow",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -36,9 +36,9 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@oku-ui/primitive": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^",
-    "@oku-ui/utils": "workspace:^"
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
