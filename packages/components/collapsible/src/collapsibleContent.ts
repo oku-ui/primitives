@@ -45,21 +45,15 @@ const CollapsibleContent = defineComponent({
 
     // TODO: Transition
     const originalReturn = () => h(
-      Transition,
-      {},
+      OkuCollapsibleContentImpl,
       {
-        default: () => h(
-          OkuCollapsibleContentImpl,
-          {
-            ...contentProps,
-            ref: newRef,
-            asChild: props.asChild,
-            scopeCollapsible: scopeCollapsible.value,
-          },
-          {
-            default: () => slots.default && slots.default(),
-          },
-        ),
+        ...contentProps,
+        ref: newRef,
+        asChild: props.asChild,
+        scopeCollapsible: scopeCollapsible.value,
+      },
+      {
+        default: () => slots.default && slots.default(),
       },
     )
     return originalReturn

@@ -29,13 +29,51 @@ const rootDisabled = ref(false)
       <span class="text-oku-500 text-sm leading-6">@oku-ui/primivites</span>
     </div>
 
-    <OkuCollapsibleContent>
-      <div class="bg-gray-100 rounded my-[10px] p-[10px]">
-        <span class="text-oku-500 text-sm leading-6">@productdevbook</span>
-      </div>
-      <div class="bg-gray-100 rounded my-[10px] p-[10px]">
-        <span class="text-oku-500 text-sm leading-6">@huntersofbook</span>
-      </div>
-    </OkuCollapsibleContent>
+    <Transition name="fade">
+      <OkuCollapsibleContent>
+        <div class="bg-gray-100 rounded my-[10px] p-[10px]">
+          <span class="text-oku-500 text-sm leading-6">@productdevbook</span>
+        </div>
+        <div class="bg-gray-100 rounded my-[10px] p-[10px]">
+          <span class="text-oku-500 text-sm leading-6">@huntersofbook</span>
+        </div>
+      </OkuCollapsibleContent>
+    </Transition>
   </OkuCollapsible>
 </template>
+
+<style lang="postcss">
+@keyframes rotateIn {
+  0% {
+    transform: scale(0) rotateZ(calc(var(--direction, 0) * 45deg));
+  }
+
+  100% {
+    transform: scale(1)
+  }
+}
+
+.fade-enter-from {
+  transform: scale(0) rotateZ(calc(var(--direction, 0) * 45deg));
+}
+
+.fade-enter-to {
+  transform: scale(1)
+}
+
+.fade-enter-active {
+  animation: rotateIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-state='top'] {
+    --direction: 1;
+  }
+
+  &[data-state='bottom'] {
+    --direction: -1;
+  }
+}
+
+.fade-leave-to {
+  animation: rotateIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) reverse;
+}
+</style>

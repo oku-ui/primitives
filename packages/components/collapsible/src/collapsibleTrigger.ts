@@ -10,7 +10,7 @@ import type { CollapsibleElement } from './collapsible'
 import { useCollapsibleInject } from './collapsible'
 import { getState } from './utils'
 
-const TRIGGER_NAME = 'CollapsibleTrigger'
+const TRIGGER_NAME = 'OkuCollapsibleTrigger'
 
 type CollapsibleTriggerElement = ElementType<'button'>
 interface CollapsibleTriggerProps extends PrimitiveProps { }
