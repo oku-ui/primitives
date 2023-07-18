@@ -165,7 +165,7 @@ importers:
         version: 1.2.1
       vite:
         specifier: 4.3.5
-        version: 4.3.5
+        version: 4.3.5(@types/node@18.16.19)
       vite-plugin-dts:
         specifier: ^3.3.0
         version: 3.3.0(rollup@3.21.0)(typescript@5.1.6)(vite@4.3.5)
@@ -544,7 +544,7 @@ importers:
         version: 0.25.1(rollup@3.21.0)(vue@3.3.4)
       vite:
         specifier: 4.3.5
-        version: 4.3.5
+        version: 4.3.5(@types/node@18.16.19)
       vue-tsc:
         specifier: ^1.8.5
         version: 1.8.5(typescript@5.1.6)
@@ -13903,7 +13903,7 @@ packages:
     dependencies:
       '@types/node': 18.16.18
       esbuild: 0.17.19
-      postcss: 8.4.26
+      postcss: 8.4.25
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
@@ -13936,7 +13936,7 @@ packages:
     dependencies:
       '@types/node': 18.16.19
       esbuild: 0.17.19
-      postcss: 8.4.26
+      postcss: 8.4.25
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
