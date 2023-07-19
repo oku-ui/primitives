@@ -3,7 +3,7 @@ import { type Component, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { OkuPresence } from './presence'
 
-describe('label', async () => {
+describe('presence', async () => {
   it('close content', async () => {
     const component = {
       components: {

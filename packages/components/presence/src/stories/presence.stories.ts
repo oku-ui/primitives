@@ -1,22 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { OkuLabelProps } from './PresenceDemo.vue'
+import type { OkuPresenceProps } from './PresenceDemo.vue'
 import OkuPresenceComponent from './PresenceDemo.vue'
 
-interface StoryProps extends OkuLabelProps {
+interface StoryProps extends OkuPresenceProps {
 }
 
 const meta = {
   title: 'Utilities/Presence',
   component: OkuPresenceComponent,
   args: {
-    label: 'Label',
     template: '#1',
   },
   argTypes: {
-    label: {
-      control: 'text',
-    },
     template: {
       control: 'text',
     },
@@ -33,7 +29,6 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    label: 'Label',
     template: '#1',
   },
   render: (args: any) => ({
@@ -49,7 +44,6 @@ export const Styled: Story = {
 
 export const Transition: Story = {
   args: {
-    label: 'Label',
     template: '#2',
   },
   render: (args: any) => ({
@@ -65,7 +59,6 @@ export const Transition: Story = {
 
 export const WithDeferredMountAnimation: Story = {
   args: {
-    label: 'Label',
     template: '#3',
   },
   render: (args: any) => ({

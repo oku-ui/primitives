@@ -1,9 +1,9 @@
-# `label`
+# `presence`
 
 ## Installation
 
 ```sh
-$ pnpm add @oku-ui/label
+$ pnpm add @oku-ui/presence
 ```
 
 ## Usage

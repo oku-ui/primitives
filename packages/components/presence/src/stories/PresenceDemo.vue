@@ -3,14 +3,12 @@
 import { ref, watch } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 
-export interface OkuLabelProps {
-  label: string
+export interface OkuPresenceProps {
   template: '#1' | '#2' | '#3'
   allshow?: boolean
 }
 
-withDefaults(defineProps<OkuLabelProps>(), {
-  label: 'First Name',
+withDefaults(defineProps<OkuPresenceProps>(), {
   template: '#1',
 })
 
