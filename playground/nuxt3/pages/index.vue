@@ -36,6 +36,10 @@ const pages: Page[] = [
     name: 'OkuPopper',
     path: '/popper',
   },
+  {
+    name: 'OkuCollapsible',
+    path: '/collapsible',
+  },
 ]
 </script>
 

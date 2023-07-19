@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, nextTick, ref, toRefs, watch, watchEffect } from 'vue'
+import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
@@ -46,9 +46,11 @@ const CollapsibleContentImpl = defineComponent({
     const isMountAnimationPreventedRef = ref(isOpen.value)
     const originalStylesRef = ref<Record<string, string>>()
 
-    watchEffect(async (onCleanup) => {
-      const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
-      onCleanup(() => cancelAnimationFrame(rAF))
+    onMounted(() => {
+      watchEffect(async (onCleanup) => {
+        const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+        onCleanup(() => cancelAnimationFrame(rAF))
+      })
     })
 
     watch([isOpen, isPresent], async () => {
