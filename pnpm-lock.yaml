@@ -261,7 +261,7 @@ importers:
   packages/components/collapsible:
     dependencies:
       '@oku-ui/presence':
-        specifier: workspace:^
+        specifier: latest
         version: link:../presence
       '@oku-ui/primitive':
         specifier: latest
