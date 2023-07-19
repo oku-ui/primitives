@@ -8,7 +8,7 @@ export default {
     './stories/**/*.stories.@(js|jsx|ts|tsx)',
     './src/runtime/components/html/**/*.vue',
     './src/runtime/components/**/*.vue',
-    './packages/components/**/*.vue',
+    './packages/**/*.vue',
   ],
   theme: {
     extend: {},

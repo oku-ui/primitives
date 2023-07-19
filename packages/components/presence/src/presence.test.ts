@@ -68,8 +68,10 @@ describe('presence', async () => {
     } as Component
     const wrapper = mount(component, {})
     await wrapper.find('button').trigger('click')
+
+    // present="[object Object] because of the ref
     expect(wrapper.html()).toContain(`<div><button> toggle - true</button>
-  <div present="true"> content </div>
+  <div present="[object Object]"> content </div>
 </div>`)
   })
 
@@ -108,8 +110,9 @@ describe('presence', async () => {
 
     await wrapper.find('button').trigger('click')
 
+    // present="[object Object] because of the ref
     expect(wrapper.html()).toContain(`<div><button> toggle - true</button>
-  <div present="true" class="text-white"> content </div>
+  <div present="[object Object]" class="text-white"> content </div>
 </div>`)
   })
 

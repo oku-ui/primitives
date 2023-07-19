@@ -260,6 +260,9 @@ importers:
 
   packages/components/collapsible:
     dependencies:
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
       '@oku-ui/primitive':
         specifier: latest
         version: link:../../core/primitive
