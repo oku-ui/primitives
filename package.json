@@ -42,6 +42,7 @@
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/popper": "workspace:^",
+    "@oku-ui/presence": "workspace:^",
     "@oku-ui/primitive": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/provide": "workspace:^",
