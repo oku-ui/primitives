@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
@@ -29,8 +29,8 @@ const Collapsible = defineComponent({
   inheritAttrs: false,
   props: {
     modelValue: {
-      type: [Boolean, String, Number] as PropType<
-        boolean | string | number | undefined | 'indeterminate'
+      type: [Boolean] as PropType<
+        boolean
       >,
       default: undefined,
     },
@@ -61,6 +61,8 @@ const Collapsible = defineComponent({
     const { ...collapsibleAttr } = attrs as CollapsibleElement
     const { disabled, scopeCollapsible, open, defaultOpen } = toRefs(props)
 
+    const modelValue = useModel(props, 'modelValue')
+
     const { $el, newRef } = useRef<CollapsibleElement>()
 
     expose({
@@ -68,7 +70,7 @@ const Collapsible = defineComponent({
     })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => open.value),
+      prop: computed(() => modelValue.value ?? open.value),
       defaultProp: computed(() => defaultOpen.value),
       onChange: (open) => {
         emit('update:open', open)

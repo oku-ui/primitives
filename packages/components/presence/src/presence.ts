@@ -39,7 +39,7 @@ const presence = defineComponent({
           h(
             firstChild,
             {
-              present: present.value,
+              present,
               ...attrs,
             },
           ),

@@ -4,7 +4,9 @@ import type { Scope } from '@oku-ui/provide'
 
 import { useRef } from '@oku-ui/use-composable'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import { OkuPresence } from '@oku-ui/presence'
 import { OkuCollapsibleContentImpl } from './collapsibleContentImpl'
+import { useCollapsibleInject } from './collapsible'
 
 export const CONTENT_NAME = 'CollapsibleContent'
 
@@ -20,6 +22,10 @@ const CollapsibleContent = defineComponent({
   },
   inheritAttrs: false,
   props: {
+    /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
     forceMount: {
       type: Boolean,
       default: true,
@@ -37,6 +43,8 @@ const CollapsibleContent = defineComponent({
     const { scopeCollapsible } = toRefs(props)
     const { ...contentProps } = attrs as CollapsibleContentElement
 
+    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
+
     const { $el, newRef } = useRef<CollapsibleContentElement>()
 
     expose({
@@ -45,17 +53,26 @@ const CollapsibleContent = defineComponent({
 
     // TODO: Transition
     const originalReturn = () => h(
-      OkuCollapsibleContentImpl,
+      OkuPresence,
       {
-        ...contentProps,
-        ref: newRef,
-        asChild: props.asChild,
-        scopeCollapsible: scopeCollapsible.value,
+        present: props.forceMount || context.value.open.value,
       },
       {
-        default: () => slots.default && slots.default(),
+        default: () => h(
+          OkuCollapsibleContentImpl,
+          {
+            ...contentProps,
+            ref: newRef,
+            asChild: props.asChild,
+            scopeCollapsible: scopeCollapsible.value,
+          },
+          {
+            default: () => slots.default && slots.default(),
+          },
+        ),
       },
     )
+
     return originalReturn
   },
 })

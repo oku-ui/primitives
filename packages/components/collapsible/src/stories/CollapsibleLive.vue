@@ -12,7 +12,7 @@ const rootDisabled = ref(false)
 </script>
 
 <template>
-  <OkuCollapsible v-model:open="open" class="w-[300px]" :disabled="rootDisabled">
+  <OkuCollapsible v-model:open="open" class="max-w-xs" :disabled="rootDisabled">
     <div style="display: flex; align-items: center; justify-content: space-between">
       <span class="text-black dark:text-white text-sm leading-6">
         @oku-ui starred 3 repos
@@ -29,16 +29,17 @@ const rootDisabled = ref(false)
       <span class="text-oku-500 text-sm leading-6">@oku-ui/primivites</span>
     </div>
 
-    <Transition name="fade">
+    <!-- TODO: TransitionGroup make it work -->
+    <TransitionGroup name="fade">
       <OkuCollapsibleContent>
-        <div class="bg-gray-100 rounded my-[10px] p-[10px]">
+        <div key="lorem1" class="bg-gray-100 rounded my-[10px] p-[10px]">
           <span class="text-oku-500 text-sm leading-6">@productdevbook</span>
         </div>
-        <div class="bg-gray-100 rounded my-[10px] p-[10px]">
+        <div key="lorem2" class="bg-gray-100 rounded my-[10px] p-[10px]">
           <span class="text-oku-500 text-sm leading-6">@huntersofbook</span>
         </div>
       </OkuCollapsibleContent>
-    </Transition>
+    </TransitionGroup>
   </OkuCollapsible>
 </template>
 
