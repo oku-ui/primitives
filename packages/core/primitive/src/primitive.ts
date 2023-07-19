@@ -1,15 +1,14 @@
-// TODO: IntrinsicElementAttributes vue 3.3 add
+// same inspiration and resource https://github.com/chakra-ui/ark/blob/main/packages/vue/src/factory.tsx
+
 import type {
   ComponentPublicInstance,
   DefineComponent,
   FunctionalComponent,
   IntrinsicElementAttributes,
 } from 'vue'
-import { defineComponent, h, onMounted } from 'vue'
+import { cloneVNode, defineComponent, getCurrentInstance, h, mergeProps, onMounted } from 'vue'
+import { isValidVNodeElement, renderSlotFragments } from './utils'
 
-/* -------------------------------------------------------------------------------------------------
- * Primitive
- * ----------------------------------------------------------------------------------------------- */
 const NODES = [
   'a',
   'button',
@@ -71,14 +70,87 @@ const Primitive = NODES.reduce((primitive, node) => {
       asChild: Boolean,
     },
     setup(props, { attrs, slots }) {
+      const instance = getCurrentInstance()
+
       onMounted(() => {
         (window as any)[Symbol.for('oku-ui')] = true
       })
       const Tag: any = props.asChild ? 'slot' : node
 
-      return () => {
-        const _slots = slots.default?.()
-        return props.asChild ? _slots : h(Tag, { ...attrs }, _slots)
+      if (!props.asChild) {
+        return () => h(Tag, { ...attrs }, {
+          default: () => slots.default && slots.default(),
+        })
+      }
+      else {
+        return () => {
+          let children = slots.default?.()
+          children = renderSlotFragments(children || [])
+
+          if (Object.keys(attrs).length > 0) {
+            const [firstChild, ...otherChildren] = children
+            if (!isValidVNodeElement(firstChild) || otherChildren.length > 0) {
+              const componentName = instance?.parent?.type.name
+                ? `<${instance.parent.type.name} />`
+                : 'component'
+              throw new Error(
+                [
+                  `Detected an invalid children for \`${componentName}\` with \`asChild\` prop.`,
+                  '',
+                  'Note: All components accepting `asChild` expect only one direct child of valid VNode type.',
+                  'You can apply a few solutions:',
+                  [
+                    'Provide a single child element so that we can forward the props onto that element.',
+                    'Ensure the first child is an actual element instead of a raw text node or comment node.',
+                  ]
+                    .map(line => `  - ${line}`)
+                    .join('\n'),
+                ].join('\n'),
+              )
+            }
+
+            const mergedProps = mergeProps(firstChild.props ?? {}, attrs)
+            const cloned = cloneVNode(firstChild, mergedProps)
+            // Explicitly override props starting with `on`.
+            // It seems cloneVNode from Vue doesn't like overriding `onXXX` props. So
+            // we have to do it manually.
+            for (const prop in mergedProps) {
+              if (prop.startsWith('on')) {
+                cloned.props ||= {}
+                cloned.props[prop] = mergedProps[prop]
+              }
+            }
+            return cloned
+          }
+          else if (Array.isArray(children)) {
+            if (children.length === 1) {
+              return children[0]
+            }
+            else {
+              const componentName = instance?.parent?.type.name
+                ? `<${instance.parent.type.name} />`
+                : 'component'
+              throw new Error(
+                [
+                  `Detected an invalid children for \`${componentName}\` with \`asChild\` prop.`,
+                  '',
+                  'Note: All components accepting `asChild` expect only one direct child of valid VNode type.',
+                  'You can apply a few solutions:',
+                  [
+                    'Provide a single child element so that we can forward the props onto that element.',
+                    'Ensure the first child is an actual element instead of a raw text node or comment node.',
+                  ]
+                    .map(line => `  - ${line}`)
+                    .join('\n'),
+                ].join('\n'),
+              )
+            }
+          }
+          else {
+            // No children.
+            return null
+          }
+        }
       }
     },
   })
