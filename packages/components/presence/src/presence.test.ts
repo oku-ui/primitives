@@ -68,7 +68,6 @@ describe('label', async () => {
     } as Component
     const wrapper = mount(component, {})
     await wrapper.find('button').trigger('click')
-
     expect(wrapper.html()).toContain(`<div><button> toggle - true</button>
   <div present="true"> content </div>
 </div>`)

@@ -1,5 +1,6 @@
+<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 
 export interface OkuLabelProps {
@@ -21,7 +22,12 @@ function toggle() {
 
 const element = ref<HTMLElement>()
 
+watch(element, () => {
+  console.log('element', element.value)
+})
+
 function handleToggleVisibility() {
+  console.log(element.value, 'handleToggleVisibility')
   const node = element.value
 
   if (node) {
@@ -40,7 +46,7 @@ function handleToggleVisibility() {
       <button @click="toggle">
         toggle - {{ open }}
       </button>
-      <OkuPresence :present="open">
+      <OkuPresence ref="element" :present="open">
         <div>
           content
         </div>

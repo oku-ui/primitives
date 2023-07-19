@@ -1,12 +1,11 @@
-import { type Ref, computed, nextTick, ref, watch, watchEffect } from 'vue'
+import { type Ref, computed, nextTick, ref, watch } from 'vue'
 import { useStateMachine } from './useStateMachine'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
   return styles?.animationName || 'none'
 }
 
-export function usePresence(present: Ref<boolean>) {
-  const node = ref<HTMLElement>() as Ref<HTMLElement>
+export function usePresence(present: Ref<boolean>, el: HTMLElement) {
   const stylesRef = ref<CSSStyleDeclaration>({} as any)
   const prevPresentRef = ref(present.value)
   const prevAnimationNameRef = ref<string>('none')
@@ -26,13 +25,12 @@ export function usePresence(present: Ref<boolean>) {
     },
   })
 
-  watchEffect(() => {
+  watch(state, () => {
     const currentAnimationName = getAnimationName(stylesRef.value)
-
     prevAnimationNameRef.value = state.value === 'mounted' ? currentAnimationName : 'none'
   })
 
-  watchEffect(async () => {
+  watch([present], async () => {
     const styles = stylesRef.value
     const wasPresent = prevPresentRef.value
     const hasPresentChanged = wasPresent !== present.value
@@ -71,8 +69,8 @@ export function usePresence(present: Ref<boolean>) {
     }
   })
 
-  watchEffect(async (onCleanup) => {
-    if (node.value) {
+  watch(() => el, () => {
+    if (el) {
     /**
          * Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
          * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
@@ -83,34 +81,34 @@ export function usePresence(present: Ref<boolean>) {
         const isCurrentAnimation = currentAnimationName.includes(
           event.animationName,
         )
-        if (event.target === node.value && isCurrentAnimation) {
+        if (event.target === el && isCurrentAnimation) {
         // With React 18 concurrency this update is applied
         // a frame after the animation ends, creating a flash of visible content.
         // By manually flushing we ensure they sync within a frame, removing the flash.
-          await nextTick(() => send('ANIMATION_END'))
+          send('ANIMATION_END')
         }
       }
       const handleAnimationStart = (event: AnimationEvent) => {
-        if (event.target === node.value)
+        if (event.target === el)
         // if animation occurred, store its name as the previous animation.
           prevAnimationNameRef.value = getAnimationName(stylesRef.value)
       }
-      node.value.addEventListener('animationstart', handleAnimationStart)
-      node.value.addEventListener('animationcancel', handleAnimationEnd)
-      node.value.addEventListener('animationend', handleAnimationEnd)
+      el.addEventListener('animationstart', handleAnimationStart)
+      el.addEventListener('animationcancel', handleAnimationEnd)
+      el.addEventListener('animationend', handleAnimationEnd)
 
-      onCleanup(() => {
-        if (node.value) {
-          node.value.removeEventListener('animationstart', handleAnimationStart)
-          node.value.removeEventListener('animationcancel', handleAnimationEnd)
-          node.value.removeEventListener('animationend', handleAnimationEnd)
+      return () => {
+        if (el) {
+          el.removeEventListener('animationstart', handleAnimationStart)
+          el.removeEventListener('animationcancel', handleAnimationEnd)
+          el.removeEventListener('animationend', handleAnimationEnd)
         }
-      })
+      }
     }
     else {
-    // Transition to the unmounted state if the node is removed prematurely.
-    // We avoid doing so during cleanup as the node may change but still exist.
-      await nextTick(() => send('ANIMATION_END'))
+    // Transition to the unmounted state if the el is removed prematurely.
+    // We avoid doing so during cleanup as the el may change but still exist.
+      send('ANIMATION_END')
     }
   })
 
@@ -118,12 +116,10 @@ export function usePresence(present: Ref<boolean>) {
     ['mounted', 'unmountSuspended'].includes(state.value),
   )
 
-  watch(node, (node) => {
-    if (node)
-      stylesRef.value = window.getComputedStyle(node)
-  })
+  if (el)
+    stylesRef.value = getComputedStyle(el)
+
   return {
     isPresent,
-    ref: node,
   }
 }
