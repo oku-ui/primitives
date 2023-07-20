@@ -16,14 +16,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.mjs"
     }
   },
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch"
@@ -31,6 +34,7 @@
   "peerDependencies": {
     "vue": "^3.3.4"
   },
+  "dependencies": {},
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

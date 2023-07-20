@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, test } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { Primitive } from './index'
 
@@ -247,5 +247,106 @@ describe('Primitive', () => {
     const element = wrapper.find('a')
     await element.trigger('click')
     expect(wrapper.emitted('click')).toBeTruthy()
+  })
+
+  test('asChild prop', () => {
+    const wrapper = mount(Primitive.div, {
+      props: {
+        asChild: true,
+      },
+      slots: {
+        default: 'Hello',
+      },
+    })
+
+    expect(wrapper.html()).toBe('Hello')
+  })
+
+  test('asChild with attr', () => {
+    const wrapper = mount(Primitive.div, {
+      props: {
+        asChild: true,
+      },
+      attrs: {
+        id: 'test',
+        class: 'text-red-500',
+      },
+      slots: {
+        default: '<div>Oku</div>',
+      },
+    })
+    expect(wrapper.html()).toBe('<div id="test" class="text-red-500">Oku</div>')
+  })
+
+  test('asChild with props', () => {
+    const wrapper = mount(Primitive.div, {
+      props: {
+        asChild: true,
+        disabled: true,
+      },
+      attrs: {
+        id: 'test',
+        class: 'text-red-500',
+      },
+      slots: {
+        default: '<div>Oku</div>',
+      },
+    })
+    expect(wrapper.html()).toBe('<div id="test" class="text-red-500" disabled="true">Oku</div>')
+  })
+
+  test('asChild with 2 children', () => {
+    const wrapper = () => mount(Primitive.div, {
+      props: {
+        asChild: true,
+      },
+      slots: {
+        default: `
+          <div>Oku</div>
+          <div>Oku</div>
+        `,
+      },
+    })
+
+    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
+  })
+
+  test('asChild with 2 children and attrs', () => {
+    const wrapper = () => mount(Primitive.div, {
+      props: {
+        asChild: true,
+        disabled: true,
+      },
+      attrs: {
+        id: 'test',
+        class: 'text-red-500',
+      },
+      slots: {
+        default: `
+          <div>Oku</div>
+          <div>Oku</div>
+        `,
+      },
+    })
+
+    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
+  })
+
+  test('asChild with default 3 children', () => {
+    const wrapper = () => mount(Primitive.div, {
+      props: {
+        asChild: true,
+        disabled: true,
+        disabled2: true,
+      },
+      slots: {
+        default: `
+          <div>Oku</div>
+          <Hello>Oku</Hello>
+          <Another>Oku</Another>
+        `,
+      },
+    })
+    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
   })
 })

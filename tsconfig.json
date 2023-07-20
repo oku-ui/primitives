@@ -23,8 +23,7 @@
     "strictNullChecks": true,
     "types": [
       "vue",
-      "vite/client",
-      "unplugin-vue-macros/macros-global"
+      "vite/client"
     ]
   },
   "vueCompilerOptions": {
@@ -37,5 +36,10 @@
     "packages/**/*",
     "vitest-setup.ts",
     "vitest.config.ts"
+  ],
+  "exclude": [
+    "**/*/*.stories.ts",
+    "**dist**",
+    "**node_modules**"
   ]
 }

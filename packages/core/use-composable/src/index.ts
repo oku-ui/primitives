@@ -1,3 +1,5 @@
+import { computedEager, syncRef } from '@vueuse/core'
+
 export { useControllable } from './useControllable'
 export { useCallbackRef } from './useCallbackRef'
 export { useSize } from './useSize'
@@ -8,3 +10,5 @@ export { useId } from './useId'
 export type { MaybeComputedElementRef } from './unrefElement'
 export { usePrimitiveElement } from './usePrimitiveElement'
 export { useArrowNavigation } from './useArrowNavigation'
+export { computedEager, syncRef }
+\
