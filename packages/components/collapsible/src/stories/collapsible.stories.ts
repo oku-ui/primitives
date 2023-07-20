@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import type { ICollapsibleProps } from './CollapsibleDemo.vue'
 
 import OkuCollapsibleDemo from './CollapsibleDemo.vue'
+import OkuCollapsibleLive from './CollapsibleLive.vue'
 
 interface StoryProps extends ICollapsibleProps {
 
@@ -40,6 +41,7 @@ export const Styled: Story = {
     `,
   }),
 }
+
 export const Chromatic: Story = {
   args: {
     template: '#2',
@@ -53,6 +55,23 @@ export const Chromatic: Story = {
     },
     template: `
       <OkuCollapsibleDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const Demo: Story = {
+  args: {
+    template: '#1',
+    allshow: false,
+  },
+
+  render: (args: any) => ({
+    components: { OkuCollapsibleLive },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollapsibleLive v-bind="args" />
     `,
   }),
 }
