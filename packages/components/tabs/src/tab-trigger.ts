@@ -30,6 +30,10 @@ const TabTrigger = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    asChild: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
   },
   setup(props, { slots }) {
     const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY)
@@ -97,6 +101,7 @@ const TabTrigger = defineComponent({
           'data-oku-ui-tab-value': props.value,
           'onClick': () => changeTab(props.value!),
           'onKeydown': handleKeydown,
+          'asChild': props.asChild,
         },
         {
           default: () => slots.default?.(),

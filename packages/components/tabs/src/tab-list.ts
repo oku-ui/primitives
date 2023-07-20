@@ -27,6 +27,10 @@ const TabList = defineComponent({
       type: Boolean as PropType<boolean>,
       default: true,
     },
+    asChild: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
   },
   setup(props, { slots }) {
     const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY)
@@ -48,6 +52,7 @@ const TabList = defineComponent({
           'tabindex': 0,
           'data-orientation': injectedValue?.orientation,
           'style': 'outline: none',
+          'asChild': props.asChild,
         },
         {
           default: () => slots.default?.(),

@@ -11,6 +11,10 @@ const TAB_NAME = 'TAB' as const
 
 type Orientation = 'horizontal' | 'vertical'
 type Direction = 'ltr' | 'rtl'
+/**
+ * Whether a tab is activated automatically or manually.
+ * @defaultValue automatic
+ * */
 type ActivationMode = 'automatic' | 'manual'
 interface TabsProps extends PrimitiveProps {
   /**
@@ -50,7 +54,14 @@ interface TabsProps extends PrimitiveProps {
    * @see link-to-oku-docs/tab
    * */
   orientation?: Orientation
+  /**
+   * The direction of navigation between toolbar items.
+   */
   dir?: Direction
+  /**
+   * Whether a tab is activated automatically or manually.
+   * @defaultValue automatic
+   * */
   activationMode?: ActivationMode
   modelValue?: string
 }
@@ -98,6 +109,10 @@ const Tabs = defineComponent({
       type: Function as PropType<(value: string) => void>,
       required: false,
     },
+    asChild: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { slots, emit }) {
@@ -131,6 +146,7 @@ const Tabs = defineComponent({
           'dir': props.dir,
           'data-orientation': props.orientation,
           'role': 'tab-group',
+          'asChild': props.asChild,
         },
         {
           default: () => slots.default?.(),
