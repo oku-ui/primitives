@@ -1,0 +1,1 @@
+export { exampleFn } from './Switch'
