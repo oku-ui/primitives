@@ -1,14 +1,11 @@
-export {
-  OkuProgress,
-  OkuProgressIndicator,
-  createProgressScope,
-} from './progress'
+export { OkuProgress, createProgressScope } from './progress'
 
-export type{
-  ProgressProps,
-  ProgressIndicatorProps,
-  ProgressElement,
-  ProgressIndicatorElement,
-  ProgressRef,
+export type { ProgressProps, ProgressElement, ProgressRef } from './progress'
+
+export { OkuProgressIndicator } from './progressIndicator'
+
+export type {
   ProgressIndicatorRef,
-} from './progress'
+  ProgressIndicatorElement,
+  ProgressIndicatorProps,
+} from './progressIndicator'
