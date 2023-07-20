@@ -49,7 +49,9 @@ const TabList = defineComponent({
           'data-orientation': injectedValue?.orientation,
           'style': 'outline: none',
         },
-        slots.default && slots.default(),
+        {
+          default: () => slots.default?.(),
+        },
       )
   },
 })

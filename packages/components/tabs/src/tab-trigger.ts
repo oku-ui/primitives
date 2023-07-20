@@ -98,7 +98,9 @@ const TabTrigger = defineComponent({
           'onClick': () => changeTab(props.value!),
           'onKeydown': handleKeydown,
         },
-        slots.default && slots.default(),
+        {
+          default: () => slots.default?.(),
+        },
       )
   },
 })

@@ -132,7 +132,9 @@ const Tabs = defineComponent({
           'data-orientation': props.orientation,
           'role': 'tab-group',
         },
-        slots.default && slots.default(),
+        {
+          default: () => slots.default?.(),
+        },
       )
   },
 })

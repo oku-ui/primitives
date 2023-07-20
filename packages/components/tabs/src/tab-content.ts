@@ -54,7 +54,9 @@ const TabContent = defineComponent({
               'data-orientation': injectedValue?.orientation,
               'tabindex': '0',
             },
-            slots.default && slots.default(),
+            {
+              default: () => slots.default?.(),
+            },
           )
           : null,
       ])
