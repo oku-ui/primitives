@@ -11,7 +11,7 @@ import { useRef } from '@oku-ui/use-composable'
 import { getProgressState } from './utils'
 import { useProgressContext } from './progress'
 
-const INDICATOR_NAME = 'ProgressIndicator'
+const INDICATOR_NAME = 'OkuProgressIndicator'
 
 // ---component---
 type ProgressIndicatorElement = ElementType<'div'>
