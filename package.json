@@ -32,9 +32,6 @@
     "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
     "update:version": "esno scripts/update-version.ts"
   },
-  "dependencies": {
-    "@vueuse/core": "^10.2.1"
-  },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.1.0",
     "@iconify-json/ph": "^1.1.5",
