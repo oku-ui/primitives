@@ -21,10 +21,9 @@ export type {
   AvatarFallbackProps,
   AvatarFallbackRef,
   AvatarFallbackElement,
-
 } from './avatarFallback'
 
-export {
+export type {
   AvatarImageProps,
   AvatarImageElement,
   AvatarImageRef,
