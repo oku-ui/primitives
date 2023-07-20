@@ -1,4 +1,5 @@
-import { type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
+import type { MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { defineComponent, h, ref } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
@@ -158,8 +159,10 @@ const Tabs = defineComponent({
 
 type _TabsProps = MergeProps<TabsProps, typeof Tabs>
 
+type TabsRef = RefElement<typeof Tabs>
+
 const OkuTabs = Tabs as typeof Tabs & (new () => { $props: _TabsProps })
 
-export { OkuTabs, TabsProvideValue }
+export { OkuTabs }
 
-export type { TabsProps }
+export type { TabsProps, TabsRef }
