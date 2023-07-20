@@ -11,4 +11,3 @@ export type { MaybeComputedElementRef } from './unrefElement'
 export { usePrimitiveElement } from './usePrimitiveElement'
 export { useArrowNavigation } from './useArrowNavigation'
 export { computedEager, syncRef }
-\
