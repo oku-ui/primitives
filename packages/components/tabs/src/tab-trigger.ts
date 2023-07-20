@@ -1,17 +1,12 @@
 import { type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
-import { type PropType, computed, defineComponent, h, inject } from 'vue'
+import { type PropType, computed, defineComponent, h, toRefs } from 'vue'
 import {
-  useArrowNavigation,
-  usePrimitiveElement,
+  useArrowNavigation, useRef,
 } from '@oku-ui/use-composable'
-import type { TabsProvideValue } from './tabs'
-import { TABS_INJECTION_KEY } from './tabs'
+import type { Scope } from '@oku-ui/provide'
+import { useTabsInject } from './tabs'
 
-/* -------------------------------------------------------------------------------------------------
- * TabTrigger
- * ----------------------------------------------------------------------------------------------- */
-
-const TAB_TRIGGER_NAME = 'TabTrigger' as const
+const TAB_TRIGGER_NAME = 'OkuTabTrigger' as const
 
 interface TabsTriggerProps extends PrimitiveProps {
   value: string
@@ -34,33 +29,40 @@ const TabTrigger = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    scopeTabs: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+      default: undefined,
+    },
   },
   setup(props, { slots }) {
-    const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY)
-    const { primitiveElement, currentElement } = usePrimitiveElement()
+    const { scopeTabs } = toRefs(props)
+    const injectedValue = useTabsInject(TAB_TRIGGER_NAME, scopeTabs.value)
+
+    const { $el, newRef: currentElement } = useRef<HTMLElement>()
 
     function changeTab(value: string) {
-      injectedValue?.changeModelValue(value)
+      injectedValue.value.changeModelValue(value)
     }
 
     function handleKeydown(e: KeyboardEvent) {
-      if (!injectedValue?.parentElement.value || !currentElement.value)
+      if (!injectedValue.value.parentElement.value || $el.value)
         return
       const newSelectedElement = useArrowNavigation(
         e,
-        currentElement.value,
-        injectedValue?.parentElement.value,
+        $el.value,
+        injectedValue.value.parentElement.value,
         {
-          arrowKeyOptions: injectedValue?.orientation,
-          loop: injectedValue?.loop,
+          arrowKeyOptions: injectedValue.value.orientation,
+          loop: injectedValue.value.loop,
         },
       )
 
       if (newSelectedElement) {
         newSelectedElement.focus()
-        injectedValue!.currentFocusedElement!.value = newSelectedElement
+        injectedValue.value.currentFocusedElement!.value = newSelectedElement
 
-        if (injectedValue?.activationMode === 'automatic') {
+        if (injectedValue.value.activationMode === 'automatic') {
           changeTab(
             newSelectedElement.getAttribute('data-oku-ui-tab-value')!,
           )
@@ -69,12 +71,12 @@ const TabTrigger = defineComponent({
     }
 
     const getTabIndex = computed(() => {
-      if (!injectedValue?.currentFocusedElement?.value) {
-        return injectedValue?.modelValue?.value === props.value ? '0' : '-1'
+      if (!injectedValue.value.currentFocusedElement?.value) {
+        return injectedValue.value.modelValue?.value === props.value ? '0' : '-1'
       }
       else {
-        return injectedValue?.currentFocusedElement?.value
-          === currentElement.value
+        return injectedValue.value.currentFocusedElement?.value
+          === $el.value
           ? '0'
           : '-1'
       }
@@ -84,19 +86,19 @@ const TabTrigger = defineComponent({
       h(
         Primitive.button,
         {
-          'ref': primitiveElement,
+          'ref': currentElement,
           'type': Primitive.button,
           'role': 'tab',
           'aria-selected':
-            injectedValue?.modelValue?.value === props.value ? 'true' : 'false',
+            injectedValue.value.modelValue?.value === props.value ? 'true' : 'false',
           'data-state':
-            injectedValue?.modelValue?.value === props.value
+            injectedValue.value.modelValue?.value === props.value
               ? 'active'
               : 'inactive',
           'disabled': props.disabled,
           'data-disabled': props.disabled ? '' : undefined,
           'tabindex': getTabIndex.value,
-          'data-orientation': injectedValue?.orientation,
+          'data-orientation': injectedValue.value.orientation,
           'data-oku-ui-collection-item': true,
           'data-oku-ui-tab-value': props.value,
           'onClick': () => changeTab(props.value!),

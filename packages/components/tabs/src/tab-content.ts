@@ -1,13 +1,9 @@
 import { type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
-import { type PropType, computed, defineComponent, h, inject } from 'vue'
-import type { TabsProvideValue } from './tabs'
-import { TABS_INJECTION_KEY } from './tabs'
+import { type PropType, computed, defineComponent, h, toRefs } from 'vue'
+import type { Scope } from '@oku-ui/provide'
+import { useTabsInject } from './tabs'
 
-/* -------------------------------------------------------------------------------------------------
- * TabTrigger
- * ----------------------------------------------------------------------------------------------- */
-
-const TAB_CONTENT_NAME = 'TabContent' as const
+const TAB_CONTENT_NAME = 'OkuTabContent' as const
 
 interface TabsContentProps extends PrimitiveProps {
   value?: string
@@ -30,19 +26,25 @@ const TabContent = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    scopeTabs: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+      default: undefined,
+    },
   },
   setup(props, { slots }) {
-    const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY)
+    const { scopeTabs } = toRefs(props)
+    const injectTabs = useTabsInject(TAB_CONTENT_NAME, scopeTabs.value)
 
     const dataState = computed<'active' | 'inactive'>(() => {
-      return injectedValue?.modelValue?.value === props.value
+      return injectTabs.value.modelValue?.value === props.value
         ? 'active'
         : 'inactive'
     })
 
     const shouldRender = computed(() => {
       return (
-        injectedValue?.modelValue?.value === props.value || props.forceMount
+        injectTabs.value.modelValue?.value === props.value || props.forceMount
       )
     })
 
@@ -52,10 +54,10 @@ const TabContent = defineComponent({
           ? h(
             Primitive.div,
             {
-              'vIf': injectedValue?.modelValue?.value === props.value,
+              'vIf': injectTabs.value.modelValue?.value === props.value,
               'role': 'tab-content',
               'data-state': dataState.value,
-              'data-orientation': injectedValue?.orientation,
+              'data-orientation': injectTabs.value.orientation,
               'tabindex': '0',
               'asChild': props.asChild,
             },

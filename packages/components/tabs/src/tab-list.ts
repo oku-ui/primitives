@@ -4,16 +4,12 @@ import {
   type PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import { defineComponent, h, inject, onMounted } from 'vue'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
-import type { TabsProvideValue } from './tabs'
-import { TABS_INJECTION_KEY } from './tabs'
+import { defineComponent, h, onMounted, toRefs } from 'vue'
+import { useRef } from '@oku-ui/use-composable'
+import type { Scope } from '@oku-ui/provide'
+import { useTabsInject } from './tabs'
 
-/* -------------------------------------------------------------------------------------------------
- * TabList
- * ----------------------------------------------------------------------------------------------- */
-
-const TAB_LIST_NAME = 'TabList' as const
+const TAB_LIST_NAME = 'OkuTabList' as const
 
 interface TabListProps extends PrimitiveProps {
   loop?: boolean
@@ -31,15 +27,22 @@ const TabList = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    scopeTabs: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+      default: undefined,
+    },
   },
   setup(props, { slots }) {
-    const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY)
-    const { primitiveElement, currentElement: parentElement }
-      = usePrimitiveElement()
+    const { scopeTabs } = toRefs(props)
+    const injectTabs = useTabsInject(TAB_LIST_NAME, scopeTabs.value)
+
+    const { $el, newRef: parentElement }
+      = useRef<HTMLElement>()
 
     onMounted(() => {
-      injectedValue!.parentElement.value = parentElement.value
-      injectedValue!.loop = props.loop
+      injectTabs.value.parentElement.value = $el.value
+      injectTabs.value.loop = props.loop
     })
 
     return () =>
@@ -47,10 +50,10 @@ const TabList = defineComponent({
         Primitive.div,
         {
           'role': 'tab-list',
-          'ref': primitiveElement,
-          'aria-orientation': injectedValue?.orientation,
+          'ref': parentElement,
+          'aria-orientation': injectTabs.value.orientation,
           'tabindex': 0,
-          'data-orientation': injectedValue?.orientation,
+          'data-orientation': injectTabs.value.orientation,
           'style': 'outline: none',
           'asChild': props.asChild,
         },

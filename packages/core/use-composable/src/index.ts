@@ -8,6 +8,5 @@ export { useRef } from './useRef'
 export { unrefElement } from './unrefElement'
 export { useId } from './useId'
 export type { MaybeComputedElementRef } from './unrefElement'
-export { usePrimitiveElement } from './usePrimitiveElement'
 export { useArrowNavigation } from './useArrowNavigation'
 export { computedEager, syncRef }

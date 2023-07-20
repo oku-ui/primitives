@@ -1,13 +1,10 @@
 import { type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
-import { defineComponent, h, provide, ref } from 'vue'
-import type { InjectionKey, PropType, Ref } from 'vue'
+import { defineComponent, h, ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
+import { createProvideScope } from '@oku-ui/provide'
 
-/* -------------------------------------------------------------------------------------------------
- * Tabs
- * ----------------------------------------------------------------------------------------------- */
-
-const TAB_NAME = 'TAB' as const
+const TAB_NAME = 'OkuTab' as const
 
 type Orientation = 'horizontal' | 'vertical'
 type Direction = 'ltr' | 'rtl'
@@ -77,7 +74,10 @@ interface TabsProvideValue {
   loop: boolean
 }
 
-const TABS_INJECTION_KEY = Symbol(`${TAB_NAME} provide key`) as InjectionKey<TabsProvideValue>
+export const [createTabsProvider, _createTabsScope] = createProvideScope(TAB_NAME)
+
+export const [TabsProvider, useTabsInject]
+  = createTabsProvider<TabsProvideValue>(TAB_NAME)
 
 const Tabs = defineComponent({
   name: TAB_NAME,
@@ -124,7 +124,7 @@ const Tabs = defineComponent({
       passive: true,
     })
 
-    provide(TABS_INJECTION_KEY, {
+    TabsProvider({
       modelValue,
       changeModelValue: (value: string) => {
         modelValue.value = value
@@ -137,6 +137,7 @@ const Tabs = defineComponent({
       dir: props.dir,
       loop: true,
       activationMode: props.activationMode,
+      scope: undefined,
     })
 
     return () =>
@@ -159,6 +160,6 @@ type _TabsProps = MergeProps<TabsProps, typeof Tabs>
 
 const OkuTabs = Tabs as typeof Tabs & (new () => { $props: _TabsProps })
 
-export { OkuTabs, TABS_INJECTION_KEY, TabsProvideValue }
+export { OkuTabs, TabsProvideValue }
 
 export type { TabsProps }
