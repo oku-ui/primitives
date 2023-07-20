@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -12,6 +12,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      '@vueuse/core':
+        specifier: ^10.2.1
+        version: 10.2.1(vue@3.3.4)
     devDependencies:
       '@egoist/tailwindcss-icons':
         specifier: ^1.1.0
@@ -40,6 +44,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:packages/components/tabs
       '@oku-ui/toggle':
         specifier: workspace:^
         version: link:packages/components/toggle
@@ -141,7 +148,7 @@ importers:
         version: 1.2.1
       unplugin-vue-macros:
         specifier: ^2.3.3
-        version: 2.3.3(esbuild@0.18.11)(rollup@3.21.0)(vite@4.3.5)(vue@3.3.4)
+        version: 2.3.3(@vueuse/core@10.2.1)(esbuild@0.18.11)(rollup@3.21.0)(vite@4.3.5)(vue@3.3.4)
       vite:
         specifier: 4.3.5
         version: 4.3.5(@types/node@18.16.19)
@@ -294,6 +301,28 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/tabs:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/toggle:
     dependencies:
       '@oku-ui/primitive':
@@ -427,6 +456,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../../packages/components/tabs
       vite-plugin-pages:
         specifier: ^0.31.0
         version: 0.31.0(vite@4.3.5)
@@ -445,7 +477,7 @@ importers:
         version: 5.1.6
       unplugin-auto-import:
         specifier: ^0.16.6
-        version: 0.16.6(rollup@3.21.0)
+        version: 0.16.6(@vueuse/core@10.2.1)(rollup@3.21.0)
       unplugin-vue-components:
         specifier: ^0.25.1
         version: 0.25.1(rollup@3.21.0)(vue@3.3.4)
@@ -4323,7 +4355,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.4
-      vue-component-type-helpers: 1.8.4
+      vue-component-type-helpers: 1.8.5
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4637,6 +4669,9 @@ packages:
 
   /@types/unist@2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
+
+  /@types/web-bluetooth@0.0.17:
+    resolution: {integrity: sha512-4p9vcSmxAayx72yn70joFoL44c9MO/0+iVEBIQXe3v2h2SiAsEIo/G5v6ObFWvNKRFjbrVadNf9LqEEZeQPzdA==}
 
   /@types/yargs-parser@21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
@@ -5108,7 +5143,7 @@ packages:
       vue: 3.3.4
     dev: true
 
-  /@vue-macros/define-models@1.0.8(rollup@3.21.0)(vue@3.3.4):
+  /@vue-macros/define-models@1.0.8(@vueuse/core@10.2.1)(rollup@3.21.0)(vue@3.3.4):
     resolution: {integrity: sha512-tL8A49Fz34m8+63uoJYS/OpB+gApu49ZX4kZ0LY0daZ1sFhnzexNihljaGacoUQ3GIXelPwlJ/yqxv8KM8zPQQ==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
@@ -5118,6 +5153,7 @@ packages:
         optional: true
     dependencies:
       '@vue-macros/common': 1.4.1(rollup@3.21.0)(vue@3.3.4)
+      '@vueuse/core': 10.2.1(vue@3.3.4)
       ast-walker-scope: 0.4.2
       unplugin: 1.3.2
     transitivePeerDependencies:
@@ -5459,6 +5495,28 @@ packages:
     transitivePeerDependencies:
       - typescript
     dev: true
+
+  /@vueuse/core@10.2.1(vue@3.3.4):
+    resolution: {integrity: sha512-c441bfMbkAwTNwVRHQ0zdYZNETK//P84rC01aP2Uy/aRFCiie9NE/k9KdIXbno0eDYP5NPUuWv0aA/I4Unr/7w==}
+    dependencies:
+      '@types/web-bluetooth': 0.0.17
+      '@vueuse/metadata': 10.2.1
+      '@vueuse/shared': 10.2.1(vue@3.3.4)
+      vue-demi: 0.14.5(vue@3.3.4)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
+  /@vueuse/metadata@10.2.1:
+    resolution: {integrity: sha512-3Gt68mY/i6bQvFqx7cuGBzrCCQu17OBaGWS5JdwISpMsHnMKKjC2FeB5OAfMcCQ0oINfADP3i9A4PPRo0peHdQ==}
+
+  /@vueuse/shared@10.2.1(vue@3.3.4):
+    resolution: {integrity: sha512-QWHq2bSuGptkcxx4f4M/fBYC3Y8d3M2UYyLsyzoPgEoVzJURQ0oJeWXu79OiLlBb8gTKkqe4mO85T/sf39mmiw==}
+    dependencies:
+      vue-demi: 0.14.5(vue@3.3.4)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
 
   /@webassemblyjs/ast@1.11.5:
     resolution: {integrity: sha512-LHY/GSAZZRpsNQH+/oHqhRQ5FT7eoULcBqgfyTB5nQHogFnK3/7QoN7dLnwSE/JkUAF0SrRuclT7ODqMFtWxxQ==}
@@ -13510,7 +13568,7 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /unplugin-auto-import@0.16.6(rollup@3.21.0):
+  /unplugin-auto-import@0.16.6(@vueuse/core@10.2.1)(rollup@3.21.0):
     resolution: {integrity: sha512-M+YIITkx3C/Hg38hp8HmswP5mShUUyJOzpifv7RTlAbeFlO2Tyw0pwrogSSxnipHDPTtI8VHFBpkYkNKzYSuyA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -13524,6 +13582,7 @@ packages:
     dependencies:
       '@antfu/utils': 0.7.5
       '@rollup/pluginutils': 5.0.2(rollup@3.21.0)
+      '@vueuse/core': 10.2.1(vue@3.3.4)
       fast-glob: 3.3.0
       local-pkg: 0.4.3
       magic-string: 0.30.1
@@ -13600,7 +13659,7 @@ packages:
       - vue
     dev: true
 
-  /unplugin-vue-macros@2.3.3(esbuild@0.18.11)(rollup@3.21.0)(vite@4.3.5)(vue@3.3.4):
+  /unplugin-vue-macros@2.3.3(@vueuse/core@10.2.1)(esbuild@0.18.11)(rollup@3.21.0)(vite@4.3.5)(vue@3.3.4):
     resolution: {integrity: sha512-+aE2BIH2CZ1LVI/JdPxn8QPp386ZaRa8/q9I/aXnCav7UfhMiq7XW5GbpqWUP/yY/rjF+rdfXdkvUKUMTxy7mw==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
@@ -13610,7 +13669,7 @@ packages:
       '@vue-macros/chain-call': 0.0.3(rollup@3.21.0)(vue@3.3.4)
       '@vue-macros/common': 1.4.1(rollup@3.21.0)(vue@3.3.4)
       '@vue-macros/define-emit': 0.1.8(vue@3.3.4)
-      '@vue-macros/define-models': 1.0.8(rollup@3.21.0)(vue@3.3.4)
+      '@vue-macros/define-models': 1.0.8(@vueuse/core@10.2.1)(rollup@3.21.0)(vue@3.3.4)
       '@vue-macros/define-prop': 0.1.10(vue@3.3.4)
       '@vue-macros/define-props': 1.0.10(@vue-macros/reactivity-transform@0.3.12)(rollup@3.21.0)(vue@3.3.4)
       '@vue-macros/define-props-refs': 1.1.2(rollup@3.21.0)(vue@3.3.4)
@@ -14217,9 +14276,23 @@ packages:
     resolution: {integrity: sha512-iGdlqtajmiqed8ptURKPJ/Olz0/mwripVZszg6tygfZSIL9kYFPJTNY6+Q6OjWGznl2L06vxG5HvNvAnWrnzbg==}
     dev: true
 
-  /vue-component-type-helpers@1.8.4:
-    resolution: {integrity: sha512-6bnLkn8O0JJyiFSIF0EfCogzeqNXpnjJ0vW/SZzNHfe6sPx30lTtTXlE5TFs2qhJlAtDFybStVNpL73cPe3OMQ==}
+  /vue-component-type-helpers@1.8.5:
+    resolution: {integrity: sha512-SBNsskF7L5x604V1BN4ZzdTtWgCqo5cfl//YuBXtc3LLyPdFRqUeJn2Q+FPNmCtl23LBT2tH79M/uv13fL0MgQ==}
     dev: true
+
+  /vue-demi@0.14.5(vue@3.3.4):
+    resolution: {integrity: sha512-o9NUVpl/YlsGJ7t+xuqJKx8EBGf1quRhCiT6D/J0pfwmk9zUwYkC7yrF4SZCe6fETvSM3UNL2edcbYrSyc4QHA==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.3.4
 
   /vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}

@@ -1,5 +1,13 @@
-import type { MergeProps, PrimitiveProps } from '@oku-ui/primitive'
-import { type PropType, defineComponent, h } from 'vue'
+import {
+  type MergeProps,
+  Primitive,
+  type PrimitiveProps,
+} from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { defineComponent, h, inject, onMounted } from 'vue'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import type { TabsProvideValue } from './tabs'
+import { TABS_INJECTION_KEY } from './tabs'
 
 /* -------------------------------------------------------------------------------------------------
  * TabList
@@ -8,55 +16,41 @@ import { type PropType, defineComponent, h } from 'vue'
 const TAB_LIST_NAME = 'TabList' as const
 
 interface TabListProps extends PrimitiveProps {
-  /**
-   * The active tab value.
-   * @default 'tab1'
-   * @type string
-   * @example
-   * ```vue
-   * <OkuTabs defaultValue="tab1">
-   * <OkuTabList activeTab="tab1">
-   * // ...
-   * </OkuTabList>
-   * </OkuTabs>
-   * ```
-   * @see link-to-oku-docs/tab
-   * */
-  activeTab: string
-  /**
-   * The callback function that is called when the tab value changes.
-   * @default () => {}
-   * @type (value: string) => void
-   * @example
-   * ```vue
-   * <OkuTabs onValueChange={(value) => console.log(value)}>
-   * <OkuTabList onChange={(value) => console.log(value)}>
-    // ...
-   * </OkuTabList>
-   * </OkuTabs>
-   * ```
-   * @see link-to-oku-docs/tab
-   * */
-  onChange: (value: string) => void
+  loop?: boolean
 }
 
 const TabList = defineComponent({
   name: TAB_LIST_NAME,
   inheritAttrs: false,
   props: {
-    activeTab: {
-      type: String as PropType<string>,
-      required: true,
-    },
-    onChange: {
-      type: Function as PropType<(value: string) => void>,
-      required: true,
+    loop: {
+      type: Boolean as PropType<boolean>,
+      default: true,
     },
   },
-  setup(_, { slots }) {
-    const slot = slots.default ? slots.default() : []
+  setup(props, { slots }) {
+    const injectedValue = inject<TabsProvideValue>(TABS_INJECTION_KEY)
+    const { primitiveElement, currentElement: parentElement }
+      = usePrimitiveElement()
 
-    return () => h('div', { 'data-attr': 'tab-list' }, slot)
+    onMounted(() => {
+      injectedValue!.parentElement.value = parentElement.value
+      injectedValue!.loop = props.loop
+    })
+
+    return () =>
+      h(
+        Primitive.div,
+        {
+          'role': 'tab-list',
+          'ref': primitiveElement,
+          'aria-orientation': injectedValue?.orientation,
+          'tabindex': 0,
+          'data-orientation': injectedValue?.orientation,
+          'style': 'outline: none',
+        },
+        slots.default && slots.default(),
+      )
   },
 })
 

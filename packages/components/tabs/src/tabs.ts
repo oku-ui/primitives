@@ -1,7 +1,7 @@
-import type { MergeProps, PrimitiveProps } from '@oku-ui/primitive'
-import { type PropType, defineComponent, h, ref } from 'vue'
-import { OkuTabContent } from './tab-content'
-import { OkuTabList } from './tab-list'
+import { type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
+import { defineComponent, h, provide, ref } from 'vue'
+import type { InjectionKey, PropType, Ref } from 'vue'
+import { useVModel } from '@vueuse/core'
 
 /* -------------------------------------------------------------------------------------------------
  * Tabs
@@ -9,6 +9,9 @@ import { OkuTabList } from './tab-list'
 
 const TAB_NAME = 'TAB' as const
 
+type Orientation = 'horizontal' | 'vertical'
+type Direction = 'ltr' | 'rtl'
+type ActivationMode = 'automatic' | 'manual'
 interface TabsProps extends PrimitiveProps {
   /**
    * The default value of the tab.
@@ -46,8 +49,24 @@ interface TabsProps extends PrimitiveProps {
    * ```
    * @see link-to-oku-docs/tab
    * */
-  orientation?: 'horizontal' | 'vertical'
+  orientation?: Orientation
+  dir?: Direction
+  activationMode?: ActivationMode
+  modelValue?: string
 }
+
+interface TabsProvideValue {
+  modelValue?: Readonly<Ref<string | undefined>>
+  currentFocusedElement?: Ref<HTMLElement | undefined>
+  changeModelValue: (value: string) => void
+  parentElement: Ref<HTMLElement | undefined>
+  orientation: Orientation
+  dir: Direction
+  activationMode: ActivationMode
+  loop: boolean
+}
+
+const TABS_INJECTION_KEY = Symbol(`${TAB_NAME} provide key`) as InjectionKey<TabsProvideValue>
 
 const Tabs = defineComponent({
   name: TAB_NAME,
@@ -55,60 +74,66 @@ const Tabs = defineComponent({
   props: {
     defaultValue: {
       type: String as PropType<string>,
-      default: 'tab1',
+      default: undefined,
+    },
+    orientation: {
+      type: String as PropType<Orientation>,
+      default: 'horizontal',
+    },
+    dir: {
+      type: String as PropType<Direction>,
+      default: 'ltr',
+      required: false,
+    },
+    activationMode: {
+      type: String as PropType<ActivationMode>,
+      default: 'automatic',
+      required: false,
+    },
+    modelValue: {
+      type: String as PropType<string>,
+      required: false,
     },
     onValueChange: {
       type: Function as PropType<(value: string) => void>,
-      default: () => {},
-    },
-    orientation: {
-      type: String as PropType<'horizontal' | 'vertical'>,
-      default: 'horizontal',
+      required: false,
     },
   },
-  setup(props, { slots }) {
-    const activeTab = ref(props.defaultValue)
+  emits: ['update:modelValue'],
+  setup(props, { slots, emit }) {
+    const parentElementRef = ref<HTMLElement>()
+    const currentFocusedElementRef = ref<HTMLElement>()
 
-    const handleTabChange = (value: string) => {
-      activeTab.value = value
-      props.onValueChange?.(value)
-    }
+    const modelValue = useVModel(props, 'modelValue', emit, {
+      defaultValue: props.defaultValue,
+      passive: true,
+    })
 
-    return () => {
-      const tabListSlot = slots.default
-        ? slots.default({ activeTab: activeTab.value })
-        : []
-      const tabContentSlot = slots.tabContent
-        ? slots.tabContent({ activeTab: activeTab.value })
-        : []
+    provide(TABS_INJECTION_KEY, {
+      modelValue,
+      changeModelValue: (value: string) => {
+        modelValue.value = value
+        if (value && props.onValueChange)
+          props.onValueChange(value)
+      },
+      currentFocusedElement: currentFocusedElementRef,
+      parentElement: parentElementRef,
+      orientation: props.orientation,
+      dir: props.dir,
+      loop: true,
+      activationMode: props.activationMode,
+    })
 
-      return h('div', {}, [
-        h(
-          // TODO: fix this
-          // @ts-expect-error
-          OkuTabList,
-          {
-            activeTab: activeTab.value,
-            onChange: handleTabChange,
-          },
-          tabListSlot,
-        ),
-        h(
-          // TODO: fix this
-          // @ts-expect-error
-          OkuTabContent,
-          {
-            activeTab: activeTab.value,
-          },
-          tabContentSlot.map(contentVNode =>
-            h(OkuTabContent, {
-              activeTab: activeTab.value,
-              value: contentVNode.props?.value,
-            }),
-          ),
-        ),
-      ])
-    }
+    return () =>
+      h(
+        Primitive.div,
+        {
+          'dir': props.dir,
+          'data-orientation': props.orientation,
+          'role': 'tab-group',
+        },
+        slots.default && slots.default(),
+      )
   },
 })
 
@@ -116,6 +141,6 @@ type _TabsProps = MergeProps<TabsProps, typeof Tabs>
 
 const OkuTabs = Tabs as typeof Tabs & (new () => { $props: _TabsProps })
 
-export { OkuTabs }
+export { OkuTabs, TABS_INJECTION_KEY, TabsProvideValue }
 
 export type { TabsProps }

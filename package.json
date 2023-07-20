@@ -27,6 +27,9 @@
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
     "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'"
   },
+  "dependencies": {
+    "@vueuse/core": "^10.2.1"
+  },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.1.0",
     "@iconify-json/ph": "^1.1.5",
@@ -37,6 +40,7 @@
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/separator": "workspace:^",
+    "@oku-ui/tabs": "workspace:^",
     "@oku-ui/toggle": "workspace:^",
     "@storybook/addon-essentials": "^7.0.26",
     "@storybook/addon-interactions": "^7.0.26",
