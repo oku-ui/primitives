@@ -2,18 +2,18 @@ import type { ElementType, MergeProps } from '@oku-ui/primitive'
 import { usePrevious, useRef, useSize } from '@oku-ui/use-composable'
 import type {
   CSSProperties,
-  PropType,
   Ref,
 } from 'vue'
 import {
   defineComponent,
   h,
+  onMounted,
   ref,
   toRefs,
   watch,
 } from 'vue'
 
-const BUBBLE_INPUT = 'BubbleInput'
+const BUBBLE_INPUT = 'OkuBubbleInput'
 
 type InputElement = ElementType<'input'>
 
@@ -23,7 +23,7 @@ interface BubbleInputProps extends Omit<InputElement, 'checked'> {
   bubbles: boolean
 }
 
-const BubbleInput = defineComponent({
+export const BubbleInput = defineComponent({
   name: BUBBLE_INPUT,
   inheritAttrs: false,
   props: {
@@ -36,7 +36,7 @@ const BubbleInput = defineComponent({
       default: true,
     },
     control: {
-      type: Object as PropType<HTMLElement>,
+      type: Object,
       required: true,
     },
   },
@@ -51,26 +51,27 @@ const BubbleInput = defineComponent({
 
     const { $el } = useRef<InputElement>()
 
-    watch(
-      [prevChecked, checked, bubbles],
-      () => {
-        const input = inputRef.value!
-        const inputProto = window.HTMLInputElement.prototype
-        const descriptor = Object.getOwnPropertyDescriptor(
-          inputProto,
-          'checked',
-        ) as PropertyDescriptor
-        const setChecked = descriptor.set
+    onMounted(() => {
+      watch(
+        [prevChecked, checked, bubbles],
+        () => {
+          const input = inputRef.value!
+          const inputProto = window.HTMLInputElement.prototype
+          const descriptor = Object.getOwnPropertyDescriptor(
+            inputProto,
+            'checked',
+          ) as PropertyDescriptor
+          const setChecked = descriptor.set
 
-        if (prevChecked !== checked.value && setChecked) {
-          const event = new Event('click', { bubbles: bubbles.value })
-          setChecked.call(input, checked.value)
-          input.dispatchEvent(event)
-        }
-      },
-      { immediate: true },
-    )
-
+          if (prevChecked !== checked.value && setChecked) {
+            const event = new Event('click', { bubbles: bubbles.value })
+            setChecked.call(input, checked.value)
+            input.dispatchEvent(event)
+          }
+        },
+        { immediate: true },
+      )
+    })
     expose({
       innerRef: $el,
     })

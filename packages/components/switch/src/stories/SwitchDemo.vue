@@ -11,7 +11,6 @@ export interface ISwitchProps extends SwitchProps {
 defineProps<ISwitchProps>()
 
 const checked = ref<boolean>(false)
-const onChange = (value: boolean) => (checked.value = value)
 
 // '&[data-state="checked"]': { transform: `translateX(${50 - 4 * 2 - 20}px)` as any }
 </script>

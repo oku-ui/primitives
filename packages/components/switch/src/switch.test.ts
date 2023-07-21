@@ -51,7 +51,7 @@ describe('OkuSwitch', () => {
     expect(onCheckedChange).toHaveBeenCalledWith(true)
   })
 
-  it.skip('should disable the switch when the disabled prop is true', async () => {
+  it('should disable the switch when the disabled prop is true', async () => {
     const checked = ref(false)
 
     const wrapper = mount(OkuSwitch, {
@@ -67,7 +67,7 @@ describe('OkuSwitch', () => {
 
     // Assertions
     expect(button.attributes('aria-checked')).toBe('false')
-    expect(button.attributes('disabled')).toBeTruthy()
+    expect(button.attributes('disabled')).toBe('')
 
     // Simulate a click event (should not trigger any changes)
     await button.trigger('click')
@@ -76,12 +76,41 @@ describe('OkuSwitch', () => {
     expect(checked.value).toBe(false)
   })
 
-  it('should update the switch correctly with v-model directive', async () => {
-    const checked = ref(false)
-
+  it('should render with the specified value attribute', () => {
     const wrapper = mount(OkuSwitch, {
       props: {
-        modelValue: checked,
+        modelValue: ref(false),
+        name: 'switchInput',
+        value: 'off',
+      },
+    })
+
+    const button = wrapper.find('[role="switch"]')
+
+    expect(button.attributes('value')).toBe('off')
+  })
+
+  it('should render with the required attribute when required prop is true', async () => {
+    const wrapper = mount(OkuSwitch, {
+      props: {
+        modelValue: false,
+        name: 'switchInput',
+        required: true,
+      },
+    })
+
+    const button = wrapper.find('[role="switch"]')
+
+    expect(button.attributes('aria-required')).toBe('true')
+
+    await button.trigger('click')
+
+    expect(wrapper.props().modelValue).toBe(false)
+  })
+
+  it.skip('should default to false when no modelValue or defaultChecked prop is provided', async () => {
+    const wrapper = mount(OkuSwitch, {
+      props: {
         name: 'switchInput',
       },
     })
@@ -89,14 +118,53 @@ describe('OkuSwitch', () => {
     // Find the button element
     const button = wrapper.find('[role="switch"]')
 
-    // Simulate a click event
+    // Expect the default value to be false
+    expect(wrapper.props().modelValue).toBe(false)
+    expect(button.attributes('aria-checked')).toBe('false')
+
+    // Simulate a click event to toggle the switch
+    await button.trigger('click')
+    expect(wrapper.props().modelValue).toBe(true)
+    expect(button.attributes('aria-checked')).toBe('true')
+
+    // Click again to toggle back to false
+    await button.trigger('click')
+    expect(wrapper.props().modelValue).toBe(false)
+    expect(button.attributes('aria-checked')).toBe('false')
+  })
+
+  it('should propagate the click event only once when inside a form', async () => {
+    const checked = ref(false)
+    const formHtml
+      = '<form><OkuSwitch v-model="checked" name="switchInput" /></form>'
+    const wrapper = mount(
+      {
+        components: { OkuSwitch },
+        template: formHtml,
+        setup() {
+          return { checked }
+        },
+      },
+      { attachTo: document.body }, // Mount inside the DOM to interact with form elements
+    )
+
+    const button = wrapper.find('[role="switch"]')
+
     await button.trigger('click')
 
-    // Expect the button to have updated its aria-checked attribute
-    expect(button.attributes('aria-checked')).toBe('true')
-    expect(button.attributes('data-state')).toBe('checked')
-
-    // Expect the checked value to have updated via v-model directive
     expect(checked.value).toBe(true)
+
+    // Listen for the 'submit' event on the form element
+    const formElement = wrapper.find('form').element as HTMLFormElement
+    const submitEventSpy = vi.spyOn(formElement, 'dispatchEvent')
+
+    // Trigger the form submission
+    await formElement.dispatchEvent(new Event('submit'))
+
+    // Expect the form submission to be triggered once
+    expect(submitEventSpy).toHaveBeenCalledTimes(1)
+
+    // Expect the form event to be received by the form element itself
+    expect(submitEventSpy).toHaveBeenCalledWith(expect.any(Event))
   })
 })

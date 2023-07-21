@@ -3,8 +3,10 @@ import {
   computed,
   defineComponent,
   h,
+  onMounted,
   ref,
   toRefs,
+  toValue,
   useModel,
 } from 'vue'
 import { useControllable, useRef } from '@oku-ui/use-composable'
@@ -18,8 +20,7 @@ import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './util'
-
-// import { OkuBubbleInput } from "./BubbleInput";
+import { BubbleInput } from './BubbleInput'
 
 const SWITCH_NAME = 'OkuSwitch'
 
@@ -45,11 +46,14 @@ const [switchProvider, useSwitchContext]
 
 const Switch = defineComponent({
   name: SWITCH_NAME,
+  components: {
+    BubbleInput,
+  },
   inheritAttrs: false,
   props: {
     modelValue: {
       type: Boolean as PropType<boolean>,
-      default: undefined,
+      default: false,
     },
     name: {
       type: String,
@@ -88,7 +92,7 @@ const Switch = defineComponent({
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { attrs, expose, slots, emit }) {
+  setup(props, { attrs, expose, emit, slots }) {
     const {
       checked: checkedProp,
       defaultChecked,
@@ -97,21 +101,25 @@ const Switch = defineComponent({
       value: switchValue,
       onCheckedChange,
       scopeSwitch,
+      name,
     } = toRefs(props)
 
     const { ...switchProps } = attrs as SwitchElement
 
-    const { $el, newRef } = useRef<SwitchElement>()
+    const { $el, newRef: button } = useRef<SwitchElement>()
 
     const modelValue = useModel(props, 'modelValue')
 
-    const button = ref<HTMLButtonElement | null>(null)
+    const isFormControl = ref<boolean>(false)
 
     const hasConsumerStoppedPropagationRef = ref<boolean>(false)
     // We set this to true by default so that events bubble to forms without JS (SSR)
-    const isFormControl = button.value
-      ? Boolean(button.value?.closest('form'))
-      : true
+    onMounted(() => {
+      isFormControl.value = button.value
+        ? ($el.value as Element)?.closest
+          && Boolean(($el.value as Element)?.closest('form'))
+        : true
+    })
 
     const { state, updateValue } = useControllable({
       prop: computed(() => modelValue.value ?? checkedProp.value),
@@ -133,54 +141,51 @@ const Switch = defineComponent({
     })
 
     const originalReturn = () =>
-      // h(Primitive.div, [
-      h(
-        Primitive.button,
-        {
-          'type': 'button',
-          'role': 'switch',
-          'aria-checked': modelValue.value ?? checkedProp.value ?? false,
-          'aria-required': required.value,
-          'data-disabled': disabled.value ? '' : undefined,
-          'disabled': disabled.value,
-          'value': switchValue.value,
-          'data-state': getState(state.value ?? false),
-          'ref': newRef,
-          'asChild': props.asChild,
-          ...switchProps,
-          'onClick': composeEventHandlers(switchProps.onClick, (event: any) => {
-            updateValue(!state.value)
+      h(Primitive.div, [
+        h(
+          Primitive.button,
+          {
+            'type': 'button',
+            'role': 'switch',
+            'aria-checked': toValue(state.value ?? false),
+            'aria-required': required.value,
+            'data-disabled': disabled.value ? '' : undefined,
+            'disabled': disabled.value,
+            'value': switchValue.value,
+            'data-state': getState(state.value ?? false),
+            'ref': button,
+            'asChild': props.asChild,
+            ...switchProps,
+            'onClick': composeEventHandlers(switchProps.onClick, (event) => {
+              updateValue(!state.value)
 
-            if (isFormControl) {
-              hasConsumerStoppedPropagationRef.value
-                = event?.isPropagationStopped()
-              // if switch is in a form, stop propagation from the button so that we only propagate
-              // one click event (from the input). We propagate changes from an input so that native
-              // form validation works and form events reflect switch updates.
-              if (!hasConsumerStoppedPropagationRef.value)
-                event?.stopPropagation()
-            }
+              if (isFormControl.value) {
+                // hasConsumerStoppedPropagationRef.value =
+                //   event.isPropagationStopped();
+                // if switch is in a form, stop propagation from the button so that we only propagate
+                // one click event (from the input). We propagate changes from an input so that native
+                // form validation works and form events reflect switch updates.
+                if (!hasConsumerStoppedPropagationRef.value)
+                  event.stopPropagation()
+              }
+            }),
+          },
+          {
+            default: () => slots.default?.(),
+          },
+        ),
+        isFormControl.value
+          && h(BubbleInput, {
+            control: button,
+            bubbles: !hasConsumerStoppedPropagationRef.value,
+            name: name.value,
+            value: switchValue.value,
+            checked: state.value,
+            required: required.value,
+            disabled: disabled.value,
+            style: { transform: 'translateX(-100%)' },
           }),
-        },
-        {
-          default: () =>
-            slots?.default
-              ? slots.default()
-              : h(Primitive.div, null, { default: () => '' }),
-        },
-      )
-    // isFormControl &&
-    //   h(OkuBubbleInput, {
-    //     control: button.value,
-    //     bubbles: !hasConsumerStoppedPropagationRef.value,
-    //     name: name.value,
-    //     value: switchValue.value,
-    //     checked: state.value,
-    //     required: required.value,
-    //     disabled: disabled.value,
-    //     style: { transform: "translateX(-100%)" },
-    //   }),
-    // ]);
+      ])
 
     return originalReturn as unknown as {
       innerRef: SwitchElement
