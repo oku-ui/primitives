@@ -30,11 +30,15 @@ const SwitchThumb = defineComponent({
       type: Object as unknown as PropType<Scope>,
       required: false,
     },
+    asChild: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { attrs, slots, expose }) {
     const { scopeSwitch } = toRefs(props)
 
-    const { ...thumbProps } = attrs as SwitchThumbProps
+    const { ...thumbAttrs } = attrs as SwitchThumbProps
 
     const { $el, newRef } = useRef<HTMLSpanElement>()
 
@@ -51,7 +55,8 @@ const SwitchThumb = defineComponent({
           'data-disabled': context.disabled?.value ? '' : undefined,
           'data-state': getState(context.checked.value),
           'ref': newRef,
-          ...thumbProps,
+          'asChild': props.asChild,
+          ...thumbAttrs,
         },
         {
           default: () => slots.default?.(),

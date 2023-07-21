@@ -7,6 +7,7 @@ import {
   computed,
   defineComponent,
   h,
+  onMounted,
   ref,
   toRefs,
   toValue,
@@ -23,8 +24,7 @@ import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './util'
-
-// import { OkuBubbleInput } from "./BubbleInput";
+import { BubbleInput } from './BubbleInput'
 
 const SWITCH_NAME = 'OkuSwitch'
 
@@ -50,6 +50,9 @@ const [switchProvider, useSwitchContext]
 
 const Switch = defineComponent({
   name: SWITCH_NAME,
+  components: {
+    BubbleInput,
+  },
   inheritAttrs: false,
   props: {
     modelValue: {
@@ -93,7 +96,7 @@ const Switch = defineComponent({
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { attrs, expose, slots, emit }) {
+  setup(props, { attrs, expose, emit, slots }) {
     const {
       checked: checkedProp,
       defaultChecked,
@@ -102,21 +105,26 @@ const Switch = defineComponent({
       value: switchValue,
       onCheckedChange,
       scopeSwitch,
+      name,
     } = toRefs(props)
 
     const { ...switchProps } = attrs as SwitchElement
 
-    const { $el, newRef } = useRef<SwitchElement>()
+    const { $el, newRef: button } = useRef<SwitchElement>()
 
     const modelValue = useModel(props, 'modelValue')
 
-    const button = ref<HTMLButtonElement | null>(null)
+    const isFormControl = ref(false)
 
     const hasConsumerStoppedPropagationRef = ref<boolean>(false)
     // We set this to true by default so that events bubble to forms without JS (SSR)
-    const isFormControl = button.value
-      ? Boolean(button.value?.closest('form'))
-      : true
+    onMounted(() => {
+      isFormControl.value = button.value
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+        ? Boolean($el.value?.closest('form'))
+        : true
+    })
 
     const { state, updateValue } = useControllable({
       prop: computed(() => modelValue.value ?? checkedProp.value),
@@ -138,7 +146,8 @@ const Switch = defineComponent({
     })
 
     const originalReturn = () =>
-      h(Primitive.div, [
+
+      [
         h(
           Primitive.button,
           {
@@ -150,13 +159,13 @@ const Switch = defineComponent({
             'disabled': disabled,
             'value': switchValue.value,
             'data-state': getState(state.value ?? false),
-            'ref': newRef,
+            'ref': button,
             'asChild': props.asChild,
             ...switchProps,
             'onClick': composeEventHandlers(switchProps.onClick, (event: any) => {
               updateValue(!state.value)
 
-              if (isFormControl) {
+              if (isFormControl.value) {
                 hasConsumerStoppedPropagationRef.value
                   = event.isPropagationStopped()
                 // if switch is in a form, stop propagation from the button so that we only propagate
@@ -168,24 +177,21 @@ const Switch = defineComponent({
             }),
           },
           {
-            default: () =>
-              slots?.default
-                ? slots.default()
-                : h(Primitive.div, null, { default: () => '' }),
+            default: () => slots.default?.(),
           },
         ),
-        // isFormControl &&
-        //   h(OkuBubbleInput, {
-        //     control: button.value,
-        //     bubbles: !hasConsumerStoppedPropagationRef.value,
-        //     name: name.value,
-        //     value: switchValue.value,
-        //     checked: state.value,
-        //     required: required.value,
-        //     disabled: disabled.value,
-        //     style: { transform: "translateX(-100%)" },
-        //   }),
-      ])
+        isFormControl.value
+        && h(BubbleInput, {
+          control: button,
+          bubbles: !hasConsumerStoppedPropagationRef.value,
+          name: name.value,
+          value: switchValue.value,
+          checked: state.value,
+          required: required.value,
+          disabled: disabled.value,
+          style: { transform: 'translateX(-100%)' },
+        }),
+      ]
 
     return originalReturn as unknown as {
       innerRef: SwitchElement
