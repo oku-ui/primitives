@@ -156,18 +156,18 @@ const Switch = defineComponent({
             'aria-checked': toValue(state.value ?? false),
             'aria-required': required.value,
             'data-disabled': disabled.value ? '' : undefined,
-            'disabled': disabled,
+            'disabled': disabled.value,
             'value': switchValue.value,
             'data-state': getState(state.value ?? false),
             'ref': button,
             'asChild': props.asChild,
             ...switchProps,
-            'onClick': composeEventHandlers(switchProps.onClick, (event: any) => {
+            'onClick': composeEventHandlers(switchProps.onClick, (event) => {
               updateValue(!state.value)
 
               if (isFormControl.value) {
-                hasConsumerStoppedPropagationRef.value
-                  = event.isPropagationStopped()
+                // hasConsumerStoppedPropagationRef.value
+                //   = event.isPropagationStopped()
                 // if switch is in a form, stop propagation from the button so that we only propagate
                 // one click event (from the input). We propagate changes from an input so that native
                 // form validation works and form events reflect switch updates.
