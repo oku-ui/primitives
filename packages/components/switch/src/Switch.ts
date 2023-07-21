@@ -1,15 +1,10 @@
-import type {
-  ComputedRef,
-  PropType,
-  Ref,
-} from 'vue'
+import type { ComputedRef, PropType, Ref } from 'vue'
 import {
   computed,
   defineComponent,
   h,
   ref,
   toRefs,
-  toValue,
   useModel,
 } from 'vue'
 import { useControllable, useRef } from '@oku-ui/use-composable'
@@ -121,7 +116,7 @@ const Switch = defineComponent({
     const { state, updateValue } = useControllable({
       prop: computed(() => modelValue.value ?? checkedProp.value),
       defaultProp: computed(() => defaultChecked.value),
-      onChange: (value: any) => {
+      onChange: (value: boolean) => {
         onCheckedChange.value?.(value)
         emit('update:modelValue', value)
       },
@@ -138,54 +133,54 @@ const Switch = defineComponent({
     })
 
     const originalReturn = () =>
-      h(Primitive.div, [
-        h(
-          Primitive.button,
-          {
-            'type': 'button',
-            'role': 'switch',
-            'aria-checked': toValue(state.value ?? false),
-            'aria-required': required.value,
-            'data-disabled': disabled.value ? '' : undefined,
-            'disabled': disabled,
-            'value': switchValue.value,
-            'data-state': getState(state.value ?? false),
-            'ref': newRef,
-            'asChild': props.asChild,
-            ...switchProps,
-            'onClick': composeEventHandlers(switchProps.onClick, (event: any) => {
-              updateValue(!state.value)
+      // h(Primitive.div, [
+      h(
+        Primitive.button,
+        {
+          'type': 'button',
+          'role': 'switch',
+          'aria-checked': modelValue.value ?? checkedProp.value ?? false,
+          'aria-required': required.value,
+          'data-disabled': disabled.value ? '' : undefined,
+          'disabled': disabled.value,
+          'value': switchValue.value,
+          'data-state': getState(state.value ?? false),
+          'ref': newRef,
+          'asChild': props.asChild,
+          ...switchProps,
+          'onClick': composeEventHandlers(switchProps.onClick, (event: any) => {
+            updateValue(!state.value)
 
-              if (isFormControl) {
-                hasConsumerStoppedPropagationRef.value
-                  = event.isPropagationStopped()
-                // if switch is in a form, stop propagation from the button so that we only propagate
-                // one click event (from the input). We propagate changes from an input so that native
-                // form validation works and form events reflect switch updates.
-                if (!hasConsumerStoppedPropagationRef.value)
-                  event.stopPropagation()
-              }
-            }),
-          },
-          {
-            default: () =>
-              slots?.default
-                ? slots.default()
-                : h(Primitive.div, null, { default: () => '' }),
-          },
-        ),
-        // isFormControl &&
-        //   h(OkuBubbleInput, {
-        //     control: button.value,
-        //     bubbles: !hasConsumerStoppedPropagationRef.value,
-        //     name: name.value,
-        //     value: switchValue.value,
-        //     checked: state.value,
-        //     required: required.value,
-        //     disabled: disabled.value,
-        //     style: { transform: "translateX(-100%)" },
-        //   }),
-      ])
+            if (isFormControl) {
+              hasConsumerStoppedPropagationRef.value
+                = event?.isPropagationStopped()
+              // if switch is in a form, stop propagation from the button so that we only propagate
+              // one click event (from the input). We propagate changes from an input so that native
+              // form validation works and form events reflect switch updates.
+              if (!hasConsumerStoppedPropagationRef.value)
+                event?.stopPropagation()
+            }
+          }),
+        },
+        {
+          default: () =>
+            slots?.default
+              ? slots.default()
+              : h(Primitive.div, null, { default: () => '' }),
+        },
+      )
+    // isFormControl &&
+    //   h(OkuBubbleInput, {
+    //     control: button.value,
+    //     bubbles: !hasConsumerStoppedPropagationRef.value,
+    //     name: name.value,
+    //     value: switchValue.value,
+    //     checked: state.value,
+    //     required: required.value,
+    //     disabled: disabled.value,
+    //     style: { transform: "translateX(-100%)" },
+    //   }),
+    // ]);
 
     return originalReturn as unknown as {
       innerRef: SwitchElement
