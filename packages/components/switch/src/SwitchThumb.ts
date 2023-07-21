@@ -3,9 +3,7 @@ import type {
   MergeProps,
   PrimitiveProps,
 } from '@oku-ui/primitive'
-import {
-  Primitive,
-} from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { useRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'

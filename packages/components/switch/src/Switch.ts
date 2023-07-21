@@ -53,7 +53,6 @@ const Switch = defineComponent({
   props: {
     modelValue: {
       type: Boolean as PropType<boolean>,
-      default: false,
     },
     name: {
       type: String,
@@ -116,13 +115,13 @@ const Switch = defineComponent({
     // We set this to true by default so that events bubble to forms without JS (SSR)
     onMounted(() => {
       isFormControl.value = button.value
-        ? ($el.value as Element)?.closest
+        ? typeof ($el.value as Element).closest === 'function'
           && Boolean(($el.value as Element)?.closest('form'))
         : true
     })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? checkedProp.value),
+      prop: computed(() => modelValue.value || checkedProp.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (value: boolean) => {
         onCheckedChange.value?.(value)

@@ -17,7 +17,8 @@
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
-    "@oku-ui/separator": "workspace:^"
+    "@oku-ui/separator": "workspace:^",
+    "@oku-ui/switch": "workspace:^"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",

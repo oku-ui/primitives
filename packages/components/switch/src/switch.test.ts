@@ -79,7 +79,7 @@ describe('OkuSwitch', () => {
   it('should render with the specified value attribute', () => {
     const wrapper = mount(OkuSwitch, {
       props: {
-        modelValue: ref(false),
+        modelValue: ref(false).value,
         name: 'switchInput',
         value: 'off',
       },

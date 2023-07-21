@@ -36,3 +36,19 @@ export const Styled: Story = {
     `,
   }),
 }
+
+export const Chromatic: Story = {
+  args: {
+    template: '#2',
+    allshow: false,
+  },
+  render: (args: any) => ({
+    components: { OkuSwitchComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuSwitchComponent v-bind="args" />
+    `,
+  }),
+}

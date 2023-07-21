@@ -514,6 +514,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:../../packages/components/switch
     devDependencies:
       '@nuxtjs/tailwindcss':
         specifier: ^6.8.0
@@ -4522,7 +4525,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.4
-      vue-component-type-helpers: 1.8.5
+      vue-component-type-helpers: 1.8.6
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -14101,8 +14104,8 @@ packages:
     resolution: {integrity: sha512-iGdlqtajmiqed8ptURKPJ/Olz0/mwripVZszg6tygfZSIL9kYFPJTNY6+Q6OjWGznl2L06vxG5HvNvAnWrnzbg==}
     dev: true
 
-  /vue-component-type-helpers@1.8.5:
-    resolution: {integrity: sha512-SBNsskF7L5x604V1BN4ZzdTtWgCqo5cfl//YuBXtc3LLyPdFRqUeJn2Q+FPNmCtl23LBT2tH79M/uv13fL0MgQ==}
+  /vue-component-type-helpers@1.8.6:
+    resolution: {integrity: sha512-vKWeoKVEV51ZzoB8+UY0apMXiifbPQxWlcZlvQRDVdiOHmEkCBClWeIGbqQ8cCR9P4j+oCyLW87sraZFMz/qnA==}
     dev: true
 
   /vue-demi@0.14.5(vue@3.3.4):
