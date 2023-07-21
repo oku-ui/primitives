@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/example",
+  "name": "@oku-ui/switch",
   "type": "module",
   "version": "0.0.0",
   "license": "MIT",
@@ -34,7 +34,12 @@
   "peerDependencies": {
     "vue": "^3.3.4"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
+  },
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

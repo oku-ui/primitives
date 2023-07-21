@@ -1,12 +1,21 @@
 // same inspiration and resource https://github.com/chakra-ui/ark/blob/main/packages/vue/src/factory.tsx
 
 import type {
+  ComponentPropsOptions,
   ComponentPublicInstance,
   DefineComponent,
   FunctionalComponent,
+  HTMLAttributes,
   IntrinsicElementAttributes,
 } from 'vue'
-import { cloneVNode, defineComponent, getCurrentInstance, h, mergeProps, onMounted } from 'vue'
+import {
+  cloneVNode,
+  defineComponent,
+  getCurrentInstance,
+  h,
+  mergeProps,
+  onMounted,
+} from 'vue'
 import { isValidVNodeElement, renderSlotFragments } from './utils'
 
 const NODES = [
@@ -52,6 +61,22 @@ interface PrimitiveProps {
   asChild?: boolean
 }
 
+type PrimitivePropsWithRef<E extends keyof HTMLElementTagNameMap> =
+  HTMLAttributes &
+  ComponentPropsOptions & {
+    asChild?: boolean
+  }
+
+type PropsWithoutRef<P> = P extends any
+  ? 'ref' extends keyof P
+    ? Pick<P, Exclude<keyof P, 'ref'>>
+    : P
+  : P
+
+type ComponentPropsWithoutRef<
+  T extends keyof HTMLElementTagNameMap | DefineComponent<any>,
+> = PropsWithoutRef<ComponentPropsOptions<T>>
+
 type Primitives = {
   [E in (typeof NODES)[number]]: DefineComponent<{
     asChild?: boolean
@@ -78,9 +103,14 @@ const Primitive = NODES.reduce((primitive, node) => {
       const Tag: any = props.asChild ? 'slot' : node
 
       if (!props.asChild) {
-        return () => h(Tag, { ...attrs }, {
-          default: () => slots.default && slots.default(),
-        })
+        return () =>
+          h(
+            Tag,
+            { ...attrs },
+            {
+              default: () => slots.default && slots.default(),
+            },
+          )
       }
       else {
         return () => {
@@ -167,4 +197,6 @@ export type {
   PrimitiveProps,
   RefElement,
   ElementType,
+  PrimitivePropsWithRef,
+  ComponentPropsWithoutRef,
 }
