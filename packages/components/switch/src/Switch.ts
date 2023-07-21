@@ -160,8 +160,8 @@ const Switch = defineComponent({
               updateValue(!state.value)
 
               if (isFormControl.value) {
-                // hasConsumerStoppedPropagationRef.value =
-                //   event.isPropagationStopped();
+                // hasConsumerStoppedPropagationRef.value
+                //   = event.isPropagationStopped()
                 // if switch is in a form, stop propagation from the button so that we only propagate
                 // one click event (from the input). We propagate changes from an input so that native
                 // form validation works and form events reflect switch updates.
