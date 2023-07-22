@@ -37,7 +37,7 @@ const ProgressIndicator = defineComponent({
     const context = useProgressContext(INDICATOR_NAME, scopeProgress)
 
     expose({
-      inferRef: $el,
+      innerRef: $el,
     })
 
     const originalReturn = () =>

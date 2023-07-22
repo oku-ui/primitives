@@ -1,12 +1,17 @@
 import type { StorybookConfig } from "@storybook/vue3-vite";
-import {globbySync} from "globby"
+// import { globbySync } from "globby";
+
 const config: StorybookConfig = {
-  stories: globbySync(['../stories/*.mdx', `../**/*.stories.@(js|jsx|ts|tsx)`, "!../**/node_modules/**/*"], { cwd: "./.storybook" }),
+  stories: [
+    "../stories/*.mdx",
+    `../**/*.stories.@(js|jsx|ts|tsx)`,
+    "!../**/node_modules/**/*",
+  ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "storybook-dark-mode"
+    "storybook-dark-mode",
   ],
   framework: {
     name: "@storybook/vue3-vite",
@@ -16,9 +21,9 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   viteFinal(config) {
-      config.plugins = config.plugins || []
+    config.plugins = config.plugins || [];
 
-     return config
-  }
+    return config;
+  },
 };
 export default config;

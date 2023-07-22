@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   vue: 3.3.4
   '@vue/runtime-core': 3.3.4
@@ -51,6 +55,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:packages/components/switch
       '@oku-ui/toggle':
         specifier: workspace:^
         version: link:packages/components/toggle
@@ -377,6 +384,28 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/switch:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/toggle:
     dependencies:
       '@oku-ui/primitive':
@@ -485,6 +514,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:../../packages/components/switch
     devDependencies:
       '@nuxtjs/tailwindcss':
         specifier: ^6.8.0
@@ -3902,7 +3934,7 @@ packages:
       remark-slug: 6.1.0
       rollup: 3.26.2
       typescript: 5.1.6
-      vite: 4.3.5(@types/node@18.16.19)
+      vite: 4.3.5
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4466,7 +4498,7 @@ packages:
       magic-string: 0.27.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      vite: 4.3.5(@types/node@18.16.19)
+      vite: 4.3.5
       vue-docgen-api: 4.71.0(vue@3.3.4)
     transitivePeerDependencies:
       - '@preact/preset-vite'
@@ -4493,7 +4525,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.4
-      vue-component-type-helpers: 1.8.5
+      vue-component-type-helpers: 1.8.6
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4739,6 +4771,7 @@ packages:
 
   /@types/node@18.16.19:
     resolution: {integrity: sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==}
+    dev: true
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -5102,7 +5135,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.5(@types/node@18.16.19)
+      vite: 4.3.5
       vue: 3.3.4
     dev: true
 
@@ -13809,7 +13842,7 @@ packages:
       debug: 4.3.4
       kolorist: 1.8.0
       typescript: 5.1.6
-      vite: 4.3.5(@types/node@18.16.19)
+      vite: 4.3.5
       vue-tsc: 1.8.5(typescript@5.1.6)
     transitivePeerDependencies:
       - '@types/node'
@@ -13834,11 +13867,42 @@ packages:
       json5: 2.2.3
       local-pkg: 0.4.3
       picocolors: 1.0.0
-      vite: 4.3.5(@types/node@18.16.19)
+      vite: 4.3.5
       yaml: 2.3.1
     transitivePeerDependencies:
       - supports-color
     dev: false
+
+  /vite@4.3.5:
+    resolution: {integrity: sha512-0gEnL9wiRFxgz40o/i/eTBwm+NEbpUeTWhzKrZDSdKm6nplj+z4lKz8ANDgildxHm47Vg8EUia0aicKbawUVVA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.17.19
+      postcss: 8.4.25
+      rollup: 3.22.0
+    optionalDependencies:
+      fsevents: 2.3.2
 
   /vite@4.3.5(@types/node@18.16.18):
     resolution: {integrity: sha512-0gEnL9wiRFxgz40o/i/eTBwm+NEbpUeTWhzKrZDSdKm6nplj+z4lKz8ANDgildxHm47Vg8EUia0aicKbawUVVA==}
@@ -13904,6 +13968,7 @@ packages:
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /vitest-axe@0.1.0(vitest@0.33.0):
     resolution: {integrity: sha512-jvtXxeQPg8R/2ANTY8QicA5pvvdRP4F0FsVUAHANJ46YCDASie/cuhlSzu0DGcLmZvGBSBNsNuK3HqfaeknyvA==}
@@ -14039,8 +14104,8 @@ packages:
     resolution: {integrity: sha512-iGdlqtajmiqed8ptURKPJ/Olz0/mwripVZszg6tygfZSIL9kYFPJTNY6+Q6OjWGznl2L06vxG5HvNvAnWrnzbg==}
     dev: true
 
-  /vue-component-type-helpers@1.8.5:
-    resolution: {integrity: sha512-SBNsskF7L5x604V1BN4ZzdTtWgCqo5cfl//YuBXtc3LLyPdFRqUeJn2Q+FPNmCtl23LBT2tH79M/uv13fL0MgQ==}
+  /vue-component-type-helpers@1.8.6:
+    resolution: {integrity: sha512-vKWeoKVEV51ZzoB8+UY0apMXiifbPQxWlcZlvQRDVdiOHmEkCBClWeIGbqQ8cCR9P4j+oCyLW87sraZFMz/qnA==}
     dev: true
 
   /vue-demi@0.14.5(vue@3.3.4):
@@ -14528,7 +14593,3 @@ packages:
       compress-commons: 4.1.1
       readable-stream: 3.6.2
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

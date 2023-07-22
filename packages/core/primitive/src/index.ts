@@ -1,5 +1,10 @@
-export {
-  OkuPrimitive,
-  Primitive,
+export { OkuPrimitive, Primitive } from './primitive'
+export type {
+  ComponentProps,
+  RefElement,
+  MergeProps,
+  PrimitiveProps,
+  ElementType,
+  PrimitivePropsWithRef,
+  ComponentPropsWithoutRef,
 } from './primitive'
-export type { ComponentProps, RefElement, MergeProps, PrimitiveProps, ElementType } from './primitive'

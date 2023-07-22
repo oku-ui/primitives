@@ -16,8 +16,8 @@
     "dev:all": "turbo run dev --filter='./packages/**' --concurrency $(($(ls -1 packages/components packages/core | wc -l)+3))",
     "dev:core": "turbo run dev --filter='./packages/core/**'",
     "dev:components": "turbo run dev --filter='./packages/components/**'",
-    "lint": "eslint --cache .",
-    "lint:fix": "eslint --fix --cache .",
+    "lint": "eslint --cache \"*.{[jt]s?(x),vue}\"",
+    "lint:fix": "eslint --fix --cache \"*.{[jt]s?(x),vue}\"",
     "play:vue": "pnpm clean:dts && turbo run dev --filter='./playground/vue3/**'",
     "play:nuxt": "pnpm clean:dts && turbo run dev --filter='./playground/nuxt3/**'",
     "play": "pnpm clean:dts && turbo run dev --filter='./playground/**'",
@@ -47,6 +47,7 @@
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/provide": "workspace:^",
     "@oku-ui/separator": "workspace:^",
+    "@oku-ui/switch": "workspace:^",
     "@oku-ui/toggle": "workspace:^",
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",
@@ -100,8 +101,8 @@
     "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
-    "*.{[jt]s?(x),vue,md}": [
-      "eslint --cache --fix ."
+    "*.{[jt]s?(x),vue}": [
+      "npx pnpm lint:fix"
     ]
   }
 }
