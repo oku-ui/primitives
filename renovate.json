@@ -13,7 +13,8 @@
   "rangeStrategy": "bump",
   "ignoreDeps": [
     "node",
-    "pnpm"
+    "pnpm",
+    "peerDependencies"
   ],
   "packageRules": [
     {
