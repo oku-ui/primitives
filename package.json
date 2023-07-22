@@ -101,7 +101,7 @@
     "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
-    "*.{[jt]s?(x),vue,md}": [
+    "*.{[jt]s?(x),vue}": [
       "eslint --cache --fix ."
     ]
   }
