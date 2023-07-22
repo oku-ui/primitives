@@ -11,7 +11,7 @@ defineProps<IVisuallyHiddenProps>()
 </script>
 
 <template>
-  <button>
+  <button class="bg-gray-200 w-10 h-10">
     <OkuVisuallyHidden>Save the file</OkuVisuallyHidden>
     <span aria-hidden>💾</span>
   </button>

@@ -1,9 +1,9 @@
-# `@oku-ui/example`
+# `@oku-ui/visually-hidden`
 
 ## Installation
 
 ```sh
-$ pnpm add @oku-ui/example
+$ pnpm add @oku-ui/visually-hidden
 ```
 
 ## Usage
