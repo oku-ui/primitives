@@ -61,7 +61,7 @@ const Switch = defineComponent({
     },
     checked: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     defaultChecked: {
       type: Boolean,
@@ -122,7 +122,7 @@ const Switch = defineComponent({
     })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value || checkedProp.value),
+      prop: computed(() => modelValue.value ?? checkedProp.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (value: boolean) => {
         onCheckedChange.value?.(value)
@@ -146,12 +146,12 @@ const Switch = defineComponent({
         {
           'type': 'button',
           'role': 'switch',
-          'aria-checked': toValue(state.value ?? false),
+          'aria-checked': toValue(state.value),
           'aria-required': required.value,
           'data-disabled': disabled.value ? '' : undefined,
           'disabled': disabled.value,
           'value': switchValue.value,
-          'data-state': getState(state.value ?? false),
+          'data-state': getState(state.value),
           'ref': button,
           'asChild': props.asChild,
           ...switchProps,

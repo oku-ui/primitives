@@ -22,7 +22,9 @@ function useControllable<T>(data: {
   }
 
   return {
-    state: computed(() => (isControlled.value ? data.prop.value : internalValue.value)),
+    state: computed(() =>
+      isControlled.value ? data.prop.value : internalValue.value,
+    ),
     updateValue,
   }
 }
