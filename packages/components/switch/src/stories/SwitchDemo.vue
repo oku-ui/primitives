@@ -87,8 +87,10 @@ const checkedActive = ref(true)
   </div>
 </template>
 
-<style lang="css">
+<style lang="postcss">
 .switchStyle {
+  font-size: 0px;
+  display: inline-block;
   vertical-align: middle;
   text-align: left;
   outline: none;
@@ -98,10 +100,10 @@ const checkedActive = ref(true)
   border-radius: 9999px;
   background-color: grey;
   -webkit-transition: 0.4s;
-  transition: background-color 0.4s ease-out;
+  transition: background-color 166ms ease-out;
 
   &:focus {
-    @apply outline-none;
+    @apply outline-none shadow-sm;
   }
 
   &[data-state="checked"] {
@@ -120,11 +122,9 @@ const checkedActive = ref(true)
   height: 20px;
   background-color: white;
   border-radius: 9999px;
-  transition: transform 0.3s ease-out;
+  transition: transform 166ms ease-out 0s;
   &[data-state="checked"] {
-    -webkit-transform: translateX(24px);
-    -ms-transform: translateX(24px);
-    transform: translateX(24px);
+    transform: translateX(22px);
   }
 }
 </style>

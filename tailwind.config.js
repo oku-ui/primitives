@@ -19,4 +19,7 @@ export default {
       collections: getIconCollections(['ph']),
     }),
   ],
+  corePlugins: {
+    preflight: false,
+  },
 }

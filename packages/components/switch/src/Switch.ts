@@ -140,7 +140,7 @@ const Switch = defineComponent({
     })
 
     const originalReturn = () =>
-      h(Primitive.div, [
+      [
         h(
           Primitive.button,
           {
@@ -184,7 +184,7 @@ const Switch = defineComponent({
             disabled: disabled.value,
             style: { transform: 'translateX(-100%)' },
           }),
-      ])
+      ]
 
     return originalReturn as unknown as {
       innerRef: SwitchElement
