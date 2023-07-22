@@ -61,7 +61,7 @@ const Switch = defineComponent({
     },
     checked: {
       type: Boolean,
-      default: undefined,
+      default: false,
     },
     defaultChecked: {
       type: Boolean,
@@ -140,52 +140,51 @@ const Switch = defineComponent({
       innerRef: $el,
     })
 
-    const originalReturn = () =>
-      [
-        h(
-          Primitive.button,
-          {
-            'type': 'button',
-            'role': 'switch',
-            'aria-checked': toValue(state.value ?? false),
-            'aria-required': required.value,
-            'data-disabled': disabled.value ? '' : undefined,
-            'disabled': disabled.value,
-            'value': switchValue.value,
-            'data-state': getState(state.value ?? false),
-            'ref': button,
-            'asChild': props.asChild,
-            ...switchProps,
-            'onClick': composeEventHandlers(switchProps.onClick, (event) => {
-              updateValue(!state.value)
+    const originalReturn = () => [
+      h(
+        Primitive.button,
+        {
+          'type': 'button',
+          'role': 'switch',
+          'aria-checked': toValue(state.value ?? false),
+          'aria-required': required.value,
+          'data-disabled': disabled.value ? '' : undefined,
+          'disabled': disabled.value,
+          'value': switchValue.value,
+          'data-state': getState(state.value ?? false),
+          'ref': button,
+          'asChild': props.asChild,
+          ...switchProps,
+          'onClick': composeEventHandlers(switchProps.onClick, (event) => {
+            updateValue(!state.value)
 
-              if (isFormControl.value) {
-                // hasConsumerStoppedPropagationRef.value
-                //   = event.isPropagationStopped()
-                // if switch is in a form, stop propagation from the button so that we only propagate
-                // one click event (from the input). We propagate changes from an input so that native
-                // form validation works and form events reflect switch updates.
-                if (!hasConsumerStoppedPropagationRef.value)
-                  event.stopPropagation()
-              }
-            }),
-          },
-          {
-            default: () => slots.default?.(),
-          },
-        ),
-        isFormControl.value
-          && h(BubbleInput, {
-            control: button,
-            bubbles: !hasConsumerStoppedPropagationRef.value,
-            name: name.value,
-            value: switchValue.value,
-            checked: state.value,
-            required: required.value,
-            disabled: disabled.value,
-            style: { transform: 'translateX(-100%)' },
+            if (isFormControl.value) {
+              // hasConsumerStoppedPropagationRef.value
+              //   = event.isPropagationStopped()
+              // if switch is in a form, stop propagation from the button so that we only propagate
+              // one click event (from the input). We propagate changes from an input so that native
+              // form validation works and form events reflect switch updates.
+              if (!hasConsumerStoppedPropagationRef.value)
+                event.stopPropagation()
+            }
           }),
-      ]
+        },
+        {
+          default: () => slots.default?.(),
+        },
+      ),
+      isFormControl.value
+        && h(BubbleInput, {
+          control: button,
+          bubbles: !hasConsumerStoppedPropagationRef.value,
+          name: name.value,
+          value: switchValue.value,
+          checked: state.value,
+          required: required.value,
+          disabled: disabled.value,
+          style: { transform: 'translateX(-100%)' },
+        }),
+    ]
 
     return originalReturn as unknown as {
       innerRef: SwitchElement
