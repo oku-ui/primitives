@@ -18,6 +18,4 @@ import { OkuSwitch, OkuSwitchThumb } from '@oku-ui/switch';
       <OkuSwitchThumb class="thumbStyle" />
     </OkuSwitch>
 </template>
-
 ```
-...
