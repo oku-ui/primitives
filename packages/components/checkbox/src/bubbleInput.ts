@@ -48,7 +48,7 @@ const OkuBubbleInput = defineComponent({
       const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
       const setChecked = descriptor.set
 
-      if (prevChecked !== checked.value && setChecked) {
+      if (prevChecked.value !== checked.value && setChecked) {
         const event = new Event('click', { bubbles: bubbles.value })
         input.indeterminate = isIndeterminate(checked.value)
         setChecked.call(input, isIndeterminate(checked.value) ? false : checked)

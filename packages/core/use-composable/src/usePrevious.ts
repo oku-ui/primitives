@@ -1,22 +1,24 @@
-import { getCurrentInstance, ref, watch } from 'vue'
+import type { Ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
-function usePrevious<T>(value: T) {
-  // We compare values before making an update to ensure that
-  // a change has been made. This ensures the previous value is
-  // persisted correctly between renders.
+function usePrevious<T>(newData: Ref<T>) {
+  const previousValue = ref<T>()
+  const currentValue = ref<T>()
 
-  const _ref = ref({ value, previous: value })
-  const instance = getCurrentInstance()
-  if (!instance)
-    throw new Error('usePrevious must be called within a setup function.')
+  previousValue.value = newData.value
+  currentValue.value = newData.value
 
-  watch(() => value, () => {
-    if (_ref.value.value !== value) {
-      _ref.value.previous = _ref.value.value
-      _ref.value.value = value as any
+  watch(newData, () => {
+    if (currentValue.value !== newData.value) {
+      previousValue.value = currentValue.value
+      currentValue.value = newData.value
     }
   })
-  return _ref.value.previous
+
+  // Create a computed property for easy access to the previous value
+  const previous = computed(() => previousValue.value)
+
+  return previous
 }
 
 export { usePrevious }

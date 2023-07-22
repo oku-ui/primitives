@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { SwitchProps } from '@oku-ui/switch'
+import { OkuLabel } from '@oku-ui/label'
 import { OkuSwitch, OkuSwitchThumb } from '@oku-ui/switch'
 import { ref } from 'vue'
 
 export interface ISwitchProps extends SwitchProps {
-  template?: '#1' | '#2'
+  template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }
 
@@ -12,6 +13,28 @@ defineProps<ISwitchProps>()
 
 const checked = ref<boolean>(false)
 const checkedActive = ref(true)
+
+const data = ref()
+
+function setData(event: any) {
+  const input = event.target as HTMLInputElement
+  data.value = {
+    ...data.value,
+    [input.name]: input.value,
+  }
+  // eslint-disable-next-line no-console
+  console.log(data.value)
+}
+function sendForm(event: any) {
+  // eslint-disable-next-line no-console
+  console.log(event, 'sendForm')
+  data.value = {
+    ...data.value,
+    [event.target.name]: event.target.value,
+  }
+  // eslint-disable-next-line no-console
+  console.log(data.value)
+}
 </script>
 
 <template>
@@ -82,6 +105,36 @@ const checkedActive = ref(true)
         >
           <OkuSwitchThumb class="thumbStyle" />
         </OkuSwitch>
+      </div>
+
+      <!-- With Form -->
+      <div v-if="template === '#3' || allshow">
+        <h1 class="text-3xl">
+          With Form
+        </h1>
+        <form
+          class="grid grid-cols-1 gap-5"
+          @submit.prevent="sendForm"
+          @change="setData"
+        >
+          <OkuLabel>
+            <OkuSwitch id="switch" v-model="checked" class="switchStyle">
+              <OkuSwitchThumb class="thumbStyle" />
+            </OkuSwitch>
+            asdas
+          </OkuLabel>
+
+          <legend>required checked</legend>
+
+          <OkuSwitch id="switch" class="switchStyle" name="requid" required>
+            <OkuSwitchThumb class="thumbStyle" />
+          </OkuSwitch>
+          <div>
+            <button type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

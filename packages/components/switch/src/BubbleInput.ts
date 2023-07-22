@@ -10,7 +10,7 @@ import {
   onMounted,
   ref,
   toRefs,
-  watch,
+  watchEffect,
 } from 'vue'
 
 const BUBBLE_INPUT = 'OkuBubbleInput'
@@ -29,22 +29,20 @@ export const BubbleInput = defineComponent({
   props: {
     checked: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     bubbles: {
       type: Boolean,
-      default: true,
+      default: undefined,
     },
     control: {
       type: Object,
-      required: true,
+      required: undefined,
     },
   },
   setup(props, { attrs, expose }) {
     const { control, checked, bubbles } = toRefs(props)
-
-    const { ...inputProps } = attrs as InputElement
-
+    const { ...inputAttrs } = attrs as InputElement
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevChecked = usePrevious(checked)
     const controlSize = useSize(control as Ref<HTMLElement>)
@@ -52,26 +50,23 @@ export const BubbleInput = defineComponent({
     const { $el } = useRef<InputElement>()
 
     onMounted(() => {
-      watch(
-        [prevChecked, checked, bubbles],
-        () => {
-          const input = inputRef.value!
-          const inputProto = window.HTMLInputElement.prototype
-          const descriptor = Object.getOwnPropertyDescriptor(
-            inputProto,
-            'checked',
-          ) as PropertyDescriptor
-          const setChecked = descriptor.set
+      watchEffect(() => {
+        const input = inputRef.value!
+        const inputProto = window.HTMLInputElement.prototype
+        const descriptor = Object.getOwnPropertyDescriptor(
+          inputProto,
+          'checked',
+        ) as PropertyDescriptor
+        const setChecked = descriptor.set
 
-          if (prevChecked !== checked.value && setChecked) {
-            const event = new Event('click', { bubbles: bubbles.value })
-            setChecked.call(input, checked.value)
-            input.dispatchEvent(event)
-          }
-        },
-        { immediate: true },
-      )
+        if (prevChecked.value !== checked.value && setChecked) {
+          const event = new Event('click', { bubbles: bubbles.value })
+          setChecked.call(input, checked.value)
+          input.dispatchEvent(event)
+        }
+      })
     })
+
     expose({
       innerRef: $el,
     })
@@ -81,12 +76,13 @@ export const BubbleInput = defineComponent({
         'type': 'checkbox',
         'aria-hidden': true,
         'defaultChecked': checked.value,
-        ...inputProps,
+        // TODO: 'value': inputAttrs.value does not work
+        ...inputAttrs,
         'tabindex': -1,
         'ref': inputRef,
         'style': {
-          ...((inputProps.style as CSSProperties) || {}),
-          ...controlSize,
+          ...((inputAttrs.style as CSSProperties) || {}),
+          ...controlSize.value,
           position: 'absolute',
           pointerEvents: 'none',
           opacity: 0,

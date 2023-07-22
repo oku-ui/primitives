@@ -53,6 +53,7 @@ const Switch = defineComponent({
   props: {
     modelValue: {
       type: Boolean as PropType<boolean>,
+      default: undefined,
     },
     name: {
       type: String,
@@ -60,7 +61,7 @@ const Switch = defineComponent({
     },
     checked: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     defaultChecked: {
       type: Boolean,
