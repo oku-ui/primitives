@@ -16,6 +16,7 @@ We're so excited you're interested in helping with Oku! We are happy to help you
 -   [Min Nodejs 16] & [PNPM](https://pnpm.io) installed
 -   IDE: [VSCode](https://code.visualstudio.com/download)(recommended) or equivalent IDE
 
+Note: If you have [nvm](https://github.com/nvm-sh/nvm), you can run `nvm i` to install the required version.
 
 ### VScode Extensions
 
