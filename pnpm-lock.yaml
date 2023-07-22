@@ -168,7 +168,7 @@ importers:
         version: 1.2.1
       vite:
         specifier: 4.3.5
-        version: 4.3.5(@types/node@18.16.19)
+        version: 4.3.5
       vite-plugin-dts:
         specifier: ^3.3.0
         version: 3.3.0(rollup@3.21.0)(typescript@5.1.6)(vite@4.3.5)
@@ -191,7 +191,7 @@ importers:
         specifier: latest
         version: link:../../core/use-composable
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -204,7 +204,7 @@ importers:
         specifier: latest
         version: link:../../core/primitive
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -226,7 +226,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -248,7 +248,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -292,7 +292,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -361,7 +361,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -377,7 +377,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -399,7 +399,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -421,7 +421,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -431,7 +431,7 @@ importers:
   packages/core/primitive:
     dependencies:
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -441,7 +441,7 @@ importers:
   packages/core/provide:
     dependencies:
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -457,7 +457,7 @@ importers:
         specifier: ^10.2.1
         version: 10.2.1(vue@3.3.4)
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       '@types/resize-observer-browser':
@@ -482,7 +482,7 @@ importers:
   packages/example-package:
     dependencies:
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -572,7 +572,7 @@ importers:
         version: 0.25.1(rollup@3.21.0)(vue@3.3.4)
       vite:
         specifier: 4.3.5
-        version: 4.3.5(@types/node@18.16.19)
+        version: 4.3.5
       vue-tsc:
         specifier: ^1.8.5
         version: 1.8.5(typescript@5.1.6)
@@ -13931,7 +13931,7 @@ packages:
     dependencies:
       '@types/node': 18.16.18
       esbuild: 0.17.19
-      postcss: 8.4.25
+      postcss: 8.4.26
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
@@ -13964,7 +13964,7 @@ packages:
     dependencies:
       '@types/node': 18.16.19
       esbuild: 0.17.19
-      postcss: 8.4.25
+      postcss: 8.4.26
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
