@@ -48,6 +48,7 @@
     "@oku-ui/provide": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/switch": "workspace:^",
+    "@oku-ui/visually-hidden": "workspace:^",
     "@oku-ui/toggle": "workspace:^",
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",
@@ -102,7 +103,7 @@
   },
   "lint-staged": {
     "*.{[jt]s?(x),vue}": [
-      "npx pnpm lint:fix"
+      "pnpm lint:fix"
     ]
   }
 }

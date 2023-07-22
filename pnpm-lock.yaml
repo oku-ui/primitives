@@ -67,6 +67,9 @@ importers:
       '@oku-ui/utils':
         specifier: workspace:^
         version: link:packages/core/utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:packages/components/visually-hidden
       '@storybook/addon-essentials':
         specifier: ^7.0.27
         version: 7.0.27(react-dom@18.2.0)(react@18.2.0)
@@ -168,7 +171,7 @@ importers:
         version: 1.2.1
       vite:
         specifier: 4.3.5
-        version: 4.3.5
+        version: 4.3.5(@types/node@18.16.19)
       vite-plugin-dts:
         specifier: ^3.3.0
         version: 3.3.0(rollup@3.21.0)(typescript@5.1.6)(vite@4.3.5)
@@ -428,6 +431,22 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/visually-hidden:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/core/primitive:
     dependencies:
       vue:
@@ -572,7 +591,7 @@ importers:
         version: 0.25.1(rollup@3.21.0)(vue@3.3.4)
       vite:
         specifier: 4.3.5
-        version: 4.3.5
+        version: 4.3.5(@types/node@18.16.19)
       vue-tsc:
         specifier: ^1.8.5
         version: 1.8.5(typescript@5.1.6)
@@ -13931,7 +13950,7 @@ packages:
     dependencies:
       '@types/node': 18.16.18
       esbuild: 0.17.19
-      postcss: 8.4.26
+      postcss: 8.4.25
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
@@ -13964,7 +13983,7 @@ packages:
     dependencies:
       '@types/node': 18.16.19
       esbuild: 0.17.19
-      postcss: 8.4.26
+      postcss: 8.4.25
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
