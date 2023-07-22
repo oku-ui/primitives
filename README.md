@@ -55,6 +55,20 @@ Enter the component you want most in the components, leave the emojis and follow
 
 ---
 
+<!-- Table Components -->
+
+## Table of Contents
+
+| Component | Description | Status | Docs |
+| --- | --- | --- | --- |
+| [Accordion](https://github.com/oku-ui/primitives/issues/3) | A group of collapsible panels | 🚧 In Progress | -  |
+| [Alert Dialog](https://github.com/oku-ui/primitives/issues/4) | A modal dialog that interrupts the user's workflow to get a response | 🚧 In Progress | -  |
+| <span><a href="https://www.npmjs.com/package/@oku-ui/aspect-ratio "><img src="https://img.shields.io/npm/v/nuxt.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/aspect-ratio"><img src="https://img.shields.io/npm/dm/@oku-ui/aspect-ratio.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a> </span> | <span> <a href="./LICENSE"><img src="https://img.shields.io/github/license/oku-ui/primitives.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="License"></a> </span> | <span> <a href="https://https://oku-ui.com/primitives"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Aspect Ratio](hhttps://github.com/oku-ui/primitives/issues/1) | A component that maintains the aspect ratio of its content when resized | ✅ Done | [Aspect Ratio](https://oku-ui.com/components/aspect-ratio) |
+
+ 
+| [Alert Dialog](https://github.com/oku-ui/primitives/issues/4) | A modal dialog that interrupts the user's workflow to get a response | 🚧 In Progress | -  |
+
 ## Community
 
 - [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.
