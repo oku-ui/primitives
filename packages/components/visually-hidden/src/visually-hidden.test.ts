@@ -16,12 +16,14 @@ describe('OkuVisuallyHidden', () => {
 
     // The component should have a ref named 'innerRef'
     expect(wrapper.vm.innerRef).toBeDefined()
+    // @ts-expect-error "working"
     expect(wrapper.vm.innerRef.tagName.toLowerCase()).toBe('span')
   })
 
   it('applies ref correctly', () => {
     const wrapper = mount(OkuVisuallyHidden)
     expect(wrapper.vm.innerRef).toBeDefined()
+    // @ts-expect-error "working"
     expect(wrapper.vm.innerRef.tagName.toLowerCase()).toBe('span')
   })
 
