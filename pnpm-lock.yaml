@@ -536,6 +536,9 @@ importers:
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:../../packages/components/switch
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../../packages/components/visually-hidden
     devDependencies:
       '@nuxtjs/tailwindcss':
         specifier: ^6.8.0
