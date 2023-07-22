@@ -168,7 +168,7 @@ importers:
         version: 1.2.1
       vite:
         specifier: 4.3.5
-        version: 4.3.5
+        version: 4.3.5(@types/node@18.16.18)
       vite-plugin-dts:
         specifier: ^3.3.0
         version: 3.3.0(rollup@3.21.0)(typescript@5.1.6)(vite@4.3.5)
@@ -489,6 +489,40 @@ importers:
         specifier: workspace:^
         version: link:../tsconfig
 
+  packages/primitives:
+    dependencies:
+      '@oku-ui/aspect-ratio':
+        specifier: latest
+        version: link:../components/aspect-ratio
+      '@oku-ui/avatar':
+        specifier: latest
+        version: link:../components/avatar
+      '@oku-ui/checkbox':
+        specifier: latest
+        version: link:../components/checkbox
+      '@oku-ui/collapsible':
+        specifier: latest
+        version: link:../components/collapsible
+      '@oku-ui/label':
+        specifier: latest
+        version: link:../components/label
+      '@oku-ui/progress':
+        specifier: latest
+        version: link:../components/progress
+      '@oku-ui/separator':
+        specifier: latest
+        version: link:../components/separator
+      '@oku-ui/toggle':
+        specifier: latest
+        version: link:../components/toggle
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../tsconfig
+
   packages/tsconfig: {}
 
   playground/nuxt3:
@@ -508,6 +542,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
+      '@oku-ui/primitives':
+        specifier: workspace:^
+        version: link:../../packages/primitives
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../../packages/components/progress
@@ -572,7 +609,7 @@ importers:
         version: 0.25.1(rollup@3.21.0)(vue@3.3.4)
       vite:
         specifier: 4.3.5
-        version: 4.3.5
+        version: 4.3.5(@types/node@18.16.18)
       vue-tsc:
         specifier: ^1.8.5
         version: 1.8.5(typescript@5.1.6)
@@ -13931,7 +13968,7 @@ packages:
     dependencies:
       '@types/node': 18.16.18
       esbuild: 0.17.19
-      postcss: 8.4.26
+      postcss: 8.4.25
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2
@@ -13964,7 +14001,7 @@ packages:
     dependencies:
       '@types/node': 18.16.19
       esbuild: 0.17.19
-      postcss: 8.4.26
+      postcss: 8.4.25
       rollup: 3.22.0
     optionalDependencies:
       fsevents: 2.3.2

@@ -16,6 +16,7 @@
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/primitives": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/switch": "workspace:^"
