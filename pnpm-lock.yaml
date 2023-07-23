@@ -570,6 +570,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:../../packages/components/switch
       vite-plugin-pages:
         specifier: ^0.31.0
         version: 0.31.0(vite@4.3.5)

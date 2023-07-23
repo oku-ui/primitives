@@ -17,6 +17,7 @@
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/separator": "workspace:^",
+    "@oku-ui/switch": "workspace:^",
     "vite-plugin-pages": "^0.31.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"

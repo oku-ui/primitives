@@ -40,6 +40,10 @@ const pages: Page[] = [
     name: 'OkuCollapsible',
     path: '/collapsible',
   },
+  {
+    name: 'OkuSwitch',
+    path: '/switch',
+  },
 ]
 </script>
 
