@@ -1,5 +1,5 @@
 import type { ComponentPublicInstance, PropType } from 'vue'
-import { computed, defineComponent, h, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
 import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
@@ -30,9 +30,14 @@ const AvatarImage = defineComponent({
       type: Object as unknown as PropType<Scope>,
       required: false,
     },
+    src: {
+      type: String,
+      required: true,
+    },
   },
   setup(props, { attrs, slots, expose }) {
-    const { src, ...imageProps } = attrs as AvatarImageElement
+    const { src } = toRefs(props)
+    const { ...imageProps } = attrs as AvatarImageElement
     const inject = useAvatarInject(IMAGE_NAME, props.scopeAvatar)
     const innerRef = ref<ComponentPublicInstance>()
     const imageLoadingStatus = useImageLoadingStatus(src)
@@ -60,7 +65,7 @@ const AvatarImage = defineComponent({
       ? h(
         Primitive.img, {
           ...imageProps,
-          src,
+          src: src.value,
           ref: innerRef,
         },
         {
