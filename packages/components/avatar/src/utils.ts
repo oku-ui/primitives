@@ -1,21 +1,22 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+import type { Ref } from 'vue'
+import { onBeforeUnmount, ref, watchEffect } from 'vue'
 
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
-export function useImageLoadingStatus(src?: string) {
+export function useImageLoadingStatus(src: Ref<string>) {
+  const mounted = ref(true)
   const loadingStatus = ref<ImageLoadingStatus>('idle')
 
-  onMounted(() => {
+  watchEffect(() => {
     if (!src) {
       loadingStatus.value = 'error'
       return
     }
 
-    let isMounted = true
     const image = new window.Image()
 
     const updateStatus = (status: ImageLoadingStatus) => () => {
-      if (!isMounted)
+      if (!mounted.value)
         return
       loadingStatus.value = status
     }
@@ -23,11 +24,11 @@ export function useImageLoadingStatus(src?: string) {
     loadingStatus.value = 'loading'
     image.onload = updateStatus('loaded')
     image.onerror = updateStatus('error')
-    image.src = src
+    image.src = src.value
+  })
 
-    onUnmounted(() => {
-      isMounted = false
-    })
+  onBeforeUnmount(() => {
+    mounted.value = false
   })
 
   return loadingStatus
