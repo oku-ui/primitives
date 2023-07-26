@@ -7,6 +7,7 @@ export { usePrevious } from './usePrevious'
 export { useRef } from './useRef'
 export { unrefElement } from './unrefElement'
 export { useId } from './useId'
+export { useEscapeKeydown } from './useEscapeKeydown'
 export type { MaybeComputedElementRef } from './unrefElement'
 
 export { computedEager, syncRef }
