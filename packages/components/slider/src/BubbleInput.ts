@@ -21,6 +21,22 @@ export const BubbleInput = defineComponent({
       type: Number,
       default: undefined,
     },
+    name: {
+      type: String,
+      default: undefined,
+    },
+    min: {
+      type: Number,
+      default: undefined,
+    },
+    max: {
+      type: Number,
+      default: undefined,
+    },
+    step: {
+      type: Number,
+      default: undefined,
+    },
     bubbles: {
       type: Boolean,
       default: undefined,
@@ -31,7 +47,7 @@ export const BubbleInput = defineComponent({
     },
   },
   setup(props, { attrs, expose }) {
-    const { control, value, bubbles } = toRefs(props)
+    const { control, value, name, bubbles, min, max, step } = toRefs(props)
     const { ...inputAttrs } = attrs as InputElement
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevValue = usePrevious(value)
@@ -63,9 +79,13 @@ export const BubbleInput = defineComponent({
 
     const originReturn = () =>
       h('input', {
-        'type': 'range',
+        'type': 'number',
         'aria-hidden': true,
         'defaultValue': value.value,
+        'name': name.value,
+        'min': min.value,
+        'max': max.value,
+        'step': step.value,
         ...inputAttrs,
         'tabindex': -1,
         'ref': inputRef,

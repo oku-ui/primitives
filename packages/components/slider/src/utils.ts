@@ -10,3 +10,8 @@ export function roundValue(value: number, decimalCount: number) {
 export function clamp(value: number, [min, max]: [number, number]): number {
   return Math.min(max, Math.max(min, value))
 }
+
+export function nearestValue(value: number, min: number, max: number, step: number) {
+  const steps = Math.round((value - min) / step)
+  return steps * step + min
+}

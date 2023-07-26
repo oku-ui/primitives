@@ -1,7 +1,14 @@
-import { computed, defineComponent, h, onMounted, ref, toRefs, useModel } from 'vue'
 import type { ComputedRef, PropType, Ref } from 'vue'
-
 import { Primitive } from '@oku-ui/primitive'
+import {
+  computed,
+  defineComponent,
+  h,
+  onMounted,
+  ref,
+  toRefs,
+  useModel,
+} from 'vue'
 import type {
   ElementType,
   MergeProps,
@@ -11,7 +18,7 @@ import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { useControllable, useRef } from '@oku-ui/use-composable'
 import { composeEventHandlers, toValue } from '@oku-ui/utils'
-import { clamp, getDecimalCount, roundValue } from './utils'
+import { clamp, getDecimalCount, nearestValue, roundValue } from './utils'
 import { BubbleInput } from './BubbleInput'
 
 type Orientation = 'horizontal' | 'vertical'
@@ -173,14 +180,18 @@ const Slider = defineComponent({
 
     // update functions
     function setValue(value: number, { commit } = { commit: false }) {
+      if (disabled.value)
+        return
       const demicalCount = getDecimalCount(step.value)
+      const nearestVal = nearestValue(value, min.value, max.value, step.value)
       const snapToStep = roundValue(
-        (Math.round(value - min.value) / step.value) * step.value + min.value, demicalCount,
+        ((nearestVal - min.value) / step.value) * step.value + min.value, demicalCount,
       )
-
       const nextValue = clamp(snapToStep, [min.value, max.value])
 
       updateValue(nextValue)
+      if (commit)
+        onValueCommit.value?.(nextValue)
     }
 
     const previousValue = ref<number>(state.value ?? 0)
@@ -197,7 +208,7 @@ const Slider = defineComponent({
 
     function focusThumb() {
       const sliderElement = $el.value as Element
-      (sliderElement.querySelector('[role="sliderThumb"]') as HTMLElement).focus()
+      (sliderElement.querySelector('[role="sliderThumb"]') as HTMLElement)?.focus()
     }
 
     function onSliderStart(value: number) {
@@ -262,7 +273,8 @@ const Slider = defineComponent({
           'aria-valuenow': state.value,
           'aria-valuetext': state.value,
           'aria-labelledby': name.value,
-          'aria-hidden': disabled.value,
+          'aria-disabled': disabled.value ? 'true' : undefined,
+          'data-disabled': disabled.value ? '' : undefined,
           'ref': span,
           ...sliderProps,
           // slider events listeners
@@ -286,7 +298,7 @@ const Slider = defineComponent({
           'onPointerdown': composeEventHandlers(sliderProps.onPointerdown, (event) => {
             ($el.value as unknown as HTMLElement)?.focus()
             const target = event.target as HTMLElement
-            // 设置指针追踪，避免元素逃出区域，保证可以持续接收到pointer事件
+            // make sure the target can receive pointer events
             target.setPointerCapture(event.pointerId)
             onSliderStart(event.clientX)
             event.preventDefault()
@@ -301,7 +313,7 @@ const Slider = defineComponent({
           }),
           'onPointerup': composeEventHandlers(sliderProps.onPointerup, (event) => {
             const target = event.target as HTMLElement
-            // 设置指针追踪，避免元素逃出区域，保证可以持续接收到pointer事件
+            // release the pointer capture
             target.releasePointerCapture(event.pointerId)
             onSliderEnd(event.clientX)
             event.preventDefault()
@@ -318,9 +330,11 @@ const Slider = defineComponent({
         bubbles: !hasConsumerStoppedPropagationRef.value,
         name: name.value,
         value: state.value,
+        min: min.value,
+        max: max.value,
+        step: step.value,
         required: required.value,
         disabled: disabled.value,
-        style: { transform: 'translateX(-100%)' },
       }),
     ]
 

@@ -1,16 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import type { SliderProps } from '../Slider'
-import OkuSlider from './SliderDemo.vue'
+import type { ISliderProps } from './SliderDemo.vue'
+import OkuSliderComponent from './SliderDemo.vue'
 
-interface StoryProps extends SliderProps { }
+interface StoryProps extends ISliderProps { }
 
 const meta = {
   title: 'Components/Slider',
   args: {
+    template: '#1',
   },
-  component: OkuSlider,
-  tags: ['defaultSlider'],
-} satisfies Meta<typeof OkuSlider> & {
+  component: OkuSliderComponent,
+  tags: ['autodocs'],
+} satisfies Meta<typeof OkuSliderComponent> & {
   args: StoryProps
 }
 
@@ -19,20 +20,66 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Default: Story = {
+export const Styled: Story = {
   args: {
-    min: 0,
-    max: 200,
-    step: 1,
+    template: '#1',
   },
 
   render: (args: any) => ({
-    components: { OkuSlider },
+    components: { OkuSliderComponent },
     setup() {
       return { args }
     },
     template: `
-      <OkuSlider />
+      <OkuSliderComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const FloatStep: Story = {
+  args: {
+    template: '#2',
+  },
+
+  render: (args: any) => ({
+    components: { OkuSliderComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuSliderComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Form: Story = {
+  args: {
+    template: '#3',
+  },
+
+  render: (args: any) => ({
+    components: { OkuSliderComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuSliderComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Chromatic: Story = {
+  args: {
+    template: '#4',
+  },
+
+  render: (args: any) => ({
+    components: { OkuSliderComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuSliderComponent v-bind="args" />
     `,
   }),
 }

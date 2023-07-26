@@ -50,7 +50,8 @@ const SliderThumb = defineComponent({
         Primitive.span,
         {
           'role': 'sliderThumb',
-          'data-disabled': context.disabled?.value ? '' : undefined,
+          'disabled': context.disabled?.value ? '' : undefined,
+          'aria-disabled': context.disabled?.value ? '' : undefined,
           'ref': newRef,
           'asChild': props.asChild,
           'tabindex': context.disabled?.value ? undefined : 0,
