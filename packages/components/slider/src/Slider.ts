@@ -51,9 +51,9 @@ interface SliderProps extends PrimitiveProps {
   step?: number
   minStepsBetweenThumbs?: number
   value?: number
-  defaultValue?: number | number[]
-  onValueChange?: (value: number[]) => void
-  onValueCommit?: (value: number[]) => void
+  defaultValue?: number
+  onValueChange?: (value: number) => void
+  onValueCommit?: (value: number) => void
   inverted?: boolean // inverted mode
 }
 
