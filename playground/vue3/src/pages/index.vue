@@ -44,6 +44,10 @@ const pages: Page[] = [
     name: 'OkuSwitch',
     path: '/switch',
   },
+  {
+    name: 'OkuSlider',
+    path: '/slider',
+  },
 ]
 </script>
 
