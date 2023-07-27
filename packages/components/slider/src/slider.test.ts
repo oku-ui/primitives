@@ -230,4 +230,56 @@ describe('OkuSlider', () => {
     await thumb.trigger('keydown', { key: 'Home' })
     expect(modelValue.value).toBe(min)
   })
+
+  it('should work in form tag', async () => {
+    const modelValue = ref(0)
+    const htmlTemplate = `
+        <form id="form-area">
+          <OkuSlider v-model="modelValue" name="sliderInput">
+            <OkuSliderThumb />
+          </OkuSlider>
+        </form>
+    `
+
+    const wrapper = mount({
+      components: {
+        OkuSlider,
+        OkuSliderThumb,
+      },
+      template: htmlTemplate,
+      setup() {
+        return { modelValue }
+      },
+    })
+
+    const slider = wrapper.find('#form-area')
+    expect(slider).toBeTruthy()
+  })
+
+  it('should work with pointer events', async () => {
+    const modelValue = ref(0)
+    const htmlTemplate = `
+      <OkuSlider v-model="modelValue">
+        <OkuSliderThumb />
+      </OkuSlider>
+    `
+
+    const wrapper = mount({
+      components: {
+        OkuSlider,
+        OkuSliderThumb,
+      },
+      template: htmlTemplate,
+      setup() {
+        return { modelValue }
+      },
+    })
+
+    const thumb = wrapper.find('[role="sliderThumb"]')
+
+    await thumb.trigger('pointerdown', { clientX: 100 })
+    await thumb.trigger('pointermove', { clientX: 200 })
+    await thumb.trigger('pointerup', { clientX: 200 })
+    expect(modelValue.value).toBe(100)
+  })
 })

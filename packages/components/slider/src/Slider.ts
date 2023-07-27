@@ -245,8 +245,6 @@ const Slider = defineComponent({
         setValue((state.value ?? 0) + step.value)
       else if (DOWN_KEYS.includes(event.key))
         setValue((state.value ?? 0) - step.value)
-      else
-        throw new Error('Invalid key')
     }
 
     sliderProvider({
@@ -299,7 +297,7 @@ const Slider = defineComponent({
             ($el.value as unknown as HTMLElement)?.focus()
             const target = event.target as HTMLElement
             // make sure the target can receive pointer events
-            target.setPointerCapture(event.pointerId)
+            target.setPointerCapture?.(event.pointerId)
             onSliderStart(event.clientX)
             event.preventDefault()
             focusThumb()
@@ -307,14 +305,14 @@ const Slider = defineComponent({
           'onPointermove': composeEventHandlers(sliderProps.onPointermove, (event) => {
             const target = event.target as HTMLElement
 
-            if (target.hasPointerCapture(event.pointerId))
+            if (target.hasPointerCapture?.(event.pointerId))
               onSliderMove(event.clientX)
             event.preventDefault()
           }),
           'onPointerup': composeEventHandlers(sliderProps.onPointerup, (event) => {
             const target = event.target as HTMLElement
             // release the pointer capture
-            target.releasePointerCapture(event.pointerId)
+            target.releasePointerCapture?.(event.pointerId)
             onSliderEnd(event.clientX)
             event.preventDefault()
           }),
