@@ -1,6 +1,4 @@
 import { watchEffect } from 'vue'
-
-// import { useCallbackRef } from '@oku-ui/use-composable'
 import { useCallbackRef } from './useCallbackRef'
 
 /**
