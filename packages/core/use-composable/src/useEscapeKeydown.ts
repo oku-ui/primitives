@@ -12,13 +12,13 @@ function useEscapeKeydown(
 ) {
   const onEscapeKeyDown = useCallbackRef(onEscapeKeyDownProp)
 
-  watchEffect(() => {
+  watchEffect((onInvalidate) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape')
         onEscapeKeyDown(event)
     }
     ownerDocument.addEventListener('keydown', handleKeyDown)
-    return () => ownerDocument.removeEventListener('keydown', handleKeyDown)
+    onInvalidate(() => ownerDocument.removeEventListener('keydown', handleKeyDown))
   })
 }
 
