@@ -11,9 +11,6 @@ describe('useEscapeKeydown', () => {
   })
 
   it('should call onEscapeKeyDown when the escape key is pressed', () => {
-    onEscapeKeyDown = vi.fn()
-    ownerDocument = globalThis.document
-
     useEscapeKeydown(onEscapeKeyDown, ownerDocument)
 
     const escapeKeyEvent = new KeyboardEvent('keydown', { key: 'Escape' })
@@ -30,5 +27,6 @@ describe('useEscapeKeydown', () => {
     ownerDocument.dispatchEvent(otherKeyEvent)
 
     expect(onEscapeKeyDown).not.toHaveBeenCalled()
+    expect(onEscapeKeyDown).not.toHaveBeenCalledWith(otherKeyEvent)
   })
 })
