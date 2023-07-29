@@ -48,8 +48,7 @@ describe('useEscapeKeydown', () => {
       setup() {
         useEscapeKeydown(onEscapeKeyDown, ownerDocument)
       },
-    },
-    )
+    })
 
     expect(removeSpy).not.toHaveBeenCalled()
 
