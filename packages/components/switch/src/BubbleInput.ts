@@ -16,6 +16,7 @@ import {
 const BUBBLE_INPUT = 'OkuBubbleInput'
 
 type InputElement = ElementType<'input'>
+export type _BubbleInputEl = HTMLInputElement
 
 interface BubbleInputProps extends Omit<InputElement, 'checked'> {
   checked: boolean

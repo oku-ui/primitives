@@ -3,12 +3,14 @@ import { computed, defineComponent, h } from 'vue'
 
 import type {
   ElementType,
+  InstanceTypeRef,
   MergeProps,
   PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import type { ArrowProps } from '@oku-ui/arrow'
+import type { ArrowProps, _ArrowEl } from '@oku-ui/arrow'
 import { OkuArrow } from '@oku-ui/arrow'
+import { useForwardRef } from '@oku-ui/use-composable'
 import type { Side } from './utils'
 import { usePopperContentInject } from './popperContent'
 
@@ -40,6 +42,8 @@ const PopperArrow = defineComponent({
     const baseSide = computed(() => {
       return OPPOSITE_SIDE[contentInject.value.placedSide.value]
     })
+
+    const forwardedRef = useForwardRef()
 
     const originalReturn = () =>
       h(
@@ -74,6 +78,7 @@ const PopperArrow = defineComponent({
         [
           h(OkuArrow, {
             ...attrsElement,
+            ref: forwardedRef,
             style: {
               ...(attrsElement.style as any),
               display: 'block',
@@ -86,10 +91,11 @@ const PopperArrow = defineComponent({
 })
 
 type _PopperArrow = MergeProps<PopperArrowProps, PopperArrowElement>
+type InstancePopperArrowType = InstanceTypeRef<typeof PopperArrow, _ArrowEl>
 
 const OkuPopperArrow = PopperArrow as typeof PopperArrow &
 (new () => { $props: _PopperArrow })
 
 export { OkuPopperArrow }
 
-export type { PopperArrowProps }
+export type { PopperArrowProps, InstancePopperArrowType }

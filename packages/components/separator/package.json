@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@oku-ui/primitive": "latest",
+    "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest"
   },
   "devDependencies": {

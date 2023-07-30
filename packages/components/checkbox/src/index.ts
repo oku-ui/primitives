@@ -5,8 +5,9 @@ export type {
   CheckboxIndicatorProps,
   CheckboxElement,
   CheckboxIndicatorElement,
-  CheckboxRef,
+  InstanceCheckboxType,
+  _CheckboxEl,
 } from './checkbox'
 
 export { OkuCheckboxIndicator } from './checkboxIndicator'
-export type { CheckboxIndicatorRef } from './checkboxIndicator'
+export type { InstanceCheckboxIndicatorType, _CheckboxIndicatorEl } from './checkboxIndicator'

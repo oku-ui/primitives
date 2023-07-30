@@ -14,17 +14,20 @@ export {
 export type {
   AvatarProps,
   AvatarElement,
-  AvatarRef,
+  InstanceAvatarType,
+  _AvatarEl,
 } from './avatar'
 
 export type {
   AvatarFallbackProps,
-  AvatarFallbackRef,
+  InstanceAvatarFallbackType,
   AvatarFallbackElement,
+  _AvatarFalbackEl,
 } from './avatarFallback'
 
 export type {
   AvatarImageProps,
   AvatarImageElement,
-  AvatarImageRef,
+  InstanceAvatarImageType,
+  _AvatarImageEl,
 } from './avatarImage'

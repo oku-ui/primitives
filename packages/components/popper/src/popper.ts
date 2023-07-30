@@ -1,7 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
 
-import type { RefElement } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
@@ -57,11 +56,9 @@ const Popper = defineComponent({
 
 type _PopperProps = PopperProps
 
-type PopperRef = RefElement<typeof Popper>
-
 const OkuPopper = Popper as typeof Popper &
 (new () => { $props: _PopperProps })
 
 export { OkuPopper }
 
-export type { PopperProps, PopperRef }
+export type { PopperProps }

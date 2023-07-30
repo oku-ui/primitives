@@ -3,7 +3,6 @@ export {
 } from './popper'
 
 export type {
-  PopperRef,
   PopperProps,
 } from './popper'
 
@@ -13,6 +12,8 @@ export {
 
 export type {
   PopperAnchorProps,
+  InstancePopperAnchorType,
+  _PopperAnchorEl,
 } from './popperAnchor'
 
 export {
@@ -21,6 +22,8 @@ export {
 
 export type {
   PopperContentProps,
+  InstancePopperContentType,
+  _PopperContentEl,
 } from './popperContent'
 
 export {
@@ -29,4 +32,5 @@ export {
 
 export type {
   PopperArrowProps,
+  InstancePopperArrowType,
 } from './popperArrow'

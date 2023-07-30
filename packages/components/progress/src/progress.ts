@@ -1,10 +1,10 @@
-import type { ElementType, MergeProps, RefElement } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import type { ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
-import { useRef } from '@oku-ui/use-composable'
+import { useForwardRef } from '@oku-ui/use-composable'
 import {
   defaultGetValueLabel,
   getInvalidMaxError,
@@ -25,6 +25,7 @@ type ProgressContextValue = {
 }
 
 type ProgressElement = ElementType<'div'>
+export type _ProgressEl = HTMLDivElement
 
 interface ProgressProps {
   value?: number | null
@@ -60,9 +61,11 @@ const Progress = defineComponent({
       required: false,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { value, max, getValueLabel, scopeProgress } = toRefs(props)
     const { ...progressProps } = attrs as ProgressElement
+
+    const forwardedRef = useForwardRef()
 
     // propstype check
     if (max.value && !isValidMaxNumber(max.value))
@@ -70,8 +73,6 @@ const Progress = defineComponent({
 
     if (value.value != null && !isValidValueNumber(value.value, max.value))
       console.error(getInvalidValueError(value.value))
-
-    const { $el, newRef } = useRef<HTMLDivElement>()
 
     const maxProp = computed(() =>
       isValidMaxNumber(max.value) ? max.value : DEFAULT_MAX,
@@ -84,6 +85,12 @@ const Progress = defineComponent({
         ? getValueLabel.value(valueProp.value, maxProp.value)
         : undefined,
     )
+
+    progressProvider({
+      scope: scopeProgress.value,
+      value: valueProp,
+      max: maxProp,
+    })
 
     const originalReturn = () =>
       h(
@@ -102,37 +109,25 @@ const Progress = defineComponent({
           'data-value': valueProp.value ?? undefined,
           'data-max': maxProp.value,
           ...progressProps,
-          'ref': newRef,
+          'ref': forwardedRef,
         },
         {
           default: () => slots.default?.(),
         },
       )
 
-    expose({
-      inferRef: $el,
-    })
-
-    progressProvider({
-      scope: scopeProgress.value,
-      value: valueProp,
-      max: maxProp,
-    })
-
-    return originalReturn as unknown as {
-      innerRef: ProgressElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _OkuProgressProps = MergeProps<ProgressProps, ProgressIndicatorProps>
 
-type ProgressRef = RefElement<typeof Progress>
+type InstanceProgressType = InstanceTypeRef<typeof Progress, _ProgressEl>
 
 const OkuProgress = Progress as typeof Progress &
 (new () => { $props: _OkuProgressProps })
 
 export { createProgressScope, OkuProgress, useProgressContext }
 
-export type { ProgressProps, ProgressElement, ProgressRef }
+export type { ProgressProps, ProgressElement, InstanceProgressType }

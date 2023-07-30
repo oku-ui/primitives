@@ -1,13 +1,14 @@
-import type { ComponentPublicInstance } from 'vue'
-import { computed, defineComponent, h, ref } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import { defineComponent, h } from 'vue'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
 
 interface AspectRatioProps extends PrimitiveProps {
   ratio?: number
 }
 
 type AspectRatioElement = ElementType<'div'>
+export type _AspectRatioEl = HTMLDivElement
 
 const NAME = 'AspectRatio'
 
@@ -20,13 +21,10 @@ const AspectRatio = defineComponent({
       default: 1 / 1,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { style, ...aspectRatioProps } = attrs as AspectRatioElement
-    const innerRef = ref<ComponentPublicInstance>()
 
-    expose({
-      innerRef: computed(() => innerRef.value?.$el),
-    })
+    const forwardedRef = useForwardRef()
 
     const originalReturn = () => h(
       'div', {
@@ -42,7 +40,7 @@ const AspectRatio = defineComponent({
           Primitive.div,
           {
             ...aspectRatioProps,
-            ref: innerRef,
+            ref: forwardedRef,
             style: {
               ...(style as any),
               position: 'absolute',
@@ -59,17 +57,15 @@ const AspectRatio = defineComponent({
       ],
     )
 
-    return originalReturn as unknown as {
-      innerRef: AspectRatioElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _AspectRatioProps = MergeProps<AspectRatioProps, AspectRatioElement>
-type AspectRatioRef = RefElement<typeof AspectRatio>
+type InstanceAspectRatioType = InstanceTypeRef<typeof AspectRatio, _AspectRatioEl>
 
 const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: _AspectRatioProps })
 
 export { OkuAspectRatio }
-export type { AspectRatioProps, AspectRatioElement, AspectRatioRef }
+export type { AspectRatioProps, AspectRatioElement, InstanceAspectRatioType }

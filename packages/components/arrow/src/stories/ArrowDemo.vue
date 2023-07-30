@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { ArrowRef } from '@oku-ui/arrow'
+import type { InstanceArrowType } from '@oku-ui/arrow'
 import { OkuArrow } from '@oku-ui/arrow'
 
 export interface OkuArrowProps {
@@ -12,10 +12,10 @@ withDefaults(defineProps<OkuArrowProps>(), {
   template: '#1',
 })
 
-const arrowRef = ref<ArrowRef>()
+const arrowRef = ref<InstanceArrowType>()
 onMounted(() => {
   // eslint-disable-next-line no-console
-  console.log(arrowRef.value?.innerRef)
+  console.log(arrowRef.value?.$el)
 })
 const alert = () => window.alert('clicked')
 </script>

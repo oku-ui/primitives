@@ -1,7 +1,8 @@
-import type { ComponentPublicInstance, PropType } from 'vue'
-import { computed, defineComponent, h, ref } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { defineComponent, h } from 'vue'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
 
 const NAME = 'Separator'
 const DEFAULT_ORIENTATION = 'horizontal'
@@ -9,6 +10,7 @@ const ORIENTATIONS = ['horizontal', 'vertical'] as const
 
 type Orientation = typeof ORIENTATIONS[number]
 type SeparatorElement = ElementType<'div'>
+export type _SeparatorEl = HTMLDivElement
 
 interface SeparatorProps extends PrimitiveProps {
   /**
@@ -42,7 +44,7 @@ const Separator = defineComponent({
       default: DEFAULT_ORIENTATION,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { ...domProps } = attrs as SeparatorElement
     const orientation = ORIENTATIONS.includes(props.orientation) ? props.orientation : DEFAULT_ORIENTATION
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
@@ -50,18 +52,14 @@ const Separator = defineComponent({
     const semanticProps = props.decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation, 'role': 'separator' }
     const dataOrientation = { 'data-orientation': orientation }
 
-    const innerRef = ref<ComponentPublicInstance>()
-
-    expose({
-      innerRef: computed(() => innerRef.value?.$el),
-    })
+    const forwardedRef = useForwardRef()
 
     const originalReturn = () =>
       h(
         Primitive.div,
         {
           ...attrs,
-          ref: innerRef,
+          ref: forwardedRef,
           ...semanticProps,
           ...dataOrientation,
           style: {
@@ -82,7 +80,7 @@ const Separator = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _SeparatorProps = MergeProps<SeparatorProps, PrimitiveProps>
-type SeparatorRef = RefElement<typeof Separator>
+type InstanceSeparatorType = InstanceTypeRef<typeof Separator, _SeparatorEl>
 
 const OkuSeparator = Separator as typeof Separator & (new () => { $props: _SeparatorProps })
 
@@ -90,5 +88,5 @@ export { OkuSeparator }
 export type {
   SeparatorProps,
   SeparatorElement,
-  SeparatorRef,
+  InstanceSeparatorType,
 }

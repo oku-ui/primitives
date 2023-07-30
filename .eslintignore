@@ -6,3 +6,4 @@ coverage
 dist
 storybook-static
 .nuxt
+*.md

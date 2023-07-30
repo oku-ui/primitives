@@ -7,4 +7,6 @@ export type {
   ElementType,
   PrimitivePropsWithRef,
   ComponentPropsWithoutRef,
+  InstanceTypeRef,
+  ComponentPublicInstanceRef,
 } from './primitive'

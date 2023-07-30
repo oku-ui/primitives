@@ -1,13 +1,15 @@
-import type { ComponentPublicInstance, PropType } from 'vue'
-import { computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { defineComponent, h, onMounted, ref, watchEffect } from 'vue'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
+import { useForwardRef } from '@oku-ui/use-composable'
 import { useAvatarInject } from './avatar'
 
 const FALLBACK_NAME = 'OkuAvatarFallback'
 
 type AvatarFallbackElement = ElementType<'span'>
+export type _AvatarFalbackEl = HTMLSpanElement
 
 interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number
@@ -26,11 +28,12 @@ const AvatarFallback = defineComponent({
       required: false,
     },
   },
-  setup(props, { attrs, expose, slots }) {
+  setup(props, { attrs, slots }) {
     const { ...fallbackProps } = attrs as AvatarFallbackProps
     const provide = useAvatarInject(FALLBACK_NAME, props.scopeAvatar)
     const canRender = ref(props.delayMs === undefined)
-    const innerRef = ref<ComponentPublicInstance>()
+
+    const forwardedRef = useForwardRef()
 
     onMounted(() => {
       if (props.delayMs === undefined)
@@ -50,16 +53,12 @@ const AvatarFallback = defineComponent({
       })
     })
 
-    expose({
-      innerRef: computed(() => innerRef.value?.$el),
-    })
-
     const originalReturn = () => {
       return (canRender.value && (provide.value.imageLoadingStatus !== 'loaded'))
         ? h(
           Primitive.span, {
             ...fallbackProps,
-            ref: innerRef,
+            ref: forwardedRef,
           },
           {
             default: () => slots.default?.(),
@@ -68,16 +67,14 @@ const AvatarFallback = defineComponent({
         : canRender.value
     }
 
-    return originalReturn as unknown as {
-      innerRef: AvatarFallbackElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _OkuAvatarFallbackProps = MergeProps<AvatarFallbackProps, AvatarFallbackElement>
 
-type AvatarFallbackRef = RefElement<typeof AvatarFallback>
+type InstanceAvatarFallbackType = InstanceTypeRef<typeof AvatarFallback, _AvatarFalbackEl>
 
 const OkuAvatarFallback = AvatarFallback as typeof AvatarFallback & (new () => { $props: _OkuAvatarFallbackProps })
 
@@ -88,5 +85,5 @@ export {
 export type {
   AvatarFallbackProps,
   AvatarFallbackElement,
-  AvatarFallbackRef,
+  InstanceAvatarFallbackType,
 }
