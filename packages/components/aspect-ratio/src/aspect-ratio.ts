@@ -33,7 +33,7 @@ const AspectRatio = defineComponent({
           width: '100%',
           paddingBottom: `${100 / props.ratio}%`,
         },
-        'data-radix-aspect-ratio-wrapper': '',
+        'data-oku-aspect-ratio-wrapper': '',
       },
       [
         h(
