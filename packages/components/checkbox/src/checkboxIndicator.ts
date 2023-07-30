@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { Transition, defineComponent, h, toRefs } from 'vue'
 
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -53,9 +53,7 @@ const CheckboxIndicator = defineComponent({
         : null,
     })
 
-    return originalReturn as unknown as {
-      innerRef: Ref<HTMLButtonElement>
-    }
+    return originalReturn
   },
 })
 

@@ -1,5 +1,5 @@
 import type { ElementType, MergeProps } from '@oku-ui/primitive'
-import { usePrevious, useRef, useSize } from '@oku-ui/use-composable'
+import { useForwardRef, usePrevious, useSize } from '@oku-ui/use-composable'
 import type {
   CSSProperties,
   Ref,
@@ -41,14 +41,14 @@ export const BubbleInput = defineComponent({
       required: undefined,
     },
   },
-  setup(props, { attrs, expose }) {
+  setup(props, { attrs }) {
     const { control, checked, bubbles } = toRefs(props)
     const { ...inputAttrs } = attrs as InputElement
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevChecked = usePrevious(checked)
     const controlSize = useSize(control as Ref<HTMLElement>)
 
-    const { $el } = useRef<InputElement>()
+    const forwardedRef = useForwardRef()
 
     onMounted(() => {
       watchEffect(() => {
@@ -68,10 +68,6 @@ export const BubbleInput = defineComponent({
       })
     })
 
-    expose({
-      innerRef: $el,
-    })
-
     const originalReturn = () =>
       h('input', {
         'type': 'checkbox',
@@ -80,7 +76,7 @@ export const BubbleInput = defineComponent({
         // TODO: 'value': inputAttrs.value does not work
         ...inputAttrs,
         'tabindex': -1,
-        'ref': inputRef,
+        'ref': forwardedRef,
         'style': {
           ...((inputAttrs.style as CSSProperties) || {}),
           ...controlSize.value,
@@ -91,9 +87,7 @@ export const BubbleInput = defineComponent({
         },
       })
 
-    return originalReturn as unknown as {
-      innerRef: InputElement
-    }
+    return originalReturn
   },
 })
 

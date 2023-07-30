@@ -50,9 +50,7 @@ const VisuallyHidden = defineComponent({
         },
       })
 
-    return originalReturn as unknown as {
-      innerRef: VisuallyHiddenElement
-    }
+    return originalReturn
   },
 })
 

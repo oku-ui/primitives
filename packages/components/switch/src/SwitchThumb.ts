@@ -58,9 +58,7 @@ const SwitchThumb = defineComponent({
         },
       )
 
-    return originalReturn as unknown as {
-      innerRef: SwitchThumbElement
-    }
+    return originalReturn
   },
 })
 

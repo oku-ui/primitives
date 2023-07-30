@@ -187,9 +187,7 @@ const Switch = defineComponent({
         }),
     ]
 
-    return originalReturn as unknown as {
-      innerRef: SwitchElement
-    }
+    return originalReturn
   },
 })
 

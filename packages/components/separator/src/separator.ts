@@ -72,9 +72,7 @@ const Separator = defineComponent({
         },
       )
 
-    return originalReturn as unknown as {
-      innerRef: SeparatorElement
-    }
+    return originalReturn
   },
 })
 

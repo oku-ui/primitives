@@ -54,9 +54,7 @@ const ProgressIndicator = defineComponent({
         },
       )
 
-    return originalReturn as unknown as {
-      innerRef: ProgressIndicatorElement
-    }
+    return originalReturn
   },
 })
 
