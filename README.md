@@ -80,6 +80,10 @@ Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped
 
 Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
 
+## Credits
+
+- [Skirtle](https://github.com/skirtles-code)
+
 
 ---
 
