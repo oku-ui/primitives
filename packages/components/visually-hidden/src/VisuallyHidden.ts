@@ -1,16 +1,18 @@
 import { Primitive } from '@oku-ui/primitive'
 import type {
   ElementType,
+  InstanceTypeRef,
   MergeProps,
   PrimitiveProps,
 } from '@oku-ui/primitive'
-import { useRef } from '@oku-ui/use-composable'
+import { useForwardRef } from '@oku-ui/use-composable'
 import type { CSSProperties } from 'vue'
 import { defineComponent, h } from 'vue'
 
 const NAME = 'OkuVisuallyHidden'
 
 type VisuallyHiddenElement = ElementType<'button'>
+export type _VisuallyHiddenEl = HTMLButtonElement
 
 interface VisuallyHiddenProps extends PrimitiveProps {}
 
@@ -26,15 +28,11 @@ const VisuallyHidden = defineComponent({
   setup(props, { attrs, expose }) {
     const { ...visuallyHiddenAttrs } = attrs as VisuallyHiddenElement
 
-    const { $el, newRef } = useRef<VisuallyHiddenElement>()
-
-    expose({
-      innerRef: $el,
-    })
+    const forwardedRef = useForwardRef()
 
     const originalReturn = () =>
       h(Primitive.span, {
-        ref: newRef,
+        ref: forwardedRef,
         asChild: props.asChild,
         ...visuallyHiddenAttrs,
         style: {
@@ -59,10 +57,11 @@ const VisuallyHidden = defineComponent({
 })
 
 type _VisuallyHidden = MergeProps<VisuallyHiddenProps, VisuallyHiddenElement>
+type InnerVisuallyHidden = InstanceTypeRef<typeof VisuallyHidden, _VisuallyHiddenEl>
 
 const OkuVisuallyHidden = VisuallyHidden as typeof VisuallyHidden &
 (new () => { $props: _VisuallyHidden })
 
 export { OkuVisuallyHidden }
 
-export type { VisuallyHiddenProps }
+export type { VisuallyHiddenProps, InnerVisuallyHidden, _VisuallyHidden }

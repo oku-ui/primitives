@@ -206,6 +206,9 @@ importers:
       '@oku-ui/primitive':
         specifier: latest
         version: link:../../core/primitive
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
       vue:
         specifier: ^3.3.0
         version: 3.3.4
