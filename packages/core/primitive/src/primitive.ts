@@ -48,7 +48,7 @@ type ComponentProps<
   ? P
   : T extends keyof JSX.IntrinsicElements
     ? JSX.IntrinsicElements[T]
-    : {}
+    : Record<string, never>
 
 type RefElement<T extends abstract new (...args: any) => any> = Omit<
   InstanceType<T>,
