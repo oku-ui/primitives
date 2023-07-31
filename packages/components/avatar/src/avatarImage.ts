@@ -1,9 +1,9 @@
-import type { ComponentPublicInstance, PropType } from 'vue'
-import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { defineComponent, h, onMounted, toRefs, watch } from 'vue'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { useCallbackRef } from '@oku-ui/use-composable'
+import { useCallbackRef, useForwardRef } from '@oku-ui/use-composable'
 import type { ImageLoadingStatus } from './utils'
 import { useImageLoadingStatus } from './utils'
 import { useAvatarInject } from './avatar'
@@ -11,6 +11,7 @@ import { useAvatarInject } from './avatar'
 const IMAGE_NAME = 'AvatarImage'
 
 type AvatarImageElement = ElementType<'img'>
+export type _AvatarImageEl = HTMLImageElement
 
 interface AvatarImageProps extends PrimitiveProps {
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void
@@ -35,11 +36,13 @@ const AvatarImage = defineComponent({
       required: true,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { src } = toRefs(props)
     const { ...imageProps } = attrs as AvatarImageElement
     const inject = useAvatarInject(IMAGE_NAME, props.scopeAvatar)
-    const innerRef = ref<ComponentPublicInstance>()
+
+    const forwardedRef = useForwardRef()
+
     const imageLoadingStatus = useImageLoadingStatus(src)
 
     const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
@@ -57,16 +60,12 @@ const AvatarImage = defineComponent({
         handleLoadingStatusChange(newValue)
     })
 
-    expose({
-      innerRef: computed(() => innerRef.value?.$el),
-    })
-
     const originalReturn = () => imageLoadingStatus.value === 'loaded'
       ? h(
         Primitive.img, {
           ...imageProps,
           src: src.value,
-          ref: innerRef,
+          ref: forwardedRef,
         },
         {
           default: () => slots.default?.(),
@@ -74,16 +73,14 @@ const AvatarImage = defineComponent({
       )
       : null
 
-    return originalReturn as unknown as {
-      innerRef: AvatarImageElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _OkuAvatarImageProps = MergeProps<AvatarImageProps, AvatarImageElement>
 
-type AvatarImageRef = RefElement<typeof AvatarImage>
+type InstanceAvatarImageType = InstanceTypeRef<typeof AvatarImage, _AvatarImageEl>
 
 const OkuAvatarImage = AvatarImage as typeof AvatarImage & (new () => { $props: _OkuAvatarImageProps })
 
@@ -94,5 +91,5 @@ export {
 export type {
   AvatarImageProps,
   AvatarImageElement,
-  AvatarImageRef,
+  InstanceAvatarImageType,
 }

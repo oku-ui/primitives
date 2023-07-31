@@ -1,9 +1,10 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import { defineComponent, h, ref } from 'vue'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
+import { useForwardRef } from '@oku-ui/use-composable'
 
 const AVATAR_NAME = 'Avatar'
 const [createAvatarProvide, createAvatarScope] = createProvideScope(AVATAR_NAME)
@@ -18,6 +19,7 @@ type AvatarProvideValue = {
 export const [AvatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvideValue>(AVATAR_NAME)
 
 type AvatarElement = ElementType<'span'>
+export type _AvatarEl = HTMLSpanElement
 
 interface AvatarProps extends PrimitiveProps {
   scopeAvatar?: Scope
@@ -32,9 +34,11 @@ const Avatar = defineComponent({
       required: false,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { ...avatarProps } = attrs as AvatarElement
-    const innerRef = ref()
+
+    const forwardedRef = useForwardRef()
+
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
     AvatarProvider({
@@ -45,29 +49,23 @@ const Avatar = defineComponent({
       },
     })
 
-    expose({
-      inferRef: computed(() => innerRef.value?.$el),
-    })
-
     const originalReturn = () => h(
       Primitive.span, {
         ...avatarProps,
-        ref: innerRef,
+        ref: forwardedRef,
       },
       {
         default: () => slots.default?.(),
       },
     )
-    return originalReturn as unknown as {
-      innerRef: AvatarElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _OkuAvatarProps = MergeProps<AvatarProps, AvatarElement>
 
-type AvatarRef = RefElement<typeof Avatar>
+type InstanceAvatarType = InstanceTypeRef<typeof Avatar, _AvatarEl>
 
 const OkuAvatar = Avatar as typeof Avatar & (new () => { $props: _OkuAvatarProps })
 
@@ -79,6 +77,5 @@ export {
 export type {
   AvatarProps,
   AvatarElement,
-  AvatarRef,
-
+  InstanceAvatarType,
 }

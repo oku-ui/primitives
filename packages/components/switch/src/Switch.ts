@@ -9,9 +9,11 @@ import {
   toValue,
   useModel,
 } from 'vue'
-import { useControllable, useRef } from '@oku-ui/use-composable'
+import { useComposeRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import type {
+  ComponentPublicInstanceRef,
   ElementType,
+  InstanceTypeRef,
   MergeProps,
   PrimitiveProps,
 } from '@oku-ui/primitive'
@@ -25,6 +27,7 @@ import { BubbleInput } from './BubbleInput'
 const SWITCH_NAME = 'OkuSwitch'
 
 type SwitchElement = ElementType<'button'>
+export type _SwitchEl = HTMLButtonElement
 
 type SwitchContextValue = {
   checked: Ref<boolean> | ComputedRef<boolean>
@@ -92,7 +95,7 @@ const Switch = defineComponent({
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { attrs, expose, emit, slots }) {
+  setup(props, { attrs, emit, slots }) {
     const {
       checked: checkedProp,
       defaultChecked,
@@ -106,7 +109,9 @@ const Switch = defineComponent({
 
     const { ...switchProps } = attrs as SwitchElement
 
-    const { $el, newRef: button } = useRef<SwitchElement>()
+    const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
+    const forwardedRef = useForwardRef()
+    const composedRefs = useComposeRefs(buttonRef, forwardedRef)
 
     const modelValue = useModel(props, 'modelValue')
 
@@ -115,9 +120,9 @@ const Switch = defineComponent({
     const hasConsumerStoppedPropagationRef = ref<boolean>(false)
     // We set this to true by default so that events bubble to forms without JS (SSR)
     onMounted(() => {
-      isFormControl.value = button.value
-        ? typeof ($el.value as Element).closest === 'function'
-          && Boolean(($el.value as Element)?.closest('form'))
+      isFormControl.value = buttonRef.value
+        ? typeof buttonRef.value.$el.closest === 'function'
+        && Boolean(buttonRef.value.$el.closest('form'))
         : true
     })
 
@@ -136,10 +141,6 @@ const Switch = defineComponent({
       checked: state as ComputedRef<boolean>,
     })
 
-    expose({
-      innerRef: $el,
-    })
-
     const originalReturn = () => [
       h(
         Primitive.button,
@@ -152,7 +153,7 @@ const Switch = defineComponent({
           'disabled': disabled.value,
           'value': switchValue.value,
           'data-state': getState(state.value),
-          'ref': button,
+          'ref': composedRefs,
           'asChild': props.asChild,
           ...switchProps,
           'onClick': composeEventHandlers(switchProps.onClick, (event) => {
@@ -175,7 +176,7 @@ const Switch = defineComponent({
       ),
       isFormControl.value
         && h(BubbleInput, {
-          control: button,
+          control: buttonRef,
           bubbles: !hasConsumerStoppedPropagationRef.value,
           name: name.value,
           value: switchValue.value,
@@ -186,16 +187,15 @@ const Switch = defineComponent({
         }),
     ]
 
-    return originalReturn as unknown as {
-      innerRef: SwitchElement
-    }
+    return originalReturn
   },
 })
 
 type _Switch = MergeProps<SwitchProps, SwitchElement>
+type InstanceSwitchType = InstanceTypeRef<typeof Switch, _SwitchEl>
 
 const OkuSwitch = Switch as typeof Switch & (new () => { $props: _Switch })
 
 export { OkuSwitch, useSwitchContext, createSwitchScope }
 
-export type { SwitchProps }
+export type { SwitchProps, InstanceSwitchType }

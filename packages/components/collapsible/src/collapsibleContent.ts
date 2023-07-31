@@ -2,8 +2,8 @@ import type { PropType } from 'vue'
 import { Transition, defineComponent, h, toRefs } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 
-import { useRef } from '@oku-ui/use-composable'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuCollapsibleContentImpl } from './collapsibleContentImpl'
 import { useCollapsibleInject } from './collapsible'
@@ -11,6 +11,8 @@ import { useCollapsibleInject } from './collapsible'
 export const CONTENT_NAME = 'CollapsibleContent'
 
 type CollapsibleContentElement = ElementType<'div'>
+export type _CollapsibleContentEl = HTMLDivElement
+
 interface CollapsibleContentProps extends PrimitiveProps {
 }
 
@@ -39,17 +41,13 @@ const CollapsibleContent = defineComponent({
       default: undefined,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { scopeCollapsible } = toRefs(props)
     const { ...contentProps } = attrs as CollapsibleContentElement
 
     const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
 
-    const { $el, newRef } = useRef<CollapsibleContentElement>()
-
-    expose({
-      innerRef: $el,
-    })
+    const forwardedRef = useForwardRef()
 
     // TODO: Transition
     const originalReturn = () => h(
@@ -62,7 +60,7 @@ const CollapsibleContent = defineComponent({
           OkuCollapsibleContentImpl,
           {
             ...contentProps,
-            ref: newRef,
+            ref: forwardedRef,
             asChild: props.asChild,
             scopeCollapsible: scopeCollapsible.value,
           },
@@ -79,9 +77,9 @@ const CollapsibleContent = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _CollapsibleContentProps = MergeProps<CollapsibleContentProps, CollapsibleContentElement>
-type CollapsibleContentRef = RefElement<typeof CollapsibleContent>
+type InstanceCollapsibleContentType = InstanceTypeRef<typeof CollapsibleContent, _CollapsibleContentEl>
 
 const OkuCollapsibleContent = CollapsibleContent as typeof CollapsibleContent & (new () => { $props: _CollapsibleContentProps })
 
 export { OkuCollapsibleContent }
-export type { CollapsibleContentProps, CollapsibleContentElement, CollapsibleContentRef }
+export type { CollapsibleContentProps, CollapsibleContentElement, InstanceCollapsibleContentType }

@@ -1,16 +1,17 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
 
-import { useControllable, useId, useRef } from '@oku-ui/use-composable'
+import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { getState } from './utils'
 
 interface CollapsibleProps extends PrimitiveProps {
 }
 type CollapsibleElement = ElementType<'div'>
+export type _CollapsibleEl = HTMLDivElement
 
 type CollapsibleProvideValue = {
   contentId: string
@@ -57,17 +58,13 @@ const Collapsible = defineComponent({
     },
   },
   emits: ['update:open', 'update:modelValue'],
-  setup(props, { attrs, slots, expose, emit }) {
+  setup(props, { attrs, slots, emit }) {
     const { ...collapsibleAttr } = attrs as CollapsibleElement
     const { disabled, scopeCollapsible, open, defaultOpen } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
 
-    const { $el, newRef } = useRef<CollapsibleElement>()
-
-    expose({
-      innerRef: $el,
-    })
+    const forwardedRef = useForwardRef()
 
     const { state, updateValue } = useControllable({
       prop: computed(() => modelValue.value ?? open.value),
@@ -93,7 +90,7 @@ const Collapsible = defineComponent({
       {
         'data-state': getState(state.value),
         'data-disabled': disabled.value ? '' : undefined,
-        'ref': newRef,
+        'ref': forwardedRef,
         'asChild': props.asChild,
         ...collapsibleAttr,
       },
@@ -107,9 +104,9 @@ const Collapsible = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _CollapsibleProps = MergeProps<CollapsibleProps, CollapsibleElement>
-type CollapsibleRef = RefElement<typeof Collapsible>
+type InstanceCollapsibleType = InstanceTypeRef<typeof Collapsible, _CollapsibleEl>
 
 const OkuCollapsible = Collapsible as typeof Collapsible & (new () => { $props: _CollapsibleProps })
 
 export { OkuCollapsible }
-export type { CollapsibleProps, CollapsibleElement, CollapsibleRef }
+export type { CollapsibleProps, CollapsibleElement, InstanceCollapsibleType }

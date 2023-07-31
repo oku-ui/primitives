@@ -1,9 +1,11 @@
 import { cloneVNode, defineComponent, h } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import { useRef } from '@oku-ui/use-composable'
+import { useForwardRef } from '@oku-ui/use-composable'
 
 type ArrowElement = ElementType<'svg'>
+export type _ArrowEl = SVGSVGElement
+
 interface ArrowProps extends PrimitiveProps {}
 
 const NAME = 'Arrow'
@@ -17,14 +19,10 @@ const arrow = defineComponent({
       default: false,
     },
   },
-  setup(props, { attrs, slots, expose }) {
-    const { $el, newRef } = useRef()
+  setup(props, { attrs, slots }) {
+    const forwardedRef = useForwardRef()
 
     const { width = '10px', height = '5px', ...arrowAttrs } = attrs as ArrowElement
-
-    expose({
-      innerRef: $el,
-    })
 
     const originalReturn = () => {
       const defaultSlot = typeof slots.default === 'function' ? slots.default()[0] : slots.default ?? null
@@ -40,7 +38,7 @@ const arrow = defineComponent({
           : null
         : h(Primitive.svg, {
           ...arrowAttrs,
-          ref: newRef,
+          ref: forwardedRef,
           width,
           height,
           viewBox: '0 0 30 10',
@@ -53,17 +51,15 @@ const arrow = defineComponent({
         })
     }
 
-    return originalReturn as unknown as {
-      innerRef: ArrowElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _ArrowProps = MergeProps<ArrowProps, ArrowElement>
-type ArrowRef = RefElement<typeof arrow>
+type InstanceArrowType = InstanceTypeRef<typeof arrow, _ArrowEl>
 
 const OkuArrow = arrow as typeof arrow & (new () => { $props: _ArrowProps })
 
 export { OkuArrow }
-export type { ArrowProps, ArrowElement, ArrowRef }
+export type { ArrowProps, ArrowElement, InstanceArrowType }

@@ -55,6 +55,14 @@ type RefElement<T extends abstract new (...args: any) => any> = Omit<
   keyof ComponentPublicInstance | 'class' | 'style'
 >
 
+type InstanceTypeRef<C extends abstract new (...args: any) => any, T> = Omit<InstanceType<C>, '$el'> & {
+  $el: T
+}
+
+type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'> & {
+  $el: T
+}
+
 type MergeProps<T, U> = U & T
 
 interface PrimitiveProps {
@@ -199,4 +207,6 @@ export type {
   ElementType,
   PrimitivePropsWithRef,
   ComponentPropsWithoutRef,
+  InstanceTypeRef,
+  ComponentPublicInstanceRef,
 }

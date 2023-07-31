@@ -1,12 +1,12 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, onMounted, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useControllable, useRef } from '@oku-ui/use-composable'
+import { useComposeRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 import { type CheckedState, getState, isIndeterminate } from './utils'
@@ -25,6 +25,7 @@ export const [CheckboxProvider, useCheckboxInject]
   = createCheckboxProvider<CheckboxInjectValue>(CHECKBOX_NAME)
 
 type CheckboxElement = ElementType<'button'>
+export type _CheckboxEl = HTMLButtonElement
 
 interface CheckboxProps extends PrimitiveProps {
   checked?: CheckedState
@@ -67,14 +68,12 @@ const Checkbox = defineComponent({
     },
   },
   emits: ['update:checked', 'update:modelValue'],
-  setup(props, { attrs, slots, expose, emit }) {
+  setup(props, { attrs, slots, emit }) {
     const { checked: checkedProp, scopeCheckbox, defaultChecked, required } = toRefs(props)
 
-    const { newRef, $el } = useRef<HTMLButtonElement>()
-
-    expose({
-      innerRef: $el,
-    })
+    const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
+    const forwardedRef = useForwardRef()
+    const composedRefs = useComposeRefs(buttonRef, forwardedRef)
 
     const {
       name,
@@ -85,8 +84,6 @@ const Checkbox = defineComponent({
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
-    const isFormControl = ref(false)
-
     const { state, updateValue } = useControllable({
       prop: computed(() => checkedProp.value),
       defaultProp: computed(() => defaultChecked.value),
@@ -96,15 +93,14 @@ const Checkbox = defineComponent({
       },
     })
 
-    const initialCheckedStateRef = ref()
+    const initialCheckedStateRef = ref(state.value)
 
-    onMounted(() => {
-      isFormControl.value = Boolean($el.value.closest('form')) || false
-      initialCheckedStateRef.value = state.value
+    const isFormControl = computed(() => {
+      return Boolean(buttonRef.value?.$el.closest('form')) || false
     })
 
     watchEffect(() => {
-      const form = newRef.value?.$el.form
+      const form = buttonRef.value?.$el.form
       if (form) {
         const reset = () => updateValue(initialCheckedStateRef.value)
         form.addEventListener('reset', reset)
@@ -129,7 +125,7 @@ const Checkbox = defineComponent({
         'disabled': disabled,
         'value': value,
         ...checkboxProps,
-        'ref': newRef,
+        'ref': composedRefs,
         'onKeyDown': composeEventHandlers(checkboxProps.onKeydown, (event) => {
           // According to WAI ARIA, Checkboxes don't activate on enter keypress
           if (event.key === 'Enter')
@@ -174,9 +170,7 @@ const Checkbox = defineComponent({
       ),
       ]
 
-    return originalReturn as unknown as {
-      innerRef: Ref<CheckboxElement>
-    }
+    return originalReturn
   },
 })
 
@@ -189,7 +183,7 @@ interface CheckboxIndicatorProps extends PrimitiveProps {
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _OkuCheckboxProps = MergeProps<CheckboxProps, CheckboxElement>
 
-type CheckboxRef = RefElement<typeof OkuCheckbox>
+type InstanceCheckboxType = InstanceTypeRef<typeof OkuCheckbox, _CheckboxEl>
 
 const OkuCheckbox = Checkbox as typeof Checkbox & (new () => { $props: _OkuCheckboxProps })
 
@@ -202,5 +196,5 @@ export type {
   CheckboxIndicatorProps,
   CheckboxElement,
   CheckboxIndicatorElement,
-  CheckboxRef,
+  InstanceCheckboxType,
 }

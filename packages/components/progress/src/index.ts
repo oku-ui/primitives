@@ -1,11 +1,11 @@
 export { OkuProgress, createProgressScope } from './progress'
 
-export type { ProgressProps, ProgressElement, ProgressRef } from './progress'
+export type { ProgressProps, ProgressElement, InstanceProgressType } from './progress'
 
 export { OkuProgressIndicator } from './progressIndicator'
 
 export type {
-  ProgressIndicatorRef,
+  InstanceProgressIndicatorType,
   ProgressIndicatorElement,
   ProgressIndicatorProps,
 } from './progressIndicator'

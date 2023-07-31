@@ -4,5 +4,6 @@ export {
 export type {
   AspectRatioProps,
   AspectRatioElement,
-  AspectRatioRef,
+  InstanceAspectRatioType,
+  _AspectRatioEl,
 } from './aspect-ratio'

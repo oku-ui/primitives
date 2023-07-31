@@ -11,6 +11,7 @@ interface RefType<T> extends ComponentPublicInstance {
   $el: T
 }
 
+/** @deprecated */
 function useRef<T>(): {
   newRef: Ref<RefType<T>>
   $el: ComputedRef<T>

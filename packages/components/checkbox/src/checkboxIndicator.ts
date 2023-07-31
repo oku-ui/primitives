@@ -1,16 +1,17 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { Transition, defineComponent, h, toRefs } from 'vue'
 
-import { useRef } from '@oku-ui/use-composable'
+import { useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 import { getState, isIndeterminate } from './utils'
 import { useCheckboxInject } from './checkbox'
 
 type CheckboxIndicatorElement = ElementType<'span'>
+export type _CheckboxIndicatorEl = HTMLSpanElement
 
 interface CheckboxIndicatorProps extends PrimitiveProps {
   forceMount?: true
@@ -28,20 +29,18 @@ const CheckboxIndicator = defineComponent({
     },
     forceMount: Boolean,
   },
-  setup(props, { attrs, expose, slots }) {
+  setup(props, { attrs, slots }) {
     const { scopeCheckbox, forceMount } = toRefs(props)
     const { ...indicatorProps } = attrs as CheckboxIndicatorElement
-    const { $el, newRef } = useRef<CheckboxIndicatorElement>()
-    expose({
-      innerRef: $el,
-    })
+
+    const forwardedRef = useForwardRef()
 
     const context = useCheckboxInject(INDICATOR_NAME, scopeCheckbox.value)
 
     const originalReturn = () => h(Transition, {}, {
       default: () => (forceMount.value || isIndeterminate(context.value.state.value) || context.value.state.value === true)
         ? h(Primitive.span, {
-          'ref': newRef,
+          'ref': forwardedRef,
           'data-state': getState(context.value.state.value),
           'data-disabled': context.value.disabled ? '' : undefined,
           ...indicatorProps,
@@ -54,16 +53,14 @@ const CheckboxIndicator = defineComponent({
         : null,
     })
 
-    return originalReturn as unknown as {
-      innerRef: Ref<HTMLButtonElement>
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _OkuCheckboxIndicatorProps = MergeProps<CheckboxIndicatorProps, CheckboxIndicatorElement>
 
-type CheckboxIndicatorRef = RefElement<typeof OkuCheckboxIndicator>
+type InstanceCheckboxIndicatorType = InstanceTypeRef<typeof OkuCheckboxIndicator, _CheckboxIndicatorEl>
 
 const OkuCheckboxIndicator = CheckboxIndicator as typeof CheckboxIndicator & (new () => { $props: _OkuCheckboxIndicatorProps })
 
@@ -74,5 +71,5 @@ export {
 export type {
   CheckboxIndicatorProps,
   CheckboxIndicatorElement,
-  CheckboxIndicatorRef,
+  InstanceCheckboxIndicatorType,
 }

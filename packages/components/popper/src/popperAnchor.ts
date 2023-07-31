@@ -1,15 +1,17 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, toRefs, watch } from 'vue'
+import { defineComponent, h, ref, toRefs, watch } from 'vue'
 
 import type {
+  ComponentPublicInstanceRef,
   ElementType,
+  InstanceTypeRef,
   MergeProps,
   PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
 import type { Scope } from '@oku-ui/provide'
-import { useRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
+import { useComposeRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePopperInject } from './popper'
 
 /* -------------------------------------------------------------------------------------------------
@@ -19,6 +21,8 @@ import { usePopperInject } from './popper'
 const ANCHOR_NAME = 'PopperAnchor'
 
 type PopperAnchorElement = ElementType<'div'>
+export type _PopperAnchorEl = HTMLDivElement
+
 interface PopperAnchorProps extends PrimitiveProps {
   virtualRef?: Ref<Measurable | null>
   scopeCheckbox?: Scope
@@ -47,11 +51,13 @@ const PopperAnchor = defineComponent({
     const { virtualRef, scopeCheckbox } = toRefs(props)
     const { ...attrsAnchor } = attrs as PopperAnchorElement
     const inject = usePopperInject(ANCHOR_NAME, scopeCheckbox.value)
-    const { $el, newRef } = useRef<Measurable>()
 
-    watch($el, () => {
+    const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
+    const composedRefs = useComposeRefs(_ref, useForwardRef())
+
+    watch(_ref, () => {
       inject.value.anchor.value
-        = virtualRef.value?.value || ($el.value as Measurable)
+        = virtualRef.value?.value || (_ref.value?.$el as Measurable)
     })
 
     const originalReturn = () =>
@@ -62,7 +68,7 @@ const PopperAnchor = defineComponent({
           {
             ...attrsAnchor,
             asChild: props.asChild,
-            ref: newRef,
+            ref: composedRefs,
           },
           {
             default: () => slots.default && slots.default?.(),
@@ -74,10 +80,11 @@ const PopperAnchor = defineComponent({
 })
 
 type _PopperAnchor = MergeProps<PopperAnchorProps, PopperAnchorElement>
+type InstancePopperAnchorType = InstanceTypeRef<typeof PopperAnchor, _PopperAnchorEl>
 
 const OkuPopperAnchor = PopperAnchor as typeof PopperAnchor &
 (new () => { $props: _PopperAnchor })
 
 export { OkuPopperAnchor }
 
-export type { PopperAnchorProps, PopperAnchorElement }
+export type { PopperAnchorProps, PopperAnchorElement, InstancePopperAnchorType }

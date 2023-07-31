@@ -14,17 +14,14 @@ describe('OkuVisuallyHidden', () => {
       'position: absolute; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;',
     )
 
-    // The component should have a ref named 'innerRef'
-    expect(wrapper.vm.innerRef).toBeDefined()
-    // @ts-expect-error "working"
-    expect(wrapper.vm.innerRef.tagName.toLowerCase()).toBe('span')
+    expect(wrapper.vm.$el).toBeDefined()
+    expect(wrapper.vm.$el.tagName.toLowerCase()).toBe('span')
   })
 
   it('applies ref correctly', () => {
     const wrapper = mount(OkuVisuallyHidden)
-    expect(wrapper.vm.innerRef).toBeDefined()
-    // @ts-expect-error "working"
-    expect(wrapper.vm.innerRef.tagName.toLowerCase()).toBe('span')
+    expect(wrapper.vm.$el).toBeDefined()
+    expect(wrapper.vm.$el.tagName.toLowerCase()).toBe('span')
   })
 
   it('renders correctly with custom style', () => {
