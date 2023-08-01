@@ -1,8 +1,5 @@
-/* eslint-disable unused-imports/no-unused-vars */
 import { type VNode } from 'vue'
 import { OkuSlottable } from './slot'
-
-type AnyProps = Record<string, any>
 
 export function isValidVNodeElement(input: any): boolean {
   return (
