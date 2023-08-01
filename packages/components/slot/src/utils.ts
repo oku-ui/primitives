@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-vars */
 import { type VNode } from 'vue'
 import { OkuSlottable } from './slot'
 
