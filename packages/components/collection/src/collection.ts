@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { computed, defineComponent, h, ref, watchEffect } from 'vue'
-import { useComposeRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 import type { ComponentPropsOptions } from '@vue/runtime-core'
@@ -70,7 +70,7 @@ function createCollection<ItemElement extends HTMLElement>(name: string, props?:
     setup(props, { slots }) {
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
       const forwaredRef = useForwardRef()
-      const composedRefs = useComposeRefs(forwaredRef, inject.value.collectionRef)
+      const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
       return () => h(OkuSlot, { ref: composedRefs }, slots.default?.())
     },
   })
@@ -90,7 +90,7 @@ function createCollection<ItemElement extends HTMLElement>(name: string, props?:
       const { scope, ...itemData } = props
       const refValue = ref<ItemElement | null>()
       const forwaredRef = useForwardRef()
-      const composedRefs = useComposeRefs(refValue, forwaredRef)
+      const composedRefs = useComposedRefs(refValue, forwaredRef)
 
       const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
 

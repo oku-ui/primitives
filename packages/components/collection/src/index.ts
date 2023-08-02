@@ -1,4 +1,7 @@
 export {
-  CollectionProps,
   createCollection,
+} from './collection'
+
+export type {
+  CollectionProps,
 } from './collection'
