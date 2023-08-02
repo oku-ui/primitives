@@ -56,3 +56,35 @@ export const WithSlottable: Story = {
     `,
   }),
 }
+
+export const WithComposedEvents: Story = {
+  args: {
+    template: '#3',
+  },
+  render: (args: any) => ({
+    components: { OkuSlotComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+
+      <OkuSlotComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const ButtonAsLink: Story = {
+  args: {
+    template: '#4',
+  },
+  render: (args: any) => ({
+    components: { OkuSlotComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+
+      <OkuSlotComponent v-bind="args" />
+    `,
+  }),
+}
