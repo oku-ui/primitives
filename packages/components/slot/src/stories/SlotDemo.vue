@@ -30,7 +30,7 @@ const alert = () => window.alert('clicked')
     <div v-if="template === '#2' || allshow" class="flex flex-col">
       <OkuSlot ref="slot" class="test">
         <OkuSlottable>
-          <b data-slot-element>hello</b>
+          <b data-slot-element @click="alert">helloa</b>
         </OkuSlottable>
         <span>world</span>
       </OkuSlot>
