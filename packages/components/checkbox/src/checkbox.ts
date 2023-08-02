@@ -3,7 +3,7 @@ import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useComposeRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
 import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
@@ -73,7 +73,7 @@ const Checkbox = defineComponent({
 
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposeRefs(buttonRef, forwardedRef)
+    const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const {
       name,

@@ -4,7 +4,7 @@ import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergePro
 import type { Scope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
 
-import { useComposeRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
 import { getState } from './utils'
 import { CONTENT_NAME } from './collapsibleContent'
@@ -36,7 +36,7 @@ const CollapsibleContentImpl = defineComponent({
 
     const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | undefined>(undefined)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposeRefs(_ref, forwardedRef)
+    const composedRefs = useComposedRefs(_ref, forwardedRef)
 
     const heightRef = ref<number | undefined>(0)
     const widthRef = ref<number | undefined>(0)

@@ -2,7 +2,7 @@ import type { Component, DefineComponent } from 'vue'
 import { h, onMounted, ref } from 'vue'
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { useComposeRefs } from '../src/useComposeRefs'
+import { useComposedRefs } from '../src/useComposedRefs'
 import { useForwardRef } from '../src/useForwardRef'
 
 const DivComponent: Component = {
@@ -13,7 +13,7 @@ const DivComponent: Component = {
     const ref2 = ref()
     const ref3 = ref()
 
-    const refs = useComposeRefs(ref1, ref2, ref3, useForwardRef())
+    const refs = useComposedRefs(ref1, ref2, ref3, useForwardRef())
     onMounted(() => {
       expect(ref1.value).toBeInstanceOf(HTMLDivElement)
       expect(ref2.value).toBeInstanceOf(HTMLDivElement)
@@ -44,7 +44,7 @@ describe('Provide', () => {
         const ref1 = ref()
         const ref2 = ref()
         const ref3 = ref()
-        const refs = useComposeRefs(ref1, ref2, ref3)
+        const refs = useComposedRefs(ref1, ref2, ref3)
         onMounted(() => {
           expect(ref1.value).toBeInstanceOf(HTMLDivElement)
           expect(ref2.value).toBeInstanceOf(HTMLDivElement)

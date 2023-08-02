@@ -11,7 +11,7 @@ import type {
 import type { Measurable } from '@oku-ui/utils'
 import type { Scope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
-import { useComposeRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePopperInject } from './popper'
 
 /* -------------------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ const PopperAnchor = defineComponent({
     const inject = usePopperInject(ANCHOR_NAME, scopeCheckbox.value)
 
     const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
-    const composedRefs = useComposeRefs(_ref, useForwardRef())
+    const composedRefs = useComposedRefs(_ref, useForwardRef())
 
     watch(_ref, () => {
       inject.value.anchor.value
