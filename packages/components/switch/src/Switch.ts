@@ -9,7 +9,7 @@ import {
   toValue,
   useModel,
 } from 'vue'
-import { useComposeRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import type {
   ComponentPublicInstanceRef,
   ElementType,
@@ -111,7 +111,7 @@ const Switch = defineComponent({
 
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposeRefs(buttonRef, forwardedRef)
+    const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const modelValue = useModel(props, 'modelValue')
 

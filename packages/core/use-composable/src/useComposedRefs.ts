@@ -10,7 +10,7 @@ export type RefSetter = (
   el: Element | ComponentPublicInstance | undefined
 ) => void
 
-export function useComposeRefs(...refs: (Ref<HTMLElement | undefined | null | ComponentPublicInstance> | RefSetter)[]) {
+export function useComposedRefs(...refs: (Ref<HTMLElement | undefined | null | ComponentPublicInstance> | RefSetter)[]) {
   return (el: Element | ComponentPublicInstance | null) => {
     refs.forEach((ref) => {
       if (isFunction(ref))

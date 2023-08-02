@@ -1,5 +1,5 @@
 import { cloneVNode, createVNode, defineComponent, mergeProps } from 'vue'
-import { useComposeRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { isSlottable } from './utils'
 
 const NAME = 'OkuSlot'
@@ -9,7 +9,7 @@ const OkuSlot = defineComponent({
   inheritAttrs: false,
   setup(props, { attrs, slots }) {
     const forwarded = useForwardRef()
-    const composedRefs = useComposeRefs(forwarded)
+    const composedRefs = useComposedRefs(forwarded)
 
     return () => {
       const defaultSlot = slots.default?.()

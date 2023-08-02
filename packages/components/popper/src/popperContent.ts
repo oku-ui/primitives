@@ -4,7 +4,7 @@ import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffec
 import { Primitive } from '@oku-ui/primitive'
 import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { computedEager, useCallbackRef, useComposeRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
+import { computedEager, useCallbackRef, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
@@ -148,7 +148,7 @@ const PopperContent = defineComponent({
     const inject = usePopperInject(CONTENT_NAME, scopePopper.value)
 
     const content = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
-    const composedRefs = useComposeRefs(content, useForwardRef())
+    const composedRefs = useComposedRefs(content, useForwardRef())
 
     const arrow = ref<HTMLSpanElement | null>(null)
     const arrowSize = useSize(arrow)
