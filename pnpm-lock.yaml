@@ -55,6 +55,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:packages/components/slot
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:packages/components/switch

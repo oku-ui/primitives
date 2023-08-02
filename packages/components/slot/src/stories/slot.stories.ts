@@ -7,16 +7,12 @@ interface StoryProps extends OkuLabelProps {
 }
 
 const meta = {
-  title: 'Components/Label',
+  title: 'Utilities/Slot',
   component: OkuSlotComponent,
   args: {
-    label: 'Label',
     template: '#1',
   },
   argTypes: {
-    label: {
-      control: 'text',
-    },
     template: {
       control: 'text',
     },
@@ -31,9 +27,8 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Styled: Story = {
+export const WithoutSlottable: Story = {
   args: {
-    label: 'Label',
     template: '#1',
   },
   render: (args: any) => ({
@@ -47,9 +42,8 @@ export const Styled: Story = {
   }),
 }
 
-export const WithControl: Story = {
+export const WithSlottable: Story = {
   args: {
-    label: 'Label',
     template: '#2',
   },
   render: (args: any) => ({

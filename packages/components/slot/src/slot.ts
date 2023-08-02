@@ -16,20 +16,26 @@ const OkuSlot = defineComponent({
       const defaultSlot = slots.default?.()
       const slottable = defaultSlot?.find(isSlottable)
 
-      if (slottable) {
-        const newChildren = defaultSlot?.map(child =>
+      if (slottable && defaultSlot) {
         // TODO: default TS type problem
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-          child === slottable ? slottable.children?.default?.()[0].children : child,
-        )
+        const newParentElement = slottable.children?.default?.()[0]
 
-        // TODO: default TS type problem
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        const newParentElement = cloneVNode(slottable.children?.default?.()[0])
+        // change newParentElement's children to the default slot's children
+        const newChildren = defaultSlot.map((child) => {
+          if (child === slottable)
+          // TODO: default TS type problem
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+            return slottable.children?.default?.()[0].children
+          else
+            return child.children
+        })
 
-        return h(cloneVNode(newParentElement, { ...newParentElement.props, ref: composedRefs }, true), newChildren)
+        return h(newParentElement, {
+          ...mergedProps, ref: composedRefs,
+        }, newChildren)
       }
       else if (slots.default) {
         return cloneVNode(slots.default?.()[0], { ...mergedProps, ref: composedRefs }, true)
