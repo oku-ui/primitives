@@ -55,6 +55,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:packages/components/slot
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:packages/components/switch
@@ -378,6 +381,25 @@ importers:
         version: link:../../tsconfig
 
   packages/components/separator:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/slot:
     dependencies:
       '@oku-ui/primitive':
         specifier: latest

@@ -1,0 +1,55 @@
+import { cloneVNode, createVNode, defineComponent, mergeProps } from 'vue'
+import { useComposeRefs, useForwardRef } from '@oku-ui/use-composable'
+import { isSlottable } from './utils'
+
+const NAME = 'OkuSlot'
+
+const OkuSlot = defineComponent({
+  name: NAME,
+  inheritAttrs: false,
+  setup(props, { attrs, slots }) {
+    const forwarded = useForwardRef()
+    const composedRefs = useComposeRefs(forwarded)
+
+    return () => {
+      const defaultSlot = slots.default?.()
+      const slottable = defaultSlot?.find(isSlottable)
+
+      if (slottable && defaultSlot?.length) {
+        // TODO: default TS type problem
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        const newParentElement = slottable.children?.default?.()[0]
+
+        const newChildren = defaultSlot.map((child) => {
+          if (child === slottable)
+            return newParentElement.children
+
+          else return child
+        })
+
+        return createVNode(newParentElement.type, {
+          ...mergeProps(attrs, props, newParentElement.props), ref: composedRefs,
+        }, {
+          default: () => newChildren,
+        })
+      }
+      else if (slots.default) {
+        return cloneVNode(slots.default?.()[0], { ...mergeProps(attrs, props), ref: composedRefs }, true)
+      }
+      else {
+        return null
+      }
+    }
+  },
+})
+
+const OkuSlottable = defineComponent({
+  name: 'OkuSlottable',
+  inheritAttrs: false,
+  setup(_, { slots }) {
+    return slots.default || (() => null) // Ensure it returns a function even if the default slot is not provided
+  },
+})
+
+export { OkuSlot, OkuSlottable }
