@@ -1,4 +1,4 @@
-import { defineComponent, inject, provide } from 'vue'
+import { type PropType, defineComponent, inject, provide } from 'vue'
 
 type Direction = 'ltr' | 'rtl'
 const DirectionContextSymbol = Symbol('DirectionContext')
@@ -10,7 +10,7 @@ const DirectionContextSymbol = Symbol('DirectionContext')
 const DirectionProvider = defineComponent({
   name: 'DirectionProvider',
   props: {
-    dir: { type: String as () => Direction, required: true },
+    dir: { type: String as PropType<Direction>, required: true },
   },
   setup(props, { slots }) {
     // Direction context
