@@ -44,6 +44,14 @@ const pages: Page[] = [
     name: 'OkuSwitch',
     path: '/switch',
   },
+  {
+    name: 'OkuCollection',
+    path: '/collection',
+  },
+  {
+    name: 'OkuSlot',
+    path: '/slot',
+  },
 ]
 </script>
 

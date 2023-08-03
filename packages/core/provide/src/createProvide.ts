@@ -1,5 +1,5 @@
 import type { ComputedRef, InjectionKey } from 'vue'
-import { computed, defineComponent, inject, provide, reactive } from 'vue'
+import { computed, defineComponent, inject, provide } from 'vue'
 
 function createProvide<ProvideValueType extends object | null>(
   rootComponentName: string,
@@ -9,8 +9,8 @@ function createProvide<ProvideValueType extends object | null>(
   const Provider = defineComponent({
     name: `${rootComponentName}Provider`,
     inheritAttrs: false,
-    setup(props, { attrs, slots }) {
-      const value = reactive(attrs) as ProvideValueType
+    setup(props, { slots }) {
+      const value = computed(() => Object.values(props) as any)
       provide(Provide, value)
       if (!slots || !slots.default)
         throw new Error(`\`${rootComponentName}Provider\` must have a default slot :(`)
@@ -71,15 +71,14 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
       const Provide = scope?.[scopeName][index] || BaseScope.key as ProvideValueType
 
       const value = computed<ProvideValueType>(() => context)
-
       provide(Provide, value)
     }
 
     function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined>): ComputedRef<ProvideValueType> {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
-      const provide = inject(Provide.key)
+      const provide = inject<ComputedRef>(Provide.key)
       if (provide)
-        return provide as ComputedRef<ProvideValueType>
+        return provide
       if (defaultValue !== undefined)
         return computed(() => defaultValue)
 

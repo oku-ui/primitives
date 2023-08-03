@@ -14,7 +14,6 @@ const OkuSlot = defineComponent({
     return () => {
       const defaultSlot = slots.default?.()
       const slottable = defaultSlot?.find(isSlottable)
-
       if (slottable && defaultSlot?.length) {
         // TODO: default TS type problem
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -48,7 +47,7 @@ const OkuSlottable = defineComponent({
   name: 'OkuSlottable',
   inheritAttrs: false,
   setup(_, { slots }) {
-    return slots.default || (() => null) // Ensure it returns a function even if the default slot is not provided
+    return slots.default ? () => slots.default?.() : null
   },
 })
 
