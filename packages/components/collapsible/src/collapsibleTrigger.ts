@@ -1,18 +1,19 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import type { Scope } from '@oku-ui/provide'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
-import { useRef } from '@oku-ui/use-composable'
-import type { CollapsibleElement } from './collapsible'
+import { useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
 import { getState } from './utils'
 
 const TRIGGER_NAME = 'OkuCollapsibleTrigger'
 
 type CollapsibleTriggerElement = ElementType<'button'>
+export type _CollapsibleTriggerEl = HTMLButtonElement
+
 interface CollapsibleTriggerProps extends PrimitiveProps { }
 
 const CollapsibleTrigger = defineComponent({
@@ -28,15 +29,12 @@ const CollapsibleTrigger = defineComponent({
       default: undefined,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { scopeCollapsible } = toRefs(props)
     const { ...triggerProps } = attrs as CollapsibleTriggerElement
     const context = useCollapsibleInject(TRIGGER_NAME, scopeCollapsible.value)
-    const { $el, newRef } = useRef<CollapsibleElement>()
 
-    expose({
-      innerRef: $el,
-    })
+    const forwardedRef = useForwardRef()
 
     const originalReturn = () => h(
       Primitive.button,
@@ -49,7 +47,7 @@ const CollapsibleTrigger = defineComponent({
         'disabled': context.value.disabled?.value,
         ...triggerProps,
         'asChild': props.asChild,
-        'ref': newRef,
+        'ref': forwardedRef,
         'onClick': composeEventHandlers(triggerProps.onClick, context.value.onOpenToggle),
       },
       {
@@ -62,13 +60,13 @@ const CollapsibleTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _CollapsibleTriggerProps = MergeProps<CollapsibleTriggerProps, CollapsibleTriggerElement>
-type CollapsibleTriggerRef = RefElement<typeof CollapsibleTrigger>
+type InstanceCollapsibleTriggerType = InstanceTypeRef<typeof CollapsibleTrigger, _CollapsibleTriggerEl>
 
 const OkuCollapsibleTrigger = CollapsibleTrigger as typeof CollapsibleTrigger & (new () => { $props: _CollapsibleTriggerProps })
 
 export {
   OkuCollapsibleTrigger,
-  type CollapsibleTriggerRef,
+  type InstanceCollapsibleTriggerType,
   type CollapsibleTriggerProps,
   type CollapsibleTriggerElement,
 }

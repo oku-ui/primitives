@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { execSync } from 'node:child_process'
+import process from 'node:process'
 import { globbySync } from 'globby'
 
 // package for reading and writing files

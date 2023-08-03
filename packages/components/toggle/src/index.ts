@@ -5,5 +5,6 @@ export {
 export type {
   ToggleProps,
   ToggleElement,
-  ToggleRef,
+  InstanceToggleType,
+  _ToggleEl,
 } from './toggle'

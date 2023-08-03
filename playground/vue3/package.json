@@ -18,6 +18,7 @@
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/tabs": "workspace:^",
+    "@oku-ui/switch": "workspace:^",
     "vite-plugin-pages": "^0.31.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
@@ -27,7 +28,7 @@
     "typescript": "^5.1.6",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
-    "vite": "^4.4.4",
-    "vue-tsc": "^1.8.5"
+    "vite": "^4.4.7",
+    "vue-tsc": "^1.8.8"
   }
 }

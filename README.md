@@ -24,36 +24,37 @@ Enter the component you want most in the components, leave the emojis and follow
 
 **Developers can work on unclaimed components**.
 
-- [ ] [Accordion](https://github.com/oku-ui/primitives/issues/3)
-- [ ] [Alert Dialog](https://github.com/oku-ui/primitives/issues/4)
-- [x] [Aspect Ratio](https://github.com/oku-ui/primitives/issues/1)
-- [x] [Avatar](https://github.com/oku-ui/primitives/issues/5)
-- [x] [Checkbox](https://github.com/oku-ui/primitives/issues/6)
-- [x] [Collapsible](https://github.com/oku-ui/primitives/issues/7)
-- [ ] [Context Menu](https://github.com/oku-ui/primitives/issues/8)
-- [ ] [Dialog](https://github.com/oku-ui/primitives/issues/9)
-- [ ] [Dropdown Menu](https://github.com/oku-ui/primitives/issues/10)
-- [ ] [Form](https://github.com/oku-ui/primitives/issues/11)
-- [ ] [Hover Card](https://github.com/oku-ui/primitives/issues/12)
-- [x] [Label](https://github.com/oku-ui/primitives/issues/2)
-- [ ] [Menubar](https://github.com/oku-ui/primitives/issues/13)
-- [ ] [Navigation Menu](https://github.com/oku-ui/primitives/issues/14)
-- [ ] [Popover](https://github.com/oku-ui/primitives/issues/15)
-- [x] [Progress](https://github.com/oku-ui/primitives/issues/16)
-- [ ] [Radio Group](https://github.com/oku-ui/primitives/issues/17)
-- [ ] [Scroll Area](https://github.com/oku-ui/primitives/issues/18)
-- [ ] [Select](https://github.com/oku-ui/primitives/issues/19)
-- [x] [Separator](https://github.com/oku-ui/primitives/issues/20)
-- [ ] [Slider](https://github.com/oku-ui/primitives/issues/21)
-- [ ] [Switch](https://github.com/oku-ui/primitives/issues/22)
-- [ ] [Tabs](https://github.com/oku-ui/primitives/issues/23)
-- [ ] [Toast](https://github.com/oku-ui/primitives/issues/24)
-- [x] [Toggle](https://github.com/oku-ui/primitives/issues/25)
-- [ ] [Toggle Group](https://github.com/oku-ui/primitives/issues/26)
-- [ ] [Toolbar](https://github.com/oku-ui/primitives/issues/27)
-- [ ] [Tooltip](https://github.com/oku-ui/primitives/issues/28)
+| Component | Description | Status | Docs |
+| --- | --- | --- | --- |
+| [Accordion](https://github.com/oku-ui/primitives/issues/3) | A group of collapsible panels | Not Started | -  |
+| [Alert Dialog](https://github.com/oku-ui/primitives/issues/4) | A modal dialog that interrupts the user's workflow to get a response | Not Started | -  |
+| [Aspect Ratio](https://oku-ui.com/primitives/components/aspect-ratio) | <span><a href="https://www.npmjs.com/package/@oku-ui/aspect-ratio "><img src="https://img.shields.io/npm/v/@oku-ui/aspect-ratio.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/aspect-ratio"><img src="https://img.shields.io/npm/dm/@oku-ui/aspect-ratio.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a> </span> | <span> <a href="https://oku-ui.com/primitives/components/aspect-ratio"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Avatar](https://oku-ui.com/primitives/components/avatar) | <span><a href="https://www.npmjs.com/package/@oku-ui/avatar "><img src="https://img.shields.io/npm/v/@oku-ui/avatar?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/avatar"><img src="https://img.shields.io/npm/dm/@oku-ui/avatar?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a></span> | <span> <a href="https://oku-ui.com/primitives/components/avatar"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Checkbox](https://oku-ui.com/primitives/components/checkbox) | <span><a href="https://www.npmjs.com/package/@oku-ui/checkbox "><img src="https://img.shields.io/npm/v/@oku-ui/checkbox?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/checkbox"> <img src="https://img.shields.io/npm/dm/@oku-ui/checkbox?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/checkbox"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Collapsible](https://oku-ui.com/primitives/components/collapsible) | <span><a href="https://www.npmjs.com/package/@oku-ui/collapsible "><img src="https://img.shields.io/npm/v/@oku-ui/collapsible?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/collapsible"> <img src="https://img.shields.io/npm/dm/@oku-ui/collapsible?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/collapsible"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Context Menu](https://github.com/oku-ui/primitives/issues/8) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
+| [Dialog](https://github.com/oku-ui/primitives/issues/9) | A modal dialog that interrupts the user's workflow to get a response | Not Started | -  |
+| [Dropdown Menu](https://github.com/oku-ui/primitives/issues/10) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
+| [Form](https://github.com/oku-ui/primitives/issues/11) | A group of form controls | Not Started | -  |
+| [Hover Card](https://github.com/oku-ui/primitives/issues/12) | A card that appears when a user hovers over an element | Not Started | -  |
+| [Label](https://oku-ui.com/primitives/components/label) | <span><a href="https://www.npmjs.com/package/@oku-ui/label "><img src="https://img.shields.io/npm/v/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/label"> <img src="https://img.shields.io/npm/dm/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/label"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Menubar](https://github.com/oku-ui/primitives/issues/13) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
+| [Navigation Menu](https://github.com/oku-ui/primitives/issues/14) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
+| [Popover](https://github.com/oku-ui/primitives/issues/15) | A card that appears when a user hovers over an element | Not Started | -  |
+| [Progress](https://oku-ui.com/primitives/components/progress) | <span><a href="https://www.npmjs.com/package/@oku-ui/progress "><img src="https://img.shields.io/npm/v/@oku-ui/progress?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/progress"> <img src="https://img.shields.io/npm/dm/@oku-ui/progress?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/progress"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Radio Group](https://github.com/oku-ui/primitives/issues/17) | A group of radio buttons | Not Started | -  |
+| [Scroll Area](https://github.com/oku-ui/primitives/issues/18) | A scrollable area | Not Started | -  |
+| [Select](https://github.com/oku-ui/primitives/issues/19) | A control that allows users to select one or more items from a list of options | 🚧 In Progress | -  |
+| [Separator](https://oku-ui.com/primitives/components/separator) | <span><a href="https://www.npmjs.com/package/@oku-ui/separator "><img src="https://img.shields.io/npm/v/@oku-ui/separator?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/separator"> <img src="https://img.shields.io/npm/dm/@oku-ui/separator?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/separator"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Slider](https://github.com/oku-ui/primitives/issues/21) | A control that allows users to input numeric values in a given range | Not Started | -  |
+| [Switch](https://github.com/oku-ui/primitives/issues/22) | A control that allows users to switch between two mutually exclusive options | 🚧 In Progress | -  |
+| [Tabs](https://github.com/oku-ui/primitives/issues/23) | A group of tabs | 🚧 In Progress | -  |
+| [Toast](https://github.com/oku-ui/primitives/issues/24) | A non-modal dialog that appears and disappears from the screen |  | -  |
+| [Toggle](https://oku-ui.com/primitives/components/toggle) | <span><a href="https://www.npmjs.com/package/@oku-ui/toggle "><img src="https://img.shields.io/npm/v/@oku-ui/toggle?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/toggle"> <img src="https://img.shields.io/npm/dm/@oku-ui/toggle?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/toggle"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Toggle Group](https://github.com/oku-ui/primitives/issues/26) | A group of toggle buttons | Not Started | -  |
+| [Toolbar](https://github.com/oku-ui/primitives/issues/27) | A group of toolbar buttons | Not Started | -  |
+| [Tooltip](https://github.com/oku-ui/primitives/issues/28) | A card that appears when a user hovers over an element | Not Started | -  |
 
----
 
 ## Community
 
@@ -78,6 +79,10 @@ Thanks to Johnson Chu [@johnsoncodehk](https://github.com/johnsoncodehk). Suppor
 Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped me in many areas so far.
 
 Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
+
+## Credits
+
+- [Skirtle](https://github.com/skirtles-code)
 
 
 ---

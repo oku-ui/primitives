@@ -1,9 +1,10 @@
 import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
-import { type ElementType, type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { computedEager, useCallbackRef, useRef, useSize } from '@oku-ui/use-composable'
+import { computedEager, useCallbackRef, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
@@ -33,6 +34,8 @@ export const [PopperContentProvider, usePopperContentInject] = createPopperProvi
 type Boundary = Element | null
 
 type PopperContentElement = ElementType<'div'>
+export type _PopperContentEl = HTMLDivElement
+
 interface PopperContentProps extends PrimitiveProps {
   side?: Side
   sideOffset?: number
@@ -123,7 +126,7 @@ const PopperContent = defineComponent({
       default: false,
     },
   },
-  setup(props, { attrs, expose, slots }) {
+  setup(props, { attrs, slots }) {
     const {
       side,
       sideOffset,
@@ -144,12 +147,8 @@ const PopperContent = defineComponent({
 
     const inject = usePopperInject(CONTENT_NAME, scopePopper.value)
 
-    const content = ref<HTMLDivElement | null>(null)
-    const { $el, newRef } = useRef<HTMLDivElement>()
-
-    expose({
-      innerRef: $el,
-    })
+    const content = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
+    const composedRefs = useComposedRefs(content, useForwardRef())
 
     const arrow = ref<HTMLSpanElement | null>(null)
     const arrowSize = useSize(arrow)
@@ -207,7 +206,8 @@ const PopperContent = defineComponent({
       ].filter(isDefined) as Middleware[]
     })
 
-    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.value.anchor, newRef, {
+    const refElement = ref()
+    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.value.anchor, refElement, {
       // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
       strategy: 'fixed',
       placement: desiredPlacement,
@@ -251,9 +251,10 @@ const PopperContent = defineComponent({
     const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffset !== 0)
 
     const contentZIndex = ref()
-    watch(content, () => {
+
+    watchEffect(() => {
       if (content.value)
-        contentZIndex.value = window.getComputedStyle(content.value).zIndex
+        contentZIndex.value = window.getComputedStyle(content.value.$el).zIndex
     })
 
     PopperContentProvider({
@@ -272,7 +273,7 @@ const PopperContent = defineComponent({
     const originalReturn = () =>
       h('div',
         {
-          'ref': newRef,
+          'ref': refElement,
           'data-oku-popper-content-wrapper': '',
           'style': {
             'top': floatingTop.value,
@@ -294,6 +295,7 @@ const PopperContent = defineComponent({
               'data-align': placedAlign.value,
               ...attrsElement,
               'asChild': props.asChild,
+              'ref': composedRefs,
               'style': {
                 ...attrsElement.style as any,
                 // if the PopperContent hasn't been placed yet (not all measurements done)
@@ -315,6 +317,7 @@ const PopperContent = defineComponent({
 })
 
 type _PopperContent = MergeProps<PopperContentProps, PopperContentElement>
+type InstancePopperContentType = InstanceTypeRef<typeof PopperContent, _PopperContentEl>
 
 const OkuPopperContent = PopperContent as typeof PopperContent & (new () => { $props: _PopperContent })
 
@@ -324,4 +327,5 @@ export {
 
 export type {
   PopperContentProps,
+  InstancePopperContentType,
 }

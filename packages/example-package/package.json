@@ -8,7 +8,8 @@
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oku-ui/primitives.git"
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/components/example"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -32,7 +33,7 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.0"
   },
   "dependencies": {},
   "devDependencies": {

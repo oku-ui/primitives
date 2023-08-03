@@ -1,13 +1,14 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useControllable, useRef } from '@oku-ui/use-composable'
+import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 const TOGGLE_NAME = 'Toggle'
 
 type ToggleElement = ElementType<'button'>
+export type _ToggleEl = HTMLButtonElement
 
 interface ToggleProps extends PrimitiveProps {
   /**
@@ -43,15 +44,11 @@ const Toggle = defineComponent({
     },
   },
   emits: ['update:pressed', 'update:modelValue'],
-  setup(props, { attrs, expose, slots, emit }) {
+  setup(props, { attrs, slots, emit }) {
     const { pressed: pressedProp, defaultPressed } = toRefs(props)
     const modelValue = useModel(props, 'modelValue')
 
-    const { $el, newRef } = useRef<ToggleElement>()
-
-    expose({
-      innerRef: $el,
-    })
+    const forwardedRef = useForwardRef()
 
     const { state, updateValue } = useControllable({
       prop: computed(() => modelValue.value ?? pressedProp.value),
@@ -71,7 +68,7 @@ const Toggle = defineComponent({
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled ? '' : undefined,
         ...toggleProps,
-        'ref': newRef,
+        'ref': forwardedRef,
         'onClick': composeEventHandlers(toggleProps.onClick, () => {
           if (!disabled)
             updateValue(!state.value)
@@ -82,15 +79,13 @@ const Toggle = defineComponent({
       },
     )
 
-    return originalReturn as unknown as {
-      innerRef: Ref<ToggleElement>
-    }
+    return originalReturn
   },
 })
 
 type _ToggleProps = MergeProps<ToggleProps, ToggleElement>
 
-type ToggleRef = RefElement<typeof Toggle>
+type InstanceToggleType = InstanceTypeRef<typeof Toggle, _ToggleEl>
 
 const OkuToggle = Toggle as typeof Toggle & (new () => { $props: _ToggleProps })
 
@@ -101,5 +96,5 @@ export {
 export type {
   ToggleProps,
   ToggleElement,
-  ToggleRef,
+  InstanceToggleType,
 }

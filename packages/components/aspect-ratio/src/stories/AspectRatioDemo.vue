@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { AspectRatioProps } from '@oku-ui/aspect-ratio'
+import type { AspectRatioProps, InstanceAspectRatioType } from '@oku-ui/aspect-ratio'
 import { OkuAspectRatio } from '@oku-ui/aspect-ratio'
+import { onMounted, ref } from 'vue'
 
 export interface IAspectRatioProps extends AspectRatioProps {
   template?: '#1' | '#2' | '#3' | '#4' | '#5'
@@ -13,12 +14,18 @@ withDefaults(defineProps<IAspectRatioProps>(), {
   template: '#1',
   allShow: false,
 })
+
+const root = ref<InstanceAspectRatioType>()
+onMounted(() => {
+  // eslint-disable-next-line no-console
+  console.log(root.value?.$el)
+})
 </script>
 
 <template>
-  <div class="cursor-default inline-block grid gap-6">
+  <div class="cursor-default inline-block gap-6">
     <div v-if="template === '#1' || allShow" class="w-[300px] rounded-sm overflow-hidden">
-      <OkuAspectRatio class="bg-cyan-500 flex items-center justify-center text-white font-bold">
+      <OkuAspectRatio ref="root" class="bg-cyan-500 flex items-center justify-center text-white font-bold">
         <h1>Default ratio (1/1)</h1>
       </OkuAspectRatio>
     </div>

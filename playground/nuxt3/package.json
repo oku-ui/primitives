@@ -15,13 +15,17 @@
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
+    "@oku-ui/collection": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
-    "@oku-ui/separator": "workspace:^"
+    "@oku-ui/separator": "workspace:^",
+    "@oku-ui/slot": "workspace:^",
+    "@oku-ui/switch": "workspace:^",
+    "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
-    "@types/node": "^18.16.19",
-    "nuxt": "^3.6.3"
+    "@types/node": "^18.17.1",
+    "nuxt": "^3.6.5"
   }
 }

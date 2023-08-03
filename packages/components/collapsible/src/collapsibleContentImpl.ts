@@ -1,15 +1,17 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
 
-import { useRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
 import { getState } from './utils'
 import { CONTENT_NAME } from './collapsibleContent'
 
 type CollapsibleContentImplElement = ElementType<'div'>
+export type _CollapsibleContentImplEl = HTMLDivElement
+
 interface CollapsibleContentImplProps extends PrimitiveProps { }
 
 const CollapsibleContentImpl = defineComponent({
@@ -27,14 +29,14 @@ const CollapsibleContentImpl = defineComponent({
       default: undefined,
     },
   },
-  setup(props, { attrs, slots, expose }) {
+  setup(props, { attrs, slots }) {
     const { scopeCollapsible, present, asChild } = toRefs(props)
     const { ...contentAttrs } = attrs as CollapsibleContentImplElement
     const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
-    const { $el, newRef } = useRef<HTMLElement>()
-    expose({
-      innerRef: $el,
-    })
+
+    const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | undefined>(undefined)
+    const forwardedRef = useForwardRef()
+    const composedRefs = useComposedRefs(_ref, forwardedRef)
 
     const heightRef = ref<number | undefined>(0)
     const widthRef = ref<number | undefined>(0)
@@ -55,7 +57,7 @@ const CollapsibleContentImpl = defineComponent({
 
     watch([isOpen, isPresent], async () => {
       await nextTick()
-      const node = $el.value
+      const node = _ref.value?.$el
       if (node) {
         originalStylesRef.value = originalStylesRef.value || {
           transitionDuration: node.style.transitionDuration,
@@ -88,7 +90,7 @@ const CollapsibleContentImpl = defineComponent({
         'id': context.value.contentId,
         'hidden': !isOpen.value,
         ...contentAttrs,
-        'ref': newRef,
+        'ref': composedRefs,
         'asChild': asChild.value,
         'style': {
           ['--oku-collapsible-content-height' as any]: height.value ? `${height.value}px` : undefined,
@@ -109,9 +111,9 @@ const CollapsibleContentImpl = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 type _CollapsibleContentImplProps = MergeProps<CollapsibleContentImplProps, CollapsibleContentImplElement>
-type CollapsibleContentImplRef = RefElement<typeof CollapsibleContentImpl>
+type InstanceCollapsibleContentImplType = InstanceTypeRef<typeof CollapsibleContentImpl, _CollapsibleContentImplEl>
 
 const OkuCollapsibleContentImpl = CollapsibleContentImpl as typeof CollapsibleContentImpl & (new () => { $props: _CollapsibleContentImplProps })
 
 export { OkuCollapsibleContentImpl }
-export type { CollapsibleContentImplProps, CollapsibleContentImplElement, CollapsibleContentImplRef }
+export type { CollapsibleContentImplProps, CollapsibleContentImplElement, InstanceCollapsibleContentImplType }

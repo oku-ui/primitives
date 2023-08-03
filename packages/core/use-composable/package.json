@@ -32,11 +32,11 @@
     "dev": "tsup --watch"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.0"
   },
   "dependencies": {
     "@oku-ui/utils": "latest",
-    "@vueuse/core": "^10.2.1"
+    "@vueuse/core": "^10.3.0"
   },
   "devDependencies": {
     "@types/resize-observer-browser": "^0.1.7",

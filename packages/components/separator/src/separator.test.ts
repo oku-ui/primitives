@@ -12,10 +12,7 @@ describe('OkuSeparator', () => {
   })
 
   it('renders ref correctly', async () => {
-    // TODO: outerHTML is not available on VueWrapper
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    expect(wrapper.vm.innerRef.outerHTML).toBe('<div role="separator" data-orientation="horizontal"><!----></div>')
+    expect(wrapper.vm.$el.outerHTML).toBe('<div role="separator" data-orientation="horizontal"><!----></div>')
   })
 
   it('sets role as separator without decorative', async () => {

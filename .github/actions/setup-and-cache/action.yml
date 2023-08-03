@@ -32,7 +32,7 @@ runs:
       working-directory: ${{ inputs.cwd }}
       run: corepack enable
 
-    - uses: pnpm/action-setup@v2.2.4
+    - uses: pnpm/action-setup@v2.4.0
       if: ${{ inputs.enable-corepack }} == 'false'
       # If you're not setting the packageManager field in package.json, add the version here
       # with:
