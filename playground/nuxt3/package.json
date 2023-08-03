@@ -15,9 +15,11 @@
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
+    "@oku-ui/collection": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/separator": "workspace:^",
+    "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^"
   },

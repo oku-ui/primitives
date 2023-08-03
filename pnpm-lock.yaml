@@ -34,6 +34,9 @@ importers:
       '@oku-ui/collapsible':
         specifier: workspace:^
         version: link:packages/components/collapsible
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:packages/components/collection
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
@@ -286,6 +289,31 @@ importers:
         version: link:../../core/utils
       vue:
         specifier: ^3.3.2
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/collection:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: latest
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -555,6 +583,9 @@ importers:
       '@oku-ui/collapsible':
         specifier: workspace:^
         version: link:../../packages/components/collapsible
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:../../packages/components/collection
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
@@ -564,6 +595,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../../packages/components/slot
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:../../packages/components/switch
