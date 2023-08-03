@@ -34,6 +34,9 @@ importers:
       '@oku-ui/collapsible':
         specifier: workspace:^
         version: link:packages/components/collapsible
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:packages/components/collection
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
