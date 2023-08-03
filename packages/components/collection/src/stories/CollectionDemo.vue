@@ -14,46 +14,46 @@ withDefaults(defineProps<OkuCollectionProps>(), {
 
 type ItemData = { disabled?: boolean }
 
-const [Collection, useCollection] = createCollection<HTMLLIElement, ItemData >('List')
+const { CollectionSlot, CollectionItemSlot, CollectionProvider, useCollection } = createCollection<HTMLLIElement, ItemData >('List')
 
-const labelRef = ref()
+const labelRef = ref<any>()
 onMounted(() => {
-  console.log(labelRef.value?.$el)
+  console.log(labelRef.value, 'ref')
 })
 const alert = () => window.alert('clicked')
 
-onMounted(() => {
+function LogsItem() {
   const getItems = useCollection(undefined)
-
-  console.log(getItems.value)
-})
+  console.log(getItems.value[0].ref.value)
+}
 </script>
 
 <template>
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <Collection.Provider :scope="undefined">
-        <Collection.Slot :scope="undefined">
+      <CollectionProvider :scope="undefined">
+        <CollectionSlot :scope="undefined">
           <ul clas="w-52">
-            <Collection.ItemSlot :scope="undefined">
-              <li class="opacity-50">
+            <CollectionItemSlot ref="labelRef" :scope="undefined">
+              <li>
                 Red
               </li>
-            </Collection.ItemSlot>
-            <Collection.ItemSlot :scope="undefined" :disabled="true">
+            </CollectionItemSlot>
+            <CollectionItemSlot :scope="undefined" :disabled="true">
               <li class="opacity-50">
                 Green
               </li>
-            </Collection.ItemSlot>
+            </CollectionItemSlot>
 
-            <Collection.ItemSlot :scope="undefined">
-              <li class="opacity-50">
+            <CollectionItemSlot :scope="undefined">
+              <li>
                 Blue
               </li>
-            </Collection.ItemSlot>
+            </CollectionItemSlot>
           </ul>
-        </Collection.Slot>
-      </Collection.Provider>
+        </CollectionSlot>
+        <LogsItem />
+      </CollectionProvider>
     </div>
   </div>
 </template>
