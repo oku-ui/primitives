@@ -583,6 +583,9 @@ importers:
       '@oku-ui/collapsible':
         specifier: workspace:^
         version: link:../../packages/components/collapsible
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:../../packages/components/collection
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
@@ -592,6 +595,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../../packages/components/slot
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:../../packages/components/switch

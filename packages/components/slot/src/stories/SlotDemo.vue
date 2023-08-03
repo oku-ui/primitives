@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue'
 import { OkuSlot, OkuSlottable } from '@oku-ui/slot'
 
 export interface OkuLabelProps {
-  template: '#1' | '#2' | '#3' | '#4'
+  template?: '#1' | '#2' | '#3' | '#4'
   allshow?: boolean
 }
 
