@@ -9,7 +9,11 @@ import {
   toValue,
   useModel,
 } from 'vue'
-import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import {
+  useComposedRefs,
+  useControllable,
+  useForwardRef,
+} from '@oku-ui/use-composable'
 import type {
   ComponentPublicInstanceRef,
   ElementType,
@@ -107,9 +111,11 @@ const Switch = defineComponent({
       name,
     } = toRefs(props)
 
-    const { ...switchProps } = attrs as SwitchElement
+    const { ...switchAttrs } = attrs as SwitchElement
 
-    const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
+    const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(
+      null,
+    )
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
@@ -122,7 +128,7 @@ const Switch = defineComponent({
     onMounted(() => {
       isFormControl.value = buttonRef.value
         ? typeof buttonRef.value.$el.closest === 'function'
-        && Boolean(buttonRef.value.$el.closest('form'))
+          && Boolean(buttonRef.value.$el.closest('form'))
         : true
     })
 
@@ -155,8 +161,8 @@ const Switch = defineComponent({
           'data-state': getState(state.value),
           'ref': composedRefs,
           'asChild': props.asChild,
-          ...switchProps,
-          'onClick': composeEventHandlers(switchProps.onClick, (event) => {
+          ...switchAttrs,
+          'onClick': composeEventHandlers(switchAttrs.onClick, (event) => {
             updateValue(!state.value)
 
             if (isFormControl.value) {
