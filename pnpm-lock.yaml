@@ -418,6 +418,34 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/roving-focus:
+    dependencies:
+      '@oku-ui/collection':
+        specifier: latest
+        version: link:../collection
+      '@oku-ui/direction':
+        specifier: latest
+        version: link:../direction
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/separator:
     dependencies:
       '@oku-ui/primitive':
