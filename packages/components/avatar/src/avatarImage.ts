@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, onMounted, toRefs, watch } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { useCallbackRef, useForwardRef } from '@oku-ui/use-composable'
@@ -13,7 +13,7 @@ const IMAGE_NAME = 'AvatarImage'
 type AvatarImageElement = ElementType<'img'>
 export type _AvatarImageEl = HTMLImageElement
 
-interface AvatarImageProps extends PrimitiveProps {
+interface AvatarImageProps extends IPrimitiveProps {
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void
   scopeAvatar?: Scope
 }

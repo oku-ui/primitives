@@ -1,14 +1,14 @@
-export { OkuPrimitive, Primitive } from './primitive'
+export { OkuPrimitive, Primitive, PrimitiveProps } from './primitive'
 export type {
   ComponentProps,
   RefElement,
   MergeProps,
-  PrimitiveProps,
   ElementType,
   PrimitivePropsWithRef,
   ComponentPropsWithoutRef,
   InstanceTypeRef,
   ComponentPublicInstanceRef,
+  IPrimitiveProps,
 } from './primitive'
 
 export type { AriaAttributes } from './types'

@@ -1,7 +1,7 @@
 import type {
   ElementType,
+  IPrimitiveProps,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
@@ -17,7 +17,7 @@ type SwitchThumbElement = ElementType<'span'>
 export type _SwitchThumbEl = HTMLSpanElement
 
 type SwitchThumbProps = SwitchThumbElement &
-PrimitiveProps & {
+IPrimitiveProps & {
   scopeSwitch?: Scope
 }
 

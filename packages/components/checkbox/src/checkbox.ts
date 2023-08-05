@@ -6,7 +6,7 @@ import { composeEventHandlers } from '@oku-ui/utils'
 import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
-import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 import { type CheckedState, getState, isIndeterminate } from './utils'
@@ -27,7 +27,7 @@ export const [CheckboxProvider, useCheckboxInject]
 type CheckboxElement = ElementType<'button'>
 export type _CheckboxEl = HTMLButtonElement
 
-interface CheckboxProps extends PrimitiveProps {
+interface CheckboxProps extends IPrimitiveProps {
   checked?: CheckedState
   defaultChecked?: CheckedState
   required?: boolean
@@ -176,7 +176,7 @@ const Checkbox = defineComponent({
 
 type CheckboxIndicatorElement = ElementType<'span'>
 
-interface CheckboxIndicatorProps extends PrimitiveProps {
+interface CheckboxIndicatorProps extends IPrimitiveProps {
   forceMount?: true
 }
 

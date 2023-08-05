@@ -2,22 +2,24 @@ import type { PropType } from 'vue'
 import { defineComponent, h, toRefs, watchEffect } from 'vue'
 import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
 
-import { type ElementType, Primitive } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
-import type { ItemData } from './RovingFocusGroup'
+import type { ItemData, ScopedPropsInterface } from './RovingFocusGroup'
 import { CollectionItemSlot, ScopedProps, useCollection, useRovingFocusInject } from './RovingFocusGroup'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
 
 export type RovingFocusGroupItemElement = ElementType<'span'>
 export type _RovingFocusGroupItemEl = HTMLSpanElement
 
-interface IRovingFocusItemProps {
+interface IRovingFocusItemProps extends IPrimitiveProps {
   tabStopId?: string
   focusable?: boolean
   active?: boolean
   onFocus?: (event: FocusEvent) => void
   onKeydown?: (event: KeyboardEvent) => void
   onMousedown?: (event: MouseEvent) => void
+
 }
 
 export const RovingFocusItemProps = {
@@ -35,14 +37,11 @@ export const RovingFocusItemProps = {
   onFocus: Function as PropType<(event: FocusEvent) => void>,
   onKeydown: Function as PropType<(event: KeyboardEvent) => void>,
   onMousedown: Function as PropType<(event: MouseEvent) => void>,
-  asChild: {
-    type: Boolean,
-    default: false,
-  },
+  ...PrimitiveProps,
 }
 
 // Define Component Props Type
-export interface RovingFocusItemPropsType extends IRovingFocusItemProps {
+export interface RovingFocusItemPropsType extends ScopedPropsInterface<IRovingFocusItemProps> {
 }
 
 export const RovingFocusGroupImplElementProps = {
@@ -56,7 +55,7 @@ export const IRovingFocusGroupImplProps = {
 
 const ITEM_NAME = 'OkuRovingFocusGroupItem'
 
-const OkuRovingFocusGroupItem = defineComponent({
+const RovingFocusGroupItem = defineComponent({
   name: ITEM_NAME,
   inheritAttrs: false,
   props: IRovingFocusGroupImplProps,
@@ -161,6 +160,13 @@ const OkuRovingFocusGroupItem = defineComponent({
     })
   },
 })
+
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _OkuRovingFocusGroupImpl = MergeProps<RovingFocusItemPropsType, RovingFocusGroupItemElement>
+
+export type InstanceCheckboxType = InstanceTypeRef<typeof RovingFocusGroupItem, _OkuRovingFocusGroupImpl>
+
+const OkuRovingFocusGroupItem = RovingFocusGroupItem as typeof RovingFocusGroupItem & (new () => { $props: _OkuRovingFocusGroupImpl })
 
 export {
   OkuRovingFocusGroupItem,

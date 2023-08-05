@@ -85,8 +85,12 @@ type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'> & {
 
 type MergeProps<T, U> = U & T
 
-interface PrimitiveProps {
+interface IPrimitiveProps {
   asChild?: boolean
+}
+
+const PrimitiveProps = {
+  asChild: Boolean,
 }
 
 type PrimitivePropsWithRef<E extends keyof HTMLElementTagNameMap> =
@@ -218,11 +222,11 @@ const Primitive = NODES.reduce((primitive, node) => {
 
 const OkuPrimitive = Primitive
 
-export { OkuPrimitive, Primitive }
+export { OkuPrimitive, Primitive, PrimitiveProps }
 export type {
   ComponentProps,
   MergeProps,
-  PrimitiveProps,
+  IPrimitiveProps,
   RefElement,
   ElementType,
   PrimitivePropsWithRef,

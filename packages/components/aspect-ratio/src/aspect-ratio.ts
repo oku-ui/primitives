@@ -1,9 +1,9 @@
 import { defineComponent, h } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-interface AspectRatioProps extends PrimitiveProps {
+interface AspectRatioProps extends IPrimitiveProps {
   ratio?: number
 }
 

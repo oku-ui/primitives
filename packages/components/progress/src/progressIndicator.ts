@@ -2,9 +2,9 @@ import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type {
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -15,7 +15,7 @@ import { INDICATOR_NAME } from './constants'
 type ProgressIndicatorElement = ElementType<'div'>
 export type _ProgressIndicatorEl = HTMLDivElement
 
-interface ProgressIndicatorProps extends PrimitiveProps {
+interface ProgressIndicatorProps extends IPrimitiveProps {
   scopeProgress?: Scope
 }
 
@@ -60,7 +60,7 @@ const ProgressIndicator = defineComponent({
 
 type _OkuProgressIndicatorProps = MergeProps<
   ProgressIndicatorProps,
-  PrimitiveProps
+  ProgressIndicatorElement
 >
 type InstanceProgressIndicatorType = InstanceTypeRef<typeof ProgressIndicator, _ProgressIndicatorEl>
 
