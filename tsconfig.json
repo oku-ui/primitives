@@ -6,7 +6,7 @@
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Node",
     "isolatedModules": true,
     "strict": true,
     "jsx": "preserve",
