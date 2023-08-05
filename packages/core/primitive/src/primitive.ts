@@ -17,6 +17,7 @@ import {
   onMounted,
 } from 'vue'
 import { isValidVNodeElement, renderSlotFragments } from './utils'
+import type { AriaAttributes } from './types'
 
 const NODES = [
   'a',
@@ -36,6 +37,25 @@ const NODES = [
   'svg',
   'ul',
 ] as const
+
+interface NodeElementTagNameMap {
+  a: HTMLAnchorElement
+  button: HTMLButtonElement
+  div: HTMLDivElement
+  form: HTMLFormElement
+  h2: HTMLHeadingElement
+  h3: HTMLHeadingElement
+  img: HTMLImageElement
+  input: HTMLInputElement
+  label: HTMLLabelElement
+  li: HTMLLIElement
+  nav: HTMLElement
+  ol: HTMLOListElement
+  p: HTMLParagraphElement
+  span: HTMLSpanElement
+  svg: SVGSVGElement
+  ul: HTMLUListElement
+}
 
 type ElementConstructor<P> =
   | (new () => { $props: P })
@@ -88,7 +108,7 @@ type ComponentPropsWithoutRef<
 type Primitives = {
   [E in (typeof NODES)[number]]: DefineComponent<{
     asChild?: boolean
-  }>;
+  } & IntrinsicElementAttributes[E]> & NodeElementTagNameMap[E] & AriaAttributes
 }
 
 type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<
