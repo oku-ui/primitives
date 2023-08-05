@@ -6,7 +6,7 @@
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "isolatedModules": true,
     "strict": true,
     "jsx": "preserve",
@@ -35,7 +35,8 @@
   "include": [
     "packages/**/*",
     "vitest-setup.ts",
-    "vitest.config.ts"
+    "vitest.config.ts",
+    "scripts/**/*"
   ],
   "exclude": [
     "**/*/*.stories.ts",
