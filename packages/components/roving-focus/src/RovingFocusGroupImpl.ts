@@ -32,14 +32,18 @@ export interface RovingFocusGroupOptions {
 }
 
 export const RovingFocusGroupOptionsProps = {
-  orientation: String as PropType<Orientation>,
-  dir: String as PropType<Direction>,
-  loop: Boolean,
+  orientation: {
+    type: String as PropType<Orientation>,
+  },
+  dir: {
+    type: String as PropType<Direction>,
+  },
+  loop: {
+    type: Boolean,
+  },
 }
 
-export interface RovingFocusGroupImplPropsType
-  extends
-  RovingFocusGroupOptions {
+export interface RovingFocusGroupImplPropsType extends RovingFocusGroupOptions {
   currentTabStopId?: string | null
   defaultCurrentTabStopId?: string
   onCurrentTabStopIdChange?: (tabStopId: string | null) => void
@@ -131,10 +135,8 @@ const OkuRovingFocusGroupImpl = defineComponent({
       'data-orientation': orientation.value,
       'ref': composedRefs,
       'style': {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         outline: 'none',
-        ..._attrs.style,
+        ..._attrs.style as any,
       },
       'onMouseDown': () => {
         useComposeEventHandlers(_attrs.onmousedown, () => {

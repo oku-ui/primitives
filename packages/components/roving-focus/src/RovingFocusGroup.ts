@@ -4,19 +4,35 @@ import type { Scope } from '@oku-ui/provide'
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { IRovingFocusGroupImplProps, OkuRovingFocusGroupImpl, type RovingFocusGroupImplElement, type RovingFocusGroupImplProps, type RovingFocusGroupOptions } from './RovingFocusGroupImpl'
+import { IRovingFocusGroupImplProps, OkuRovingFocusGroupImpl } from './RovingFocusGroupImpl'
+import type { type RovingFocusGroupImplElement, RovingFocusGroupImplPropsType, type RovingFocusGroupOptions } from './RovingFocusGroupImpl'
 
 const GROUP_NAME = 'RovingFocusGroup'
 
-type ItemData = { id: string; focusable: boolean; active: boolean }
+interface ItemData { id: string; focusable: boolean; active: boolean }
 export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<
   HTMLSpanElement,
   ItemData
->(GROUP_NAME)
+>(GROUP_NAME, {
+  id: {
+    type: String,
+    required: true,
+  },
+  focusable: {
+    type: Boolean,
+    default: true,
+  },
+  active: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 type ScopedPropsInterface<P> = P & { scopeRovingFocusGroup?: Scope }
 export const ScopedProps = {
-  scopeRovingFocusGroup: Object as unknown as PropType<Scope>,
+  scopeRovingFocusGroup: {
+    type: Object as PropType<Scope>,
+  },
 }
 
 const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createProvideScope(
@@ -36,7 +52,7 @@ export const [RovingFocusProvider, useRovingFocusInject]
   = createRovingFocusGroupProvide<RovingContextValue>(GROUP_NAME)
 
 type RovingFocusGroupElement = RovingFocusGroupImplElement
-interface IRovingFocusGroup extends RovingFocusGroupImplProps { }
+interface IRovingFocusGroup extends RovingFocusGroupImplPropsType { }
 
 const RovingFocusGroupProps = {
   ...IRovingFocusGroupImplProps,
@@ -65,3 +81,7 @@ const OkuRovingFocusGroup = defineComponent({
       })
   },
 })
+
+export {
+  OkuRovingFocusGroup,
+}
