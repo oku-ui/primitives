@@ -22,7 +22,7 @@ export function getDirectionAwareKey(key: string, dir?: Direction) {
 
 export type FocusIntent = 'first' | 'last' | 'prev' | 'next'
 
-export function getFocusIntent(event: React.KeyboardEvent, orientation?: Orientation, dir?: Direction) {
+export function getFocusIntent(event: KeyboardEvent, orientation?: Orientation, dir?: Direction) {
   const key = getDirectionAwareKey(event.key, dir)
   if (orientation === 'vertical' && ['ArrowLeft', 'ArrowRight'].includes(key))
     return undefined

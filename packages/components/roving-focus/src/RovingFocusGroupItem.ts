@@ -1,12 +1,12 @@
+import type { PropType } from 'vue'
 import { defineComponent, h, toRefs, watchEffect } from 'vue'
-import { useForwardRef, useId } from '@oku-ui/use-composable'
+import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
 
-import type { ElementType } from '@oku-ui/primitive'
+import { type ElementType, Primitive } from '@oku-ui/primitive'
 
+import type { ItemData } from './RovingFocusGroup'
 import { CollectionItemSlot, ScopedProps, useCollection, useRovingFocusInject } from './RovingFocusGroup'
-
-const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
-const EVENT_OPTIONS = { bubbles: false, cancelable: true }
+import { focusFirst, getFocusIntent, wrapArray } from './utils'
 
 export type RovingFocusGroupItemElement = ElementType<'span'>
 export type _RovingFocusGroupItemEl = HTMLSpanElement
@@ -15,6 +15,9 @@ interface IRovingFocusItemProps {
   tabStopId?: string
   focusable?: boolean
   active?: boolean
+  onFocus?: (event: FocusEvent) => void
+  onKeydown?: (event: KeyboardEvent) => void
+  onMousedown?: (event: MouseEvent) => void
 }
 
 export const RovingFocusItemProps = {
@@ -26,6 +29,13 @@ export const RovingFocusItemProps = {
     default: true,
   },
   active: {
+    type: Boolean,
+    default: false,
+  },
+  onFocus: Function as PropType<(event: FocusEvent) => void>,
+  onKeydown: Function as PropType<(event: KeyboardEvent) => void>,
+  onMousedown: Function as PropType<(event: MouseEvent) => void>,
+  asChild: {
     type: Boolean,
     default: false,
   },
@@ -50,8 +60,8 @@ const OkuRovingFocusGroupItem = defineComponent({
   name: ITEM_NAME,
   inheritAttrs: false,
   props: IRovingFocusGroupImplProps,
-  setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as _RovingFocusGroupItemEl
+  setup(props, { attrs }) {
+    const _attrs = attrs as any
     const {
       scopeRovingFocusGroup,
       focusable,
@@ -59,6 +69,7 @@ const OkuRovingFocusGroupItem = defineComponent({
       tabStopId,
       ...itemProps
     } = toRefs(props)
+    const attrsItems = _attrs as HTMLSpanElement
 
     const autoId = useId()
     const id = tabStopId.value || autoId
@@ -77,8 +88,76 @@ const OkuRovingFocusGroupItem = defineComponent({
       onClean(() => onFocusableItemRemove())
     })
 
+    const _props: ItemData = {
+      id,
+      focusable: focusable.value,
+      active: active.value,
+      scope: scopeRovingFocusGroup.value,
+    }
     return () => h(CollectionItemSlot, {
+      ..._props,
+    }, {
+      default: () =>
+        h(Primitive.span, {
+          'asChild': props.asChild,
+          'tabindex': isCurrentTabStop ? 0 : -1,
+          'data-orientation': inject.value.orientation,
+          ...attrsItems as any,
+          'ref': forwardedRef,
+          'onMouseDown': (event: MouseEvent) => {
+            useComposeEventHandlers(props.onMousedown, (event: MouseEvent) => {
+              // We prevent focusing non-focusable items on `mousedown`.
+              // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
+              if (!focusable)
+                event.preventDefault()
+              // Safari doesn't focus a button when clicked so we run our logic on mousedown also
+              else inject.value.onItemFocus(id)
+            })
+          },
+          'onFocus': (event: FocusEvent) => {
+            useComposeEventHandlers(props.onFocus, () => {
+              inject.value.onItemFocus(id)
+            })
+          },
+          'onKeyDown': (event: KeyboardEvent) => {
+            useComposeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
+              if (event.key === 'Tab' && event.shiftKey) {
+                inject.value.onItemShiftTab()
+                return
+              }
 
+              if (event.target !== event.currentTarget)
+                return
+
+              const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
+
+              if (focusIntent !== undefined) {
+                event.preventDefault()
+                const items = getItems.value.filter(item => item.focusable)
+                let candidateNodes = items.map(item => item.ref.value!)
+
+                if (focusIntent === 'last') {
+                  candidateNodes.reverse()
+                }
+                else if (focusIntent === 'prev' || focusIntent === 'next') {
+                  if (focusIntent === 'prev')
+                    candidateNodes.reverse()
+                  // TODO: check HTMLElement
+                  const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
+                  candidateNodes = inject.value.loop
+                    ? wrapArray(candidateNodes, currentIndex + 1)
+                    : candidateNodes.slice(currentIndex + 1)
+                }
+
+                /**
+                 * Imperative focus during keydown is risky so we prevent React's batching updates
+                 * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
+                 */
+                setTimeout(() => focusFirst(candidateNodes))
+              }
+            })
+          },
+        }),
     })
   },
 })

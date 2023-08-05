@@ -7,7 +7,7 @@ interface StoryProps extends ICheckBoxProps {
 }
 
 const meta = {
-  title: 'Components/Checkbox',
+  title: 'Components/RovingFocus',
   args: {
     template: '#1',
   },

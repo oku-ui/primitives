@@ -1,34 +1,34 @@
 import { createProvideScope } from '@oku-ui/provide'
+import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { Scope } from '@oku-ui/provide'
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
+import type { MergeProps } from '@oku-ui/primitive'
 import { IRovingFocusGroupImplProps, OkuRovingFocusGroupImpl } from './RovingFocusGroupImpl'
-import type { type RovingFocusGroupImplElement, RovingFocusGroupImplPropsType, type RovingFocusGroupOptions } from './RovingFocusGroupImpl'
+import type { RovingFocusGroupImplElement, RovingFocusGroupImplPropsType, RovingFocusGroupOptions } from './RovingFocusGroupImpl'
 
 const GROUP_NAME = 'RovingFocusGroup'
 
-interface ItemData { id: string; focusable: boolean; active: boolean }
+export interface ItemData extends CollectionPropsType { id: string; focusable: boolean; active: boolean }
+
 export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<
   HTMLSpanElement,
   ItemData
 >(GROUP_NAME, {
   id: {
     type: String,
-    required: true,
   },
   focusable: {
     type: Boolean,
-    default: true,
   },
   active: {
     type: Boolean,
-    default: false,
   },
 })
 
-type ScopedPropsInterface<P> = P & { scopeRovingFocusGroup?: Scope }
+export type ScopedPropsInterface<P> = P & { scopeRovingFocusGroup?: Scope }
 export const ScopedProps = {
   scopeRovingFocusGroup: {
     type: Object as PropType<Scope>,
@@ -48,18 +48,18 @@ type RovingContextValue = RovingFocusGroupOptions & {
   onFocusableItemRemove(): void
 }
 
-export const [RovingFocusProvider, useRovingFocusInject]
+export const [useRovingFocusProvider, useRovingFocusInject]
   = createRovingFocusGroupProvide<RovingContextValue>(GROUP_NAME)
 
 type RovingFocusGroupElement = RovingFocusGroupImplElement
-interface IRovingFocusGroup extends RovingFocusGroupImplPropsType { }
+interface IRovingFocusGroup extends ScopedPropsInterface<RovingFocusGroupImplPropsType> { }
 
 const RovingFocusGroupProps = {
   ...IRovingFocusGroupImplProps,
   ...ScopedProps,
 }
 
-const OkuRovingFocusGroup = defineComponent({
+const RovingFocusGroup = defineComponent({
   name: 'OkuRovingFocusGroup',
   inheritAttrs: false,
   props: RovingFocusGroupProps,
@@ -82,6 +82,12 @@ const OkuRovingFocusGroup = defineComponent({
   },
 })
 
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _RovingFocusGroupProps = MergeProps<IRovingFocusGroup, RovingFocusGroupElement>
+
+const OkuRovingFocusGroup = RovingFocusGroup as typeof RovingFocusGroup & (new () => { $props: _RovingFocusGroupProps })
+
 export {
   OkuRovingFocusGroup,
+  createRovingFocusGroupScope,
 }

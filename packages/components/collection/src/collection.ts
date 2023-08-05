@@ -1,4 +1,4 @@
-import type { FunctionalComponent, Ref, ReservedProps } from 'vue'
+import type { AllowedComponentProps, ComponentCustomProps, ComponentObjectPropsOptions, FunctionalComponent, Ref, ReservedProps, VNodeProps } from 'vue'
 import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
@@ -6,6 +6,9 @@ import { OkuSlot } from '@oku-ui/slot'
 
 const CollectionProps = {
   scope: { type: null as any, required: true },
+}
+interface CollectionPropsType {
+  scope: any
 }
 
 type CollectionElement = HTMLElement
@@ -15,10 +18,7 @@ type CollectionElement = HTMLElement
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-function createCollection<ItemElement extends HTMLElement, ItemData>(name: string) {
-  // const ItemData = {
-  //   scope: { type: Object, required: true },
-  // }
+function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
  * CollectionProvider
  * --------------------------------------------------------------------------------------------- */
@@ -28,7 +28,7 @@ function createCollection<ItemElement extends HTMLElement, ItemData>(name: strin
 
   type ContextValue = {
     collectionRef: Ref<CollectionElement | undefined>
-    itemMap: Map<Ref<ItemElement | null | undefined>, { ref: Ref<ItemElement> } & ItemData>
+    itemMap: Map<Ref<ItemElement | null | undefined>, { ref: Ref<ItemElement> } & T>
   }
 
   const [CollectionProviderImpl, useCollectionInject] = createCollectionProvide<ContextValue>(
@@ -44,7 +44,7 @@ function createCollection<ItemElement extends HTMLElement, ItemData>(name: strin
     },
     setup(props, { slots }) {
       const collectionRef = ref<CollectionElement>()
-      const itemMap = new Map<Ref<ItemElement>, { ref: Ref<ItemElement> } & ItemData>()
+      const itemMap = new Map<Ref<ItemElement>, { ref: Ref<ItemElement> } & T>()
       CollectionProviderImpl({
         collectionRef,
         itemMap,
@@ -65,6 +65,7 @@ function createCollection<ItemElement extends HTMLElement, ItemData>(name: strin
     inheritAttrs: false,
     props: {
       ...CollectionProps,
+      ...ItemData,
     },
     setup(props, { slots }) {
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
@@ -83,11 +84,9 @@ function createCollection<ItemElement extends HTMLElement, ItemData>(name: strin
   const ITEM_SLOT_NAME = `${name}CollectionItemSlot`
   const ITEM_DATA_ATTR = 'data-oku-collection-item'
 
-  type CollectionItemSlotProps = ItemData & {
-    scope: any | undefined
-  } & ReservedProps
+  type CollectionItemSlotProps = T & CollectionPropsType & ReservedProps
 
-  const CollectionItemSlot: FunctionalComponent<CollectionItemSlotProps> = (props, context) => {
+  const _CollectionItemSlot: FunctionalComponent<CollectionItemSlotProps> = (props, context) => {
     const { scope, ...itemData } = props
     const refValue = ref<ItemElement | null>()
     const forwaredRef = useForwardRef()
@@ -103,6 +102,14 @@ function createCollection<ItemElement extends HTMLElement, ItemData>(name: strin
     return h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, {
       default: () => context.slots.default?.(),
     })
+  }
+
+  const CollectionItemSlot = _CollectionItemSlot as unknown as {
+    new(): {
+      $props: AllowedComponentProps &
+      ComponentCustomProps &
+      VNodeProps & T
+    }
   }
 
   /* -----------------------------------------------------------------------------------------------
@@ -140,3 +147,5 @@ function createCollection<ItemElement extends HTMLElement, ItemData>(name: strin
 }
 
 export { createCollection, CollectionProps }
+
+export type { CollectionElement, CollectionPropsType }
