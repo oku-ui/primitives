@@ -52,7 +52,7 @@ describe('direction', () => {
             <ChildComponent />
           </DirectionProvider>
         `,
-    }
+    } as Component
 
     const wrapper = mount(main, {})
     expect(wrapper.html()).toContain('ltr')
