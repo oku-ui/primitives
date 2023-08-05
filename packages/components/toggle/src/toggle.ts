@@ -64,7 +64,7 @@ const Toggle = defineComponent({
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
-        'aria-pressed': state.value,
+        'aria-pressed': state.value ? 'true' : 'false',
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled ? '' : undefined,
         ...toggleProps,
