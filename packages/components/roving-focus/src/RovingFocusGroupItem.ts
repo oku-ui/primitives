@@ -11,24 +11,13 @@ import { RovingFocusProvider, ScopedProps, useCollection } from './RovingFocusGr
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-export type RovingFocusGroupImplElement = ElementType<'div'>
-export type _RovingFocusGroupImplEl = HTMLDivElement
+export type RovingFocusGroupImplElement = ElementType<'span'>
+export type _RovingFocusGroupImplEl = HTMLSpanElement
 
-export interface RovingFocusGroupOptions {
-  /**
-   * The orientation of the group.
-   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
-   */
-  orientation?: Orientation
-  /**
-   * The direction of navigation between items.
-   */
-  dir?: Direction
-  /**
-   * Whether keyboard navigation should loop around
-   * @defaultValue false
-   */
-  loop?: boolean
+interface RovingFocusItemProps {
+  tabStopId?: string
+  focusable?: boolean
+  active?: boolean
 }
 
 export const RovingFocusGroupOptionsProps = {
