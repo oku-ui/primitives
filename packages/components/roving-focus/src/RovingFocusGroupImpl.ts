@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { useComposeEventHandlers, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
@@ -87,6 +87,8 @@ const RovingFocusGroupImpl = defineComponent({
       currentTabStopId: currentTabStopIdProp,
       defaultCurrentTabStopId,
       onEntryFocus,
+      asChild,
+      ...propsData
     } = toRefs(props)
 
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
@@ -102,19 +104,19 @@ const RovingFocusGroupImpl = defineComponent({
     })
 
     const isTabbingBackOut = ref(false)
-    // const handleEntryFocus = useCallbackRef(onEntryFocus.value)
+    // const handleEntryFocus = useCallbackRef(onEntryFocus.value || undefined)
     const getItems = useCollection(props.scopeRovingFocusGroup)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
-    watchEffect(() => {
-      // TODO: handleEntryFocus watch ?
-      const node = buttonRef.value?.$el
-      // if (node) {
-      //   node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
-      //   return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus)
-      // }
-    })
+    // watchEffect(() => {
+    //   // TODO: handleEntryFocus watch ?
+    //   const node = buttonRef.value?.$el
+    //   // if (node) {
+    //   //   node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
+    //   //   return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus)
+    //   // }
+    // })
 
     useRovingFocusProvider({
       scope: props.scopeRovingFocusGroup,
@@ -136,50 +138,54 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    return () => h(Primitive.div, {
-      'tabIndex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
-      'data-orientation': orientation.value,
-      'ref': composedRefs,
-      'style': {
-        outline: 'none',
-        ..._attrs.style as any,
-      },
-      'asChild': props.asChild,
-      'onMouseDown': () => {
-        useComposeEventHandlers(props.onMousedown, () => {
-          isClickFocusRef.value = true
-        })
-      },
-      'onFocus': () => {
-        useComposeEventHandlers(props.onFocus, (event: FocusEvent) => {
-          // We normally wouldn't need this check, because we already check
-          // that the focus is on the current target and not bubbling to it.
-          // We do this because Safari doesn't focus buttons when clicked, and
-          // instead, the wrapper will get focused and not through a bubbling event.
-          const isKeyboardFocus = !isClickFocusRef.value
+    return () => {
+      const merged = mergeProps(_attrs, propsData)
+      return h(Primitive.div, {
+        'tabIndex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
+        'data-orientation': orientation.value,
+        ...merged,
+        'ref': composedRefs,
+        'style': {
+          outline: 'none',
+          ..._attrs.style as any,
+        },
+        'asChild': props.asChild,
+        'onMouseDown': () => {
+          useComposeEventHandlers(props.onMousedown, () => {
+            isClickFocusRef.value = true
+          })
+        },
+        'onFocus': () => {
+          useComposeEventHandlers(props.onFocus, (event: FocusEvent) => {
+            // We normally wouldn't need this check, because we already check
+            // that the focus is on the current target and not bubbling to it.
+            // We do this because Safari doesn't focus buttons when clicked, and
+            // instead, the wrapper will get focused and not through a bubbling event.
+            const isKeyboardFocus = !isClickFocusRef.value
 
-          if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
-            const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
-            event.currentTarget?.dispatchEvent(entryFocusEvent)
+            if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
+              const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
+              event.currentTarget?.dispatchEvent(entryFocusEvent)
 
-            if (!entryFocusEvent.defaultPrevented) {
-              const items = getItems.value.filter(item => item.focusable)
-              const activeItem = items.find(item => item.active)
-              const currentItem = items.find(item => item.id === currentTabStopId.value)
-              const candidateItems = [activeItem, currentItem, ...items].filter(
-                Boolean,
-              ) as typeof items
-              const candidateNodes = candidateItems.map(item => item.ref.value!)
-              focusFirst(candidateNodes)
+              if (!entryFocusEvent.defaultPrevented) {
+                const items = getItems.value.filter(item => item.focusable)
+                const activeItem = items.find(item => item.active)
+                const currentItem = items.find(item => item.id === currentTabStopId.value)
+                const candidateItems = [activeItem, currentItem, ...items].filter(
+                  Boolean,
+                ) as typeof items
+                const candidateNodes = candidateItems.map(item => item.ref.value!)
+                focusFirst(candidateNodes)
+              }
             }
-          }
 
-          isClickFocusRef.value = false
-        })
-      },
-    }, {
-      default: () => slots.default && slots.default(),
-    })
+            isClickFocusRef.value = false
+          })
+        },
+      }, {
+        default: () => slots.default?.(),
+      })
+    }
   },
 })
 

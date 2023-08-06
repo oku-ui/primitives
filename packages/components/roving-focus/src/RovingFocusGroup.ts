@@ -3,7 +3,7 @@ import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { Scope } from '@oku-ui/provide'
 import type { PropType } from 'vue'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { MergeProps } from '@oku-ui/primitive'
 import { IRovingFocusGroupImplProps, OkuRovingFocusGroupImpl } from './RovingFocusGroupImpl'
@@ -65,26 +65,29 @@ const RovingFocusGroup = defineComponent({
     OkuRovingFocusGroupImpl,
     CollectionProvider,
     CollectionSlot,
+    CollectionItemSlot,
   },
   inheritAttrs: false,
   props: RovingFocusGroupProps,
   setup(props, { slots, attrs }) {
     const forwardedRef = useForwardRef()
-    return () =>
-      h(CollectionProvider, {
+    return () => {
+      const mergedProps = mergeProps(attrs, props)
+      return h(CollectionProvider, {
         scope: props.scopeRovingFocusGroup,
       }, {
-        default: () =>
-          h(CollectionSlot, {
-            scope: props.scopeRovingFocusGroup,
+        default: () => h(CollectionSlot, {
+          scope: props.scopeRovingFocusGroup,
+        }, {
+          default: () => h(OkuRovingFocusGroupImpl, {
+            ...mergedProps,
+            ref: forwardedRef,
           }, {
-            default: () => h(OkuRovingFocusGroupImpl, {
-              ...attrs,
-              ...props,
-              ref: forwardedRef,
-            }),
+            default: () => slots.default?.(),
           }),
+        }),
       })
+    }
   },
 })
 

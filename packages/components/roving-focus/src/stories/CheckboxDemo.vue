@@ -22,9 +22,12 @@ onMounted(() => {
 <template>
   <div class="dark:text-white">
     <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <OkuRovingFocusGroup>
-        <OkuRovingFocusGroupItem :as-child="true" focusable :active="true">
-          <button>?1</button>
+      <OkuRovingFocusGroup class="flex flex-col">
+        <OkuRovingFocusGroupItem as-child focusable :active="true">
+          <button>1</button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child focusable :active="true">
+          <button>2</button>
         </OkuRovingFocusGroupItem>
       </OkuRovingFocusGroup>
     </div>
