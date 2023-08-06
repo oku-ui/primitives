@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { type Component } from 'vue'
-import { DirectionContextSymbol, DirectionProvider, useDirection } from './Direction.ts'
+import { DirectionProvider, useDirection } from './Direction'
+
+const DirectionContextSymbol = Symbol('DirectionContext')
 
 describe('direction', () => {
-  function propsTest(dir: string) {
+  function propsTest(dir: any) {
     it(`props ${dir}`, () => {
       const wrapper = mount(DirectionProvider, {
         props: {
