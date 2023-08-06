@@ -470,9 +470,6 @@ importers:
 
   packages/components/slot:
     dependencies:
-      '@oku-ui/primitive':
-        specifier: latest
-        version: link:../../core/primitive
       '@oku-ui/use-composable':
         specifier: latest
         version: link:../../core/use-composable
@@ -550,10 +547,10 @@ importers:
   packages/core/primitive:
     dependencies:
       '@oku-ui/slot':
-        specifier: workspace:^
+        specifier: latest
         version: link:../../components/slot
       '@oku-ui/use-composable':
-        specifier: workspace:^
+        specifier: latest
         version: link:../use-composable
       vue:
         specifier: ^3.3.0
@@ -3126,7 +3123,7 @@ packages:
       '@rushstack/ts-command-line': 4.15.1
       colors: 1.2.5
       lodash: 4.17.21
-      resolve: 1.22.2
+      resolve: 1.22.3
       semver: 7.5.4
       source-map: 0.6.1
       typescript: 5.0.4
@@ -11585,7 +11582,7 @@ packages:
       postcss: 8.4.27
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
-      resolve: 1.22.2
+      resolve: 1.22.3
     dev: true
 
   /postcss-js@4.0.1(postcss@8.4.27):

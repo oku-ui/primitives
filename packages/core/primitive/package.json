@@ -35,8 +35,8 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/slot": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^"
+    "@oku-ui/slot": "latest",
+    "@oku-ui/use-composable": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
