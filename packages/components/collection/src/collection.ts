@@ -62,6 +62,9 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
 
   const CollectionSlot = defineComponent({
     name: COLLECTION_SLOT_NAME,
+    components: {
+      OkuSlot,
+    },
     inheritAttrs: false,
     props: {
       ...CollectionProps,
@@ -103,6 +106,35 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       default: () => context.slots.default?.(),
     })
   }
+
+  _CollectionItemSlot.inheritAttrs = false
+
+  // const _CollectionItemSlot = defineComponent({
+  //   name: COLLECTION_SLOT_NAME,
+  //   inheritAttrs: false,
+  //   props: {
+  //     ...CollectionProps,
+  //     ...ItemData,
+  //   },
+  //   setup(props, { slots }) {
+  //     console
+  //     const { scope, ...itemData } = props
+  //     const refValue = ref<ItemElement | null>()
+  //     const forwaredRef = useForwardRef()
+  //     const composedRefs = useComposedRefs(refValue, forwaredRef)
+
+  //     const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
+
+  //     watchEffect((clearMap) => {
+  //       inject.value.itemMap.set(refValue, { ref: refValue, ...(itemData as any) })
+  //       clearMap(() => inject.value.itemMap.delete(refValue))
+  //     })
+
+  //     return h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, {
+  //       default: () => slots.default?.(),
+  //     })
+  //   },
+  // })
 
   const CollectionItemSlot = _CollectionItemSlot as unknown as {
     new(): {

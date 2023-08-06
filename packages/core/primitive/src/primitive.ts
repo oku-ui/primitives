@@ -133,7 +133,6 @@ const Primitive = NODES.reduce((primitive, node) => {
         (window as any)[Symbol.for('oku-ui')] = true
       })
       const Tag: any = props.asChild ? 'slot' : node
-
       if (!props.asChild) {
         return () =>
           h(

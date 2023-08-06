@@ -57,9 +57,12 @@ const ITEM_NAME = 'OkuRovingFocusGroupItem'
 
 const RovingFocusGroupItem = defineComponent({
   name: ITEM_NAME,
+  components: {
+    CollectionItemSlot,
+  },
   inheritAttrs: false,
   props: IRovingFocusGroupImplProps,
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const _attrs = attrs as any
     const {
       scopeRovingFocusGroup,
@@ -86,7 +89,6 @@ const RovingFocusGroupItem = defineComponent({
 
       onClean(() => onFocusableItemRemove())
     })
-
     const _props: ItemData = {
       id,
       focusable: focusable.value,

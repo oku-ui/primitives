@@ -61,6 +61,11 @@ const RovingFocusGroupProps = {
 
 const RovingFocusGroup = defineComponent({
   name: 'OkuRovingFocusGroup',
+  components: {
+    OkuRovingFocusGroupImpl,
+    CollectionProvider,
+    CollectionSlot,
+  },
   inheritAttrs: false,
   props: RovingFocusGroupProps,
   setup(props, context) {
@@ -74,6 +79,7 @@ const RovingFocusGroup = defineComponent({
             scope: props.scopeRovingFocusGroup,
           }, {
             default: () => h(OkuRovingFocusGroupImpl, {
+              ...context.attrs,
               ...props,
               ref: forwardedRef,
             }),

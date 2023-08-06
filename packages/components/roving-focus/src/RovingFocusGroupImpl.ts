@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import { useCallbackRef, useComposeEventHandlers, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { useComposeEventHandlers, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
@@ -89,7 +89,7 @@ const RovingFocusGroupImpl = defineComponent({
       onEntryFocus,
     } = toRefs(props)
 
-    const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
+    const buttonRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
@@ -102,7 +102,7 @@ const RovingFocusGroupImpl = defineComponent({
     })
 
     const isTabbingBackOut = ref(false)
-    const handleEntryFocus = useCallbackRef(onEntryFocus.value)
+    // const handleEntryFocus = useCallbackRef(onEntryFocus.value)
     const getItems = useCollection(props.scopeRovingFocusGroup)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
@@ -110,10 +110,10 @@ const RovingFocusGroupImpl = defineComponent({
     watchEffect(() => {
       // TODO: handleEntryFocus watch ?
       const node = buttonRef.value?.$el
-      if (node) {
-        node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
-        return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus)
-      }
+      // if (node) {
+      //   node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
+      //   return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus)
+      // }
     })
 
     useRovingFocusProvider({
