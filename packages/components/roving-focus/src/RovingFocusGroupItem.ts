@@ -69,7 +69,6 @@ const RovingFocusGroupItem = defineComponent({
       active,
       tabStopId,
       asChild,
-      onFocus,
       ...propsData
     } = toRefs(props)
     const attrsItems = _attrs
@@ -95,7 +94,6 @@ const RovingFocusGroupItem = defineComponent({
     //   if (focusable.value)
     //     console.log('focusable', focusable.value)
     // })
-
     const _props: ItemData = {
       id,
       focusable: focusable.value,
@@ -113,7 +111,7 @@ const RovingFocusGroupItem = defineComponent({
           ...merged,
           'ref': forwardedRef,
           'asChild': props.asChild,
-          'onMouseDown': (event: MouseEvent) => {
+          'onMousedown':
             useComposeEventHandlers(props.onMousedown, (event: MouseEvent) => {
               // We prevent focusing non-focusable items on `mousedown`.
               // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
@@ -121,51 +119,45 @@ const RovingFocusGroupItem = defineComponent({
                 event.preventDefault()
               // Safari doesn't focus a button when clicked so we run our logic on mousedown also
               else inject.value.onItemFocus(id)
-            })
-          },
-          'onFocus': (event: FocusEvent) => {
-            useComposeEventHandlers(props.onFocus, () => {
-              inject.value.onItemFocus(id)
-            })
-          },
-          'onKeyDown': (event: KeyboardEvent) => {
-            useComposeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
-              if (event.key === 'Tab' && event.shiftKey) {
-                inject.value.onItemShiftTab()
-                return
+            }),
+          'onFocus': useComposeEventHandlers(props.onFocus, () => {
+            inject.value.onItemFocus(id)
+          }),
+          'onKeydown': useComposeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
+            if (event.key === 'Tab' && event.shiftKey) {
+              inject.value.onItemShiftTab()
+              return
+            }
+
+            if (event.target !== event.currentTarget)
+              return
+
+            const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
+
+            if (focusIntent !== undefined) {
+              event.preventDefault()
+              const items = getItems.value.filter(item => item.focusable)
+              let candidateNodes = items.map(item => item.ref.value.$el!)
+              if (focusIntent === 'last') {
+                candidateNodes.reverse()
               }
-
-              if (event.target !== event.currentTarget)
-                return
-
-              const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
-
-              if (focusIntent !== undefined) {
-                event.preventDefault()
-                const items = getItems.value.filter(item => item.focusable)
-                let candidateNodes = items.map(item => item.ref.value!)
-
-                if (focusIntent === 'last') {
+              else if (focusIntent === 'prev' || focusIntent === 'next') {
+                if (focusIntent === 'prev')
                   candidateNodes.reverse()
-                }
-                else if (focusIntent === 'prev' || focusIntent === 'next') {
-                  if (focusIntent === 'prev')
-                    candidateNodes.reverse()
-                  // TODO: check HTMLElement
-                  const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-                  candidateNodes = inject.value.loop
-                    ? wrapArray(candidateNodes, currentIndex + 1)
-                    : candidateNodes.slice(currentIndex + 1)
-                }
-
-                /**
-                 * Imperative focus during keydown is risky so we prevent React's batching updates
-                 * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
-                 */
-                setTimeout(() => focusFirst(candidateNodes))
+                // TODO: check HTMLElement
+                const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
+                candidateNodes = inject.value.loop
+                  ? wrapArray(candidateNodes, currentIndex + 1)
+                  : candidateNodes.slice(currentIndex + 1)
               }
-            })
-          },
+
+              /**
+               * Imperative focus during keydown is risky so we prevent React's batching updates
+               * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
+               */
+              setTimeout(() => focusFirst(candidateNodes))
+            }
+          }),
         }, {
           default: () => slots.default?.(),
         })

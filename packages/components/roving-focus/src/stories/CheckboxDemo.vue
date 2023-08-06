@@ -23,8 +23,46 @@ onMounted(() => {
   <div class="dark:text-white">
     <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
       <OkuRovingFocusGroup class="flex flex-col">
-        <OkuRovingFocusGroupItem as-child focusable :active="true">
+        <OkuRovingFocusGroupItem
+          as-child
+          focusable :active="true" @click="() => console.log('click')"
+          @focus="() => console.log('focus')"
+        >
           <button>1</button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child focusable :active="true">
+          <button>2</button>
+        </OkuRovingFocusGroupItem>
+      </OkuRovingFocusGroup>
+
+      <OkuRovingFocusGroup class="flex flex-col" loop>
+        <OkuRovingFocusGroupItem
+          as-child
+          focusable :active="true" @click="() => console.log('click')"
+          @focus="() => console.log('focus')"
+        >
+          <button>1</button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child focusable :active="true">
+          <button>2</button>
+        </OkuRovingFocusGroupItem>
+      </OkuRovingFocusGroup>
+
+      <OkuRovingFocusGroup class="flex gap-4" orientation="horizontal">
+        <OkuRovingFocusGroupItem
+          as-child
+          focusable :active="true" @click="() => console.log('click')"
+          @focus="() => console.log('focus')"
+        >
+          <button>1</button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child focusable :active="true">
+          <button>2</button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child :focusable="false" :active="true">
+          <button disable>
+            2- disable
+          </button>
         </OkuRovingFocusGroupItem>
         <OkuRovingFocusGroupItem as-child focusable :active="true">
           <button>2</button>

@@ -1,4 +1,4 @@
-import type { AllowedComponentProps, ComponentCustomProps, ComponentObjectPropsOptions, FunctionalComponent, Ref, ReservedProps, VNodeProps } from 'vue'
+import type { AllowedComponentProps, ComponentCustomProps, ComponentObjectPropsOptions, ComponentPublicInstance, FunctionalComponent, Ref, ReservedProps, VNodeProps } from 'vue'
 import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
@@ -9,6 +9,10 @@ const CollectionProps = {
 }
 interface CollectionPropsType {
   scope: any
+}
+
+type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'> & {
+  $el: T
 }
 
 type CollectionElement = HTMLElement
@@ -27,8 +31,8 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   const [createCollectionProvide, createCollectionScope] = createProvideScope(PROVIDER_NAME)
 
   type ContextValue = {
-    collectionRef: Ref<CollectionElement | undefined>
-    itemMap: Map<Ref<ItemElement | null | undefined>, { ref: Ref<ItemElement> } & T>
+    collectionRef: Ref<ComponentPublicInstanceRef<ItemElement> | undefined>
+    itemMap: Map<Ref<ComponentPublicInstanceRef<ItemElement> | null | undefined>, { ref: Ref<ComponentPublicInstanceRef<ItemElement>> } & T>
   }
 
   const [CollectionProviderImpl, useCollectionInject] = createCollectionProvide<ContextValue>(
@@ -43,8 +47,8 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...CollectionProps,
     },
     setup(props, { slots }) {
-      const collectionRef = ref<CollectionElement>()
-      const itemMap = new Map<Ref<ItemElement>, { ref: Ref<ItemElement> } & T>()
+      const collectionRef = ref<ComponentPublicInstanceRef<ItemElement>>()
+      const itemMap = new Map<Ref<ComponentPublicInstanceRef<ItemElement>>, { ref: Ref<ComponentPublicInstanceRef<ItemElement>> } & T>()
       CollectionProviderImpl({
         collectionRef,
         itemMap,
@@ -93,7 +97,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   const _CollectionItemSlot: FunctionalComponent<CollectionItemSlotProps> = (props, context) => {
     const { scope, ...itemData } = props
     const attrs = context.attrs as any
-    const refValue = ref<ItemElement | null>()
+    const refValue = ref <ComponentPublicInstance<ItemElement> | null>()
     const forwaredRef = useForwardRef()
     const composedRefs = useComposedRefs(refValue, forwaredRef)
 
@@ -126,7 +130,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
     const getItems = computed(() => {
-      const collectionNode = inject.value.collectionRef.value
+      const collectionNode = inject.value.collectionRef.value?.$el
       if (!collectionNode)
         return []
 
@@ -135,7 +139,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       const items = Array.from(inject.value.itemMap.values())
 
       const orderedItems = items.sort(
-        (a, b) => orderedNodes.indexOf(a.ref.value!) - orderedNodes.indexOf(b.ref.value!),
+        (a, b) => orderedNodes.indexOf(a.ref.value.$el!) - orderedNodes.indexOf(b.ref.value.$el!),
       )
       return orderedItems
     })
