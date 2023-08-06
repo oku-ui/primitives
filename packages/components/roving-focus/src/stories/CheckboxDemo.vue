@@ -24,7 +24,7 @@ onMounted(() => {
     <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
       <OkuRovingFocusGroup>
         <OkuRovingFocusGroupItem :as-child="true" focusable :active="true">
-          asdasd
+          <button>?1</button>
         </OkuRovingFocusGroupItem>
       </OkuRovingFocusGroup>
     </div>

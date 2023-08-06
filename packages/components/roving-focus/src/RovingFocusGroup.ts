@@ -68,7 +68,7 @@ const RovingFocusGroup = defineComponent({
   },
   inheritAttrs: false,
   props: RovingFocusGroupProps,
-  setup(props, context) {
+  setup(props, { slots, attrs }) {
     const forwardedRef = useForwardRef()
     return () =>
       h(CollectionProvider, {
@@ -79,7 +79,7 @@ const RovingFocusGroup = defineComponent({
             scope: props.scopeRovingFocusGroup,
           }, {
             default: () => h(OkuRovingFocusGroupImpl, {
-              ...context.attrs,
+              ...attrs,
               ...props,
               ref: forwardedRef,
             }),

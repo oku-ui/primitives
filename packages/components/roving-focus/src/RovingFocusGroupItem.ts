@@ -2,8 +2,8 @@ import type { PropType } from 'vue'
 import { defineComponent, h, toRefs, watchEffect } from 'vue'
 import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
 
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
 import type { ItemData, ScopedPropsInterface } from './RovingFocusGroup'
 import { CollectionItemSlot, ScopedProps, useCollection, useRovingFocusInject } from './RovingFocusGroup'
@@ -12,14 +12,13 @@ import { focusFirst, getFocusIntent, wrapArray } from './utils'
 export type RovingFocusGroupItemElement = ElementType<'span'>
 export type _RovingFocusGroupItemEl = HTMLSpanElement
 
-interface IRovingFocusItemProps extends IPrimitiveProps {
+interface IRovingFocusItemProps {
   tabStopId?: string
   focusable?: boolean
   active?: boolean
   onFocus?: (event: FocusEvent) => void
   onKeydown?: (event: KeyboardEvent) => void
   onMousedown?: (event: MouseEvent) => void
-
 }
 
 export const RovingFocusItemProps = {
@@ -37,7 +36,6 @@ export const RovingFocusItemProps = {
   onFocus: Function as PropType<(event: FocusEvent) => void>,
   onKeydown: Function as PropType<(event: KeyboardEvent) => void>,
   onMousedown: Function as PropType<(event: MouseEvent) => void>,
-  ...PrimitiveProps,
 }
 
 // Define Component Props Type
@@ -100,10 +98,10 @@ const RovingFocusGroupItem = defineComponent({
     }, {
       default: () =>
         h(Primitive.span, {
-          'asChild': props.asChild,
           'tabindex': isCurrentTabStop ? 0 : -1,
           'data-orientation': inject.value.orientation,
           ...attrsItems as any,
+          ...itemProps,
           'ref': forwardedRef,
           'onMouseDown': (event: MouseEvent) => {
             useComposeEventHandlers(props.onMousedown, (event: MouseEvent) => {

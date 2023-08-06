@@ -177,7 +177,8 @@ const RovingFocusGroupImpl = defineComponent({
           isClickFocusRef.value = false
         })
       },
-
+    }, {
+      default: () => slots.default && slots.default(),
     })
   },
 })

@@ -1,14 +1,15 @@
-export { OkuPrimitive, Primitive, PrimitiveProps } from './primitive'
+export { OkuPrimitive, Primitive } from './primitive'
 export type {
   ComponentProps,
   RefElement,
   MergeProps,
   ElementType,
-  PrimitivePropsWithRef,
   ComponentPropsWithoutRef,
   InstanceTypeRef,
   ComponentPublicInstanceRef,
   IPrimitiveProps,
-} from './primitive'
+} from './types'
+
+export { PrimitiveProps, renderSlotFragments } from './utils'
 
 export type { AriaAttributes } from './types'

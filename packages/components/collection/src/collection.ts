@@ -5,7 +5,7 @@ import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 
 const CollectionProps = {
-  scope: { type: null as any, required: true },
+  scope: { type: null as any, required: false },
 }
 interface CollectionPropsType {
   scope: any
@@ -74,6 +74,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
+
       return () => h(OkuSlot, { ref: composedRefs }, {
         default: () => slots.default?.(),
       })
@@ -91,6 +92,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
 
   const _CollectionItemSlot: FunctionalComponent<CollectionItemSlotProps> = (props, context) => {
     const { scope, ...itemData } = props
+    const attrs = context.attrs as any
     const refValue = ref<ItemElement | null>()
     const forwaredRef = useForwardRef()
     const composedRefs = useComposedRefs(refValue, forwaredRef)
@@ -98,7 +100,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
 
     watchEffect((clearMap) => {
-      inject.value.itemMap.set(refValue, { ref: refValue, ...(itemData as any) })
+      inject.value.itemMap.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
       clearMap(() => inject.value.itemMap.delete(refValue))
     })
 
@@ -108,33 +110,6 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   }
 
   _CollectionItemSlot.inheritAttrs = false
-
-  // const _CollectionItemSlot = defineComponent({
-  //   name: COLLECTION_SLOT_NAME,
-  //   inheritAttrs: false,
-  //   props: {
-  //     ...CollectionProps,
-  //     ...ItemData,
-  //   },
-  //   setup(props, { slots }) {
-  //     console
-  //     const { scope, ...itemData } = props
-  //     const refValue = ref<ItemElement | null>()
-  //     const forwaredRef = useForwardRef()
-  //     const composedRefs = useComposedRefs(refValue, forwaredRef)
-
-  //     const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
-
-  //     watchEffect((clearMap) => {
-  //       inject.value.itemMap.set(refValue, { ref: refValue, ...(itemData as any) })
-  //       clearMap(() => inject.value.itemMap.delete(refValue))
-  //     })
-
-  //     return h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, {
-  //       default: () => slots.default?.(),
-  //     })
-  //   },
-  // })
 
   const CollectionItemSlot = _CollectionItemSlot as unknown as {
     new(): {
@@ -150,7 +125,6 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
 
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
-
     const getItems = computed(() => {
       const collectionNode = inject.value.collectionRef.value
       if (!collectionNode)

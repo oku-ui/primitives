@@ -549,6 +549,12 @@ importers:
 
   packages/core/primitive:
     dependencies:
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../../components/slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
       vue:
         specifier: ^3.3.0
         version: 3.3.4
