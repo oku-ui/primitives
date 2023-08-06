@@ -5,6 +5,7 @@
     "outDir": "dist"
   },
   "include": [
-    "src"
-, "tests/useEscapeKeydown.test.ts"  ]
+    "src",
+    "tests/useEscapeKeydown.test.ts"
+  ]
 }

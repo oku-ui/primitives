@@ -130,6 +130,7 @@ function useFocusOutside(
         )
       }
     }
+
     document.addEventListener('focusin', handleFocus)
 
     onInvalidate(() => {
