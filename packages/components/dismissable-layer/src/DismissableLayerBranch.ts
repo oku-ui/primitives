@@ -1,21 +1,13 @@
 import { Primitive } from '@oku-ui/primitive'
 import type {
-  type ComponentPublicInstanceRef,
-  type ElementType,
-
+  ComponentPublicInstanceRef,
+  ElementType,
   InstanceTypeRef,
   MergeProps,
-  type PrimitiveProps,
+  PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import {
-  defineComponent,
-  h,
-  ref,
-  toRefs,
-  toValue,
-  watchEffect,
-} from 'vue'
+import { defineComponent, h, ref, toRefs, toValue, watchEffect } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import {
