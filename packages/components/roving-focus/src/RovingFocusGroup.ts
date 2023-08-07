@@ -2,7 +2,7 @@ import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { Scope } from '@oku-ui/provide'
-import type { PropType } from 'vue'
+import type { ComputedRef, PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { MergeProps } from '@oku-ui/primitive'
@@ -41,11 +41,13 @@ const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createProvi
 )
 
 type RovingContextValue = RovingFocusGroupOptions & {
-  currentTabStopId: string | null
+  currentTabStopId: ComputedRef<string | null>
   onItemFocus(tabStopId: string): void
   onItemShiftTab(): void
   onFocusableItemAdd(): void
   onFocusableItemRemove(): void
+  isChangedFocusableItemAdd: Ref<number>
+  isChangedFocusableItemRemove: Ref<number>
 }
 
 export const [useRovingFocusProvider, useRovingFocusInject]

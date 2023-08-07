@@ -1,5 +1,5 @@
-import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import type { ComputedRef, PropType, Ref } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, watch } from 'vue'
 import { useCallbackRef, useComposeEventHandlers, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
@@ -46,21 +46,25 @@ export const RovingFocusGroupOptionsProps = {
 }
 
 export interface RovingFocusGroupImplPropsType extends ScopedPropsInterface<RovingFocusGroupOptions> {
-  currentTabStopId?: string | null
+  currentTabStopId?: Ref<string | null>
   defaultCurrentTabStopId?: string
   onCurrentTabStopIdChange?: (tabStopId: string | null) => void
   onEntryFocus?: (event: Event) => void
   onMousedown?: (event: MouseEvent) => void
   onFocus?: (event: FocusEvent) => void
+  onBlur?: (event: FocusEvent) => void
+  isChangedFocusableItemAdd?: number
+  isChangedFocusableItemRemove?: number
 }
 
 export const RovingFocusGroupImplElementProps = {
-  currentTabStopId: String,
+  currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
   defaultCurrentTabStopId: String,
   // onCurrentTabStopIdChange: Function as PropType<RovingFocusGroupImplPropsType['onCurrentTabStopIdChange']>,
   // onEntryFocus: Function as PropType<RovingFocusGroupImplPropsType['onEntryFocus']>,
   onMousedown: Function as PropType<(e: MouseEvent) => void>,
   onFocus: Function as PropType<(e: FocusEvent) => void>,
+  onBlur: Function as PropType<(e: FocusEvent) => void>,
 }
 
 export const IRovingFocusGroupImplProps = {
@@ -109,7 +113,7 @@ const RovingFocusGroupImpl = defineComponent({
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
-    watchEffect(() => {
+    watch(handleEntryFocus, () => {
       const node = buttonRef.value?.$el
       if (node) {
         node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
@@ -117,12 +121,17 @@ const RovingFocusGroupImpl = defineComponent({
       }
     })
 
+    const isChangedFocusableItemAdd = ref(0)
+    const isChangedFocusableItemRemove = ref(0)
     useRovingFocusProvider({
       scope: props.scopeRovingFocusGroup,
+      // TODO: change ref or computed
       orientation: orientation.value,
+      // TODO: change ref or computed
       dir: dir.value,
+      // TODO: change ref or computed
       loop: loop.value ?? false,
-      currentTabStopId: currentTabStopId.value ?? null,
+      currentTabStopId: currentTabStopId ?? null,
       onItemFocus: (tabStopId: string) => {
         updateCurrentTabStopId(tabStopId)
       },
@@ -131,16 +140,20 @@ const RovingFocusGroupImpl = defineComponent({
       },
       onFocusableItemAdd: () => {
         focusableItemsCount.value++
+        isChangedFocusableItemAdd.value++
       },
       onFocusableItemRemove: () => {
         focusableItemsCount.value--
+        isChangedFocusableItemRemove.value++
       },
+      isChangedFocusableItemAdd,
+      isChangedFocusableItemRemove,
     })
 
     return () => {
       const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
-        'tabIndex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
+        'tabIndex': isTabbingBackOut.value || (focusableItemsCount.value === 0 ? -1 : 0),
         'data-orientation': orientation.value,
         ...merged,
         'ref': composedRefs,
@@ -176,6 +189,9 @@ const RovingFocusGroupImpl = defineComponent({
           }
 
           isClickFocusRef.value = false
+        }),
+        'onBlur': useComposeEventHandlers(props.onBlur, () => {
+          isTabbingBackOut.value = false
         }),
       }, {
         default: () => slots.default?.(),

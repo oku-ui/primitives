@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, watch } from 'vue'
 import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
@@ -74,28 +74,23 @@ const RovingFocusGroupItem = defineComponent({
     const attrsItems = _attrs
 
     const autoId = useId()
-    const id = tabStopId.value || autoId
+    const id = computed(() => tabStopId.value ?? autoId)
     const inject = useRovingFocusInject(ITEM_NAME, scopeRovingFocusGroup.value)
-    const isCurrentTabStop = inject.value.currentTabStopId === id
+    const isCurrentTabStop = computed(() => inject.value.currentTabStopId.value === id.value)
     const getItems = useCollection(scopeRovingFocusGroup.value)
 
-    const { onFocusableItemAdd, onFocusableItemRemove } = inject.value
+    const { onFocusableItemAdd, onFocusableItemRemove, isChangedFocusableItemAdd, isChangedFocusableItemRemove } = inject.value
 
     const forwardedRef = useForwardRef()
 
-    // watchEffect((onClean) => {
-    //   if (focusable.value)
-    //     onFocusableItemAdd()
-
-    //   onClean(() => onFocusableItemRemove())
-    // })
-
-    // watch([focusable, onFocusableItemAdd, onFocusableItemRemove], () => {
-    //   if (focusable.value)
-    //     console.log('focusable', focusable.value)
-    // })
+    watch([focusable, isChangedFocusableItemAdd, isChangedFocusableItemRemove], () => {
+      if (focusable.value) {
+        onFocusableItemAdd()
+        return () => onFocusableItemRemove()
+      }
+    })
     const _props: ItemData = {
-      id,
+      id: id.value,
       focusable: focusable.value,
       active: active.value,
       scope: scopeRovingFocusGroup.value,
@@ -106,7 +101,7 @@ const RovingFocusGroupItem = defineComponent({
       default: () => {
         const merged = mergeProps(attrsItems, propsData)
         return h(Primitive.span, {
-          'tabindex': isCurrentTabStop ? 0 : -1,
+          'tabindex': isCurrentTabStop.value ? 0 : -1,
           'data-orientation': inject.value.orientation,
           ...merged,
           'ref': forwardedRef,
@@ -118,10 +113,10 @@ const RovingFocusGroupItem = defineComponent({
               if (!focusable.value)
                 event.preventDefault()
               // Safari doesn't focus a button when clicked so we run our logic on mousedown also
-              else inject.value.onItemFocus(id)
+              else inject.value.onItemFocus(id.value)
             }),
           'onFocus': useComposeEventHandlers(props.onFocus, () => {
-            inject.value.onItemFocus(id)
+            inject.value.onItemFocus(id.value)
           }),
           'onKeydown': useComposeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
             if (event.key === 'Tab' && event.shiftKey) {
