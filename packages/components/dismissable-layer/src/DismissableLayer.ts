@@ -32,9 +32,6 @@ import { useFocusOutside, usePointerDownOutside } from './util'
 /* -------------------------------------------------------------------------------------------------
  * DismissableLayer
  * ----------------------------------------------------------------------------------------------- */
-
-const DISMISSABLE_LAYER_NAME = 'DismissableLayer'
-
 export const CONTEXT_UPDATE = 'dismissableLayer.update'
 export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside'
 export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
@@ -143,7 +140,7 @@ const DismissableLayer = defineComponent({
     'onInteractOutside',
     'onEscapeKeyDown',
   ],
-  setup(props, { attrs }) {
+  setup(props, { attrs, emit }) {
     const {
       onDismiss,
       onFocusOutside,
@@ -234,8 +231,13 @@ const DismissableLayer = defineComponent({
       onPointerDownOutside.value?.(event)
       onInteractOutside.value?.(event)
 
-      if (!event.defaultPrevented)
+      emit('onPointerDownOutside', event)
+      emit('onInteractOutside', event)
+
+      if (!event.defaultPrevented) {
         onDismiss.value?.()
+        emit('onDismiss')
+      }
     }, ownerDocument)
 
     const focusOutside = useFocusOutside((event) => {
@@ -250,8 +252,13 @@ const DismissableLayer = defineComponent({
       onFocusOutside.value?.(event)
       onInteractOutside.value?.(event)
 
-      if (!event.defaultPrevented)
+      emit('onFocusOutside', event)
+      emit('onInteractOutside', event)
+
+      if (!event.defaultPrevented) {
         onDismiss.value?.()
+        emit('onDismiss')
+      }
     }, ownerDocument)
 
     useEscapeKeydown((event) => {
@@ -261,10 +268,12 @@ const DismissableLayer = defineComponent({
         return
 
       onEscapeKeyDown.value?.(event)
+      emit('onEscapeKeyDown', event)
 
       if (!event.defaultPrevented && onDismiss) {
         event.preventDefault()
         onDismiss.value?.()
+        emit('onDismiss')
       }
     }, unref(ownerDocument))
 
@@ -376,4 +385,4 @@ const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer &
 
 export { OkuDismissableLayer, useDismissableLayerInject }
 
-export type { InstanceDismissableLayerType }
+export type { InstanceDismissableLayerType, DismissableLayerProps }

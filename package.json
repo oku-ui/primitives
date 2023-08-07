@@ -54,6 +54,7 @@
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^",
+    "@oku-ui/dismissable-layer": "workspace:^",
     "@storybook/addon-essentials": "^7.2.0",
     "@storybook/addon-interactions": "^7.2.0",
     "@storybook/addon-links": "^7.2.0",

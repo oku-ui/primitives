@@ -1,6 +1,7 @@
-import { describe, expect, it, test } from 'vitest'
+import { describe, expect, it, test, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { Primitive } from './index'
+import { nextTick } from 'vue'
+import { Primitive, dispatchDiscreteCustomEvent } from './index'
 
 describe('Primitive', () => {
   it('should render div element correctly', () => {
@@ -275,7 +276,9 @@ describe('Primitive', () => {
         default: '<div>Oku</div>',
       },
     })
-    expect(wrapper.html()).toBe('<div id="test" class="text-red-500">Oku</div>')
+    expect(wrapper.html()).toBe(
+      '<div id="test" class="text-red-500">Oku</div>',
+    )
   })
 
   test('asChild with props', () => {
@@ -292,61 +295,108 @@ describe('Primitive', () => {
         default: '<div>Oku</div>',
       },
     })
-    expect(wrapper.html()).toBe('<div id="test" class="text-red-500" disabled="true">Oku</div>')
+    expect(wrapper.html()).toBe(
+      '<div id="test" class="text-red-500" disabled="true">Oku</div>',
+    )
   })
 
   test('asChild with 2 children', () => {
-    const wrapper = () => mount(Primitive.div, {
-      props: {
-        asChild: true,
-      },
-      slots: {
-        default: `
+    const wrapper = () =>
+      mount(Primitive.div, {
+        props: {
+          asChild: true,
+        },
+        slots: {
+          default: `
           <div>Oku</div>
           <div>Oku</div>
         `,
-      },
-    })
+        },
+      })
 
     expect(() => wrapper()).toThrowError(/Detected an invalid children/)
   })
 
   test('asChild with 2 children and attrs', () => {
-    const wrapper = () => mount(Primitive.div, {
-      props: {
-        asChild: true,
-        disabled: true,
-      },
-      attrs: {
-        id: 'test',
-        class: 'text-red-500',
-      },
-      slots: {
-        default: `
+    const wrapper = () =>
+      mount(Primitive.div, {
+        props: {
+          asChild: true,
+          disabled: true,
+        },
+        attrs: {
+          id: 'test',
+          class: 'text-red-500',
+        },
+        slots: {
+          default: `
           <div>Oku</div>
           <div>Oku</div>
         `,
-      },
-    })
+        },
+      })
 
     expect(() => wrapper()).toThrowError(/Detected an invalid children/)
   })
 
   test('asChild with default 3 children', () => {
-    const wrapper = () => mount(Primitive.div, {
-      props: {
-        asChild: true,
-        disabled: true,
-        disabled2: true,
-      },
-      slots: {
-        default: `
+    const wrapper = () =>
+      mount(Primitive.div, {
+        props: {
+          asChild: true,
+          disabled: true,
+          disabled2: true,
+        },
+        slots: {
+          default: `
           <div>Oku</div>
           <Hello>Oku</Hello>
           <Another>Oku</Another>
         `,
-      },
-    })
+        },
+      })
     expect(() => wrapper()).toThrowError(/Detected an invalid children/)
+  })
+})
+
+describe('dispatchDiscreteCustomEvent', () => {
+  it('should dispatch the custom event on the target element', async () => {
+    const customEventName = 'customEvent'
+
+    // Create a mock target element
+    const targetElement = document.createElement('div')
+    document.body.appendChild(targetElement)
+
+    // Spy on the dispatchEvent method
+    const dispatchEventSpy = vi.spyOn(targetElement, 'dispatchEvent')
+
+    // Dispatch the custom event
+    const customEvent = new CustomEvent(customEventName)
+    dispatchDiscreteCustomEvent(targetElement, customEvent)
+
+    // Wait for the next tick to ensure event is dispatched
+    await nextTick()
+
+    // Check if dispatchEvent was called with the correct event
+    expect(dispatchEventSpy).toHaveBeenCalledWith(customEvent)
+
+    // Clean up
+    dispatchEventSpy.mockRestore()
+    document.body.removeChild(targetElement)
+  })
+
+  it('should not dispatch the custom event on null or undefined target', async () => {
+    const customEventName = 'customEvent'
+
+    // Mock dispatchEvent and check if it was not called
+    const dispatchEventSpy = vi.spyOn(document, 'dispatchEvent')
+    dispatchDiscreteCustomEvent(null, new CustomEvent(customEventName))
+
+    // Wait for the next tick to ensure event is not dispatched
+    await nextTick()
+
+    expect(dispatchEventSpy).not.toHaveBeenCalled()
+
+    dispatchEventSpy.mockRestore()
   })
 })

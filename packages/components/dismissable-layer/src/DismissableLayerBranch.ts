@@ -94,4 +94,4 @@ const OkuDismissableLayerBranch
 
 export { OkuDismissableLayerBranch }
 
-export type { InstanceDismissableLayerBranchType }
+export type { InstanceDismissableLayerBranchType, DismissableLayerBranchProps }

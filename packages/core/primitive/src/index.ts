@@ -10,3 +10,5 @@ export type {
   InstanceTypeRef,
   ComponentPublicInstanceRef,
 } from './primitive'
+
+export { dispatchDiscreteCustomEvent } from './utils'
