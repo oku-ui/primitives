@@ -169,6 +169,10 @@ const DismissableLayer = defineComponent({
       scope: scopeDismissableLayer.value,
     })
 
+    const context = toValue(
+      useDismissableLayerInject(DISMISSABLE_NAME, scopeDismissableLayer.value),
+    )
+
     const node = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
 
     const forwardedRef = useForwardRef()
@@ -178,10 +182,6 @@ const DismissableLayer = defineComponent({
       () => node.value?.$el?.ownerDocument ?? globalThis?.document,
     )
 
-    const context = toValue(
-      useDismissableLayerInject(DISMISSABLE_NAME, scopeDismissableLayer.value),
-    )
-
     watch(
       () => context,
       () => {
@@ -189,14 +189,14 @@ const DismissableLayer = defineComponent({
           layers.value = context.layers.value
         if (context?.layersWithOutsidePointerEventsDisabled.value) {
           layersWithOutsidePointerEventsDisabled.value
-            = context.layersWithOutsidePointerEventsDisabled.value
+            = context?.layersWithOutsidePointerEventsDisabled.value
         }
       },
       { immediate: true, deep: true },
     )
 
     const isBodyPointerEventsDisabled = computed(
-      () => context.layersWithOutsidePointerEventsDisabled.value.size > 0,
+      () => context!.layersWithOutsidePointerEventsDisabled.value.size > 0,
     )
 
     const index = computed(() => {
