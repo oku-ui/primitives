@@ -12,3 +12,5 @@ export type {
 } from './primitive'
 
 export { dispatchDiscreteCustomEvent } from './utils'
+
+export type { AriaAttributes } from './types'
