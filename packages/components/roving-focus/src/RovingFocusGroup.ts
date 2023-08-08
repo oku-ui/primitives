@@ -13,8 +13,8 @@ const GROUP_NAME = 'RovingFocusGroup'
 
 export interface ItemData extends CollectionPropsType {
   id: string
-  focusable: Ref<boolean>
-  active: Ref<boolean>
+  focusable: boolean
+  active: boolean
 }
 
 export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<

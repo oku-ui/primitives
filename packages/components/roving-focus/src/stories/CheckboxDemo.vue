@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
+import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import ButtonProvide from './ButtonProvide.vue'
 import ButtonDeneme from './Button.vue'
 
@@ -33,10 +33,10 @@ const refdd = ref()
         </OkuRovingFocusGroup>
       </ButtonProvide>
 
-      <!-- <OkuRovingFocusGroup class="flex flex-col" loop>
+      <OkuRovingFocusGroup class="flex flex-col" loop>
         <OkuRovingFocusGroupItem
           as-child
-          focusable :active="true" @click="() => console.log('click')"
+          focusable @click="() => console.log('click')"
           @focus="() => console.log('focus')"
         >
           <button>1</button>
@@ -65,7 +65,7 @@ const refdd = ref()
         <OkuRovingFocusGroupItem as-child focusable :active="true">
           <button>2</button>
         </OkuRovingFocusGroupItem>
-      </OkuRovingFocusGroup> -->
+      </OkuRovingFocusGroup>
     </div>
   </div>
 </template>

@@ -90,8 +90,8 @@ const RovingFocusGroupItem = defineComponent({
 
     const _props: ItemData = {
       id: id.value,
-      focusable,
-      active,
+      focusable: focusable.value,
+      active: active.value,
       scope: scopeRovingFocusGroup.value,
     }
     return () => h(CollectionItemSlot, {
@@ -129,9 +129,11 @@ const RovingFocusGroupItem = defineComponent({
             const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
 
             if (focusIntent !== undefined) {
-              // event.preventDefault()
-              const items = getItems.value.filter(item => item.focusable.value)
-              let candidateNodes = items.map(item => item.ref.value.$el!)
+              event.preventDefault()
+
+              const items = getItems.value.filter(item => item.focusable)
+              let candidateNodes = items.map(item => item.ref.$el!)
+
               if (focusIntent === 'last') {
                 candidateNodes.reverse()
               }

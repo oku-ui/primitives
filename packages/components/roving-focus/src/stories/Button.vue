@@ -36,7 +36,7 @@ function onFocus(e: FocusEvent) {
 <template>
   <OkuRovingFocusGroupItem
     as-child
-    :focusable="true"
+    :focusable="!disabled"
     :active="isSelected"
     @focus="onFocus"
     @click="click"

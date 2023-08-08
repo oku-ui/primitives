@@ -82,7 +82,7 @@ const RovingFocusGroupImpl = defineComponent({
     entryFocus: (event: Event) => true,
     currentTabStopIdChange: (tabStopId: string | null) => true,
   },
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots, emit, expose }) {
     const _attrs = attrs as Omit<_RovingFocusGroupImplEl, 'dir'>
     const {
       orientation,
@@ -176,19 +176,18 @@ const RovingFocusGroupImpl = defineComponent({
           // We do this because Safari doesn't focus buttons when clicked, and
           // instead, the wrapper will get focused and not through a bubbling event.
           const isKeyboardFocus = !isClickFocusRef.value
-
           if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
             const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
             event.currentTarget?.dispatchEvent(entryFocusEvent)
 
             if (!entryFocusEvent.defaultPrevented) {
-              const items = getItems.value.filter(item => item.focusable.value)
-              const activeItem = items.find(item => item.active.value)
+              const items = getItems.value.filter(item => item.focusable)
+              const activeItem = items.find(item => item.active)
               const currentItem = items.find(item => item.id === currentTabStopId.value)
               const candidateItems = [activeItem, currentItem, ...items].filter(
                 Boolean,
               ) as typeof items
-              const candidateNodes = candidateItems.map(item => item.ref.value.$el!)
+              const candidateNodes = candidateItems.map(item => item.ref.$el!)
               focusFirst(candidateNodes)
             }
           }
