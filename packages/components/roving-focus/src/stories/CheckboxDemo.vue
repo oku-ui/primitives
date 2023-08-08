@@ -1,7 +1,8 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { ref } from 'vue'
+import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
+import ButtonProvide from './ButtonProvide.vue'
+import ButtonDeneme from './Button.vue'
 
 export interface ICheckBoxProps {
   template?: '#1' | '#2' | '#3'
@@ -13,29 +14,26 @@ withDefaults(defineProps<ICheckBoxProps>(), {
 })
 
 const refdd = ref()
-
-onMounted(() => {
-  console.log(refdd.value?.$el, 'tt')
-})
 </script>
 
 <template>
   <div class="dark:text-white">
     <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <OkuRovingFocusGroup class="flex flex-col">
-        <OkuRovingFocusGroupItem
-          as-child
-          focusable :active="true" @click="() => console.log('click')"
-          @focus="() => console.log('focus')"
-        >
-          <button>1</button>
-        </OkuRovingFocusGroupItem>
-        <OkuRovingFocusGroupItem as-child focusable :active="true">
-          <button>2</button>
-        </OkuRovingFocusGroupItem>
-      </OkuRovingFocusGroup>
+      <ButtonProvide>
+        <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
+          <ButtonDeneme value="one">
+            ButtonDeneme1
+          </ButtonDeneme>
+          <ButtonDeneme value="two" disabled>
+            ButtonDeneme2
+          </ButtonDeneme>
+          <ButtonDeneme value="three">
+            three
+          </ButtonDeneme>
+        </OkuRovingFocusGroup>
+      </ButtonProvide>
 
-      <OkuRovingFocusGroup class="flex flex-col" loop>
+      <!-- <OkuRovingFocusGroup class="flex flex-col" loop>
         <OkuRovingFocusGroupItem
           as-child
           focusable :active="true" @click="() => console.log('click')"
@@ -67,7 +65,7 @@ onMounted(() => {
         <OkuRovingFocusGroupItem as-child focusable :active="true">
           <button>2</button>
         </OkuRovingFocusGroupItem>
-      </OkuRovingFocusGroup>
+      </OkuRovingFocusGroup> -->
     </div>
   </div>
 </template>

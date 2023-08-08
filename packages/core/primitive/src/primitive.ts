@@ -6,7 +6,8 @@ import {
   mergeProps,
   onMounted,
 } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+
+// import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuSlot } from '@oku-ui/slot'
 import { NODES, type Primitives } from './types'
 
@@ -19,7 +20,7 @@ const Primitive = NODES.reduce((primitive, node) => {
     },
     setup(props, { attrs, slots }) {
       // TODO: add support for ref forwarding
-      const forwardedRef = useForwardRef()
+      // const forwardedRef = useForwardRef()
       const { asChild, ...primitiveProps } = props
 
       onMounted(() => {

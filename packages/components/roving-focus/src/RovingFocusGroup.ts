@@ -11,7 +11,11 @@ import type { RovingFocusGroupImplElement, RovingFocusGroupImplPropsType, Roving
 
 const GROUP_NAME = 'RovingFocusGroup'
 
-export interface ItemData extends CollectionPropsType { id: string; focusable: boolean; active: boolean }
+export interface ItemData extends CollectionPropsType {
+  id: string
+  focusable: Ref<boolean>
+  active: Ref<boolean>
+}
 
 export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<
   HTMLSpanElement,

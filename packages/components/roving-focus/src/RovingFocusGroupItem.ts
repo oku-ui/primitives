@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, toRefs, watch } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, watchEffect } from 'vue'
 import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
@@ -78,21 +78,20 @@ const RovingFocusGroupItem = defineComponent({
     const inject = useRovingFocusInject(ITEM_NAME, scopeRovingFocusGroup.value)
     const isCurrentTabStop = computed(() => inject.value.currentTabStopId.value === id.value)
     const getItems = useCollection(scopeRovingFocusGroup.value)
-
-    const { onFocusableItemAdd, onFocusableItemRemove, isChangedFocusableItemAdd, isChangedFocusableItemRemove } = inject.value
-
     const forwardedRef = useForwardRef()
 
-    watch([focusable, isChangedFocusableItemAdd, isChangedFocusableItemRemove], () => {
-      if (focusable.value) {
-        onFocusableItemAdd()
-        return () => onFocusableItemRemove()
-      }
+    watchEffect(async () => {
+      if (focusable.value && inject.value.isChangedFocusableItemAdd.value === 0)
+        inject.value.onFocusableItemAdd()
+
+      if (inject.value.isChangedFocusableItemRemove.value > 0)
+        inject.value.onFocusableItemRemove()
     })
+
     const _props: ItemData = {
       id: id.value,
-      focusable: focusable.value,
-      active: active.value,
+      focusable,
+      active,
       scope: scopeRovingFocusGroup.value,
     }
     return () => h(CollectionItemSlot, {
@@ -130,8 +129,8 @@ const RovingFocusGroupItem = defineComponent({
             const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
 
             if (focusIntent !== undefined) {
-              event.preventDefault()
-              const items = getItems.value.filter(item => item.focusable)
+              // event.preventDefault()
+              const items = getItems.value.filter(item => item.focusable.value)
               let candidateNodes = items.map(item => item.ref.value.$el!)
               if (focusIntent === 'last') {
                 candidateNodes.reverse()
@@ -139,18 +138,17 @@ const RovingFocusGroupItem = defineComponent({
               else if (focusIntent === 'prev' || focusIntent === 'next') {
                 if (focusIntent === 'prev')
                   candidateNodes.reverse()
-                // TODO: check HTMLElement
                 const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
                 candidateNodes = inject.value.loop
                   ? wrapArray(candidateNodes, currentIndex + 1)
                   : candidateNodes.slice(currentIndex + 1)
               }
 
-              /**
-               * Imperative focus during keydown is risky so we prevent React's batching updates
-               * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
-               */
-              setTimeout(() => focusFirst(candidateNodes))
+              // /**
+              //  * Imperative focus during keydown is risky so we prevent React's batching updates
+              //  * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
+              //  */
+              focusFirst(candidateNodes)
             }
           }),
         }, {

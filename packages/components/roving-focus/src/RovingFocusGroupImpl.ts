@@ -1,5 +1,5 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
 import { useCallbackRef, useComposeEventHandlers, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
@@ -113,7 +113,7 @@ const RovingFocusGroupImpl = defineComponent({
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
-    watch(handleEntryFocus, () => {
+    watchEffect(() => {
       const node = buttonRef.value?.$el
       if (node) {
         node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
@@ -150,10 +150,15 @@ const RovingFocusGroupImpl = defineComponent({
       isChangedFocusableItemRemove,
     })
 
+    const tabIndex = computed(() => {
+      const data = isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0
+      return data
+    })
+
     return () => {
       const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
-        'tabIndex': isTabbingBackOut.value || (focusableItemsCount.value === 0 ? -1 : 0),
+        'tabIndex': tabIndex.value,
         'data-orientation': orientation.value,
         ...merged,
         'ref': composedRefs,
@@ -162,7 +167,7 @@ const RovingFocusGroupImpl = defineComponent({
           ..._attrs.style as any,
         },
         'asChild': asChild.value,
-        'onMouseDown': useComposeEventHandlers(props.onMousedown, () => {
+        'onMousedown': useComposeEventHandlers(props.onMousedown, () => {
           isClickFocusRef.value = true
         }),
         'onFocus': useComposeEventHandlers(props.onFocus, (event: FocusEvent) => {
@@ -177,8 +182,8 @@ const RovingFocusGroupImpl = defineComponent({
             event.currentTarget?.dispatchEvent(entryFocusEvent)
 
             if (!entryFocusEvent.defaultPrevented) {
-              const items = getItems.value.filter(item => item.focusable)
-              const activeItem = items.find(item => item.active)
+              const items = getItems.value.filter(item => item.focusable.value)
+              const activeItem = items.find(item => item.active.value)
               const currentItem = items.find(item => item.id === currentTabStopId.value)
               const candidateItems = [activeItem, currentItem, ...items].filter(
                 Boolean,

@@ -1,6 +1,14 @@
+/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { h } from 'vue'
+import { type Component, h } from 'vue'
+
+// @ts-ignore
+import ButtonProvide from './stories/ButtonProvide.vue'
+
+// @ts-ignore
+import ButtonComponent from './stories/Button.vue'
 import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from './'
 
 describe('OkuRovingFocusGroup', () => {
@@ -85,6 +93,71 @@ describe('OkuRovingFocusGroup', () => {
       expect(com.html()).equal(`<div tabindex="-1" style="outline: none;">
   <!---->
 </div>`)
+    })
+  })
+  describe('OkuRovingFocusGroupItem', () => {
+    it('empty', () => {
+      const com = mount({
+        components: {
+          OkuRovingFocusGroupItem,
+          OkuRovingFocusGroup,
+          ButtonProvide,
+          ButtonComponent,
+        },
+        template: `
+              <ButtonProvide>
+        <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
+          <ButtonComponent value="one">
+            one
+          </ButtonComponent>
+          <ButtonComponent value="two" disabled>
+            two
+          </ButtonComponent>
+          <ButtonComponent value="three">
+            three
+          </ButtonComponent>
+        </OkuRovingFocusGroup>
+      </ButtonProvide>`,
+      } as Component)
+
+      const data = com.html()
+      expect(data).equal('<div tabindex="0" data-orientation="vertical" class="flex flex-col" style="outline: none;"><button class="w-40 h-6 text-white rounded-sm bg-gray-500" tabindex="-1" data-orientation="vertical" data-oku-collection-item=""> one </button><button class="w-40 h-6 text-white rounded-sm bg-gray-500" tabindex="-1" data-orientation="vertical" data-oku-collection-item=""> two </button><button class="w-40 h-6 text-white rounded-sm bg-gray-500" tabindex="-1" data-orientation="vertical" data-oku-collection-item=""> three </button></div>')
+    })
+  })
+
+  describe('OkuRovingFocusGroupItem', () => {
+    it('empty', () => {
+      const com = mount({
+        components: {
+          OkuRovingFocusGroupItem,
+          OkuRovingFocusGroup,
+        },
+        template: `
+              <OkuRovingFocusGroup class="flex gap-4" orientation="horizontal">
+        <OkuRovingFocusGroupItem
+          as-child
+          focusable :active="true" @click="() => console.log('click')"
+          @focus="() => console.log('focus')"
+        >
+          <button>1</button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child focusable :active="true">
+          <button>2</button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child :focusable="false" :active="true">
+          <button disable>
+            2- disable
+          </button>
+        </OkuRovingFocusGroupItem>
+        <OkuRovingFocusGroupItem as-child focusable :active="true">
+          <button>2</button>
+        </OkuRovingFocusGroupItem>
+      </OkuRovingFocusGroup>`,
+      } as Component)
+
+      const data = com.html()
+
+      expect(data).equal('<div tabindex="0" data-orientation="horizontal" class="flex gap-4" style="outline: none;"><button tabindex="-1" data-orientation="horizontal" data-oku-collection-item="">1</button><button tabindex="-1" data-orientation="horizontal" data-oku-collection-item="">2</button><button disable="" tabindex="-1" data-orientation="horizontal" data-oku-collection-item=""> 2- disable </button><button tabindex="-1" data-orientation="horizontal" data-oku-collection-item="">2</button></div>')
     })
   })
 })

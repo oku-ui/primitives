@@ -78,7 +78,6 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
-
       return () => h(OkuSlot, { ref: composedRefs }, {
         default: () => slots.default?.(),
       })
@@ -143,7 +142,6 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       )
       return orderedItems
     })
-
     return getItems
   }
 
