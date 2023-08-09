@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, onMounted, ref, watchEffect } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -11,7 +11,7 @@ const FALLBACK_NAME = 'OkuAvatarFallback'
 type AvatarFallbackElement = ElementType<'span'>
 export type _AvatarFalbackEl = HTMLSpanElement
 
-interface AvatarFallbackProps extends PrimitiveProps {
+interface AvatarFallbackProps extends IPrimitiveProps {
   delayMs?: number
 }
 

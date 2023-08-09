@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
@@ -10,7 +10,7 @@ const TOGGLE_NAME = 'Toggle'
 type ToggleElement = ElementType<'button'>
 export type _ToggleEl = HTMLButtonElement
 
-interface ToggleProps extends PrimitiveProps {
+interface ToggleProps extends IPrimitiveProps {
   /**
    * The controlled state of the toggle.
    */
@@ -64,7 +64,7 @@ const Toggle = defineComponent({
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
-        'aria-pressed': state.value,
+        'aria-pressed': state.value ? 'true' : 'false',
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled ? '' : undefined,
         ...toggleProps,

@@ -3,7 +3,7 @@ import { Transition, defineComponent, h, toRefs } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuCollapsibleContentImpl } from './collapsibleContentImpl'
 import { useCollapsibleInject } from './collapsible'
@@ -13,7 +13,7 @@ export const CONTENT_NAME = 'CollapsibleContent'
 type CollapsibleContentElement = ElementType<'div'>
 export type _CollapsibleContentEl = HTMLDivElement
 
-interface CollapsibleContentProps extends PrimitiveProps {
+interface CollapsibleContentProps extends IPrimitiveProps {
 }
 
 const CollapsibleContent = defineComponent({

@@ -14,7 +14,7 @@ export default defineConfig((options) => {
       external,
       dts: true,
       clean: true,
-      target: 'node16',
+      target: 'esnext',
       format: ['esm'],
       outExtension: () => ({ js: '.mjs' }),
     },

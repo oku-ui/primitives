@@ -17,8 +17,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
   },
   "require": "./dist/index.cjs",
@@ -34,7 +34,10 @@
   "peerDependencies": {
     "vue": "^3.3.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@oku-ui/slot": "latest",
+    "@oku-ui/use-composable": "latest"
+  },
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

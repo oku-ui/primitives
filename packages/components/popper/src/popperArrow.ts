@@ -3,9 +3,9 @@ import { computed, defineComponent, h } from 'vue'
 
 import type {
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import type { ArrowProps, _ArrowEl } from '@oku-ui/arrow'
@@ -24,7 +24,7 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
 }
 
 type PopperArrowElement = ElementType<'svg'>
-interface PopperArrowProps extends PrimitiveProps, ArrowProps {
+interface PopperArrowProps extends IPrimitiveProps, ArrowProps {
   scopePopper?: Scope
 }
 
