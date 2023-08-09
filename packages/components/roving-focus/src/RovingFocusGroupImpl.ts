@@ -144,17 +144,12 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    const tabData = computed(() => {
-      // eslint-disable-next-line no-console
-      console.log('value', focusableItemsCount.value, 'tabIndex', focusableItemsCount.value === 0 ? -1 : 0)
-      return focusableItemsCount.value === 0 ? -1 : 0
-    })
+    const _tabIndex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
 
     return () => {
-      const merged = mergeProps(_attrs, propsData, {
-        tabIndex: tabData.value,
-      })
+      const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
+        'tabIndex': _tabIndex.value,
         'data-orientation': orientation.value,
         ...merged,
         'ref': composedRefs,

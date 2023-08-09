@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, onBeforeMount, onBeforeUnmount, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, toRefs, watchEffect } from 'vue'
 import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
@@ -68,7 +68,6 @@ const RovingFocusGroupItem = defineComponent({
       focusable,
       active,
       tabStopId,
-      asChild,
       ...propsData
     } = toRefs(props)
     const attrsItems = _attrs
@@ -80,14 +79,16 @@ const RovingFocusGroupItem = defineComponent({
     const getItems = useCollection(scopeRovingFocusGroup.value)
     const forwardedRef = useForwardRef()
 
-    onBeforeMount(async () => {
-      if (focusable.value)
-        inject.value.onFocusableItemAdd()
-    })
-
-    onBeforeUnmount(() => {
-      if (focusable.value)
-        inject.value.onFocusableItemRemove()
+    watchEffect((onClean) => {
+      nextTick(() => {
+        if (focusable.value)
+          inject.value.onFocusableItemAdd()
+      })
+      onClean(() => {
+        nextTick(() => {
+          inject.value.onFocusableItemRemove()
+        })
+      })
     })
 
     const _props: ItemData = {
