@@ -1,19 +1,22 @@
 import {
+  type IPrimitiveProps,
   type MergeProps,
   Primitive,
-  type PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import { defineComponent, h, onMounted, toRefs } from 'vue'
-import { useRef } from '@oku-ui/use-composable'
-import type { Scope } from '@oku-ui/provide'
-import { useTabsInject } from './tabs'
+import { defineComponent, h, toRefs } from 'vue'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
+import type { ScopedPropsInterface } from './tabs'
+import { ScopedProps, useTabsInject } from './tabs'
 
 const TAB_LIST_NAME = 'OkuTabList' as const
 
-interface TabListProps extends PrimitiveProps {
+interface TabListProps extends ScopedPropsInterface<IPrimitiveProps> {
   loop?: boolean
 }
+
+const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
 const TabList = defineComponent({
   name: TAB_LIST_NAME,
@@ -27,40 +30,39 @@ const TabList = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
-    scopeTabs: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-      default: undefined,
-    },
+    ...ScopedProps,
   },
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     const { scopeTabs } = toRefs(props)
+    const { ...listAttrs } = attrs
+
     const injectTabs = useTabsInject(TAB_LIST_NAME, scopeTabs.value)
+    const forwardedRef = useForwardRef()
 
-    const { $el, newRef: parentElement }
-      = useRef<HTMLElement>()
-
-    onMounted(() => {
-      injectTabs.value.parentElement.value = $el.value
-      injectTabs.value.loop = props.loop
-    })
+    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeTabs)
 
     return () =>
-      h(
-        Primitive.div,
-        {
-          'role': 'tab-list',
-          'ref': parentElement,
-          'aria-orientation': injectTabs.value.orientation,
-          'tabindex': 0,
-          'data-orientation': injectTabs.value.orientation,
-          'style': 'outline: none',
-          'asChild': props.asChild,
-        },
-        {
-          default: () => slots.default?.(),
-        },
-      )
+      h(OkuRovingFocusGroup, {
+        asChild: props.asChild,
+        ...rovingFocusGroupScope,
+        scope: rovingFocusGroupScope,
+        dir: injectTabs.value.dir,
+        loop: props.loop,
+      }, {
+        default: () => h(
+          Primitive.div,
+          {
+            'role': 'tablist',
+            'aria-orientation': injectTabs.value.orientation,
+            ...listAttrs,
+            'asChild': props.asChild,
+            'ref': forwardedRef,
+          },
+          {
+            default: () => slots.default?.(),
+          },
+        ),
+      })
   },
 })
 

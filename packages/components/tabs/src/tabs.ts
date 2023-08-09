@@ -1,11 +1,21 @@
-import type { MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { IPrimitiveProps, MergeProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import { defineComponent, h, ref } from 'vue'
-import type { PropType, Ref } from 'vue'
-import { useVModel } from '@vueuse/core'
+import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import type { PropType } from 'vue'
+import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
+import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
+import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
+import { useDirection } from '@oku-ui/direction'
 
 const TAB_NAME = 'OkuTab' as const
+
+export type ScopedPropsInterface<P> = P & { scopeTabs?: Scope }
+export const ScopedProps = {
+  scopeTabs: {
+    type: Object as PropType<Scope>,
+  },
+}
 
 type Orientation = 'horizontal' | 'vertical'
 type Direction = 'ltr' | 'rtl'
@@ -14,7 +24,9 @@ type Direction = 'ltr' | 'rtl'
  * @defaultValue automatic
  * */
 type ActivationMode = 'automatic' | 'manual'
-interface TabsProps extends PrimitiveProps {
+interface TabsProps extends ScopedPropsInterface<IPrimitiveProps> {
+  /** The value for the selected tab, if controlled */
+  value?: string
   /**
    * The default value of the tab.
    * @default 'tab1'
@@ -61,18 +73,15 @@ interface TabsProps extends PrimitiveProps {
    * @defaultValue automatic
    * */
   activationMode?: ActivationMode
-  modelValue?: string
 }
 
 interface TabsProvideValue {
-  modelValue?: Readonly<Ref<string | undefined>>
-  currentFocusedElement?: Ref<HTMLElement | undefined>
-  changeModelValue: (value: string) => void
-  parentElement: Ref<HTMLElement | undefined>
-  orientation: Orientation
-  dir: Direction
-  activationMode: ActivationMode
-  loop: boolean
+  baseId: string
+  value?: string
+  onValueChange: (value: string) => void
+  orientation?: TabsProps['orientation']
+  dir?: TabsProps['dir']
+  activationMode?: TabsProps['activationMode']
 }
 
 export const [createTabsProvider, _createTabsScope] = createProvideScope(TAB_NAME)
@@ -80,10 +89,16 @@ export const [createTabsProvider, _createTabsScope] = createProvideScope(TAB_NAM
 export const [TabsProvider, useTabsInject]
   = createTabsProvider<TabsProvideValue>(TAB_NAME)
 
+export const useRovingFocusGroupScope = createRovingFocusGroupScope()
+
 const Tabs = defineComponent({
   name: TAB_NAME,
   inheritAttrs: false,
   props: {
+    value: {
+      type: String as PropType<string>,
+      required: false,
+    },
     defaultValue: {
       type: String as PropType<string>,
       default: undefined,
@@ -114,41 +129,44 @@ const Tabs = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    ...ScopedProps,
   },
   emits: ['update:modelValue'],
   setup(props, { slots, emit }) {
-    const parentElementRef = ref<HTMLElement>()
-    const currentFocusedElementRef = ref<HTMLElement>()
+    const direction = useDirection(props.dir)
+    const { value: valueProp, defaultValue } = toRefs(props)
 
-    const modelValue = useVModel(props, 'modelValue', emit, {
-      defaultValue: props.defaultValue,
-      passive: true,
+    const forwardedRef = useForwardRef()
+
+    const modelValue = useModel(props, 'modelValue')
+
+    const { state, updateValue } = useControllable({
+      prop: computed(() => modelValue.value ?? valueProp.value),
+      defaultProp: computed(() => defaultValue.value),
+      onChange: (result: any) => {
+        emit('update:modelValue', result)
+      },
     })
 
     TabsProvider({
-      modelValue,
-      changeModelValue: (value: string) => {
-        modelValue.value = value
-        if (value && props.onValueChange)
-          props.onValueChange(value)
-      },
-      currentFocusedElement: currentFocusedElementRef,
-      parentElement: parentElementRef,
+      onValueChange: updateValue,
       orientation: props.orientation,
-      dir: props.dir,
-      loop: true,
+      dir: direction,
+      value: state.value,
       activationMode: props.activationMode,
-      scope: undefined,
+      baseId: useId(),
+      scope: props.scopeTabs,
     })
 
     return () =>
       h(
         Primitive.div,
         {
-          'dir': props.dir,
+          'dir': direction,
           'data-orientation': props.orientation,
           'role': 'tab-group',
           'asChild': props.asChild,
+          'ref': forwardedRef,
         },
         {
           default: () => slots.default?.(),

@@ -1,13 +1,20 @@
-import { type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
-import { type PropType, computed, defineComponent, h, toRefs } from 'vue'
-import type { Scope } from '@oku-ui/provide'
-import { useTabsInject } from './tabs'
+import type { IPrimitiveProps, MergeProps } from '@oku-ui/primitive'
+import { computed, defineComponent, ref, toRefs, watchEffect } from 'vue'
+import type { PropType } from 'vue'
+import type { ScopedPropsInterface } from './tabs'
+import { ScopedProps, useTabsInject } from './tabs'
+import { makeContentId, makeTriggerId } from './utils'
 
 const TAB_CONTENT_NAME = 'OkuTabContent' as const
 
-interface TabsContentProps extends PrimitiveProps {
-  value?: string
-  forceMount?: boolean
+interface TabsContentProps extends ScopedPropsInterface<IPrimitiveProps> {
+  value: string
+
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
+  forceMount?: true
 }
 
 const TabContent = defineComponent({
@@ -26,47 +33,40 @@ const TabContent = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
-    scopeTabs: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-      default: undefined,
-    },
+    ...ScopedProps,
   },
   setup(props, { slots }) {
-    const { scopeTabs } = toRefs(props)
+    const { scopeTabs, value } = toRefs(props)
     const injectTabs = useTabsInject(TAB_CONTENT_NAME, scopeTabs.value)
 
-    const dataState = computed<'active' | 'inactive'>(() => {
-      return injectTabs.value.modelValue?.value === props.value
-        ? 'active'
-        : 'inactive'
+    const triggerId = makeTriggerId(injectTabs.value.baseId, value.value)
+    const contentId = makeContentId(injectTabs.value.baseId, value.value)
+    const isSelected = computed(() => value.value === injectTabs.value.value)
+
+    const isMountAnimationPreventedRef = ref(isSelected.value)
+
+    watchEffect((onClean) => {
+      const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+      onClean(() => cancelAnimationFrame(rAF))
     })
 
-    const shouldRender = computed(() => {
-      return (
-        injectTabs.value.modelValue?.value === props.value || props.forceMount
-      )
-    })
+    // TODO: presence
+    // h(OkuPresence, {
 
-    return () =>
-      h('div', [
-        shouldRender.value
-          ? h(
-            Primitive.div,
-            {
-              'vIf': injectTabs.value.modelValue?.value === props.value,
-              'role': 'tab-content',
-              'data-state': dataState.value,
-              'data-orientation': injectTabs.value.orientation,
-              'tabindex': '0',
-              'asChild': props.asChild,
-            },
-            {
-              default: () => slots.default?.(),
-            },
-          )
-          : null,
-      ])
+    // }, {
+    //   default: () => h(
+    //     Primitive.div,
+    //     {
+    //       'role': 'tab-content',
+    //       'data-orientation': injectTabs.value.orientation,
+    //       'tabindex': '0',
+    //       'asChild': props.asChild,
+    //     },
+    //     {
+    //       default: () => slots.default?.(),
+    //     },
+    //   ),
+    // })
   },
 })
 
