@@ -1,10 +1,11 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, toRefs, watchEffect } from 'vue'
-import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
+import { useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
+import { composeEventHandlers } from '@oku-ui/utils'
 import type { ItemData, ScopedPropsInterface } from './RovingFocusGroup'
 import { CollectionItemSlot, ScopedProps, useCollection, useRovingFocusInject } from './RovingFocusGroup'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
@@ -112,7 +113,7 @@ const RovingFocusGroupItem = defineComponent({
             'ref': forwardedRef,
             'asChild': props.asChild,
             'onMousedown':
-              useComposeEventHandlers(props.onMousedown, (event: MouseEvent) => {
+              composeEventHandlers(props.onMousedown, (event: MouseEvent) => {
                 // We prevent focusing non-focusable items on `mousedown`.
                 // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
                 if (!focusable.value)
@@ -120,10 +121,10 @@ const RovingFocusGroupItem = defineComponent({
                 // Safari doesn't focus a button when clicked so we run our logic on mousedown also
                 else inject.value.onItemFocus(id.value)
               }),
-            'onFocus': useComposeEventHandlers(props.onFocus, () => {
+            'onFocus': composeEventHandlers(props.onFocus, () => {
               inject.value.onItemFocus(id.value)
             }),
-            'onKeydown': useComposeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
+            'onKeydown': composeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
               if (event.key === 'Tab' && event.shiftKey) {
                 inject.value.onItemShiftTab()
                 return

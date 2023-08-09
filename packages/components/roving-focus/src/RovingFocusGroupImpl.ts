@@ -1,10 +1,11 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
-import { useCallbackRef, useComposeEventHandlers, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/utils'
 import { type Direction, type Orientation, focusFirst } from './utils'
 import type { ScopedPropsInterface } from './RovingFocusGroup'
 import { ScopedProps, useCollection, useRovingFocusProvider } from './RovingFocusGroup'
@@ -158,10 +159,10 @@ const RovingFocusGroupImpl = defineComponent({
           ..._attrs.style as any,
         },
         'asChild': asChild.value,
-        'onMousedown': useComposeEventHandlers(props.onMousedown, () => {
+        'onMousedown': composeEventHandlers(props.onMousedown, () => {
           isClickFocusRef.value = true
         }),
-        'onFocus': useComposeEventHandlers(props.onFocus, (event: FocusEvent) => {
+        'onFocus': composeEventHandlers(props.onFocus, (event: FocusEvent) => {
           // We normally wouldn't need this check, because we already check
           // that the focus is on the current target and not bubbling to it.
           // We do this because Safari doesn't focus buttons when clicked, and
@@ -185,7 +186,7 @@ const RovingFocusGroupImpl = defineComponent({
 
           isClickFocusRef.value = false
         }),
-        'onBlur': useComposeEventHandlers(props.onBlur, () => {
+        'onBlur': composeEventHandlers(props.onBlur, () => {
           isTabbingBackOut.value = false
         }),
       }, {
