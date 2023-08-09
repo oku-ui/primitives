@@ -10,6 +10,7 @@
     "isolatedModules": true,
     "strict": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,

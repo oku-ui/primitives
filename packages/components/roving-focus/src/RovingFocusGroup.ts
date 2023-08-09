@@ -2,8 +2,8 @@ import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { Scope } from '@oku-ui/provide'
-import type { ComputedRef, PropType, Ref } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
+import type { ComputedRef, PropType } from 'vue'
+import { createVNode, defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { MergeProps } from '@oku-ui/primitive'
 import { IRovingFocusGroupImplProps, OkuRovingFocusGroupImpl } from './RovingFocusGroupImpl'
@@ -50,8 +50,6 @@ type RovingContextValue = RovingFocusGroupOptions & {
   onItemShiftTab(): void
   onFocusableItemAdd(): void
   onFocusableItemRemove(): void
-  isChangedFocusableItemAdd: Ref<number>
-  isChangedFocusableItemRemove: Ref<number>
 }
 
 export const [useRovingFocusProvider, useRovingFocusInject]
@@ -85,12 +83,10 @@ const RovingFocusGroup = defineComponent({
         default: () => h(CollectionSlot, {
           scope: props.scopeRovingFocusGroup,
         }, {
-          default: () => h(OkuRovingFocusGroupImpl, {
+          default: () => createVNode(OkuRovingFocusGroupImpl, {
             ...mergedProps,
             ref: forwardedRef,
-          }, {
-            default: () => slots.default?.(),
-          }),
+          }, slots),
         }),
       })
     }

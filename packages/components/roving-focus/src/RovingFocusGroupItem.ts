@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeMount, onBeforeUnmount, toRefs } from 'vue'
 import { useComposeEventHandlers, useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
@@ -80,11 +80,13 @@ const RovingFocusGroupItem = defineComponent({
     const getItems = useCollection(scopeRovingFocusGroup.value)
     const forwardedRef = useForwardRef()
 
-    watchEffect(async () => {
-      if (focusable.value && inject.value.isChangedFocusableItemAdd.value === 0)
+    onBeforeMount(async () => {
+      if (focusable.value)
         inject.value.onFocusableItemAdd()
+    })
 
-      if (inject.value.isChangedFocusableItemRemove.value > 0)
+    onBeforeUnmount(() => {
+      if (focusable.value)
         inject.value.onFocusableItemRemove()
     })
 
@@ -94,70 +96,72 @@ const RovingFocusGroupItem = defineComponent({
       active: active.value,
       scope: scopeRovingFocusGroup.value,
     }
-    return () => h(CollectionItemSlot, {
-      ..._props,
-    }, {
-      default: () => {
-        const merged = mergeProps(attrsItems, propsData)
-        return h(Primitive.span, {
-          'tabindex': isCurrentTabStop.value ? 0 : -1,
-          'data-orientation': inject.value.orientation,
-          ...merged,
-          'ref': forwardedRef,
-          'asChild': props.asChild,
-          'onMousedown':
-            useComposeEventHandlers(props.onMousedown, (event: MouseEvent) => {
-              // We prevent focusing non-focusable items on `mousedown`.
-              // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
-              if (!focusable.value)
-                event.preventDefault()
-              // Safari doesn't focus a button when clicked so we run our logic on mousedown also
-              else inject.value.onItemFocus(id.value)
+    return () => {
+      const merged = mergeProps(attrsItems, propsData, {
+        tabIndex: isCurrentTabStop.value ? 0 : -1,
+      })
+      return h(CollectionItemSlot, {
+        ..._props,
+      }, {
+        default: () => {
+          return h(Primitive.span, {
+            'tabindex': isCurrentTabStop.value ? 0 : -1,
+            'data-orientation': inject.value.orientation,
+            ...merged,
+            'ref': forwardedRef,
+            'asChild': props.asChild,
+            'onMousedown':
+              useComposeEventHandlers(props.onMousedown, (event: MouseEvent) => {
+                // We prevent focusing non-focusable items on `mousedown`.
+                // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
+                if (!focusable.value)
+                  event.preventDefault()
+                // Safari doesn't focus a button when clicked so we run our logic on mousedown also
+                else inject.value.onItemFocus(id.value)
+              }),
+            'onFocus': useComposeEventHandlers(props.onFocus, () => {
+              inject.value.onItemFocus(id.value)
             }),
-          'onFocus': useComposeEventHandlers(props.onFocus, () => {
-            inject.value.onItemFocus(id.value)
-          }),
-          'onKeydown': useComposeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
-            if (event.key === 'Tab' && event.shiftKey) {
-              inject.value.onItemShiftTab()
-              return
-            }
-
-            if (event.target !== event.currentTarget)
-              return
-
-            const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
-
-            if (focusIntent !== undefined) {
-              event.preventDefault()
-
-              const items = getItems.value.filter(item => item.focusable)
-              let candidateNodes = items.map(item => item.ref.$el!)
-
-              if (focusIntent === 'last') {
-                candidateNodes.reverse()
+            'onKeydown': useComposeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
+              if (event.key === 'Tab' && event.shiftKey) {
+                inject.value.onItemShiftTab()
+                return
               }
-              else if (focusIntent === 'prev' || focusIntent === 'next') {
-                if (focusIntent === 'prev')
+
+              if (event.target !== event.currentTarget)
+                return
+
+              const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
+
+              if (focusIntent !== undefined) {
+                event.preventDefault()
+
+                const items = getItems.value.filter(item => item.focusable)
+                let candidateNodes = items.map(item => item.ref.$el!)
+
+                if (focusIntent === 'last') {
                   candidateNodes.reverse()
-                const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-                candidateNodes = inject.value.loop
-                  ? wrapArray(candidateNodes, currentIndex + 1)
-                  : candidateNodes.slice(currentIndex + 1)
-              }
+                }
+                else if (focusIntent === 'prev' || focusIntent === 'next') {
+                  if (focusIntent === 'prev')
+                    candidateNodes.reverse()
+                  const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
+                  candidateNodes = inject.value.loop
+                    ? wrapArray(candidateNodes, currentIndex + 1)
+                    : candidateNodes.slice(currentIndex + 1)
+                }
 
-              // /**
-              //  * Imperative focus during keydown is risky so we prevent React's batching updates
-              //  * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
-              //  */
-              focusFirst(candidateNodes)
-            }
-          }),
-        }, {
-          default: () => slots.default?.(),
-        })
-      },
-    })
+                // /**
+                //  * Imperative focus during keydown is risky so we prevent React's batching updates
+                //  * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
+                //  */
+                focusFirst(candidateNodes)
+              }
+            }),
+          }, slots)
+        },
+      })
+    }
   },
 })
 

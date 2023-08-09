@@ -1,5 +1,5 @@
 import type { AllowedComponentProps, ComponentCustomProps, ComponentObjectPropsOptions, ComponentPublicInstance, Ref, VNodeProps } from 'vue'
-import { computed, defineComponent, h, ref, watchEffect } from 'vue'
+import { computed, createVNode, defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
@@ -80,9 +80,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
-      return () => h(OkuSlot, { ref: composedRefs }, {
-        default: () => slots.default?.(),
-      })
+      return () => h(OkuSlot, { ref: composedRefs }, slots)
     },
   })
 
@@ -119,9 +117,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
         })
       })
 
-      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, {
-        default: () => slots.default?.(),
-      })
+      return () => createVNode(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
     },
   })
 

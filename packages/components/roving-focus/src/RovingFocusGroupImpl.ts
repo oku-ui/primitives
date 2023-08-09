@@ -121,8 +121,6 @@ const RovingFocusGroupImpl = defineComponent({
       }
     })
 
-    const isChangedFocusableItemAdd = ref(0)
-    const isChangedFocusableItemRemove = ref(0)
     useRovingFocusProvider({
       scope: props.scopeRovingFocusGroup,
       // TODO: change ref or computed
@@ -140,25 +138,23 @@ const RovingFocusGroupImpl = defineComponent({
       },
       onFocusableItemAdd: () => {
         focusableItemsCount.value++
-        isChangedFocusableItemAdd.value++
       },
       onFocusableItemRemove: () => {
         focusableItemsCount.value--
-        isChangedFocusableItemRemove.value++
       },
-      isChangedFocusableItemAdd,
-      isChangedFocusableItemRemove,
     })
 
-    const tabIndex = computed(() => {
-      const data = isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0
-      return data
+    const tabData = computed(() => {
+      // eslint-disable-next-line no-console
+      console.log('value', focusableItemsCount.value, 'tabIndex', focusableItemsCount.value === 0 ? -1 : 0)
+      return focusableItemsCount.value === 0 ? -1 : 0
     })
 
     return () => {
-      const merged = mergeProps(_attrs, propsData)
+      const merged = mergeProps(_attrs, propsData, {
+        tabIndex: tabData.value,
+      })
       return h(Primitive.div, {
-        'tabIndex': tabIndex.value,
         'data-orientation': orientation.value,
         ...merged,
         'ref': composedRefs,
