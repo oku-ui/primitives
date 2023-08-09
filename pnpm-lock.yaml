@@ -636,6 +636,9 @@ importers:
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../../packages/components/progress
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../../packages/components/roving-focus
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
@@ -676,9 +679,15 @@ importers:
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../../packages/components/progress
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../../packages/components/roving-focus
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../../packages/components/slot
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:../../packages/components/switch

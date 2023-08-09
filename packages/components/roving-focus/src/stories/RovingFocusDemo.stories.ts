@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { ICheckBoxProps } from './CheckboxDemo.vue'
-import OkuCheckboxComponent from './CheckboxDemo.vue'
+import type { ICheckBoxProps } from './RovingFocusDemo.vue'
+import RovingFocusComponent from './RovingFocusDemo.vue'
 
 interface StoryProps extends ICheckBoxProps {
 }
 
 const meta = {
-  title: 'Components/RovingFocus',
+  title: 'Utilities/RovingFocus',
   args: {
     template: '#1',
   },
-  component: OkuCheckboxComponent,
+  component: RovingFocusComponent,
   tags: ['autodocs'],
-} satisfies Meta<typeof OkuCheckboxComponent> & {
+} satisfies Meta<typeof RovingFocusComponent> & {
   args: StoryProps
 }
 
@@ -28,44 +28,44 @@ export const Styled: Story = {
     allshow: true,
   },
   render: (args: any) => ({
-    components: { OkuCheckboxComponent },
+    components: { RovingFocusComponent },
     setup() {
       return { args }
     },
     template: `
-      <OkuCheckboxComponent v-bind="args" />
+      <RovingFocusComponent v-bind="args" />
     `,
   }),
 }
 
-export const indeterminate: Story = {
+export const group: Story = {
   args: {
     template: '#2',
     allshow: false,
   },
   render: (args: any) => ({
-    components: { OkuCheckboxComponent },
+    components: { RovingFocusComponent },
     setup() {
       return { args }
     },
     template: `
-      <OkuCheckboxComponent v-bind="args" />
+      <RovingFocusComponent v-bind="args" />
     `,
   }),
 }
 
-export const test: Story = {
+export const more: Story = {
   args: {
     template: '#3',
     allshow: false,
   },
   render: (args: any) => ({
-    components: { OkuCheckboxComponent },
+    components: { RovingFocusComponent },
     setup() {
       return { args }
     },
     template: `
-      <OkuCheckboxComponent v-bind="args" />
+      <RovingFocusComponent v-bind="args" />
     `,
   }),
 }
