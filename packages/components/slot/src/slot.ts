@@ -1,4 +1,4 @@
-import { cloneVNode, createVNode, defineComponent, mergeProps } from 'vue'
+import { createVNode, defineComponent, mergeProps } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { isSlottable } from './utils'
 
@@ -34,7 +34,7 @@ const OkuSlot = defineComponent({
         })
       }
       else if (slots.default) {
-        return cloneVNode(slots.default?.()[0], { ...mergeProps(attrs, props), ref: composedRefs }, true)
+        return createVNode(slots.default?.()[0], { ...mergeProps(attrs, props), ref: composedRefs })
       }
       else {
         return null

@@ -42,3 +42,7 @@ export function renderSlotFragments(children: VNode[]): VNode[] {
     return [child]
   })
 }
+
+export const PrimitiveProps = {
+  asChild: Boolean,
+}

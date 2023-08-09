@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/primitive",
+  "name": "@oku-ui/roving-focus",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/core/primitive"
+    "directory": "packages/components/roving-focus"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -17,16 +17,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     }
   },
-  "require": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch"
@@ -35,13 +36,14 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/slot": "latest",
-    "@oku-ui/use-composable": "latest"
+    "@oku-ui/collection": "latest",
+    "@oku-ui/direction": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

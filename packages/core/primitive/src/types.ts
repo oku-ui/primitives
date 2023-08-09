@@ -1,3 +1,101 @@
+import type {
+  ComponentPropsOptions,
+  ComponentPublicInstance,
+  DefineComponent,
+  FunctionalComponent,
+  IntrinsicElementAttributes,
+} from 'vue'
+
+export const NODES = [
+  'a',
+  'button',
+  'div',
+  'form',
+  'h2',
+  'h3',
+  'img',
+  'input',
+  'label',
+  'li',
+  'nav',
+  'ol',
+  'p',
+  'span',
+  'svg',
+  'ul',
+] as const
+
+export interface NodeElementTagNameMap {
+  a: HTMLAnchorElement
+  button: HTMLButtonElement
+  div: HTMLDivElement
+  form: HTMLFormElement
+  h2: HTMLHeadingElement
+  h3: HTMLHeadingElement
+  img: HTMLImageElement
+  input: HTMLInputElement
+  label: HTMLLabelElement
+  li: HTMLLIElement
+  nav: HTMLElement
+  ol: HTMLOListElement
+  p: HTMLParagraphElement
+  span: HTMLSpanElement
+  svg: SVGSVGElement
+  ul: HTMLUListElement
+}
+
+export type ElementConstructor<P> =
+  | (new () => { $props: P })
+  | ((props: P, ...args: any) => FunctionalComponent<any, any>)
+
+//  extends keyof JSX.IntrinsicElements | ElementConstructor<any>
+export type ComponentProps<
+  T extends keyof JSX.IntrinsicElements | ElementConstructor<any>,
+> = T extends ElementConstructor<infer P>
+  ? P
+  : T extends keyof JSX.IntrinsicElements
+    ? JSX.IntrinsicElements[T]
+    : Record<string, never>
+
+export type RefElement<T extends abstract new (...args: any) => any> = Omit<
+  InstanceType<T>,
+  keyof ComponentPublicInstance | 'class' | 'style'
+>
+
+export type InstanceTypeRef<C extends abstract new (...args: any) => any, T> = Omit<InstanceType<C>, '$el'> & {
+  $el: T
+}
+
+export type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'> & {
+  $el: T
+}
+
+export type MergeProps<T, U> = U & T
+
+export interface IPrimitiveProps {
+  asChild?: boolean
+}
+
+export type PropsWithoutRef<P> = P extends any
+  ? 'ref' extends keyof P
+    ? Pick<P, Exclude<keyof P, 'ref'>>
+    : P
+  : P
+
+export type ComponentPropsWithoutRef<
+  T extends keyof HTMLElementTagNameMap | DefineComponent<any>,
+> = PropsWithoutRef<ComponentPropsOptions<T>>
+
+export type Primitives = {
+  [E in (typeof NODES)[number]]: DefineComponent<{
+    asChild?: boolean
+  } & IntrinsicElementAttributes[E]> & NodeElementTagNameMap[E] & AriaAttributes
+}
+
+export type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<
+  IntrinsicElementAttributes[T]
+>
+
 /**
  * Wraps an array around itself at a given start index
  * Example: `wrapArray(['a', 'b', 'c', 'd'], 2) === ['c', 'd', 'a', 'b']`
