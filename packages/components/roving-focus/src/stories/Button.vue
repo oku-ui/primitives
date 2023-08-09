@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, inject } from 'vue'
+import { computed, inject, useAttrs } from 'vue'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 
@@ -29,6 +29,7 @@ const onFocus = composeEventHandlers(props.onFocus, (event: any) => {
   if (data && data.value !== undefined)
     event.target.click()
 })
+const useAttras = useAttrs()
 </script>
 
 <template>
@@ -40,7 +41,9 @@ const onFocus = composeEventHandlers(props.onFocus, (event: any) => {
     @click="click"
   >
     <button
-      class="w-40 h-6 text-white rounded-sm"
+      v-bind="useAttras"
+      :disabled="disabled"
+      class="w-40 h-6 text-white rounded-sm disabled:opacity-50"
       :class="{
         'bg-blue-500': isSelected,
         'bg-gray-500': !isSelected,
