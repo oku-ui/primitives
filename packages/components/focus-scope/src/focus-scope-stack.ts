@@ -3,6 +3,7 @@
  * ----------------------------------------------------------------------------------------------- */
 
 type FocusScopeAPI = { paused: boolean; pause(): void; resume(): void }
+const focusScopesStack = createFocusScopesStack()
 
 function createFocusScopesStack() {
   /** A stack of focus scopes, with the active one at the top */
@@ -40,4 +41,4 @@ function removeLinks(items: HTMLElement[]) {
   return items.filter(item => item.tagName !== 'A')
 }
 
-export { createFocusScopesStack, removeLinks }
+export { focusScopesStack, removeLinks }
