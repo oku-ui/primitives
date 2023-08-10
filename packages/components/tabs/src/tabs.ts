@@ -1,4 +1,4 @@
-import type { IPrimitiveProps, MergeProps, RefElement } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import type { PropType } from 'vue'
@@ -10,10 +10,14 @@ import { useDirection } from '@oku-ui/direction'
 
 const TAB_NAME = 'OkuTab' as const
 
+type TabsElement = ElementType<'div'>
+export type _TabsEl = HTMLDivElement
+
 export type ScopedPropsInterface<P> = P & { scopeTabs?: Scope }
 export const ScopedProps = {
   scopeTabs: {
     type: Object as PropType<Scope>,
+    required: false,
   },
 }
 
@@ -167,15 +171,13 @@ const Tabs = defineComponent({
           'role': 'tab-group',
           'asChild': props.asChild,
           'ref': forwardedRef,
-        },
-        {
-          default: () => slots.default?.(),
-        },
+        }, slots,
       )
   },
 })
 
-type _TabsProps = MergeProps<TabsProps, typeof Tabs>
+type _TabsProps = MergeProps<TabsProps, TabsElement>
+export type IstanceTabsType = InstanceTypeRef<typeof Tabs, _TabsEl>
 
 type TabsRef = RefElement<typeof Tabs>
 

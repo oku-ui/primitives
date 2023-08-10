@@ -1,7 +1,9 @@
-import {
-  type IPrimitiveProps,
-  type MergeProps,
-  Primitive,
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type {
+  ElementType,
+  IPrimitiveProps,
+  InstanceTypeRef,
+  MergeProps,
 } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
@@ -9,6 +11,9 @@ import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import type { ScopedPropsInterface } from './tabs'
 import { ScopedProps, useTabsInject } from './tabs'
+
+type TabListElement = ElementType<'div'>
+export type _TabListEl = HTMLDivElement
 
 const TAB_LIST_NAME = 'OkuTabList' as const
 
@@ -26,10 +31,7 @@ const TabList = defineComponent({
       type: Boolean as PropType<boolean>,
       default: true,
     },
-    asChild: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
+    ...PrimitiveProps,
     ...ScopedProps,
   },
   setup(props, { slots, attrs }) {
@@ -66,7 +68,9 @@ const TabList = defineComponent({
   },
 })
 
-type _TabListProps = MergeProps<TabListProps, typeof TabList>
+type _TabListProps = MergeProps<TabListProps, TabListElement>
+
+export type InstanceTabListType = InstanceTypeRef<typeof TabList, _TabListEl>
 
 const OkuTabList = TabList as typeof TabList & (new () => { $props: _TabListProps })
 

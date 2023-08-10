@@ -1,5 +1,5 @@
-import { Primitive } from '@oku-ui/primitive'
-import type { IPrimitiveProps, MergeProps } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { type PropType, computed, defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
@@ -8,11 +8,14 @@ import type { ScopedPropsInterface } from './tabs'
 import { ScopedProps, useRovingFocusGroupScope, useTabsInject } from './tabs'
 import { makeContentId, makeTriggerId } from './utils'
 
+type TabsTriggerElement = ElementType<'button'>
+export type _TabsTriggerEl = HTMLButtonElement
+
 const TAB_TRIGGER_NAME = 'OkuTabTrigger' as const
 
 interface TabsTriggerProps extends ScopedPropsInterface<IPrimitiveProps> {
   value: string
-  disabled: boolean
+  disabled?: boolean
   onMousedown?: (event: MouseEvent) => void
   onKeydown?: (event: KeyboardEvent) => void
   onFocus?: (event: FocusEvent) => void
@@ -30,14 +33,11 @@ const TabTrigger = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
-    asChild: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
     onMousedown: Function as PropType<(e: MouseEvent) => void>,
     onKeydown: Function as PropType<(e: KeyboardEvent) => void>,
     onFocus: Function as PropType<(e: FocusEvent) => void>,
     ...ScopedProps,
+    ...PrimitiveProps,
   },
   setup(props, { slots, attrs }) {
     const { scopeTabs, value, disabled } = toRefs(props)
@@ -101,7 +101,9 @@ const TabTrigger = defineComponent({
   },
 })
 
-type _TabsProps = MergeProps<TabsTriggerProps, typeof TabTrigger>
+type _TabsProps = MergeProps<TabsTriggerProps, TabsTriggerElement>
+
+export type InstanceTabsTriggerType = InstanceTypeRef<typeof TabTrigger, _TabsTriggerEl>
 
 const OkuTabTrigger = TabTrigger as typeof TabTrigger & (new () => { $props: _TabsProps })
 

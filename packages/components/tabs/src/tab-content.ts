@@ -1,11 +1,17 @@
-import type { IPrimitiveProps, MergeProps } from '@oku-ui/primitive'
-import { computed, defineComponent, ref, toRefs, watchEffect } from 'vue'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { PropType } from 'vue'
+import { OkuPresence } from '@oku-ui/presence'
+import { useForwardRef } from '@oku-ui/use-composable'
 import type { ScopedPropsInterface } from './tabs'
 import { ScopedProps, useTabsInject } from './tabs'
 import { makeContentId, makeTriggerId } from './utils'
 
 const TAB_CONTENT_NAME = 'OkuTabContent' as const
+
+type TabsContentElement = ElementType<'div'>
+export type _TabsContentEl = HTMLDivElement
 
 interface TabsContentProps extends ScopedPropsInterface<IPrimitiveProps> {
   value: string
@@ -29,52 +35,59 @@ const TabContent = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
-    asChild: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
+    ...PrimitiveProps,
     ...ScopedProps,
   },
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     const { scopeTabs, value } = toRefs(props)
+    const { ...ContentAttrs } = attrs
     const injectTabs = useTabsInject(TAB_CONTENT_NAME, scopeTabs.value)
 
     const triggerId = makeTriggerId(injectTabs.value.baseId, value.value)
     const contentId = makeContentId(injectTabs.value.baseId, value.value)
     const isSelected = computed(() => value.value === injectTabs.value.value)
 
+    const forwardedRef = useForwardRef()
     const isMountAnimationPreventedRef = ref(isSelected.value)
 
-    watchEffect((onClean) => {
-      const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
-      onClean(() => cancelAnimationFrame(rAF))
-    })
-
-    // TODO: presence
-    // h(OkuPresence, {
-
-    // }, {
-    //   default: () => h(
-    //     Primitive.div,
-    //     {
-    //       'role': 'tab-content',
-    //       'data-orientation': injectTabs.value.orientation,
-    //       'tabindex': '0',
-    //       'asChild': props.asChild,
-    //     },
-    //     {
-    //       default: () => slots.default?.(),
-    //     },
-    //   ),
+    // watchEffect((onClean) => {
+    //   nextTick(() => {
+    //     const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+    //     onClean(() => cancelAnimationFrame(rAF))
+    //   })
     // })
+
+    return () => h(OkuPresence, {
+      present: isSelected.value || props.forceMount,
+    }, {
+      default: ({ isPresent }: { isPresent: boolean }) => h(Primitive.div, {
+        'data-state': isSelected.value ? 'active' : 'inactive',
+        'data-orientation': injectTabs.value.orientation,
+        'role': 'tabpanel',
+        'aria-labelledby': triggerId,
+        'hidden': !isPresent,
+        'id': contentId,
+        'tabindex': '0',
+        ...ContentAttrs,
+        'ref': forwardedRef,
+        'style': {
+          ...attrs.style ?? {},
+          animationDuration: isMountAnimationPreventedRef.value ? '0s' : undefined,
+        },
+      }, {
+        default: () => isSelected.value ? slots.default?.() : null,
+      }),
+    })
   },
 })
 
-type _TabsProps = MergeProps<TabsContentProps, typeof TabContent>
+type _TabsProps = MergeProps<TabsContentProps, TabsContentElement>
+
+type InstanceTabsContent = InstanceTypeRef<typeof TabContent, _TabsContentEl>
 
 const OkuTabContent = TabContent as typeof TabContent &
 (new () => { $props: _TabsProps })
 
 export { OkuTabContent }
 
-export type { TabsContentProps }
+export type { TabsContentProps, InstanceTabsContent }
