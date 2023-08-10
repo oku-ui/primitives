@@ -69,7 +69,6 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     ) {
       const { scope, ...context } = props as any
       const Provide = scope?.[scopeName][index] || BaseScope.key as ProvideValueType
-
       const value = computed<ProvideValueType>(() => context)
       provide(Provide, value)
     }

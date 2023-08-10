@@ -2,7 +2,7 @@ import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
 import { Primitive } from '@oku-ui/primitive'
-import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { computedEager, useCallbackRef, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
@@ -36,7 +36,7 @@ type Boundary = Element | null
 type PopperContentElement = ElementType<'div'>
 export type _PopperContentEl = HTMLDivElement
 
-interface PopperContentProps extends PrimitiveProps {
+interface PopperContentProps extends IPrimitiveProps {
   side?: Side
   sideOffset?: number
   align?: Align

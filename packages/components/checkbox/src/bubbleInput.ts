@@ -3,13 +3,13 @@ import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 
 import { usePrevious, useSize } from '@oku-ui/use-composable'
 
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps } from '@oku-ui/primitive'
 
 import { type CheckedState, isIndeterminate } from './utils'
 
 type BubbleInputElement = ElementType<'input'>
 
-interface BubbleInputProps extends PrimitiveProps {
+interface BubbleInputProps extends IPrimitiveProps {
   checked: Ref<CheckedState>
   control: HTMLElement | null
   bubbles: boolean

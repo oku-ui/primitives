@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import type { Scope } from '@oku-ui/provide'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
@@ -14,7 +14,7 @@ const TRIGGER_NAME = 'OkuCollapsibleTrigger'
 type CollapsibleTriggerElement = ElementType<'button'>
 export type _CollapsibleTriggerEl = HTMLButtonElement
 
-interface CollapsibleTriggerProps extends PrimitiveProps { }
+interface CollapsibleTriggerProps extends IPrimitiveProps { }
 
 const CollapsibleTrigger = defineComponent({
   name: TRIGGER_NAME,

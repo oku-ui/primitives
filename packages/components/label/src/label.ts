@@ -1,11 +1,11 @@
 import { defineComponent, h } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 type LabelElement = ElementType<'label'>
 export type _LabelEl = HTMLLabelElement
-interface LabelProps extends PrimitiveProps {}
+interface LabelProps extends IPrimitiveProps {}
 
 const NAME = 'Label'
 

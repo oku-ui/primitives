@@ -1,12 +1,12 @@
 import { cloneVNode, defineComponent, h } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 type ArrowElement = ElementType<'svg'>
 export type _ArrowEl = SVGSVGElement
 
-interface ArrowProps extends PrimitiveProps {}
+interface ArrowProps extends IPrimitiveProps {}
 
 const NAME = 'Arrow'
 

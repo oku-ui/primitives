@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
@@ -8,7 +8,7 @@ import { Primitive } from '@oku-ui/primitive'
 import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { getState } from './utils'
 
-interface CollapsibleProps extends PrimitiveProps {
+interface CollapsibleProps extends IPrimitiveProps {
 }
 type CollapsibleElement = ElementType<'div'>
 export type _CollapsibleEl = HTMLDivElement
