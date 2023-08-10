@@ -512,10 +512,10 @@ importers:
   packages/components/tabs:
     dependencies:
       '@oku-ui/direction':
-        specifier: workspace:^
+        specifier: latest
         version: link:../direction
       '@oku-ui/presence':
-        specifier: workspace:^
+        specifier: latest
         version: link:../presence
       '@oku-ui/primitive':
         specifier: latest
@@ -524,7 +524,7 @@ importers:
         specifier: latest
         version: link:../../core/provide
       '@oku-ui/roving-focus':
-        specifier: workspace:^
+        specifier: latest
         version: link:../roving-focus
       '@oku-ui/use-composable':
         specifier: latest

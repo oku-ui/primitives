@@ -5,7 +5,8 @@ function getAnimationName(styles?: CSSStyleDeclaration) {
   return styles?.animationName || 'none'
 }
 
-export function usePresence(present: Ref<boolean>, el: HTMLElement) {
+export function usePresence(present: Ref<boolean>) {
+  const el = ref<HTMLElement | undefined>(undefined)
   const stylesRef = ref<CSSStyleDeclaration>({} as any)
   const prevPresentRef = ref(present.value)
   const prevAnimationNameRef = ref<string>('none')
@@ -69,8 +70,8 @@ export function usePresence(present: Ref<boolean>, el: HTMLElement) {
     }
   })
 
-  watch(() => el, () => {
-    if (el) {
+  watch(el, () => {
+    if (el.value) {
     /**
          * Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
          * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
@@ -81,7 +82,7 @@ export function usePresence(present: Ref<boolean>, el: HTMLElement) {
         const isCurrentAnimation = currentAnimationName.includes(
           event.animationName,
         )
-        if (event.target === el && isCurrentAnimation) {
+        if (event.target === el.value && isCurrentAnimation) {
         // With React 18 concurrency this update is applied
         // a frame after the animation ends, creating a flash of visible content.
         // By manually flushing we ensure they sync within a frame, removing the flash.
@@ -89,19 +90,19 @@ export function usePresence(present: Ref<boolean>, el: HTMLElement) {
         }
       }
       const handleAnimationStart = (event: AnimationEvent) => {
-        if (event.target === el)
+        if (event.target === el.value)
         // if animation occurred, store its name as the previous animation.
           prevAnimationNameRef.value = getAnimationName(stylesRef.value)
       }
-      el.addEventListener('animationstart', handleAnimationStart)
-      el.addEventListener('animationcancel', handleAnimationEnd)
-      el.addEventListener('animationend', handleAnimationEnd)
+      el.value.addEventListener('animationstart', handleAnimationStart)
+      el.value.addEventListener('animationcancel', handleAnimationEnd)
+      el.value.addEventListener('animationend', handleAnimationEnd)
 
       return () => {
-        if (el) {
-          el.removeEventListener('animationstart', handleAnimationStart)
-          el.removeEventListener('animationcancel', handleAnimationEnd)
-          el.removeEventListener('animationend', handleAnimationEnd)
+        if (el.value) {
+          el.value.removeEventListener('animationstart', handleAnimationStart)
+          el.value.removeEventListener('animationcancel', handleAnimationEnd)
+          el.value.removeEventListener('animationend', handleAnimationEnd)
         }
       }
     }
@@ -116,10 +117,20 @@ export function usePresence(present: Ref<boolean>, el: HTMLElement) {
     ['mounted', 'unmountSuspended'].includes(state.value),
   )
 
-  if (el)
-    stylesRef.value = getComputedStyle(el)
+  if (el.value)
+    stylesRef.value = getComputedStyle(el.value)
 
   return {
     isPresent,
+    ref: computed({
+      get() {
+        return el.value!
+      },
+      set(node: HTMLElement) {
+        if (node)
+          stylesRef.value = getComputedStyle(node)
+        el.value = node
+      },
+    }),
   }
 }
