@@ -43,6 +43,9 @@ importers:
       '@oku-ui/popper':
         specifier: workspace:^
         version: link:packages/components/popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:packages/components/portal
       '@oku-ui/presence':
         specifier: workspace:^
         version: link:packages/components/presence
@@ -371,6 +374,28 @@ importers:
         version: link:../../core/utils
       vue:
         specifier: ^3.3.1
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/portal:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -933,7 +958,7 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
       debug: 4.3.4
       lodash.debounce: 4.0.8
-      resolve: 1.22.2
+      resolve: 1.22.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8015,7 +8040,7 @@ packages:
     dependencies:
       debug: 3.2.7
       is-core-module: 2.12.1
-      resolve: 1.22.2
+      resolve: 1.22.3
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -12041,7 +12066,7 @@ packages:
       jstransformer: 1.0.0
       pug-error: 2.0.0
       pug-walk: 2.0.0
-      resolve: 1.22.2
+      resolve: 1.22.3
     dev: true
 
   /pug-lexer@5.0.1:
@@ -12542,7 +12567,6 @@ packages:
       is-core-module: 2.12.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
-    dev: false
 
   /restore-cursor@3.1.0:
     resolution: {integrity: sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA==}
