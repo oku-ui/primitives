@@ -37,6 +37,9 @@ importers:
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:packages/components/collection
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:packages/components/direction
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
@@ -385,9 +388,6 @@ importers:
 
   packages/components/presence:
     dependencies:
-      '@oku-ui/primitive':
-        specifier: latest
-        version: link:../../core/primitive
       '@oku-ui/use-composable':
         specifier: latest
         version: link:../../core/use-composable

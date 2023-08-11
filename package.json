@@ -43,6 +43,7 @@
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/collection": "workspace:^",
+    "@oku-ui/direction": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/popper": "workspace:^",
     "@oku-ui/presence": "workspace:^",
