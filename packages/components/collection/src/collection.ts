@@ -1,5 +1,5 @@
 import type { AllowedComponentProps, ComponentCustomProps, ComponentObjectPropsOptions, ComponentPublicInstance, Ref, VNodeProps } from 'vue'
-import { computed, createVNode, defineComponent, h, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
@@ -49,12 +49,13 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...CollectionProps,
     },
     setup(props, { slots }) {
+      const { scope } = toRefs(props)
       const collectionRef = ref<ComponentPublicInstanceRef<ItemElement>>()
       const itemMap = ref(new Map<Ref<ComponentPublicInstanceRef<ItemElement> | null | undefined>, { ref: ComponentPublicInstanceRef<ItemElement> } & T>())
       CollectionProviderImpl({
         collectionRef,
         itemMap,
-        scope: props.scope,
+        scope: scope.value,
       })
 
       return () => slots.default?.()
@@ -102,12 +103,12 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { scope, ...itemData } = props
+      const { scope, ...itemData } = toRefs(props)
       const refValue = ref<ComponentPublicInstanceRef<ItemElement> | null>()
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(refValue, forwaredRef)
 
-      const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
+      const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
 
       watchEffect((onClean) => {
         inject.value.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
@@ -117,7 +118,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
         })
       })
 
-      return () => createVNode(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
+      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
     },
   })
 

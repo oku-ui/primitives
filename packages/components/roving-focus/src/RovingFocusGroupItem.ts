@@ -65,19 +65,19 @@ const RovingFocusGroupItem = defineComponent({
   setup(props, { attrs, slots }) {
     const _attrs = attrs as any
     const {
-      scopeRovingFocusGroup,
       focusable,
       active,
       tabStopId,
+      scopeRovingFocusGroup,
       ...propsData
     } = toRefs(props)
     const attrsItems = _attrs
 
     const autoId = useId()
     const id = computed(() => tabStopId.value ?? autoId)
-    const inject = useRovingFocusInject(ITEM_NAME, scopeRovingFocusGroup.value)
+    const inject = useRovingFocusInject(ITEM_NAME, props.scopeRovingFocusGroup)
     const isCurrentTabStop = computed(() => inject.value.currentTabStopId.value === id.value)
-    const getItems = useCollection(scopeRovingFocusGroup.value)
+    const getItems = useCollection(props.scopeRovingFocusGroup)
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
@@ -91,7 +91,7 @@ const RovingFocusGroupItem = defineComponent({
         })
       })
     })
-
+    console.log(props.asChild, 'props.asChild')
     const _props: ItemData = {
       id: id.value,
       focusable: focusable.value,

@@ -1,7 +1,7 @@
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps, RefElement } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { PropType } from 'vue'
+import type { ComputedRef, PropType } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
@@ -81,14 +81,16 @@ interface TabsProps extends ScopedPropsInterface<IPrimitiveProps> {
 
 interface TabsProvideValue {
   baseId: string
-  value?: string
+  value?: ComputedRef<string | undefined>
   onValueChange: (value: string) => void
   orientation?: TabsProps['orientation']
   dir?: TabsProps['dir']
   activationMode?: TabsProps['activationMode']
 }
 
-export const [createTabsProvider, _createTabsScope] = createProvideScope(TAB_NAME)
+export const [createTabsProvider, _createTabsScope] = createProvideScope(TAB_NAME, [
+  createRovingFocusGroupScope,
+])
 
 export const [TabsProvider, useTabsInject]
   = createTabsProvider<TabsProvideValue>(TAB_NAME)
@@ -137,8 +139,18 @@ const Tabs = defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { slots, emit }) {
+    const {
+      scopeTabs,
+      value: valueProp,
+      onValueChange,
+      defaultValue,
+      orientation,
+      dir,
+      activationMode,
+      ...tabsProps
+    } = toRefs(props)
+
     const direction = useDirection(props.dir)
-    const { value: valueProp, defaultValue } = toRefs(props)
 
     const forwardedRef = useForwardRef()
 
@@ -148,18 +160,20 @@ const Tabs = defineComponent({
       prop: computed(() => modelValue.value ?? valueProp.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: any) => {
+        console.log(result)
         emit('update:modelValue', result)
+        onValueChange.value?.(result)
       },
     })
 
     TabsProvider({
       onValueChange: updateValue,
-      orientation: props.orientation,
+      orientation: orientation.value,
       dir: direction,
-      value: state.value,
-      activationMode: props.activationMode,
+      value: state,
+      activationMode: activationMode.value,
       baseId: useId(),
-      scope: props.scopeTabs,
+      scope: scopeTabs.value,
     })
 
     return () =>
@@ -168,8 +182,6 @@ const Tabs = defineComponent({
         {
           'dir': direction,
           'data-orientation': props.orientation,
-          'role': 'tab-group',
-          'asChild': props.asChild,
           'ref': forwardedRef,
         }, slots,
       )

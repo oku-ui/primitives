@@ -46,15 +46,15 @@ const TabTrigger = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeTabs)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeTabs.value)
     const triggerId = makeTriggerId(injectedValue.value.baseId, value.value)
     const contentId = makeContentId(injectedValue.value.baseId, value.value)
     const isSelected = computed(() => (value.value === injectedValue.value.value))
-
+    console.log(rovingFocusGroupScope.value)
     return () =>
       h(OkuRovingFocusGroupItem, {
-        asChild: props.asChild,
-        ...rovingFocusGroupScope,
+        asChild: true,
+        ...rovingFocusGroupScope.value,
         active: isSelected.value,
         focusable: !disabled.value,
       }, {

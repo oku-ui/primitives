@@ -95,7 +95,6 @@ const RovingFocusGroupImpl = defineComponent({
       asChild,
       ...propsData
     } = toRefs(props)
-
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)

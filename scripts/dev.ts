@@ -13,7 +13,7 @@ else
 
 const componentName = isCore ? process.argv[3] : process.argv[2]
 
-let turboDependenciesFilter: string = ''
+let turboDependenFilter: string = ''
 
 async function main() {
   const componentFile = resolve(process.cwd(), where, componentName)
@@ -25,15 +25,16 @@ async function main() {
 
   const dependencies = readFileSync(resolve(componentFile, 'package.json'), 'utf-8')
   const packageName = JSON.parse(dependencies).name
-  const filteredDependencies = Object.entries(JSON.parse(dependencies).dependencies)
-    .filter(([name]) => name.startsWith('@oku-ui'))
-    .filter(([name]) => !turboDependenciesFilter.includes(name))
-    .map(([name]) => name)
-    .map(name => `--filter=${name}`)
-    .join(' ')
+  turboDependenFilter = packageName
+  // const filteredDependencies = Object.entries(JSON.parse(dependencies).dependencies)
+  //   .filter(([name]) => name.startsWith('@oku-ui'))
+  //   .filter(([name]) => !turboDependenciesFilter.includes(name))
+  //   .map(([name]) => name)
+  //   .map(name => `--filter=${name}`)
+  //   .join(' ')
 
-  turboDependenciesFilter = filteredDependencies.concat(` --filter=${packageName}`)
+  // turboDependenciesFilter = filteredDependencies.concat(` --filter=${packageName}`)
 }
 
 await main()
-execaCommandSync(`turbo dev ${turboDependenciesFilter}`, { stdio: 'inherit' })
+execaCommandSync(`turbo dev --filter=${turboDependenFilter}... --concurrency=50`, { stdio: 'inherit' })

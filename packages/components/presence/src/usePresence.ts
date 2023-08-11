@@ -1,4 +1,5 @@
 import { type Ref, computed, nextTick, ref, watch } from 'vue'
+import { isValidVNodeElement } from '@oku-ui/utils'
 import { useStateMachine } from './useStateMachine'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
@@ -124,12 +125,20 @@ export function usePresence(present: Ref<boolean>) {
     isPresent,
     ref: computed({
       get() {
-        return el.value!
+        return el.value
       },
-      set(node: HTMLElement) {
-        if (node)
+      set(node: any) {
+        if (!isValidVNodeElement(node))
+          return
+        // node is ComponentPublicInstance
+        if (node && node.$el) {
+          stylesRef.value = getComputedStyle(node.$el)
+          el.value = node.$el as HTMLElement
+        }
+        else if (node) {
           stylesRef.value = getComputedStyle(node)
-        el.value = node
+          el.value = node as HTMLElement
+        }
       },
     }),
   }

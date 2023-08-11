@@ -1,6 +1,6 @@
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -39,23 +39,21 @@ const TabContent = defineComponent({
     ...ScopedProps,
   },
   setup(props, { slots, attrs }) {
-    const { scopeTabs, value } = toRefs(props)
+    const { value } = toRefs(props)
     const { ...ContentAttrs } = attrs
-    const injectTabs = useTabsInject(TAB_CONTENT_NAME, scopeTabs.value)
+    const injectTabs = useTabsInject(TAB_CONTENT_NAME, props.scopeTabs)
 
     const triggerId = makeTriggerId(injectTabs.value.baseId, value.value)
     const contentId = makeContentId(injectTabs.value.baseId, value.value)
-    const isSelected = computed(() => value.value === injectTabs.value.value)
+    const isSelected = computed(() => value.value === injectTabs.value.value?.value)
 
     const forwardedRef = useForwardRef()
     const isMountAnimationPreventedRef = ref(isSelected.value)
 
-    // watchEffect((onClean) => {
-    //   nextTick(() => {
-    //     const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
-    //     onClean(() => cancelAnimationFrame(rAF))
-    //   })
-    // })
+    watchEffect((onClean) => {
+      const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+      onClean(() => cancelAnimationFrame(rAF))
+    })
 
     return () => h(OkuPresence, {
       present: isSelected.value || props.forceMount,
@@ -75,7 +73,7 @@ const TabContent = defineComponent({
           animationDuration: isMountAnimationPreventedRef.value ? '0s' : undefined,
         },
       }, {
-        default: () => isSelected.value ? slots.default?.() : null,
+        default: () => isPresent ? slots.default?.() : null,
       }),
     })
   },

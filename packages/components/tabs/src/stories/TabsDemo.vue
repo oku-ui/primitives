@@ -9,7 +9,7 @@ import {
 
 <template>
   <OkuTabs
-    activation-mode="manual"
+    activation-mode="automatic"
     dir="ltr"
     orientation="horizontal"
     class="flex flex-col w-[300px] shadow-[0_2px_10px] shadow-black/10"

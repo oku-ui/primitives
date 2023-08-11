@@ -42,12 +42,11 @@ const TabList = defineComponent({
     const forwardedRef = useForwardRef()
 
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeTabs)
-
+    console.log('TabListrovingFocusGroupScope', rovingFocusGroupScope.value)
     return () =>
       h(OkuRovingFocusGroup, {
-        asChild: props.asChild,
+        asChild: true,
         ...rovingFocusGroupScope,
-        scope: rovingFocusGroupScope,
         dir: injectTabs.value.dir,
         loop: props.loop,
       }, {
@@ -57,7 +56,6 @@ const TabList = defineComponent({
             'role': 'tablist',
             'aria-orientation': injectTabs.value.orientation,
             ...listAttrs,
-            'asChild': props.asChild,
             'ref': forwardedRef,
           },
           {
