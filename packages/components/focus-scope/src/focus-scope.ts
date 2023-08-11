@@ -254,7 +254,7 @@ const FocusScope = defineComponent({
     const originalReturn = () => h(Primitive.div, {
       tabIndex: -1,
       ref: composedRefs,
-      onkeydown: handleKeyDown,
+      onKeydown: handleKeyDown,
       ...FocusScopeProps,
       asChild: asChild.value,
     }, {

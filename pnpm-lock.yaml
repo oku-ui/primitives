@@ -37,6 +37,9 @@ importers:
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:packages/components/collection
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:packages/components/focus-scope
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
