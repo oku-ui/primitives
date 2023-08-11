@@ -18,6 +18,7 @@
     "@oku-ui/collection": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
+    "@oku-ui/roving-focus": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",

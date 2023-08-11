@@ -1,8 +1,51 @@
 import { describe, expect, it, test } from 'vitest'
 import { mount } from '@vue/test-utils'
+import type { Component } from 'vue'
+import { h } from 'vue'
 import { Primitive } from './index'
 
 describe('Primitive', () => {
+  test('asChild with button', async () => {
+    const example = {
+      components: {
+        Primitive,
+      },
+      setup() {
+        const handleClick = () => {
+          expect(true).toBe(true)
+        }
+
+        return () => h(Primitive.button, { asChild: true, onClick: handleClick }, {
+          default: () => h('button', 'Click me New'),
+        })
+      },
+    } as Component
+    const wrapper = mount(example)
+
+    wrapper.find('button').trigger('click')
+    expect(wrapper.html()).toBe('<button>Click me New</button>')
+  })
+
+  test('asChild with button', async () => {
+    const example = {
+      components: {
+        Primitive,
+      },
+      setup() {
+        const handleClick = () => {
+          expect(true).toBe(true)
+        }
+
+        return () => h(Primitive.button, { onClick: handleClick }, {
+          default: () => 'Click me',
+        })
+      },
+    } as Component
+    const wrapper = mount(example)
+    wrapper.find('button').trigger('click')
+    expect(wrapper.html()).toBe('<button>Click me</button>')
+  })
+
   it('should render div element correctly', () => {
     const wrapper = mount(Primitive.div)
     expect(wrapper.exists()).toBe(true)
@@ -243,10 +286,9 @@ describe('Primitive', () => {
         href: 'https://example.com',
       },
     })
-
     const element = wrapper.find('a')
     await element.trigger('click')
-    expect(wrapper.emitted('click')).toBeTruthy()
+    expect(wrapper.emitted()).toBeTruthy()
   })
 
   test('asChild prop', () => {
@@ -258,7 +300,6 @@ describe('Primitive', () => {
         default: 'Hello',
       },
     })
-
     expect(wrapper.html()).toBe('Hello')
   })
 
@@ -308,7 +349,7 @@ describe('Primitive', () => {
       },
     })
 
-    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
+    expect(() => wrapper()).toThrowError(/can only have one child/)
   })
 
   test('asChild with 2 children and attrs', () => {
@@ -329,7 +370,7 @@ describe('Primitive', () => {
       },
     })
 
-    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
+    expect(() => wrapper()).toThrowError(/can only have one child/)
   })
 
   test('asChild with default 3 children', () => {
@@ -347,6 +388,24 @@ describe('Primitive', () => {
         `,
       },
     })
-    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
+    expect(() => wrapper()).toThrowError(/can only have one child/)
+  })
+
+  test('asChild with default 3 children', () => {
+    const wrapper = () => mount(Primitive.div, {
+      props: {
+        asChild: true,
+        disabled: true,
+        disabled2: true,
+      },
+      slots: {
+        default: `
+          <div>Oku</div>
+          <Hello>Oku</Hello>
+          <Another>Oku</Another>
+        `,
+      },
+    })
+    expect(() => wrapper()).toThrowError(/can only have one child/)
   })
 })

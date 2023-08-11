@@ -34,7 +34,10 @@
   "peerDependencies": {
     "vue": "^3.3.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@oku-ui/slot": "latest",
+    "@oku-ui/use-composable": "latest"
+  },
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

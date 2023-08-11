@@ -4,9 +4,9 @@ import { defineComponent, h, ref, toRefs, watch } from 'vue'
 import type {
   ComponentPublicInstanceRef,
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
 import type { Scope } from '@oku-ui/provide'
@@ -23,7 +23,7 @@ const ANCHOR_NAME = 'PopperAnchor'
 type PopperAnchorElement = ElementType<'div'>
 export type _PopperAnchorEl = HTMLDivElement
 
-interface PopperAnchorProps extends PrimitiveProps {
+interface PopperAnchorProps extends IPrimitiveProps {
   virtualRef?: Ref<Measurable | null>
   scopeCheckbox?: Scope
 }
