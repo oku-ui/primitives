@@ -75,6 +75,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
 
     function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined>): ComputedRef<ProvideValueType> {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
+      console.log('TabListrovingFocusGroupScope useInject', scope)
       const provide = inject<ComputedRef>(Provide.key)
       console.log('useInject', provide?.value, Provide)
       if (provide)

@@ -37,4 +37,4 @@ async function main() {
 }
 
 await main()
-execaCommandSync(`turbo dev --filter=${turboDependenFilter}... --concurrency=50`, { stdio: 'inherit' })
+execaCommandSync(`turbo run dev --concurrency=50 --filter=${turboDependenFilter}...`, { stdio: 'inherit' })
