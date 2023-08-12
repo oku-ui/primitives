@@ -35,7 +35,6 @@
   "peerDependencies": {
     "vue": "^3.3.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

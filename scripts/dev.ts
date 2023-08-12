@@ -1,39 +1,76 @@
-import { readFileSync, readdirSync } from 'node:fs'
-import { resolve } from 'node:path'
-import process from 'node:process'
-import { execaCommandSync } from 'execa'
+import { execSync } from 'node:child_process'
+import { watch } from 'chokidar'
+import { dirname, resolve } from 'pathe'
+import { globbySync } from 'globby'
+import { rimrafSync } from 'rimraf'
 
-const isCore = process.argv[2].endsWith('core')
-let where = 'packages'
+const componentsPath = resolve('packages/components/')
+const corePath = resolve('packages/core/')
 
-if (isCore)
-  where = where.concat('/core')
-else
-  where = where.concat('/components')
+const packages = globbySync(resolve('packages/components'), {
+  onlyDirectories: true,
+  deep: 1,
+  ignore: [
+    '**/node_modules',
+    '**/dist',
+  ],
+})
 
-const componentName = isCore ? process.argv[3] : process.argv[2]
+const core = globbySync(resolve('packages/core'), {
+  onlyDirectories: true,
+  deep: 1,
+  ignore: [
+    '**/node_modules',
+    '**/dist',
+  ],
+})
 
-let turboDependenciesFilter: string = ''
+async function deleteAllPackageDists() {
+  console.log('deleting dist folders 🔥')
+  for await (const path of packages)
+    rimrafSync(`${path}/dist`)
 
-async function main() {
-  const componentFile = resolve(process.cwd(), where, componentName)
+  for await (const path of core)
+    rimrafSync(`${path}/dist`)
+  console.log('finished deleting dist folders ✅')
 
-  if (readdirSync(componentFile).length === 0) {
-    console.error(`${componentName} does not exist`)
-    process.exit(1)
-  }
+  console.log('building components 🏗')
+  execSync('pnpm build', { stdio: 'inherit' })
+  console.log('finished building components ✅')
 
-  const dependencies = readFileSync(resolve(componentFile, 'package.json'), 'utf-8')
-  const packageName = JSON.parse(dependencies).name
-  const filteredDependencies = Object.entries(JSON.parse(dependencies).dependencies)
-    .filter(([name]) => name.startsWith('@oku-ui'))
-    .filter(([name]) => !turboDependenciesFilter.includes(name))
-    .map(([name]) => name)
-    .map(name => `--filter=${name}`)
-    .join(' ')
-
-  turboDependenciesFilter = filteredDependencies.concat(` --filter=${packageName}`)
+  console.log('watch mode active 🚀')
+  watchMode()
 }
 
-await main()
-execaCommandSync(`turbo dev ${turboDependenciesFilter}`, { stdio: 'inherit' })
+await deleteAllPackageDists()
+
+function whereComponent(path: string) {
+  const isComponent = path.includes('packages/components')
+  const isCore = path.includes('packages/core')
+  if (isComponent) {
+    const temp = path.slice(componentsPath.length, path.length)
+    console.time()
+    execSync(`pnpm --filter=@oku-ui/${dirname(temp).split('/')[1]} run build`, { stdio: 'inherit' })
+    console.timeEnd()
+  }
+
+  if (isCore) {
+    const temp = path.slice(corePath.length, path.length)
+    console.time()
+    execSync(`pnpm --filter=@oku-ui/${dirname(temp).split('/')[1]} run build`, { stdio: 'inherit' })
+    console.timeEnd()
+  }
+}
+
+function watchMode() {
+  watch(resolve('packages'), {
+    ignored: [
+      '/(^|[\/\\])\../', // ignore dotfiles
+      '**/node_modules',
+      '**/dist',
+    ],
+    ignoreInitial: true,
+  }).on('all', (event, path) => {
+    whereComponent(path)
+  })
+}
