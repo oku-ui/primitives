@@ -58,10 +58,10 @@ const Portal = defineComponent({
 })
 
 type _Portal = MergeProps<PortalProps, PortalElement>
-type InnerPortal = InstanceTypeRef<typeof Portal, _PortalEl>
+export type InnerPortal = InstanceTypeRef<typeof Portal, _PortalEl>
 
 const OkuPortal = Portal as typeof Portal & (new () => { $props: _Portal })
 
 export { OkuPortal }
 
-export { InnerPortal, PortalProps, _Portal }
+export type { PortalProps }
