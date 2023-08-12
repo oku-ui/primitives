@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite --force --port 3010",
-    "build": "vite build",
+    "p:dev": "vite --force --port 3010",
+    "p:build": "vite build",
     "preview": "vite preview --port 3010",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
