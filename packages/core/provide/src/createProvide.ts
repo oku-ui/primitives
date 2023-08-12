@@ -75,9 +75,9 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
 
     function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined>): ComputedRef<ProvideValueType> {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
-      console.log('TabListrovingFocusGroupScope useInject', scope)
+
       const provide = inject<ComputedRef>(Provide.key)
-      console.log('useInject', provide?.value, Provide)
+
       if (provide)
         return provide
       if (defaultValue !== undefined)
@@ -95,7 +95,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
    * --------------------------------------------------------------------------------------------- */
   const createScope: CreateScope = () => {
     const scopeProviders = defaultProviders[0]
-    console.log(scopeProviders, 'scopeProviders')
+
     return function useScope(scope: Scope) {
       const providers = scope?.[scopeName] || scopeProviders
 
@@ -120,13 +120,11 @@ function composeInjectScopes(...scopes: CreateScope[]) {
         // We are calling a hook inside a callback which React warns against to avoid inconsistent
         // renders, however, scoping doesn't have render side effects so we ignore the rule.
         const scopeProps = useScope(overrideScopes)
-        console.log('scopeProps', scopeProps.value)
         const currentScope = scopeProps.value[`scope${scopeName}`]
         return { ...nextScopes, ...currentScope }
       }, {})
 
       const data = computed(() => ({ [`scope${baseScope.scopeName}`]: nextScopes }))
-      console.log('data', data)
       return data
     }
   }

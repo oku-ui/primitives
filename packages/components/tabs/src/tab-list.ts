@@ -41,8 +41,8 @@ const TabList = defineComponent({
     const injectTabs = useTabsInject(TAB_LIST_NAME, scopeTabs.value)
     const forwardedRef = useForwardRef()
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeTabs)
-    console.log('ONE', rovingFocusGroupScope)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeTabs.value)
+
     return () =>
       h(OkuRovingFocusGroup, {
         asChild: true,

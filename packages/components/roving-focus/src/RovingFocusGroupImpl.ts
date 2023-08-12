@@ -149,7 +149,7 @@ const RovingFocusGroupImpl = defineComponent({
 
     return () => {
       const merged = mergeProps(_attrs, propsData)
-      console.log('merged', merged)
+
       return h(Primitive.div, {
         'tabIndex': _tabIndex.value,
         'data-orientation': orientation.value,

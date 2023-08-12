@@ -91,7 +91,7 @@ const RovingFocusGroupItem = defineComponent({
         })
       })
     })
-    console.log(props.asChild, 'props.asChild')
+
     const _props: ItemData = {
       id: id.value,
       focusable: focusable.value,
