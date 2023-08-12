@@ -2,8 +2,8 @@
   "name": "nuxt3-playground",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "p:build": "nuxt build",
+    "p:dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
