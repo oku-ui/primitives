@@ -1,9 +1,9 @@
 import { Primitive } from '@oku-ui/primitive'
 import type {
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { CSSProperties } from 'vue'
@@ -14,7 +14,7 @@ const NAME = 'OkuVisuallyHidden'
 type VisuallyHiddenElement = ElementType<'button'>
 export type _VisuallyHiddenEl = HTMLButtonElement
 
-interface VisuallyHiddenProps extends PrimitiveProps {}
+interface VisuallyHiddenProps extends IPrimitiveProps {}
 
 const VisuallyHidden = defineComponent({
   name: NAME,

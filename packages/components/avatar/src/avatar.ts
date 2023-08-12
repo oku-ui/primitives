@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
@@ -21,7 +21,7 @@ export const [AvatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvi
 type AvatarElement = ElementType<'span'>
 export type _AvatarEl = HTMLSpanElement
 
-interface AvatarProps extends PrimitiveProps {
+interface AvatarProps extends IPrimitiveProps {
   scopeAvatar?: Scope
 }
 

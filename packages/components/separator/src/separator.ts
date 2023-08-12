@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
@@ -12,7 +12,7 @@ type Orientation = typeof ORIENTATIONS[number]
 type SeparatorElement = ElementType<'div'>
 export type _SeparatorEl = HTMLDivElement
 
-interface SeparatorProps extends PrimitiveProps {
+interface SeparatorProps extends IPrimitiveProps {
   /**
   * Whether or not the component is purely decorative. When true, accessibility-related attributes
   * are updated so that that the rendered element is removed from the accessibility tree.
@@ -77,7 +77,7 @@ const Separator = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _SeparatorProps = MergeProps<SeparatorProps, PrimitiveProps>
+type _SeparatorProps = MergeProps<SeparatorProps, SeparatorElement>
 type InstanceSeparatorType = InstanceTypeRef<typeof Separator, _SeparatorEl>
 
 const OkuSeparator = Separator as typeof Separator & (new () => { $props: _SeparatorProps })
