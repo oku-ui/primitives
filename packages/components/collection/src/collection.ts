@@ -49,13 +49,12 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...CollectionProps,
     },
     setup(props, { slots }) {
-      const { scope } = toRefs(props)
       const collectionRef = ref<ComponentPublicInstanceRef<ItemElement>>()
       const itemMap = ref(new Map<Ref<ComponentPublicInstanceRef<ItemElement> | null | undefined>, { ref: ComponentPublicInstanceRef<ItemElement> } & T>())
       CollectionProviderImpl({
         collectionRef,
         itemMap,
-        scope: scope.value,
+        scope: props.scope,
       })
 
       return () => slots.default?.()
@@ -78,7 +77,8 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...ItemData,
     },
     setup(props, { slots }) {
-      const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
+      const { scope } = toRefs(props)
+      const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope?.value)
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
       return () => h(OkuSlot, { ref: composedRefs }, slots)
@@ -103,12 +103,12 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { scope, ...itemData } = toRefs(props)
+      const { ...itemData } = toRefs(props)
       const refValue = ref<ComponentPublicInstanceRef<ItemElement> | null>()
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(refValue, forwaredRef)
 
-      const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
+      const inject = useCollectionInject(ITEM_SLOT_NAME, props.scope?.value)
 
       watchEffect((onClean) => {
         inject.value.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })

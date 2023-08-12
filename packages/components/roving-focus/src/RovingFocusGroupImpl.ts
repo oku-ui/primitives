@@ -93,6 +93,7 @@ const RovingFocusGroupImpl = defineComponent({
       defaultCurrentTabStopId,
       onEntryFocus,
       asChild,
+      scopeRovingFocusGroup,
       ...propsData
     } = toRefs(props)
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
@@ -109,7 +110,7 @@ const RovingFocusGroupImpl = defineComponent({
 
     const isTabbingBackOut = ref(false)
     const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
-    const getItems = useCollection(props.scopeRovingFocusGroup)
+    const getItems = useCollection(scopeRovingFocusGroup)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
@@ -148,6 +149,7 @@ const RovingFocusGroupImpl = defineComponent({
 
     return () => {
       const merged = mergeProps(_attrs, propsData)
+      console.log('merged', merged)
       return h(Primitive.div, {
         'tabIndex': _tabIndex.value,
         'data-orientation': orientation.value,
@@ -167,10 +169,10 @@ const RovingFocusGroupImpl = defineComponent({
           // We do this because Safari doesn't focus buttons when clicked, and
           // instead, the wrapper will get focused and not through a bubbling event.
           const isKeyboardFocus = !isClickFocusRef.value
+
           if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
             const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
             event.currentTarget?.dispatchEvent(entryFocusEvent)
-
             if (!entryFocusEvent.defaultPrevented) {
               const items = getItems.value.filter(item => item.focusable)
               const activeItem = items.find(item => item.active)

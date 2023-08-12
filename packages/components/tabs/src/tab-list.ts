@@ -46,7 +46,7 @@ const TabList = defineComponent({
     return () =>
       h(OkuRovingFocusGroup, {
         asChild: true,
-        ...rovingFocusGroupScope,
+        ...rovingFocusGroupScope.value,
         dir: injectTabs.value.dir,
         loop: props.loop,
       }, {
