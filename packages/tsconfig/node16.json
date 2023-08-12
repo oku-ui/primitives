@@ -1,13 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Node 16",
+  "display": "Node 18",
   "compilerOptions": {
     "lib": [
-      "es2021",
+      "es2023",
       "DOM"
     ],
     "module": "Node16",
-    "target": "es2021",
+    "target": "ES2022",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

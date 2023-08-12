@@ -49,7 +49,7 @@ const TabTrigger = defineComponent({
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeTabs.value)
     const triggerId = makeTriggerId(injectedValue.value.baseId, value.value)
     const contentId = makeContentId(injectedValue.value.baseId, value.value)
-    const isSelected = computed(() => (value.value === injectedValue.value.value))
+    const isSelected = computed(() => (value.value === injectedValue.value.value?.value))
     console.log(rovingFocusGroupScope.value)
     return () =>
       h(OkuRovingFocusGroupItem, {
