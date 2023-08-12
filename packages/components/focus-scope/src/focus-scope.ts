@@ -1,9 +1,9 @@
 import { Primitive } from '@oku-ui/primitive'
 import type {
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 
 import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -29,7 +29,7 @@ const FOCUS_SCOPE_NAME = 'FocusScope'
 type FocusScopeElement = ElementType<'div'>
 export type _FocusScopeEl = HTMLDivElement
 
-interface FocusScopeProps extends PrimitiveProps {
+interface FocusScopeProps extends IPrimitiveProps {
   /**
    * When `true`, tabbing from last item will focus first tabbable
    * and shift+tab from first item will focus last tababble.
