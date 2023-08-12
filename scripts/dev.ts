@@ -1,11 +1,13 @@
 import { execSync } from 'node:child_process'
+import { dirname, join, resolve } from 'node:path'
 import { watch } from 'chokidar'
-import { dirname, resolve } from 'pathe'
+import { join as pjoin } from 'pathe'
 import { globbySync } from 'globby'
 import { rimrafSync } from 'rimraf'
 
 const componentsPath = resolve('packages/components/')
 const corePath = resolve('packages/core/')
+console.log(componentsPath)
 
 const packages = globbySync(resolve('packages/components'), {
   onlyDirectories: true,
@@ -45,19 +47,20 @@ async function deleteAllPackageDists() {
 await deleteAllPackageDists()
 
 function whereComponent(path: string) {
-  const isComponent = path.includes('packages/components')
-  const isCore = path.includes('packages/core')
+  const isComponent = path.includes(join('packages/components'))
+  const isCore = path.includes(join('packages/core'))
+
   if (isComponent) {
     const temp = path.slice(componentsPath.length, path.length)
     console.time()
-    execSync(`pnpm --filter=@oku-ui/${dirname(temp).split('/')[1]} run build`, { stdio: 'inherit' })
+    execSync(`pnpm --filter @oku-ui/${dirname(pjoin(temp)).split('/')[1]} run build`, { stdio: 'inherit' })
     console.timeEnd()
   }
 
   if (isCore) {
     const temp = path.slice(corePath.length, path.length)
     console.time()
-    execSync(`pnpm --filter=@oku-ui/${dirname(temp).split('/')[1]} run build`, { stdio: 'inherit' })
+    execSync(`pnpm --filter @oku-ui/${dirname(pjoin(temp)).split('/')[1]} run build`, { stdio: 'inherit' })
     console.timeEnd()
   }
 }
