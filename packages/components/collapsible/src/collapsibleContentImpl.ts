@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
-import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { Primitive } from '@oku-ui/primitive'
 
@@ -12,7 +12,7 @@ import { CONTENT_NAME } from './collapsibleContent'
 type CollapsibleContentImplElement = ElementType<'div'>
 export type _CollapsibleContentImplEl = HTMLDivElement
 
-interface CollapsibleContentImplProps extends PrimitiveProps { }
+interface CollapsibleContentImplProps extends IPrimitiveProps { }
 
 const CollapsibleContentImpl = defineComponent({
   inheritAttrs: false,

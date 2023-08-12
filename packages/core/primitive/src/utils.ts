@@ -53,3 +53,7 @@ export function dispatchDiscreteCustomEvent<E extends CustomEvent>(
     })
   }
 }
+
+export const PrimitiveProps = {
+  asChild: Boolean,
+}

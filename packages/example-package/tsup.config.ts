@@ -9,12 +9,11 @@ const external = [
 export default defineConfig((options) => {
   return [
     {
-      ...options,
       entryPoints: ['src/index.ts'],
       external,
       dts: true,
-      clean: true,
-      target: 'node16',
+      outDir: './dist',
+      target: 'es2022',
       format: ['esm'],
       outExtension: () => ({ js: '.mjs' }),
     },

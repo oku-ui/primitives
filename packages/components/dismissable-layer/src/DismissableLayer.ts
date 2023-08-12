@@ -6,9 +6,9 @@ import {
 import type {
   ComponentPublicInstanceRef,
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { PropType, Ref } from 'vue'
@@ -54,7 +54,7 @@ export type PointerDownOutsideEvent = CustomEvent<{
 
 export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 
-interface DismissableLayerProps extends PrimitiveProps {
+interface DismissableLayerProps extends IPrimitiveProps {
   /**
    * When `true`, hover/focus/click interactions will be disabled on elements outside
    * the `DismissableLayer`. Users will need to click twice on outside elements to

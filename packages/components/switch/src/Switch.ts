@@ -17,9 +17,9 @@ import {
 import type {
   ComponentPublicInstanceRef,
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
@@ -38,7 +38,7 @@ type SwitchContextValue = {
   disabled?: Ref<boolean>
 }
 
-interface SwitchProps extends PrimitiveProps {
+interface SwitchProps extends IPrimitiveProps {
   checked?: boolean
   defaultChecked?: boolean
   required?: boolean

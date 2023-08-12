@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite --force --port 3010",
-    "build": "vue-tsc && vite build",
+    "p:dev": "vite --force --port 3010",
+    "p:build": "vite build",
     "preview": "vite preview --port 3010",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -16,7 +16,9 @@
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/progress": "workspace:^",
+    "@oku-ui/roving-focus": "workspace:^",
     "@oku-ui/separator": "workspace:^",
+    "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
     "vite-plugin-pages": "^0.31.0",
     "vue": "^3.3.4",

@@ -2,9 +2,9 @@ import { Primitive } from '@oku-ui/primitive'
 import type {
   ComponentPublicInstanceRef,
   ElementType,
+  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
-  PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
 import { defineComponent, h, ref, toRefs, toValue, watchEffect } from 'vue'
@@ -22,7 +22,7 @@ import {
 const BRANCH_NAME = 'DismissableLayerBranch'
 type DismissableLayerBranchElement = ElementType<'div'>
 
-interface DismissableLayerBranchProps extends PrimitiveProps {}
+interface DismissableLayerBranchProps extends IPrimitiveProps {}
 
 export type { DismissableLayerBranchElement }
 

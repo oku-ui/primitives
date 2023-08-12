@@ -4,7 +4,7 @@ import { Transition, defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
-import type { ElementType, InstanceTypeRef, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 import { getState, isIndeterminate } from './utils'
@@ -13,7 +13,7 @@ import { useCheckboxInject } from './checkbox'
 type CheckboxIndicatorElement = ElementType<'span'>
 export type _CheckboxIndicatorEl = HTMLSpanElement
 
-interface CheckboxIndicatorProps extends PrimitiveProps {
+interface CheckboxIndicatorProps extends IPrimitiveProps {
   forceMount?: true
 }
 
