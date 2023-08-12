@@ -1,10 +1,10 @@
-import {
-  type ElementType,
-  type InstanceTypeRef,
-  type MergeProps,
-  Primitive,
-  type PrimitiveProps,
+import type {
+  ElementType,
+  IPrimitiveProps,
+  InstanceTypeRef,
+  MergeProps,
 } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { Teleport, defineComponent, h, toRefs } from 'vue'
 
@@ -13,7 +13,7 @@ const PORTAL_NAME = 'OkuPortal'
 type PortalElement = ElementType<'div'>
 export type _PortalEl = HTMLDivElement
 
-interface PortalProps extends PrimitiveProps {
+interface PortalProps extends IPrimitiveProps {
   /**
    * An optional container where the portaled content should be appended.
    */
