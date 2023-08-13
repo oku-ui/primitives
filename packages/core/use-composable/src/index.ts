@@ -10,6 +10,5 @@ export { useComposedRefs } from './useComposedRefs'
 export { useForwardRef } from './useForwardRef'
 export { useEscapeKeydown } from './useEscapeKeydown'
 export type { MaybeComputedElementRef } from './unrefElement'
-export { useArrowNavigation } from './useArrowNavigation'
 export { useRect } from './use-rect'
 export { computedEager, syncRef, computedAsync }

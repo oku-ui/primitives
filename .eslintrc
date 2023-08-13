@@ -3,7 +3,16 @@
   // This tells ESLint to load the config from the package `eslint-config-custom`
   "extends": ["custom", "plugin:storybook/recommended"],
   "rules": {
-    "vue/one-component-per-file": "off",
-    "no-console": "off"
-  }
+    "vue/one-component-per-file": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/stories/*.vue"
+      ],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
 }
