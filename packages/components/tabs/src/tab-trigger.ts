@@ -1,16 +1,24 @@
-import { type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { type PropType, computed, defineComponent, h, toRefs } from 'vue'
-import {
-  useArrowNavigation, useRef,
-} from '@oku-ui/use-composable'
-import type { Scope } from '@oku-ui/provide'
-import { useTabsInject } from './tabs'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { composeEventHandlers } from '@oku-ui/utils'
+import type { ScopedPropsInterface } from './tabs'
+import { ScopedProps, useRovingFocusGroupScope, useTabsInject } from './tabs'
+import { makeContentId, makeTriggerId } from './utils'
+
+type TabsTriggerElement = ElementType<'button'>
+export type _TabsTriggerEl = HTMLButtonElement
 
 const TAB_TRIGGER_NAME = 'OkuTabTrigger' as const
 
-interface TabsTriggerProps extends PrimitiveProps {
+interface TabsTriggerProps extends ScopedPropsInterface<IPrimitiveProps> {
   value: string
-  disabled: boolean
+  disabled?: boolean
+  onMousedown?: (event: MouseEvent) => void
+  onKeydown?: (event: KeyboardEvent) => void
+  onFocus?: (event: FocusEvent) => void
 }
 
 const TabTrigger = defineComponent({
@@ -25,94 +33,77 @@ const TabTrigger = defineComponent({
       type: Boolean as PropType<boolean>,
       default: false,
     },
-    asChild: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-    scopeTabs: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-      default: undefined,
-    },
+    onMousedown: Function as PropType<(e: MouseEvent) => void>,
+    onKeydown: Function as PropType<(e: KeyboardEvent) => void>,
+    onFocus: Function as PropType<(e: FocusEvent) => void>,
+    ...ScopedProps,
+    ...PrimitiveProps,
   },
-  setup(props, { slots }) {
-    const { scopeTabs } = toRefs(props)
+  setup(props, { slots, attrs }) {
+    const { scopeTabs, value, disabled } = toRefs(props)
+    const { ...triggerAttrs } = attrs
     const injectedValue = useTabsInject(TAB_TRIGGER_NAME, scopeTabs.value)
 
-    const { $el, newRef: currentElement } = useRef<HTMLElement>()
+    const forwardedRef = useForwardRef()
 
-    function changeTab(value: string) {
-      injectedValue.value.changeModelValue(value)
-    }
-
-    function handleKeydown(e: KeyboardEvent) {
-      if (!injectedValue.value.parentElement.value || $el.value)
-        return
-      const newSelectedElement = useArrowNavigation(
-        e,
-        $el.value,
-        injectedValue.value.parentElement.value,
-        {
-          arrowKeyOptions: injectedValue.value.orientation,
-          loop: injectedValue.value.loop,
-        },
-      )
-
-      if (newSelectedElement) {
-        newSelectedElement.focus()
-        injectedValue.value.currentFocusedElement!.value = newSelectedElement
-
-        if (injectedValue.value.activationMode === 'automatic') {
-          changeTab(
-            newSelectedElement.getAttribute('data-oku-ui-tab-value')!,
-          )
-        }
-      }
-    }
-
-    const getTabIndex = computed(() => {
-      if (!injectedValue.value.currentFocusedElement?.value) {
-        return injectedValue.value.modelValue?.value === props.value ? '0' : '-1'
-      }
-      else {
-        return injectedValue.value.currentFocusedElement?.value
-          === $el.value
-          ? '0'
-          : '-1'
-      }
-    })
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeTabs.value)
+    const triggerId = makeTriggerId(injectedValue.baseId, value.value)
+    const contentId = makeContentId(injectedValue.baseId, value.value)
+    const isSelected = computed(() => (value.value === injectedValue.value?.value))
 
     return () =>
-      h(
-        Primitive.button,
-        {
-          'ref': currentElement,
-          'type': Primitive.button,
-          'role': 'tab',
-          'aria-selected':
-            injectedValue.value.modelValue?.value === props.value ? 'true' : 'false',
-          'data-state':
-            injectedValue.value.modelValue?.value === props.value
-              ? 'active'
-              : 'inactive',
-          'disabled': props.disabled,
-          'data-disabled': props.disabled ? '' : undefined,
-          'tabindex': getTabIndex.value,
-          'data-orientation': injectedValue.value.orientation,
-          'data-oku-ui-collection-item': true,
-          'data-oku-ui-tab-value': props.value,
-          'onClick': () => changeTab(props.value!),
-          'onKeydown': handleKeydown,
-          'asChild': props.asChild,
-        },
-        {
-          default: () => slots.default?.(),
-        },
-      )
+      h(OkuRovingFocusGroupItem, {
+        asChild: true,
+        ...rovingFocusGroupScope.value,
+        active: isSelected.value,
+        focusable: !disabled.value,
+      }, {
+        default: () => h(
+          Primitive.button,
+          {
+            'type': 'button',
+            'role': 'tab',
+            'aria-selected': isSelected.value,
+            'aria-controls': contentId,
+            'data-state': isSelected.value ? 'active' : 'inactive',
+            'disabled': disabled.value,
+            'id': triggerId,
+            ...triggerAttrs,
+            'ref': forwardedRef,
+            'onMousedown': composeEventHandlers(props.onMousedown, (event: MouseEvent) => {
+              // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
+              // but not when the control key is pressed (avoiding MacOS right click)
+              if (!disabled.value && event.button === 0 && event.ctrlKey === false) {
+                injectedValue.onValueChange(value.value)
+              }
+              else {
+                // prevent focus to avoid accidental activation
+                event.preventDefault()
+              }
+            }),
+            'onKeydown': composeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
+              if ([' ', 'Enter'].includes(event.key))
+                injectedValue.onValueChange(value.value)
+            }),
+            'onFocus': composeEventHandlers(props.onFocus, () => {
+              // handle "automatic" activation if necessary
+              // ie. activate tab following focus
+              const isAutomaticActivation = injectedValue.activationMode !== 'manual'
+              if (!isSelected.value && !disabled.value && isAutomaticActivation)
+                injectedValue.onValueChange(value.value)
+            }),
+          },
+          {
+            default: () => slots.default?.(),
+          },
+        ),
+      })
   },
 })
 
-type _TabsProps = MergeProps<TabsTriggerProps, typeof TabTrigger>
+type _TabsProps = MergeProps<TabsTriggerProps, TabsTriggerElement>
+
+export type InstanceTabsTriggerType = InstanceTypeRef<typeof TabTrigger, _TabsTriggerEl>
 
 const OkuTabTrigger = TabTrigger as typeof TabTrigger & (new () => { $props: _TabsProps })
 

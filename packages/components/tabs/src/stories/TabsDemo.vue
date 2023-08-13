@@ -9,11 +9,10 @@ import {
 
 <template>
   <OkuTabs
-    activation-mode="manual"
+    activation-mode="automatic"
     dir="ltr"
     orientation="horizontal"
     class="flex flex-col w-[300px] shadow-[0_2px_10px] shadow-black/10"
-    default-value="tab1"
   >
     <OkuTabList
       class="shrink-0 flex border-b border-red-500"
