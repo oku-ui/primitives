@@ -24,7 +24,7 @@ const alert = () => window.alert('clicked')
 
 function LogsItem() {
   const getItems = useCollection(undefined)
-  console.log(getItems.value[0].ref.value)
+  console.log(getItems.value)
 }
 </script>
 

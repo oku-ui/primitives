@@ -1,9 +1,9 @@
 import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
 import { computedEager, useCallbackRef, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
@@ -118,13 +118,9 @@ const PopperContent = defineComponent({
       default: undefined,
     },
     scopePopper: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
+      ...ScopePropObject,
     },
-    asChild: {
-      type: Boolean,
-      default: false,
-    },
+    ...PrimitiveProps,
   },
   setup(props, { attrs, slots }) {
     const {
@@ -140,12 +136,11 @@ const PopperContent = defineComponent({
       hideWhenDetached,
       updatePositionStrategy,
       onPlaced,
-      scopePopper,
     } = toRefs(props)
 
     const { ...attrsElement } = attrs as PopperContentElement
 
-    const inject = usePopperInject(CONTENT_NAME, scopePopper.value)
+    const inject = usePopperInject(CONTENT_NAME, props.scopePopper)
 
     const content = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
     const composedRefs = useComposedRefs(content, useForwardRef())
@@ -207,7 +202,7 @@ const PopperContent = defineComponent({
     })
 
     const refElement = ref()
-    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.value.anchor, refElement, {
+    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.anchor, refElement, {
       // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
       strategy: 'fixed',
       placement: desiredPlacement,
@@ -260,14 +255,14 @@ const PopperContent = defineComponent({
     PopperContentProvider({
       arrowX,
       arrowY,
-      scope: scopePopper.value,
+      scope: props.scopePopper,
       shouldHideArrow: cannotCenterArrow,
       onAnchorChange(anchor: HTMLElement | null) {
         arrow.value = anchor
       },
       arrow,
       placedSide,
-      anchor: inject.value.anchor,
+      anchor: inject.anchor,
     })
 
     const originalReturn = () =>

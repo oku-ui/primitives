@@ -1,8 +1,7 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, onMounted, ref, watchEffect } from 'vue'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useAvatarInject } from './avatar'
 
@@ -24,8 +23,7 @@ const AvatarFallback = defineComponent({
       required: false,
     },
     scopeAvatar: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
+      ...ScopePropObject,
     },
   },
   setup(props, { attrs, slots }) {
@@ -54,7 +52,7 @@ const AvatarFallback = defineComponent({
     })
 
     const originalReturn = () => {
-      return (canRender.value && (provide.value.imageLoadingStatus !== 'loaded'))
+      return (canRender.value && (provide.imageLoadingStatus !== 'loaded'))
         ? h(
           Primitive.span, {
             ...fallbackProps,
