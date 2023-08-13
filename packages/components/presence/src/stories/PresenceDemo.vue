@@ -18,7 +18,7 @@ function toggle() {
   open.value = !open.value
 }
 
-const element = ref<HTMLElement>()
+const element = ref()
 
 watch(element, () => {
   console.log('element', element.value)
@@ -44,9 +44,9 @@ function handleToggleVisibility() {
       <button @click="toggle">
         toggle - {{ open }}
       </button>
-      <OkuPresence ref="element" :present="open">
+      <OkuPresence ref="element" v-slot="isPresent" :present="open">
         <div>
-          content
+          content - {{ isPresent }}
         </div>
       </OkuPresence>
     </div>

@@ -14,7 +14,6 @@ withDefaults(defineProps<OkuArrowProps>(), {
 
 const arrowRef = ref<InstanceArrowType>()
 onMounted(() => {
-  // eslint-disable-next-line no-console
   console.log(arrowRef.value?.$el)
 })
 const alert = () => window.alert('clicked')

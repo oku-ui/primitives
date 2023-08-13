@@ -1,4 +1,3 @@
-import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type {
   ElementType,
@@ -6,7 +5,7 @@ import type {
   InstanceTypeRef,
   MergeProps,
 } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import { type Scope, ScopePropObject } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { getProgressState } from './utils'
 import { useProgressContext } from './progress'
@@ -24,28 +23,26 @@ const ProgressIndicator = defineComponent({
   inheritAttrs: true,
   props: {
     scopeProgress: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
+      ...ScopePropObject,
     },
   },
   setup(props, { attrs, slots }) {
-    const { scopeProgress } = props
     const { ...indicatorProps } = attrs as ProgressIndicatorProps
 
     const forwardedRef = useForwardRef()
 
-    const context = useProgressContext(INDICATOR_NAME, scopeProgress)
+    const context = useProgressContext(INDICATOR_NAME, props.scopeProgress)
 
     const originalReturn = () =>
       h(
         'div',
         {
           'data-state': getProgressState(
-            context.value.max.value,
-            context.value.value?.value,
+            context.max.value,
+            context.value?.value,
           ),
-          'data-value': context.value.value?.value ?? undefined,
-          'data-max': context.value.max.value,
+          'data-value': context.value?.value ?? undefined,
+          'data-max': context.max.value,
           ...indicatorProps,
           'ref': forwardedRef,
         },
