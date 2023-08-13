@@ -53,6 +53,7 @@
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
+    "@oku-ui/toast": "workspace:^",
     "@oku-ui/toggle": "workspace:^",
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",
