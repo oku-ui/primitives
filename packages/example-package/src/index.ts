@@ -1,1 +1,2 @@
-export { exampleFn } from './example'
+export type test = 'test'
+export { deneme } from './test'
