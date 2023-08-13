@@ -7,8 +7,8 @@ import type {
   PointerDownOutsideEvent,
 } from './DismissableLayer'
 import {
-  CONTEXT_UPDATE,
   FOCUS_OUTSIDE,
+  INJECT_UPDATE,
   POINTER_DOWN_OUTSIDE,
 } from './DismissableLayer'
 
@@ -153,7 +153,7 @@ function useFocusOutside(
 }
 
 function dispatchUpdate() {
-  const event = new CustomEvent(CONTEXT_UPDATE)
+  const event = new CustomEvent(INJECT_UPDATE)
   document.dispatchEvent(event)
 }
 

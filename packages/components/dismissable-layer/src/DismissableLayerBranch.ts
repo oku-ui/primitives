@@ -6,13 +6,11 @@ import type {
   InstanceTypeRef,
   MergeProps,
 } from '@oku-ui/primitive'
-import type { PropType } from 'vue'
-import { defineComponent, h, ref, toRefs, toValue, watchEffect } from 'vue'
-import type { Scope } from '@oku-ui/provide'
+import { defineComponent, h, inject, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import type { DismissableLayerProvideValue } from './DismissableLayer'
 import {
-  DISMISSABLE_NAME,
-  useDismissableLayerInject,
+  DismissableLayerProvideKey,
 } from './DismissableLayer'
 
 /* -------------------------------------------------------------------------------------------------
@@ -34,42 +32,30 @@ const DismissableLayerBranch = defineComponent({
       type: Boolean,
       default: undefined,
     },
-    scopeDismissableLayerbranch: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
   },
   setup(props, { attrs }) {
-    const { scopeDismissableLayerbranch, asChild } = toRefs(props)
+    const _inject = inject(DismissableLayerProvideKey) as DismissableLayerProvideValue
 
-    const { ...dismissableLayerBranchAttrs } = attrs
-
-    const context = toValue(
-      useDismissableLayerInject(
-        DISMISSABLE_NAME,
-        scopeDismissableLayerbranch.value,
-      ),
-    )
-
-    const node = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
+    const node = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>()
 
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(node, forwardedRef)
 
     watchEffect((onInvalidate) => {
       if (node.value)
-        context.branches.value.add(node.value as any)
+        _inject.branches.value.add(node.value.$el)
 
       onInvalidate(() => {
-        context.branches.value.delete(node.value as any)
+        if (node.value && node.value.$el)
+          _inject.branches.value.delete(node.value.$el)
       })
     })
 
     const originalReturn = () =>
       h(Primitive.div, {
         ref: composedRefs,
-        asChild: asChild.value,
-        ...dismissableLayerBranchAttrs,
+        asChild: props.asChild,
+        ...attrs,
       })
 
     return originalReturn
