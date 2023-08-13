@@ -35,26 +35,27 @@ const TabList = defineComponent({
     ...ScopedProps,
   },
   setup(props, { slots, attrs }) {
-    const { scopeTabs } = toRefs(props)
+    const { loop } = toRefs(props)
     const { ...listAttrs } = attrs
 
-    const injectTabs = useTabsInject(TAB_LIST_NAME, scopeTabs.value)
+    const injectTabs = useTabsInject(TAB_LIST_NAME, props.scopeTabs)
     const forwardedRef = useForwardRef()
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeTabs.value)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeTabs)
 
     return () =>
       h(OkuRovingFocusGroup, {
         asChild: true,
         ...rovingFocusGroupScope.value,
-        dir: injectTabs.value.dir,
-        loop: props.loop,
+        dir: injectTabs.dir,
+        loop: loop.value,
       }, {
         default: () => h(
           Primitive.div,
           {
             'role': 'tablist',
-            'aria-orientation': injectTabs.value.orientation,
+            'aria-orientation': injectTabs.orientation,
+            'asChild': props.asChild,
             ...listAttrs,
             'ref': forwardedRef,
           },

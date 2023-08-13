@@ -7,8 +7,9 @@ import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, Instance
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { type Direction, type Orientation, focusFirst } from './utils'
-import type { ScopedPropsInterface } from './RovingFocusGroup'
-import { ScopedProps, useCollection, useRovingFocusProvider } from './RovingFocusGroup'
+import { useCollection, useRovingFocusProvider } from './RovingFocusGroup'
+import type { ScopedPropsInterface } from './types'
+import { scopedProps } from './types'
 
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
@@ -68,22 +69,25 @@ export const RovingFocusGroupImplElementProps = {
   onBlur: Function as PropType<(e: FocusEvent) => void>,
 }
 
-export const IRovingFocusGroupImplProps = {
+export const rovingFocusGroupImplProps = {
+  ...scopedProps,
   ...RovingFocusGroupImplElementProps,
   ...RovingFocusGroupOptionsProps,
-  ...ScopedProps,
 }
+
+console.log('rovingFocusGroupImplProps', rovingFocusGroupImplProps)
 
 const RovingFocusGroupImpl = defineComponent({
   name: 'OkuRovingFocusGroupImpl',
   inheritAttrs: false,
-  props: IRovingFocusGroupImplProps,
+  props: rovingFocusGroupImplProps,
   emits: {
     currentTabStopId: (tabStopId: string | null) => true,
     entryFocus: (event: Event) => true,
     currentTabStopIdChange: (tabStopId: string | null) => true,
   },
-  setup(props, { attrs, slots, emit, expose }) {
+  setup(props, { attrs, slots, emit }) {
+    console.log('scopeRovingFocusGroup props', props)
     const _attrs = attrs as Omit<_RovingFocusGroupImplEl, 'dir'>
     const {
       orientation,
@@ -110,7 +114,7 @@ const RovingFocusGroupImpl = defineComponent({
 
     const isTabbingBackOut = ref(false)
     const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
-    const getItems = useCollection(scopeRovingFocusGroup)
+    const getItems = useCollection(props.scopeRovingFocusGroup)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
@@ -149,7 +153,6 @@ const RovingFocusGroupImpl = defineComponent({
 
     return () => {
       const merged = mergeProps(_attrs, propsData)
-
       return h(Primitive.div, {
         'tabIndex': _tabIndex.value,
         'data-orientation': orientation.value,

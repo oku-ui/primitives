@@ -1,7 +1,7 @@
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import type { PropType } from 'vue'
+import type { ComputedRef, PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { ScopedPropsInterface } from './tabs'
@@ -43,9 +43,9 @@ const TabContent = defineComponent({
     const { ...ContentAttrs } = attrs
     const injectTabs = useTabsInject(TAB_CONTENT_NAME, props.scopeTabs)
 
-    const triggerId = makeTriggerId(injectTabs.value.baseId, value.value)
-    const contentId = makeContentId(injectTabs.value.baseId, value.value)
-    const isSelected = computed(() => value.value === injectTabs.value.value?.value)
+    const triggerId = makeTriggerId(injectTabs.baseId, value.value)
+    const contentId = makeContentId(injectTabs.baseId, value.value)
+    const isSelected = computed(() => value.value === injectTabs.value?.value)
 
     const forwardedRef = useForwardRef()
     const isMountAnimationPreventedRef = ref(isSelected.value)
@@ -58,9 +58,9 @@ const TabContent = defineComponent({
     return () => h(OkuPresence, {
       present: isSelected.value || props.forceMount,
     }, {
-      default: ({ isPresent }: { isPresent: boolean }) => h(Primitive.div, {
+      default: ({ isPresent }: { isPresent: ComputedRef<boolean> }) => h(Primitive.div, {
         'data-state': isSelected.value ? 'active' : 'inactive',
-        'data-orientation': injectTabs.value.orientation,
+        'data-orientation': injectTabs.orientation,
         'role': 'tabpanel',
         'aria-labelledby': triggerId,
         'hidden': !isPresent,

@@ -1,4 +1,4 @@
-export { OkuSwitch } from './Switch'
+export { OkuSwitch, createSwitchScope } from './Switch'
 
 export type {
   SwitchProps,

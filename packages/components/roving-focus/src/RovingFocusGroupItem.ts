@@ -6,9 +6,11 @@ import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ItemData, ScopedPropsInterface } from './RovingFocusGroup'
-import { CollectionItemSlot, ScopedProps, useCollection, useRovingFocusInject } from './RovingFocusGroup'
+import type { ItemData } from './RovingFocusGroup'
+import { CollectionItemSlot, useCollection, useRovingFocusInject } from './RovingFocusGroup'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
+import type { ScopedPropsInterface } from './types'
+import { scopedProps } from './types'
 
 export type RovingFocusGroupItemElement = ElementType<'span'>
 export type _RovingFocusGroupItemEl = HTMLSpanElement
@@ -43,13 +45,13 @@ export const RovingFocusItemProps = {
 export interface RovingFocusItemPropsType extends ScopedPropsInterface<IRovingFocusItemProps>, IPrimitiveProps {
 }
 
-export const RovingFocusGroupImplElementProps = {
+export const RovingFocusGroupItemElementProps = {
   ...RovingFocusItemProps,
 }
 
-export const IRovingFocusGroupImplProps = {
+export const rovingFocusGroupItemProps = {
   ...RovingFocusItemProps,
-  ...ScopedProps,
+  ...scopedProps,
   ...PrimitiveProps,
 }
 
@@ -61,7 +63,7 @@ const RovingFocusGroupItem = defineComponent({
     CollectionItemSlot,
   },
   inheritAttrs: false,
-  props: IRovingFocusGroupImplProps,
+  props: rovingFocusGroupItemProps,
   setup(props, { attrs, slots }) {
     const _attrs = attrs as any
     const {
@@ -69,6 +71,10 @@ const RovingFocusGroupItem = defineComponent({
       active,
       tabStopId,
       scopeRovingFocusGroup,
+      asChild,
+      onFocus,
+      onKeydown,
+      onMousedown,
       ...propsData
     } = toRefs(props)
     const attrsItems = _attrs
@@ -76,18 +82,18 @@ const RovingFocusGroupItem = defineComponent({
     const autoId = useId()
     const id = computed(() => tabStopId.value ?? autoId)
     const inject = useRovingFocusInject(ITEM_NAME, props.scopeRovingFocusGroup)
-    const isCurrentTabStop = computed(() => inject.value.currentTabStopId.value === id.value)
-    const getItems = useCollection(props.scopeRovingFocusGroup)
+    const isCurrentTabStop = computed(() => inject.currentTabStopId.value === id.value)
+    const getItems = useCollection(scopeRovingFocusGroup.value)
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
       nextTick(() => {
         if (focusable.value)
-          inject.value.onFocusableItemAdd()
+          inject.onFocusableItemAdd()
       })
       onClean(() => {
         nextTick(() => {
-          inject.value.onFocusableItemRemove()
+          inject.onFocusableItemRemove()
         })
       })
     })
@@ -96,9 +102,10 @@ const RovingFocusGroupItem = defineComponent({
       id: id.value,
       focusable: focusable.value,
       active: active.value,
-      scope: scopeRovingFocusGroup.value,
+      scope: props.scopeRovingFocusGroup,
     }
     return () => {
+      console.log('inject', inject)
       const merged = mergeProps(attrsItems, propsData, {
         tabIndex: isCurrentTabStop.value ? 0 : -1,
       })
@@ -108,32 +115,32 @@ const RovingFocusGroupItem = defineComponent({
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
-            'data-orientation': inject.value.orientation,
+            'data-orientation': inject.orientation,
             ...merged,
             'ref': forwardedRef,
-            'asChild': props.asChild,
+            'asChild': asChild.value,
             'onMousedown':
-              composeEventHandlers(props.onMousedown, (event: MouseEvent) => {
+              composeEventHandlers(onMousedown.value, (event: MouseEvent) => {
                 // We prevent focusing non-focusable items on `mousedown`.
                 // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
                 if (!focusable.value)
                   event.preventDefault()
                 // Safari doesn't focus a button when clicked so we run our logic on mousedown also
-                else inject.value.onItemFocus(id.value)
+                else inject.onItemFocus(id.value)
               }),
-            'onFocus': composeEventHandlers(props.onFocus, () => {
-              inject.value.onItemFocus(id.value)
+            'onFocus': composeEventHandlers(onFocus.value, () => {
+              inject.onItemFocus(id.value)
             }),
-            'onKeydown': composeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
+            'onKeydown': composeEventHandlers(onKeydown.value, (event: KeyboardEvent) => {
               if (event.key === 'Tab' && event.shiftKey) {
-                inject.value.onItemShiftTab()
+                inject.onItemShiftTab()
                 return
               }
 
               if (event.target !== event.currentTarget)
                 return
 
-              const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
+              const focusIntent = getFocusIntent(event, inject.orientation, inject.dir)
 
               if (focusIntent !== undefined) {
                 event.preventDefault()
@@ -148,7 +155,7 @@ const RovingFocusGroupItem = defineComponent({
                   if (focusIntent === 'prev')
                     candidateNodes.reverse()
                   const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-                  candidateNodes = inject.value.loop
+                  candidateNodes = inject.loop
                     ? wrapArray(candidateNodes, currentIndex + 1)
                     : candidateNodes.slice(currentIndex + 1)
                 }
@@ -168,11 +175,11 @@ const RovingFocusGroupItem = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuRovingFocusGroupImpl = MergeProps<RovingFocusItemPropsType, RovingFocusGroupItemElement>
+type _OkuRovingFocusGroupItem = MergeProps<RovingFocusItemPropsType, RovingFocusGroupItemElement>
 
-export type InstanceCheckboxType = InstanceTypeRef<typeof RovingFocusGroupItem, _OkuRovingFocusGroupImpl>
+export type InstanceCheckboxType = InstanceTypeRef<typeof RovingFocusGroupItem, _OkuRovingFocusGroupItem>
 
-const OkuRovingFocusGroupItem = RovingFocusGroupItem as typeof RovingFocusGroupItem & (new () => { $props: _OkuRovingFocusGroupImpl })
+const OkuRovingFocusGroupItem = RovingFocusGroupItem as typeof RovingFocusGroupItem & (new () => { $props: _OkuRovingFocusGroupItem })
 
 export {
   OkuRovingFocusGroupItem,

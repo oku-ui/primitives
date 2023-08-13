@@ -1,11 +1,11 @@
 import type { AllowedComponentProps, ComponentCustomProps, ComponentObjectPropsOptions, ComponentPublicInstance, Ref, VNodeProps } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 
 const CollectionProps = {
-  scope: { type: null as any, required: false },
+  scope: { type: null, required: false },
 }
 interface CollectionPropsType {
   scope: any
@@ -77,10 +77,9 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...ItemData,
     },
     setup(props, { slots }) {
-      const { scope } = toRefs(props)
-      const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope?.value)
+      const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
       const forwaredRef = useForwardRef()
-      const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
+      const composedRefs = useComposedRefs(forwaredRef, inject.collectionRef)
       return () => h(OkuSlot, { ref: composedRefs }, slots)
     },
   })
@@ -103,18 +102,18 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { ...itemData } = toRefs(props)
+      const { scope, ...itemData } = props
       const refValue = ref<ComponentPublicInstanceRef<ItemElement> | null>()
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(refValue, forwaredRef)
 
-      const inject = useCollectionInject(ITEM_SLOT_NAME, props.scope?.value)
+      const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
 
       watchEffect((onClean) => {
-        inject.value.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
+        inject.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
 
         onClean(() => {
-          inject.value.itemMap.value.delete(refValue)
+          inject.itemMap.value.delete(refValue)
         })
       })
 
@@ -137,13 +136,13 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
     const getItems = computed(() => {
-      const collectionNode = inject.value.collectionRef.value?.$el
+      const collectionNode = inject.collectionRef.value?.$el
       if (!collectionNode)
         return []
 
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
 
-      const items = Array.from(inject.value.itemMap.value.values())
+      const items = Array.from(inject.itemMap.value.values())
       const orderedItems = items.sort(
         (a, b) => {
           return orderedNodes.indexOf(a.ref.$el!) - orderedNodes.indexOf(b.ref.$el!)

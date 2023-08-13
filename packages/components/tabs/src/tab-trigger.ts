@@ -47,9 +47,9 @@ const TabTrigger = defineComponent({
     const forwardedRef = useForwardRef()
 
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeTabs.value)
-    const triggerId = makeTriggerId(injectedValue.value.baseId, value.value)
-    const contentId = makeContentId(injectedValue.value.baseId, value.value)
-    const isSelected = computed(() => (value.value === injectedValue.value.value?.value))
+    const triggerId = makeTriggerId(injectedValue.baseId, value.value)
+    const contentId = makeContentId(injectedValue.baseId, value.value)
+    const isSelected = computed(() => (value.value === injectedValue.value?.value))
 
     return () =>
       h(OkuRovingFocusGroupItem, {
@@ -74,7 +74,7 @@ const TabTrigger = defineComponent({
               // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
               // but not when the control key is pressed (avoiding MacOS right click)
               if (!disabled.value && event.button === 0 && event.ctrlKey === false) {
-                injectedValue.value.onValueChange(value.value)
+                injectedValue.onValueChange(value.value)
               }
               else {
                 // prevent focus to avoid accidental activation
@@ -83,14 +83,14 @@ const TabTrigger = defineComponent({
             }),
             'onKeydown': composeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
               if ([' ', 'Enter'].includes(event.key))
-                injectedValue.value.onValueChange(value.value)
+                injectedValue.onValueChange(value.value)
             }),
             'onFocus': composeEventHandlers(props.onFocus, () => {
               // handle "automatic" activation if necessary
               // ie. activate tab following focus
-              const isAutomaticActivation = injectedValue.value.activationMode !== 'manual'
+              const isAutomaticActivation = injectedValue.activationMode !== 'manual'
               if (!isSelected.value && !disabled.value && isAutomaticActivation)
-                injectedValue.value.onValueChange(value.value)
+                injectedValue.onValueChange(value.value)
             }),
           },
           {
