@@ -19,7 +19,6 @@ import {
   provide,
   ref,
   toRefs,
-  unref,
   watchEffect,
 } from 'vue'
 import { ScopePropObject } from '@oku-ui/provide'
@@ -211,7 +210,7 @@ const DismissableLayer = defineComponent({
         onDismiss.value?.()
         emit('dismiss')
       }
-    }, ownerDocument)
+    }, ownerDocument.value)
 
     const focusOutside = useFocusOutside((event) => {
       const target = event.target as HTMLElement
@@ -232,7 +231,7 @@ const DismissableLayer = defineComponent({
         onDismiss.value?.()
         emit('dismiss')
       }
-    }, ownerDocument)
+    }, ownerDocument.value)
 
     useEscapeKeydown((event) => {
       const isHighestLayer = index.value === _layers.value.size - 1
@@ -248,7 +247,7 @@ const DismissableLayer = defineComponent({
         onDismiss.value?.()
         emit('dismiss')
       }
-    }, unref(ownerDocument))
+    }, ownerDocument.value)
 
     watchEffect((onInvalidate) => {
       if (!node.value?.$el)
