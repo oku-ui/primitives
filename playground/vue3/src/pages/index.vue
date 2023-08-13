@@ -33,6 +33,10 @@ const pages: Page[] = [
     path: '/toggle',
   },
   {
+    name: 'OkuTabs',
+    path: '/tabs',
+  },
+  {
     name: 'OkuPopper',
     path: '/popper',
   },
