@@ -75,8 +75,6 @@ export const rovingFocusGroupImplProps = {
   ...RovingFocusGroupOptionsProps,
 }
 
-console.log('rovingFocusGroupImplProps', rovingFocusGroupImplProps)
-
 const RovingFocusGroupImpl = defineComponent({
   name: 'OkuRovingFocusGroupImpl',
   inheritAttrs: false,
@@ -87,7 +85,6 @@ const RovingFocusGroupImpl = defineComponent({
     currentTabStopIdChange: (tabStopId: string | null) => true,
   },
   setup(props, { attrs, slots, emit }) {
-    console.log('scopeRovingFocusGroup props', props)
     const _attrs = attrs as Omit<_RovingFocusGroupImplEl, 'dir'>
     const {
       orientation,

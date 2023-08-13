@@ -25,75 +25,7 @@
     "types": [
       "vue",
       "vite/client"
-    ],
-    "paths": {
-      "@oku-ui/arrow": [
-        "packages/components/arrow/src"
-      ],
-      "@oku-ui/aspect-ratio": [
-        "packages/components/aspect-ratio/src"
-      ],
-      "@oku-ui/avatar": [
-        "packages/components/avatar/src"
-      ],
-      "@oku-ui/checkbox": [
-        "packages/components/checkbox/src"
-      ],
-      "@oku-ui/collapsible": [
-        "packages/components/collapsible/src"
-      ],
-      "@oku-ui/collection": [
-        "packages/components/collection/src"
-      ],
-      "@oku-ui/direction": [
-        "packages/components/direction/src"
-      ],
-      "@oku-ui/label": [
-        "packages/components/label/src"
-      ],
-      "@oku-ui/popper": [
-        "packages/components/popper/src"
-      ],
-      "@oku-ui/presence": [
-        "packages/components/presence/src"
-      ],
-      "@oku-ui/primitive": [
-        "packages/core/primitive/src"
-      ],
-      "@oku-ui/progress": [
-        "packages/components/progress/src"
-      ],
-      "@oku-ui/provide": [
-        "packages/core/provide/src"
-      ],
-      "@oku-ui/roving-focus": [
-        "packages/components/roving-focus/src"
-      ],
-      "@oku-ui/separator": [
-        "packages/components/separator/src"
-      ],
-      "@oku-ui/slot": [
-        "packages/core/slot/src"
-      ],
-      "@oku-ui/switch": [
-        "packages/components/switch/src"
-      ],
-      "@oku-ui/tabs": [
-        "packages/components/tabs/src"
-      ],
-      "@oku-ui/toggle": [
-        "packages/components/toggle/src"
-      ],
-      "@oku-ui/use-composable": [
-        "packages/core/use-composable/src"
-      ],
-      "@oku-ui/utils": [
-        "packages/core/utils/src"
-      ],
-      "@oku-ui/visually-hidden": [
-        "packages/components/visually-hidden/src"
-      ]
-    }
+    ]
   },
   "vueCompilerOptions": {
     "plugins": [

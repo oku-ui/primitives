@@ -105,7 +105,6 @@ const RovingFocusGroupItem = defineComponent({
       scope: props.scopeRovingFocusGroup,
     }
     return () => {
-      console.log('inject', inject)
       const merged = mergeProps(attrsItems, propsData, {
         tabIndex: isCurrentTabStop.value ? 0 : -1,
       })

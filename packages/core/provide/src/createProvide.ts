@@ -71,9 +71,8 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
 
     function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
-      console.log('aaa', Provide)
       const provide = inject(Provide.key)
-      console.log('provide', provide)
+
       if (provide)
         return provide
       if (defaultValue !== undefined)
