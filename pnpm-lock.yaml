@@ -691,6 +691,9 @@ importers:
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:../../packages/components/switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../../packages/components/tabs
       '@oku-ui/visually-hidden':
         specifier: workspace:^
         version: link:../../packages/components/visually-hidden
