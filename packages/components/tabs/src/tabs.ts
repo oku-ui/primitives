@@ -138,9 +138,8 @@ const Tabs = defineComponent({
     ...ScopedProps,
   },
   emits: ['update:modelValue'],
-  setup(props, { slots, emit }) {
+  setup(props, { slots, emit, attrs }) {
     const {
-      scopeTabs,
       value: valueProp,
       onValueChange,
       defaultValue,
@@ -171,7 +170,7 @@ const Tabs = defineComponent({
       value: state,
       activationMode: activationMode.value,
       baseId: useId(),
-      scope: scopeTabs.value,
+      scope: props.scopeTabs,
     })
 
     return () =>
@@ -181,6 +180,8 @@ const Tabs = defineComponent({
           'dir': direction,
           'data-orientation': props.orientation,
           'ref': forwardedRef,
+          ...attrs,
+          'asChild': props.asChild,
         }, slots,
       )
   },

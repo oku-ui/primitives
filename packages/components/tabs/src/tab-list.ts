@@ -49,6 +49,7 @@ const TabList = defineComponent({
         ...rovingFocusGroupScope.value,
         dir: injectTabs.dir,
         loop: loop.value,
+        orientation: injectTabs.orientation,
       }, {
         default: () => h(
           Primitive.div,

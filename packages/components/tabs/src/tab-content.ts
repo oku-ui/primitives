@@ -69,7 +69,7 @@ const TabContent = defineComponent({
         ...ContentAttrs,
         'ref': forwardedRef,
         'style': {
-          ...attrs.style ?? {},
+          ...ContentAttrs.style ?? {} as any,
           animationDuration: isMountAnimationPreventedRef.value ? '0s' : undefined,
         },
       }, {

@@ -50,11 +50,10 @@ const TabTrigger = defineComponent({
     const triggerId = makeTriggerId(injectedValue.baseId, value.value)
     const contentId = makeContentId(injectedValue.baseId, value.value)
     const isSelected = computed(() => (value.value === injectedValue.value?.value))
-
     return () =>
       h(OkuRovingFocusGroupItem, {
         asChild: true,
-        ...rovingFocusGroupScope.value,
+        ...rovingFocusGroupScope,
         active: isSelected.value,
         focusable: !disabled.value,
       }, {
@@ -66,6 +65,7 @@ const TabTrigger = defineComponent({
             'aria-selected': isSelected.value,
             'aria-controls': contentId,
             'data-state': isSelected.value ? 'active' : 'inactive',
+            'data-disabled': disabled.value ? '' : undefined,
             'disabled': disabled.value,
             'id': triggerId,
             ...triggerAttrs,
