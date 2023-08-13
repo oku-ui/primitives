@@ -70,6 +70,9 @@ importers:
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:packages/components/switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:packages/components/tabs
       '@oku-ui/toggle':
         specifier: workspace:^
         version: link:packages/components/toggle
@@ -515,6 +518,37 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/tabs:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: latest
+        version: link:../direction
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/roving-focus':
+        specifier: latest
+        version: link:../roving-focus
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/toggle:
     dependencies:
       '@oku-ui/primitive':
@@ -657,6 +691,9 @@ importers:
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:../../packages/components/switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../../packages/components/tabs
       '@oku-ui/visually-hidden':
         specifier: workspace:^
         version: link:../../packages/components/visually-hidden
@@ -700,6 +737,9 @@ importers:
       '@oku-ui/switch':
         specifier: workspace:^
         version: link:../../packages/components/switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../../packages/components/tabs
       vite-plugin-pages:
         specifier: ^0.31.0
         version: 0.31.0(vite@4.3.5)
