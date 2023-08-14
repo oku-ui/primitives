@@ -50,7 +50,7 @@ export const [useRovingFocusProvider, useRovingFocusInject]
   = createRovingFocusGroupProvide<RovingContextValue>(GROUP_NAME)
 
 type RovingFocusGroupElement = RovingFocusGroupImplElement
-interface IRovingFocusGroup extends ScopedPropsInterface<RovingFocusGroupImplPropsType> { }
+export interface RovingFocusGroupPropsType extends ScopedPropsInterface<RovingFocusGroupImplPropsType> { }
 
 const RovingFocusGroupProps = {
   ...rovingFocusGroupImplProps,
@@ -90,7 +90,7 @@ const RovingFocusGroup = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _RovingFocusGroupProps = MergeProps<IRovingFocusGroup, RovingFocusGroupElement>
+type _RovingFocusGroupProps = MergeProps<RovingFocusGroupPropsType, RovingFocusGroupElement>
 
 const OkuRovingFocusGroup = RovingFocusGroup as typeof RovingFocusGroup & (new () => { $props: _RovingFocusGroupProps })
 

@@ -4,7 +4,7 @@ export type {
   RefElement,
   MergeProps,
   ElementType,
-  ComponentPropsWithoutRef,
+  // ComponentPropsWithoutRef,
   InstanceTypeRef,
   ComponentPublicInstanceRef,
   IPrimitiveProps,

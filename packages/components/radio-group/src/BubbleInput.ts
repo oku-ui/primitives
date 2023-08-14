@@ -1,4 +1,4 @@
-import type { ElementType, InstanceTypeRef } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { usePrevious, useSize } from '@oku-ui/use-composable'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { PropType } from 'vue'
@@ -6,7 +6,7 @@ import type { PropType } from 'vue'
 const BUBBLE_INPUT_NAME = 'BubbleInput'
 
 type BubbleInputElement = ElementType<'button'>
-export type _BubbleInputEl = HTMLButtonElement
+export type _BubbleInputEl = Omit<HTMLButtonElement, 'checked'>
 
 interface BubbleInputProps {
   checked: boolean
@@ -71,9 +71,12 @@ const BubbleInput = defineComponent({
   },
 })
 
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+type _Props = MergeProps<BubbleInputProps, BubbleInputElement>
+
 type IstanceBubbleType = InstanceTypeRef<typeof BubbleInput, _BubbleInputEl>
 
-const OkuBubbleInput = BubbleInput as typeof BubbleInput & (new () => { $props: _BubbleInputEl })
+const OkuBubbleInput = BubbleInput as typeof BubbleInput & (new () => { $props: _Props })
 
 export { OkuBubbleInput }
 

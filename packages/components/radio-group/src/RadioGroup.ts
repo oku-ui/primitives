@@ -1,101 +1,128 @@
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { ComputedRef, PropType } from 'vue'
-import { createProvideScope } from '@oku-ui/provide'
-import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
-import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
+import type { ComputedRef, PropType, Ref } from 'vue'
+import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
+import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
+import type { RovingFocusGroupPropsType } from '@oku-ui/roving-focus'
 
-const TAB_NAME = 'OkuRadioGroup' as const
+import { type RadioProps, createRadioScope } from './Radio'
 
-type TabsElement = ElementType<'div'>
-export type _TabsEl = HTMLDivElement
+const RADIO_GROUP_NAME = 'OkuRadioGroup' as const
+
+export type ScopedRadioGroupType<P> = P & { scopeRadioGroup?: Scope }
+export const scopedRadioGroupProps = {
+  scopeRadioGroup: {
+    ...ScopePropObject,
+  },
+}
+
+export const [createRadioGroupProvider, createRadioGroupScope] = createProvideScope(RADIO_GROUP_NAME, [
+  createRovingFocusGroupScope,
+])
+
+export const [RadioGroupProvider, useRadioGroupInject]
+  = createRadioGroupProvider<RadioGroupProvideValue>(RADIO_GROUP_NAME)
+
+export const useRovingFocusGroupScope = createRovingFocusGroupScope()
+
+export const useRadioScope = createRadioScope()
+
+export type RadioGroupElement = ElementType<'div'>
+export type _RadioGroupEl = HTMLDivElement
 
 interface RadioGroupProvideValue {
-  name?: string
-  required: boolean
-  disabled: boolean
+  name?: Ref<string | undefined>
+  required: Ref<boolean>
+  disabled: Ref<boolean>
   value?: ComputedRef<string | undefined>
   onValueChange(value: string): void
 }
 
-interface TabsProps extends ScopedPropsInterface<IPrimitiveProps> {
+interface RadioGroupProps extends ScopedRadioGroupType<IPrimitiveProps> {
   name?: RadioGroupProvideValue['name']
-  required?: Radix.ComponentPropsWithoutRef<typeof Radio>['required']
-  disabled?: Radix.ComponentPropsWithoutRef<typeof Radio>['disabled']
-  dir?: RovingFocusGroupProps['dir']
-  orientation?: RovingFocusGroupProps['orientation']
-  loop?: RovingFocusGroupProps['loop']
+  required?: RadioProps['required']
+  disabled?: RadioProps['disabled']
+  dir?: RovingFocusGroupPropsType['dir']
+  orientation?: RovingFocusGroupPropsType['orientation']
+  loop?: RovingFocusGroupPropsType['loop']
   defaultValue?: string
-  value?: RadioGroupContextValue['value']
-  onValueChange?: RadioGroupContextValue['onValueChange']
+  value?: RadioGroupProvideValue['value']
+  onValueChange?: RadioGroupProvideValue['onValueChange']
 }
 
-export const [createTabsProvider, _createTabsScope] = createProvideScope(TAB_NAME, [
-  createRovingFocusGroupScope,
-])
-
-export const [TabsProvider, useTabsInject]
-  = createTabsProvider<RadioGroupProvideValue>(TAB_NAME)
-
-export const useRovingFocusGroupScope = createRovingFocusGroupScope()
-
-const Tabs = defineComponent({
-  name: TAB_NAME,
-  inheritAttrs: false,
-  props: {
-    value: {
-      type: String as PropType<string>,
-      required: false,
-    },
-    defaultValue: {
-      type: String as PropType<string>,
-      default: undefined,
-    },
-    orientation: {
-      type: String as PropType<Orientation>,
-      default: 'horizontal',
-    },
-    dir: {
-      type: String as PropType<Direction>,
-      default: 'ltr',
-      required: false,
-    },
-    activationMode: {
-      type: String as PropType<ActivationMode>,
-      default: 'automatic',
-      required: false,
-    },
-    modelValue: {
-      type: String as PropType<string>,
-      required: false,
-    },
-    onValueChange: {
-      type: Function as PropType<(value: string) => void>,
-      required: false,
-    },
-    asChild: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-    ...ScopedProps,
+const RadioGroupPropsObject = {
+  modelValue: {
+    type: [String] as PropType<
+      string | undefined
+    >,
+    default: undefined,
   },
+  name: {
+    type: String as PropType<string | undefined>,
+    default: undefined,
+  },
+  required: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  dir: {
+    type: String as PropType<RovingFocusGroupPropsType['dir']>,
+    default: undefined,
+  },
+  orientation: {
+    type: String as PropType<RovingFocusGroupPropsType['orientation']>,
+    default: undefined,
+  },
+  loop: {
+    type: Boolean as PropType<RovingFocusGroupPropsType['loop']>,
+    default: true,
+  },
+  defaultValue: {
+    type: String as PropType<string | undefined>,
+    default: undefined,
+  },
+  value: {
+    type: String as PropType<string | undefined>,
+    default: undefined,
+  },
+  onValueChange: {
+    type: Function as PropType<(value: string) => void>,
+    default: undefined,
+  },
+  ...scopedRadioGroupProps,
+  ...PrimitiveProps,
+}
+
+const RadioGroup = defineComponent({
+  name: RADIO_GROUP_NAME,
+  inheritAttrs: false,
+  props: RadioGroupPropsObject,
   emits: ['update:modelValue'],
   setup(props, { slots, emit, attrs }) {
     const {
-      value: valueProp,
-      onValueChange,
+      name,
       defaultValue,
+      value: valueProp,
+      required,
+      disabled,
       orientation,
       dir,
-      activationMode,
+      loop,
+      onValueChange,
     } = toRefs(props)
 
+    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeRadioGroup)
     const direction = useDirection(dir.value)
 
     const forwardedRef = useForwardRef()
-
     const modelValue = useModel(props, 'modelValue')
 
     const { state, updateValue } = useControllable({
@@ -107,35 +134,43 @@ const Tabs = defineComponent({
       },
     })
 
-    TabsProvider({
-      onValueChange: updateValue,
-      orientation: orientation.value,
-      dir: direction,
+    RadioGroupProvider({
+      scope: props.scopeRadioGroup,
+      name,
+      required,
+      disabled,
       value: state,
-      activationMode: activationMode.value,
-      baseId: useId(),
-      scope: props.scopeTabs,
+      onValueChange: updateValue,
     })
 
     return () =>
-      h(
-        Primitive.div,
-        {
+      h(OkuRovingFocusGroup, {
+        asChild: true,
+        ...rovingFocusGroupScope,
+        orientation: orientation.value,
+        dir: direction,
+        loop: loop.value,
+      }, {
+        default: () => h(Primitive.div, {
+          'role': 'radiogroup',
+          'aria-required': required.value,
+          'aria-oriented': orientation.value,
+          'data-disabled': disabled.value,
           'dir': direction,
-          'data-orientation': props.orientation,
-          'ref': forwardedRef,
           ...attrs,
-          'asChild': props.asChild,
-        }, slots,
-      )
+          'ref': forwardedRef,
+        }, {
+          default: () => slots.default?.(),
+        }),
+      })
   },
 })
 
-type _TabsProps = MergeProps<TabsProps, TabsElement>
-export type IstanceTabsType = InstanceTypeRef<typeof Tabs, _TabsEl>
+type _RadioGroupProps = MergeProps<RadioGroupProps, RadioGroupElement>
+export type IstanceRadioGroupType = InstanceTypeRef<typeof RadioGroup, _RadioGroupEl>
 
-const OkuTabs = Tabs as typeof Tabs & (new () => { $props: _TabsProps })
+const OkuRadioGroup = RadioGroup as typeof RadioGroup & (new () => { $props: _RadioGroupProps })
 
-export { OkuTabs }
+export { OkuRadioGroup }
 
-export type { TabsProps }
+export type { RadioGroupProps }

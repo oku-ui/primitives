@@ -433,6 +433,37 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/radio-group:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: latest
+        version: link:../direction
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/roving-focus':
+        specifier: latest
+        version: link:../roving-focus
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/roving-focus:
     dependencies:
       '@oku-ui/collection':

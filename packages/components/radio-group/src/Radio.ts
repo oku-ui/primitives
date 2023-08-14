@@ -1,4 +1,5 @@
-import { type ComponentPublicInstanceRef, type ElementType, Primitive } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -6,6 +7,7 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './utils'
+import { OkuBubbleInput } from './BubbleInput'
 
 const RADIO_NAME = 'OkuRadio'
 
@@ -15,7 +17,7 @@ export const ScopedRadioProps = {
     ...ScopePropObject,
   },
 }
-const [createRadioProvide, createRadioScope] = createProvideScope(RADIO_NAME)
+export const [createRadioProvide, createRadioScope] = createProvideScope(RADIO_NAME)
 
 type RadioProvideValue = {
   checked: Ref<boolean>
@@ -37,7 +39,7 @@ interface RadioProps extends ScopedRadioType<any> {
   onClick?(): (event: MouseEvent) => void
 }
 
-const RadioPropsObject = {
+export const RadioPropsObject = {
   checked: {
     type: Boolean as PropType<boolean | undefined>,
     default: false,
@@ -67,14 +69,15 @@ const RadioPropsObject = {
     default: undefined,
   },
   ...ScopedRadioProps,
+  ...PrimitiveProps,
 }
 
-const OkuRadio = defineComponent({
+const Radio = defineComponent({
   name: RADIO_NAME,
   inheritAttrs: false,
   props: RadioPropsObject,
   setup(props, { attrs, slots }) {
-    const { checked: _checked, required, disabled, value } = toRefs(props)
+    const { checked: _checked, required, disabled, value, name } = toRefs(props)
     const { ...radioAttrs } = attrs as RadioElement
     const checked = computed(() => _checked.value ?? false)
 
@@ -99,6 +102,7 @@ const OkuRadio = defineComponent({
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
+        'asChild': props.asChild,
         ...radioAttrs,
         'ref': composedRefs,
         'onClick': () => composeEventHandlers(props.onClick, (event: MouseEvent) => {
@@ -118,8 +122,29 @@ const OkuRadio = defineComponent({
       }, {
         default: () => slots.default?.(),
       }),
-
+      isFormControl.value && h(OkuBubbleInput, {
+        control: buttonRef.value?.$el ?? null,
+        bubbles: !hasConsumerStoppedPropagationRef.value,
+        name: name.value,
+        value: value.value,
+        checked: checked.value,
+        required: required.value,
+        disabled: disabled.value,
+        // We transform because the input is absolutely positioned but we have
+        // rendered it **after** the button. This pulls it back to sit on top
+        // of the button.
+        style: {
+          transform: 'translateX(-100%)',
+        },
+      }),
     ]
   },
-
 })
+type _OkuRadioProps = MergeProps<RadioProps, RadioElement>
+export type IstanceOkuRadioType = InstanceTypeRef<typeof OkuRadio, _RadioEl>
+
+const OkuRadio = Radio as typeof Radio & (new () => { $props: _OkuRadioProps })
+
+export { OkuRadio }
+
+export type { RadioProps }
