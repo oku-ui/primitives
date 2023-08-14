@@ -90,6 +90,12 @@ interface DismissableLayerProps extends IPrimitiveProps {
    * Handler called when the `DismissableLayer` should be dismissed
    */
   onDismiss?: () => void
+
+  onFocusCapture?: (event: FocusCaptureEvent) => void
+
+  onBlurCapture?: (event: FocusBlurCaptureEvent) => void
+
+  onPointerDownCapture?: (event: PointerDownCaptureEvent) => void
 }
 
 const DismissableLayer = defineComponent({
@@ -121,15 +127,15 @@ const DismissableLayer = defineComponent({
       required: false,
     },
     onFocusCapture: {
-      type: Function as PropType<() => void>,
+      type: Function as PropType<DismissableLayerProps['onFocusCapture']>,
       required: false,
     },
     onBlurCapture: {
-      type: Function as PropType<() => void>,
+      type: Function as PropType<DismissableLayerProps['onBlurCapture']>,
       required: false,
     },
     onPointerDownCapture: {
-      type: Function as PropType<() => void>,
+      type: Function as PropType<DismissableLayerProps['onPointerDownCapture']>,
       required: false,
     },
     ...PrimitiveProps,
