@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 const NAME = 'Separator'
@@ -43,6 +43,7 @@ const Separator = defineComponent({
       type: String as PropType<Orientation>,
       default: DEFAULT_ORIENTATION,
     },
+    ...PrimitiveProps,
   },
   setup(props, { attrs, slots }) {
     const { ...domProps } = attrs as SeparatorElement
@@ -66,6 +67,7 @@ const Separator = defineComponent({
             ...domProps,
             border: 'none',
           },
+          asChild: props.asChild,
         },
         {
           default: () => slots.default?.(),
