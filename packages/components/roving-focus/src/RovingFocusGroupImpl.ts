@@ -7,8 +7,9 @@ import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, Instance
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { type Direction, type Orientation, focusFirst } from './utils'
-import type { ScopedPropsInterface } from './RovingFocusGroup'
-import { ScopedProps, useCollection, useRovingFocusProvider } from './RovingFocusGroup'
+import { useCollection, useRovingFocusProvider } from './RovingFocusGroup'
+import type { ScopedPropsInterface } from './types'
+import { scopedProps } from './types'
 
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
@@ -68,22 +69,22 @@ export const RovingFocusGroupImplElementProps = {
   onBlur: Function as PropType<(e: FocusEvent) => void>,
 }
 
-export const IRovingFocusGroupImplProps = {
+export const rovingFocusGroupImplProps = {
+  ...scopedProps,
   ...RovingFocusGroupImplElementProps,
   ...RovingFocusGroupOptionsProps,
-  ...ScopedProps,
 }
 
 const RovingFocusGroupImpl = defineComponent({
   name: 'OkuRovingFocusGroupImpl',
   inheritAttrs: false,
-  props: IRovingFocusGroupImplProps,
+  props: rovingFocusGroupImplProps,
   emits: {
     currentTabStopId: (tabStopId: string | null) => true,
     entryFocus: (event: Event) => true,
     currentTabStopIdChange: (tabStopId: string | null) => true,
   },
-  setup(props, { attrs, slots, emit, expose }) {
+  setup(props, { attrs, slots, emit }) {
     const _attrs = attrs as Omit<_RovingFocusGroupImplEl, 'dir'>
     const {
       orientation,
@@ -93,9 +94,9 @@ const RovingFocusGroupImpl = defineComponent({
       defaultCurrentTabStopId,
       onEntryFocus,
       asChild,
+      scopeRovingFocusGroup,
       ...propsData
     } = toRefs(props)
-
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
@@ -168,10 +169,10 @@ const RovingFocusGroupImpl = defineComponent({
           // We do this because Safari doesn't focus buttons when clicked, and
           // instead, the wrapper will get focused and not through a bubbling event.
           const isKeyboardFocus = !isClickFocusRef.value
+
           if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
             const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
             event.currentTarget?.dispatchEvent(entryFocusEvent)
-
             if (!entryFocusEvent.defaultPrevented) {
               const items = getItems.value.filter(item => item.focusable)
               const activeItem = items.find(item => item.active)

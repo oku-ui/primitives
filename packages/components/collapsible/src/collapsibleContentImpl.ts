@@ -1,8 +1,8 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
-import { Primitive } from '@oku-ui/primitive'
+import { ScopePropObject } from '@oku-ui/provide'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
@@ -21,18 +21,14 @@ const CollapsibleContentImpl = defineComponent({
       type: Object as unknown as PropType<Ref<boolean>>,
     },
     scopeCollapsible: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
+      ...ScopePropObject,
     },
-    asChild: {
-      type: Boolean,
-      default: undefined,
-    },
+    ...PrimitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeCollapsible, present, asChild } = toRefs(props)
+    const { present, asChild } = toRefs(props)
     const { ...contentAttrs } = attrs as CollapsibleContentImplElement
-    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
+    const context = useCollapsibleInject(CONTENT_NAME, props.scopeCollapsible)
 
     const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | undefined>(undefined)
     const forwardedRef = useForwardRef()
@@ -44,7 +40,7 @@ const CollapsibleContentImpl = defineComponent({
     const width = computed(() => widthRef.value)
 
     const isPresent = ref(present?.value?.value)
-    const isOpen = computed(() => context.value.open.value || isPresent.value)
+    const isOpen = computed(() => context.open.value || isPresent.value)
     const isMountAnimationPreventedRef = ref(isOpen.value)
     const originalStylesRef = ref<Record<string, string>>()
 
@@ -85,9 +81,9 @@ const CollapsibleContentImpl = defineComponent({
     const originalReturn = () => h(
       Primitive.div,
       {
-        'data-state': getState(context.value.open.value),
-        'data-disabled': context.value.disabled?.value ? '' : undefined,
-        'id': context.value.contentId,
+        'data-state': getState(context.open.value),
+        'data-disabled': context.disabled?.value ? '' : undefined,
+        'id': context.contentId,
         'hidden': !isOpen.value,
         ...contentAttrs,
         'ref': composedRefs,

@@ -2,7 +2,7 @@
   "name": "primitives",
   "type": "module",
   "version": "0.3.0",
-  "packageManager": "pnpm@8.6.6",
+  "packageManager": "pnpm@8.6.9",
   "repository": "oku-ui/primitives",
   "engines": {
     "node": ">=18"
@@ -43,6 +43,7 @@
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/collection": "workspace:^",
+    "@oku-ui/direction": "workspace:^",
     "@oku-ui/dismissable-layer": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/popper": "workspace:^",
@@ -54,6 +55,7 @@
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
+    "@oku-ui/tabs": "workspace:^",
     "@oku-ui/toggle": "workspace:^",
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",
