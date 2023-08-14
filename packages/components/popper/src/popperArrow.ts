@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 
 import type {
@@ -6,7 +7,7 @@ import type {
   InstanceTypeRef,
   MergeProps,
 } from '@oku-ui/primitive'
-import { type Scope, ScopePropObject } from '@oku-ui/provide'
+import type { Scope } from '@oku-ui/provide'
 import type { ArrowProps, _ArrowEl } from '@oku-ui/arrow'
 import { OkuArrow } from '@oku-ui/arrow'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -31,14 +32,15 @@ const PopperArrow = defineComponent({
   name: ARROW_NAME,
   props: {
     scopePopper: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
     },
   },
   setup(props, { attrs }) {
     const { ...attrsElement } = attrs as PopperArrowElement
     const contentInject = usePopperContentInject(ARROW_NAME, props.scopePopper)
     const baseSide = computed(() => {
-      return OPPOSITE_SIDE[contentInject.placedSide.value]
+      return OPPOSITE_SIDE[contentInject.value.placedSide.value]
     })
 
     const forwardedRef = useForwardRef()
@@ -48,27 +50,27 @@ const PopperArrow = defineComponent({
         'span',
         {
           ref: (el: any) => {
-            contentInject.onAnchorChange(el)
+            contentInject.value.onAnchorChange(el)
             return undefined
           },
           style: {
             position: 'absolute',
-            left: contentInject.arrowX?.value,
-            top: contentInject.arrowY?.value,
+            left: contentInject.value.arrowX?.value,
+            top: contentInject.value.arrowY?.value,
             [baseSide.value]: '0px',
             transformOrigin: {
               top: '',
               right: '0px 0px',
               bottom: 'center 0px',
               left: '100% 0px',
-            }[contentInject.placedSide.value],
+            }[contentInject.value.placedSide.value],
             transform: {
               top: 'translateY(100%)',
               right: 'translateY(50%) rotate(90deg) translateX(-50%)',
               bottom: 'rotate(180deg)',
               left: 'translateY(50%) rotate(-90deg) translateX(50%)',
-            }[contentInject.placedSide.value],
-            visibility: contentInject.shouldHideArrow.value
+            }[contentInject.value.placedSide.value],
+            visibility: contentInject.value.shouldHideArrow.value
               ? 'hidden'
               : undefined,
           },

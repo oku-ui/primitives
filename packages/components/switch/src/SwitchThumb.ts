@@ -3,10 +3,11 @@ import type {
   IPrimitiveProps,
   MergeProps,
 } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import { type Scope, ScopePropObject } from '@oku-ui/provide'
+import { Primitive } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { defineComponent, h, toValue } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, h, toRefs, toValue } from 'vue'
 import { useSwitchContext } from './Switch'
 import { getState } from './util'
 
@@ -25,16 +26,22 @@ const SwitchThumb = defineComponent({
   inheritAttrs: false,
   props: {
     scopeSwitch: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
     },
-    ...PrimitiveProps,
+    asChild: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs, slots, expose }) {
+    const { scopeSwitch } = toRefs(props)
+
     const { ...thumbAttrs } = attrs as SwitchThumbProps
 
     const forwardedRef = useForwardRef()
 
-    const context = toValue(useSwitchContext(THUMB_NAME, props.scopeSwitch))
+    const context = toValue(useSwitchContext(THUMB_NAME, scopeSwitch.value))
 
     const originalReturn = () =>
       h(

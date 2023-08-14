@@ -10,39 +10,42 @@ import type {
   InstanceTypeRef,
   MergeProps,
 } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import type { PropType, Ref } from 'vue'
 import {
   computed,
   defineComponent,
   h,
-  provide,
   ref,
   toRefs,
+  toValue,
+  unref,
+  watch,
   watchEffect,
 } from 'vue'
-import { ScopePropObject } from '@oku-ui/provide'
+import type { Scope } from '@oku-ui/provide'
+import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { dispatchUpdate, useFocusOutside, usePointerDownOutside } from './util'
+import type { DismissableLayerBranchElement } from './DismissableLayerBranch'
+import { useFocusOutside, usePointerDownOutside } from './util'
 
 /* -------------------------------------------------------------------------------------------------
  * DismissableLayer
  * ----------------------------------------------------------------------------------------------- */
-export const INJECT_UPDATE = 'dismissableLayer.update'
+export const CONTEXT_UPDATE = 'dismissableLayer.update'
 export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside'
 export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
 
 let originalBodyPointerEvents: string
 
 export const DISMISSABLE_NAME = 'OkuDismissableLayer'
-export const DismissableLayerProvideKey = Symbol('DismissableLayerProvide')
-type DismissableLayerElement = ElementType<'div'>
-type _ElDismissableLayerElement = HTMLDivElement
 
-export type DismissableLayerProvideValue = {
-  layers: Ref<Set<_ElDismissableLayerElement>>
-  layersWithOutsidePointerEventsDisabled: Ref<Set<_ElDismissableLayerElement>>
-  branches: Ref<Set<_ElDismissableLayerElement>>
+type DismissableLayerElement = ElementType<'div'>
+
+type DismissableLayerContextValue = {
+  layers: Ref<Set<DismissableLayerElement>>
+  layersWithOutsidePointerEventsDisabled: Ref<Set<DismissableLayerElement>>
+  branches: Ref<Set<DismissableLayerBranchElement>>
 }
 
 export type PointerDownOutsideEvent = CustomEvent<{
@@ -87,6 +90,12 @@ interface DismissableLayerProps extends IPrimitiveProps {
   onDismiss?: () => void
 }
 
+const [createDismissableLayerProvide, _createDismissableLayerScope]
+  = createProvideScope(DISMISSABLE_NAME)
+
+const [dismissableLayerProvider, useDismissableLayerInject]
+  = createDismissableLayerProvide<DismissableLayerContextValue>(DISMISSABLE_NAME)
+
 const DismissableLayer = defineComponent({
   name: DISMISSABLE_NAME,
   inheritAttrs: false,
@@ -115,29 +124,21 @@ const DismissableLayer = defineComponent({
       type: Function as PropType<() => void>,
       required: false,
     },
-    onFocusCapture: {
-      type: Function as PropType<() => void>,
-      required: false,
+    asChild: {
+      type: Boolean,
+      default: undefined,
     },
-    onBlurCapture: {
-      type: Function as PropType<() => void>,
-      required: false,
-    },
-    onPointerDownCapture: {
-      type: Function as PropType<() => void>,
-      required: false,
-    },
-    ...PrimitiveProps,
     scopeDismissableLayer: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
     },
   },
   emits: [
-    'focusOutside',
-    'dismiss',
-    'pointerDownOutside',
-    'interactOutside',
-    'escapeKeyDown',
+    'onFocusOutside',
+    'onDismiss',
+    'onPointerDownOutside',
+    'onInteractOutside',
+    'onEscapeKeyDown',
   ],
   setup(props, { attrs, emit }) {
     const {
@@ -147,19 +148,30 @@ const DismissableLayer = defineComponent({
       onInteractOutside,
       onPointerDownOutside,
       disableOutsidePointerEvents,
+      scopeDismissableLayer,
+      asChild,
     } = toRefs(props)
+
     const { ...dismissableLayerAttrs } = attrs
-    const _layers = ref(new Set<_ElDismissableLayerElement>())
-    const layersWithOutsidePointerEventsDisabled = ref(new Set<_ElDismissableLayerElement>())
-    const branches = ref(new Set<_ElDismissableLayerElement>())
 
-    const layers = computed(() => Array.from(_layers.value))
+    const layers = ref<Set<DismissableLayerElement>>(new Set())
 
-    provide<DismissableLayerProvideValue, symbol>(DismissableLayerProvideKey, {
-      layers: _layers,
+    const layersWithOutsidePointerEventsDisabled = ref<
+      Set<DismissableLayerElement>
+    >(new Set())
+
+    const branches = ref<Set<DismissableLayerBranchElement>>(new Set())
+
+    dismissableLayerProvider({
+      layers,
       layersWithOutsidePointerEventsDisabled,
       branches,
+      scope: scopeDismissableLayer.value,
     })
+
+    const context = toValue(
+      useDismissableLayerInject(DISMISSABLE_NAME, scopeDismissableLayer.value),
+    )
 
     const node = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
 
@@ -170,31 +182,47 @@ const DismissableLayer = defineComponent({
       () => node.value?.$el?.ownerDocument ?? globalThis?.document,
     )
 
-    const highestLayerWithOutsidePointerEventsDisabled = computed(() => {
-      const [highestLayerWithOutsidePointerEventsDisabled] = [...layersWithOutsidePointerEventsDisabled.value].slice(-1)
-      return highestLayerWithOutsidePointerEventsDisabled
-    })
+    watch(
+      () => context,
+      () => {
+        if (context?.layers.value)
+          layers.value = context.layers.value
+        if (context?.layersWithOutsidePointerEventsDisabled.value) {
+          layersWithOutsidePointerEventsDisabled.value
+            = context?.layersWithOutsidePointerEventsDisabled.value
+        }
+      },
+      { immediate: true, deep: true },
+    )
 
-    const highestLayerWithOutsidePointerEventsDisabledIndex = computed(() => layers.value.indexOf(highestLayerWithOutsidePointerEventsDisabled.value))
+    const isBodyPointerEventsDisabled = computed(
+      () => context!.layersWithOutsidePointerEventsDisabled.value.size > 0,
+    )
 
     const index = computed(() => {
-      return node.value?.$el
-        ? layers.value.indexOf(node.value.$el)
+      return node.value
+        ? Array.from(layers.value).indexOf(node.value as any)
         : -1
     })
 
-    const isBodyPointerEventsDisabled = computed(
-      () => layersWithOutsidePointerEventsDisabled.value.size > 0,
-    )
-
     const isPointerEventsEnabled = computed(() => {
-      return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex.value
+      const layers = Array.from(context.layers.value)
+
+      const [highestLayerWithOutsidePointerEventsDisabled] = [
+        ...context.layersWithOutsidePointerEventsDisabled.value,
+      ].slice(-1)
+
+      const highestLayerWithOutsidePointerEventsDisabledIndex = layers.indexOf(
+        highestLayerWithOutsidePointerEventsDisabled,
+      )
+
+      return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex
     })
 
     const pointerDownOutside = usePointerDownOutside((event) => {
       const target = event.target as HTMLElement
-      const isPointerDownOnBranch = [...branches.value].some(
-        branch => branch.contains(target),
+      const isPointerDownOnBranch = [...context.branches.value].some(
+        (branch: any) => branch.contains(target),
       )
 
       if (!isPointerEventsEnabled.value || isPointerDownOnBranch)
@@ -203,18 +231,18 @@ const DismissableLayer = defineComponent({
       onPointerDownOutside.value?.(event)
       onInteractOutside.value?.(event)
 
-      emit('pointerDownOutside', event)
-      emit('interactOutside', event)
+      emit('onPointerDownOutside', event)
+      emit('onInteractOutside', event)
 
       if (!event.defaultPrevented) {
         onDismiss.value?.()
-        emit('dismiss')
+        emit('onDismiss')
       }
-    }, ownerDocument.value)
+    }, ownerDocument)
 
     const focusOutside = useFocusOutside((event) => {
       const target = event.target as HTMLElement
-      const isFocusInBranch = [...branches.value].some(branch =>
+      const isFocusInBranch = [...context.branches.value].some((branch: any) =>
         branch.contains(target),
       )
 
@@ -224,54 +252,52 @@ const DismissableLayer = defineComponent({
       onFocusOutside.value?.(event)
       onInteractOutside.value?.(event)
 
-      emit('focusOutside', event)
-      emit('interactOutside', event)
+      emit('onFocusOutside', event)
+      emit('onInteractOutside', event)
 
       if (!event.defaultPrevented) {
         onDismiss.value?.()
-        emit('dismiss')
+        emit('onDismiss')
       }
-    }, ownerDocument.value)
+    }, ownerDocument)
 
     useEscapeKeydown((event) => {
-      const isHighestLayer = index.value === _layers.value.size - 1
+      const isHighestLayer = index.value === context.layers.value.size - 1
 
       if (!isHighestLayer)
         return
 
       onEscapeKeyDown.value?.(event)
-      emit('escapeKeyDown', event)
+      emit('onEscapeKeyDown', event)
 
       if (!event.defaultPrevented && onDismiss) {
         event.preventDefault()
         onDismiss.value?.()
-        emit('dismiss')
+        emit('onDismiss')
       }
-    }, ownerDocument.value)
+    }, unref(ownerDocument))
 
     watchEffect((onInvalidate) => {
-      if (!node.value?.$el)
+      if (!node.value)
         return
 
       if (disableOutsidePointerEvents.value) {
-        if (layersWithOutsidePointerEventsDisabled.value.size === 0) {
+        if (context.layersWithOutsidePointerEventsDisabled.value.size === 0) {
           originalBodyPointerEvents
             = ownerDocument.value.body.style.pointerEvents
           ownerDocument.value.body.style.pointerEvents = 'none'
         }
-        layersWithOutsidePointerEventsDisabled.value.add(
-          node.value.$el,
+        context.layersWithOutsidePointerEventsDisabled.value.add(
+          node.value as any,
         )
       }
 
-      _layers.value.add(node.value.$el)
-
-      dispatchUpdate()
+      context.layers.value.add(node.value as any)
 
       onInvalidate(() => {
         if (
           disableOutsidePointerEvents.value
-          && layersWithOutsidePointerEventsDisabled.value.size === 1
+          && context.layersWithOutsidePointerEventsDisabled.value.size === 1
         ) {
           ownerDocument.value.body.style.pointerEvents
             = originalBodyPointerEvents
@@ -283,34 +309,32 @@ const DismissableLayer = defineComponent({
      * We purposefully prevent combining this effect with the `disableOutsidePointerEvents` effect
      * because a change to `disableOutsidePointerEvents` would remove this layer from the stack
      * and add it to the end again so the layering order wouldn't be _creation order_.
-     * We only want them to be removed from inject stacks when unmounted.
+     * We only want them to be removed from context stacks when unmounted.
      */
     watchEffect((onInvalidate) => {
       onInvalidate(() => {
-        if (!node.value?.$el)
+        if (!node.value)
           return
-        _layers.value.delete(node.value.$el)
-        layersWithOutsidePointerEventsDisabled.value.delete(
-          node.value.$el,
+        context.layers.value.delete(node.value as any)
+        context.layersWithOutsidePointerEventsDisabled.value.delete(
+          node.value as any,
         )
-        dispatchUpdate()
       })
     })
 
     watchEffect((onInvalidate) => {
       const handleUpdate = () => {}
-      document.addEventListener(INJECT_UPDATE, handleUpdate)
+      document.addEventListener(CONTEXT_UPDATE, handleUpdate)
 
       onInvalidate(() =>
-        document.removeEventListener(INJECT_UPDATE, handleUpdate),
+        document.removeEventListener(CONTEXT_UPDATE, handleUpdate),
       )
     })
 
     const originalReturn = () =>
       h(Primitive.div, {
-        ...dismissableLayerAttrs,
         ref: composedRefs,
-        asChild: props.asChild,
+        asChild: asChild.value,
         style: {
           pointerEvents: isBodyPointerEventsDisabled.value
             ? isPointerEventsEnabled.value
@@ -319,13 +343,23 @@ const DismissableLayer = defineComponent({
             : undefined,
           ...(dismissableLayerAttrs.style as CSSPropertyRule),
         },
-        onFocusCapture: composeEventHandlers(props.onFocusCapture,
+        ...dismissableLayerAttrs,
+        onFocusCapture: composeEventHandlers(
+          dismissableLayerAttrs?.onFocusCapture as (
+            event: GlobalEventHandlersEventMap['focus']
+          ) => void,
           focusOutside.onFocusCapture,
         ),
-        onBlurCapture: composeEventHandlers(props.onBlurCapture,
+        onBlurCapture: composeEventHandlers(
+          dismissableLayerAttrs?.onBlurCapture as (
+            event: GlobalEventHandlersEventMap['blur']
+          ) => void,
           focusOutside.onBlurCapture,
         ),
-        onPointerDownCapture: composeEventHandlers(props.onPointerDownCapture,
+        onPointerDownCapture: composeEventHandlers(
+          dismissableLayerAttrs?.onPointerDownCapture as (
+            event: GlobalEventHandlersEventMap['pointerdown']
+          ) => void,
           pointerDownOutside.onPointerDownCapture,
         ),
       })
@@ -349,6 +383,6 @@ type InstanceDismissableLayerType = InstanceTypeRef<
 const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer &
 (new () => { $props: _DismissableLayer })
 
-export { OkuDismissableLayer }
+export { OkuDismissableLayer, useDismissableLayerInject }
 
 export type { InstanceDismissableLayerType, DismissableLayerProps }

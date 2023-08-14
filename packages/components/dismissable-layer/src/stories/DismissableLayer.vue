@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { DismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { ref } from 'vue'
 
-export interface IDismissableLayerProps {
+export interface IDismissableLayerProps extends DismissableLayerProps {
   template?: '#1'
   allshow?: boolean
 }
@@ -21,7 +22,6 @@ function toggleOpen() {
 }
 
 function onEscapeKeyDown(event: Event): void {
-  console.log(event, 'aa')
   if (dismissOnEscape.value === false)
     event.preventDefault()
 }
@@ -89,12 +89,12 @@ function handleMouseDown() {
 
         <div v-if="open">
           <OkuDismissableLayer
+            :on-escape-key-down="onEscapeKeyDown"
+            :on-pointer-down-outside="onPointerDownOutside"
+            :on-focus-outside="onFocusOutside"
             :disable-outside-pointer-events="disabledOutsidePointerEvents"
+            :on-dismiss="closeLayer"
             class="inline-flex justify-center items-center align-middle w-[400px] h-[300px] bg-black rounded-xl mb-5"
-            @escape-key-down="onEscapeKeyDown"
-            @pointer-down-outside="onPointerDownOutside"
-            @focus-outside="onFocusOutside"
-            @dismiss="closeLayer"
           >
             <input type="text">
           </OkuDismissableLayer>

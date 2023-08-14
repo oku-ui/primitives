@@ -10,10 +10,7 @@ const DirectionContextSymbol = Symbol('DirectionContext')
 const DirectionProvider = defineComponent({
   name: 'DirectionProvider',
   props: {
-    dir: {
-      type: String as PropType<Direction>,
-      required: true,
-    },
+    dir: { type: String as PropType<Direction>, required: true },
   },
   setup(props, { slots }) {
     // Direction context

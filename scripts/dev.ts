@@ -37,12 +37,7 @@ async function deleteAllPackageDists() {
   console.log('finished deleting dist folders ✅')
 
   console.log('building components 🏗')
-  try {
-    execSync('pnpm build', { stdio: 'inherit' })
-  }
-  catch (error) {
-    console.log('build problem 🚨')
-  }
+  execSync('pnpm build', { stdio: 'inherit' })
   console.log('finished building components ✅')
 
   watchMode()
@@ -76,12 +71,7 @@ function watchMode() {
     ],
     ignoreInitial: true,
   }).on('all', async (event, path) => {
-    try {
-      await whereComponent(path)
-    }
-    catch (error) {
-      console.log('build problem 🚨')
-    }
+    await whereComponent(path)
   }).once('ready', () => {
     console.log('watch mode active 🚀')
   }).prependListener('unlinkDir', async (path) => {

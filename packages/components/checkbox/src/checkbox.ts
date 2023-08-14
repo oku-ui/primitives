@@ -1,4 +1,4 @@
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 
@@ -14,7 +14,7 @@ import { OkuBubbleInput } from './bubbleInput'
 
 const CHECKBOX_NAME = 'OkuCheckbox'
 
-const [createCheckboxProvider, createCheckboxScope] = createProvideScope(CHECKBOX_NAME)
+const [createCheckboxProvider, _createCheckboxScope] = createProvideScope(CHECKBOX_NAME)
 
 type CheckboxInjectValue = {
   state: Ref<CheckedState>
@@ -62,12 +62,14 @@ const Checkbox = defineComponent({
       default: undefined,
     },
     scopeCheckbox: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+      default: undefined,
     },
   },
   emits: ['update:checked', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
-    const { checked: checkedProp, defaultChecked, required } = toRefs(props)
+    const { checked: checkedProp, scopeCheckbox, defaultChecked, required } = toRefs(props)
 
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
     const forwardedRef = useForwardRef()
@@ -107,7 +109,7 @@ const Checkbox = defineComponent({
     })
 
     CheckboxProvider({
-      scope: props.scopeCheckbox,
+      scope: scopeCheckbox.value as Scope,
       state,
       disabled: disabled as boolean,
     })
@@ -187,7 +189,6 @@ const OkuCheckbox = Checkbox as typeof Checkbox & (new () => { $props: _OkuCheck
 
 export {
   OkuCheckbox,
-  createCheckboxScope,
 }
 
 export type {

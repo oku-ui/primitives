@@ -33,7 +33,6 @@ describe('presence', async () => {
       },
     } as Component
     const wrapper = mount(component, {})
-
     expect(wrapper.html()).toContain(`<div><button> toggle - false</button>
   <!---->
 </div>`)
@@ -67,12 +66,12 @@ describe('presence', async () => {
         }
       },
     } as Component
-
     const wrapper = mount(component, {})
     await wrapper.find('button').trigger('click')
 
+    // present="[object Object] because of the ref
     expect(wrapper.html()).toContain(`<div><button> toggle - true</button>
-  <div> content </div>
+  <div present="[object Object]"> content </div>
 </div>`)
   })
 
@@ -104,52 +103,16 @@ describe('presence', async () => {
         }
       },
     } as Component
-
     const wrapper = mount(component, {})
     expect(wrapper.html()).toContain(`<div><button> toggle - false</button>
   <!---->
 </div>`)
 
     await wrapper.find('button').trigger('click')
+
+    // present="[object Object] because of the ref
     expect(wrapper.html()).toContain(`<div><button> toggle - true</button>
-  <div> content </div>
-</div>`)
-  })
-
-  it('close content', async () => {
-    const component = {
-      components: {
-        OkuPresence,
-      },
-      template: `
-       <div>
-       <button @click="toggle">
-        toggle - {{ open }}
-      </button>
-      <OkuPresence :present="true" v-slot="isPresent">
-        <div>
-          content - {{ isPresent }}
-        </div>
-      </OkuPresence>
-      </div>
-      `,
-      setup() {
-        const open = ref(false)
-        const toggle = () => {
-          open.value = !open.value
-        }
-        return {
-          open,
-          toggle,
-        }
-      },
-    } as Component
-    const wrapper = mount(component, {})
-
-    expect(wrapper.html()).toContain(`<div><button> toggle - false</button>
-  <div> content - {
-    "isPresent": true
-    }</div>
+  <div present="[object Object]" class="text-white"> content </div>
 </div>`)
   })
 

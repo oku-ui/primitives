@@ -1,8 +1,9 @@
+import type { PropType } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { createProvideScope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 const AVATAR_NAME = 'Avatar'
@@ -29,7 +30,8 @@ const Avatar = defineComponent({
   inheritAttrs: false,
   props: {
     scopeAvatar: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
     },
   },
   setup(props, { attrs, slots }) {
