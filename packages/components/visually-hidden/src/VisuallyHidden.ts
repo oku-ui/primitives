@@ -1,4 +1,4 @@
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import type {
   ElementType,
   IPrimitiveProps,
@@ -20,9 +20,12 @@ const VisuallyHidden = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...PrimitiveProps,
+    asChild: {
+      type: Boolean,
+      default: undefined,
+    },
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, expose }) {
     const { ...visuallyHiddenAttrs } = attrs as VisuallyHiddenElement
 
     const forwardedRef = useForwardRef()

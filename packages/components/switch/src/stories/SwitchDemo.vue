@@ -22,16 +22,17 @@ function setData(event: any) {
     ...data.value,
     [input.name]: input.value,
   }
-
+  // eslint-disable-next-line no-console
   console.log(data.value)
 }
 function sendForm(event: any) {
+  // eslint-disable-next-line no-console
   console.log(event, 'sendForm')
   data.value = {
     ...data.value,
     [event.target.name]: event.target.value,
   }
-
+  // eslint-disable-next-line no-console
   console.log(data.value)
 }
 </script>

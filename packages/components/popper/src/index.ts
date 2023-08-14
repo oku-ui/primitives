@@ -1,6 +1,5 @@
 export {
   OkuPopper,
-  createPopperScope,
 } from './popper'
 
 export type {

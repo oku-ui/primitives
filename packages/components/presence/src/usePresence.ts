@@ -1,13 +1,11 @@
 import { type Ref, computed, nextTick, ref, watch } from 'vue'
-import { isValidVNodeElement } from '@oku-ui/utils'
 import { useStateMachine } from './useStateMachine'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
   return styles?.animationName || 'none'
 }
 
-export function usePresence(present: Ref<boolean>) {
-  const el = ref<HTMLElement | undefined>(undefined)
+export function usePresence(present: Ref<boolean>, el: HTMLElement) {
   const stylesRef = ref<CSSStyleDeclaration>({} as any)
   const prevPresentRef = ref(present.value)
   const prevAnimationNameRef = ref<string>('none')
@@ -71,8 +69,8 @@ export function usePresence(present: Ref<boolean>) {
     }
   })
 
-  watch(el, () => {
-    if (el.value) {
+  watch(() => el, () => {
+    if (el) {
     /**
          * Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
          * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
@@ -83,7 +81,7 @@ export function usePresence(present: Ref<boolean>) {
         const isCurrentAnimation = currentAnimationName.includes(
           event.animationName,
         )
-        if (event.target === el.value && isCurrentAnimation) {
+        if (event.target === el && isCurrentAnimation) {
         // With React 18 concurrency this update is applied
         // a frame after the animation ends, creating a flash of visible content.
         // By manually flushing we ensure they sync within a frame, removing the flash.
@@ -91,19 +89,19 @@ export function usePresence(present: Ref<boolean>) {
         }
       }
       const handleAnimationStart = (event: AnimationEvent) => {
-        if (event.target === el.value)
+        if (event.target === el)
         // if animation occurred, store its name as the previous animation.
           prevAnimationNameRef.value = getAnimationName(stylesRef.value)
       }
-      el.value.addEventListener('animationstart', handleAnimationStart)
-      el.value.addEventListener('animationcancel', handleAnimationEnd)
-      el.value.addEventListener('animationend', handleAnimationEnd)
+      el.addEventListener('animationstart', handleAnimationStart)
+      el.addEventListener('animationcancel', handleAnimationEnd)
+      el.addEventListener('animationend', handleAnimationEnd)
 
       return () => {
-        if (el.value) {
-          el.value.removeEventListener('animationstart', handleAnimationStart)
-          el.value.removeEventListener('animationcancel', handleAnimationEnd)
-          el.value.removeEventListener('animationend', handleAnimationEnd)
+        if (el) {
+          el.removeEventListener('animationstart', handleAnimationStart)
+          el.removeEventListener('animationcancel', handleAnimationEnd)
+          el.removeEventListener('animationend', handleAnimationEnd)
         }
       }
     }
@@ -118,28 +116,10 @@ export function usePresence(present: Ref<boolean>) {
     ['mounted', 'unmountSuspended'].includes(state.value),
   )
 
-  if (el.value)
-    stylesRef.value = getComputedStyle(el.value)
+  if (el)
+    stylesRef.value = getComputedStyle(el)
 
   return {
     isPresent,
-    ref: computed({
-      get() {
-        return el.value
-      },
-      set(node: any) {
-        if (!isValidVNodeElement(node))
-          return
-        // node is ComponentPublicInstance
-        if (node && node.$el) {
-          stylesRef.value = getComputedStyle(node.$el)
-          el.value = node.$el as HTMLElement
-        }
-        else if (node) {
-          stylesRef.value = getComputedStyle(node)
-          el.value = node as HTMLElement
-        }
-      },
-    }),
   }
 }

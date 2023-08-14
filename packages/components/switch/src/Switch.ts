@@ -17,8 +17,9 @@ import type {
   InstanceTypeRef,
   MergeProps,
 } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { Primitive } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './util'
 import { BubbleInput } from './BubbleInput'
@@ -85,9 +86,13 @@ const Switch = defineComponent({
       type: Function as PropType<(checked: boolean) => void>,
     },
     scopeSwitch: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
     },
-    ...PrimitiveProps,
+    asChild: {
+      type: Boolean,
+      default: undefined,
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { attrs, emit, slots }) {
@@ -98,6 +103,7 @@ const Switch = defineComponent({
       disabled,
       value: switchValue,
       onCheckedChange,
+      scopeSwitch,
       name,
     } = toRefs(props)
 
@@ -131,8 +137,8 @@ const Switch = defineComponent({
 
     switchProvider({
       disabled,
-      scope: props.scopeSwitch,
-      checked: computed(() => state.value || false),
+      scope: scopeSwitch.value,
+      checked: state as ComputedRef<boolean>,
     })
 
     const originalReturn = () => [

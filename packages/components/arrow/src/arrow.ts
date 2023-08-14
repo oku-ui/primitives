@@ -1,6 +1,6 @@
 import { cloneVNode, defineComponent, h } from 'vue'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 type ArrowElement = ElementType<'svg'>
@@ -14,7 +14,10 @@ const arrow = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...PrimitiveProps,
+    asChild: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()

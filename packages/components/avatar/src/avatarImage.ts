@@ -47,7 +47,7 @@ const AvatarImage = defineComponent({
 
     const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
       props.onLoadingStatusChange(status)
-      inject.onImageLoadingStatusChange(status)
+      inject.value.onImageLoadingStatusChange(status)
     })
 
     onMounted(() => {

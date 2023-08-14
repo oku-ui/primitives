@@ -17,6 +17,7 @@ withDefaults(defineProps<IAspectRatioProps>(), {
 
 const root = ref<InstanceAspectRatioType>()
 onMounted(() => {
+  // eslint-disable-next-line no-console
   console.log(root.value?.$el)
 })
 </script>

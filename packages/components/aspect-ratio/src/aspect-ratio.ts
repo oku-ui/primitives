@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 interface AspectRatioProps extends IPrimitiveProps {
@@ -20,7 +20,6 @@ const AspectRatio = defineComponent({
       type: Number,
       default: 1 / 1,
     },
-    ...PrimitiveProps,
   },
   setup(props, { attrs, slots }) {
     const { style, ...aspectRatioProps } = attrs as AspectRatioElement
@@ -50,7 +49,6 @@ const AspectRatio = defineComponent({
               bottom: 0,
               left: 0,
             },
-            asChild: props.asChild,
           },
           {
             default: () => slots.default?.(),

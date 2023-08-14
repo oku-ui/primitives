@@ -1,8 +1,9 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import { createProvideScope } from '@oku-ui/provide'
+import { Primitive } from '@oku-ui/primitive'
 
 import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { getState } from './utils'
@@ -15,12 +16,12 @@ export type _CollapsibleEl = HTMLDivElement
 type CollapsibleProvideValue = {
   contentId: string
   disabled?: Ref<boolean>
-  open: ComputedRef<boolean>
+  open: Ref<boolean>
   onOpenToggle(): void
 }
 
 const COLLAPSIBLE_NAME = 'Collapsible'
-export const [createCollapsibleProvide, createCollapsibleScope] = createProvideScope(COLLAPSIBLE_NAME)
+export const [createCollapsibleProvide, _createCollapsibleScope] = createProvideScope(COLLAPSIBLE_NAME)
 export const [collapsibleProvider, useCollapsibleInject]
   = createCollapsibleProvide<CollapsibleProvideValue>(COLLAPSIBLE_NAME)
 
@@ -44,18 +45,22 @@ const Collapsible = defineComponent({
       type: Boolean,
       default: false,
     },
+    scopeCollapsible: {
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+    },
     onOpenChange: {
       type: Function as PropType<(open: boolean) => void>,
     },
-    ...PrimitiveProps,
-    scopeCollapsible: {
-      ...ScopePropObject,
+    asChild: {
+      type: Boolean,
+      default: undefined,
     },
   },
   emits: ['update:open', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
     const { ...collapsibleAttr } = attrs as CollapsibleElement
-    const { disabled, open, defaultOpen } = toRefs(props)
+    const { disabled, scopeCollapsible, open, defaultOpen } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
 
@@ -76,8 +81,8 @@ const Collapsible = defineComponent({
       onOpenToggle() {
         updateValue(!state.value)
       },
-      scope: props.scopeCollapsible,
-      open: computed(() => state.value || false),
+      scope: scopeCollapsible.value,
+      open: state as Ref<boolean>,
     })
 
     const originalReturn = () => h(

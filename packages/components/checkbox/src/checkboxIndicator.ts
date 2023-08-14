@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { Transition, defineComponent, h, toRefs } from 'vue'
 
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -5,7 +6,7 @@ import { Primitive } from '@oku-ui/primitive'
 
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 
-import { ScopePropObject } from '@oku-ui/provide'
+import type { Scope } from '@oku-ui/provide'
 import { getState, isIndeterminate } from './utils'
 import { useCheckboxInject } from './checkbox'
 
@@ -23,24 +24,25 @@ const CheckboxIndicator = defineComponent({
   components: { Transition },
   props: {
     scopeCheckbox: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
     },
     forceMount: Boolean,
   },
   setup(props, { attrs, slots }) {
-    const { forceMount } = toRefs(props)
+    const { scopeCheckbox, forceMount } = toRefs(props)
     const { ...indicatorProps } = attrs as CheckboxIndicatorElement
 
     const forwardedRef = useForwardRef()
 
-    const context = useCheckboxInject(INDICATOR_NAME, props.scopeCheckbox)
+    const context = useCheckboxInject(INDICATOR_NAME, scopeCheckbox.value)
 
     const originalReturn = () => h(Transition, {}, {
-      default: () => (forceMount.value || isIndeterminate(context.state.value) || context.state.value === true)
+      default: () => (forceMount.value || isIndeterminate(context.value.state.value) || context.value.state.value === true)
         ? h(Primitive.span, {
           'ref': forwardedRef,
-          'data-state': getState(context.state.value),
-          'data-disabled': context.disabled ? '' : undefined,
+          'data-state': getState(context.value.state.value),
+          'data-disabled': context.value.disabled ? '' : undefined,
           ...indicatorProps,
           'style': { pointerEvents: 'none', ...attrs.style as any },
         },
