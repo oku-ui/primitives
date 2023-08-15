@@ -176,39 +176,4 @@ describe('FocusScope', () => {
       expect(handleLastFocusableElementBlur).toHaveBeenCalledTimes(1)
     })
   })
-
-  // failed test cases!
-
-  // describe('should auto focuses when the component mounts and unmounts', () => {
-  //   const onMountAutoFocus = vi.fn()
-  //   const onUnmountAutoFocus = vi.fn()
-
-  //   it('should auto focuses when the component mounts', () => {
-  //     wrapper = mount(OkuFocusScope, {
-  //       props: {
-  //         onMountAutoFocus,
-  //       },
-  //       slots: {
-  //         default: '<input />',
-  //       },
-  //     })
-
-  //     expect(onMountAutoFocus).toHaveBeenCalled()
-  //   })
-
-  //   it('should auto focuses when the component unmounts', () => {
-  //     wrapper = mount(OkuFocusScope, {
-  //       props: {
-  //         onUnmountAutoFocus,
-  //       },
-  //       slots: {
-  //         default: '<input />',
-  //       },
-  //     })
-
-  //     wrapper.unmount()
-
-  //     expect(onUnmountAutoFocus).toHaveBeenCalled()
-  //   })
-  // })
 })
