@@ -1,4 +1,4 @@
-import type { ComputedRef, InjectionKey, PropType } from 'vue'
+import type { InjectionKey, PropType } from 'vue'
 import { computed, defineComponent, inject, provide } from 'vue'
 
 function createProvide<ProvideValueType extends object | null>(
@@ -62,18 +62,17 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
       const { scope, ...context } = props
 
       const Provide = scope?.[scopeName][index] || BaseScope
-      // const value = React.useMemo(() => context, Object.values(context)) as ContextValueType;
-      const value = computed(() => context, Object.values(context) as any)
-      provide(Provide, value as any)
+
+      provide(Provide, context as any)
     }
 
-    function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ComputedRef<ProvideValueType> {
+    function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
-      const provide = inject(Provide) as ComputedRef<ProvideValueType> | undefined
+      const provide = inject(Provide)
       if (provide)
         return provide
       if (defaultValue !== undefined)
-        return computed(() => defaultValue)
+        return defaultValue
 
       // // if a defaultProvide wasn't specified, it's a required provide.
       throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``)

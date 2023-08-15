@@ -82,18 +82,18 @@ const RovingFocusGroupItem = defineComponent({
     const autoId = useId()
     const id = computed(() => tabStopId.value || autoId)
     const inject = useRovingFocusInject(ITEM_NAME, props.scopeOkuRovingFocusGroup)
-    const isCurrentTabStop = computed(() => inject.value.currentTabStopId.value === id.value)
+    const isCurrentTabStop = computed(() => inject.currentTabStopId.value === id.value)
     const getItems = useCollection(props.scopeOkuRovingFocusGroup)
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
       nextTick(() => {
         if (focusable.value)
-          inject.value.onFocusableItemAdd()
+          inject.onFocusableItemAdd()
       })
       onClean(() => {
         nextTick(() => {
-          inject.value.onFocusableItemRemove()
+          inject.onFocusableItemRemove()
         })
       })
     })
@@ -114,7 +114,7 @@ const RovingFocusGroupItem = defineComponent({
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
-            'data-orientation': inject.value.orientation,
+            'data-orientation': inject.orientation,
             ...merged,
             'ref': forwardedRef,
             'asChild': asChild.value,
@@ -125,21 +125,21 @@ const RovingFocusGroupItem = defineComponent({
                 if (!focusable.value)
                   event.preventDefault()
                 // Safari doesn't focus a button when clicked so we run our logic on mousedown also
-                else inject.value.onItemFocus(id.value)
+                else inject.onItemFocus(id.value)
               }),
             'onFocus': composeEventHandlers(onFocus.value, () => {
-              inject.value.onItemFocus(id.value)
+              inject.onItemFocus(id.value)
             }),
             'onKeydown': composeEventHandlers(onKeydown.value, (event: KeyboardEvent) => {
               if (event.key === 'Tab' && event.shiftKey) {
-                inject.value.onItemShiftTab()
+                inject.onItemShiftTab()
                 return
               }
 
               if (event.target !== event.currentTarget)
                 return
 
-              const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
+              const focusIntent = getFocusIntent(event, inject.orientation, inject.dir)
 
               if (focusIntent !== undefined) {
                 event.preventDefault()
@@ -153,7 +153,7 @@ const RovingFocusGroupItem = defineComponent({
                   if (focusIntent === 'prev')
                     candidateNodes.reverse()
                   const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-                  candidateNodes = inject.value.loop
+                  candidateNodes = inject.loop
                     ? wrapArray(candidateNodes, currentIndex + 1)
                     : candidateNodes.slice(currentIndex + 1)
                 }

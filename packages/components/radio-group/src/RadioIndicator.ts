@@ -39,12 +39,12 @@ const RadioIndicator = defineComponent({
     console.log('a', mergeProps(indicatorProps, attrs))
 
     return () => h(OkuPresence, {
-      present: forceMount || inject.value.checked.value,
+      present: forceMount || inject.checked.value,
     }, {
       default: () =>
         h(Primitive.span, {
-          'data-state': getState(inject.value.checked.value),
-          'data-disabled': inject.value.disabled?.value ? '' : undefined,
+          'data-state': getState(inject.checked.value),
+          'data-disabled': inject.disabled?.value ? '' : undefined,
           ...mergeProps(indicatorProps, attrs),
           'ref': forwardedRef,
         }),

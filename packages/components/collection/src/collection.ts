@@ -79,7 +79,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     setup(props, { slots }) {
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
       const forwaredRef = useForwardRef()
-      const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
+      const composedRefs = useComposedRefs(forwaredRef, inject.collectionRef)
       return () => h(OkuSlot, { ref: composedRefs }, slots)
     },
   })
@@ -109,14 +109,14 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
 
       watchEffect((onClean) => {
-        inject.value.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
+        inject.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
 
         onClean(() => {
-          inject.value.itemMap.value.delete(refValue)
+          inject.itemMap.value.delete(refValue)
         })
       })
 
-      console.log(props, inject.value)
+      console.log(props, inject)
 
       return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
     },
@@ -131,12 +131,12 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
     const getItems = computed(() => {
-      const collectionNode = inject.value.collectionRef.value
+      const collectionNode = inject.collectionRef.value
       if (!collectionNode)
         return []
 
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
-      const items = Array.from(inject.value.itemMap.value.values())
+      const items = Array.from(inject.itemMap.value.values())
       const orderedItems = items.sort(
         (a, b) => {
           return orderedNodes.indexOf(a.ref) - orderedNodes.indexOf(b.ref)

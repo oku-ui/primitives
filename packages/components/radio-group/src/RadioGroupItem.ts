@@ -48,7 +48,7 @@ const RadioGroupItem = defineComponent({
 
     const inject = useRadioGroupInject(ITEM_NAME, props.scopeOkuRadioGroup)
 
-    const isDisabled = computed(() => disabled.value || inject.value.disabled.value)
+    const isDisabled = computed(() => disabled.value || inject.disabled.value)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuRadioGroup)
     const radioScope = useRadioScope(props.scopeOkuRadioGroup)
 
@@ -56,7 +56,7 @@ const RadioGroupItem = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(rootRef, forwardedRef)
 
-    const checked = computed(() => inject.value.value?.value === props.value)
+    const checked = computed(() => inject.value?.value === props.value)
     const isArrowKeyPressedRef = ref(false)
 
     watchEffect((onClean) => {
@@ -80,14 +80,14 @@ const RadioGroupItem = defineComponent({
     }, {
       default: () => h(OkuRadio, {
         disabled: isDisabled.value,
-        required: inject.value.required.value || required.value,
+        required: inject.required.value || required.value,
         checked: checked.value || checkedProp.value,
         ...radioScope,
         ...attrs,
         value: value.value,
-        name: inject.value.name?.value || 'on',
+        name: inject.name?.value || 'on',
         ref: composedRefs,
-        onCheck: () => inject.value.onValueChange(value.value),
+        onCheck: () => inject.onValueChange(value.value),
         onKeydown: composeEventHandlers((event: any) => {
           // According to WAI ARIA, radio groups don't activate items on enter keypress
           if (event.key === 'Enter')
