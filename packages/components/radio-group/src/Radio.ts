@@ -1,9 +1,9 @@
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import type { ComponentPublicInstanceRef, ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './utils'
@@ -11,9 +11,9 @@ import { OkuBubbleInput } from './BubbleInput'
 
 const RADIO_NAME = 'OkuRadio'
 
-export type ScopedRadioType<P> = P & { scopeRadio?: Scope }
+export type ScopedRadioType<P> = P & { scopeOkuRadio?: Scope }
 export const ScopedRadioProps = {
-  scopeRadio: {
+  scopeOkuRadio: {
     ...ScopePropObject,
   },
 }
@@ -66,10 +66,6 @@ export const radioPropsObject = {
     type: String as PropType<string>,
     default: 'on',
   },
-  onClick: {
-    type: Function as PropType<(event: MouseEvent) => void>,
-    default: undefined,
-  },
   ...ScopedRadioProps,
   ...PrimitiveProps,
 }
@@ -79,38 +75,48 @@ const Radio = defineComponent({
   inheritAttrs: false,
   props: radioPropsObject,
   setup(props, { attrs, slots }) {
-    const { checked: _checked, required, disabled, value, name } = toRefs(props)
+    const attrsRef = attrs as RadioIntrinsicElement
+    const {
+      checked,
+      required, disabled,
+      value,
+      name,
+      onCheck,
+      scopeOkuRadio,
+      asChild,
+      ...radioProps
+    } = toRefs(props)
+
     const { ...radioAttrs } = attrs as RadioIntrinsicElement
-    const checked = computed(() => _checked.value ?? false)
 
     const hasConsumerStoppedPropagationRef = ref(false)
-    const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
+    const buttonRef = ref<HTMLButtonElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
-    const isFormControl = computed(() => buttonRef.value?.$el ? Boolean(buttonRef.value.$el.closest('form')) : false)
+    const isFormControl = computed(() => buttonRef.value ? Boolean(buttonRef.value.closest('form')) : false)
     RadioProvider({
       checked: computed(() => checked.value ?? false),
       disabled,
-      scope: props.scopeRadio,
+      scope: scopeOkuRadio.value,
     })
 
+    console.log(mergeProps(radioAttrs, radioProps))
     return () => [
       h(Primitive.button, {
         'type': 'button',
         'role': 'radio',
         'aria-checked': checked.value,
-        'data-state': getState(checked.value),
+        'data-state': getState(checked.value || false),
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
-        'asChild': props.asChild,
-        ...radioAttrs,
         'ref': composedRefs,
-        'onClick': () => composeEventHandlers(props.onClick, (event: MouseEvent) => {
+        ...mergeProps(radioAttrs, radioProps),
+        'onClick': composeEventHandlers(attrsRef.onClick, (event: MouseEvent) => {
           // radios cannot be unchecked so we only communicate a checked state
           if (!checked.value)
-            props.onCheck?.()
+            onCheck.value?.()
           if (isFormControl.value) {
             // TODO: check `isPropagationStopped`
             // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
@@ -125,11 +131,11 @@ const Radio = defineComponent({
         default: () => slots.default?.(),
       }),
       isFormControl.value && h(OkuBubbleInput, {
-        control: buttonRef.value?.$el ?? null,
+        control: buttonRef.value,
         bubbles: !hasConsumerStoppedPropagationRef.value,
         name: name.value,
         value: value.value,
-        checked: checked.value,
+        checked: checked.value || false,
         required: required.value,
         disabled: disabled.value,
         // We transform because the input is absolutely positioned but we have

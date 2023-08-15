@@ -10,7 +10,7 @@ import type { RovingFocusGroupImplElement, RovingFocusGroupImplPropsType, Roving
 import type { ScopedPropsInterface } from './types'
 import { scopedProps } from './types'
 
-const GROUP_NAME = 'RovingFocusGroup'
+const GROUP_NAME = 'OkuRovingFocusGroup'
 
 export interface ItemData extends CollectionPropsType {
   id: string
@@ -58,7 +58,7 @@ const RovingFocusGroupProps = {
 }
 
 const RovingFocusGroup = defineComponent({
-  name: 'OkuRovingFocusGroup',
+  name: GROUP_NAME,
   components: {
     OkuRovingFocusGroupImpl,
     CollectionProvider,
@@ -71,15 +71,13 @@ const RovingFocusGroup = defineComponent({
     const forwardedRef = useForwardRef()
     return () => {
       const mergedProps = computed(() => mergeProps(attrs, props))
-
       return h(CollectionProvider, {
-        scope: props.scopeRovingFocusGroup,
+        scope: props.scopeOkuRovingFocusGroup,
       }, {
         default: () => h(CollectionSlot, {
-          scope: props.scopeRovingFocusGroup,
+          scope: props.scopeOkuRovingFocusGroup,
         }, {
           default: () => h(OkuRovingFocusGroupImpl, {
-            // ...refs,
             ...mergedProps.value,
             ref: forwardedRef,
           }, slots),

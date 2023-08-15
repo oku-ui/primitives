@@ -13,9 +13,9 @@ import { type RadioProps, createRadioScope } from './Radio'
 
 const RADIO_GROUP_NAME = 'OkuRadioGroup'
 
-export type ScopedRadioGroupType<P> = P & { scopeRadioGroup?: Scope }
+export type ScopedRadioGroupType<P> = P & { scopeOkuRadioGroup?: Scope }
 export const scopedRadioGroupProps = {
-  scopeRadioGroup: {
+  scopeOkuRadioGroup: {
     ...ScopePropObject,
   },
 }
@@ -118,7 +118,7 @@ const RadioGroup = defineComponent({
       onValueChange,
     } = toRefs(props)
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeRadioGroup)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuRadioGroup)
     const direction = useDirection(dir.value)
 
     const forwardedRef = useForwardRef()
@@ -134,7 +134,7 @@ const RadioGroup = defineComponent({
     })
 
     RadioGroupProvider({
-      scope: props.scopeRadioGroup,
+      scope: props.scopeOkuRadioGroup,
       name,
       required,
       disabled,
@@ -156,6 +156,7 @@ const RadioGroup = defineComponent({
           'aria-oriented': orientation.value,
           'data-disabled': disabled.value,
           'dir': direction,
+          'asChild': props.asChild,
           ...attrs,
           'ref': forwardedRef,
         }, {

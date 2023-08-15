@@ -1,5 +1,5 @@
 import { type ElementType, type InstanceTypeRef, type MergeProps, Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -33,19 +33,19 @@ const RadioIndicator = defineComponent({
   inheritAttrs: false,
   props: RadioIndicatorPropsObject,
   setup(props, { attrs }) {
-    const { forceMount } = toRefs(props)
-
-    const inject = useRadioInject(INDICATOR_NAME, props.scopeRadio)
+    const { forceMount, scopeOkuRadio, ...indicatorProps } = props
+    const inject = useRadioInject(INDICATOR_NAME, scopeOkuRadio)
     const forwardedRef = useForwardRef()
+    console.log('a', mergeProps(indicatorProps, attrs))
 
     return () => h(OkuPresence, {
-      present: forceMount.value || inject.checked.value,
+      present: forceMount || inject.value.checked.value,
     }, {
       default: () =>
         h(Primitive.span, {
-          'data-state': getState(inject.checked.value),
-          'data-disabled': inject.disabled?.value ? '' : undefined,
-          ...attrs,
+          'data-state': getState(inject.value.checked.value),
+          'data-disabled': inject.value.disabled?.value ? '' : undefined,
+          ...mergeProps(indicatorProps, attrs),
           'ref': forwardedRef,
         }),
     })
@@ -60,3 +60,7 @@ const OkuRadioIndicator = RadioIndicator as typeof RadioIndicator & (new () => {
 export { OkuRadioIndicator }
 
 export type { RadioIndicatorProps, RadioIndicatorElement, IstanceBubbleType }
+
+// <button type="button" role="radio" aria-checked="true" data-state="checked" value="1" class="c-kcEvBl" tabindex="-1" data-radix-collection-item=""><span data-state="checked" class="c-fZulUm"></span></button>
+
+// <button type="button" role="radio" aria-checked="true" data-state="checked" class="item-class" tabindex="-1" data-oku-collection-item="" value="1"><span data-state="checked" class="indicator-class" checked="false" value="on"></span></button>

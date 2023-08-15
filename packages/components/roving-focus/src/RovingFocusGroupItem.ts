@@ -70,7 +70,7 @@ const RovingFocusGroupItem = defineComponent({
       focusable,
       active,
       tabStopId,
-      scopeRovingFocusGroup,
+      scopeOkuRovingFocusGroup,
       asChild,
       onFocus,
       onKeydown,
@@ -80,20 +80,20 @@ const RovingFocusGroupItem = defineComponent({
     const attrsItems = _attrs
 
     const autoId = useId()
-    const id = computed(() => tabStopId.value ?? autoId)
-    const inject = useRovingFocusInject(ITEM_NAME, props.scopeRovingFocusGroup)
-    const isCurrentTabStop = computed(() => inject.currentTabStopId.value === id.value)
-    const getItems = useCollection(scopeRovingFocusGroup.value)
+    const id = computed(() => tabStopId.value || autoId)
+    const inject = useRovingFocusInject(ITEM_NAME, props.scopeOkuRovingFocusGroup)
+    const isCurrentTabStop = computed(() => inject.value.currentTabStopId.value === id.value)
+    const getItems = useCollection(props.scopeOkuRovingFocusGroup)
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
       nextTick(() => {
         if (focusable.value)
-          inject.onFocusableItemAdd()
+          inject.value.onFocusableItemAdd()
       })
       onClean(() => {
         nextTick(() => {
-          inject.onFocusableItemRemove()
+          inject.value.onFocusableItemRemove()
         })
       })
     })
@@ -102,11 +102,11 @@ const RovingFocusGroupItem = defineComponent({
       id: id.value,
       focusable: focusable.value,
       active: active.value,
-      scope: props.scopeRovingFocusGroup,
+      scope: props.scopeOkuRovingFocusGroup,
     }
     return () => {
       const merged = mergeProps(attrsItems, propsData, {
-        tabIndex: isCurrentTabStop.value ? 0 : -1,
+        tabindex: isCurrentTabStop.value ? 0 : -1,
       })
       return h(CollectionItemSlot, {
         ..._props,
@@ -114,7 +114,7 @@ const RovingFocusGroupItem = defineComponent({
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
-            'data-orientation': inject.orientation,
+            'data-orientation': inject.value.orientation,
             ...merged,
             'ref': forwardedRef,
             'asChild': asChild.value,
@@ -125,28 +125,27 @@ const RovingFocusGroupItem = defineComponent({
                 if (!focusable.value)
                   event.preventDefault()
                 // Safari doesn't focus a button when clicked so we run our logic on mousedown also
-                else inject.onItemFocus(id.value)
+                else inject.value.onItemFocus(id.value)
               }),
             'onFocus': composeEventHandlers(onFocus.value, () => {
-              inject.onItemFocus(id.value)
+              inject.value.onItemFocus(id.value)
             }),
             'onKeydown': composeEventHandlers(onKeydown.value, (event: KeyboardEvent) => {
               if (event.key === 'Tab' && event.shiftKey) {
-                inject.onItemShiftTab()
+                inject.value.onItemShiftTab()
                 return
               }
 
               if (event.target !== event.currentTarget)
                 return
 
-              const focusIntent = getFocusIntent(event, inject.orientation, inject.dir)
+              const focusIntent = getFocusIntent(event, inject.value.orientation, inject.value.dir)
 
               if (focusIntent !== undefined) {
                 event.preventDefault()
 
                 const items = getItems.value.filter(item => item.focusable)
-                let candidateNodes = items.map(item => item.ref.$el!)
-
+                let candidateNodes = items.map(item => item.ref)
                 if (focusIntent === 'last') {
                   candidateNodes.reverse()
                 }
@@ -154,7 +153,7 @@ const RovingFocusGroupItem = defineComponent({
                   if (focusIntent === 'prev')
                     candidateNodes.reverse()
                   const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-                  candidateNodes = inject.loop
+                  candidateNodes = inject.value.loop
                     ? wrapArray(candidateNodes, currentIndex + 1)
                     : candidateNodes.slice(currentIndex + 1)
                 }

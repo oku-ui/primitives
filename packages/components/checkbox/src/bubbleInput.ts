@@ -62,7 +62,7 @@ const OkuBubbleInput = defineComponent({
         'aria-hidden': true,
         'defaultChecked': isIndeterminate(checked.value) ? false : checked,
         ...inputAttrs,
-        'tabIndex': -1,
+        'tabindex': -1,
         'ref': _ref,
         'style': {
           ...inputAttrs.style as any,

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { ITabsProps } from './TabsDemo.vue'
-import OkuTabsComponent from './TabsDemo.vue'
+import type { ITabsProps } from './RadioGroupDemo.vue'
+import OkuTabsComponent from './RadioGroupDemo.vue'
 
 interface StoryProps extends ITabsProps { }
 

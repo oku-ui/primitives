@@ -1,4 +1,4 @@
-import type { AllowedComponentProps, ComponentCustomProps, ComponentObjectPropsOptions, ComponentPublicInstance, Ref, VNodeProps } from 'vue'
+import type { ComponentObjectPropsOptions, ComponentPublicInstance, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
@@ -31,9 +31,9 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   const [createCollectionProvide, createCollectionScope] = createProvideScope(PROVIDER_NAME)
 
   type ContextValue = {
-    collectionRef: Ref<ComponentPublicInstanceRef<ItemElement> | undefined>
-    itemMap: Ref<Map<Ref<ComponentPublicInstanceRef<ItemElement> | null | undefined>, {
-      ref: ComponentPublicInstanceRef<ItemElement>
+    collectionRef: Ref<ItemElement | undefined>
+    itemMap: Ref<Map<Ref<ItemElement | null | undefined>, {
+      ref: ItemElement
     } & T>>
   }
 
@@ -49,8 +49,8 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...CollectionProps,
     },
     setup(props, { slots }) {
-      const collectionRef = ref<ComponentPublicInstanceRef<ItemElement>>()
-      const itemMap = ref(new Map<Ref<ComponentPublicInstanceRef<ItemElement> | null | undefined>, { ref: ComponentPublicInstanceRef<ItemElement> } & T>())
+      const collectionRef = ref<ItemElement>()
+      const itemMap = ref(new Map())
       CollectionProviderImpl({
         collectionRef,
         itemMap,
@@ -79,7 +79,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     setup(props, { slots }) {
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
       const forwaredRef = useForwardRef()
-      const composedRefs = useComposedRefs(forwaredRef, inject.collectionRef)
+      const composedRefs = useComposedRefs(forwaredRef, inject.value.collectionRef)
       return () => h(OkuSlot, { ref: composedRefs }, slots)
     },
   })
@@ -103,31 +103,26 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     },
     setup(props, { attrs, slots }) {
       const { scope, ...itemData } = props
-      const refValue = ref<ComponentPublicInstanceRef<ItemElement> | null>()
+      const refValue = ref<ItemElement | null>()
       const forwaredRef = useForwardRef()
       const composedRefs = useComposedRefs(refValue, forwaredRef)
-
       const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
 
       watchEffect((onClean) => {
-        inject.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
+        inject.value.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
 
         onClean(() => {
-          inject.itemMap.value.delete(refValue)
+          inject.value.itemMap.value.delete(refValue)
         })
       })
+
+      console.log(props, inject.value)
 
       return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
     },
   })
 
-  const CollectionItemSlot = _CollectionItemSlot as unknown as {
-    new(): {
-      $props: AllowedComponentProps &
-      ComponentCustomProps &
-      VNodeProps & T
-    }
-  }
+  const CollectionItemSlot = _CollectionItemSlot as typeof _CollectionItemSlot & (new () => { $props: Partial<T> })
 
   /* -----------------------------------------------------------------------------------------------
  * useCollection
@@ -136,16 +131,15 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
     const getItems = computed(() => {
-      const collectionNode = inject.collectionRef.value?.$el
+      const collectionNode = inject.value.collectionRef.value
       if (!collectionNode)
         return []
 
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
-
-      const items = Array.from(inject.itemMap.value.values())
+      const items = Array.from(inject.value.itemMap.value.values())
       const orderedItems = items.sort(
         (a, b) => {
-          return orderedNodes.indexOf(a.ref.$el!) - orderedNodes.indexOf(b.ref.$el!)
+          return orderedNodes.indexOf(a.ref) - orderedNodes.indexOf(b.ref)
         },
       )
       return orderedItems

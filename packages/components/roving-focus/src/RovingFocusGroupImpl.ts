@@ -94,7 +94,7 @@ const RovingFocusGroupImpl = defineComponent({
       defaultCurrentTabStopId,
       onEntryFocus,
       asChild,
-      scopeRovingFocusGroup,
+      scopeOkuRovingFocusGroup,
       ...propsData
     } = toRefs(props)
     const buttonRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
@@ -111,7 +111,7 @@ const RovingFocusGroupImpl = defineComponent({
 
     const isTabbingBackOut = ref(false)
     const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
-    const getItems = useCollection(props.scopeRovingFocusGroup)
+    const getItems = useCollection(props.scopeOkuRovingFocusGroup)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
@@ -124,14 +124,14 @@ const RovingFocusGroupImpl = defineComponent({
     })
 
     useRovingFocusProvider({
-      scope: props.scopeRovingFocusGroup,
+      scope: props.scopeOkuRovingFocusGroup,
       // TODO: change ref or computed
       orientation: orientation.value,
       // TODO: change ref or computed
       dir: dir.value,
       // TODO: change ref or computed
       loop: loop.value ?? false,
-      currentTabStopId: currentTabStopId ?? null,
+      currentTabStopId: currentTabStopId || null,
       onItemFocus: (tabStopId: string) => {
         updateCurrentTabStopId(tabStopId)
       },
@@ -151,7 +151,7 @@ const RovingFocusGroupImpl = defineComponent({
     return () => {
       const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
-        'tabIndex': _tabIndex.value,
+        'tabindex': _tabIndex.value,
         'data-orientation': orientation.value,
         ...merged,
         'ref': composedRefs,
@@ -180,7 +180,7 @@ const RovingFocusGroupImpl = defineComponent({
               const candidateItems = [activeItem, currentItem, ...items].filter(
                 Boolean,
               ) as typeof items
-              const candidateNodes = candidateItems.map(item => item.ref.$el!)
+              const candidateNodes = candidateItems.map(item => item.ref)
               focusFirst(candidateNodes)
             }
           }
@@ -198,7 +198,7 @@ const RovingFocusGroupImpl = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuRovingFocusGroupImpl = MergeProps<RovingFocusGroupImplPropsType, RovingFocusGroupImplElement>
+type _OkuRovingFocusGroupImpl = MergeProps<RovingFocusGroupImplPropsType, Partial<RovingFocusGroupImplElement>>
 
 export type InstanceCheckboxType = InstanceTypeRef<typeof RovingFocusGroupImpl, _OkuRovingFocusGroupImpl>
 

@@ -17,7 +17,7 @@ withDefaults(defineProps<IAspectRatioProps>(), {
 
 const root = ref<InstanceAspectRatioType>()
 onMounted(() => {
-  console.log(root.value?.$el)
+  console.log(root.value)
 })
 </script>
 

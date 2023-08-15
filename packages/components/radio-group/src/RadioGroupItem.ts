@@ -1,4 +1,4 @@
-import type { ComponentPublicInstanceRef, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import type { InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -46,16 +46,17 @@ const RadioGroupItem = defineComponent({
       value,
     } = toRefs(props)
 
-    const inject = useRadioGroupInject(ITEM_NAME, props.scopeRadioGroup)
-    const isDisabled = computed(() => disabled.value || inject.disabled.value)
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeRadioGroup)
-    const radioScope = useRadioScope(props.scopeRadioGroup)
+    const inject = useRadioGroupInject(ITEM_NAME, props.scopeOkuRadioGroup)
 
-    const rootRef = ref<ComponentPublicInstanceRef<RadioElement> | null>(null)
+    const isDisabled = computed(() => disabled.value || inject.value.disabled.value)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuRadioGroup)
+    const radioScope = useRadioScope(props.scopeOkuRadioGroup)
+
+    const rootRef = ref<RadioElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(rootRef, forwardedRef)
 
-    const checked = computed(() => inject.value?.value === props.value)
+    const checked = computed(() => inject.value.value?.value === props.value)
     const isArrowKeyPressedRef = ref(false)
 
     watchEffect((onClean) => {
@@ -71,7 +72,6 @@ const RadioGroupItem = defineComponent({
         document.removeEventListener('keyup', handleKeyUp)
       })
     })
-
     return () => h(OkuRovingFocusGroupItem, {
       asChild: true,
       ...rovingFocusGroupScope,
@@ -80,23 +80,31 @@ const RadioGroupItem = defineComponent({
     }, {
       default: () => h(OkuRadio, {
         disabled: isDisabled.value,
-        required: inject.required.value || required.value,
+        required: inject.value.required.value || required.value,
         checked: checked.value || checkedProp.value,
         ...radioScope,
+        ...attrs,
         value: value.value,
-        name: inject.name?.value || 'on',
+        name: inject.value.name?.value || 'on',
         ref: composedRefs,
-        onCheck: () => inject.onValueChange(value.value),
-        onKeydown: composeEventHandlers(props.onFocus, () => {
+        onCheck: () => inject.value.onValueChange(value.value),
+        onKeydown: composeEventHandlers((event: any) => {
+          // According to WAI ARIA, radio groups don't activate items on enter keypress
+          if (event.key === 'Enter')
+            event.preventDefault()
+        }),
+        onFocus: composeEventHandlers(props.onFocus, () => {
           /**
            * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys
            * and we need to "check" it in that case. We click it to "check" it (instead
            * of updating `context.value`) so that the radio change event fires.
-          */
+           */
           if (isArrowKeyPressedRef.value)
-            rootRef.value?.$el?.click()
+            rootRef.value?.click()
         }),
-        asChild: props.asChild,
+
+      }, {
+        default: () => slots.default?.(),
       }),
     })
   },
