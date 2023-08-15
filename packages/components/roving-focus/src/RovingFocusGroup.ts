@@ -90,7 +90,7 @@ const RovingFocusGroup = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _RovingFocusGroupProps = MergeProps<RovingFocusGroupPropsType, RovingFocusGroupElement>
+type _RovingFocusGroupProps = MergeProps<RovingFocusGroupPropsType, Partial<RovingFocusGroupElement>>
 
 const OkuRovingFocusGroup = RovingFocusGroup as typeof RovingFocusGroup & (new () => { $props: _RovingFocusGroupProps })
 

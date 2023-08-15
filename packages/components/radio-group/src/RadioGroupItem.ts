@@ -1,27 +1,35 @@
-import type { InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { computed, defineComponent, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import type { ComponentPublicInstanceRef, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
+import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { composeEventHandlers } from '@oku-ui/utils'
 import { scopedRadioGroupProps, useRadioGroupInject, useRovingFocusGroupScope } from './RadioGroup'
-import type { RadioGroupElement, ScopedRadioGroupType } from './RadioGroup'
-import type { RadioProps } from './Radio'
-import { RadioPropsObject } from './Radio'
+import type { RadioGroupIntrinsicElement, ScopedRadioGroupType } from './RadioGroup'
+import type { RadioElement, RadioProps } from './Radio'
+import { OkuRadio, radioPropsObject, useRadioScope } from './Radio'
+import { ARROW_KEYS } from './utils'
 
 const ITEM_NAME = 'OkuRadioGroupItem'
 
-type RadioGroupItemElement = RadioGroupElement
-export type _RadioGroupItemEl = HTMLDivElement
+type RadioGroupItemIntrinsicElement = RadioGroupIntrinsicElement
+export type RadioGroupItemElement = HTMLDivElement
 
 interface RadioGroupItemProps extends Omit<RadioProps, 'onCheck' | 'name'>, ScopedRadioGroupType<any> {
   value: string
 }
 
 // eslint-disable-next-line unused-imports/no-unused-vars
-const { onCheck, name, ...radioPropsObject } = RadioPropsObject
+const { onCheck, name, ...radioProps } = radioPropsObject
 
 const RadioGroupItemPropsObject = {
-  ...radioPropsObject,
+  ...radioProps,
   ...scopedRadioGroupProps,
+  onFocus: {
+    type: Function as PropType<(event: FocusEvent) => void>,
+    default: undefined,
+  },
 }
 
 const RadioGroupItem = defineComponent({
@@ -32,20 +40,71 @@ const RadioGroupItem = defineComponent({
   setup(props, { slots, emit, attrs }) {
     const {
       disabled,
-      ...itemProps
+      asChild,
+      checked: checkedProp,
+      required,
+      value,
     } = toRefs(props)
 
     const inject = useRadioGroupInject(ITEM_NAME, props.scopeRadioGroup)
     const isDisabled = computed(() => disabled.value || inject.disabled.value)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeRadioGroup)
-    const radioScope = useRadioGroupInject(ITEM_NAME, props.scopeRadioGroup)
+    const radioScope = useRadioScope(props.scopeRadioGroup)
 
+    const rootRef = ref<ComponentPublicInstanceRef<RadioElement> | null>(null)
     const forwardedRef = useForwardRef()
+    const composedRefs = useComposedRefs(rootRef, forwardedRef)
+
+    const checked = computed(() => inject.value?.value === props.value)
+    const isArrowKeyPressedRef = ref(false)
+
+    watchEffect((onClean) => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (ARROW_KEYS.includes(event.key))
+          isArrowKeyPressedRef.value = true
+      }
+      const handleKeyUp = () => (isArrowKeyPressedRef.value = false)
+      document.addEventListener('keydown', handleKeyDown)
+      document.addEventListener('keyup', handleKeyUp)
+      onClean(() => {
+        document.removeEventListener('keydown', handleKeyDown)
+        document.removeEventListener('keyup', handleKeyUp)
+      })
+    })
+
+    return () => h(OkuRovingFocusGroupItem, {
+      asChild: true,
+      ...rovingFocusGroupScope,
+      focusable: !isDisabled.value,
+      active: checked.value,
+    }, {
+      default: () => h(OkuRadio, {
+        disabled: isDisabled.value,
+        required: inject.required.value || required.value,
+        checked: checked.value || checkedProp.value,
+        ...radioScope,
+        value: value.value,
+        name: inject.name?.value || 'on',
+        ref: composedRefs,
+        onCheck: () => inject.onValueChange(value.value),
+        onKeydown: composeEventHandlers(props.onFocus, () => {
+          /**
+           * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys
+           * and we need to "check" it in that case. We click it to "check" it (instead
+           * of updating `context.value`) so that the radio change event fires.
+          */
+          if (isArrowKeyPressedRef.value)
+            rootRef.value?.$el?.click()
+        }),
+        asChild: props.asChild,
+      }),
+    })
   },
 })
 
-type _RadioGroupItemProps = MergeProps<RadioGroupItemProps, RadioGroupItemElement>
-export type IstanceRadioGroupItemType = InstanceTypeRef<typeof RadioGroupItem, _RadioGroupItemEl>
+type _RadioGroupItemProps = MergeProps<RadioGroupItemProps, Partial<RadioGroupItemIntrinsicElement>>
+
+export type IstanceRadioGroupItemType = InstanceTypeRef<typeof RadioGroupItem, RadioGroupItemElement>
 
 const OkuRadioGroupItem = RadioGroupItem as typeof RadioGroupItem & (new () => { $props: _RadioGroupItemProps })
 

@@ -11,7 +11,7 @@ import type { RovingFocusGroupPropsType } from '@oku-ui/roving-focus'
 
 import { type RadioProps, createRadioScope } from './Radio'
 
-const RADIO_GROUP_NAME = 'OkuRadioGroup' as const
+const RADIO_GROUP_NAME = 'OkuRadioGroup'
 
 export type ScopedRadioGroupType<P> = P & { scopeRadioGroup?: Scope }
 export const scopedRadioGroupProps = {
@@ -22,6 +22,7 @@ export const scopedRadioGroupProps = {
 
 export const [createRadioGroupProvider, createRadioGroupScope] = createProvideScope(RADIO_GROUP_NAME, [
   createRovingFocusGroupScope,
+  createRadioScope,
 ])
 
 export const [RadioGroupProvider, useRadioGroupInject]
@@ -29,10 +30,8 @@ export const [RadioGroupProvider, useRadioGroupInject]
 
 export const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
-export const useRadioScope = createRadioScope()
-
-export type RadioGroupElement = ElementType<'div'>
-export type _RadioGroupEl = HTMLDivElement
+export type RadioGroupIntrinsicElement = ElementType<'div'>
+export type RadioElement = HTMLDivElement
 
 interface RadioGroupProvideValue {
   name?: Ref<string | undefined>
@@ -166,8 +165,8 @@ const RadioGroup = defineComponent({
   },
 })
 
-type _RadioGroupProps = MergeProps<RadioGroupProps, RadioGroupElement>
-export type IstanceRadioGroupType = InstanceTypeRef<typeof RadioGroup, _RadioGroupEl>
+type _RadioGroupProps = MergeProps<RadioGroupProps, Partial<RadioGroupIntrinsicElement>>
+export type IstanceRadioGroupType = InstanceTypeRef<typeof RadioGroup, RadioElement>
 
 const OkuRadioGroup = RadioGroup as typeof RadioGroup & (new () => { $props: _RadioGroupProps })
 

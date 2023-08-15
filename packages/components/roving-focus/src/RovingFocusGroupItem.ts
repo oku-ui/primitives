@@ -174,7 +174,7 @@ const RovingFocusGroupItem = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuRovingFocusGroupItem = MergeProps<RovingFocusItemPropsType, RovingFocusGroupItemElement>
+type _OkuRovingFocusGroupItem = MergeProps<RovingFocusItemPropsType, Partial<RovingFocusGroupItemElement>>
 
 export type InstanceCheckboxType = InstanceTypeRef<typeof RovingFocusGroupItem, _OkuRovingFocusGroupItem>
 

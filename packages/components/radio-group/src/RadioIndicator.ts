@@ -52,7 +52,7 @@ const RadioIndicator = defineComponent({
   },
 })
 
-type _RadioIndicatorProps = MergeProps<RadioIndicatorProps, RadioIndicatorElement>
+type _RadioIndicatorProps = MergeProps<RadioIndicatorProps, Partial<RadioIndicatorElement>>
 type IstanceBubbleType = InstanceTypeRef<typeof RadioIndicator, _RadioIndicatorEl>
 
 const OkuRadioIndicator = RadioIndicator as typeof RadioIndicator & (new () => { $props: _RadioIndicatorProps })

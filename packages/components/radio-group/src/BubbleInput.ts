@@ -72,7 +72,7 @@ const BubbleInput = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _Props = MergeProps<BubbleInputProps, BubbleInputElement>
+type _Props = MergeProps<BubbleInputProps, Partial<BubbleInputElement>>
 
 type IstanceBubbleType = InstanceTypeRef<typeof BubbleInput, _BubbleInputEl>
 

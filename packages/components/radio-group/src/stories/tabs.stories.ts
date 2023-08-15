@@ -6,7 +6,7 @@ import OkuTabsComponent from './TabsDemo.vue'
 interface StoryProps extends ITabsProps { }
 
 const meta = {
-  title: 'Components/Tabs',
+  title: 'Components/RadioGroup',
   component: OkuTabsComponent,
   args: {
     template: '#1',

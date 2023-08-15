@@ -1,9 +1,29 @@
-export { OkuTabs } from './RadioGroup'
-export { OkuTabList } from './tab-list'
-export { OkuTabTrigger } from './tab-trigger'
-export { OkuTabContent } from './tab-content'
+export {
+  OkuRadioGroup,
+  RadioGroupProps,
+  scopedRadioGroupProps,
+} from './RadioGroup'
 
-export type { TabsProps } from './RadioGroup'
-export { type TabListProps } from './tab-list'
-export { type TabsTriggerProps } from './tab-trigger'
-export { type TabsContentProps } from './tab-content'
+export type {
+  RadioElement,
+  RadioGroupIntrinsicElement,
+} from './RadioGroup'
+
+export {
+  OkuRadioGroupItem,
+} from './RadioGroupItem'
+
+export type {
+  IstanceRadioGroupItemType,
+  RadioGroupItemProps,
+  RadioGroupItemElement,
+} from './RadioGroupItem'
+
+export {
+  OkuRadioGroupIndicator,
+} from './RadioGroupIndicator'
+
+export type {
+  RadioGroupIndicatorElement,
+  RadioGroupIndicatorProps,
+} from './RadioGroupIndicator'

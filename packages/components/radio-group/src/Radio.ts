@@ -24,10 +24,12 @@ type RadioProvideValue = {
   disabled?: Ref<boolean | undefined>
 }
 
+export const useRadioScope = createRadioScope()
+
 export const [RadioProvider, useRadioInject] = createRadioProvide<RadioProvideValue>(RADIO_NAME)
 
-type RadioElement = ElementType<'button'>
-export type _RadioEl = HTMLButtonElement
+export type RadioIntrinsicElement = ElementType<'button'>
+export type RadioElement = HTMLButtonElement
 
 interface RadioProps extends ScopedRadioType<any> {
   checked?: boolean
@@ -39,7 +41,7 @@ interface RadioProps extends ScopedRadioType<any> {
   onClick?(): (event: MouseEvent) => void
 }
 
-export const RadioPropsObject = {
+export const radioPropsObject = {
   checked: {
     type: Boolean as PropType<boolean | undefined>,
     default: false,
@@ -61,8 +63,8 @@ export const RadioPropsObject = {
     default: undefined,
   },
   value: {
-    type: String as PropType<string | undefined>,
-    default: undefined,
+    type: String as PropType<string>,
+    default: 'on',
   },
   onClick: {
     type: Function as PropType<(event: MouseEvent) => void>,
@@ -75,10 +77,10 @@ export const RadioPropsObject = {
 const Radio = defineComponent({
   name: RADIO_NAME,
   inheritAttrs: false,
-  props: RadioPropsObject,
+  props: radioPropsObject,
   setup(props, { attrs, slots }) {
     const { checked: _checked, required, disabled, value, name } = toRefs(props)
-    const { ...radioAttrs } = attrs as RadioElement
+    const { ...radioAttrs } = attrs as RadioIntrinsicElement
     const checked = computed(() => _checked.value ?? false)
 
     const hasConsumerStoppedPropagationRef = ref(false)
@@ -140,8 +142,9 @@ const Radio = defineComponent({
     ]
   },
 })
-type _OkuRadioProps = MergeProps<RadioProps, RadioElement>
-export type IstanceOkuRadioType = InstanceTypeRef<typeof OkuRadio, _RadioEl>
+
+type _OkuRadioProps = MergeProps<RadioProps, Partial<RadioElement>>
+export type IstanceOkuRadioType = InstanceTypeRef<typeof OkuRadio, RadioIntrinsicElement>
 
 const OkuRadio = Radio as typeof Radio & (new () => { $props: _OkuRadioProps })
 

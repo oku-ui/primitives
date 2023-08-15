@@ -58,6 +58,9 @@ importers:
       '@oku-ui/provide':
         specifier: workspace:^
         version: link:packages/core/provide
+      '@oku-ui/radio-group':
+        specifier: workspace:^
+        version: link:packages/components/radio-group
       '@oku-ui/roving-focus':
         specifier: workspace:^
         version: link:packages/components/roving-focus
