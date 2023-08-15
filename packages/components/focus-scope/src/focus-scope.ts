@@ -198,17 +198,17 @@ const FocusScope = defineComponent({
           // We hit a react bug (fixed in v17) with focusing in unmount.
           // We need to delay the focus a little to get around it for now.
           // See: https://github.com/facebook/react/issues/17894
-          setTimeout(() => {
-            const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS)
-            container.value?.$el.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
-            container.value?.$el.dispatchEvent(unmountEvent)
-            if (!unmountEvent.defaultPrevented)
-              focus(previouslyFocusedElement ?? document.body, { select: true })
-            // we need to remove the listener after we `dispatchEvent`
-            container.value?.$el.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
+          // setTimeout(() => {
+          const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS)
+          container.value?.$el.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
+          container.value?.$el.dispatchEvent(unmountEvent)
+          if (!unmountEvent.defaultPrevented)
+            focus(previouslyFocusedElement ?? document.body, { select: true })
+          // we need to remove the listener after we `dispatchEvent`
+          container.value?.$el.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
 
-            focusScopesStack.remove(focusScope)
-          }, 0)
+          // focusScopesStack.remove(focusScope)
+          // }, 0)
         })
       }
     })
