@@ -1,7 +1,7 @@
 export { OkuTabs, createTabsProvider } from './tabs'
-export { OkuTabList } from './tab-list'
-export { OkuTabTrigger } from './tab-trigger'
-export { OkuTabContent } from './tab-content'
+export { OkuTabList } from './tabList'
+export { OkuTabTrigger } from './tabTrigger'
+export { OkuTabContent } from './tabContent'
 
 export type {
   TabsProps,
@@ -13,16 +13,16 @@ export type {
   TabListProps,
   TabListElement,
   TabListElementIntrinsicElement,
-} from './tab-list'
+} from './tabList'
 
 export type {
   TabsTriggerProps,
   TabsTriggerElement,
   TabsTriggerElementIntrinsicElement,
-} from './tab-trigger'
+} from './tabTrigger'
 
 export type {
   TabsContentProps,
   TabsContentElement,
   TabsContentIntrinsicElement,
-} from './tab-content'
+} from './tabContent'
