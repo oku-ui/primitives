@@ -5,8 +5,9 @@ import { axe } from 'vitest-axe'
 import type { VueNode } from '@vue/test-utils/dist/types'
 import { OkuArrow } from './arrow'
 
-const WIDTH = 40
-const HEIGHT = 30
+// TODO: delete any
+const WIDTH = 40 as any
+const HEIGHT = 30 as any
 
 describe('label', () => {
   let _wrapper: VueWrapper
