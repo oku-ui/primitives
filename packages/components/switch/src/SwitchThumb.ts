@@ -1,40 +1,33 @@
 import type {
-  ElementType,
-  IPrimitiveProps,
-  MergeProps,
+  ElementType, PrimitiveProps,
 } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import { type Scope, ScopePropObject } from '@oku-ui/provide'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, toValue } from 'vue'
-import { useSwitchContext } from './Switch'
-import { getState } from './util'
+import { useSwitchInject } from './Switch'
+import type { ScopeSwitch } from './util'
+import { getState, scopeSwitchProps } from './util'
 
-const THUMB_NAME = 'SwitchThumb'
+const THUMB_NAME = 'OkuSwitchThumb'
 
-type SwitchThumbElement = ElementType<'span'>
-export type _SwitchThumbEl = HTMLSpanElement
+export type SwitchThumbIntrinsicElement = ElementType<'span'>
+export type SwitchThumbElement = HTMLSpanElement
 
-type SwitchThumbProps = SwitchThumbElement &
-IPrimitiveProps & {
-  scopeSwitch?: Scope
-}
+interface SwitchThumbProps extends PrimitiveProps { }
 
 const SwitchThumb = defineComponent({
   name: THUMB_NAME,
   inheritAttrs: false,
   props: {
-    scopeSwitch: {
-      ...ScopePropObject,
-    },
-    ...PrimitiveProps,
+    ...scopeSwitchProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...thumbAttrs } = attrs as SwitchThumbProps
+    const { ...thumbAttrs } = attrs as SwitchThumbIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
-    const context = toValue(useSwitchContext(THUMB_NAME, props.scopeSwitch))
+    const context = toValue(useSwitchInject(THUMB_NAME, props.scopeOkuSwitch))
 
     const originalReturn = () =>
       h(
@@ -55,12 +48,9 @@ const SwitchThumb = defineComponent({
   },
 })
 
-type _SwitchThumb = MergeProps<SwitchThumbProps, SwitchThumbElement>
-type InstanceSwitchThumbType = InstanceType<typeof SwitchThumb>
+export const OkuSwitchThumb = SwitchThumb as typeof SwitchThumb &
+(new () =>
+{ $props: ScopeSwitch<Partial<SwitchThumbElement>>
+})
 
-const OkuSwitchThumb = SwitchThumb as typeof SwitchThumb &
-(new () => { $props: _SwitchThumb })
-
-export { OkuSwitchThumb }
-
-export type { SwitchThumbProps, InstanceSwitchThumbType }
+export type { SwitchThumbProps }

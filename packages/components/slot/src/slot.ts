@@ -1,4 +1,4 @@
-import { createVNode, defineComponent, mergeProps } from 'vue'
+import { cloneVNode, createVNode, defineComponent, mergeProps } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { isSlottable } from './utils'
 
@@ -33,8 +33,13 @@ const OkuSlot = defineComponent({
           default: () => newChildren,
         })
       }
-      else if (slots.default) {
-        return createVNode(slots.default?.()[0], { ...mergeProps(attrs, props), ref: composedRefs })
+      else if (defaultSlot) {
+        if (defaultSlot.length > 1)
+          console.warn(`[OkuSlot] ${NAME} can only have one child`)
+        const [child] = defaultSlot
+        const slot = cloneVNode(child, { ...mergeProps(attrs, props), ref: composedRefs }, true)
+
+        return slot
       }
       else {
         return null

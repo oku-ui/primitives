@@ -13,8 +13,8 @@ export {
 
 export type {
   PopperAnchorProps,
-  InstancePopperAnchorType,
-  _PopperAnchorEl,
+  PopperAnchorElement,
+  PopperAnchorIntrinsicElement,
 } from './popperAnchor'
 
 export {
@@ -23,8 +23,8 @@ export {
 
 export type {
   PopperContentProps,
-  InstancePopperContentType,
-  _PopperContentEl,
+  PopperContentElement,
+  PopperContentIntrinsicElement,
 } from './popperContent'
 
 export {
@@ -33,5 +33,6 @@ export {
 
 export type {
   PopperArrowProps,
-  InstancePopperArrowType,
+  PopperArrowElement,
+  PopperArrowIntrinsicElement,
 } from './popperArrow'

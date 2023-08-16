@@ -1,16 +1,16 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-const TOGGLE_NAME = 'Toggle'
+const TOGGLE_NAME = 'OkuToggle'
 
-type ToggleElement = ElementType<'button'>
-export type _ToggleEl = HTMLButtonElement
+export type ToggleElementIntrinsicElement = ElementType<'button'>
+export type ToggleElement = HTMLButtonElement
 
-interface ToggleProps extends IPrimitiveProps {
+interface ToggleProps extends PrimitiveProps {
   /**
    * The controlled state of the toggle.
    */
@@ -24,25 +24,29 @@ interface ToggleProps extends IPrimitiveProps {
 
 }
 
+const toggleProps = {
+  modelValue: {
+    type: [Boolean, String, Number] as PropType<
+      boolean | string | number | undefined
+    >,
+    default: undefined,
+  },
+  pressed: {
+    type: Boolean,
+    default: undefined,
+  },
+  defaultPressed: {
+    type: Boolean,
+    default: false,
+  },
+}
+
 const Toggle = defineComponent({
   name: TOGGLE_NAME,
   inheritAttrs: false,
   props: {
-    modelValue: {
-      type: [Boolean, String, Number] as PropType<
-        boolean | string | number | undefined
-      >,
-      default: undefined,
-    },
-    pressed: {
-      type: Boolean,
-      default: undefined,
-    },
-    defaultPressed: {
-      type: Boolean,
-      default: false,
-    },
-    ...PrimitiveProps,
+    ...toggleProps,
+    ...primitiveProps,
   },
   emits: ['update:pressed', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
@@ -60,7 +64,7 @@ const Toggle = defineComponent({
       },
     })
 
-    const { disabled, ...toggleProps } = attrs as ToggleElement
+    const { disabled, ...toggleProps } = attrs as ToggleElementIntrinsicElement
 
     const originalReturn = () => h(
       Primitive.button, {
@@ -85,18 +89,11 @@ const Toggle = defineComponent({
   },
 })
 
-type _ToggleProps = MergeProps<ToggleProps, ToggleElement>
-
-type InstanceToggleType = InstanceTypeRef<typeof Toggle, _ToggleEl>
-
-const OkuToggle = Toggle as typeof Toggle & (new () => { $props: _ToggleProps })
-
-export {
-  OkuToggle,
-}
+export const OkuToggle = Toggle as typeof Toggle &
+(new () => {
+  $props: Partial<ToggleElement>
+})
 
 export type {
   ToggleProps,
-  ToggleElement,
-  InstanceToggleType,
 }

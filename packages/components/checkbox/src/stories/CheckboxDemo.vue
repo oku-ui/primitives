@@ -1,11 +1,9 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import type { CheckboxProps, InstanceCheckboxType } from '@oku-ui/checkbox'
 import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
 import { OkuLabel } from '@oku-ui/label'
 import { onMounted, ref } from 'vue'
 
-export interface ICheckBoxProps extends CheckboxProps {
+export interface ICheckBoxProps {
   template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }
@@ -14,10 +12,10 @@ withDefaults(defineProps<ICheckBoxProps>(), {
 
 })
 
-const refdd = ref<InstanceCheckboxType>()
+const refdd = ref()
 
 onMounted(() => {
-  console.log(refdd.value?.$el, 'tt')
+  console.log(refdd.value, 'tt')
 })
 
 const data = ref<string | boolean>('indeterminate')

@@ -2,21 +2,39 @@ import type { ComputedRef } from 'vue'
 import { Transition, defineComponent, h, toRefs } from 'vue'
 
 import { useForwardRef } from '@oku-ui/use-composable'
-import { type ElementType, type IPrimitiveProps, type InstanceTypeRef, type MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
-import { ScopePropObject } from '@oku-ui/provide'
 import { OkuCollapsibleContentImpl } from './collapsibleContentImpl'
 import { useCollapsibleInject } from './collapsible'
+import type { ScopeCollapsible } from './utils'
+import { scopeCollapsibleProps } from './utils'
 
-export const CONTENT_NAME = 'CollapsibleContent'
+export const CONTENT_NAME = 'OkuCollapsibleContent'
 
-type CollapsibleContentElement = ElementType<'div'>
-export type _CollapsibleContentEl = HTMLDivElement
+export type CollapsibleContentIntrinsicElement = ElementType<'div'>
+export type CollapsibleContentElement = HTMLDivElement
 
-interface CollapsibleContentProps extends IPrimitiveProps {
+interface CollapsibleContentProps extends PrimitiveProps {
+  /**
+ * Used to force mounting when more control is needed. Useful when
+ * controlling animation with React animation libraries.
+ */
+  forceMount?: true
 }
 
-const CollapsibleContent = defineComponent({
+const collapsibleContentProps = {
+  /**
+  * Used to force mounting when more control is needed. Useful when
+  * controlling animation with React animation libraries.
+  */
+  forceMount: {
+    type: Boolean,
+    default: true,
+  },
+}
+
+const collapsibleContent = defineComponent({
   name: CONTENT_NAME,
   components: {
     OkuCollapsibleContentImpl,
@@ -24,24 +42,15 @@ const CollapsibleContent = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
-   */
-    forceMount: {
-      type: Boolean,
-      default: true,
-    },
-    scopeCollapsible: {
-      ...ScopePropObject,
-    },
-    ...PrimitiveProps,
+    ...collapsibleContentProps,
+    ...scopeCollapsibleProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeCollapsible, forceMount } = toRefs(props)
-    const { ...contentProps } = attrs as CollapsibleContentElement
+    const { scopeOkuCollapsible, forceMount } = toRefs(props)
+    const { ...contentAttrs } = attrs as CollapsibleContentIntrinsicElement
 
-    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
+    const context = useCollapsibleInject(CONTENT_NAME, scopeOkuCollapsible.value)
 
     const forwardedRef = useForwardRef()
 
@@ -55,10 +64,10 @@ const CollapsibleContent = defineComponent({
         default: ({ isPresent }: { isPresent: ComputedRef<boolean> }) => h(
           OkuCollapsibleContentImpl,
           {
-            ...contentProps,
+            ...contentAttrs as any,
             ref: forwardedRef,
             asChild: props.asChild,
-            scopeCollapsible: scopeCollapsible.value,
+            scopeCollapsible: scopeOkuCollapsible.value,
             present: isPresent,
           },
           {
@@ -73,10 +82,9 @@ const CollapsibleContent = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _CollapsibleContentProps = MergeProps<CollapsibleContentProps, CollapsibleContentElement>
-type InstanceCollapsibleContentType = InstanceTypeRef<typeof CollapsibleContent, _CollapsibleContentEl>
+export const OkuCollapsibleContent = collapsibleContent as typeof collapsibleContent &
+(new () => {
+  $props: ScopeCollapsible<Partial<CollapsibleContentElement>>
+})
 
-const OkuCollapsibleContent = CollapsibleContent as typeof CollapsibleContent & (new () => { $props: _CollapsibleContentProps })
-
-export { OkuCollapsibleContent }
-export type { CollapsibleContentProps, CollapsibleContentElement, InstanceCollapsibleContentType }
+export type { CollapsibleContentProps }

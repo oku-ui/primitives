@@ -1,16 +1,16 @@
-import { defineComponent, h } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { defineComponent, h, toRef } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-interface AspectRatioProps extends IPrimitiveProps {
+export type AspectRatioIntrinsicElement = ElementType<'div'>
+export type AspectRatioElement = HTMLDivElement
+
+const NAME = 'OkuAspectRatio'
+
+interface AspectRatioProps extends PrimitiveProps {
   ratio?: number
 }
-
-type AspectRatioElement = ElementType<'div'>
-export type _AspectRatioEl = HTMLDivElement
-
-const NAME = 'AspectRatio'
 
 const AspectRatio = defineComponent({
   name: NAME,
@@ -20,10 +20,11 @@ const AspectRatio = defineComponent({
       type: Number,
       default: 1 / 1,
     },
-    ...PrimitiveProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { style, ...aspectRatioProps } = attrs as AspectRatioElement
+    const ratio = toRef(props, 'ratio')
+    const { style, ...aspectRatioProps } = attrs as AspectRatioIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
@@ -32,7 +33,7 @@ const AspectRatio = defineComponent({
         'style': {
           position: 'relative',
           width: '100%',
-          paddingBottom: `${100 / props.ratio}%`,
+          paddingBottom: `${100 / ratio.value}%`,
         },
         'data-oku-aspect-ratio-wrapper': '',
       },
@@ -47,7 +48,6 @@ const AspectRatio = defineComponent({
               position: 'absolute',
               top: 0,
               right: 0,
-              bottom: 0,
               left: 0,
             },
             asChild: props.asChild,
@@ -64,10 +64,9 @@ const AspectRatio = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _AspectRatioProps = MergeProps<AspectRatioProps, AspectRatioElement>
-type InstanceAspectRatioType = InstanceTypeRef<typeof AspectRatio, _AspectRatioEl>
+export const OkuAspectRatio = AspectRatio as typeof AspectRatio &
+(new () => {
+  $props: Partial<AspectRatioElement>
+})
 
-const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: _AspectRatioProps })
-
-export { OkuAspectRatio }
-export type { AspectRatioProps, AspectRatioElement, InstanceAspectRatioType }
+export type { AspectRatioProps }
