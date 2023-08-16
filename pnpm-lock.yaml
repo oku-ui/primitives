@@ -46,6 +46,9 @@ importers:
       '@oku-ui/popper':
         specifier: workspace:^
         version: link:packages/components/popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:packages/components/portal
       '@oku-ui/presence':
         specifier: workspace:^
         version: link:packages/components/presence
@@ -392,6 +395,28 @@ importers:
         version: link:../../core/utils
       vue:
         specifier: ^3.3.1
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/portal:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:

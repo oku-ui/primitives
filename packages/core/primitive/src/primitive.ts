@@ -30,11 +30,6 @@ const Primitive = NODES.reduce((primitive, node) => {
 
       const Tag: any = asChild ? OkuSlot : node
       return () => {
-        const defaultSlot = slots.default?.()
-
-        if (asChild && defaultSlot?.length && defaultSlot?.length > 1)
-          throw new Error(`The ${node} component can only have one child`)
-
         const mergedProps = mergeProps(attrs, primitiveProps)
         return createVNode(Tag, { ...mergedProps, ref: composedRefs }, {
           default: () => slots.default?.(),

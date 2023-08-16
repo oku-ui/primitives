@@ -46,6 +46,7 @@
     "@oku-ui/direction": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/popper": "workspace:^",
+    "@oku-ui/portal": "workspace:^",
     "@oku-ui/presence": "workspace:^",
     "@oku-ui/primitive": "workspace:^",
     "@oku-ui/progress": "workspace:^",
