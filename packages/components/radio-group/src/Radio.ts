@@ -26,7 +26,7 @@ type RadioProvideValue = {
 
 export const useRadioScope = createRadioScope()
 
-export const [RadioProvider, useRadioInject] = createRadioProvide<RadioProvideValue>(RADIO_NAME)
+export const [radioProvider, useRadioInject] = createRadioProvide<RadioProvideValue>(RADIO_NAME)
 
 export type RadioIntrinsicElement = ElementType<'button'>
 export type RadioElement = HTMLButtonElement
@@ -43,7 +43,7 @@ interface RadioProps extends ScopedRadioType<any> {
 
 export const radioPropsObject = {
   checked: {
-    type: Boolean as PropType<boolean | undefined>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
   required: {
@@ -66,14 +66,16 @@ export const radioPropsObject = {
     type: String as PropType<string>,
     default: 'on',
   },
-  ...ScopedRadioProps,
-  ...PrimitiveProps,
 }
 
 const Radio = defineComponent({
   name: RADIO_NAME,
   inheritAttrs: false,
-  props: radioPropsObject,
+  props: {
+    ...radioPropsObject,
+    ...ScopedRadioProps,
+    ...PrimitiveProps,
+  },
   setup(props, { attrs, slots }) {
     const attrsRef = attrs as RadioIntrinsicElement
     const {
@@ -95,13 +97,14 @@ const Radio = defineComponent({
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const isFormControl = computed(() => buttonRef.value ? Boolean(buttonRef.value.closest('form')) : false)
-    RadioProvider({
-      checked: computed(() => checked.value ?? false),
+
+    radioProvider({
+      checked,
       disabled,
       scope: scopeOkuRadio.value,
     })
 
-    console.log(mergeProps(radioAttrs, radioProps))
+    // console.log(mergeProps(radioAttrs, radioProps))
     return () => [
       h(Primitive.button, {
         'type': 'button',
@@ -111,8 +114,8 @@ const Radio = defineComponent({
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
-        'ref': composedRefs,
         ...mergeProps(radioAttrs, radioProps),
+        'ref': composedRefs,
         'onClick': composeEventHandlers(attrsRef.onClick, (event: MouseEvent) => {
           // radios cannot be unchecked so we only communicate a checked state
           if (!checked.value)

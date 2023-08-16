@@ -14,7 +14,7 @@ interface BubbleInputProps {
   bubbles: boolean
 }
 
-const BubbleInputPropsObject = {
+const bubbleInputPropsObject = {
   checked: {
     type: Boolean as PropType<boolean>,
     required: true,
@@ -32,7 +32,7 @@ const BubbleInputPropsObject = {
 const BubbleInput = defineComponent({
   name: BUBBLE_INPUT_NAME,
   inheritAttrs: false,
-  props: BubbleInputPropsObject,
+  props: bubbleInputPropsObject,
   setup(props, { attrs }) {
     const { control, checked } = toRefs(props)
     const bubbles = computed(() => props.bubbles ?? true)

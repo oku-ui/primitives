@@ -2,7 +2,7 @@ import { type InstanceTypeRef, type MergeProps } from '@oku-ui/primitive'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { RadioElement } from './Radio'
-import { radioPropsObject, useRadioScope } from './Radio'
+import { useRadioScope } from './Radio'
 import { OkuRadioIndicator, type RadioIndicatorElement, type RadioIndicatorProps } from './RadioIndicator'
 import { scopedRadioGroupProps } from './RadioGroup'
 
@@ -13,15 +13,17 @@ export type RadioGroupIndicatorElement = RadioElement
 
 interface RadioGroupIndicatorProps extends RadioIndicatorProps {}
 
-const RadioGroupIndicatorPropsObject = {
-  ...radioPropsObject,
-  ...scopedRadioGroupProps,
+const radioGroupIndicatorPropsObject = {
+
 }
 
 const RadioGroupIndicator = defineComponent({
   name: INDICATOR_NAME,
   inheritAttrs: false,
-  props: RadioGroupIndicatorPropsObject,
+  props: {
+    ...radioGroupIndicatorPropsObject,
+    ...scopedRadioGroupProps,
+  },
   setup(props, { attrs }) {
     const { scopeOkuRadioGroup, ...indicatorProps } = props
     const radioScope = useRadioScope(scopeOkuRadioGroup)

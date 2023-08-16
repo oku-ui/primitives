@@ -1,6 +1,6 @@
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, toRef, toRefs, useModel } from 'vue'
 import type { ComputedRef, PropType, Ref } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
@@ -92,19 +92,17 @@ const RadioGroupPropsObject = {
     type: String as PropType<string | undefined>,
     default: undefined,
   },
-  onValueChange: {
-    type: Function as PropType<(value: string) => void>,
-    default: undefined,
-  },
-  ...scopedRadioGroupProps,
-  ...PrimitiveProps,
 }
 
 const RadioGroup = defineComponent({
   name: RADIO_GROUP_NAME,
   inheritAttrs: false,
-  props: RadioGroupPropsObject,
-  emits: ['update:modelValue'],
+  props: {
+    ...RadioGroupPropsObject,
+    ...scopedRadioGroupProps,
+    ...PrimitiveProps,
+  },
+  emits: ['update:modelValue', 'valueChange'],
   setup(props, { slots, emit, attrs }) {
     const {
       name,
@@ -115,7 +113,6 @@ const RadioGroup = defineComponent({
       orientation,
       dir,
       loop,
-      onValueChange,
     } = toRefs(props)
 
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuRadioGroup)
@@ -128,16 +125,17 @@ const RadioGroup = defineComponent({
       prop: computed(() => modelValue.value ?? valueProp.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: any) => {
+        console.log('result', result)
         emit('update:modelValue', result)
-        onValueChange.value?.(result)
+        emit('valueChange', result)
       },
     })
 
     RadioGroupProvider({
       scope: props.scopeOkuRadioGroup,
-      name,
-      required,
-      disabled,
+      name: toRef(props, 'name'),
+      required: toRef(props, 'required'),
+      disabled: toRef(props, 'disabled'),
       value: state,
       onValueChange: updateValue,
     })

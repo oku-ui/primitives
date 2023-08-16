@@ -1,6 +1,6 @@
 import type { InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, onMounted, onUnmounted, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
@@ -23,9 +23,7 @@ interface RadioGroupItemProps extends Omit<RadioProps, 'onCheck' | 'name'>, Scop
 // eslint-disable-next-line unused-imports/no-unused-vars
 const { onCheck, name, ...radioProps } = radioPropsObject
 
-const RadioGroupItemPropsObject = {
-  ...radioProps,
-  ...scopedRadioGroupProps,
+const radioGroupItemPropsObject = {
   onFocus: {
     type: Function as PropType<(event: FocusEvent) => void>,
     default: undefined,
@@ -35,12 +33,15 @@ const RadioGroupItemPropsObject = {
 const RadioGroupItem = defineComponent({
   name: ITEM_NAME,
   inheritAttrs: false,
-  props: RadioGroupItemPropsObject,
+  props: {
+    ...radioGroupItemPropsObject,
+    ...radioProps,
+    ...scopedRadioGroupProps,
+  },
   emits: ['update:modelValue'],
   setup(props, { slots, emit, attrs }) {
     const {
       disabled,
-      asChild,
       checked: checkedProp,
       required,
       value,
@@ -59,19 +60,28 @@ const RadioGroupItem = defineComponent({
     const checked = computed(() => inject.value?.value === props.value)
     const isArrowKeyPressedRef = ref(false)
 
-    watchEffect((onClean) => {
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (ARROW_KEYS.includes(event.key))
-          isArrowKeyPressedRef.value = true
+    const handleKeyDown = (event: KeyboardEvent) => {
+      console.log('handleKeyDown', event.key)
+      if (ARROW_KEYS.includes(event.key)) {
+        console.log('111')
+
+        isArrowKeyPressedRef.value = true
       }
-      const handleKeyUp = () => (isArrowKeyPressedRef.value = false)
+    }
+    const handleKeyUp = () => {
+      isArrowKeyPressedRef.value = false
+    }
+
+    onMounted(() => {
       document.addEventListener('keydown', handleKeyDown)
       document.addEventListener('keyup', handleKeyUp)
-      onClean(() => {
-        document.removeEventListener('keydown', handleKeyDown)
-        document.removeEventListener('keyup', handleKeyUp)
-      })
     })
+
+    onUnmounted(() => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keyup', handleKeyUp)
+    })
+
     return () => h(OkuRovingFocusGroupItem, {
       asChild: true,
       ...rovingFocusGroupScope,
@@ -80,27 +90,37 @@ const RadioGroupItem = defineComponent({
     }, {
       default: () => h(OkuRadio, {
         disabled: isDisabled.value,
-        required: inject.required.value || required.value,
-        checked: checked.value || checkedProp.value,
+        required: inject.required.value,
+        checked: checked.value,
         ...radioScope,
         ...attrs,
         value: value.value,
-        name: inject.name?.value || 'on',
+        name: inject.name?.value,
         ref: composedRefs,
-        onCheck: () => inject.onValueChange(value.value),
+        onCheck: () => {
+          console.log('onCheck', props.value)
+          return inject.onValueChange(props.value)
+        },
         onKeydown: composeEventHandlers((event: any) => {
           // According to WAI ARIA, radio groups don't activate items on enter keypress
           if (event.key === 'Enter')
             event.preventDefault()
         }),
-        onFocus: composeEventHandlers(props.onFocus, () => {
+        onFocus: composeEventHandlers(props.onFocus, (el) => {
+          console.log('onFocus', el)
+          // if (el.target)
+          //   (el.target as HTMLButtonElement).click()
+
           /**
            * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys
            * and we need to "check" it in that case. We click it to "check" it (instead
            * of updating `context.value`) so that the radio change event fires.
            */
-          if (isArrowKeyPressedRef.value)
+
+          if (isArrowKeyPressedRef.value) {
+            console.log('click')
             rootRef.value?.click()
+          }
         }),
 
       }, {

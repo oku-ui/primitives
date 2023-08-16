@@ -37,7 +37,7 @@ const OkuSlot = defineComponent({
         if (defaultSlot.length > 1)
           console.warn(`[OkuSlot] ${NAME} can only have one child`)
         const [child] = defaultSlot
-        const slot = cloneVNode(child, { ...mergeProps(attrs, props), ref: composedRefs })
+        const slot = cloneVNode(child, { ...mergeProps(attrs, props), ref: composedRefs }, true)
 
         return slot
       }

@@ -1,5 +1,5 @@
 import { type ElementType, type InstanceTypeRef, type MergeProps, Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import { defineComponent, h, mergeProps } from 'vue'
+import { computed, defineComponent, h, mergeProps } from 'vue'
 import type { PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -24,27 +24,28 @@ const RadioIndicatorPropsObject = {
     type: Boolean as PropType<boolean>,
     default: true,
   },
-  ...ScopedRadioProps,
-  ...PrimitiveProps,
 }
 
 const RadioIndicator = defineComponent({
   name: INDICATOR_NAME,
   inheritAttrs: false,
-  props: RadioIndicatorPropsObject,
+  props: {
+    ...RadioIndicatorPropsObject,
+    ...ScopedRadioProps,
+    ...PrimitiveProps,
+  },
   setup(props, { attrs }) {
     const { forceMount, scopeOkuRadio, ...indicatorProps } = props
     const inject = useRadioInject(INDICATOR_NAME, scopeOkuRadio)
     const forwardedRef = useForwardRef()
-    console.log('a', mergeProps(indicatorProps, attrs))
 
     return () => h(OkuPresence, {
-      present: forceMount || inject.checked.value,
+      present: computed(() => inject.checked.value || forceMount).value,
     }, {
       default: () =>
         h(Primitive.span, {
-          'data-state': getState(inject.checked.value),
-          'data-disabled': inject.disabled?.value ? '' : undefined,
+          'data-state': getState(inject.checked.value).value,
+          'data-disabled': computed(() => inject.disabled?.value ? '' : undefined).value,
           ...mergeProps(indicatorProps, attrs),
           'ref': forwardedRef,
         }),
