@@ -22,22 +22,38 @@ interface ToggleProps extends PrimitiveProps {
    */
   defaultPressed?: boolean
 
+  /**
+   * The callback that fires when the state of the toggle changes.
+   */
+  onPressedChange?(pressed: boolean): void
 }
 
 const toggleProps = {
   modelValue: {
-    type: [Boolean, String, Number] as PropType<
-      boolean | string | number | undefined
+    type: [Boolean] as PropType<
+      boolean | undefined
     >,
     default: undefined,
   },
   pressed: {
-    type: Boolean,
-    default: undefined,
+    type: Boolean as PropType<boolean | undefined>,
+    default: false,
   },
   defaultPressed: {
     type: Boolean,
     default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  onClick: {
+    type: Function as PropType<(event: MouseEvent) => void>,
+    default: undefined,
+  },
+  onPressedChange: {
+    type: Function as PropType<(pressed: boolean) => void>,
+    default: undefined,
   },
 }
 
@@ -50,7 +66,7 @@ const Toggle = defineComponent({
   },
   emits: ['update:pressed', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
-    const { pressed: pressedProp, defaultPressed } = toRefs(props)
+    const { pressed: pressedProp, defaultPressed, disabled } = toRefs(props)
     const modelValue = useModel(props, 'modelValue')
 
     const forwardedRef = useForwardRef()
@@ -59,24 +75,24 @@ const Toggle = defineComponent({
       prop: computed(() => modelValue.value ?? pressedProp.value),
       defaultProp: computed(() => defaultPressed.value),
       onChange: (pressed) => {
-        emit('update:pressed', pressed)
         emit('update:modelValue', pressed)
+        props.onPressedChange?.(pressed)
       },
     })
 
-    const { disabled, ...toggleProps } = attrs as ToggleElementIntrinsicElement
+    const { ...toggleAttrs } = attrs as ToggleElementIntrinsicElement
 
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
         'aria-pressed': state.value ? 'true' : 'false',
         'data-state': state.value ? 'on' : 'off',
-        'data-disabled': disabled ? '' : undefined,
-        ...toggleProps,
+        'data-disabled': disabled.value ? '' : undefined,
+        ...toggleAttrs,
         'ref': forwardedRef,
         'asChild': props.asChild,
-        'onClick': composeEventHandlers(toggleProps.onClick, () => {
-          if (!disabled)
+        'onClick': composeEventHandlers(props.onClick, () => {
+          if (!disabled.value)
             updateValue(!state.value)
         }),
       },
