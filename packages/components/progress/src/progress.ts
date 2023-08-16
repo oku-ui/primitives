@@ -1,7 +1,7 @@
 import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import type { ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -57,9 +57,9 @@ const Progress = defineComponent({
       default: defaultGetValueLabel,
     },
     scopeProgress: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
+      ...ScopePropObject,
     },
+    ...PrimitiveProps,
   },
   setup(props, { attrs, slots }) {
     const { value, max, getValueLabel, scopeProgress } = toRefs(props)
@@ -110,6 +110,7 @@ const Progress = defineComponent({
           'data-max': maxProp.value,
           ...progressProps,
           'ref': forwardedRef,
+          'asChild': props.asChild,
         },
         {
           default: () => slots.default?.(),

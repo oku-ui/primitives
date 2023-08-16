@@ -5,7 +5,10 @@ export type {
   _CollapsibleEl,
 } from './collapsible'
 
-export { OkuCollapsible } from './collapsible'
+export {
+  OkuCollapsible,
+  createCollapsibleScope,
+} from './collapsible'
 
 export {
   OkuCollapsibleContent,

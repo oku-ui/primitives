@@ -1,4 +1,7 @@
-export { OkuCheckbox } from './checkbox'
+export {
+  OkuCheckbox,
+  createCheckboxScope,
+} from './checkbox'
 
 export type {
   CheckboxProps,
