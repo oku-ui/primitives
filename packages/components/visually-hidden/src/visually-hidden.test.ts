@@ -1,12 +1,16 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
+import { h } from 'vue'
 import { OkuVisuallyHidden } from '.'
 
 describe('OkuVisuallyHidden', () => {
   it('renders correctly with default props', () => {
-    const wrapper = mount(OkuVisuallyHidden)
+    const wrapper = mount({
+      setup() {
+        return () => h(OkuVisuallyHidden)
+      },
+    })
     expect(wrapper.exists()).toBe(true)
-
     expect(wrapper.element.tagName.toLowerCase()).toBe('span')
 
     const style = wrapper.element.getAttribute('style')
@@ -19,7 +23,12 @@ describe('OkuVisuallyHidden', () => {
   })
 
   it('applies ref correctly', () => {
-    const wrapper = mount(OkuVisuallyHidden)
+    const wrapper = mount({
+      setup() {
+        return () => h(OkuVisuallyHidden)
+      },
+    })
+
     expect(wrapper.vm.$el).toBeDefined()
     expect(wrapper.vm.$el.tagName.toLowerCase()).toBe('span')
   })
@@ -30,7 +39,11 @@ describe('OkuVisuallyHidden', () => {
       color: 'white',
     }
 
-    const wrapper = mount(OkuVisuallyHidden, {
+    const wrapper = mount({
+      setup() {
+        return () => h(OkuVisuallyHidden)
+      },
+    }, {
       attrs: {
         style,
       },

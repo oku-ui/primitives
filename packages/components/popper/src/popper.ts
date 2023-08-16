@@ -2,43 +2,37 @@ import type { Ref } from 'vue'
 import { defineComponent, ref } from 'vue'
 
 import type { Measurable } from '@oku-ui/utils'
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { createProvideScope } from '@oku-ui/provide'
+import type { ScopePopper } from './utils'
+import { scopePopperProps } from './utils'
 
-/* -------------------------------------------------------------------------------------------------
- * Popper
- * ----------------------------------------------------------------------------------------------- */
-
-const POPPER_NAME = 'Popper'
+const POPPER_NAME = 'OkuPopper'
 
 export const [createPopperProvider, createPopperScope]
   = createProvideScope(POPPER_NAME)
 
-export type PopperInjectValue = {
+export type PopperProvideValue = {
   anchor: Ref<Measurable | null>
   onAnchorChange(anchor: Measurable | null): void
 }
 
-export const [PopperProvider, usePopperInject]
-  = createPopperProvider<PopperInjectValue>(POPPER_NAME)
+export const [popperProvider, usePopperInject]
+  = createPopperProvider<PopperProvideValue>(POPPER_NAME)
 
 interface PopperProps {
-  scopeCheckbox?: Scope
 }
 
 const Popper = defineComponent({
   name: POPPER_NAME,
   inheritAttrs: false,
   props: {
-    scopeCheckbox: {
-      ...ScopePropObject,
-    },
+    ...scopePopperProps,
   },
   setup(props, { slots }) {
     const anchor = ref<Measurable | null>(null)
 
-    PopperProvider({
-      scope: props.scopeCheckbox,
+    popperProvider({
+      scope: props.scopeOkuPopper,
       anchor,
       onAnchorChange(_anchor: Measurable | null) {
         anchor.value = _anchor
@@ -51,11 +45,7 @@ const Popper = defineComponent({
   },
 })
 
-type _PopperProps = PopperProps
-
-const OkuPopper = Popper as typeof Popper &
-(new () => { $props: _PopperProps })
-
-export { OkuPopper }
+export const OkuPopper = Popper as typeof Popper &
+(new () => { $props: ScopePopper<PopperProps> })
 
 export type { PopperProps }

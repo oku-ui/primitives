@@ -1,10 +1,8 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import type { ProgressProps } from '@oku-ui/progress'
 import { OkuProgress, OkuProgressIndicator } from '@oku-ui/progress'
 import { computed, ref } from 'vue'
 
-export interface OkuProgressProps extends ProgressProps {
+export interface OkuProgressProps {
   template?: '#1' | '#2'
   allshow?: boolean
 }
