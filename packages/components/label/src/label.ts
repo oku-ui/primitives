@@ -40,10 +40,11 @@ const label = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuLabel = label as typeof label &
+const OkuLabel = label as typeof label &
 (new () => {
   $props: Partial<LabelElement>
 })
+export { OkuLabel }
 
 export type {
   LabelProps,

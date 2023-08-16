@@ -1,14 +1,19 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 
+import { h } from 'vue'
 import { OkuRovingFocusGroup } from './'
 
-// It also works live, but the gear gives an error in the tests.
+const component = {
+  setup() {
+    return () => h(OkuRovingFocusGroup)
+  },
+}
 
 describe('OkuRovingFocusGroup', () => {
   describe('OkuRovingFocusGroupItem aschild', () => {
     it('empty', () => {
-      const com = mount(OkuRovingFocusGroup, {
+      const com = mount(component, {
         // slots: {
         //   default: () => [
         //     h(OkuRovingFocusGroupItem, {
