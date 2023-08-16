@@ -1,13 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import type { Component } from 'vue'
+import { h } from 'vue'
 import { OkuPortal } from './Portal'
+
+const component = {
+  setup(props, { attrs, slots }) {
+    return () => h(OkuPortal, { ...attrs }, slots)
+  },
+} as Component
 
 describe('OkuPortal', () => {
   it('teleports content to the specified container', async () => {
     const container = document.createElement('div')
     document.body.appendChild(container)
 
-    const wrapper = mount(OkuPortal, {
+    const wrapper = mount(component, {
       props: {
         container,
       },
@@ -22,7 +30,7 @@ describe('OkuPortal', () => {
   })
 
   it('uses document body as the default container', async () => {
-    const wrapper = mount(OkuPortal, {
+    const wrapper = mount(component, {
       slots: {
         default: 'Portal Content',
       },
@@ -34,7 +42,7 @@ describe('OkuPortal', () => {
   })
 
   it('renders content as a child when asChild prop is provided', async () => {
-    const wrapper = mount(OkuPortal, {
+    const wrapper = mount(component, {
       props: {
         asChild: true,
       },

@@ -1,26 +1,26 @@
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
   ComponentPublicInstanceRef,
   ElementType,
-  IPrimitiveProps,
-  MergeProps,
+  PrimitiveProps,
+
 } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { defineComponent, h, ref, render, toRefs } from 'vue'
+import { Teleport, defineComponent, h, ref, toRefs } from 'vue'
 
 const PORTAL_NAME = 'OkuPortal'
 
-type PortalElement = ElementType<'div'>
-export type _PortalEl = HTMLDivElement
+export type PortalElementIntrinsicElement = ElementType<'div'>
+export type PortalElement = HTMLDivElement
 
-interface PortalProps extends IPrimitiveProps {
+interface PortalProps extends PrimitiveProps {
   /**
    * An optional container where the portaled content should be appended.
    */
   container?: HTMLElement | null
 }
 
-const Portal = defineComponent({
+const portal = defineComponent({
   name: PORTAL_NAME,
   inheritAttrs: false,
   props: {
@@ -28,7 +28,7 @@ const Portal = defineComponent({
       type: Object as () => HTMLElement | null | undefined,
       default: () => globalThis.document.body,
     },
-    ...PrimitiveProps,
+    ...primitiveProps,
   },
   setup(props, { slots, attrs }) {
     const { asChild, container } = toRefs(props)
@@ -40,30 +40,23 @@ const Portal = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(portalRef, forwardedRef)
 
-    return () => {
-      if (container.value && slots.default) {
-        const content = h(
+    return () => container.value && slots.default
+      ? h(Teleport, { to: container.value }, [
+        h(
           Primitive.div,
           { ref: composedRefs, asChild: asChild.value, ...portalAttrs },
-          slots.default(),
-        )
-
-        const divElement = document.createElement('div')
-
-        render(content, divElement)
-
-        container.value.appendChild(divElement)
-      }
-
-      return null
-    }
+          {
+            default: () => slots.default?.(),
+          },
+        ),
+      ])
+      : null
   },
 })
 
-type _Portal = MergeProps<PortalProps, PortalElement>
-
-const OkuPortal = Portal as typeof Portal & (new () => { $props: _Portal })
-
-export { OkuPortal }
+export const OkuPortal = portal as typeof portal &
+(new () => {
+  $props: Partial<PortalElement>
+})
 
 export type { PortalProps }
