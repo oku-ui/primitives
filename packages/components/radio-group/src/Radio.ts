@@ -110,7 +110,7 @@ const Radio = defineComponent({
         'type': 'button',
         'role': 'radio',
         'aria-checked': checked.value,
-        'data-state': getState(checked.value || false),
+        'data-state': getState(checked.value || false).value,
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,

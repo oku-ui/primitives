@@ -61,12 +61,8 @@ const RadioGroupItem = defineComponent({
     const isArrowKeyPressedRef = ref(false)
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      console.log('handleKeyDown', event.key)
-      if (ARROW_KEYS.includes(event.key)) {
-        console.log('111')
-
+      if (ARROW_KEYS.includes(event.key))
         isArrowKeyPressedRef.value = true
-      }
     }
     const handleKeyUp = () => {
       isArrowKeyPressedRef.value = false
@@ -98,7 +94,6 @@ const RadioGroupItem = defineComponent({
         name: inject.name?.value,
         ref: composedRefs,
         onCheck: () => {
-          console.log('onCheck', props.value)
           return inject.onValueChange(props.value)
         },
         onKeydown: composeEventHandlers((event: any) => {
@@ -107,20 +102,16 @@ const RadioGroupItem = defineComponent({
             event.preventDefault()
         }),
         onFocus: composeEventHandlers(props.onFocus, (el) => {
-          console.log('onFocus', el)
-          // if (el.target)
-          //   (el.target as HTMLButtonElement).click()
-
           /**
            * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys
            * and we need to "check" it in that case. We click it to "check" it (instead
            * of updating `context.value`) so that the radio change event fires.
            */
 
-          if (isArrowKeyPressedRef.value) {
-            console.log('click')
-            rootRef.value?.click()
-          }
+          setTimeout(() => {
+            if (isArrowKeyPressedRef.value)
+              rootRef.value?.click()
+          }, 0)
         }),
 
       }, {
