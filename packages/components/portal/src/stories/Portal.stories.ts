@@ -40,3 +40,19 @@ export const Base: Story = {
     `,
   }),
 }
+
+export const CustomContainer: Story = {
+  args: {
+    template: '#2',
+  },
+
+  render: (args: any) => ({
+    components: { OkuPortalComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuPortalComponent v-bind="args" />
+    `,
+  }),
+}

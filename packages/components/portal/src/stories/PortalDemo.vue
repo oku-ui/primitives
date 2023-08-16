@@ -1,21 +1,24 @@
 <script setup lang="ts">
 import type { PortalProps } from '@oku-ui/portal'
 import { OkuPortal } from '@oku-ui/portal'
+import { ref } from 'vue'
 
 export interface IPortalProps extends PortalProps {
-  template?: '#1'
+  template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }
 
 // const container = computed(() => getCurrentInstance()?.proxy?.$el);
 
 defineProps<IPortalProps>()
+
+const portalContainer = ref<HTMLDivElement>()
 </script>
 
 <template>
   <div>
-    <h1>Oku Portal Base</h1>
-    <div v-if="template === '#1' || allshow" class="flex flex-col">
+    <div v-if="template === '#1'" class="flex flex-col">
+      <h1>Oku Portal Base</h1>
       <div class="max-w-[300px] max-h-[200px] overflow-auto border">
         <h1>This content is rendered in the main DOM tree</h1>
         <p>
@@ -33,6 +36,26 @@ defineProps<IPortalProps>()
             it is part of the same React tree.
           </p>
         </OkuPortal>
+      </div>
+    </div>
+
+    <div v-if="template === '#2'" class="flex flex-col">
+      <div class="max-w-[300px] max-h-[200px] overflow-auto border p-4">
+        <h1>Container A</h1>
+        <OkuPortal as-child :container="portalContainer">
+          <p>
+            This content is rendered in a portal inside Container A but appears
+            inside Container B because we have used Container B as a container
+            element for the Portal.
+          </p>
+        </OkuPortal>
+      </div>
+
+      <div
+        ref="portalContainer"
+        class="max-w-[300px] max-h-[200px] overflow-auto border flex flex-col p-4 mt-4"
+      >
+        <h1>Container B</h1>
       </div>
     </div>
   </div>

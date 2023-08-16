@@ -1,10 +1,14 @@
 import {
-  type ElementType,
-  type IPrimitiveProps,
-  type MergeProps,
   Primitive,
   PrimitiveProps,
 } from '@oku-ui/primitive'
+import type {
+  ComponentPublicInstanceRef,
+  type ElementType,
+  type IPrimitiveProps,
+  type MergeProps,
+} from '@oku-ui/primitive'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, onMounted, ref, render, toRefs } from 'vue'
 
 const PORTAL_NAME = 'OkuPortal'
@@ -24,7 +28,7 @@ const Portal = defineComponent({
   inheritAttrs: false,
   props: {
     container: {
-      type: Object as () => HTMLElement | null,
+      type: Object as () => HTMLElement | null | undefined,
       default: null,
     },
     ...PrimitiveProps,
@@ -34,19 +38,22 @@ const Portal = defineComponent({
 
     const { ...portalAttrs } = attrs
 
-    const portalRef = ref<HTMLElement>()
+    const portalRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>()
+
+    const forwardedRef = useForwardRef()
+    const composedRefs = useComposedRefs(portalRef, forwardedRef)
 
     const containerRef = ref<HTMLElement | null>(null)
 
     onMounted(() => {
-      containerRef.value = container.value ?? globalThis.document.body
+      containerRef.value = container.value || globalThis.document.body
     })
 
     return () => {
       if (containerRef.value && slots.default) {
         const content = h(
           Primitive.div,
-          { ref: portalRef, asChild: asChild.value, ...portalAttrs },
+          { ref: composedRefs, asChild: asChild.value, ...portalAttrs },
           slots.default(),
         )
 
@@ -56,6 +63,8 @@ const Portal = defineComponent({
 
         containerRef.value.appendChild(divElement)
       }
+
+      return null
     }
   },
 })
