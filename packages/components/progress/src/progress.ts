@@ -1,10 +1,11 @@
-import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
-import type { ComputedRef, PropType } from 'vue'
+import { createProvideScope } from '@oku-ui/provide'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
+import type { ScopeProgress } from './utils'
 import {
   defaultGetValueLabel,
   getInvalidMaxError,
@@ -13,19 +14,17 @@ import {
   isNumber,
   isValidMaxNumber,
   isValidValueNumber,
+  scopeProgressProps,
 } from './utils'
 import { DEFAULT_MAX, PROGRESS_NAME } from './constants'
-import type { ProgressIndicatorProps } from '.'
 
-// ---------- Progress ---------- //
-
-type ProgressContextValue = {
-  value: ComputedRef<number | null> | null
-  max: ComputedRef<number>
+type ProgressInjectValue = {
+  value: Ref<number | null> | null
+  max: Ref<number>
 }
 
-type ProgressElement = ElementType<'div'>
-export type _ProgressEl = HTMLDivElement
+export type ProgressIntrinsicElement = ElementType<'div'>
+export type ProgressElement = HTMLDivElement
 
 interface ProgressProps {
   value?: number | null
@@ -34,36 +33,37 @@ interface ProgressProps {
   scopeProgress?: Scope
 }
 
-const [createProgressContext, createProgressScope]
+export const [createProgressContext, createProgressScope]
   = createProvideScope(PROGRESS_NAME)
 
-const [progressProvider, useProgressContext]
-  = createProgressContext<ProgressContextValue>(PROGRESS_NAME)
+export const [progressProvider, useProgressInject]
+  = createProgressContext<ProgressInjectValue>(PROGRESS_NAME)
 
-// ---component---
-const Progress = defineComponent({
+const progressProps = {
+  value: {
+    type: [Number, null] as PropType<number | null | undefined>,
+  },
+  max: {
+    type: Number,
+    default: DEFAULT_MAX,
+  },
+  getValueLabel: {
+    type: Function as PropType<(value: number, max: number) => string>,
+    default: defaultGetValueLabel,
+  },
+}
+
+const progress = defineComponent({
   name: PROGRESS_NAME,
   inheritAttrs: false,
   props: {
-    value: {
-      type: [Number, null] as PropType<number | null | undefined>,
-    },
-    max: {
-      type: Number,
-      default: DEFAULT_MAX,
-    },
-    getValueLabel: {
-      type: Function as PropType<(value: number, max: number) => string>,
-      default: defaultGetValueLabel,
-    },
-    scopeProgress: {
-      ...ScopePropObject,
-    },
-    ...PrimitiveProps,
+    ...progressProps,
+    ...scopeProgressProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { value, max, getValueLabel, scopeProgress } = toRefs(props)
-    const { ...progressProps } = attrs as ProgressElement
+    const { value, max, getValueLabel, scopeOkuProgress } = toRefs(props)
+    const { ...progressProps } = attrs as ProgressIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
@@ -87,7 +87,7 @@ const Progress = defineComponent({
     )
 
     progressProvider({
-      scope: scopeProgress.value,
+      scope: scopeOkuProgress.value,
       value: valueProp,
       max: maxProp,
     })
@@ -122,13 +122,9 @@ const Progress = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuProgressProps = MergeProps<ProgressProps, ProgressIndicatorProps>
+export const OkuProgress = progress as typeof progress &
+(new () => {
+  $props: ScopeProgress<Partial<ProgressElement>>
+})
 
-type InstanceProgressType = InstanceTypeRef<typeof Progress, _ProgressEl>
-
-const OkuProgress = Progress as typeof Progress &
-(new () => { $props: _OkuProgressProps })
-
-export { createProgressScope, OkuProgress, useProgressContext }
-
-export type { ProgressProps, ProgressElement, InstanceProgressType }
+export type { ProgressProps }

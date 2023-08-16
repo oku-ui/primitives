@@ -4,12 +4,12 @@ export type {
   RefElement,
   MergeProps,
   ElementType,
-  ComponentPropsWithoutRef,
+  // ComponentPropsWithoutRef,
   InstanceTypeRef,
   ComponentPublicInstanceRef,
-  IPrimitiveProps,
+  PrimitiveProps,
 } from './types'
 
-export { PrimitiveProps, renderSlotFragments } from './utils'
+export { primitiveProps, renderSlotFragments } from './utils'
 
 export type { AriaAttributes } from './types'

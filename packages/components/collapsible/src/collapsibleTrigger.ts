@@ -1,32 +1,30 @@
-import { defineComponent, h } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
 import { useForwardRef } from '@oku-ui/use-composable'
-import { ScopePropObject } from '@oku-ui/provide'
 import { useCollapsibleInject } from './collapsible'
-import { getState } from './utils'
+import type { ScopeCollapsible } from './utils'
+import { getState, scopeCollapsibleProps } from './utils'
 
 const TRIGGER_NAME = 'OkuCollapsibleTrigger'
 
-type CollapsibleTriggerElement = ElementType<'button'>
-export type _CollapsibleTriggerEl = HTMLButtonElement
+export type CollapsibleTriggerIntrinsicElement = ElementType<'button'>
+export type CollapsibleTriggerElement = HTMLButtonElement
 
-interface CollapsibleTriggerProps extends IPrimitiveProps { }
+interface CollapsibleTriggerProps extends PrimitiveProps { }
 
-const CollapsibleTrigger = defineComponent({
+const collapsibleTrigger = defineComponent({
   name: TRIGGER_NAME,
   inheritAttrs: false,
   props: {
-    scopeCollapsible: {
-      ...ScopePropObject,
-    },
-    ...PrimitiveProps,
+    ...scopeCollapsibleProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...triggerProps } = attrs as CollapsibleTriggerElement
-    const context = useCollapsibleInject(TRIGGER_NAME, props.scopeCollapsible)
+    const { ...triggerProps } = attrs as CollapsibleTriggerIntrinsicElement
+    const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
 
     const forwardedRef = useForwardRef()
 
@@ -34,9 +32,9 @@ const CollapsibleTrigger = defineComponent({
       Primitive.button,
       {
         'type': 'button',
-        'aria-controls': context.contentId,
+        'aria-controls': context.contentId.value,
         'aria-expanded': context.open.value || false,
-        'data-state': getState(context.open.value || false),
+        'data-state': computed(() => getState(context.open.value || false)),
         'data-disabled': context.disabled?.value ? '' : undefined,
         'disabled': context.disabled?.value,
         ...triggerProps,
@@ -53,14 +51,9 @@ const CollapsibleTrigger = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _CollapsibleTriggerProps = MergeProps<CollapsibleTriggerProps, CollapsibleTriggerElement>
-type InstanceCollapsibleTriggerType = InstanceTypeRef<typeof CollapsibleTrigger, _CollapsibleTriggerEl>
+export const OkuCollapsibleTrigger = collapsibleTrigger as typeof collapsibleTrigger &
+(new () => {
+  $props: ScopeCollapsible<Partial<CollapsibleTriggerElement>>
+})
 
-const OkuCollapsibleTrigger = CollapsibleTrigger as typeof CollapsibleTrigger & (new () => { $props: _CollapsibleTriggerProps })
-
-export {
-  OkuCollapsibleTrigger,
-  type InstanceCollapsibleTriggerType,
-  type CollapsibleTriggerProps,
-  type CollapsibleTriggerElement,
-}
+export type { CollapsibleTriggerProps }

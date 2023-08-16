@@ -32,11 +32,7 @@ function createProvide<ProvideValueType extends object | null>(
   return [Provider, useContext] as const
 }
 
-type VueProvide<C> = {
-  key: InjectionKey<C>
-  value: C
-}
-type Scope<C = any> = { [scopeName: string]: VueProvide<C>[] } | undefined
+type Scope<C = any> = { [scopeName: string]: InjectionKey<C>[] } | undefined
 
 type ScopeHook = (scope: Scope) => { [__scopeProp: string]: Scope }
 interface CreateScope {
@@ -56,23 +52,23 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
   ) {
     const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName) as any
 
-    const BaseScope = { key: BaseProvideKey, value: defaultValue } as VueProvide<ProvideValueType | null>
+    const BaseScope = BaseProvideKey
     const index = defaultProviders.length
-    defaultProviders = [...defaultProviders, [{ key: BaseProvideKey, value: defaultValue }]]
+    defaultProviders = [...defaultProviders, BaseProvideKey]
 
     function Provider(
       props: ProvideValueType & { scope: Scope<ProvideValueType> | undefined },
     ) {
       const { scope, ...context } = props
 
-      const Provide = scope?.[scopeName][index] || BaseScope.key
-      provide(Provide, context)
+      const Provide = scope?.[scopeName][index] || BaseScope
+
+      provide(Provide, context as any)
     }
 
     function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
-      const provide = inject(Provide.key)
-
+      const provide = inject(Provide)
       if (provide)
         return provide
       if (defaultValue !== undefined)
@@ -89,14 +85,21 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
    * createScope
    * --------------------------------------------------------------------------------------------- */
   const createScope: CreateScope = () => {
-    const scopeProviders = defaultProviders[0]
+    const scopeInjects = defaultProviders.map((defaultContext) => {
+      return defaultContext
+    })
 
     return function useScope(scope: Scope) {
-      const providers = scope?.[scopeName] || scopeProviders
-
-      return ({ [`scope${scopeName}`]: { ...scope, [scopeName]: providers } })
+      const providers = scope?.[scopeName] || scopeInjects
+      return ({
+        [`scope${scopeName}`]: {
+          ...scope,
+          [scopeName]: providers,
+        },
+      })
     }
   }
+
   createScope.scopeName = scopeName
   return [createProvide, composeInjectScopes(createScope, ...createProvideScopeDeps)] as const
 }
@@ -106,19 +109,25 @@ function composeInjectScopes(...scopes: CreateScope[]) {
   if (scopes.length === 1)
     return baseScope
   const createScope: CreateScope = () => {
-    const scopeHooks = scopes.map(createScope => ({
-      useScope: createScope(),
-      scopeName: createScope.scopeName,
-    }))
+    const scopeHooks = scopes.map((createScope) => {
+      return ({
+        useScope: createScope(),
+        scopeName: createScope.scopeName,
+      })
+    })
     return function useComposedScopes(overrideScopes) {
       const nextScopes = scopeHooks.reduce((nextScopes, { useScope, scopeName }) => {
         // We are calling a hook inside a callback which React warns against to avoid inconsistent
         // renders, however, scoping doesn't have render side effects so we ignore the rule.
         const scopeProps = useScope(overrideScopes)
+
         const currentScope = scopeProps[`scope${scopeName}`]
+        // currentScope![scopeName] = currentScope![scopeName].map((context) => {
+        //   return inject(context)
+        // })
+
         return { ...nextScopes, ...currentScope }
       }, {})
-
       const data = ({ [`scope${baseScope.scopeName}`]: nextScopes })
       return data
     }

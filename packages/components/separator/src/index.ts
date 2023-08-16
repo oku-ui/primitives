@@ -4,6 +4,5 @@ export {
 export type {
   SeparatorProps,
   SeparatorElement,
-  InstanceSeparatorType,
-  _SeparatorEl,
+  SeparatorIntrinsicElement,
 } from './separator'

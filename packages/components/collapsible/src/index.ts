@@ -1,8 +1,7 @@
 export type {
   CollapsibleElement,
   CollapsibleProps,
-  InstanceCollapsibleType,
-  _CollapsibleEl,
+  CollapsibleIntrinsicElement,
 } from './collapsible'
 
 export {
@@ -15,10 +14,9 @@ export {
 } from './collapsibleContent'
 
 export type {
-  InstanceCollapsibleContentType,
   CollapsibleContentElement,
   CollapsibleContentProps,
-  _CollapsibleContentEl,
+  CollapsibleContentIntrinsicElement,
 } from './collapsibleContent'
 
 export {
@@ -29,8 +27,7 @@ export {
 export type {
   CollapsibleContentImplElement,
   CollapsibleContentImplProps,
-  InstanceCollapsibleContentImplType,
-  _CollapsibleContentImplEl,
+  CollapsibleContentImplIntrinsicElement,
 } from './collapsibleContentImpl'
 
 export {
@@ -40,6 +37,5 @@ export {
 export type {
   CollapsibleTriggerElement,
   CollapsibleTriggerProps,
-  InstanceCollapsibleTriggerType,
-  _CollapsibleTriggerEl,
+  CollapsibleTriggerIntrinsicElement,
 } from './collapsibleTrigger'
