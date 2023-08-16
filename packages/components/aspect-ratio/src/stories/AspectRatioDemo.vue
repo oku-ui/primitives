@@ -22,7 +22,7 @@ onMounted(() => {
 
 <template>
   <div class="cursor-default inline-block gap-6">
-    <div v-if="template === '#1' || allShow" class="w-[300px] h-[300px] rounded-sm overflow-hidden">
+    <div v-if="template === '#1' || allShow" class="w-[300px] rounded-sm overflow-hidden">
       <OkuAspectRatio ref="root" class="bg-cyan-500 flex items-center justify-center text-white font-bold">
         <h1>Default ratio (1/1)</h1>
       </OkuAspectRatio>
