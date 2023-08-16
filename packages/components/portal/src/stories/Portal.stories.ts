@@ -56,3 +56,19 @@ export const CustomContainer: Story = {
     `,
   }),
 }
+
+export const Chromatic: Story = {
+  args: {
+    template: '#3',
+  },
+
+  render: (args: any) => ({
+    components: { OkuPortalComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuPortalComponent v-bind="args" />
+    `,
+  }),
+}
