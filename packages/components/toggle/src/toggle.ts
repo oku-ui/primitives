@@ -37,7 +37,7 @@ const toggleProps = {
   },
   pressed: {
     type: Boolean as PropType<boolean | undefined>,
-    default: false,
+    default: undefined,
   },
   defaultPressed: {
     type: Boolean,
@@ -66,13 +66,13 @@ const Toggle = defineComponent({
   },
   emits: ['update:pressed', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
-    const { pressed: pressedProp, defaultPressed, disabled } = toRefs(props)
+    const { pressed, defaultPressed, disabled } = toRefs(props)
     const modelValue = useModel(props, 'modelValue')
 
     const forwardedRef = useForwardRef()
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? pressedProp.value),
+      prop: computed(() => modelValue.value ?? pressed.value),
       defaultProp: computed(() => defaultPressed.value),
       onChange: (pressed) => {
         emit('update:modelValue', pressed)

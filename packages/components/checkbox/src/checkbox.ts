@@ -1,6 +1,6 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, useModel, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
@@ -105,8 +105,10 @@ const Checkbox = defineComponent({
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
+    const modelValue = useModel(props, 'modelValue')
+
     const { state, updateValue } = useControllable({
-      prop: computed(() => checkedProp.value),
+      prop: computed(() => modelValue.value || checkedProp.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (result: any) => {
         emit('update:modelValue', result)

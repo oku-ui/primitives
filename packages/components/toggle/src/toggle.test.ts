@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import type { Component } from 'vue'
 import { h, ref } from 'vue'
 import { OkuToggle } from './toggle'
@@ -11,17 +11,16 @@ const component = {
 } as Component
 
 describe('OkuToggle', () => {
-  const wrapper = mount(OkuToggle)
+  const wrapper = mount(component)
 
   it('renders correctly', () => {
     expect(wrapper.html()).toBe(`<button type="button" aria-pressed="false" data-state="off">
   <!---->
 </button>`)
   })
-  return
 
   it('Active state', () => {
-    const wrapper = shallowMount(component, {
+    const wrapper = mount(component, {
       propsData: {
         defaultPressed: true,
       },
@@ -30,7 +29,7 @@ describe('OkuToggle', () => {
   })
 
   it('Inactive state', () => {
-    const wrapper = shallowMount(component, {
+    const wrapper = mount(component, {
       propsData: {
         defaultPressed: false,
       },
