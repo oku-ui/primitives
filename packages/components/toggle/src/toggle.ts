@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
@@ -42,7 +42,6 @@ const Toggle = defineComponent({
       type: Boolean,
       default: false,
     },
-    ...PrimitiveProps,
   },
   emits: ['update:pressed', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
@@ -70,7 +69,6 @@ const Toggle = defineComponent({
         'data-disabled': disabled ? '' : undefined,
         ...toggleProps,
         'ref': forwardedRef,
-        'asChild': props.asChild,
         'onClick': composeEventHandlers(toggleProps.onClick, () => {
           if (!disabled)
             updateValue(!state.value)

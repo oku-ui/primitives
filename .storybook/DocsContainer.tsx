@@ -6,6 +6,7 @@ import { useDarkMode } from 'storybook-dark-mode';
 export const DocsContainer = (
     props: PropsWithChildren<BaseContainerProps>
 ) => {
+    console.log(props.children)
     const dark = useDarkMode();
     return (
         <BaseContainer

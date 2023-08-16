@@ -1,10 +1,10 @@
-import type { ComputedRef } from 'vue'
+import type { PropType } from 'vue'
 import { Transition, defineComponent, h, toRefs } from 'vue'
+import type { Scope } from '@oku-ui/provide'
 
 import { useForwardRef } from '@oku-ui/use-composable'
-import { type ElementType, type IPrimitiveProps, type InstanceTypeRef, type MergeProps, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
-import { ScopePropObject } from '@oku-ui/provide'
 import { OkuCollapsibleContentImpl } from './collapsibleContentImpl'
 import { useCollapsibleInject } from './collapsible'
 
@@ -33,12 +33,16 @@ const CollapsibleContent = defineComponent({
       default: true,
     },
     scopeCollapsible: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
     },
-    ...PrimitiveProps,
+    asChild: {
+      type: Boolean,
+      default: undefined,
+    },
   },
   setup(props, { attrs, slots }) {
-    const { scopeCollapsible, forceMount } = toRefs(props)
+    const { scopeCollapsible } = toRefs(props)
     const { ...contentProps } = attrs as CollapsibleContentElement
 
     const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
@@ -49,17 +53,16 @@ const CollapsibleContent = defineComponent({
     const originalReturn = () => h(
       OkuPresence,
       {
-        present: forceMount.value || context.open.value,
+        present: props.forceMount || context.value.open.value,
       },
       {
-        default: ({ isPresent }: { isPresent: ComputedRef<boolean> }) => h(
+        default: () => h(
           OkuCollapsibleContentImpl,
           {
             ...contentProps,
             ref: forwardedRef,
             asChild: props.asChild,
             scopeCollapsible: scopeCollapsible.value,
-            present: isPresent,
           },
           {
             default: () => slots.default && slots.default(),

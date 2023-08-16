@@ -1,14 +1,13 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
-import type { ComputedRef } from 'vue'
-import { computed, defineComponent, h, mergeProps } from 'vue'
+import type { Scope } from '@oku-ui/provide'
+import type { ComputedRef, PropType } from 'vue'
+import { createVNode, defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { MergeProps } from '@oku-ui/primitive'
-import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
+import { IRovingFocusGroupImplProps, OkuRovingFocusGroupImpl } from './RovingFocusGroupImpl'
 import type { RovingFocusGroupImplElement, RovingFocusGroupImplPropsType, RovingFocusGroupOptions } from './RovingFocusGroupImpl'
-import type { ScopedPropsInterface } from './types'
-import { scopedProps } from './types'
 
 const GROUP_NAME = 'RovingFocusGroup'
 
@@ -33,6 +32,13 @@ export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollec
   },
 })
 
+export type ScopedPropsInterface<P> = P & { scopeRovingFocusGroup?: Scope }
+export const ScopedProps = {
+  scopeRovingFocusGroup: {
+    type: Object as PropType<Scope>,
+  },
+}
+
 const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createProvideScope(
   GROUP_NAME,
   [createCollectionScope],
@@ -53,8 +59,8 @@ type RovingFocusGroupElement = RovingFocusGroupImplElement
 interface IRovingFocusGroup extends ScopedPropsInterface<RovingFocusGroupImplPropsType> { }
 
 const RovingFocusGroupProps = {
-  ...rovingFocusGroupImplProps,
-  ...scopedProps,
+  ...IRovingFocusGroupImplProps,
+  ...ScopedProps,
 }
 
 const RovingFocusGroup = defineComponent({
@@ -70,17 +76,15 @@ const RovingFocusGroup = defineComponent({
   setup(props, { slots, attrs }) {
     const forwardedRef = useForwardRef()
     return () => {
-      const mergedProps = computed(() => mergeProps(attrs, props))
-
+      const mergedProps = mergeProps(attrs, props)
       return h(CollectionProvider, {
         scope: props.scopeRovingFocusGroup,
       }, {
         default: () => h(CollectionSlot, {
           scope: props.scopeRovingFocusGroup,
         }, {
-          default: () => h(OkuRovingFocusGroupImpl, {
-            // ...refs,
-            ...mergedProps.value,
+          default: () => createVNode(OkuRovingFocusGroupImpl, {
+            ...mergedProps,
             ref: forwardedRef,
           }, slots),
         }),

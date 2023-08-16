@@ -9,8 +9,8 @@ import type {
   MergeProps,
 } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
-import { type Scope, ScopePropObject } from '@oku-ui/provide'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import { Primitive } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePopperInject } from './popper'
 
@@ -38,20 +38,25 @@ const PopperAnchor = defineComponent({
       default: undefined,
     },
     scopeCheckbox: {
-      ...ScopePropObject,
+      type: Object as unknown as PropType<Scope>,
+      required: false,
+      default: undefined,
     },
-    ...PrimitiveProps,
+    asChild: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { attrs, slots }) {
-    const { virtualRef } = toRefs(props)
+    const { virtualRef, scopeCheckbox } = toRefs(props)
     const { ...attrsAnchor } = attrs as PopperAnchorElement
-    const inject = usePopperInject(ANCHOR_NAME, props.scopeCheckbox)
+    const inject = usePopperInject(ANCHOR_NAME, scopeCheckbox.value)
 
     const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
     const composedRefs = useComposedRefs(_ref, useForwardRef())
 
     watch(_ref, () => {
-      inject.anchor.value
+      inject.value.anchor.value
         = virtualRef.value?.value || (_ref.value?.$el as Measurable)
     })
 

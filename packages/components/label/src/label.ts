@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 type LabelElement = ElementType<'label'>
@@ -12,9 +12,6 @@ const NAME = 'Label'
 const label = defineComponent({
   name: NAME,
   inheritAttrs: false,
-  props: {
-    ...PrimitiveProps,
-  },
   setup(props, { attrs, slots }) {
     const { ...restAttrs } = attrs as LabelElement
 
@@ -23,7 +20,6 @@ const label = defineComponent({
     const originalReturn = () => h(Primitive.label, {
       ...restAttrs,
       ref: forwardedRef,
-      asChild: props.asChild,
       onMousedown: (event: MouseEvent) => {
         restAttrs.onMousedown?.(event)
         // prevent text selection when double clicking label
