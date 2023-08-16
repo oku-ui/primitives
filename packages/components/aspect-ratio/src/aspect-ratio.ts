@@ -1,16 +1,17 @@
-import { defineComponent, h } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { CSSProperties } from 'vue'
+import { defineComponent, h, toRef } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-interface AspectRatioProps extends IPrimitiveProps {
+export type AspectRatioIntrinsicElement = ElementType<'div'>
+export type AspectRatioElement = HTMLDivElement
+
+const NAME = 'OkuAspectRatio'
+
+interface AspectRatioProps extends PrimitiveProps {
   ratio?: number
 }
-
-type AspectRatioElement = ElementType<'div'>
-export type _AspectRatioEl = HTMLDivElement
-
-const NAME = 'AspectRatio'
 
 const AspectRatio = defineComponent({
   name: NAME,
@@ -20,37 +21,37 @@ const AspectRatio = defineComponent({
       type: Number,
       default: 1 / 1,
     },
-    ...PrimitiveProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { style, ...aspectRatioProps } = attrs as AspectRatioElement
+    const ratio = toRef(props, 'ratio')
+    const { style, ...aspectRatioAttrs } = attrs as AspectRatioIntrinsicElement
 
     const forwardedRef = useForwardRef()
-
     const originalReturn = () => h(
       'div', {
         'style': {
           position: 'relative',
           width: '100%',
-          paddingBottom: `${100 / props.ratio}%`,
-        },
+          paddingBottom: `${100 / ratio.value}%`,
+        } as CSSProperties,
         'data-oku-aspect-ratio-wrapper': '',
       },
       [
         h(
           Primitive.div,
           {
-            ...aspectRatioProps,
+            asChild: props.asChild,
+            ...aspectRatioAttrs,
             ref: forwardedRef,
             style: {
               ...(style as any),
               position: 'absolute',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
+              top: '0px',
+              right: '0px',
+              left: '0px',
+              bottom: '0px',
             },
-            asChild: props.asChild,
           },
           {
             default: () => slots.default?.(),
@@ -64,10 +65,9 @@ const AspectRatio = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _AspectRatioProps = MergeProps<AspectRatioProps, AspectRatioElement>
-type InstanceAspectRatioType = InstanceTypeRef<typeof AspectRatio, _AspectRatioEl>
+export const OkuAspectRatio = AspectRatio as typeof AspectRatio &
+(new () => {
+  $props: Partial<AspectRatioElement>
+})
 
-const OkuAspectRatio = AspectRatio as typeof AspectRatio & (new () => { $props: _AspectRatioProps })
-
-export { OkuAspectRatio }
-export type { AspectRatioProps, AspectRatioElement, InstanceAspectRatioType }
+export type { AspectRatioProps }

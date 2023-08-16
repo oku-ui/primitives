@@ -7,7 +7,7 @@
         "cacheableOperations": [
           "build"
         ],
-        "parallel": 1
+        "parallel": 5
       }
     }
   },
