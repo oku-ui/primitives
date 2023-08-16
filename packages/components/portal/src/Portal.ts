@@ -1,12 +1,9 @@
-import {
-  Primitive,
-  PrimitiveProps,
-} from '@oku-ui/primitive'
+import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
 import type {
   ComponentPublicInstanceRef,
-  type ElementType,
-  type IPrimitiveProps,
-  type MergeProps,
+  ElementType,
+  IPrimitiveProps,
+  MergeProps,
 } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, onMounted, ref, render, toRefs } from 'vue'
