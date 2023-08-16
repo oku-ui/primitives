@@ -3,26 +3,21 @@ import { mount } from '@vue/test-utils'
 import { OkuPortal } from './Portal'
 
 describe('OkuPortal', () => {
-  it('renders content inside the portal', async () => {
+  it('teleports content to the specified container', async () => {
+    const container = document.createElement('div')
+    document.body.appendChild(container)
+
     const wrapper = mount(OkuPortal, {
-      slots: {
-        default: '<div>Portal Content</div>',
+      props: {
+        container,
       },
-      attrs: {
-        class: 'oku-portal',
+      slots: {
+        default: 'Portal Content',
       },
     })
 
-    // Wait for the next tick
     await wrapper.vm.$nextTick()
 
-    // Find the portal content inside the container
-    const portalContent = document.querySelector('.oku-portal')
-
-    expect(portalContent).toBeDefined()
-    expect(portalContent?.textContent).toBe('Portal Content')
-
-    // Cleanup
-    wrapper.unmount()
+    expect(container.innerHTML).toContain('Portal Content')
   })
 })
