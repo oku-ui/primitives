@@ -32,11 +32,19 @@ const focusOnUnmount = ref<FocusParam>(false)
 const ageFieldRef = ref<HTMLInputElement | null>(null)
 const nextButtonRef = ref<HTMLButtonElement | null>(null)
 
-function onAutoFocus(event: Event, focusParam: FocusParam) {
-  if (focusParam !== true) {
+function onMountAutoFocus(event: Event) {
+  if (focusOnMount.value !== true) {
     event.preventDefault()
-    if (focusParam)
-      focusParam?.focus()
+    if (focusOnMount.value)
+      focusOnMount.value?.focus()
+  }
+}
+
+function onUnmountAutoFocus(event: Event) {
+  if (focusOnUnmount.value !== true) {
+    event.preventDefault()
+    if (focusOnUnmount.value)
+      focusOnUnmount.value?.focus()
   }
 }
 </script>
@@ -230,8 +238,8 @@ function onAutoFocus(event: Event, focusParam: FocusParam) {
 
         <OkuFocusScope
           v-if="isOpen" key="form" as-child :loop="trapFocus" :trapped="trapFocus"
-          :on-mount-auto-focus="(event) => onAutoFocus(event, focusOnMount)"
-          :on-unmount-auto-focus="(event) => onAutoFocus(event, focusOnUnmount)"
+          @mount-auto-focus="(event) => onMountAutoFocus(event)"
+          @unmount-auto-focus="(event) => onUnmountAutoFocus(event)"
         >
           <form class="inline-flex flex-col gap-5 p-5 m-[50px] max-w-[500px] border-2 border-gray-300">
             <template v-if="!isEmptyForm">
