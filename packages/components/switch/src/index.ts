@@ -1,9 +1,12 @@
-export { OkuSwitch } from './Switch'
+export {
+  OkuSwitch,
+  createSwitchScope,
+} from './Switch'
 
 export type {
   SwitchProps,
-  InstanceSwitchType,
-  _SwitchEl,
+  SwitchIntrinsicElement,
+  SwitchElement,
 } from './Switch'
 
 export {
@@ -12,6 +15,6 @@ export {
 
 export type {
   SwitchThumbProps,
-  InstanceSwitchThumbType,
-  _SwitchThumbEl,
+  SwitchThumbElement,
+  SwitchThumbIntrinsicElement,
 } from './SwitchThumb'

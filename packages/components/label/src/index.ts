@@ -4,6 +4,5 @@ export {
 export type {
   LabelProps,
   LabelElement,
-  InstanceLabelType,
-  _LabelEl,
+  LabelIntrinsicElement,
 } from './label'

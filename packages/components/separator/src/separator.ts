@@ -1,18 +1,19 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-const NAME = 'Separator'
+const NAME = 'OkuSeparator'
 const DEFAULT_ORIENTATION = 'horizontal'
 const ORIENTATIONS = ['horizontal', 'vertical'] as const
 
 type Orientation = typeof ORIENTATIONS[number]
-type SeparatorElement = ElementType<'div'>
-export type _SeparatorEl = HTMLDivElement
 
-interface SeparatorProps extends IPrimitiveProps {
+export type SeparatorIntrinsicElement = ElementType<'div'>
+export type SeparatorElement = HTMLDivElement
+
+interface SeparatorProps extends PrimitiveProps {
   /**
   * Whether or not the component is purely decorative. When true, accessibility-related attributes
   * are updated so that that the rendered element is removed from the accessibility tree.
@@ -24,28 +25,33 @@ interface SeparatorProps extends IPrimitiveProps {
   orientation?: Orientation
 }
 
-const Separator = defineComponent({
+const separatorProps = {
+  /**
+  * Whether or not the component is purely decorative. When true, accessibility-related attributes
+  * are updated so that that the rendered element is removed from the accessibility tree.
+  */
+  decorative: {
+    type: Boolean as PropType<boolean | undefined>,
+    default: undefined,
+  },
+  /**
+   * Either `vertical` or `horizontal`. Defaults to `horizontal`.
+   */
+  orientation: {
+    type: String as PropType<Orientation>,
+    default: DEFAULT_ORIENTATION,
+  },
+}
+
+const separator = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    /**
-    * Whether or not the component is purely decorative. When true, accessibility-related attributes
-    * are updated so that that the rendered element is removed from the accessibility tree.
-    */
-    decorative: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Either `vertical` or `horizontal`. Defaults to `horizontal`.
-     */
-    orientation: {
-      type: String as PropType<Orientation>,
-      default: DEFAULT_ORIENTATION,
-    },
+    ...separatorProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...domProps } = attrs as SeparatorElement
+    const { ...domProps } = attrs as SeparatorIntrinsicElement
     const orientation = ORIENTATIONS.includes(props.orientation) ? props.orientation : DEFAULT_ORIENTATION
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = orientation === 'vertical' ? orientation : undefined
@@ -66,6 +72,7 @@ const Separator = defineComponent({
             ...domProps,
             border: 'none',
           },
+          asChild: props.asChild,
         },
         {
           default: () => slots.default?.(),
@@ -77,14 +84,11 @@ const Separator = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _SeparatorProps = MergeProps<SeparatorProps, SeparatorElement>
-type InstanceSeparatorType = InstanceTypeRef<typeof Separator, _SeparatorEl>
+export const OkuSeparator = separator as typeof separator &
+(new () => {
+  $props: Partial<SeparatorElement>
+})
 
-const OkuSeparator = Separator as typeof Separator & (new () => { $props: _SeparatorProps })
-
-export { OkuSeparator }
 export type {
   SeparatorProps,
-  SeparatorElement,
-  InstanceSeparatorType,
 }

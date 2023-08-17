@@ -1,10 +1,13 @@
-import type { Directive } from 'vue'
-import { defineComponent, h, ref, toRefs, withDirectives } from 'vue'
-import { syncRef } from '@oku-ui/use-composable'
+import { defineComponent, h, toRefs } from 'vue'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePresence } from './usePresence'
 
 interface PresenceProps {
   present: boolean
+}
+
+const presenceProps = {
+  present: Boolean,
 }
 
 const NAME = 'OkuPresence'
@@ -13,58 +16,26 @@ const presence = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    present: {
-      type: Boolean,
-      default: false,
-    },
+    ...presenceProps,
   },
-  setup(props, { slots, attrs }) {
+  setup(props, { slots }) {
     const { present } = toRefs(props)
-    const elementRef = ref<HTMLElement>()
 
-    const element: Directive = {
-      created(el) {
-        const { isPresent } = usePresence(present, el)
-        syncRef(isPresent, elementRef, { direction: 'ltr' })
-      },
-    }
+    const forwardedRef = useForwardRef()
+    const { isPresent, ref: presenceRef } = usePresence(present)
+    const composedRefs = useComposedRefs(presenceRef, forwardedRef)
 
     return () => {
-      const children = slots.default?.()
+      const slot = slots.default?.({
+        isPresent,
+      })
+      const [child] = slot ?? []
 
-      if (children?.length === 1) {
-        const [firstChild] = children || []
-
-        const directVNodeChildren = withDirectives(
-          h(
-            firstChild,
-            {
-              present,
-              ...attrs,
-            },
-          ),
-          [
-            [element],
-          ])
-
-        return present.value ? directVNodeChildren : null
-      }
-      else {
-        throw new Error(
-          [
-            `Now you can only pass one child to \`${NAME}\`.`,
-            '',
-            'Note: All components accepting `Presence` expect only one direct child of valid VNode type.',
-            'You can apply a few solutions:',
-            [
-              'Provide a single child element so that we can forward the props onto that element.',
-              'Ensure the first child is an actual element instead of a raw text node or comment node.',
-            ]
-              .map(line => `  - ${line}`)
-              .join('\n'),
-          ].join('\n'),
-        )
-      }
+      return isPresent.value
+        ? h(child, {
+          ref: composedRefs,
+        })
+        : null
     }
   },
 })

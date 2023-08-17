@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { OkuLabel } from '@oku-ui/label'
 import ButtonProvide from './ButtonProvide.vue'
 import ButtonDeneme from './Button.vue'
 
@@ -22,6 +23,27 @@ const disabled3To5 = ref(false)
 <template>
   <div class="dark:text-white">
     <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
+      <ButtonProvide>
+        <OkuRovingFocusGroup as-child class="flex flex-col mb-10" orientation="vertical" dir="ltr">
+          <span>
+            <OkuLabel>
+
+              <ButtonDeneme value="one">
+                ButtonDeneme1
+              </ButtonDeneme>
+              test
+            </OkuLabel>
+
+            <ButtonDeneme value="two" disabled>
+              ButtonDeneme2
+            </ButtonDeneme>
+            <ButtonDeneme value="three">
+              three
+            </ButtonDeneme>
+          </span>
+        </OkuRovingFocusGroup>
+      </ButtonProvide>
+
       <ButtonProvide>
         <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
           <ButtonDeneme value="one">

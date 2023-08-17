@@ -1,4 +1,4 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import {
   computed,
   defineComponent,
@@ -11,41 +11,76 @@ import {
 } from 'vue'
 import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import type {
-  ComponentPublicInstanceRef,
   ElementType,
-  IPrimitiveProps,
-  InstanceTypeRef,
-  MergeProps,
+  PrimitiveProps,
+
 } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { getState } from './util'
+import type { ScopeSwitch } from './util'
+import { getState, scopeSwitchProps } from './util'
 import { BubbleInput } from './BubbleInput'
 
 const SWITCH_NAME = 'OkuSwitch'
 
-type SwitchElement = ElementType<'button'>
-export type _SwitchEl = HTMLButtonElement
+export type SwitchIntrinsicElement = ElementType<'button'>
+export type SwitchElement = HTMLButtonElement
 
 type SwitchContextValue = {
-  checked: Ref<boolean> | ComputedRef<boolean>
+  checked: Ref<boolean>
   disabled?: Ref<boolean>
 }
 
-interface SwitchProps extends IPrimitiveProps {
+interface SwitchProps extends PrimitiveProps {
+  name?: string
   checked?: boolean
   defaultChecked?: boolean
   required?: boolean
+  disabled?: boolean
+  value?: 'on' | 'off'
   onCheckedChange?(checked: boolean): void
 }
 
-const [createSwitchContext, createSwitchScope]
+const switchProps = {
+  modelValue: {
+    type: Boolean as PropType<boolean>,
+    default: undefined,
+  },
+  name: {
+    type: String,
+    required: false,
+  },
+  checked: {
+    type: Boolean,
+    default: undefined,
+  },
+  defaultChecked: {
+    type: Boolean,
+    default: false,
+  },
+  required: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  value: {
+    type: String as PropType<'on' | 'off'>,
+    default: 'on',
+  },
+  onCheckedChange: {
+    type: Function as PropType<(checked: boolean) => void>,
+  },
+}
+
+const [createSwitchProvide, createSwitchScope]
   = createProvideScope(SWITCH_NAME)
 
-const [switchProvider, useSwitchContext]
-  = createSwitchContext<SwitchContextValue>(SWITCH_NAME)
+const [switchProvider, useSwitchInject]
+  = createSwitchProvide<SwitchContextValue>(SWITCH_NAME)
 
 const Switch = defineComponent({
   name: SWITCH_NAME,
@@ -54,45 +89,9 @@ const Switch = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    modelValue: {
-      type: Boolean as PropType<boolean>,
-      default: undefined,
-    },
-    name: {
-      type: String,
-      required: false,
-    },
-    checked: {
-      type: Boolean,
-      default: undefined,
-    },
-    defaultChecked: {
-      type: Boolean,
-      default: false,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: String as PropType<'on' | 'off'>,
-      default: 'on',
-    },
-    onCheckedChange: {
-      type: Function as PropType<(checked: boolean) => void>,
-    },
-    scopeSwitch: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    asChild: {
-      type: Boolean,
-      default: undefined,
-    },
+    ...switchProps,
+    ...scopeSwitchProps,
+    ...primitiveProps,
   },
   emits: ['update:modelValue'],
   setup(props, { attrs, emit, slots }) {
@@ -103,13 +102,12 @@ const Switch = defineComponent({
       disabled,
       value: switchValue,
       onCheckedChange,
-      scopeSwitch,
       name,
     } = toRefs(props)
 
-    const { ...switchProps } = attrs as SwitchElement
+    const { ...switchProps } = attrs as SwitchIntrinsicElement
 
-    const buttonRef = ref<ComponentPublicInstanceRef<HTMLButtonElement> | null>(null)
+    const buttonRef = ref<HTMLButtonElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
@@ -121,8 +119,8 @@ const Switch = defineComponent({
     // We set this to true by default so that events bubble to forms without JS (SSR)
     onMounted(() => {
       isFormControl.value = buttonRef.value
-        ? typeof buttonRef.value.$el.closest === 'function'
-        && Boolean(buttonRef.value.$el.closest('form'))
+        ? typeof buttonRef.value.closest === 'function'
+        && Boolean(buttonRef.value.closest('form'))
         : true
     })
 
@@ -137,8 +135,8 @@ const Switch = defineComponent({
 
     switchProvider({
       disabled,
-      scope: scopeSwitch.value,
-      checked: state as ComputedRef<boolean>,
+      scope: props.scopeOkuSwitch,
+      checked: computed(() => state.value || false),
     })
 
     const originalReturn = () => [
@@ -176,7 +174,7 @@ const Switch = defineComponent({
       ),
       isFormControl.value
         && h(BubbleInput, {
-          control: buttonRef,
+          control: buttonRef.value,
           bubbles: !hasConsumerStoppedPropagationRef.value,
           name: name.value,
           value: switchValue.value,
@@ -191,11 +189,11 @@ const Switch = defineComponent({
   },
 })
 
-type _Switch = MergeProps<SwitchProps, SwitchElement>
-type InstanceSwitchType = InstanceTypeRef<typeof Switch, _SwitchEl>
+export const OkuSwitch = Switch as typeof Switch &
+(new () => {
+  $props: ScopeSwitch<Partial<SwitchIntrinsicElement>>
+})
 
-const OkuSwitch = Switch as typeof Switch & (new () => { $props: _Switch })
+export { useSwitchInject, createSwitchScope }
 
-export { OkuSwitch, useSwitchContext, createSwitchScope }
-
-export type { SwitchProps, InstanceSwitchType }
+export type { SwitchProps }

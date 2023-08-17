@@ -1,20 +1,18 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 
-import type {
-  ElementType,
-  IPrimitiveProps,
-  InstanceTypeRef,
-  MergeProps,
+import {
+  type ElementType,
+  type PrimitiveProps,
+  primitiveProps,
 } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
-import type { ArrowProps, _ArrowEl } from '@oku-ui/arrow'
+import { type Scope } from '@oku-ui/provide'
+import type { ArrowProps } from '@oku-ui/arrow'
 import { OkuArrow } from '@oku-ui/arrow'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { Side } from './utils'
+import { type ScopePopper, type Side, scopePopperProps } from './utils'
 import { usePopperContentInject } from './popperContent'
 
-const ARROW_NAME = 'PopperArrow'
+const ARROW_NAME = 'OkuPopperArrow'
 
 const OPPOSITE_SIDE: Record<Side, Side> = {
   top: 'bottom',
@@ -23,24 +21,24 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
   left: 'right',
 }
 
-type PopperArrowElement = ElementType<'svg'>
-interface PopperArrowProps extends IPrimitiveProps, ArrowProps {
+export type PopperArrowIntrinsicElement = ElementType<'svg'>
+export type PopperArrowElement = SVGSVGElement
+
+interface PopperArrowProps extends PrimitiveProps, ArrowProps {
   scopePopper?: Scope
 }
 
-const PopperArrow = defineComponent({
+const popperArrow = defineComponent({
   name: ARROW_NAME,
   props: {
-    scopePopper: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...scopePopperProps,
+    ...primitiveProps,
   },
   setup(props, { attrs }) {
-    const { ...attrsElement } = attrs as PopperArrowElement
-    const contentInject = usePopperContentInject(ARROW_NAME, props.scopePopper)
+    const { ...attrsElement } = attrs as PopperArrowIntrinsicElement
+    const contentInject = usePopperContentInject(ARROW_NAME, props.scopeOkuPopper)
     const baseSide = computed(() => {
-      return OPPOSITE_SIDE[contentInject.value.placedSide.value]
+      return OPPOSITE_SIDE[contentInject.placedSide.value]
     })
 
     const forwardedRef = useForwardRef()
@@ -50,34 +48,34 @@ const PopperArrow = defineComponent({
         'span',
         {
           ref: (el: any) => {
-            contentInject.value.onAnchorChange(el)
+            contentInject.onAnchorChange(el)
             return undefined
           },
           style: {
             position: 'absolute',
-            left: contentInject.value.arrowX?.value,
-            top: contentInject.value.arrowY?.value,
+            left: contentInject.arrowX?.value,
+            top: contentInject.arrowY?.value,
             [baseSide.value]: '0px',
             transformOrigin: {
               top: '',
               right: '0px 0px',
               bottom: 'center 0px',
               left: '100% 0px',
-            }[contentInject.value.placedSide.value],
+            }[contentInject.placedSide.value],
             transform: {
               top: 'translateY(100%)',
               right: 'translateY(50%) rotate(90deg) translateX(-50%)',
               bottom: 'rotate(180deg)',
               left: 'translateY(50%) rotate(-90deg) translateX(50%)',
-            }[contentInject.value.placedSide.value],
-            visibility: contentInject.value.shouldHideArrow.value
+            }[contentInject.placedSide.value],
+            visibility: contentInject.shouldHideArrow.value
               ? 'hidden'
               : undefined,
           },
         },
         [
           h(OkuArrow, {
-            ...attrsElement,
+            ...attrsElement as any,
             ref: forwardedRef,
             style: {
               ...(attrsElement.style as any),
@@ -90,12 +88,10 @@ const PopperArrow = defineComponent({
   },
 })
 
-type _PopperArrow = MergeProps<PopperArrowProps, PopperArrowElement>
-type InstancePopperArrowType = InstanceTypeRef<typeof PopperArrow, _ArrowEl>
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+export const OkuPopperArrow = popperArrow as typeof popperArrow
+& (new () => {
+  $props: ScopePopper<Partial<PopperArrowIntrinsicElement>>
+})
 
-const OkuPopperArrow = PopperArrow as typeof PopperArrow &
-(new () => { $props: _PopperArrow })
-
-export { OkuPopperArrow }
-
-export type { PopperArrowProps, InstancePopperArrowType }
+export type { PopperArrowProps }

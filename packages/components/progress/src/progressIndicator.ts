@@ -1,52 +1,48 @@
-import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type {
-  ElementType,
-  IPrimitiveProps,
-  InstanceTypeRef,
-  MergeProps,
+import {
+  type ElementType,
+  type PrimitiveProps,
+  primitiveProps,
 } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import { type Scope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { getProgressState } from './utils'
-import { useProgressContext } from './progress'
+import type { ScopeProgress } from './utils'
+import { getProgressState, scopeProgressProps } from './utils'
+import { useProgressInject } from './progress'
 import { INDICATOR_NAME } from './constants'
 
-type ProgressIndicatorElement = ElementType<'div'>
-export type _ProgressIndicatorEl = HTMLDivElement
+type ProgressIndicatorElementIntrinsicElement = ElementType<'div'>
+export type ProgressIndicatorElement = HTMLDivElement
 
-interface ProgressIndicatorProps extends IPrimitiveProps {
+interface ProgressIndicatorProps extends PrimitiveProps {
   scopeProgress?: Scope
 }
 
-const ProgressIndicator = defineComponent({
+const progressIndicator = defineComponent({
   name: INDICATOR_NAME,
   inheritAttrs: true,
   props: {
-    scopeProgress: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...scopeProgressProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeProgress } = props
-    const { ...indicatorProps } = attrs as ProgressIndicatorProps
+    const { ...indicatorAttrs } = attrs as ProgressIndicatorElementIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
-    const context = useProgressContext(INDICATOR_NAME, scopeProgress)
+    const context = useProgressInject(INDICATOR_NAME, props.scopeOkuProgress)
 
     const originalReturn = () =>
       h(
         'div',
         {
           'data-state': getProgressState(
-            context.value.max.value,
-            context.value.value?.value,
+            context.max.value,
+            context.value?.value,
           ),
-          'data-value': context.value.value?.value ?? undefined,
-          'data-max': context.value.max.value,
-          ...indicatorProps,
+          'data-value': context.value?.value ?? undefined,
+          'data-max': context.max.value,
+          ...indicatorAttrs,
           'ref': forwardedRef,
         },
         {
@@ -58,19 +54,10 @@ const ProgressIndicator = defineComponent({
   },
 })
 
-type _OkuProgressIndicatorProps = MergeProps<
-  ProgressIndicatorProps,
-  ProgressIndicatorElement
->
-type InstanceProgressIndicatorType = InstanceTypeRef<typeof ProgressIndicator, _ProgressIndicatorEl>
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+export const OkuProgressIndicator = progressIndicator as typeof progressIndicator &
+(new () => {
+  $props: ScopeProgress<Partial<ProgressIndicatorElement>>
+})
 
-const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator &
-(new () => { $props: _OkuProgressIndicatorProps })
-
-export { OkuProgressIndicator }
-
-export type {
-  ProgressIndicatorProps,
-  ProgressIndicatorElement,
-  InstanceProgressIndicatorType,
-}
+export type { ProgressIndicatorProps }
