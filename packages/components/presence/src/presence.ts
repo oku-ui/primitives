@@ -6,16 +6,17 @@ interface PresenceProps {
   present: boolean
 }
 
+const presenceProps = {
+  present: Boolean,
+}
+
 const NAME = 'OkuPresence'
 
 const presence = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    present: {
-      type: Boolean,
-      default: false,
-    },
+    ...presenceProps,
   },
   setup(props, { slots }) {
     const { present } = toRefs(props)
@@ -25,10 +26,10 @@ const presence = defineComponent({
     const composedRefs = useComposedRefs(presenceRef, forwardedRef)
 
     return () => {
-      const ddd = slots.default?.({
+      const slot = slots.default?.({
         isPresent,
       })
-      const [child] = ddd ?? []
+      const [child] = slot ?? []
 
       return isPresent.value
         ? h(child, {

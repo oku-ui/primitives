@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { OkuCollapsible, OkuCollapsibleContent, OkuCollapsibleTrigger } from '@oku-ui/collapsible'
-import type { CollapsibleProps } from '@oku-ui/collapsible'
 
-export interface ICollapsibleProps extends CollapsibleProps {
+export interface ICollapsibleProps {
   template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }

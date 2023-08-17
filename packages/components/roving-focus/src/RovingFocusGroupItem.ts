@@ -2,18 +2,19 @@ import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, toRefs, watchEffect } from 'vue'
 import { useForwardRef, useId } from '@oku-ui/use-composable'
 
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { ItemData } from './RovingFocusGroup'
 import { CollectionItemSlot, useCollection, useRovingFocusInject } from './RovingFocusGroup'
+import type { ScopeRovingFocus } from './utils'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
 import type { ScopedPropsInterface } from './types'
 import { scopedProps } from './types'
 
-export type RovingFocusGroupItemElement = ElementType<'span'>
-export type _RovingFocusGroupItemEl = HTMLSpanElement
+export type RovingFocusGroupItemIntrinsicElement = ElementType<'span'>
+export type RovingFocusGroupItemElement = HTMLSpanElement
 
 interface IRovingFocusItemProps {
   tabStopId?: string
@@ -42,7 +43,7 @@ export const RovingFocusItemProps = {
 }
 
 // Define Component Props Type
-export interface RovingFocusItemPropsType extends ScopedPropsInterface<IRovingFocusItemProps>, IPrimitiveProps {
+export interface RovingFocusItemPropsType extends ScopedPropsInterface<IRovingFocusItemProps>, PrimitiveProps {
 }
 
 export const RovingFocusGroupItemElementProps = {
@@ -51,26 +52,28 @@ export const RovingFocusGroupItemElementProps = {
 
 export const rovingFocusGroupItemProps = {
   ...RovingFocusItemProps,
-  ...scopedProps,
-  ...PrimitiveProps,
 }
 
 const ITEM_NAME = 'OkuRovingFocusGroupItem'
 
-const RovingFocusGroupItem = defineComponent({
+const rovingFocusGroupItem = defineComponent({
   name: ITEM_NAME,
   components: {
     CollectionItemSlot,
   },
   inheritAttrs: false,
-  props: rovingFocusGroupItemProps,
+  props: {
+    ...rovingFocusGroupItemProps,
+    ...scopedProps,
+    ...primitiveProps,
+  },
   setup(props, { attrs, slots }) {
     const _attrs = attrs as any
     const {
       focusable,
       active,
       tabStopId,
-      scopeRovingFocusGroup,
+      scopeOkuRovingFocusGroup,
       asChild,
       onFocus,
       onKeydown,
@@ -80,10 +83,10 @@ const RovingFocusGroupItem = defineComponent({
     const attrsItems = _attrs
 
     const autoId = useId()
-    const id = computed(() => tabStopId.value ?? autoId)
-    const inject = useRovingFocusInject(ITEM_NAME, props.scopeRovingFocusGroup)
+    const id = computed(() => tabStopId.value || autoId)
+    const inject = useRovingFocusInject(ITEM_NAME, props.scopeOkuRovingFocusGroup)
     const isCurrentTabStop = computed(() => inject.currentTabStopId.value === id.value)
-    const getItems = useCollection(scopeRovingFocusGroup.value)
+    const getItems = useCollection(props.scopeOkuRovingFocusGroup)
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
@@ -102,11 +105,11 @@ const RovingFocusGroupItem = defineComponent({
       id: id.value,
       focusable: focusable.value,
       active: active.value,
-      scope: props.scopeRovingFocusGroup,
+      scope: props.scopeOkuRovingFocusGroup,
     }
     return () => {
       const merged = mergeProps(attrsItems, propsData, {
-        tabIndex: isCurrentTabStop.value ? 0 : -1,
+        tabindex: isCurrentTabStop.value ? 0 : -1,
       })
       return h(CollectionItemSlot, {
         ..._props,
@@ -114,7 +117,7 @@ const RovingFocusGroupItem = defineComponent({
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
-            'data-orientation': inject.orientation,
+            'data-orientation': inject.orientation?.value,
             ...merged,
             'ref': forwardedRef,
             'asChild': asChild.value,
@@ -139,14 +142,13 @@ const RovingFocusGroupItem = defineComponent({
               if (event.target !== event.currentTarget)
                 return
 
-              const focusIntent = getFocusIntent(event, inject.orientation, inject.dir)
+              const focusIntent = getFocusIntent(event, inject.orientation?.value, inject.dir?.value)
 
               if (focusIntent !== undefined) {
                 event.preventDefault()
 
                 const items = getItems.value.filter(item => item.focusable)
-                let candidateNodes = items.map(item => item.ref.$el!)
-
+                let candidateNodes = items.map(item => item.ref)
                 if (focusIntent === 'last') {
                   candidateNodes.reverse()
                 }
@@ -154,7 +156,7 @@ const RovingFocusGroupItem = defineComponent({
                   if (focusIntent === 'prev')
                     candidateNodes.reverse()
                   const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-                  candidateNodes = inject.loop
+                  candidateNodes = inject.loop?.value
                     ? wrapArray(candidateNodes, currentIndex + 1)
                     : candidateNodes.slice(currentIndex + 1)
                 }
@@ -174,12 +176,11 @@ const RovingFocusGroupItem = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuRovingFocusGroupItem = MergeProps<RovingFocusItemPropsType, RovingFocusGroupItemElement>
+export const OkuRovingFocusGroupItem = rovingFocusGroupItem as typeof rovingFocusGroupItem &
+(new () => {
+  $props: ScopeRovingFocus<Partial<RovingFocusGroupItemElement>>
+})
 
-export type InstanceCheckboxType = InstanceTypeRef<typeof RovingFocusGroupItem, _OkuRovingFocusGroupItem>
-
-const OkuRovingFocusGroupItem = RovingFocusGroupItem as typeof RovingFocusGroupItem & (new () => { $props: _OkuRovingFocusGroupItem })
-
-export {
-  OkuRovingFocusGroupItem,
+export type {
+  IRovingFocusItemProps,
 }

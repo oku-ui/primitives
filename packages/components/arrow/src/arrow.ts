@@ -1,25 +1,25 @@
 import { cloneVNode, defineComponent, h } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-type ArrowElement = ElementType<'svg'>
-export type _ArrowEl = SVGSVGElement
+export type ArrowIntrinsicElement = ElementType<'svg'>
+export type ArrowElement = SVGSVGElement
 
-interface ArrowProps extends IPrimitiveProps {}
+interface ArrowProps extends PrimitiveProps {}
 
-const NAME = 'Arrow'
+const NAME = 'OkuArrow'
 
 const arrow = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...PrimitiveProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
-    const { width = '10px', height = '5px', ...arrowAttrs } = attrs as ArrowElement
+    const { width = '10px', height = '5px', ...arrowAttrs } = attrs as ArrowIntrinsicElement
 
     const originalReturn = () => {
       const defaultSlot = typeof slots.default === 'function' ? slots.default()[0] : slots.default ?? null
@@ -53,10 +53,9 @@ const arrow = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _ArrowProps = MergeProps<ArrowProps, ArrowElement>
-type InstanceArrowType = InstanceTypeRef<typeof arrow, _ArrowEl>
+export const OkuArrow = arrow as typeof arrow
+& (new () => {
+  $props: Partial<ArrowElement>
+})
 
-const OkuArrow = arrow as typeof arrow & (new () => { $props: _ArrowProps })
-
-export { OkuArrow }
-export type { ArrowProps, ArrowElement, InstanceArrowType }
+export type { ArrowProps }

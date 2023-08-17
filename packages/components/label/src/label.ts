@@ -1,22 +1,23 @@
 import { defineComponent, h } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-type LabelElement = ElementType<'label'>
-export type _LabelEl = HTMLLabelElement
-interface LabelProps extends IPrimitiveProps {}
+export type LabelIntrinsicElement = ElementType<'label'>
+export type LabelElement = HTMLLabelElement
 
-const NAME = 'Label'
+interface LabelProps extends PrimitiveProps {}
+
+const NAME = 'OkuLabel'
 
 const label = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...PrimitiveProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as LabelElement
+    const { ...restAttrs } = attrs as LabelIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
@@ -39,10 +40,12 @@ const label = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _LabelProps = MergeProps<LabelProps, LabelElement>
-type InstanceLabelType = InstanceTypeRef<typeof label, _LabelEl>
-
-const OkuLabel = label as typeof label & (new () => { $props: _LabelProps })
-
+const OkuLabel = label as typeof label &
+(new () => {
+  $props: Partial<LabelElement>
+})
 export { OkuLabel }
-export type { LabelProps, LabelElement, InstanceLabelType }
+
+export type {
+  LabelProps,
+}

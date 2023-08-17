@@ -7,8 +7,8 @@ import {
   onMounted,
 } from 'vue'
 
-// import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuSlot } from '@oku-ui/slot'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { NODES, type Primitives } from './types'
 
 const Primitive = NODES.reduce((primitive, node) => {
@@ -19,8 +19,9 @@ const Primitive = NODES.reduce((primitive, node) => {
       asChild: Boolean,
     },
     setup(props, { attrs, slots }) {
-      // TODO: add support for ref forwarding
-      // const forwardedRef = useForwardRef()
+      const forwarded = useForwardRef()
+      const composedRefs = useComposedRefs(forwarded)
+
       const { asChild, ...primitiveProps } = props
 
       onMounted(() => {
@@ -29,13 +30,8 @@ const Primitive = NODES.reduce((primitive, node) => {
 
       const Tag: any = asChild ? OkuSlot : node
       return () => {
-        const defaultSlot = slots.default?.()
-
-        if (asChild && defaultSlot?.length && defaultSlot?.length > 1)
-          throw new Error(`The ${node} component can only have one child`)
-
         const mergedProps = mergeProps(attrs, primitiveProps)
-        return createVNode(Tag, { ...mergedProps }, {
+        return createVNode(Tag, { ...mergedProps, ref: composedRefs }, {
           default: () => slots.default?.(),
         })
       }
