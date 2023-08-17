@@ -1,10 +1,7 @@
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
-  ComponentPublicInstanceRef,
   ElementType,
-  IPrimitiveProps,
-  InstanceTypeRef,
-  MergeProps,
+  PrimitiveProps,
 } from '@oku-ui/primitive'
 
 import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -25,12 +22,12 @@ export type FocusableTarget = HTMLElement | { focus(): void }
  * FocusScope
  * ----------------------------------------------------------------------------------------------- */
 
-const FOCUS_SCOPE_NAME = 'FocusScope'
+const FOCUS_SCOPE_NAME = 'OkuFocusScope'
 
-type FocusScopeElement = ElementType<'div'>
-export type _FocusScopeEl = HTMLDivElement
+export type FocusScopeElement = ElementType<'div'>
+export type FocusIntrinsicElement = HTMLDivElement
 
-interface FocusScopeProps extends IPrimitiveProps {
+interface FocusScopeProps extends PrimitiveProps {
   /**
    * When `true`, tabbing from last item will focus first tabbable
    * and shift+tab from first item will focus last tababble.
@@ -58,35 +55,36 @@ interface FocusScopeProps extends IPrimitiveProps {
   onUnmountAutoFocus?: (event: Event) => void
 }
 
-const FocusScope = defineComponent({
+const focusScopeProps = {
+  loop: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  trapped: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  onMountAutoFocus: {
+    type: Function as PropType<FocusScopeProps['onMountAutoFocus']>,
+    required: false,
+  },
+  onUnmountAutoFocus: {
+    type: Function as PropType<FocusScopeProps['onUnmountAutoFocus']>,
+    required: false,
+  },
+}
+
+const focusScope = defineComponent({
   name: FOCUS_SCOPE_NAME,
   inheritAttrs: false,
   props: {
-    loop: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    trapped: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    asChild: {
-      type: Boolean,
-      default: undefined,
-    },
-    onMountAutoFocus: {
-      type: Function as PropType<FocusScopeProps['onMountAutoFocus']>,
-      required: false,
-    },
-    onUnmountAutoFocus: {
-      type: Function as PropType<FocusScopeProps['onUnmountAutoFocus']>,
-      required: false,
-    },
+    ...focusScopeProps,
+    ...primitiveProps,
   },
   setup(props, { slots, attrs }) {
-    const { ...FocusScopeProps } = attrs as FocusScopeElement
+    const { ...FocusScopeAttrs } = attrs as FocusScopeElement
 
     const {
       loop,
@@ -96,7 +94,7 @@ const FocusScope = defineComponent({
       onUnmountAutoFocus: onUnmountAutoFocusProp,
     } = toRefs(props)
 
-    const container = ref<ComponentPublicInstanceRef<HTMLElement> | null>(null)
+    const container = ref<HTMLElement | null>(null)
     const onMountAutoFocus = useCallbackRef(onMountAutoFocusProp.value)
     const onUnmountAutoFocus = useCallbackRef(onUnmountAutoFocusProp.value)
     const lastFocusedElementRef = ref<HTMLElement | null>(null)
@@ -120,7 +118,7 @@ const FocusScope = defineComponent({
           if (focusScope.paused || !container.value)
             return
           const target = event.target as HTMLElement | null
-          if (container.value?.$el.contains(target))
+          if (container.value?.contains(target))
             lastFocusedElementRef.value = target
           else
             focus(lastFocusedElementRef.value, { select: true })
@@ -146,7 +144,7 @@ const FocusScope = defineComponent({
 
           // If the focus has moved to an actual legitimate element (`relatedTarget !== null`)
           // that is outside the container, we move focus to the last valid focused element inside.
-          if (!container.value?.$el.contains(relatedTarget))
+          if (!container.value?.contains(relatedTarget))
             focus(lastFocusedElementRef.value, { select: true })
         }
 
@@ -159,7 +157,7 @@ const FocusScope = defineComponent({
             return
           for (const mutation of mutations) {
             if (mutation.removedNodes.length > 0)
-              focus(container.value?.$el)
+              focus(container.value)
           }
         }
 
@@ -167,7 +165,7 @@ const FocusScope = defineComponent({
         document.addEventListener('focusout', handleFocusOut)
         const mutationObserver: MutationObserver = new MutationObserver(handleMutations)
         if (container.value)
-          mutationObserver.observe(container.value?.$el, { childList: true, subtree: true })
+          mutationObserver.observe(container.value, { childList: true, subtree: true })
         onInvalidate(() => {
           document.removeEventListener('focusin', handleFocusIn)
           document.removeEventListener('focusout', handleFocusOut)
@@ -180,35 +178,35 @@ const FocusScope = defineComponent({
       if (container.value) {
         focusScopesStack.add(focusScope)
         const previouslyFocusedElement = document.activeElement as HTMLElement | null
-        const hasFocusedCandidate = container.value?.$el.contains(previouslyFocusedElement)
+        const hasFocusedCandidate = container.value?.contains(previouslyFocusedElement)
 
         if (!hasFocusedCandidate) {
           const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS)
-          container.value?.$el.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus)
-          container.value?.$el.dispatchEvent(mountEvent)
+          container.value?.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus)
+          container.value?.dispatchEvent(mountEvent)
           if (!mountEvent.defaultPrevented) {
-            focusFirst(removeLinks(getTabbableCandidates(container.value?.$el)), { select: true })
+            focusFirst(removeLinks(getTabbableCandidates(container.value)), { select: true })
             if (document.activeElement === previouslyFocusedElement)
-              focus(container.value?.$el)
+              focus(container.value)
           }
         }
         onInvalidate(() => {
-          container.value?.$el.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus)
+          container.value?.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus)
 
           // We hit a react bug (fixed in v17) with focusing in unmount.
           // We need to delay the focus a little to get around it for now.
           // See: https://github.com/facebook/react/issues/17894
-          // setTimeout(() => {
-          const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS)
-          container.value?.$el.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
-          container.value?.$el.dispatchEvent(unmountEvent)
-          if (!unmountEvent.defaultPrevented)
-            focus(previouslyFocusedElement ?? document.body, { select: true })
-          // we need to remove the listener after we `dispatchEvent`
-          container.value?.$el.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
+          setTimeout(() => {
+            const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS)
+            container.value?.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
+            container.value?.dispatchEvent(unmountEvent)
+            if (!unmountEvent.defaultPrevented)
+              focus(previouslyFocusedElement ?? document.body, { select: true })
+            // we need to remove the listener after we `dispatchEvent`
+            container.value?.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus)
 
-          // focusScopesStack.remove(focusScope)
-          // }, 0)
+            focusScopesStack.remove(focusScope)
+          }, 0)
         })
       }
     })
@@ -252,7 +250,7 @@ const FocusScope = defineComponent({
       tabIndex: -1,
       ref: composedRefs,
       onKeydown: handleKeyDown,
-      ...FocusScopeProps,
+      ...FocusScopeAttrs,
       asChild: asChild.value,
     }, {
       default: () => slots.default?.(),
@@ -262,10 +260,8 @@ const FocusScope = defineComponent({
   },
 })
 
-type _FocusScopeProps = MergeProps<FocusScopeProps, FocusScopeElement>
-type InstanceFocusScopeType = InstanceTypeRef<typeof FocusScope, _FocusScopeEl>
+export const OkuFocusScope = focusScope as typeof focusScope &
+(new () => { $props: Partial<FocusScopeElement>
+})
 
-const OkuFocusScope = FocusScope as typeof FocusScope & (new () => { $props: _FocusScopeProps })
-
-export { OkuFocusScope }
-export type { FocusScopeProps, FocusScopeElement, InstanceFocusScopeType }
+export type { FocusScopeProps }
