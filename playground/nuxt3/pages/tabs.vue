@@ -1,5 +1,5 @@
 <template>
   <div>
-    <TabsDemo allshow />
+    <TabsDemo all-show />
   </div>
 </template>

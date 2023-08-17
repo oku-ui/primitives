@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <TabsDemo />
+  <TabsDemo all-show />
 </template>
