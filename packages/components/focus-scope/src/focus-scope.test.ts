@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import userEvent from '@testing-library/user-event'
@@ -85,6 +85,8 @@ describe('FocusScope', () => {
     })
   })
 
+  afterEach(() => wrapper.unmount())
+
   describe('given a FocusScope where the first focusable has a negative tabindex', () => {
     beforeEach(() => {
       wrapper = mount(
@@ -134,6 +136,8 @@ describe('FocusScope', () => {
     })
   })
 
+  afterEach(() => wrapper.unmount())
+
   describe('given a FocusScope with internal focus handlers', () => {
     const handleLastFocusableElementBlur = vi.fn()
 
@@ -167,6 +171,8 @@ describe('FocusScope', () => {
       )
       tabbableFirst = wrapper.find(`input[name="${INNER_NAME_INPUT_LABEL.toLowerCase()}"]`).element as HTMLInputElement
     })
+
+    afterEach(() => wrapper.unmount())
 
     it('should properly blur the last element in the scope before cycling back', async () => {
       // Tab back and then tab forward to cycle through the scope
