@@ -56,9 +56,6 @@ const checkboxProps = {
     type: Boolean as PropType<boolean | undefined>,
     default: undefined,
   },
-  onCheckedChange: {
-    type: Function as PropType<(checked: CheckedState) => void>,
-  },
   name: {
     type: String as PropType<string | undefined>,
     default: undefined,
@@ -84,7 +81,7 @@ const Checkbox = defineComponent({
     ...scopeCheckboxProps,
     ...primitiveProps,
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'checkedChange'],
   setup(props, { attrs, slots, emit }) {
     const {
       checked: checkedProp,
@@ -112,7 +109,7 @@ const Checkbox = defineComponent({
       defaultProp: computed(() => defaultChecked.value),
       onChange: (result: any) => {
         emit('update:modelValue', result)
-        props.onCheckedChange?.(result)
+        emit('checkedChange', result)
       },
     })
 
@@ -143,7 +140,7 @@ const Checkbox = defineComponent({
         'role': 'checkbox',
         'aria-checked': isIndeterminate(state.value) ? 'mixed' : state.value as any,
         'aria-required': required.value,
-        'data-state': getState(state.value as any),
+        'data-state': computed(() => getState(state.value)).value,
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
@@ -156,16 +153,19 @@ const Checkbox = defineComponent({
             event.preventDefault()
         }),
         'onClick': composeEventHandlers(checkboxProps.onClick, (event) => {
-          const data = isIndeterminate(checkedProp.value) ? true : !checkedProp.value
-          if (state.value === data)
-            updateValue(!data)
-          else if (state.value === 'indeterminate')
-            updateValue(!data)
-          else
-            updateValue(data)
+          // setChecked((prevChecked) => (isIndeterminate(prevChecked) ? true : !prevChecked));
+          updateValue(isIndeterminate(state.value) ? true : !state.value)
+
+          // const data = isIndeterminate(checkedProp.value) ? true : !checkedProp.value
+          // if (state.value === data)
+          //   updateValue(!data)
+          // else if (state.value === 'indeterminate')
+          //   updateValue(!data)
+          // else
+          //   updateValue(data)
 
           if (isFormControl.value) {
-            // hasConsumerStoppedPropagationRef.value.current = event.isPropagationStopped()
+            // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
             // if checkbox is in a form, stop propagation from the button so that we only propagate
             // one click event (from the input). We propagate changes from an input so that native
             // form validation works and form events reflect checkbox updates.

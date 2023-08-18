@@ -46,7 +46,7 @@ const bubbleInput = defineComponent({
     const _ref = ref<HTMLInputElement>()
 
     const prevChecked = usePrevious(checked)
-    const controlSize = useSize(control)
+    const controlSize = computed(() => useSize(control))
 
     watchEffect(() => {
       const input = _ref.value!
@@ -72,7 +72,7 @@ const bubbleInput = defineComponent({
         'ref': _ref,
         'style': {
           ...inputAttrs.style as any,
-          ...controlSize,
+          ...controlSize.value,
           position: 'absolute',
           pointerEvents: 'none',
           opacity: 0,

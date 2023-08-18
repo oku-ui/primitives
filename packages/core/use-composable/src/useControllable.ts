@@ -10,21 +10,21 @@ function useControllable<T>(data: {
 }) {
   const internalValue = ref(data.defaultProp?.value)
   const isControlled = computed(() => data.prop.value !== undefined)
+  const state = computed(() => isControlled.value ? data.prop.value : internalValue.value)
 
   function updateValue(value: unknown) {
     if (isControlled.value) {
-      return data.onChange?.(value as T)
+      data.onChange?.(value as T)
     }
     else {
       internalValue.value = value as UnwrapRef<T>
-      return data.onChange?.(value as T)
+      data.onChange?.(value as T)
     }
+    console.log(state.value)
   }
 
   return {
-    state: computed(() =>
-      isControlled.value ? data.prop.value : internalValue.value,
-    ),
+    state,
     updateValue,
   }
 }
