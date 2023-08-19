@@ -1,6 +1,6 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import List from './List.vue'
 import Item from './Item.vue'
 import Tomato from './Tomato.vue'
@@ -16,10 +16,12 @@ withDefaults(defineProps<OkuCollectionProps>(), {
   template: '#1',
 })
 
-const labelRef = ref<any>()
-onMounted(() => {
-  console.log(labelRef.value, 'ref')
-})
+const isDisabled = ref(false)
+const hasTomato = ref(false)
+
+function handleTomato() {
+  hasTomato.value = !hasTomato.value
+}
 </script>
 
 <template>
@@ -66,6 +68,23 @@ onMounted(() => {
     <div v-if="template === '#4' || allshow" class="flex flex-col">
       <List>
         <Countries />
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#5' || allshow" class="flex flex-col">
+      <button @click="handleTomato">
+        {{ hasTomato ? 'Remove' : 'Add' }} Tomato
+      </button>
+      <button @click="LogItems({})">
+        Force Update
+      </button>
+      <List>
+        <Item>Red</Item>
+        <Tomato v-if="hasTomato" />
+        <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
         <LogItems />
       </List>
     </div>
