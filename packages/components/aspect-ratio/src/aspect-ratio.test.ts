@@ -17,7 +17,7 @@ describe('OkuAspectRatio', () => {
   })
 
   it('should have no accessibility violations', async () => {
-    const _wrapper = mount(component)
+    // const _wrapper = mount(component)
 
     // https://github.com/capricorn86/happy-dom/issues/978
     // const results = await axe(_wrapper.element)
