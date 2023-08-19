@@ -3,10 +3,11 @@
 import { onMounted, ref } from 'vue'
 import List from './List.vue'
 import Item from './Item.vue'
+import Tomato from './Tomato.vue'
 import { LogItems } from './LogItems'
 
 export interface OkuCollectionProps {
-  template: '#1' | '#2'
+  template: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7'
   allshow?: boolean
 }
 
@@ -47,6 +48,17 @@ onMounted(() => {
         </div>
         <Item>Hello</Item>
         <Item>World</Item>
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#3' || allshow" class="flex flex-col">
+      <List>
+        <Item>Red</Item>
+        <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <Tomato />
         <LogItems />
       </List>
     </div>

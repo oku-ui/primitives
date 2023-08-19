@@ -56,3 +56,18 @@ export const WithElementInBetween: Story = {
     `,
   }),
 }
+
+export const WithWrappedItem: Story = {
+  args: {
+    template: '#3',
+  },
+  render: (args: any) => ({
+    components: { OkuCollectionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollectionComponent v-bind="args" />
+    `,
+  }),
+}
