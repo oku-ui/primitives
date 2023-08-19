@@ -11,8 +11,8 @@ import { defineComponent, h, nextTick, reactive, ref, toRefs, watchEffect } from
 import { focus, focusFirst, getTabbableCandidates, getTabbableEdges } from './utils'
 import { focusScopesStack, removeLinks } from './focus-scope-stack'
 
-const AUTOFOCUS_ON_MOUNT = 'focusScope.autoFocusOnMount'
-const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount'
+const AUTOFOCUS_ON_MOUNT = 'okuFocusScope.autoFocusOnMount'
+const AUTOFOCUS_ON_UNMOUNT = 'okuFocusScope.autoFocusOnUnmount'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
 export type FocusableTarget = HTMLElement | { focus(): void }
@@ -74,7 +74,18 @@ const focusScope = defineComponent({
     ...focusScopeProps,
     ...primitiveProps,
   },
-  emits: ['mountAutoFocus', 'unmountAutoFocus'],
+  emits: {
+    /**
+   * Event handler called when auto-focusing on mount.
+   * Can be prevented.
+   */
+    mountAutoFocus: (event: Event) => true,
+    /**
+   * Event handler called when auto-focusing on unmount.
+   * Can be prevented.
+   */
+    unmountAutoFocus: (event: Event) => true,
+  },
   setup(props, { slots, attrs, emit }) {
     const { ...focusScopeAttrs } = attrs as FocusScopeElement
 
@@ -176,6 +187,7 @@ const focusScope = defineComponent({
           container.value?.addEventListener(AUTOFOCUS_ON_MOUNT, (event) => {
             emit('mountAutoFocus', event)
           })
+
           container.value?.dispatchEvent(mountEvent)
           if (!mountEvent.defaultPrevented) {
             focusFirst(removeLinks(getTabbableCandidates(container.value)), { select: true })

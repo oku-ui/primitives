@@ -33,10 +33,16 @@ const ageFieldRef = ref<HTMLInputElement | null>(null)
 const nextButtonRef = ref<HTMLButtonElement | null>(null)
 
 function onMountAutoFocus(event: Event) {
+  // if (focusOnMount.value !== true) {
+  //   event.preventDefault()
+  //   if (focusOnMount.value)
+  //     focusOnMount.value?.focus()
+  // }
+
   if (focusOnMount.value !== true) {
     event.preventDefault()
-    if (focusOnMount.value)
-      focusOnMount.value?.focus()
+    if (ageFieldRef.value)
+      ageFieldRef.value?.focus()
   }
 }
 
@@ -238,8 +244,8 @@ function onUnmountAutoFocus(event: Event) {
 
         <OkuFocusScope
           v-if="isOpen" key="form" as-child :loop="trapFocus" :trapped="trapFocus"
-          @mount-auto-focus="(event) => onMountAutoFocus(event)"
-          @unmount-auto-focus="(event) => onUnmountAutoFocus(event)"
+          @mount-auto-focus="onMountAutoFocus"
+          @unmount-auto-focus="onUnmountAutoFocus"
         >
           <form class="inline-flex flex-col gap-5 p-5 m-[50px] max-w-[500px] border-2 border-gray-300">
             <template v-if="!isEmptyForm">
@@ -252,7 +258,9 @@ function onUnmountAutoFocus(event: Event) {
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
               <input
-                ref="ageFieldRef" type="number" placeholder="Age"
+                ref="ageFieldRef"
+                type="number"
+                placeholder="Age"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
               >
               <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" @click="isOpen = false">
