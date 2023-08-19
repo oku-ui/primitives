@@ -105,5 +105,21 @@ function handleDisable() {
         <LogItems />
       </List>
     </div>
+    <div v-if="template === '#7' || allshow" class="flex flex-col">
+      <List>
+        <Item>1</Item>
+        <Item>
+          2
+          <List>
+            <Item>2.1</Item>
+            <Item>2.2</Item>
+            <Item>2.3</Item>
+            <LogItems name="items inside 2" />
+          </List>
+        </Item>
+        <Item>3</Item>
+        <LogItems name="top-level items" />
+      </List>
+    </div>
   </div>
 </template>

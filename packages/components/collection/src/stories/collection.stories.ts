@@ -116,3 +116,18 @@ export const WithChangingItem: Story = {
     `,
   }),
 }
+
+export const Nested: Story = {
+  args: {
+    template: '#7',
+  },
+  render: (args: any) => ({
+    components: { OkuCollectionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollectionComponent v-bind="args" />
+    `,
+  }),
+}
