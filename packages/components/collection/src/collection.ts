@@ -18,7 +18,7 @@ type CollectionElement = HTMLElement
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
+function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
  * CollectionProvider
  * --------------------------------------------------------------------------------------------- */
