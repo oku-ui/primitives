@@ -101,3 +101,18 @@ export const DynamicInsertion: Story = {
     `,
   }),
 }
+
+export const WithChangingItem: Story = {
+  args: {
+    template: '#6',
+  },
+  render: (args: any) => ({
+    components: { OkuCollectionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollectionComponent v-bind="args" />
+    `,
+  }),
+}

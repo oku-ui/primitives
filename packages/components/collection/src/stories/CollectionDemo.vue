@@ -22,6 +22,10 @@ const hasTomato = ref(false)
 function handleTomato() {
   hasTomato.value = !hasTomato.value
 }
+
+function handleDisable() {
+  isDisabled.value = !isDisabled.value
+}
 </script>
 
 <template>
@@ -82,6 +86,19 @@ function handleTomato() {
         <Item>Red</Item>
         <Tomato v-if="hasTomato" />
         <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#6' || allshow" class="flex flex-col">
+      <button @click="handleDisable">
+        {{ isDisabled ? 'Enable' : 'Disable' }} Green
+      </button>
+      <List>
+        <Item>Red</Item>
+        <Item :disabled="isDisabled">
           Green
         </Item>
         <Item>Blue</Item>
