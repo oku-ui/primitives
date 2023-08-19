@@ -13,6 +13,14 @@
       "rules": {
         "no-console": "off"
       }
+    },
+    {
+      "files": [
+        "**/*.test.ts"
+      ],
+      "rules": {
+        "no-restricted-globals": "off"
+      }
     }
   ]
 }
