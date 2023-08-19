@@ -158,16 +158,7 @@ const Checkbox = defineComponent({
             event.preventDefault()
         }),
         'onClick': composeEventHandlers(checkboxProps.onClick, (event) => {
-          // setChecked((prevChecked) => (isIndeterminate(prevChecked) ? true : !prevChecked));
           updateValue(isIndeterminate(state.value) ? true : !state.value)
-
-          // const data = isIndeterminate(checkedProp.value) ? true : !checkedProp.value
-          // if (state.value === data)
-          //   updateValue(!data)
-          // else if (state.value === 'indeterminate')
-          //   updateValue(!data)
-          // else
-          //   updateValue(data)
 
           if (isFormControl.value) {
             // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
