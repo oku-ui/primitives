@@ -20,7 +20,6 @@ function useControllable<T>(data: {
       internalValue.value = value as UnwrapRef<T>
       data.onChange?.(value as T)
     }
-    console.log(state.value)
   }
 
   return {

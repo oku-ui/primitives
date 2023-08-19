@@ -101,7 +101,7 @@ function updated(res: any) {
           ref="refdd"
           :checked="data"
           class="rootClass"
-          :on-checked-change="updated"
+          @checked-change="updated"
         >
           <OkuCheckboxIndicator class="indicatorClass" />
         </OkuCheckbox>
@@ -109,6 +109,23 @@ function updated(res: any) {
         <div>
           <button type="button" @click="click">
             Toggle indeterminate
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <OkuCheckbox
+          id="checkbox"
+          ref="refdd"
+          v-model="data"
+          class="rootClass"
+        >
+          <OkuCheckboxIndicator class="indicatorClass" />
+        </OkuCheckbox>
+
+        <div>
+          <button type="button" @click="click">
+            V-Model
           </button>
         </div>
       </div>

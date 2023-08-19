@@ -103,9 +103,14 @@ const Checkbox = defineComponent({
     const hasConsumerStoppedPropagationRef = ref(false)
 
     const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed({
+      get: () => modelValue.value !== undefined ? modelValue.value : checkedProp.value !== undefined ? checkedProp.value : undefined,
+      set: () => {
+      },
+    })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value || checkedProp.value),
+      prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (result: any) => {
         emit('update:modelValue', result)
