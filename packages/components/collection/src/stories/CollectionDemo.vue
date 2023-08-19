@@ -32,5 +32,23 @@ onMounted(() => {
         <LogItems />
       </List>
     </div>
+    <div v-if="template === '#2' || allshow" class="flex flex-col">
+      <List>
+        <div style="font-variant: small-caps;">
+          Colors
+        </div>
+        <Item>Red</Item>
+        <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <div style="font-variant: small-caps;">
+          Words
+        </div>
+        <Item>Hello</Item>
+        <Item>World</Item>
+        <LogItems />
+      </List>
+    </div>
   </div>
 </template>
