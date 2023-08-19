@@ -18,12 +18,15 @@ onMounted(() => {
   console.log(refdd.value, 'tt')
 })
 
-const data = ref<string | boolean>('indeterminate')
+const data = ref<string | boolean | 'indeterminate'>('indeterminate')
+
 function click() {
-  // data.value === 'indeterminate' ? false : 'indeterminate'
+  data.value = data.value === 'indeterminate' ? false : 'indeterminate'
 }
+
 function updated(res: any) {
   console.log('updated', res)
+  data.value = res
 }
 </script>
 
@@ -92,19 +95,23 @@ function updated(res: any) {
     </div>
 
     <div v-if="template === '#2'">
-      {{ data }}
-      <OkuCheckbox
-        id="checkbox"
-        ref="refdd"
-        v-model="data"
-        class="rootClass"
-      >
-        <OkuCheckboxIndicator class="animatedIndicatorClass" />
-      </OkuCheckbox>
+      <div class="flex flex-col">
+        <OkuCheckbox
+          id="checkbox"
+          ref="refdd"
+          :checked="data"
+          class="rootClass"
+          :on-checked-change="updated"
+        >
+          <OkuCheckboxIndicator class="indicatorClass" />
+        </OkuCheckbox>
 
-      <button type="button" @click="click">
-        Toggle indeterminate
-      </button>
+        <div>
+          <button type="button" @click="click">
+            Toggle indeterminate
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -125,7 +132,7 @@ function updated(res: any) {
 }
 
 .rootClass {
-  border: 1px solid $gray300;
+  border: 1px solid var(--gray300);
   width: 30px;
   height: 30px;
   padding: 4px;
@@ -133,7 +140,7 @@ function updated(res: any) {
   &:focus {
     outline: none;
     border-color: $red;
-    box-shadow: 0 0 0 1px $colors$red;
+    box-shadow: 0 0 0 1px var(--colors-red);
   }
 
   &[data-disabled] {
@@ -143,7 +150,7 @@ function updated(res: any) {
 
 /* indicatorClass */
 .indicatorClass {
-  background-color: $red;
+  background-color: var(--red);
   display: block;
   width: 20px;
   height: 4px;
