@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue'
 import List from './List.vue'
 import Item from './Item.vue'
 import Tomato from './Tomato.vue'
+import Countries from './Countries.vue'
 import { LogItems } from './LogItems'
 
 export interface OkuCollectionProps {
@@ -59,6 +60,12 @@ onMounted(() => {
         </Item>
         <Item>Blue</Item>
         <Tomato />
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#4' || allshow" class="flex flex-col">
+      <List>
+        <Countries />
         <LogItems />
       </List>
     </div>

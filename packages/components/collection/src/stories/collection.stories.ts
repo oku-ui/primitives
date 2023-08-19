@@ -71,3 +71,33 @@ export const WithWrappedItem: Story = {
     `,
   }),
 }
+
+export const WithFragment: Story = {
+  args: {
+    template: '#4',
+  },
+  render: (args: any) => ({
+    components: { OkuCollectionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollectionComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const DynamicInsertion: Story = {
+  args: {
+    template: '#5',
+  },
+  render: (args: any) => ({
+    components: { OkuCollectionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollectionComponent v-bind="args" />
+    `,
+  }),
+}
