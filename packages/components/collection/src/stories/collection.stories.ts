@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Styled: Story = {
+export const Basic: Story = {
   args: {
     template: '#1',
   },
@@ -42,7 +42,7 @@ export const Styled: Story = {
   }),
 }
 
-export const WithControl: Story = {
+export const WithElementInBetween: Story = {
   args: {
     template: '#2',
   },
