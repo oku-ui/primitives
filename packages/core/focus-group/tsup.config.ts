@@ -2,7 +2,6 @@ import { defineConfig } from 'tsup'
 import pkg from './package.json'
 
 const external = [
-  ...Object.keys(pkg.dependencies || {}),
   ...Object.keys(pkg.peerDependencies || {}),
 ]
 
