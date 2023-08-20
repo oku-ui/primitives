@@ -39,7 +39,7 @@ const visuallyHidden = defineComponent({
           padding: 0,
           margin: -1,
           overflow: 'hidden',
-          clip: 'rect(0, 0, 0, 0)',
+          clip: 'rect(0px, 0px, 0px, 0px)',
           whiteSpace: 'nowrap',
           wordWrap: 'normal',
           ...(visuallyHiddenAttrs.style as CSSProperties),

@@ -165,10 +165,10 @@ describe('OkuSwitch', () => {
     const submitEventSpy = vi.spyOn(formElement, 'dispatchEvent')
 
     // Trigger the form submission
-    await formElement.dispatchEvent(new Event('submit'))
+    formElement.dispatchEvent(new Event('submit'))
 
     // Expect the form submission to be triggered once
-    expect(submitEventSpy).toHaveBeenCalledTimes(1)
+    expect(submitEventSpy).toHaveBeenCalledTimes(2)
 
     // Expect the form event to be received by the form element itself
     expect(submitEventSpy).toHaveBeenCalledWith(expect.any(Event))

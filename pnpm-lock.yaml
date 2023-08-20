@@ -148,6 +148,9 @@ importers:
       globby:
         specifier: ^13.2.2
         version: 13.2.2
+      happy-dom:
+        specifier: ^10.10.4
+        version: 10.10.4
       jiti:
         specifier: ^1.19.1
         version: 1.19.1
@@ -207,7 +210,7 @@ importers:
         version: 3.5.1(@types/node@18.17.4)(rollup@3.28.0)(typescript@5.1.6)(vite@4.3.5)
       vitest:
         specifier: ^0.34.1
-        version: 0.34.1(jsdom@22.1.0)
+        version: 0.34.1(happy-dom@10.10.4)(jsdom@22.1.0)
       vitest-axe:
         specifier: ^0.1.0
         version: 0.1.0(vitest@0.34.1)
@@ -6287,7 +6290,7 @@ packages:
       std-env: 3.3.3
       test-exclude: 6.0.0
       v8-to-istanbul: 9.1.0
-      vitest: 0.34.1(jsdom@22.1.0)
+      vitest: 0.34.1(happy-dom@10.10.4)(jsdom@22.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7927,6 +7930,10 @@ packages:
   /css-what@6.1.0:
     resolution: {integrity: sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==}
     engines: {node: '>= 6'}
+    dev: true
+
+  /css.escape@1.5.1:
+    resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
     dev: true
 
   /cssesc@3.0.0:
@@ -9674,6 +9681,17 @@ packages:
       wordwrap: 1.0.0
     optionalDependencies:
       uglify-js: 3.17.4
+    dev: true
+
+  /happy-dom@10.10.4:
+    resolution: {integrity: sha512-aEEFGSSs4DEJbxXvSMsIvJvvdsZbJZQEgtHsU4GgwNKbSbFxtgu6vXHmn4XoXnuElIbXV0xhbJiiQTxPnTmJcw==}
+    dependencies:
+      css.escape: 1.5.1
+      entities: 4.5.0
+      iconv-lite: 0.6.3
+      webidl-conversions: 7.0.0
+      whatwg-encoding: 2.0.0
+      whatwg-mimetype: 3.0.0
     dev: true
 
   /has-bigints@1.0.2:
@@ -15047,10 +15065,10 @@ packages:
       dom-accessibility-api: 0.5.16
       lodash-es: 4.17.21
       redent: 3.0.0
-      vitest: 0.34.1(jsdom@22.1.0)
+      vitest: 0.34.1(happy-dom@10.10.4)(jsdom@22.1.0)
     dev: true
 
-  /vitest@0.34.1(jsdom@22.1.0):
+  /vitest@0.34.1(happy-dom@10.10.4)(jsdom@22.1.0):
     resolution: {integrity: sha512-G1PzuBEq9A75XSU88yO5G4vPT20UovbC/2osB2KEuV/FisSIIsw7m5y2xMdB7RsAGHAfg2lPmp2qKr3KWliVlQ==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -15094,6 +15112,7 @@ packages:
       cac: 6.7.14
       chai: 4.3.7
       debug: 4.3.4
+      happy-dom: 10.10.4
       jsdom: 22.1.0
       local-pkg: 0.4.3
       magic-string: 0.30.1

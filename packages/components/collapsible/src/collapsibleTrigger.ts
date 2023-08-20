@@ -1,4 +1,4 @@
-import { computed, defineComponent, h } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -34,7 +34,7 @@ const collapsibleTrigger = defineComponent({
         'type': 'button',
         'aria-controls': context.contentId.value,
         'aria-expanded': context.open.value || false,
-        'data-state': computed(() => getState(context.open.value || false)),
+        'data-state': getState(context.open.value || false),
         'data-disabled': context.disabled?.value ? '' : undefined,
         'disabled': context.disabled?.value,
         ...triggerProps,

@@ -86,7 +86,7 @@ const collapsibleContentImpl = defineComponent({
     const originalReturn = () => h(
       Primitive.div,
       {
-        'data-state': computed(() => getState(context.open.value)),
+        'data-state': getState(context.open.value),
         'data-disabled': context.disabled?.value ? '' : undefined,
         'id': context.contentId.value,
         'hidden': !isOpen.value,

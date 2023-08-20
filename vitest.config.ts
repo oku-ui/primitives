@@ -4,7 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [Vue()],
   test: {
-    environment: 'jsdom',
+    environment: 'happy-dom',
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary', 'json', 'html'],
@@ -12,5 +12,6 @@ export default defineConfig({
     exclude: ['**/node_modules/**', '**/dist/**'],
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],
+    globals: true,
   },
 })
