@@ -10,7 +10,7 @@ export interface IFocusScopeProps extends FocusScopeProps {
 
 withDefaults(defineProps<IFocusScopeProps>(), {})
 
-type FocusParam = boolean | HTMLElement | null
+type FocusParam = boolean | HTMLElement | null | 'age' | 'next' | 'form'
 
 const trapped = ref<boolean>(false)
 
@@ -31,26 +31,29 @@ const focusOnUnmount = ref<FocusParam>(false)
 
 const ageFieldRef = ref<HTMLInputElement | null>(null)
 const nextButtonRef = ref<HTMLButtonElement | null>(null)
+const refForm = ref<HTMLFormElement | null>(null)
 
 function onMountAutoFocus(event: Event) {
-  // if (focusOnMount.value !== true) {
-  //   event.preventDefault()
-  //   if (focusOnMount.value)
-  //     focusOnMount.value?.focus()
-  // }
-
   if (focusOnMount.value !== true) {
     event.preventDefault()
-    if (ageFieldRef.value)
+    if (focusOnMount.value === 'age')
       ageFieldRef.value?.focus()
+    if (focusOnMount.value === 'next')
+      nextButtonRef.value?.focus()
+    if (focusOnMount.value === 'form')
+      refForm.value?.focus()
   }
 }
 
 function onUnmountAutoFocus(event: Event) {
   if (focusOnUnmount.value !== true) {
     event.preventDefault()
-    if (focusOnUnmount.value)
-      focusOnUnmount.value?.focus()
+    if (focusOnUnmount.value === 'age')
+      ageFieldRef.value?.focus()
+    if (focusOnUnmount.value === 'next')
+      nextButtonRef.value?.focus()
+    if (focusOnUnmount.value === 'form')
+      refForm.value?.focus()
   }
 }
 </script>
@@ -201,7 +204,7 @@ function onUnmountAutoFocus(event: Event) {
           <label v-if="focusOnMount !== false && !isEmptyForm" class="block ml-5">
             <input
               type="checkbox" :checked="focusOnMount !== true"
-              @change="(event) => focusOnMount = (event.target as HTMLInputElement).checked ? ageFieldRef : true"
+              @change="(event) => focusOnMount = (event.target as HTMLInputElement).checked ? 'age' : true"
             >
             on "age" field?
           </label>
@@ -209,7 +212,7 @@ function onUnmountAutoFocus(event: Event) {
           <label v-if="focusOnMount !== false" class="block ml-5">
             <input
               type="checkbox" :checked="isEmptyForm"
-              @change="(event) => { isEmptyForm = (event.target as HTMLInputElement).checked; focusOnMount = true }"
+              @change="(event) => { isEmptyForm = (event.target as HTMLInputElement).checked; focusOnMount = 'form' }"
             >
             empty form?
           </label>
@@ -225,7 +228,7 @@ function onUnmountAutoFocus(event: Event) {
           <label v-if="focusOnUnmount !== false" class="block ml-5">
             <input
               type="checkbox" :checked="focusOnUnmount !== true"
-              @change="(event) => focusOnUnmount = (event.target as HTMLInputElement).checked ? nextButtonRef : true"
+              @change="(event) => focusOnUnmount = (event.target as HTMLInputElement).checked ? 'next' : true"
             >
             on "next" button?
           </label>
@@ -243,7 +246,8 @@ function onUnmountAutoFocus(event: Event) {
         </button>
 
         <OkuFocusScope
-          v-if="isOpen" key="form" as-child :loop="trapFocus" :trapped="trapFocus"
+          v-if="isOpen"
+          ref="refForm" key="form" as-child :loop="trapFocus" :trapped="trapFocus"
           @mount-auto-focus="onMountAutoFocus"
           @unmount-auto-focus="onUnmountAutoFocus"
         >
