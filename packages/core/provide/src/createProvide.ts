@@ -83,6 +83,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
 
     return function useScope(scope: Scope) {
       const providers = scope?.[scopeName] || scopeInjects
+
       return ({
         [`scope${scopeName}`]: {
           ...scope,
@@ -114,9 +115,6 @@ function composeInjectScopes(...scopes: CreateScope[]) {
         const scopeProps = useScope(overrideScopes)
 
         const currentScope = scopeProps[`scope${scopeName}`]
-        // currentScope![scopeName] = currentScope![scopeName].map((context) => {
-        //   return inject(context)
-        // })
 
         return { ...nextScopes, ...currentScope }
       }, {})
