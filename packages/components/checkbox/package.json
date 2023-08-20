@@ -36,6 +36,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
+    "@oku-ui/presence": "workspace:^",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
     "@oku-ui/use-composable": "latest",

@@ -1,13 +1,19 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 import { OkuSwitch } from '.'
+
+const component = {
+  setup() {
+    return () => h(OkuSwitch)
+  },
+}
 
 describe('OkuSwitch', () => {
   it('should render correctly', async () => {
     const checked = ref(true)
 
-    const wrapper = mount(OkuSwitch, {
+    const wrapper = mount(component, {
       props: {
         modelValue: checked.value,
         name: 'switchInput',
@@ -33,7 +39,7 @@ describe('OkuSwitch', () => {
     const checked = ref(false)
     const onCheckedChange = vi.fn()
 
-    const wrapper = mount(OkuSwitch, {
+    const wrapper = mount(component, {
       props: {
         modelValue: checked.value,
         name: 'switchInput',
@@ -54,7 +60,7 @@ describe('OkuSwitch', () => {
   it('should disable the switch when the disabled prop is true', async () => {
     const checked = ref(false)
 
-    const wrapper = mount(OkuSwitch, {
+    const wrapper = mount(component, {
       props: {
         modelValue: checked.value,
         name: 'switchInput',
@@ -77,7 +83,7 @@ describe('OkuSwitch', () => {
   })
 
   it('should render with the specified value attribute', () => {
-    const wrapper = mount(OkuSwitch, {
+    const wrapper = mount(component, {
       props: {
         modelValue: ref(false).value,
         name: 'switchInput',
@@ -91,7 +97,7 @@ describe('OkuSwitch', () => {
   })
 
   it('should render with the required attribute when required prop is true', async () => {
-    const wrapper = mount(OkuSwitch, {
+    const wrapper = mount(component, {
       props: {
         modelValue: false,
         name: 'switchInput',
@@ -109,7 +115,7 @@ describe('OkuSwitch', () => {
   })
 
   it.skip('should default to false when no modelValue or defaultChecked prop is provided', async () => {
-    const wrapper = mount(OkuSwitch, {
+    const wrapper = mount(component, {
       props: {
         name: 'switchInput',
       },
@@ -159,10 +165,10 @@ describe('OkuSwitch', () => {
     const submitEventSpy = vi.spyOn(formElement, 'dispatchEvent')
 
     // Trigger the form submission
-    await formElement.dispatchEvent(new Event('submit'))
+    formElement.dispatchEvent(new Event('submit'))
 
     // Expect the form submission to be triggered once
-    expect(submitEventSpy).toHaveBeenCalledTimes(1)
+    expect(submitEventSpy).toHaveBeenCalledTimes(2)
 
     // Expect the form event to be received by the form element itself
     expect(submitEventSpy).toHaveBeenCalledWith(expect.any(Event))

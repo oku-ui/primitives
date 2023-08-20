@@ -1,4 +1,14 @@
+import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
 import { DEFAULT_MAX, PROGRESS_NAME } from './constants'
+
+export type ScopeProgress<T> = T & { scopeOkuProgress?: Scope }
+
+export const scopeProgressProps = {
+  scopeOkuProgress: {
+    ...ScopePropObject,
+  },
+}
 
 function defaultGetValueLabel(value: number, max: number) {
   return `${Math.round((value / max) * 100)}%`

@@ -71,7 +71,7 @@ export type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'>
 
 export type MergeProps<T, U> = U & T
 
-export interface IPrimitiveProps {
+export interface PrimitiveProps {
   asChild?: boolean
 }
 

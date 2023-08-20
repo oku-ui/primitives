@@ -1,9 +1,7 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import type { AvatarProps } from '@oku-ui/avatar'
 import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from '@oku-ui/avatar'
 
-export interface IAvatarPropsProps extends AvatarProps {
+export interface IAvatarPropsProps {
   template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }

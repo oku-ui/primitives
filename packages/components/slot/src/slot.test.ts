@@ -22,13 +22,15 @@ const ButtonTest: Component = {
       return h(
         Tag,
         null,
-        [
-          slots.iconLeft && slots.iconLeft(),
-          h(OkuSlottable, {}, {
-            default: () => slots.default && slots.default(),
-          }),
-          slots.iconRight && slots.iconRight(),
-        ],
+        {
+          default: () => [
+            slots.iconLeft && slots.iconLeft(),
+            h(OkuSlottable, {}, {
+              default: () => slots.default && slots.default(),
+            }),
+            slots.iconRight && slots.iconRight(),
+          ],
+        },
       )
     }
   },

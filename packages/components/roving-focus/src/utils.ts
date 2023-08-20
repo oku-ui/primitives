@@ -1,4 +1,14 @@
 import type { AriaAttributes } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
+
+export type ScopeRovingFocus<T> = T & { scopeOkuRovingFocus?: Scope }
+
+export const scopeRovingFocusProps = {
+  scopeOkuRovingFocus: {
+    ...ScopePropObject,
+  },
+}
 
 export type Orientation = AriaAttributes['aria-orientation']
 export type Direction = 'ltr' | 'rtl'

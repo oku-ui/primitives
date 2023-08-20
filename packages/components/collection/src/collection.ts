@@ -1,4 +1,4 @@
-import type { ComponentObjectPropsOptions, ComponentPublicInstance, Ref } from 'vue'
+import type { ComponentObjectPropsOptions, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
@@ -11,10 +11,6 @@ interface CollectionPropsType {
   scope: any
 }
 
-type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'> & {
-  $el: T
-}
-
 type CollectionElement = HTMLElement
 
 // We have resorted to returning slots directly rather than exposing primitives that can then
@@ -22,7 +18,7 @@ type CollectionElement = HTMLElement
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData: ComponentObjectPropsOptions) {
+function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
  * CollectionProvider
  * --------------------------------------------------------------------------------------------- */

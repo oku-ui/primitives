@@ -1,14 +1,15 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
-import type { ComputedRef } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { MergeProps } from '@oku-ui/primitive'
+import type { PrimitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
-import type { RovingFocusGroupImplElement, RovingFocusGroupImplPropsType, RovingFocusGroupOptions } from './RovingFocusGroupImpl'
+import type { RovingFocusGroupImplElement, RovingFocusGroupImplIntrinsicElement, RovingFocusGroupImplProps } from './RovingFocusGroupImpl'
 import type { ScopedPropsInterface } from './types'
 import { scopedProps } from './types'
+import type { Direction, Orientation } from './utils'
 
 const GROUP_NAME = 'OkuRovingFocusGroup'
 
@@ -38,26 +39,74 @@ const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createProvi
   [createCollectionScope],
 )
 
-type RovingContextValue = RovingFocusGroupOptions & {
-  currentTabStopId: ComputedRef<string | null>
+// RovingFocusGroupOptions extends
+type RovingProvideValue = {
+  /**
+ * The orientation of the group.
+ * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+ */
+  orientation?: Ref<Orientation | undefined>
+  /**
+   * The direction of navigation between items.
+   */
+  dir?: Ref<Direction | undefined>
+  /**
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
+   */
+  loop?: Ref<boolean | undefined>
+  currentTabStopId: Ref<string>
   onItemFocus(tabStopId: string): void
   onItemShiftTab(): void
   onFocusableItemAdd(): void
   onFocusableItemRemove(): void
 }
 
-export const [useRovingFocusProvider, useRovingFocusInject]
-  = createRovingFocusGroupProvide<RovingContextValue>(GROUP_NAME)
+export const [rovingFocusProvider, useRovingFocusInject]
+  = createRovingFocusGroupProvide<RovingProvideValue>(GROUP_NAME)
 
-type RovingFocusGroupElement = RovingFocusGroupImplElement
-export interface RovingFocusGroupPropsType extends ScopedPropsInterface<RovingFocusGroupImplPropsType> { }
+export type RovingFocusGroupIntrinsicElement = RovingFocusGroupImplIntrinsicElement
+export type RovingFocusGroupElement = RovingFocusGroupImplElement
 
-const RovingFocusGroupProps = {
+export interface RovingFocusGroupPropsType extends ScopedPropsInterface<RovingFocusGroupImplProps> { }
+
+const rovingFocusGroupProps = {
   ...rovingFocusGroupImplProps,
-  ...scopedProps,
 }
 
-const RovingFocusGroup = defineComponent({
+export interface RovingFocusGroupOptions extends PrimitiveProps {
+  /**
+   * The orientation of the group.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   */
+  orientation?: Orientation
+  /**
+   * The direction of navigation between items.
+   */
+  dir?: Direction
+  /**
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
+   */
+  loop?: boolean
+}
+
+export const rovingFocusGroupOptionsProps = {
+  orientation: {
+    type: String as PropType<Orientation | undefined>,
+    default: undefined,
+  },
+  dir: {
+    type: String as PropType<Direction | undefined>,
+    default: undefined,
+  },
+  loop: {
+    type: Boolean,
+    default: false,
+  },
+}
+
+const rovingFocusGroup = defineComponent({
   name: GROUP_NAME,
   components: {
     OkuRovingFocusGroupImpl,
@@ -66,7 +115,10 @@ const RovingFocusGroup = defineComponent({
     CollectionItemSlot,
   },
   inheritAttrs: false,
-  props: RovingFocusGroupProps,
+  props: {
+    ...rovingFocusGroupProps,
+    ...scopedProps,
+  },
   setup(props, { slots, attrs }) {
     const forwardedRef = useForwardRef()
     return () => {
@@ -88,9 +140,10 @@ const RovingFocusGroup = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _RovingFocusGroupProps = MergeProps<RovingFocusGroupPropsType, Partial<RovingFocusGroupElement>>
-
-const OkuRovingFocusGroup = RovingFocusGroup as typeof RovingFocusGroup & (new () => { $props: _RovingFocusGroupProps })
+const OkuRovingFocusGroup = rovingFocusGroup as typeof rovingFocusGroup &
+(new () => {
+  $props: Partial<RovingFocusGroupElement>
+})
 
 export {
   OkuRovingFocusGroup,

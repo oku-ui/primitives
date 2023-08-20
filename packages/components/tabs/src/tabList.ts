@@ -1,61 +1,63 @@
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
   ElementType,
-  IPrimitiveProps,
-  InstanceTypeRef,
-  MergeProps,
+  PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
-import type { ScopedPropsInterface } from './tabs'
-import { ScopedProps, useTabsInject } from './tabs'
+import { useTabsInject } from './tabs'
+import type { ScopeTabs } from './utils'
+import { scopeTabsProps } from './utils'
 
-type TabListElement = ElementType<'div'>
-export type _TabListEl = HTMLDivElement
+export type TabListElementIntrinsicElement = ElementType<'div'>
+export type TabListElement = HTMLDivElement
 
 const TAB_LIST_NAME = 'OkuTabList' as const
 
-interface TabListProps extends ScopedPropsInterface<IPrimitiveProps> {
+interface TabListProps extends PrimitiveProps {
   loop?: boolean
 }
 
+const tabListProps = {
+  loop: {
+    type: Boolean as PropType<boolean>,
+    default: true,
+  },
+}
 const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
 const TabList = defineComponent({
   name: TAB_LIST_NAME,
   inheritAttrs: false,
   props: {
-    loop: {
-      type: Boolean as PropType<boolean>,
-      default: true,
-    },
-    ...PrimitiveProps,
-    ...ScopedProps,
+    ...tabListProps,
+    ...primitiveProps,
+    ...scopeTabsProps,
   },
   setup(props, { slots, attrs }) {
     const { loop } = toRefs(props)
     const { ...listAttrs } = attrs
 
-    const injectTabs = useTabsInject(TAB_LIST_NAME, props.scopeTabs)
+    const injectTabs = useTabsInject(TAB_LIST_NAME, props.scopeOkuTabs)
     const forwardedRef = useForwardRef()
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeTabs)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuTabs)
 
     return () =>
       h(OkuRovingFocusGroup, {
         asChild: true,
         ...rovingFocusGroupScope.value,
-        dir: injectTabs.dir,
+        dir: injectTabs.dir?.value,
         loop: loop.value,
-        orientation: injectTabs.orientation,
+        orientation: injectTabs.orientation?.value,
       }, {
         default: () => h(
           Primitive.div,
           {
             'role': 'tablist',
-            'aria-orientation': injectTabs.orientation,
+            'aria-orientation': injectTabs.orientation?.value,
             'asChild': props.asChild,
             ...listAttrs,
             'ref': forwardedRef,
@@ -68,12 +70,9 @@ const TabList = defineComponent({
   },
 })
 
-type _TabListProps = MergeProps<TabListProps, TabListElement>
-
-export type InstanceTabListType = InstanceTypeRef<typeof TabList, _TabListEl>
-
-const OkuTabList = TabList as typeof TabList & (new () => { $props: _TabListProps })
-
-export { OkuTabList }
+export const OkuTabList = TabList as typeof TabList &
+(new () => {
+  $props: ScopeTabs<Partial<TabListElement>>
+})
 
 export type { TabListProps }

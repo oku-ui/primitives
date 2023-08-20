@@ -1,9 +1,8 @@
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
   ElementType,
-  IPrimitiveProps,
-  InstanceTypeRef,
-  MergeProps,
+  PrimitiveProps,
+
 } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { CSSProperties } from 'vue'
@@ -11,19 +10,19 @@ import { defineComponent, h } from 'vue'
 
 const NAME = 'OkuVisuallyHidden'
 
-type VisuallyHiddenElement = ElementType<'button'>
-export type _VisuallyHiddenEl = HTMLButtonElement
+export type VisuallyHiddenIntrinsicElement = ElementType<'button'>
+export type VisuallyHiddenElement = HTMLButtonElement
 
-interface VisuallyHiddenProps extends IPrimitiveProps {}
+interface VisuallyHiddenProps extends PrimitiveProps {}
 
-const VisuallyHidden = defineComponent({
+const visuallyHidden = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...PrimitiveProps,
+    ...primitiveProps,
   },
   setup(props, { attrs }) {
-    const { ...visuallyHiddenAttrs } = attrs as VisuallyHiddenElement
+    const { ...visuallyHiddenAttrs } = attrs as VisuallyHiddenIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
@@ -40,7 +39,7 @@ const VisuallyHidden = defineComponent({
           padding: 0,
           margin: -1,
           overflow: 'hidden',
-          clip: 'rect(0, 0, 0, 0)',
+          clip: 'rect(0px, 0px, 0px, 0px)',
           whiteSpace: 'nowrap',
           wordWrap: 'normal',
           ...(visuallyHiddenAttrs.style as CSSProperties),
@@ -51,12 +50,12 @@ const VisuallyHidden = defineComponent({
   },
 })
 
-type _VisuallyHidden = MergeProps<VisuallyHiddenProps, VisuallyHiddenElement>
-type InnerVisuallyHidden = InstanceTypeRef<typeof VisuallyHidden, _VisuallyHiddenEl>
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+export const OkuVisuallyHidden = visuallyHidden as typeof visuallyHidden &
+(new () => {
+  $props: Partial<VisuallyHiddenElement>
+})
 
-const OkuVisuallyHidden = VisuallyHidden as typeof VisuallyHidden &
-(new () => { $props: _VisuallyHidden })
-
-export { OkuVisuallyHidden }
-
-export type { VisuallyHiddenProps, InnerVisuallyHidden, _VisuallyHidden }
+export type {
+  VisuallyHiddenProps,
+}
