@@ -1,8 +1,24 @@
-import { computed } from 'vue'
+import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
+
+export type ScopeRadioGroup<T> = T & { scopeOkuRadioGroup?: Scope }
+
+export const scopeRadioGroupProps = {
+  scopeOkuRadioGroup: {
+    ...ScopePropObject,
+  },
+}
+
+export type ScopeRadio<T> = T & { scopeOkuRadio?: Scope }
+
+export const scopeRadioProps = {
+  scopeOkuRadio: {
+    ...ScopePropObject,
+  },
+}
 
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 
 export function getState(checked: boolean) {
-  console.log('getState', checked)
-  return computed(() => checked ? 'checked' : 'unchecked')
+  return checked ? 'checked' : 'unchecked'
 }

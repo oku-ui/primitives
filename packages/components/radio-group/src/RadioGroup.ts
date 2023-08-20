@@ -1,24 +1,18 @@
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRef, toRefs, useModel } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import type { ComputedRef, PropType, Ref } from 'vue'
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { createProvideScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
 import type { RovingFocusGroupPropsType } from '@oku-ui/roving-focus'
 
 import { type RadioProps, createRadioScope } from './Radio'
+import type { ScopeRadioGroup } from './utils'
+import { scopeRadioGroupProps } from './utils'
 
 const RADIO_GROUP_NAME = 'OkuRadioGroup'
-
-export type ScopedRadioGroupType<P> = P & { scopeOkuRadioGroup?: Scope }
-export const scopedRadioGroupProps = {
-  scopeOkuRadioGroup: {
-    ...ScopePropObject,
-  },
-}
 
 export const [createRadioGroupProvider, createRadioGroupScope] = createProvideScope(RADIO_GROUP_NAME, [
   createRovingFocusGroupScope,
@@ -41,7 +35,7 @@ interface RadioGroupProvideValue {
   onValueChange(value: string): void
 }
 
-interface RadioGroupProps extends ScopedRadioGroupType<IPrimitiveProps> {
+interface RadioGroupProps extends PrimitiveProps {
   name?: RadioGroupProvideValue['name']
   required?: RadioProps['required']
   disabled?: RadioProps['disabled']
@@ -99,8 +93,8 @@ const RadioGroup = defineComponent({
   inheritAttrs: false,
   props: {
     ...RadioGroupPropsObject,
-    ...scopedRadioGroupProps,
-    ...PrimitiveProps,
+    ...scopeRadioGroupProps,
+    ...primitiveProps,
   },
   emits: ['update:modelValue', 'valueChange'],
   setup(props, { slots, emit, attrs }) {
@@ -120,12 +114,16 @@ const RadioGroup = defineComponent({
 
     const forwardedRef = useForwardRef()
     const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed({
+      get: () => modelValue.value !== undefined ? modelValue.value : valueProp.value !== undefined ? valueProp.value : undefined,
+      set: () => {
+      },
+    })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? valueProp.value),
+      prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: any) => {
-        console.log('result', result)
         emit('update:modelValue', result)
         emit('valueChange', result)
       },
@@ -133,11 +131,14 @@ const RadioGroup = defineComponent({
 
     RadioGroupProvider({
       scope: props.scopeOkuRadioGroup,
-      name: toRef(props, 'name'),
-      required: toRef(props, 'required'),
-      disabled: toRef(props, 'disabled'),
+      name,
+      required,
+      disabled,
       value: state,
-      onValueChange: updateValue,
+      onValueChange(value: string) {
+        console.log('onValueChange', value)
+        updateValue(value)
+      },
     })
 
     return () =>
@@ -164,11 +165,9 @@ const RadioGroup = defineComponent({
   },
 })
 
-type _RadioGroupProps = MergeProps<RadioGroupProps, Partial<RadioGroupIntrinsicElement>>
-export type IstanceRadioGroupType = InstanceTypeRef<typeof RadioGroup, RadioElement>
-
-const OkuRadioGroup = RadioGroup as typeof RadioGroup & (new () => { $props: _RadioGroupProps })
-
-export { OkuRadioGroup }
+export const OkuRadioGroup = RadioGroup as typeof RadioGroup &
+(new () => {
+  $props: ScopeRadioGroup<Partial<RadioElement>>
+})
 
 export type { RadioGroupProps }

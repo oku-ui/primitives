@@ -1,27 +1,27 @@
-import type { InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, onUnmounted, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { scopedRadioGroupProps, useRadioGroupInject, useRovingFocusGroupScope } from './RadioGroup'
-import type { RadioGroupIntrinsicElement, ScopedRadioGroupType } from './RadioGroup'
+import { useRadioGroupInject, useRovingFocusGroupScope } from './RadioGroup'
+import type { RadioGroupIntrinsicElement } from './RadioGroup'
 import type { RadioElement, RadioProps } from './Radio'
 import { OkuRadio, radioPropsObject, useRadioScope } from './Radio'
-import { ARROW_KEYS } from './utils'
+import type { ScopeRadioGroup } from './utils'
+import { ARROW_KEYS, scopeRadioGroupProps } from './utils'
 
 const ITEM_NAME = 'OkuRadioGroupItem'
 
-type RadioGroupItemIntrinsicElement = RadioGroupIntrinsicElement
+export type RadioGroupItemIntrinsicElement = RadioGroupIntrinsicElement
 export type RadioGroupItemElement = HTMLDivElement
 
-interface RadioGroupItemProps extends Omit<RadioProps, 'onCheck' | 'name'>, ScopedRadioGroupType<any> {
+interface RadioGroupItemProps extends Omit<RadioProps, 'onCheck' | 'name'> {
   value: string
 }
 
 // eslint-disable-next-line unused-imports/no-unused-vars
-const { onCheck, name, ...radioProps } = radioPropsObject
+const { name, ...radioProps } = radioPropsObject
 
 const radioGroupItemPropsObject = {
   onFocus: {
@@ -36,9 +36,12 @@ const RadioGroupItem = defineComponent({
   props: {
     ...radioGroupItemPropsObject,
     ...radioProps,
-    ...scopedRadioGroupProps,
+    ...scopeRadioGroupProps,
   },
-  emits: ['update:modelValue'],
+  emits: {
+    'update:modelValue': (value: string) => true,
+    'focus': (event: FocusEvent) => true,
+  },
   setup(props, { slots, emit, attrs }) {
     const {
       disabled,
@@ -121,12 +124,9 @@ const RadioGroupItem = defineComponent({
   },
 })
 
-type _RadioGroupItemProps = MergeProps<RadioGroupItemProps, Partial<RadioGroupItemIntrinsicElement>>
-
-export type IstanceRadioGroupItemType = InstanceTypeRef<typeof RadioGroupItem, RadioGroupItemElement>
-
-const OkuRadioGroupItem = RadioGroupItem as typeof RadioGroupItem & (new () => { $props: _RadioGroupItemProps })
-
-export { OkuRadioGroupItem }
+export const OkuRadioGroupItem = RadioGroupItem as typeof RadioGroupItem &
+(new () => {
+  $props: ScopeRadioGroup<Partial<RadioGroupItemIntrinsicElement>>
+})
 
 export type { RadioGroupItemProps }

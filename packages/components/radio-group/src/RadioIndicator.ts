@@ -1,15 +1,16 @@
-import { type ElementType, type InstanceTypeRef, type MergeProps, Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { type ElementType, Primitive, primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import type { PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { ScopedRadioProps, useRadioInject } from './Radio'
-import { getState } from './utils'
+import { useRadioInject } from './Radio'
+import type { ScopeRadio } from './utils'
+import { getState, scopeRadioProps } from './utils'
 
 const INDICATOR_NAME = 'OkuRadioIndicator'
 
-type RadioIndicatorElement = ElementType<'span'>
-export type _RadioIndicatorEl = HTMLSpanElement
+export type RadioIndicatorIntrinsicElement = ElementType<'span'>
+export type RadioIndicatorElement = HTMLSpanElement
 
 interface RadioIndicatorProps {
   /**
@@ -31,8 +32,8 @@ const RadioIndicator = defineComponent({
   inheritAttrs: false,
   props: {
     ...RadioIndicatorPropsObject,
-    ...ScopedRadioProps,
-    ...PrimitiveProps,
+    ...scopeRadioProps,
+    ...primitiveProps,
   },
   setup(props, { attrs }) {
     const { forceMount, scopeOkuRadio, ...indicatorProps } = props
@@ -44,7 +45,7 @@ const RadioIndicator = defineComponent({
     }, {
       default: () =>
         h(Primitive.span, {
-          'data-state': getState(inject.checked.value).value,
+          'data-state': getState(inject.checked.value),
           'data-disabled': computed(() => inject.disabled?.value ? '' : undefined).value,
           ...mergeProps(indicatorProps, attrs),
           'ref': forwardedRef,
@@ -53,14 +54,12 @@ const RadioIndicator = defineComponent({
   },
 })
 
-type _RadioIndicatorProps = MergeProps<RadioIndicatorProps, Partial<RadioIndicatorElement>>
-type IstanceBubbleType = InstanceTypeRef<typeof RadioIndicator, _RadioIndicatorEl>
+export const OkuRadioIndicator = RadioIndicator as typeof RadioIndicator &
+(new () => {
+  $props: ScopeRadio<Partial<RadioIndicatorElement>>
+})
 
-const OkuRadioIndicator = RadioIndicator as typeof RadioIndicator & (new () => { $props: _RadioIndicatorProps })
-
-export { OkuRadioIndicator }
-
-export type { RadioIndicatorProps, RadioIndicatorElement, IstanceBubbleType }
+export type { RadioIndicatorProps }
 
 // <button type="button" role="radio" aria-checked="true" data-state="checked" value="1" class="c-kcEvBl" tabindex="-1" data-radix-collection-item=""><span data-state="checked" class="c-fZulUm"></span></button>
 

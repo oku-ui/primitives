@@ -1,7 +1,6 @@
 export {
   OkuRadioGroup,
   RadioGroupProps,
-  scopedRadioGroupProps,
 } from './RadioGroup'
 
 export type {
@@ -14,7 +13,6 @@ export {
 } from './RadioGroupItem'
 
 export type {
-  IstanceRadioGroupItemType,
   RadioGroupItemProps,
   RadioGroupItemElement,
 } from './RadioGroupItem'
@@ -27,3 +25,13 @@ export type {
   RadioGroupIndicatorElement,
   RadioGroupIndicatorProps,
 } from './RadioGroupIndicator'
+
+export {
+  scopeRadioGroupProps,
+  scopeRadioProps,
+} from './utils'
+
+export type {
+  ScopeRadio,
+  ScopeRadioGroup,
+} from './utils'

@@ -1,22 +1,16 @@
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
-import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { ElementType } from '@oku-ui/primitive'
+import { createProvideScope } from '@oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { getState } from './utils'
+import type { ScopeRadio } from './utils'
+import { getState, scopeRadioProps } from './utils'
 import { OkuBubbleInput } from './BubbleInput'
 
 const RADIO_NAME = 'OkuRadio'
 
-export type ScopedRadioType<P> = P & { scopeOkuRadio?: Scope }
-export const ScopedRadioProps = {
-  scopeOkuRadio: {
-    ...ScopePropObject,
-  },
-}
 export const [createRadioProvide, createRadioScope] = createProvideScope(RADIO_NAME)
 
 type RadioProvideValue = {
@@ -28,17 +22,17 @@ export const useRadioScope = createRadioScope()
 
 export const [radioProvider, useRadioInject] = createRadioProvide<RadioProvideValue>(RADIO_NAME)
 
-export type RadioIntrinsicElement = ElementType<'button'>
+export type RadioIntrinsicIntrinsicElement = ElementType<'button'>
 export type RadioElement = HTMLButtonElement
 
-interface RadioProps extends ScopedRadioType<any> {
+interface RadioProps {
   checked?: boolean
   required?: boolean
   disabled?: boolean
   value?: string
   name?: string
   onCheck?(): void
-  onClick?(): (event: MouseEvent) => void
+  // onClick?(): (event: MouseEvent) => void
 }
 
 export const radioPropsObject = {
@@ -73,23 +67,25 @@ const Radio = defineComponent({
   inheritAttrs: false,
   props: {
     ...radioPropsObject,
-    ...ScopedRadioProps,
-    ...PrimitiveProps,
+    ...scopeRadioProps,
+    ...primitiveProps,
+  },
+  emits: {
+    check: () => true,
+    click: (event: MouseEvent) => true,
   },
   setup(props, { attrs, slots }) {
-    const attrsRef = attrs as RadioIntrinsicElement
     const {
       checked,
       required, disabled,
       value,
       name,
-      onCheck,
       scopeOkuRadio,
       asChild,
       ...radioProps
     } = toRefs(props)
 
-    const { ...radioAttrs } = attrs as RadioIntrinsicElement
+    const { ...radioAttrs } = attrs as RadioIntrinsicIntrinsicElement
 
     const hasConsumerStoppedPropagationRef = ref(false)
     const buttonRef = ref<HTMLButtonElement | null>(null)
@@ -104,22 +100,22 @@ const Radio = defineComponent({
       scope: scopeOkuRadio.value,
     })
 
-    // console.log(mergeProps(radioAttrs, radioProps))
     return () => [
       h(Primitive.button, {
         'type': 'button',
         'role': 'radio',
         'aria-checked': checked.value,
-        'data-state': getState(checked.value || false).value,
+        'data-state': getState(checked.value || false),
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
         ...mergeProps(radioAttrs, radioProps),
         'ref': composedRefs,
-        'onClick': composeEventHandlers(attrsRef.onClick, (event: MouseEvent) => {
+        'onClick': composeEventHandlers(props.onClick, (event: MouseEvent) => {
+          console.log('click', checked.value)
           // radios cannot be unchecked so we only communicate a checked state
           if (!checked.value)
-            onCheck.value?.()
+            props.onCheck?.()
           if (isFormControl.value) {
             // TODO: check `isPropagationStopped`
             // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
@@ -152,11 +148,9 @@ const Radio = defineComponent({
   },
 })
 
-type _OkuRadioProps = MergeProps<RadioProps, Partial<RadioElement>>
-export type IstanceOkuRadioType = InstanceTypeRef<typeof OkuRadio, RadioIntrinsicElement>
-
-const OkuRadio = Radio as typeof Radio & (new () => { $props: _OkuRadioProps })
-
-export { OkuRadio }
+export const OkuRadio = Radio as typeof Radio &
+(new () => {
+  $props: ScopeRadio<Partial<RadioElement>>
+})
 
 export type { RadioProps }
