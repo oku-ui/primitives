@@ -11,7 +11,7 @@ console.log('attrs', attrs)
 
 <template>
   <CollectionItemSlot :scope="undefined" :disabled="disabled">
-    <li :style="{ ...attrs.style, opacity: disabled ? 0.3 : undefined }">
+    <li :style="{ ...attrs.style, opacity: disabled ? 0.3 : undefined }" class="pl-5 mt-2 space-y-1  list-inside">
       <slot />
     </li>
   </CollectionItemSlot>
