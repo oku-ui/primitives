@@ -81,6 +81,7 @@
     "eslint-plugin-storybook": "^0.6.13",
     "esno": "^0.17.0",
     "globby": "^13.2.2",
+    "happy-dom": "^10.10.4",
     "jiti": "^1.19.1",
     "jsdom": "^22.1.0",
     "lint-staged": "^13.2.3",

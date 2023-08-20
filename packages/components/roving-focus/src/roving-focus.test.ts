@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import { h } from 'vue'
-import { OkuRovingFocusGroup } from './'
+import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from './'
 
 const component = {
   setup() {
@@ -14,18 +14,18 @@ describe('OkuRovingFocusGroup', () => {
   describe('OkuRovingFocusGroupItem aschild', () => {
     it('empty', () => {
       const com = mount(component, {
-        // slots: {
-        //   default: () => [
-        //     h(OkuRovingFocusGroupItem, {
-        //       asChild: true,
-        //     }),
-        //     h(OkuRovingFocusGroupItem, {
-        //       asChild: true,
-        //     }),
-        //   ],
-        // },
+        slots: {
+          default: () => [
+            h(OkuRovingFocusGroupItem, {
+              asChild: true,
+            }),
+            h(OkuRovingFocusGroupItem, {
+              asChild: true,
+            }),
+          ],
+        },
       })
-      expect(com.html()).equal(`<div tabindex="-1" style="outline: none;">
+      expect(com.html()).equal(`<div tabindex="-1" style="outline-color: none; outline-style: none; outline-width: initial;">
   <!---->
 </div>`)
     })

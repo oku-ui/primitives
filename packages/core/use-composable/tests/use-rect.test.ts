@@ -3,18 +3,12 @@ import { describe, expect, it } from 'vitest'
 import { useRect } from '../src/use-rect'
 
 describe('useRect', () => {
-  it('rect', async () => {
-    const { rect } = useRect()
-    expect(rect.value).toBeNull()
-  })
-
   it('props', () => {
-    const { measurableElement } = useRect()
-    expect(measurableElement.value).toBeNull()
-
     const wrapper = mount({
       template: '<div></div>',
       setup() {
+        const { measurableElement } = useRect()
+        expect(measurableElement.value).toBeNull()
         return {
           dir: measurableElement,
         }

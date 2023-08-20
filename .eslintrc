@@ -4,6 +4,7 @@
   "extends": ["custom", "plugin:storybook/recommended"],
   "rules": {
     "vue/one-component-per-file": "off"
+    // "no-console": "off"
   },
   "overrides": [
     {
@@ -12,6 +13,14 @@
       ],
       "rules": {
         "no-console": "off"
+      }
+    },
+    {
+      "files": [
+        "**/*.test.ts"
+      ],
+      "rules": {
+        "no-restricted-globals": "off"
       }
     }
   ]

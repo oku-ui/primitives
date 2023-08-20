@@ -14,13 +14,13 @@ describe('OkuSeparator', () => {
   const wrapper = mount(component)
 
   it('renders correctly', async () => {
-    expect(wrapper.html()).toBe(`<div role="separator" data-orientation="horizontal">
+    expect(wrapper.html()).toBe(`<div role="separator" data-orientation="horizontal" style="border: none none;">
   <!---->
 </div>`)
   })
 
   it('renders ref correctly', async () => {
-    expect(wrapper.vm.$el.outerHTML).toBe('<div role="separator" data-orientation="horizontal"><!----></div>')
+    expect(wrapper.vm.$el.outerHTML).toBe('<div role="separator" data-orientation="horizontal" style="border: none none;"><!----></div>')
   })
 
   it('sets role as separator without decorative', async () => {
