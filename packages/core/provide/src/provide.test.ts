@@ -48,19 +48,9 @@ describe('Provide', () => {
   test('createProvide get inject data', async () => {
     const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
 
-    const [avatarProvider, useAvatarInject] = createProvide<{
+    const [_avatarProvider, useAvatarInject] = createProvide<{
       test: string
     }>('Avatar')
-
-    const Avatar = {
-      setup(props, { attrs, slots }) {
-        avatarProvider({
-          test: 'test',
-        })
-
-        return () => h('div', { ...attrs }, slots)
-      },
-    } as Component
 
     const AvatarFallback = {
       setup(props, { attrs, slots }) {
@@ -119,7 +109,7 @@ describe('Provide', () => {
   })
 
   test('createProvide defaultProvide', async () => {
-    const [avatarProvider, useAvatarInject] = createProvide<{
+    const [_avatarProvider, useAvatarInject] = createProvide<{
       testValue: string
     }>('Avatar', {
       testValue: 'Merhaba asdasda',
@@ -159,7 +149,7 @@ describe('Provide', () => {
 
   test('createProvideScope', async () => {
     const AVATAR_NAME = 'OkuAvatar'
-    const [createAvatarProvide, createAvatarScope] = createProvideScope(AVATAR_NAME)
+    const [createAvatarProvide, _createAvatarScope] = createProvideScope(AVATAR_NAME)
 
     type AvatarProvideValue = {
       imageLoadingStatus: 'loading' | 'loaded' | 'error'
@@ -229,24 +219,11 @@ describe('Provide', () => {
 
     const [createCollectionProvide, createCollectionScope] = createProvideScope(PROVIDER_NAME)
 
-    const [collectionProvide, useCollectionInject] = createCollectionProvide<{
+    const [_collectionProvide, _useCollectionInject] = createCollectionProvide<{
       collectionRef: 'test'
     }>(
       PROVIDER_NAME,
     )
-
-    const Collection = defineComponent({
-      props: {
-        scope: { type: null, required: false },
-      },
-      setup(props, { attrs, slots }) {
-        collectionProvide({
-          collectionRef: 'test',
-          scope: props.scope,
-        })
-        return () => h('div', { ...attrs }, slots)
-      },
-    })
 
     const useRovingFocusGroupScope = createCollectionScope()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
