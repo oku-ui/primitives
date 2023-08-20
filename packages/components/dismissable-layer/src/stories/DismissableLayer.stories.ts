@@ -41,3 +41,35 @@ export const Basic: Story = {
     `,
   }),
 }
+
+export const Nested: Story = {
+  args: {
+    template: '#2',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithFocusScope: Story = {
+  args: {
+    template: '#3',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}

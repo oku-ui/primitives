@@ -149,7 +149,7 @@ const DismissableLayer = defineComponent({
     'interactOutside',
     'escapeKeyDown',
   ],
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const {
       onDismiss,
       onFocusOutside,
@@ -324,31 +324,37 @@ const DismissableLayer = defineComponent({
     })
 
     const originalReturn = () =>
-      h(Primitive.div, {
-        ...dismissableLayerAttrs,
-        ref: composedRefs,
-        asChild: props.asChild,
-        style: {
-          pointerEvents: isBodyPointerEventsDisabled.value
-            ? isPointerEventsEnabled.value
-              ? 'auto'
-              : 'none'
-            : undefined,
-          ...(dismissableLayerAttrs.style as CSSPropertyRule),
+      h(
+        Primitive.div,
+        {
+          ...dismissableLayerAttrs,
+          ref: composedRefs,
+          asChild: props.asChild,
+          style: {
+            pointerEvents: isBodyPointerEventsDisabled.value
+              ? isPointerEventsEnabled.value
+                ? 'auto'
+                : 'none'
+              : undefined,
+            ...(dismissableLayerAttrs.style as CSSPropertyRule),
+          },
+          onFocusCapture: composeEventHandlers(
+            props.onFocusCapture,
+            focusOutside.onFocusCapture,
+          ),
+          onBlurCapture: composeEventHandlers(
+            props.onBlurCapture,
+            focusOutside.onBlurCapture,
+          ),
+          onPointerDownCapture: composeEventHandlers(
+            props.onPointerDownCapture,
+            pointerDownOutside.onPointerDownCapture,
+          ),
         },
-        onFocusCapture: composeEventHandlers(
-          props.onFocusCapture,
-          focusOutside.onFocusCapture,
-        ),
-        onBlurCapture: composeEventHandlers(
-          props.onBlurCapture,
-          focusOutside.onBlurCapture,
-        ),
-        onPointerDownCapture: composeEventHandlers(
-          props.onPointerDownCapture,
-          pointerDownOutside.onPointerDownCapture,
-        ),
-      })
+        {
+          default: slots.default?.(),
+        },
+      )
 
     return originalReturn
   },

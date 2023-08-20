@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { ref } from 'vue'
+import { OkuFocusScope } from '@oku-ui/focus-scope'
 
 export interface IDismissableLayerProps {
-  template?: '#1'
+  template?: '#1' | '#2' | '#3' | '#4'
   allshow?: boolean
 }
 
@@ -50,10 +51,11 @@ function handleMouseDown() {
 
 <template>
   <div>
-    <h1>Oku Basic Dismissable Layer</h1>
     <div v-if="template === '#1' || allshow" class="flex flex-col">
       <div style="font-family: sans-serif; text-align: center">
-        <h1>DismissableLayer</h1>
+        <h1 class="text-3xl text-center font-semibold mb-2">
+          DismissableLayer
+        </h1>
 
         <div
           style="display: inline-block; text-align: left; margin-bottom: 20px"
@@ -91,6 +93,17 @@ function handleMouseDown() {
           <OkuDismissableLayer
             :disable-outside-pointer-events="disabledOutsidePointerEvents"
             class="inline-flex justify-center items-center align-middle w-[400px] h-[300px] bg-black rounded-xl mb-5"
+            :style="{
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              verticalAlign: 'middle',
+              width: '400px',
+              height: '300px',
+              backgroundColor: 'black',
+              borderRadius: '10px',
+              marginBottom: '20px',
+            }"
             @escape-key-down="onEscapeKeyDown"
             @pointer-down-outside="onPointerDownOutside"
             @focus-outside="onFocusOutside"
@@ -99,6 +112,56 @@ function handleMouseDown() {
             <input type="text">
           </OkuDismissableLayer>
         </div>
+
+        <div style="margin-bottom: 20px">
+          <input type="text" defaultValue="hello" style="margin-right: 20px">
+          <button @mousedown="handleMouseDown">
+            hey!
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="template === '#2'" class="flex flex-col">
+      <!-- <DismissableBox /> -->
+    </div>
+
+    <div v-if="template === '#3'" class="flex flex-col">
+      <div class="text-center font-sans">
+        <h1 class="text-3xl font-bold mb-2">
+          DismissableLayer + FocusScope
+        </h1>
+        <div class="mb-10">
+          <button ref="openButtonRef" type="button" @click="toggleOpen">
+            {{ open ? "Close" : "Open" }} layer
+          </button>
+        </div>
+
+        <template v-if="open">
+          <OkuDismissableLayer
+            as-child
+            disable-outside-pointer-events
+            @pointer-down-outside="onPointerDownOutside"
+            @dismiss="closeLayer"
+          >
+            <OkuFocusScope
+              trapped
+              :style="{
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                verticalAlign: 'middle',
+                width: '400px',
+                height: '300px',
+                background: 'black',
+                borderRadius: '10px',
+                marginBottom: '20px',
+              }"
+            >
+              <input type="text">
+            </OkuFocusScope>
+          </OkuDismissableLayer>
+        </template>
 
         <div style="margin-bottom: 20px">
           <input type="text" defaultValue="hello" style="margin-right: 20px">
