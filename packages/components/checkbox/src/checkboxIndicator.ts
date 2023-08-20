@@ -1,4 +1,4 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
 
 import { useForwardRef } from '@oku-ui/use-composable'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -39,11 +39,11 @@ const checkboxIndicator = defineComponent({
     const context = useCheckboxInject(INDICATOR_NAME, props.scopeOkuCheckbox)
 
     const originalReturn = () => h(OkuPresence, {
-      present: forceMount.value || isIndeterminate(context.state.value) || context.state.value === true,
+      present: computed(() => forceMount.value || isIndeterminate(context.state.value) || context.state.value === true).value,
     }, {
       default: () => h(Primitive.span, {
         'ref': forwardedRef,
-        'data-state': getState(context.state.value),
+        'data-state': computed(() => getState(context.state.value)).value,
         'data-disabled': context.disabled?.value ? '' : undefined,
         ...indicatorAttrs,
         'asChild': props.asChild,

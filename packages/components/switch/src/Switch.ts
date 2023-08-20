@@ -14,11 +14,7 @@ import {
   useControllable,
   useForwardRef,
 } from '@oku-ui/use-composable'
-import type {
-  ElementType,
-  PrimitiveProps,
-
-} from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -109,7 +105,7 @@ const Switch = defineComponent({
       name,
     } = toRefs(props)
 
-    const { ...switchProps } = attrs as SwitchIntrinsicElement
+    const { ...switchAttrs } = attrs as SwitchIntrinsicElement
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
 
@@ -125,7 +121,7 @@ const Switch = defineComponent({
     onMounted(() => {
       isFormControl.value = buttonRef.value
         ? typeof buttonRef.value.closest === 'function'
-        && Boolean(buttonRef.value.closest('form'))
+          && Boolean(buttonRef.value.closest('form'))
         : true
     })
 

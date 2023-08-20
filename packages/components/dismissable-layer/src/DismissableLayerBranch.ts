@@ -1,17 +1,15 @@
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
   ComponentPublicInstanceRef,
   ElementType,
-  IPrimitiveProps,
   InstanceTypeRef,
   MergeProps,
+  PrimitiveProps,
 } from '@oku-ui/primitive'
 import { defineComponent, h, inject, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { DismissableLayerProvideValue } from './DismissableLayer'
-import {
-  DismissableLayerProvideKey,
-} from './DismissableLayer'
+import { DismissableLayerProvideKey } from './DismissableLayer'
 
 /* -------------------------------------------------------------------------------------------------
  * DismissableLayerBranch
@@ -20,7 +18,7 @@ import {
 const BRANCH_NAME = 'DismissableLayerBranch'
 type DismissableLayerBranchElement = ElementType<'div'>
 
-interface DismissableLayerBranchProps extends IPrimitiveProps {}
+interface DismissableLayerBranchProps extends PrimitiveProps {}
 
 export type { DismissableLayerBranchElement }
 
@@ -28,13 +26,12 @@ const DismissableLayerBranch = defineComponent({
   name: BRANCH_NAME,
   inheritAttrs: false,
   props: {
-    asChild: {
-      type: Boolean,
-      default: undefined,
-    },
+    ...primitiveProps,
   },
   setup(props, { attrs }) {
-    const _inject = inject(DismissableLayerProvideKey) as DismissableLayerProvideValue
+    const _inject = inject(
+      DismissableLayerProvideKey,
+    ) as DismissableLayerProvideValue
 
     const node = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>()
 

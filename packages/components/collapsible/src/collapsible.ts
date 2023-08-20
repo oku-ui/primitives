@@ -44,9 +44,6 @@ const collapsibleProps = {
     type: Boolean as PropType<boolean | undefined>,
     default: undefined,
   },
-  onOpenChange: {
-    type: Function as PropType<(open: boolean) => void>,
-  },
 }
 
 const COLLAPSIBLE_NAME = 'OkuCollapsible'
@@ -64,7 +61,7 @@ const collapsible = defineComponent({
     ...primitiveProps,
     ...scopeCollapsibleProps,
   },
-  emits: ['update:open', 'update:modelValue'],
+  emits: ['update:modelValue', 'openChange'],
   setup(props, { attrs, slots, emit }) {
     const { ...collapsibleAttr } = attrs as CollapsibleIntrinsicElement
     const { disabled, open, defaultOpen } = toRefs(props)
@@ -73,12 +70,20 @@ const collapsible = defineComponent({
 
     const forwardedRef = useForwardRef()
 
+    const proxyOpen = computed({
+      get: () => modelValue.value !== undefined
+        ? modelValue.value
+        : open.value !== undefined ? open.value : undefined,
+      set: () => {
+      },
+    })
+
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? open.value),
+      prop: computed(() => proxyOpen.value),
       defaultProp: computed(() => defaultOpen.value),
       onChange: (open) => {
-        emit('update:open', open)
         emit('update:modelValue', open)
+        emit('openChange', open)
       },
     })
 
@@ -102,7 +107,7 @@ const collapsible = defineComponent({
         ...collapsibleAttr,
       },
       {
-        default: () => slots.default && slots.default(),
+        default: () => slots.default?.(),
       },
     )
     return originalReturn
