@@ -82,8 +82,13 @@ Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the 
 
 ## Credits
 
+- [Daniel Roe](https://github.com/danielroe)
+- [Johnson Chu](https://github.com/johnsoncodehk)
 - [Skirtle](https://github.com/skirtles-code)
-
+- [Jacek Karczmarczyk](https://github.com/jacekkarczmarczyk)
+- [Headless UI](https://headlessui.com/)
+- [Radix Primitives](https://radix-ui.com/)
+- [Element Plus](https://github.com/element-plus/element-plus)
 
 ---
 
