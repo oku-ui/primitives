@@ -77,12 +77,12 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
    * createScope
    * --------------------------------------------------------------------------------------------- */
   const createScope: CreateScope = () => {
-    const scopeInjects = defaultProviders.map((defaultContext) => {
+    const scopeProviders = defaultProviders.map((defaultContext) => {
       return defaultContext
     })
 
     return function useScope(scope: Scope) {
-      const providers = scope?.[scopeName] || scopeInjects
+      const providers = scope?.[scopeName] || scopeProviders
 
       return ({
         [`scope${scopeName}`]: {
@@ -94,10 +94,10 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
   }
 
   createScope.scopeName = scopeName
-  return [createProvide, composeInjectScopes(createScope, ...createProvideScopeDeps)] as const
+  return [createProvide, composeProvderScopes(createScope, ...createProvideScopeDeps)] as const
 }
 
-function composeInjectScopes(...scopes: CreateScope[]) {
+function composeProvderScopes(...scopes: CreateScope[]) {
   const baseScope = scopes[0]
   if (scopes.length === 1)
     return baseScope
