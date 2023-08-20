@@ -25,7 +25,7 @@ describe('FocusScope', () => {
 
   let tabbableFirst: HTMLInputElement
   let tabbableSecond: HTMLInputElement
-  let tabbableLast: HTMLButtonElement
+  // let tabbableLast: HTMLButtonElement
 
   describe('given a default FocusScope', () => {
     beforeEach(() => {
@@ -60,7 +60,7 @@ describe('FocusScope', () => {
       )
       tabbableFirst = wrapper.find(`input[name="${INNER_NAME_INPUT_LABEL.toLowerCase()}"]`).element as HTMLInputElement
       tabbableSecond = wrapper.find(`input[name="${INNER_EMAIL_INPUT_LABEL.toLowerCase()}"]`).element as HTMLInputElement
-      tabbableLast = wrapper.findAll('button').filter(button => button.text() === INNER_SUBMIT_LABEL).at(0)?.element as HTMLButtonElement
+      // tabbableLast = wrapper.findAll('button').filter(button => button.text() === INNER_SUBMIT_LABEL).at(0)?.element as HTMLButtonElement
     })
 
     enableAutoUnmount(afterEach)
