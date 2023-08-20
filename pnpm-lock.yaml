@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   vue: 3.3.4
   '@vue/runtime-core': 3.3.4
@@ -36,6 +40,9 @@ importers:
       '@oku-ui/direction':
         specifier: workspace:^
         version: link:packages/components/direction
+      '@oku-ui/focus-group':
+        specifier: workspace:^
+        version: link:packages/core/focus-group
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:packages/components/focus-scope
@@ -625,6 +632,16 @@ importers:
       '@oku-ui/use-composable':
         specifier: latest
         version: link:../../core/use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/core/focus-group:
+    dependencies:
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -15685,7 +15702,3 @@ packages:
       compress-commons: 4.1.1
       readable-stream: 3.6.2
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
