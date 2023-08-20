@@ -36,6 +36,9 @@ importers:
       '@oku-ui/direction':
         specifier: workspace:^
         version: link:packages/components/direction
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:packages/components/focus-scope
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
@@ -345,6 +348,22 @@ importers:
 
   packages/components/direction:
     dependencies:
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/focus-scope:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
       vue:
         specifier: ^3.3.0
         version: 3.3.4
