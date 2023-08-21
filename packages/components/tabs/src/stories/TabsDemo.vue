@@ -230,7 +230,7 @@ defineProps<ITabsProps>()
   }
 
   &[data-state="active"] {
-    --border-color: #ff0000;
+    --border-color: #b3cd7c;
   }
 
   &:focus {
