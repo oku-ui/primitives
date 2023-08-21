@@ -43,7 +43,7 @@ export const Basic: Story = {
 }
 
 // TODO: Visibility cannot trigger animation
-export const WithMountAnimation: Story = {
+export const WithAnimation: Story = {
   args: {
     template: '#2',
   },
@@ -57,33 +57,3 @@ export const WithMountAnimation: Story = {
     `,
   }),
 }
-
-// export const Transition: Story = {
-//   args: {
-//     template: '#2',
-//   },
-//   render: (args: any) => ({
-//     components: { OkuPresenceComponent },
-//     setup() {
-//       return { args }
-//     },
-//     template: `
-//       <OkuPresenceComponent v-bind="args" />
-//     `,
-//   }),
-// }
-
-// export const WithDeferredMountAnimation: Story = {
-//   args: {
-//     template: '#3',
-//   },
-//   render: (args: any) => ({
-//     components: { OkuPresenceComponent },
-//     setup() {
-//       return { args }
-//     },
-//     template: `
-//       <OkuPresenceComponent v-bind="args" />
-//     `,
-//   }),
-// }

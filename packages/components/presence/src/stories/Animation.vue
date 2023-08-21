@@ -11,8 +11,8 @@ const elementRef = ref<VNodeRef>()
 <template>
   <Toggles v-model:open="open" :node-ref="elementRef" />
   <Transition name="bounce">
-    <OkuPresence class="inner" :present="open">
-      <div ref="elementRef" :data-state="open ? 'open' : 'closed'">
+    <OkuPresence v-show="open" :present="open">
+      <div ref="elementRef" class="inner" :data-state="open ? 'open' : 'closed'">
         Content
       </div>
     </OkuPresence>
