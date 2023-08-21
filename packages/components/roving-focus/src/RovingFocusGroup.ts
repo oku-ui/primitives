@@ -123,7 +123,6 @@ const rovingFocusGroup = defineComponent({
     const forwardedRef = useForwardRef()
     return () => {
       const mergedProps = computed(() => mergeProps(attrs, props))
-
       return h(CollectionProvider, {
         scope: props.scopeOkuRovingFocusGroup,
       }, {

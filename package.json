@@ -53,6 +53,7 @@
     "@oku-ui/primitive": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/provide": "workspace:^",
+    "@oku-ui/radio-group": "workspace:^",
     "@oku-ui/roving-focus": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/slot": "workspace:^",

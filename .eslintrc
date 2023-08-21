@@ -9,7 +9,7 @@
   "overrides": [
     {
       "files": [
-        "**/stories/*.vue"
+        "**/stories/*.{vue,js,jsx,ts,tsx}"
       ],
       "rules": {
         "no-console": "off"
