@@ -1,9 +1,6 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
-  ComponentPublicInstanceRef,
   ElementType,
-  InstanceTypeRef,
-  MergeProps,
   PrimitiveProps,
 } from '@oku-ui/primitive'
 import { defineComponent, h, inject, ref, watchEffect } from 'vue'
@@ -15,12 +12,11 @@ import { DismissableLayerProvideKey } from './DismissableLayer'
  * DismissableLayerBranch
  * ----------------------------------------------------------------------------------------------- */
 
-const BRANCH_NAME = 'DismissableLayerBranch'
-type DismissableLayerBranchElement = ElementType<'div'>
+const BRANCH_NAME = 'OkuDismissableLayerBranch'
+export type DismissableLayerBranchIntrinsicElement = ElementType<'div'>
+export type DismissableLayerBranchElement = HTMLDivElement
 
 interface DismissableLayerBranchProps extends PrimitiveProps {}
-
-export type { DismissableLayerBranchElement }
 
 const DismissableLayerBranch = defineComponent({
   name: BRANCH_NAME,
@@ -33,18 +29,18 @@ const DismissableLayerBranch = defineComponent({
       DismissableLayerProvideKey,
     ) as DismissableLayerProvideValue
 
-    const node = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>()
+    const node = ref<HTMLDivElement | null>()
 
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(node, forwardedRef)
 
     watchEffect((onInvalidate) => {
       if (node.value)
-        _inject.branches.value.add(node.value.$el)
+        _inject.branches.value.add(node.value)
 
       onInvalidate(() => {
-        if (node.value && node.value.$el)
-          _inject.branches.value.delete(node.value.$el)
+        if (node.value && node.value)
+          _inject.branches.value.delete(node.value)
       })
     })
 
@@ -59,22 +55,10 @@ const DismissableLayerBranch = defineComponent({
   },
 })
 
-export type _DismissableLayerBranchEl = HTMLDivElement
+export const OkuDismissableLayerBranch
+= DismissableLayerBranch as typeof DismissableLayerBranch &
+(new () => {
+  $props: Partial<DismissableLayerBranchElement>
+})
 
-type _DismissableLayerBranch = MergeProps<
-  DismissableLayerBranchProps,
-  DismissableLayerBranchElement
->
-
-type InstanceDismissableLayerBranchType = InstanceTypeRef<
-  typeof DismissableLayerBranch,
-  _DismissableLayerBranchEl
->
-
-const OkuDismissableLayerBranch
-  = DismissableLayerBranch as typeof DismissableLayerBranch &
-  (new () => { $props: _DismissableLayerBranch })
-
-export { OkuDismissableLayerBranch }
-
-export type { InstanceDismissableLayerBranchType, DismissableLayerBranchProps }
+export type { DismissableLayerBranchProps }

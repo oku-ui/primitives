@@ -1,6 +1,9 @@
 import { useCallbackRef } from '@oku-ui/use-composable'
 import { onBeforeUnmount, ref, watchEffect } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
+
+import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
 import type {
   FocusOutsideEvent,
   PointerDownOutsideEvent,
@@ -10,6 +13,14 @@ import {
   INJECT_UPDATE,
   POINTER_DOWN_OUTSIDE,
 } from './DismissableLayer'
+
+export type ScopeDismissableLayer<T> = T & { scopeOkuDismissableLayer?: Scope }
+
+export const scopeDismissableLayerProps = {
+  scopeOkuDismissableLayer: {
+    ...ScopePropObject,
+  },
+}
 
 /**
  * Listens for `pointerdown` outside a subtree. We use `pointerdown` rather than `pointerup`
