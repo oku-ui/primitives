@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/focus-guards",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.2.3",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/components/focus-guards"
+    "directory": "packages/core/focus-guards"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -34,9 +34,6 @@
   },
   "peerDependencies": {
     "vue": "^3.3.0"
-  },
-  "dependencies": {
-    "@oku-ui/primitive": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

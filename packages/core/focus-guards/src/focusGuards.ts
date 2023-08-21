@@ -1,8 +1,8 @@
 import { defineComponent } from 'vue'
 import { useFocusGuards } from './utils'
 
-export const OkuFocusGroup = defineComponent({
-  name: 'OkuFocusGroup',
+export const OkuFocusGuards = defineComponent({
+  name: 'OkuFocusGuards',
 
   setup(props, { slots }) {
     useFocusGuards()
