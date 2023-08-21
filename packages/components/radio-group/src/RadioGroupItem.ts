@@ -104,7 +104,10 @@ const RadioGroupItem = defineComponent({
           if (event.key === 'Enter')
             event.preventDefault()
         }),
-        onFocus: composeEventHandlers(props.onFocus, (el) => {
+        onFocus: composeEventHandlers<FocusEvent>((e) => {
+          emit('focus', e)
+        },
+        () => {
           /**
            * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys
            * and we need to "check" it in that case. We click it to "check" it (instead

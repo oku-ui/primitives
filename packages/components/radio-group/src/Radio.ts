@@ -52,10 +52,10 @@ export const radioPropsObject = {
     type: String as PropType<string | undefined>,
     default: undefined,
   },
-  onCheck: {
-    type: Function as PropType<() => void>,
-    default: undefined,
-  },
+  // onCheck: {
+  //   type: Function as PropType<() => void>,
+  //   default: undefined,
+  // },
   value: {
     type: String as PropType<string>,
     default: 'on',
@@ -74,10 +74,11 @@ const Radio = defineComponent({
     check: () => true,
     click: (event: MouseEvent) => true,
   },
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs, slots, emit }) {
     const {
       checked,
-      required, disabled,
+      required,
+      disabled,
       value,
       name,
       scopeOkuRadio,
@@ -111,11 +112,13 @@ const Radio = defineComponent({
         'value': value.value,
         ...mergeProps(radioAttrs, radioProps),
         'ref': composedRefs,
-        'onClick': composeEventHandlers(props.onClick, (event: MouseEvent) => {
-          console.log('click', checked.value)
+        'onClick': composeEventHandlers((e: MouseEvent) => {
+          emit('click', e)
+        },
+        (event: MouseEvent) => {
           // radios cannot be unchecked so we only communicate a checked state
           if (!checked.value)
-            props.onCheck?.()
+            emit('check')
           if (isFormControl.value) {
             // TODO: check `isPropagationStopped`
             // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()

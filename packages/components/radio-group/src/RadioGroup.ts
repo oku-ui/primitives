@@ -44,7 +44,7 @@ interface RadioGroupProps extends PrimitiveProps {
   loop?: RovingFocusGroupPropsType['loop']
   defaultValue?: string
   value?: RadioGroupProvideValue['value']
-  onValueChange?: RadioGroupProvideValue['onValueChange']
+  // onValueChange?: RadioGroupProvideValue['onValueChange']
 }
 
 const RadioGroupPropsObject = {
@@ -96,7 +96,11 @@ const RadioGroup = defineComponent({
     ...scopeRadioGroupProps,
     ...primitiveProps,
   },
-  emits: ['update:modelValue', 'valueChange'],
+  // emits: ['update:modelValue', 'valueChange'],
+  emits: {
+    'update:modelValue': (value: string) => true,
+    'valueChange': (value: string) => true,
+  },
   setup(props, { slots, emit, attrs }) {
     const {
       name,
@@ -136,7 +140,6 @@ const RadioGroup = defineComponent({
       disabled,
       value: state,
       onValueChange(value: string) {
-        console.log('onValueChange', value)
         updateValue(value)
       },
     })
