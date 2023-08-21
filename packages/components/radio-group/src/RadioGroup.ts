@@ -95,7 +95,6 @@ const RadioGroup = defineComponent({
     ...scopeRadioGroupProps,
     ...primitiveProps,
   },
-  // emits: ['update:modelValue', 'valueChange'],
   emits: {
     'update:modelValue': (value: string) => true,
     'valueChange': (value: string) => true,
