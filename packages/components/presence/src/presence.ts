@@ -14,7 +14,7 @@ const NAME = 'OkuPresence'
 
 const presence = defineComponent({
   name: NAME,
-  inheritAttrs: false,
+  inheritAttrs: true,
   props: {
     ...presenceProps,
   },

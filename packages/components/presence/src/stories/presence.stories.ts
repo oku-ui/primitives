@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Styled: Story = {
+export const Basic: Story = {
   args: {
     template: '#1',
   },
@@ -42,7 +42,8 @@ export const Styled: Story = {
   }),
 }
 
-export const Transition: Story = {
+// TODO: Visibility cannot trigger animation
+export const WithMountAnimation: Story = {
   args: {
     template: '#2',
   },
@@ -57,17 +58,32 @@ export const Transition: Story = {
   }),
 }
 
-export const WithDeferredMountAnimation: Story = {
-  args: {
-    template: '#3',
-  },
-  render: (args: any) => ({
-    components: { OkuPresenceComponent },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuPresenceComponent v-bind="args" />
-    `,
-  }),
-}
+// export const Transition: Story = {
+//   args: {
+//     template: '#2',
+//   },
+//   render: (args: any) => ({
+//     components: { OkuPresenceComponent },
+//     setup() {
+//       return { args }
+//     },
+//     template: `
+//       <OkuPresenceComponent v-bind="args" />
+//     `,
+//   }),
+// }
+
+// export const WithDeferredMountAnimation: Story = {
+//   args: {
+//     template: '#3',
+//   },
+//   render: (args: any) => ({
+//     components: { OkuPresenceComponent },
+//     setup() {
+//       return { args }
+//     },
+//     template: `
+//       <OkuPresenceComponent v-bind="args" />
+//     `,
+//   }),
+// }

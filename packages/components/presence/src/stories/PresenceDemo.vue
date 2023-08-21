@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
+import Animation from './Animation.vue'
 
 export interface OkuPresenceProps {
   template: '#1' | '#2' | '#3'
@@ -12,7 +13,7 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   template: '#1',
 })
 
-const open = ref(false)
+const open = ref(true)
 
 function toggle() {
   open.value = !open.value
@@ -42,25 +43,16 @@ function handleToggleVisibility() {
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
       <button @click="toggle">
-        toggle - {{ open }}
+        toggle
       </button>
-      <OkuPresence ref="element" v-slot="isPresent" :present="open">
+      <OkuPresence ref="element" :present="open">
         <div>
-          content - {{ isPresent }}
+          Content
         </div>
       </OkuPresence>
     </div>
     <div v-if="template === '#2' || allshow" class="flex flex-col">
-      <button @click="toggle">
-        toggle - {{ open }}
-      </button>
-      <Transition name="bounce">
-        <OkuPresence :present="open">
-          <div>
-            content
-          </div>
-        </OkuPresence>
-      </Transition>
+      <Animation />
     </div>
     <div v-if="template === '#3' || allshow" class="flex flex-col">
       <form class="flex space-x-4 mb-10">
@@ -86,23 +78,3 @@ function handleToggleVisibility() {
     </div>
   </div>
 </template>
-
-<style scoped lang="postcss">
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
-}
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-</style>
