@@ -46,6 +46,7 @@
     "@oku-ui/direction": "workspace:^",
     "@oku-ui/dismissable-layer": "workspace:^",
     "@oku-ui/focus-scope": "workspace:^",
+    "@oku-ui/focus-guards": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/popper": "workspace:^",
     "@oku-ui/portal": "workspace:^",

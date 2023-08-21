@@ -43,6 +43,9 @@ importers:
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
         version: link:packages/components/dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: workspace:^
+        version: link:packages/components/focus-guards
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:packages/components/focus-scope
@@ -377,6 +380,19 @@ importers:
       '@oku-ui/utils':
         specifier: latest
         version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/focus-guards:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
       vue:
         specifier: ^3.3.0
         version: 3.3.4

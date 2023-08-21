@@ -2,6 +2,8 @@
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { ref } from 'vue'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
+import DummyDialog from './DummyDialog.vue'
+import DismissableBox from './DismissableBox.vue'
 
 export interface IDismissableLayerProps {
   template?: '#1' | '#2' | '#3' | '#4'
@@ -46,6 +48,10 @@ function closeLayer() {
 
 function handleMouseDown() {
   alert('hey!')
+}
+
+function clicked() {
+  alert('clicked!')
 }
 </script>
 
@@ -123,7 +129,7 @@ function handleMouseDown() {
     </div>
 
     <div v-if="template === '#2'" class="flex flex-col">
-      <!-- <DismissableBox /> -->
+      <DismissableBox />
     </div>
 
     <div v-if="template === '#3'" class="flex flex-col">
@@ -169,6 +175,39 @@ function handleMouseDown() {
             hey!
           </button>
         </div>
+      </div>
+    </div>
+
+    <div v-if="template === '#4'" class="flex flex-col">
+      <h1 class="text-3xl font-bold mb-2">
+        Dialog (fully modal example)
+      </h1>
+      <ul :style="{ 'list-style': 'none', 'padding': 0, 'margin-bottom': 30 }">
+        <li>✅ focus should move inside `Dialog` when mounted</li>
+        <li>✅ focus should be trapped inside `Dialog`</li>
+        <li>✅ scrolling outside `Dialog` should be disabled</li>
+        <li>✅ should be able to dismiss `Dialog` on pressing escape</li>
+        <li :style="{ 'margin-left': 30 }">
+          ✅ focus should return to the open button
+        </li>
+        <li>
+          ✅ interacting outside `Dialog` should be disabled (clicking the
+          "alert me" button shouldn't do anything)
+        </li>
+        <li>➕</li>
+        <li>✅ should be able to dismiss `Dialog` when interacting outside</li>
+        <li :style="{ 'margin-left': 30 }">
+          ✅ focus should return to the open button
+        </li>
+      </ul>
+
+      <div :style="{ display: 'flex', gap: 10 }">
+        <DummyDialog open-label="Open Dialog" close-label="Close Dialog" />
+
+        <input type="text" defaultValue="some input">
+        <button type="button" @click="clicked">
+          Alert me
+        </button>
       </div>
     </div>
   </div>

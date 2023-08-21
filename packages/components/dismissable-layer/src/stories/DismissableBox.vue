@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import type { CSSProperties } from 'vue'
-import {
-  computed,
-  ref,
-  defineOptions as setOptions,
-  useAttrs,
-} from 'vue'
+import { computed, ref, defineOptions as setOptions, useAttrs } from 'vue'
 import { createReusableTemplate } from '@vueuse/core'
 
 setOptions({
@@ -18,15 +13,18 @@ const { ...attrs } = useAttrs()
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate()
 
 const openButtonRef = ref<HTMLButtonElement | null>(null)
+const openFirstButtonRef = ref<HTMLButtonElement | null>(null)
+
 const open = ref(false)
+const openFirstLayer = ref(false)
 
 const mergeStyles = computed(() => ({
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  padding: 20,
-  backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  borderRadius: 10,
-  marginTop: 20,
+  'display': 'inline-block',
+  'vertical-align': 'middle',
+  'padding': '20px',
+  'background': 'rgba(0, 0, 0, 0.2)',
+  'border-radius': '10px',
+  'margin-top': '20px',
   ...(attrs.style as CSSProperties),
 }))
 
@@ -52,18 +50,32 @@ function closeLayer() {
         <template v-if="open">
           <OkuDismissableLayer
             :style="{ ...mergeStyles }"
-            @onPointerDownOutside="(event: any) => {
+            @pointer-down-outside="(event: Event) => {
               if (event.target === openButtonRef) {
                 event.preventDefault();
               }
             }"
-            @onFocusOutside="(event: any) => event.preventDefault()"
-            @onDismiss="closeLayer"
+            @focus-outside="(event: Event) => event.preventDefault()"
+            @dismiss="closeLayer"
           />
         </template>
       </OkuDismissableLayer>
     </DefineTemplate>
 
-    <ReuseTemplate />
+    <OkuDismissableLayer v-bind="{ ...attrs }" :style="{ ...mergeStyles }">
+      <div>
+        <button
+          ref="openFirstButtonRef"
+          type="button"
+          @click="() => (openFirstLayer = !openFirstLayer)"
+        >
+          {{ openFirstLayer ? "Close" : "Open" }} new layer
+        </button>
+      </div>
+
+      <template v-if="openFirstLayer">
+        <ReuseTemplate />
+      </template>
+    </OkuDismissableLayer>
   </div>
 </template>

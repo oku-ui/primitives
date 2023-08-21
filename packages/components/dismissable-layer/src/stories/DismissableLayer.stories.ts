@@ -73,3 +73,19 @@ export const WithFocusScope: Story = {
     `,
   }),
 }
+
+export const DialogExample: Story = {
+  args: {
+    template: '#4',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}
