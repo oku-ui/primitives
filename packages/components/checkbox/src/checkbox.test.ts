@@ -4,6 +4,7 @@ import type { Component } from 'vue'
 import { h, ref } from 'vue'
 import { OkuCheckbox } from './checkbox'
 import { OkuCheckboxIndicator } from './checkboxIndicator'
+import type { CheckedState } from './utils'
 
 const component = {
   setup(props, { attrs, slots }) {
@@ -13,7 +14,7 @@ const component = {
 
 const componentVModel = {
   setup(props, { attrs }) {
-    const checked = ref(false)
+    const checked = ref<CheckedState>(false)
     return () => h(OkuCheckbox, {
       ...attrs,
       'modelValue': checked.value,
@@ -26,7 +27,7 @@ const componentVModel = {
 
 const componentChecked = {
   setup(props, { attrs }) {
-    const checked = ref(false)
+    const checked = ref<CheckedState>(false)
     return () => h(OkuCheckbox, {
       ...attrs,
       checked: checked.value,
