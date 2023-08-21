@@ -34,37 +34,3 @@ export const Styled: Story = {
     `,
   }),
 }
-
-export const Indeterminate: Story = {
-  args: {
-    template: '#2',
-    // allShow: true,
-  },
-
-  render: (args: any) => ({
-    components: { OkuTabsComponent },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuTabsComponent v-bind="args" />
-    `,
-  }),
-}
-
-export const Form: Story = {
-  args: {
-    template: '#3',
-    // allShow: true,
-  },
-
-  render: (args: any) => ({
-    components: { OkuTabsComponent },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuTabsComponent v-bind="args" />
-    `,
-  }),
-}

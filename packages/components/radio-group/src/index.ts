@@ -1,6 +1,7 @@
 export {
   OkuRadioGroup,
   RadioGroupProps,
+  createRadioGroupScope,
 } from './RadioGroup'
 
 export type {

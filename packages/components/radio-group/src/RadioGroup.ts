@@ -44,7 +44,6 @@ interface RadioGroupProps extends PrimitiveProps {
   loop?: RovingFocusGroupPropsType['loop']
   defaultValue?: string
   value?: RadioGroupProvideValue['value']
-  // onValueChange?: RadioGroupProvideValue['onValueChange']
 }
 
 const RadioGroupPropsObject = {

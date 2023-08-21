@@ -1,4 +1,3 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, onUnmounted, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
@@ -24,10 +23,7 @@ interface RadioGroupItemProps extends Omit<RadioProps, 'onCheck' | 'name'> {
 const { name, ...radioProps } = radioPropsObject
 
 const radioGroupItemPropsObject = {
-  onFocus: {
-    type: Function as PropType<(event: FocusEvent) => void>,
-    default: undefined,
-  },
+
 }
 
 const RadioGroupItem = defineComponent({
@@ -45,7 +41,6 @@ const RadioGroupItem = defineComponent({
   setup(props, { slots, emit, attrs }) {
     const {
       disabled,
-      checked: checkedProp,
       required,
       value,
     } = toRefs(props)
@@ -60,7 +55,7 @@ const RadioGroupItem = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(rootRef, forwardedRef)
 
-    const checked = computed(() => inject.value?.value === props.value)
+    const checked = computed(() => inject.value?.value === value.value)
     const isArrowKeyPressedRef = ref(false)
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -89,7 +84,7 @@ const RadioGroupItem = defineComponent({
     }, {
       default: () => h(OkuRadio, {
         disabled: isDisabled.value,
-        required: inject.required.value,
+        required: inject.required.value || required.value,
         checked: checked.value,
         ...radioScope,
         ...attrs,

@@ -32,7 +32,7 @@ interface RadioProps {
   value?: string
   name?: string
   onCheck?(): void
-  // onClick?(): (event: MouseEvent) => void
+  onClick?(): (event: MouseEvent) => void
 }
 
 export const radioPropsObject = {
@@ -52,10 +52,6 @@ export const radioPropsObject = {
     type: String as PropType<string | undefined>,
     default: undefined,
   },
-  // onCheck: {
-  //   type: Function as PropType<() => void>,
-  //   default: undefined,
-  // },
   value: {
     type: String as PropType<string>,
     default: 'on',
@@ -98,7 +94,7 @@ const Radio = defineComponent({
     radioProvider({
       checked,
       disabled,
-      scope: scopeOkuRadio.value,
+      scope: props.scopeOkuRadio,
     })
 
     return () => [
@@ -145,7 +141,7 @@ const Radio = defineComponent({
         // of the button.
         style: {
           transform: 'translateX(-100%)',
-        },
+        } as CSSStyleDeclaration,
       }),
     ]
   },

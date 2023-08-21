@@ -1,4 +1,4 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { cloneVNode, defineComponent, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePresence } from './usePresence'
 
@@ -20,7 +20,6 @@ const presence = defineComponent({
   },
   setup(props, { slots }) {
     const { present } = toRefs(props)
-
     const forwardedRef = useForwardRef()
     const { isPresent, ref: presenceRef } = usePresence(present)
     const composedRefs = useComposedRefs(presenceRef, forwardedRef)
@@ -30,11 +29,10 @@ const presence = defineComponent({
         isPresent,
       })
       const [child] = slot ?? []
-
       return isPresent.value
-        ? h(child, {
+        ? cloneVNode(child, {
           ref: composedRefs,
-        })
+        }, true)
         : null
     }
   },
