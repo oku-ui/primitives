@@ -5,7 +5,6 @@ import {
   type PrimitiveProps,
   primitiveProps,
 } from '@oku-ui/primitive'
-import { type Scope } from '@oku-ui/provide'
 import type { ArrowProps } from '@oku-ui/arrow'
 import { OkuArrow } from '@oku-ui/arrow'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -25,7 +24,7 @@ export type PopperArrowIntrinsicElement = ElementType<'svg'>
 export type PopperArrowElement = SVGSVGElement
 
 interface PopperArrowProps extends PrimitiveProps, ArrowProps {
-  scopePopper?: Scope
+
 }
 
 const popperArrow = defineComponent({

@@ -30,9 +30,6 @@ const tabsTriggerProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  onMousedown: Function as PropType<(e: MouseEvent) => void>,
-  onKeydown: Function as PropType<(e: KeyboardEvent) => void>,
-  onFocus: Function as PropType<(e: FocusEvent) => void>,
 }
 
 const TabTrigger = defineComponent({
@@ -42,6 +39,11 @@ const TabTrigger = defineComponent({
     ...tabsTriggerProps,
     ...scopeTabsProps,
     ...primitiveProps,
+  },
+  emits: {
+    mousedown: (e: MouseEvent) => true,
+    keydown: (e: KeyboardEvent) => true,
+    focus: (e: FocusEvent) => true,
   },
   setup(props, { slots, attrs }) {
     const { scopeOkuTabs, value, disabled } = toRefs(props)
