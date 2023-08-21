@@ -81,7 +81,13 @@ const Checkbox = defineComponent({
     ...scopeCheckboxProps,
     ...primitiveProps,
   },
-  emits: ['update:modelValue', 'checkedChange'],
+  // emits: ['update:modelValue', 'checkedChange'],
+  emits: {
+    'update:modelValue': (checked: CheckedState) => true,
+    'checkedChange': (checked: CheckedState) => true,
+    'keydown': (event: KeyboardEvent) => true,
+    'click': (event: MouseEvent) => true,
+  },
   setup(props, { attrs, slots, emit }) {
     const {
       checked: checkedProp,
@@ -97,7 +103,7 @@ const Checkbox = defineComponent({
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const {
-      ...checkboxProps
+      ...checkboxAttrs
     } = attrs as CheckboxIntrinsicElement
 
     const hasConsumerStoppedPropagationRef = ref(false)
@@ -150,14 +156,18 @@ const Checkbox = defineComponent({
         'disabled': disabled.value,
         'value': value.value,
         'asChild': props.asChild,
-        ...checkboxProps,
+        ...checkboxAttrs,
         'ref': composedRefs,
-        'onKeyDown': composeEventHandlers(checkboxProps.onKeydown, (event) => {
+        'onKeyDown': composeEventHandlers<KeyboardEvent>((e) => {
+          emit('keydown', e)
+        }, (event) => {
           // According to WAI ARIA, Checkboxes don't activate on enter keypress
           if (event.key === 'Enter')
             event.preventDefault()
         }),
-        'onClick': composeEventHandlers(checkboxProps.onClick, (event) => {
+        'onClick': composeEventHandlers<MouseEvent>((e) => {
+          emit('click', e)
+        }, (event) => {
           updateValue(isIndeterminate(state.value) ? true : !state.value)
 
           if (isFormControl.value) {
