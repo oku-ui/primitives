@@ -79,7 +79,7 @@ const Toggle = defineComponent({
       defaultProp: computed(() => defaultPressed.value),
       onChange: (pressed) => {
         emit('update:modelValue', pressed)
-        props.onPressedChange?.(pressed)
+        emit('pressedChange', pressed)
       },
     })
 
@@ -94,7 +94,9 @@ const Toggle = defineComponent({
         ...toggleAttrs,
         'ref': forwardedRef,
         'asChild': props.asChild,
-        'onClick': composeEventHandlers(props.onClick, () => {
+        'onClick': composeEventHandlers<MouseEvent>((e) => {
+          emit('click', e)
+        }, () => {
           if (!disabled.value)
             updateValue(!state.value)
         }),

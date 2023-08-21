@@ -22,8 +22,11 @@ const collapsibleTrigger = defineComponent({
     ...scopeCollapsibleProps,
     ...primitiveProps,
   },
-  setup(props, { attrs, slots }) {
-    const { ...triggerProps } = attrs as CollapsibleTriggerIntrinsicElement
+  emits: {
+    click: (e: MouseEvent) => true,
+  },
+  setup(props, { attrs, slots, emit }) {
+    const { ...triggerAttrs } = attrs as CollapsibleTriggerIntrinsicElement
     const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
 
     const forwardedRef = useForwardRef()
@@ -37,10 +40,12 @@ const collapsibleTrigger = defineComponent({
         'data-state': getState(context.open.value || false),
         'data-disabled': context.disabled?.value ? '' : undefined,
         'disabled': context.disabled?.value,
-        ...triggerProps,
+        ...triggerAttrs,
         'asChild': props.asChild,
         'ref': forwardedRef,
-        'onClick': composeEventHandlers(triggerProps.onClick, context.onOpenToggle),
+        'onClick': composeEventHandlers<MouseEvent>((e) => {
+          emit('click', e)
+        }, context.onOpenToggle),
       },
       {
         default: () => slots.default && slots.default(),
