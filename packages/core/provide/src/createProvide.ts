@@ -1,25 +1,17 @@
 import type { InjectionKey, PropType } from 'vue'
-import { computed, defineComponent, inject, provide } from 'vue'
+import { inject, provide } from 'vue'
 
 function createProvide<ProvideValueType extends object | null>(
   rootComponentName: string,
   defaultProvide?: ProvideValueType,
 ) {
   const Provide = Symbol(rootComponentName)
-  const Provider = defineComponent({
-    name: `${rootComponentName}Provider`,
-    inheritAttrs: false,
-    setup(props, { slots }) {
-      const value = computed(() => Object.values(props) as any)
-      provide(Provide, value)
-      if (!slots || !slots.default)
-        throw new Error(`\`${rootComponentName}Provider\` must have a default slot :(`)
 
-      return () => slots.default?.()
-    },
-  })
+  function Provider(props: ProvideValueType) {
+    provide(Provide, props)
+  }
 
-  function useContext(consumerName: string) {
+  function useInject(consumerName: string) {
     const provide = inject(Provide)
     if (provide)
       return provide
@@ -29,7 +21,7 @@ function createProvide<ProvideValueType extends object | null>(
     throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``)
   }
 
-  return [Provider, useContext] as const
+  return [Provider, useInject] as const
 }
 
 type Scope<C = any> = { [scopeName: string]: InjectionKey<C>[] } | undefined
@@ -85,12 +77,13 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
    * createScope
    * --------------------------------------------------------------------------------------------- */
   const createScope: CreateScope = () => {
-    const scopeInjects = defaultProviders.map((defaultContext) => {
+    const scopeProviders = defaultProviders.map((defaultContext) => {
       return defaultContext
     })
 
     return function useScope(scope: Scope) {
-      const providers = scope?.[scopeName] || scopeInjects
+      const providers = scope?.[scopeName] || scopeProviders
+
       return ({
         [`scope${scopeName}`]: {
           ...scope,
@@ -101,10 +94,10 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
   }
 
   createScope.scopeName = scopeName
-  return [createProvide, composeInjectScopes(createScope, ...createProvideScopeDeps)] as const
+  return [createProvide, composeProvderScopes(createScope, ...createProvideScopeDeps)] as const
 }
 
-function composeInjectScopes(...scopes: CreateScope[]) {
+function composeProvderScopes(...scopes: CreateScope[]) {
   const baseScope = scopes[0]
   if (scopes.length === 1)
     return baseScope
@@ -122,9 +115,6 @@ function composeInjectScopes(...scopes: CreateScope[]) {
         const scopeProps = useScope(overrideScopes)
 
         const currentScope = scopeProps[`scope${scopeName}`]
-        // currentScope![scopeName] = currentScope![scopeName].map((context) => {
-        //   return inject(context)
-        // })
 
         return { ...nextScopes, ...currentScope }
       }, {})

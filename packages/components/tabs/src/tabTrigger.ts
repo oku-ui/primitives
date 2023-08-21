@@ -30,9 +30,6 @@ const tabsTriggerProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  onMousedown: Function as PropType<(e: MouseEvent) => void>,
-  onKeydown: Function as PropType<(e: KeyboardEvent) => void>,
-  onFocus: Function as PropType<(e: FocusEvent) => void>,
 }
 
 const TabTrigger = defineComponent({
@@ -43,7 +40,12 @@ const TabTrigger = defineComponent({
     ...scopeTabsProps,
     ...primitiveProps,
   },
-  setup(props, { slots, attrs }) {
+  emits: {
+    mousedown: (e: MouseEvent) => true,
+    keydown: (e: KeyboardEvent) => true,
+    focus: (e: FocusEvent) => true,
+  },
+  setup(props, { slots, attrs, emit }) {
     const { scopeOkuTabs, value, disabled } = toRefs(props)
     const { ...triggerAttrs } = attrs
     const injectTabs = useTabsInject(TAB_TRIGGER_NAME, scopeOkuTabs.value)
@@ -75,7 +77,9 @@ const TabTrigger = defineComponent({
             'id': triggerId.value,
             ...triggerAttrs,
             'ref': forwardedRef,
-            'onMousedown': composeEventHandlers(props.onMousedown, (event: MouseEvent) => {
+            'onMousedown': composeEventHandlers<MouseEvent>((e) => {
+              emit('mousedown', e)
+            }, (event) => {
               // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
               // but not when the control key is pressed (avoiding MacOS right click)
               if (!disabled.value && event.button === 0 && event.ctrlKey === false) {
@@ -86,11 +90,15 @@ const TabTrigger = defineComponent({
                 event.preventDefault()
               }
             }),
-            'onKeydown': composeEventHandlers(props.onKeydown, (event: KeyboardEvent) => {
+            'onKeydown': composeEventHandlers<KeyboardEvent>((e) => {
+              emit('keydown', e)
+            }, (event) => {
               if ([' ', 'Enter'].includes(event.key))
                 injectTabs.onValueChange(value.value!)
             }),
-            'onFocus': composeEventHandlers(props.onFocus, () => {
+            'onFocus': composeEventHandlers<FocusEvent>((e) => {
+              emit('focus', e)
+            }, () => {
               // handle "automatic" activation if necessary
               // ie. activate tab following focus
               const isAutomaticActivation = injectTabs.activationMode?.value !== 'manual'

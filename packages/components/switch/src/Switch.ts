@@ -71,9 +71,6 @@ const switchProps = {
     type: String as PropType<'on' | 'off'>,
     default: 'on',
   },
-  onCheckedChange: {
-    type: Function as PropType<(checked: boolean) => void>,
-  },
 }
 
 const [createSwitchProvide, createSwitchScope]
@@ -93,7 +90,11 @@ const Switch = defineComponent({
     ...scopeSwitchProps,
     ...primitiveProps,
   },
-  emits: ['update:modelValue'],
+  emits: {
+    'update:modelValue': (checked: boolean) => true,
+    'checkedChange': (checked: boolean) => true,
+    'click': (event: MouseEvent) => true,
+  },
   setup(props, { attrs, emit, slots }) {
     const {
       checked: checkedProp,
@@ -101,7 +102,6 @@ const Switch = defineComponent({
       required,
       disabled,
       value: switchValue,
-      onCheckedChange,
       name,
     } = toRefs(props)
 
@@ -113,6 +113,15 @@ const Switch = defineComponent({
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed({
+      get: () =>
+        modelValue.value !== undefined
+          ? modelValue.value
+          : checkedProp.value !== undefined
+            ? checkedProp.value
+            : undefined,
+      set: () => {},
+    })
 
     const isFormControl = ref<boolean>(false)
 
@@ -126,11 +135,11 @@ const Switch = defineComponent({
     })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? checkedProp.value),
+      prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (value: boolean) => {
-        onCheckedChange.value?.(value)
         emit('update:modelValue', value)
+        emit('checkedChange', value)
       },
     })
 
@@ -155,19 +164,24 @@ const Switch = defineComponent({
           'ref': composedRefs,
           'asChild': props.asChild,
           ...switchAttrs,
-          'onClick': composeEventHandlers(switchAttrs.onClick, (event) => {
-            updateValue(!state.value)
+          'onClick': composeEventHandlers<MouseEvent>(
+            (e) => {
+              emit('click', e)
+            },
+            (event) => {
+              updateValue(!state.value)
 
-            if (isFormControl.value) {
-              // hasConsumerStoppedPropagationRef.value
-              //   = event.isPropagationStopped()
-              // if switch is in a form, stop propagation from the button so that we only propagate
-              // one click event (from the input). We propagate changes from an input so that native
-              // form validation works and form events reflect switch updates.
-              if (!hasConsumerStoppedPropagationRef.value)
-                event.stopPropagation()
-            }
-          }),
+              if (isFormControl.value) {
+                // hasConsumerStoppedPropagationRef.value
+                //   = event.isPropagationStopped()
+                // if switch is in a form, stop propagation from the button so that we only propagate
+                // one click event (from the input). We propagate changes from an input so that native
+                // form validation works and form events reflect switch updates.
+                if (!hasConsumerStoppedPropagationRef.value)
+                  event.stopPropagation()
+              }
+            },
+          ),
         },
         {
           default: () => slots.default?.(),

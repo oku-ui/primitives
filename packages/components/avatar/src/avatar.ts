@@ -1,7 +1,6 @@
 import { defineComponent, h, ref } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { ScopeAvatar } from './utils'
@@ -23,7 +22,7 @@ export type AvatarIntrinsicElement = ElementType<'span'>
 export type AvatarElement = HTMLSpanElement
 
 interface AvatarProps extends PrimitiveProps {
-  scopeAvatar?: Scope
+
 }
 
 const avatar = defineComponent({

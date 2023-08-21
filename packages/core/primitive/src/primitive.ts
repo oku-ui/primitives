@@ -1,5 +1,3 @@
-// same inspiration and resource https://github.com/chakra-ui/ark/blob/main/packages/vue/src/factory.tsx
-
 import {
   createVNode,
   defineComponent,
