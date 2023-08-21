@@ -33,11 +33,6 @@ interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
 export const rovingFocusGroupImplElementProps = {
   currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
   defaultCurrentTabStopId: String,
-  // onCurrentTabStopIdChange: Function as PropType<RovingFocusGroupImplProps['onCurrentTabStopIdChange']>,
-  // onEntryFocus: Function as PropType<RovingFocusGroupImplProps['onEntryFocus']>,
-  onMousedown: Function as PropType<(e: MouseEvent) => void>,
-  onFocus: Function as PropType<(e: FocusEvent) => void>,
-  onBlur: Function as PropType<(e: FocusEvent) => void>,
 }
 
 export const rovingFocusGroupImplProps = {
@@ -54,9 +49,11 @@ const RovingFocusGroupImpl = defineComponent({
     ...scopedProps,
   },
   emits: {
-    currentTabStopId: (tabStopId: string | null) => true,
     entryFocus: (event: Event) => true,
     currentTabStopIdChange: (tabStopId: string | null) => true,
+    mousedown: (event: MouseEvent) => true,
+    focus: (event: FocusEvent) => true,
+    blur: (event: FocusEvent) => true,
   },
   setup(props, { attrs, slots, emit }) {
     const _attrs = attrs as Omit<RovingFocusGroupImplElement, 'dir'>
@@ -79,7 +76,7 @@ const RovingFocusGroupImpl = defineComponent({
       prop: computed(() => currentTabStopIdProp.value),
       defaultProp: computed(() => defaultCurrentTabStopId.value),
       onChange: (result: any) => {
-        emit('currentTabStopId', result)
+        emit('currentTabStopIdChange', result)
       },
     })
 
@@ -131,10 +128,14 @@ const RovingFocusGroupImpl = defineComponent({
           ..._attrs.style as any,
         },
         'asChild': asChild.value,
-        'onMousedown': composeEventHandlers(props.onMousedown, () => {
+        'onMousedown': composeEventHandlers<MouseEvent>((e) => {
+          emit('mousedown', e)
+        }, () => {
           isClickFocusRef.value = true
         }),
-        'onFocus': composeEventHandlers(props.onFocus, (event: FocusEvent) => {
+        'onFocus': composeEventHandlers<FocusEvent>((e) => {
+          emit('focus', e)
+        }, (event: FocusEvent) => {
           // We normally wouldn't need this check, because we already check
           // that the focus is on the current target and not bubbling to it.
           // We do this because Safari doesn't focus buttons when clicked, and
@@ -158,7 +159,9 @@ const RovingFocusGroupImpl = defineComponent({
 
           isClickFocusRef.value = false
         }),
-        'onBlur': composeEventHandlers(props.onBlur, () => {
+        'onBlur': composeEventHandlers<FocusEvent>((e) => {
+          emit('blur', e)
+        }, () => {
           isTabbingBackOut.value = false
         }),
       }, {

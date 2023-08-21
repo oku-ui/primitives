@@ -1,4 +1,3 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, toRefs, watchEffect } from 'vue'
 import { useForwardRef, useId } from '@oku-ui/use-composable'
 
@@ -37,9 +36,6 @@ export const RovingFocusItemProps = {
     type: Boolean,
     default: false,
   },
-  onFocus: Function as PropType<(event: FocusEvent) => void>,
-  onKeydown: Function as PropType<(event: KeyboardEvent) => void>,
-  onMousedown: Function as PropType<(event: MouseEvent) => void>,
 }
 
 // Define Component Props Type
@@ -67,7 +63,12 @@ const rovingFocusGroupItem = defineComponent({
     ...scopedProps,
     ...primitiveProps,
   },
-  setup(props, { attrs, slots }) {
+  emits: {
+    focus: (event: FocusEvent) => true,
+    keydown: (event: KeyboardEvent) => true,
+    mousedown: (event: MouseEvent) => true,
+  },
+  setup(props, { attrs, slots, emit }) {
     const _attrs = attrs as any
     const {
       focusable,
@@ -75,9 +76,6 @@ const rovingFocusGroupItem = defineComponent({
       tabStopId,
       scopeOkuRovingFocusGroup,
       asChild,
-      onFocus,
-      onKeydown,
-      onMousedown,
       ...propsData
     } = toRefs(props)
     const attrsItems = _attrs
@@ -108,7 +106,7 @@ const rovingFocusGroupItem = defineComponent({
       scope: props.scopeOkuRovingFocusGroup,
     }
     return () => {
-      const merged = mergeProps(attrsItems, propsData, {
+      const mergedProps = mergeProps(attrsItems, propsData, {
         tabindex: isCurrentTabStop.value ? 0 : -1,
       })
       return h(CollectionItemSlot, {
@@ -118,11 +116,13 @@ const rovingFocusGroupItem = defineComponent({
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
             'data-orientation': inject.orientation?.value,
-            ...merged,
+            ...mergedProps,
             'ref': forwardedRef,
             'asChild': asChild.value,
             'onMousedown':
-              composeEventHandlers(onMousedown.value, (event: MouseEvent) => {
+              composeEventHandlers<MouseEvent>((e) => {
+                emit('mousedown', e)
+              }, (event) => {
                 // We prevent focusing non-focusable items on `mousedown`.
                 // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
                 if (!focusable.value)
@@ -130,10 +130,14 @@ const rovingFocusGroupItem = defineComponent({
                 // Safari doesn't focus a button when clicked so we run our logic on mousedown also
                 else inject.onItemFocus(id.value)
               }),
-            'onFocus': composeEventHandlers(onFocus.value, () => {
+            'onFocus': composeEventHandlers<FocusEvent>((e) => {
+              emit('focus', e)
+            }, () => {
               inject.onItemFocus(id.value)
             }),
-            'onKeydown': composeEventHandlers(onKeydown.value, (event: KeyboardEvent) => {
+            'onKeydown': composeEventHandlers<KeyboardEvent>((e) => {
+              emit('keydown', e)
+            }, (event) => {
               if (event.key === 'Tab' && event.shiftKey) {
                 inject.onItemShiftTab()
                 return

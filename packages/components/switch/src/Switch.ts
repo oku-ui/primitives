@@ -161,7 +161,9 @@ const Switch = defineComponent({
           'ref': composedRefs,
           'asChild': props.asChild,
           ...switchProps,
-          'onClick': composeEventHandlers(props.onClick, (event: MouseEvent) => {
+          'onClick': composeEventHandlers<MouseEvent>((e) => {
+            emit('click', e)
+          }, (event) => {
             updateValue(!state.value)
 
             if (isFormControl.value) {

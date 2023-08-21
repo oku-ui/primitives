@@ -64,7 +64,7 @@ const TabContent = defineComponent({
     }, {
       default: ({ isPresent }: { isPresent: ComputedRef<boolean> }) => h(Primitive.div, {
         'data-state': isSelected.value ? 'active' : 'inactive',
-        'data-orientation': injectTabs.orientation,
+        'data-orientation': injectTabs.orientation?.value,
         'role': 'tabpanel',
         'aria-labelledby': triggerId,
         'hidden': !isPresent,
