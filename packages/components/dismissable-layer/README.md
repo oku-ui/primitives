@@ -1,9 +1,9 @@
-# `@oku-ui/example`
+# `@oku-ui/dismissable-layer`
 
 ## Installation
 
 ```sh
-$ pnpm add @oku-ui/example
+$ pnpm add @oku-ui/dismissable-layer
 ```
 
 ## Usage
