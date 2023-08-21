@@ -6,7 +6,6 @@ import type {
   PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
-import { type Scope } from '@oku-ui/provide'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePopperInject } from './popper'
@@ -24,7 +23,6 @@ export type PopperAnchorElement = HTMLDivElement
 
 interface PopperAnchorProps extends PrimitiveProps {
   virtualRef?: Ref<Measurable | null>
-  scopeCheckbox?: Scope
 }
 
 const popperAnchorProps = {

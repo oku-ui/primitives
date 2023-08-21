@@ -47,14 +47,6 @@ const toggleProps = {
     type: Boolean,
     default: false,
   },
-  onClick: {
-    type: Function as PropType<(event: MouseEvent) => void>,
-    default: undefined,
-  },
-  onPressedChange: {
-    type: Function as PropType<(pressed: boolean) => void>,
-    default: undefined,
-  },
 }
 
 const Toggle = defineComponent({
@@ -64,15 +56,26 @@ const Toggle = defineComponent({
     ...toggleProps,
     ...primitiveProps,
   },
-  emits: ['update:pressed', 'update:modelValue'],
+  emits: {
+    'update:modelValue': (pressed: boolean) => true,
+    'pressedChange': (pressed: boolean) => true,
+    'click': (event: MouseEvent) => true,
+  },
   setup(props, { attrs, slots, emit }) {
     const { pressed, defaultPressed, disabled } = toRefs(props)
     const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed({
+      get: () => modelValue.value !== undefined
+        ? modelValue.value
+        : (pressed.value !== undefined ? pressed.value : undefined),
+      set: () => {
+      },
+    })
 
     const forwardedRef = useForwardRef()
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? pressed.value),
+      prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultPressed.value),
       onChange: (pressed) => {
         emit('update:modelValue', pressed)
