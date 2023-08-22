@@ -46,6 +46,7 @@ const toggleGroupItem = defineComponent({
         ...attrs,
         pressed: pressed.value,
         disabled: _disabled.value,
+        value: value.value,
       }
     })
     const forwardedRef = useForwardRef()

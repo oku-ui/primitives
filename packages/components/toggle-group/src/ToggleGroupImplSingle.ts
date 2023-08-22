@@ -33,10 +33,12 @@ export const toggleGroupImplSingleProps = {
   modelValue: {
     type: [String] as PropType<string | undefined>,
     default: undefined,
+    required: false,
   },
   value: {
     type: [String] as PropType<string | undefined>,
     default: undefined,
+    required: false,
   },
   defaultValue: {
     type: [String] as PropType<string | undefined>,

@@ -3,6 +3,7 @@ import {
   OkuToggleGroup,
   OkuToggleGroupItem,
 } from '@oku-ui/toggle-group'
+import { ref } from 'vue'
 
 export interface ITabsProps {
   template?: '#1' | '#2' | '#3'
@@ -10,6 +11,8 @@ export interface ITabsProps {
 }
 
 defineProps<ITabsProps>()
+
+const value = ref<string>()
 </script>
 
 <template>
