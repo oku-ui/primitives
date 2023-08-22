@@ -88,6 +88,9 @@ importers:
       '@oku-ui/toggle':
         specifier: workspace:^
         version: link:packages/components/toggle
+      '@oku-ui/toggle-group':
+        specifier: workspace:^
+        version: link:packages/components/toggle-group
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:packages/core/use-composable

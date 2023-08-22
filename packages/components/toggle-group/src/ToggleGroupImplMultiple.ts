@@ -57,7 +57,7 @@ const toggleGroupImplMultiple = defineComponent({
     'update:modelValue': (value: string[]) => true,
     'valueChange': (value: string[]) => true,
   },
-  setup(props, { emit, attrs }) {
+  setup(props, { emit, attrs, slots }) {
     const { value: valueProp, defaultValue, dir, disabled, loop, orientation, rovingFocus } = toRefs(props)
     const forwardedRef = useForwardRef()
     const modelValue = useModel(props, 'modelValue')
@@ -105,7 +105,7 @@ const toggleGroupImplMultiple = defineComponent({
       orientation: orientation.value,
       ref: forwardedRef,
       rovingFocus: rovingFocus.value,
-    })
+    }, slots)
   },
 })
 

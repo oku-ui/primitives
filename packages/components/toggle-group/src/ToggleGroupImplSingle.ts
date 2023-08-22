@@ -109,7 +109,7 @@ const toggleGroupImplSingle = defineComponent({
       orientation: orientation.value,
       rovingFocus: rovingFocus.value,
       ref: forwardedRef,
-    })
+    }, slots)
   },
 })
 

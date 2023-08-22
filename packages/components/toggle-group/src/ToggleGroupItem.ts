@@ -6,8 +6,7 @@ import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import type { ScopeToggleGroup } from './utils'
 import { scopeToggleGroupProps } from './utils'
 import { OkuToggleGroupItemImpl, type ToggleGroupItemImplElement, type ToggleGroupItemImplIntrinsicElement, type ToggleGroupItemImplProps, toggleGroupItemImplProps } from './ToggleGroupItemImpl'
-import { useRovingFocusGroupScope, useToggleGroupValueInject } from './ToggleGroup'
-import { useToggleGroupInject } from './ToggleGroupImpl'
+import { useRovingFocusGroupScope, useToggleGroupInject, useToggleGroupValueInject } from './ToggleGroup'
 
 export const TOGGLE_ITEM_NAME = 'OkuToggleGroupItem'
 
@@ -40,7 +39,7 @@ const toggleGroupItem = defineComponent({
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const inject = useToggleGroupInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
-    const pressed = computed(() => valueInject.value.value.includes(value.value!))
+    const pressed = computed(() => value.value ? valueInject?.value?.value.includes(value.value) : false)
     const _disabled = computed(() => inject.disabled.value || disabled.value)
     const commonProps = computed(() => {
       return {
@@ -63,12 +62,12 @@ const toggleGroupItem = defineComponent({
         default: () => h(OkuToggleGroupItemImpl, {
           ...commonProps.value,
           ref: forwardedRef,
-        }),
+        }, slots),
       })
       : h(OkuToggleGroupItemImpl, {
         ...commonProps.value,
         ref: forwardedRef,
-      })
+      }, slots)
   },
 })
 

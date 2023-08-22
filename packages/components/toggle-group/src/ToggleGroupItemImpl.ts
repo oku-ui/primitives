@@ -69,7 +69,7 @@ const toggleGroupItemImpl = defineComponent({
         else
           valueInject.onItemDeactivate(value.value!)
       },
-    })
+    }, slots)
   },
 })
 

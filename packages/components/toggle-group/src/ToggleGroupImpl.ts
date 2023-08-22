@@ -1,26 +1,18 @@
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs } from 'vue'
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, type RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { useDirection } from '@oku-ui/direction'
 import type { ScopeToggleGroup } from './utils'
 import { scopeToggleGroupProps } from './utils'
-import { createToggleGroupProvide, useRovingFocusGroupScope } from './ToggleGroup'
+import { toggleGroupProvide, useRovingFocusGroupScope } from './ToggleGroup'
 
 const TOGGLE_GROUP_IMPL_NAME = 'OkuToggleGroupImpl'
 
 export type ToggleGroupImplIntrinsicElement = ElementType<'div'>
 export type ToggleGroupImplElement = HTMLDivElement
-
-type ToggleGroupProvide = {
-  rovingFocus: Ref<boolean>
-  disabled: Ref<boolean>
-}
-
-export const [toggleGroupProvide, useToggleGroupInject]
-  = createToggleGroupProvide<ToggleGroupProvide>(TOGGLE_GROUP_IMPL_NAME)
 
 interface ToggleGroupImplProps extends PrimitiveProps {
   /**
@@ -113,12 +105,12 @@ const toggleGroupImpl = defineComponent({
         default: () => h(Primitive.div, {
           ...commonProps.value,
           ref: forwardedRef,
-        }),
+        }, slots),
       })
       : h(Primitive.div, {
         ...commonProps.value,
         ref: forwardedRef,
-      })
+      }, slots)
   },
 })
 

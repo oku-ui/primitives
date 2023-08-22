@@ -12,7 +12,7 @@ import { OkuToggleGroupImplSingle, type ToggleGroupImplSingleElement, type Toggl
 import { OkuToggleGroupImplMultiple, type ToggleGroupImplMultipleElement, type ToggleGroupImplMultipleProps, toggleGroupImplMultipleProps } from './ToggleGroupImplMultiple'
 import type { ToggleGroupImplIntrinsicElement } from './ToggleGroupImpl'
 
-const TOGGLE_GROUP_NAME = 'OkuRadioGroup'
+export const TOGGLE_GROUP_NAME = 'OkuRadioGroup'
 
 export type RadioGroupIntrinsicElement = ToggleGroupImplSingleIntrinsicElement | ToggleGroupImplIntrinsicElement
 export type RadioGroupElement = ToggleGroupImplSingleElement | ToggleGroupImplMultipleElement
@@ -20,8 +20,6 @@ export type RadioGroupElement = ToggleGroupImplSingleElement | ToggleGroupImplMu
 export const [createToggleGroupProvide, createToggleGroupScope] = createProvideScope(TOGGLE_GROUP_NAME, [
   createRovingFocusGroupScope,
 ])
-
-export const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
 type ToggleGroupValueProvide = {
   type: Ref<'single' | 'multiple'>
@@ -32,6 +30,16 @@ type ToggleGroupValueProvide = {
 
 export const [toggleGroupValueProvider, useToggleGroupValueInject]
   = createToggleGroupProvide<ToggleGroupValueProvide>(TOGGLE_GROUP_NAME)
+
+type ToggleGroupProvide = {
+  rovingFocus: Ref<boolean>
+  disabled: Ref<boolean>
+}
+
+export const [toggleGroupProvide, useToggleGroupInject]
+  = createToggleGroupProvide<ToggleGroupProvide>(TOGGLE_GROUP_NAME)
+
+export const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
 interface ToggleGroupSingleProps extends ToggleGroupImplSingleProps {
   type: 'single'
@@ -79,7 +87,7 @@ const toggleGroup = defineComponent({
           orientation: orientation?.value,
           rovingFocus: rovingFocus?.value,
           value: value?.value,
-        })
+        }, slots)
       }
 
       if (type.value === 'multiple') {
@@ -96,7 +104,7 @@ const toggleGroup = defineComponent({
           orientation: orientation?.value,
           rovingFocus: rovingFocus?.value,
           value: value?.value,
-        })
+        }, slots)
       }
 
       throw new Error(`Missing prop \`type\` expected on \`${TOGGLE_GROUP_NAME}\``)
