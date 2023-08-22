@@ -145,19 +145,18 @@ const RadioGroup = defineComponent({
     return () =>
       h(OkuRovingFocusGroup, {
         asChild: true,
-        ...rovingFocusGroupScope,
         orientation: orientation.value,
-        dir: direction,
+        dir: direction.value,
         loop: loop.value,
       }, {
         default: () => h(Primitive.div, {
+          ...attrs,
           'role': 'radiogroup',
           'aria-required': required.value,
           'aria-oriented': orientation.value,
           'data-disabled': disabled.value,
-          'dir': direction,
+          'dir': direction.value,
           'asChild': props.asChild,
-          ...attrs,
           'ref': forwardedRef,
         }, {
           default: () => slots.default?.(),

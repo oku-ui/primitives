@@ -1,10 +1,10 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
-import type { PropType, Ref } from 'vue'
+import type { Ref } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { type PrimitiveProps, primitiveProps } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
 import type { RovingFocusGroupImplElement, RovingFocusGroupImplIntrinsicElement, RovingFocusGroupImplProps } from './RovingFocusGroupImpl'
 import type { ScopedPropsInterface } from './types'
@@ -74,38 +74,6 @@ const rovingFocusGroupProps = {
   ...rovingFocusGroupImplProps,
 }
 
-export interface RovingFocusGroupOptions extends PrimitiveProps {
-  /**
-   * The orientation of the group.
-   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
-   */
-  orientation?: Orientation
-  /**
-   * The direction of navigation between items.
-   */
-  dir?: Direction
-  /**
-   * Whether keyboard navigation should loop around
-   * @defaultValue false
-   */
-  loop?: boolean
-}
-
-export const rovingFocusGroupOptionsProps = {
-  orientation: {
-    type: String as PropType<Orientation | undefined>,
-    default: undefined,
-  },
-  dir: {
-    type: String as PropType<Direction | undefined>,
-    default: undefined,
-  },
-  loop: {
-    type: Boolean,
-    default: false,
-  },
-}
-
 const rovingFocusGroup = defineComponent({
   name: GROUP_NAME,
   components: {
@@ -122,7 +90,6 @@ const rovingFocusGroup = defineComponent({
   },
   setup(props, { slots, attrs }) {
     const { currentTabStopId, dir, loop, orientation, defaultCurrentTabStopId } = toRefs(props)
-
     const forwardedRef = useForwardRef()
     return () => {
       return h(CollectionProvider, {
@@ -134,12 +101,13 @@ const rovingFocusGroup = defineComponent({
           default: () => h(OkuRovingFocusGroupImpl, {
             ...attrs,
             asChild: props.asChild,
-            currentTabStopId: currentTabStopId.value,
-            defaultCurrentTabStopId: defaultCurrentTabStopId.value,
-            dir: dir.value,
-            loop: loop.value,
-            orientation: orientation.value,
+            currentTabStopId: currentTabStopId?.value,
+            defaultCurrentTabStopId: defaultCurrentTabStopId?.value,
+            dir: dir?.value,
+            loop: loop?.value,
+            orientation: orientation?.value,
             ref: forwardedRef,
+            scopeOkuRovingFocusGroup: props.scopeOkuRovingFocusGroup,
           }, slots),
         }),
       })

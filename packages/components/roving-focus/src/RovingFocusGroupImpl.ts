@@ -2,14 +2,13 @@ import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-import type { ElementType } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeRovingFocus } from './utils'
+import type { Direction, Orientation, ScopeRovingFocus } from './utils'
 import { focusFirst } from './utils'
-import type { RovingFocusGroupOptions } from './RovingFocusGroup'
-import { rovingFocusGroupOptionsProps, rovingFocusProvider, useCollection } from './RovingFocusGroup'
+import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
 import { scopedProps } from './types'
 
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
@@ -33,6 +32,38 @@ interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
 export const rovingFocusGroupImplElementProps = {
   currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
   defaultCurrentTabStopId: String,
+}
+
+export interface RovingFocusGroupOptions extends PrimitiveProps {
+  /**
+   * The orientation of the group.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   */
+  orientation?: Orientation
+  /**
+   * The direction of navigation between items.
+   */
+  dir?: Direction
+  /**
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
+   */
+  loop?: boolean
+}
+
+export const rovingFocusGroupOptionsProps = {
+  orientation: {
+    type: String as PropType<Orientation | undefined>,
+    default: undefined,
+  },
+  dir: {
+    type: String as PropType<Direction | undefined>,
+    default: undefined,
+  },
+  loop: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export const rovingFocusGroupImplProps = {

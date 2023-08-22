@@ -87,7 +87,7 @@ const toggleGroupImpl = defineComponent({
     const commonProps = computed(() => {
       return {
         role: 'group',
-        dir: direction,
+        dir: direction.value,
         disabled: disabled.value,
         loop: loop.value,
         orientation: orientation.value,
@@ -107,7 +107,7 @@ const toggleGroupImpl = defineComponent({
         asChild: props.asChild,
         ...rovingFocusGroupScope,
         orientation: orientation.value,
-        dir: direction,
+        dir: direction.value,
         loop: loop.value,
       }, {
         default: () => h(Primitive.div, {

@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { ITabsProps } from './RadioGroupDemo.vue'
-import OkuTabsComponent from './RadioGroupDemo.vue'
+import type { ITabsProps } from './ToggleGroupDemo.vue'
+import OkuToggleGroupComponent from './ToggleGroupDemo.vue'
 
 interface StoryProps extends ITabsProps { }
 
 const meta = {
-  title: 'Components/RadioGroup',
-  component: OkuTabsComponent,
+  title: 'Components/ToggleGroup',
+  component: OkuToggleGroupComponent,
   args: {
     template: '#1',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof OkuTabsComponent> & {
+} satisfies Meta<typeof OkuToggleGroupComponent> & {
   args: StoryProps
 }
 
@@ -25,12 +25,12 @@ export const Styled: Story = {
     // allShow: true,
   },
   render: (args: any) => ({
-    components: { OkuTabsComponent },
+    components: { OkuToggleGroupComponent },
     setup() {
       return { args }
     },
     template: `
-      <OkuTabsComponent v-bind="args" />
+      <OkuToggleGroupComponent v-bind="args" />
     `,
   }),
 }
