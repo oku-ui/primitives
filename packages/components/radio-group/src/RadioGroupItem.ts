@@ -1,8 +1,9 @@
-import { computed, defineComponent, h, onMounted, onUnmounted, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
+import { primitiveProps } from '@oku-ui/primitive'
 import { useRadioGroupInject, useRovingFocusGroupScope } from './RadioGroup'
 import type { RadioGroupIntrinsicElement } from './RadioGroup'
 import type { RadioElement, RadioProps } from './Radio'
@@ -33,6 +34,7 @@ const RadioGroupItem = defineComponent({
     ...radioGroupItemPropsObject,
     ...radioProps,
     ...scopeRadioGroupProps,
+    ...primitiveProps,
   },
   emits: {
     'update:modelValue': (value: string) => true,
@@ -87,7 +89,8 @@ const RadioGroupItem = defineComponent({
         required: inject.required.value || required.value,
         checked: checked.value,
         ...radioScope,
-        ...attrs,
+        ...mergeProps(attrs),
+        asChild: props.asChild,
         value: value.value,
         name: inject.name?.value,
         ref: composedRefs,

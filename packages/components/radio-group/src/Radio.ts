@@ -82,7 +82,7 @@ const Radio = defineComponent({
       ...radioProps
     } = toRefs(props)
 
-    const { ...radioAttrs } = attrs as RadioIntrinsicIntrinsicElement
+    const radioAttrs = attrs as RadioIntrinsicIntrinsicElement
 
     const hasConsumerStoppedPropagationRef = ref(false)
     const buttonRef = ref<HTMLButtonElement | null>(null)
@@ -106,7 +106,8 @@ const Radio = defineComponent({
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
-        ...mergeProps(radioAttrs, radioProps),
+        ...mergeProps(radioAttrs),
+        'asChild': props.asChild,
         'ref': composedRefs,
         'onClick': composeEventHandlers((e: MouseEvent) => {
           emit('click', e)

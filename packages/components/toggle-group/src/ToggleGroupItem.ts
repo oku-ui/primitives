@@ -39,7 +39,7 @@ const toggleGroupItem = defineComponent({
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const inject = useToggleGroupInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
-    const pressed = computed(() => valueInject?.value?.value.includes(value.value))
+    const pressed = computed(() => valueInject?.value?.value.includes(value.value!))
     const _disabled = computed(() => inject.disabled.value || disabled.value)
     const commonProps = computed(() => {
       return {

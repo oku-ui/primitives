@@ -25,12 +25,12 @@ const RadioGroupIndicator = defineComponent({
     ...scopeRadioGroupProps,
   },
   setup(props, { attrs }) {
-    const { scopeOkuRadioGroup, ...indicatorProps } = props
+    const { scopeOkuRadioGroup } = props
     const radioScope = useRadioScope(scopeOkuRadioGroup)
     const forwardedRef = useForwardRef()
 
     return () => h(OkuRadioIndicator,
-      { ...mergeProps(attrs, indicatorProps), ...radioScope, ref: forwardedRef },
+      { ...mergeProps(attrs), ...radioScope, ref: forwardedRef },
     )
   },
 })

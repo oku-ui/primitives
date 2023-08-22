@@ -1,6 +1,6 @@
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
 import type { ComputedRef, PropType, Ref } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
@@ -145,17 +145,18 @@ const RadioGroup = defineComponent({
     return () =>
       h(OkuRovingFocusGroup, {
         asChild: true,
+        ...rovingFocusGroupScope,
         orientation: orientation.value,
         dir: direction.value,
         loop: loop.value,
       }, {
         default: () => h(Primitive.div, {
-          ...attrs,
           'role': 'radiogroup',
           'aria-required': required.value,
           'aria-oriented': orientation.value,
           'data-disabled': disabled.value,
           'dir': direction.value,
+          ...mergeProps(attrs),
           'asChild': props.asChild,
           'ref': forwardedRef,
         }, {
