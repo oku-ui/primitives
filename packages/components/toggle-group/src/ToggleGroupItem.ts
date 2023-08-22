@@ -1,5 +1,5 @@
 import { primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
@@ -41,12 +41,14 @@ const toggleGroupItem = defineComponent({
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
     const pressed = computed(() => valueInject?.value?.value.includes(value.value!))
     const _disabled = computed(() => inject.disabled.value || disabled.value)
+
     const commonProps = computed(() => {
       return {
-        ...attrs,
+        ...mergeProps(attrs),
         value: value.value,
         pressed: pressed.value,
         disabled: _disabled.value,
+        scopeOkuToggleGroup: props.scopeOkuToggleGroup,
       }
     })
     const forwardedRef = useForwardRef()

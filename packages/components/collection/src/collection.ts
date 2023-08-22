@@ -1,5 +1,5 @@
 import type { ComponentObjectPropsOptions, Ref } from 'vue'
-import { computed, defineComponent, h, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, unref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
@@ -98,14 +98,14 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { scope, ...itemData } = props
+      const { scope, ...itemData } = toRefs(props)
       const refValue = ref<ItemElement | null>()
       const forwaredRef = useForwardRef()
-      const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
+      const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
       const composedRefs = useComposedRefs(refValue, forwaredRef)
 
       watchEffect((onClean) => {
-        inject.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
+        inject.itemMap.value.set(refValue, { ref: refValue, ...unref(itemData as any), ...attrs })
 
         onClean(() => {
           inject.itemMap.value.delete(refValue)

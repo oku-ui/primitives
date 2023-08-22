@@ -1,6 +1,6 @@
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, type RovingFocusGroupProps } from '@oku-ui/roving-focus'
@@ -80,10 +80,13 @@ const toggleGroupImpl = defineComponent({
       return {
         role: 'group',
         dir: direction.value,
+        ...mergeProps(attrs),
+        asChild: props.asChild,
         disabled: disabled.value,
         loop: loop.value,
         orientation: orientation.value,
         rovingFocus: rovingFocus.value,
+        scopeOkuToggleGroup: props.scopeOkuToggleGroup,
       }
     })
     const forwardedRef = useForwardRef()

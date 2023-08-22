@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -93,7 +93,7 @@ const Toggle = defineComponent({
         'aria-pressed': state.value ? 'true' : 'false',
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled.value ? '' : undefined,
-        ...toggleAttrs,
+        ...mergeProps(toggleAttrs),
         'ref': forwardedRef,
         'asChild': props.asChild,
         'onClick': composeEventHandlers<MouseEvent>((e) => {

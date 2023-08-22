@@ -1,5 +1,5 @@
 import { primitiveProps } from '@oku-ui/primitive'
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 
@@ -87,6 +87,7 @@ const toggleGroup = defineComponent({
           orientation: orientation?.value,
           rovingFocus: rovingFocus?.value,
           value: value?.value,
+          scopeOkuToggleGroup: props.scopeOkuToggleGroup,
         }, slots)
       }
 
@@ -95,7 +96,7 @@ const toggleGroup = defineComponent({
         const { dir, disabled, loop, orientation, rovingFocus, value } = toRefs(multipleProps)
 
         return h(OkuToggleGroupImplMultiple, {
-          ...attrs,
+          ...mergeProps(attrs),
           asChild: props.asChild,
           ref: forwardedRef,
           dir: dir?.value,
@@ -104,6 +105,8 @@ const toggleGroup = defineComponent({
           orientation: orientation?.value,
           rovingFocus: rovingFocus?.value,
           value: value?.value,
+          scopeOkuToggleGroup: props.scopeOkuToggleGroup,
+
         }, slots)
       }
 

@@ -1,6 +1,6 @@
 import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuToggle, toggleProps } from '@oku-ui/toggle'
@@ -44,11 +44,8 @@ const toggleGroupItemImpl = defineComponent({
     ...scopeToggleGroupProps,
     ...primitiveProps,
   },
-  emits: {
-    pressedChange: (value: boolean) => true,
-  },
   setup(props, { slots, emit, attrs }) {
-    const { pressed, disabled, value } = toRefs(props)
+    const { pressed, disabled, value, scopeOkuToggleGroup } = toRefs(props)
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const singleProps = computed(() => {
       return { 'role': 'radio', 'aria-checked': pressed.value, 'aria-pressed': undefined }
@@ -58,9 +55,11 @@ const toggleGroupItemImpl = defineComponent({
     const forwardedRef = useForwardRef()
 
     return () => h(OkuToggle, {
-      ...attrs,
+      ...mergeProps(attrs),
       ...typeProps.value,
+      pressed: pressed.value,
       disabled: disabled.value,
+      asChild: props.asChild,
       ref: forwardedRef,
       onPressedChange: (pressed: boolean) => {
         if (pressed)

@@ -29,6 +29,19 @@ const value = ref<string>()
         Option 3
       </OkuToggleGroupItem>
     </OkuToggleGroup>
+
+    <h1>Uncontrolled - {{ value }}</h1>
+    <OkuToggleGroup type="multiple" class="root" aria-label="Options" default-value="['1']">
+      <OkuToggleGroupItem value="1" class="item">
+        Option 1
+      </OkuToggleGroupItem>
+      <OkuToggleGroupItem value="2" class="item">
+        Option 2
+      </OkuToggleGroupItem>
+      <OkuToggleGroupItem value="3" class="item">
+        Option 3
+      </OkuToggleGroupItem>
+    </OkuToggleGroup>
   </div>
 </template>
 
