@@ -77,22 +77,18 @@ const toggleGroupImplMultiple = defineComponent({
       },
     })
 
-    const handleButtonActivate = computed(() => {
-      return (itemValue: string) => {
-        updateValue((prevValue = []) => [...prevValue, itemValue])
-      }
-    })
+    const handleButtonActivate = (itemValue: string) => {
+      updateValue((prevValue = []) => prevValue.filter(value => value !== itemValue))
+    }
 
-    const handleButtonDeactivate = computed(() => {
-      return (itemValue: string) => {
-        updateValue((prevValue = []) => prevValue.filter(value => value !== itemValue))
-      }
-    })
+    const handleButtonDeactivate = (itemValue: string) => {
+      updateValue((prevValue = []) => [...prevValue, itemValue])
+    }
 
     toggleGroupValueProvider({
       value: computed(() => state.value || []),
-      onItemDeactivate: handleButtonDeactivate.value,
-      onItemActivate: handleButtonActivate.value,
+      onItemDeactivate: handleButtonActivate,
+      onItemActivate: handleButtonDeactivate,
       scope: props.scopeOkuToggleGroup,
       type: ref('multiple'),
     })

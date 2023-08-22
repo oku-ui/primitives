@@ -58,8 +58,8 @@ const toggleGroupItemImpl = defineComponent({
     const forwardedRef = useForwardRef()
 
     return () => h(OkuToggle, {
-      ...typeProps.value,
       ...attrs,
+      ...typeProps.value,
       disabled: disabled.value,
       ref: forwardedRef,
       onPressedChange: (pressed: boolean) => {

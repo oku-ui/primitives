@@ -93,23 +93,18 @@ const rovingFocusGroupItem = defineComponent({
       })
     })
 
-    const _props = computed(() => {
-      return {
+    return () => {
+      return h(CollectionItemSlot, {
         id: id.value,
         focusable: focusable.value,
         active: active.value,
         scope: scopeOkuRovingFocusGroup.value,
-      }
-    })
-    return () => {
-      return h(CollectionItemSlot, {
-        ..._props.value,
       }, {
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
-            'data-orientation': inject.orientation?.value,
             ...attrsItems,
+            'data-orientation': inject.orientation?.value,
             'ref': forwardedRef,
             'asChild': asChild.value,
             'onMousedown':

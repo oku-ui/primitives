@@ -145,11 +145,9 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    const _tabIndex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
-
     return () => {
       return h(Primitive.div, {
-        'tabindex': _tabIndex.value,
+        'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': orientation?.value,
         ..._attrs,
         'ref': composedRefs,
