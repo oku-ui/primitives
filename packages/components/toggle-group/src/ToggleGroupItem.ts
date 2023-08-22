@@ -52,7 +52,7 @@ const toggleGroupItem = defineComponent({
     const forwardedRef = useForwardRef()
     const _ref = ref<HTMLDivElement | null>(null)
 
-    return () => inject.rovingFocus
+    return () => inject.rovingFocus.value
       ? h(OkuRovingFocusGroupItem, {
         asChild: props.asChild,
         ...rovingFocusGroupScope,
