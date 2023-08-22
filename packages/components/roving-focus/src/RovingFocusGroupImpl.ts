@@ -1,5 +1,5 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
@@ -87,7 +87,7 @@ const RovingFocusGroupImpl = defineComponent({
     blur: (event: FocusEvent) => true,
   },
   setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as Omit<RovingFocusGroupImplElement, 'dir'>
+    const _attrs = attrs as Omit<RovingFocusGroupImplIntrinsicElement, 'dir'>
     const {
       orientation,
       loop,
@@ -113,7 +113,7 @@ const RovingFocusGroupImpl = defineComponent({
 
     const isTabbingBackOut = ref(false)
     const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
-    const getItems = useCollection(props.scopeOkuRovingFocusGroup)
+    const getItems = useCollection(scopeOkuRovingFocusGroup.value)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
@@ -126,7 +126,7 @@ const RovingFocusGroupImpl = defineComponent({
     })
 
     rovingFocusProvider({
-      scope: props.scopeOkuRovingFocusGroup,
+      scope: scopeOkuRovingFocusGroup.value,
       orientation,
       dir,
       loop,
@@ -148,11 +148,10 @@ const RovingFocusGroupImpl = defineComponent({
     const _tabIndex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
 
     return () => {
-      const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
         'tabindex': _tabIndex.value,
         'data-orientation': orientation?.value,
-        ...merged,
+        ..._attrs,
         'ref': composedRefs,
         'style': {
           outline: 'none',

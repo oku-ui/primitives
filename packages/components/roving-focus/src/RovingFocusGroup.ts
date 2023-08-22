@@ -89,7 +89,7 @@ const rovingFocusGroup = defineComponent({
     ...primitiveProps,
   },
   setup(props, { slots, attrs }) {
-    const { currentTabStopId, dir, loop, orientation, defaultCurrentTabStopId } = toRefs(props)
+    const { currentTabStopId, dir, loop, orientation, defaultCurrentTabStopId, asChild } = toRefs(props)
     const forwardedRef = useForwardRef()
     return () => {
       return h(CollectionProvider, {
@@ -100,14 +100,13 @@ const rovingFocusGroup = defineComponent({
         }, {
           default: () => h(OkuRovingFocusGroupImpl, {
             ...attrs,
-            asChild: props.asChild,
+            asChild: asChild.value,
             currentTabStopId: currentTabStopId?.value,
             defaultCurrentTabStopId: defaultCurrentTabStopId?.value,
             dir: dir?.value,
             loop: loop?.value,
             orientation: orientation?.value,
             ref: forwardedRef,
-            scopeOkuRovingFocusGroup: props.scopeOkuRovingFocusGroup,
           }, slots),
         }),
       })

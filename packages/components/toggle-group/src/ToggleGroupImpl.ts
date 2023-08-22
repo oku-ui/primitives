@@ -96,7 +96,7 @@ const toggleGroupImpl = defineComponent({
 
     return () => rovingFocus.value
       ? h(OkuRovingFocusGroup, {
-        asChild: props.asChild,
+        asChild: true,
         ...rovingFocusGroupScope,
         orientation: orientation.value,
         dir: direction.value,

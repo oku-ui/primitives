@@ -73,7 +73,9 @@ const toggleGroupImplSingle = defineComponent({
     const modelValue = useModel(props, 'modelValue')
 
     const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : valueProp.value !== undefined ? valueProp.value : undefined,
+      get: () => modelValue.value !== undefined
+        ? modelValue.value
+        : valueProp.value !== undefined ? valueProp.value : undefined,
       set: () => {
       },
     })
@@ -90,16 +92,12 @@ const toggleGroupImplSingle = defineComponent({
     toggleGroupValueProvider({
       scope: props.scopeOkuToggleGroup,
       value: computed(() => state.value ? [state.value] : []),
-      onItemActivate: computed(() => {
-        return (itemValue: string) => {
-          updateValue(itemValue)
-        }
-      }).value,
-      onItemDeactivate: computed(() => {
-        return (itemValue: string) => {
-          updateValue(undefined)
-        }
-      }).value,
+      onItemActivate: (value: string) => {
+        updateValue(value)
+      },
+      onItemDeactivate: (value: string) => {
+        updateValue('')
+      },
       type: ref('single'),
     })
 

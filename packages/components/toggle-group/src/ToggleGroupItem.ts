@@ -54,7 +54,7 @@ const toggleGroupItem = defineComponent({
 
     return () => inject.rovingFocus.value
       ? h(OkuRovingFocusGroupItem, {
-        asChild: props.asChild,
+        asChild: true,
         ...rovingFocusGroupScope,
         focusable: !disabled.value,
         active: pressed.value,

@@ -1,11 +1,10 @@
-import { computed, defineComponent, h, mergeProps, nextTick, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, nextTick, toRefs, watchEffect } from 'vue'
 import { useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ItemData } from './RovingFocusGroup'
 import { CollectionItemSlot, useCollection, useRovingFocusInject } from './RovingFocusGroup'
 import type { ScopeRovingFocus } from './utils'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
@@ -24,7 +23,7 @@ interface IRovingFocusItemProps {
   onMousedown?: (event: MouseEvent) => void
 }
 
-export const RovingFocusItemProps = {
+export const rovingFocusItemProps = {
   tabStopId: {
     type: String,
   },
@@ -42,12 +41,8 @@ export const RovingFocusItemProps = {
 export interface RovingFocusItemPropsType extends ScopedPropsInterface<IRovingFocusItemProps>, PrimitiveProps {
 }
 
-export const RovingFocusGroupItemElementProps = {
-  ...RovingFocusItemProps,
-}
-
 export const rovingFocusGroupItemProps = {
-  ...RovingFocusItemProps,
+  ...rovingFocusItemProps,
 }
 
 const ITEM_NAME = 'OkuRovingFocusGroupItem'
@@ -76,15 +71,14 @@ const rovingFocusGroupItem = defineComponent({
       tabStopId,
       scopeOkuRovingFocusGroup,
       asChild,
-      ...propsData
     } = toRefs(props)
     const attrsItems = _attrs
 
     const autoId = useId()
     const id = computed(() => tabStopId.value || autoId)
-    const inject = useRovingFocusInject(ITEM_NAME, props.scopeOkuRovingFocusGroup)
+    const inject = useRovingFocusInject(ITEM_NAME, scopeOkuRovingFocusGroup.value)
     const isCurrentTabStop = computed(() => inject.currentTabStopId.value === id.value)
-    const getItems = useCollection(props.scopeOkuRovingFocusGroup)
+    const getItems = useCollection(scopeOkuRovingFocusGroup.value)
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
@@ -99,24 +93,23 @@ const rovingFocusGroupItem = defineComponent({
       })
     })
 
-    const _props: ItemData = {
-      id: id.value,
-      focusable: focusable.value,
-      active: active.value,
-      scope: props.scopeOkuRovingFocusGroup,
-    }
+    const _props = computed(() => {
+      return {
+        id: id.value,
+        focusable: focusable.value,
+        active: active.value,
+        scope: scopeOkuRovingFocusGroup.value,
+      }
+    })
     return () => {
-      const mergedProps = mergeProps(attrsItems, propsData, {
-        tabindex: isCurrentTabStop.value ? 0 : -1,
-      })
       return h(CollectionItemSlot, {
-        ..._props,
+        ..._props.value,
       }, {
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
             'data-orientation': inject.orientation?.value,
-            ...mergedProps,
+            ...attrsItems,
             'ref': forwardedRef,
             'asChild': asChild.value,
             'onMousedown':
