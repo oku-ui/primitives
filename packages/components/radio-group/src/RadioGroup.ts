@@ -6,7 +6,7 @@ import { createProvideScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
-import type { RovingFocusGroupPropsType } from '@oku-ui/roving-focus'
+import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 
 import { type RadioProps, createRadioScope } from './Radio'
 import type { ScopeRadioGroup } from './utils'
@@ -39,9 +39,9 @@ interface RadioGroupProps extends PrimitiveProps {
   name?: RadioGroupProvideValue['name']
   required?: RadioProps['required']
   disabled?: RadioProps['disabled']
-  dir?: RovingFocusGroupPropsType['dir']
-  orientation?: RovingFocusGroupPropsType['orientation']
-  loop?: RovingFocusGroupPropsType['loop']
+  dir?: RovingFocusGroupProps['dir']
+  orientation?: RovingFocusGroupProps['orientation']
+  loop?: RovingFocusGroupProps['loop']
   defaultValue?: string
   value?: RadioGroupProvideValue['value']
 }
@@ -66,15 +66,15 @@ const RadioGroupPropsObject = {
     default: false,
   },
   dir: {
-    type: String as PropType<RovingFocusGroupPropsType['dir']>,
+    type: String as PropType<RovingFocusGroupProps['dir']>,
     default: undefined,
   },
   orientation: {
-    type: String as PropType<RovingFocusGroupPropsType['orientation']>,
+    type: String as PropType<RovingFocusGroupProps['orientation']>,
     default: undefined,
   },
   loop: {
-    type: Boolean as PropType<RovingFocusGroupPropsType['loop']>,
+    type: Boolean as PropType<RovingFocusGroupProps['loop']>,
     default: true,
   },
   defaultValue: {

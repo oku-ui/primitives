@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   vue: 3.3.4
   '@vue/runtime-core': 3.3.4
@@ -648,6 +652,40 @@ importers:
         version: link:../../core/utils
       vue:
         specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/toggle-group:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: latest
+        version: link:../direction
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/roving-focus':
+        specifier: latest
+        version: link:../roving-focus
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:../toggle
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -15426,7 +15464,3 @@ packages:
       compress-commons: 4.1.1
       readable-stream: 3.6.2
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

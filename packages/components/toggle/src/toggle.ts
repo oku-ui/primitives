@@ -26,9 +26,11 @@ interface ToggleProps extends PrimitiveProps {
    * The callback that fires when the state of the toggle changes.
    */
   onPressedChange?(pressed: boolean): void
+
+  disabled?: boolean
 }
 
-const toggleProps = {
+export const toggleProps = {
   modelValue: {
     type: [Boolean] as PropType<
       boolean | undefined

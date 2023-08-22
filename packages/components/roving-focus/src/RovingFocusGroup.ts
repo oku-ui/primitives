@@ -2,9 +2,9 @@ import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { PrimitiveProps } from '@oku-ui/primitive'
+import { type PrimitiveProps, primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
 import type { RovingFocusGroupImplElement, RovingFocusGroupImplIntrinsicElement, RovingFocusGroupImplProps } from './RovingFocusGroupImpl'
 import type { ScopedPropsInterface } from './types'
@@ -68,7 +68,7 @@ export const [rovingFocusProvider, useRovingFocusInject]
 export type RovingFocusGroupIntrinsicElement = RovingFocusGroupImplIntrinsicElement
 export type RovingFocusGroupElement = RovingFocusGroupImplElement
 
-export interface RovingFocusGroupPropsType extends ScopedPropsInterface<RovingFocusGroupImplProps> { }
+export interface RovingFocusGroupProps extends ScopedPropsInterface<RovingFocusGroupImplProps> { }
 
 const rovingFocusGroupProps = {
   ...rovingFocusGroupImplProps,
@@ -118,11 +118,13 @@ const rovingFocusGroup = defineComponent({
   props: {
     ...rovingFocusGroupProps,
     ...scopedProps,
+    ...primitiveProps,
   },
   setup(props, { slots, attrs }) {
+    const { currentTabStopId, dir, loop, orientation, defaultCurrentTabStopId } = toRefs(props)
+
     const forwardedRef = useForwardRef()
     return () => {
-      const mergedProps = computed(() => mergeProps(attrs, props))
       return h(CollectionProvider, {
         scope: props.scopeOkuRovingFocusGroup,
       }, {
@@ -130,7 +132,13 @@ const rovingFocusGroup = defineComponent({
           scope: props.scopeOkuRovingFocusGroup,
         }, {
           default: () => h(OkuRovingFocusGroupImpl, {
-            ...mergedProps.value,
+            ...attrs,
+            asChild: props.asChild,
+            currentTabStopId: currentTabStopId.value,
+            defaultCurrentTabStopId: defaultCurrentTabStopId.value,
+            dir: dir.value,
+            loop: loop.value,
+            orientation: orientation.value,
             ref: forwardedRef,
           }, slots),
         }),
