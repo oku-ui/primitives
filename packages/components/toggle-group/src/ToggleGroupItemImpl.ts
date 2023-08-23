@@ -45,8 +45,8 @@ const toggleGroupItemImpl = defineComponent({
     ...primitiveProps,
   },
   setup(props, { slots, emit, attrs }) {
-    const { pressed, disabled, value, scopeOkuToggleGroup } = toRefs(props)
-    const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
+    const { pressed, disabled, value, scopeOkuToggleGroup, asChild } = toRefs(props)
+    const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => {
       return { 'role': 'radio', 'aria-checked': pressed.value, 'aria-pressed': undefined }
     })
@@ -59,7 +59,7 @@ const toggleGroupItemImpl = defineComponent({
       ...typeProps.value,
       pressed: pressed.value,
       disabled: disabled.value,
-      asChild: props.asChild,
+      asChild: asChild.value,
       ref: forwardedRef,
       onPressedChange: (pressed: boolean) => {
         if (pressed)

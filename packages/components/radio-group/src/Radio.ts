@@ -94,7 +94,7 @@ const Radio = defineComponent({
     radioProvider({
       checked,
       disabled,
-      scope: props.scopeOkuRadio,
+      scope: scopeOkuRadio.value,
     })
 
     return () => [
@@ -106,8 +106,8 @@ const Radio = defineComponent({
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
-        ...mergeProps(radioAttrs),
-        'asChild': props.asChild,
+        ...mergeProps(radioAttrs, radioProps),
+        'asChild': asChild.value,
         'ref': composedRefs,
         'onClick': composeEventHandlers((e: MouseEvent) => {
           emit('click', e)

@@ -1,5 +1,5 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
@@ -149,7 +149,7 @@ const RovingFocusGroupImpl = defineComponent({
       return h(Primitive.div, {
         'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': orientation?.value,
-        ..._attrs,
+        ...mergeProps(propsData, _attrs),
         'ref': composedRefs,
         'style': {
           outline: 'none',
