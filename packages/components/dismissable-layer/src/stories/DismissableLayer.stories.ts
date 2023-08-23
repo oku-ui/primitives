@@ -105,3 +105,67 @@ export const PopoverFullyModal: Story = {
     `,
   }),
 }
+
+export const PopoverSemiModal: Story = {
+  args: {
+    template: '#6',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const PopoverNonModal: Story = {
+  args: {
+    template: '#7',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const PopoverInDialog: Story = {
+  args: {
+    template: '#8',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const PopoverNested: Story = {
+  args: {
+    template: '#9',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}

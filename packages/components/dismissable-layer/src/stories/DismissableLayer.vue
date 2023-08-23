@@ -7,13 +7,16 @@ import DummyPopover from './DummyPopover.vue'
 import DismissableBox from './DismissableBox.vue'
 
 export interface IDismissableLayerProps {
-  template?: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7' | '#8'
+  template?: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7' | '#8' | '#9'
   allshow?: boolean
 }
 
 defineProps<IDismissableLayerProps>()
 
 const openButtonRef = ref<HTMLButtonElement | null>(null)
+const changeColorButtonRef = ref<HTMLButtonElement | null>(null)
+
+const color = ref('royalblue')
 const open = ref(false)
 const dismissOnEscape = ref(false)
 const dismissOnPointerDownOutside = ref(false)
@@ -53,6 +56,10 @@ function handleMouseDown() {
 
 function clicked() {
   alert('clicked!')
+}
+
+function setColor() {
+  color.value = color.value === 'royalblue' ? 'tomato' : 'royalblue'
 }
 </script>
 
@@ -244,10 +251,229 @@ function clicked() {
         />
         <input type="text" defaultValue="some input">
 
-        <button type="button" @click="() => window.alert('clicked!')">
+        <button type="button" @click="clicked">
+          Alert me
+        </button>
+      </div>
+    </div>
+
+    <div v-if="template === '#6'" class="flex flex-col">
+      <h1 class="text-3xl font-bold mb-2">
+        Popover (semi-modal example)
+      </h1>
+
+      <ul class="list">
+        <li>✅ focus should move inside `Popover` when mounted</li>
+        <li>✅ focus should be trapped inside `Popover`</li>
+        <li>✅ scrolling outside `Popover` should be allowed</li>
+        <li>✅ should be able to dismiss `Popover` on pressing escape</li>
+        <li :style="{ marginLeft: '30px' }">
+          ✅ focus should return to the open button
+        </li>
+        <li>
+          ✅ interacting outside `Popover` should be allowed (clicking the
+          "alert me" button should trigger)
+        </li>
+        <li>➕</li>
+        <li>
+          ✅ should be able to dismiss `Popover` when interacting outside{' '}
+          <span class="font-semibold">unless specified (ie. change color button)</span>
+        </li>
+        <li :style="{ marginLeft: '30px' }">
+          ✅ focus should <span class="font-semibold">NOT</span> return to the
+          open button when unmounted, natural focus should occur
+        </li>
+      </ul>
+
+      <div class="flex gap-10 mt-5">
+        <DummyPopover
+          :color="color"
+          open-label="Open Popover"
+          close-label="Close Popover"
+          @pointer-down-outside="
+            (event) => {
+              if (event.target === changeColorButtonRef) {
+                event.preventDefault();
+              }
+            }
+          "
+        />
+        <input type="text" defaultValue="some input">
+
+        <button type="button" @click="clicked">
+          Alert me
+        </button>
+
+        <button ref="changeColorButtonRef" type="button" @click="setColor">
+          Change color
+        </button>
+      </div>
+    </div>
+
+    <div v-if="template === '#7'" class="flex flex-col">
+      <h1 class="text-3xl font-bold mb-2">
+        Popover (non modal example)
+      </h1>
+
+      <ul class="list">
+        <li>✅ focus should move inside `Popover` when mounted</li>
+        <li>
+          ✅ focus should <span class="font-semibold">NOT</span> be trapped
+          inside `Popover`
+        </li>
+        <li>✅ scrolling outside `Popover` should be allowed</li>
+        <li>✅ should be able to dismiss `Popover` on pressing escape</li>
+        <li :style="{ marginLeft: '30px' }">
+          ✅ focus should return to the open button
+        </li>
+        <li>
+          ✅ interacting outside `Popover` should be allowed (clicking the
+          "alert me" button should trigger)
+        </li>
+        <li>➕</li>
+        <li>✅ should be able to dismiss `Popover` when clicking outside</li>
+        <li :style="{ marginLeft: '30px' }">
+          ✅ focus should <span class="font-semibold">NOT</span> return to the
+          open button when unmounted, natural focus should occur
+        </li>
+        <li>✅ should be able to dismiss `Popover` when focus leaves it</li>
+        <li :style="{ marginLeft: '30px' }">
+          ❓ focus should move to next tabbable element after open button
+          <div class="font-semibold">
+            <span :style="{ marginLeft: '20px' }">notes:</span>
+            <ul>
+              <li>
+                I have left this one out for now as I am still unsure in which
+                case it should do this
+              </li>
+              <li>
+                for the moment, focus will be returned to the open button when
+                `FocusScope` unmounts
+              </li>
+              <li>
+                Need to do some more thinking, in the meantime, I think this
+                behavior is ok
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <div class="flex gap-10 mt-5">
+        <DummyPopover
+          open-label="Open Popover"
+          close-label="Close Popover"
+          :trapped="false"
+        />
+        <input type="text" defaultValue="some input">
+        <button type="button" @click="clicked">
+          Alert me
+        </button>
+      </div>
+    </div>
+
+    <div v-if="template === '#8'" class="flex flex-col">
+      <h1 class="text-3xl font-bold mb-2">
+        Popover (semi-modal) in Dialog (fully modal)
+      </h1>
+
+      <ul class="list">
+        <li>
+          ✅ dismissing `Popover` by pressing escape should{' '}
+          <span class="font-semibold">NOT</span> dismiss `Dialog`
+        </li>
+        <li>
+          ✅ dismissing `Popover` by clicking outside should also dismiss
+          `Dialog`
+        </li>
+      </ul>
+
+      <div class="flex gap-10 mt-5">
+        <DummyDialog open-label="Open Dialog" close-label="Close Dialog">
+          <DummyPopover open-label="Open Popover" close-label="Close Popover" />
+        </DummyDialog>
+        <input type="text" defaultValue="some input">
+        <button type="button" @click="clicked">
+          Alert me
+        </button>
+      </div>
+    </div>
+
+    <div v-if="template === '#9'" class="flex flex-col">
+      <h1 class="text-3xl font-bold mb-2">
+        Popover (nested example)
+      </h1>
+      <ul class="list">
+        <li>
+          ✅ dismissing a `Popover` by pressing escape should only dismiss that
+          given `Popover`, not its parents
+        </li>
+        <li>
+          ✅ interacting outside the blue `Popover` should only dismiss itself
+          and not its parents
+        </li>
+        <li>
+          ✅ interacting outside the red `Popover` should dismiss itself and the
+          black one
+        </li>
+        <li>✅ unless the click wasn't outside the black one</li>
+        <li>
+          ✅ when the blue `Popover` is open, there should be
+          <span class="font-semibold">NO</span> text cursor above the red or
+          black inputs
+        </li>
+        <li>
+          ✅ when the red `Popover` is open, there should be a text cursor above
+          the black input but not the one on the page behind
+        </li>
+      </ul>
+
+      <div class="flex gap-10 mt-5">
+        <DummyPopover
+          disable-outside-pointer-events
+          @interact-outside="
+            () => {
+              console.log('interact outside black');
+            }
+          "
+        >
+          <DummyPopover
+            color="tomato"
+            open-label="Open red"
+            close-label="Close red"
+            @interact-outside="
+              () => {
+                console.log('interact outside red');
+              }
+            "
+          >
+            <DummyPopover
+              color="royalblue"
+              open-label="Open blue"
+              close-label="Close blue"
+              disable-outside-pointer-events
+              @interact-outside="
+                () => {
+                  console.log('interact outside blue');
+                }
+              "
+            />
+          </DummyPopover>
+        </DummyPopover>
+
+        <input type="text" defaultValue="some input">
+        <button type="button" @click="clicked">
           Alert me
         </button>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="css">
+.list {
+  list-style: "none";
+  padding: 0px;
+  margin-bottom: 30px;
+}
+</style>
