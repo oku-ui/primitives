@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vitest } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { type Component } from 'vue'
 import { DirectionProvider, useDirection } from './Direction'
@@ -21,12 +21,17 @@ describe('direction', () => {
   propsTest('rtl')
 
   it('slot', () => {
+    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+
     const wrapper = mount(DirectionProvider, {
       slots: {
         default: 'test',
       },
     })
     expect(wrapper.html()).toContain('test')
+
+    expect(spy).toHaveBeenCalled()
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: Missing required prop: "dir"')
   })
   it('provide, inject and slot', () => {
     const ChildComponent = {

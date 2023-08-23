@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { OkuCollapsible, OkuCollapsibleContent, OkuCollapsibleTrigger } from '@oku-ui/collapsible'
-import type { CollapsibleProps } from '@oku-ui/collapsible'
 
-export interface ICollapsibleProps extends CollapsibleProps {
+export interface ICollapsibleProps {
   template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }
@@ -17,7 +16,7 @@ const open = ref(true)
 <template>
   <div class="container">
     <div v-if="template === '#1' || allshow">
-      <OkuCollapsible v-model:open="open" class="root">
+      <OkuCollapsible v-model="open" class="root">
         <OkuCollapsibleTrigger class="trigger">
           {{ open ? 'close' : 'open' }}
         </OkuCollapsibleTrigger>
@@ -34,7 +33,7 @@ const open = ref(true)
       <h2 class="text-lg">
         Closed
       </h2>
-      <OkuCollapsible v-model:open="close" class="root">
+      <OkuCollapsible v-model="close" class="root">
         <OkuCollapsibleTrigger class="trigger">
           {{ close ? 'close' : 'open' }}
         </OkuCollapsibleTrigger>
@@ -45,7 +44,7 @@ const open = ref(true)
       <h2 class="text-lg">
         open
       </h2>
-      <OkuCollapsible v-model:open="open" class="root">
+      <OkuCollapsible v-model="open" class="root">
         <OkuCollapsibleTrigger class="trigger">
           {{ open ? 'close' : 'open' }}
         </OkuCollapsibleTrigger>
@@ -92,7 +91,7 @@ const open = ref(true)
     </div>
 
     <div v-if="template === '#3' || allshow">
-      <OkuCollapsible v-model:open="open" class="root">
+      <OkuCollapsible v-model="open" class="root">
         <OkuCollapsibleTrigger class="trigger">
           {{ open ? 'close' : 'open' }}
         </OkuCollapsibleTrigger>

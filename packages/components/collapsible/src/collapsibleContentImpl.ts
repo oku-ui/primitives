@@ -1,38 +1,39 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
-import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
-import { Primitive } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
-import { getState } from './utils'
+import type { ScopeCollapsible } from './utils'
+import { getState, scopeCollapsibleProps } from './utils'
 import { CONTENT_NAME } from './collapsibleContent'
 
-type CollapsibleContentImplElement = ElementType<'div'>
-export type _CollapsibleContentImplEl = HTMLDivElement
+export type CollapsibleContentImplIntrinsicElement = ElementType<'div'>
+export type CollapsibleContentImplElement = HTMLDivElement
 
-interface CollapsibleContentImplProps extends IPrimitiveProps { }
+interface CollapsibleContentImplProps extends PrimitiveProps {
+  present: boolean
+}
 
-const CollapsibleContentImpl = defineComponent({
+const collapsibleContentImplProps = {
+  present: {
+    type: Object as unknown as PropType<Ref<boolean>>,
+  },
+}
+
+const collapsibleContentImpl = defineComponent({
+  name: 'OkuCollapsibleContentImpl',
   inheritAttrs: false,
   props: {
-    present: {
-      type: Object as unknown as PropType<Ref<boolean>>,
-    },
-    scopeCollapsible: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    asChild: {
-      type: Boolean,
-      default: undefined,
-    },
+    ...collapsibleContentImplProps,
+    ...scopeCollapsibleProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeCollapsible, present, asChild } = toRefs(props)
-    const { ...contentAttrs } = attrs as CollapsibleContentImplElement
-    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
+    const { present, asChild } = toRefs(props)
+    const { ...contentAttrs } = attrs as CollapsibleContentImplIntrinsicElement
+    const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 
     const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | undefined>(undefined)
     const forwardedRef = useForwardRef()
@@ -44,7 +45,7 @@ const CollapsibleContentImpl = defineComponent({
     const width = computed(() => widthRef.value)
 
     const isPresent = ref(present?.value?.value)
-    const isOpen = computed(() => context.value.open.value || isPresent.value)
+    const isOpen = computed(() => context.open.value || isPresent.value)
     const isMountAnimationPreventedRef = ref(isOpen.value)
     const originalStylesRef = ref<Record<string, string>>()
 
@@ -85,9 +86,9 @@ const CollapsibleContentImpl = defineComponent({
     const originalReturn = () => h(
       Primitive.div,
       {
-        'data-state': getState(context.value.open.value),
-        'data-disabled': context.value.disabled?.value ? '' : undefined,
-        'id': context.value.contentId,
+        'data-state': getState(context.open.value),
+        'data-disabled': context.disabled?.value ? '' : undefined,
+        'id': context.contentId.value,
         'hidden': !isOpen.value,
         ...contentAttrs,
         'ref': composedRefs,
@@ -110,10 +111,9 @@ const CollapsibleContentImpl = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _CollapsibleContentImplProps = MergeProps<CollapsibleContentImplProps, CollapsibleContentImplElement>
-type InstanceCollapsibleContentImplType = InstanceTypeRef<typeof CollapsibleContentImpl, _CollapsibleContentImplEl>
+export const OkuCollapsibleContentImpl = collapsibleContentImpl as typeof collapsibleContentImpl &
+(new () => {
+  $props: ScopeCollapsible<Partial<CollapsibleContentImplElement>>
+})
 
-const OkuCollapsibleContentImpl = CollapsibleContentImpl as typeof CollapsibleContentImpl & (new () => { $props: _CollapsibleContentImplProps })
-
-export { OkuCollapsibleContentImpl }
-export type { CollapsibleContentImplProps, CollapsibleContentImplElement, InstanceCollapsibleContentImplType }
+export type { CollapsibleContentImplProps }

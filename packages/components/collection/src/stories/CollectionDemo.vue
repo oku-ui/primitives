@@ -1,10 +1,13 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { createCollection } from '@oku-ui/collection'
+import { ref } from 'vue'
+import List from './List.vue'
+import Item from './Item.vue'
+import Tomato from './Tomato.vue'
+import Countries from './Countries.vue'
+import { LogItems } from './LogItems'
 
 export interface OkuCollectionProps {
-  template: '#1' | '#2'
+  template: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7'
   allshow?: boolean
 }
 
@@ -12,48 +15,110 @@ withDefaults(defineProps<OkuCollectionProps>(), {
   template: '#1',
 })
 
-type ItemData = { disabled?: boolean }
+const isDisabled = ref(false)
+const hasTomato = ref(false)
 
-const { CollectionSlot, CollectionItemSlot, CollectionProvider, useCollection } = createCollection<HTMLLIElement, ItemData >('List')
+function handleTomato() {
+  hasTomato.value = !hasTomato.value
+}
 
-const labelRef = ref<any>()
-onMounted(() => {
-  console.log(labelRef.value, 'ref')
-})
-const alert = () => window.alert('clicked')
-
-function LogsItem() {
-  const getItems = useCollection(undefined)
-  console.log(getItems.value[0].ref.value)
+function handleDisable() {
+  isDisabled.value = !isDisabled.value
 }
 </script>
 
 <template>
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <CollectionProvider :scope="undefined">
-        <CollectionSlot :scope="undefined">
-          <ul clas="w-52">
-            <CollectionItemSlot ref="labelRef" :scope="undefined">
-              <li>
-                Red
-              </li>
-            </CollectionItemSlot>
-            <CollectionItemSlot :scope="undefined" :disabled="true">
-              <li class="opacity-50">
-                Green
-              </li>
-            </CollectionItemSlot>
-
-            <CollectionItemSlot :scope="undefined">
-              <li>
-                Blue
-              </li>
-            </CollectionItemSlot>
-          </ul>
-        </CollectionSlot>
-        <LogsItem />
-      </CollectionProvider>
+      <List>
+        <Item>Red</Item>
+        <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#2' || allshow" class="flex flex-col">
+      <List>
+        <div style="font-variant: small-caps;">
+          Colors
+        </div>
+        <Item>Red</Item>
+        <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <div style="font-variant: small-caps;">
+          Words
+        </div>
+        <Item>Hello</Item>
+        <Item>World</Item>
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#3' || allshow" class="flex flex-col">
+      <List>
+        <Item>Red</Item>
+        <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <Tomato />
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#4' || allshow" class="flex flex-col">
+      <List>
+        <Countries />
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#5' || allshow" class="flex flex-col">
+      <button @click="handleTomato">
+        {{ hasTomato ? 'Remove' : 'Add' }} Tomato
+      </button>
+      <button @click="LogItems({})">
+        Force Update
+      </button>
+      <List>
+        <Item>Red</Item>
+        <Tomato v-if="hasTomato" />
+        <Item disabled>
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#6' || allshow" class="flex flex-col">
+      <button @click="handleDisable">
+        {{ isDisabled ? 'Enable' : 'Disable' }} Green
+      </button>
+      <List>
+        <Item>Red</Item>
+        <Item :disabled="isDisabled">
+          Green
+        </Item>
+        <Item>Blue</Item>
+        <LogItems />
+      </List>
+    </div>
+    <div v-if="template === '#7' || allshow" class="flex flex-col">
+      <List>
+        <Item>1</Item>
+        <Item>
+          2
+          <List>
+            <Item>2.1</Item>
+            <Item>2.2</Item>
+            <Item>2.3</Item>
+            <LogItems name="items inside 2" />
+          </List>
+        </Item>
+        <Item>3</Item>
+        <LogItems name="top-level items" />
+      </List>
     </div>
   </div>
 </template>

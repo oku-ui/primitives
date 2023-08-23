@@ -5,8 +5,8 @@ export default defineBuildConfig({
     {
       builder: 'mkdist',
       input: './src/',
-      pattern: ['**/!(*.test|*.stories).ts'],
+      pattern: ['**', '!stories'],
+      declaration: true,
     },
   ],
-  declaration: true,
 })

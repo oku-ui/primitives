@@ -1,22 +1,40 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, unref, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-import type { ComponentPublicInstanceRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 
-import { Primitive, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { type Direction, type Orientation, focusFirst } from './utils'
-import type { ScopedPropsInterface } from './RovingFocusGroup'
-import { ScopedProps, useCollection, useRovingFocusProvider } from './RovingFocusGroup'
+import type { Direction, Orientation, ScopeRovingFocus } from './utils'
+import { focusFirst } from './utils'
+import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
+import { scopedProps } from './types'
 
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-export type RovingFocusGroupImplElement = ElementType<'div'>
-export type _RovingFocusGroupImplEl = HTMLDivElement
+export type RovingFocusGroupImplIntrinsicElement = ElementType<'div'>
+export type RovingFocusGroupImplElement = HTMLDivElement
 
-export interface RovingFocusGroupOptions extends IPrimitiveProps {
+interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
+  currentTabStopId?: Ref<string | null>
+  defaultCurrentTabStopId?: string
+  onCurrentTabStopIdChange?: (tabStopId: string | null) => void
+  onEntryFocus?: (event: Event) => void
+  onMousedown?: (event: MouseEvent) => void
+  onFocus?: (event: FocusEvent) => void
+  onBlur?: (event: FocusEvent) => void
+  isChangedFocusableItemAdd?: number
+  isChangedFocusableItemRemove?: number
+}
+
+export const rovingFocusGroupImplElementProps = {
+  currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
+  defaultCurrentTabStopId: String,
+}
+
+export interface RovingFocusGroupOptions extends PrimitiveProps {
   /**
    * The orientation of the group.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
@@ -33,58 +51,43 @@ export interface RovingFocusGroupOptions extends IPrimitiveProps {
   loop?: boolean
 }
 
-export const RovingFocusGroupOptionsProps = {
+export const rovingFocusGroupOptionsProps = {
   orientation: {
-    type: String as PropType<Orientation>,
+    type: String as PropType<Orientation | undefined>,
+    default: undefined,
   },
   dir: {
-    type: String as PropType<Direction>,
+    type: String as PropType<Direction | undefined>,
+    default: undefined,
   },
   loop: {
     type: Boolean,
+    default: false,
   },
-  ...PrimitiveProps,
 }
 
-export interface RovingFocusGroupImplPropsType extends ScopedPropsInterface<RovingFocusGroupOptions> {
-  currentTabStopId?: Ref<string | null>
-  defaultCurrentTabStopId?: string
-  onCurrentTabStopIdChange?: (tabStopId: string | null) => void
-  onEntryFocus?: (event: Event) => void
-  onMousedown?: (event: MouseEvent) => void
-  onFocus?: (event: FocusEvent) => void
-  onBlur?: (event: FocusEvent) => void
-  isChangedFocusableItemAdd?: number
-  isChangedFocusableItemRemove?: number
-}
-
-export const RovingFocusGroupImplElementProps = {
-  currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
-  defaultCurrentTabStopId: String,
-  // onCurrentTabStopIdChange: Function as PropType<RovingFocusGroupImplPropsType['onCurrentTabStopIdChange']>,
-  // onEntryFocus: Function as PropType<RovingFocusGroupImplPropsType['onEntryFocus']>,
-  onMousedown: Function as PropType<(e: MouseEvent) => void>,
-  onFocus: Function as PropType<(e: FocusEvent) => void>,
-  onBlur: Function as PropType<(e: FocusEvent) => void>,
-}
-
-export const IRovingFocusGroupImplProps = {
-  ...RovingFocusGroupImplElementProps,
-  ...RovingFocusGroupOptionsProps,
-  ...ScopedProps,
+export const rovingFocusGroupImplProps = {
+  ...rovingFocusGroupImplElementProps,
+  ...rovingFocusGroupOptionsProps,
 }
 
 const RovingFocusGroupImpl = defineComponent({
   name: 'OkuRovingFocusGroupImpl',
   inheritAttrs: false,
-  props: IRovingFocusGroupImplProps,
+  props: {
+    ...rovingFocusGroupImplProps,
+    ...primitiveProps,
+    ...scopedProps,
+  },
   emits: {
-    currentTabStopId: (tabStopId: string | null) => true,
     entryFocus: (event: Event) => true,
     currentTabStopIdChange: (tabStopId: string | null) => true,
+    mousedown: (event: MouseEvent) => true,
+    focus: (event: FocusEvent) => true,
+    blur: (event: FocusEvent) => true,
   },
-  setup(props, { attrs, slots, emit, expose }) {
-    const _attrs = attrs as Omit<_RovingFocusGroupImplEl, 'dir'>
+  setup(props, { attrs, slots, emit }) {
+    const _attrs = attrs as Omit<RovingFocusGroupImplIntrinsicElement, 'dir'>
     const {
       orientation,
       loop,
@@ -93,10 +96,10 @@ const RovingFocusGroupImpl = defineComponent({
       defaultCurrentTabStopId,
       onEntryFocus,
       asChild,
+      scopeOkuRovingFocusGroup,
       ...propsData
     } = toRefs(props)
-
-    const buttonRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>(null)
+    const buttonRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
@@ -104,33 +107,30 @@ const RovingFocusGroupImpl = defineComponent({
       prop: computed(() => currentTabStopIdProp.value),
       defaultProp: computed(() => defaultCurrentTabStopId.value),
       onChange: (result: any) => {
-        emit('currentTabStopId', result)
+        emit('currentTabStopIdChange', result)
       },
     })
 
     const isTabbingBackOut = ref(false)
     const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
-    const getItems = useCollection(props.scopeRovingFocusGroup)
+    const getItems = useCollection(scopeOkuRovingFocusGroup.value)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
     watchEffect(() => {
-      const node = buttonRef.value?.$el
+      const node = buttonRef.value
       if (node) {
         node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
         return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus)
       }
     })
 
-    useRovingFocusProvider({
-      scope: props.scopeRovingFocusGroup,
-      // TODO: change ref or computed
-      orientation: orientation.value,
-      // TODO: change ref or computed
-      dir: dir.value,
-      // TODO: change ref or computed
-      loop: loop.value ?? false,
-      currentTabStopId: currentTabStopId ?? null,
+    rovingFocusProvider({
+      scope: scopeOkuRovingFocusGroup.value,
+      orientation,
+      dir,
+      loop,
+      currentTabStopId: currentTabStopId || null,
       onItemFocus: (tabStopId: string) => {
         updateCurrentTabStopId(tabStopId)
       },
@@ -145,33 +145,34 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    const _tabIndex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
-
     return () => {
-      const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
-        'tabIndex': _tabIndex.value,
-        'data-orientation': orientation.value,
-        ...merged,
+        'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
+        'data-orientation': orientation?.value,
+        ...unref(mergeProps(propsData, _attrs)),
         'ref': composedRefs,
         'style': {
           outline: 'none',
           ..._attrs.style as any,
         },
         'asChild': asChild.value,
-        'onMousedown': composeEventHandlers(props.onMousedown, () => {
+        'onMousedown': composeEventHandlers<MouseEvent>((e) => {
+          emit('mousedown', e)
+        }, () => {
           isClickFocusRef.value = true
         }),
-        'onFocus': composeEventHandlers(props.onFocus, (event: FocusEvent) => {
+        'onFocus': composeEventHandlers<FocusEvent>((e) => {
+          emit('focus', e)
+        }, (event: FocusEvent) => {
           // We normally wouldn't need this check, because we already check
           // that the focus is on the current target and not bubbling to it.
           // We do this because Safari doesn't focus buttons when clicked, and
           // instead, the wrapper will get focused and not through a bubbling event.
           const isKeyboardFocus = !isClickFocusRef.value
+
           if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
             const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
             event.currentTarget?.dispatchEvent(entryFocusEvent)
-
             if (!entryFocusEvent.defaultPrevented) {
               const items = getItems.value.filter(item => item.focusable)
               const activeItem = items.find(item => item.active)
@@ -179,14 +180,16 @@ const RovingFocusGroupImpl = defineComponent({
               const candidateItems = [activeItem, currentItem, ...items].filter(
                 Boolean,
               ) as typeof items
-              const candidateNodes = candidateItems.map(item => item.ref.$el!)
+              const candidateNodes = candidateItems.map(item => item.ref)
               focusFirst(candidateNodes)
             }
           }
 
           isClickFocusRef.value = false
         }),
-        'onBlur': composeEventHandlers(props.onBlur, () => {
+        'onBlur': composeEventHandlers<FocusEvent>((e) => {
+          emit('blur', e)
+        }, () => {
           isTabbingBackOut.value = false
         }),
       }, {
@@ -197,12 +200,11 @@ const RovingFocusGroupImpl = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuRovingFocusGroupImpl = MergeProps<RovingFocusGroupImplPropsType, RovingFocusGroupImplElement>
+export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocusGroupImpl &
+(new () => {
+  $props: ScopeRovingFocus<Partial<RovingFocusGroupImplElement>>
+})
 
-export type InstanceCheckboxType = InstanceTypeRef<typeof RovingFocusGroupImpl, _OkuRovingFocusGroupImpl>
-
-const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocusGroupImpl & (new () => { $props: RovingFocusGroupImplPropsType })
-
-export {
-  OkuRovingFocusGroupImpl,
+export type {
+  RovingFocusGroupImplProps,
 }

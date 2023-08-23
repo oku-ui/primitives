@@ -1,14 +1,24 @@
+import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
 import type { Ref } from 'vue'
 import { onBeforeUnmount, ref, watchEffect } from 'vue'
 
+export type ScopeAvatar<T> = T & { scopeOkuAvatar?: Scope }
+
+export const scopeAvatarProps = {
+  scopeOkuAvatar: {
+    ...ScopePropObject,
+  },
+}
+
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
-export function useImageLoadingStatus(src: Ref<string>) {
+export function useImageLoadingStatus(src: Ref<string | undefined>) {
   const mounted = ref(true)
   const loadingStatus = ref<ImageLoadingStatus>('idle')
 
   watchEffect(() => {
-    if (!src) {
+    if (!src.value) {
       loadingStatus.value = 'error'
       return
     }

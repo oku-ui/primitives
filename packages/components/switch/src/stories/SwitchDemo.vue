@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { SwitchProps } from '@oku-ui/switch'
 import { OkuLabel } from '@oku-ui/label'
 import { OkuSwitch, OkuSwitchThumb } from '@oku-ui/switch'
 import { ref } from 'vue'
 
-export interface ISwitchProps extends SwitchProps {
+export interface ISwitchProps {
   template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }
@@ -22,17 +21,16 @@ function setData(event: any) {
     ...data.value,
     [input.name]: input.value,
   }
-  // eslint-disable-next-line no-console
+
   console.log(data.value)
 }
 function sendForm(event: any) {
-  // eslint-disable-next-line no-console
   console.log(event, 'sendForm')
   data.value = {
     ...data.value,
     [event.target.name]: event.target.value,
   }
-  // eslint-disable-next-line no-console
+
   console.log(data.value)
 }
 </script>
