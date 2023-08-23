@@ -17,6 +17,7 @@
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/collection": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/primitives": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/roving-focus": "workspace:^",
     "@oku-ui/separator": "workspace:^",
