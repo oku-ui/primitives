@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
-import { ref } from 'vue'
+import { createApp, onUnmounted, ref } from 'vue'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
+import { useCallbackRef } from '@oku-ui/use-composable'
 import DummyDialog from './DummyDialog.vue'
 import DummyPopover from './DummyPopover.vue'
 import DismissableBox from './DismissableBox.vue'
 
 export interface IDismissableLayerProps {
-  template?: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7' | '#8' | '#9'
+  template?:
+  | '#1'
+  | '#2'
+  | '#3'
+  | '#4'
+  | '#5'
+  | '#6'
+  | '#7'
+  | '#8'
+  | '#9'
+  | '#10'
   allshow?: boolean
 }
 
@@ -61,6 +72,29 @@ function clicked() {
 function setColor() {
   color.value = color.value === 'royalblue' ? 'tomato' : 'royalblue'
 }
+
+const handlePopupClick = useCallbackRef(() => {
+  const popupWindow = window.open(
+    undefined,
+    undefined,
+    'width=300,height=300,top=100,left=100',
+  )
+
+  if (!popupWindow) {
+    console.error(
+      'Failed to open popup window, check your popup blocker settings',
+    )
+    return
+  }
+
+  const containerNode = popupWindow.document.createElement('div')
+  popupWindow.document.body.append(containerNode)
+
+  const app = createApp(DismissableBox)
+  app.mount(containerNode)
+
+  onUnmounted(() => containerNode.remove())
+})
 </script>
 
 <template>
@@ -464,6 +498,14 @@ function setColor() {
         <input type="text" defaultValue="some input">
         <button type="button" @click="clicked">
           Alert me
+        </button>
+      </div>
+    </div>
+
+    <div v-if="template === '#10'" class="flex flex-col">
+      <div class="text-center">
+        <button @click="handlePopupClick">
+          Open Popup
         </button>
       </div>
     </div>

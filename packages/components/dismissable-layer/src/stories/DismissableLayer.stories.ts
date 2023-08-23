@@ -169,3 +169,19 @@ export const PopoverNested: Story = {
     `,
   }),
 }
+
+export const InPopupWindow: Story = {
+  args: {
+    template: '#10',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}
