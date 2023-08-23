@@ -3,10 +3,11 @@ import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { ref } from 'vue'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
 import DummyDialog from './DummyDialog.vue'
+import DummyPopover from './DummyPopover.vue'
 import DismissableBox from './DismissableBox.vue'
 
 export interface IDismissableLayerProps {
-  template?: '#1' | '#2' | '#3' | '#4'
+  template?: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7' | '#8'
   allshow?: boolean
 }
 
@@ -206,6 +207,44 @@ function clicked() {
 
         <input type="text" defaultValue="some input">
         <button type="button" @click="clicked">
+          Alert me
+        </button>
+      </div>
+    </div>
+
+    <div v-if="template === '#5'" class="flex flex-col">
+      <h1 class="text-3xl font-bold mb-2">
+        Popover (fully modal example)
+      </h1>
+      <ul :style="{ listStyle: 'none', padding: 0, marginBottom: 30 }">
+        <li>✅ focus should move inside `Popover` when mounted</li>
+        <li>✅ focus should be trapped inside `Popover`</li>
+        <li>✅ scrolling outside `Popover` should be disabled</li>
+        <li>✅ should be able to dismiss `Popover` on pressing escape</li>
+        <li :style="{ marginLeft: '30px' }">
+          ✅ focus should return to the open button
+        </li>
+        <li>
+          ✅ interacting outside `Popover` should be disabled (clicking the
+          "alert me" button shouldn't do anything)
+        </li>
+        <li>➕</li>
+        <li>✅ should be able to dismiss `Popover` when interacting outside</li>
+        <li :style="{ marginLeft: '30px' }">
+          ✅ focus should return to the open button
+        </li>
+      </ul>
+
+      <div class="flex gap-10 mt-5">
+        <DummyPopover
+          open-label="Open Popover"
+          close-label="Close Popover"
+          disable-outside-pointer-events
+          prevent-scroll
+        />
+        <input type="text" defaultValue="some input">
+
+        <button type="button" @click="() => window.alert('clicked!')">
           Alert me
         </button>
       </div>

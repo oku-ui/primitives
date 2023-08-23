@@ -89,3 +89,19 @@ export const DialogExample: Story = {
     `,
   }),
 }
+
+export const PopoverFullyModal: Story = {
+  args: {
+    template: '#5',
+  },
+
+  render: (args: any) => ({
+    components: { OkuDismissableLayerComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDismissableLayerComponent v-bind="args" />
+    `,
+  }),
+}
