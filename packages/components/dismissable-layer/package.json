@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/focus-group",
+  "name": "@oku-ui/dismissable-layer",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/core/focus-group"
+    "directory": "packages/components/dismissable-layer"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -34,6 +34,12 @@
   },
   "peerDependencies": {
     "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

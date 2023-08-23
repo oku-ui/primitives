@@ -40,9 +40,12 @@ importers:
       '@oku-ui/direction':
         specifier: workspace:^
         version: link:packages/components/direction
-      '@oku-ui/focus-group':
+      '@oku-ui/dismissable-layer':
         specifier: workspace:^
-        version: link:packages/core/focus-group
+        version: link:packages/components/dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: workspace:^
+        version: link:packages/core/focus-guards
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:packages/components/focus-scope
@@ -361,6 +364,28 @@ importers:
 
   packages/components/direction:
     dependencies:
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/dismissable-layer:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -711,7 +736,7 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/focus-group:
+  packages/core/focus-guards:
     dependencies:
       vue:
         specifier: ^3.3.0

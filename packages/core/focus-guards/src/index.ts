@@ -1,6 +1,6 @@
 export {
-  OkuFocusGroup,
-} from './focusGroup'
+  OkuFocusGuards,
+} from './focusGuards'
 
 export {
   useFocusGuards,

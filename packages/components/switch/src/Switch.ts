@@ -9,12 +9,12 @@ import {
   toValue,
   useModel,
 } from 'vue'
-import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
-import type {
-  ElementType,
-  PrimitiveProps,
-
-} from '@oku-ui/primitive'
+import {
+  useComposedRefs,
+  useControllable,
+  useForwardRef,
+} from '@oku-ui/use-composable'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -105,19 +105,22 @@ const Switch = defineComponent({
       name,
     } = toRefs(props)
 
-    const { ...switchProps } = attrs as SwitchIntrinsicElement
+    const { ...switchAttrs } = attrs as SwitchIntrinsicElement
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
+
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const modelValue = useModel(props, 'modelValue')
     const proxyChecked = computed({
-      get: () => modelValue.value !== undefined
-        ? modelValue.value
-        : (checkedProp.value !== undefined ? checkedProp.value : undefined),
-      set: () => {
-      },
+      get: () =>
+        modelValue.value !== undefined
+          ? modelValue.value
+          : checkedProp.value !== undefined
+            ? checkedProp.value
+            : undefined,
+      set: () => {},
     })
 
     const isFormControl = ref<boolean>(false)
@@ -127,7 +130,7 @@ const Switch = defineComponent({
     onMounted(() => {
       isFormControl.value = buttonRef.value
         ? typeof buttonRef.value.closest === 'function'
-        && Boolean(buttonRef.value.closest('form'))
+          && Boolean(buttonRef.value.closest('form'))
         : true
     })
 
@@ -160,22 +163,25 @@ const Switch = defineComponent({
           'data-state': getState(state.value),
           'ref': composedRefs,
           'asChild': props.asChild,
-          ...switchProps,
-          'onClick': composeEventHandlers<MouseEvent>((e) => {
-            emit('click', e)
-          }, (event) => {
-            updateValue(!state.value)
+          ...switchAttrs,
+          'onClick': composeEventHandlers<MouseEvent>(
+            (e) => {
+              emit('click', e)
+            },
+            (event) => {
+              updateValue(!state.value)
 
-            if (isFormControl.value) {
-              // hasConsumerStoppedPropagationRef.value
-              //   = event.isPropagationStopped()
-              // if switch is in a form, stop propagation from the button so that we only propagate
-              // one click event (from the input). We propagate changes from an input so that native
-              // form validation works and form events reflect switch updates.
-              if (!hasConsumerStoppedPropagationRef.value)
-                event.stopPropagation()
-            }
-          }),
+              if (isFormControl.value) {
+                // hasConsumerStoppedPropagationRef.value
+                //   = event.isPropagationStopped()
+                // if switch is in a form, stop propagation from the button so that we only propagate
+                // one click event (from the input). We propagate changes from an input so that native
+                // form validation works and form events reflect switch updates.
+                if (!hasConsumerStoppedPropagationRef.value)
+                  event.stopPropagation()
+              }
+            },
+          ),
         },
         {
           default: () => slots.default?.(),

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { SpyInstance } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { useEscapeKeydown } from './useEscapeKeydown'
+import { useEscapeKeydown } from '../src/useEscapeKeydown'
 
 describe('useEscapeKeydown', () => {
   let onEscapeKeyDown: any
