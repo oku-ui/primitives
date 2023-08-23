@@ -2,7 +2,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, unref } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { ScopeRadio } from './utils'
@@ -106,7 +106,7 @@ const Radio = defineComponent({
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
-        ...mergeProps(radioAttrs, radioProps),
+        ...unref(mergeProps(radioAttrs, radioProps)),
         'asChild': asChild.value,
         'ref': composedRefs,
         'onClick': composeEventHandlers((e: MouseEvent) => {

@@ -30,7 +30,7 @@ const value = ref<string>()
       </OkuToggleGroupItem>
     </OkuToggleGroup>
 
-    <h1>Uncontrolled - {{ value }}</h1>
+    <h1>Group - {{ value }}</h1>
     <OkuToggleGroup type="multiple" class="root" aria-label="Options" default-value="['1']">
       <OkuToggleGroupItem value="1" class="item">
         Option 1
