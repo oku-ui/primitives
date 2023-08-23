@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
-    "@types/node": "^18.17.1",
+    "@types/node": "^18.17.8",
     "nuxt": "^3.6.5"
   }
 }
