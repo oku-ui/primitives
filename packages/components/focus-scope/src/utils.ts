@@ -1,4 +1,4 @@
-import type { FocusableTarget } from './focus-scope'
+type FocusableTarget = HTMLElement | { focus(): void }
 
 /* -------------------------------------------------------------------------------------------------
  * Utils

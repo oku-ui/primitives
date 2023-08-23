@@ -43,6 +43,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     needs: [lint, typecheck]
+     
+    permissions:
+      # Required to checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
 
     strategy:
       matrix:
@@ -54,8 +60,8 @@ jobs:
       - uses: ./.github/actions/setup-and-cache
       - uses: ./.github/actions/cache-build
 
-      - name: 🧪 Test
-        run: pnpm test
+      # - name: 🧪 Test
+      #   run: pnpm test
 
       - name: 🧪 Test with coverage
         run: pnpm coverage

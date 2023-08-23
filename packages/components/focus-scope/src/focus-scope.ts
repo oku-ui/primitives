@@ -25,8 +25,6 @@ const AUTOFOCUS_ON_MOUNT = 'okuFocusScope.autoFocusOnMount'
 const AUTOFOCUS_ON_UNMOUNT = 'okuFocusScope.autoFocusOnUnmount'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-export type FocusableTarget = HTMLElement | { focus(): void }
-
 /* -------------------------------------------------------------------------------------------------
  * FocusScope
  * ----------------------------------------------------------------------------------------------- */
@@ -50,18 +48,6 @@ interface FocusScopeProps extends PrimitiveProps {
    * @defaultValue false
    */
   trapped?: boolean
-
-  /**
-   * Event handler called when auto-focusing on mount.
-   * Can be prevented.
-   */
-  onMountAutoFocus?: (event: Event) => void
-
-  /**
-   * Event handler called when auto-focusing on unmount.
-   * Can be prevented.
-   */
-  onUnmountAutoFocus?: (event: Event) => void
 }
 
 const focusScopeProps = {
@@ -89,11 +75,13 @@ const focusScope = defineComponent({
      * Event handler called when auto-focusing on mount.
      * Can be prevented.
      */
+    // eslint-disable-next-line unused-imports/no-unused-vars
     mountAutoFocus: (event: Event) => true,
     /**
      * Event handler called when auto-focusing on unmount.
      * Can be prevented.
      */
+    // eslint-disable-next-line unused-imports/no-unused-vars
     unmountAutoFocus: (event: Event) => true,
   },
   setup(props, { slots, attrs, emit }) {
