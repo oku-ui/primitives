@@ -111,9 +111,9 @@
   },
   "pnpm": {
     "overrides": {
-      "vue": "3.3.4",
       "@vue/runtime-core": "3.3.4",
-      "vite": "4.3.5"
+      "vite": "4.3.5",
+      "vue": "3.3.4"
     }
   },
   "simple-git-hooks": {
