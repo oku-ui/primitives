@@ -8,5 +8,5 @@ export {
 } from './RovingFocusGroupItem'
 
 export type {
-  RovingFocusGroupPropsType,
+  RovingFocusGroupProps,
 } from './RovingFocusGroup'

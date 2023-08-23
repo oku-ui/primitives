@@ -1,15 +1,14 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, unref, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-import type { ElementType } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeRovingFocus } from './utils'
+import type { Direction, Orientation, ScopeRovingFocus } from './utils'
 import { focusFirst } from './utils'
-import type { RovingFocusGroupOptions } from './RovingFocusGroup'
-import { rovingFocusGroupOptionsProps, rovingFocusProvider, useCollection } from './RovingFocusGroup'
+import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
 import { scopedProps } from './types'
 
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
@@ -35,6 +34,38 @@ export const rovingFocusGroupImplElementProps = {
   defaultCurrentTabStopId: String,
 }
 
+export interface RovingFocusGroupOptions extends PrimitiveProps {
+  /**
+   * The orientation of the group.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   */
+  orientation?: Orientation
+  /**
+   * The direction of navigation between items.
+   */
+  dir?: Direction
+  /**
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
+   */
+  loop?: boolean
+}
+
+export const rovingFocusGroupOptionsProps = {
+  orientation: {
+    type: String as PropType<Orientation | undefined>,
+    default: undefined,
+  },
+  dir: {
+    type: String as PropType<Direction | undefined>,
+    default: undefined,
+  },
+  loop: {
+    type: Boolean,
+    default: false,
+  },
+}
+
 export const rovingFocusGroupImplProps = {
   ...rovingFocusGroupImplElementProps,
   ...rovingFocusGroupOptionsProps,
@@ -56,7 +87,7 @@ const RovingFocusGroupImpl = defineComponent({
     blur: (event: FocusEvent) => true,
   },
   setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as Omit<RovingFocusGroupImplElement, 'dir'>
+    const _attrs = attrs as Omit<RovingFocusGroupImplIntrinsicElement, 'dir'>
     const {
       orientation,
       loop,
@@ -82,7 +113,7 @@ const RovingFocusGroupImpl = defineComponent({
 
     const isTabbingBackOut = ref(false)
     const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
-    const getItems = useCollection(props.scopeOkuRovingFocusGroup)
+    const getItems = useCollection(scopeOkuRovingFocusGroup.value)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
@@ -95,7 +126,7 @@ const RovingFocusGroupImpl = defineComponent({
     })
 
     rovingFocusProvider({
-      scope: props.scopeOkuRovingFocusGroup,
+      scope: scopeOkuRovingFocusGroup.value,
       orientation,
       dir,
       loop,
@@ -114,14 +145,11 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    const _tabIndex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
-
     return () => {
-      const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
-        'tabindex': _tabIndex.value,
+        'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': orientation?.value,
-        ...merged,
+        ...unref(mergeProps(propsData, _attrs)),
         'ref': composedRefs,
         'style': {
           outline: 'none',

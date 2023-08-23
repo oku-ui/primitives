@@ -161,7 +161,7 @@ const tabs = defineComponent({
     tabsProvider({
       onValueChange: updateValue,
       orientation,
-      dir: computed(() => direction),
+      dir: direction,
       value: state,
       activationMode,
       baseId: computed(() => useId()),
@@ -172,7 +172,7 @@ const tabs = defineComponent({
       h(
         Primitive.div,
         {
-          'dir': direction,
+          'dir': direction.value,
           'data-orientation': props.orientation,
           'ref': forwardedRef,
           ...attrs,
