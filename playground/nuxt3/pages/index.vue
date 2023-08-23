@@ -40,6 +40,26 @@ const pages: Page[] = [
     name: 'OkuCollapsible',
     path: '/collapsible',
   },
+  {
+    name: 'OkuSwitch',
+    path: '/switch',
+  },
+  {
+    name: 'OkuCollection',
+    path: '/collection',
+  },
+  {
+    name: 'OkuSlot',
+    path: '/slot',
+  },
+  {
+    name: 'roving-focus',
+    path: '/roving-focus',
+  },
+  {
+    name: 'OkuTabs',
+    path: '/tabs',
+  },
 ]
 </script>
 

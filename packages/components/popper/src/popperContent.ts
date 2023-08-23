@@ -1,9 +1,9 @@
 import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
-import { type ElementType, type MergeProps, Primitive, type PrimitiveProps } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
-import { computedEager, useCallbackRef, useRef, useSize } from '@oku-ui/use-composable'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { computedEager, useCallbackRef, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
@@ -11,12 +11,12 @@ import type {
   Padding,
   Placement,
 } from '@floating-ui/vue'
-import type { Align, Side } from './utils'
-import { ALIGN_OPTIONS, SIDE_OPTIONS, getSideAndAlignFromPlacement, isDefined, isNotNull, transformOrigin } from './utils'
-import type { PopperInjectValue } from './popper'
+import type { Align, ScopePopper, Side } from './utils'
+import { ALIGN_OPTIONS, SIDE_OPTIONS, getSideAndAlignFromPlacement, isDefined, isNotNull, scopePopperProps, transformOrigin } from './utils'
+import type { PopperProvideValue } from './popper'
 import { createPopperProvider, usePopperInject } from './popper'
 
-const CONTENT_NAME = 'PopperContent'
+const CONTENT_NAME = 'OkuPopperContent'
 
 type PopperContentContextValue = {
   placedSide: Ref<Side>
@@ -26,13 +26,15 @@ type PopperContentContextValue = {
   shouldHideArrow: Ref<boolean>
   x?: Ref<number>
   y?: Ref<number>
-} & PopperInjectValue
+} & PopperProvideValue
 
-export const [PopperContentProvider, usePopperContentInject] = createPopperProvider<PopperContentContextValue>(CONTENT_NAME)
+export const [popperContentProvider, usePopperContentInject] = createPopperProvider<PopperContentContextValue>(CONTENT_NAME)
 
 type Boundary = Element | null
 
-type PopperContentElement = ElementType<'div'>
+export type PopperContentIntrinsicElement = ElementType<'div'>
+export type PopperContentElement = HTMLDivElement
+
 interface PopperContentProps extends PrimitiveProps {
   side?: Side
   sideOffset?: number
@@ -48,82 +50,80 @@ interface PopperContentProps extends PrimitiveProps {
   onPlaced?: () => void
 }
 
+const popperContentProps = {
+  side: {
+    type: String as unknown as PropType<Side>,
+    required: false,
+    default: 'bottom',
+    validator: (value: Side) => SIDE_OPTIONS.includes(value),
+  },
+  sideOffset: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  align: {
+    type: String as unknown as PropType<Align>,
+    required: false,
+    default: 'center',
+    validator: (value: Align) => ALIGN_OPTIONS.includes(value),
+  },
+  alignOffset: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  arrowPadding: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  avoidCollisions: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+  collisionBoundary: {
+    type: [Object, Array] as unknown as PropType<Boundary | Boundary[]>,
+    required: false,
+    default: () => [],
+  },
+  collisionPadding: {
+    type: [Number, Object] as unknown as PropType<Padding>,
+    required: false,
+    default: 0,
+  },
+  sticky: {
+    type: String as unknown as PropType<'partial' | 'always'>,
+    required: false,
+    default: 'partial',
+  },
+  hideWhenDetached: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  updatePositionStrategy: {
+    type: String as unknown as PropType<'optimized' | 'always'>,
+    required: false,
+    default: 'optimized',
+  },
+  onPlaced: {
+    type: Function as unknown as PropType<() => void>,
+    required: false,
+    default: undefined,
+  },
+}
+
 const PopperContent = defineComponent({
   name: CONTENT_NAME,
   inheritAttrs: false,
   props: {
-    side: {
-      type: String as unknown as PropType<Side>,
-      required: false,
-      default: 'bottom',
-      validator: (value: Side) => SIDE_OPTIONS.includes(value),
-    },
-    sideOffset: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    align: {
-      type: String as unknown as PropType<Align>,
-      required: false,
-      default: 'center',
-      validator: (value: Align) => ALIGN_OPTIONS.includes(value),
-    },
-    alignOffset: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    arrowPadding: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    avoidCollisions: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    collisionBoundary: {
-      type: [Object, Array] as unknown as PropType<Boundary | Boundary[]>,
-      required: false,
-      default: () => [],
-    },
-    collisionPadding: {
-      type: [Number, Object] as unknown as PropType<Padding>,
-      required: false,
-      default: 0,
-    },
-    sticky: {
-      type: String as unknown as PropType<'partial' | 'always'>,
-      required: false,
-      default: 'partial',
-    },
-    hideWhenDetached: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    updatePositionStrategy: {
-      type: String as unknown as PropType<'optimized' | 'always'>,
-      required: false,
-      default: 'optimized',
-    },
-    onPlaced: {
-      type: Function as unknown as PropType<() => void>,
-      required: false,
-      default: undefined,
-    },
-    scopePopper: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    asChild: {
-      type: Boolean,
-      default: false,
-    },
+    ...popperContentProps,
+    ...scopePopperProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, expose, slots }) {
+  setup(props, { attrs, slots }) {
     const {
       side,
       sideOffset,
@@ -137,19 +137,14 @@ const PopperContent = defineComponent({
       hideWhenDetached,
       updatePositionStrategy,
       onPlaced,
-      scopePopper,
     } = toRefs(props)
 
-    const { ...attrsElement } = attrs as PopperContentElement
+    const { ...attrsElement } = attrs as PopperContentIntrinsicElement
 
-    const inject = usePopperInject(CONTENT_NAME, scopePopper.value)
+    const inject = usePopperInject(CONTENT_NAME, props.scopeOkuPopper)
 
     const content = ref<HTMLDivElement | null>(null)
-    const { $el, newRef } = useRef<HTMLDivElement>()
-
-    expose({
-      innerRef: $el,
-    })
+    const composedRefs = useComposedRefs(content, useForwardRef())
 
     const arrow = ref<HTMLSpanElement | null>(null)
     const arrowSize = useSize(arrow)
@@ -207,7 +202,8 @@ const PopperContent = defineComponent({
       ].filter(isDefined) as Middleware[]
     })
 
-    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.value.anchor, newRef, {
+    const refElement = ref()
+    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.anchor, refElement, {
       // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
       strategy: 'fixed',
       placement: desiredPlacement,
@@ -251,28 +247,29 @@ const PopperContent = defineComponent({
     const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffset !== 0)
 
     const contentZIndex = ref()
-    watch(content, () => {
+
+    watchEffect(() => {
       if (content.value)
         contentZIndex.value = window.getComputedStyle(content.value).zIndex
     })
 
-    PopperContentProvider({
+    popperContentProvider({
       arrowX,
       arrowY,
-      scope: scopePopper.value,
+      scope: props.scopeOkuPopper,
       shouldHideArrow: cannotCenterArrow,
       onAnchorChange(anchor: HTMLElement | null) {
         arrow.value = anchor
       },
       arrow,
       placedSide,
-      anchor: inject.value.anchor,
+      anchor: inject.anchor,
     })
 
     const originalReturn = () =>
       h('div',
         {
-          'ref': newRef,
+          'ref': refElement,
           'data-oku-popper-content-wrapper': '',
           'style': {
             'top': floatingTop.value,
@@ -294,6 +291,7 @@ const PopperContent = defineComponent({
               'data-align': placedAlign.value,
               ...attrsElement,
               'asChild': props.asChild,
+              'ref': composedRefs,
               'style': {
                 ...attrsElement.style as any,
                 // if the PopperContent hasn't been placed yet (not all measurements done)
@@ -314,13 +312,11 @@ const PopperContent = defineComponent({
   },
 })
 
-type _PopperContent = MergeProps<PopperContentProps, PopperContentElement>
-
-const OkuPopperContent = PopperContent as typeof PopperContent & (new () => { $props: _PopperContent })
-
-export {
-  OkuPopperContent,
-}
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+export const OkuPopperContent = PopperContent as typeof PopperContent
+& (new () => {
+  $props: ScopePopper<Partial<PopperContentElement>>
+})
 
 export type {
   PopperContentProps,

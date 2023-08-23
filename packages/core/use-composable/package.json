@@ -17,11 +17,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
@@ -36,7 +34,7 @@
   },
   "dependencies": {
     "@oku-ui/utils": "latest",
-    "@vueuse/core": "^10.2.1"
+    "@vueuse/core": "^10.3.0"
   },
   "devDependencies": {
     "@types/resize-observer-browser": "^0.1.7",

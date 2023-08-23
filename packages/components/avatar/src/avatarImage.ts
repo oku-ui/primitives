@@ -1,45 +1,55 @@
-import type { ComponentPublicInstance, PropType } from 'vue'
-import { computed, defineComponent, h, onMounted, ref, watch } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { defineComponent, h, onMounted, toRef, watch } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { useCallbackRef } from '@oku-ui/use-composable'
-import type { ImageLoadingStatus } from './utils'
-import { useImageLoadingStatus } from './utils'
+import { useCallbackRef, useForwardRef } from '@oku-ui/use-composable'
+import type { ImageLoadingStatus, ScopeAvatar } from './utils'
+import { scopeAvatarProps, useImageLoadingStatus } from './utils'
 import { useAvatarInject } from './avatar'
 
-const IMAGE_NAME = 'AvatarImage'
+const IMAGE_NAME = 'OkuAvatarImage'
 
-type AvatarImageElement = ElementType<'img'>
+export type AvatarImageIntrinsicElement = ElementType<'img'>
+export type AvatarImageElement = HTMLImageElement
 
 interface AvatarImageProps extends PrimitiveProps {
   onLoadingStatusChange?: (status: ImageLoadingStatus) => void
   scopeAvatar?: Scope
 }
 
-const AvatarImage = defineComponent({
+const avatarImageProps = {
+  onLoadingStatusChange: {
+    type: Function as unknown as PropType<(status: ImageLoadingStatus) => void>,
+    required: false,
+    default: () => { },
+  },
+  src: {
+    type: String,
+    required: true,
+  },
+}
+
+const avatarImage = defineComponent({
   name: IMAGE_NAME,
   inheritAttrs: false,
   props: {
-    onLoadingStatusChange: {
-      type: Function as unknown as PropType<(status: ImageLoadingStatus) => void>,
-      required: false,
-      default: () => {},
-    },
-    scopeAvatar: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...avatarImageProps,
+    ...scopeAvatarProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, slots, expose }) {
-    const { src, ...imageProps } = attrs as AvatarImageElement
-    const inject = useAvatarInject(IMAGE_NAME, props.scopeAvatar)
-    const innerRef = ref<ComponentPublicInstance>()
+  setup(props, { attrs, slots }) {
+    const src = toRef(props, 'src')
+    const { ...imageAttrs } = attrs as AvatarImageIntrinsicElement
+    const inject = useAvatarInject(IMAGE_NAME, props.scopeOkuAvatar)
+
+    const forwardedRef = useForwardRef()
+
     const imageLoadingStatus = useImageLoadingStatus(src)
 
     const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
       props.onLoadingStatusChange(status)
-      inject.value.onImageLoadingStatusChange(status)
+      inject.onImageLoadingStatusChange(status)
     })
 
     onMounted(() => {
@@ -52,16 +62,13 @@ const AvatarImage = defineComponent({
         handleLoadingStatusChange(newValue)
     })
 
-    expose({
-      innerRef: computed(() => innerRef.value?.$el),
-    })
-
     const originalReturn = () => imageLoadingStatus.value === 'loaded'
       ? h(
         Primitive.img, {
-          ...imageProps,
-          src,
-          ref: innerRef,
+          asChild: props.asChild,
+          ...imageAttrs,
+          src: src.value,
+          ref: forwardedRef,
         },
         {
           default: () => slots.default?.(),
@@ -69,25 +76,16 @@ const AvatarImage = defineComponent({
       )
       : null
 
-    return originalReturn as unknown as {
-      innerRef: AvatarImageElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuAvatarImageProps = MergeProps<AvatarImageProps, AvatarImageElement>
-
-type AvatarImageRef = RefElement<typeof AvatarImage>
-
-const OkuAvatarImage = AvatarImage as typeof AvatarImage & (new () => { $props: _OkuAvatarImageProps })
-
-export {
-  OkuAvatarImage,
-}
+export const OkuAvatarImage = avatarImage as typeof avatarImage &
+(new () => {
+  $props: ScopeAvatar<Partial<AvatarImageElement>>
+})
 
 export type {
   AvatarImageProps,
-  AvatarImageElement,
-  AvatarImageRef,
 }

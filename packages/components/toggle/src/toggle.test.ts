@@ -1,10 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import { mount, shallowMount } from '@vue/test-utils'
-import { ref } from 'vue'
+import { mount } from '@vue/test-utils'
+import type { Component } from 'vue'
+import { h, ref } from 'vue'
 import { OkuToggle } from './toggle'
 
+const component = {
+  setup(props, { attrs, slots }) {
+    return () => h(OkuToggle, { ...attrs }, slots)
+  },
+} as Component
+
 describe('OkuToggle', () => {
-  const wrapper = mount(OkuToggle)
+  const wrapper = mount(component)
 
   it('renders correctly', () => {
     expect(wrapper.html()).toBe(`<button type="button" aria-pressed="false" data-state="off">
@@ -13,7 +20,7 @@ describe('OkuToggle', () => {
   })
 
   it('Active state', () => {
-    const wrapper = shallowMount(OkuToggle, {
+    const wrapper = mount(component, {
       propsData: {
         defaultPressed: true,
       },
@@ -22,7 +29,7 @@ describe('OkuToggle', () => {
   })
 
   it('Inactive state', () => {
-    const wrapper = shallowMount(OkuToggle, {
+    const wrapper = mount(component, {
       propsData: {
         defaultPressed: false,
       },
@@ -31,7 +38,7 @@ describe('OkuToggle', () => {
   })
 
   it('Toggle state', async () => {
-    const wrapper = mount(OkuToggle, {
+    const wrapper = mount(component, {
     })
     await wrapper.trigger('click')
     expect(wrapper.attributes('aria-pressed')).toBe('true')

@@ -1,50 +1,33 @@
 import type {
-  ElementType,
-  MergeProps,
-  PrimitiveProps,
+  ElementType, PrimitiveProps,
 } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
-import { useRef } from '@oku-ui/use-composable'
-import type { PropType } from 'vue'
-import { defineComponent, h, toRefs, toValue } from 'vue'
-import { useSwitchContext } from './Switch'
-import { getState } from './util'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, toValue } from 'vue'
+import { useSwitchInject } from './Switch'
+import type { ScopeSwitch } from './util'
+import { getState, scopeSwitchProps } from './util'
 
-const THUMB_NAME = 'SwitchThumb'
+const THUMB_NAME = 'OkuSwitchThumb'
 
-type SwitchThumbElement = ElementType<'span'>
+export type SwitchThumbIntrinsicElement = ElementType<'span'>
+export type SwitchThumbElement = HTMLSpanElement
 
-type SwitchThumbProps = SwitchThumbElement &
-PrimitiveProps & {
-  scopeSwitch?: Scope
-}
+interface SwitchThumbProps extends PrimitiveProps { }
 
 const SwitchThumb = defineComponent({
   name: THUMB_NAME,
   inheritAttrs: false,
   props: {
-    scopeSwitch: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    asChild: {
-      type: Boolean,
-      default: false,
-    },
+    ...scopeSwitchProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, slots, expose }) {
-    const { scopeSwitch } = toRefs(props)
+  setup(props, { attrs, slots }) {
+    const { ...thumbAttrs } = attrs as SwitchThumbIntrinsicElement
 
-    const { ...thumbAttrs } = attrs as SwitchThumbProps
+    const forwardedRef = useForwardRef()
 
-    const { $el, newRef } = useRef<HTMLSpanElement>()
-
-    const context = toValue(useSwitchContext(THUMB_NAME, scopeSwitch.value))
-
-    expose({
-      innerRef: $el,
-    })
+    const context = toValue(useSwitchInject(THUMB_NAME, props.scopeOkuSwitch))
 
     const originalReturn = () =>
       h(
@@ -52,7 +35,7 @@ const SwitchThumb = defineComponent({
         {
           'data-disabled': context.disabled?.value ? '' : undefined,
           'data-state': getState(context.checked.value),
-          'ref': newRef,
+          'ref': forwardedRef,
           'asChild': props.asChild,
           ...thumbAttrs,
         },
@@ -61,17 +44,13 @@ const SwitchThumb = defineComponent({
         },
       )
 
-    return originalReturn as unknown as {
-      innerRef: SwitchThumbElement
-    }
+    return originalReturn
   },
 })
 
-type _SwitchThumb = MergeProps<SwitchThumbProps, SwitchThumbElement>
-
-const OkuSwitchThumb = SwitchThumb as typeof SwitchThumb &
-(new () => { $props: _SwitchThumb })
-
-export { OkuSwitchThumb }
+export const OkuSwitchThumb = SwitchThumb as typeof SwitchThumb &
+(new () =>
+{ $props: ScopeSwitch<Partial<SwitchThumbElement>>
+})
 
 export type { SwitchThumbProps }

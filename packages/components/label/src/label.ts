@@ -1,27 +1,30 @@
 import { defineComponent, h } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import { useRef } from '@oku-ui/use-composable'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
 
-type LabelElement = ElementType<'label'>
+export type LabelIntrinsicElement = ElementType<'label'>
+export type LabelElement = HTMLLabelElement
+
 interface LabelProps extends PrimitiveProps {}
 
-const NAME = 'Label'
+const NAME = 'OkuLabel'
 
 const label = defineComponent({
   name: NAME,
   inheritAttrs: false,
-  setup(props, { attrs, slots, expose }) {
-    const { $el, newRef } = useRef()
-    const { ...restAttrs } = attrs as LabelElement
+  props: {
+    ...primitiveProps,
+  },
+  setup(props, { attrs, slots }) {
+    const { ...restAttrs } = attrs as LabelIntrinsicElement
 
-    expose({
-      innerRef: $el,
-    })
+    const forwardedRef = useForwardRef()
 
     const originalReturn = () => h(Primitive.label, {
       ...restAttrs,
-      ref: newRef,
+      ref: forwardedRef,
+      asChild: props.asChild,
       onMousedown: (event: MouseEvent) => {
         restAttrs.onMousedown?.(event)
         // prevent text selection when double clicking label
@@ -31,19 +34,18 @@ const label = defineComponent({
     },
     {
       default: () => slots.default?.(),
-    },
-    )
-    return originalReturn as unknown as {
-      innerRef: LabelElement
-    }
+    })
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _LabelProps = MergeProps<LabelProps, LabelElement>
-type LabelRef = RefElement<typeof label>
-
-const OkuLabel = label as typeof label & (new () => { $props: _LabelProps })
-
+const OkuLabel = label as typeof label &
+(new () => {
+  $props: Partial<LabelElement>
+})
 export { OkuLabel }
-export type { LabelProps, LabelElement, LabelRef }
+
+export type {
+  LabelProps,
+}

@@ -33,8 +33,32 @@ const pages: Page[] = [
     path: '/toggle',
   },
   {
+    name: 'OkuTabs',
+    path: '/tabs',
+  },
+  {
     name: 'OkuPopper',
     path: '/popper',
+  },
+  {
+    name: 'OkuCollapsible',
+    path: '/collapsible',
+  },
+  {
+    name: 'OkuSwitch',
+    path: '/switch',
+  },
+  {
+    name: 'OkuSlot',
+    path: '/slot',
+  },
+  {
+    name: 'roving-focus',
+    path: '/roving-focus',
+  },
+  {
+    name: 'OkuRadioGroup',
+    path: '/radio-group',
   },
 ]
 </script>

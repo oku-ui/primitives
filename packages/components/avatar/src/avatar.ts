@@ -1,12 +1,13 @@
-import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import { defineComponent, h, ref } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
+import { useForwardRef } from '@oku-ui/use-composable'
+import type { ScopeAvatar } from './utils'
+import { scopeAvatarProps } from './utils'
 
-const AVATAR_NAME = 'Avatar'
-const [createAvatarProvide, createAvatarScope] = createProvideScope(AVATAR_NAME)
+const AVATAR_NAME = 'OkuAvatar'
+export const [createAvatarProvide, createAvatarScope] = createProvideScope(AVATAR_NAME)
 
 type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
@@ -15,70 +16,55 @@ type AvatarProvideValue = {
   onImageLoadingStatusChange(status: ImageLoadingStatus): void
 }
 
-export const [AvatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvideValue>(AVATAR_NAME)
+export const [avatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvideValue>(AVATAR_NAME)
 
-type AvatarElement = ElementType<'span'>
+export type AvatarIntrinsicElement = ElementType<'span'>
+export type AvatarElement = HTMLSpanElement
 
 interface AvatarProps extends PrimitiveProps {
-  scopeAvatar?: Scope
+
 }
 
-const Avatar = defineComponent({
+const avatar = defineComponent({
   name: AVATAR_NAME,
   inheritAttrs: false,
   props: {
-    scopeAvatar: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...scopeAvatarProps,
   },
-  setup(props, { attrs, slots, expose }) {
-    const { ...avatarProps } = attrs as AvatarElement
-    const innerRef = ref()
+  setup(props, { attrs, slots }) {
+    const { ...avatarProps } = attrs as AvatarIntrinsicElement
+
+    const forwardedRef = useForwardRef()
+
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
-    AvatarProvider({
-      scope: props.scopeAvatar,
+    avatarProvider({
+      scope: props.scopeOkuAvatar,
       imageLoadingStatus: imageLoadingStatus.value,
       onImageLoadingStatusChange: (status: ImageLoadingStatus) => {
         imageLoadingStatus.value = status
       },
     })
 
-    expose({
-      inferRef: computed(() => innerRef.value?.$el),
-    })
-
     const originalReturn = () => h(
       Primitive.span, {
         ...avatarProps,
-        ref: innerRef,
+        ref: forwardedRef,
       },
       {
         default: () => slots.default?.(),
       },
     )
-    return originalReturn as unknown as {
-      innerRef: AvatarElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuAvatarProps = MergeProps<AvatarProps, AvatarElement>
-
-type AvatarRef = RefElement<typeof Avatar>
-
-const OkuAvatar = Avatar as typeof Avatar & (new () => { $props: _OkuAvatarProps })
-
-export {
-  OkuAvatar,
-  createAvatarScope,
-}
+export const OkuAvatar = avatar as typeof avatar &
+(new () => {
+  $props: ScopeAvatar<Partial<AvatarElement>>
+})
 
 export type {
   AvatarProps,
-  AvatarElement,
-  AvatarRef,
-
 }

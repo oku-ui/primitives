@@ -1,39 +1,45 @@
-import type { ComponentPublicInstance, PropType } from 'vue'
-import { computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import { defineComponent, h, onMounted, ref, toRef, watchEffect } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
 import { useAvatarInject } from './avatar'
+import type { ScopeAvatar } from './utils'
+import { scopeAvatarProps } from './utils'
 
 const FALLBACK_NAME = 'OkuAvatarFallback'
 
-type AvatarFallbackElement = ElementType<'span'>
+export type AvatarFallbackIntrinsicElement = ElementType<'span'>
+export type AvatarFalbackElement = HTMLSpanElement
 
 interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number
 }
 
-const AvatarFallback = defineComponent({
+const avatarFallbackProps = {
+  delayMs: {
+    type: Number,
+    required: false,
+  },
+}
+
+const avatarFallback = defineComponent({
   name: FALLBACK_NAME,
   inheritAttrs: false,
   props: {
-    delayMs: {
-      type: Number,
-      required: false,
-    },
-    scopeAvatar: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...avatarFallbackProps,
+    ...scopeAvatarProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, expose, slots }) {
-    const { ...fallbackProps } = attrs as AvatarFallbackProps
-    const provide = useAvatarInject(FALLBACK_NAME, props.scopeAvatar)
-    const canRender = ref(props.delayMs === undefined)
-    const innerRef = ref<ComponentPublicInstance>()
+  setup(props, { attrs, slots }) {
+    const delayMs = toRef(props, 'delayMs')
+    const { ...fallbackAttrs } = attrs as AvatarFallbackIntrinsicElement
+    const provide = useAvatarInject(FALLBACK_NAME, props.scopeOkuAvatar)
+    const canRender = ref(delayMs.value === undefined)
+
+    const forwardedRef = useForwardRef()
 
     onMounted(() => {
-      if (props.delayMs === undefined)
+      if (delayMs.value === undefined)
         canRender.value = true
       else
         canRender.value = false
@@ -41,25 +47,22 @@ const AvatarFallback = defineComponent({
 
     onMounted(() => {
       watchEffect(() => {
-        if (props.delayMs !== undefined) {
+        if (delayMs.value !== undefined) {
           const timerID = window.setTimeout(() => {
             canRender.value = true
-          }, props.delayMs)
+          }, delayMs.value)
           return () => window.clearTimeout(timerID)
         }
       })
     })
 
-    expose({
-      innerRef: computed(() => innerRef.value?.$el),
-    })
-
     const originalReturn = () => {
-      return (canRender.value && (provide.value.imageLoadingStatus !== 'loaded'))
+      return (canRender.value && (provide.imageLoadingStatus !== 'loaded'))
         ? h(
           Primitive.span, {
-            ...fallbackProps,
-            ref: innerRef,
+            ...fallbackAttrs,
+            ref: forwardedRef,
+            asChild: props.asChild,
           },
           {
             default: () => slots.default?.(),
@@ -68,25 +71,16 @@ const AvatarFallback = defineComponent({
         : canRender.value
     }
 
-    return originalReturn as unknown as {
-      innerRef: AvatarFallbackElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuAvatarFallbackProps = MergeProps<AvatarFallbackProps, AvatarFallbackElement>
-
-type AvatarFallbackRef = RefElement<typeof AvatarFallback>
-
-const OkuAvatarFallback = AvatarFallback as typeof AvatarFallback & (new () => { $props: _OkuAvatarFallbackProps })
-
-export {
-  OkuAvatarFallback,
-}
+export const OkuAvatarFallback = avatarFallback as typeof avatarFallback &
+(new () => {
+  $props: ScopeAvatar<Partial<AvatarFalbackElement>>
+})
 
 export type {
   AvatarFallbackProps,
-  AvatarFallbackElement,
-  AvatarFallbackRef,
 }

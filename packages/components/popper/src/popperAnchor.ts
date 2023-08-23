@@ -1,57 +1,57 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, toRefs, watch } from 'vue'
+import { defineComponent, h, ref, toRefs, watch } from 'vue'
 
 import type {
   ElementType,
-  MergeProps,
   PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
-import type { Scope } from '@oku-ui/provide'
-import { useRef } from '@oku-ui/use-composable'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePopperInject } from './popper'
+import type { ScopePopper } from './utils'
+import { scopePopperProps } from './utils'
 
 /* -------------------------------------------------------------------------------------------------
  * PopperAnchor
  * ----------------------------------------------------------------------------------------------- */
 
-const ANCHOR_NAME = 'PopperAnchor'
+const ANCHOR_NAME = 'OkuPopperAnchor'
 
-type PopperAnchorElement = ElementType<'div'>
+export type PopperAnchorIntrinsicElement = ElementType<'div'>
+export type PopperAnchorElement = HTMLDivElement
+
 interface PopperAnchorProps extends PrimitiveProps {
   virtualRef?: Ref<Measurable | null>
-  scopeCheckbox?: Scope
 }
 
-const PopperAnchor = defineComponent({
+const popperAnchorProps = {
+  virtualRef: {
+    type: Object as unknown as PropType<Ref<Measurable | null>>,
+    required: false,
+    default: undefined,
+  },
+}
+
+const popperAnchor = defineComponent({
   name: ANCHOR_NAME,
   inheritAttrs: false,
   props: {
-    virtualRef: {
-      type: Object as unknown as PropType<Ref<Measurable | null>>,
-      required: false,
-      default: undefined,
-    },
-    scopeCheckbox: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-      default: undefined,
-    },
-    asChild: {
-      type: Boolean,
-      default: false,
-    },
+    ...scopePopperProps,
+    ...popperAnchorProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { virtualRef, scopeCheckbox } = toRefs(props)
-    const { ...attrsAnchor } = attrs as PopperAnchorElement
-    const inject = usePopperInject(ANCHOR_NAME, scopeCheckbox.value)
-    const { $el, newRef } = useRef<Measurable>()
+    const { virtualRef } = toRefs(props)
+    const { ...attrsAnchor } = attrs as PopperAnchorIntrinsicElement
+    const inject = usePopperInject(ANCHOR_NAME, props.scopeOkuPopper)
 
-    watch($el, () => {
-      inject.value.anchor.value
-        = virtualRef.value?.value || ($el.value as Measurable)
+    const _ref = ref<HTMLDivElement | null>(null)
+    const composedRefs = useComposedRefs(_ref, useForwardRef())
+
+    watch(_ref, () => {
+      inject.anchor.value
+        = virtualRef.value?.value || (_ref.value as Measurable)
     })
 
     const originalReturn = () =>
@@ -62,7 +62,7 @@ const PopperAnchor = defineComponent({
           {
             ...attrsAnchor,
             asChild: props.asChild,
-            ref: newRef,
+            ref: composedRefs,
           },
           {
             default: () => slots.default && slots.default?.(),
@@ -73,11 +73,9 @@ const PopperAnchor = defineComponent({
   },
 })
 
-type _PopperAnchor = MergeProps<PopperAnchorProps, PopperAnchorElement>
+export const OkuPopperAnchor = popperAnchor as typeof popperAnchor &
+(new () => {
+  $props: ScopePopper<Partial<PopperAnchorElement>>
+})
 
-const OkuPopperAnchor = PopperAnchor as typeof PopperAnchor &
-(new () => { $props: _PopperAnchor })
-
-export { OkuPopperAnchor }
-
-export type { PopperAnchorProps, PopperAnchorElement }
+export type { PopperAnchorProps }

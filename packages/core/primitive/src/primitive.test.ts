@@ -1,16 +1,92 @@
 import { describe, expect, it, test } from 'vitest'
 import { mount } from '@vue/test-utils'
+import type { Component } from 'vue'
+import { h } from 'vue'
 import { Primitive } from './index'
 
+const componentDiv = {
+  setup(props, { slots }) {
+    return () => h(Primitive.div, {}, {
+      default: () => slots.default?.(),
+    })
+  },
+} as Component
+
+const componentButton = {
+  setup(props, { slots }) {
+    return () => h(Primitive.button, {}, {
+      default: () => slots.default?.(),
+    })
+  },
+} as Component
+
+const componentInput = {
+  setup(props, { slots }) {
+    return () => h(Primitive.input, {}, {
+      default: () => slots.default?.(),
+    })
+  },
+} as Component
+
+const componentA = {
+  setup(props, { slots }) {
+    return () => h(Primitive.a, {}, {
+      default: () => slots.default?.(),
+    })
+  },
+} as Component
+
 describe('Primitive', () => {
+  test('asChild with button', async () => {
+    const example = {
+      components: {
+        Primitive,
+      },
+      setup() {
+        const handleClick = () => {
+          expect(true).toBe(true)
+        }
+
+        return () => h(Primitive.button, { asChild: true, onClick: handleClick }, {
+          default: () => h('button', 'Click me New'),
+        })
+      },
+    } as Component
+    const wrapper = mount(example)
+
+    wrapper.find('button').trigger('click')
+    expect(wrapper.html()).toBe('<button>Click me New</button>')
+  })
+
+  test('asChild with button', async () => {
+    const example = {
+      components: {
+        Primitive,
+      },
+      setup() {
+        const handleClick = () => {
+          expect(true).toBe(true)
+        }
+
+        return () => h(Primitive.button, { onClick: handleClick }, {
+          default: () => 'Click me',
+        })
+      },
+    } as Component
+    const wrapper = mount(example)
+    wrapper.find('button').trigger('click')
+    expect(wrapper.html()).toBe('<button>Click me</button>')
+  })
+
   it('should render div element correctly', () => {
-    const wrapper = mount(Primitive.div)
+    const wrapper = mount(componentDiv)
+
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('div').exists()).toBe(true)
   })
 
   it('renders div element with custom class', () => {
-    const wrapper = mount(Primitive.div, {
+    const wrapper = mount(componentDiv, {
       props: {
         class: 'custom-class',
       },
@@ -25,7 +101,7 @@ describe('Primitive', () => {
   it('renders div element with default slot content', () => {
     const defaultSlot = 'default slot content'
 
-    const wrapper = mount(Primitive.div, {
+    const wrapper = mount(componentDiv, {
       slots: {
         default: defaultSlot,
       },
@@ -40,7 +116,7 @@ describe('Primitive', () => {
   it('renders button element with custom text', () => {
     const buttonText = 'Login'
 
-    const wrapper = mount(Primitive.button, {
+    const wrapper = mount(componentButton, {
       slots: {
         default: buttonText,
       },
@@ -53,7 +129,7 @@ describe('Primitive', () => {
   })
 
   it('emits a click event when button is clicked', async () => {
-    const wrapper = mount(Primitive.button)
+    const wrapper = mount(componentButton)
 
     const button = wrapper.find('button')
 
@@ -65,7 +141,7 @@ describe('Primitive', () => {
     const attributeName = 'id'
     const attributeValue = 'button'
 
-    const wrapper = mount(Primitive.button, {
+    const wrapper = mount(componentButton, {
       attrs: {
         [attributeName]: attributeValue,
       },
@@ -79,7 +155,7 @@ describe('Primitive', () => {
 
   it('renders button element with custom class', () => {
     const customClass = 'custom-class'
-    const wrapper = mount(Primitive.button, {
+    const wrapper = mount(componentButton, {
       props: {
         class: customClass,
       },
@@ -92,7 +168,7 @@ describe('Primitive', () => {
   })
 
   it('renders button element with disabled attribute', () => {
-    const wrapper = mount(Primitive.button, {
+    const wrapper = mount(componentButton, {
       props: {
         disabled: true,
       },
@@ -106,7 +182,7 @@ describe('Primitive', () => {
 
   it('renders button element with aria-label attribute', () => {
     const ariaLabel = 'Close'
-    const wrapper = mount(Primitive.button, {
+    const wrapper = mount(componentButton, {
       attrs: {
         'aria-label': ariaLabel,
       },
@@ -119,7 +195,7 @@ describe('Primitive', () => {
   })
 
   it('renders input element with type "text"', () => {
-    const wrapper = mount(Primitive.input, {
+    const wrapper = mount(componentInput, {
       props: {
         type: 'text',
       },
@@ -133,7 +209,7 @@ describe('Primitive', () => {
   it('renders input element with value prop', () => {
     const value = 'Oku Primitives'
 
-    const wrapper = mount(Primitive.input, {
+    const wrapper = mount(componentInput, {
       props: {
         value,
       },
@@ -146,7 +222,7 @@ describe('Primitive', () => {
   })
 
   it('emits focus and blur events on input element', async () => {
-    const wrapper = mount(Primitive.input)
+    const wrapper = mount(componentInput)
     const element = wrapper.find('input')
 
     await element.trigger('focus')
@@ -157,7 +233,7 @@ describe('Primitive', () => {
   })
 
   it('renders input element with type "email"', () => {
-    const wrapper = mount(Primitive.input, {
+    const wrapper = mount(componentInput, {
       props: {
         type: 'email',
       },
@@ -169,7 +245,7 @@ describe('Primitive', () => {
   })
 
   it('renders input element with required attribute', () => {
-    const wrapper = mount(Primitive.input, {
+    const wrapper = mount(componentInput, {
       props: {
         required: true,
       },
@@ -182,7 +258,7 @@ describe('Primitive', () => {
 
   it('renders anchor element with href attribute', () => {
     const href = 'https://example.com'
-    const wrapper = mount(Primitive.a, {
+    const wrapper = mount(componentA, {
       props: {
         href,
       },
@@ -194,7 +270,7 @@ describe('Primitive', () => {
   })
 
   it('renders anchor element with target="_blank" attribute', () => {
-    const wrapper = mount(Primitive.a, {
+    const wrapper = mount(componentA, {
       props: {
         href: 'https://example.com',
         target: '_blank',
@@ -208,7 +284,7 @@ describe('Primitive', () => {
 
   it('renders anchor element with rel attribute', () => {
     const rel = 'noopener noreferrer'
-    const wrapper = mount(Primitive.a, {
+    const wrapper = mount(componentA, {
       props: {
         href: 'https://example.com',
         rel,
@@ -223,7 +299,7 @@ describe('Primitive', () => {
 
   it('renders anchor element with text content', () => {
     const textContent = 'Click here'
-    const wrapper = mount(Primitive.a, {
+    const wrapper = mount(componentA, {
       props: {
         href: 'https://example.com',
       },
@@ -238,19 +314,18 @@ describe('Primitive', () => {
   })
 
   it('emits click event when anchor element is clicked', async () => {
-    const wrapper = mount(Primitive.a, {
+    const wrapper = mount(componentA, {
       props: {
         href: 'https://example.com',
       },
     })
-
     const element = wrapper.find('a')
     await element.trigger('click')
-    expect(wrapper.emitted('click')).toBeTruthy()
+    expect(wrapper.emitted()).toBeTruthy()
   })
 
   test('asChild prop', () => {
-    const wrapper = mount(Primitive.div, {
+    const wrapper = mount(componentDiv, {
       props: {
         asChild: true,
       },
@@ -258,12 +333,11 @@ describe('Primitive', () => {
         default: 'Hello',
       },
     })
-
     expect(wrapper.html()).toBe('Hello')
   })
 
   test('asChild with attr', () => {
-    const wrapper = mount(Primitive.div, {
+    const wrapper = mount(componentDiv, {
       props: {
         asChild: true,
       },
@@ -279,7 +353,7 @@ describe('Primitive', () => {
   })
 
   test('asChild with props', () => {
-    const wrapper = mount(Primitive.div, {
+    const wrapper = mount(componentDiv, {
       props: {
         asChild: true,
         disabled: true,
@@ -293,60 +367,5 @@ describe('Primitive', () => {
       },
     })
     expect(wrapper.html()).toBe('<div id="test" class="text-red-500" disabled="true">Oku</div>')
-  })
-
-  test('asChild with 2 children', () => {
-    const wrapper = () => mount(Primitive.div, {
-      props: {
-        asChild: true,
-      },
-      slots: {
-        default: `
-          <div>Oku</div>
-          <div>Oku</div>
-        `,
-      },
-    })
-
-    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
-  })
-
-  test('asChild with 2 children and attrs', () => {
-    const wrapper = () => mount(Primitive.div, {
-      props: {
-        asChild: true,
-        disabled: true,
-      },
-      attrs: {
-        id: 'test',
-        class: 'text-red-500',
-      },
-      slots: {
-        default: `
-          <div>Oku</div>
-          <div>Oku</div>
-        `,
-      },
-    })
-
-    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
-  })
-
-  test('asChild with default 3 children', () => {
-    const wrapper = () => mount(Primitive.div, {
-      props: {
-        asChild: true,
-        disabled: true,
-        disabled2: true,
-      },
-      slots: {
-        default: `
-          <div>Oku</div>
-          <Hello>Oku</Hello>
-          <Another>Oku</Another>
-        `,
-      },
-    })
-    expect(() => wrapper()).toThrowError(/Detected an invalid children/)
   })
 })

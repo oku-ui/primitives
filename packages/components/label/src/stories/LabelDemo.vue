@@ -1,7 +1,5 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { LabelRef } from '@oku-ui/label'
 import { OkuLabel } from '@oku-ui/label'
 
 export interface OkuLabelProps {
@@ -15,9 +13,9 @@ withDefaults(defineProps<OkuLabelProps>(), {
   template: '#1',
 })
 
-const labelRef = ref<LabelRef>()
+const labelRef = ref()
 onMounted(() => {
-  console.log(labelRef.value?.innerRef)
+  console.log(labelRef.value)
 })
 const alert = () => window.alert('clicked')
 </script>

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { ToggleProps } from '@oku-ui/toggle'
 import { OkuToggle } from '@oku-ui/toggle'
 
 import { ref } from 'vue'
 
-export interface IToggleProps extends ToggleProps {
+export interface IToggleProps {
   template?: '#1' | '#2' | '#3'
   allShow?: boolean
 }
