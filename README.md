@@ -54,7 +54,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Toggle Group](https://github.com/oku-ui/primitives/issues/26) | A group of toggle buttons | Not Started | -  |
 | [Toolbar](https://github.com/oku-ui/primitives/issues/27) | A group of toolbar buttons | Not Started | -  |
 | [Tooltip](https://github.com/oku-ui/primitives/issues/28) | A card that appears when a user hovers over an element | Not Started | -  |
-
+[Primitives](https://oku-ui.com/primitives) | <span><a href="https://www.npmjs.com/package/@oku-ui/primitives "><img src="https://img.shields.io/npm/v/@oku-ui/primitives?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/primitives"> <img src="https://img.shields.io/npm/dm/@oku-ui/primitives?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/primitives"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
 
 ## Community
 
