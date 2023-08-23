@@ -3,10 +3,7 @@ import {
   useEscapeKeydown,
   useForwardRef,
 } from '@oku-ui/use-composable'
-import type {
-  ElementType,
-  PrimitiveProps,
-} from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Ref } from 'vue'
 import {
@@ -20,7 +17,12 @@ import {
 } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { ScopeDismissableLayer } from './util'
-import { dispatchUpdate, scopeDismissableLayerProps, useFocusOutside, usePointerDownOutside } from './util'
+import {
+  dispatchUpdate,
+  scopeDismissableLayerProps,
+  useFocusOutside,
+  usePointerDownOutside,
+} from './util'
 
 /* -------------------------------------------------------------------------------------------------
  * DismissableLayer
@@ -117,11 +119,12 @@ const DismissableLayer = defineComponent({
      */
     escapeKeyDown: (event: KeyboardEvent) => true,
     /**
-    * Event handler called when an interaction happens outside the `DismissableLayer`.
-    * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
-    * Can be prevented.
-    */
-    interactOutside: (event: PointerDownOutsideEvent | FocusOutsideEvent) => true,
+     * Event handler called when an interaction happens outside the `DismissableLayer`.
+     * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
+     * Can be prevented.
+     */
+    interactOutside: (event: PointerDownOutsideEvent | FocusOutsideEvent) =>
+      true,
     /**
      * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
      * Can be prevented.
@@ -141,9 +144,7 @@ const DismissableLayer = defineComponent({
     pointerDownCapture: (event: PointerDownCaptureEvent) => true,
   },
   setup(props, { attrs, emit, slots }) {
-    const {
-      disableOutsidePointerEvents,
-    } = toRefs(props)
+    const { disableOutsidePointerEvents } = toRefs(props)
 
     const { ...dismissableLayerAttrs } = attrs
 
@@ -238,10 +239,8 @@ const DismissableLayer = defineComponent({
 
       emit('escapeKeyDown', event)
 
-      if (!event.defaultPrevented && props.onDismiss) {
-        event.preventDefault()
+      if (!event.defaultPrevented)
         emit('dismiss')
-      }
     }, ownerDocument.value)
 
     watchEffect((onInvalidate) => {
@@ -312,18 +311,12 @@ const DismissableLayer = defineComponent({
               : undefined,
             ...(dismissableLayerAttrs.style as CSSPropertyRule),
           },
-          onFocusCapture: composeEventHandlers <FocusCaptureEvent>(
-            (e) => {
-              emit('focusCapture', e)
-            },
-            focusOutside.onFocusCapture,
-          ),
-          onBlurCapture: composeEventHandlers <FocusBlurCaptureEvent>(
-            (e) => {
-              emit('blurCapture', e)
-            },
-            focusOutside.onBlurCapture,
-          ),
+          onFocusCapture: composeEventHandlers<FocusCaptureEvent>((e) => {
+            emit('focusCapture', e)
+          }, focusOutside.onFocusCapture),
+          onBlurCapture: composeEventHandlers<FocusBlurCaptureEvent>((e) => {
+            emit('blurCapture', e)
+          }, focusOutside.onBlurCapture),
           onPointerDownCapture: composeEventHandlers<PointerDownCaptureEvent>(
             (e) => {
               emit('pointerDownCapture', e)
