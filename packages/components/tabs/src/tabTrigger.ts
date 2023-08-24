@@ -13,22 +13,36 @@ export type TabsTriggerElement = HTMLButtonElement
 
 const TAB_TRIGGER_NAME = 'OkuTabTrigger' as const
 
-interface TabsTriggerProps extends PrimitiveProps {
+export interface TabsTriggerProps extends PrimitiveProps {
   value: string
   disabled?: boolean
-  onMousedown?: (event: MouseEvent) => void
-  onKeydown?: (event: KeyboardEvent) => void
-  onFocus?: (event: FocusEvent) => void
 }
 
-const tabsTriggerProps = {
-  value: {
-    type: String as PropType<string>,
-    required: true,
+export type TabsTriggerEmits = {
+  'mousedown': [event: MouseEvent]
+  'keydown': [event: KeyboardEvent]
+  'focus': [event: FocusEvent]
+}
+
+export const tabsTriggerProps = {
+  props: {
+    value: {
+      type: String as PropType<string>,
+      required: true,
+    },
+    disabled: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    ...primitiveProps,
   },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    default: false,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    mousedown: (e: MouseEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    keydown: (e: KeyboardEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focus: (e: FocusEvent) => true,
   },
 }
 
@@ -36,15 +50,10 @@ const TabTrigger = defineComponent({
   name: TAB_TRIGGER_NAME,
   inheritAttrs: false,
   props: {
-    ...tabsTriggerProps,
+    ...tabsTriggerProps.props,
     ...scopeTabsProps,
-    ...primitiveProps,
   },
-  emits: {
-    mousedown: (e: MouseEvent) => true,
-    keydown: (e: KeyboardEvent) => true,
-    focus: (e: FocusEvent) => true,
-  },
+  emits: tabsTriggerProps.emits,
   setup(props, { slots, attrs, emit }) {
     const { scopeOkuTabs, value, disabled } = toRefs(props)
     const { ...triggerAttrs } = attrs
@@ -118,5 +127,3 @@ export const OkuTabTrigger = TabTrigger as typeof TabTrigger &
 (new () => {
   $props: ScopeTabs<Partial<TabsTriggerElement>>
 })
-
-export type { TabsTriggerProps }

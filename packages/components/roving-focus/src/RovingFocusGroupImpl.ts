@@ -1,13 +1,13 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, unref, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { ElementType } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { Direction, Orientation, ScopeRovingFocus } from './utils'
-import { focusFirst } from './utils'
+import type { RovingFocusGroupOptions, ScopeRovingFocus } from './utils'
+import { focusFirst, rovingFocusGroupOptionsProps } from './utils'
 import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
 import { scopedProps } from './types'
 
@@ -17,75 +17,48 @@ const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 export type RovingFocusGroupImplIntrinsicElement = ElementType<'div'>
 export type RovingFocusGroupImplElement = HTMLDivElement
 
-interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
-  currentTabStopId?: Ref<string | null>
+export interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
+  currentTabStopId?: string | null
   defaultCurrentTabStopId?: string
-  onCurrentTabStopIdChange?: (tabStopId: string | null) => void
-  onEntryFocus?: (event: Event) => void
-  onMousedown?: (event: MouseEvent) => void
-  onFocus?: (event: FocusEvent) => void
-  onBlur?: (event: FocusEvent) => void
-  isChangedFocusableItemAdd?: number
-  isChangedFocusableItemRemove?: number
 }
 
-export const rovingFocusGroupImplElementProps = {
-  currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
-  defaultCurrentTabStopId: String,
-}
-
-export interface RovingFocusGroupOptions extends PrimitiveProps {
-  /**
-   * The orientation of the group.
-   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
-   */
-  orientation?: Orientation
-  /**
-   * The direction of navigation between items.
-   */
-  dir?: Direction
-  /**
-   * Whether keyboard navigation should loop around
-   * @defaultValue false
-   */
-  loop?: boolean
-}
-
-export const rovingFocusGroupOptionsProps = {
-  orientation: {
-    type: String as PropType<Orientation | undefined>,
-    default: undefined,
-  },
-  dir: {
-    type: String as PropType<Direction | undefined>,
-    default: undefined,
-  },
-  loop: {
-    type: Boolean,
-    default: false,
-  },
+export type RovingFocusGroupImplEmits = {
+  currentTabStopIdChange: [tabStopId: string | null]
+  entryFocus: [event: Event]
+  mousedown: [event: MouseEvent]
+  focus: [event: FocusEvent]
+  blur: [event: FocusEvent]
 }
 
 export const rovingFocusGroupImplProps = {
-  ...rovingFocusGroupImplElementProps,
-  ...rovingFocusGroupOptionsProps,
+  props: {
+    currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
+    defaultCurrentTabStopId: String,
+    ...rovingFocusGroupOptionsProps.props,
+  },
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    entryFocus: (event: Event) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    currentTabStopIdChange: (tabStopId: string | null) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    mousedown: (event: MouseEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focus: (event: FocusEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    blur: (event: FocusEvent) => true,
+  },
 }
 
 const RovingFocusGroupImpl = defineComponent({
   name: 'OkuRovingFocusGroupImpl',
   inheritAttrs: false,
   props: {
-    ...rovingFocusGroupImplProps,
+    ...rovingFocusGroupImplProps.props,
     ...primitiveProps,
     ...scopedProps,
   },
-  emits: {
-    entryFocus: (event: Event) => true,
-    currentTabStopIdChange: (tabStopId: string | null) => true,
-    mousedown: (event: MouseEvent) => true,
-    focus: (event: FocusEvent) => true,
-    blur: (event: FocusEvent) => true,
-  },
+  emits: rovingFocusGroupImplProps.emits,
   setup(props, { attrs, slots, emit }) {
     const _attrs = attrs as Omit<RovingFocusGroupImplIntrinsicElement, 'dir'>
     const {
@@ -204,7 +177,3 @@ export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocu
 (new () => {
   $props: ScopeRovingFocus<Partial<RovingFocusGroupImplElement>>
 })
-
-export type {
-  RovingFocusGroupImplProps,
-}

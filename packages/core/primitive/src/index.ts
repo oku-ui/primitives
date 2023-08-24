@@ -15,3 +15,5 @@ export { primitiveProps, renderSlotFragments } from './utils'
 export { dispatchDiscreteCustomEvent } from './utils'
 
 export type { AriaAttributes } from './types'
+
+export { omit as propsOmit, pick as propsPick } from 'filter-anything'

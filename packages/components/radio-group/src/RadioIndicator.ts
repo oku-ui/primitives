@@ -1,4 +1,5 @@
-import { type ElementType, Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
@@ -12,7 +13,7 @@ const INDICATOR_NAME = 'OkuRadioIndicator'
 export type RadioIndicatorIntrinsicElement = ElementType<'span'>
 export type RadioIndicatorElement = HTMLSpanElement
 
-interface RadioIndicatorProps {
+export interface RadioIndicatorProps extends PrimitiveProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -20,10 +21,13 @@ interface RadioIndicatorProps {
   forceMount?: true
 }
 
-const RadioIndicatorPropsObject = {
-  forceMount: {
-    type: Boolean as PropType<true | undefined>,
-    default: undefined,
+export const radioIndicatorProps = {
+  props: {
+    forceMount: {
+      type: Boolean as PropType<true | undefined>,
+      default: undefined,
+    },
+    ...primitiveProps,
   },
 }
 
@@ -31,9 +35,8 @@ const RadioIndicator = defineComponent({
   name: INDICATOR_NAME,
   inheritAttrs: false,
   props: {
-    ...RadioIndicatorPropsObject,
+    ...radioIndicatorProps.props,
     ...scopeRadioProps,
-    ...primitiveProps,
   },
   setup(props, { attrs }) {
     const { forceMount, scopeOkuRadio } = toRefs(props)
@@ -59,7 +62,5 @@ const RadioIndicator = defineComponent({
 
 export const OkuRadioIndicator = RadioIndicator as typeof RadioIndicator &
 (new () => {
-  $props: ScopeRadio<Partial<RadioIndicatorElement>>
+  $props: ScopeRadio<Partial<RadioIndicatorIntrinsicElement>>
 })
-
-export type { RadioIndicatorProps }

@@ -1,11 +1,10 @@
-import { primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, useModel } from 'vue'
 import type { PropType } from 'vue'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ScopeToggleGroup } from './utils'
 import { scopeToggleGroupProps } from './utils'
-import { OkuToggleGroupImpl, type ToggleGroupImplElement, type ToggleGroupImplIntrinsicElement, type ToggleGroupImplProps, toggleGroupImplPropsObject } from './ToggleGroupImpl'
+import { OkuToggleGroupImpl, type ToggleGroupImplElement, type ToggleGroupImplIntrinsicElement, type ToggleGroupImplProps, toggleGroupImplProps } from './ToggleGroupImpl'
 import { toggleGroupValueProvider } from './ToggleGroup'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupImplMultiple'
@@ -13,7 +12,7 @@ const TOGGLE_GROUP_NAME = 'OkuToggleGroupImplMultiple'
 export type ToggleGroupImplMultipleIntrinsicElement = ToggleGroupImplIntrinsicElement
 export type ToggleGroupImplMultipleElement = ToggleGroupImplElement
 
-interface ToggleGroupImplMultipleProps extends ToggleGroupImplProps {
+export interface ToggleGroupImplMultipleProps extends ToggleGroupImplProps {
   /**
    * The controlled stateful value of the items that are pressed.
    */
@@ -30,33 +29,37 @@ interface ToggleGroupImplMultipleProps extends ToggleGroupImplProps {
 }
 
 export const toggleGroupImplMultipleProps = {
-  modelValue: {
-    type: [Array] as PropType<string[] | undefined>,
-    default: undefined,
+  props: {
+    modelValue: {
+      type: [Array] as PropType<string[] | undefined>,
+      default: undefined,
+    },
+    value: {
+      type: [Array] as PropType<string[] | undefined>,
+      default: undefined,
+    },
+    defaultValue: {
+      type: [Array] as PropType<string[] | undefined>,
+      default: undefined,
+    },
+    ...toggleGroupImplProps.props,
   },
-  value: {
-    type: [Array] as PropType<string[] | undefined>,
-    default: undefined,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: string[]) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'valueChange': (value: string[]) => true,
   },
-  defaultValue: {
-    type: [Array] as PropType<string[] | undefined>,
-    default: undefined,
-  },
-  ...toggleGroupImplPropsObject,
 }
 
 const toggleGroupImplMultiple = defineComponent({
   name: TOGGLE_GROUP_NAME,
   inheritAttrs: false,
   props: {
-    ...toggleGroupImplMultipleProps,
+    ...toggleGroupImplMultipleProps.props,
     ...scopeToggleGroupProps,
-    ...primitiveProps,
   },
-  emits: {
-    'update:modelValue': (value: string[]) => true,
-    'valueChange': (value: string[]) => true,
-  },
+  emits: toggleGroupImplMultipleProps.emits,
   setup(props, { emit, attrs, slots }) {
     const {
       value: valueProp,
@@ -114,5 +117,3 @@ export const OkuToggleGroupImplMultiple = toggleGroupImplMultiple as typeof togg
 (new () => {
   $props: ScopeToggleGroup<Partial<ToggleGroupImplMultipleElement>>
 })
-
-export type { ToggleGroupImplMultipleProps }

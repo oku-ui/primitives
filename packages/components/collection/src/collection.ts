@@ -4,21 +4,22 @@ import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 
-const CollectionProps = {
+export const collectionProps = {
   scope: { type: null, required: false },
 }
-interface CollectionPropsType {
+
+export interface CollectionPropsType {
   scope: any
 }
 
-type CollectionElement = HTMLElement
+export type CollectionElement = HTMLElement
 
 // We have resorted to returning slots directly rather than exposing primitives that can then
 // be slotted like `<CollectionItem as={Slot}>…</CollectionItem>`.
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
+export function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
  * CollectionProvider
  * --------------------------------------------------------------------------------------------- */
@@ -42,7 +43,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     name: PROVIDER_NAME,
     inheritAttrs: false,
     props: {
-      ...CollectionProps,
+      ...collectionProps,
     },
     setup(props, { slots }) {
       const collectionRef = ref<ItemElement>()
@@ -69,7 +70,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     },
     inheritAttrs: false,
     props: {
-      ...CollectionProps,
+      ...collectionProps,
       ...ItemData,
     },
     setup(props, { slots }) {
@@ -94,7 +95,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     },
     inheritAttrs: false,
     props: {
-      ...CollectionProps,
+      ...collectionProps,
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
@@ -149,7 +150,3 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     createCollectionScope,
   }
 }
-
-export { createCollection, CollectionProps }
-
-export type { CollectionElement, CollectionPropsType }

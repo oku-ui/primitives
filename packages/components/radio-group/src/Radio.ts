@@ -25,36 +25,47 @@ export const [radioProvider, useRadioInject] = createRadioProvide<RadioProvideVa
 export type RadioIntrinsicIntrinsicElement = ElementType<'button'>
 export type RadioElement = HTMLButtonElement
 
-interface RadioProps {
+export interface RadioProps {
   checked?: boolean
   required?: boolean
   disabled?: boolean
   value?: string
   name?: string
-  onCheck?(): void
-  onClick?(): (event: MouseEvent) => void
 }
 
-export const radioPropsObject = {
-  checked: {
-    type: Boolean as PropType<boolean>,
-    default: false,
+export type RadioEmits = {
+  check: []
+  click: (event: MouseEvent) => void
+}
+
+export const radioProps = {
+  props: {
+    checked: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    required: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    disabled: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    name: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+    value: {
+      type: String as PropType<string>,
+      default: 'on',
+    },
+    ...primitiveProps,
   },
-  required: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: undefined,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: undefined,
-  },
-  name: {
-    type: String as PropType<string | undefined>,
-    default: undefined,
-  },
-  value: {
-    type: String as PropType<string>,
-    default: 'on',
+  emits: {
+    check: () => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (event: MouseEvent) => true,
   },
 }
 
@@ -62,14 +73,10 @@ const Radio = defineComponent({
   name: RADIO_NAME,
   inheritAttrs: false,
   props: {
-    ...radioPropsObject,
+    ...radioProps.props,
     ...scopeRadioProps,
-    ...primitiveProps,
   },
-  emits: {
-    check: () => true,
-    click: (event: MouseEvent) => true,
-  },
+  emits: radioProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
       checked,
@@ -152,5 +159,3 @@ export const OkuRadio = Radio as typeof Radio &
 (new () => {
   $props: ScopeRadio<Partial<RadioElement>>
 })
-
-export type { RadioProps }

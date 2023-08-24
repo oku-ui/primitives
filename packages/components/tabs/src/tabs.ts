@@ -3,13 +3,14 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
+import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
 import type { ScopeTabs } from './utils'
 import { scopeTabsProps } from './utils'
 
-const TAB_NAME = 'OkuTab' as const
+const TAB_NAME = 'OkuTab'
 
 export type TabsIntrinsicElement = ElementType<'div'>
 export type TabsElement = HTMLDivElement
@@ -22,50 +23,23 @@ type Direction = 'ltr' | 'rtl'
  * */
 type ActivationMode = 'automatic' | 'manual'
 
-interface TabsProps extends PrimitiveProps {
+export interface TabsProps extends PrimitiveProps {
   /** The value for the selected tab, if controlled */
   value?: string
-  /**
-   * The default value of the tab.
-   * @default 'tab1'
-   * @type string
-   * @example
-   * ```vue
-   * <OkuTabs defaultValue="tab1">
-      // ...
-   * </OkuTabs>
-   * ```
-   * @see link-to-oku-docs/tab
-   */
+  /** The value of the tab to select by default, if uncontrolled */
   defaultValue?: string
-  /**
-   * The callback function that is called when the tab value changes.
-   * @default () => {}
-   * @type (value: string) => void
-   * @example
-   * ```vue
-   * <OkuTabs onValueChange={(value) => console.log(value)}>
-      //  ...
-   * </OkuTabs>
-   * */
+  /** A function called when a new tab is selected */
   onValueChange?: (value: string) => void
   /**
-   * The orientation of the tabs.
-   * @default 'horizontal'
-   * @type 'horizontal' | 'vertical'
-   * @example
-   * ```vue
-   * <OkuTabs orientation="horizontal">
-     // ...
-   * </OkuTabs>
-   * ```
-   * @see link-to-oku-docs/tab
-   * */
-  orientation?: Orientation
+   * The orientation the tabs are layed out.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   * @defaultValue horizontal
+   */
+  orientation?: RovingFocusGroupProps['orientation']
   /**
    * The direction of navigation between toolbar items.
    */
-  dir?: Direction
+  dir?: RovingFocusGroupProps['dir']
   /**
    * Whether a tab is activated automatically or manually.
    * @defaultValue automatic
@@ -73,36 +47,46 @@ interface TabsProps extends PrimitiveProps {
   activationMode?: ActivationMode
 }
 
-const tabsProps = {
-  value: {
-    type: String as PropType<string>,
-    required: false,
+export type TabsEmits = {
+  'update:modelValue': [value: string]
+  'valueChange': [value: string]
+}
+
+export const tabsProps = {
+  props: {
+    value: {
+      type: String as PropType<string>,
+      required: false,
+    },
+    defaultValue: {
+      type: String as PropType<string>,
+      default: undefined,
+    },
+    orientation: {
+      type: String as PropType<Orientation>,
+      default: 'horizontal',
+    },
+    dir: {
+      type: String as PropType<Direction>,
+      default: 'ltr',
+      required: false,
+    },
+    activationMode: {
+      type: String as PropType<ActivationMode>,
+      default: 'automatic',
+      required: false,
+    },
+    modelValue: {
+      type: String as PropType<string>,
+      required: false,
+    },
+    ...primitiveProps,
   },
-  defaultValue: {
-    type: String as PropType<string>,
-    default: undefined,
-  },
-  orientation: {
-    type: String as PropType<Orientation>,
-    default: 'horizontal',
-  },
-  dir: {
-    type: String as PropType<Direction>,
-    default: 'ltr',
-    required: false,
-  },
-  activationMode: {
-    type: String as PropType<ActivationMode>,
-    default: 'automatic',
-    required: false,
-  },
-  modelValue: {
-    type: String as PropType<string>,
-    required: false,
-  },
-  onValueChange: {
-    type: Function as PropType<(value: string) => void>,
-    required: false,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'valueChange': (value: string) => true,
   },
 }
 
@@ -128,15 +112,13 @@ const tabs = defineComponent({
   name: TAB_NAME,
   inheritAttrs: false,
   props: {
-    ...tabsProps,
+    ...tabsProps.props,
     ...scopeTabsProps,
-    ...primitiveProps,
   },
-  emits: ['update:modelValue'],
+  emits: tabsProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
       value: valueProp,
-      onValueChange,
       defaultValue,
       orientation,
       dir,
@@ -154,7 +136,7 @@ const tabs = defineComponent({
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: any) => {
         emit('update:modelValue', result)
-        onValueChange.value?.(result)
+        emit('valueChange', result)
       },
     })
 
@@ -182,11 +164,7 @@ const tabs = defineComponent({
   },
 })
 
-const OkuTabs = tabs as typeof tabs &
+export const OkuTabs = tabs as typeof tabs &
 (new () => {
   $props: ScopeTabs<Partial<TabsElement>>
 })
-
-export { OkuTabs }
-
-export type { TabsProps }

@@ -1,4 +1,4 @@
-import { primitiveProps } from '@oku-ui/primitive'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 
@@ -17,23 +17,24 @@ interface ToggleGroupItemProps extends Omit<ToggleGroupItemImplProps, 'pressed'>
 
 }
 
-const { pressed, ...omitToggleGroupItemImplProps } = toggleGroupItemImplProps
-const toggleGroupItemPropsObject = {
-  ...omitToggleGroupItemImplProps,
+export const toggleGroupItemProps = {
+  props: {
+    ...propsOmit(toggleGroupItemImplProps.props, ['pressed']),
+    ...primitiveProps,
+  },
+  emits: {
+    ...toggleGroupItemImplProps.emits,
+  },
 }
 
 const toggleGroupItem = defineComponent({
   name: TOGGLE_ITEM_NAME,
   inheritAttrs: false,
   props: {
-    ...toggleGroupItemPropsObject,
+    ...toggleGroupItemProps.props,
     ...scopeToggleGroupProps,
-    ...primitiveProps,
   },
-  emits: {
-    'update:modelValue': (value: string) => true,
-    'valueChange': (value: string) => true,
-  },
+  emits: toggleGroupItemProps.emits,
   setup(props, { slots, emit, attrs }) {
     const { value, disabled } = toRefs(props)
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
@@ -65,6 +66,9 @@ const toggleGroupItem = defineComponent({
         default: () => h(OkuToggleGroupItemImpl, {
           ...commonProps.value,
           ref: forwardedRef,
+          onClick: (e) => {
+            emit('click', e)
+          },
         }, slots),
       })
       : h(OkuToggleGroupItemImpl, {
