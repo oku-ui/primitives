@@ -13,7 +13,7 @@ const TAB_CONTENT_NAME = 'OkuTabContent' as const
 export type TabsContentIntrinsicElement = ElementType<'div'>
 export type TabsContentElement = HTMLDivElement
 
-interface TabsContentProps extends PrimitiveProps {
+export interface TabsContentProps extends PrimitiveProps {
   value: string
 
   /**
@@ -23,14 +23,17 @@ interface TabsContentProps extends PrimitiveProps {
   forceMount?: true
 }
 
-const tabsContentProps = {
-  value: {
-    type: String as PropType<string>,
-    required: true,
-  },
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    default: false,
+export const tabsContentProps = {
+  props: {
+    value: {
+      type: String as PropType<string>,
+      required: true,
+    },
+    forceMount: {
+      type: Boolean as PropType<true | undefined>,
+      default: false,
+    },
+    ...primitiveProps,
   },
 }
 
@@ -38,8 +41,7 @@ const TabContent = defineComponent({
   name: TAB_CONTENT_NAME,
   inheritAttrs: false,
   props: {
-    ...tabsContentProps,
-    ...primitiveProps,
+    ...tabsContentProps.props,
     ...scopeTabsProps,
   },
   setup(props, { slots, attrs }) {
@@ -87,5 +89,3 @@ export const OkuTabContent = TabContent as typeof TabContent &
 (new () => {
   $props: ScopeTabs<Partial<TabsContentElement>>
 })
-
-export type { TabsContentProps }

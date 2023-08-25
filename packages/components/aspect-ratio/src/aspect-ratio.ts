@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'vue'
+import type { CSSProperties, PropType } from 'vue'
 import { defineComponent, h, toRef } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -9,18 +9,25 @@ export type AspectRatioElement = HTMLDivElement
 
 const NAME = 'OkuAspectRatio'
 
-interface AspectRatioProps extends PrimitiveProps {
+export interface AspectRatioProps extends PrimitiveProps {
   ratio?: number
+}
+
+export const aspectRatioProps = {
+  props: {
+    ratio: {
+      type: Number as PropType<number>,
+      default: 1 / 1,
+    },
+  },
+  emits: {},
 }
 
 const AspectRatio = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ratio: {
-      type: Number,
-      default: 1 / 1,
-    },
+    ...aspectRatioProps.props,
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
@@ -69,5 +76,3 @@ export const OkuAspectRatio = AspectRatio as typeof AspectRatio &
 (new () => {
   $props: Partial<AspectRatioElement>
 })
-
-export type { AspectRatioProps }

@@ -12,24 +12,22 @@ import { usePopperInject } from './popper'
 import type { ScopePopper } from './utils'
 import { scopePopperProps } from './utils'
 
-/* -------------------------------------------------------------------------------------------------
- * PopperAnchor
- * ----------------------------------------------------------------------------------------------- */
-
 const ANCHOR_NAME = 'OkuPopperAnchor'
 
 export type PopperAnchorIntrinsicElement = ElementType<'div'>
 export type PopperAnchorElement = HTMLDivElement
 
-interface PopperAnchorProps extends PrimitiveProps {
+export interface PopperAnchorProps extends PrimitiveProps {
   virtualRef?: Ref<Measurable | null>
 }
 
-const popperAnchorProps = {
-  virtualRef: {
-    type: Object as unknown as PropType<Ref<Measurable | null>>,
-    required: false,
-    default: undefined,
+export const popperAnchorProps = {
+  props: {
+    virtualRef: {
+      type: Object as unknown as PropType<Ref<Measurable | null>>,
+      required: false,
+      default: undefined,
+    },
   },
 }
 
@@ -37,8 +35,8 @@ const popperAnchor = defineComponent({
   name: ANCHOR_NAME,
   inheritAttrs: false,
   props: {
+    ...popperAnchorProps.props,
     ...scopePopperProps,
-    ...popperAnchorProps,
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
@@ -47,7 +45,8 @@ const popperAnchor = defineComponent({
     const inject = usePopperInject(ANCHOR_NAME, props.scopeOkuPopper)
 
     const _ref = ref<HTMLDivElement | null>(null)
-    const composedRefs = useComposedRefs(_ref, useForwardRef())
+    const forwardedRef = useForwardRef()
+    const composedRefs = useComposedRefs(_ref, forwardedRef)
 
     watch(_ref, () => {
       inject.anchor.value
@@ -77,5 +76,3 @@ export const OkuPopperAnchor = popperAnchor as typeof popperAnchor &
 (new () => {
   $props: ScopePopper<Partial<PopperAnchorElement>>
 })
-
-export type { PopperAnchorProps }

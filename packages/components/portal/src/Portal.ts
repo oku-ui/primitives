@@ -13,21 +13,29 @@ const PORTAL_NAME = 'OkuPortal'
 export type PortalElementIntrinsicElement = ElementType<'div'>
 export type PortalElement = HTMLDivElement
 
-interface PortalProps extends PrimitiveProps {
+export interface PortalProps extends PrimitiveProps {
   /**
    * An optional container where the portaled content should be appended.
    */
   container?: HTMLElement | null
 }
 
-const portal = defineComponent({
-  name: PORTAL_NAME,
-  inheritAttrs: false,
+export const portalProps = {
   props: {
+    ...primitiveProps,
     container: {
       type: Object as () => HTMLElement | null | undefined,
       default: () => globalThis.document.body,
     },
+  },
+  emits: {},
+}
+
+const portal = defineComponent({
+  name: PORTAL_NAME,
+  inheritAttrs: false,
+  props: {
+    ...portalProps.props,
     ...primitiveProps,
   },
   setup(props, { slots, attrs }) {
@@ -56,7 +64,5 @@ const portal = defineComponent({
 
 export const OkuPortal = portal as typeof portal &
 (new () => {
-  $props: Partial<PortalElement>
+  $props: Partial<PortalElementIntrinsicElement>
 })
-
-export type { PortalProps }

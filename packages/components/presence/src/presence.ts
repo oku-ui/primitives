@@ -1,14 +1,19 @@
+import type { ComputedRef } from 'vue'
 import { cloneVNode, defineComponent, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePresence } from './usePresence'
 
-interface PresenceProps {
+export interface PresenceProps {
   present: boolean
 }
 
 const presenceProps = {
-  present: Boolean,
+  props: {
+    present: Boolean,
+  },
 }
+
+export type isPresent = ComputedRef<boolean>
 
 const NAME = 'OkuPresence'
 
@@ -16,7 +21,7 @@ const presence = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...presenceProps,
+    ...presenceProps.props,
   },
   setup(props, { slots }) {
     const { present } = toRefs(props)
@@ -38,6 +43,4 @@ const presence = defineComponent({
   },
 })
 
-const OkuPresence = presence as typeof presence & (new () => { $props: PresenceProps })
-
-export { OkuPresence }
+export const OkuPresence = presence

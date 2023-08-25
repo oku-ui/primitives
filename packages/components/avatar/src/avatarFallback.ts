@@ -11,14 +11,16 @@ const FALLBACK_NAME = 'OkuAvatarFallback'
 export type AvatarFallbackIntrinsicElement = ElementType<'span'>
 export type AvatarFalbackElement = HTMLSpanElement
 
-interface AvatarFallbackProps extends PrimitiveProps {
+export interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number
 }
 
-const avatarFallbackProps = {
-  delayMs: {
-    type: Number,
-    required: false,
+export const avatarFallbackProps = {
+  props: {
+    delayMs: {
+      type: Number,
+      required: false,
+    },
   },
 }
 
@@ -26,7 +28,7 @@ const avatarFallback = defineComponent({
   name: FALLBACK_NAME,
   inheritAttrs: false,
   props: {
-    ...avatarFallbackProps,
+    ...avatarFallbackProps.props,
     ...scopeAvatarProps,
     ...primitiveProps,
   },
@@ -80,7 +82,3 @@ export const OkuAvatarFallback = avatarFallback as typeof avatarFallback &
 (new () => {
   $props: ScopeAvatar<Partial<AvatarFalbackElement>>
 })
-
-export type {
-  AvatarFallbackProps,
-}

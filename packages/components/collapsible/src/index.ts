@@ -2,15 +2,18 @@ export type {
   CollapsibleElement,
   CollapsibleProps,
   CollapsibleIntrinsicElement,
+  CollapsibleEmits,
 } from './collapsible'
 
 export {
   OkuCollapsible,
   createCollapsibleScope,
+  collapsibleProps,
 } from './collapsible'
 
 export {
   OkuCollapsibleContent,
+  collapsibleContentProps,
 } from './collapsibleContent'
 
 export type {
@@ -21,7 +24,7 @@ export type {
 
 export {
   OkuCollapsibleContentImpl,
-
+  collapsibleContentImplProps,
 } from './collapsibleContentImpl'
 
 export type {
@@ -32,10 +35,12 @@ export type {
 
 export {
   OkuCollapsibleTrigger,
+  collapsibleTriggerProps,
 } from './collapsibleTrigger'
 
 export type {
   CollapsibleTriggerElement,
   CollapsibleTriggerProps,
   CollapsibleTriggerIntrinsicElement,
+  CollapsibleTriggerEmits,
 } from './collapsibleTrigger'

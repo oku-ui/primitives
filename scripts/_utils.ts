@@ -67,6 +67,7 @@ export async function loadWorkspace(dir: string) {
 
   const setVersion = (
     newVersion: string,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     opts: { updateDeps?: boolean } = {},
   ) => {
     workspacePkg.data.version = newVersion

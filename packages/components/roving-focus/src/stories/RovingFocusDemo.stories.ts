@@ -38,7 +38,7 @@ export const Styled: Story = {
   }),
 }
 
-export const group: Story = {
+export const Group: Story = {
   args: {
     template: '#2',
     allshow: false,
@@ -54,7 +54,7 @@ export const group: Story = {
   }),
 }
 
-export const more: Story = {
+export const More: Story = {
   args: {
     template: '#3',
     allshow: false,

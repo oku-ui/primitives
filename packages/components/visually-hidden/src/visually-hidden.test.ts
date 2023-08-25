@@ -15,7 +15,7 @@ describe('OkuVisuallyHidden', () => {
 
     const style = wrapper.element.getAttribute('style')
     expect(style).toBe(
-      'position: absolute; border: 0px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;',
+      'position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;',
     )
 
     expect(wrapper.vm.$el).toBeDefined()

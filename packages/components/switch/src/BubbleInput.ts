@@ -25,17 +25,19 @@ interface BubbleInputProps extends Omit<BubbleInputElement, 'checked'> {
 }
 
 const bubbleInputProps = {
-  checked: {
-    type: Boolean,
-    default: undefined,
-  },
-  bubbles: {
-    type: Boolean,
-    default: true,
-  },
-  control: {
-    type: Object as PropType<HTMLElement | null>,
-    default: null,
+  props: {
+    checked: {
+      type: Boolean,
+      default: undefined,
+    },
+    bubbles: {
+      type: Boolean,
+      default: true,
+    },
+    control: {
+      type: Object as PropType<HTMLElement | null>,
+      default: null,
+    },
   },
 }
 
@@ -43,7 +45,7 @@ export const BubbleInput = defineComponent({
   name: BUBBLE_INPUT,
   inheritAttrs: false,
   props: {
-    ...bubbleInputProps,
+    ...bubbleInputProps.props,
   },
   setup(props, { attrs }) {
     const { control, checked, bubbles } = toRefs(props)

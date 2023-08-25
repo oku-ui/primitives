@@ -50,43 +50,34 @@ describe('OkuCheckbox', () => {
         default: 'Label',
       },
     })
-
-    expect(wrapper.html()).toContain('<button type="button" role="checkbox" data-state="unchecked">Label</button>')
+    expect(wrapper.element).toMatchSnapshot()
   })
 
   it('can be checked', async () => {
     const wrapper = mount(componentVModel)
-    expect(wrapper.html()).toContain(`<button type="button" role="checkbox" aria-checked="false" data-state="unchecked">
-  <!---->
-</button>`)
+    expect(wrapper.element).toMatchSnapshot()
 
     const button = wrapper.find('button')
     await button.trigger('click')
 
-    expect(wrapper.html()).toContain('<button type="button" role="checkbox" aria-checked="true" data-state="checked"><span data-state="checked" style="pointer-events: none;"><!----></span></button>')
+    expect(wrapper.element).toMatchSnapshot()
 
     await button.trigger('click')
 
-    expect(wrapper.html()).toContain(`<button type="button" role="checkbox" aria-checked="false" data-state="unchecked">
-  <!---->
-</button>`)
+    expect(wrapper.element).toMatchSnapshot()
   })
 
   it('can be checked with checked prop', async () => {
     const wrapper = mount(componentChecked)
-    expect(wrapper.html()).toContain(`<button type="button" role="checkbox" aria-checked="false" data-state="unchecked">
-  <!---->
-</button>`)
+    expect(wrapper.element).toMatchSnapshot()
 
     const button = wrapper.find('button')
     await button.trigger('click')
 
-    expect(wrapper.html()).toContain('<button type="button" role="checkbox" aria-checked="true" data-state="checked"><span data-state="checked" style="pointer-events: none;"><!----></span></button>')
+    expect(wrapper.element).toMatchSnapshot()
 
     await button.trigger('click')
 
-    expect(wrapper.html()).toContain(`<button type="button" role="checkbox" aria-checked="false" data-state="unchecked">
-  <!---->
-</button>`)
+    expect(wrapper.element).toMatchSnapshot()
   })
 })

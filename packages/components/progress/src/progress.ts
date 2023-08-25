@@ -26,11 +26,27 @@ type ProgressInjectValue = {
 export type ProgressIntrinsicElement = ElementType<'div'>
 export type ProgressElement = HTMLDivElement
 
-interface ProgressProps {
+export interface ProgressProps {
   value?: number | null
   max?: number
   getValueLabel?(value: number, max: number): string
   scopeProgress?: Scope
+}
+
+export const progressProps = {
+  props: {
+    value: {
+      type: [Number, null] as PropType<number | null | undefined>,
+    },
+    max: {
+      type: Number,
+      default: DEFAULT_MAX,
+    },
+    getValueLabel: {
+      type: Function as PropType<(value: number, max: number) => string>,
+      default: defaultGetValueLabel,
+    },
+  },
 }
 
 export const [createProgressContext, createProgressScope]
@@ -39,31 +55,17 @@ export const [createProgressContext, createProgressScope]
 export const [progressProvider, useProgressInject]
   = createProgressContext<ProgressInjectValue>(PROGRESS_NAME)
 
-const progressProps = {
-  value: {
-    type: [Number, null] as PropType<number | null | undefined>,
-  },
-  max: {
-    type: Number,
-    default: DEFAULT_MAX,
-  },
-  getValueLabel: {
-    type: Function as PropType<(value: number, max: number) => string>,
-    default: defaultGetValueLabel,
-  },
-}
-
 const progress = defineComponent({
   name: PROGRESS_NAME,
   inheritAttrs: false,
   props: {
-    ...progressProps,
+    ...progressProps.props,
     ...scopeProgressProps,
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
     const { value, max, getValueLabel, scopeOkuProgress } = toRefs(props)
-    const { ...progressProps } = attrs as ProgressIntrinsicElement
+    const { ...progressAttrs } = attrs as ProgressIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
@@ -108,7 +110,7 @@ const progress = defineComponent({
           ).value,
           'data-value': valueProp.value ?? undefined,
           'data-max': maxProp.value,
-          ...progressProps,
+          ...progressAttrs,
           'ref': forwardedRef,
           'asChild': props.asChild,
         },
@@ -126,5 +128,3 @@ export const OkuProgress = progress as typeof progress &
 (new () => {
   $props: ScopeProgress<Partial<ProgressElement>>
 })
-
-export type { ProgressProps }

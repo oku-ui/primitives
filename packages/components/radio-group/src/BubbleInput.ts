@@ -3,36 +3,40 @@ import { usePrevious, useSize } from '@oku-ui/use-composable'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { PropType } from 'vue'
 
-const BUBBLE_INPUT_NAME = 'BubbleInput'
+const BUBBLE_INPUT_NAME = 'OkuBubbleInput'
 
 export type BubbleInputIntrinsicElement = ElementType<'button'>
 export type BubbleInputElement = Omit<HTMLButtonElement, 'checked'>
 
-interface BubbleInputProps {
+export interface BubbleInputProps {
   checked: boolean
   control: HTMLElement | null
   bubbles: boolean
 }
 
 const bubbleInputPropsObject = {
-  checked: {
-    type: Boolean as PropType<boolean>,
-    required: true,
-  },
-  control: {
-    type: HTMLElement as PropType<HTMLElement | null>,
-    default: null,
-  },
-  bubbles: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: false,
+  props: {
+    checked: {
+      type: Boolean as PropType<boolean>,
+      required: true,
+    },
+    control: {
+      type: HTMLElement as PropType<HTMLElement | null>,
+      default: null,
+    },
+    bubbles: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: false,
+    },
   },
 }
 
-const BubbleInput = defineComponent({
+const bubbleInput = defineComponent({
   name: BUBBLE_INPUT_NAME,
   inheritAttrs: false,
-  props: bubbleInputPropsObject,
+  props: {
+    ...bubbleInputPropsObject.props,
+  },
   setup(props, { attrs }) {
     const { control, checked } = toRefs(props)
     const bubbles = computed(() => props.bubbles ?? true)
@@ -71,11 +75,7 @@ const BubbleInput = defineComponent({
   },
 })
 
-const OkuBubbleInput = BubbleInput as typeof BubbleInput &
+export const OkuBubbleInput = bubbleInput as typeof bubbleInput &
 (new () => {
   $props: Partial<BubbleInputElement>
 })
-
-export { OkuBubbleInput }
-
-export type { BubbleInputProps }

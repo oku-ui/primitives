@@ -55,52 +55,70 @@ export type PointerDownCaptureEvent = CustomEvent<{
   originalEvent: PointerEvent
 }>
 
-interface DismissableLayerProps extends PrimitiveProps {
+export interface DismissableLayerProps extends PrimitiveProps {
   /**
    * When `true`, hover/focus/click interactions will be disabled on elements outside
    * the `DismissableLayer`. Users will need to click twice on outside elements to
    * interact with them: once to close the `DismissableLayer`, and again to trigger the element.
    */
   disableOutsidePointerEvents?: boolean
+}
+
+export type DismissableLayerEmits = {
   /**
-   * Event handler called when the escape key is down.
-   * Can be prevented.
-   */
-  onEscapeKeyDown?: (event: KeyboardEvent) => void
+  * Event handler called when the escape key is down.
+  * Can be prevented.
+  */
+  escapeKeyDown: [event: KeyboardEvent]
   /**
-   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
-   * Can be prevented.
-   */
-  onPointerDownOutside?: (event: PointerDownOutsideEvent) => void
+  * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+  * Can be prevented.
+  */
+  pointerDownOutside: [event: PointerDownOutsideEvent]
   /**
    * Event handler called when the focus moves outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  onFocusOutside?: (event: FocusOutsideEvent) => void
+  focusOutside: [event: FocusOutsideEvent]
   /**
-   * Event handler called when an interaction happens outside the `DismissableLayer`.
-   * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
-   * Can be prevented.
-   */
-  onInteractOutside?: (
-    event: PointerDownOutsideEvent | FocusOutsideEvent
-  ) => void
+  * Event handler called when an interaction happens outside the `DismissableLayer`.
+  * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
+  * Can be prevented.
+  */
+  interactOutside: [event: PointerDownOutsideEvent | FocusOutsideEvent]
   /**
-   * Handler called when the `DismissableLayer` should be dismissed
-   */
-  onDismiss?: () => void
-
-  onFocusCapture?: (event: FocusCaptureEvent) => void
-
-  onBlurCapture?: (event: FocusBlurCaptureEvent) => void
-
-  onPointerDownCapture?: (event: PointerDownCaptureEvent) => void
+  * Handler called when the `DismissableLayer` should be dismissed
+  */
+  dismiss: []
+  focusCapture: [event: FocusCaptureEvent]
+  blurCapture: [event: FocusBlurCaptureEvent]
+  pointerDownCapture: [event: PointerDownCaptureEvent]
 }
 
-const dismissableLayerProps = {
-  disableOutsidePointerEvents: {
-    type: Boolean,
-    default: false,
+export const dismissableLayerProps = {
+  props: {
+    disableOutsidePointerEvents: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    escapeKeyDown: (event: KeyboardEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerDownOutside: (event: PointerDownOutsideEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focusOutside: (event: FocusOutsideEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    interactOutside: (event: PointerDownOutsideEvent | FocusOutsideEvent) => true,
+    dismiss: () => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focusCapture: (event: FocusCaptureEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    blurCapture: (event: FocusBlurCaptureEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerDownCapture: (event: PointerDownCaptureEvent) => true,
   },
 }
 
@@ -108,41 +126,11 @@ const DismissableLayer = defineComponent({
   name: DISMISSABLE_NAME,
   inheritAttrs: false,
   props: {
-    ...dismissableLayerProps,
+    ...dismissableLayerProps.props,
     ...primitiveProps,
     ...scopeDismissableLayerProps,
   },
-  emits: {
-    /**
-     * Event handler called when the escape key is down.
-     * Can be prevented.
-     */
-    escapeKeyDown: (event: KeyboardEvent) => true,
-    /**
-     * Event handler called when an interaction happens outside the `DismissableLayer`.
-     * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
-     * Can be prevented.
-     */
-    interactOutside: (event: PointerDownOutsideEvent | FocusOutsideEvent) =>
-      true,
-    /**
-     * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
-     * Can be prevented.
-     */
-    pointerDownOutside: (event: PointerDownOutsideEvent) => true,
-    /**
-     * Event handler called when the focus moves outside of the `DismissableLayer`.
-     * Can be prevented.
-     */
-    focusOutside: (event: FocusOutsideEvent) => true,
-    /**
-     * Handler called when the `DismissableLayer` should be dismissed
-     */
-    dismiss: () => true,
-    focusCapture: (event: FocusCaptureEvent) => true,
-    blurCapture: (event: FocusBlurCaptureEvent) => true,
-    pointerDownCapture: (event: PointerDownCaptureEvent) => true,
-  },
+  emits: dismissableLayerProps.emits,
   setup(props, { attrs, emit, slots }) {
     const { disableOutsidePointerEvents } = toRefs(props)
 
@@ -337,5 +325,3 @@ export const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer &
 (new () => {
   $props: ScopeDismissableLayer<Partial<DismissableLayerElement>>
 })
-
-export type { DismissableLayerProps }

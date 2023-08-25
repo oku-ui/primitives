@@ -35,7 +35,7 @@ type Boundary = Element | null
 export type PopperContentIntrinsicElement = ElementType<'div'>
 export type PopperContentElement = HTMLDivElement
 
-interface PopperContentProps extends PrimitiveProps {
+export interface PopperContentProps extends PrimitiveProps {
   side?: Side
   sideOffset?: number
   align?: Align
@@ -47,71 +47,74 @@ interface PopperContentProps extends PrimitiveProps {
   sticky?: 'partial' | 'always'
   hideWhenDetached?: boolean
   updatePositionStrategy?: 'optimized' | 'always'
-  onPlaced?: () => void
 }
 
-const popperContentProps = {
-  side: {
-    type: String as unknown as PropType<Side>,
-    required: false,
-    default: 'bottom',
-    validator: (value: Side) => SIDE_OPTIONS.includes(value),
+export type PopperContentEmits = {
+  placed: [void]
+}
+
+export const popperContentProps = {
+  props: {
+    side: {
+      type: String as unknown as PropType<Side>,
+      required: false,
+      default: 'bottom',
+      validator: (value: Side) => SIDE_OPTIONS.includes(value),
+    },
+    sideOffset: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    align: {
+      type: String as unknown as PropType<Align>,
+      required: false,
+      default: 'center',
+      validator: (value: Align) => ALIGN_OPTIONS.includes(value),
+    },
+    alignOffset: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    arrowPadding: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    avoidCollisions: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    collisionBoundary: {
+      type: [Object, Array] as unknown as PropType<Boundary | Boundary[]>,
+      required: false,
+      default: () => [],
+    },
+    collisionPadding: {
+      type: [Number, Object] as unknown as PropType<Padding>,
+      required: false,
+      default: 0,
+    },
+    sticky: {
+      type: String as unknown as PropType<'partial' | 'always'>,
+      required: false,
+      default: 'partial',
+    },
+    hideWhenDetached: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    updatePositionStrategy: {
+      type: String as unknown as PropType<'optimized' | 'always'>,
+      required: false,
+      default: 'optimized',
+    },
   },
-  sideOffset: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  align: {
-    type: String as unknown as PropType<Align>,
-    required: false,
-    default: 'center',
-    validator: (value: Align) => ALIGN_OPTIONS.includes(value),
-  },
-  alignOffset: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  arrowPadding: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  avoidCollisions: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-  collisionBoundary: {
-    type: [Object, Array] as unknown as PropType<Boundary | Boundary[]>,
-    required: false,
-    default: () => [],
-  },
-  collisionPadding: {
-    type: [Number, Object] as unknown as PropType<Padding>,
-    required: false,
-    default: 0,
-  },
-  sticky: {
-    type: String as unknown as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
-  },
-  hideWhenDetached: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  updatePositionStrategy: {
-    type: String as unknown as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as unknown as PropType<() => void>,
-    required: false,
-    default: undefined,
+  emit: {
+    placed: () => true,
   },
 }
 
@@ -119,10 +122,11 @@ const PopperContent = defineComponent({
   name: CONTENT_NAME,
   inheritAttrs: false,
   props: {
-    ...popperContentProps,
+    ...popperContentProps.props,
     ...scopePopperProps,
     ...primitiveProps,
   },
+  emits: popperContentProps.emit,
   setup(props, { attrs, slots }) {
     const {
       side,
@@ -136,7 +140,6 @@ const PopperContent = defineComponent({
       sticky,
       hideWhenDetached,
       updatePositionStrategy,
-      onPlaced,
     } = toRefs(props)
 
     const { ...attrsElement } = attrs as PopperContentIntrinsicElement
@@ -232,7 +235,7 @@ const PopperContent = defineComponent({
       update()
     })
 
-    const handlePlaced = useCallbackRef(onPlaced.value)
+    const handlePlaced = useCallbackRef(props.onPlaced)
 
     watch([isPositioned, handlePlaced], () => {
       if (isPositioned.value)
@@ -315,9 +318,5 @@ const PopperContent = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopperContent = PopperContent as typeof PopperContent
 & (new () => {
-  $props: ScopePopper<Partial<PopperContentElement>>
+  $props: ScopePopper<Partial<PopperContentIntrinsicElement>>
 })
-
-export type {
-  PopperContentProps,
-}

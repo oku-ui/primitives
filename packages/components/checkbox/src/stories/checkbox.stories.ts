@@ -38,7 +38,7 @@ export const Styled: Story = {
   }),
 }
 
-export const indeterminate: Story = {
+export const Indeterminate: Story = {
   args: {
     template: '#2',
     allshow: false,

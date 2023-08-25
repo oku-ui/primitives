@@ -10,7 +10,7 @@ const TOGGLE_NAME = 'OkuToggle'
 export type ToggleElementIntrinsicElement = ElementType<'button'>
 export type ToggleElement = HTMLButtonElement
 
-interface ToggleProps extends PrimitiveProps {
+export interface ToggleProps extends PrimitiveProps {
   /**
    * The controlled state of the toggle.
    */
@@ -21,33 +21,46 @@ interface ToggleProps extends PrimitiveProps {
    * @defaultValue false
    */
   defaultPressed?: boolean
-
-  /**
-   * The callback that fires when the state of the toggle changes.
-   */
-  onPressedChange?(pressed: boolean): void
-
   disabled?: boolean
 }
 
+export type ToggleEmits = {
+  'update:modelValue': [pressed: boolean]
+  /**
+   * The callback that fires when the state of the toggle changes.
+   */
+  'pressedChange': [pressed: boolean]
+  'click': [event: MouseEvent]
+}
+
 export const toggleProps = {
-  modelValue: {
-    type: [Boolean] as PropType<
-      boolean | undefined
-    >,
-    default: undefined,
+  props: {
+    modelValue: {
+      type: [Boolean] as PropType<
+        boolean | undefined
+      >,
+      default: undefined,
+    },
+    pressed: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    defaultPressed: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
-  pressed: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: undefined,
-  },
-  defaultPressed: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (pressed: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'pressedChange': (pressed: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'click': (event: MouseEvent) => true,
   },
 }
 
@@ -55,14 +68,10 @@ const Toggle = defineComponent({
   name: TOGGLE_NAME,
   inheritAttrs: false,
   props: {
-    ...toggleProps,
+    ...toggleProps.props,
     ...primitiveProps,
   },
-  emits: {
-    'update:modelValue': (pressed: boolean) => true,
-    'pressedChange': (pressed: boolean) => true,
-    'click': (event: MouseEvent) => true,
-  },
+  emits: toggleProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { pressed, defaultPressed, disabled } = toRefs(props)
     const modelValue = useModel(props, 'modelValue')
@@ -83,6 +92,7 @@ const Toggle = defineComponent({
         emit('update:modelValue', pressed)
         emit('pressedChange', pressed)
       },
+      initialValue: false,
     })
 
     const { ...toggleAttrs } = attrs as ToggleElementIntrinsicElement
@@ -116,7 +126,3 @@ export const OkuToggle = Toggle as typeof Toggle &
 (new () => {
   $props: Partial<ToggleElement>
 })
-
-export type {
-  ToggleProps,
-}
