@@ -82,6 +82,7 @@ const toggleGroupImplMultiple = defineComponent({
         emit('update:modelValue', result)
         emit('valueChange', result)
       },
+      initialValue: [],
     })
 
     const handleButtonActivate = (itemValue: string) => {

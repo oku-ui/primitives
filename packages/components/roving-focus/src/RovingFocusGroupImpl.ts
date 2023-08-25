@@ -82,6 +82,7 @@ const RovingFocusGroupImpl = defineComponent({
       onChange: (result: any) => {
         emit('currentTabStopIdChange', result)
       },
+      initialValue: null,
     })
 
     const isTabbingBackOut = ref(false)

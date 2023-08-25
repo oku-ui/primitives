@@ -32,7 +32,7 @@ export type CollapsibleEmits = {
 export const collapsibleProps = {
   props: {
     modelValue: {
-      type: [Boolean] as PropType<
+      type: [Boolean, undefined] as PropType<
         boolean
       >,
       default: undefined,
@@ -51,7 +51,9 @@ export const collapsibleProps = {
     },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'update:modelValue': (open: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'openChange': (open: boolean) => true,
   },
 }
@@ -92,12 +94,10 @@ const collapsible = defineComponent({
       prop: computed(() => proxyOpen.value),
       defaultProp: computed(() => defaultOpen.value),
       onChange: (open) => {
-        if (open === undefined)
-          open = false
-
-        emit('update:modelValue', open)
-        emit('openChange', open)
+        emit('update:modelValue', open as boolean)
+        emit('openChange', open as boolean)
       },
+      initialValue: false,
     })
 
     collapsibleProvider({

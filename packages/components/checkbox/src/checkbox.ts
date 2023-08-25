@@ -49,15 +49,15 @@ export type CheckboxEmits = {
 export const checkboxProps = {
   props: {
     modelValue: {
-      type: [Boolean, String, Number] as PropType<CheckedState>,
+      type: [Boolean, String, Number, undefined] as PropType<CheckedState>,
       default: undefined,
     },
     checked: {
-      type: [Boolean, String, Number] as PropType<CheckedState>,
+      type: [Boolean, String, Number, undefined] as PropType<CheckedState>,
       default: undefined,
     },
     defaultChecked: {
-      type: [Boolean, String] as PropType<boolean | 'indeterminate' | undefined>,
+      type: [Boolean, String, undefined] as PropType<boolean | 'indeterminate' | undefined>,
       default: undefined,
     },
     required: {
@@ -78,9 +78,13 @@ export const checkboxProps = {
     },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'update:modelValue': (checked: CheckedState) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'checkedChange': (checked: CheckedState) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'keydown': (event: KeyboardEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'click': (event: MouseEvent) => true,
   },
 }
@@ -131,6 +135,7 @@ const Checkbox = defineComponent({
         emit('update:modelValue', result)
         emit('checkedChange', result)
       },
+      initialValue: false,
     })
 
     const initialCheckedStateRef = ref(state.value)

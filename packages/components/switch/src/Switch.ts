@@ -29,7 +29,7 @@ export type SwitchElement = HTMLButtonElement
 
 type SwitchProvideValue = {
   checked: Ref<boolean>
-  disabled?: Ref<boolean>
+  disabled?: Ref<boolean | undefined>
 }
 
 export interface SwitchProps extends PrimitiveProps {
@@ -50,28 +50,28 @@ export type SwitchEmits = {
 export const switchProps = {
   props: {
     modelValue: {
-      type: Boolean as PropType<boolean>,
+      type: [Boolean, undefined] as PropType<boolean | undefined>,
       default: undefined,
     },
     name: {
-      type: String,
-      required: false,
+      type: String as PropType<string | undefined>,
+      default: undefined,
     },
     checked: {
-      type: Boolean,
+      type: Boolean as PropType<boolean | undefined>,
       default: undefined,
     },
     defaultChecked: {
-      type: Boolean,
-      default: false,
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
     },
     required: {
-      type: Boolean,
-      default: false,
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
     },
     disabled: {
-      type: Boolean,
-      default: false,
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
     },
     value: {
       type: String as PropType<'on' | 'off'>,
@@ -149,12 +149,10 @@ const Switch = defineComponent({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (value) => {
-        if (value !== undefined)
-          value = false
-
-        emit('update:modelValue', value)
-        emit('checkedChange', value)
+        emit('update:modelValue', value as boolean)
+        emit('checkedChange', value as boolean)
       },
+      initialValue: false,
     })
 
     switchProvider({

@@ -92,6 +92,7 @@ const Toggle = defineComponent({
         emit('update:modelValue', pressed)
         emit('pressedChange', pressed)
       },
+      initialValue: false,
     })
 
     const { ...toggleAttrs } = attrs as ToggleElementIntrinsicElement
