@@ -5,7 +5,7 @@ import { scopeTooltipProps } from './types'
 
 const PROVIDER_NAME = 'TooltipProvider'
 
-type TooltipProviderContextValue = {
+type TooltipProviderProvideValue = {
   isOpenDelayed: Ref<boolean>
   delayDuration: Ref<number>
   onOpen(): void
@@ -16,9 +16,9 @@ type TooltipProviderContextValue = {
 }
 
 export const [tooltipProviderProvide, useTooltipProviderInject]
-  = createTooltipProvide<TooltipProviderContextValue>(PROVIDER_NAME)
+  = createTooltipProvide<TooltipProviderProvideValue>(PROVIDER_NAME)
 
-interface TooltipProviderProps {
+export interface TooltipProviderProps {
   /**
    * The duration from when the pointer enters the trigger until the tooltip gets opened.
    * @defaultValue 700
@@ -37,17 +37,19 @@ interface TooltipProviderProps {
 }
 
 const tooltipProviderProps = {
-  delayDuration: {
-    type: Number,
-    default: DEFAULT_DELAY_DURATION,
-  },
-  skipDelayDuration: {
-    type: Number,
-    default: 300,
-  },
-  disableHoverableContent: {
-    type: Boolean,
-    default: false,
+  props: {
+    delayDuration: {
+      type: Number,
+      default: DEFAULT_DELAY_DURATION,
+    },
+    skipDelayDuration: {
+      type: Number,
+      default: 300,
+    },
+    disableHoverableContent: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 
@@ -57,7 +59,7 @@ const tooltipProvider = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...tooltipProviderProps,
+    ...tooltipProviderProps.props,
     ...scopeTooltipProps,
   },
   setup(props, { slots }) {

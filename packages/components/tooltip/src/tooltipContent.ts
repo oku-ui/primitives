@@ -6,12 +6,18 @@ import { useForwardRef } from '@oku-ui/use-composable'
 export type LabelIntrinsicElement = ElementType<'label'>
 export type LabelElement = HTMLLabelElement
 
-interface LabelProps extends PrimitiveProps {}
+interface TooltipContentProps extends TooltipContentImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
+  forceMount?: true
+}
 
-const NAME = 'OkuTooltipContent'
+export const CONTENT_NAME = 'OkuTooltipContent'
 
 const tooltipContent = defineComponent({
-  name: NAME,
+  name: CONTENT_NAME,
   inheritAttrs: false,
   props: {
     ...primitiveProps,
@@ -44,7 +50,3 @@ export const OkuTooltipContent = tooltipContent as typeof tooltipContent &
 (new () => {
   $props: Partial<LabelElement>
 })
-
-export type {
-  LabelProps,
-}

@@ -19,7 +19,7 @@ const tooltipArrow = defineComponent({
     const forwardedRef = useForwardRef()
 
     const originalReturn = () => h(Primitive.label, {
-      ...restAttrs,
+      ...attrs,
       ref: forwardedRef,
       asChild: props.asChild,
       onMousedown: (event: MouseEvent) => {

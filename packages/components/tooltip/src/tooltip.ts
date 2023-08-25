@@ -30,7 +30,7 @@ type TooltipInjectValue = {
 export const [tooltipProvide, useTooltipInject]
   = createTooltipProvide<TooltipInjectValue>(TOOLTIP_NAME)
 
-interface TooltipProps {
+export interface TooltipProps {
   open?: boolean
   /**
  * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.
@@ -45,26 +45,40 @@ interface TooltipProps {
   disableHoverableContent?: boolean
 }
 
-const tooltipProps = {
-  modelValue: {
-    type: [Boolean] as PropType<boolean | undefined>,
-    default: undefined,
+export type TooltipEmits = {
+  'update:modelValue': [open: boolean]
+  'openChange': [open: boolean]
+}
+
+export const tooltipProps = {
+  props: {
+    modelValue: {
+      type: [Boolean] as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    open: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    defaultOpen: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: false,
+    },
+    delayDuration: {
+      type: Number as PropType<number | undefined>,
+      default: undefined,
+    },
+    disableHoverableContent: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: false,
+    },
+    ...primitiveProps,
   },
-  open: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: undefined,
-  },
-  defaultOpen: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: false,
-  },
-  delayDuration: {
-    type: Number as PropType<number | undefined>,
-    default: undefined,
-  },
-  disableHoverableContent: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: false,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (open: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'openChange': (open: boolean) => true,
   },
 }
 
@@ -72,14 +86,10 @@ const tooltip = defineComponent({
   name: TOOLTIP_NAME,
   inheritAttrs: false,
   props: {
-    ...tooltipProps,
-    ...primitiveProps,
+    ...tooltipProps.props,
     ...scopeTooltipProps,
   },
-  emits: {
-    'update:modelValue': (open: boolean) => true,
-    'openChange': (open: boolean) => true,
-  },
+  emits: tooltipProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
       open: openProp,
@@ -193,10 +203,4 @@ const tooltip = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-const OkuTooltip = tooltip
-
-export { OkuTooltip }
-
-export type {
-  TooltipProps,
-}
+export const OkuTooltip = tooltip

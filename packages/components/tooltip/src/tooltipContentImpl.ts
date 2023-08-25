@@ -1,56 +1,171 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, toRefs, watchEffect } from 'vue'
 import type { ElementType } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
-import type { PopperContentProps as OkuPopperContentProps } from '@oku-ui/popper'
-import { createTooltipProvide } from './utils'
+import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
+import { OkuPopperContent, popperContentProps } from '@oku-ui/popper'
+import type { PopperContentProps as OkuPopperContentProps, PopperContentElement, PopperContentEmits, PopperContentIntrinsicElement } from '@oku-ui/popper'
+import { OkuSlottable } from '@oku-ui/slot'
+import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
+import { TOOLTIP_OPEN, createTooltipProvide, usePopperScope } from './utils'
+import { type ScopeTooltip, scopeTooltipProps } from './types'
+import { useTooltipInject } from './tooltip'
 
-const TOOLTIP_NAME = 'OkuTooltipContentImpl'
+const CONTENT_NAME = 'OkuTooltipContentImpl'
 
 const [visuallyHiddenContentProvider, useVisuallyHiddenContentInject]
-  = createTooltipProvide(TOOLTIP_NAME, { isInside: false })
+  = createTooltipProvide(CONTENT_NAME, { isInside: false })
 
-export type LabelIntrinsicElement = ElementType<'label'>
-export type LabelElement = HTMLLabelElement
+export type TooltipContentImplIntrinsicElement = PopperContentIntrinsicElement
+export type TooltipContentImplElement = PopperContentElement
 
-type DismissableLayerProps = OkuDismissableLayerProps
-type PopperContentProps = OkuPopperContentProps
-const test: DismissableLayerProps = {
+export type DismissableLayerProps = OkuDismissableLayerProps
+export type PopperContentProps = OkuPopperContentProps
 
+export interface TooltipContentImplProps extends PopperContentProps {
+  /**
+   * A more descriptive label for accessibility purpose
+   */
+  'ariaLabel'?: string
+}
+
+export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
+  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown']]
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
+   * Can be prevented.
+   */
+  pointerDownOutside: [event: DismissableLayerEmits['pointerDownOutside']]
+  close: []
+}
+
+export const tooltipContentImplProps = {
+  props: {
+    ...popperContentProps.props,
+    ariaLabel: {
+      type: String,
+      default: undefined,
+    },
+    ...primitiveProps,
+  },
+  emits: {
+    ...propsOmit(popperContentProps.emits, ['placed']),
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    escapeKeyDown: (event: KeyboardEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerDownOutside: (event: PointerEvent) => true,
+    close: () => true,
+  },
 }
 
 const tooltipContentImpl = defineComponent({
-  name: TOOLTIP_NAME,
+  name: CONTENT_NAME,
   inheritAttrs: false,
   props: {
+    ...tooltipContentImplProps.props,
     ...primitiveProps,
+    ...scopeTooltipProps,
   },
-  setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as LabelIntrinsicElement
-
+  emits: tooltipContentImplProps.emits,
+  setup(props, { attrs, emit, slots }) {
+    const {
+      ariaLabel,
+      align,
+      alignOffset,
+      arrowPadding,
+      hideWhenDetached,
+      avoidCollisions,
+      collisionBoundary,
+      collisionPadding,
+      side,
+      sideOffset,
+      sticky,
+    } = toRefs(props)
+    const { ...restAttrs } = attrs as TooltipContentImplIntrinsicElement
+    const inject = useTooltipInject(CONTENT_NAME, props.scopeOkuTooltip)
+    const popperScope = usePopperScope(props.scopeOkuTooltip)
     const forwardedRef = useForwardRef()
 
-    const originalReturn = () => h(Primitive.label, {
-      ...restAttrs,
-      ref: forwardedRef,
-      asChild: props.asChild,
-      onMousedown: (event: MouseEvent) => {
-        restAttrs.onMousedown?.(event)
-        // prevent text selection when double clicking label
-        if (!event.defaultPrevented && event.detail > 1)
-          event.preventDefault()
-      },
-    },
-    {
-      default: () => slots.default?.(),
+    watchEffect((onClean) => {
+      document.addEventListener(TOOLTIP_OPEN, () => emit('close'))
+      onClean(() => {
+        document.removeEventListener(TOOLTIP_OPEN, () => emit('close'))
+      })
     })
-    return originalReturn
+
+    watchEffect((onClean) => {
+      if (inject.trigger.value) {
+        const handleScroll = (event: Event) => {
+          const target = event.target as HTMLElement
+          if (target.contains(inject.trigger.value))
+            emit('close')
+        }
+        window.addEventListener('scroll', handleScroll, { capture: true })
+        onClean(() => {
+          window.removeEventListener('scroll', handleScroll, { capture: true })
+        })
+      }
+    })
+
+    visuallyHiddenContentProvider({
+      scope: props.scopeOkuTooltip,
+      isInside: true,
+    })
+
+    return () => h(OkuDismissableLayer, {
+      asChild: true,
+      disableOutsidePointerEvents: false,
+      onEscapeKeyDown(event) {
+        event.preventDefault()
+      },
+      onDismiss() {
+        emit('close')
+      },
+    }, {
+      default: () => h(OkuPopperContent, {
+        'data-state': inject.stateAttribute.value,
+        ...popperScope,
+        ...restAttrs,
+        'align': align.value,
+        'alignOffset': alignOffset.value,
+        'arrowPadding': arrowPadding.value,
+        'hideWhenDetached': hideWhenDetached.value,
+        'avoidCollisions': avoidCollisions.value,
+        'collisionBoundary': collisionBoundary.value,
+        'collisionPadding': collisionPadding.value,
+        'side': side.value,
+        'sideOffset': sideOffset.value,
+        'sticky': sticky.value,
+        'ref': forwardedRef,
+        'style': {
+          ...restAttrs.style as any,
+          ...{
+            '--oku-tooltip-content-transform-origin': 'var(--oku-popper-transform-origin)',
+            '--oku-tooltip-content-available-width': 'var(--oku-popper-available-width)',
+            '--oku-tooltip-content-available-height': 'var(--oku-popper-available-height)',
+            '--oku-tooltip-trigger-width': 'var(--oku-popper-anchor-width)',
+            '--oku-tooltip-trigger-height': 'var(--oku-popper-anchor-height)',
+          },
+        },
+      }, [
+        h(OkuSlottable, slots),
+        h(OkuVisuallyHidden, {
+          id: inject.contentId.value,
+          role: 'tooltip',
+        }, {
+          default: () => ariaLabel.value ?? slots,
+        }),
+      ]),
+    })
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipContentImpl = tooltipContentImpl as typeof tooltipContentImpl &
 (new () => {
-  $props: Partial<LabelElement>
+  $props: ScopeTooltip<Partial<TooltipContentImplElement>>
 })

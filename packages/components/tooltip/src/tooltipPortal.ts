@@ -22,7 +22,7 @@ const [portalProvider, usePortalInject] = createTooltipProvide<PortalProvide>(PO
 
 type PortalProps = OkuPortalProps
 
-interface TooltipPortalProps {
+export interface TooltipPortalProps {
   /**
    * Specify a container element to portal the content into.
    */
@@ -34,14 +34,17 @@ interface TooltipPortalProps {
   forceMount?: true
 }
 
-const tooltipPortalProps = {
-  container: {
-    type: Object as PropType<PortalProps['container']>,
-    default: undefined,
-  },
-  forceMount: {
-    type: Boolean as PropType<true | undefined>,
-    default: true,
+export const tooltipPortalProps = {
+  props: {
+    container: {
+      type: Object as PropType<PortalProps['container']>,
+      default: undefined,
+    },
+    forceMount: {
+      type: Boolean as PropType<true | undefined>,
+      default: true,
+    },
+    ...primitiveProps,
   },
 }
 
@@ -49,8 +52,7 @@ const tooltipPortal = defineComponent({
   name: PORTAL_NAME,
   inheritAttrs: false,
   props: {
-    ...tooltipPortalProps,
-    ...primitiveProps,
+    ...tooltipPortalProps.props,
     ...scopeTooltipProps,
   },
   setup(props, { attrs, slots }) {
@@ -80,7 +82,3 @@ export const OkuTooltipPortal = tooltipPortal as typeof tooltipPortal &
 (new () => {
   $props: ScopeTooltip<Partial<PortalElement>>
 })
-
-export type {
-  TooltipPortalProps,
-}

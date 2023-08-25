@@ -15,7 +15,27 @@ const TRIGGER_NAME = 'OkuTooltipTrigger'
 export type TooltipTriggerIntrinsicElement = ElementType<'button'>
 export type TooltipTriggerElement = HTMLButtonElement
 
-interface TooltipTriggerProps { }
+export interface TooltipTriggerProps { }
+
+export const tooltipTriggerProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerMove: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerLeave: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerDown: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focus: (event: FocusEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    blur: (event: FocusEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (event: MouseEvent) => true,
+  },
+}
 
 const tooltipTrigger = defineComponent({
   name: TRIGGER_NAME,
@@ -24,14 +44,7 @@ const tooltipTrigger = defineComponent({
     ...primitiveProps,
     ...scopeTooltipProps,
   },
-  emits: {
-    pointerMove: (event: PointerEvent) => true,
-    pointerLeave: (event: PointerEvent) => true,
-    pointerDown: (event: PointerEvent) => true,
-    focus: (event: FocusEvent) => true,
-    blur: (event: FocusEvent) => true,
-    click: (event: MouseEvent) => true,
-  },
+  emits: tooltipTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
     const inject = useTooltipInject(TRIGGER_NAME, props.scopeOkuTooltip)
     const providerInject = useTooltipProviderInject(TRIGGER_NAME, props.scopeOkuTooltip)
@@ -114,7 +127,3 @@ export const OkuTooltipTrigger = tooltipTrigger as typeof tooltipTrigger &
 (new () => {
   $props: ScopeTooltip<Partial<TooltipTriggerElement>>
 })
-
-export type {
-  TooltipTriggerProps,
-}

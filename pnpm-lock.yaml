@@ -51,7 +51,7 @@ importers:
         version: link:packages/components/focus-scope
       '@oku-ui/label':
         specifier: workspace:^
-        version: link:packages/components/tooltip
+        version: link:packages/components/label
       '@oku-ui/popper':
         specifier: workspace:^
         version: link:packages/components/popper
@@ -94,6 +94,9 @@ importers:
       '@oku-ui/toggle-group':
         specifier: workspace:^
         version: link:packages/components/toggle-group
+      '@oku-ui/tooltip':
+        specifier: workspace:^
+        version: link:packages/components/tooltip
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:packages/core/use-composable
@@ -734,12 +737,18 @@ importers:
       '@oku-ui/provide':
         specifier: latest
         version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../slot
       '@oku-ui/use-composable':
         specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
         specifier: latest
         version: link:../../core/utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../visually-hidden
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -860,7 +869,7 @@ importers:
         version: link:../components/collapsible
       '@oku-ui/label':
         specifier: latest
-        version: link:../components/tooltip
+        version: link:../components/label
       '@oku-ui/progress':
         specifier: latest
         version: link:../components/progress
@@ -899,7 +908,7 @@ importers:
         version: link:../../packages/components/collection
       '@oku-ui/label':
         specifier: workspace:^
-        version: link:../../packages/components/tooltip
+        version: link:../../packages/components/label
       '@oku-ui/primitives':
         specifier: workspace:^
         version: link:../../packages/primitives
@@ -948,7 +957,7 @@ importers:
         version: link:../../packages/components/checkbox
       '@oku-ui/label':
         specifier: workspace:^
-        version: link:../../packages/components/tooltip
+        version: link:../../packages/components/label
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../../packages/components/progress

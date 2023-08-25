@@ -40,8 +40,10 @@
     "@oku-ui/presence": "workspace:^",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
+    "@oku-ui/slot": "workspace:^",
     "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest"
+    "@oku-ui/utils": "latest",
+    "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
