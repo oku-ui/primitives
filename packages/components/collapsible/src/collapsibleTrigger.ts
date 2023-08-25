@@ -22,6 +22,7 @@ export interface CollapsibleTriggerEmits {
 export const collapsibleTriggerProps = {
   props: {},
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     click: (e: MouseEvent) => true,
   },
 }

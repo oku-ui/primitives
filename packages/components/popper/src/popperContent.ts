@@ -127,7 +127,7 @@ const PopperContent = defineComponent({
     ...primitiveProps,
   },
   emits: popperContentProps.emit,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots }) {
     const {
       side,
       sideOffset,

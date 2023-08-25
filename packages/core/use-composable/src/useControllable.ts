@@ -1,4 +1,4 @@
-import type { ComputedRef, UnwrapRef } from 'vue'
+import type { ComputedRef } from 'vue'
 import { computed, ref, watchEffect } from 'vue'
 import { useCallbackRef } from './useCallbackRef'
 

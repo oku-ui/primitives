@@ -6,7 +6,7 @@ const external = [
   ...Object.keys(pkg.peerDependencies || {}),
 ]
 
-export default defineConfig((options) => {
+export default defineConfig((_options) => {
   return [
     {
       entryPoints: ['src/index.ts'],

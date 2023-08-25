@@ -75,7 +75,7 @@ const toggleGroupImpl = defineComponent({
     ...scopeToggleGroupProps,
     ...primitiveProps,
   },
-  setup(props, { slots, emit, attrs }) {
+  setup(props, { slots, attrs }) {
     const { dir, disabled, loop, orientation, rovingFocus } = toRefs(props)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
     const direction = useDirection(dir.value)

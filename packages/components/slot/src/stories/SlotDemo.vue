@@ -18,7 +18,7 @@ onMounted(() => {
   console.log(slot.value.$el, 'slot.value.$el')
   console.log(slot.value, 'slot.value')
 })
-const alert = () => window.alert('clicked')
+const alert = () => console.log('alert')
 
 function click(event: MouseEvent) {
   if (!event.defaultPrevented)
