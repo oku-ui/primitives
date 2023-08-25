@@ -63,12 +63,12 @@ const toggleGroup = defineComponent({
   inheritAttrs: false,
   props: {
     ...toggleGroupPropsObject,
-    ...toggleGroupImplSingleProps,
-    ...toggleGroupImplMultipleProps,
+    ...toggleGroupImplSingleProps.props,
+    ...toggleGroupImplMultipleProps.props,
     ...scopeToggleGroupProps,
     ...primitiveProps,
   },
-  setup(props, { slots, emit, attrs }) {
+  setup(props, { slots, attrs }) {
     const { type } = toRefs(props)
     const forwardedRef = useForwardRef()
 

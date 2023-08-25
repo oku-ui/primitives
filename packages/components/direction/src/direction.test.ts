@@ -1,14 +1,14 @@
 import { describe, expect, it, vitest } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { type Component } from 'vue'
-import { DirectionProvider, useDirection } from './Direction'
+import { OkuDirectionProvider, useDirection } from './Direction'
 
 const DirectionContextSymbol = Symbol('DirectionContext')
 
 describe('direction', () => {
   function propsTest(dir: any) {
     it(`props ${dir}`, () => {
-      const wrapper = mount(DirectionProvider, {
+      const wrapper = mount(OkuDirectionProvider, {
         props: {
           dir,
         },
@@ -23,7 +23,7 @@ describe('direction', () => {
   it('slot', () => {
     const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
 
-    const wrapper = mount(DirectionProvider, {
+    const wrapper = mount(OkuDirectionProvider, {
       slots: {
         default: 'test',
       },
@@ -53,7 +53,7 @@ describe('direction', () => {
     })
 
     const main = {
-      components: { DirectionProvider, ChildComponent },
+      components: { OkuDirectionProvider, ChildComponent },
       template: `
           <DirectionProvider dir="ltr">
             <ChildComponent />

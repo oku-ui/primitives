@@ -62,10 +62,12 @@ function closeLayer() {
 }
 
 function handleMouseDown() {
+  // eslint-disable-next-line no-alert
   alert('hey!')
 }
 
 function clicked() {
+  // eslint-disable-next-line no-alert
   alert('clicked!')
 }
 

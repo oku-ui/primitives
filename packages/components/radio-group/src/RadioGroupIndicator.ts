@@ -5,23 +5,26 @@ import { useRadioScope } from './Radio'
 import { OkuRadioIndicator, type RadioIndicatorElement, type RadioIndicatorProps } from './RadioIndicator'
 import type { ScopeRadioGroup } from './utils'
 import { scopeRadioGroupProps } from './utils'
+import { radioGroupProps } from './RadioGroup'
 
 const INDICATOR_NAME = 'OkuRadioGroupIndicator'
 
 export type RadioGroupIndicatorIntrinsicElement = RadioIndicatorElement
 export type RadioGroupIndicatorElement = RadioElement
 
-interface RadioGroupIndicatorProps extends RadioIndicatorProps {}
+export interface RadioGroupIndicatorProps extends RadioIndicatorProps {}
 
-const radioGroupIndicatorPropsObject = {
-
+export const radioGroupIndicatorProps = {
+  props: {
+    ...radioGroupProps.props,
+  },
 }
 
 const RadioGroupIndicator = defineComponent({
   name: INDICATOR_NAME,
   inheritAttrs: false,
   props: {
-    ...radioGroupIndicatorPropsObject,
+    ...radioGroupIndicatorProps.props,
     ...scopeRadioGroupProps,
   },
   setup(props, { attrs }) {
@@ -39,5 +42,3 @@ export const OkuRadioGroupIndicator = RadioGroupIndicator as typeof RadioGroupIn
 (new () => {
   $props: ScopeRadioGroup<Partial<RadioGroupIndicatorElement>>
 })
-
-export type { RadioGroupIndicatorProps }

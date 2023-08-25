@@ -1,5 +1,5 @@
 import type { ElementType } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -23,27 +23,31 @@ interface ToggleGroupItemImplProps extends Omit<ToggleProps, 'defaultPressed' | 
   value: string
 }
 
-const { defaultPressed, modelValue, ...omitToggleProps } = toggleProps
-
 export const toggleGroupItemImplProps = {
-  /**
-   * A string value for the toggle group item. All items within a toggle group should use a unique value.
-  */
-  value: {
-    type: [String] as PropType<string>,
-    required: true,
+  props: {
+    /**
+    * A string value for the toggle group item. All items within a toggle group should use a unique value.
+   */
+    value: {
+      type: [String] as PropType<string>,
+      required: true,
+    },
+    ...propsOmit(toggleProps.props, ['defaultPressed']),
+    ...primitiveProps,
   },
-  ...omitToggleProps,
+  emits: {
+    ...propsOmit(toggleProps.emits, ['update:modelValue', 'pressedChange']),
+  },
 }
 
 const toggleGroupItemImpl = defineComponent({
   name: TOGGLE_GROUP_NAME,
   inheritAttrs: false,
   props: {
-    ...toggleGroupItemImplProps,
+    ...toggleGroupItemImplProps.props,
     ...scopeToggleGroupProps,
-    ...primitiveProps,
   },
+  emits: toggleGroupItemImplProps.emits,
   setup(props, { slots, emit, attrs }) {
     const { pressed, disabled, value, scopeOkuToggleGroup, asChild } = toRefs(props)
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
@@ -61,6 +65,9 @@ const toggleGroupItemImpl = defineComponent({
       disabled: disabled.value,
       asChild: asChild.value,
       ref: forwardedRef,
+      onClick: (e) => {
+        emit('click', e)
+      },
       onPressedChange: (pressed: boolean) => {
         if (pressed)
           valueInject.onItemActivate(value.value!)

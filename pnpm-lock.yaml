@@ -754,6 +754,9 @@ importers:
       '@oku-ui/use-composable':
         specifier: latest
         version: link:../use-composable
+      filter-anything:
+        specifier: ^3.0.7
+        version: 3.0.7
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -9836,6 +9839,14 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
 
+  /filter-anything@3.0.7:
+    resolution: {integrity: sha512-t2pgu8OiqvmlZPxmf/iIBmGUhkzry7M/WieYJ63YffCw3+rlNnIY7ZDVtf/n3iqVfN0iwLogAIP/EGm8hCsYGg==}
+    engines: {node: '>=12.13'}
+    dependencies:
+      is-what: 4.1.15
+      ts-toolbelt: 9.6.0
+    dev: false
+
   /finalhandler@1.2.0:
     resolution: {integrity: sha512-5uXcUVftlQMFnWC9qu/svkWv3GTd2PfUhK/3PLkYNAe7FbqJMt3515HaxE6eRL74GdsriiwujiawdaB1BpEISg==}
     engines: {node: '>= 0.8'}
@@ -10894,6 +10905,11 @@ packages:
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.2.0
+
+  /is-what@4.1.15:
+    resolution: {integrity: sha512-uKua1wfy3Yt+YqsD6mTUEa2zSi3G1oPlqTflgaPJ7z63vUGN5pxFpnQfeSLMFnJDEsdvOtkp1rUWkYjB4YfhgA==}
+    engines: {node: '>=12.13'}
+    dev: false
 
   /is-wsl@2.2.0:
     resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==}
@@ -14847,6 +14863,10 @@ packages:
   /ts-map@1.0.3:
     resolution: {integrity: sha512-vDWbsl26LIcPGmDpoVzjEP6+hvHZkBkLW7JpvwbCv/5IYPJlsbzCVXY3wsCeAxAUeTclNOUZxnLdGh3VBD/J6w==}
     dev: true
+
+  /ts-toolbelt@9.6.0:
+    resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
+    dev: false
 
   /tsconfig-paths@4.2.0:
     resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}

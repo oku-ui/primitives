@@ -1,6 +1,7 @@
 export {
   OkuSwitch,
   createSwitchScope,
+  switchProps,
 } from './Switch'
 
 export type {
@@ -11,6 +12,7 @@ export type {
 
 export {
   OkuSwitchThumb,
+  switchThumbProps,
 } from './SwitchThumb'
 
 export type {

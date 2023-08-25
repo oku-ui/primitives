@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
+import { computed, defineComponent, h, nextTick, onMounted, ref, toRef, watch, watchEffect } from 'vue'
 import type { ComponentPublicInstanceRef, ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
@@ -12,13 +12,15 @@ import { CONTENT_NAME } from './collapsibleContent'
 export type CollapsibleContentImplIntrinsicElement = ElementType<'div'>
 export type CollapsibleContentImplElement = HTMLDivElement
 
-interface CollapsibleContentImplProps extends PrimitiveProps {
+export interface CollapsibleContentImplProps extends PrimitiveProps {
   present: boolean
 }
 
-const collapsibleContentImplProps = {
-  present: {
-    type: Object as unknown as PropType<Ref<boolean>>,
+export const collapsibleContentImplProps = {
+  props: {
+    present: {
+      type: Object as unknown as PropType<Ref<boolean>>,
+    },
   },
 }
 
@@ -26,12 +28,12 @@ const collapsibleContentImpl = defineComponent({
   name: 'OkuCollapsibleContentImpl',
   inheritAttrs: false,
   props: {
-    ...collapsibleContentImplProps,
+    ...collapsibleContentImplProps.props,
     ...scopeCollapsibleProps,
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { present, asChild } = toRefs(props)
+    const present = toRef(props, 'present')
     const { ...contentAttrs } = attrs as CollapsibleContentImplIntrinsicElement
     const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 
@@ -92,7 +94,7 @@ const collapsibleContentImpl = defineComponent({
         'hidden': !isOpen.value,
         ...contentAttrs,
         'ref': composedRefs,
-        'asChild': asChild.value,
+        'asChild': props.asChild,
         'style': {
           ['--oku-collapsible-content-height' as any]: height.value ? `${height.value}px` : undefined,
           ['--oku-collapsible-content-width' as any]: width.value ? `${width.value}px` : undefined,
@@ -115,5 +117,3 @@ export const OkuCollapsibleContentImpl = collapsibleContentImpl as typeof collap
 (new () => {
   $props: ScopeCollapsible<Partial<CollapsibleContentImplElement>>
 })
-
-export type { CollapsibleContentImplProps }

@@ -84,7 +84,7 @@ function watchMode() {
     }
   }).once('ready', () => {
     console.log('watch mode active 🚀')
-  }).prependListener('unlinkDir', async (path) => {
+  }).prependListener('unlinkDir', async (_path) => {
     console.log('deleting dist folders 🔥')
     for await (const path of packages)
       rimrafSync(`${path}/dist`)

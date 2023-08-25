@@ -13,7 +13,7 @@ const NAME = 'OkuVisuallyHidden'
 export type VisuallyHiddenIntrinsicElement = ElementType<'button'>
 export type VisuallyHiddenElement = HTMLButtonElement
 
-interface VisuallyHiddenProps extends PrimitiveProps {}
+export interface VisuallyHiddenProps extends PrimitiveProps {}
 
 const visuallyHidden = defineComponent({
   name: NAME,
@@ -33,11 +33,11 @@ const visuallyHidden = defineComponent({
         ...visuallyHiddenAttrs,
         style: {
           position: 'absolute',
-          border: 0,
-          width: 1,
-          height: 1,
-          padding: 0,
-          margin: -1,
+          border: '0px',
+          width: '1px',
+          height: '1px',
+          padding: '0px',
+          margin: '-1px',
           overflow: 'hidden',
           clip: 'rect(0px, 0px, 0px, 0px)',
           whiteSpace: 'nowrap',
@@ -55,7 +55,3 @@ export const OkuVisuallyHidden = visuallyHidden as typeof visuallyHidden &
 (new () => {
   $props: Partial<VisuallyHiddenElement>
 })
-
-export type {
-  VisuallyHiddenProps,
-}

@@ -3,11 +3,11 @@ import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { primitiveProps } from '@oku-ui/primitive'
+import { propsOmit } from '@oku-ui/primitive'
 import { useRadioGroupInject, useRovingFocusGroupScope } from './RadioGroup'
 import type { RadioGroupIntrinsicElement } from './RadioGroup'
-import type { RadioElement, RadioProps } from './Radio'
-import { OkuRadio, radioPropsObject, useRadioScope } from './Radio'
+import type { RadioElement, RadioEmits, RadioProps } from './Radio'
+import { OkuRadio, radioProps, useRadioScope } from './Radio'
 import type { ScopeRadioGroup } from './utils'
 import { ARROW_KEYS, scopeRadioGroupProps } from './utils'
 
@@ -16,30 +16,36 @@ const ITEM_NAME = 'OkuRadioGroupItem'
 export type RadioGroupItemIntrinsicElement = RadioGroupIntrinsicElement
 export type RadioGroupItemElement = HTMLDivElement
 
-interface RadioGroupItemProps extends Omit<RadioProps, 'onCheck' | 'name'> {
+export interface RadioGroupItemProps extends Omit<RadioProps, | 'name'> {
   value: string
 }
 
-// eslint-disable-next-line unused-imports/no-unused-vars
-const { name, ...radioProps } = radioPropsObject
+export type RadioGroupItemEmits = Omit<RadioEmits, 'check'> & {
+  'update:modelValue': [value: string]
+  focus: [event: FocusEvent]
+}
 
-const radioGroupItemPropsObject = {
-
+export const radioGroupItemProps = {
+  props: {
+    ...propsOmit(radioProps.props, ['name']),
+  },
+  emits: {
+    ...propsOmit(radioProps.emits, ['check']),
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'focus': (event: FocusEvent) => true,
+  },
 }
 
 const RadioGroupItem = defineComponent({
   name: ITEM_NAME,
   inheritAttrs: false,
   props: {
-    ...radioGroupItemPropsObject,
-    ...radioProps,
+    ...radioGroupItemProps.props,
     ...scopeRadioGroupProps,
-    ...primitiveProps,
   },
-  emits: {
-    'update:modelValue': (value: string) => true,
-    'focus': (event: FocusEvent) => true,
-  },
+  emits: radioGroupItemProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
       disabled,
@@ -129,5 +135,3 @@ export const OkuRadioGroupItem = RadioGroupItem as typeof RadioGroupItem &
 (new () => {
   $props: ScopeRadioGroup<Partial<RadioGroupItemIntrinsicElement>>
 })
-
-export type { RadioGroupItemProps }

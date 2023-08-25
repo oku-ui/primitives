@@ -40,7 +40,7 @@ function sendForm(event: any) {
     <div>
       <h1>Oku Default Switch</h1>
       <div v-if="template === '#1' || allshow" class="flex flex-col">
-        <OkuSwitch id="switch" v-model="checked" class="switchStyle">
+        <OkuSwitch id="switch" class="switchStyle">
           <OkuSwitchThumb class="thumbStyle" />
         </OkuSwitch>
       </div>

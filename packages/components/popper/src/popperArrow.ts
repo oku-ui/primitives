@@ -1,12 +1,11 @@
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
 
 import {
   type ElementType,
-  type PrimitiveProps,
-  primitiveProps,
 } from '@oku-ui/primitive'
 import type { ArrowProps } from '@oku-ui/arrow'
-import { OkuArrow } from '@oku-ui/arrow'
+import { OkuArrow, arrowProps } from '@oku-ui/arrow'
+
 import { useForwardRef } from '@oku-ui/use-composable'
 import { type ScopePopper, type Side, scopePopperProps } from './utils'
 import { usePopperContentInject } from './popperContent'
@@ -23,18 +22,24 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
 export type PopperArrowIntrinsicElement = ElementType<'svg'>
 export type PopperArrowElement = SVGSVGElement
 
-interface PopperArrowProps extends PrimitiveProps, ArrowProps {
+export interface PopperArrowProps extends ArrowProps {
+}
 
+export const popperArrowProps = {
+  props: {
+    ...arrowProps.props,
+  },
+  emits: {},
 }
 
 const popperArrow = defineComponent({
   name: ARROW_NAME,
   props: {
+    ...popperArrowProps.props,
     ...scopePopperProps,
-    ...primitiveProps,
   },
   setup(props, { attrs }) {
-    const { ...attrsElement } = attrs as PopperArrowIntrinsicElement
+    const { height, width } = toRefs(props)
     const contentInject = usePopperContentInject(ARROW_NAME, props.scopeOkuPopper)
     const baseSide = computed(() => {
       return OPPOSITE_SIDE[contentInject.placedSide.value]
@@ -74,10 +79,13 @@ const popperArrow = defineComponent({
         },
         [
           h(OkuArrow, {
-            ...attrsElement as any,
+            ...attrs,
+            asChild: props.asChild,
             ref: forwardedRef,
+            width: width.value,
+            height: height.value,
             style: {
-              ...(attrsElement.style as any),
+              ...(attrs.style as any),
               display: 'block',
             },
           }),
@@ -92,5 +100,3 @@ export const OkuPopperArrow = popperArrow as typeof popperArrow
 & (new () => {
   $props: ScopePopper<Partial<PopperArrowIntrinsicElement>>
 })
-
-export type { PopperArrowProps }

@@ -13,18 +13,29 @@ const TRIGGER_NAME = 'OkuCollapsibleTrigger'
 export type CollapsibleTriggerIntrinsicElement = ElementType<'button'>
 export type CollapsibleTriggerElement = HTMLButtonElement
 
-interface CollapsibleTriggerProps extends PrimitiveProps { }
+export interface CollapsibleTriggerProps extends PrimitiveProps { }
+
+export interface CollapsibleTriggerEmits {
+  click: [event: MouseEvent]
+}
+
+export const collapsibleTriggerProps = {
+  props: {},
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (e: MouseEvent) => true,
+  },
+}
 
 const collapsibleTrigger = defineComponent({
   name: TRIGGER_NAME,
   inheritAttrs: false,
   props: {
+    ...collapsibleTriggerProps.props,
     ...scopeCollapsibleProps,
     ...primitiveProps,
   },
-  emits: {
-    click: (e: MouseEvent) => true,
-  },
+  emits: collapsibleTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { ...triggerAttrs } = attrs as CollapsibleTriggerIntrinsicElement
     const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
@@ -60,5 +71,3 @@ export const OkuCollapsibleTrigger = collapsibleTrigger as typeof collapsibleTri
 (new () => {
   $props: ScopeCollapsible<Partial<CollapsibleTriggerElement>>
 })
-
-export type { CollapsibleTriggerProps }

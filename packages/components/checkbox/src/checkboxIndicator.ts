@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -13,12 +14,18 @@ import { useCheckboxInject } from './checkbox'
 export type CheckboxIndicatorIntrinsicElement = ElementType<'span'>
 export type CheckboxIndicatorElement = HTMLSpanElement
 
-interface CheckboxIndicatorProps extends PrimitiveProps {
+export interface CheckboxIndicatorProps extends PrimitiveProps {
   forceMount?: true
 }
 
-const checkboxIndicatorProps = {
-  forceMount: Boolean,
+export const checkboxIndicatorProps = {
+  props: {
+    forceMount: {
+      type: Boolean as PropType<true | undefined>,
+      default: undefined,
+    },
+  },
+  emits: {},
 }
 
 const INDICATOR_NAME = 'OkuCheckboxIndicator'
@@ -26,7 +33,7 @@ const INDICATOR_NAME = 'OkuCheckboxIndicator'
 const checkboxIndicator = defineComponent({
   name: INDICATOR_NAME,
   props: {
-    ...checkboxIndicatorProps,
+    ...checkboxIndicatorProps.props,
     ...scopeCheckboxProps,
     ...primitiveProps,
   },
@@ -63,7 +70,3 @@ export const OkuCheckboxIndicator = checkboxIndicator as typeof checkboxIndicato
 (new () => {
   $props: ScopeCheckbox<Partial<CheckboxIndicatorElement>>
 })
-
-export type {
-  CheckboxIndicatorProps,
-}
