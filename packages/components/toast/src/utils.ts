@@ -1,4 +1,7 @@
 // import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
+import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
+import { useCallbackRef } from '@oku-ui/use-composable'
+import { nextTick, watch } from 'vue'
 import type { SwipeDirection } from './toast-provider'
 
 function getAnnounceTextContent(container: HTMLElement) {
@@ -43,11 +46,11 @@ function handleAndDispatchCustomEvent<E extends CustomEvent, ReactEvent>(
   if (handler)
     currentTarget.addEventListener(name, handler as EventListener, { once: true })
 
-  // if (discrete)
-  // dispatchDiscreteCustomEvent(currentTarget, event)
+  if (discrete)
+    dispatchDiscreteCustomEvent(currentTarget, event)
 
-  // else
-  // currentTarget.dispatchEvent(event)
+  else
+    currentTarget.dispatchEvent(event)
 }
 
 function isDeltaInDirection(delta: { x: number; y: number },
@@ -62,18 +65,20 @@ function isDeltaInDirection(delta: { x: number; y: number },
     return !isDeltaX && deltaY > threshold
 }
 
-// function useNextFrame(callback = () => {}) {
-// const fn = useCallbackRef(callback)
-// useLayoutEffect(() => {
-//   let raf1 = 0
-//   let raf2 = 0
-//   raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(fn)))
-//   return () => {
-//     window.cancelAnimationFrame(raf1)
-//     window.cancelAnimationFrame(raf2)
-//   }
-// }, [fn])
-// }
+function useNextFrame(callback = () => {}) {
+  const fn = useCallbackRef(callback)
+  watch([fn], async () => {
+    await nextTick()
+
+    let raf1 = 0
+    let raf2 = 0
+    raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(fn)))
+    return () => {
+      window.cancelAnimationFrame(raf1)
+      window.cancelAnimationFrame(raf2)
+    }
+  })
+}
 
 function isHTMLElement(node: any): node is HTMLElement {
   return node.nodeType === node.ELEMENT_NODE
@@ -119,4 +124,4 @@ function focusFirst(candidates: HTMLElement[]) {
   })
 }
 
-export { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection, isHTMLElement, getTabbableCandidates, focusFirst }
+export { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection, useNextFrame, isHTMLElement, getTabbableCandidates, focusFirst }

@@ -1,42 +1,49 @@
-/* eslint-disable unused-imports/no-unused-vars */
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h } from 'vue'
+import { scopedProps } from './types'
+
 /* -------------------------------------------------------------------------------------------------
  * ToastTitle
  * ----------------------------------------------------------------------------------------------- */
 
-import type { IPrimitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import type { PropType } from 'vue'
-import { defineComponent, toRefs } from 'vue'
-import type { Scope } from '@oku-ui/provide'
-
 const TITLE_NAME = 'ToastTitle'
 
-// type ToastTitleElement = ElementType<'div'>
-// type PrimitiveDivProps = ComponentPropsWithoutRef<typeof Primitive.div>
-interface ToastTitleProps extends IPrimitiveProps {}
+type ToastTitleElement = ElementType<'div'>
+// type PrimitiveDivProps = ElementType<'div'>
+interface ToastTitleProps extends PrimitiveProps { }
 
-const ToastTitle = defineComponent({
+const toastTitle = defineComponent({
   name: TITLE_NAME,
   components: {
   },
   inheritAttrs: false,
   props: {
-    scopeToast: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...scopedProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, emit, slots }) {
-    // const { ...titleProps } = attrs as ToastElement
+  setup(_props, { attrs, slots }) {
+    const { ...toastTitleAttrs } = attrs as ToastTitleElement
 
     const forwardedRef = useForwardRef()
 
-    const { scopeToast, ...titleProps } = toRefs(props)
-
-    // return <Primitive.div {...titleProps} ref={forwardedRef} />;
-
-    // const originalReturn = () =>
-
-    // return originalReturn
+    const originalReturn = () =>
+      h(
+        Primitive.div,
+        {
+          ref: forwardedRef,
+          ...toastTitleAttrs,
+        },
+        {
+          default: () => slots.default?.(),
+        },
+      )
+    return originalReturn
   },
 })
+
+export const OkuToastTitle = toastTitle as typeof toastTitle &
+(new () => { $props: Partial<ToastTitleElement> })
+
+export type { ToastTitleElement, ToastTitleProps }

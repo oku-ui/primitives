@@ -1,12 +1,16 @@
-/* eslint-disable unused-imports/no-unused-vars */
-import { defineComponent, ref, toRefs } from 'vue'
+import { defineComponent, h, ref, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
-import type { IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import type { PrimitiveProps } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import type { Scope } from '@oku-ui/provide'
-import { useForwardRef } from '@oku-ui/use-composable'
 import { createCollection } from '@oku-ui/collection'
-import type { InstanceToastViewportType } from './toast-viewport'
+import { useCallbackRef } from '@oku-ui/use-composable'
+import type { ToastImplElement } from './toast-impl'
+import type { ToastViewportElement } from './toast-viewport'
+import { scopedProps } from './types'
+
+// import type { ScopedPropsInterface } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * ToastProvider
@@ -14,37 +18,31 @@ import type { InstanceToastViewportType } from './toast-viewport'
 
 export const PROVIDER_NAME = 'ToastProvider'
 
-const [Collection, useCollection, createCollectionScope] = createCollection<ToastElement>('Toast')
+type ToastElement = ToastImplElement
+
+export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<HTMLLIElement, undefined>('Toast')
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
 type ToastProviderContextValue = {
-  label: string
-  duration: number
-  swipeDirection: SwipeDirection
-  swipeThreshold: number
-  toastCount: number
-  viewport: InstanceToastViewportType | null
-  onViewportChange(viewport: InstanceToastViewportType): void
+  label: Ref<string>
+  duration: Ref<number>
+  swipeDirection: Ref<SwipeDirection>
+  swipeThreshold: Ref<number>
+  toastCount: Ref<number>
+  viewport: Ref<ToastViewportElement | null>
+  onViewportChange(viewport: ToastViewportElement | null): void
   onToastAdd(): void
   onToastRemove(): void
   isFocusedToastEscapeKeyDownRef: Ref<boolean>
   isClosePausedRef: Ref<boolean>
 }
 
-// type ScopedProps<P> = P & { __scopeToast?: Scope };
-// interface ToastProps extends IPrimitiveProps {
-//   scopeToast?: Scope
-// }
-export type ScopedPropsInterface<P> = P & { scopeToast?: Scope }
-export const ScopedProps = {
-  scopeToast: {
-    type: Object as PropType<Scope>,
-  },
-}
+// export interface ToastProviderProps extends ScopedPropsInterface<ToastElement> { }
+
 const [createToastContext, createToastScope] = createProvideScope('Toast', [createCollectionScope])
 const [ToastProviderProvider, useToastProviderContext] = createToastContext<ToastProviderContextValue>(PROVIDER_NAME)
 
-interface ToastProviderProps extends IPrimitiveProps {
+interface ToastProviderProps extends PrimitiveProps {
   // children?: React.ReactNode
   scopeToast?: Scope
   /**
@@ -70,43 +68,39 @@ interface ToastProviderProps extends IPrimitiveProps {
   swipeThreshold?: number
 }
 
-const ToastProvider = defineComponent({
+const toastProviderProps = {
+  label: {
+    type: String as PropType<string>,
+    default: 'Notification',
+  },
+  duration: {
+    type: Number as PropType<number>,
+    default: 5000,
+  },
+  swipeDirection: {
+    type: String as PropType<SwipeDirection>,
+    default: 'right',
+  },
+  swipeThreshold: {
+    type: Number as PropType<number>,
+    default: 50,
+  },
+  // children: {
+  // },
+}
+
+const toastProvider = defineComponent({
   name: PROVIDER_NAME,
   components: {
   },
   inheritAttrs: false,
   props: {
-    scopeToast: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    label: {
-      type: String,
-      default: 'Notification',
-    },
-    duration: {
-      type: Number,
-      default: 5000,
-    },
-    swipeDirection: {
-      type: String as PropType<SwipeDirection>,
-      default: 'right',
-    },
-    swipeThreshold: {
-      type: Number,
-      default: 50,
-    },
-    // children: {
-    // },
+    ...toastProviderProps,
+    ...scopedProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, emit, slots }) {
-    const { ...toastProps } = attrs
-    // as ToastElement
-
-    const forwardedRef = useForwardRef()
-
+  setup(props, { slots }) {
     const {
-      scopeToast,
       label,
       duration,
       swipeDirection,
@@ -114,81 +108,46 @@ const ToastProvider = defineComponent({
       // children,
     } = toRefs(props)
 
-    const viewport = ref<InstanceToastViewportType | null>(null)
+    const viewport = ref<ToastViewportElement | null>(null)
     const toastCount = ref(0)
     const isFocusedToastEscapeKeyDownRef = ref(false)
     const isClosePausedRef = ref(false)
 
     ToastProviderProvider({
-      scope: scopeToast.value,
-      label: label.value,
-      duration: duration.value,
-      swipeDirection: swipeDirection.value,
-      swipeThreshold: swipeThreshold.value,
-      toastCount: toastCount.value,
-      viewport: viewport.value,
-      onViewportChange: viewport.value,
-      onToastAdd: () => toastCount.value++,
-      onToastRemove: () => toastCount.value--,
+      scope: props.scopeOkuToast,
+      label,
+      duration,
+      swipeDirection,
+      swipeThreshold,
+      toastCount,
+      viewport,
+      onViewportChange: () => viewport.value,
+      onToastAdd: useCallbackRef(() => toastCount.value++),
+      onToastRemove: useCallbackRef(() => toastCount.value--),
       isFocusedToastEscapeKeyDownRef,
       isClosePausedRef,
     })
 
-    // const originalReturn = () =>
-    // h(
-    //   ToastProviderProvider, {
-    //     ...toastProps,
-    //     ref: forwardedRef,
-    //   },
-    //   {
-    //     default: () => slots.default?.(),
-    //   },
-    // )
+    const originalReturn = () =>
+      h(CollectionProvider,
+        {
+          scope: props.scopeOkuToast,
+        },
+        [
+          h(ToastProviderProvider, slots.default?.()),
+        ],
+      )
 
-    // const originalReturn = () =>
-    //   h(Collection.Provider,
-    //     {
-    //       scope: __scopeToast,
-    //     },
-    //     [
-    //       h(ToastProvider,
-    //         {
-    //           label,
-    //           duration,
-    //           swipeDirection,
-    //           swipeThreshold,
-    //           toastCount,
-    //           viewport,
-    //           onViewportChange: setViewport,
-    //           onToastAdd: () => setToastCount(prevCount => prevCount + 1),
-    //           onToastRemove: () => setToastCount(prevCount => prevCount - 1),
-    //           isFocusedToastEscapeKeyDownRef,
-    //           isClosePausedRef,
-    //         },
-    //         children,
-    //       ),
-    //     ],
-    // )
+    if (label.value && typeof label.value === 'string' && !label.value.trim())
+      throw new Error(`Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`)
 
-    // ToastProvider.propTypes = {
-    //   label(props) {
-    //     if (props.label && typeof props.label === 'string' && !props.label.trim()) {
-    //       const error = `Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`
-    //       return new Error(error)
-    //     }
-    //     return null
-    //   },
-    // }
-
-    // return originalReturn
+    return originalReturn
   },
 })
 
-type _ToastProvider = MergeProps<ToastProviderProps, ToastProviderElement>
-type InstanceToastProviderType = InstanceTypeRef<typeof ToastProvider, _ToastProviderEl>
+export { useToastProviderContext, createToastScope, createToastContext }
 
-const OkuToastProvider = ToastProvider as typeof ToastProvider & (new () => { $props: _ToastProvider })
+export const OkuToastProvider = toastProvider as typeof toastProvider &
+(new () => { $props: Partial<ToastElement> })
 
-export { OkuToastProvider, useToastProviderContext, createToastScope, createToastContext, useCollection }
-
-export type { ToastProviderProps, InstanceToastProviderType }
+export type { ToastElement, ToastProviderProps }

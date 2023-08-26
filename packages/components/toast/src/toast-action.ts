@@ -1,15 +1,18 @@
-/* eslint-disable unused-imports/no-unused-vars */
+import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, toRefs } from 'vue'
+import { primitiveProps } from '@oku-ui/primitive'
+import { OkuToastClose } from './toast-close'
+import type { ToastCloseElement, ToastCloseProps } from './toast-close'
+import { OkuToastAnnounceExclude } from './toast-announce-exclude'
+import { scopedProps } from './types'
+
 /* -------------------------------------------------------------------------------------------------
  * ToastAction
  * ----------------------------------------------------------------------------------------------- */
 
-import { useForwardRef } from '@oku-ui/use-composable'
-import { defineComponent, toRefs } from 'vue'
-import type { InstanceToastCloseElementType, ToastCloseProps } from './toast-close'
-
 const ACTION_NAME = 'ToastAction'
 
-type ToastActionElement = InstanceToastCloseElementType
+type ToastActionElement = ToastCloseElement
 interface ToastActionProps extends ToastCloseProps {
   /**
    * A short description for an alternate way to carry out the action. For screen reader users
@@ -20,56 +23,65 @@ interface ToastActionProps extends ToastCloseProps {
   altText: string
 }
 
-const ToastAction = defineComponent({
+const toastActionProps = {
+  altText: {
+    type: String,
+    required: true,
+  },
+  asChild: {
+    type: Boolean,
+    default: false,
+  },
+}
+
+const toastAction = defineComponent({
   name: ACTION_NAME,
   components: {
+    OkuToastAnnounceExclude,
+    OkuToastClose,
   },
   inheritAttrs: false,
   props: {
-    altText: {
-      type: String,
-      required: true,
-    },
-    asChild: {
-      type: Boolean,
-      default: false,
-    },
+    ...toastActionProps,
+    ...scopedProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, emit, slots }) {
-    // const { ...actionProps } = attrs as ToastElement
+  setup(props, { attrs }) {
+    const { ...toastActionAttrs } = attrs as ToastActionElement
 
     const forwardedRef = useForwardRef()
 
-    const { altText, ...actionProps } = toRefs(props)
+    const { altText } = toRefs(props)
 
-    // const originalReturn = () =>
-
-    if (!altText)
+    if (!altText.value)
       return null
-    // return (
-    //   <ToastAnnounceExclude altText={altText} asChild>
-    //     <ToastClose {...actionProps} ref={forwardedRef} />
-    //   </ToastAnnounceExclude>
-    // );
 
-    // ToastAction.propTypes = {
-    //   altText(props) {
-    //     if (!props.altText)
-    //       return new Error(`Missing prop \`altText\` expected on \`${ACTION_NAME}\``)
+    const originalReturn = () =>
+      h(
+        OkuToastAnnounceExclude,
+        {
+          altText: altText.value,
+          asChild: true,
+        },
+        [
+          h(
+            OkuToastClose,
+            {
+              ...toastActionAttrs,
+              ref: forwardedRef,
+            },
+          ),
+        ],
+      )
 
-    //     return null
-    //   },
-    // }
+    if (!altText.value)
+      throw new Error(`Missing prop \`altText\` expected on \`${ACTION_NAME}\``)
 
-    // return originalReturn
+    return originalReturn
   },
 })
 
-// type _ToastProvider = MergeProps<ToastProviderProps, ToastProviderElement>
-// type InstanceToastProviderType = InstanceTypeRef<typeof ToastProvider, _ToastProviderEl>
+export const OkuToastAction = toastAction as typeof toastAction &
+(new () => { $props: Partial<ToastActionElement> })
 
-// const OkuToastProvider = ToastProvider as typeof ToastProvider & (new () => { $props: _ToastProvider })
-
-// export { OkuToastProvider, useToastProviderContext, createToastScope, createToastContext, useCollection }
-
-// export type { ToastProviderProps, InstanceToastProviderType }
+export type { ToastActionElement, ToastActionProps }

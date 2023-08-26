@@ -1,50 +1,49 @@
-/* eslint-disable unused-imports/no-unused-vars */
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h } from 'vue'
+import { scopedProps } from './types'
+
 /* -------------------------------------------------------------------------------------------------
  * ToastDescription
  * ----------------------------------------------------------------------------------------------- */
 
-import type { IPrimitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import type { PropType } from 'vue'
-import { defineComponent, toRefs } from 'vue'
-import type { Scope } from '@oku-ui/provide'
-
 const DESCRIPTION_NAME = 'ToastDescription'
 
-// type ToastDescriptionElement = ElementType<'div'>;
-interface ToastDescriptionProps extends IPrimitiveProps {}
+type ToastDescriptionElement = ElementType<'div'>
+interface ToastDescriptionProps extends PrimitiveProps {}
 
-const ToastTToastDescriptionitle = defineComponent({
+const toastDescription = defineComponent({
   name: DESCRIPTION_NAME,
   components: {
   },
   inheritAttrs: false,
   props: {
-    scopeToast: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...scopedProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, emit, slots }) {
-    // const { ...descriptionProps } = attrs as ToastElement
+  setup(_props, { attrs, slots }) {
+    const { ...toastDescriptionAttrs } = attrs as ToastDescriptionElement
 
     const forwardedRef = useForwardRef()
 
-    const { scopeToast, ...descriptionProps } = toRefs(props)
+    const originalReturn = () =>
+      h(
+        Primitive.div,
+        {
+          ref: forwardedRef,
+          ...toastDescriptionAttrs,
+        },
+        {
+          default: () => slots.default?.(),
+        },
+      )
 
-    //  return <Primitive.div {...descriptionProps} ref={forwardedRef} />;
-
-    // const originalReturn = () =>
-
-    // return originalReturn
+    return originalReturn
   },
 })
 
-// type _ToastProvider = MergeProps<ToastProviderProps, ToastProviderElement>
-// type InstanceToastProviderType = InstanceTypeRef<typeof ToastProvider, _ToastProviderEl>
+export const OkuToastDescription = toastDescription as typeof toastDescription &
+(new () => { $props: Partial<ToastDescriptionElement> })
 
-// const OkuToastProvider = ToastProvider as typeof ToastProvider & (new () => { $props: _ToastProvider })
-
-// export { OkuToastProvider, useToastProviderContext, createToastScope, createToastContext, useCollection }
-
-// export type { ToastProviderProps, InstanceToastProviderType }
+export type { ToastDescriptionElement, ToastDescriptionProps }

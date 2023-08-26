@@ -1,54 +1,60 @@
-/* eslint-disable unused-imports/no-unused-vars */
-import type { ElementType, IPrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { PropType } from 'vue'
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, h, toRefs } from 'vue'
 import type { Scope } from '@oku-ui/provide'
+import { scopedProps } from './types'
 
 type ToastAnnounceExcludeElement = ElementType<'div'>
-interface ToastAnnounceExcludeProps extends IPrimitiveProps {
+interface ToastAnnounceExcludeProps extends PrimitiveProps {
+  scopeToast?: Scope
   altText?: string
 }
 
 const ANNOUNCE_EXCLUDE_NAME = 'AnnounceExclude'
 
-const ToastAnnounceExclude = defineComponent({
+const toastAnnounceExcludeProps = {
+  altText: {
+    type: String,
+    required: false,
+  },
+}
+
+const toastAnnounceExclude = defineComponent({
   name: ANNOUNCE_EXCLUDE_NAME,
   components: {
   },
   inheritAttrs: false,
   props: {
-    altText: {
-      type: String,
-      required: false,
-    },
-    scopeToast: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...toastAnnounceExcludeProps,
+    ...scopedProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, emit, slots }) {
-    // const { ...announceExcludeProps } = attrs as ToastElement
+  setup(props, { attrs }) {
+    const { ...toastAnnounceExcludeAttrs } = attrs as ToastAnnounceExcludeElement
 
     const forwardedRef = useForwardRef()
 
     const {
-      scopeToast,
       altText,
-      ...announceExcludeProps
     } = toRefs(props)
 
-    // return (
-    //   <Primitive.div
-    //     data-radix-toast-announce-exclude=""
-    //     data-radix-toast-announce-alt={altText || undefined}
-    //     {...announceExcludeProps}
-    //     ref={forwardedRef}
-    //   />
-    // );
+    const originalReturn = () =>
+      h(
+        Primitive.div,
+        {
+          ...toastAnnounceExcludeAttrs,
+          'ref': forwardedRef,
+          'data-oku-toast-announce-exclude': '',
+          'data-oku-toast-announce-alt': altText.value || undefined,
+        },
+      )
 
-    // const originalReturn = () =>
-
-    // return originalReturn
+    return originalReturn
   },
 })
+
+export const OkuToastAnnounceExclude = toastAnnounceExclude as typeof toastAnnounceExclude &
+(new () => { $props: Partial<ToastAnnounceExcludeElement> })
+
+export type { ToastAnnounceExcludeElement, ToastAnnounceExcludeProps }
