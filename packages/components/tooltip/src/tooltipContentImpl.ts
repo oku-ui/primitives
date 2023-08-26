@@ -16,6 +16,10 @@ const CONTENT_NAME = 'OkuTooltipContentImpl'
 const [visuallyHiddenContentProvider, useVisuallyHiddenContentInject]
   = createTooltipProvide(CONTENT_NAME, { isInside: false })
 
+export {
+  useVisuallyHiddenContentInject,
+}
+
 export type TooltipContentImplIntrinsicElement = PopperContentIntrinsicElement
 export type TooltipContentImplElement = PopperContentElement
 

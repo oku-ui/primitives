@@ -20,6 +20,8 @@ const [portalProvider, usePortalInject] = createTooltipProvide<PortalProvide>(PO
   forceMount: undefined,
 })
 
+export { usePortalInject }
+
 type PortalProps = OkuPortalProps
 
 export interface TooltipPortalProps {

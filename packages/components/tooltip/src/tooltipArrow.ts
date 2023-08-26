@@ -1,47 +1,55 @@
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { PopperArrowElement, PopperArrowIntrinsicElement } from '@oku-ui/popper'
+import { OkuPopperArrow, type PopperArrowElement, type PopperArrowIntrinsicElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
+import { type ScopeTooltip, scopeTooltipProps } from './types'
+import { usePopperScope } from './utils'
+import { useVisuallyHiddenContentInject } from './tooltipContentImpl'
 
 export type TooltipArrowIntrinsicElement = PopperArrowIntrinsicElement
 export type TooltipArrowElement = PopperArrowElement
 
-interface TooltipArrowProps { }
-const NAME = 'OkuTooltipArrow'
+export interface TooltipArrowProps extends PopperArrowProps { }
+
+export const tooltipArrowProps = {
+  props: {
+    ...popperArrowProps.props,
+  },
+  emits: {
+    ...popperArrowProps.emits,
+  },
+}
+
+const ARROW_NAME = 'OkuTooltipArrow'
 
 const tooltipArrow = defineComponent({
-  name: NAME,
+  name: ARROW_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
+    ...tooltipArrowProps.props,
+    ...scopeTooltipProps,
   },
+  emits: tooltipArrowProps.emits,
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
+    const popperScope = usePopperScope(props.scopeOkuTooltip)
 
-    const originalReturn = () => h(Primitive.label, {
-      ...attrs,
-      ref: forwardedRef,
-      asChild: props.asChild,
-      onMousedown: (event: MouseEvent) => {
-        restAttrs.onMousedown?.(event)
-        // prevent text selection when double clicking label
-        if (!event.defaultPrevented && event.detail > 1)
-          event.preventDefault()
-      },
-    },
-    {
-      default: () => slots.default?.(),
-    })
-    return originalReturn
+    const visuallyHiddenContentInject = useVisuallyHiddenContentInject(ARROW_NAME, props.scopeOkuTooltip)
+
+    // if the arrow is inside the `VisuallyHidden`, we don't want to render it all to
+    // prevent issues in positioning the arrow due to the duplicate
+    return () => visuallyHiddenContentInject.isInside
+      ? null
+      : h(OkuPopperArrow, {
+        ...popperScope,
+        ...props,
+        ref: forwardedRef,
+      }, slots)
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipArrow = tooltipArrow as typeof tooltipArrow &
 (new () => {
-  $props: Partial<LabelElement>
+  $props: ScopeTooltip<Partial<PopperArrowElement>>
 })
-
-export type {
-  TooltipArrowProps,
-}
