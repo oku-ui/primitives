@@ -26,11 +26,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
-    "vue": "^3.3.2"
+    "vue": "^3.3.4"
   },
   "dependencies": {
     "@oku-ui/presence": "latest",
