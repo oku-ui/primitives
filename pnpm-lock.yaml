@@ -290,7 +290,7 @@ importers:
   packages/components/checkbox:
     dependencies:
       '@oku-ui/presence':
-        specifier: workspace:^
+        specifier: latest
         version: link:../presence
       '@oku-ui/primitive':
         specifier: latest
@@ -450,7 +450,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.1
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -541,7 +541,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -704,7 +704,7 @@ importers:
         specifier: latest
         version: link:../roving-focus
       '@oku-ui/toggle':
-        specifier: workspace:^
+        specifier: latest
         version: link:../toggle
       '@oku-ui/use-composable':
         specifier: latest
