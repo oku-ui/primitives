@@ -726,10 +726,16 @@ importers:
   packages/components/tooltip:
     dependencies:
       '@oku-ui/dismissable-layer':
-        specifier: workspace:^
+        specifier: latest
         version: link:../dismissable-layer
+      '@oku-ui/popper':
+        specifier: latest
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: latest
+        version: link:../portal
       '@oku-ui/presence':
-        specifier: workspace:^
+        specifier: latest
         version: link:../presence
       '@oku-ui/primitive':
         specifier: latest
@@ -738,7 +744,7 @@ importers:
         specifier: latest
         version: link:../../core/provide
       '@oku-ui/slot':
-        specifier: workspace:^
+        specifier: latest
         version: link:../slot
       '@oku-ui/use-composable':
         specifier: latest
@@ -747,7 +753,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       '@oku-ui/visually-hidden':
-        specifier: workspace:^
+        specifier: latest
         version: link:../visually-hidden
       vue:
         specifier: ^3.3.0

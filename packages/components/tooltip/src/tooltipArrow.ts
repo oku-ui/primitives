@@ -1,5 +1,4 @@
 import { defineComponent, h } from 'vue'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperArrow, type PopperArrowElement, type PopperArrowIntrinsicElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
 import { type ScopeTooltip, scopeTooltipProps } from './types'
@@ -44,7 +43,9 @@ const tooltipArrow = defineComponent({
         ...popperScope,
         ...props,
         ref: forwardedRef,
-      }, slots)
+      }, {
+        default: () => slots.default?.(),
+      })
   },
 })
 

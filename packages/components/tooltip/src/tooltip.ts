@@ -2,7 +2,7 @@ import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, useModel, watchEffect } from 'vue'
 import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
+import { useControllable, useId } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
 import { TOOLTIP_OPEN, createTooltipProvide, usePopperScope } from './utils'
 import type { TooltipTriggerElement } from './tooltipTrigger'
@@ -100,8 +100,6 @@ const tooltip = defineComponent({
     const provideInject = useTooltipProviderInject(TOOLTIP_NAME, props.scopeOkuTooltip)
     const popperScope = usePopperScope(props.scopeOkuTooltip)
     const trigger = ref<HTMLButtonElement | null>(null)
-    const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(trigger, forwardedRef)
 
     const contentId = useId()
     const openTimerRef = ref(0)
@@ -195,7 +193,6 @@ const tooltip = defineComponent({
       },
       disableHoverableContent,
     })
-
     return () => h(OkuPopper, {
       ...popperScope,
     }, slots)

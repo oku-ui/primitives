@@ -36,7 +36,7 @@ export interface TooltipProviderProps {
   disableHoverableContent?: boolean
 }
 
-const tooltipProviderProps = {
+export const tooltipProviderProps = {
   props: {
     delayDuration: {
       type: Number,
@@ -101,7 +101,7 @@ const tooltipProvider = defineComponent({
       },
     })
 
-    return () => slots
+    return () => slots.default?.()
   },
 })
 

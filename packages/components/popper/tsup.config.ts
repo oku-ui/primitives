@@ -4,6 +4,8 @@ import pkg from './package.json'
 const external = [
   ...Object.keys(pkg.dependencies || {}),
   ...Object.keys(pkg.peerDependencies || {}),
+  '@floating-ui/vue',
+  '@floating-ui/dom',
 ]
 
 export default defineConfig((options) => {

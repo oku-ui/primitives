@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { OkuLabelProps } from './LabelDemo.vue'
-import OkuLabelComponent from './LabelDemo.vue'
+import type { OkuLabelProps } from './TooltipDemo.vue'
+import OkuTooltipComponent from './TooltipDemo.vue'
 
 interface StoryProps extends OkuLabelProps {
 }
 
 const meta = {
-  title: 'Components/Label',
-  component: OkuLabelComponent,
+  title: 'Components/Tooltip',
+  component: OkuTooltipComponent,
   args: {
     label: 'Label',
     template: '#1',
@@ -22,7 +22,7 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof OkuLabelComponent> & {
+} satisfies Meta<typeof OkuTooltipComponent> & {
   args: StoryProps
 }
 
@@ -37,12 +37,12 @@ export const Styled: Story = {
     template: '#1',
   },
   render: (args: any) => ({
-    components: { OkuLabelComponent },
+    components: { OkuTooltipComponent },
     setup() {
       return { args }
     },
     template: `
-      <OkuLabelComponent v-bind="args" />
+      <OkuTooltipComponent v-bind="args" />
     `,
   }),
 }
@@ -53,12 +53,12 @@ export const WithControl: Story = {
     template: '#2',
   },
   render: (args: any) => ({
-    components: { OkuLabelComponent },
+    components: { OkuTooltipComponent },
     setup() {
       return { args }
     },
     template: `
-      <OkuLabelComponent v-bind="args" />
+      <OkuTooltipComponent v-bind="args" />
     `,
   }),
 }

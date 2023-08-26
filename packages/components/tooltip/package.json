@@ -29,21 +29,23 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "unbuild",
+    "dev": "unbuild --watch"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/dismissable-layer": "workspace:^",
-    "@oku-ui/presence": "workspace:^",
+    "@oku-ui/dismissable-layer": "latest",
+    "@oku-ui/popper": "latest",
+    "@oku-ui/portal": "latest",
+    "@oku-ui/presence": "latest",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
-    "@oku-ui/slot": "workspace:^",
+    "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
-    "@oku-ui/visually-hidden": "workspace:^"
+    "@oku-ui/visually-hidden": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

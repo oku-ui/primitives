@@ -8,10 +8,9 @@ import type { ScopeTooltip } from './types'
 import { scopeTooltipProps } from './types'
 import { useTooltipInject } from './tooltip'
 
-// export type LabelIntrinsicElement = ElementType<'label'>
-// export type LabelElement = HTMLLabelElement
-
 const PORTAL_NAME = 'OkuTooltipPortal'
+
+export type TooltipPortalElement = PortalElement
 
 type PortalProvide = {
   forceMount?: Ref<true | undefined>
@@ -82,5 +81,5 @@ const tooltipPortal = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipPortal = tooltipPortal as typeof tooltipPortal &
 (new () => {
-  $props: ScopeTooltip<Partial<PortalElement>>
+  $props: ScopeTooltip<Partial<TooltipPortalElement>>
 })

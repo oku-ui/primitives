@@ -1,6 +1,5 @@
 import { defineComponent, h, toRefs, watchEffect } from 'vue'
-import type { ElementType } from '@oku-ui/primitive'
-import { Primitive, primitiveProps, propsOmit } from '@oku-ui/primitive'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { OkuPopperContent, popperContentProps } from '@oku-ui/popper'
@@ -134,6 +133,7 @@ const tooltipContentImpl = defineComponent({
         'data-state': inject.stateAttribute.value,
         ...popperScope,
         ...restAttrs,
+        ...props,
         'align': align.value,
         'alignOffset': alignOffset.value,
         'arrowPadding': arrowPadding.value,
@@ -156,12 +156,14 @@ const tooltipContentImpl = defineComponent({
           },
         },
       }, [
-        h(OkuSlottable, slots),
+        h(OkuSlottable, {}, {
+          default: () => slots.default?.(),
+        }),
         h(OkuVisuallyHidden, {
           id: inject.contentId.value,
           role: 'tooltip',
         }, {
-          default: () => ariaLabel.value ?? slots,
+          default: () => ariaLabel.value ?? slots.default?.(),
         }),
       ]),
     })

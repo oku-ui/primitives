@@ -1,5 +1,6 @@
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject } from '@oku-ui/provide'
+import type { TooltipContentProps } from './tooltipContent'
 
 export type Point = { x: number; y: number }
 export type Polygon = Point[]

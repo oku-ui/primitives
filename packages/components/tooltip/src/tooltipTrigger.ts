@@ -67,7 +67,7 @@ const tooltipTrigger = defineComponent({
     })
 
     return () => h(OkuPopperAnchor, {
-      asChild: props.asChild,
+      asChild: true,
       ...popperScope,
     }, {
       default: () => h(Primitive.button, {

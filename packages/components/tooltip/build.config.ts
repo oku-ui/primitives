@@ -9,4 +9,5 @@ export default defineBuildConfig({
     },
   ],
   declaration: true,
+  clean: false,
 })
