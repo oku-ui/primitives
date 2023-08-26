@@ -27,10 +27,11 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --watch"
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
-    "vue": "^3.3.1"
+    "vue": "^3.3.0"
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.2",

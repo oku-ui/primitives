@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  vue: 3.3.4
   '@vue/runtime-core': 3.3.4
   vite: 4.3.5
+  vue: 3.3.4
 
 importers:
 
@@ -293,7 +293,7 @@ importers:
   packages/components/checkbox:
     dependencies:
       '@oku-ui/presence':
-        specifier: workspace:^
+        specifier: latest
         version: link:../presence
       '@oku-ui/primitive':
         specifier: latest
@@ -333,7 +333,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.2
+        specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -453,7 +453,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.1
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -544,7 +544,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -707,7 +707,7 @@ importers:
         specifier: latest
         version: link:../roving-focus
       '@oku-ui/toggle':
-        specifier: workspace:^
+        specifier: latest
         version: link:../toggle
       '@oku-ui/use-composable':
         specifier: latest
@@ -823,11 +823,14 @@ importers:
       '@oku-ui/utils':
         specifier: latest
         version: link:../utils
+      '@vue/shared':
+        specifier: ^3.3.4
+        version: 3.3.4
       '@vueuse/core':
         specifier: ^10.3.0
         version: 10.3.0(vue@3.3.4)
       vue:
-        specifier: ^3.3.0
+        specifier: 3.3.4
         version: 3.3.4
     devDependencies:
       '@types/resize-observer-browser':
@@ -838,6 +841,10 @@ importers:
         version: link:../../tsconfig
 
   packages/core/utils:
+    dependencies:
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -1638,14 +1645,14 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
 
   /@babel/parser@7.22.7:
     resolution: {integrity: sha512-7NF8pOkHP5o2vpmGgNGcfAeCvOYhGLyA3Z4eBQkT1RJlWu47n63bCs93QfJ2hIAFCil7L5P2IWhs1oToVgrL0Q==}
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
 
   /@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@7.22.5(@babel/core@7.22.10):
     resolution: {integrity: sha512-NP1M5Rf+u2Gw9qfSO4ihjcTGW5zXTi36ITLd4/EoAcEhIZ0yjMqmftDNl3QC19CX7olhrjpyU454g/2W7X0jvQ==}
@@ -2746,7 +2753,6 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
-    dev: true
 
   /@babel/types@7.22.5:
     resolution: {integrity: sha512-zo3MIHGOkPOfoRXitsgHLjEXmlDaD/5KU1Uzuc9GNiZPhSqVxVRtxuPaSBZDsYZ9qV88AjtMtWW7ww98loJ9KA==}
@@ -2755,6 +2761,7 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
+    dev: true
 
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
@@ -5612,7 +5619,7 @@ packages:
       express: 4.18.2
       find-cache-dir: 3.3.2
       fs-extra: 11.1.1
-      magic-string: 0.30.1
+      magic-string: 0.30.3
       remark-external-links: 8.0.0
       remark-slug: 6.1.0
       rollup: 3.26.2
@@ -5727,7 +5734,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/preset-env': 7.22.10(@babel/core@7.22.10)
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
       '@storybook/csf': 0.1.0
       '@storybook/csf-tools': 7.3.2
       '@storybook/node-logger': 7.3.2
@@ -5901,7 +5908,7 @@ packages:
       '@babel/generator': 7.22.10
       '@babel/parser': 7.22.10
       '@babel/traverse': 7.22.10
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
       '@storybook/csf': 0.1.0
       '@storybook/types': 7.3.2
       fs-extra: 11.1.1
@@ -6301,7 +6308,7 @@ packages:
     resolution: {integrity: sha512-+n8dL/9GWblDO0iU6eZAwEIJVr5DWigtle+Q6HLOrh/pdbXOhOtqzq8VPPE2zvNJzSKY4vH/z3iT3tn0A3ypiQ==}
     dependencies:
       '@babel/parser': 7.22.10
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
       '@types/babel__generator': 7.6.4
       '@types/babel__template': 7.4.1
       '@types/babel__traverse': 7.18.5
@@ -6897,7 +6904,7 @@ packages:
   /@vitest/snapshot@0.34.2:
     resolution: {integrity: sha512-qhQ+xy3u4mwwLxltS4Pd4SR+XHv4EajiTPNY3jkIBLUApE6/ce72neJPSUQZ7bL3EBuKI+NhvzhGj3n5baRQUQ==}
     dependencies:
-      magic-string: 0.30.1
+      magic-string: 0.30.3
       pathe: 1.1.1
       pretty-format: 29.6.1
     dev: true
@@ -7038,7 +7045,7 @@ packages:
       '@vue/compiler-core': 3.3.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
-      magic-string: 0.30.1
+      magic-string: 0.30.3
 
   /@vue/reactivity@3.3.4:
     resolution: {integrity: sha512-kLTDLwd0B1jG08NBF3R5rqULtv/f8x3rOFByTDz4J53ttIQEDmALqKqXY0J+XQeN0aV2FBxY8nJDf88yvOPAqQ==}
@@ -11669,7 +11676,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
-    dev: true
 
   /make-dir@2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}
@@ -15182,7 +15188,7 @@ packages:
       escape-string-regexp: 5.0.0
       fast-glob: 3.3.0
       local-pkg: 0.4.3
-      magic-string: 0.30.1
+      magic-string: 0.30.3
       mlly: 1.4.0
       pathe: 1.1.1
       pkg-types: 1.0.3
@@ -15200,7 +15206,7 @@ packages:
       escape-string-regexp: 5.0.0
       fast-glob: 3.3.0
       local-pkg: 0.4.3
-      magic-string: 0.30.1
+      magic-string: 0.30.3
       mlly: 1.4.0
       pathe: 1.1.1
       pkg-types: 1.0.3
@@ -15324,7 +15330,7 @@ packages:
       vue-router:
         optional: true
     dependencies:
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
       '@rollup/pluginutils': 5.0.2(rollup@3.28.1)
       '@vue-macros/common': 1.4.1(rollup@3.28.1)(vue@3.3.4)
       ast-walker-scope: 0.4.2
@@ -15419,7 +15425,7 @@ packages:
     dependencies:
       '@babel/core': 7.21.5
       '@babel/standalone': 7.21.7
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
       defu: 6.1.2
       jiti: 1.19.3
       mri: 1.2.0
@@ -15434,7 +15440,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/standalone': 7.22.10
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
       defu: 6.1.2
       jiti: 1.19.3
       mri: 1.2.0
