@@ -29,6 +29,7 @@ export const popperAnchorProps = {
       default: undefined,
     },
   },
+  emits: {},
 }
 
 const popperAnchor = defineComponent({

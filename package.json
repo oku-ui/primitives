@@ -49,6 +49,7 @@
     "@oku-ui/focus-guards": "workspace:^",
     "@oku-ui/focus-scope": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/popover": "workspace:^",
     "@oku-ui/popper": "workspace:^",
     "@oku-ui/portal": "workspace:^",
     "@oku-ui/presence": "workspace:^",
