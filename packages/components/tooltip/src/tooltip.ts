@@ -16,7 +16,7 @@ export type LabelElement = HTMLLabelElement
 
 type TooltipInjectValue = {
   contentId: Ref<string>
-  open: Ref<boolean>
+  open: Ref<boolean | undefined>
   stateAttribute: Ref<'closed' | 'delayed-open' | 'instant-open'>
   trigger: Ref<TooltipTriggerElement | null>
   onTriggerChange(trigger: TooltipTriggerElement | null): void
@@ -37,6 +37,11 @@ export interface TooltipProps {
  * @defaultValue false
  */
   defaultOpen?: boolean
+  /**
+ * The duration from when the pointer enters the trigger until the tooltip gets opened. This will
+ * override the prop with the same name passed to Provider.
+ * @defaultValue 700
+ */
   delayDuration?: number
   /**
    * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.
@@ -61,7 +66,7 @@ export const tooltipProps = {
       default: undefined,
     },
     defaultOpen: {
-      type: Boolean as PropType<boolean | undefined>,
+      type: Boolean as PropType<boolean>,
       default: false,
     },
     delayDuration: {
@@ -70,7 +75,7 @@ export const tooltipProps = {
     },
     disableHoverableContent: {
       type: Boolean as PropType<boolean | undefined>,
-      default: false,
+      default: undefined,
     },
     ...primitiveProps,
   },
@@ -117,10 +122,7 @@ const tooltip = defineComponent({
     const { state, updateValue } = useControllable({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (result) => {
-        if (result === undefined)
-          result = false
-
+      onChange: (result: boolean) => {
         if (result) {
           provideInject.onOpen()
           document.dispatchEvent(new CustomEvent(TOOLTIP_OPEN))
@@ -132,6 +134,7 @@ const tooltip = defineComponent({
         emit('update:modelValue', result)
         emit('openChange', result)
       },
+      initialValue: false,
     })
 
     const stateAttribute = computed(() => {
@@ -166,11 +169,11 @@ const tooltip = defineComponent({
     tooltipProvide({
       scope: props.scopeOkuTooltip,
       contentId: computed(() => contentId),
-      open: computed(() => state.value || false),
+      open: state,
       stateAttribute,
       trigger,
-      onTriggerChange: (value) => {
-        trigger.value = value ?? null
+      onTriggerChange: (value: HTMLButtonElement) => {
+        trigger.value = value
       },
       onTriggerEnter: () => {
         if (provideInject.isOpenDelayed.value)
@@ -181,16 +184,11 @@ const tooltip = defineComponent({
       onTriggerLeave: () => {
         if (disableHoverableContent.value)
           handleClose()
-
         else
           window.clearTimeout(openTimerRef.value)
       },
-      onOpen: () => {
-        handleOpen()
-      },
-      onClose: () => {
-        handleClose()
-      },
+      onOpen: () => handleOpen(),
+      onClose: () => handleClose(),
       disableHoverableContent,
     })
     return () => h(OkuPopper, {

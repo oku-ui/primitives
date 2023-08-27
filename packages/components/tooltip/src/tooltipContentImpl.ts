@@ -1,4 +1,4 @@
-import { defineComponent, h, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, watchEffect } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -77,17 +77,10 @@ const tooltipContentImpl = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const {
       ariaLabel,
-      align,
-      alignOffset,
-      arrowPadding,
-      hideWhenDetached,
-      avoidCollisions,
-      collisionBoundary,
-      collisionPadding,
-      side,
-      sideOffset,
-      sticky,
-    } = toRefs(props)
+      asChild,
+      scopeOkuTooltip,
+      ...contentProps
+    } = props
     const { ...restAttrs } = attrs as TooltipContentImplIntrinsicElement
     const inject = useTooltipInject(CONTENT_NAME, props.scopeOkuTooltip)
     const popperScope = usePopperScope(props.scopeOkuTooltip)
@@ -125,6 +118,12 @@ const tooltipContentImpl = defineComponent({
       onEscapeKeyDown(event) {
         event.preventDefault()
       },
+      onPointerDownOutside(event: any) {
+        emit('pointerDownOutside', event)
+      },
+      onFocusOutside(event: any) {
+        emit('pointerDownOutside', event)
+      },
       onDismiss() {
         emit('close')
       },
@@ -133,17 +132,7 @@ const tooltipContentImpl = defineComponent({
         'data-state': inject.stateAttribute.value,
         ...popperScope,
         ...restAttrs,
-        ...props,
-        'align': align.value,
-        'alignOffset': alignOffset.value,
-        'arrowPadding': arrowPadding.value,
-        'hideWhenDetached': hideWhenDetached.value,
-        'avoidCollisions': avoidCollisions.value,
-        'collisionBoundary': collisionBoundary.value,
-        'collisionPadding': collisionPadding.value,
-        'side': side.value,
-        'sideOffset': sideOffset.value,
-        'sticky': sticky.value,
+        ...contentProps,
         'ref': forwardedRef,
         'style': {
           ...restAttrs.style as any,
@@ -163,7 +152,7 @@ const tooltipContentImpl = defineComponent({
           id: inject.contentId.value,
           role: 'tooltip',
         }, {
-          default: () => ariaLabel.value ?? slots.default?.(),
+          default: () => ariaLabel || slots.default?.(),
         }),
       ]),
     })

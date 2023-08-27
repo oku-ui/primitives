@@ -1,4 +1,4 @@
-import { defineComponent, h, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuTooltipContentImpl, type TooltipContentImplElement, type TooltipContentImplIntrinsicElement, type TooltipContentImplProps, tooltipContentImplProps } from './tooltipContentImpl'
@@ -46,12 +46,9 @@ const tooltipContentHoverable = defineComponent({
 
     const pointerGraceArea = ref<Polygon | null>(null)
 
-    const { trigger } = inject
-    const { onPointerInTransitChange } = providerInject
-
     const handleRemoveGraceArea = () => {
       pointerGraceArea.value = null
-      onPointerInTransitChange(false)
+      providerInject.onPointerInTransitChange(false)
     }
 
     const handleCreateGraceArea = (event: PointerEvent, hoverTarget: HTMLElement) => {
@@ -65,7 +62,7 @@ const tooltipContentHoverable = defineComponent({
       const hoverTargetPoints = getPointsFromRect(hoverTarget.getBoundingClientRect())
       const graceArea = getHull([...paddedExitPoints, ...hoverTargetPoints])
       pointerGraceArea.value = graceArea
-      onPointerInTransitChange(true)
+      providerInject.onPointerInTransitChange(true)
     }
 
     watchEffect((onCleanup) => {
@@ -75,22 +72,22 @@ const tooltipContentHoverable = defineComponent({
     })
 
     watchEffect((onCleanup) => {
-      if (trigger.value && contentRef.value) {
+      if (inject.trigger.value && contentRef.value) {
         const handleTriggerLeave = (event: PointerEvent) => {
           if (contentRef.value)
             handleCreateGraceArea(event, contentRef.value)
         }
         const handleContentLeave = (event: PointerEvent) => {
-          if (trigger.value)
-            handleCreateGraceArea(event, trigger.value)
+          if (inject.trigger.value)
+            handleCreateGraceArea(event, inject.trigger.value)
         }
 
-        trigger.value.addEventListener('pointermove', handleTriggerLeave)
-        contentRef.value.addEventListener('pointermove', handleContentLeave)
+        inject.trigger.value.addEventListener('pointerleave', handleTriggerLeave)
+        contentRef.value.addEventListener('pointerleave', handleContentLeave)
 
         onCleanup(() => {
-          trigger.value?.removeEventListener('pointermove', handleTriggerLeave)
-          contentRef.value?.removeEventListener('pointermove', handleContentLeave)
+          inject.trigger.value?.removeEventListener('pointerleave', handleTriggerLeave)
+          contentRef.value?.removeEventListener('pointerleave', handleContentLeave)
         })
       }
     })
@@ -104,16 +101,15 @@ const tooltipContentHoverable = defineComponent({
             y: event.clientY,
           }
 
-          const hasEnteredTarget = trigger.value?.contains(target) || contentRef.value?.contains(target)
-          // TODO: `!` is a hack to make flow happy. Remove after flow is removed.
-          const isPointerOutsideGraceArea = isPointInPolygon(pointerPosition, pointerGraceArea.value!)
+          const hasEnteredTarget = computed(() => inject.trigger.value?.contains(target) || contentRef.value?.contains(target))
 
-          if (hasEnteredTarget) {
+          const isPointerOutsideGraceArea = isPointInPolygon(pointerPosition, pointerGraceArea.value!)
+          if (hasEnteredTarget.value) {
             handleRemoveGraceArea()
           }
           else if (isPointerOutsideGraceArea) {
             handleRemoveGraceArea()
-            emit('close')
+            inject.onClose()
           }
         }
         document.addEventListener('pointermove', handleTrackPointerGrace)

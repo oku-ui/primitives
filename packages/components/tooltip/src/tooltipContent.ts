@@ -1,11 +1,11 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, toRefs, unref } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuTooltipContentImpl, tooltipContentImplProps } from './tooltipContentImpl'
-import type { type TooltipContentImplElement, TooltipContentImplEmits, type TooltipContentImplIntrinsicElement, type TooltipContentImplProps } from './tooltipContentImpl'
+import type { TooltipContentImplElement, TooltipContentImplEmits, type TooltipContentImplIntrinsicElement, type TooltipContentImplProps } from './tooltipContentImpl'
 import { usePortalInject } from './tooltipPortal'
 import type { ScopeTooltip } from './types'
 import { scopeTooltipProps } from './types'
@@ -50,27 +50,30 @@ const tooltipContent = defineComponent({
   },
   emits: tooltipContentImplProps.emits,
   setup(props, { attrs, slots }) {
-    const portalInject = usePortalInject(CONTENT_NAME, props.scopeOkuTooltip)
-    const {
-      forceMount = portalInject.forceMount,
-      side = 'top',
-    } = toRefs(props)
+    const { forceMount, side, scopeOkuTooltip, ...propsa } = props
+    const portalInject = usePortalInject(CONTENT_NAME, scopeOkuTooltip)
+
+    const forceMountProps = computed(() => props.forceMount || portalInject.forceMount?.value)
+    const sideProps = computed(() => props.side || 'top')
+
     const forwardedRef = useForwardRef()
-    const inject = useTooltipInject(CONTENT_NAME, props.scopeOkuTooltip)
+    const inject = useTooltipInject(CONTENT_NAME, scopeOkuTooltip)
     return () => h(OkuPresence, {
-      present: unref(forceMount) || inject.open.value,
+      present: forceMountProps.value || inject.open.value,
     }, {
       default: () => inject.disableHoverableContent.value
         ? h(OkuTooltipContentImpl, {
-          ...props,
-          side: unref(side),
+          side: sideProps.value,
+          ...attrs,
+          ...propsa,
           ref: forwardedRef,
         }, {
           default: () => slots.default?.(),
         })
         : h(OkuTooltipContentHoverable, {
-          ...props,
-          side: unref(side),
+          ...attrs,
+          ...propsa,
+          side: sideProps.value,
           ref: forwardedRef,
         }, {
           default: () => slots.default?.(),

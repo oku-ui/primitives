@@ -43,7 +43,7 @@ export const tooltipPortalProps = {
     },
     forceMount: {
       type: Boolean as PropType<true | undefined>,
-      default: true,
+      default: undefined,
     },
     ...primitiveProps,
   },
@@ -56,12 +56,11 @@ const tooltipPortal = defineComponent({
     ...tooltipPortalProps.props,
     ...scopeTooltipProps,
   },
-  setup(props, { attrs, slots }) {
-    const { container, forceMount } = toRefs(props)
-    const inject = useTooltipInject(PORTAL_NAME, props.scopeOkuTooltip)
-
+  setup(props, { slots }) {
+    const { container, forceMount, scopeOkuTooltip } = toRefs(props)
+    const inject = useTooltipInject(PORTAL_NAME, scopeOkuTooltip.value)
     portalProvider({
-      scope: props.scopeOkuTooltip,
+      scope: scopeOkuTooltip.value,
       forceMount,
     })
 

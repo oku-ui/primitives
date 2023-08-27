@@ -70,7 +70,7 @@ const tooltipProvider = defineComponent({
       skipDelayDuration,
     } = toRefs(props)
 
-    const isOpenDelayed = ref(false)
+    const isOpenDelayed = ref(true)
     const isPointerInTransitRef = ref(false)
     const skipDelayTimerRef = ref(0)
 
@@ -83,22 +83,24 @@ const tooltipProvider = defineComponent({
 
     tooltipProviderProvide({
       scope: scopeOkuTooltip.value,
-      delayDuration,
-      disableHoverableContent,
       isOpenDelayed,
-      isPointerInTransitRef,
+      delayDuration,
       onOpen() {
         window.clearTimeout(skipDelayTimerRef.value)
-        isOpenDelayed.value = true
+        isOpenDelayed.value = false
       },
       onClose() {
         window.clearTimeout(skipDelayTimerRef.value)
-        skipDelayTimerRef.value = window.setTimeout(() =>
-          isOpenDelayed.value = false, skipDelayDuration.value)
+        skipDelayTimerRef.value = window.setTimeout(
+          () => isOpenDelayed.value = false,
+          skipDelayDuration.value,
+        )
       },
-      onPointerInTransitChange(inTransit) {
+      isPointerInTransitRef,
+      onPointerInTransitChange(inTransit: boolean) {
         isPointerInTransitRef.value = inTransit
       },
+      disableHoverableContent,
     })
 
     return () => slots.default?.()
