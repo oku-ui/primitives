@@ -8,16 +8,15 @@ import {
 import { ref } from 'vue'
 import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
+import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
-
-type PointerDownOutsideEvent = CustomEvent<{
-  originalEvent: PointerEvent
-}>
+import { OkuSlot } from '@oku-ui/slot'
+import { useScrollLock } from '@oku-ui/use-composable'
 
 export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     openLabel?: string
     closeLabel?: string
@@ -36,12 +35,7 @@ withDefaults(
   },
 )
 
-defineEmits<{
-  (event: 'escapeKeyDown', e: KeyboardEvent): void
-  (event: 'pointerDownOutside', e: PointerDownOutsideEvent): void
-  (event: 'focusOutside', e: FocusOutsideEvent): void
-  (event: 'interactOutside', e: Event): void
-}>()
+defineEmits<DismissableLayerEmits>()
 
 const open = ref(false)
 const skipUnmountAutoFocus = ref(false)
@@ -58,6 +52,9 @@ function closeLayer() {
 function setSkipUnmountAutoFocus() {
   skipUnmountAutoFocus.value = !skipUnmountAutoFocus.value
 }
+
+const test = ref(null)
+useScrollLock(test, props.preventScroll)
 </script>
 
 <template>
@@ -71,70 +68,73 @@ function setSkipUnmountAutoFocus() {
 
       <template v-if="open">
         <OkuFocusGuards>
-          <OkuPortal as-child>
-            <OkuDismissableLayer
-              as-child
-              :disable-outside-pointer-events="disableOutsidePointerEvents"
-              @escape-key-down="(event) => $emit('escapeKeyDown', event)"
-              @pointer-down-outside="
-                (event) => {
-                  setSkipUnmountAutoFocus();
-                  if (event.target === openButtonRef) {
-                    event.preventDefault();
-                  }
-                  else {
-                    $emit('pointerDownOutside', event);
-                  }
-                }
-              "
-              @dismiss="closeLayer"
-              @interact-outside="(event) => $emit('interactOutside', event)"
-              @focus-outside="(event) => $emit('focusOutside', event)"
-            >
-              <OkuFocusScope
+          <component :is="preventScroll ? OkuSlot : {}">
+            <OkuPortal ref="test" as-child>
+              <OkuDismissableLayer
                 as-child
-                :trapped="trapped"
-                @unmount-auto-focus="(event: Event) => {
-                  if (skipUnmountAutoFocus) {
-                    event.preventDefault()
+                :disable-outside-pointer-events="disableOutsidePointerEvents"
+                @escape-key-down="(event) => $emit('escapeKeyDown', event)"
+                @pointerdown-outside="
+                  (event) => {
+                    console.log('pointerdown-outside', event);
+                    setSkipUnmountAutoFocus();
+                    if (event.target === openButtonRef) {
+                      event.preventDefault();
+                    }
+                    else {
+                      $emit('pointerdownoutSide', event);
+                    }
                   }
-                  skipUnmountAutoFocus = false
-                }"
+                "
+                @dismiss="closeLayer"
+                @interactout-side="(event) => $emit('interactoutSide', event)"
+                @focusout-side="(event) => $emit('focusoutSide', event)"
               >
-                <OkuPopperContent
-                  :style="{
-                    filter: 'drop-shadow(0 2px 10px rgba(0, 0, 0, 0.12))',
-                    display: 'flex',
-                    gap: '10px',
-                    background: 'white',
-                    borderRadius: '4px',
-                    alignItems: 'flex-start',
-                    backgroundColor: color,
-                    minWidth: '200px',
-                    minHeight: '150px',
-                    padding: '20px',
+                <OkuFocusScope
+                  as-child
+                  :trapped="trapped"
+                  @unmount-auto-focus="(event: Event) => {
+                    if (skipUnmountAutoFocus) {
+                      event.preventDefault()
+                    }
+                    skipUnmountAutoFocus = false
                   }"
-                  side="bottom"
-                  :side-offset="10"
                 >
-                  <slot />
+                  <OkuPopperContent
+                    :style="{
+                      filter: 'drop-shadow(0 2px 10px rgba(0, 0, 0, 0.12))',
+                      display: 'flex',
+                      gap: '10px',
+                      background: 'white',
+                      borderRadius: '4px',
+                      alignItems: 'flex-start',
+                      backgroundColor: color,
+                      minWidth: '200px',
+                      minHeight: '150px',
+                      padding: '20px',
+                    }"
+                    side="bottom"
+                    :side-offset="10"
+                  >
+                    <slot />
 
-                  <button type="button" @click="closeLayer">
-                    {{ closeLabel }}
-                  </button>
+                    <button type="button" @click="closeLayer">
+                      {{ closeLabel }}
+                    </button>
 
-                  <input type="text" defaultValue="hello world">
+                    <input type="text" defaultValue="hello world">
 
-                  <OkuPopperArrow
-                    :width="10"
-                    :height="10"
-                    :style="{ fill: color }"
-                    :offset="20"
-                  />
-                </OkuPopperContent>
-              </OkuFocusScope>
-            </OkuDismissableLayer>
-          </OkuPortal>
+                    <OkuPopperArrow
+                      :width="10"
+                      :height="10"
+                      :style="{ fill: color }"
+                      :offset="20"
+                    />
+                  </OkuPopperContent>
+                </OkuFocusScope>
+              </OkuDismissableLayer>
+            </OkuPortal>
+          </component>
         </OkuFocusGuards>
       </template>
     </OkuPopper>

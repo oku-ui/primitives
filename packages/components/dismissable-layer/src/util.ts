@@ -1,5 +1,5 @@
 import { useCallbackRef } from '@oku-ui/use-composable'
-import { onBeforeUnmount, ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
@@ -36,22 +36,21 @@ function usePointerDownOutside(
   ) as EventListener
 
   const isPointerInsideTreeRef = ref<boolean>(false)
-  const handleClickRef = ref<EventListener>(() => {}) as any
-
-  function handleAndDispatchPointerDownOutsideEvent(event: PointerEvent) {
-    const eventDetail = { originalEvent: event }
-
-    handleAndDispatchCustomEvent(
-      POINTER_DOWN_OUTSIDE,
-      handlePointerDownOutside,
-      eventDetail,
-      { discrete: true },
-    )
-  }
+  const handleClickRef = ref(() => {})
 
   watchEffect((onInvalidate) => {
     const handlePointerDown = (event: PointerEvent) => {
       if (event.target && !isPointerInsideTreeRef.value) {
+        const eventDetail = { originalEvent: event }
+
+        function handleAndDispatchPointerDownOutsideEvent() {
+          handleAndDispatchCustomEvent(
+            POINTER_DOWN_OUTSIDE,
+            handlePointerDownOutside,
+            eventDetail,
+            { discrete: true },
+          )
+        }
         /**
          * On touch devices, we need to wait for a click event because browsers implement
          * a ~350ms delay between the time the user stops touching the display and when the
@@ -73,7 +72,7 @@ function usePointerDownOutside(
           })
         }
         else {
-          handleAndDispatchPointerDownOutsideEvent(event)
+          handleAndDispatchPointerDownOutsideEvent()
         }
       }
       else {
@@ -101,20 +100,17 @@ function usePointerDownOutside(
       ownerDocument.addEventListener('pointerdown', handlePointerDown)
     }, 0)
 
-    onBeforeUnmount(() => {
+    onInvalidate(() => {
       clearTimeout(timerId)
 
       ownerDocument.removeEventListener('pointerdown', handlePointerDown)
       ownerDocument.removeEventListener('click', handleClickRef.value)
-    })
-
-    onInvalidate(() => {
       window.clearTimeout(timerId)
     })
   })
 
   return {
-    onPointerDownCapture: () => (isPointerInsideTreeRef.value = true),
+    onPointerdownCapture: () => (isPointerInsideTreeRef.value = true),
   }
 }
 
@@ -129,25 +125,23 @@ function useFocusOutside(
   const handleFocusOutside = useCallbackRef(onFocusOutside) as EventListener
   const isFocusInsideReactTreeRef = ref<boolean>(false)
 
-  const handleFocus = (event: FocusEvent) => {
-    if (event.target && !isFocusInsideReactTreeRef.value) {
-      const eventDetail = { originalEvent: event }
+  watchEffect((onClean) => {
+    const handleFocus = (event: FocusEvent) => {
+      if (event.target && !isFocusInsideReactTreeRef.value) {
+        const eventDetail = { originalEvent: event }
 
-      handleAndDispatchCustomEvent(
-        FOCUS_OUTSIDE,
-        handleFocusOutside,
-        eventDetail,
-        {
-          discrete: false,
-        },
-      )
+        handleAndDispatchCustomEvent(
+          FOCUS_OUTSIDE,
+          handleFocusOutside,
+          eventDetail,
+          {
+            discrete: false,
+          },
+        )
+      }
     }
-  }
-
-  watchEffect((onInvalidate) => {
     ownerDocument.addEventListener('focusin', handleFocus)
-
-    onInvalidate(() => {
+    onClean(() => {
       ownerDocument.removeEventListener('focusin', handleFocus)
     })
   })
