@@ -1,12 +1,12 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRef, toRefs, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ElementType } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeRovingFocus } from './utils'
+import type { Direction, ScopeRovingFocus } from './utils'
 import { focusFirst } from './utils'
 import type { RovingFocusGroupOptions } from './RovingFocusGroup'
 import { rovingFocusGroupOptionsProps, rovingFocusProvider, useCollection } from './RovingFocusGroup'
@@ -60,7 +60,6 @@ const RovingFocusGroupImpl = defineComponent({
     const {
       orientation,
       loop,
-      dir,
       currentTabStopId: currentTabStopIdProp,
       defaultCurrentTabStopId,
       onEntryFocus,
@@ -68,6 +67,9 @@ const RovingFocusGroupImpl = defineComponent({
       scopeOkuRovingFocusGroup,
       ...propsData
     } = toRefs(props)
+
+    const dir: Ref<Direction | undefined> = toRef(attrs?.dir as Direction | undefined)
+
     const buttonRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
