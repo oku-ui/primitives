@@ -14,16 +14,22 @@ import { INDICATOR_NAME } from './constants'
 type ProgressIndicatorElementIntrinsicElement = ElementType<'div'>
 export type ProgressIndicatorElement = HTMLDivElement
 
-interface ProgressIndicatorProps extends PrimitiveProps {
+export interface ProgressIndicatorProps extends PrimitiveProps {
   scopeProgress?: Scope
+}
+
+export const progressIndicatorProps = {
+  props: {
+    ...primitiveProps,
+  },
 }
 
 const progressIndicator = defineComponent({
   name: INDICATOR_NAME,
   inheritAttrs: true,
   props: {
+    ...progressIndicatorProps.props,
     ...scopeProgressProps,
-    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
     const { ...indicatorAttrs } = attrs as ProgressIndicatorElementIntrinsicElement
@@ -59,5 +65,3 @@ export const OkuProgressIndicator = progressIndicator as typeof progressIndicato
 (new () => {
   $props: ScopeProgress<Partial<ProgressIndicatorElement>>
 })
-
-export type { ProgressIndicatorProps }

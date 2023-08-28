@@ -17,6 +17,7 @@
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/collection": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/primitives": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/roving-focus": "workspace:^",
     "@oku-ui/separator": "workspace:^",
@@ -27,7 +28,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
-    "@types/node": "^18.17.1",
+    "@types/node": "^18.17.8",
     "nuxt": "^3.6.5"
   }
 }

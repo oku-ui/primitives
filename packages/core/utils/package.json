@@ -26,11 +26,13 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
   },
-  "peerDependencies": {},
-  "dependencies": {},
+  "dependencies": {
+    "vue": "3.3.4"
+  },
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

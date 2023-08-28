@@ -18,45 +18,50 @@ const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 export type RovingFocusGroupImplIntrinsicElement = ElementType<'div'>
 export type RovingFocusGroupImplElement = HTMLDivElement
 
-interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
-  currentTabStopId?: Ref<string | null>
+export interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
+  currentTabStopId?: string | null
   defaultCurrentTabStopId?: string
-  onCurrentTabStopIdChange?: (tabStopId: string | null) => void
-  onEntryFocus?: (event: Event) => void
-  onMousedown?: (event: MouseEvent) => void
-  onFocus?: (event: FocusEvent) => void
-  onBlur?: (event: FocusEvent) => void
-  isChangedFocusableItemAdd?: number
-  isChangedFocusableItemRemove?: number
 }
 
-export const rovingFocusGroupImplElementProps = {
-  currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
-  defaultCurrentTabStopId: String,
+export type RovingFocusGroupImplEmits = {
+  currentTabStopIdChange: [tabStopId: string | null]
+  entryFocus: [event: Event]
+  mousedown: [event: MouseEvent]
+  focus: [event: FocusEvent]
+  blur: [event: FocusEvent]
 }
 
 export const rovingFocusGroupImplProps = {
-  ...rovingFocusGroupImplElementProps,
-  ...rovingFocusGroupOptionsProps,
+  props: {
+    currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
+    defaultCurrentTabStopId: String,
+    ...rovingFocusGroupOptionsProps.props,
+  },
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    entryFocus: (event: Event) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    currentTabStopIdChange: (tabStopId: string | null) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    mousedown: (event: MouseEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focus: (event: FocusEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    blur: (event: FocusEvent) => true,
+  },
 }
 
 const RovingFocusGroupImpl = defineComponent({
   name: 'OkuRovingFocusGroupImpl',
   inheritAttrs: false,
   props: {
-    ...rovingFocusGroupImplProps,
+    ...rovingFocusGroupImplProps.props,
     ...primitiveProps,
     ...scopedProps,
   },
-  emits: {
-    entryFocus: (event: Event) => true,
-    currentTabStopIdChange: (tabStopId: string | null) => true,
-    mousedown: (event: MouseEvent) => true,
-    focus: (event: FocusEvent) => true,
-    blur: (event: FocusEvent) => true,
-  },
+  emits: rovingFocusGroupImplProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as Omit<RovingFocusGroupImplElement, 'dir'>
+    const _attrs = attrs as Omit<RovingFocusGroupImplIntrinsicElement, 'dir'>
     const {
       orientation,
       loop,
@@ -80,11 +85,12 @@ const RovingFocusGroupImpl = defineComponent({
       onChange: (result: any) => {
         emit('currentTabStopIdChange', result)
       },
+      initialValue: null,
     })
 
     const isTabbingBackOut = ref(false)
     const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
-    const getItems = useCollection(props.scopeOkuRovingFocusGroup)
+    const getItems = useCollection(scopeOkuRovingFocusGroup.value)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
@@ -97,7 +103,7 @@ const RovingFocusGroupImpl = defineComponent({
     })
 
     rovingFocusProvider({
-      scope: props.scopeOkuRovingFocusGroup,
+      scope: scopeOkuRovingFocusGroup.value,
       orientation,
       dir,
       loop,
@@ -116,14 +122,11 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    const _tabIndex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
-
     return () => {
-      const merged = mergeProps(_attrs, propsData)
       return h(Primitive.div, {
-        'tabindex': _tabIndex.value,
+        'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': orientation?.value,
-        ...merged,
+        ...unref(mergeProps(propsData, _attrs)),
         'ref': composedRefs,
         'style': {
           outline: 'none',
@@ -178,7 +181,3 @@ export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocu
 (new () => {
   $props: ScopeRovingFocus<Partial<RovingFocusGroupImplElement>>
 })
-
-export type {
-  RovingFocusGroupImplProps,
-}

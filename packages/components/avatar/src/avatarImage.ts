@@ -1,4 +1,3 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, onMounted, toRef, watch } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -13,20 +12,24 @@ const IMAGE_NAME = 'OkuAvatarImage'
 export type AvatarImageIntrinsicElement = ElementType<'img'>
 export type AvatarImageElement = HTMLImageElement
 
-interface AvatarImageProps extends PrimitiveProps {
-  onLoadingStatusChange?: (status: ImageLoadingStatus) => void
+export interface AvatarImageProps extends PrimitiveProps {
   scopeAvatar?: Scope
 }
 
-const avatarImageProps = {
-  onLoadingStatusChange: {
-    type: Function as unknown as PropType<(status: ImageLoadingStatus) => void>,
-    required: false,
-    default: () => { },
+export type AvatarEmits = {
+  'loadingStatusChange': [status: ImageLoadingStatus]
+}
+
+export const avatarImageProps = {
+  props: {
+    src: {
+      type: String,
+      required: true,
+    },
   },
-  src: {
-    type: String,
-    required: true,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    loadingStatusChange: (status: ImageLoadingStatus) => true,
   },
 }
 
@@ -34,11 +37,12 @@ const avatarImage = defineComponent({
   name: IMAGE_NAME,
   inheritAttrs: false,
   props: {
-    ...avatarImageProps,
+    ...avatarImageProps.props,
     ...scopeAvatarProps,
     ...primitiveProps,
   },
-  setup(props, { attrs, slots }) {
+  emits: avatarImageProps.emits,
+  setup(props, { attrs, slots, emit }) {
     const src = toRef(props, 'src')
     const { ...imageAttrs } = attrs as AvatarImageIntrinsicElement
     const inject = useAvatarInject(IMAGE_NAME, props.scopeOkuAvatar)
@@ -48,7 +52,7 @@ const avatarImage = defineComponent({
     const imageLoadingStatus = useImageLoadingStatus(src)
 
     const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
-      props.onLoadingStatusChange(status)
+      emit('loadingStatusChange', status)
       inject.onImageLoadingStatusChange(status)
     })
 
@@ -85,7 +89,3 @@ export const OkuAvatarImage = avatarImage as typeof avatarImage &
 (new () => {
   $props: ScopeAvatar<Partial<AvatarImageElement>>
 })
-
-export type {
-  AvatarImageProps,
-}

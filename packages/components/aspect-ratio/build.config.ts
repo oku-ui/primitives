@@ -1,12 +1,7 @@
 import { defineBuildConfig } from 'unbuild'
 
+const isClean = (process.env.CLEAN || 'false') === 'true'
 export default defineBuildConfig({
-  entries: [
-    {
-      builder: 'mkdist',
-      input: './src/',
-      pattern: ['**', '!stories'],
-      declaration: true,
-    },
-  ],
+  declaration: true,
+  clean: isClean,
 })

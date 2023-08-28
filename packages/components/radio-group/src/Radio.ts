@@ -2,7 +2,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, unref } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { ScopeRadio } from './utils'
@@ -25,36 +25,47 @@ export const [radioProvider, useRadioInject] = createRadioProvide<RadioProvideVa
 export type RadioIntrinsicIntrinsicElement = ElementType<'button'>
 export type RadioElement = HTMLButtonElement
 
-interface RadioProps {
+export interface RadioProps {
   checked?: boolean
   required?: boolean
   disabled?: boolean
   value?: string
   name?: string
-  onCheck?(): void
-  onClick?(): (event: MouseEvent) => void
 }
 
-export const radioPropsObject = {
-  checked: {
-    type: Boolean as PropType<boolean>,
-    default: false,
+export type RadioEmits = {
+  check: []
+  click: (event: MouseEvent) => void
+}
+
+export const radioProps = {
+  props: {
+    checked: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    required: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    disabled: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    name: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+    value: {
+      type: String as PropType<string>,
+      default: 'on',
+    },
+    ...primitiveProps,
   },
-  required: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: undefined,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: undefined,
-  },
-  name: {
-    type: String as PropType<string | undefined>,
-    default: undefined,
-  },
-  value: {
-    type: String as PropType<string>,
-    default: 'on',
+  emits: {
+    check: () => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (event: MouseEvent) => true,
   },
 }
 
@@ -62,14 +73,10 @@ const Radio = defineComponent({
   name: RADIO_NAME,
   inheritAttrs: false,
   props: {
-    ...radioPropsObject,
+    ...radioProps.props,
     ...scopeRadioProps,
-    ...primitiveProps,
   },
-  emits: {
-    check: () => true,
-    click: (event: MouseEvent) => true,
-  },
+  emits: radioProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
       checked,
@@ -82,7 +89,7 @@ const Radio = defineComponent({
       ...radioProps
     } = toRefs(props)
 
-    const { ...radioAttrs } = attrs as RadioIntrinsicIntrinsicElement
+    const radioAttrs = attrs as RadioIntrinsicIntrinsicElement
 
     const hasConsumerStoppedPropagationRef = ref(false)
     const buttonRef = ref<HTMLButtonElement | null>(null)
@@ -94,7 +101,7 @@ const Radio = defineComponent({
     radioProvider({
       checked,
       disabled,
-      scope: props.scopeOkuRadio,
+      scope: scopeOkuRadio.value,
     })
 
     return () => [
@@ -106,7 +113,8 @@ const Radio = defineComponent({
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
-        ...mergeProps(radioAttrs, radioProps),
+        ...unref(mergeProps(radioAttrs, radioProps)),
+        'asChild': asChild.value,
         'ref': composedRefs,
         'onClick': composeEventHandlers((e: MouseEvent) => {
           emit('click', e)
@@ -151,5 +159,3 @@ export const OkuRadio = Radio as typeof Radio &
 (new () => {
   $props: ScopeRadio<Partial<RadioElement>>
 })
-
-export type { RadioProps }

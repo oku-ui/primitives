@@ -1,24 +1,25 @@
 import type { ComponentObjectPropsOptions, Ref } from 'vue'
-import { computed, defineComponent, h, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, unref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 
-const CollectionProps = {
+export const collectionProps = {
   scope: { type: null, required: false },
 }
-interface CollectionPropsType {
+
+export interface CollectionPropsType {
   scope: any
 }
 
-type CollectionElement = HTMLElement
+export type CollectionElement = HTMLElement
 
 // We have resorted to returning slots directly rather than exposing primitives that can then
 // be slotted like `<CollectionItem as={Slot}>…</CollectionItem>`.
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
+export function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
  * CollectionProvider
  * --------------------------------------------------------------------------------------------- */
@@ -42,7 +43,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     name: PROVIDER_NAME,
     inheritAttrs: false,
     props: {
-      ...CollectionProps,
+      ...collectionProps,
     },
     setup(props, { slots }) {
       const collectionRef = ref<ItemElement>()
@@ -69,7 +70,7 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     },
     inheritAttrs: false,
     props: {
-      ...CollectionProps,
+      ...collectionProps,
       ...ItemData,
     },
     setup(props, { slots }) {
@@ -94,18 +95,18 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     },
     inheritAttrs: false,
     props: {
-      ...CollectionProps,
+      ...collectionProps,
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { scope, ...itemData } = props
+      const { scope, ...itemData } = toRefs(props)
       const refValue = ref<ItemElement | null>()
       const forwaredRef = useForwardRef()
-      const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
+      const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
       const composedRefs = useComposedRefs(refValue, forwaredRef)
 
       watchEffect((onClean) => {
-        inject.itemMap.value.set(refValue, { ref: refValue, ...(itemData as any), ...attrs })
+        inject.itemMap.value.set(refValue, { ref: refValue, ...unref(itemData as any), ...attrs })
 
         onClean(() => {
           inject.itemMap.value.delete(refValue)
@@ -149,7 +150,3 @@ function createCollection<ItemElement extends HTMLElement, T>(name: string, Item
     createCollectionScope,
   }
 }
-
-export { createCollection, CollectionProps }
-
-export type { CollectionElement, CollectionPropsType }

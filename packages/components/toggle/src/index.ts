@@ -1,5 +1,6 @@
 export {
   OkuToggle,
+  toggleProps,
 } from './toggle'
 
 export type {

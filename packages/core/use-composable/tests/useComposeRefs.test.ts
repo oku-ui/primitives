@@ -7,7 +7,7 @@ import { useComposedRefs } from '../src/useComposedRefs'
 const DivComponent: Component = {
   name: 'Refs',
   inheritAttrs: false,
-  setup(props, { attrs, expose }) {
+  setup() {
     const ref1 = ref()
     const ref2 = ref()
     const ref3 = ref()

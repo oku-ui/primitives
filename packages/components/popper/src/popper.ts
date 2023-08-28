@@ -19,7 +19,7 @@ export type PopperProvideValue = {
 export const [popperProvider, usePopperInject]
   = createPopperProvider<PopperProvideValue>(POPPER_NAME)
 
-interface PopperProps {
+export interface PopperProps {
 }
 
 const Popper = defineComponent({
@@ -47,5 +47,3 @@ const Popper = defineComponent({
 
 export const OkuPopper = Popper as typeof Popper &
 (new () => { $props: ScopePopper<PopperProps> })
-
-export type { PopperProps }

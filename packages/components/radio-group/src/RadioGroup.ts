@@ -1,12 +1,12 @@
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
 import type { ComputedRef, PropType, Ref } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
-import type { RovingFocusGroupPropsType } from '@oku-ui/roving-focus'
+import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 
 import { type RadioProps, createRadioScope } from './Radio'
 import type { ScopeRadioGroup } from './utils'
@@ -27,63 +27,78 @@ export const useRovingFocusGroupScope = createRovingFocusGroupScope()
 export type RadioGroupIntrinsicElement = ElementType<'div'>
 export type RadioElement = HTMLDivElement
 
-interface RadioGroupProvideValue {
+export interface RadioGroupProvideValue {
   name?: Ref<string | undefined>
   required: Ref<boolean>
   disabled: Ref<boolean>
   value?: ComputedRef<string | undefined>
-  onValueChange(value: string): void
+  onValueChange: (value: string) => void
 }
 
-interface RadioGroupProps extends PrimitiveProps {
+export type RadioGroupEmits = {
+  'update:modelValue': [value: string | undefined]
+  valueChange: [value: string | undefined]
+}
+
+export interface RadioGroupProps extends PrimitiveProps {
+  modelValue?: string | undefined
   name?: RadioGroupProvideValue['name']
   required?: RadioProps['required']
   disabled?: RadioProps['disabled']
-  dir?: RovingFocusGroupPropsType['dir']
-  orientation?: RovingFocusGroupPropsType['orientation']
-  loop?: RovingFocusGroupPropsType['loop']
+  dir?: RovingFocusGroupProps['dir']
+  orientation?: RovingFocusGroupProps['orientation']
+  loop?: RovingFocusGroupProps['loop']
   defaultValue?: string
   value?: RadioGroupProvideValue['value']
 }
 
-const RadioGroupPropsObject = {
-  modelValue: {
-    type: [String] as PropType<
-      string | undefined
-    >,
-    default: undefined,
+export const radioGroupProps = {
+  props: {
+    modelValue: {
+      type: [String] as PropType<
+        string | undefined
+      >,
+      default: undefined,
+    },
+    name: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+    required: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    disabled: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    dir: {
+      type: String as PropType<RovingFocusGroupProps['dir']>,
+      default: undefined,
+    },
+    orientation: {
+      type: String as PropType<RovingFocusGroupProps['orientation']>,
+      default: undefined,
+    },
+    loop: {
+      type: Boolean as PropType<RovingFocusGroupProps['loop']>,
+      default: true,
+    },
+    defaultValue: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+    value: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+    ...primitiveProps,
   },
-  name: {
-    type: String as PropType<string | undefined>,
-    default: undefined,
-  },
-  required: {
-    type: Boolean as PropType<boolean>,
-    default: false,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    default: false,
-  },
-  dir: {
-    type: String as PropType<RovingFocusGroupPropsType['dir']>,
-    default: undefined,
-  },
-  orientation: {
-    type: String as PropType<RovingFocusGroupPropsType['orientation']>,
-    default: undefined,
-  },
-  loop: {
-    type: Boolean as PropType<RovingFocusGroupPropsType['loop']>,
-    default: true,
-  },
-  defaultValue: {
-    type: String as PropType<string | undefined>,
-    default: undefined,
-  },
-  value: {
-    type: String as PropType<string | undefined>,
-    default: undefined,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'valueChange': (value: string) => true,
   },
 }
 
@@ -91,14 +106,10 @@ const RadioGroup = defineComponent({
   name: RADIO_GROUP_NAME,
   inheritAttrs: false,
   props: {
-    ...RadioGroupPropsObject,
+    ...radioGroupProps.props,
     ...scopeRadioGroupProps,
-    ...primitiveProps,
   },
-  emits: {
-    'update:modelValue': (value: string) => true,
-    'valueChange': (value: string) => true,
-  },
+  emits: radioGroupProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
       name,
@@ -147,7 +158,7 @@ const RadioGroup = defineComponent({
         asChild: true,
         ...rovingFocusGroupScope,
         orientation: orientation.value,
-        dir: direction,
+        dir: direction.value,
         loop: loop.value,
       }, {
         default: () => h(Primitive.div, {
@@ -155,9 +166,9 @@ const RadioGroup = defineComponent({
           'aria-required': required.value,
           'aria-oriented': orientation.value,
           'data-disabled': disabled.value,
-          'dir': direction,
+          'dir': direction.value,
+          ...mergeProps(attrs),
           'asChild': props.asChild,
-          ...attrs,
           'ref': forwardedRef,
         }, {
           default: () => slots.default?.(),
@@ -170,5 +181,3 @@ export const OkuRadioGroup = RadioGroup as typeof RadioGroup &
 (new () => {
   $props: ScopeRadioGroup<Partial<RadioElement>>
 })
-
-export type { RadioGroupProps }
