@@ -68,7 +68,7 @@ const popoverContentImpl = defineComponent({
     ...scopePopoverProps,
   },
   emits: popoverContentImplProps.emits,
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const {
       trapFocus,
       disableOutsidePointerEvents,
@@ -129,6 +129,8 @@ const popoverContentImpl = defineComponent({
               '--oku-popover-trigger-height': 'var(--oku-popper-anchor-height)',
             },
           },
+        }, {
+          default: () => slots.default?.(),
         }),
       }),
     })

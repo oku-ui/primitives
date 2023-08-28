@@ -45,34 +45,37 @@ const popoverTrigger = defineComponent({
 
     const forwardedRef = useForwardRef()
     const composedTriggerRef = useComposedRefs(forwardedRef, (el) => {
-      inject.triggerRef.value = el as HTMLButtonElement
+      if (el)
+        inject.triggerRef.value = el as HTMLButtonElement
     })
 
-    const trigger
-      = h(Primitive.button, {
-        'type': 'button',
-        'aria-haspopup': 'dialog',
-        'aria-expanded': inject.open.value,
-        'aria-controls': inject.contentId.value,
-        'data-state': getState(inject.open.value),
-        ...attrs,
-        'asChild': props.asChild,
-        'ref': composedTriggerRef,
-        'onClick': composeEventHandlers<MouseEvent>((el) => {
-          emit('click', el)
-        }),
-      }, {
-        default: () => slots.default?.(),
-      })
+    return () => {
+      const trigger
+        = h(Primitive.button, {
+          'type': 'button',
+          'aria-haspopup': 'dialog',
+          'aria-expanded': inject.open.value,
+          'aria-controls': inject.contentId.value,
+          'data-state': getState(inject.open.value),
+          ...attrs,
+          'asChild': props.asChild,
+          'ref': composedTriggerRef,
+          'onClick': composeEventHandlers<MouseEvent>((el) => {
+            emit('click', el)
+          }, () => inject.onOpenToggle()),
+        }, {
+          default: () => slots.default?.(),
+        })
 
-    return () => inject.hasCustomAnchor.value
-      ? trigger
-      : h(OkuPopperAnchor, {
-        asChild: asChild?.value,
-        ...popperScope,
-      }, {
-        default: () => trigger,
-      })
+      return inject.hasCustomAnchor.value
+        ? trigger
+        : h(OkuPopperAnchor, {
+          asChild: asChild?.value,
+          ...popperScope,
+        }, {
+          default: () => trigger,
+        })
+    }
   },
 })
 
