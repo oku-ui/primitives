@@ -2,13 +2,15 @@ import type { PropType, Ref } from 'vue'
 import { defineComponent, h } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
 import type { AriaAttributes, ElementType } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { createCollection } from '@oku-ui/collection'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
-import type { Direction } from './utils'
+import type { Direction, ScopeSlider } from './utils'
 import type { SliderThumbElement } from './sliderThumb'
-import type { SliderOrientationPrivateProps } from './sliderHorizontal'
+import { type SliderHorizontalElement, type SliderHorizontalIntrinsicElement, type SliderOrientationPrivateProps, sliderHorizontalProps, sliderOrientationPrivateProps } from './sliderHorizontal'
+import type { SliderVerticalElement, SliderVerticalIntrinsicElement, SliderVerticalProps } from './sliderVertical'
+import { sliderVerticalProps } from './sliderVertical'
 
 export const SLIDER_NAME = 'OkuSlider'
 
@@ -42,6 +44,9 @@ interface SliderHorizontalProps extends SliderOrientationPrivateProps {
   dir?: Direction
 }
 
+export type SliderIntrinsicElement = SliderHorizontalIntrinsicElement | SliderVerticalIntrinsicElement
+export type SliderElement = SliderHorizontalElement | SliderVerticalElement
+
 export interface SliderProps extends Omit<
 SliderHorizontalProps | SliderVerticalProps,
 keyof SliderOrientationPrivateProps | 'defaultValue'
@@ -59,12 +64,23 @@ keyof SliderOrientationPrivateProps | 'defaultValue'
   inverted?: boolean
 }
 
-export type SliderIntrinsicElement = ElementType<'span'>
-export type SliderElement = HTMLSpanElement
+export type SliderPropsEmits = {
+  valueChange: (value: number[]) => true
+  valueCommit: (value: number[]) => true
+}
 
 export const sliderProps = {
   props: {
-    ...primitiveProps,
+    ...propsOmit(sliderHorizontalProps.props, [
+      'min',
+      'max',
+      'inverted',
+    ]),
+    ...propsOmit(sliderVerticalProps.props, [
+      'min',
+      'max',
+      'inverted',
+    ]),
     name: {
       type: String as PropType<string | undefined>,
       default: undefined,
@@ -74,21 +90,54 @@ export const sliderProps = {
       default: undefined,
     },
     orientation: {
-      type: String as PropType<RovingFocusGroupProps['orientation']>,
-      default: undefined,
+      type: String as PropType<SliderProps['orientation']>,
+      default: 'horizontal',
     },
     dir: {
       type: String as PropType<Direction>,
-      required: true,
+      default: undefined,
+    },
+    min: {
+      type: Number,
+      default: 0,
+    },
+    max: {
+      type: Number,
+      default: 100,
+    },
+    step: {
+      type: Number,
+      default: 1,
+    },
+    minStepsBetweenThumbs: {
+      type: Number,
+      default: 0,
+    },
+    value: {
+      type: Array as PropType<number[] | undefined>,
+      default: undefined,
+    },
+    defaultValue: {
+      type: Array as PropType<number[] | undefined>,
+      default: undefined,
+    },
+    inverted: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: {
+    ...sliderHorizontalProps.emits,
+    ...sliderVerticalProps.emits,
     // eslint-disable-next-line unused-imports/no-unused-vars
     valueChange: (value: number[]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     valueCommit: (value: number[]) => true,
   },
 }
+
+// TODO: x
+
 const label = defineComponent({
   name: SLIDER_NAME,
   inheritAttrs: false,
@@ -128,5 +177,5 @@ const label = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSlider = label as typeof label &
 (new () => {
-  $props: Partial<LabelElement>
+  $props: ScopeSlider<Partial<SliderElement>>
 })

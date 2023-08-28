@@ -4,7 +4,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { ScopeSlider } from './utils'
-import { scopeSliderProps } from './utils'
+import { ARROW_KEYS, PAGE_KEYS, scopeSliderProps } from './utils'
 import { SLIDER_NAME, useSliderInject } from './slider'
 
 export type SliderImplIntrinsicElement = ElementType<'span'>
@@ -18,6 +18,9 @@ export type SliderImplPrivateEmits = {
   'endKeyDown': [event: KeyboardEvent]
   'stepKeyDown': [event: KeyboardEvent]
   'keydown': [event: KeyboardEvent]
+  'pointerdown': [event: PointerEvent]
+  'pointermove': [event: PointerEvent]
+  'pointerup': [event: PointerEvent]
 }
 
 export const sliderImplPrivateProps = {
@@ -30,13 +33,19 @@ export const sliderImplPrivateProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     slideEnd: (event: PointerEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    homeKeydown: (event: KeyboardEvent) => true,
+    homeKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    endKeydown: (event: KeyboardEvent) => true,
+    endKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    stepKeydown: (event: KeyboardEvent) => true,
+    stepKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     keydown: (event: KeyboardEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerdown: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointermove: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerup: (event: PointerEvent) => true,
   },
 }
 
@@ -77,7 +86,7 @@ const sliderImpl = defineComponent({
     return () => h(Primitive.span, {
       ...attrs,
       ref: forwardedRef,
-      onKeydown: composeEventHandlers((event) => {
+      onKeydown: composeEventHandlers<SliderImplPrivateEmits['keydown'][0]>((event) => {
         emit('keydown', event)
       }, (event) => {
         if (event.key === 'Home') {
@@ -94,6 +103,36 @@ const sliderImpl = defineComponent({
           emit('stepKeydown', event)
           // Prevent scrolling for directional key presses
           event.preventDefault()
+        }
+      }),
+      onPointerdown: composeEventHandlers<SliderImplPrivateEmits['pointerdown'][0]>((event) => {
+        emit('pointerdown', event)
+      }, (event) => {
+        const target = event.target as HTMLElement
+        target.setPointerCapture(event.pointerId)
+        // Prevent browser focus behaviour because we focus a thumb manually when values change.
+        event.preventDefault()
+        // Touch devices have a delay before focusing so won't focus if touch immediately moves
+        // away from target (sliding). We want thumb to focus regardless.
+        if (inject.thumbs.value.has(target))
+          target.focus()
+        else
+          emit('slideStart', event)
+      }),
+      onPointermove: composeEventHandlers<SliderImplPrivateEmits['pointermove'][0]>((event) => {
+        emit('pointermove', event)
+      }, (event) => {
+        const target = event.target as HTMLElement
+        if (target.hasPointerCapture(event.pointerId))
+          emit('slideMove', event)
+      }),
+      onPointerup: composeEventHandlers<SliderImplPrivateEmits['pointerup'][0]>((event) => {
+        emit('pointerup', event)
+      }, (event) => {
+        const target = event.target as HTMLElement
+        if (target.hasPointerCapture(event.pointerId)) {
+          target.releasePointerCapture(event.pointerId)
+          emit('slideEnd', event)
         }
       }),
     })
