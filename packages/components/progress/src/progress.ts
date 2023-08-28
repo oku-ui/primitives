@@ -1,10 +1,11 @@
-import type { ElementType, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import type { ElementType } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
+import type { ScopeProgress } from './utils'
 import {
   defaultGetValueLabel,
   getInvalidMaxError,
@@ -13,37 +14,26 @@ import {
   isNumber,
   isValidMaxNumber,
   isValidValueNumber,
+  scopeProgressProps,
 } from './utils'
 import { DEFAULT_MAX, PROGRESS_NAME } from './constants'
-import type { ProgressIndicatorProps } from '.'
 
-// ---------- Progress ---------- //
-
-type ProgressContextValue = {
-  value: ComputedRef<number | null> | null
-  max: ComputedRef<number>
+type ProgressInjectValue = {
+  value: Ref<number | null> | null
+  max: Ref<number>
 }
 
-type ProgressElement = ElementType<'div'>
-export type _ProgressEl = HTMLDivElement
+export type ProgressIntrinsicElement = ElementType<'div'>
+export type ProgressElement = HTMLDivElement
 
-interface ProgressProps {
+export interface ProgressProps {
   value?: number | null
   max?: number
   getValueLabel?(value: number, max: number): string
   scopeProgress?: Scope
 }
 
-const [createProgressContext, createProgressScope]
-  = createProvideScope(PROGRESS_NAME)
-
-const [progressProvider, useProgressContext]
-  = createProgressContext<ProgressContextValue>(PROGRESS_NAME)
-
-// ---component---
-const Progress = defineComponent({
-  name: PROGRESS_NAME,
-  inheritAttrs: false,
+export const progressProps = {
   props: {
     value: {
       type: [Number, null] as PropType<number | null | undefined>,
@@ -56,14 +46,26 @@ const Progress = defineComponent({
       type: Function as PropType<(value: number, max: number) => string>,
       default: defaultGetValueLabel,
     },
-    scopeProgress: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+  },
+}
+
+export const [createProgressContext, createProgressScope]
+  = createProvideScope(PROGRESS_NAME)
+
+export const [progressProvider, useProgressInject]
+  = createProgressContext<ProgressInjectValue>(PROGRESS_NAME)
+
+const progress = defineComponent({
+  name: PROGRESS_NAME,
+  inheritAttrs: false,
+  props: {
+    ...progressProps.props,
+    ...scopeProgressProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { value, max, getValueLabel, scopeProgress } = toRefs(props)
-    const { ...progressProps } = attrs as ProgressElement
+    const { value, max, getValueLabel, scopeOkuProgress } = toRefs(props)
+    const { ...progressAttrs } = attrs as ProgressIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
@@ -87,7 +89,7 @@ const Progress = defineComponent({
     )
 
     progressProvider({
-      scope: scopeProgress.value,
+      scope: scopeOkuProgress.value,
       value: valueProp,
       max: maxProp,
     })
@@ -108,8 +110,9 @@ const Progress = defineComponent({
           ).value,
           'data-value': valueProp.value ?? undefined,
           'data-max': maxProp.value,
-          ...progressProps,
+          ...progressAttrs,
           'ref': forwardedRef,
+          'asChild': props.asChild,
         },
         {
           default: () => slots.default?.(),
@@ -121,13 +124,7 @@ const Progress = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuProgressProps = MergeProps<ProgressProps, ProgressIndicatorProps>
-
-type InstanceProgressType = InstanceTypeRef<typeof Progress, _ProgressEl>
-
-const OkuProgress = Progress as typeof Progress &
-(new () => { $props: _OkuProgressProps })
-
-export { createProgressScope, OkuProgress, useProgressContext }
-
-export type { ProgressProps, ProgressElement, InstanceProgressType }
+export const OkuProgress = progress as typeof progress &
+(new () => {
+  $props: ScopeProgress<Partial<ProgressElement>>
+})

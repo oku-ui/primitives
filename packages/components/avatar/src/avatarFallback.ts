@@ -1,42 +1,47 @@
-import type { PropType } from 'vue'
-import { defineComponent, h, onMounted, ref, watchEffect } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import { defineComponent, h, onMounted, ref, toRef, watchEffect } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useAvatarInject } from './avatar'
+import type { ScopeAvatar } from './utils'
+import { scopeAvatarProps } from './utils'
 
 const FALLBACK_NAME = 'OkuAvatarFallback'
 
-type AvatarFallbackElement = ElementType<'span'>
-export type _AvatarFalbackEl = HTMLSpanElement
+export type AvatarFallbackIntrinsicElement = ElementType<'span'>
+export type AvatarFalbackElement = HTMLSpanElement
 
-interface AvatarFallbackProps extends IPrimitiveProps {
+export interface AvatarFallbackProps extends PrimitiveProps {
   delayMs?: number
 }
 
-const AvatarFallback = defineComponent({
-  name: FALLBACK_NAME,
-  inheritAttrs: false,
+export const avatarFallbackProps = {
   props: {
     delayMs: {
       type: Number,
       required: false,
     },
-    scopeAvatar: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+  },
+}
+
+const avatarFallback = defineComponent({
+  name: FALLBACK_NAME,
+  inheritAttrs: false,
+  props: {
+    ...avatarFallbackProps.props,
+    ...scopeAvatarProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...fallbackProps } = attrs as AvatarFallbackProps
-    const provide = useAvatarInject(FALLBACK_NAME, props.scopeAvatar)
-    const canRender = ref(props.delayMs === undefined)
+    const delayMs = toRef(props, 'delayMs')
+    const { ...fallbackAttrs } = attrs as AvatarFallbackIntrinsicElement
+    const provide = useAvatarInject(FALLBACK_NAME, props.scopeOkuAvatar)
+    const canRender = ref(delayMs.value === undefined)
 
     const forwardedRef = useForwardRef()
 
     onMounted(() => {
-      if (props.delayMs === undefined)
+      if (delayMs.value === undefined)
         canRender.value = true
       else
         canRender.value = false
@@ -44,21 +49,22 @@ const AvatarFallback = defineComponent({
 
     onMounted(() => {
       watchEffect(() => {
-        if (props.delayMs !== undefined) {
+        if (delayMs.value !== undefined) {
           const timerID = window.setTimeout(() => {
             canRender.value = true
-          }, props.delayMs)
+          }, delayMs.value)
           return () => window.clearTimeout(timerID)
         }
       })
     })
 
     const originalReturn = () => {
-      return (canRender.value && (provide.value.imageLoadingStatus !== 'loaded'))
+      return (canRender.value && (provide.imageLoadingStatus !== 'loaded'))
         ? h(
           Primitive.span, {
-            ...fallbackProps,
+            ...fallbackAttrs,
             ref: forwardedRef,
+            asChild: props.asChild,
           },
           {
             default: () => slots.default?.(),
@@ -72,18 +78,7 @@ const AvatarFallback = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuAvatarFallbackProps = MergeProps<AvatarFallbackProps, AvatarFallbackElement>
-
-type InstanceAvatarFallbackType = InstanceTypeRef<typeof AvatarFallback, _AvatarFalbackEl>
-
-const OkuAvatarFallback = AvatarFallback as typeof AvatarFallback & (new () => { $props: _OkuAvatarFallbackProps })
-
-export {
-  OkuAvatarFallback,
-}
-
-export type {
-  AvatarFallbackProps,
-  AvatarFallbackElement,
-  InstanceAvatarFallbackType,
-}
+export const OkuAvatarFallback = avatarFallback as typeof avatarFallback &
+(new () => {
+  $props: ScopeAvatar<Partial<AvatarFalbackElement>>
+})

@@ -56,6 +56,10 @@ const pages: Page[] = [
     name: 'roving-focus',
     path: '/roving-focus',
   },
+  {
+    name: 'OkuTabs',
+    path: '/tabs',
+  },
 ]
 </script>
 

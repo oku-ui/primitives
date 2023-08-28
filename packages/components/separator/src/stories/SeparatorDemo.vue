@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { SeparatorProps } from '@oku-ui/separator'
 import { OkuSeparator } from '@oku-ui/separator'
 
-export interface ISeparatorProps extends SeparatorProps {
+export interface ISeparatorProps {
   template?: '#1' | '#2' | '#3'
   allshow?: boolean
 }

@@ -1,53 +1,59 @@
-import type { PropType } from 'vue'
-import { defineComponent, h, onMounted, toRefs, watch } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import { defineComponent, h, onMounted, toRef, watch } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { useCallbackRef, useForwardRef } from '@oku-ui/use-composable'
-import type { ImageLoadingStatus } from './utils'
-import { useImageLoadingStatus } from './utils'
+import type { ImageLoadingStatus, ScopeAvatar } from './utils'
+import { scopeAvatarProps, useImageLoadingStatus } from './utils'
 import { useAvatarInject } from './avatar'
 
-const IMAGE_NAME = 'AvatarImage'
+const IMAGE_NAME = 'OkuAvatarImage'
 
-type AvatarImageElement = ElementType<'img'>
-export type _AvatarImageEl = HTMLImageElement
+export type AvatarImageIntrinsicElement = ElementType<'img'>
+export type AvatarImageElement = HTMLImageElement
 
-interface AvatarImageProps extends IPrimitiveProps {
-  onLoadingStatusChange?: (status: ImageLoadingStatus) => void
+export interface AvatarImageProps extends PrimitiveProps {
   scopeAvatar?: Scope
 }
 
-const AvatarImage = defineComponent({
-  name: IMAGE_NAME,
-  inheritAttrs: false,
+export type AvatarEmits = {
+  'loadingStatusChange': [status: ImageLoadingStatus]
+}
+
+export const avatarImageProps = {
   props: {
-    onLoadingStatusChange: {
-      type: Function as unknown as PropType<(status: ImageLoadingStatus) => void>,
-      required: false,
-      default: () => {},
-    },
-    scopeAvatar: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
     src: {
       type: String,
       required: true,
     },
   },
-  setup(props, { attrs, slots }) {
-    const { src } = toRefs(props)
-    const { ...imageProps } = attrs as AvatarImageElement
-    const inject = useAvatarInject(IMAGE_NAME, props.scopeAvatar)
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    loadingStatusChange: (status: ImageLoadingStatus) => true,
+  },
+}
+
+const avatarImage = defineComponent({
+  name: IMAGE_NAME,
+  inheritAttrs: false,
+  props: {
+    ...avatarImageProps.props,
+    ...scopeAvatarProps,
+    ...primitiveProps,
+  },
+  emits: avatarImageProps.emits,
+  setup(props, { attrs, slots, emit }) {
+    const src = toRef(props, 'src')
+    const { ...imageAttrs } = attrs as AvatarImageIntrinsicElement
+    const inject = useAvatarInject(IMAGE_NAME, props.scopeOkuAvatar)
 
     const forwardedRef = useForwardRef()
 
     const imageLoadingStatus = useImageLoadingStatus(src)
 
     const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
-      props.onLoadingStatusChange(status)
-      inject.value.onImageLoadingStatusChange(status)
+      emit('loadingStatusChange', status)
+      inject.onImageLoadingStatusChange(status)
     })
 
     onMounted(() => {
@@ -63,7 +69,8 @@ const AvatarImage = defineComponent({
     const originalReturn = () => imageLoadingStatus.value === 'loaded'
       ? h(
         Primitive.img, {
-          ...imageProps,
+          asChild: props.asChild,
+          ...imageAttrs,
           src: src.value,
           ref: forwardedRef,
         },
@@ -78,18 +85,7 @@ const AvatarImage = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuAvatarImageProps = MergeProps<AvatarImageProps, AvatarImageElement>
-
-type InstanceAvatarImageType = InstanceTypeRef<typeof AvatarImage, _AvatarImageEl>
-
-const OkuAvatarImage = AvatarImage as typeof AvatarImage & (new () => { $props: _OkuAvatarImageProps })
-
-export {
-  OkuAvatarImage,
-}
-
-export type {
-  AvatarImageProps,
-  AvatarImageElement,
-  InstanceAvatarImageType,
-}
+export const OkuAvatarImage = avatarImage as typeof avatarImage &
+(new () => {
+  $props: ScopeAvatar<Partial<AvatarImageElement>>
+})

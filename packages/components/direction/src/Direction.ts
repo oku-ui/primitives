@@ -1,35 +1,40 @@
-import { type PropType, defineComponent, inject, provide } from 'vue'
+import { computed, defineComponent, inject, provide, toRefs } from 'vue'
+import type { InjectionKey, PropType, Ref } from 'vue'
 
 type Direction = 'ltr' | 'rtl'
-const DirectionContextSymbol = Symbol('DirectionContext')
+const DirectionContextSymbol = Symbol('OkuDirectionProvider') as InjectionKey<Ref<Direction>>
 
-/* -------------------------------------------------------------------------------------------------
- * Direction
- * ----------------------------------------------------------------------------------------------- */
+export interface DirectionProviderProps {
+  dir: Direction
+}
+
+export const directionProviderProps = {
+  props: {
+    dir: {
+      type: String as PropType<Direction>,
+      required: true,
+    },
+  },
+}
 
 const DirectionProvider = defineComponent({
   name: 'DirectionProvider',
   props: {
-    dir: { type: String as PropType<Direction>, required: true },
+    ...directionProviderProps.props,
   },
   setup(props, { slots }) {
-    // Direction context
-    provide(DirectionContextSymbol, props.dir)
+    const { dir } = toRefs(props)
+
+    provide(DirectionContextSymbol, dir as Ref<Direction>)
     return () => slots.default?.()
   },
 })
 
 /* ----------------------------------------------------------------------------------------------- */
 
-function useDirection(localDir?: Direction) {
+export function useDirection(localDir?: Direction) {
   const globalDir = inject(DirectionContextSymbol, null)
-  return localDir || globalDir || 'ltr'
+  return computed(() => localDir ?? globalDir?.value ?? 'ltr')
 }
 
-const Provider = DirectionProvider
-
-export {
-  useDirection,
-  Provider,
-  DirectionProvider,
-}
+export const OkuDirectionProvider = DirectionProvider

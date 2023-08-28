@@ -1,22 +1,43 @@
 import type { PropType } from 'vue'
 import { Transition, defineComponent, h, toRefs } from 'vue'
-import type { Scope } from '@oku-ui/provide'
 
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { isPresent } from '@oku-ui/presence'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuCollapsibleContentImpl } from './collapsibleContentImpl'
 import { useCollapsibleInject } from './collapsible'
+import type { ScopeCollapsible } from './utils'
+import { scopeCollapsibleProps } from './utils'
 
-export const CONTENT_NAME = 'CollapsibleContent'
+export const CONTENT_NAME = 'OkuCollapsibleContent'
 
-type CollapsibleContentElement = ElementType<'div'>
-export type _CollapsibleContentEl = HTMLDivElement
+export type CollapsibleContentIntrinsicElement = ElementType<'div'>
+export type CollapsibleContentElement = HTMLDivElement
 
-interface CollapsibleContentProps extends IPrimitiveProps {
+export interface CollapsibleContentProps extends PrimitiveProps {
+  /**
+ * Used to force mounting when more control is needed. Useful when
+ * controlling animation with React animation libraries.
+ */
+  forceMount?: true
 }
 
-const CollapsibleContent = defineComponent({
+export const collapsibleContentProps = {
+  props: {
+    /**
+    * Used to force mounting when more control is needed. Useful when
+    * controlling animation with React animation libraries.
+    */
+    forceMount: {
+      type: Boolean as PropType<true | undefined>,
+      default: undefined,
+    },
+  },
+}
+
+const collapsibleContent = defineComponent({
   name: CONTENT_NAME,
   components: {
     OkuCollapsibleContentImpl,
@@ -24,28 +45,15 @@ const CollapsibleContent = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
-   */
-    forceMount: {
-      type: Boolean,
-      default: true,
-    },
-    scopeCollapsible: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    asChild: {
-      type: Boolean,
-      default: undefined,
-    },
+    ...collapsibleContentProps.props,
+    ...scopeCollapsibleProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeCollapsible } = toRefs(props)
-    const { ...contentProps } = attrs as CollapsibleContentElement
+    const { scopeOkuCollapsible, forceMount } = toRefs(props)
+    const { ...contentAttrs } = attrs as CollapsibleContentIntrinsicElement
 
-    const context = useCollapsibleInject(CONTENT_NAME, scopeCollapsible.value)
+    const context = useCollapsibleInject(CONTENT_NAME, scopeOkuCollapsible.value)
 
     const forwardedRef = useForwardRef()
 
@@ -53,16 +61,17 @@ const CollapsibleContent = defineComponent({
     const originalReturn = () => h(
       OkuPresence,
       {
-        present: props.forceMount || context.value.open.value,
+        present: forceMount.value || context.open.value,
       },
       {
-        default: () => h(
+        default: ({ isPresent }: { isPresent: isPresent }) => h(
           OkuCollapsibleContentImpl,
           {
-            ...contentProps,
+            ...contentAttrs as any,
             ref: forwardedRef,
             asChild: props.asChild,
-            scopeCollapsible: scopeCollapsible.value,
+            scopeCollapsible: scopeOkuCollapsible.value,
+            present: isPresent,
           },
           {
             default: () => slots.default && slots.default(),
@@ -76,10 +85,7 @@ const CollapsibleContent = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _CollapsibleContentProps = MergeProps<CollapsibleContentProps, CollapsibleContentElement>
-type InstanceCollapsibleContentType = InstanceTypeRef<typeof CollapsibleContent, _CollapsibleContentEl>
-
-const OkuCollapsibleContent = CollapsibleContent as typeof CollapsibleContent & (new () => { $props: _CollapsibleContentProps })
-
-export { OkuCollapsibleContent }
-export type { CollapsibleContentProps, CollapsibleContentElement, InstanceCollapsibleContentType }
+export const OkuCollapsibleContent = collapsibleContent as typeof collapsibleContent &
+(new () => {
+  $props: ScopeCollapsible<Partial<CollapsibleContentElement>>
+})

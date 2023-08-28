@@ -1,88 +1,113 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
-import { getState } from './utils'
+import type { ScopeCollapsible } from './utils'
+import { getState, scopeCollapsibleProps } from './utils'
 
-interface CollapsibleProps extends IPrimitiveProps {
-}
-type CollapsibleElement = ElementType<'div'>
-export type _CollapsibleEl = HTMLDivElement
+export type CollapsibleIntrinsicElement = ElementType<'div'>
+export type CollapsibleElement = HTMLDivElement
 
-type CollapsibleProvideValue = {
-  contentId: string
-  disabled?: Ref<boolean>
+export type CollapsibleProvideValue = {
+  contentId: Ref<string>
+  disabled?: Ref<boolean | undefined>
   open: Ref<boolean>
   onOpenToggle(): void
 }
 
-const COLLAPSIBLE_NAME = 'Collapsible'
-export const [createCollapsibleProvide, _createCollapsibleScope] = createProvideScope(COLLAPSIBLE_NAME)
-export const [collapsibleProvider, useCollapsibleInject]
-  = createCollapsibleProvide<CollapsibleProvideValue>(COLLAPSIBLE_NAME)
+export interface CollapsibleProps extends PrimitiveProps {
+  defaultOpen?: boolean
+  open?: boolean
+  disabled?: boolean
+}
 
-const Collapsible = defineComponent({
-  name: COLLAPSIBLE_NAME,
-  inheritAttrs: false,
+export type CollapsibleEmits = {
+  'update:modelValue': [open: boolean]
+  'openChange': [open: boolean]
+}
+
+export const collapsibleProps = {
   props: {
     modelValue: {
-      type: [Boolean] as PropType<
+      type: [Boolean, undefined] as PropType<
         boolean
       >,
       default: undefined,
     },
     defaultOpen: {
-      type: Boolean,
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
     },
     open: {
       type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
     },
     disabled: {
-      type: Boolean,
-      default: false,
-    },
-    scopeCollapsible: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    onOpenChange: {
-      type: Function as PropType<(open: boolean) => void>,
-    },
-    asChild: {
-      type: Boolean,
+      type: Boolean as PropType<boolean | undefined>,
       default: undefined,
     },
   },
-  emits: ['update:open', 'update:modelValue'],
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (open: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'openChange': (open: boolean) => true,
+  },
+}
+
+const COLLAPSIBLE_NAME = 'OkuCollapsible'
+
+export const [createCollapsibleProvide, createCollapsibleScope] = createProvideScope(COLLAPSIBLE_NAME)
+
+export const [collapsibleProvider, useCollapsibleInject]
+  = createCollapsibleProvide<CollapsibleProvideValue>(COLLAPSIBLE_NAME)
+
+const collapsible = defineComponent({
+  name: COLLAPSIBLE_NAME,
+  inheritAttrs: false,
+  props: {
+    ...collapsibleProps.props,
+    ...primitiveProps,
+    ...scopeCollapsibleProps,
+  },
+  emits: collapsibleProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...collapsibleAttr } = attrs as CollapsibleElement
-    const { disabled, scopeCollapsible, open, defaultOpen } = toRefs(props)
+    const { ...collapsibleAttr } = attrs as CollapsibleIntrinsicElement
+    const { disabled, open, defaultOpen } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
 
     const forwardedRef = useForwardRef()
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? open.value),
-      defaultProp: computed(() => defaultOpen.value),
-      onChange: (open) => {
-        emit('update:open', open)
-        emit('update:modelValue', open)
+    const proxyOpen = computed({
+      get: () => modelValue.value !== undefined
+        ? modelValue.value
+        : open.value !== undefined ? open.value : undefined,
+      set: () => {
       },
     })
 
+    const { state, updateValue } = useControllable({
+      prop: computed(() => proxyOpen.value),
+      defaultProp: computed(() => defaultOpen.value),
+      onChange: (open) => {
+        emit('update:modelValue', open as boolean)
+        emit('openChange', open as boolean)
+      },
+      initialValue: false,
+    })
+
     collapsibleProvider({
-      contentId: useId(),
+      contentId: computed(() => useId()),
       disabled,
       onOpenToggle() {
         updateValue(!state.value)
       },
-      scope: scopeCollapsible.value,
-      open: state as Ref<boolean>,
+      scope: props.scopeOkuCollapsible,
+      open: computed(() => state.value || false),
     })
 
     const originalReturn = () => h(
@@ -95,7 +120,7 @@ const Collapsible = defineComponent({
         ...collapsibleAttr,
       },
       {
-        default: () => slots.default && slots.default(),
+        default: () => slots.default?.(),
       },
     )
     return originalReturn
@@ -103,10 +128,7 @@ const Collapsible = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _CollapsibleProps = MergeProps<CollapsibleProps, CollapsibleElement>
-type InstanceCollapsibleType = InstanceTypeRef<typeof Collapsible, _CollapsibleEl>
-
-const OkuCollapsible = Collapsible as typeof Collapsible & (new () => { $props: _CollapsibleProps })
-
-export { OkuCollapsible }
-export type { CollapsibleProps, CollapsibleElement, InstanceCollapsibleType }
+export const OkuCollapsible = collapsible as typeof collapsible &
+(new () => {
+  $props: ScopeCollapsible<Partial<CollapsibleElement>>
+})

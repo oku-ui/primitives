@@ -1,46 +1,62 @@
-import { cloneVNode, defineComponent, h } from 'vue'
-import type { ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { cloneVNode, defineComponent, h, toRefs } from 'vue'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-type ArrowElement = ElementType<'svg'>
-export type _ArrowEl = SVGSVGElement
+export type ArrowIntrinsicElement = ElementType<'svg'>
+export type ArrowElement = SVGSVGElement
 
-interface ArrowProps extends IPrimitiveProps {}
+export interface ArrowProps extends PrimitiveProps {
+  width?: number
+  height?: number
+}
 
-const NAME = 'Arrow'
+export const arrowProps = {
+  props: {
+    width: {
+      type: Number as PropType<number>,
+      default: '5',
+    },
+    height: {
+      type: Number as PropType<number>,
+      default: '10',
+    },
+    ...primitiveProps,
+  },
+  emits: {},
+}
+
+const NAME = 'OkuArrow'
 
 const arrow = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    asChild: {
-      type: Boolean,
-      default: false,
-    },
+    ...arrowProps.props,
   },
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
-    const { width = '10px', height = '5px', ...arrowAttrs } = attrs as ArrowElement
+    const { width, height } = toRefs(props)
 
     const originalReturn = () => {
       const defaultSlot = typeof slots.default === 'function' ? slots.default()[0] : slots.default ?? null
       return props.asChild
         ? defaultSlot
           ? cloneVNode(defaultSlot, {
-            ...arrowAttrs,
-            width,
-            height,
+            ...attrs,
+            width: `${width.value}px`,
+            height: `${height.value}px`,
             viewBox: '0 0 30 10',
             preserveAspectRatio: 'none',
           })
           : null
         : h(Primitive.svg, {
-          ...arrowAttrs,
+          ...attrs,
           ref: forwardedRef,
-          width,
-          height,
+          width: width.value,
+          height: height.value,
           viewBox: '0 0 30 10',
           preserveAspectRatio: 'none',
         },
@@ -56,10 +72,7 @@ const arrow = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _ArrowProps = MergeProps<ArrowProps, ArrowElement>
-type InstanceArrowType = InstanceTypeRef<typeof arrow, _ArrowEl>
-
-const OkuArrow = arrow as typeof arrow & (new () => { $props: _ArrowProps })
-
-export { OkuArrow }
-export type { ArrowProps, ArrowElement, InstanceArrowType }
+export const OkuArrow = arrow as typeof arrow
+& (new () => {
+  $props: Partial<ArrowIntrinsicElement>
+})

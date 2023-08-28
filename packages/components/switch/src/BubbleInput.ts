@@ -1,13 +1,13 @@
-import type { ElementType, MergeProps } from '@oku-ui/primitive'
-import { useForwardRef, usePrevious, useSize } from '@oku-ui/use-composable'
+import type { ElementType } from '@oku-ui/primitive'
+import { usePrevious, useSize } from '@oku-ui/use-composable'
 import type {
   CSSProperties,
+  PropType,
   Ref,
 } from 'vue'
 import {
   defineComponent,
   h,
-  onMounted,
   ref,
   toRefs,
   watchEffect,
@@ -15,18 +15,16 @@ import {
 
 const BUBBLE_INPUT = 'OkuBubbleInput'
 
-type InputElement = ElementType<'input'>
-export type _BubbleInputEl = HTMLInputElement
+export type BubbleInputIntrinsicElement = ElementType<'input'>
+export type BubbleInputElement = HTMLInputElement
 
-interface BubbleInputProps extends Omit<InputElement, 'checked'> {
+interface BubbleInputProps extends Omit<BubbleInputElement, 'checked'> {
   checked: boolean
   control: HTMLElement | null
   bubbles: boolean
 }
 
-export const BubbleInput = defineComponent({
-  name: BUBBLE_INPUT,
-  inheritAttrs: false,
+const bubbleInputProps = {
   props: {
     checked: {
       type: Boolean,
@@ -34,38 +32,42 @@ export const BubbleInput = defineComponent({
     },
     bubbles: {
       type: Boolean,
-      default: undefined,
+      default: true,
     },
     control: {
-      type: Object,
-      required: undefined,
+      type: Object as PropType<HTMLElement | null>,
+      default: null,
     },
+  },
+}
+
+export const BubbleInput = defineComponent({
+  name: BUBBLE_INPUT,
+  inheritAttrs: false,
+  props: {
+    ...bubbleInputProps.props,
   },
   setup(props, { attrs }) {
     const { control, checked, bubbles } = toRefs(props)
-    const { ...inputAttrs } = attrs as InputElement
+    const { ...inputAttrs } = attrs as BubbleInputIntrinsicElement
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevChecked = usePrevious(checked)
     const controlSize = useSize(control as Ref<HTMLElement>)
 
-    const forwardedRef = useForwardRef()
+    watchEffect(() => {
+      const input = inputRef.value!
+      const inputProto = window.HTMLInputElement.prototype
+      const descriptor = Object.getOwnPropertyDescriptor(
+        inputProto,
+        'checked',
+      ) as PropertyDescriptor
+      const setChecked = descriptor.set
 
-    onMounted(() => {
-      watchEffect(() => {
-        const input = inputRef.value!
-        const inputProto = window.HTMLInputElement.prototype
-        const descriptor = Object.getOwnPropertyDescriptor(
-          inputProto,
-          'checked',
-        ) as PropertyDescriptor
-        const setChecked = descriptor.set
-
-        if (prevChecked.value !== checked.value && setChecked) {
-          const event = new Event('click', { bubbles: bubbles.value })
-          setChecked.call(input, checked.value)
-          input.dispatchEvent(event)
-        }
-      })
+      if (prevChecked.value !== checked.value && setChecked) {
+        const event = new Event('click', { bubbles: bubbles.value })
+        setChecked.call(input, checked.value)
+        input.dispatchEvent(event)
+      }
     })
 
     const originalReturn = () =>
@@ -73,10 +75,9 @@ export const BubbleInput = defineComponent({
         'type': 'checkbox',
         'aria-hidden': true,
         'defaultChecked': checked.value,
-        // TODO: 'value': inputAttrs.value does not work
         ...inputAttrs,
         'tabindex': -1,
-        'ref': forwardedRef,
+        'ref': inputRef,
         'style': {
           ...((inputAttrs.style as CSSProperties) || {}),
           ...controlSize.value,
@@ -91,11 +92,9 @@ export const BubbleInput = defineComponent({
   },
 })
 
-type _BubbleInput = MergeProps<BubbleInputProps, InputElement>
-
-const OkuBubbleInput = BubbleInput as typeof BubbleInput &
-(new () => { $props: _BubbleInput })
-
-export { OkuBubbleInput }
+export const OkuBubbleInput = BubbleInput as typeof BubbleInput &
+(new () => {
+  $props: Partial<BubbleInputElement>
+})
 
 export type { BubbleInputProps }

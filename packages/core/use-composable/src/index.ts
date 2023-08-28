@@ -1,4 +1,4 @@
-import { computedAsync, computedEager, syncRef } from '@vueuse/core'
+import { computedAsync, computedEager, syncRef, syncRefs } from '@vueuse/core'
 
 export { useControllable } from './useControllable'
 export { useCallbackRef } from './useCallbackRef'
@@ -10,4 +10,4 @@ export { useComposedRefs } from './useComposedRefs'
 export { useForwardRef } from './useForwardRef'
 export { useEscapeKeydown } from './useEscapeKeydown'
 export type { MaybeComputedElementRef } from './unrefElement'
-export { computedEager, syncRef, computedAsync }
+export { computedEager, syncRef, computedAsync, syncRefs }

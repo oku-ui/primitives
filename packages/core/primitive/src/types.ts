@@ -1,5 +1,4 @@
 import type {
-  ComponentPropsOptions,
   ComponentPublicInstance,
   DefineComponent,
   FunctionalComponent,
@@ -72,19 +71,19 @@ export type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'>
 
 export type MergeProps<T, U> = U & T
 
-export interface IPrimitiveProps {
+export interface PrimitiveProps {
   asChild?: boolean
 }
 
-export type PropsWithoutRef<P> = P extends any
-  ? 'ref' extends keyof P
-    ? Pick<P, Exclude<keyof P, 'ref'>>
-    : P
-  : P
+// export type PropsWithoutRef<P> = P extends any
+//   ? 'ref' extends keyof P
+//     ? Pick<P, Exclude<keyof P, 'ref'>>
+//     : P
+//   : P
 
-export type ComponentPropsWithoutRef<
-  T extends keyof HTMLElementTagNameMap | DefineComponent<any>,
-> = PropsWithoutRef<ComponentPropsOptions<T>>
+// export type ComponentPropsWithoutRef<
+//   T extends keyof HTMLElementTagNameMap | DefineComponent<any>,
+// > = PropsWithoutRef<ComponentPropsOptions<T>>
 
 export type Primitives = {
   [E in (typeof NODES)[number]]: DefineComponent<{

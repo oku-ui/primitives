@@ -1,5 +1,6 @@
 export {
   OkuPopper,
+  createPopperScope,
 } from './popper'
 
 export type {
@@ -8,29 +9,34 @@ export type {
 
 export {
   OkuPopperAnchor,
+  popperAnchorProps,
 } from './popperAnchor'
 
 export type {
   PopperAnchorProps,
-  InstancePopperAnchorType,
-  _PopperAnchorEl,
+  PopperAnchorElement,
+  PopperAnchorIntrinsicElement,
 } from './popperAnchor'
 
 export {
   OkuPopperContent,
+  popperContentProps,
 } from './popperContent'
 
 export type {
   PopperContentProps,
-  InstancePopperContentType,
-  _PopperContentEl,
+  PopperContentElement,
+  PopperContentIntrinsicElement,
+  PopperContentEmits,
 } from './popperContent'
 
 export {
   OkuPopperArrow,
+  popperArrowProps,
 } from './popperArrow'
 
 export type {
   PopperArrowProps,
-  InstancePopperArrowType,
+  PopperArrowElement,
+  PopperArrowIntrinsicElement,
 } from './popperArrow'

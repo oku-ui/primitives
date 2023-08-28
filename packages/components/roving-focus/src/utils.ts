@@ -1,4 +1,49 @@
 import type { AriaAttributes } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import { ScopePropObject } from '@oku-ui/provide'
+import type { PropType } from 'vue'
+
+export type ScopeRovingFocus<T> = T & { scopeOkuRovingFocus?: Scope }
+
+export const scopeRovingFocusProps = {
+  scopeOkuRovingFocus: {
+    ...ScopePropObject,
+  },
+}
+
+export interface RovingFocusGroupOptions {
+  /**
+   * The orientation of the group.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   */
+  orientation?: Orientation
+  /**
+   * The direction of navigation between items.
+   */
+  dir?: Direction
+  /**
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
+   */
+  loop?: boolean
+}
+
+export const rovingFocusGroupOptionsProps = {
+  props: {
+    orientation: {
+      type: String as PropType<Orientation | undefined>,
+      default: undefined,
+    },
+    dir: {
+      type: String as PropType<Direction | undefined>,
+      default: undefined,
+    },
+    loop: {
+      type: Boolean,
+      default: false,
+    },
+  },
+}
 
 export type Orientation = AriaAttributes['aria-orientation']
 export type Direction = 'ltr' | 'rtl'

@@ -33,6 +33,10 @@ const pages: Page[] = [
     path: '/toggle',
   },
   {
+    name: 'OkuTabs',
+    path: '/tabs',
+  },
+  {
     name: 'OkuPopper',
     path: '/popper',
   },
@@ -51,6 +55,10 @@ const pages: Page[] = [
   {
     name: 'roving-focus',
     path: '/roving-focus',
+  },
+  {
+    name: 'OkuRadioGroup',
+    path: '/radio-group',
   },
 ]
 </script>

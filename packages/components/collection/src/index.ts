@@ -1,6 +1,6 @@
 export {
   createCollection,
-  CollectionProps,
+  collectionProps,
 } from './collection'
 
 export type { CollectionElement, CollectionPropsType } from './collection'
