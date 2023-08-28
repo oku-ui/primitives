@@ -1,65 +1,73 @@
-/* eslint-disable unused-imports/no-unused-vars */
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h } from 'vue'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { useToastInteractiveContext } from './toast-impl'
+import { OkuToastAnnounceExclude } from './toast-announce-exclude'
+import { scopedProps } from './types'
+
 /* -------------------------------------------------------------------------------------------------
  * ToastClose
  * ----------------------------------------------------------------------------------------------- */
 
-import type { ComponentPropsWithoutRef, ElementType, IPrimitiveProps, InstanceTypeRef, MergeProps, Primitive } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import type { PropType } from 'vue'
-import { defineComponent, toRefs } from 'vue'
-import type { Scope } from '@oku-ui/provide'
-
 const CLOSE_NAME = 'ToastClose'
 
-type ToastCloseElement = ElementType<'button'>
-type PrimitiveButtonProps = ComponentPropsWithoutRef<typeof Primitive.button>
-interface ToastCloseProps extends IPrimitiveProps {}
+export type ToastCloseIntrinsicElement = ElementType<'button'>
+type ToastCloseElement = HTMLButtonElement
 
-const ToastClose = defineComponent({
+interface ToastCloseProps extends PrimitiveProps {}
+
+const toastClose = defineComponent({
   name: CLOSE_NAME,
   components: {
+    OkuToastAnnounceExclude,
   },
   inheritAttrs: false,
   props: {
-    scopeToast: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...scopedProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, emit, slots }) {
-    // const { ...closeProps } = attrs as ToastElement
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (event: MouseEvent) => true,
+  },
+  setup(props, { attrs, emit }) {
+    const { ...toastCloseAttrs } = attrs as ToastCloseIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
-    const {
-      scopeToast,
-      ...closeProps
-    } = toRefs(props)
+    const interactiveContext = useToastInteractiveContext(CLOSE_NAME, props.scopeOkuToast)
 
-    const interactiveContext = useToastInteractiveContext(CLOSE_NAME, scopeToast.value)
+    const originalReturn = () =>
+      h(
+        OkuToastAnnounceExclude,
+        { asChild: true },
+        [
+          h(
+            Primitive.button,
+            {
+              type: 'button',
+              ...toastCloseAttrs,
+              ref: forwardedRef,
+              // onClick: (event) => {
+              //   composeEventHandlers(props.onClick, interactiveContext.onClose)(event)
+              // },
+              onClick: composeEventHandlers<MouseEvent>((event) => {
+                emit('click', event)
+              }, () => {
+                interactiveContext.onClose()
+              }),
+            },
+          ),
+        ],
+      )
 
-    // return (
-    //   <ToastAnnounceExclude asChild>
-    //     <Primitive.button
-    //       type="button"
-    //       {...closeProps}
-    //       ref={forwardedRef}
-    //       onClick={composeEventHandlers(props.onClick, interactiveContext.onClose)}
-    //     />
-    //   </ToastAnnounceExclude>
-    // );
-
-    // const originalReturn = () =>
-
-    // return originalReturn
+    return originalReturn
   },
 })
 
-type _ToastClose = MergeProps<ToastCloseProps, ToastCloseElement>
-type InstanceToastCloseElementType = InstanceTypeRef<typeof ToastClose, _ToastCloseEl>
+export const OkuToastClose = toastClose as typeof toastClose &
+(new () => { $props: Partial<ToastCloseElement> })
 
-const OkuToastClose = ToastClose as typeof ToastClose & (new () => { $props: _ToastClose })
-
-export { OkuToastClose }
-
-export type { ToastCloseProps, InstanceToastCloseElementType }
+export type { ToastCloseElement, ToastCloseProps }

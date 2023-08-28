@@ -2,7 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import type { VisuallyHiddenElement, VisuallyHiddenIntrinsicElement } from '@oku-ui/visually-hidden'
 import { useForwardRef } from '@oku-ui/use-composable'
-import OkuVisuallyHidden from '@oku-ui/visually-hidden'
+import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useToastProviderContext } from './toast-provider'
 import { scopedProps } from './types'
@@ -11,6 +11,7 @@ const FOCUS_PROXY_NAME = 'ToastFocusProxy'
 
 type FocusProxyElement = VisuallyHiddenElement
 type VisuallyHiddenProps = VisuallyHiddenIntrinsicElement
+
 interface FocusProxyProps extends VisuallyHiddenProps {
   onFocusFromOutsideViewport(): void
 }

@@ -1,48 +1,54 @@
-/* eslint-disable unused-imports/no-unused-vars */
 import type { PropType } from 'vue'
-import { defineComponent, ref, toRefs, watchEffect } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
-import type { Scope } from '@oku-ui/provide'
-import type { ComponentPropsWithoutRef } from '@oku-ui/primitive'
-import type { ScopedProps } from './toast-provider'
+import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { OkuPortal } from '@oku-ui/portal'
+import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
+import type { ElementType } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
 import { useToastProviderContext } from './toast-provider'
 import { TOAST_NAME } from './toast'
+import { useNextFrame } from './utils'
+import type { ScopedPropsInterface } from './types'
+import { scopedProps } from './types'
 
-interface ToastAnnounceProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'>, ScopedProps<{ children: string[] }> {}
+export type ToastAnnounceIntrinsicElement = ElementType<'div'>
+type ToastAnnounceElement = HTMLDivElement
+
+interface ToastAnnounceProps extends Omit<HTMLDivElement, 'children'>, ScopedPropsInterface<{ children: string[] }> {}
 
 const ANNOUNCE_NAME = 'ToastAnnounce'
 
-const ToastAnnounce = defineComponent({
+const toastAnnounceProps = {
+  children: {
+    type: Array as PropType<string[]>,
+  },
+}
+
+const toastAnnounce = defineComponent({
   name: ANNOUNCE_NAME,
   components: {
+    OkuPortal,
+    OkuVisuallyHidden,
   },
   inheritAttrs: false,
   props: {
-    scopeToast: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    children: {
-      type: Array as PropType<string[]>,
-    },
+    ...toastAnnounceProps,
+    ...scopedProps,
+    ...primitiveProps,
   },
-  setup(props, { attrs, emit, slots }) {
-    // const { ...announceProps } = attrs as ToastElement
-
-    const forwardedRef = useForwardRef()
+  setup(props, { attrs }) {
+    const { ...toastAnnounceAttrs } = attrs
+    // as ToastAnnounceIntrinsicElement
 
     const {
-      scopeToast,
-      //   children,
-      ...announceProps
+      children,
     } = toRefs(props)
 
-    const context = useToastProviderContext(TOAST_NAME, scopeToast.value)
+    const context = useToastProviderContext(TOAST_NAME, props.scopeOkuToast)
     const renderAnnounceText = ref<boolean>(false)
     const isAnnounced = ref<boolean>(false)
 
     // render text content in the next frame to ensure toast is announced in NVDA
-    // useNextFrame(() => setRenderAnnounceText(true))
+    useNextFrame(() => renderAnnounceText.value = true)
 
     // cleanup after announcing
     watchEffect((onInvalidate) => {
@@ -50,29 +56,30 @@ const ToastAnnounce = defineComponent({
       onInvalidate(() => window.clearTimeout(timer))
     })
 
-    // return isAnnounced ? null : (
-    //     <Portal asChild>
-    //       <VisuallyHidden {...announceProps}>
-    //         {renderAnnounceText && (
-    //           <>
-    //             {context.label} {children}
-    //           </>
-    //         )}
-    //       </VisuallyHidden>
-    //     </Portal>
-    //   );
+    const originalReturn = () =>
+      isAnnounced.value
+        ? null
+        : h(
+          OkuPortal,
+          { asChild: true },
+          [
+            h(
+              OkuVisuallyHidden,
+              {
+                ...toastAnnounceAttrs,
+              },
+              {
+                default: () => renderAnnounceText.value ? [context.label, children.value] : null,
+              },
+            ),
+          ],
+        )
 
-    // const originalReturn = () =>
-
-    // return originalReturn
+    return originalReturn
   },
 })
 
-// type _ToastProvider = MergeProps<ToastProviderProps, ToastProviderElement>
-// type InstanceToastProviderType = InstanceTypeRef<typeof ToastProvider, _ToastProviderEl>
+export const OkuToastAnnounce = toastAnnounce as typeof toastAnnounce &
+(new () => { $props: Partial<ToastAnnounceElement> })
 
-// const OkuToastProvider = ToastProvider as typeof ToastProvider & (new () => { $props: _ToastProvider })
-
-// export { OkuToastProvider, useToastProviderContext, createToastScope, createToastContext, useCollection }
-
-// export type { ToastProviderProps, InstanceToastProviderType }
+export type { ToastAnnounceElement, ToastAnnounceProps }

@@ -10,7 +10,9 @@ import { scopedProps } from './types'
 
 const DESCRIPTION_NAME = 'ToastDescription'
 
-type ToastDescriptionElement = ElementType<'div'>
+export type ToastDescriptionIntrinsicElement = ElementType<'div'>
+type ToastDescriptionElement = HTMLDivElement
+
 interface ToastDescriptionProps extends PrimitiveProps {}
 
 const toastDescription = defineComponent({
@@ -23,7 +25,7 @@ const toastDescription = defineComponent({
     ...primitiveProps,
   },
   setup(_props, { attrs, slots }) {
-    const { ...toastDescriptionAttrs } = attrs as ToastDescriptionElement
+    const { ...toastDescriptionAttrs } = attrs as ToastDescriptionIntrinsicElement
 
     const forwardedRef = useForwardRef()
 

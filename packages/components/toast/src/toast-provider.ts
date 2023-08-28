@@ -30,7 +30,7 @@ type ToastProviderContextValue = {
   swipeThreshold: Ref<number>
   toastCount: Ref<number>
   viewport: Ref<ToastViewportElement | null>
-  onViewportChange(viewport: ToastViewportElement | null): void
+  onViewportChange(viewport: ToastViewportElement): void
   onToastAdd(): void
   onToastRemove(): void
   isFocusedToastEscapeKeyDownRef: Ref<boolean>
@@ -121,7 +121,9 @@ const toastProvider = defineComponent({
       swipeThreshold,
       toastCount,
       viewport,
-      onViewportChange: () => viewport.value,
+      onViewportChange(viewport: any) {
+        viewport.value = viewport
+      },
       onToastAdd: useCallbackRef(() => toastCount.value++),
       onToastRemove: useCallbackRef(() => toastCount.value--),
       isFocusedToastEscapeKeyDownRef,

@@ -2,7 +2,7 @@ import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuToastClose } from './toast-close'
-import type { ToastCloseElement, ToastCloseProps } from './toast-close'
+import type { ToastCloseIntrinsicElement, ToastCloseProps } from './toast-close'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
 import { scopedProps } from './types'
 
@@ -12,7 +12,8 @@ import { scopedProps } from './types'
 
 const ACTION_NAME = 'ToastAction'
 
-type ToastActionElement = ToastCloseElement
+type ToastActionElement = ToastCloseIntrinsicElement
+
 interface ToastActionProps extends ToastCloseProps {
   /**
    * A short description for an alternate way to carry out the action. For screen reader users
@@ -47,7 +48,7 @@ const toastAction = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs }) {
-    const { ...toastActionAttrs } = attrs as ToastActionElement
+    // const { ...toastActionAttrs } = attrs as ToastActionElement
 
     const forwardedRef = useForwardRef()
 
@@ -67,7 +68,7 @@ const toastAction = defineComponent({
           h(
             OkuToastClose,
             {
-              ...toastActionAttrs,
+              ...attrs,
               ref: forwardedRef,
             },
           ),

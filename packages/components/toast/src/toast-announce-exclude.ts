@@ -5,7 +5,9 @@ import { defineComponent, h, toRefs } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 import { scopedProps } from './types'
 
-type ToastAnnounceExcludeElement = ElementType<'div'>
+export type ToastAnnounceExcludeIntrinsicElement = ElementType<'div'>
+type ToastAnnounceExcludeElement = HTMLDivElement
+
 interface ToastAnnounceExcludeProps extends PrimitiveProps {
   scopeToast?: Scope
   altText?: string
@@ -31,7 +33,7 @@ const toastAnnounceExclude = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs }) {
-    const { ...toastAnnounceExcludeAttrs } = attrs as ToastAnnounceExcludeElement
+    const { ...toastAnnounceExcludeAttrs } = attrs as ToastAnnounceExcludeIntrinsicElement
 
     const forwardedRef = useForwardRef()
 
