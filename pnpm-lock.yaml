@@ -669,15 +669,33 @@ importers:
 
   packages/components/toast:
     dependencies:
+      '@oku-ui/collection':
+        specifier: latest
+        version: link:../collection
+      '@oku-ui/dismissable-layer':
+        specifier: latest
+        version: link:../dismissable-layer
+      '@oku-ui/portal':
+        specifier: latest
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
       '@oku-ui/primitive':
         specifier: latest
         version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
       '@oku-ui/use-composable':
         specifier: latest
         version: link:../../core/use-composable
       '@oku-ui/utils':
         specifier: latest
         version: link:../../core/utils
+      '@oku-ui/visually-hidden':
+        specifier: latest
+        version: link:../visually-hidden
       vue:
         specifier: 3.3.4
         version: 3.3.4
