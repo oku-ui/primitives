@@ -4,7 +4,7 @@ import type { VisuallyHiddenElement, VisuallyHiddenIntrinsicElement } from '@oku
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useToastProviderContext } from './toast-provider'
+import { useToastProviderInject } from './toast-provider'
 import { scopedProps } from './types'
 
 const FOCUS_PROXY_NAME = 'OkuToastFocusProxy'
@@ -41,7 +41,7 @@ const toastFocusProxy = defineComponent({
 
     const { onFocusFromOutsideViewport } = toRefs(props)
 
-    const context = useToastProviderContext(FOCUS_PROXY_NAME, props.scopeOkuToast)
+    const inject = useToastProviderInject(FOCUS_PROXY_NAME, props.scopeOkuToast)
 
     const originalReturn = () =>
       h(
@@ -55,7 +55,7 @@ const toastFocusProxy = defineComponent({
           'style': { position: 'fixed' },
           'onFocus': (event: FocusEvent) => {
             const prevFocusedElement = event.relatedTarget as HTMLElement | null
-            const isFocusFromOutsideViewport = !context.viewport.value?.contains(prevFocusedElement)
+            const isFocusFromOutsideViewport = !inject.viewport.value?.contains(prevFocusedElement)
             if (isFocusFromOutsideViewport)
               // eslint-disable-next-line no-unused-expressions
               onFocusFromOutsideViewport.value

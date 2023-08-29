@@ -23,7 +23,7 @@ type ToastElement = ToastImplElement
 export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<HTMLLIElement, undefined>('Toast')
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
-type ToastProviderContextValue = {
+type ToastProviderProvideValue = {
   label: Ref<string>
   duration: Ref<number>
   swipeDirection: Ref<SwipeDirection>
@@ -39,8 +39,8 @@ type ToastProviderContextValue = {
 
 // export interface ToastProviderProps extends ScopedPropsInterface<ToastElement> { }
 
-const [createToastContext, createToastScope] = createProvideScope('Toast', [createCollectionScope])
-const [ToastProviderProvider, useToastProviderContext] = createToastContext<ToastProviderContextValue>(PROVIDER_NAME)
+const [createToastProvide, createToastScope] = createProvideScope('Toast', [createCollectionScope])
+const [toastProviderProvider, useToastProviderInject] = createToastProvide<ToastProviderProvideValue>(PROVIDER_NAME)
 
 interface ToastProviderProps extends PrimitiveProps {
   // children?: React.ReactNode
@@ -113,7 +113,7 @@ const toastProvider = defineComponent({
     const isFocusedToastEscapeKeyDownRef = ref(false)
     const isClosePausedRef = ref(false)
 
-    ToastProviderProvider({
+    toastProviderProvider({
       scope: props.scopeOkuToast,
       label,
       duration,
@@ -136,7 +136,7 @@ const toastProvider = defineComponent({
           scope: props.scopeOkuToast,
         },
         [
-          h(ToastProviderProvider, slots.default?.()),
+          h(toastProviderProvider, slots.default?.()),
         ],
       )
 
@@ -147,7 +147,7 @@ const toastProvider = defineComponent({
   },
 })
 
-export { useToastProviderContext, createToastScope, createToastContext }
+export { useToastProviderInject, createToastScope, createToastProvide }
 
 export const OkuToastProvider = toastProvider as typeof toastProvider &
 (new () => { $props: Partial<ToastElement> })

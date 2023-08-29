@@ -6,7 +6,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
-import { CollectionSlot, PROVIDER_NAME, useCollection, useToastProviderContext } from './toast-provider'
+import { CollectionSlot, PROVIDER_NAME, useCollection, useToastProviderInject } from './toast-provider'
 import { focusFirst } from './utils'
 import { scopedProps } from './types'
 import { OkuToastFocusProxy } from './toast-focus-proxy'
@@ -34,7 +34,7 @@ interface ToastViewportProps extends PrimitiveOrderedListProps {
    */
   hotkey?: string[]
   /**
-   * An author-localized label for the toast viewport to provide context for screen reader users
+   * An author-localized label for the toast viewport to provide inject for screen reader users
    * when navigating page landmarks. The available `{hotkey}` placeholder will be replaced for you.
    * @defaultValue 'Notifications ({hotkey})'
    */
@@ -73,15 +73,15 @@ const toastViewport = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const context = useToastProviderContext(PROVIDER_NAME, props.scopeOkuToast)
+    const inject = useToastProviderInject(PROVIDER_NAME, props.scopeOkuToast)
     const getItems = useCollection(props.scopeOkuToast)
     const wrapperRef = ref<HTMLDivElement | null>(null)
     const headFocusProxyRef = ref<FocusProxyElement | null>(null)
     const tailFocusProxyRef = ref<FocusProxyElement | null>(null)
     const viewportRef = ref<ToastViewportElement | null>(null)
-    const composedRefs = useComposedRefs(forwardedRef, viewportRef, context.onViewportChange)
+    const composedRefs = useComposedRefs(forwardedRef, viewportRef, inject.onViewportChange)
     const hotkeyLabel = toValue(hotkey).join('+').replace(/Key/g, '').replace(/Digit/g, '')
-    const hasToasts = context.toastCount.value > 0
+    const hasToasts = inject.toastCount.value > 0
 
     watchEffect((onInvalidate) => {
       const handleKeyDown = (event: KeyboardEvent) => {
@@ -102,18 +102,18 @@ const toastViewport = defineComponent({
       const viewport = viewportRef.value
       if (hasToasts && wrapper && viewport) {
         const handlePause = () => {
-          if (!context.isClosePausedRef.value) {
+          if (!inject.isClosePausedRef.value) {
             const pauseEvent = new CustomEvent(VIEWPORT_PAUSE)
             viewport.dispatchEvent(pauseEvent)
-            context.isClosePausedRef.value = true
+            inject.isClosePausedRef.value = true
           }
         }
 
         const handleResume = () => {
-          if (context.isClosePausedRef.value) {
+          if (inject.isClosePausedRef.value) {
             const resumeEvent = new CustomEvent(VIEWPORT_RESUME)
             viewport.dispatchEvent(resumeEvent)
-            context.isClosePausedRef.value = false
+            inject.isClosePausedRef.value = false
           }
         }
 

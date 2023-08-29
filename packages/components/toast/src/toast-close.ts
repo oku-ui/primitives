@@ -3,7 +3,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useToastInteractiveContext } from './toast-impl'
+import { useToastInteractiveInject } from './toast-impl'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
 import { scopedProps } from './types'
 
@@ -37,7 +37,7 @@ const toastClose = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const interactiveContext = useToastInteractiveContext(CLOSE_NAME, props.scopeOkuToast)
+    const interactiveContext = useToastInteractiveInject(CLOSE_NAME, props.scopeOkuToast)
 
     const originalReturn = () =>
       h(

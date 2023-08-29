@@ -5,7 +5,7 @@ import { Fragment, Teleport, computed, defineComponent, h, ref, toRefs, watchEff
 import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { CollectionItemSlot, createToastContext, useToastProviderContext } from './toast-provider'
+import { CollectionItemSlot, createToastProvide, useToastProviderInject } from './toast-provider'
 import { scopedProps } from './types'
 import { OkuToastAnnounce } from './toast-announce'
 import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
@@ -22,7 +22,7 @@ export type SwipeEvent = { currentTarget: EventTarget & ToastImplElement } & Omi
   'currentTarget'
 >
 
-const [ToastInteractiveProvider, useToastInteractiveContext] = createToastContext(TOAST_NAME, {
+const [toastInteractiveProvider, useToastInteractiveInject] = createToastProvide(TOAST_NAME, {
   onClose() {},
 })
 
@@ -135,7 +135,7 @@ const toastImpl = defineComponent({
       // onSwipeEnd,
     } = toRefs(props)
 
-    const context = useToastProviderContext(TOAST_NAME, props.scopeOkuToast)
+    const context = useToastProviderInject(TOAST_NAME, props.scopeOkuToast)
     const node = ref<ToastImplElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, node)
     const pointerStartRef = ref<{ x: number; y: number } | null>(null)
@@ -246,7 +246,7 @@ const toastImpl = defineComponent({
           ),
 
           h(
-            ToastInteractiveProvider,
+            toastInteractiveProvider,
             {
               scope: props.scopeOkuToast,
               onClose: handleClose,
@@ -468,7 +468,7 @@ const toastImpl = defineComponent({
   },
 })
 
-export { useToastInteractiveContext }
+export { useToastInteractiveInject }
 
 export const OkuToastImpl = toastImpl as typeof toastImpl &
 (new () => { $props: Partial<ToastImplElement> })

@@ -4,7 +4,7 @@ import { OkuPortal } from '@oku-ui/portal'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useToastProviderContext } from './toast-provider'
+import { useToastProviderInject } from './toast-provider'
 import { TOAST_NAME } from './toast'
 import { useNextFrame } from './utils'
 import type { ScopedPropsInterface } from './types'
@@ -43,7 +43,7 @@ const toastAnnounce = defineComponent({
       children,
     } = toRefs(props)
 
-    const context = useToastProviderContext(TOAST_NAME, props.scopeOkuToast)
+    const inject = useToastProviderInject(TOAST_NAME, props.scopeOkuToast)
     const renderAnnounceText = ref<boolean>(false)
     const isAnnounced = ref<boolean>(false)
 
@@ -69,7 +69,7 @@ const toastAnnounce = defineComponent({
                 ...toastAnnounceAttrs,
               },
               {
-                default: () => renderAnnounceText.value ? [context.label, children.value] : null,
+                default: () => renderAnnounceText.value ? [inject.label, children.value] : null,
               },
             ),
           ],
