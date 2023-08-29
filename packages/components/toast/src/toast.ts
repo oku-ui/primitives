@@ -124,6 +124,7 @@ const toast = defineComponent({
             open: state.value || false,
             ...toastAttrs,
             ref: forwardedRef,
+            // TODO: onClose type error
             onClose: updateValue(false),
             onPause: useCallbackRef(() => emit('pause')),
             onResume: useCallbackRef(() => emit('resume')),

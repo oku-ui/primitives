@@ -1,4 +1,3 @@
-// import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import { useCallbackRef } from '@oku-ui/use-composable'
 import { nextTick, watch } from 'vue'
