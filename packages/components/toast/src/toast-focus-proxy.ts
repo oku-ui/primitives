@@ -1,25 +1,29 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import type { VisuallyHiddenElement, VisuallyHiddenIntrinsicElement } from '@oku-ui/visually-hidden'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
-import { primitiveProps } from '@oku-ui/primitive'
+import { OkuVisuallyHidden, visuallyHiddenProps } from '@oku-ui/visually-hidden'
 import { useToastProviderInject } from './toast-provider'
-import { scopedProps } from './types'
+import { scopedToastProps } from './types'
 
 const FOCUS_PROXY_NAME = 'OkuToastFocusProxy'
 
-type FocusProxyElement = VisuallyHiddenElement
+type FocusProxyElement = Partial<VisuallyHiddenElement>
 type VisuallyHiddenProps = VisuallyHiddenIntrinsicElement
 
-interface FocusProxyProps extends VisuallyHiddenProps {
-  onFocusFromOutsideViewport(): void
+export interface FocusProxyProps extends VisuallyHiddenProps {
+}
+
+export interface FocusProxyPropsEmits {
+  focusFromOutsideViewport: []
 }
 
 const focusProxyProps = {
-  onFocusFromOutsideViewport: {
-    type: Function as PropType<() => void>,
-    required: true,
+  props: {
+    ...visuallyHiddenProps.props,
+  },
+  emits: {
+    focusFromOutsideViewport: () => true,
+    ...visuallyHiddenProps.emits,
   },
 }
 
@@ -30,44 +34,39 @@ const toastFocusProxy = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...focusProxyProps,
-    ...scopedProps,
-    ...primitiveProps,
+    ...focusProxyProps.props,
+    ...scopedToastProps,
   },
-  setup(props, { attrs }) {
-    const { ...toastFocusProxyAttrs } = attrs as VisuallyHiddenProps
+  emits: focusProxyProps.emits,
+  setup(props, { attrs, emit }) {
+    const { asChild } = toRefs(props)
+
+    const { ...toastFocusProxyAttrs } = attrs as unknown as FocusProxyElement
 
     const forwardedRef = useForwardRef()
 
-    const { onFocusFromOutsideViewport } = toRefs(props)
-
     const inject = useToastProviderInject(FOCUS_PROXY_NAME, props.scopeOkuToast)
 
-    const originalReturn = () =>
-      h(
-        OkuVisuallyHidden,
-        {
-          ...toastFocusProxyAttrs,
-          'aria-hidden': true,
-          'tabIndex': 0,
-          'ref': forwardedRef,
-          // Avoid page scrolling when focus is on the focus proxy
-          'style': { position: 'fixed' },
-          'onFocus': (event: FocusEvent) => {
-            const prevFocusedElement = event.relatedTarget as HTMLElement | null
-            const isFocusFromOutsideViewport = !inject.viewport.value?.contains(prevFocusedElement)
-            if (isFocusFromOutsideViewport)
-              // eslint-disable-next-line no-unused-expressions
-              onFocusFromOutsideViewport.value
-          },
+    return () => h(
+      OkuVisuallyHidden,
+      {
+        'asChild': asChild.value,
+        'aria-hidden': true,
+        'tabIndex': 0,
+        ...toastFocusProxyAttrs,
+        'ref': forwardedRef,
+        // Avoid page scrolling when focus is on the focus proxy
+        'style': { position: 'fixed' } as CSSStyleDeclaration,
+        'onFocus': (event: FocusEvent) => {
+          const prevFocusedElement = event.relatedTarget as HTMLElement | null
+          const isFocusFromOutsideViewport = !inject.viewport.value?.contains(prevFocusedElement)
+          if (isFocusFromOutsideViewport)
+            emit('focusFromOutsideViewport')
         },
-      )
-
-    return originalReturn
+      },
+    )
   },
 })
 
 export const OkuToastFocusProxy = toastFocusProxy as typeof toastFocusProxy &
 (new () => { $props: Partial<FocusProxyElement> })
-
-export type { FocusProxyElement, FocusProxyProps }
