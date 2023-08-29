@@ -11,7 +11,6 @@ import { OkuPortal } from '@oku-ui/portal'
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
-import { OkuSlot } from '@oku-ui/slot'
 import { useScrollLock } from '@oku-ui/use-composable'
 
 export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
@@ -68,73 +67,71 @@ useScrollLock(test, props.preventScroll)
 
       <template v-if="open">
         <OkuFocusGuards>
-          <component :is="preventScroll ? OkuSlot : {}">
-            <OkuPortal ref="test" as-child>
-              <OkuDismissableLayer
-                as-child
-                :disable-outside-pointer-events="disableOutsidePointerEvents"
-                @escape-key-down="(event) => $emit('escapeKeyDown', event)"
-                @pointerdown-outside="
-                  (event) => {
-                    console.log('pointerdown-outside', event);
-                    setSkipUnmountAutoFocus();
-                    if (event.target === openButtonRef) {
-                      event.preventDefault();
-                    }
-                    else {
-                      $emit('pointerdownoutSide', event);
-                    }
+          <OkuPortal ref="test" as-child>
+            <OkuDismissableLayer
+              as-child
+              :disable-outside-pointer-events="disableOutsidePointerEvents"
+              @escape-key-down="(event) => $emit('escapeKeyDown', event)"
+              @pointerdown-outside="
+                (event) => {
+                  console.log('pointerdown-outside', event);
+                  setSkipUnmountAutoFocus();
+                  if (event.target === openButtonRef) {
+                    event.preventDefault();
                   }
-                "
-                @dismiss="closeLayer"
-                @interact-outside="(event) => $emit('interactOutside', event)"
-                @focusout-side="(event) => $emit('focusoutSide', event)"
+                  else {
+                    $emit('pointerdownoutSide', event);
+                  }
+                }
+              "
+              @dismiss="closeLayer"
+              @interact-outside="(event) => $emit('interactOutside', event)"
+              @focusout-side="(event) => $emit('focusoutSide', event)"
+            >
+              <OkuFocusScope
+                as-child
+                :trapped="trapped"
+                @unmount-auto-focus="(event: Event) => {
+                  if (skipUnmountAutoFocus) {
+                    event.preventDefault()
+                  }
+                  skipUnmountAutoFocus = false
+                }"
               >
-                <OkuFocusScope
-                  as-child
-                  :trapped="trapped"
-                  @unmount-auto-focus="(event: Event) => {
-                    if (skipUnmountAutoFocus) {
-                      event.preventDefault()
-                    }
-                    skipUnmountAutoFocus = false
+                <OkuPopperContent
+                  :style="{
+                    filter: 'drop-shadow(0 2px 10px rgba(0, 0, 0, 0.12))',
+                    display: 'flex',
+                    gap: '10px',
+                    background: 'white',
+                    borderRadius: '4px',
+                    alignItems: 'flex-start',
+                    backgroundColor: color,
+                    minWidth: '200px',
+                    minHeight: '150px',
+                    padding: '20px',
                   }"
+                  side="bottom"
+                  :side-offset="10"
                 >
-                  <OkuPopperContent
-                    :style="{
-                      filter: 'drop-shadow(0 2px 10px rgba(0, 0, 0, 0.12))',
-                      display: 'flex',
-                      gap: '10px',
-                      background: 'white',
-                      borderRadius: '4px',
-                      alignItems: 'flex-start',
-                      backgroundColor: color,
-                      minWidth: '200px',
-                      minHeight: '150px',
-                      padding: '20px',
-                    }"
-                    side="bottom"
-                    :side-offset="10"
-                  >
-                    <slot />
+                  <slot />
 
-                    <button type="button" @click="closeLayer">
-                      {{ closeLabel }}
-                    </button>
+                  <button type="button" @click="closeLayer">
+                    {{ closeLabel }}
+                  </button>
 
-                    <input type="text" defaultValue="hello world">
+                  <input type="text" defaultValue="hello world">
 
-                    <OkuPopperArrow
-                      :width="10"
-                      :height="10"
-                      :style="{ fill: color }"
-                      :offset="20"
-                    />
-                  </OkuPopperContent>
-                </OkuFocusScope>
-              </OkuDismissableLayer>
-            </OkuPortal>
-          </component>
+                  <OkuPopperArrow
+                    :width="10"
+                    :height="10"
+                    :style="{ fill: color }"
+                    :offset="20"
+                  />
+                </OkuPopperContent>
+              </OkuFocusScope>
+            </OkuDismissableLayer>
+          </OkuPortal>
         </OkuFocusGuards>
       </template>
     </OkuPopper>

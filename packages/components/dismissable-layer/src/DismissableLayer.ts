@@ -283,7 +283,6 @@ const DismissableLayer = defineComponent({
           ...attrs,
           ref: composedRefs,
           asChild: asChild.value,
-          testaa: 'test',
           style: {
             pointerEvents: isBodyPointerEventsDisabled.value
               ? isPointerEventsEnabled.value
@@ -304,10 +303,7 @@ const DismissableLayer = defineComponent({
             },
             pointerdownOutside.onPointerdownCapture,
           ),
-        },
-        {
-          default: slots.default?.(),
-        },
+        }, slots,
       )
 
     return originalReturn
