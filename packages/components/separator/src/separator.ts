@@ -13,7 +13,7 @@ type Orientation = typeof ORIENTATIONS[number]
 export type SeparatorIntrinsicElement = ElementType<'div'>
 export type SeparatorElement = HTMLDivElement
 
-interface SeparatorProps extends PrimitiveProps {
+export interface SeparatorProps extends PrimitiveProps {
   /**
   * Whether or not the component is purely decorative. When true, accessibility-related attributes
   * are updated so that that the rendered element is removed from the accessibility tree.
@@ -25,21 +25,24 @@ interface SeparatorProps extends PrimitiveProps {
   orientation?: Orientation
 }
 
-const separatorProps = {
-  /**
+export const separatorProps = {
+  props: {
+    /**
   * Whether or not the component is purely decorative. When true, accessibility-related attributes
   * are updated so that that the rendered element is removed from the accessibility tree.
   */
-  decorative: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: undefined,
-  },
-  /**
-   * Either `vertical` or `horizontal`. Defaults to `horizontal`.
-   */
-  orientation: {
-    type: String as PropType<Orientation>,
-    default: DEFAULT_ORIENTATION,
+    decorative: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    /**
+     * Either `vertical` or `horizontal`. Defaults to `horizontal`.
+     */
+    orientation: {
+      type: String as PropType<Orientation>,
+      default: DEFAULT_ORIENTATION,
+    },
+    ...primitiveProps,
   },
 }
 
@@ -47,8 +50,7 @@ const separator = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...separatorProps,
-    ...primitiveProps,
+    ...separatorProps.props,
   },
   setup(props, { attrs, slots }) {
     const { ...separatorAttrs } = attrs as SeparatorIntrinsicElement
@@ -88,7 +90,3 @@ export const OkuSeparator = separator as typeof separator &
 (new () => {
   $props: Partial<SeparatorElement>
 })
-
-export type {
-  SeparatorProps,
-}

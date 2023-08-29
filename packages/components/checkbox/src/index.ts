@@ -1,13 +1,23 @@
 export {
   OkuCheckbox,
   createCheckboxScope,
+  checkboxProps,
 } from './checkbox'
 
 export type {
   CheckboxProps,
   CheckboxElement,
   CheckboxIntrinsicElement,
+  CheckboxEmits,
 } from './checkbox'
 
-export { OkuCheckboxIndicator } from './checkboxIndicator'
-export type { CheckboxIndicatorElement, CheckboxIndicatorProps, CheckboxIndicatorIntrinsicElement } from './checkboxIndicator'
+export {
+  OkuCheckboxIndicator,
+  checkboxIndicatorProps,
+} from './checkboxIndicator'
+
+export type {
+  CheckboxIndicatorElement,
+  CheckboxIndicatorProps,
+  CheckboxIndicatorIntrinsicElement,
+} from './checkboxIndicator'

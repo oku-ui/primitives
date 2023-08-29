@@ -13,14 +13,20 @@ const THUMB_NAME = 'OkuSwitchThumb'
 export type SwitchThumbIntrinsicElement = ElementType<'span'>
 export type SwitchThumbElement = HTMLSpanElement
 
-interface SwitchThumbProps extends PrimitiveProps { }
+export interface SwitchThumbProps extends PrimitiveProps { }
+
+export const switchThumbProps = {
+  props: {
+    ...primitiveProps,
+  },
+}
 
 const SwitchThumb = defineComponent({
   name: THUMB_NAME,
   inheritAttrs: false,
   props: {
     ...scopeSwitchProps,
-    ...primitiveProps,
+    ...switchThumbProps.props,
   },
   setup(props, { attrs, slots }) {
     const { ...thumbAttrs } = attrs as SwitchThumbIntrinsicElement
@@ -52,5 +58,3 @@ export const OkuSwitchThumb = SwitchThumb as typeof SwitchThumb &
 (new () =>
 { $props: ScopeSwitch<Partial<SwitchThumbElement>>
 })
-
-export type { SwitchThumbProps }

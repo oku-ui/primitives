@@ -1,6 +1,6 @@
 import { defineComponent, h, ref } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { ScopeAvatar } from './utils'
@@ -21,15 +21,22 @@ export const [avatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvi
 export type AvatarIntrinsicElement = ElementType<'span'>
 export type AvatarElement = HTMLSpanElement
 
-interface AvatarProps extends PrimitiveProps {
+export interface AvatarProps extends PrimitiveProps {
 
+}
+
+export const avatarProps = {
+  props: {},
+  emits: {},
 }
 
 const avatar = defineComponent({
   name: AVATAR_NAME,
   inheritAttrs: false,
   props: {
+    ...avatarProps,
     ...scopeAvatarProps,
+    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
     const { ...avatarProps } = attrs as AvatarIntrinsicElement
@@ -50,6 +57,7 @@ const avatar = defineComponent({
       Primitive.span, {
         ...avatarProps,
         ref: forwardedRef,
+        asChild: props.asChild,
       },
       {
         default: () => slots.default?.(),
@@ -64,7 +72,3 @@ export const OkuAvatar = avatar as typeof avatar &
 (new () => {
   $props: ScopeAvatar<Partial<AvatarElement>>
 })
-
-export type {
-  AvatarProps,
-}

@@ -2,7 +2,7 @@
   "name": "primitives",
   "type": "module",
   "version": "0.3.0",
-  "packageManager": "pnpm@8.6.9",
+  "packageManager": "pnpm@8.7.0",
   "repository": "oku-ui/primitives",
   "engines": {
     "node": ">=18"
@@ -29,7 +29,8 @@
     "coverage": "vitest run --coverage",
     "build:storybook": "pnpm storybook build",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
+    "clean": "pnpm nx run-many -t clean",
+    "clean:node": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
     "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
     "update:version": "esno scripts/update-version.ts"

@@ -7,7 +7,6 @@ import { useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
 import type { RovingFocusGroupImplElement, RovingFocusGroupImplIntrinsicElement, RovingFocusGroupImplProps } from './RovingFocusGroupImpl'
-import type { ScopedPropsInterface } from './types'
 import { scopedProps } from './types'
 import type { Direction, Orientation } from './utils'
 
@@ -55,6 +54,7 @@ type RovingProvideValue = {
    * @defaultValue false
    */
   loop?: Ref<boolean | undefined>
+
   currentTabStopId: Ref<string>
   onItemFocus(tabStopId: string): void
   onItemShiftTab(): void
@@ -68,9 +68,9 @@ export const [rovingFocusProvider, useRovingFocusInject]
 export type RovingFocusGroupIntrinsicElement = RovingFocusGroupImplIntrinsicElement
 export type RovingFocusGroupElement = RovingFocusGroupImplElement
 
-export interface RovingFocusGroupProps extends ScopedPropsInterface<RovingFocusGroupImplProps> { }
+export interface RovingFocusGroupProps extends RovingFocusGroupImplProps { }
 
-const rovingFocusGroupProps = {
+export const rovingFocusGroupProps = {
   ...rovingFocusGroupImplProps,
 }
 
@@ -84,10 +84,11 @@ const rovingFocusGroup = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...rovingFocusGroupProps,
+    ...rovingFocusGroupProps.props,
     ...scopedProps,
     ...primitiveProps,
   },
+  emits: rovingFocusGroupProps.emits,
   setup(props, { slots, attrs }) {
     const { currentTabStopId, dir, loop, orientation, defaultCurrentTabStopId, asChild } = toRefs(props)
     const forwardedRef = useForwardRef()

@@ -9,6 +9,7 @@ export type {
 
 export {
   OkuPopperAnchor,
+  popperAnchorProps,
 } from './popperAnchor'
 
 export type {
@@ -19,16 +20,19 @@ export type {
 
 export {
   OkuPopperContent,
+  popperContentProps,
 } from './popperContent'
 
 export type {
   PopperContentProps,
   PopperContentElement,
   PopperContentIntrinsicElement,
+  PopperContentEmits,
 } from './popperContent'
 
 export {
   OkuPopperArrow,
+  popperArrowProps,
 } from './popperArrow'
 
 export type {

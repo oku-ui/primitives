@@ -8,41 +8,46 @@ import { composeEventHandlers } from '@oku-ui/utils'
 import { CollectionItemSlot, useCollection, useRovingFocusInject } from './RovingFocusGroup'
 import type { ScopeRovingFocus } from './utils'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
-import type { ScopedPropsInterface } from './types'
 import { scopedProps } from './types'
 
 export type RovingFocusGroupItemIntrinsicElement = ElementType<'span'>
 export type RovingFocusGroupItemElement = HTMLSpanElement
 
-interface IRovingFocusItemProps {
+export interface RovingFocusItemProps extends PrimitiveProps {
   tabStopId?: string
   focusable?: boolean
   active?: boolean
-  onFocus?: (event: FocusEvent) => void
-  onKeydown?: (event: KeyboardEvent) => void
-  onMousedown?: (event: MouseEvent) => void
+}
+
+export type RovingFocusGroupItemEmits = {
+  focus: [event: FocusEvent]
+  keydown: [event: KeyboardEvent]
+  mousedown: [event: MouseEvent]
 }
 
 export const rovingFocusItemProps = {
-  tabStopId: {
-    type: String,
+  props: {
+    tabStopId: {
+      type: String,
+    },
+    focusable: {
+      type: Boolean,
+      default: true,
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    ...primitiveProps,
   },
-  focusable: {
-    type: Boolean,
-    default: true,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focus: (event: FocusEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    keydown: (event: KeyboardEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    mousedown: (event: MouseEvent) => true,
   },
-  active: {
-    type: Boolean,
-    default: false,
-  },
-}
-
-// Define Component Props Type
-export interface RovingFocusItemPropsType extends ScopedPropsInterface<IRovingFocusItemProps>, PrimitiveProps {
-}
-
-export const rovingFocusGroupItemProps = {
-  ...rovingFocusItemProps,
 }
 
 const ITEM_NAME = 'OkuRovingFocusGroupItem'
@@ -54,15 +59,10 @@ const rovingFocusGroupItem = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...rovingFocusGroupItemProps,
+    ...rovingFocusItemProps.props,
     ...scopedProps,
-    ...primitiveProps,
   },
-  emits: {
-    focus: (event: FocusEvent) => true,
-    keydown: (event: KeyboardEvent) => true,
-    mousedown: (event: MouseEvent) => true,
-  },
+  emits: rovingFocusItemProps.emits,
   setup(props, { attrs, slots, emit }) {
     const _attrs = attrs as any
     const {
@@ -172,7 +172,3 @@ export const OkuRovingFocusGroupItem = rovingFocusGroupItem as typeof rovingFocu
 (new () => {
   $props: ScopeRovingFocus<Partial<RovingFocusGroupItemElement>>
 })
-
-export type {
-  IRovingFocusItemProps,
-}

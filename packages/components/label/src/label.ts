@@ -6,7 +6,7 @@ import { useForwardRef } from '@oku-ui/use-composable'
 export type LabelIntrinsicElement = ElementType<'label'>
 export type LabelElement = HTMLLabelElement
 
-interface LabelProps extends PrimitiveProps {}
+export interface LabelProps extends PrimitiveProps {}
 
 const NAME = 'OkuLabel'
 
@@ -40,12 +40,7 @@ const label = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-const OkuLabel = label as typeof label &
+export const OkuLabel = label as typeof label &
 (new () => {
   $props: Partial<LabelElement>
 })
-export { OkuLabel }
-
-export type {
-  LabelProps,
-}

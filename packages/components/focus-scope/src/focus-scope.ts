@@ -34,7 +34,7 @@ const FOCUS_SCOPE_NAME = 'OkuFocusScope'
 export type FocusScopeElement = ElementType<'div'>
 export type FocusIntrinsicElement = HTMLDivElement
 
-interface FocusScopeProps extends PrimitiveProps {
+export interface FocusScopeProps extends PrimitiveProps {
   /**
    * When `true`, tabbing from last item will focus first tabbable
    * and shift+tab from first item will focus last tababble.
@@ -50,16 +50,37 @@ interface FocusScopeProps extends PrimitiveProps {
   trapped?: boolean
 }
 
+export type FocusScopeEmits = {
+  /**
+  * Event handler called when auto-focusing on mount.
+  * Can be prevented.
+  */
+  mountAutoFocus: [event: Event]
+  /**
+  * Event handler called when auto-focusing on unmount.
+  * Can be prevented.
+  */
+  unmountAutoFocus: [event: Event]
+}
+
 const focusScopeProps = {
-  loop: {
-    type: Boolean,
-    required: false,
-    default: false,
+  props: {
+    loop: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    trapped: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
-  trapped: {
-    type: Boolean,
-    required: false,
-    default: false,
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    mountAutoFocus: (event: Event) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    unmountAutoFocus: (event: Event) => true,
   },
 }
 
@@ -67,23 +88,10 @@ const focusScope = defineComponent({
   name: FOCUS_SCOPE_NAME,
   inheritAttrs: false,
   props: {
-    ...focusScopeProps,
+    ...focusScopeProps.props,
     ...primitiveProps,
   },
-  emits: {
-    /**
-     * Event handler called when auto-focusing on mount.
-     * Can be prevented.
-     */
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    mountAutoFocus: (event: Event) => true,
-    /**
-     * Event handler called when auto-focusing on unmount.
-     * Can be prevented.
-     */
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    unmountAutoFocus: (event: Event) => true,
-  },
+  emits: focusScopeProps.emits,
   setup(props, { slots, attrs, emit }) {
     const { ...focusScopeAttrs } = attrs as FocusScopeElement
 
@@ -281,10 +289,10 @@ const focusScope = defineComponent({
         Primitive.div,
         {
           tabIndex: -1,
-          ref: composedRefs,
-          onKeydown: handleKeyDown,
           ...focusScopeAttrs,
           asChild: asChild.value,
+          onKeydown: handleKeyDown,
+          ref: composedRefs,
         },
         {
           default: () => slots.default?.(),
@@ -297,5 +305,3 @@ const focusScope = defineComponent({
 
 export const OkuFocusScope = focusScope as typeof focusScope &
 (new () => { $props: Partial<FocusScopeElement> })
-
-export type { FocusScopeProps }

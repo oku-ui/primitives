@@ -27,49 +27,65 @@ const SWITCH_NAME = 'OkuSwitch'
 export type SwitchIntrinsicElement = ElementType<'button'>
 export type SwitchElement = HTMLButtonElement
 
-type SwitchContextValue = {
+type SwitchProvideValue = {
   checked: Ref<boolean>
-  disabled?: Ref<boolean>
+  disabled?: Ref<boolean | undefined>
 }
 
-interface SwitchProps extends PrimitiveProps {
+export interface SwitchProps extends PrimitiveProps {
   name?: string
   checked?: boolean
   defaultChecked?: boolean
   required?: boolean
   disabled?: boolean
   value?: 'on' | 'off'
-  onCheckedChange?(checked: boolean): void
 }
 
-const switchProps = {
-  modelValue: {
-    type: Boolean as PropType<boolean>,
-    default: undefined,
+export type SwitchEmits = {
+  'update:modelValue': [checked: boolean]
+  'checkedChange': [checked: boolean]
+  'click': [event: MouseEvent]
+}
+
+export const switchProps = {
+  props: {
+    modelValue: {
+      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    name: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+    checked: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    defaultChecked: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    required: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    disabled: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    value: {
+      type: String as PropType<'on' | 'off'>,
+      default: 'on',
+    },
+    ...primitiveProps,
   },
-  name: {
-    type: String,
-    required: false,
-  },
-  checked: {
-    type: Boolean,
-    default: undefined,
-  },
-  defaultChecked: {
-    type: Boolean,
-    default: false,
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  value: {
-    type: String as PropType<'on' | 'off'>,
-    default: 'on',
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (checked: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'checkedChange': (checked: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'click': (event: MouseEvent) => true,
   },
 }
 
@@ -77,7 +93,7 @@ const [createSwitchProvide, createSwitchScope]
   = createProvideScope(SWITCH_NAME)
 
 const [switchProvider, useSwitchInject]
-  = createSwitchProvide<SwitchContextValue>(SWITCH_NAME)
+  = createSwitchProvide<SwitchProvideValue>(SWITCH_NAME)
 
 const Switch = defineComponent({
   name: SWITCH_NAME,
@@ -86,15 +102,10 @@ const Switch = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...switchProps,
+    ...switchProps.props,
     ...scopeSwitchProps,
-    ...primitiveProps,
   },
-  emits: {
-    'update:modelValue': (checked: boolean) => true,
-    'checkedChange': (checked: boolean) => true,
-    'click': (event: MouseEvent) => true,
-  },
+  emits: switchProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
       checked: checkedProp,
@@ -137,10 +148,11 @@ const Switch = defineComponent({
     const { state, updateValue } = useControllable({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultChecked.value),
-      onChange: (value: boolean) => {
-        emit('update:modelValue', value)
-        emit('checkedChange', value)
+      onChange: (value) => {
+        emit('update:modelValue', value as boolean)
+        emit('checkedChange', value as boolean)
       },
+      initialValue: false,
     })
 
     switchProvider({
@@ -210,5 +222,3 @@ export const OkuSwitch = Switch as typeof Switch &
 })
 
 export { useSwitchInject, createSwitchScope }
-
-export type { SwitchProps }

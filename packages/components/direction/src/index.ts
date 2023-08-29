@@ -1,7 +1,4 @@
 export {
   useDirection,
-  //
-  Provider,
-  //
-  DirectionProvider,
+  OkuDirectionProvider,
 } from './Direction'

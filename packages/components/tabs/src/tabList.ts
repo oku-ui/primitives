@@ -16,14 +16,17 @@ export type TabListElement = HTMLDivElement
 
 const TAB_LIST_NAME = 'OkuTabList' as const
 
-interface TabListProps extends PrimitiveProps {
+export interface TabListProps extends PrimitiveProps {
   loop?: boolean
 }
 
-const tabListProps = {
-  loop: {
-    type: Boolean as PropType<boolean>,
-    default: true,
+export const tabListProps = {
+  props: {
+    loop: {
+      type: Boolean as PropType<boolean>,
+      default: true,
+    },
+    ...primitiveProps,
   },
 }
 const useRovingFocusGroupScope = createRovingFocusGroupScope()
@@ -32,8 +35,7 @@ const TabList = defineComponent({
   name: TAB_LIST_NAME,
   inheritAttrs: false,
   props: {
-    ...tabListProps,
-    ...primitiveProps,
+    ...tabListProps.props,
     ...scopeTabsProps,
   },
   setup(props, { slots, attrs }) {
@@ -74,5 +76,3 @@ export const OkuTabList = TabList as typeof TabList &
 (new () => {
   $props: ScopeTabs<Partial<TabListElement>>
 })
-
-export type { TabListProps }

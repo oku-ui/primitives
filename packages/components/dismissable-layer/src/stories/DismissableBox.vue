@@ -50,12 +50,12 @@ function closeLayer() {
         <template v-if="open">
           <OkuDismissableLayer
             :style="{ ...mergeStyles }"
-            @pointer-down-outside="(event: Event) => {
+            @pointerdown-outside="(event: Event) => {
               if (event.target === openButtonRef) {
                 event.preventDefault();
               }
             }"
-            @focus-outside="(event: Event) => event.preventDefault()"
+            @focusout-side="(event: Event) => event.preventDefault()"
             @dismiss="closeLayer"
           />
         </template>

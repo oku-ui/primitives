@@ -17,20 +17,22 @@ interface BubbleInputProps {
   bubbles: boolean
 }
 
-const bubbleInputProps = {
-  checked: {
-    type: [Boolean, String, Number] as PropType<CheckedState>,
-    required: true,
-  },
-  control: {
-    type: Object as PropType<HTMLElement | null>,
-    default: null,
-    required: true,
-  },
-  bubbles: {
-    type: Boolean,
-    default: true,
-    required: true,
+export const bubbleInputProps = {
+  props: {
+    checked: {
+      type: [Boolean, String, Number] as PropType<CheckedState>,
+      required: true,
+    },
+    control: {
+      type: Object as PropType<HTMLElement | null>,
+      default: null,
+      required: true,
+    },
+    bubbles: {
+      type: Boolean,
+      default: true,
+      required: true,
+    },
   },
 }
 
@@ -38,7 +40,7 @@ const bubbleInput = defineComponent({
   name: 'OkuBubbleInput',
   inheritAttrs: false,
   props: {
-    ...bubbleInputProps,
+    ...bubbleInputProps.props,
   },
   setup(props, { attrs }) {
     const { ...inputAttrs } = attrs as BubbleInputIntrinsicElement

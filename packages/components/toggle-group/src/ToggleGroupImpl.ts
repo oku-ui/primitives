@@ -14,7 +14,7 @@ const TOGGLE_GROUP_IMPL_NAME = 'OkuToggleGroupImpl'
 export type ToggleGroupImplIntrinsicElement = ElementType<'div'>
 export type ToggleGroupImplElement = HTMLDivElement
 
-interface ToggleGroupImplProps extends PrimitiveProps {
+export interface ToggleGroupImplProps extends PrimitiveProps {
   /**
    * Whether the group is disabled from user interaction.
    * @defaultValue false
@@ -33,34 +33,37 @@ interface ToggleGroupImplProps extends PrimitiveProps {
   dir?: RovingFocusGroupProps['dir']
 }
 
-export const toggleGroupImplPropsObject = {
-  /**
-   * Whether the group is disabled from user interaction.
-   * @defaultValue false
-   */
-  disabled: {
-    type: [Boolean] as PropType<boolean>,
-    default: false,
-  },
-  /**
-   * Whether the group should maintain roving focus of its buttons.
-   * @defaultValue true
-   */
-  rovingFocus: {
-    type: [Boolean] as PropType<boolean>,
-    default: true,
-  },
-  loop: {
-    type: [Boolean, String] as PropType<RovingFocusGroupProps['loop']>,
-    default: true,
-  },
-  orientation: {
-    type: [String] as PropType<RovingFocusGroupProps['orientation'] | undefined>,
-    default: undefined,
-  },
-  dir: {
-    type: [String] as PropType<RovingFocusGroupProps['dir'] | undefined>,
-    default: undefined,
+export const toggleGroupImplProps = {
+  props: {
+    /**
+    * Whether the group is disabled from user interaction.
+    * @defaultValue false
+    */
+    disabled: {
+      type: [Boolean] as PropType<boolean>,
+      default: false,
+    },
+    /**
+     * Whether the group should maintain roving focus of its buttons.
+     * @defaultValue true
+     */
+    rovingFocus: {
+      type: [Boolean] as PropType<boolean>,
+      default: true,
+    },
+    loop: {
+      type: [Boolean, String] as PropType<RovingFocusGroupProps['loop']>,
+      default: true,
+    },
+    orientation: {
+      type: [String] as PropType<RovingFocusGroupProps['orientation'] | undefined>,
+      default: undefined,
+    },
+    dir: {
+      type: [String] as PropType<RovingFocusGroupProps['dir'] | undefined>,
+      default: undefined,
+    },
+    ...primitiveProps,
   },
 }
 
@@ -68,11 +71,11 @@ const toggleGroupImpl = defineComponent({
   name: TOGGLE_GROUP_IMPL_NAME,
   inheritAttrs: false,
   props: {
-    ...toggleGroupImplPropsObject,
+    ...toggleGroupImplProps.props,
     ...scopeToggleGroupProps,
     ...primitiveProps,
   },
-  setup(props, { slots, emit, attrs }) {
+  setup(props, { slots, attrs }) {
     const { dir, disabled, loop, orientation, rovingFocus } = toRefs(props)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
     const direction = useDirection(dir.value)
@@ -121,5 +124,3 @@ export const OkuToggleGroupImpl = toggleGroupImpl as typeof toggleGroupImpl &
 (new () => {
   $props: ScopeToggleGroup<Partial<ToggleGroupImplElement>>
 })
-
-export type { ToggleGroupImplProps }

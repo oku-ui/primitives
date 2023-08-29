@@ -16,7 +16,7 @@ const BRANCH_NAME = 'OkuDismissableLayerBranch'
 export type DismissableLayerBranchIntrinsicElement = ElementType<'div'>
 export type DismissableLayerBranchElement = HTMLDivElement
 
-interface DismissableLayerBranchProps extends PrimitiveProps {}
+export interface DismissableLayerBranchProps extends PrimitiveProps {}
 
 const DismissableLayerBranch = defineComponent({
   name: BRANCH_NAME,
@@ -24,7 +24,7 @@ const DismissableLayerBranch = defineComponent({
   props: {
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const _inject = inject(
       DismissableLayerProvideKey,
     ) as DismissableLayerProvideValue
@@ -46,10 +46,10 @@ const DismissableLayerBranch = defineComponent({
 
     const originalReturn = () =>
       h(Primitive.div, {
+        ...attrs,
         ref: composedRefs,
         asChild: props.asChild,
-        ...attrs,
-      })
+      }, slots)
 
     return originalReturn
   },
@@ -60,5 +60,3 @@ export const OkuDismissableLayerBranch
 (new () => {
   $props: Partial<DismissableLayerBranchElement>
 })
-
-export type { DismissableLayerBranchProps }

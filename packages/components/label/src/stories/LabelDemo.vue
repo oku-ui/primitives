@@ -17,7 +17,7 @@ const labelRef = ref()
 onMounted(() => {
   console.log(labelRef.value)
 })
-const alert = () => window.alert('clicked')
+const alert = () => console.log('alert')
 </script>
 
 <template>
