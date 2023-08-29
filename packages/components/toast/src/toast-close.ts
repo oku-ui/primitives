@@ -5,7 +5,7 @@ import { defineComponent, h } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useToastInteractiveInject } from './toast-impl'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
-import { scopedProps } from './types'
+import { scopedToastProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * ToastClose
@@ -18,6 +18,20 @@ type ToastCloseElement = HTMLButtonElement
 
 interface ToastCloseProps extends PrimitiveProps {}
 
+export type ToastCloseEmits = {
+  click: [event: MouseEvent]
+}
+
+export const toastCloseProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (event: MouseEvent) => true,
+  },
+}
+
 const toastClose = defineComponent({
   name: CLOSE_NAME,
   components: {
@@ -25,13 +39,10 @@ const toastClose = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...scopedProps,
-    ...primitiveProps,
+    ...scopedToastProps,
+    ...toastCloseProps.props,
   },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
-  },
+  emits: toastCloseProps.emits,
   setup(props, { attrs, emit }) {
     const { ...toastCloseAttrs } = attrs as ToastCloseIntrinsicElement
 
@@ -43,24 +54,22 @@ const toastClose = defineComponent({
       h(
         OkuToastAnnounceExclude,
         { asChild: true },
-        [
-          h(
-            Primitive.button,
-            {
-              type: 'button',
-              ...toastCloseAttrs,
-              ref: forwardedRef,
-              // onClick: (event) => {
-              //   composeEventHandlers(props.onClick, interactiveContext.onClose)(event)
-              // },
-              onClick: composeEventHandlers<MouseEvent>((event) => {
-                emit('click', event)
-              }, () => {
-                interactiveContext.onClose()
-              }),
-            },
-          ),
-        ],
+        {
+          default: () =>
+            h(
+              Primitive.button,
+              {
+                type: 'button',
+                ...toastCloseAttrs,
+                ref: forwardedRef,
+                onClick: composeEventHandlers<MouseEvent>((event) => {
+                  emit('click', event)
+                }, () => {
+                  interactiveContext.onClose()
+                }),
+              },
+            ),
+        },
       )
 
     return originalReturn
