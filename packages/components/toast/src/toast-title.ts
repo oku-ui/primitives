@@ -2,7 +2,7 @@ import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h } from 'vue'
-import { scopedProps } from './types'
+import { scopedToastProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * ToastTitle
@@ -21,7 +21,7 @@ const toastTitle = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...scopedProps,
+    ...scopedToastProps,
     ...primitiveProps,
   },
   setup(_props, { attrs, slots }) {
