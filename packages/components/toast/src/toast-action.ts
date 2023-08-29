@@ -10,7 +10,7 @@ import { scopedProps } from './types'
  * ToastAction
  * ----------------------------------------------------------------------------------------------- */
 
-const ACTION_NAME = 'ToastAction'
+const ACTION_NAME = 'OkuToastAction'
 
 type ToastActionElement = ToastCloseIntrinsicElement
 

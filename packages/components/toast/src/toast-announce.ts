@@ -15,7 +15,7 @@ type ToastAnnounceElement = HTMLDivElement
 
 interface ToastAnnounceProps extends Omit<HTMLDivElement, 'children'>, ScopedPropsInterface<{ children: string[] }> {}
 
-const ANNOUNCE_NAME = 'ToastAnnounce'
+const ANNOUNCE_NAME = 'OkuToastAnnounce'
 
 const toastAnnounceProps = {
   children: {

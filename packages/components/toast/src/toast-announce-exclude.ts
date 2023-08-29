@@ -13,7 +13,7 @@ interface ToastAnnounceExcludeProps extends PrimitiveProps {
   altText?: string
 }
 
-const ANNOUNCE_EXCLUDE_NAME = 'AnnounceExclude'
+const ANNOUNCE_EXCLUDE_NAME = 'OkuAnnounceExclude'
 
 const toastAnnounceExcludeProps = {
   altText: {

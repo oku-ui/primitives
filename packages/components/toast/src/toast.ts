@@ -11,7 +11,7 @@ import type { SwipeEvent, ToastImplElement, ToastImplIntrinsicElement, ToastImpl
  * Toast
  * ----------------------------------------------------------------------------------------------- */
 
-export const TOAST_NAME = 'Toast'
+export const TOAST_NAME = 'OkuToast'
 
 type ToastIntrinsicElement = ToastImplIntrinsicElement
 type ToastElement = ToastImplElement

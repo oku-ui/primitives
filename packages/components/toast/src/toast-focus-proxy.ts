@@ -7,7 +7,7 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { useToastProviderContext } from './toast-provider'
 import { scopedProps } from './types'
 
-const FOCUS_PROXY_NAME = 'ToastFocusProxy'
+const FOCUS_PROXY_NAME = 'OkuToastFocusProxy'
 
 type FocusProxyElement = VisuallyHiddenElement
 type VisuallyHiddenProps = VisuallyHiddenIntrinsicElement

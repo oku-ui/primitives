@@ -8,7 +8,7 @@ import { scopedProps } from './types'
  * ToastDescription
  * ----------------------------------------------------------------------------------------------- */
 
-const DESCRIPTION_NAME = 'ToastDescription'
+const DESCRIPTION_NAME = 'OkuToastDescription'
 
 export type ToastDescriptionIntrinsicElement = ElementType<'div'>
 type ToastDescriptionElement = HTMLDivElement

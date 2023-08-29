@@ -16,7 +16,7 @@ import { scopedProps } from './types'
  * ToastProvider
  * ----------------------------------------------------------------------------------------------- */
 
-export const PROVIDER_NAME = 'ToastProvider'
+export const PROVIDER_NAME = 'OkuToastProvider'
 
 type ToastElement = ToastImplElement
 

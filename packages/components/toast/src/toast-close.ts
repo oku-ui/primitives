@@ -11,7 +11,7 @@ import { scopedProps } from './types'
  * ToastClose
  * ----------------------------------------------------------------------------------------------- */
 
-const CLOSE_NAME = 'ToastClose'
+const CLOSE_NAME = 'OkuToastClose'
 
 export type ToastCloseIntrinsicElement = ElementType<'button'>
 type ToastCloseElement = HTMLButtonElement

@@ -16,7 +16,7 @@ import type { FocusProxyElement } from './toast-focus-proxy'
  * ToastViewport
  * ----------------------------------------------------------------------------------------------- */
 
-const VIEWPORT_NAME = 'ToastViewport'
+const VIEWPORT_NAME = 'OkuToastViewport'
 
 export const VIEWPORT_DEFAULT_HOTKEY = ['F8']
 export const VIEWPORT_PAUSE = 'toast.viewportPause'
