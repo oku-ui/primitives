@@ -2,23 +2,24 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, toRefs } from 'vue'
-import type { Scope } from '@oku-ui/provide'
-import { scopedProps } from './types'
+import { scopedToastProps } from './types'
 
 export type ToastAnnounceExcludeIntrinsicElement = ElementType<'div'>
 type ToastAnnounceExcludeElement = HTMLDivElement
 
 interface ToastAnnounceExcludeProps extends PrimitiveProps {
-  scopeToast?: Scope
   altText?: string
 }
 
 const ANNOUNCE_EXCLUDE_NAME = 'OkuAnnounceExclude'
 
 const toastAnnounceExcludeProps = {
-  altText: {
-    type: String,
-    required: false,
+  props: {
+    altText: {
+      type: String,
+      required: false,
+    },
+    ...primitiveProps,
   },
 }
 
@@ -28,9 +29,8 @@ const toastAnnounceExclude = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...toastAnnounceExcludeProps,
-    ...scopedProps,
-    ...primitiveProps,
+    ...toastAnnounceExcludeProps.props,
+    ...scopedToastProps,
   },
   setup(props, { attrs, slots }) {
     const { ...toastAnnounceExcludeAttrs } = attrs as ToastAnnounceExcludeIntrinsicElement

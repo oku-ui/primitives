@@ -5,8 +5,8 @@ export { OkuToastAnnounceExclude } from './toast-announce-exclude'
 export { OkuToastClose } from './toast-close'
 export { OkuToastDescription } from './toast-description'
 export { OkuToastFocusProxy } from './toast-focus-proxy'
-// export { OkuToastImpl } from './toast-impl'
-export { OkuToastProvider } from './toast-provider'
+export { OkuToastImpl } from './toast-impl'
+export { OkuToastProvider, createToastScope } from './toast-provider'
 export { OkuToastTitle } from './toast-title'
 export { OkuToastViewport } from './toast-viewport'
 
@@ -49,11 +49,11 @@ export type {
   FocusProxyElement,
 } from './toast-focus-proxy'
 
-// export type {
-//   ToastImplProps,
-//   ToastImplElement,
-//   ToastImplElementIntrinsicElement,
-// } from './toast-impl'
+export type {
+  ToastImplProps,
+  ToastImplElement,
+  ToastImplIntrinsicElement,
+} from './toast-impl'
 
 export type {
   ToastProviderProps,

@@ -7,8 +7,8 @@ import { scopedToastProps } from './types'
 
 const FOCUS_PROXY_NAME = 'OkuToastFocusProxy'
 
-type FocusProxyElement = Partial<VisuallyHiddenElement>
-type VisuallyHiddenProps = VisuallyHiddenIntrinsicElement
+export type FocusProxyElement = VisuallyHiddenElement
+export type VisuallyHiddenProps = VisuallyHiddenIntrinsicElement
 
 export interface FocusProxyProps extends VisuallyHiddenProps {
 }
@@ -41,7 +41,7 @@ const toastFocusProxy = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const { asChild } = toRefs(props)
 
-    const { ...toastFocusProxyAttrs } = attrs as unknown as FocusProxyElement
+    const { ...toastFocusProxyAttrs } = attrs as unknown as Partial<FocusProxyElement>
 
     const forwardedRef = useForwardRef()
 
