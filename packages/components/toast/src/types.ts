@@ -1,8 +1,9 @@
 import { ScopePropObject } from '@oku-ui/provide'
 import type { Scope } from '@oku-ui/provide'
 
-export type ScopedPropsInterface<P> = P & { scopeOkuToast?: Scope }
-export const scopedProps = {
+export type ScopedToast<P> = P & { scopeOkuToast?: Scope }
+
+export const scopedToastProps = {
   scopeOkuToast: {
     ...ScopePropObject,
   },

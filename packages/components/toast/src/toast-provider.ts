@@ -8,7 +8,8 @@ import { createCollection } from '@oku-ui/collection'
 import { useCallbackRef } from '@oku-ui/use-composable'
 import type { ToastImplElement } from './toast-impl'
 import type { ToastViewportElement } from './toast-viewport'
-import { scopedProps } from './types'
+import type { ScopedToast } from './types'
+import { scopedToastProps } from './types'
 
 // import type { ScopedPropsInterface } from './types'
 
@@ -37,14 +38,10 @@ type ToastProviderProvideValue = {
   isClosePausedRef: Ref<boolean>
 }
 
-// export interface ToastProviderProps extends ScopedPropsInterface<ToastElement> { }
-
 const [createToastProvide, createToastScope] = createProvideScope('Toast', [createCollectionScope])
 const [toastProviderProvider, useToastProviderInject] = createToastProvide<ToastProviderProvideValue>(PROVIDER_NAME)
 
-interface ToastProviderProps extends PrimitiveProps {
-  // children?: React.ReactNode
-  scopeToast?: Scope
+interface ToastProviderProps {
   /**
    * An author-localized label for each toast. Used to help screen reader users
    * associate the interruption with a toast.
@@ -69,24 +66,24 @@ interface ToastProviderProps extends PrimitiveProps {
 }
 
 const toastProviderProps = {
-  label: {
-    type: String as PropType<string>,
-    default: 'Notification',
+  props: {
+    label: {
+      type: String as PropType<string>,
+      default: 'Notification',
+    },
+    duration: {
+      type: Number as PropType<number>,
+      default: 5000,
+    },
+    swipeDirection: {
+      type: String as PropType<SwipeDirection>,
+      default: 'right',
+    },
+    swipeThreshold: {
+      type: Number as PropType<number>,
+      default: 50,
+    },
   },
-  duration: {
-    type: Number as PropType<number>,
-    default: 5000,
-  },
-  swipeDirection: {
-    type: String as PropType<SwipeDirection>,
-    default: 'right',
-  },
-  swipeThreshold: {
-    type: Number as PropType<number>,
-    default: 50,
-  },
-  // children: {
-  // },
 }
 
 const toastProvider = defineComponent({
@@ -95,9 +92,8 @@ const toastProvider = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...toastProviderProps,
-    ...scopedProps,
-    ...primitiveProps,
+    ...toastProviderProps.props,
+    ...scopedToastProps,
   },
   setup(props, { slots }) {
     const {
@@ -124,26 +120,28 @@ const toastProvider = defineComponent({
       onViewportChange(viewport: any) {
         viewport.value = viewport
       },
-      onToastAdd: useCallbackRef(() => toastCount.value++),
-      onToastRemove: useCallbackRef(() => toastCount.value--),
+      onToastAdd: () => {
+        toastCount.value++
+      },
+      onToastRemove: () => {
+        toastCount.value--
+      },
       isFocusedToastEscapeKeyDownRef,
       isClosePausedRef,
     })
 
-    const originalReturn = () =>
-      h(CollectionProvider,
+    return () => {
+      if (label.value && typeof label.value === 'string' && !label.value.trim())
+        throw new Error(`Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`)
+
+      return h(CollectionProvider,
         {
           scope: props.scopeOkuToast,
+        }, {
+          default: () => slots.default?.(),
         },
-        [
-          h(toastProviderProvider, slots.default?.()),
-        ],
       )
-
-    if (label.value && typeof label.value === 'string' && !label.value.trim())
-      throw new Error(`Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`)
-
-    return originalReturn
+    }
   },
 })
 
