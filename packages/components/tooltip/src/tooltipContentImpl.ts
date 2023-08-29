@@ -42,7 +42,7 @@ export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
    * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
    * Can be prevented.
    */
-  pointerDownOutside: [event: DismissableLayerEmits['pointerDownOutside']]
+  pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside']]
   close: []
 }
 
@@ -60,7 +60,7 @@ export const tooltipContentImplProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     escapeKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerDownOutside: (event: PointerEvent) => true,
+    pointerdownOutside: (event: PointerEvent) => true,
     close: () => true,
   },
 }
@@ -118,11 +118,11 @@ const tooltipContentImpl = defineComponent({
       onEscapeKeyDown(event) {
         event.preventDefault()
       },
-      onPointerDownOutside(event: any) {
-        emit('pointerDownOutside', event)
+      onPointerdownOutside(event: any) {
+        emit('pointerdownOutside', event)
       },
-      onFocusOutside(event: any) {
-        emit('pointerDownOutside', event)
+      onFocusoutSide(event: any) {
+        emit('pointerdownOutside', event)
       },
       onDismiss() {
         emit('close')
