@@ -222,7 +222,7 @@ const handlePopupClick = useCallbackRef(() => {
       </div>
     </div>
 
-    <div v-if="template === '#4'" class="flex flex-col">
+    <div v-if="template === '#4'" class="flex flex-col h-[300vh]">
       <h1 class="text-3xl font-bold mb-2">
         Dialog (fully modal example)
       </h1>

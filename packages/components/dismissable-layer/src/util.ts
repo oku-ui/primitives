@@ -27,7 +27,7 @@ export const scopeDismissableLayerProps = {
  * to mimic layer dismissing behaviour present in OS.
  * Returns props to pass to the node we want to check for outside events.
  */
-function usePointerDownOutside(
+function usePointerdownOutside(
   onPointerDownOutside?: (event: PointerdownOutsideEvent) => void,
   ownerDocument: Document = globalThis?.document,
 ) {
@@ -186,7 +186,7 @@ function handleAndDispatchCustomEvent<
 }
 
 export {
-  usePointerDownOutside,
+  usePointerdownOutside,
   handleAndDispatchCustomEvent,
   useFocusoutSide,
   dispatchUpdate,
