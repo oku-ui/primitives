@@ -23,7 +23,7 @@ import type { ScopeDismissableLayer } from './util'
 import {
   dispatchUpdate,
   scopeDismissableLayerProps,
-  useFocusOutside,
+  useFocusoutSide,
   usePointerDownOutside,
 } from './util'
 
@@ -48,13 +48,13 @@ export type DismissableLayerProvideValue = {
   branches: Ref<Set<DismissableLayerElement>>
 }
 
-export type PointerDownOutsideEvent = CustomEvent<{
+export type PointerdownOutsideEvent = CustomEvent<{
   originalEvent: PointerEvent
 }>
-export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
+export type FocusoutSideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 export type FocusCaptureEvent = CustomEvent<{ originalEvent: FocusEvent }>
 export type FocusBlurCaptureEvent = CustomEvent<{ originalEvent: FocusEvent }>
-export type PointerDownCaptureEvent = CustomEvent<{
+export type PointerdownCaptureEvent = CustomEvent<{
   originalEvent: PointerEvent
 }>
 
@@ -77,25 +77,25 @@ export type DismissableLayerEmits = {
   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
   * Can be prevented.
   */
-  pointerdownoutSide: [event: PointerDownOutsideEvent]
+  pointerdownOutside: [event: PointerdownOutsideEvent]
   /**
    * Event handler called when the focus moves outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  focusoutSide: [event: FocusOutsideEvent]
+  focusutSide: [event: FocusoutSideEvent]
   /**
   * Event handler called when an interaction happens outside the `DismissableLayer`.
   * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
   * Can be prevented.
   */
-  interactoutSide: [event: PointerDownOutsideEvent | FocusOutsideEvent]
+  interactOutside: [event: PointerdownOutsideEvent | FocusoutSideEvent]
   /**
   * Handler called when the `DismissableLayer` should be dismissed
   */
   dismiss: []
   focusCapture: [event: FocusCaptureEvent]
   blurCapture: [event: FocusBlurCaptureEvent]
-  pointerdownCapture: [event: PointerDownCaptureEvent]
+  pointerdownCapture: [event: PointerdownCaptureEvent]
 }
 
 export const dismissableLayerProps = {
@@ -110,18 +110,18 @@ export const dismissableLayerProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     escapeKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdownOutside: (event: PointerDownOutsideEvent) => true,
+    pointerdownOutside: (event: PointerdownOutsideEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    focusoutSide: (event: FocusOutsideEvent) => true,
+    focusoutSide: (event: FocusoutSideEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    interactoutSide: (event: PointerDownOutsideEvent | FocusOutsideEvent) => true,
+    interactOutside: (event: PointerdownOutsideEvent | FocusoutSideEvent) => true,
     dismiss: () => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     focusCapture: (event: FocusCaptureEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     blurCapture: (event: FocusBlurCaptureEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdownCapture: (event: PointerDownCaptureEvent) => true,
+    pointerdownCapture: (event: PointerdownCaptureEvent) => true,
   },
 }
 
@@ -199,13 +199,13 @@ const DismissableLayer = defineComponent({
         return
 
       emit('pointerdownOutside', event)
-      emit('interactoutSide', event)
+      emit('interactOutside', event)
 
       if (!event.defaultPrevented)
         emit('dismiss')
     }, ownerDocument.value)
 
-    const focusOutside = useFocusOutside((event) => {
+    const focusoutSide = useFocusoutSide((event) => {
       const target = event.target as HTMLElement
       const isFocusInBranch = [...provider.branches].some(branch =>
         branch.contains(target),
@@ -215,7 +215,7 @@ const DismissableLayer = defineComponent({
         return
 
       emit('focusoutSide', event)
-      emit('interactoutSide', event)
+      emit('interactOutside', event)
 
       if (!event.defaultPrevented)
         emit('dismiss')
@@ -304,11 +304,11 @@ const DismissableLayer = defineComponent({
           },
           onFocusCapture: composeEventHandlers<FocusCaptureEvent>((e) => {
             emit('focusCapture', e)
-          }, focusOutside.onFocusCapture),
+          }, focusoutSide.onFocusCapture),
           onBlurCapture: composeEventHandlers<FocusBlurCaptureEvent>((e) => {
             emit('blurCapture', e)
-          }, focusOutside.onBlurCapture),
-          onPointerdownCapture: composeEventHandlers<PointerDownCaptureEvent>(
+          }, focusoutSide.onBlurCapture),
+          onPointerdownCapture: composeEventHandlers<PointerdownCaptureEvent>(
             (e) => {
               emit('pointerdownCapture', e)
             },

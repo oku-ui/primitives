@@ -87,7 +87,7 @@ useScrollLock(test, props.preventScroll)
                   }
                 "
                 @dismiss="closeLayer"
-                @interactout-side="(event) => $emit('interactoutSide', event)"
+                @interact-outside="(event) => $emit('interactOutside', event)"
                 @focusout-side="(event) => $emit('focusoutSide', event)"
               >
                 <OkuFocusScope

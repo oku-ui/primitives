@@ -5,8 +5,8 @@ import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject } from '@oku-ui/provide'
 import type {
-  FocusOutsideEvent,
-  PointerDownOutsideEvent,
+  FocusoutSideEvent,
+  PointerdownOutsideEvent,
 } from './DismissableLayer'
 import {
   FOCUS_OUTSIDE,
@@ -28,7 +28,7 @@ export const scopeDismissableLayerProps = {
  * Returns props to pass to the node we want to check for outside events.
  */
 function usePointerDownOutside(
-  onPointerDownOutside?: (event: PointerDownOutsideEvent) => void,
+  onPointerDownOutside?: (event: PointerdownOutsideEvent) => void,
   ownerDocument: Document = globalThis?.document,
 ) {
   const handlePointerDownOutside = useCallbackRef(
@@ -43,7 +43,7 @@ function usePointerDownOutside(
       if (event.target && !isPointerInsideTreeRef.value) {
         const eventDetail = { originalEvent: event }
 
-        function handleAndDispatchPointerDownOutsideEvent() {
+        function handleAndDispatchPointerdownOutsideEvent() {
           handleAndDispatchCustomEvent(
             POINTER_DOWN_OUTSIDE,
             handlePointerDownOutside,
@@ -65,14 +65,14 @@ function usePointerDownOutside(
          */
         if (event.pointerType === 'touch') {
           ownerDocument.removeEventListener('click', handleClickRef.value)
-          handleClickRef.value = handleAndDispatchPointerDownOutsideEvent
+          handleClickRef.value = handleAndDispatchPointerdownOutsideEvent
 
           ownerDocument.addEventListener('click', handleClickRef.value, {
             once: true,
           })
         }
         else {
-          handleAndDispatchPointerDownOutsideEvent()
+          handleAndDispatchPointerdownOutsideEvent()
         }
       }
       else {
@@ -118,11 +118,11 @@ function usePointerDownOutside(
  * Listens for when focus happens outside a react subtree.
  * Returns props to pass to the root (node) of the subtree we want to check.
  */
-function useFocusOutside(
-  onFocusOutside?: (event: FocusOutsideEvent) => void,
+function useFocusoutSide(
+  onFocusoutSide?: (event: FocusoutSideEvent) => void,
   ownerDocument: Document = globalThis?.document,
 ) {
-  const handleFocusOutside = useCallbackRef(onFocusOutside) as EventListener
+  const handleFocusoutSide = useCallbackRef(onFocusoutSide) as EventListener
   const isFocusInsideReactTreeRef = ref<boolean>(false)
 
   watchEffect((onClean) => {
@@ -132,7 +132,7 @@ function useFocusOutside(
 
         handleAndDispatchCustomEvent(
           FOCUS_OUTSIDE,
-          handleFocusOutside,
+          handleFocusoutSide,
           eventDetail,
           {
             discrete: false,
@@ -188,6 +188,6 @@ function handleAndDispatchCustomEvent<
 export {
   usePointerDownOutside,
   handleAndDispatchCustomEvent,
-  useFocusOutside,
+  useFocusoutSide,
   dispatchUpdate,
 }
