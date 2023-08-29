@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { useFocusOutside, usePointerDownOutside } from './util'
+import { useFocusoutSide, usePointerdownOutside } from './util'
 
-describe('useFocusOutside', () => {
-  it('should call onFocusOutside when focusin event happens outside', () => {
-    const onFocusOutside = vi.fn()
+describe('useFocusoutSide', () => {
+  it('should call onFocusoutSide when focusin event happens outside', () => {
+    const onFocusoutSide = vi.fn()
 
     const wrapper = mount({
       template: '<div v-on="events"></div>',
       setup() {
-        const events = useFocusOutside(onFocusOutside)
+        const events = useFocusoutSide(onFocusoutSide)
         return { events }
       },
     })
@@ -18,15 +18,15 @@ describe('useFocusOutside', () => {
 
     document.dispatchEvent(new FocusEvent('focusin'))
 
-    expect(onFocusOutside).toHaveBeenCalled()
+    expect(onFocusoutSide).toHaveBeenCalled()
   })
 
-  it('should not call onFocusOutside when focusin event happens inside', () => {
-    const onFocusOutside = vi.fn()
+  it('should not call onFocusoutSide when focusin event happens inside', () => {
+    const onFocusoutSide = vi.fn()
     const wrapper = mount({
       template: '<div v-on="events"><button></button></div>',
       setup() {
-        const events = useFocusOutside(onFocusOutside)
+        const events = useFocusoutSide(onFocusoutSide)
         return { events }
       },
     })
@@ -34,7 +34,7 @@ describe('useFocusOutside', () => {
     // Simulate focusin event inside the component
     wrapper.find('button').trigger('focusin')
 
-    expect(onFocusOutside).not.toHaveBeenCalled()
+    expect(onFocusoutSide).not.toHaveBeenCalled()
   })
 })
 
@@ -44,7 +44,7 @@ describe('usePointerDownOutside', () => {
     const wrapper = mount({
       template: '<div v-on="events"><button></button></div>',
       setup() {
-        const events = usePointerDownOutside(onPointerDownOutside)
+        const events = usePointerdownOutside(onPointerDownOutside)
         return { events }
       },
     })

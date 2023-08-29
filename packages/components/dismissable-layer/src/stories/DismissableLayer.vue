@@ -155,8 +155,8 @@ const handlePopupClick = useCallbackRef(() => {
               marginBottom: '20px',
             }"
             @escape-key-down="onEscapeKeyDown"
-            @pointer-down-outside="onPointerDownOutside"
-            @focus-outside="onFocusOutside"
+            @pointerdown-outside="onPointerDownOutside"
+            @focusout-side="onFocusOutside"
             @dismiss="closeLayer"
           >
             <input type="text">
@@ -191,7 +191,7 @@ const handlePopupClick = useCallbackRef(() => {
           <OkuDismissableLayer
             as-child
             disable-outside-pointer-events
-            @pointer-down-outside="onPointerDownOutside"
+            @pointerdown-outside="onPointerDownOutside"
             @dismiss="closeLayer"
           >
             <OkuFocusScope
@@ -222,7 +222,7 @@ const handlePopupClick = useCallbackRef(() => {
       </div>
     </div>
 
-    <div v-if="template === '#4'" class="flex flex-col">
+    <div v-if="template === '#4'" class="flex flex-col h-[300vh]">
       <h1 class="text-3xl font-bold mb-2">
         Dialog (fully modal example)
       </h1>
@@ -326,7 +326,7 @@ const handlePopupClick = useCallbackRef(() => {
           :color="color"
           open-label="Open Popover"
           close-label="Close Popover"
-          @pointer-down-outside="
+          @pointerdown-outside="
             (event) => {
               if (event.target === changeColorButtonRef) {
                 event.preventDefault();

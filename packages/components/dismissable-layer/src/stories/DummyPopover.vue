@@ -8,16 +8,14 @@ import {
 import { ref } from 'vue'
 import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
+import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
+import { useScrollLock } from '@oku-ui/use-composable'
 
-type PointerDownOutsideEvent = CustomEvent<{
-  originalEvent: PointerEvent
-}>
+export type FocusoutSideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 
-export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
-
-withDefaults(
+const props = withDefaults(
   defineProps<{
     openLabel?: string
     closeLabel?: string
@@ -36,12 +34,7 @@ withDefaults(
   },
 )
 
-defineEmits<{
-  (event: 'escapeKeyDown', e: KeyboardEvent): void
-  (event: 'pointerDownOutside', e: PointerDownOutsideEvent): void
-  (event: 'focusOutside', e: FocusOutsideEvent): void
-  (event: 'interactOutside', e: Event): void
-}>()
+defineEmits<DismissableLayerEmits>()
 
 const open = ref(false)
 const skipUnmountAutoFocus = ref(false)
@@ -58,6 +51,9 @@ function closeLayer() {
 function setSkipUnmountAutoFocus() {
   skipUnmountAutoFocus.value = !skipUnmountAutoFocus.value
 }
+
+const test = ref(null)
+useScrollLock(test, props.preventScroll)
 </script>
 
 <template>
@@ -71,25 +67,26 @@ function setSkipUnmountAutoFocus() {
 
       <template v-if="open">
         <OkuFocusGuards>
-          <OkuPortal as-child>
+          <OkuPortal ref="test" as-child>
             <OkuDismissableLayer
               as-child
               :disable-outside-pointer-events="disableOutsidePointerEvents"
               @escape-key-down="(event) => $emit('escapeKeyDown', event)"
-              @pointer-down-outside="
+              @pointerdown-outside="
                 (event) => {
+                  console.log('pointerdown-outside', event);
                   setSkipUnmountAutoFocus();
                   if (event.target === openButtonRef) {
                     event.preventDefault();
                   }
                   else {
-                    $emit('pointerDownOutside', event);
+                    $emit('pointerdownOutside', event);
                   }
                 }
               "
               @dismiss="closeLayer"
               @interact-outside="(event) => $emit('interactOutside', event)"
-              @focus-outside="(event) => $emit('focusOutside', event)"
+              @focusout-side="(event) => $emit('focusoutSide', event)"
             >
               <OkuFocusScope
                 as-child
