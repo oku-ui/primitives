@@ -6,6 +6,7 @@ import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuToastImpl } from './toast-impl'
 import type { SwipeEvent, ToastImplElement, ToastImplIntrinsicElement, ToastImplPrivateProps, ToastImplProps } from './toast-impl'
+import { scopedToastProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * Toast
@@ -27,41 +28,42 @@ interface ToastProps extends Omit<ToastImplProps, keyof ToastImplPrivateProps> {
   forceMount?: true
 }
 
-const toastProps = {
-  modelValue: {
-    type: Boolean as PropType<boolean>,
-    default: undefined,
-  },
-  open: {
-    type: Boolean,
-    required: false,
-  },
-  defaultOpen: {
-    type: Boolean,
-    required: false,
-  },
-  onOpenChange: {
-    type: Function as PropType<ToastProps['onOpenChange']>,
-    required: false,
-  },
-  forceMount: {
-    type: Boolean,
-    default: true,
-  },
+export type ToastPropsEmits = {
+  'update:modelValue': [value: boolean]
+  openChange: [open: boolean]
+  close: []
+  pause: []
+  resume: []
+  swipeStart: [event: SwipeEvent]
+  swipeMove: [event: SwipeEvent]
+  swipeCancel: [event: SwipeEvent]
+  swipeEnd: [event: SwipeEvent]
 }
 
-const toast = defineComponent({
-  name: TOAST_NAME,
-  components: {
-    OkuPresence,
-    OkuToastImpl,
-  },
-  inheritAttrs: false,
+const toastProps = {
   props: {
-    ...toastProps,
-    ...primitiveProps,
+    modelValue: {
+      type: Boolean as PropType<boolean>,
+      default: undefined,
+    },
+    open: {
+      type: Boolean,
+      required: false,
+    },
+    defaultOpen: {
+      type: Boolean,
+      required: false,
+    },
+    forceMount: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'openChange': (value: boolean) => true,
     'close': () => true,
     'pause': () => true,
     'resume': () => true,
@@ -73,11 +75,22 @@ const toast = defineComponent({
     'swipeCancel': (event: SwipeEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     'swipeEnd': (event: SwipeEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'update:modelValue': (value: boolean) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'openChange': (value: boolean) => true,
   },
+}
+
+const toast = defineComponent({
+  name: TOAST_NAME,
+  components: {
+    OkuPresence,
+    OkuToastImpl,
+  },
+  inheritAttrs: false,
+  props: {
+    ...toastProps.props,
+    ...primitiveProps,
+    ...scopedToastProps,
+  },
+  emits: toastProps.emits,
   setup(props, { attrs, emit }) {
     const { ...toastAttrs } = attrs as unknown as ToastIntrinsicElement
 
@@ -99,39 +112,27 @@ const toast = defineComponent({
         emit('update:modelValue', open)
         emit('openChange', open)
       },
+      initialValue: true,
     })
 
     return () =>
-      h(
-        OkuPresence,
+      h(OkuPresence,
         { present: forceMount.value || state.value },
-        h(
-          OkuToastImpl, {
-            open: state.value,
-            ref: forwardedRef,
+        {
+          // TODO: type error
+          default: () => h(OkuToastImpl, {
+            open: state.value || false,
             ...toastAttrs,
+            ref: forwardedRef,
             onClose: updateValue(false),
-            // onPause: useCallbackRef(onPause),
             onPause: useCallbackRef(() => emit('pause')),
-            // onResume: useCallbackRef(onResume),
             onResume: useCallbackRef(() => emit('resume')),
-            // onSwipeStart: composeEventHandlers(onSwipeStart, (event: SwipeEvent) => {
-            //   const targetElement = event.currentTarget as HTMLElement
-            //   targetElement.setAttribute('data-swipe', 'start')
-            // }),
             onSwipeStart: composeEventHandlers<SwipeEvent>((event) => {
               emit('swipeStart', event)
             }, (event) => {
               const targetElement = event.currentTarget as HTMLElement
               targetElement.setAttribute('data-swipe', 'start')
             }),
-            // onSwipeMove: composeEventHandlers(onSwipeMove, (event: SwipeEvent) => {
-            //   const { x, y } = event.detail.delta
-            //   const targetElement = event.currentTarget as HTMLElement
-            //   targetElement.setAttribute('data-swipe', 'move')
-            //   targetElement.style.setProperty('--oku-toast-swipe-move-x', `${x}px`)
-            //   targetElement.style.setProperty('--oku-toast-swipe-move-y', `${y}px`)
-            // }),
             onSwipeMove: composeEventHandlers<SwipeEvent>((event) => {
               emit('swipeMove', event)
             }, (event) => {
@@ -141,14 +142,6 @@ const toast = defineComponent({
               targetElement.style.setProperty('--oku-toast-swipe-move-x', `${x}px`)
               targetElement.style.setProperty('--oku-toast-swipe-move-y', `${y}px`)
             }),
-            // onSwipeCancel: composeEventHandlers(onSwipeCancel, (event: SwipeEvent) => {
-            //   const targetElement = event.currentTarget as HTMLElement
-            //   targetElement.setAttribute('data-swipe', 'cancel')
-            //   targetElement.style.removeProperty('--oku-toast-swipe-move-x')
-            //   targetElement.style.removeProperty('--oku-toast-swipe-move-y')
-            //   targetElement.style.removeProperty('--oku-toast-swipe-end-x')
-            //   targetElement.style.removeProperty('--oku-toast-swipe-end-y')
-            // }),
             onSwipeCancel: composeEventHandlers<SwipeEvent>((event) => {
               emit('swipeCancel', event)
             }, (event) => {
@@ -159,16 +152,6 @@ const toast = defineComponent({
               targetElement.style.removeProperty('--oku-toast-swipe-end-x')
               targetElement.style.removeProperty('--oku-toast-swipe-end-y')
             }),
-            // onSwipeEnd: composeEventHandlers(onSwipeEnd, (event: SwipeEvent) => {
-            //   const { x, y } = event.detail.delta
-            //   const targetElement = event.currentTarget as HTMLElement
-            //   targetElement.setAttribute('data-swipe', 'end')
-            //   targetElement.style.removeProperty('--oku-toast-swipe-move-x')
-            //   targetElement.style.removeProperty('--oku-toast-swipe-move-y')
-            //   targetElement.style.setProperty('--oku-toast-swipe-end-x', `${x}px`)
-            //   targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
-            //   updateValue(false)
-            // }),
             onSwipeEnd: composeEventHandlers<SwipeEvent>((event) => {
               emit('swipeEnd', event)
             }, (event) => {
@@ -181,8 +164,8 @@ const toast = defineComponent({
               targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
               updateValue(false)
             }),
-          },
-        ),
+          }),
+        },
       )
   },
 })
