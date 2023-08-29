@@ -38,7 +38,7 @@ const toastFocusProxy = defineComponent({
     ...scopedToastProps,
   },
   emits: focusProxyProps.emits,
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const { asChild } = toRefs(props)
 
     const { ...toastFocusProxyAttrs } = attrs as unknown as FocusProxyElement
@@ -63,6 +63,9 @@ const toastFocusProxy = defineComponent({
           if (isFocusFromOutsideViewport)
             emit('focusFromOutsideViewport')
         },
+      },
+      {
+        default: () => slots.default?.(),
       },
     )
   },

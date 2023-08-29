@@ -43,7 +43,7 @@ const toastClose = defineComponent({
     ...toastCloseProps.props,
   },
   emits: toastCloseProps.emits,
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const { ...toastCloseAttrs } = attrs as ToastCloseIntrinsicElement
 
     const forwardedRef = useForwardRef()
@@ -67,6 +67,9 @@ const toastClose = defineComponent({
                 }, () => {
                   interactiveContext.onClose()
                 }),
+              },
+              {
+                default: () => slots.default?.(),
               },
             ),
         },

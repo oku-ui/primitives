@@ -127,7 +127,7 @@ const toastImpl = defineComponent({
     ...primitiveProps,
   },
   emits: toastImplProps.emits,
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const { ...toastImplAttrs } = attrs as ToastImplIntrinsicElement
 
     const {
@@ -353,6 +353,9 @@ const toastImpl = defineComponent({
                             })
                           }
                         }),
+                      },
+                      {
+                        default: () => slots.default?.(),
                       },
                     ),
                   },

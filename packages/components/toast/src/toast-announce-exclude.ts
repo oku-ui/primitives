@@ -32,7 +32,7 @@ const toastAnnounceExclude = defineComponent({
     ...scopedProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const { ...toastAnnounceExcludeAttrs } = attrs as ToastAnnounceExcludeIntrinsicElement
 
     const forwardedRef = useForwardRef()
@@ -49,6 +49,9 @@ const toastAnnounceExclude = defineComponent({
           'ref': forwardedRef,
           'data-oku-toast-announce-exclude': '',
           'data-oku-toast-announce-alt': altText.value || undefined,
+        },
+        {
+          default: () => slots.default?.(),
         },
       )
 

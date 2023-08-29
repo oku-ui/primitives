@@ -91,7 +91,7 @@ const toast = defineComponent({
     ...scopedToastProps,
   },
   emits: toastProps.emits,
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const { ...toastAttrs } = attrs as unknown as ToastIntrinsicElement
 
     const forwardedRef = useForwardRef()
@@ -119,13 +119,11 @@ const toast = defineComponent({
       h(OkuPresence,
         { present: forceMount.value || state.value },
         {
-          // TODO: type error
           default: () => h(OkuToastImpl, {
             open: state.value || false,
             ...toastAttrs,
             ref: forwardedRef,
-            // TODO: onClose type error
-            onClose: updateValue(false),
+            onClose: () => updateValue(false),
             onPause: useCallbackRef(() => emit('pause')),
             onResume: useCallbackRef(() => emit('resume')),
             onSwipeStart: composeEventHandlers<SwipeEvent>((event) => {
@@ -165,6 +163,8 @@ const toast = defineComponent({
               targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
               updateValue(false)
             }),
+          }, {
+            default: () => slots.default?.(),
           }),
         },
       )
