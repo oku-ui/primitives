@@ -21,7 +21,7 @@ export const PROVIDER_NAME = 'OkuToastProvider'
 
 type ToastElement = ToastImplElement
 
-export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<HTMLLIElement, undefined>('Toast')
+export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<ToastElement>('Toast')
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
 type ToastProviderProvideValue = {

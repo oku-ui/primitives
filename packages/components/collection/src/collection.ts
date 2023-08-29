@@ -19,7 +19,11 @@ export type CollectionElement = HTMLElement
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-export function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
+// export function createCollection<ItemElement extends HTMLElement>(
+//   name: string
+// ): void;
+
+export function createCollection<ItemElement extends HTMLElement, T = object>(name: string, ItemData?: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
  * CollectionProvider
  * --------------------------------------------------------------------------------------------- */

@@ -1,14 +1,14 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType } from '@oku-ui/primitive'
+import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { toValue } from '@oku-ui/utils'
 import type { PropType } from 'vue'
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
 import { CollectionSlot, PROVIDER_NAME, useCollection, useToastProviderInject } from './toast-provider'
-import { focusFirst } from './utils'
-import { scopedProps } from './types'
+import { focusFirst, getTabbableCandidates } from './utils'
+import { scopedToastProps } from './types'
 import { OkuToastFocusProxy } from './toast-focus-proxy'
 import type { FocusProxyElement } from './toast-focus-proxy'
 
@@ -25,9 +25,10 @@ export const VIEWPORT_RESUME = 'toast.viewportResume'
 export type ToastViewportIntrinsicElement = ElementType<'ol'>
 type ToastViewportElement = HTMLOListElement
 
-type PrimitiveOrderedListProps = HTMLOListElement
-interface ToastViewportProps extends PrimitiveOrderedListProps {
-  scopeToast?: Scope
+export type PrimitiveOrderedListIntrinsicElement = ElementType<'ol'>
+export type PrimitiveOrderedElement = HTMLOListElement
+
+interface ToastViewportProps extends PrimitiveProps {
   /**
    * The keys to use as the keyboard shortcut that will move focus to the toast viewport.
    * @defaultValue ['F8']
@@ -42,13 +43,15 @@ interface ToastViewportProps extends PrimitiveOrderedListProps {
 }
 
 const toastViewportProps = {
-  hotkey: {
-    type: Array as PropType<string[]>,
-    default: VIEWPORT_DEFAULT_HOTKEY,
-  },
-  label: {
-    type: String,
-    default: 'Notifications ({hotkey})',
+  props: {
+    hotkey: {
+      type: Array as PropType<string[]>,
+      default: VIEWPORT_DEFAULT_HOTKEY,
+    },
+    label: {
+      type: String,
+      default: 'Notifications ({hotkey})',
+    },
   },
 }
 
@@ -59,11 +62,11 @@ const toastViewport = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...toastViewportProps,
-    ...scopedProps,
+    ...scopedToastProps,
     ...primitiveProps,
+    ...toastViewportProps.props,
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const { ...toastViewportAttrs } = attrs as ToastViewportIntrinsicElement
 
     const {
@@ -79,9 +82,12 @@ const toastViewport = defineComponent({
     const headFocusProxyRef = ref<FocusProxyElement | null>(null)
     const tailFocusProxyRef = ref<FocusProxyElement | null>(null)
     const viewportRef = ref<ToastViewportElement | null>(null)
-    const composedRefs = useComposedRefs(forwardedRef, viewportRef, inject.onViewportChange)
+    const composedRefs = useComposedRefs(forwardedRef, viewportRef, (el) => {
+      inject.onViewportChange(el as HTMLOListElement)
+    })
+
     const hotkeyLabel = toValue(hotkey).join('+').replace(/Key/g, '').replace(/Digit/g, '')
-    const hasToasts = inject.toastCount.value > 0
+    const hasToasts = computed(() => inject.toastCount.value > 0)
 
     watchEffect((onInvalidate) => {
       const handleKeyDown = (event: KeyboardEvent) => {
@@ -100,7 +106,7 @@ const toastViewport = defineComponent({
     watchEffect((onInvalidate) => {
       const wrapper = wrapperRef.value
       const viewport = viewportRef.value
-      if (hasToasts && wrapper && viewport) {
+      if (hasToasts.value && wrapper && viewport) {
         const handlePause = () => {
           if (!inject.isClosePausedRef.value) {
             const pauseEvent = new CustomEvent(VIEWPORT_PAUSE)
@@ -148,17 +154,21 @@ const toastViewport = defineComponent({
       }
     })
 
-    const getSortedTabbableCandidates: any = useCallbackRef(({ tabbingDirection }: { tabbingDirection: 'forwards' | 'backwards' }) => {
+    // TODO: maybe computed used
+    const getSortedTabbableCandidates = ({ tabbingDirection }: { tabbingDirection: 'forwards' | 'backwards' }) => {
       const toastItems = getItems.value
-      const tabbableCandidates = toastItems.map((toastItem: typeof viewportRef) => {
-        const toastNode = toastItem.value!
-        const toastTabbableCandidates = [toastNode, ...getSortedTabbableCandidates.value(toastNode)]
-        return tabbingDirection === 'forwards' ? toastTabbableCandidates : toastTabbableCandidates.reverse()
+      const tabbableCandidates = toastItems.map((toastItem) => {
+        const toastNode = toastItem.ref
+        // TODO: check toastNode console.log element
+        const toastTabbableCandidates = [toastNode, ...getTabbableCandidates(toastNode)]
+        return tabbingDirection === 'forwards'
+          ? toastTabbableCandidates
+          : toastTabbableCandidates.reverse()
       })
       return (
         tabbingDirection === 'forwards' ? tabbableCandidates.reverse() : tabbableCandidates
       ).flat()
-    })
+    }
 
     watchEffect((onInvalidate) => {
       const viewport = viewportRef.value
@@ -183,7 +193,7 @@ const toastViewport = defineComponent({
             }
 
             const tabbingDirection = isTabbingBackwards ? 'backwards' : 'forwards'
-            const sortedCandidates = getSortedTabbableCandidates.value({ tabbingDirection })
+            const sortedCandidates = getSortedTabbableCandidates({ tabbingDirection })
             const index = sortedCandidates.findIndex((candidate: Element | null) => candidate === focusedElement)
             if (focusFirst(sortedCandidates.slice(index + 1))) {
               event.preventDefault()
@@ -205,7 +215,7 @@ const toastViewport = defineComponent({
       }
     })
 
-    const originalReturn = () =>
+    return () =>
       h(
         OkuDismissableLayerBranch,
         {
@@ -216,15 +226,15 @@ const toastViewport = defineComponent({
           'tabindex': -1,
           // incase list has size when empty (e.g. padding), we remove pointer events so
           // it doesn't prevent interactions with page elements that it overlays
-          'style': { pointerEvents: hasToasts ? undefined : 'none' },
+          'style': { pointerEvents: hasToasts.value ? undefined : 'none' } as CSSStyleDeclaration,
         },
         [
-          hasToasts && h(
+          hasToasts.value && h(
             OkuToastFocusProxy,
             {
               ref: headFocusProxyRef,
               onFocusFromOutsideViewport: () => {
-                const tabbableCandidates = getSortedTabbableCandidates.value({ tabbingDirection: 'forwards' })
+                const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'forwards' })
                 focusFirst(tabbableCandidates)
               },
             },
@@ -235,32 +245,32 @@ const toastViewport = defineComponent({
            */
           h(
             CollectionSlot,
-            { cope: props.scopeOkuToast },
-            [
-              h(Primitive.ol,
+            { scope: props.scopeOkuToast },
+            {
+              default: () => h(Primitive.ol,
                 {
                   tabindex: -1,
                   ...toastViewportAttrs,
                   ref: composedRefs,
+                }, {
+                  default: () => slots.default?.(),
                 },
               ),
-            ],
+            },
           ),
 
-          hasToasts && h(
+          hasToasts.value && h(
             OkuToastFocusProxy,
             {
               ref: tailFocusProxyRef,
               onFocusFromOutsideViewport: () => {
-                const tabbableCandidates = getSortedTabbableCandidates.value({ tabbingDirection: 'backwards' })
+                const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'backwards' })
                 focusFirst(tabbableCandidates)
               },
             },
           ),
         ],
       )
-
-    return originalReturn
   },
 })
 

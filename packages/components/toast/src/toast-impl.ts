@@ -6,7 +6,7 @@ import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-comp
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { CollectionItemSlot, createToastProvide, useToastProviderInject } from './toast-provider'
-import { scopedProps } from './types'
+import { scopedToastProps } from './types'
 import { OkuToastAnnounce } from './toast-announce'
 import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
 import { TOAST_NAME } from './toast'
@@ -97,7 +97,7 @@ const toastImpl = defineComponent({
   inheritAttrs: false,
   props: {
     ...toastImplProps,
-    ...scopedProps,
+    ...scopedToastProps,
     ...primitiveProps,
   },
   emits: {
