@@ -31,7 +31,7 @@
     "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.0"
   },
   "dependencies": {
     "@oku-ui/presence": "latest",
