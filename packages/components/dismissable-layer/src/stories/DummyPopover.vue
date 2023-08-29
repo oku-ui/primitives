@@ -13,7 +13,7 @@ import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
 import { useScrollLock } from '@oku-ui/use-composable'
 
-export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
+export type FocusoutSideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 
 const props = withDefaults(
   defineProps<{
@@ -80,7 +80,7 @@ useScrollLock(test, props.preventScroll)
                     event.preventDefault();
                   }
                   else {
-                    $emit('pointerdownoutSide', event);
+                    $emit('pointerdownOutside', event);
                   }
                 }
               "

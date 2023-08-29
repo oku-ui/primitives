@@ -82,7 +82,7 @@ export type DismissableLayerEmits = {
    * Event handler called when the focus moves outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  focusutSide: [event: FocusoutSideEvent]
+  focusoutSide: [event: FocusoutSideEvent]
   /**
   * Event handler called when an interaction happens outside the `DismissableLayer`.
   * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
