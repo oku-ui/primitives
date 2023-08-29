@@ -1,10 +1,9 @@
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
-import { OkuToastClose } from './toast-close'
+import { OkuToastClose, toastCloseProps } from './toast-close'
 import type { ToastCloseIntrinsicElement, ToastCloseProps } from './toast-close'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
-import { scopedProps } from './types'
+import { scopedToastProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * ToastAction
@@ -25,13 +24,15 @@ interface ToastActionProps extends ToastCloseProps {
 }
 
 const toastActionProps = {
-  altText: {
-    type: String,
-    required: true,
+  props: {
+    altText: {
+      type: String,
+      required: true,
+    },
+    ...toastCloseProps.props,
   },
-  asChild: {
-    type: Boolean,
-    default: false,
+  emits: {
+    ...toastCloseProps.emits,
   },
 }
 
@@ -43,13 +44,10 @@ const toastAction = defineComponent({
   },
   inheritAttrs: false,
   props: {
-    ...toastActionProps,
-    ...scopedProps,
-    ...primitiveProps,
+    ...toastActionProps.props,
+    ...scopedToastProps,
   },
-  setup(props, { attrs }) {
-    // const { ...toastActionAttrs } = attrs as ToastActionElement
-
+  setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
     const { altText } = toRefs(props)
@@ -57,28 +55,30 @@ const toastAction = defineComponent({
     if (!altText.value)
       return null
 
-    const originalReturn = () =>
-      h(
+    return () => {
+      if (!altText.value)
+        throw new Error(`Missing prop \`altText\` expected on \`${ACTION_NAME}\``)
+
+      return h(
         OkuToastAnnounceExclude,
         {
           altText: altText.value,
           asChild: true,
         },
-        [
-          h(
+        {
+          default: () => h(
             OkuToastClose,
             {
               ...attrs,
               ref: forwardedRef,
             },
+            {
+              default: () => slots.default?.(),
+            },
           ),
-        ],
+        },
       )
-
-    if (!altText.value)
-      throw new Error(`Missing prop \`altText\` expected on \`${ACTION_NAME}\``)
-
-    return originalReturn
+    }
   },
 })
 
