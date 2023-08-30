@@ -11,6 +11,7 @@ import type { SliderThumbElement } from './sliderThumb'
 import { OkuSliderHorizontal, type SliderHorizontalElement, type SliderHorizontalIntrinsicElement, type SliderOrientationPrivateProps, sliderHorizontalProps } from './sliderHorizontal'
 import type { SliderVerticalElement, SliderVerticalIntrinsicElement, SliderVerticalProps } from './sliderVertical'
 import { OkuSliderVertical, sliderVerticalProps } from './sliderVertical'
+import { OkuBubbleInput } from './bubbleInput'
 
 export const SLIDER_NAME = 'OkuSlider'
 
@@ -157,6 +158,7 @@ const slider = defineComponent({
       minStepsBetweenThumbs,
       asChild,
       inverted,
+      name,
     } = toRefs(props)
 
     const sliderRef = ref<HTMLSpanElement | null>(null)
@@ -240,7 +242,21 @@ const slider = defineComponent({
       values: state,
       orientation,
     })
-    const originalReturn = () => h(CollectionProvider,
+    const renderOkuBubbleInputs = () => {
+      if (isFormControl.value && state.value) {
+        return state.value.map((_value, index) =>
+          h(OkuBubbleInput, {
+            key: index,
+            name: name.value ? name.value + ((state.value || []).length > 1 ? '[]' : '') : undefined,
+            // TODO: value type error
+            value: _value as any,
+          }),
+        )
+      }
+      return null
+    }
+
+    const originalReturn = () => [h(CollectionProvider,
       {
         scope: props.scopeOkuSlider,
       },
@@ -291,7 +307,8 @@ const slider = defineComponent({
             default: () => slots.default?.(),
           }),
         }),
-      })
+      }), isFormControl.value && renderOkuBubbleInputs(),
+    ]
     return originalReturn
   },
 })

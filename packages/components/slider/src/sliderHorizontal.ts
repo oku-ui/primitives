@@ -88,9 +88,9 @@ export const sliderOrientationProps = {
       'slideStart',
       'slideMove',
       'slideEnd',
-      'homeKeyDown',
-      'endKeyDown',
-      'stepKeyDown',
+      'homeKeydown',
+      'endKeydown',
+      'stepKeydown',
     ]),
   },
 }

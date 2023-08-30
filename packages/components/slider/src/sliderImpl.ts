@@ -33,11 +33,11 @@ export const sliderImplPrivateProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     slideEnd: (event: PointerEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    homeKeyDown: (event: KeyboardEvent) => true,
+    homeKeydown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    endKeyDown: (event: KeyboardEvent) => true,
+    endKeydown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    stepKeyDown: (event: KeyboardEvent) => true,
+    stepKeydown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     keydown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -76,9 +76,7 @@ const sliderImpl = defineComponent({
   setup(props, { attrs, slots, emit }) {
     const {
       scopeOkuSlider,
-      asChild,
     } = toRefs(props)
-    const { ...restAttrs } = attrs as SliderImplIntrinsicElement
     const inject = useSliderInject(SLIDER_NAME, scopeOkuSlider.value)
 
     const forwardedRef = useForwardRef()
