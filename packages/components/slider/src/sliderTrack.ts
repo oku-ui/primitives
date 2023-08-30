@@ -1,4 +1,3 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -18,29 +17,16 @@ export interface SpanProps extends PrimitiveProps {
   key?: string | number | null | undefined
 }
 export interface SliderTrackProps extends SpanProps {}
-export const sliderThumbProps = {
+export const sliderTrackProps = {
   props: {
     ...primitiveProps,
-    slot: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    title: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    key: {
-      type: [String, Number, null, undefined] as PropType<string | number | null | undefined>,
-      default: undefined,
-    },
-
   },
 }
 const sliderTrack = defineComponent({
   name: TRACK_NAME,
   inheritAttrs: false,
   props: {
-    ...sliderThumbProps.props,
+    ...sliderTrackProps.props,
     ...scopeSliderProps,
   },
   setup(props, { attrs, slots }) {
@@ -51,9 +37,9 @@ const sliderTrack = defineComponent({
     const inject = useSliderInject(TRACK_NAME, scopeOkuSlider.value)
     const forwardedRef = useForwardRef()
     const originalReturn = () => h(Primitive.span, {
-      ...restAttrs,
       'data-disabled': inject.disabled ? '' : undefined,
       'data-orientation': inject.orientation,
+      ...restAttrs,
       'ref': forwardedRef,
     },
     {

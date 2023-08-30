@@ -1,5 +1,4 @@
-import type { PropType } from 'vue'
-import { defineComponent, h, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -19,29 +18,16 @@ export interface SpanProps extends PrimitiveProps {
   key?: string | number | null | undefined
 }
 export interface SliderTrackProps extends SpanProps {}
-export const sliderThumbProps = {
+export const sliderRangeProps = {
   props: {
     ...primitiveProps,
-    slot: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    title: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    key: {
-      type: [String, Number, null, undefined] as PropType<string | number | null | undefined>,
-      default: undefined,
-    },
-
   },
 }
 const sliderRange = defineComponent({
   name: RANGE_NAME,
   inheritAttrs: false,
   props: {
-    ...sliderThumbProps.props,
+    ...sliderRangeProps.props,
     ...scopeSliderProps,
   },
   setup(props, { attrs, slots }) {
@@ -54,22 +40,22 @@ const sliderRange = defineComponent({
     const forwardedRef = useForwardRef()
     const rangeRef = ref<HTMLSpanElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, rangeRef)
-    const valuesCount = (inject.values.value || []).length
-    const percentages = inject.values.value?.map(value =>
+    const valuesCount = computed(() => (inject.values.value || []).length)
+    const percentages = computed(() => inject.values.value?.map(value =>
       convertValueToPercentage(value, inject.min.value, inject.max.value),
-    )
-    const offsetStart = valuesCount > 1 ? Math.min(...percentages!) : 0
-    const offsetEnd = 100 - Math.max(...percentages!)
+    ))
+    const offsetStart = computed(() => valuesCount.value > 1 ? Math.min(...percentages.value!) : 0)
+    const offsetEnd = computed(() => 100 - Math.max(...percentages.value!))
 
     const originalReturn = () => h(Primitive.span, {
-      ...restAttrs,
       'data-disabled': inject.disabled ? '' : undefined,
       'data-orientation': inject.orientation,
+      ...restAttrs,
       'ref': composedRefs,
       'style': {
         ...attrs.style as any,
-        [orientation.startEdge.value]: `${offsetStart}%`,
-        [orientation.endEdge.value]: `${offsetEnd}%`,
+        [orientation.startEdge.value]: `${offsetStart.value}%`,
+        [orientation.endEdge.value]: `${offsetEnd.value}%`,
       },
     },
     {
