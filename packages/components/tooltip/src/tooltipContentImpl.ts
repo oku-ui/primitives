@@ -1,4 +1,4 @@
-import { defineComponent, h, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, watchEffect } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -87,9 +87,9 @@ const tooltipContentImpl = defineComponent({
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
-      document.addEventListener(TOOLTIP_OPEN, () => emit('close'))
+      document.addEventListener(TOOLTIP_OPEN, inject.onClose)
       onClean(() => {
-        document.removeEventListener(TOOLTIP_OPEN, () => emit('close'))
+        document.removeEventListener(TOOLTIP_OPEN, inject.onClose)
       })
     })
 
@@ -98,7 +98,7 @@ const tooltipContentImpl = defineComponent({
         const handleScroll = (event: Event) => {
           const target = event.target as HTMLElement
           if (target.contains(inject.trigger.value))
-            emit('close')
+            inject.onClose()
         }
         window.addEventListener('scroll', handleScroll, { capture: true })
         onClean(() => {
@@ -125,14 +125,13 @@ const tooltipContentImpl = defineComponent({
         emit('pointerdownOutside', event)
       },
       onDismiss() {
-        emit('close')
+        inject.onClose()
       },
     }, {
       default: () => h(OkuPopperContent, {
         'data-state': inject.stateAttribute.value,
         ...popperScope,
-        ...restAttrs,
-        ...contentProps,
+        ...mergeProps(restAttrs, contentProps),
         'ref': forwardedRef,
         'style': {
           ...restAttrs.style as any,

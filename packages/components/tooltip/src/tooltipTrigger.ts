@@ -23,11 +23,11 @@ export const tooltipTriggerProps = {
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerMove: (event: PointerEvent) => true,
+    pointermove: (event: PointerEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerLeave: (event: PointerEvent) => true,
+    pointerleave: (event: PointerEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerDown: (event: PointerEvent) => true,
+    pointerdown: (event: PointerEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     focus: (event: FocusEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -78,7 +78,7 @@ const tooltipTrigger = defineComponent({
         ...attrs,
         'ref': composedRefs,
         'onPointermove': composeEventHandlers<PointerEvent>((el) => {
-          emit('pointerMove', el)
+          emit('pointermove', el)
         }, (event) => {
           if (event.pointerType === 'touch')
             return
@@ -90,14 +90,14 @@ const tooltipTrigger = defineComponent({
             hasPointerMoveOpenedRef.value = true
           }
         }),
-        'onPointerLeave': composeEventHandlers<PointerEvent>((el) => {
-          emit('pointerLeave', el)
+        'onPointerleave': composeEventHandlers<PointerEvent>((el) => {
+          emit('pointerleave', el)
         }, () => {
           inject.onTriggerLeave()
           hasPointerMoveOpenedRef.value = false
         }),
-        'onPointerDown': composeEventHandlers<PointerEvent>((el) => {
-          emit('pointerDown', el)
+        'onPointerdown': composeEventHandlers<PointerEvent>((el) => {
+          emit('pointerdown', el)
         }, () => {
           isPointerDownRef.value = true
           document.addEventListener('pointerup', handlePointerUp, { once: true })

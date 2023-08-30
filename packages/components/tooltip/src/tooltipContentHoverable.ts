@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuTooltipContentImpl, type TooltipContentImplElement, type TooltipContentImplIntrinsicElement, type TooltipContentImplProps, tooltipContentImplProps } from './tooltipContentImpl'
@@ -121,8 +121,7 @@ const tooltipContentHoverable = defineComponent({
     })
 
     return () => h(OkuTooltipContentImpl, {
-      ...attrs,
-      ...props,
+      ...mergeProps(attrs, props),
       ref: composedRefs,
     }, {
       default: () => slots.default?.(),

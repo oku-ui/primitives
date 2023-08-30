@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -50,29 +50,27 @@ const tooltipContent = defineComponent({
   },
   emits: tooltipContentImplProps.emits,
   setup(props, { attrs, slots }) {
-    const { forceMount, side, scopeOkuTooltip, ...propsa } = props
-    const portalInject = usePortalInject(CONTENT_NAME, scopeOkuTooltip)
+    const { forceMount, side, scopeOkuTooltip, ...propsa } = toRefs(props)
+    const portalInject = usePortalInject(CONTENT_NAME, scopeOkuTooltip.value)
 
-    const forceMountProps = computed(() => props.forceMount || portalInject.forceMount?.value)
-    const sideProps = computed(() => props.side || 'top')
+    const forceMountProps = computed(() => forceMount.value || portalInject.forceMount?.value)
+    const sideProps = computed(() => side.value || 'top')
 
     const forwardedRef = useForwardRef()
-    const inject = useTooltipInject(CONTENT_NAME, scopeOkuTooltip)
+    const inject = useTooltipInject(CONTENT_NAME, scopeOkuTooltip.value)
     return () => h(OkuPresence, {
       present: forceMountProps.value || inject.open.value,
     }, {
       default: () => inject.disableHoverableContent.value
         ? h(OkuTooltipContentImpl, {
+          ...mergeProps(attrs, propsa),
           side: sideProps.value,
-          ...attrs,
-          ...propsa,
           ref: forwardedRef,
         }, {
           default: () => slots.default?.(),
         })
         : h(OkuTooltipContentHoverable, {
-          ...attrs,
-          ...propsa,
+          ...mergeProps(attrs, propsa),
           side: sideProps.value,
           ref: forwardedRef,
         }, {

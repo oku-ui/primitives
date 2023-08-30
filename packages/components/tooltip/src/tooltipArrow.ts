@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperArrow, type PopperArrowElement, type PopperArrowIntrinsicElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
 import { type ScopeTooltip, scopeTooltipProps } from './types'
@@ -41,7 +41,7 @@ const tooltipArrow = defineComponent({
       ? null
       : h(OkuPopperArrow, {
         ...popperScope,
-        ...props,
+        ...mergeProps(attrs, props),
         ref: forwardedRef,
       }, {
         default: () => slots.default?.(),
