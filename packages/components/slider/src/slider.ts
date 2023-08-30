@@ -136,7 +136,7 @@ export const sliderProps = {
   },
 }
 
-const label = defineComponent({
+const slider = defineComponent({
   name: SLIDER_NAME,
   inheritAttrs: false,
   props: {
@@ -286,6 +286,9 @@ const label = defineComponent({
                 updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
               }
             },
+          },
+          {
+            default: () => slots.default?.(),
           }),
         }),
       })
@@ -294,7 +297,7 @@ const label = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuSlider = label as typeof label &
+export const OkuSlider = slider as typeof slider &
 (new () => {
   $props: ScopeSlider<Partial<SliderElement>>
 })
