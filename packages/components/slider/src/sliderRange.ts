@@ -37,7 +37,7 @@ export const sliderThumbProps = {
 
   },
 }
-const sliderTrack = defineComponent({
+const sliderRange = defineComponent({
   name: RANGE_NAME,
   inheritAttrs: false,
   props: {
@@ -80,7 +80,7 @@ const sliderTrack = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuSliderTrack = sliderTrack as typeof sliderTrack &
+export const OkuSliderRange = sliderRange as typeof sliderRange &
 (new () => {
   $props: Partial<SliderRangeElement>
 })
