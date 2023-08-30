@@ -8,7 +8,7 @@ import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 const TOGGLE_NAME = 'OkuToggle'
 
 export type ToggleElementIntrinsicElement = ElementType<'button'>
-export type ToggleElement = HTMLButtonElement
+export type ToggleElement = Omit<HTMLButtonElement, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
 
 export interface ToggleProps extends PrimitiveProps {
   /**
@@ -22,6 +22,7 @@ export interface ToggleProps extends PrimitiveProps {
    */
   defaultPressed?: boolean
   disabled?: boolean
+  ariaChecked?: boolean | undefined
 }
 
 export type ToggleEmits = {
@@ -53,6 +54,10 @@ export const toggleProps = {
       type: Boolean,
       default: false,
     },
+    ariaChecked: {
+      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      default: undefined,
+    },
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -64,7 +69,7 @@ export const toggleProps = {
   },
 }
 
-const Toggle = defineComponent({
+const toggle = defineComponent({
   name: TOGGLE_NAME,
   inheritAttrs: false,
   props: {
@@ -73,12 +78,14 @@ const Toggle = defineComponent({
   },
   emits: toggleProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { pressed, defaultPressed, disabled } = toRefs(props)
+    const { pressed, defaultPressed, disabled, ariaChecked } = toRefs(props)
     const modelValue = useModel(props, 'modelValue')
     const proxyChecked = computed({
       get: () => modelValue.value !== undefined
         ? modelValue.value
-        : (pressed.value !== undefined ? pressed.value : undefined),
+        : (pressed.value !== undefined
+            ? pressed.value
+            : undefined),
       set: () => {
       },
     })
@@ -100,6 +107,7 @@ const Toggle = defineComponent({
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
+        'aria-checked': ariaChecked.value,
         'aria-pressed': state.value ? 'true' : 'false',
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': disabled.value ? '' : undefined,
@@ -122,7 +130,7 @@ const Toggle = defineComponent({
   },
 })
 
-export const OkuToggle = Toggle as typeof Toggle &
+export const OkuToggle = toggle as typeof toggle &
 (new () => {
   $props: Partial<ToggleElement>
 })

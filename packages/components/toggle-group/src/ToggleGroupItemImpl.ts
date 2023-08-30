@@ -1,20 +1,18 @@
-import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuToggle, toggleProps } from '@oku-ui/toggle'
-import type { ToggleProps } from '@oku-ui/toggle'
+import type { ToggleElement, ToggleElementIntrinsicElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
 
-import type { ScopeToggleGroup } from './utils'
 import { scopeToggleGroupProps } from './utils'
 import { useToggleGroupValueInject } from './ToggleGroup'
 import { TOGGLE_ITEM_NAME } from './ToggleGroupItem'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupItemImpl'
 
-export type ToggleGroupItemImplIntrinsicElement = ElementType<'div'>
-export type ToggleGroupItemImplElement = HTMLDivElement
+export type ToggleGroupItemImplIntrinsicElement = ToggleElementIntrinsicElement
+export type ToggleGroupItemImplElement = ToggleElement
 
 interface ToggleGroupItemImplProps extends Omit<ToggleProps, 'defaultPressed' | 'onPressedChange'> {
   /**
@@ -22,6 +20,8 @@ interface ToggleGroupItemImplProps extends Omit<ToggleProps, 'defaultPressed' | 
    */
   value: string
 }
+
+export type ToggleGroupItemImplEmits = Omit<ToggleEmits, 'update:modelValue' | 'pressedChange'>
 
 export const toggleGroupItemImplProps = {
   props: {
@@ -52,15 +52,16 @@ const toggleGroupItemImpl = defineComponent({
     const { pressed, disabled, value, scopeOkuToggleGroup, asChild } = toRefs(props)
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => {
-      return { 'role': 'radio', 'aria-checked': pressed.value, 'aria-pressed': undefined }
+      return { 'role': 'radio', 'aria-pressed': undefined }
     })
     const typeProps = computed(() => valueInject.type.value === 'single' ? singleProps.value : undefined)
 
     const forwardedRef = useForwardRef()
 
     return () => h(OkuToggle, {
-      ...mergeProps(attrs),
+      ...attrs,
       ...typeProps.value,
+      ariaChecked: pressed.value,
       pressed: pressed.value,
       disabled: disabled.value,
       asChild: asChild.value,
@@ -81,7 +82,7 @@ const toggleGroupItemImpl = defineComponent({
 
 export const OkuToggleGroupItemImpl = toggleGroupItemImpl as typeof toggleGroupItemImpl &
 (new () => {
-  $props: ScopeToggleGroup<Partial<ToggleGroupItemImplElement>>
+  $props: Partial<ToggleGroupItemImplElement>
 })
 
 export type { ToggleGroupItemImplProps }
