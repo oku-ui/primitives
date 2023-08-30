@@ -15156,7 +15156,7 @@ packages:
       escape-string-regexp: 5.0.0
       fast-glob: 3.3.0
       local-pkg: 0.4.3
-      magic-string: 0.30.3
+      magic-string: 0.30.1
       mlly: 1.4.0
       pathe: 1.1.1
       pkg-types: 1.0.3
