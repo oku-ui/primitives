@@ -57,21 +57,23 @@ const tooltipContent = defineComponent({
     const sideProps = computed(() => side.value || 'top')
 
     const forwardedRef = useForwardRef()
+
     const inject = useTooltipInject(CONTENT_NAME, scopeOkuTooltip.value)
+
     return () => h(OkuPresence, {
-      present: forceMountProps.value || inject.open.value,
+      present: computed(() => forceMountProps.value || inject.open.value).value,
     }, {
       default: () => inject.disableHoverableContent.value
         ? h(OkuTooltipContentImpl, {
-          ...mergeProps(attrs, propsa),
           side: sideProps.value,
+          ...mergeProps(attrs, propsa),
           ref: forwardedRef,
         }, {
           default: () => slots.default?.(),
         })
         : h(OkuTooltipContentHoverable, {
-          ...mergeProps(attrs, propsa),
           side: sideProps.value,
+          ...mergeProps(attrs, propsa),
           ref: forwardedRef,
         }, {
           default: () => slots.default?.(),

@@ -37,12 +37,12 @@ export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown']]
+  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
    * Can be prevented.
    */
-  pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside']]
+  pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
   close: []
 }
 
@@ -58,9 +58,9 @@ export const tooltipContentImplProps = {
   emits: {
     ...propsOmit(popperContentProps.emits, ['placed']),
     // eslint-disable-next-line unused-imports/no-unused-vars
-    escapeKeyDown: (event: KeyboardEvent) => true,
+    escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdownOutside: (event: PointerEvent) => true,
+    pointerdownOutside: (event: DismissableLayerEmits['pointerdownOutside'][0]) => true,
     close: () => true,
   },
 }
@@ -97,7 +97,7 @@ const tooltipContentImpl = defineComponent({
       if (inject.trigger.value) {
         const handleScroll = (event: Event) => {
           const target = event.target as HTMLElement
-          if (target.contains(inject.trigger.value))
+          if (target?.contains(inject.trigger.value))
             inject.onClose()
         }
         window.addEventListener('scroll', handleScroll, { capture: true })
@@ -116,13 +116,13 @@ const tooltipContentImpl = defineComponent({
       asChild: true,
       disableOutsidePointerEvents: false,
       onEscapeKeyDown(event) {
+        emit('escapeKeyDown', event)
+      },
+      onPointerdownOutside(event: TooltipContentImplEmits['pointerdownOutside'][0]) {
+        emit('pointerdownOutside', event)
+      },
+      onFocusoutSide(event) {
         event.preventDefault()
-      },
-      onPointerdownOutside(event: any) {
-        emit('pointerdownOutside', event)
-      },
-      onFocusoutSide(event: any) {
-        emit('pointerdownOutside', event)
       },
       onDismiss() {
         inject.onClose()
@@ -131,6 +131,7 @@ const tooltipContentImpl = defineComponent({
       default: () => h(OkuPopperContent, {
         'data-state': inject.stateAttribute.value,
         ...popperScope,
+        'asChild': props.asChild,
         ...mergeProps(restAttrs, contentProps),
         'ref': forwardedRef,
         'style': {

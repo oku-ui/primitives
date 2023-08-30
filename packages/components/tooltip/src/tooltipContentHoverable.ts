@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuTooltipContentImpl, type TooltipContentImplElement, type TooltipContentImplIntrinsicElement, type TooltipContentImplProps, tooltipContentImplProps } from './tooltipContentImpl'
@@ -42,7 +42,7 @@ const tooltipContentHoverable = defineComponent({
 
     const contentRef = ref<TooltipContentHoverableElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(contentRef, forwardedRef)
+    const composedRefs = useComposedRefs(forwardedRef, contentRef)
 
     const pointerGraceArea = ref<Polygon | null>(null)
 
@@ -84,12 +84,13 @@ const tooltipContentHoverable = defineComponent({
 
         inject.trigger.value.addEventListener('pointerleave', handleTriggerLeave)
         contentRef.value.addEventListener('pointerleave', handleContentLeave)
-
         onCleanup(() => {
           inject.trigger.value?.removeEventListener('pointerleave', handleTriggerLeave)
           contentRef.value?.removeEventListener('pointerleave', handleContentLeave)
         })
       }
+    }, {
+      flush: 'pre',
     })
 
     watchEffect((onCleanup) => {
@@ -101,10 +102,10 @@ const tooltipContentHoverable = defineComponent({
             y: event.clientY,
           }
 
-          const hasEnteredTarget = computed(() => inject.trigger.value?.contains(target) || contentRef.value?.contains(target))
+          const hasEnteredTarget = inject.trigger.value?.contains(target) || contentRef.value?.contains(target)
+          const isPointerOutsideGraceArea = !isPointInPolygon(pointerPosition, pointerGraceArea.value!)
 
-          const isPointerOutsideGraceArea = isPointInPolygon(pointerPosition, pointerGraceArea.value!)
-          if (hasEnteredTarget.value) {
+          if (hasEnteredTarget) {
             handleRemoveGraceArea()
           }
           else if (isPointerOutsideGraceArea) {
@@ -118,6 +119,8 @@ const tooltipContentHoverable = defineComponent({
           document.removeEventListener('pointermove', handleTrackPointerGrace)
         })
       }
+    }, {
+      flush: 'post',
     })
 
     return () => h(OkuTooltipContentImpl, {

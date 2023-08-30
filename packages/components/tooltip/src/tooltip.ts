@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, useModel, watchEffect } from 'vue'
+import { computed, defineComponent, h, onUnmounted, ref, toRefs, useModel } from 'vue'
 import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
@@ -71,11 +71,11 @@ export const tooltipProps = {
     },
     delayDuration: {
       type: Number as PropType<number | undefined>,
-      default: undefined,
+      default: 700,
     },
     disableHoverableContent: {
       type: Boolean as PropType<boolean | undefined>,
-      default: undefined,
+      default: false,
     },
     ...primitiveProps,
   },
@@ -160,10 +160,8 @@ const tooltip = defineComponent({
       }, delayDuration.value)
     }
 
-    watchEffect((onCleanup) => {
-      onCleanup(() => {
-        window.clearTimeout(openTimerRef.value)
-      })
+    onUnmounted(() => {
+      window.clearTimeout(openTimerRef.value)
     })
 
     tooltipProvide({
@@ -182,10 +180,13 @@ const tooltip = defineComponent({
           handleOpen()
       },
       onTriggerLeave: () => {
-        if (disableHoverableContent.value)
+        if (disableHoverableContent.value) {
           handleClose()
-        else
+        }
+        else {
+          // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
           window.clearTimeout(openTimerRef.value)
+        }
       },
       onOpen: () => handleOpen(),
       onClose: () => handleClose(),

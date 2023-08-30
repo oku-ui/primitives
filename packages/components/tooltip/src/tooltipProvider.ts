@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { defineComponent, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, onMounted, onUnmounted, ref, toRefs } from 'vue'
 import { DEFAULT_DELAY_DURATION, createTooltipProvide } from './utils'
 import { scopeTooltipProps } from './types'
 
@@ -73,12 +73,14 @@ const tooltipProvider = defineComponent({
     const isOpenDelayed = ref(true)
     const isPointerInTransitRef = ref(false)
     const skipDelayTimerRef = ref(0)
+    const skipDelayTimer = ref()
 
-    watchEffect((onClean) => {
-      const skipDelayTimer = skipDelayTimerRef.value
-      onClean(() => {
-        window.clearTimeout(skipDelayTimer)
-      })
+    onMounted(() => {
+      skipDelayTimer.value = skipDelayTimerRef.value
+    })
+
+    onUnmounted(() => {
+      window.clearTimeout(skipDelayTimer.value)
     })
 
     tooltipProviderProvide({

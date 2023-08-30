@@ -41,7 +41,7 @@ const tooltipTrigger = defineComponent({
   name: TRIGGER_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
+    ...tooltipTriggerProps.props,
     ...scopeTooltipProps,
   },
   emits: tooltipTriggerProps.emits,
@@ -52,7 +52,9 @@ const tooltipTrigger = defineComponent({
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(buttonRef, forwardedRef)
+    const composedRefs = useComposedRefs(buttonRef, forwardedRef, (el) => {
+      inject.onTriggerChange(el as TooltipTriggerElement)
+    })
 
     const isPointerDownRef = ref(false)
     const hasPointerMoveOpenedRef = ref(false)
@@ -76,6 +78,7 @@ const tooltipTrigger = defineComponent({
         'aria-describedby': inject.open.value ? inject.contentId.value : undefined,
         'data-state': inject.stateAttribute.value,
         ...attrs,
+        'asChild': props.asChild,
         'ref': composedRefs,
         'onPointermove': composeEventHandlers<PointerEvent>((el) => {
           emit('pointermove', el)
