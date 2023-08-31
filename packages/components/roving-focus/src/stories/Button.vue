@@ -43,7 +43,7 @@ const useAttras = useAttrs()
     <button
       v-bind="useAttras"
       :disabled="disabled"
-      class="w-40 h-6 text-white rounded-sm disabled:opacity-50"
+      class="m-2 w-40 h-6 text-white rounded-sm disabled:opacity-50"
       :class="{
         'bg-blue-500': isSelected,
         'bg-gray-500': !isSelected,

@@ -7,7 +7,7 @@ interface StoryProps extends ICheckBoxProps {
 }
 
 const meta = {
-  title: 'Utilities/RovingFocus',
+  title: 'Utilities/RovingFocusGroup',
   args: {
     template: '#1',
   },
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Styled: Story = {
+export const Basic: Story = {
   args: {
     template: '#1',
     allshow: true,
