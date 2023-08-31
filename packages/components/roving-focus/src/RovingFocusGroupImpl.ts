@@ -1,15 +1,14 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRef, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, toRef, toRefs, unref, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { ElementType } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { Direction, ScopeRovingFocus } from './utils'
-import { focusFirst } from './utils'
-import type { RovingFocusGroupOptions } from './RovingFocusGroup'
-import { rovingFocusGroupOptionsProps, rovingFocusProvider, useCollection } from './RovingFocusGroup'
+import type { Direction, RovingFocusGroupOptions, ScopeRovingFocus } from './utils'
+import { focusFirst, rovingFocusGroupOptionsProps } from './utils'
+import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
 import { scopedProps } from './types'
 
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
