@@ -64,14 +64,15 @@ const RovingFocusGroupImpl = defineComponent({
     const {
       orientation,
       loop,
-      dir,
       currentTabStopId: currentTabStopIdProp,
       defaultCurrentTabStopId,
       onEntryFocus,
       asChild,
       scopeOkuRovingFocusGroup,
+      dir,
       ...propsData
     } = toRefs(props)
+
     const buttonRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
