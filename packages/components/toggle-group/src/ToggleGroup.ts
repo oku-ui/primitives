@@ -1,5 +1,5 @@
 import { primitiveProps } from '@oku-ui/primitive'
-import { defineComponent, h, mergeProps, toRef } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { Ref } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 
