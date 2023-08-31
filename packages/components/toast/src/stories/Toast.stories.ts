@@ -3,15 +3,15 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import type { IToastProps } from './ToastDemo.vue'
 import OkuToastComponent from './ToastDemo.vue'
 
-interface StoryProps extends IToastProps {}
+interface StoryProps extends IToastProps { }
 
 const meta = {
   title: 'Components/Toast',
+  component: OkuToastComponent,
+  tags: ['autodocs'],
   args: {
     template: '#1',
   },
-  component: OkuToastComponent,
-  tags: ['autodocs'],
 } satisfies Meta<typeof OkuToastComponent> & {
   args: StoryProps
 }
@@ -24,9 +24,7 @@ type Story = StoryObj<typeof meta> & {
 export const Styled: Story = {
   args: {
     template: '#1',
-    // allShow: true,
   },
-
   render: (args: any) => ({
     components: { OkuToastComponent },
     setup() {
@@ -38,27 +36,99 @@ export const Styled: Story = {
   }),
 }
 
-export const Form: Story = {
-  args: {
-    template: '#3',
-    // allShow: true,
-  },
-
-  render: (args: any) => ({
-    components: { OkuToastComponent },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuToastComponent v-bind="args" />
-    `,
-  }),
-}
-
-export const Chromatic: Story = {
+export const Controlled: Story = {
   args: {
     template: '#2',
-    allshow: false,
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
+
+// export const FromDialog: Story = {
+//   args: {
+//     template: '#3',
+//   },
+//   render: (args: any) => ({
+//     components: { OkuToastComponent },
+//     setup() {
+//       return { args }
+//     },
+//     template: `
+//       <OkuToastComponent v-bind="args" />
+//     `,
+//   }),
+// }
+
+export const Promise: Story = {
+  args: {
+    template: '#4',
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const KeyChange: Story = {
+  args: {
+    template: '#5',
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const PauseResumeProps: Story = {
+  args: {
+    template: '#6',
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Animated: Story = {
+  args: {
+    template: '#7',
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Cypress: Story = {
+  args: {
+    template: '#8',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
