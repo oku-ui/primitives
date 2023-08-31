@@ -5,9 +5,9 @@ import { OkuSeparator, separatorProps } from '@oku-ui/separator'
 import { scopeToolbarProps } from './utils'
 import { useToolbarInject } from './toolbar'
 
-const SEPARATOR_NAME = 'OkuToolbarSeperator'
+const SEPARATOR_NAME = 'OkuToolbarSeparator'
 
-export type ToolbarSeperatorIntrinsicElement = SeparatorIntrinsicElement
+export type ToolbarSeparatorIntrinsicElement = SeparatorIntrinsicElement
 
 export interface ToolbarSeparatorProps extends SeparatorProps {}
 
@@ -39,7 +39,7 @@ const toolbarSeparator = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuToolbarSeperator = toolbarSeparator as typeof toolbarSeparator &
+export const OkuToolbarSeparator = toolbarSeparator as typeof toolbarSeparator &
 (new () => {
   $props: Partial<SeparatorElement>
 })

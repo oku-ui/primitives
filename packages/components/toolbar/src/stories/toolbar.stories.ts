@@ -1,28 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { OkuLabelProps } from './ToolbarDemo.vue'
-import OkuToolbarComponent from './ToolbarDemo.vue'
+import type { OkuToolbarProps } from './ToolbarDemo.vue'
+import ToolbarDemo from './ToolbarDemo.vue'
 
-interface StoryProps extends OkuLabelProps {
+interface StoryProps extends OkuToolbarProps {
 }
 
 const meta = {
   title: 'Components/Toolbar',
-  component: OkuToolbarComponent,
+  component: ToolbarDemo,
   args: {
-    label: 'Label',
-    template: '#1',
+    template: 'Styled',
   },
   argTypes: {
-    label: {
-      control: 'text',
-    },
     template: {
       control: 'text',
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof OkuToolbarComponent> & {
+} satisfies Meta<typeof ToolbarDemo> & {
   args: StoryProps
 }
 
@@ -33,32 +29,15 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    label: 'Label',
-    template: '#1',
+    template: 'Styled',
   },
   render: (args: any) => ({
-    components: { OkuToolbarComponent },
+    components: { ToolbarDemo },
     setup() {
       return { args }
     },
     template: `
-      <OkuToolbarComponent v-bind="args" />
-    `,
-  }),
-}
-
-export const WithControl: Story = {
-  args: {
-    label: 'Label',
-    template: '#2',
-  },
-  render: (args: any) => ({
-    components: { OkuToolbarComponent },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuToolbarComponent v-bind="args" />
+      <ToolbarDemo v-bind="args" />
     `,
   }),
 }
