@@ -167,9 +167,7 @@ const RovingFocusGroupImpl = defineComponent({
         }, () => {
           isTabbingBackOut.value = false
         }),
-      }, {
-        default: () => slots.default?.(),
-      })
+      }, slots)
     }
   },
 })
