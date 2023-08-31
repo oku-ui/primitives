@@ -39,8 +39,8 @@ const popperArrow = defineComponent({
     ...scopePopperProps,
   },
   setup(props, { attrs }) {
-    const { height, width } = toRefs(props)
-    const contentInject = usePopperContentInject(ARROW_NAME, props.scopeOkuPopper)
+    const { height, width, asChild, scopeOkuPopper } = toRefs(props)
+    const contentInject = usePopperContentInject(ARROW_NAME, scopeOkuPopper.value)
     const baseSide = computed(() => {
       return OPPOSITE_SIDE[contentInject.placedSide.value]
     })
@@ -80,7 +80,7 @@ const popperArrow = defineComponent({
         [
           h(OkuArrow, {
             ...attrs,
-            asChild: props.asChild,
+            asChild: asChild.value,
             ref: forwardedRef,
             width: width.value,
             height: height.value,
