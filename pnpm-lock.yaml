@@ -97,6 +97,9 @@ importers:
       '@oku-ui/toolbar':
         specifier: workspace:^
         version: link:packages/components/toolbar
+      '@oku-ui/tooltip':
+        specifier: workspace:^
+        version: link:packages/components/tooltip
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:packages/core/use-composable
@@ -333,7 +336,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -660,7 +663,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -716,7 +719,7 @@ importers:
         specifier: latest
         version: link:../../core/utils
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -749,6 +752,46 @@ importers:
       '@oku-ui/utils':
         specifier: latest
         version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/tooltip:
+    dependencies:
+      '@oku-ui/dismissable-layer':
+        specifier: latest
+        version: link:../dismissable-layer
+      '@oku-ui/popper':
+        specifier: latest
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: latest
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: latest
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      '@oku-ui/visually-hidden':
+        specifier: latest
+        version: link:../visually-hidden
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -824,7 +867,7 @@ importers:
         specifier: ^10.3.0
         version: 10.3.0(vue@3.3.4)
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       '@types/resize-observer-browser':

@@ -21,7 +21,7 @@ const visuallyHidden = defineComponent({
   props: {
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const { ...visuallyHiddenAttrs } = attrs as VisuallyHiddenIntrinsicElement
 
     const forwardedRef = useForwardRef()
@@ -44,7 +44,7 @@ const visuallyHidden = defineComponent({
           wordWrap: 'normal',
           ...(visuallyHiddenAttrs.style as CSSProperties),
         },
-      })
+      }, slots)
 
     return originalReturn
   },

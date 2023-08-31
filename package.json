@@ -2,7 +2,7 @@
   "name": "primitives",
   "type": "module",
   "version": "0.3.0",
-  "packageManager": "pnpm@8.6.9",
+  "packageManager": "pnpm@8.7.0",
   "repository": "oku-ui/primitives",
   "engines": {
     "node": ">=18"
@@ -64,6 +64,7 @@
     "@oku-ui/toggle": "workspace:^",
     "@oku-ui/toggle-group": "workspace:^",
     "@oku-ui/toolbar": "workspace:^",
+    "@oku-ui/tooltip": "workspace:^",
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^",

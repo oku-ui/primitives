@@ -6,14 +6,15 @@ const external = [
   ...Object.keys(pkg.peerDependencies || {}),
 ]
 
-export default defineConfig((_options) => {
+export default defineConfig((options) => {
   return [
     {
+      ...options,
       entryPoints: ['src/index.ts'],
       external,
       dts: true,
-      outDir: './dist',
-      target: 'es2022',
+      clean: true,
+      target: 'node16',
       format: ['esm'],
       outExtension: () => ({ js: '.mjs' }),
     },

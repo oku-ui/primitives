@@ -1,81 +1,86 @@
-import { computed, defineComponent, h, mergeProps, ref, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, ref, toRefs, useModel } from 'vue'
 import type { PropType } from 'vue'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-import type { ScopeToggleGroup } from './utils'
 import { scopeToggleGroupProps } from './utils'
 import { OkuToggleGroupImpl, type ToggleGroupImplElement, type ToggleGroupImplIntrinsicElement, type ToggleGroupImplProps, toggleGroupImplProps } from './ToggleGroupImpl'
 import { toggleGroupValueProvider } from './ToggleGroup'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupImplSingle'
 
-export type ToggleGroupImplSingleIntrinsicElement = ToggleGroupImplIntrinsicElement
-export type ToggleGroupImplSingleElement = ToggleGroupImplElement
+export type ToggleGroupImplItemIntrinsicElement = ToggleGroupImplIntrinsicElement
+export type ToggleGroupImplItemElement = ToggleGroupImplElement
 
-export interface ToggleGroupImplSingleProps extends ToggleGroupImplProps {
+export interface ToggleGroupImplItemProps extends ToggleGroupImplProps {
+  type: 'single' | 'multiple'
   /**
    * The controlled stateful value of the item that is pressed.
    */
-  value?: string
+  value?: string | string[]
   /**
    * The value of the item that is pressed when initially rendered. Use
    * `defaultValue` if you do not need to control the state of a toggle group.
    */
-  defaultValue?: string
+  defaultValue?: string | string[]
 }
 
-export type ToggleGroupImplSingleEmits = {
-  'update:modelValue': [value: string]
+export type ToggleGroupImplItemEmits = {
+  'update:modelValue': [value: string | string[]]
   /**
    * The callback that fires when the value of the toggle group changes.
    */
-  'valueChange': [value: string]
+  'valueChange': [value: string | string[]]
 }
 
-export const toggleGroupImplSingleProps = {
+export const toggleGroupImplItemProps = {
   props: {
+    type: {
+      type: [String] as PropType<'single' | 'multiple'>,
+      required: true,
+    },
     modelValue: {
-      type: [String] as PropType<string | undefined>,
+      type: [String, Array] as PropType<string | string[] | undefined>,
       default: undefined,
       required: false,
     },
     value: {
-      type: [String] as PropType<string | undefined>,
+      type: [String, Array] as PropType<string | string[] | undefined>,
       default: undefined,
       required: false,
     },
     defaultValue: {
-      type: [String] as PropType<string | undefined>,
+      type: [String, Array] as PropType<string | string[] | undefined>,
       default: undefined,
     },
     ...toggleGroupImplProps.props,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    'update:modelValue': (value: string) => true,
+    'update:modelValue': (value: string | string[]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    'valueChange': (value: string) => true,
+    'valueChange': (value: string | string[]) => true,
   },
 }
 
-const toggleGroupImplSingle = defineComponent({
+const toggleGroupImplItem = defineComponent({
   name: TOGGLE_GROUP_NAME,
   inheritAttrs: false,
   props: {
-    ...toggleGroupImplSingleProps.props,
+    ...toggleGroupImplItemProps.props,
     ...scopeToggleGroupProps,
   },
-  emits: toggleGroupImplSingleProps.emits,
+  emits: toggleGroupImplItemProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
+      value: valueProp,
+      defaultValue,
+      type,
       dir,
       disabled,
       loop,
+      asChild,
       orientation,
       rovingFocus,
-      value: valueProp,
-      defaultValue,
-
     } = toRefs(props)
     const forwardedRef = useForwardRef()
     const modelValue = useModel(props, 'modelValue')
@@ -97,23 +102,49 @@ const toggleGroupImplSingle = defineComponent({
       },
     })
 
+    const handleButtonActivate = (itemValue: string) => {
+      if (type.value === 'multiple')
+        updateValue([...state.value || [], itemValue])
+      else
+        updateValue(itemValue)
+    }
+
+    const handleButtonDeactivate = (itemValue: string) => {
+      if (type.value === 'multiple' && typeof state.value === 'object')
+        updateValue(state.value?.filter(value => value !== itemValue))
+      else
+        updateValue('')
+    }
+
     toggleGroupValueProvider({
       scope: props.scopeOkuToggleGroup,
-      value: computed(() => state.value ? [state.value] : []),
+      value: computed(() => {
+        if (type.value === 'single' && typeof state.value === 'string')
+          return state.value ? [state.value] : []
+        else if (typeof state.value === 'object')
+          return state.value || []
+        else
+          return []
+      }),
       onItemActivate: (value: string) => {
-        updateValue(value)
+        handleButtonActivate(value)
       },
-      onItemDeactivate: () => {
-        updateValue('')
+      onItemDeactivate: (value: string) => {
+        if (type.value === 'single')
+          handleButtonDeactivate('')
+        else if (type.value === 'multiple')
+          handleButtonDeactivate(value)
       },
       type: ref('single'),
     })
 
     return () => h(OkuToggleGroupImpl, {
-      ...mergeProps(attrs),
+      ...attrs,
+      type: type.value,
       dir: dir.value,
       disabled: disabled.value,
       loop: loop.value,
+      asChild: asChild.value,
       orientation: orientation.value,
       rovingFocus: rovingFocus.value,
       scopeOkuToggleGroup: props.scopeOkuToggleGroup,
@@ -122,7 +153,7 @@ const toggleGroupImplSingle = defineComponent({
   },
 })
 
-export const OkuToggleGroupImplSingle = toggleGroupImplSingle as typeof toggleGroupImplSingle &
+export const OkuToggleGroupImplItem = toggleGroupImplItem as typeof toggleGroupImplItem &
 (new () => {
-  $props: ScopeToggleGroup<Partial<ToggleGroupImplSingleElement>>
+  $props: Partial<ToggleGroupImplItemElement>
 })

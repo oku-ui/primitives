@@ -113,7 +113,7 @@ export const popperContentProps = {
       default: 'optimized',
     },
   },
-  emit: {
+  emits: {
     placed: () => true,
   },
 }
@@ -126,7 +126,7 @@ const PopperContent = defineComponent({
     ...scopePopperProps,
     ...primitiveProps,
   },
-  emits: popperContentProps.emit,
+  emits: popperContentProps.emits,
   setup(props, { attrs, slots }) {
     const {
       side,
