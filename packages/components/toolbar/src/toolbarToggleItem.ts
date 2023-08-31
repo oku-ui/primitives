@@ -57,5 +57,5 @@ const toolbarToggleItem = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarToggleItem = toolbarToggleItem as typeof toolbarToggleItem &
 (new () => {
-  $props: ScopeToolbar<Partial<ToggleItemElement>>
+  $props: Partial<ToggleItemElement>
 })
