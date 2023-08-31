@@ -179,33 +179,42 @@ function handleDir() {
         </OkuRovingFocusGroupItem>
       </OkuRovingFocusGroup> -->
     </div>
-    <!-- <div v-if="template === '#2' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <ButtonProvide>
-        <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
-          <Button value="2">
+    <div v-if="template === '#2' || allshow" class="rounded-sm overflow-hidden">
+      <ButtonGroup orientation="vertical" loop>
+        <Button value="1">
+          1
+        </Button>
+
+        <div style="display: flex;flex-direction: column;">
+          <Button value="2" class="mb-2">
             2
           </Button>
-          <div class="flex flex-col my-4">
-            <OkuRovingFocusGroup class="flex" orientation="horizontal" loop>
-              <Button value="2.1">
-                2.1
-              </Button>
-              <Button value="2.2">
-                2.2
-              </Button>
-            </OkuRovingFocusGroup>
-          </div>
-          <Button value="3" disabled>
-            3
-          </Button>
 
-          <Button value="4">
-            4
-          </Button>
-        </OkuRovingFocusGroup>
-      </ButtonProvide>
+          <ButtonGroup orientation="horizontal" loop>
+            <Button value="2.1">
+              2.1
+            </Button>
+            <Button value="2.2">
+              2.2
+            </Button>
+            <Button disabled value="2.3">
+              2.3
+            </Button>
+            <Button value="2.4">
+              2.4
+            </Button>
+          </ButtonGroup>
+        </div>
+
+        <Button value="3" disabled>
+          3
+        </Button>
+        <Button value="4">
+          4
+        </Button>
+      </ButtonGroup>
     </div>
-    <div v-if="template === '#3' || allshow" class="w-[300px] rounded-sm overflow-hidden">
+    <!-- <div v-if="template === '#3' || allshow" class="w-[300px] rounded-sm overflow-hidden">
       <div class="flex space-x-5 w-full">
         <button @click="extra = !extra">
           Toggle extra

@@ -38,7 +38,7 @@ export const Basic: Story = {
   }),
 }
 
-export const Group: Story = {
+export const Nested: Story = {
   args: {
     template: '#2',
     allshow: false,
