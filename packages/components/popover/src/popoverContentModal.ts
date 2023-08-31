@@ -69,8 +69,8 @@ const popoverContentModal = defineComponent({
           if (!isRightClickOutsideRef.value)
             inject.triggerRef.value?.focus()
         }),
-        onPointerDownOutside: composeEventHandlers<PopoverContentTypeEmits['pointerDownOutside'][0]>((el) => {
-          emit('pointerDownOutside', el)
+        onPointerdownOutside: composeEventHandlers<PopoverContentTypeEmits['pointerdownOutside'][0]>((el) => {
+          emit('pointerdownOutside', el)
         }, (event) => {
           const originalEvent = event.detail.originalEvent
           const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true
@@ -80,8 +80,8 @@ const popoverContentModal = defineComponent({
         }, { checkForDefaultPrevented: false }),
         // When focus is trapped, a `focusout` event may still happen.
         // We make sure we don't trigger our `onDismiss` in such case.
-        onFocusOutside: composeEventHandlers<PopoverContentTypeEmits['focusOutside'][0]>((el) => {
-          emit('focusOutside', el)
+        onFocusoutSide: composeEventHandlers<PopoverContentTypeEmits['focusoutSide'][0]>((el) => {
+          emit('focusoutSide', el)
         }, event => event.preventDefault(),
         { checkForDefaultPrevented: false }),
       }, {

@@ -101,11 +101,11 @@ const popoverContentImpl = defineComponent({
         onEscapeKeyDown: (event) => {
           emit('escapeKeyDown', event)
         },
-        onPointerDownOutside: (event) => {
-          emit('pointerDownOutside', event)
+        onPointerdownOutside: (event) => {
+          emit('pointerdownOutside', event)
         },
-        onFocusOutside: (event) => {
-          emit('focusOutside', event)
+        onFocusoutSide: (event) => {
+          emit('focusoutSide', event)
         },
         onDismiss: () => {
           inject.onOpenChange(false)

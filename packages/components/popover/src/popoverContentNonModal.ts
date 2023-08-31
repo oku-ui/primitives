@@ -49,8 +49,8 @@ const popoverContentNonModal = defineComponent({
           hasInteractedOutsideRef.value = false
           hasPointerDownOutsideRef.value = false
         }),
-        onFocusOutside: composeEventHandlers<PopoverContentTypeEmits['focusOutside'][0]>((event) => {
-          emit('focusOutside', event)
+        onFocusoutSide: composeEventHandlers<PopoverContentTypeEmits['focusoutSide'][0]>((event) => {
+          emit('focusoutSide', event)
           if (!event.defaultPrevented) {
             hasInteractedOutsideRef.value = true
             if (event.detail.originalEvent.type === 'pointerdown')
