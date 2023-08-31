@@ -12,7 +12,7 @@ import type { ToggleGroupImplElement, ToggleGroupImplIntrinsicElement } from './
 import type { ToggleGroupVariantEmits, ToggleGroupVariantProps } from './ToggleGroupVariant'
 import { OkuToggleGroupVariant, toggleGroupVariantProps } from './ToggleGroupVariant'
 
-export const TOGGLE_GROUP_NAME = 'OkuRadioGroup'
+export const TOGGLE_GROUP_NAME = 'OkuToggleGroup'
 
 export const [createToggleGroupProvide, createToggleGroupScope] = createProvideScope(TOGGLE_GROUP_NAME, [
   createRovingFocusGroupScope,
@@ -64,11 +64,7 @@ const toggleGroup = defineComponent({
   emits: toggleGroupProps.emits,
   setup(props, { slots, attrs }) {
     const forwardedRef = useForwardRef()
-    const type = toRef(props, 'type')
     return () => {
-      if (!type.value)
-        throw new Error(`Missing prop \`type\` expected on \`${TOGGLE_GROUP_NAME}\``)
-
       return h(OkuToggleGroupVariant, {
         ...mergeProps(attrs, props),
         ref: forwardedRef,

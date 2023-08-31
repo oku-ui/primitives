@@ -94,7 +94,7 @@ const toolbar = defineComponent({
         dir: direction.value,
         ...attrs,
         ref: forwardedRef,
-      }),
+      }, slots),
     })
   },
 })

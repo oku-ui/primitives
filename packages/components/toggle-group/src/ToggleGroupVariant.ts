@@ -36,7 +36,7 @@ export const toggleGroupVariantProps = {
   props: {
     type: {
       type: [String] as PropType<'single' | 'multiple'>,
-      required: true,
+      default: 'single',
     },
     modelValue: {
       type: [String, Array] as PropType<string | string[] | undefined>,
