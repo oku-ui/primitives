@@ -1,98 +1,73 @@
+import { useForwardRef } from '@Oku-ui/use-composable'
+import { defineComponent, h, toRefs } from 'vue'
+import { OkuPresence } from '@Oku-ui/presence'
+import { primitiveProps } from '@Oku-ui/primitive'
+import { scopedProps } from './types'
+import type { ScrollAreaThumbImplElement, ScrollAreaThumbImplIntrinsicElement, ScrollAreaThumbImplProps } from './scroll-area-thumb-impl'
+import { OkuScrollAreaThumbImpl } from './scroll-area-thumb-impl'
+
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaThumb
  * ----------------------------------------------------------------------------------------------- */
 
-// import { useComposedRefs } from "@Oku-ui/use-composable";
-// import { addUnlinkedScrollListener, useDebounceCallback } from "./utils";
+export const THUMB_NAME = 'ScrollAreaThumb'
 
-// const THUMB_NAME = 'ScrollAreaThumb';
+export type ScrollAreaThumbIntrinsicElement = ScrollAreaThumbImplIntrinsicElement
+type ScrollAreaThumbElement = ScrollAreaThumbImplElement
 
-// type ScrollAreaThumbElement = ScrollAreaThumbImplElement;
-// interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
-//   /**
-//    * Used to force mounting when more control is needed. Useful when
-//    * controlling animation with React animation libraries.
-//    */
-//   forceMount?: true;
-// }
+interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
+  forceMount?: true
+}
 
-// const ScrollAreaThumb = React.forwardRef<ScrollAreaThumbElement, ScrollAreaThumbProps>(
-//   (props: ScopedProps<ScrollAreaThumbProps>, forwardedRef) => {
-//     const { forceMount, ...thumbProps } = props;
-//     const scrollbarContext = useScrollbarContext(THUMB_NAME, props.__scopeScrollArea);
-//     return (
-//       <Presence present={forceMount || scrollbarContext.hasThumb}>
-//         <ScrollAreaThumbImpl ref={forwardedRef} {...thumbProps} />
-//       </Presence>
-//     );
-//   }
-// );
+const scrollAreaThumbProps = {
+  forceMount: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+}
 
-// type ScrollAreaThumbImplElement = React.ElementRef<typeof Primitive.div>;
-// interface ScrollAreaThumbImplProps extends PrimitiveDivProps {}
+const scrollAreaThumb = defineComponent({
+  name: THUMB_NAME,
+  inheritAttrs: false,
+  props: {
+    ...scrollAreaThumbProps,
+    ...scopedProps,
+    ...primitiveProps,
+  },
+  setup(props, { attrs }) {
+    const { ...ScrollAreaThumbAttrs } = attrs as ScrollAreaThumbIntrinsicElement
 
-// const ScrollAreaThumbImpl = React.forwardRef<ScrollAreaThumbImplElement, ScrollAreaThumbImplProps>(
-//   (props: ScopedProps<ScrollAreaThumbImplProps>, forwardedRef) => {
-//     const { __scopeScrollArea, style, ...thumbProps } = props;
-//     const scrollAreaContext = useScrollAreaContext(THUMB_NAME, __scopeScrollArea);
-//     const scrollbarContext = useScrollbarContext(THUMB_NAME, __scopeScrollArea);
-//     const { onThumbPositionChange } = scrollbarContext;
-//     const composedRef = useComposedRefs(forwardedRef, (node) =>
-//       scrollbarContext.onThumbChange(node)
-//     );
-//     const removeUnlinkedScrollListenerRef = React.useRef<() => void>();
-//     const debounceScrollEnd = useDebounceCallback(() => {
-//       if (removeUnlinkedScrollListenerRef.current) {
-//         removeUnlinkedScrollListenerRef.current();
-//         removeUnlinkedScrollListenerRef.current = undefined;
-//       }
-//     }, 100);
+    const forwardedRef = useForwardRef()
 
-//     React.useEffect(() => {
-//       const viewport = scrollAreaContext.viewport;
-//       if (viewport) {
-//         /**
-//          * We only bind to native scroll event so we know when scroll starts and ends.
-//          * When scroll starts we start a requestAnimationFrame loop that checks for
-//          * changes to scroll position. That rAF loop triggers our thumb position change
-//          * when relevant to avoid scroll-linked effects. We cancel the loop when scroll ends.
-//          * https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Scroll-linked_effects
-//          */
-//         const handleScroll = () => {
-//           debounceScrollEnd();
-//           if (!removeUnlinkedScrollListenerRef.current) {
-//             const listener = addUnlinkedScrollListener(viewport, onThumbPositionChange);
-//             removeUnlinkedScrollListenerRef.current = listener;
-//             onThumbPositionChange();
-//           }
-//         };
-//         onThumbPositionChange();
-//         viewport.addEventListener('scroll', handleScroll);
-//         return () => viewport.removeEventListener('scroll', handleScroll);
-//       }
-//     }, [scrollAreaContext.viewport, debounceScrollEnd, onThumbPositionChange]);
+    const { forceMount } = toRefs(props)
 
-//     return (
-// <Primitive.div
-//   data-state={scrollbarContext.hasThumb ? 'visible' : 'hidden'}
-//   {...thumbProps}
-//   ref={composedRef}
-//   style={{
-//     width: 'var(--@Oku-scroll-area-thumb-width)',
-//     height: 'var(--@Oku-scroll-area-thumb-height)',
-//     ...style,
-//   }}
-//   onPointerDownCapture={composeEventHandlers(props.onPointerDownCapture, (event) => {
-//     const thumb = event.target as HTMLElement;
-//     const thumbRect = thumb.getBoundingClientRect();
-//     const x = event.clientX - thumbRect.left;
-//     const y = event.clientY - thumbRect.top;
-//     scrollbarContext.onThumbPointerDown({ x, y });
-//   })}
-//   onPointerUp={composeEventHandlers(props.onPointerUp, scrollbarContext.onThumbPointerUp)}
-// />
-//     );
-//   }
-// );
+    const scrollbarContext = useScrollbarContext(THUMB_NAME, props.scopeOkuScrollArea)
 
-// ScrollAreaThumb.displayName = THUMB_NAME;
+    const originalReturn = () =>
+      h(
+        OkuPresence,
+        {
+          present: forceMount.value || scrollbarContext.hasThumb,
+        },
+        h(
+          OkuScrollAreaThumbImpl,
+          {
+            ref: forwardedRef,
+            ...ScrollAreaThumbAttrs,
+          },
+        ),
+      )
+
+    return originalReturn
+  },
+})
+
+export const OkuScrollAreaThumb = scrollAreaThumb as typeof scrollAreaThumb &
+(new () => { $props: Partial<ScrollAreaThumbElement> })
+
+export type { ScrollAreaThumbElement, ScrollAreaThumbProps }
