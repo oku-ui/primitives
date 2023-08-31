@@ -3,7 +3,6 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { ToggleGroupProps } from '@oku-ui/toggle-group'
 import { OkuToggleGroup } from '@oku-ui/toggle-group'
-import type { ScopeToolbar } from './utils'
 import { scopeToolbarProps } from './utils'
 import { useToggleGroupScope, useToolbarInject } from './toolbar'
 
