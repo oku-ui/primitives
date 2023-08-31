@@ -2,7 +2,8 @@ import { defineComponent, h } from 'vue'
 import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { OkuToggleGroupItem } from '@oku-ui/toggle-group'
+import type { ToggleGroupItemProps } from '@oku-ui/toggle-group'
+import { OkuToggleGroupItem, toggleGroupItemProps } from '@oku-ui/toggle-group'
 import type { ScopeToolbar } from './utils'
 import { scopeToolbarProps } from './utils'
 import { useToggleGroupScope } from './toolbar'
@@ -10,7 +11,6 @@ import { OkuToolbarButton } from './toolbarButton'
 
 const TOGGLE_ITEM_NAME = 'OkuToolbarToggleItem'
 
-// TODO
 export type ToolbarToggleItemIntrinsicElement = ElementType<'div'>
 export type ToggleItemElement = HTMLDivElement
 export interface ToolbarToggleItemProps extends ToggleGroupItemProps {}
@@ -18,6 +18,10 @@ export interface ToolbarToggleItemProps extends ToggleGroupItemProps {}
 export const toolbarToggleItemProps = {
   props: {
     ...primitiveProps,
+    ...toggleGroupItemProps.props,
+  },
+  emits: {
+    ...toggleGroupItemProps.emits,
   },
 }
 
@@ -30,23 +34,21 @@ const toolbarToggleItem = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const toggleGroupScope = useToggleGroupScope(props.scopeOkuToolbar)
-    const scope = { ...props.scopeOkuToolbar }
-    /* const {
-      orientation: ,
-    } = toRefs(props) */
-
-    const { ...restAttrs } = attrs as ToolbarToggleItemIntrinsicElement
-    // const { __scopeToolbar, ...toolbarProps } = props;
+    const scope = { scopeOkuToolbar: props.scopeOkuToolbar }
 
     const forwardedRef = useForwardRef()
 
     return () => h(OkuToolbarButton, {
-      asChild: { ...scope },
+      asChild: true,
+      ...scope,
     }, {
       default: () => h(OkuToggleGroupItem, {
         ...toggleGroupScope,
-        ...toggleItemProps,
+        ...attrs,
+        ...props,
         ref: forwardedRef,
+      }, {
+        default: () => slots.default?.(),
       }),
     })
   },

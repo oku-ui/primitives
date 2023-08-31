@@ -1,28 +1,22 @@
 import { defineComponent, h } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ToggleGroupProps } from '@oku-ui/toggle-group'
-import { OkuToggleGroup } from '@oku-ui/toggle-group'
+import type { ToggleGroupVariantElement, ToggleGroupVariantProps } from '@oku-ui/toggle-group'
+import { OkuToggleGroup, toggleGroupVariantProps } from '@oku-ui/toggle-group'
 import { scopeToolbarProps } from './utils'
 import { useToggleGroupScope, useToolbarInject } from './toolbar'
 
 const TOGGLE_GROUP_NAME = 'OkuToolbarToggleGroup'
 
-export interface ToolbarToggleGroupSingleProps extends Extract<ToggleGroupProps, { type: 'single' }> {}
-export interface ToolbarToggleGroupMultipleProps extends Extract<ToggleGroupProps, { type: 'multiple' }> {}
-
-export type ToolbarToggleGroup = ToolbarToggleGroupSingleProps | ToolbarToggleGroupMultipleProps
-
-export const toggleGroupProps = {
-  ...primitiveProps,
-  props: {
-    ...primitiveProps,
-  },
-}
+export type ToolbarToggleGroupProps = ToggleGroupVariantProps
 
 export const toolbarToggleGroupProps = {
   props: {
     ...primitiveProps,
+    ...toggleGroupVariantProps.props,
+  },
+  emits: {
+    ...toggleGroupVariantProps.emits,
   },
 }
 
@@ -34,23 +28,20 @@ const toolbarToggleGroup = defineComponent({
     ...scopeToolbarProps,
   },
   setup(props, { attrs, slots }) {
-    const context = useToolbarInject(TOGGLE_GROUP_NAME, props.scopeOkuToolbar)
+    const inject = useToolbarInject(TOGGLE_GROUP_NAME, props.scopeOkuToolbar)
     const toggleGroupScope = useToggleGroupScope(props.scopeOkuToolbar)
-    /* const {
-      orientation: ,
-    } = toRefs(props) */
-
-    // const { __scopeToolbar, ...toolbarProps } = props;
 
     const forwardedRef = useForwardRef()
 
     return () => h(OkuToggleGroup, {
-      'data-orientation': context.orientation.value,
-      'dir': context.dir,
+      'data-orientation': inject.orientation.value,
+      'dir': inject.dir.value,
       ...toggleGroupScope,
-      ...toggleGroupProps,
+      ...attrs,
       'ref': forwardedRef,
       'rovingFocus': false,
+    }, {
+      default: () => slots.default?.(),
     })
   },
 })
@@ -58,5 +49,5 @@ const toolbarToggleGroup = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarToggleGroup = toolbarToggleGroup as typeof toolbarToggleGroup &
 (new () => {
-  $props: Partial<ToggleGroupElement>
+  $props: Partial<ToggleGroupVariantElement>
 })
