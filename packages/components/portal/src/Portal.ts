@@ -17,14 +17,14 @@ export interface PortalProps extends PrimitiveProps {
   /**
    * An optional container where the portaled content should be appended.
    */
-  container?: HTMLElement | null | string
+  container?: HTMLElement | null | string | undefined
 }
 
 export const portalProps = {
   props: {
     ...primitiveProps,
     container: {
-      type: [Object, String] as PropType<HTMLElement | string>,
+      type: [Object, String] as PropType<HTMLElement | string | null | undefined>,
       default: () => globalThis?.document?.body,
     },
   },

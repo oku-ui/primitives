@@ -40,7 +40,7 @@ const popperAnchor = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { virtualRef } = toRefs(props)
+    const { virtualRef, asChild } = toRefs(props)
     const { ...attrsAnchor } = attrs as PopperAnchorIntrinsicElement
     const inject = usePopperInject(ANCHOR_NAME, props.scopeOkuPopper)
 
@@ -60,7 +60,7 @@ const popperAnchor = defineComponent({
           Primitive.div,
           {
             ...attrsAnchor,
-            asChild: props.asChild,
+            asChild: asChild.value,
             ref: composedRefs,
           },
           {

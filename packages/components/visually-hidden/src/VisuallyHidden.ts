@@ -29,7 +29,7 @@ const visuallyHidden = defineComponent({
     ...visuallyHiddenProps.props,
   },
   emits: visuallyHiddenProps.emits,
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const { ...visuallyHiddenAttrs } = attrs as VisuallyHiddenIntrinsicElement
 
     const forwardedRef = useForwardRef()
@@ -52,7 +52,7 @@ const visuallyHidden = defineComponent({
           wordWrap: 'normal',
           ...(visuallyHiddenAttrs.style as CSSProperties),
         },
-      })
+      }, slots)
 
     return originalReturn
   },

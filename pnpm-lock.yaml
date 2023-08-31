@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 overrides:
   '@vue/runtime-core': 3.3.4
   vite: 4.3.5
@@ -97,6 +93,9 @@ importers:
       '@oku-ui/toggle-group':
         specifier: workspace:^
         version: link:packages/components/toggle-group
+      '@oku-ui/tooltip':
+        specifier: workspace:^
+        version: link:packages/components/tooltip
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:packages/core/use-composable
@@ -752,6 +751,46 @@ importers:
       '@oku-ui/utils':
         specifier: latest
         version: link:../../core/utils
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/tooltip:
+    dependencies:
+      '@oku-ui/dismissable-layer':
+        specifier: latest
+        version: link:../dismissable-layer
+      '@oku-ui/popper':
+        specifier: latest
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: latest
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: latest
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      '@oku-ui/visually-hidden':
+        specifier: latest
+        version: link:../visually-hidden
       vue:
         specifier: 3.3.4
         version: 3.3.4
@@ -15576,3 +15615,7 @@ packages:
       compress-commons: 4.1.1
       readable-stream: 3.6.2
     dev: true
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

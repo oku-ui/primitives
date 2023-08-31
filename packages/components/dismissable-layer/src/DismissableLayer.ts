@@ -275,7 +275,6 @@ const DismissableLayer = defineComponent({
     onUnmounted(() => {
       document.removeEventListener(INJECT_UPDATE, handleUpdate)
     })
-
     const originalReturn = () =>
       h(
         Primitive.div,
@@ -291,7 +290,7 @@ const DismissableLayer = defineComponent({
               : undefined,
             ...(attrs.style as CSSPropertyRule),
           },
-          onFocusCapture: composeEventHandlers<FocusCaptureEvent>((e) => {
+          onFocuscapture: composeEventHandlers<FocusCaptureEvent>((e) => {
             emit('focusCapture', e)
           }, focusoutSide.onFocusCapture),
           onBlurCapture: composeEventHandlers<FocusBlurCaptureEvent>((e) => {

@@ -64,6 +64,7 @@
     "@oku-ui/toast": "workspace:^",
     "@oku-ui/toggle": "workspace:^",
     "@oku-ui/toggle-group": "workspace:^",
+    "@oku-ui/tooltip": "workspace:^",
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^",

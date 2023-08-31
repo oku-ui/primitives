@@ -3,7 +3,6 @@ import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
-import type { ScopeToggleGroup } from './utils'
 import { scopeToggleGroupProps } from './utils'
 import { OkuToggleGroupItemImpl, type ToggleGroupItemImplElement, type ToggleGroupItemImplIntrinsicElement, type ToggleGroupItemImplProps, toggleGroupItemImplProps } from './ToggleGroupItemImpl'
 import { useRovingFocusGroupScope, useToggleGroupInject, useToggleGroupValueInject } from './ToggleGroup'
@@ -36,22 +35,17 @@ const toggleGroupItem = defineComponent({
   },
   emits: toggleGroupItemProps.emits,
   setup(props, { slots, emit, attrs }) {
-    const { value, disabled } = toRefs(props)
+    const {
+      value,
+      disabled,
+      scopeOkuToggleGroup,
+    } = toRefs(props)
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
-    const inject = useToggleGroupInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
+    const inject = useToggleGroupInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
     const pressed = computed(() => valueInject?.value?.value.includes(value.value!))
     const _disabled = computed(() => inject.disabled.value || disabled.value)
 
-    const commonProps = computed(() => {
-      return {
-        ...mergeProps(attrs),
-        value: value.value,
-        pressed: pressed.value,
-        disabled: _disabled.value,
-        scopeOkuToggleGroup: props.scopeOkuToggleGroup,
-      }
-    })
     const forwardedRef = useForwardRef()
     const _ref = ref<HTMLDivElement | null>(null)
 
@@ -60,11 +54,13 @@ const toggleGroupItem = defineComponent({
         asChild: true,
         ...rovingFocusGroupScope,
         focusable: !_disabled.value,
-        active: pressed.value,
+        active: true,
         ref: _ref,
       }, {
         default: () => h(OkuToggleGroupItemImpl, {
-          ...commonProps.value,
+          ...mergeProps(attrs, props),
+          pressed: pressed.value,
+          disabled: _disabled.value,
           ref: forwardedRef,
           onClick: (e) => {
             emit('click', e)
@@ -72,7 +68,7 @@ const toggleGroupItem = defineComponent({
         }, slots),
       })
       : h(OkuToggleGroupItemImpl, {
-        ...commonProps.value,
+        ...mergeProps(attrs, props),
         ref: forwardedRef,
       }, slots)
   },
@@ -80,7 +76,7 @@ const toggleGroupItem = defineComponent({
 
 export const OkuToggleGroupItem = toggleGroupItem as typeof toggleGroupItem &
 (new () => {
-  $props: ScopeToggleGroup<Partial<ToggleGroupItemElement>>
+  $props: Partial<ToggleGroupItemElement>
 })
 
 export type { ToggleGroupItemProps }
