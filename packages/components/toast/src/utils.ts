@@ -1,6 +1,6 @@
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import { useCallbackRef } from '@oku-ui/use-composable'
-import { nextTick, watch } from 'vue'
+import { nextTick, watchEffect } from 'vue'
 import type { SwipeDirection } from './toast-provider'
 
 function getAnnounceTextContent(container: HTMLElement) {
@@ -66,16 +66,16 @@ function isDeltaInDirection(delta: { x: number; y: number },
 
 function useNextFrame(callback = () => {}) {
   const fn = useCallbackRef(callback)
-  watch([fn], async () => {
+  watchEffect(async (onClean) => {
     await nextTick()
 
     let raf1 = 0
     let raf2 = 0
     raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(fn)))
-    return () => {
+    onClean(() => {
       window.cancelAnimationFrame(raf1)
       window.cancelAnimationFrame(raf2)
-    }
+    })
   })
 }
 

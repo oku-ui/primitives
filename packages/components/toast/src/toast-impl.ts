@@ -149,6 +149,8 @@ const toastImpl = defineComponent({
     const closeTimerRemainingTimeRef = ref(duration.value)
     const closeTimerRef = ref(0)
 
+    const { onToastAdd, onToastRemove } = inject
+
     const handleClose = useCallbackRef(() => {
       // focus viewport if focus is within toast to read the remaining toast
       // count to SR users and ensure focus isn't lost
@@ -200,9 +202,9 @@ const toastImpl = defineComponent({
     })
 
     watchEffect((onInvalidate) => {
-      inject.onToastAdd()
+      onToastAdd()
 
-      onInvalidate(() => inject.onToastRemove())
+      onInvalidate(() => onToastRemove())
     })
 
     const announceTextContent = computed(() => {
@@ -263,7 +265,7 @@ const toastImpl = defineComponent({
                         ...toastImplAttrs,
                         'ref': composedRefs,
                         'style': { userSelect: 'none', touchAction: 'none' },
-                        'onKeyDown': composeEventHandlers<ToastImplEmits['keydown'][0]>((event) => {
+                        'onKeydown': composeEventHandlers<ToastImplEmits['keydown'][0]>((event) => {
                           emit('keydown', event)
                         }, (event) => {
                           if (event.key !== 'Escape')
@@ -274,14 +276,14 @@ const toastImpl = defineComponent({
                             handleClose()
                           }
                         }),
-                        'onPointerDown': composeEventHandlers<ToastImplEmits['pointerdown'][0]>((event) => {
+                        'onPointerdown': composeEventHandlers<ToastImplEmits['pointerdown'][0]>((event) => {
                           emit('pointerdown', event)
                         }, (event) => {
                           if (event.button !== 0)
                             return
                           pointerStartRef.value = { x: event.clientX, y: event.clientY }
                         }),
-                        'onPointerMove': composeEventHandlers<ToastImplEmits['pointermove'][0]>((event) => {
+                        'onPointermove': composeEventHandlers<ToastImplEmits['pointermove'][0]>((event) => {
                           emit('pointermove', event)
                         }, (event) => {
                           if (!pointerStartRef.value)
@@ -319,7 +321,7 @@ const toastImpl = defineComponent({
                             pointerStartRef.value = null
                           }
                         }),
-                        'onPointerUp': composeEventHandlers<ToastImplEmits['pointerup'][0]>((event) => {
+                        'onPointerup': composeEventHandlers<ToastImplEmits['pointerup'][0]>((event) => {
                           emit('pointerup', event)
                         }, (event) => {
                           const delta = swipeDeltaRef.value

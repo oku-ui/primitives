@@ -1,11 +1,11 @@
-import { useCallbackRef, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuToastImpl } from './toast-impl'
-import type { SwipeEvent, ToastImplElement, ToastImplIntrinsicElement, ToastImplPrivateProps, ToastImplProps } from './toast-impl'
+import { OkuToastImpl, toastImplProps } from './toast-impl'
+import type { SwipeEvent, ToastImplElement, ToastImplEmits, ToastImplIntrinsicElement, ToastImplPrivateEmits, ToastImplPrivateProps, ToastImplProps } from './toast-impl'
 import { scopedToastProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
@@ -20,7 +20,6 @@ type ToastElement = ToastImplElement
 interface ToastProps extends Omit<ToastImplProps, keyof ToastImplPrivateProps> {
   open?: boolean
   defaultOpen?: boolean
-  onOpenChange?(open: boolean): void
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -31,17 +30,11 @@ interface ToastProps extends Omit<ToastImplProps, keyof ToastImplPrivateProps> {
 export type ToastPropsEmits = {
   'update:modelValue': [value: boolean]
   openChange: [open: boolean]
-  close: []
-  pause: []
-  resume: []
-  swipeStart: [event: SwipeEvent]
-  swipeMove: [event: SwipeEvent]
-  swipeCancel: [event: SwipeEvent]
-  swipeEnd: [event: SwipeEvent]
-}
+} & Omit<ToastImplEmits, keyof ToastImplPrivateEmits>
 
 const toastProps = {
   props: {
+    ...toastImplProps.props,
     modelValue: {
       type: Boolean as PropType<boolean>,
       default: undefined,
@@ -60,21 +53,11 @@ const toastProps = {
     },
   },
   emits: {
+    ...propsOmit(toastImplProps.emits, ['close']),
     // eslint-disable-next-line unused-imports/no-unused-vars
     'update:modelValue': (value: boolean) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     'openChange': (value: boolean) => true,
-    'close': () => true,
-    'pause': () => true,
-    'resume': () => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'swipeStart': (event: SwipeEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'swipeMove': (event: SwipeEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'swipeCancel': (event: SwipeEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'swipeEnd': (event: SwipeEvent) => true,
   },
 }
 
@@ -92,15 +75,12 @@ const toast = defineComponent({
   },
   emits: toastProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { ...toastAttrs } = attrs as unknown as ToastIntrinsicElement
-
     const forwardedRef = useForwardRef()
 
     const {
       forceMount,
       open: openProp,
       defaultOpen,
-      // onOpenChange,
     } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
@@ -116,16 +96,15 @@ const toast = defineComponent({
     })
 
     return () =>
-      h(OkuPresence,
-        { present: forceMount.value || state.value },
+      h(OkuPresence, { present: computed(() => forceMount.value || state.value).value },
         {
           default: () => h(OkuToastImpl, {
-            open: state.value || false,
-            ...toastAttrs,
+            open: state.value,
+            ...attrs,
             ref: forwardedRef,
             onClose: () => updateValue(false),
-            onPause: useCallbackRef(() => emit('pause')),
-            onResume: useCallbackRef(() => emit('resume')),
+            onPause: () => emit('pause'),
+            onResume: () => emit('resume'),
             onSwipeStart: composeEventHandlers<SwipeEvent>((event) => {
               emit('swipeStart', event)
             }, (event) => {

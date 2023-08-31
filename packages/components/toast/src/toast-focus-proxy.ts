@@ -1,4 +1,4 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { VisuallyHiddenElement, VisuallyHiddenIntrinsicElement } from '@oku-ui/visually-hidden'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuVisuallyHidden, visuallyHiddenProps } from '@oku-ui/visually-hidden'
@@ -39,10 +39,6 @@ const toastFocusProxy = defineComponent({
   },
   emits: focusProxyProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { asChild } = toRefs(props)
-
-    const { ...toastFocusProxyAttrs } = attrs as unknown as Partial<FocusProxyElement>
-
     const forwardedRef = useForwardRef()
 
     const inject = useToastProviderInject(FOCUS_PROXY_NAME, props.scopeOkuToast)
@@ -50,10 +46,10 @@ const toastFocusProxy = defineComponent({
     return () => h(
       OkuVisuallyHidden,
       {
-        'asChild': asChild.value,
         'aria-hidden': true,
         'tabIndex': 0,
-        ...toastFocusProxyAttrs,
+        'asChild': props.asChild,
+        ...attrs,
         'ref': forwardedRef,
         // Avoid page scrolling when focus is on the focus proxy
         'style': { position: 'fixed' } as CSSStyleDeclaration,

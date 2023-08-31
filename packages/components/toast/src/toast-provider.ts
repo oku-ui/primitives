@@ -96,7 +96,6 @@ const toastProvider = defineComponent({
       duration,
       swipeDirection,
       swipeThreshold,
-      // children,
     } = toRefs(props)
 
     const viewport = ref<ToastViewportElement | null>(null)

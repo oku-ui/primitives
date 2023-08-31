@@ -1,7 +1,6 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { toValue } from '@oku-ui/utils'
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
@@ -85,14 +84,14 @@ const toastViewport = defineComponent({
       inject.onViewportChange(el as HTMLOListElement)
     })
 
-    const hotkeyLabel = toValue(hotkey).join('+').replace(/Key/g, '').replace(/Digit/g, '')
+    const hotkeyLabel = hotkey.value.join('+').replace(/Key/g, '').replace(/Digit/g, '')
     const hasToasts = computed(() => inject.toastCount.value > 0)
 
     watchEffect((onInvalidate) => {
       const handleKeyDown = (event: KeyboardEvent) => {
         // we use `event.code` as it is consistent regardless of meta keys that were pressed.
         // for example, `event.key` for `Control+Alt+t` is `†` and `t !== †`
-        const isHotkeyPressed = toValue(hotkey).every(key => (event as any)[key] || event.code === key)
+        const isHotkeyPressed = hotkey.value.every(key => (event as any)[key] || event.code === key)
         if (isHotkeyPressed)
           viewportRef.value?.focus()
       }
@@ -227,48 +226,49 @@ const toastViewport = defineComponent({
           // it doesn't prevent interactions with page elements that it overlays
           'style': { pointerEvents: hasToasts.value ? undefined : 'none' } as CSSStyleDeclaration,
         },
-        [
-          hasToasts.value && h(
-            OkuToastFocusProxy,
-            {
+        {
+          default: () => [
+            hasToasts.value && h(OkuToastFocusProxy, {
               ref: headFocusProxyRef,
               onFocusFromOutsideViewport: () => {
                 const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'forwards' })
                 focusFirst(tabbableCandidates)
               },
             },
-          ),
-          /**
-           * tabindex on the the list so that it can be focused when items are removed. we focus
-           * the list instead of the viewport so it announces number of items remaining.
-           */
-          h(
-            CollectionSlot,
-            { scope: props.scopeOkuToast },
-            {
-              default: () => h(Primitive.ol,
-                {
-                  tabindex: -1,
-                  ...toastViewportAttrs,
-                  ref: composedRefs,
-                }, {
-                  default: () => slots.default?.(),
-                },
-              ),
-            },
-          ),
-
-          hasToasts.value && h(
-            OkuToastFocusProxy,
-            {
-              ref: tailFocusProxyRef,
-              onFocusFromOutsideViewport: () => {
-                const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'backwards' })
-                focusFirst(tabbableCandidates)
+            ),
+            /**
+             * tabindex on the the list so that it can be focused when items are removed. we focus
+             * the list instead of the viewport so it announces number of items remaining.
+             */
+            h(CollectionSlot,
+              { scope: props.scopeOkuToast },
+              {
+                default: () => h(Primitive.ol,
+                  {
+                    tabindex: -1,
+                    ...toastViewportAttrs,
+                    asChild: props.asChild,
+                    ref: composedRefs,
+                  }, {
+                    default: () => slots.default?.(),
+                  },
+                ),
               },
-            },
-          ),
-        ],
+            ),
+
+            hasToasts.value && h(OkuToastFocusProxy,
+              {
+                ref: tailFocusProxyRef,
+                onFocusFromOutsideViewport: () => {
+                  const tabbableCandidates = getSortedTabbableCandidates({
+                    tabbingDirection: 'backwards',
+                  })
+                  focusFirst(tabbableCandidates)
+                },
+              },
+            ),
+          ],
+        },
       )
   },
 })
