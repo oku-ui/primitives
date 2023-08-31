@@ -34,7 +34,7 @@ type Story = StoryObj<typeof meta> & {
 export const Styled: Story = {
   args: {
     label: 'Label',
-    template: '#1',
+    template: 'Styled',
   },
   render: (args: any) => ({
     components: { OkuTooltipComponent },
@@ -47,10 +47,26 @@ export const Styled: Story = {
   }),
 }
 
-export const WithControl: Story = {
+export const Controlled: Story = {
   args: {
     label: 'Label',
-    template: '#2',
+    template: 'Controlled',
+  },
+  render: (args: any) => ({
+    components: { OkuTooltipComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuTooltipComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const CustomDurations: Story = {
+  args: {
+    label: 'Label',
+    template: 'CustomDurations',
   },
   render: (args: any) => ({
     components: { OkuTooltipComponent },

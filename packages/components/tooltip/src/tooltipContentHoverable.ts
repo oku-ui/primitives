@@ -89,8 +89,6 @@ const tooltipContentHoverable = defineComponent({
           contentRef.value?.removeEventListener('pointerleave', handleContentLeave)
         })
       }
-    }, {
-      flush: 'pre',
     })
 
     watchEffect((onCleanup) => {
@@ -119,8 +117,6 @@ const tooltipContentHoverable = defineComponent({
           document.removeEventListener('pointermove', handleTrackPointerGrace)
         })
       }
-    }, {
-      flush: 'post',
     })
 
     return () => h(OkuTooltipContentImpl, {

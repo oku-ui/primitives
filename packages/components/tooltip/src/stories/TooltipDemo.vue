@@ -1,23 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import {
-  OkuTooltip,
-  OkuTooltipArrow,
-  OkuTooltipContent,
-  OkuTooltipPortal,
-  OkuTooltipProvider,
-  OkuTooltipTrigger,
-} from '@oku-ui/tooltip'
+
+import Styled from './Styled.vue'
+import Controlled from './Controlled.vue'
+import CustomDurations from './CustomDurations.vue'
 
 export interface OkuLabelProps {
   label: string
-  template: '#1' | '#2'
+  template: 'Styled' | 'Controlled' | 'CustomDurations'
   allshow?: boolean
 }
 
 withDefaults(defineProps<OkuLabelProps>(), {
-  label: 'First Name',
-  template: '#1',
+  template: 'Styled',
 })
 
 const labelRef = ref()
@@ -28,25 +23,20 @@ onMounted(() => {
 
 <template>
   <div class="cursor-default inline-block">
-    <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <OkuTooltipProvider>
-        <OkuTooltip>
-          <OkuTooltipTrigger class="triggerClass">
-            Hover or Focus me
-          </OkuTooltipTrigger>
-          <OkuTooltipPortal>
-            <OkuTooltipContent class="contentClass" :side-offset="5">
-              Nicely done!
-              <OkuTooltipArrow class="arrowClass" :offset="10" />
-            </OkuTooltipContent>
-          </OkuTooltipPortal>
-        </OkuTooltip>
-      </OkuTooltipProvider>
+    <div v-if="template === 'Styled' || allshow" class="flex flex-col">
+      <Styled />
+    </div>
+    <div v-if="template === 'Controlled' || allshow" class="flex flex-col">
+      <Controlled />
+    </div>
+
+    <div v-if="template === 'CustomDurations'">
+      <CustomDurations />
     </div>
   </div>
 </template>
 
-<style lang="postcss">
+<style>
 .triggerClass {}
 .positionButtonClass {
   margin: 5px;
