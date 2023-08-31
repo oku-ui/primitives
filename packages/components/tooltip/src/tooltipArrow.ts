@@ -43,9 +43,7 @@ const tooltipArrow = defineComponent({
         ...popperScope,
         ...mergeProps(attrs, props),
         ref: forwardedRef,
-      }, {
-        default: () => slots.default?.(),
-      })
+      }, slots)
   },
 })
 

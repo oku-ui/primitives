@@ -50,7 +50,7 @@ const tooltipContent = defineComponent({
   },
   emits: tooltipContentImplProps.emits,
   setup(props, { attrs, slots }) {
-    const { forceMount, side, scopeOkuTooltip, ...propsa } = toRefs(props)
+    const { forceMount, side, scopeOkuTooltip } = toRefs(props)
     const portalInject = usePortalInject(CONTENT_NAME, scopeOkuTooltip.value)
 
     const forceMountProps = computed(() => forceMount.value || portalInject.forceMount?.value)
@@ -59,25 +59,22 @@ const tooltipContent = defineComponent({
     const forwardedRef = useForwardRef()
 
     const inject = useTooltipInject(CONTENT_NAME, scopeOkuTooltip.value)
-
     return () => h(OkuPresence, {
       present: computed(() => forceMountProps.value || inject.open.value).value,
     }, {
       default: () => inject.disableHoverableContent.value
         ? h(OkuTooltipContentImpl, {
           side: sideProps.value,
-          ...mergeProps(attrs, propsa),
+          ...mergeProps(attrs, props),
           ref: forwardedRef,
         }, {
           default: () => slots.default?.(),
         })
         : h(OkuTooltipContentHoverable, {
           side: sideProps.value,
-          ...mergeProps(attrs, propsa),
+          ...mergeProps(attrs, props),
           ref: forwardedRef,
-        }, {
-          default: () => slots.default?.(),
-        }),
+        }, slots),
     })
   },
 })

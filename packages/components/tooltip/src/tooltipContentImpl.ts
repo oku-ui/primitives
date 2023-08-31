@@ -144,17 +144,19 @@ const tooltipContentImpl = defineComponent({
             '--oku-tooltip-trigger-height': 'var(--oku-popper-anchor-height)',
           },
         },
-      }, [
-        h(OkuSlottable, {}, {
-          default: () => slots.default?.(),
-        }),
-        h(OkuVisuallyHidden, {
-          id: inject.contentId.value,
-          role: 'tooltip',
-        }, {
-          default: () => ariaLabel || slots.default?.(),
-        }),
-      ]),
+      }, {
+        default: () => [
+          h(OkuSlottable, {}, {
+            default: () => slots.default?.(),
+          }),
+          h(OkuVisuallyHidden, {
+            id: inject.contentId.value,
+            role: 'tooltip',
+          }, {
+            default: () => ariaLabel || slots.default?.(),
+          }),
+        ],
+      }),
     })
   },
 })

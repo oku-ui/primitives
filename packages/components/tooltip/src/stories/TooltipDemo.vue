@@ -35,9 +35,9 @@ onMounted(() => {
             Hover or Focus me
           </OkuTooltipTrigger>
           <OkuTooltipPortal>
-            <OkuTooltipContent class="contentClass" side-offset="5">
+            <OkuTooltipContent class="contentClass" :side-offset="5">
               Nicely done!
-              <OkuTooltipArrow class="arrowClass" offset="10" />
+              <OkuTooltipArrow class="arrowClass" :offset="10" />
             </OkuTooltipContent>
           </OkuTooltipPortal>
         </OkuTooltip>
