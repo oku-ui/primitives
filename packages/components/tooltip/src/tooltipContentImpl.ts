@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -8,12 +8,12 @@ import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { TOOLTIP_OPEN, createTooltipProvide, usePopperScope } from './utils'
 import { type ScopeTooltip, scopeTooltipProps } from './types'
-import { useTooltipInject } from './tooltip'
+import { TOOLTIP_NAME, useTooltipInject } from './tooltip'
 
 const CONTENT_NAME = 'OkuTooltipContentImpl'
 
 const [visuallyHiddenContentProvider, useVisuallyHiddenContentInject]
-  = createTooltipProvide(CONTENT_NAME, { isInside: false })
+  = createTooltipProvide(TOOLTIP_NAME, { isInside: ref(false) })
 
 export {
   useVisuallyHiddenContentInject,
@@ -67,6 +67,12 @@ export const tooltipContentImplProps = {
 
 const tooltipContentImpl = defineComponent({
   name: CONTENT_NAME,
+  components: {
+    OkuDismissableLayer,
+    OkuPopperContent,
+    OkuSlottable,
+    OkuVisuallyHidden,
+  },
   inheritAttrs: false,
   props: {
     ...tooltipContentImplProps.props,
@@ -109,7 +115,22 @@ const tooltipContentImpl = defineComponent({
 
     visuallyHiddenContentProvider({
       scope: props.scopeOkuTooltip,
-      isInside: true,
+      isInside: ref(false),
+    })
+
+    const VisuallyHiddenChild = defineComponent({
+      inheritAttrs: false,
+      props: {
+        scope: { type: null, required: false },
+      },
+      setup(props, { slots }) {
+        visuallyHiddenContentProvider({
+          scope: props.scope,
+          isInside: ref(true),
+        })
+
+        return () => slots.default?.()
+      },
     })
 
     return () => h(OkuDismissableLayer, {
@@ -146,14 +167,16 @@ const tooltipContentImpl = defineComponent({
         },
       }, {
         default: () => [
-          h(OkuSlottable, {}, {
-            default: () => slots.default?.(),
-          }),
-          h(OkuVisuallyHidden, {
-            id: inject.contentId.value,
-            role: 'tooltip',
+          h(OkuSlottable, {}, slots),
+          h(VisuallyHiddenChild, {
+            scope: props.scopeOkuTooltip,
           }, {
-            default: () => ariaLabel || slots.default?.(),
+            default: () => h(OkuVisuallyHidden, {
+              id: inject.contentId.value,
+              role: 'tooltip',
+            }, {
+              default: () => ariaLabel || slots.default?.(),
+            }),
           }),
         ],
       }),

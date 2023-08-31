@@ -126,7 +126,9 @@ const tooltipContentHoverable = defineComponent({
     return () => h(OkuTooltipContentImpl, {
       ...mergeProps(attrs, props),
       ref: composedRefs,
-    }, slots)
+    }, {
+      default: () => slots.default?.(),
+    })
   },
 })
 

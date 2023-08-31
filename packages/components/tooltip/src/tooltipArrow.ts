@@ -23,6 +23,9 @@ const ARROW_NAME = 'OkuTooltipArrow'
 
 const tooltipArrow = defineComponent({
   name: ARROW_NAME,
+  components: {
+    OkuPopperArrow,
+  },
   inheritAttrs: false,
   props: {
     ...tooltipArrowProps.props,
@@ -37,7 +40,7 @@ const tooltipArrow = defineComponent({
 
     // if the arrow is inside the `VisuallyHidden`, we don't want to render it all to
     // prevent issues in positioning the arrow due to the duplicate
-    return () => visuallyHiddenContentInject.isInside
+    return () => visuallyHiddenContentInject.isInside.value
       ? null
       : h(OkuPopperArrow, {
         ...popperScope,

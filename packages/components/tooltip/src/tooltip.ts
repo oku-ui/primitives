@@ -9,7 +9,7 @@ import type { TooltipTriggerElement } from './tooltipTrigger'
 import { useTooltipProviderInject } from './tooltipProvider'
 import { scopeTooltipProps } from './types'
 
-const TOOLTIP_NAME = 'OkuTooltip'
+export const TOOLTIP_NAME = 'OkuTooltip'
 
 export type LabelIntrinsicElement = ElementType<'label'>
 export type LabelElement = HTMLLabelElement
