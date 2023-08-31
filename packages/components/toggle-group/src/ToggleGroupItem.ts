@@ -78,5 +78,3 @@ export const OkuToggleGroupItem = toggleGroupItem as typeof toggleGroupItem &
 (new () => {
   $props: Partial<ToggleGroupItemElement>
 })
-
-export type { ToggleGroupItemProps }

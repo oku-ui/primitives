@@ -9,8 +9,8 @@ import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { scopeToggleGroupProps } from './utils'
 
 import type { ToggleGroupImplElement, ToggleGroupImplIntrinsicElement } from './ToggleGroupImpl'
-import type { ToggleGroupImplItemEmits, ToggleGroupImplItemProps } from './ToggleGroupImplItem'
-import { OkuToggleGroupImplItem, toggleGroupImplItemProps } from './ToggleGroupImplItem'
+import type { ToggleGroupVariantEmits, ToggleGroupVariantProps } from './ToggleGroupVariant'
+import { OkuToggleGroupVariant, toggleGroupVariantProps } from './ToggleGroupVariant'
 
 export const TOGGLE_GROUP_NAME = 'OkuRadioGroup'
 
@@ -38,18 +38,18 @@ export const [toggleGroupProvide, useToggleGroupInject]
 
 export const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
-export type ToggleGroupProps = ToggleGroupImplItemProps
-export type ToggleGroupEmits = ToggleGroupImplItemEmits
+export type ToggleGroupProps = ToggleGroupVariantProps
+export type ToggleGroupEmits = ToggleGroupVariantEmits
 
 export type ToggleGroupElement = ToggleGroupImplElement
 export type ToggleGroupIntrinsicElement = ToggleGroupImplIntrinsicElement
 
 export const toggleGroupProps = {
   props: {
-    ...toggleGroupImplItemProps.props,
+    ...toggleGroupVariantProps.props,
   },
   emits: {
-    ...toggleGroupImplItemProps.emits,
+    ...toggleGroupVariantProps.emits,
   },
 }
 
@@ -69,7 +69,7 @@ const toggleGroup = defineComponent({
       if (!type.value)
         throw new Error(`Missing prop \`type\` expected on \`${TOGGLE_GROUP_NAME}\``)
 
-      return h(OkuToggleGroupImplItem, {
+      return h(OkuToggleGroupVariant, {
         ...mergeProps(attrs, props),
         ref: forwardedRef,
       }, slots)

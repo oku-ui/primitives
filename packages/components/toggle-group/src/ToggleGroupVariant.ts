@@ -8,10 +8,10 @@ import { toggleGroupValueProvider } from './ToggleGroup'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupImplSingle'
 
-export type ToggleGroupImplItemIntrinsicElement = ToggleGroupImplIntrinsicElement
-export type ToggleGroupImplItemElement = ToggleGroupImplElement
+export type ToggleGroupVariantIntrinsicElement = ToggleGroupImplIntrinsicElement
+export type ToggleGroupVariantElement = ToggleGroupImplElement
 
-export interface ToggleGroupImplItemProps extends ToggleGroupImplProps {
+export interface ToggleGroupVariantProps extends ToggleGroupImplProps {
   type: 'single' | 'multiple'
   /**
    * The controlled stateful value of the item that is pressed.
@@ -24,7 +24,7 @@ export interface ToggleGroupImplItemProps extends ToggleGroupImplProps {
   defaultValue?: string | string[]
 }
 
-export type ToggleGroupImplItemEmits = {
+export type ToggleGroupVariantEmits = {
   'update:modelValue': [value: string | string[]]
   /**
    * The callback that fires when the value of the toggle group changes.
@@ -32,7 +32,7 @@ export type ToggleGroupImplItemEmits = {
   'valueChange': [value: string | string[]]
 }
 
-export const toggleGroupImplItemProps = {
+export const toggleGroupVariantProps = {
   props: {
     type: {
       type: [String] as PropType<'single' | 'multiple'>,
@@ -62,14 +62,14 @@ export const toggleGroupImplItemProps = {
   },
 }
 
-const toggleGroupImplItem = defineComponent({
+const toggleGroupVariant = defineComponent({
   name: TOGGLE_GROUP_NAME,
   inheritAttrs: false,
   props: {
-    ...toggleGroupImplItemProps.props,
+    ...toggleGroupVariantProps.props,
     ...scopeToggleGroupProps,
   },
-  emits: toggleGroupImplItemProps.emits,
+  emits: toggleGroupVariantProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
       value: valueProp,
@@ -153,7 +153,7 @@ const toggleGroupImplItem = defineComponent({
   },
 })
 
-export const OkuToggleGroupImplItem = toggleGroupImplItem as typeof toggleGroupImplItem &
+export const OkuToggleGroupVariant = toggleGroupVariant as typeof toggleGroupVariant &
 (new () => {
-  $props: Partial<ToggleGroupImplItemElement>
+  $props: Partial<ToggleGroupVariantElement>
 })
