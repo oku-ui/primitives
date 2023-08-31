@@ -24,7 +24,7 @@ const DismissableLayerBranch = defineComponent({
   props: {
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const _inject = inject(
       DismissableLayerProvideKey,
     ) as DismissableLayerProvideValue
@@ -46,10 +46,10 @@ const DismissableLayerBranch = defineComponent({
 
     const originalReturn = () =>
       h(Primitive.div, {
+        ...attrs,
         ref: composedRefs,
         asChild: props.asChild,
-        ...attrs,
-      })
+      }, slots)
 
     return originalReturn
   },
