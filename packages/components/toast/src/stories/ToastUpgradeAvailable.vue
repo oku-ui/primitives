@@ -17,7 +17,7 @@ defineProps({
       </OkuToastClose>
     </div>
     <OkuToastDescription class="description">
-      We've just released Radix version 3.0
+      We've just released Oku version 1.0
     </OkuToastDescription>
     <OkuToastAction alt-text="Goto account settings to upgrade" class="button" :style="{ 'margin-top': '10px' }">
       Upgrade
