@@ -13,7 +13,7 @@ export const TOGGLE_ITEM_NAME = 'OkuToggleGroupItem'
 export type ToggleGroupItemIntrinsicElement = ToggleGroupItemImplIntrinsicElement
 export type ToggleGroupItemElement = ToggleGroupItemImplElement
 
-interface ToggleGroupItemProps extends Omit<ToggleGroupItemImplProps, 'pressed'> {
+export interface ToggleGroupItemProps extends Omit<ToggleGroupItemImplProps, 'pressed'> {
 
 }
 

@@ -94,6 +94,9 @@ importers:
       '@oku-ui/toggle-group':
         specifier: workspace:^
         version: link:packages/components/toggle-group
+      '@oku-ui/toolbar':
+        specifier: workspace:^
+        version: link:packages/components/toolbar
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:packages/core/use-composable
@@ -714,6 +717,40 @@ importers:
         version: link:../../core/utils
       vue:
         specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/toolbar:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: latest
+        version: link:../direction
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/roving-focus':
+        specifier: latest
+        version: link:../roving-focus
+      '@oku-ui/separator':
+        specifier: latest
+        version: link:../separator
+      '@oku-ui/toggle-group':
+        specifier: latest
+        version: link:../toggle-group
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -5623,7 +5660,7 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/preset-env': 7.22.10(@babel/core@7.22.10)
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
       '@ndelangen/get-tarball': 3.0.7
       '@storybook/codemod': 7.3.2
       '@storybook/core-common': 7.3.2
@@ -11591,11 +11628,6 @@ packages:
     engines: {node: '>=16.14'}
     dev: true
 
-  /lru-cache@9.1.1:
-    resolution: {integrity: sha512-65/Jky17UwSb0BuB9V+MyDpsOtXKmYwzhyl+cOa9XUiI4uV2Ouy/2voFP3+al0BjZbJgMBD8FojMpAf+Z+qn4A==}
-    engines: {node: 14 || >=16.14}
-    dev: true
-
   /lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -12664,7 +12696,7 @@ packages:
     resolution: {integrity: sha512-MkhCqzzBEpPvxxQ71Md0b1Kk51W01lrYvlMzSUaIzNsODdd7mqhiimSZlr+VegAz5Z6Vzt9Xg2ttE//XBhH3EQ==}
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
-      lru-cache: 9.1.1
+      lru-cache: 10.0.0
       minipass: 5.0.0
     dev: true
 
