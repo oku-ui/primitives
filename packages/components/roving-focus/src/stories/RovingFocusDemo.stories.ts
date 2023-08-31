@@ -54,7 +54,7 @@ export const Nested: Story = {
   }),
 }
 
-export const More: Story = {
+export const EdgeCases: Story = {
   args: {
     template: '#3',
     allshow: false,

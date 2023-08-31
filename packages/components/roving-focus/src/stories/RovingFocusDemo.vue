@@ -13,10 +13,16 @@ withDefaults(defineProps<ICheckBoxProps>(), {
 
 })
 
-const extra = ref(false)
-const disabled = ref(false)
-const hidden = ref(false)
-const disabled3To5 = ref(false)
+const controller = ref({
+  extra: false,
+  disabled: false,
+  hidden: false,
+  disabled3To5: false,
+})
+
+function handleControler(key: 'extra' | 'disabled' | 'hidden' | 'disabled3To5') {
+  controller.value[key] = !controller.value[key]
+}
 
 const dir = ref<RovingFocusGroupProps['dir']>('ltr')
 
@@ -214,41 +220,45 @@ function handleDir() {
         </Button>
       </ButtonGroup>
     </div>
-    <!-- <div v-if="template === '#3' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <div class="flex space-x-5 w-full">
-        <button @click="extra = !extra">
-          Toggle extra
-        </button>
-        <button @click="disabled = !disabled">
-          Toggle disabled
-        </button>
-        <button @click="hidden = !hidden">
-          Toggle hidden
-        </button>
-        <button @click="disabled3To5 = !disabled3To5">
-          Toggle disabled 3-5
-        </button>
-      </div>
-      <ButtonProvide>
-        <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
-          <Button v-if="extra" value="one" :class="hidden ? 'hidden' : ''">
-            Toggle extra
-          </Button>
-          <Button value="two" :disabled="disabled">
-            two
-          </Button>
-          <Button value="three" :disabled="disabled3To5">
-            three
-          </Button>
-          <Button value="four" :disabled="disabled3To5" class="hidden">
-            four
-          </Button>
-          <Button value="five" :disabled="disabled3To5">
-            five
-          </Button>
-        </OkuRovingFocusGroup>
-      </ButtonProvide>
-    </div> -->
+    <div v-if="template === '#3' || allshow" class="rounded-sm overflow-hidden">
+      <button class="mr-2" @click="handleControler('extra')">
+        Add/remove extra
+      </button>
+      <button class="mr-2" @click="handleControler('disabled')">
+        Disable/Enable "One"
+      </button>
+      <button class="mr-2" @click="handleControler('hidden')">
+        Hide/show "One"
+      </button>
+      <button class="mr-2" @click="handleControler('disabled3To5')">
+        Disable/Enable "Three" to "Five"
+      </button>
+      <hr class="my-3">
+      <ButtonGroup>
+        <Button v-if="controller.extra" value="extra">
+          Extra
+        </Button>
+        <Button v-show="controller.hidden" value="one" :disabled="controller.disabled">
+          One
+        </Button>
+        <Button value="two" disabled>
+          Two
+        </Button>
+        <Button value="three" :disabled="controller.disabled3To5">
+          Three
+        </Button>
+        <Button value="four" :disabled="controller.disabled3To5" style="display: none;">
+          Four
+        </Button>
+        <Button value="five" :disabled="controller.disabled3To5">
+          Five
+        </Button>
+      </ButtonGroup>
+      <hr class="my-3">
+      <button type="button">
+        Focusable outside of group
+      </button>
+    </div>
   </div>
 </template>
 
