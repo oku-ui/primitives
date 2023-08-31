@@ -135,7 +135,7 @@ const VIEWPORT_PADDING = ref(10)
     <template v-if="template === '#4' || allShow">
       <OkuToastProvider>
         <form
-          @submit.prevent="{
+          @submit.prevent="() => {
             saving = true;
             open = true;
           }"
