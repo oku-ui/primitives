@@ -1,9 +1,9 @@
-import { defineComponent, h, onMounted, toRef, watch } from 'vue'
+import { defineComponent, h, toRef, watchEffect } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { useCallbackRef, useForwardRef } from '@oku-ui/use-composable'
-import type { ImageLoadingStatus, ScopeAvatar } from './utils'
+import type { ImageLoadingStatus } from './utils'
 import { scopeAvatarProps, useImageLoadingStatus } from './utils'
 import { useAvatarInject } from './avatar'
 
@@ -44,7 +44,6 @@ const avatarImage = defineComponent({
   emits: avatarImageProps.emits,
   setup(props, { attrs, slots, emit }) {
     const src = toRef(props, 'src')
-    const { ...imageAttrs } = attrs as AvatarImageIntrinsicElement
     const inject = useAvatarInject(IMAGE_NAME, props.scopeOkuAvatar)
 
     const forwardedRef = useForwardRef()
@@ -56,21 +55,16 @@ const avatarImage = defineComponent({
       inject.onImageLoadingStatusChange(status)
     })
 
-    onMounted(() => {
+    watchEffect(() => {
       if (imageLoadingStatus.value !== 'idle')
         handleLoadingStatusChange(imageLoadingStatus.value)
-    })
-
-    watch(imageLoadingStatus, (newValue) => {
-      if (newValue !== 'idle')
-        handleLoadingStatusChange(newValue)
     })
 
     const originalReturn = () => imageLoadingStatus.value === 'loaded'
       ? h(
         Primitive.img, {
           asChild: props.asChild,
-          ...imageAttrs,
+          ...attrs,
           src: src.value,
           ref: forwardedRef,
         },
@@ -87,5 +81,5 @@ const avatarImage = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatarImage = avatarImage as typeof avatarImage &
 (new () => {
-  $props: ScopeAvatar<Partial<AvatarImageElement>>
+  $props: Partial<AvatarImageElement>
 })

@@ -2,7 +2,7 @@ import { enableAutoUnmount, mount } from '@vue/test-utils'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
-import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from '@oku-ui//avatar'
+import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from './'
 
 const AVATAR_TEST_ID = 'avatar-test'
 const FALLBACK_TEXT = 'AB'
@@ -10,10 +10,6 @@ const IMAGE_ALT_TEXT = 'Fake Avatar'
 const DELAY = 300
 
 enableAutoUnmount(afterEach)
-
-/**
- * @vitest-environment jsdom
- */
 
 describe('given an Avatar with fallback and no image', () => {
   let wrapper: VueWrapper
@@ -32,11 +28,15 @@ describe('given an Avatar with fallback and no image', () => {
       },
       template: `
         <OkuAvatar :data-testid="AVATAR_TEST_ID">
-          <OkuAvatarFallback>{{ FALLBACK_TEXT }}</OkuAvatarFallback>
+          <OkuAvatarFallback :delayMs="600">{{ FALLBACK_TEXT }}</OkuAvatarFallback>
         </OkuAvatar>
       `,
     })
   })
+
+  /**
+  * @vitest-environment jsdom
+  */
 
   it('should have no accessibility violations', async () => {
     // https://github.com/capricorn86/happy-dom/issues/978
