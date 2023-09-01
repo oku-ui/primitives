@@ -1,86 +1,50 @@
-import type { PropType } from 'vue'
-import { defineComponent, h } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import type { SliderThumbImplElement, SliderThumbImplProps } from './sliderThumbImpl'
+import { computed, defineComponent, h, ref } from 'vue'
+import { propsOmit } from '@oku-ui/primitive'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { OkuSliderThumbImpl, type SliderThumbImplElement, type SliderThumbImplIntrinsicElement, type SliderThumbImplProps, sliderThumbImplProps } from './sliderThumbImpl'
+import { scopeSliderProps, useCollection } from './utils'
 
-const THUMB_NAME = 'OkuSliderThumb'
+export const THUMB_NAME = 'OkuSliderThumb'
 
-export type SliderThumbIntrinsicElement = ElementType<'span'>
-
+export type SliderThumbIntrinsicElement = SliderThumbImplIntrinsicElement
 export type SliderThumbElement = SliderThumbImplElement
 
 export interface SliderThumbProps extends Omit<SliderThumbImplProps, 'index'> {}
 
-export interface SpanProps extends PrimitiveProps {
-  slot?: string | undefined
-  title?: string | undefined
-  key?: string | number | null | undefined
-  defaultChecked?: boolean | undefined
-}
-
 export const sliderThumbProps = {
   props: {
-    ...primitiveProps,
-    slot: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    title: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    key: {
-      type: [String, Number, null, undefined] as PropType<string | number | null | undefined>,
-      default: undefined,
-    },
-    modelValue: {
-      type: [Boolean, String, Number, undefined] as PropType<boolean | string | number | undefined | 'indeterminate'>,
-      default: undefined,
-    },
-    required: {
-      type: Boolean as PropType<boolean | undefined>,
-      default: undefined,
-    },
-    name: {
-      type: String as PropType<string | undefined>,
-      default: undefined,
-    },
-    disabled: {
-      type: Boolean as PropType<boolean | undefined>,
-      default: undefined,
-    },
-    value: {
-      type: String as PropType<string | undefined>,
-      default: undefined,
-    },
+    ...propsOmit(sliderThumbImplProps.props, ['index']),
+  },
+  emits: {
+    ...sliderThumbImplProps.emits,
   },
 }
 
 const sliderThumb = defineComponent({
   name: THUMB_NAME,
   inheritAttrs: false,
-  props: { ...sliderThumbProps.props },
+  props: {
+    ...sliderThumbProps.props,
+    ...scopeSliderProps,
+  },
+  emits: sliderThumbProps.emits,
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as SliderThumbIntrinsicElement
+    const getItems = useCollection(props.scopeOkuSlider)
+    const thumb = ref<SliderThumbImplElement | null>(null)
 
     const forwardedRef = useForwardRef()
-    const originalReturn = () => h(Primitive.span, {
-      ...restAttrs,
-      ref: forwardedRef,
-      asChild: props.asChild,
-      onMousedown: (event: MouseEvent) => {
-        restAttrs.onMousedown?.(event)
-        // prevent text selection when double clicking label
-        if (!event.defaultPrevented && event.detail > 1)
-          event.preventDefault()
-      },
-    },
-    {
+    const composedRefs = useComposedRefs(forwardedRef, thumb)
+
+    // TODO: item.ref.value -react
+    const index = computed(() => thumb.value ? getItems.value.findIndex(item => item.ref === thumb.value) : -1)
+
+    return () => h(OkuSliderThumbImpl, {
+      ...attrs,
+      ref: composedRefs,
+      index: index.value,
+    }, {
       default: () => slots.default?.(),
     })
-    return originalReturn
   },
 })
 

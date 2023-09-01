@@ -29,7 +29,6 @@ const sliderRange = defineComponent({
     ...scopeSliderProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as SliderRangeIntrinsicElement
     const {
       scopeOkuSlider,
     } = toRefs(props)
@@ -38,6 +37,7 @@ const sliderRange = defineComponent({
     const forwardedRef = useForwardRef()
     const rangeRef = ref<HTMLSpanElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, rangeRef)
+
     const valuesCount = computed(() => (inject.values.value || []).length)
     const percentages = computed(() => inject.values.value?.map(value =>
       convertValueToPercentage(value, inject.min.value, inject.max.value),
@@ -46,9 +46,9 @@ const sliderRange = defineComponent({
     const offsetEnd = computed(() => 100 - Math.max(...percentages.value!))
 
     const originalReturn = () => h(Primitive.span, {
-      'data-disabled': inject.disabled ? '' : undefined,
-      'data-orientation': inject.orientation,
-      ...restAttrs,
+      'data-disabled': inject.disabled?.value ? '' : undefined,
+      'data-orientation': inject.orientation.value,
+      ...attrs,
       'ref': composedRefs,
       'style': {
         ...attrs.style as any,

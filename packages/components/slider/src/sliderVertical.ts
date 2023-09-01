@@ -91,7 +91,7 @@ const SliderVertical = defineComponent({
         // @ts-ignore
         emit('slideEnd')
       },
-      'onStepKeyDown': (event: KeyboardEvent) => {
+      'onStepKeydown': (event: KeyboardEvent) => {
         const slideDirection = isSlidingFromBottom.value ? 'from-bottom' : 'from-top'
         const isBackKey = BACK_KEYS[slideDirection].includes(event.key)
 

@@ -29,16 +29,17 @@ const sliderTrack = defineComponent({
     ...scopeSliderProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as SliderTrackIntrinsicElement
     const {
       scopeOkuSlider,
     } = toRefs(props)
     const inject = useSliderInject(TRACK_NAME, scopeOkuSlider.value)
     const forwardedRef = useForwardRef()
+
     const originalReturn = () => h(Primitive.span, {
-      'data-disabled': inject.disabled ? '' : undefined,
-      'data-orientation': inject.orientation,
-      ...restAttrs,
+      'data-disabled': inject.disabled?.value ? '' : undefined,
+      'data-orientation': inject.orientation.value,
+      ...attrs,
+      'asChild': props.asChild,
       'ref': forwardedRef,
     },
     {

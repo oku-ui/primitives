@@ -38,7 +38,7 @@ const alert = () => console.log('alert')
   position: relative;
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  flex-shrink: 0px;
   /* ensures no selection */
   user-select: none;
   /* disable browser handling of all panning and zooming gestures on touch devices */
