@@ -88,6 +88,10 @@ export const sliderProps = {
       type: Number,
       default: 0,
     },
+    value: {
+      type: Array as PropType<number[] | undefined>,
+      default: undefined,
+    },
     defaultValue: {
       type: Array as PropType<number[] | undefined>,
       default: [100],
@@ -127,6 +131,7 @@ const slider = defineComponent({
       asChild,
       inverted,
       name,
+      value,
     } = toRefs(props)
 
     const sliderRef = ref<HTMLSpanElement | null>(null)
@@ -144,13 +149,14 @@ const slider = defineComponent({
       return false
     })
     const modelValue = useModel(props, 'modelValue')
-    const prop = computed({
-      get: () => modelValue.value,
+    const proxyValue = computed({
+      get: () => modelValue.value !== undefined ? modelValue.value : value.value !== undefined ? value.value : undefined,
       set: () => {
       },
     })
+
     const { state, updateValue } = useControllable({
-      prop: computed(() => prop.value),
+      prop: computed(() => proxyValue.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: any) => {
         const thumbs = [...thumbRefs.value]
@@ -264,8 +270,7 @@ const slider = defineComponent({
                 'onHomeKeyDown': () => !disabled.value && updateValues(min.value, 0, { commit: true }),
                 'onEndKeyDown': () =>
                   !disabled.value && updateValues(max.value, (state.value?.length || 0) - 1, { commit: true }),
-                'onStepKeyDown': ({ direction, event }) => {
-                  const stepDirection = direction
+                'onStepKeyDown': ({ direction: stepDirection, event }) => {
                   if (!disabled.value) {
                     const isPageKey = PAGE_KEYS.includes(event.key)
                     const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))

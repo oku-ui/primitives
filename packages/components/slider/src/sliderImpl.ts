@@ -32,11 +32,11 @@ export const sliderImplPrivateProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     slideEnd: (event: PointerEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    homeKeydown: (event: KeyboardEvent) => true,
+    homeKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    endKeydown: (event: KeyboardEvent) => true,
+    endKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    stepKeydown: (event: KeyboardEvent) => true,
+    stepKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     keydown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -87,17 +87,17 @@ const sliderImpl = defineComponent({
         emit('keydown', event)
       }, (event) => {
         if (event.key === 'Home') {
-          emit('homeKeydown', event)
+          emit('homeKeyDown', event)
           // Prevent scrolling to page start
           event.preventDefault()
         }
         else if (event.key === 'End') {
-          emit('endKeydown', event)
+          emit('endKeyDown', event)
           // Prevent scrolling to page end
           event.preventDefault()
         }
         else if (PAGE_KEYS.concat(ARROW_KEYS).includes(event.key)) {
-          emit('stepKeydown', event)
+          emit('stepKeyDown', event)
           // Prevent scrolling for directional key presses
           event.preventDefault()
         }
