@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/use-composable",
+  "name": "@oku-ui/toolbar",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/core/use-composable"
+    "directory": "packages/components/toolbar"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -25,6 +25,9 @@
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
@@ -34,12 +37,16 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/utils": "latest",
-    "@vue/shared": "^3.3.4",
-    "@vueuse/core": "^10.4.1"
+    "@oku-ui/direction": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/roving-focus": "latest",
+    "@oku-ui/separator": "latest",
+    "@oku-ui/toggle-group": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.7",
     "tsconfig": "workspace:^"
   },
   "publishConfig": {

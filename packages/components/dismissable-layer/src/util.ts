@@ -158,8 +158,7 @@ function dispatchUpdate() {
 }
 
 function handleAndDispatchCustomEvent<
-  E extends CustomEvent,
-  OriginalEvent extends Event,
+  E extends CustomEvent, OriginalEvent extends Event,
 >(
   name: string,
   handler: ((event: E) => void) | undefined,

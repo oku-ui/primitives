@@ -12,7 +12,7 @@ export const TOGGLE_ITEM_NAME = 'OkuToggleGroupItem'
 export type ToggleGroupItemIntrinsicElement = ToggleGroupItemImplIntrinsicElement
 export type ToggleGroupItemElement = ToggleGroupItemImplElement
 
-interface ToggleGroupItemProps extends Omit<ToggleGroupItemImplProps, 'pressed'> {
+export interface ToggleGroupItemProps extends Omit<ToggleGroupItemImplProps, 'pressed'> {
 
 }
 
@@ -34,7 +34,7 @@ const toggleGroupItem = defineComponent({
     ...scopeToggleGroupProps,
   },
   emits: toggleGroupItemProps.emits,
-  setup(props, { slots, emit, attrs }) {
+  setup(props, { slots, attrs }) {
     const {
       value,
       disabled,
@@ -62,13 +62,12 @@ const toggleGroupItem = defineComponent({
           pressed: pressed.value,
           disabled: _disabled.value,
           ref: forwardedRef,
-          onClick: (e) => {
-            emit('click', e)
-          },
         }, slots),
       })
       : h(OkuToggleGroupItemImpl, {
         ...mergeProps(attrs, props),
+        pressed: pressed.value,
+        disabled: _disabled.value,
         ref: forwardedRef,
       }, slots)
   },
@@ -78,5 +77,3 @@ export const OkuToggleGroupItem = toggleGroupItem as typeof toggleGroupItem &
 (new () => {
   $props: Partial<ToggleGroupItemElement>
 })
-
-export type { ToggleGroupItemProps }

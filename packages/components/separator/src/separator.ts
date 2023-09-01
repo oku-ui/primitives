@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -39,8 +39,8 @@ export const separatorProps = {
      * Either `vertical` or `horizontal`. Defaults to `horizontal`.
      */
     orientation: {
-      type: String as PropType<Orientation>,
-      default: DEFAULT_ORIENTATION,
+      type: String as PropType<Orientation | undefined>,
+      default: undefined,
     },
     ...primitiveProps,
   },
@@ -54,11 +54,10 @@ const separator = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { ...separatorAttrs } = attrs as SeparatorIntrinsicElement
-    const orientation = ORIENTATIONS.includes(props.orientation) ? props.orientation : DEFAULT_ORIENTATION
+    const orientation = computed(() => ORIENTATIONS.includes(props.orientation!) ? props.orientation : DEFAULT_ORIENTATION)
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
-    const ariaOrientation = orientation === 'vertical' ? orientation : undefined
-    const semanticProps = props.decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation, 'role': 'separator' }
-    const dataOrientation = { 'data-orientation': orientation }
+    const ariaOrientation = orientation.value === 'vertical' ? orientation : undefined
+    const semanticProps = props.decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation?.value, 'role': 'separator' }
 
     const forwardedRef = useForwardRef()
 
@@ -67,14 +66,14 @@ const separator = defineComponent({
         Primitive.div,
         {
           ...attrs,
-          ref: forwardedRef,
+          'ref': forwardedRef,
           ...semanticProps,
-          ...dataOrientation,
-          style: {
+          'data-orientation': orientation.value,
+          'style': {
             ...separatorAttrs,
             border: 'none',
           },
-          asChild: props.asChild,
+          'asChild': props.asChild,
         },
         {
           default: () => slots.default?.(),
