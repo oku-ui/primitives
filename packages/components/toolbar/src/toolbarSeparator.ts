@@ -1,4 +1,4 @@
-import { computed, defineComponent, h } from 'vue'
+import { defineComponent, h } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { SeparatorElement, SeparatorIntrinsicElement, SeparatorProps } from '@oku-ui/separator'
 import { OkuSeparator, separatorProps } from '@oku-ui/separator'
@@ -28,13 +28,12 @@ const toolbarSeparator = defineComponent({
   setup(props, { attrs, slots }) {
     const inject = useToolbarInject(SEPARATOR_NAME, props.scopeOkuToolbar)
     const forwardedRef = useForwardRef()
-
+    const orientation = props.orientation ? props.orientation : inject.orientation.value === 'horizontal' ? 'vertical' : 'horizontal'
     return () => h(OkuSeparator, {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
-      // @ts-ignore
-      orientation: computed(() => inject.orientation.value === 'horizontal' ? 'vertical' : 'horizontal').value,
+      orientation,
+      decorative: props.decorative,
+      asChild: props.asChild,
       ...attrs,
-      ...props,
       ref: forwardedRef,
     }, {
       default: slots.default?.(),

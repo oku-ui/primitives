@@ -41,3 +41,18 @@ export const Styled: Story = {
     `,
   }),
 }
+
+export const Chromatic: Story = {
+  args: {
+    template: 'Chromatic',
+  },
+  render: (args: any) => ({
+    components: { ToolbarDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <ToolbarDemo v-bind="args" />
+    `,
+  }),
+}

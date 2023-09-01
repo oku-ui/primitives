@@ -55,7 +55,6 @@ export {
 } from './toolbarToggleItem'
 
 export type {
-  ToggleItemElement,
   ToolbarToggleItemIntrinsicElement,
   ToolbarToggleItemProps,
 } from './toolbarToggleItem'
