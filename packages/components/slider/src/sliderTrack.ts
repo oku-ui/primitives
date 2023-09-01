@@ -2,8 +2,7 @@ import { defineComponent, h, toRefs } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { useSliderInject } from './slider'
-import { scopeSliderProps } from './utils'
+import { scopeSliderProps, useSliderInject } from './utils'
 
 const TRACK_NAME = 'OkuSliderTrack'
 

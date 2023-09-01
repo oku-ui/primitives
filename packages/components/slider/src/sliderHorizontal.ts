@@ -1,34 +1,16 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { propsOmit } from '@oku-ui/primitive'
-import type { useSize } from '@oku-ui/use-composable'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
-import { SLIDER_NAME, createSliderProvider } from './slider'
 import { OkuSliderImpl, type SliderImplElement, type SliderImplEmits, type SliderImplIntrinsicElement, type SliderImplProps, sliderImplProps } from './sliderImpl'
 import type { Direction } from './utils'
-import { BACK_KEYS, linearScale, scopeSliderProps } from './utils'
+import { BACK_KEYS, linearScale, scopeSliderProps, sliderOrientationProvider } from './utils'
 
 export type SliderHorizontalIntrinsicElement = SliderImplIntrinsicElement
 export type SliderHorizontalElement = SliderImplElement
 
 const NAME = 'OkuSliderHorizontal'
-
-type Side = 'top' | 'right' | 'bottom' | 'left'
-
-interface SliderHorizontalProvide {
-  startEdge: Ref<Side>
-  endEdge: Ref<Side>
-  size: Ref<keyof NonNullable<ReturnType<typeof useSize>['value']>>
-  direction: Ref<number>
-}
-
-export const [sliderOrientationProvider, useSliderOrientationInject] = createSliderProvider<SliderHorizontalProvide>(SLIDER_NAME, {
-  startEdge: ref('left'),
-  endEdge: ref('right'),
-  size: ref('width'),
-  direction: ref(1),
-})
 
 export interface SliderOrientationPrivateProps {
   min: number
@@ -48,7 +30,8 @@ export type SliderOrientationPrivateEmits = {
 export const sliderOrientationPrivateProps = {
   props: {
     min: {
-      type: Number,
+      type: Number as PropType<number>,
+      required: true,
     },
     max: {
       type: Number,
@@ -133,7 +116,7 @@ const sliderHorizontal = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(slider, forwardedRef)
 
-    const rectRef = ref<ClientRect | null>(null)
+    const rectRef = ref<ClientRect>()
 
     const direction = useDirection(dir.value)
     const isDirectionLTR = computed(() => direction.value === 'ltr')
@@ -142,7 +125,7 @@ const sliderHorizontal = defineComponent({
     function getValueFromPointer(pointerPosition: number) {
       const rect = rectRef.value || slider.value!.getBoundingClientRect()
       const input: [number, number] = [0, rect.width]
-      const output: [number, number] = isSlidingFromLeft.value ? [min.value, max.value] : [max.value, min.value]
+      const output: [number, number] = isSlidingFromLeft.value ? [min.value!, max.value!] : [max.value!, min.value!]
       const value = linearScale(input, output)
 
       rectRef.value = rect

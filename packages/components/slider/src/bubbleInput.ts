@@ -4,11 +4,11 @@ import { usePrevious } from '@oku-ui/use-composable'
 
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 
-type BubbleInputIntrinsicElement = ElementType<'input'>
+export type BubbleInputIntrinsicElement = ElementType<'input'>
 
-type BubbleInputElement = Partial<Omit<HTMLInputElement, 'checked'>>
+export type BubbleInputElement = Partial<Omit<HTMLInputElement, 'checked'>>
 
-interface BubbleInputProps extends PrimitiveProps {
+export interface BubbleInputProps extends PrimitiveProps {
   value: number
 }
 
@@ -60,7 +60,3 @@ export const OkuBubbleInput = bubbleInput as typeof bubbleInput
 & (new () => {
   $props: Partial<BubbleInputElement>
 })
-
-export type {
-  BubbleInputProps,
-}

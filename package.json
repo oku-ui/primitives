@@ -58,6 +58,7 @@
     "@oku-ui/radio-group": "workspace:^",
     "@oku-ui/roving-focus": "workspace:^",
     "@oku-ui/separator": "workspace:^",
+    "@oku-ui/slider": "workspace:^",
     "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
     "@oku-ui/tabs": "workspace:^",

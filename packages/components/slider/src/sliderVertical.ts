@@ -1,9 +1,9 @@
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuSliderImpl, type SliderImplElement, type SliderImplIntrinsicElement } from './sliderImpl'
-import { BACK_KEYS, linearScale, scopeSliderProps } from './utils'
+import { BACK_KEYS, linearScale, scopeSliderProps, sliderOrientationProvider } from './utils'
 import type { SliderOrientationProps } from './sliderHorizontal'
-import { sliderOrientationProps, sliderOrientationProvider } from './sliderHorizontal'
+import { sliderOrientationProps } from './sliderHorizontal'
 
 export type SliderVerticalIntrinsicElement = SliderImplIntrinsicElement
 export type SliderVerticalElement = SliderImplElement
@@ -42,12 +42,12 @@ const SliderVertical = defineComponent({
     const composedRefs = useComposedRefs(slider, forwardedRef)
     const isSlidingFromBottom = computed(() => !inverted.value)
 
-    const rectRef = ref<ClientRect | null>(null)
+    const rectRef = ref<ClientRect >()
 
     function getValueFromPointer(pointerPosition: number) {
       const rect = rectRef.value || slider.value!.getBoundingClientRect()
       const input: [number, number] = [0, rect.height]
-      const output: [number, number] = isSlidingFromBottom.value ? [max.value, min.value] : [min.value, max.value]
+      const output: [number, number] = isSlidingFromBottom.value ? [max.value!, min.value!] : [min.value!, max.value!]
       const value = linearScale(input, output)
 
       rectRef.value = rect

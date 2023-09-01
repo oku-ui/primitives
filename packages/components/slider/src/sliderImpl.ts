@@ -4,8 +4,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { ScopeSlider } from './utils'
-import { ARROW_KEYS, PAGE_KEYS, scopeSliderProps } from './utils'
-import { SLIDER_NAME, useSliderInject } from './slider'
+import { ARROW_KEYS, PAGE_KEYS, SLIDER_NAME, scopeSliderProps, useSliderInject } from './utils'
 
 export type SliderImplIntrinsicElement = ElementType<'span'>
 export type SliderImplElement = HTMLSpanElement

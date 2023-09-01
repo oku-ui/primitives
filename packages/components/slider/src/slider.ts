@@ -1,45 +1,15 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, useModel } from 'vue'
-import { createProvideScope } from '@oku-ui/provide'
 import type { AriaAttributes } from '@oku-ui/primitive'
 import { propsOmit } from '@oku-ui/primitive'
-import { createCollection } from '@oku-ui/collection'
 import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { clamp } from '@oku-ui/utils'
-import { ARROW_KEYS, type Direction, PAGE_KEYS, type ScopeSlider, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, scopeSliderProps } from './utils'
+import { ARROW_KEYS, CollectionProvider, CollectionSlot, type Direction, PAGE_KEYS, SLIDER_NAME, type ScopeSlider, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, scopeSliderProps, sliderProvider } from './utils'
 import type { SliderThumbElement } from './sliderThumb'
 import { OkuSliderHorizontal, type SliderHorizontalElement, type SliderHorizontalIntrinsicElement, type SliderOrientationPrivateProps, sliderHorizontalProps } from './sliderHorizontal'
 import type { SliderVerticalElement, SliderVerticalIntrinsicElement, SliderVerticalProps } from './sliderVertical'
 import { OkuSliderVertical, sliderVerticalProps } from './sliderVertical'
 import { OkuBubbleInput } from './bubbleInput'
-
-export const SLIDER_NAME = 'OkuSlider'
-
-const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<SliderThumbElement, unknown>(SLIDER_NAME)
-
-export {
-  CollectionProvider,
-  CollectionItemSlot,
-  CollectionSlot,
-  useCollection,
-}
-
-export const [createSliderProvider, createSliderScope] = createProvideScope(SLIDER_NAME, [
-  createCollectionScope],
-)
-
-type SliderProvideValue = {
-  disabled?: Ref<boolean | undefined>
-  min: Ref<number>
-  max: Ref<number>
-  values: Ref<number[] | undefined>
-  valueIndexToChangeRef: Ref<number>
-  thumbs: Ref<Set<SliderThumbElement>>
-  orientation: Ref<SliderProps['orientation']>
-}
-
-export const [sliderProvider, useSliderInject]
-  = createSliderProvider<SliderProvideValue>(SLIDER_NAME)
 
 interface SliderHorizontalProps extends SliderOrientationPrivateProps {
   dir?: Direction
@@ -170,12 +140,11 @@ const slider = defineComponent({
     const thumbRefs = ref(initialThumbSet)
 
     const valueIndexToChangeRef = ref<number>(0)
-    const isHorizontal = computed(() => orientation.value === 'horizontal')
+    const isHorizontal = orientation.value === 'horizontal'
     // We set this to true by default so that events bubble to forms without JS (SSR)
-    const isFormControl = computed(() => sliderRef.value ? Boolean(sliderRef.value.closest('form')) : true)
-
-    const sliderOrientation = computed(() => isHorizontal.value ? OkuSliderHorizontal : OkuSliderVertical) // TODO: will check test
-
+    const isFormControl = computed(() => {
+      return false
+    })
     const modelValue = useModel(props, 'modelValue')
     const prop = computed({
       get: () => modelValue.value,
@@ -232,6 +201,7 @@ const slider = defineComponent({
       }
       updateValue(newData())
     }
+
     sliderProvider({
       scope: props.scopeOkuSlider,
       disabled,
@@ -242,74 +212,72 @@ const slider = defineComponent({
       values: state,
       orientation,
     })
-    const renderOkuBubbleInputs = () => {
-      if (isFormControl.value && state.value) {
-        return state.value.map((_value, index) =>
+
+    return () => {
+      const sliderOrientation = computed(() => isHorizontal ? OkuSliderHorizontal : OkuSliderVertical)
+      return [
+        h(CollectionProvider,
+          {
+            scope: props.scopeOkuSlider,
+          },
+          {
+            default: () => h(CollectionSlot, {
+              scope: props.scopeOkuSlider,
+            },
+            {
+              default: () => h(sliderOrientation, {
+                'aria-disabled': disabled.value,
+                'data-disabled': disabled.value ? '' : undefined,
+                ...restAttrs,
+                'ref': composedRefs,
+                'asChild': asChild.value,
+                'min': min.value,
+                'max': max.value,
+                'inverted': inverted.value,
+                //* ****xxx */
+                'onPointerdown': () => {
+                  if (!disabled.value)
+                    valuesBeforeSlideStartRef.value = state.value || []
+                },
+                'onSlideStart': disabled.value ? undefined : handleSlideStart,
+                'onChange': (value: number[]) => {
+                  const thumbs = [...thumbRefs.value]
+                  thumbs[valueIndexToChangeRef.value]?.focus()
+                  emit('valueChange', value)
+                },
+                'onSlideMove': disabled.value ? undefined : handleSlideMove,
+                'onSlideEnd': disabled.value ? undefined : handleSlideEnd,
+                'onHomeKeyDown': () => !disabled.value && updateValues(min.value, 0, { commit: true }),
+                'onEndKeyDown': () =>
+                  !disabled.value && updateValues(max.value, (state.value?.length || 0) - 1, { commit: true }),
+                'onStepKeyDown': (event: any, direction: number) => {
+                  const stepDirection = direction
+                  if (!disabled.value) {
+                    const isPageKey = PAGE_KEYS.includes(event.key)
+                    const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
+                    const multiplier = isSkipKey ? 10 : 1
+                    const atIndex = valueIndexToChangeRef.value
+                    const value = state.value?.[atIndex]
+                    const stepInDirection = step.value * multiplier * stepDirection
+                    updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
+                  }
+                },
+              },
+              {
+                default: () => slots.default?.(),
+              }),
+            }),
+          }),
+        isFormControl.value && state.value?.map((_value, index) =>
           h(OkuBubbleInput, {
             key: index,
             name: name.value ? name.value + ((state.value || []).length > 1 ? '[]' : '') : undefined,
             // TODO: value type error
             value: _value as any,
           }),
-        )
-      }
-      return null
+        ),
+      ]
     }
-
-    const originalReturn = () => [h(CollectionProvider,
-      {
-        scope: props.scopeOkuSlider,
-      },
-      {
-        default: () => h(CollectionSlot, {
-          scope: props.scopeOkuSlider,
-        },
-        {
-          default: () => h(sliderOrientation, {
-            'aria-disabled': disabled.value,
-            'data-disabled': disabled.value ? '' : undefined,
-            ...restAttrs,
-            'ref': composedRefs,
-            'asChild': asChild.value,
-            'min': min.value,
-            'max': max.value,
-            'inverted': inverted.value,
-            //* ****xxx */
-            'onPointerdown': () => {
-              if (!disabled.value)
-                valuesBeforeSlideStartRef.value = state.value || []
-            },
-            'onSlideStart': disabled.value ? undefined : handleSlideStart,
-            'onChange': (value: number[]) => {
-              const thumbs = [...thumbRefs.value]
-              thumbs[valueIndexToChangeRef.value]?.focus()
-              emit('valueChange', value)
-            },
-            'onSlideMove': disabled.value ? undefined : handleSlideMove,
-            'onSlideEnd': disabled.value ? undefined : handleSlideEnd,
-            'onHomeKeyDown': () => !disabled.value && updateValues(min.value, 0, { commit: true }),
-            'onEndKeyDown': () =>
-              !disabled.value && updateValues(max.value, (state.value?.length || 0) - 1, { commit: true }),
-            'onStepKeyDown': (event: any, direction: number) => {
-              const stepDirection = direction
-              if (!disabled.value) {
-                const isPageKey = PAGE_KEYS.includes(event.key)
-                const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
-                const multiplier = isSkipKey ? 10 : 1
-                const atIndex = valueIndexToChangeRef.value
-                const value = state.value?.[atIndex]
-                const stepInDirection = step.value * multiplier * stepDirection
-                updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
-              }
-            },
-          },
-          {
-            default: () => slots.default?.(),
-          }),
-        }),
-      }), isFormControl.value && renderOkuBubbleInputs(),
-    ]
-    return originalReturn
   },
 })
 
@@ -318,3 +286,7 @@ export const OkuSlider = slider as typeof slider &
 (new () => {
   $props: ScopeSlider<Partial<SliderElement>>
 })
+
+export {
+  sliderProvider,
+}
