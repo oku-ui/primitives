@@ -1,15 +1,47 @@
 <script setup lang="ts">
 import { OkuSlider, OkuSliderRange, OkuSliderThumb, OkuSliderTrack } from '@oku-ui/slider'
+import { ref } from 'vue'
+
+const test = ref()
 </script>
 
 <template>
-  <div>
-    <OkuSlider class="rootSliderClass">
+  <div class="flex gap-14">
+    <OkuSlider
+      class="rootSliderClass"
+      orientation="vertical"
+    >
       <OkuSliderTrack class="trackClass">
         <OkuSliderRange class="rangeClass" />
       </OkuSliderTrack>
       <OkuSliderThumb class="thumbClassT" />
     </OkuSlider>
+
+    <OkuSlider
+      :default-value="[10, 50]"
+      class="rootSliderClass"
+      orientation="vertical"
+    >
+      <OkuSliderTrack class="trackClass">
+        <OkuSliderRange class="rangeClass" />
+      </OkuSliderTrack>
+      <OkuSliderThumb class="thumbClassT" />
+      <OkuSliderThumb class="thumbClassT" />
+    </OkuSlider>
+
+    <OkuSlider
+      v-model="test"
+      :default-value="[10, 50]"
+      class="rootSliderClass"
+      orientation="vertical"
+    >
+      <OkuSliderTrack class="trackClass">
+        <OkuSliderRange class="rangeClass" />
+      </OkuSliderTrack>
+      <OkuSliderThumb class="thumbClassT" />
+      <OkuSliderThumb class="thumbClassT" />
+    </OkuSlider>
+    {{ test }}
   </div>
 </template>
 

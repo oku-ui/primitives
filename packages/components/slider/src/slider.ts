@@ -105,9 +105,11 @@ export const sliderProps = {
     ...sliderHorizontalProps.emits,
     ...sliderVerticalProps.emits,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    valueChange: (value: number[]) => true,
+    'update:modelValue': (value: number[]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    valueCommit: (value: number[]) => true,
+    'valueChange': (value: number[]) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'valueCommit': (value: number[]) => true,
   },
 }
 
@@ -161,6 +163,7 @@ const slider = defineComponent({
       onChange: (result: any) => {
         const thumbs = [...thumbRefs.value]
         thumbs[valueIndexToChangeRef.value]?.focus()
+        emit('update:modelValue', result)
         emit('valueChange', result)
       },
       initialValue: [],

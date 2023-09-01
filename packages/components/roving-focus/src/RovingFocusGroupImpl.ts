@@ -95,8 +95,8 @@ const RovingFocusGroupImpl = defineComponent({
     watchEffect(() => {
       const node = buttonRef.value
       if (node) {
-        node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
-        return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus)
+        node.addEventListener(ENTRY_FOCUS, handleEntryFocus.value)
+        return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus.value)
       }
     })
 

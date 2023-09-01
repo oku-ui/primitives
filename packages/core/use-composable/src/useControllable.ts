@@ -1,5 +1,5 @@
 import type { ComputedRef } from 'vue'
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useCallbackRef } from './useCallbackRef'
 
 type UseControllableStateParams<T> = {
@@ -29,7 +29,7 @@ function useControllable<T>({
       const setter = nextValue as T
       const value = typeof setter === 'function' ? setter(prop.value as T) : nextValue
       if (value !== prop.value)
-        handleChange(value as T)
+        handleChange.value(value as T)
     }
     else {
       uncontrolledProp.value = nextValue as any
@@ -46,12 +46,12 @@ function useUncontrolledState<T>({
   onChange,
 }: Omit<UseControllableStateParams<T>, 'prop'>) {
   const uncontrolledState = ref<T | undefined>(defaultProp?.value)
-  const prevValueRef = computed(() => uncontrolledState.value)
+  const prevValueRef = ref(defaultProp)
   const handleChange = useCallbackRef(onChange)
 
-  watchEffect(() => {
+  watch(uncontrolledState, () => {
     if (prevValueRef.value !== uncontrolledState.value)
-      handleChange(uncontrolledState.value as T)
+      handleChange.value(uncontrolledState.value as T)
   })
 
   return uncontrolledState

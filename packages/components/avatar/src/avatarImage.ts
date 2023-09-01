@@ -58,12 +58,12 @@ const avatarImage = defineComponent({
 
     onMounted(() => {
       if (imageLoadingStatus.value !== 'idle')
-        handleLoadingStatusChange(imageLoadingStatus.value)
+        handleLoadingStatusChange.value(imageLoadingStatus.value)
     })
 
     watch(imageLoadingStatus, (newValue) => {
       if (newValue !== 'idle')
-        handleLoadingStatusChange(newValue)
+        handleLoadingStatusChange.value(newValue)
     })
 
     const originalReturn = () => imageLoadingStatus.value === 'loaded'

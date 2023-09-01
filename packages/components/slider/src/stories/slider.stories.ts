@@ -10,13 +10,9 @@ const meta = {
   title: 'Components/Slider',
   component: OkuSliderComponent,
   args: {
-    label: 'Label',
-    template: '#1',
+    template: 'Styled',
   },
   argTypes: {
-    label: {
-      control: 'text',
-    },
     template: {
       control: 'text',
     },
@@ -33,8 +29,7 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    label: 'Label',
-    template: '#1',
+    template: 'Styled',
   },
   render: (args: any) => ({
     components: { OkuSliderComponent },
@@ -47,10 +42,24 @@ export const Styled: Story = {
   }),
 }
 
-export const WithControl: Story = {
+export const OnValueCommit: Story = {
   args: {
-    label: 'Label',
-    template: '#2',
+    template: 'OnValueCommit',
+  },
+  render: (args: any) => ({
+    components: { OkuSliderComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuSliderComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Vertical: Story = {
+  args: {
+    template: 'Vertical',
   },
   render: (args: any) => ({
     components: { OkuSliderComponent },
