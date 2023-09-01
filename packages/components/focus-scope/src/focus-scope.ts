@@ -289,10 +289,10 @@ const focusScope = defineComponent({
         Primitive.div,
         {
           tabIndex: -1,
-          ref: composedRefs,
-          onKeydown: handleKeyDown,
           ...focusScopeAttrs,
           asChild: asChild.value,
+          onKeydown: handleKeyDown,
+          ref: composedRefs,
         },
         {
           default: () => slots.default?.(),

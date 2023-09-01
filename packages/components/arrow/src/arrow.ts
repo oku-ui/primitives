@@ -16,11 +16,11 @@ export const arrowProps = {
   props: {
     width: {
       type: Number as PropType<number>,
-      default: '5',
+      default: 10,
     },
     height: {
       type: Number as PropType<number>,
-      default: '10',
+      default: 5,
     },
     ...primitiveProps,
   },

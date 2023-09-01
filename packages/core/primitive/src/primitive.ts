@@ -3,6 +3,7 @@ import {
   defineComponent,
   mergeProps,
   onMounted,
+  toRefs,
 } from 'vue'
 
 import { OkuSlot } from '@oku-ui/slot'
@@ -20,13 +21,13 @@ const Primitive = NODES.reduce((primitive, node) => {
       const forwarded = useForwardRef()
       const composedRefs = useComposedRefs(forwarded)
 
-      const { asChild, ...primitiveProps } = props
+      const { asChild, ...primitiveProps } = toRefs(props)
 
       onMounted(() => {
         (window as any)[Symbol.for('oku-ui')] = true
       })
 
-      const Tag: any = asChild ? OkuSlot : node
+      const Tag: any = asChild.value ? OkuSlot : node
       return () => {
         const mergedProps = mergeProps(attrs, primitiveProps)
         return createVNode(Tag, { ...mergedProps, ref: composedRefs }, {
