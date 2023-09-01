@@ -7,8 +7,8 @@
       "ES2023",
       "DOM"
     ],
-    "module": "Node16",
-    "target": "es2022",
+    "module": "ESNext",
+    "target": "ES2022",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
