@@ -139,8 +139,8 @@ const rovingFocusGroupItem = defineComponent({
               if (focusIntent !== undefined) {
                 event.preventDefault()
 
-                const items = getItems.value.filter(item => item.focusable)
-                let candidateNodes = items.map(item => item.ref)
+                const items = getItems().filter(item => item.focusable)
+                let candidateNodes = items.map(item => item.ref.value)
                 if (focusIntent === 'last') {
                   candidateNodes.reverse()
                 }

@@ -149,13 +149,13 @@ const RovingFocusGroupImpl = defineComponent({
             const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
             event.currentTarget?.dispatchEvent(entryFocusEvent)
             if (!entryFocusEvent.defaultPrevented) {
-              const items = getItems.value.filter(item => item.focusable)
+              const items = getItems().filter(item => item.focusable)
               const activeItem = items.find(item => item.active)
               const currentItem = items.find(item => item.id === currentTabStopId.value)
               const candidateItems = [activeItem, currentItem, ...items].filter(
                 Boolean,
               ) as typeof items
-              const candidateNodes = candidateItems.map(item => item.ref)
+              const candidateNodes = candidateItems.map(item => item.ref.value)
               focusFirst(candidateNodes)
             }
           }
