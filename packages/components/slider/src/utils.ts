@@ -17,7 +17,7 @@ export const scopeSliderProps = {
   },
 }
 
-export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<SliderThumbElement, unknown>(SLIDER_NAME)
+export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<SliderThumbElement>(SLIDER_NAME)
 
 export const [createSliderProvider, createSliderScope] = createProvideScope(SLIDER_NAME,
   [

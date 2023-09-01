@@ -36,15 +36,14 @@ const sliderThumb = defineComponent({
     const composedRefs = useComposedRefs(forwardedRef, thumb)
 
     // TODO: item.ref.value -react
-    const index = computed(() => thumb.value ? getItems.value.findIndex(item => item.ref === thumb.value) : -1)
+    const index = computed(() => (thumb.value ? getItems().findIndex(item => item.ref.value === thumb.value) : -1))
 
     return () => h(OkuSliderThumbImpl, {
       ...attrs,
+      asChild: props.asChild,
       ref: composedRefs,
       index: index.value,
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, slots)
   },
 })
 

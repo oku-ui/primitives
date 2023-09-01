@@ -31,9 +31,9 @@ export const sliderThumbImplProps = {
   },
 }
 
-const THUMBIMPL_NAME = 'OkuSliderThumbImpl'
+const THUMB_IMPL_NAME = 'OkuSliderThumbImpl'
 const sliderThumbImpl = defineComponent({
-  name: THUMBIMPL_NAME,
+  name: THUMB_IMPL_NAME,
   inheritAttrs: false,
   props: {
     ...sliderThumbImplProps.props,
@@ -47,7 +47,7 @@ const sliderThumbImpl = defineComponent({
     const thumb = ref<HTMLSpanElement | null>(null)
 
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(forwardedRef, thumb)
+    const composedRefs = useComposedRefs(thumb, forwardedRef)
     const size = useSize(thumb)
 
     // We cast because index could be `-1` which would return undefined
@@ -76,8 +76,9 @@ const sliderThumbImpl = defineComponent({
         position: 'absolute',
         [orientation.startEdge.value]: `calc(${percent.value}% + ${thumbInBoundsOffset.value}px)`,
       },
-    }, {
-      default: () => h(CollectionItemSlot, {
+    },
+    [
+      h(CollectionItemSlot, {
         scope: props.scopeOkuSlider,
       }, {
         default: () => h(Primitive.span, {
@@ -91,30 +92,30 @@ const sliderThumbImpl = defineComponent({
           'data-disabled': inject.disabled?.value ? '' : undefined,
           'tabindex': inject.disabled?.value ? undefined : 0,
           ...attrs,
+          'asChild': props.asChild,
           'ref': composedRefs,
           /**
-            * There will be no value on initial render while we work out the index so we hide thumbs
-            * without a value, otherwise SSR will render them in the wrong position before they
-            * snap into the correct position during hydration which would be visually jarring for
-            * slower connections.
-            */
-          'style': value.value === undefined
+          * There will be no value on initial render while we work out the index so we hide thumbs
+          * without a value, otherwise SSR will render them in the wrong position before they
+          * snap into the correct position during hydration which would be visually jarring for
+          * slower connections.
+          */
+          'style': computed(() => value.value === undefined
             ? {
                 display: 'none',
               }
             : {
                 ...attrs.style as any,
-              },
+              }).value,
           'onFocus': composeEventHandlers<SliderThumbImplEmits['focus'][0]>((event) => {
             emit('focus', event)
           }, () => {
             inject.valueIndexToChangeRef.value = index.value!
           }),
-        }, {
-          default: () => slots.default?.(),
-        }),
+        }, slots),
       }),
-    })
+    ],
+    )
   },
 })
 

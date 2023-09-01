@@ -34,7 +34,6 @@ const sliderTrack = defineComponent({
     } = toRefs(props)
     const inject = useSliderInject(TRACK_NAME, scopeOkuSlider.value)
     const forwardedRef = useForwardRef()
-
     const originalReturn = () => h(Primitive.span, {
       'data-disabled': inject.disabled?.value ? '' : undefined,
       'data-orientation': inject.orientation.value,

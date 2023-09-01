@@ -180,9 +180,7 @@ const sliderHorizontal = defineComponent({
         // @ts-ignore
         emit('stepKeyDown', { event, direction: isBackKey ? -1 : 1 })
       },
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, slots)
   },
 })
 

@@ -18,7 +18,6 @@ export const bubbleInputProps = {
       type: Number,
       default: undefined,
     },
-
   },
 }
 

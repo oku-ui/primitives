@@ -276,10 +276,7 @@ const slider = defineComponent({
                     updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
                   }
                 },
-              },
-              {
-                default: () => slots.default?.(),
-              }),
+              }, slots),
             }),
           }),
         isFormControl.value && state.value?.map((_value, index) =>
