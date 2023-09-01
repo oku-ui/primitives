@@ -7,9 +7,8 @@ import {
   OkuTooltipProvider,
   OkuTooltipTrigger,
 } from '@oku-ui/tooltip'
-import { ref } from 'vue'
 
-const open = ref(true)
+// const open = ref(true)
 </script>
 
 <!-- export const CustomDurations = () => (
@@ -280,8 +279,6 @@ const open = ref(true)
 </template>
 
 <style lang="postcss">
-.triggerClass {}
-
 .positionButtonClass {
   margin: 5px;
   border: 1px solid black;

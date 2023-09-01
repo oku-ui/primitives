@@ -63,6 +63,7 @@
     "@oku-ui/tabs": "workspace:^",
     "@oku-ui/toggle": "workspace:^",
     "@oku-ui/toggle-group": "workspace:^",
+    "@oku-ui/toolbar": "workspace:^",
     "@oku-ui/tooltip": "workspace:^",
     "@oku-ui/use-composable": "workspace:^",
     "@oku-ui/utils": "workspace:^",

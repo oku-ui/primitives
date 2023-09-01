@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/node18.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": [
+    "src"
+  ]
+}
