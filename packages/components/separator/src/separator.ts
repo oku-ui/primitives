@@ -54,7 +54,7 @@ const separator = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { ...separatorAttrs } = attrs as SeparatorIntrinsicElement
-    const orientation = computed(() => ORIENTATIONS.includes(props.orientation || DEFAULT_ORIENTATION) ? props.orientation : DEFAULT_ORIENTATION)
+    const orientation = computed(() => ORIENTATIONS.includes(props.orientation!) ? props.orientation : DEFAULT_ORIENTATION)
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
     const ariaOrientation = orientation.value === 'vertical' ? orientation : undefined
     const semanticProps = props.decorative ? { role: 'none' } : { 'aria-orientation': ariaOrientation?.value, 'role': 'separator' }
