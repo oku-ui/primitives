@@ -1,9 +1,9 @@
+import type { Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ScopeAvatar } from './utils'
 import { scopeAvatarProps } from './utils'
 
 const AVATAR_NAME = 'OkuAvatar'
@@ -12,7 +12,7 @@ export const [createAvatarProvide, createAvatarScope] = createProvideScope(AVATA
 type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
 type AvatarProvideValue = {
-  imageLoadingStatus: ImageLoadingStatus
+  imageLoadingStatus: Ref<ImageLoadingStatus>
   onImageLoadingStatusChange(status: ImageLoadingStatus): void
 }
 
@@ -39,15 +39,13 @@ const avatar = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...avatarProps } = attrs as AvatarIntrinsicElement
-
     const forwardedRef = useForwardRef()
 
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
     avatarProvider({
       scope: props.scopeOkuAvatar,
-      imageLoadingStatus: imageLoadingStatus.value,
+      imageLoadingStatus,
       onImageLoadingStatusChange: (status: ImageLoadingStatus) => {
         imageLoadingStatus.value = status
       },
@@ -55,7 +53,7 @@ const avatar = defineComponent({
 
     const originalReturn = () => h(
       Primitive.span, {
-        ...avatarProps,
+        ...attrs,
         ref: forwardedRef,
         asChild: props.asChild,
       },
@@ -70,5 +68,5 @@ const avatar = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatar = avatar as typeof avatar &
 (new () => {
-  $props: ScopeAvatar<Partial<AvatarElement>>
+  $props: Partial<AvatarElement>
 })
