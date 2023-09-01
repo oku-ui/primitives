@@ -4,7 +4,7 @@ import type { AriaAttributes } from '@oku-ui/primitive'
 import { propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { clamp } from '@oku-ui/utils'
-import { ARROW_KEYS, CollectionProvider, CollectionSlot, type Direction, PAGE_KEYS, SLIDER_NAME, type ScopeSlider, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, scopeSliderProps, sliderProvider } from './utils'
+import { ARROW_KEYS, CollectionProvider, CollectionSlot, type Direction, PAGE_KEYS, SLIDER_NAME, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, scopeSliderProps, sliderProvider } from './utils'
 import type { SliderThumbElement } from './sliderThumb'
 import { OkuSliderHorizontal, type SliderHorizontalElement, type SliderHorizontalIntrinsicElement, type SliderOrientationPrivateProps, sliderHorizontalProps } from './sliderHorizontal'
 import type { SliderVerticalElement, SliderVerticalIntrinsicElement, SliderVerticalProps } from './sliderVertical'
@@ -116,8 +116,6 @@ const slider = defineComponent({
   },
   emits: sliderProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as SliderIntrinsicElement
-
     const {
       orientation,
       defaultValue,
@@ -214,7 +212,6 @@ const slider = defineComponent({
     })
 
     return () => {
-      const sliderOrientation = computed(() => isHorizontal ? OkuSliderHorizontal : OkuSliderVertical)
       return [
         h(CollectionProvider,
           {
@@ -225,32 +222,49 @@ const slider = defineComponent({
               scope: props.scopeOkuSlider,
             },
             {
-              default: () => h(sliderOrientation, {
+              default: () => h(isHorizontal ? OkuSliderHorizontal : OkuSliderVertical, {
                 'aria-disabled': disabled.value,
                 'data-disabled': disabled.value ? '' : undefined,
-                ...restAttrs,
+                ...attrs,
                 'ref': composedRefs,
                 'asChild': asChild.value,
                 'min': min.value,
                 'max': max.value,
                 'inverted': inverted.value,
-                //* ****xxx */
                 'onPointerdown': () => {
                   if (!disabled.value)
                     valuesBeforeSlideStartRef.value = state.value || []
                 },
-                'onSlideStart': disabled.value ? undefined : handleSlideStart,
+                'onSlideStart': (event) => {
+                  if (disabled.value)
+                    emit('slideStart')
+
+                  else if (event)
+                    handleSlideStart(event)
+                },
                 'onChange': (value: number[]) => {
                   const thumbs = [...thumbRefs.value]
                   thumbs[valueIndexToChangeRef.value]?.focus()
                   emit('valueChange', value)
                 },
-                'onSlideMove': disabled.value ? undefined : handleSlideMove,
-                'onSlideEnd': disabled.value ? undefined : handleSlideEnd,
+                'onSlideMove': (event) => {
+                  if (disabled.value)
+                    emit('slideMove')
+
+                  else if (event)
+                    handleSlideMove(event)
+                },
+                'onSlideEnd': () => {
+                  if (disabled.value)
+                    emit('slideEnd')
+
+                  else
+                    handleSlideEnd()
+                },
                 'onHomeKeyDown': () => !disabled.value && updateValues(min.value, 0, { commit: true }),
                 'onEndKeyDown': () =>
                   !disabled.value && updateValues(max.value, (state.value?.length || 0) - 1, { commit: true }),
-                'onStepKeyDown': (event: any, direction: number) => {
+                'onStepKeyDown': ({ direction, event }) => {
                   const stepDirection = direction
                   if (!disabled.value) {
                     const isPageKey = PAGE_KEYS.includes(event.key)
@@ -284,9 +298,5 @@ const slider = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSlider = slider as typeof slider &
 (new () => {
-  $props: ScopeSlider<Partial<SliderElement>>
+  $props: Partial<SliderElement>
 })
-
-export {
-  sliderProvider,
-}

@@ -132,6 +132,8 @@ const sliderImpl = defineComponent({
           emit('slideEnd', event)
         }
       }),
+    }, {
+      default: () => slots.default?.(),
     })
   },
 })

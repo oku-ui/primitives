@@ -19,9 +19,9 @@ export interface SliderOrientationPrivateProps {
 }
 
 export type SliderOrientationPrivateEmits = {
-  'slideStart': [value: number]
-  'slideMove': [value: number]
-  'slideEnd': []
+  'slideStart'?: [value: number]
+  'slideMove'?: [value: number]
+  'slideEnd'?: []
   'homeKeyDown': [event: KeyboardEvent]
   'endKeyDown': [event: KeyboardEvent]
   'stepKeyDown': [step: { event: KeyboardEvent; direction: number }]
@@ -42,9 +42,9 @@ export const sliderOrientationPrivateProps = {
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    slideStart: (value: number) => true,
+    slideStart: (value?: number) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    slideMove: (value: number) => true,
+    slideMove: (value?: number) => true,
     slideEnd: () => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     homeKeyDown: (event: KeyboardEvent) => true,
@@ -75,6 +75,7 @@ export const sliderOrientationProps = {
       'endKeydown',
       'stepKeydown',
     ]),
+    ...sliderOrientationPrivateProps.emits,
   },
 }
 
