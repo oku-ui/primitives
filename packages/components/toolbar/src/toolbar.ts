@@ -104,3 +104,7 @@ export const OkuToolbar = toolbar as typeof toolbar &
 (new () => {
   $props: Partial<ToolbarElement>
 })
+
+export {
+  createToolbarScope,
+}

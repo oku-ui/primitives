@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -43,8 +43,7 @@ const toolbarToggleItem = defineComponent({
     }, {
       default: () => h(OkuToggleGroupItem, {
         ...toggleGroupScope,
-        ...attrs,
-        ...props,
+        ...mergeProps(attrs, props),
         ref: forwardedRef,
       }, {
         default: () => slots.default?.(),

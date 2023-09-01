@@ -50,6 +50,7 @@ const toolbarLink = defineComponent({
     }, {
       default: () => h(Primitive.a, {
         ...attrs,
+        ...props,
         ref: forwardedRef,
         onKeyDown: composeEventHandlers<ToolbarLinkEmits['keydown'][0]>((e) => {
           emit('keydown', e)

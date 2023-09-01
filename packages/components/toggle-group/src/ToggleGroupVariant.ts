@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, ref, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, toRefs, useModel } from 'vue'
 import type { PropType } from 'vue'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
@@ -36,7 +36,7 @@ export const toggleGroupVariantProps = {
   props: {
     type: {
       type: [String] as PropType<'single' | 'multiple'>,
-      default: 'single',
+      required: true,
     },
     modelValue: {
       type: [String, Array] as PropType<string | string[] | undefined>,
@@ -84,7 +84,6 @@ const toggleGroupVariant = defineComponent({
     } = toRefs(props)
     const forwardedRef = useForwardRef()
     const modelValue = useModel(props, 'modelValue')
-
     const proxyChecked = computed({
       get: () => modelValue.value !== undefined
         ? modelValue.value
@@ -135,12 +134,11 @@ const toggleGroupVariant = defineComponent({
         else if (type.value === 'multiple')
           handleButtonDeactivate(value)
       },
-      type: ref('single'),
+      type: computed(() => type.value || 'single'),
     })
 
     return () => h(OkuToggleGroupImpl, {
       ...attrs,
-      type: type.value,
       dir: dir.value,
       disabled: disabled.value,
       loop: loop.value,

@@ -35,9 +35,12 @@ const toolbarToggleGroup = defineComponent({
 
     return () => h(OkuToggleGroup, {
       'data-orientation': inject.orientation.value,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       'dir': inject.dir.value,
       ...toggleGroupScope,
       ...attrs,
+      ...props,
       'ref': forwardedRef,
       'rovingFocus': false,
     }, {

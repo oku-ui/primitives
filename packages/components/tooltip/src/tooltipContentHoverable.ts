@@ -36,7 +36,7 @@ const tooltipContentHoverable = defineComponent({
     ...scopeTooltipProps,
   },
   emits: tooltipContentHoverableProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots }) {
     const inject = useTooltipInject(CONTENT_NAME, props.scopeOkuTooltip)
     const providerInject = useTooltipProviderInject(CONTENT_NAME, props.scopeOkuTooltip)
 

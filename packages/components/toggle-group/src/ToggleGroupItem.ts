@@ -34,7 +34,7 @@ const toggleGroupItem = defineComponent({
     ...scopeToggleGroupProps,
   },
   emits: toggleGroupItemProps.emits,
-  setup(props, { slots, emit, attrs }) {
+  setup(props, { slots, attrs }) {
     const {
       value,
       disabled,
@@ -62,13 +62,12 @@ const toggleGroupItem = defineComponent({
           pressed: pressed.value,
           disabled: _disabled.value,
           ref: forwardedRef,
-          onClick: (e) => {
-            emit('click', e)
-          },
         }, slots),
       })
       : h(OkuToggleGroupItemImpl, {
         ...mergeProps(attrs, props),
+        pressed: pressed.value,
+        disabled: _disabled.value,
         ref: forwardedRef,
       }, slots)
   },

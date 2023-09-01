@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import Styled from './Styled.vue'
 
 export interface OkuToolbarProps {
@@ -10,12 +9,6 @@ export interface OkuToolbarProps {
 withDefaults(defineProps<OkuToolbarProps>(), {
   template: 'Styled',
 })
-
-const labelRef = ref()
-onMounted(() => {
-  console.log(labelRef.value)
-})
-const alert = () => console.log('alert')
 </script>
 
 <template>

@@ -46,6 +46,7 @@ const toolbarButton = defineComponent({
       default: () => h(Primitive.button, {
         type: 'button',
         ...attrs,
+        ...props,
         ref: forwardedRef,
       }, {
         default: () => slots.default?.(),
