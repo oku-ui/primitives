@@ -90,7 +90,7 @@ export const sliderProps = {
     },
     defaultValue: {
       type: Array as PropType<number[] | undefined>,
-      default: undefined,
+      default: [100],
     },
     inverted: {
       type: Boolean,
