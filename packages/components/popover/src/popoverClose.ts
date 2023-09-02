@@ -3,7 +3,7 @@ import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { type ScopePopover, scopePopoverProps } from './utils'
+import { scopePopoverProps } from './utils'
 import { usePopoverInject } from './popover'
 
 export type PopoverCloseIntrinsicElement = ElementType<'button'>
@@ -53,5 +53,5 @@ const popoverClose = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverClose = popoverClose as typeof popoverClose &
 (new () => {
-  $props: ScopePopover<Partial<PopoverCloseElement>>
+  $props: Partial<PopoverCloseElement>
 })

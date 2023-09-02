@@ -7,7 +7,6 @@ import { OkuPopperContent, type PopperContentEmits, type PopperContentProps, pop
 import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
 import { type DismissableLayerEmits, type DismissableLayerProps, OkuDismissableLayer, dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { useFocusGuards } from '@oku-ui/focus-guards'
-import type { ScopePopover } from './utils'
 import { getState, scopePopoverProps } from './utils'
 import { usePopoverInject, usePopperScope } from './popover'
 
@@ -140,5 +139,5 @@ const popoverContentImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverContentImpl = popoverContentImpl as typeof popoverContentImpl &
 (new () => {
-  $props: ScopePopover<Partial<PopoverContentImplElement>>
+  $props: Partial<PopoverContentImplElement>
 })

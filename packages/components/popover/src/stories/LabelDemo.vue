@@ -24,7 +24,6 @@ const labelRef = ref()
 onMounted(() => {
   console.log(labelRef.value)
 })
-const alert = () => console.log('alert')
 </script>
 
 <template>
@@ -49,7 +48,7 @@ const alert = () => console.log('alert')
 
 <style>
 .triggerClass {
-  @apply w-40 h-40;
+
 }
 
 .contentClass {

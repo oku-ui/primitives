@@ -4,7 +4,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPopperAnchor } from '@oku-ui/popper'
-import { type ScopePopover, getState, scopePopoverProps } from './utils'
+import { getState, scopePopoverProps } from './utils'
 import { usePopoverInject, usePopperScope } from './popover'
 
 export type PopoverTriggerIntrinsicElement = ElementType<'button'>
@@ -37,7 +37,7 @@ const popoverTrigger = defineComponent({
   },
   emits: popoverTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { scopeOkuPopover, asChild } = toRefs(props)
+    const { scopeOkuPopover } = toRefs(props)
 
     const inject = usePopoverInject(TRIGGER_NAME, scopeOkuPopover?.value)
 
@@ -70,7 +70,7 @@ const popoverTrigger = defineComponent({
       return inject.hasCustomAnchor.value
         ? trigger
         : h(OkuPopperAnchor, {
-          asChild: asChild?.value,
+          asChild: true,
           ...popperScope,
         }, {
           default: () => trigger,
@@ -82,5 +82,5 @@ const popoverTrigger = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverTrigger = popoverTrigger as typeof popoverTrigger &
 (new () => {
-  $props: ScopePopover<Partial<PopoverTriggerElement>>
+  $props: Partial<PopoverTriggerElement>
 })

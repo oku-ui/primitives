@@ -3,7 +3,7 @@ import { computed, defineComponent, h, toRefs } from 'vue'
 import {
   type ElementType,
 } from '@oku-ui/primitive'
-import type { ArrowProps } from '@oku-ui/arrow'
+import type { ArrowElement, ArrowProps } from '@oku-ui/arrow'
 import { OkuArrow, arrowProps } from '@oku-ui/arrow'
 
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -20,7 +20,7 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
 }
 
 export type PopperArrowIntrinsicElement = ElementType<'svg'>
-export type PopperArrowElement = SVGSVGElement
+export type PopperArrowElement = ArrowElement
 
 export interface PopperArrowProps extends ArrowProps {
 }

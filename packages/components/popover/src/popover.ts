@@ -4,7 +4,6 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuPopper, createPopperScope } from '@oku-ui/popper'
-import type { ScopePopover } from './utils'
 import { scopePopoverProps } from './utils'
 
 const POPOVER_NAME = 'OkuPopover'
@@ -140,7 +139,4 @@ const popover = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopover = popover as typeof popover &
-(new () => {
-  $props: ScopePopover<any>
-})
+export const OkuPopover = popover

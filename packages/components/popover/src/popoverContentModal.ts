@@ -6,7 +6,7 @@ import { OkuSlot } from '@oku-ui/slot'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPopoverContentImpl, popoverContentImplProps } from './popoverContentImpl'
 import type { PopoverContentImplElement, PopoverContentImplEmits, PopoverContentImplIntrinsicElement, PopoverContentImplProps } from './popoverContentImpl'
-import { type ScopePopover, scopePopoverProps } from './utils'
+import { scopePopoverProps } from './utils'
 import { usePopoverInject } from './popover'
 import { CONTENT_NAME } from './popoverContent'
 
@@ -93,5 +93,5 @@ const popoverContentModal = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverContentModal = popoverContentModal as typeof popoverContentModal &
 (new () => {
-  $props: ScopePopover<Partial<PopoverContentTypeElement>>
+  $props: Partial<PopoverContentTypeElement>
 })

@@ -4,7 +4,7 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPortal, type PortalProps } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
 import { createPopoverProvide, usePopoverInject } from './popover'
-import { type ScopePopover, scopePopoverProps } from './utils'
+import { scopePopoverProps } from './utils'
 
 const PORTAL_NAME = 'OkuPopoverPortal'
 
@@ -68,7 +68,4 @@ const popoverPortal = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopoverPortal = popoverPortal as typeof popoverPortal &
-(new () => {
-  $props: ScopePopover<any>
-})
+export const OkuPopoverPortal = popoverPortal
