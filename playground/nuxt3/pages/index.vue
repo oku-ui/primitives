@@ -60,6 +60,10 @@ const pages: Page[] = [
     name: 'OkuTabs',
     path: '/tabs',
   },
+  {
+    name: 'Slider',
+    path: '/slider',
+  },
 ]
 </script>
 

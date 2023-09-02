@@ -29,6 +29,7 @@ export const popperAnchorProps = {
       default: undefined,
     },
   },
+  emits: {},
 }
 
 const popperAnchor = defineComponent({
@@ -40,17 +41,23 @@ const popperAnchor = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { virtualRef, asChild } = toRefs(props)
+    const { virtualRef } = toRefs(props)
     const { ...attrsAnchor } = attrs as PopperAnchorIntrinsicElement
     const inject = usePopperInject(ANCHOR_NAME, props.scopeOkuPopper)
 
     const _ref = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(_ref, forwardedRef)
+    const composedRefs = useComposedRefs(_ref, forwardedRef, (el) => {
+      inject.anchor.value = el as Measurable
+    })
 
     watch(_ref, () => {
-      inject.anchor.value
-        = virtualRef.value?.value || (_ref.value as Measurable)
+      // Consumer can anchor the popper to something that isn't
+      // a DOM node e.g. pointer position, so we override the
+      // `anchorRef` with their virtual ref in this case.
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      inject.onAnchorChange(virtualRef?.value || _ref.value)
     })
 
     const originalReturn = () =>
@@ -60,13 +67,9 @@ const popperAnchor = defineComponent({
           Primitive.div,
           {
             ...attrsAnchor,
-            asChild: asChild.value,
+            asChild: props.asChild,
             ref: composedRefs,
-          },
-          {
-            default: () => slots.default && slots.default?.(),
-          },
-        )
+          }, slots)
 
     return originalReturn
   },

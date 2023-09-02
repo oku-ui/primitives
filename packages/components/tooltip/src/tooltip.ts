@@ -95,7 +95,7 @@ const tooltip = defineComponent({
     ...scopeTooltipProps,
   },
   emits: tooltipProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { slots, emit }) {
     const {
       open: openProp,
       defaultOpen,
