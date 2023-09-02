@@ -1,5 +1,5 @@
-import type { ComponentObjectPropsOptions, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, unref, watchEffect } from 'vue'
+import type { ComponentObjectPropsOptions, Ref, ShallowRef } from 'vue'
+import { defineComponent, h, markRaw, ref, shallowRef, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
@@ -19,7 +19,7 @@ export type CollectionElement = HTMLElement
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-export function createCollection<ItemElement extends HTMLElement, T>(name: string, ItemData?: ComponentObjectPropsOptions) {
+export function createCollection<ItemElement extends HTMLElement, T = object>(name: string, ItemData?: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
  * CollectionProvider
  * --------------------------------------------------------------------------------------------- */
@@ -29,14 +29,14 @@ export function createCollection<ItemElement extends HTMLElement, T>(name: strin
 
   type ContextValue = {
     collectionRef: Ref<ItemElement | undefined>
-    itemMap: Ref<Map<Ref<ItemElement | null | undefined>, {
-      ref: ItemElement
+    itemMap: ShallowRef<Map<Ref<ItemElement | null | undefined>, {
+      ref: Ref<ItemElement>
     } & T>>
   }
 
   const [CollectionProviderImpl, useCollectionInject] = createCollectionProvide<ContextValue>(
     PROVIDER_NAME,
-    { collectionRef: ref(undefined), itemMap: ref(new Map()) },
+    { collectionRef: ref(undefined), itemMap: shallowRef(new Map()) },
   )
 
   const CollectionProvider = defineComponent({
@@ -47,7 +47,7 @@ export function createCollection<ItemElement extends HTMLElement, T>(name: strin
     },
     setup(props, { slots }) {
       const collectionRef = ref<ItemElement>()
-      const itemMap = ref(new Map())
+      const itemMap = shallowRef(new Map())
       CollectionProviderImpl({
         collectionRef,
         itemMap,
@@ -88,7 +88,7 @@ export function createCollection<ItemElement extends HTMLElement, T>(name: strin
   const ITEM_SLOT_NAME = `${name}CollectionItemSlot`
   const ITEM_DATA_ATTR = 'data-oku-collection-item'
 
-  const _CollectionItemSlot = defineComponent({
+  const collectionItemSlot = defineComponent({
     name: ITEM_SLOT_NAME,
     components: {
       OkuSlot,
@@ -99,25 +99,27 @@ export function createCollection<ItemElement extends HTMLElement, T>(name: strin
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { scope, ...itemData } = toRefs(props)
+      const { scope, ...itemData } = props
       const refValue = ref<ItemElement | null>()
       const forwaredRef = useForwardRef()
-      const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
+      const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
       const composedRefs = useComposedRefs(refValue, forwaredRef)
 
       watchEffect((onClean) => {
-        inject.itemMap.value.set(refValue, { ref: refValue, ...unref(itemData as any), ...attrs })
+        inject.itemMap.value.set(markRaw(refValue), { ref: markRaw(refValue), ...(itemData as any), ...attrs })
 
         onClean(() => {
           inject.itemMap.value.delete(refValue)
         })
       })
 
-      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
+      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, {
+        default: () => slots.default?.(),
+      })
     },
   })
 
-  const CollectionItemSlot = _CollectionItemSlot as typeof _CollectionItemSlot & (new () => { $props: Partial<T> })
+  const CollectionItemSlot = collectionItemSlot as typeof collectionItemSlot & (new () => { $props: Partial<T> })
 
   /* -----------------------------------------------------------------------------------------------
  * useCollection
@@ -125,7 +127,7 @@ export function createCollection<ItemElement extends HTMLElement, T>(name: strin
 
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
-    const getItems = computed(() => {
+    const getItems = () => {
       const collectionNode = inject.collectionRef.value
       if (!collectionNode)
         return []
@@ -134,11 +136,11 @@ export function createCollection<ItemElement extends HTMLElement, T>(name: strin
       const items = Array.from(inject.itemMap.value.values())
       const orderedItems = items.sort(
         (a, b) => {
-          return orderedNodes.indexOf(a.ref) - orderedNodes.indexOf(b.ref)
+          return orderedNodes.indexOf(a.ref.value) - orderedNodes.indexOf(b.ref.value)
         },
       )
       return orderedItems
-    })
+    }
     return getItems
   }
 

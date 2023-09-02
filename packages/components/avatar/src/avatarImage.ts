@@ -57,7 +57,7 @@ const avatarImage = defineComponent({
 
     watchEffect(() => {
       if (imageLoadingStatus.value !== 'idle')
-        handleLoadingStatusChange(imageLoadingStatus.value)
+        handleLoadingStatusChange.value(imageLoadingStatus.value)
     })
 
     const originalReturn = () => imageLoadingStatus.value === 'loaded'

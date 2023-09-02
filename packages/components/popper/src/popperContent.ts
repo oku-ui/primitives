@@ -239,7 +239,7 @@ const PopperContent = defineComponent({
 
     watch([isPositioned, handlePlaced], () => {
       if (isPositioned.value)
-        handlePlaced?.()
+        handlePlaced.value()
     })
 
     const floatingTop = computed(() => `${y.value ?? 0}px`)
