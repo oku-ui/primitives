@@ -3,7 +3,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useToastInteractiveInject } from './toast-impl'
+import { useToastInteractiveInject } from './share'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
 import { scopedToastProps } from './types'
 

@@ -4,7 +4,7 @@ import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
-import { CollectionSlot, PROVIDER_NAME, useCollection, useToastProviderInject } from './toast-provider'
+import { CollectionSlot, useCollection, useToastProviderInject } from './share'
 import { focusFirst, getTabbableCandidates } from './utils'
 import { scopedToastProps } from './types'
 import { OkuToastFocusProxy } from './toast-focus-proxy'
@@ -74,7 +74,7 @@ const toastViewport = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useToastProviderInject(PROVIDER_NAME, props.scopeOkuToast)
+    const inject = useToastProviderInject(VIEWPORT_NAME, props.scopeOkuToast)
     const getItems = useCollection(props.scopeOkuToast)
     const wrapperRef = ref<HTMLDivElement | null>(null)
     const headFocusProxyRef = ref<FocusProxyElement | null>(null)

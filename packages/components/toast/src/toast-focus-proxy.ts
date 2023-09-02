@@ -2,7 +2,7 @@ import { defineComponent, h } from 'vue'
 import type { VisuallyHiddenElement, VisuallyHiddenIntrinsicElement } from '@oku-ui/visually-hidden'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuVisuallyHidden, visuallyHiddenProps } from '@oku-ui/visually-hidden'
-import { useToastProviderInject } from './toast-provider'
+import { useToastProviderInject } from './share'
 import { scopedToastProps } from './types'
 
 const FOCUS_PROXY_NAME = 'OkuToastFocusProxy'

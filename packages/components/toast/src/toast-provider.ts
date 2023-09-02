@@ -1,42 +1,12 @@
 import { defineComponent, h, ref, toRefs } from 'vue'
-import type { PropType, Ref } from 'vue'
-import { createProvideScope } from '@oku-ui/provide'
-import { createCollection } from '@oku-ui/collection'
-import type { ToastImplElement } from './toast-impl'
+import type { PropType } from 'vue'
+
 import type { ToastViewportElement } from './toast-viewport'
 import { scopedToastProps } from './types'
+import { CollectionProvider, PROVIDER_NAME, toastProviderProvider } from './share'
+import type { SwipeDirection, ToastElement } from './share'
 
-// import type { ScopedPropsInterface } from './types'
-
-/* -------------------------------------------------------------------------------------------------
- * ToastProvider
- * ----------------------------------------------------------------------------------------------- */
-
-export const PROVIDER_NAME = 'OkuToastProvider'
-
-type ToastElement = ToastImplElement
-
-export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<ToastElement>('Toast')
-
-export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
-type ToastProviderProvideValue = {
-  label: Ref<string>
-  duration: Ref<number>
-  swipeDirection: Ref<SwipeDirection>
-  swipeThreshold: Ref<number>
-  toastCount: Ref<number>
-  viewport: Ref<ToastViewportElement | null>
-  onViewportChange(viewport: ToastViewportElement): void
-  onToastAdd(): void
-  onToastRemove(): void
-  isFocusedToastEscapeKeyDownRef: Ref<boolean>
-  isClosePausedRef: Ref<boolean>
-}
-
-const [createToastProvide, createToastScope] = createProvideScope('Toast', [createCollectionScope])
-const [toastProviderProvider, useToastProviderInject] = createToastProvide<ToastProviderProvideValue>(PROVIDER_NAME)
-
-interface ToastProviderProps {
+export interface ToastProviderProps {
   /**
    * An author-localized label for each toast. Used to help screen reader users
    * associate the interruption with a toast.
@@ -139,9 +109,5 @@ const toastProvider = defineComponent({
   },
 })
 
-export { useToastProviderInject, createToastScope, createToastProvide }
-
 export const OkuToastProvider = toastProvider as typeof toastProvider &
 (new () => { $props: Partial<ToastElement> })
-
-export type { ToastElement, ToastProviderProps }

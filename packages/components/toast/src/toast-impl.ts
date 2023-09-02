@@ -6,11 +6,10 @@ import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-comp
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { CollectionItemSlot, createToastProvide, useToastProviderInject } from './toast-provider'
+import { CollectionItemSlot, TOAST_NAME, toastInteractiveProvider, useToastProviderInject } from './share'
 import { scopedToastProps } from './types'
 import { OkuToastAnnounce } from './toast-announce'
 import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from './utils'
-import { TOAST_NAME } from './toast'
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './toast-viewport'
 
 const TOAST_SWIPE_START = 'toast.swipeStart'
@@ -22,10 +21,6 @@ export type SwipeEvent = { currentTarget: EventTarget & ToastImplElement } & Omi
   CustomEvent<{ originalEvent: PointerEvent; delta: { x: number; y: number } }>,
   'currentTarget'
 >
-
-const [toastInteractiveProvider, useToastInteractiveInject] = createToastProvide(TOAST_NAME, {
-  onClose() {},
-})
 
 export type ToastImplIntrinsicElement = ElementType<'li'>
 export type ToastImplElement = HTMLLIElement
@@ -378,8 +373,6 @@ const toastImpl = defineComponent({
     return originalReturn
   },
 })
-
-export { useToastInteractiveInject }
 
 export const OkuToastImpl = toastImpl as typeof toastImpl &
 (new () => { $props: Partial<ToastImplIntrinsicElement> })

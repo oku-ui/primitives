@@ -5,10 +5,6 @@ import type { ToastCloseIntrinsicElement, ToastCloseProps } from './toast-close'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
 import { scopedToastProps } from './types'
 
-/* -------------------------------------------------------------------------------------------------
- * ToastAction
- * ----------------------------------------------------------------------------------------------- */
-
 const ACTION_NAME = 'OkuToastAction'
 
 type ToastActionElement = ToastCloseIntrinsicElement

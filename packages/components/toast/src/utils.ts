@@ -1,7 +1,7 @@
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import { useCallbackRef } from '@oku-ui/use-composable'
 import { nextTick, watchEffect } from 'vue'
-import type { SwipeDirection } from './toast-provider'
+import type { SwipeDirection } from './share'
 
 function getAnnounceTextContent(container: HTMLElement) {
   const textContent: string[] = []

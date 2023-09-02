@@ -35,12 +35,14 @@ const DismissableLayerBranch = defineComponent({
     const composedRefs = useComposedRefs(node, forwardedRef)
 
     watchEffect((onInvalidate) => {
-      if (node.value)
-        _inject.branches.value.add(node.value)
+      const _node = node.value
+
+      if (_node)
+        _inject.branches.value.add(_node)
 
       onInvalidate(() => {
-        if (node.value && node.value)
-          _inject.branches.value.delete(node.value)
+        if (_node)
+          _inject.branches.value.delete(_node)
       })
     })
 

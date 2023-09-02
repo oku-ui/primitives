@@ -7,12 +7,7 @@ import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuToastImpl, toastImplProps } from './toast-impl'
 import type { SwipeEvent, ToastImplElement, ToastImplEmits, ToastImplIntrinsicElement, ToastImplPrivateEmits, ToastImplPrivateProps, ToastImplProps } from './toast-impl'
 import { scopedToastProps } from './types'
-
-/* -------------------------------------------------------------------------------------------------
- * Toast
- * ----------------------------------------------------------------------------------------------- */
-
-export const TOAST_NAME = 'OkuToast'
+import { TOAST_NAME } from './share'
 
 export type ToastIntrinsicElement = ToastImplIntrinsicElement
 export type ToastElement = ToastImplElement
