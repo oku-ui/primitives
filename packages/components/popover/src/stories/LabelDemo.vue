@@ -28,18 +28,18 @@ const alert = () => console.log('alert')
 </script>
 
 <template>
-  <div class="cursor-default inline-block">
-    <div v-if="template === '#1' || allshow" class="flex flex-col">
+  <div v-if="template === '#1' || allshow" class="flex flex-col">
+    <div>
       <OkuPopover>
         <OkuPopoverTrigger class="triggerClass">
           open
         </OkuPopoverTrigger>
         <OkuPopoverPortal>
-          <OkuPopoverContent class="contentClass" side-offset="15">
+          <OkuPopoverContent class="contentClass" :side-offset="15">
             <OkuPopoverClose class="closeClass">
               close
             </OkuPopoverClose>
-            <OkuPopoverArrow class="arrowClass" width="20" height="10" />
+            <OkuPopoverArrow class="arrowClass" :width="20" :height="10" />
           </OkuPopoverContent>
         </OkuPopoverPortal>
       </OkuPopover>
@@ -49,6 +49,7 @@ const alert = () => console.log('alert')
 
 <style>
 .triggerClass {
+  @apply w-40 h-40;
 }
 
 .contentClass {

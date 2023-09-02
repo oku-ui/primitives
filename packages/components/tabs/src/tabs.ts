@@ -141,7 +141,7 @@ const tabs = defineComponent({
     })
 
     tabsProvider({
-      onValueChange: updateValue,
+      onValueChange: (value: string) => updateValue(value),
       orientation,
       dir: direction,
       value: state,

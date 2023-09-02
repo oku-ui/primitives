@@ -112,7 +112,7 @@ const popoverContentImpl = defineComponent({
         },
       }, {
         default: () => h(OkuPopperContent, {
-          'data-state': getState(inject.open.value),
+          'data-state': getState(inject.open.value!),
           'role': 'dialog',
           'id': inject.contentId.value,
           ...popperScope,

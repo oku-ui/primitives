@@ -54,7 +54,6 @@ const popoverContentModal = defineComponent({
     })
 
     useScrollLock(contentRef, true)
-
     return () => h(OkuSlot, {}, {
       default: () => h(OkuPopoverContentImpl, {
         ...attrs,

@@ -118,8 +118,8 @@ const popover = defineComponent({
       scope: scopeOkuPopover.value,
       contentId: computed(() => useId()),
       triggerRef,
-      open: computed(() => state.value || false),
-      onOpenChange: updateValue,
+      open: computed(() => state.value !== undefined ? state.value : false),
+      onOpenChange: (open: boolean) => updateValue(open),
       onOpenToggle: () => {
         updateValue(!state.value)
       },
@@ -135,9 +135,7 @@ const popover = defineComponent({
 
     return () => h(OkuPopper, {
       ...popperScope,
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, slots)
   },
 })
 

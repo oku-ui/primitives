@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPortal, type PortalProps } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
@@ -57,14 +57,12 @@ const popoverPortal = defineComponent({
       forceMount,
     })
     return () => h(OkuPresence, {
-      present: forceMount?.value || inject.open.value,
+      present: computed(() => forceMount?.value || inject.open.value).value,
     }, {
       default: () => h(OkuPortal, {
         asChild: true,
         container: container?.value,
-      }, {
-        default: () => slots.default?.(),
-      }),
+      }, slots),
     })
   },
 })

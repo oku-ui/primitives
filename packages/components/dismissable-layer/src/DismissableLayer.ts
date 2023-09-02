@@ -290,7 +290,7 @@ const DismissableLayer = defineComponent({
               : undefined,
             ...(attrs.style as CSSPropertyRule),
           },
-          onFocuscapture: composeEventHandlers<FocusCaptureEvent>((e) => {
+          onFocusCapture: composeEventHandlers<FocusCaptureEvent>((e) => {
             emit('focusCapture', e)
           }, focusoutSide.onFocusCapture),
           onBlurCapture: composeEventHandlers<FocusBlurCaptureEvent>((e) => {

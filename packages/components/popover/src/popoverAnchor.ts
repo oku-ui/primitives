@@ -32,7 +32,7 @@ const popoverAnchor = defineComponent({
   },
   emits: popoverAnchorProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuPopover, asChild } = toRefs(props)
+    const { scopeOkuPopover, asChild, virtualRef } = toRefs(props)
 
     const inject = usePopoverInject(ANCHOR_NAME, scopeOkuPopover?.value)
 
@@ -49,6 +49,7 @@ const popoverAnchor = defineComponent({
     return () => h(OkuPopperAnchor, {
       ...popperScope,
       ...attrs,
+      virtualRef: virtualRef.value,
       asChild: asChild.value,
       ref: forwardedRef,
     }, {
