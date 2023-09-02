@@ -152,12 +152,10 @@ const toastViewport = defineComponent({
       }
     })
 
-    // TODO: maybe computed used
     const getSortedTabbableCandidates = ({ tabbingDirection }: { tabbingDirection: 'forwards' | 'backwards' }) => {
-      const toastItems = getItems.value
+      const toastItems = getItems()
       const tabbableCandidates = toastItems.map((toastItem) => {
-        const toastNode = toastItem.ref
-        // TODO: check toastNode console.log element
+        const toastNode = toastItem.ref.value
         const toastTabbableCandidates = [toastNode, ...getTabbableCandidates(toastNode)]
         return tabbingDirection === 'forwards'
           ? toastTabbableCandidates

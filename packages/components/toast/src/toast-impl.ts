@@ -165,7 +165,7 @@ const toastImpl = defineComponent({
         return
       window.clearTimeout(closeTimerRef.value)
       closeTimerStartTimeRef.value = new Date().getTime()
-      closeTimerRef.value = window.setTimeout(handleClose, duration)
+      closeTimerRef.value = window.setTimeout(handleClose.value, duration)
     }
 
     watchEffect((onInvalidate) => {
@@ -216,7 +216,7 @@ const toastImpl = defineComponent({
 
     toastInteractiveProvider({
       scope: props.scopeOkuToast,
-      onClose: handleClose,
+      onClose: () => handleClose.value(),
     })
 
     const originalReturn = () =>
@@ -247,7 +247,7 @@ const toastImpl = defineComponent({
                       emit('escapeKeyDown', event)
                     }, () => {
                       if (!inject.isFocusedToastEscapeKeyDownRef.value)
-                        handleClose()
+                        handleClose.value()
                       inject.isFocusedToastEscapeKeyDownRef.value = false
                     }),
                   },
@@ -273,7 +273,7 @@ const toastImpl = defineComponent({
                           emit('escapeKeyDown', event)
                           if (!event.defaultPrevented) {
                             inject.isFocusedToastEscapeKeyDownRef.value = true
-                            handleClose()
+                            handleClose.value()
                           }
                         }),
                         'onPointerdown': composeEventHandlers<ToastImplEmits['pointerdown'][0]>((event) => {

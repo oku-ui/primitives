@@ -71,7 +71,7 @@ function useNextFrame(callback = () => {}) {
 
     let raf1 = 0
     let raf2 = 0
-    raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(fn)))
+    raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(fn.value)))
     onClean(() => {
       window.cancelAnimationFrame(raf1)
       window.cancelAnimationFrame(raf2)

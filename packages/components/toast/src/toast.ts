@@ -14,10 +14,10 @@ import { scopedToastProps } from './types'
 
 export const TOAST_NAME = 'OkuToast'
 
-type ToastIntrinsicElement = ToastImplIntrinsicElement
-type ToastElement = ToastImplElement
+export type ToastIntrinsicElement = ToastImplIntrinsicElement
+export type ToastElement = ToastImplElement
 
-interface ToastProps extends Omit<ToastImplProps, keyof ToastImplPrivateProps> {
+export interface ToastProps extends Omit<ToastImplProps, keyof ToastImplPrivateProps> {
   open?: boolean
   defaultOpen?: boolean
   /**
@@ -152,5 +152,3 @@ const toast = defineComponent({
 
 export const OkuToast = toast as typeof toast &
 (new () => { $props: Partial<ToastElement> })
-
-export type { ToastElement, ToastProps }
