@@ -36,15 +36,15 @@ const toastProps = {
     },
     open: {
       type: Boolean,
-      required: false,
+      required: undefined,
     },
     defaultOpen: {
       type: Boolean,
-      required: false,
+      required: undefined,
     },
     forceMount: {
-      type: Boolean,
-      default: true,
+      type: Boolean as PropType<true | undefined>,
+      default: undefined,
     },
   },
   emits: {
@@ -79,13 +79,18 @@ const toast = defineComponent({
     } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed({
+      get: () => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined,
+      set: () => {
+      },
+    })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? openProp.value),
-      defaultProp: computed(() => defaultOpen.value || false),
-      onChange: (open: boolean) => {
-        emit('update:modelValue', open)
-        emit('openChange', open)
+      prop: computed(() => proxyChecked.value),
+      defaultProp: computed(() => defaultOpen.value),
+      onChange: (result: any) => {
+        emit('update:modelValue', result)
+        emit('openChange', result)
       },
       initialValue: true,
     })
@@ -137,9 +142,7 @@ const toast = defineComponent({
               targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
               updateValue(false)
             }),
-          }, {
-            default: () => slots.default?.(),
-          }),
+          }, slots),
         },
       )
   },

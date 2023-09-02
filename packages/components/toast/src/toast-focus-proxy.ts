@@ -59,10 +59,7 @@ const toastFocusProxy = defineComponent({
           if (isFocusFromOutsideViewport)
             emit('focusFromOutsideViewport')
         },
-      },
-      {
-        default: () => slots.default?.(),
-      },
+      }, slots,
     )
   },
 })

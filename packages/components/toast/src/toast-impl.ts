@@ -367,8 +367,8 @@ const toastImpl = defineComponent({
       ],
       )
 
-    if (type.value && !['foreground', 'background'].includes(type.value))
-      throw new Error(`Invalid prop \`type\` supplied to \`${TOAST_NAME}\`. Expected \`foreground | background\`.`)
+    // if (type.value && !['foreground', 'background'].includes(type.value))
+    //   throw new Error(`Invalid prop \`type\` supplied to \`${TOAST_NAME}\`. Expected \`foreground | background\`.`)
 
     return originalReturn
   },

@@ -95,8 +95,8 @@ const toastProvider = defineComponent({
     })
 
     return () => {
-      if (label.value && typeof label.value === 'string' && !label.value.trim())
-        throw new Error(`Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`)
+      // if (label.value && typeof label.value === 'string' && !label.value.trim())
+      //   throw new Error(`Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`)
 
       return h(CollectionProvider,
         {

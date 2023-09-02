@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OkuToast, OkuToastAction, OkuToastClose, OkuToastDescription, OkuToastProvider, OkuToastViewport } from '@oku-ui/toast'
+import { OkuToast, OkuToastAction, OkuToastClose, OkuToastDescription, OkuToastProvider, OkuToastTitle, OkuToastViewport } from '@oku-ui/toast'
 import { ref, watchEffect } from 'vue'
 import type { ComponentProps } from '@oku-ui/primitive'
 import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
@@ -242,7 +242,7 @@ const VIEWPORT_PADDING = ref(10)
             Focusable before viewport
           </button>
 
-          <!-- <OkuToast
+          <OkuToast
             v-for="(_, index) in count"
             :key="index"
             open
@@ -252,7 +252,7 @@ const VIEWPORT_PADDING = ref(10)
             <OkuToastTitle class="title">
               Toast {{ index + 1 }} title
             </OkuToastTitle>
-            <OkuToastDescription class="description">
+            <!-- <OkuToastDescription class="description">
               Toast {{ index + 1 }} description
             </OkuToastDescription>
 
@@ -265,8 +265,8 @@ const VIEWPORT_PADDING = ref(10)
               :style="{ 'margin-top': '10px' }"
             >
               Toast button {{ index + 1 }}.2
-            </OkuToastAction>
-          </OkuToast> -->
+            </OkuToastAction> -->
+          </OkuToast>
           <OkuToastViewport class="viewport" />
 
           <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">

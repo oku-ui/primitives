@@ -247,9 +247,7 @@ const toastViewport = defineComponent({
                     ...toastViewportAttrs,
                     asChild: props.asChild,
                     ref: composedRefs,
-                  }, {
-                    default: () => slots.default?.(),
-                  },
+                  }, slots,
                 ),
               },
             ),
