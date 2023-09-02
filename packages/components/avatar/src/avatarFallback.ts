@@ -1,4 +1,5 @@
-import { defineComponent, h, onMounted, ref, toRef, watchEffect } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -18,7 +19,8 @@ export interface AvatarFallbackProps extends PrimitiveProps {
 export const avatarFallbackProps = {
   props: {
     delayMs: {
-      type: Number,
+      type: Number as PropType<number | undefined>,
+      default: undefined,
       required: false,
     },
   },
@@ -33,44 +35,48 @@ const avatarFallback = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const delayMs = toRef(props, 'delayMs')
-    const { ...fallbackAttrs } = attrs as AvatarFallbackIntrinsicElement
     const provide = useAvatarInject(FALLBACK_NAME, props.scopeOkuAvatar)
-    const canRender = ref(delayMs.value === undefined)
+    const canRender = ref(props.delayMs === undefined)
 
     const forwardedRef = useForwardRef()
 
-    onMounted(() => {
-      if (delayMs.value === undefined)
-        canRender.value = true
-      else
-        canRender.value = false
-    })
+    let timerId: number | null = null
 
-    onMounted(() => {
-      watchEffect(() => {
-        if (delayMs.value !== undefined) {
-          const timerID = window.setTimeout(() => {
-            canRender.value = true
-          }, delayMs.value)
-          return () => window.clearTimeout(timerID)
-        }
-      })
+    const clearTimer = () => {
+      if (timerId !== null) {
+        clearTimeout(timerId)
+        timerId = null
+      }
+    }
+
+    const setupTimer = () => {
+      clearTimer()
+      if (props.delayMs !== undefined) {
+        timerId = window.setTimeout(() => {
+          canRender.value = true
+        }, props.delayMs)
+      }
+    }
+
+    onMounted(() => setupTimer())
+
+    onBeforeUnmount(() => {
+      clearTimer()
     })
 
     const originalReturn = () => {
-      return (canRender.value && (provide.imageLoadingStatus !== 'loaded'))
+      return (canRender.value && (provide.imageLoadingStatus.value !== 'loaded'))
         ? h(
           Primitive.span, {
-            ...fallbackAttrs,
+            ...attrs,
             ref: forwardedRef,
-            asChild: props.asChild,
+            asChild: false,
           },
           {
             default: () => slots.default?.(),
           },
         )
-        : canRender.value
+        : null
     }
 
     return originalReturn
