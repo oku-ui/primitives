@@ -42,7 +42,7 @@ const popperArrow = defineComponent({
     const { height, width, asChild, scopeOkuPopper } = toRefs(props)
     const contentInject = usePopperContentInject(ARROW_NAME, scopeOkuPopper.value)
     const baseSide = computed(() => {
-      return OPPOSITE_SIDE[contentInject.placedSide.value]
+      return contentInject?.placedSide.value ? OPPOSITE_SIDE[contentInject.placedSide.value] : ''
     })
 
     const forwardedRef = useForwardRef()
@@ -52,26 +52,26 @@ const popperArrow = defineComponent({
         'span',
         {
           ref: (el: any) => {
-            contentInject.onAnchorChange(el)
+            contentInject.onArrowChange(el)
             return undefined
           },
           style: {
             position: 'absolute',
-            left: contentInject.arrowX?.value,
-            top: contentInject.arrowY?.value,
+            left: `${contentInject.arrowX?.value}px`,
+            top: `${contentInject.arrowY?.value}px`,
             [baseSide.value]: '0px',
             transformOrigin: {
               top: '',
               right: '0px 0px',
               bottom: 'center 0px',
               left: '100% 0px',
-            }[contentInject.placedSide.value],
+            }[contentInject.placedSide.value!],
             transform: {
               top: 'translateY(100%)',
               right: 'translateY(50%) rotate(90deg) translateX(-50%)',
               bottom: 'rotate(180deg)',
               left: 'translateY(50%) rotate(-90deg) translateX(50%)',
-            }[contentInject.placedSide.value],
+            }[contentInject.placedSide.value!],
             visibility: contentInject.shouldHideArrow.value
               ? 'hidden'
               : undefined,
