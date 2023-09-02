@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, ref, toRefs, watch } from 'vue'
+import { defineComponent, h, onMounted, ref, toRefs } from 'vue'
 
 import type {
   ElementType,
@@ -48,7 +48,7 @@ const popperAnchor = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(_ref, forwardedRef)
 
-    watch(_ref, () => {
+    onMounted(() => {
       inject.anchor.value
         = virtualRef.value?.value || (_ref.value as Measurable)
     })
@@ -62,11 +62,7 @@ const popperAnchor = defineComponent({
             ...attrsAnchor,
             asChild: asChild.value,
             ref: composedRefs,
-          },
-          {
-            default: () => slots.default && slots.default?.(),
-          },
-        )
+          }, slots)
 
     return originalReturn
   },
