@@ -1,4 +1,4 @@
-import type { CSSProperties, PropType } from 'vue'
+import type { CSSProperties, PropType, StyleValue } from 'vue'
 import { defineComponent, h, toRef } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -74,5 +74,7 @@ const AspectRatio = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAspectRatio = AspectRatio as typeof AspectRatio &
 (new () => {
-  $props: Partial<AspectRatioElement>
+  $props: Partial<AspectRatioElement> & {
+    style?: StyleValue
+  }
 })

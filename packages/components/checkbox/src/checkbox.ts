@@ -1,5 +1,5 @@
 import { createProvideScope } from '@oku-ui/provide'
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, useModel, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -10,7 +10,7 @@ import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 import { getState, isIndeterminate, scopeCheckboxProps } from './utils'
-import type { CheckedState, ScopeCheckbox } from './utils'
+import type { CheckedState } from './utils'
 import { OkuBubbleInput } from './bubbleInput'
 
 const CHECKBOX_NAME = 'OkuCheckbox'
@@ -210,7 +210,7 @@ const Checkbox = defineComponent({
           // We transform because the input is absolutely positioned but we have
           // rendered it **after** the button. This pulls it back to sit on top
           // of the button.
-          style: { transform: 'translateX(-100%)' } as CSSStyleDeclaration,
+          style: { transform: 'translateX(-100%)' },
         },
       ),
       ]
@@ -222,7 +222,9 @@ const Checkbox = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCheckbox = Checkbox as typeof Checkbox &
 (new () => {
-  $props: ScopeCheckbox<Partial<CheckboxElement>>
+  $props: Partial<CheckboxElement> & {
+    style?: StyleValue
+  }
 })
 
 export {

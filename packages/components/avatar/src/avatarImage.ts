@@ -1,3 +1,4 @@
+import type { StyleValue } from 'vue'
 import { defineComponent, h, toRef, watchEffect } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -81,5 +82,7 @@ const avatarImage = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatarImage = avatarImage as typeof avatarImage &
 (new () => {
-  $props: Partial<AvatarImageElement>
+  $props: Partial<AvatarImageElement> & {
+    style?: StyleValue
+  }
 })

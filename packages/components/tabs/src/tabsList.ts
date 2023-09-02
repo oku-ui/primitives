@@ -3,24 +3,23 @@ import type {
   ElementType,
   PrimitiveProps,
 } from '@oku-ui/primitive'
-import type { PropType } from 'vue'
+import type { PropType, StyleValue } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { useTabsInject } from './tabs'
-import type { ScopeTabs } from './utils'
 import { scopeTabsProps } from './utils'
 
-export type TabListElementIntrinsicElement = ElementType<'div'>
-export type TabListElement = HTMLDivElement
+export type TabsListElementIntrinsicElement = ElementType<'div'>
+export type TabsListElement = HTMLDivElement
 
-const TAB_LIST_NAME = 'OkuTabList' as const
+const TAB_LIST_NAME = 'OkuTabsList' as const
 
-export interface TabListProps extends PrimitiveProps {
+export interface TabsListProps extends PrimitiveProps {
   loop?: boolean
 }
 
-export const tabListProps = {
+export const tabsListProps = {
   props: {
     loop: {
       type: Boolean as PropType<boolean>,
@@ -31,11 +30,11 @@ export const tabListProps = {
 }
 const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
-const TabList = defineComponent({
+const tabsList = defineComponent({
   name: TAB_LIST_NAME,
   inheritAttrs: false,
   props: {
-    ...tabListProps.props,
+    ...tabsListProps.props,
     ...scopeTabsProps,
   },
   setup(props, { slots, attrs }) {
@@ -58,7 +57,7 @@ const TabList = defineComponent({
         default: () => h(
           Primitive.div,
           {
-            'role': 'tablist',
+            'role': 'tabslist',
             'aria-orientation': injectTabs.orientation?.value,
             'asChild': props.asChild,
             ...listAttrs,
@@ -72,7 +71,9 @@ const TabList = defineComponent({
   },
 })
 
-export const OkuTabList = TabList as typeof TabList &
+export const OkuTabsList = tabsList as typeof tabsList &
 (new () => {
-  $props: ScopeTabs<Partial<TabListElement>>
+  $props: Partial<TabsListElement> & {
+    style?: StyleValue
+  }
 })

@@ -1,11 +1,10 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import type { ComputedRef, PropType } from 'vue'
+import type { ComputedRef, PropType, StyleValue } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useTabsInject } from './tabs'
-import type { ScopeTabs } from './utils'
 import { makeContentId, makeTriggerId, scopeTabsProps } from './utils'
 
 const TAB_CONTENT_NAME = 'OkuTabContent' as const
@@ -37,7 +36,7 @@ export const tabsContentProps = {
   },
 }
 
-const TabContent = defineComponent({
+const tabsContent = defineComponent({
   name: TAB_CONTENT_NAME,
   inheritAttrs: false,
   props: {
@@ -85,7 +84,9 @@ const TabContent = defineComponent({
   },
 })
 
-export const OkuTabContent = TabContent as typeof TabContent &
+export const OkuTabsContent = tabsContent as typeof tabsContent &
 (new () => {
-  $props: ScopeTabs<Partial<TabsContentElement>>
+  $props: Partial<TabsContentElement> & {
+    style?: StyleValue
+  }
 })

@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, StyleValue } from 'vue'
 import { cloneVNode, defineComponent, h, toRefs } from 'vue'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -77,5 +77,7 @@ const arrow = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuArrow = arrow as typeof arrow
 & (new () => {
-  $props: Partial<ArrowIntrinsicElement>
+  $props: Partial<ArrowIntrinsicElement> & {
+    style?: StyleValue
+  }
 })

@@ -5,19 +5,19 @@ export {
 } from './tabs'
 
 export {
-  OkuTabList,
-  tabListProps,
-} from './tabList'
+  OkuTabsList,
+  tabsListProps,
+} from './tabsList'
 
 export {
-  OkuTabTrigger,
+  OkuTabsTrigger,
   tabsTriggerProps,
-} from './tabTrigger'
+} from './tabsTrigger'
 
 export {
-  OkuTabContent,
+  OkuTabsContent,
   tabsContentProps,
-} from './tabContent'
+} from './tabsContent'
 
 export type {
   TabsProps,
@@ -26,20 +26,20 @@ export type {
 } from './tabs'
 
 export type {
-  TabListProps,
-  TabListElement,
-  TabListElementIntrinsicElement,
-} from './tabList'
+  TabsListProps,
+  TabsListElement,
+  TabsListElementIntrinsicElement,
+} from './tabsList'
 
 export type {
   TabsTriggerProps,
   TabsTriggerElement,
   TabsTriggerElementIntrinsicElement,
   TabsTriggerEmits,
-} from './tabTrigger'
+} from './tabsTrigger'
 
 export type {
   TabsContentProps,
   TabsContentElement,
   TabsContentIntrinsicElement,
-} from './tabContent'
+} from './tabsContent'

@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, StyleValue } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 
 import { usePrevious, useSize } from '@oku-ui/use-composable'
@@ -9,7 +9,7 @@ import { type CheckedState, isIndeterminate } from './utils'
 
 type BubbleInputIntrinsicElement = ElementType<'input'>
 
-type BubbleInputElement = Partial<Omit<HTMLInputElement, 'checked'>>
+type BubbleInputElement = Partial<Omit<HTMLInputElement, 'checked' | 'style'>>
 
 interface BubbleInputProps {
   checked: CheckedState
@@ -86,7 +86,9 @@ const bubbleInput = defineComponent({
 
 export const OkuBubbleInput = bubbleInput as typeof bubbleInput
 & (new () => {
-  $props: Partial<BubbleInputElement>
+  $props: Partial<BubbleInputElement> & {
+    style?: StyleValue
+  }
 })
 
 export type {

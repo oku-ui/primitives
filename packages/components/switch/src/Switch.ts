@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, StyleValue } from 'vue'
 import {
   computed,
   defineComponent,
@@ -18,7 +18,6 @@ import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeSwitch } from './util'
 import { getState, scopeSwitchProps } from './util'
 import { BubbleInput } from './BubbleInput'
 
@@ -218,7 +217,9 @@ const Switch = defineComponent({
 
 export const OkuSwitch = Switch as typeof Switch &
 (new () => {
-  $props: ScopeSwitch<Partial<SwitchIntrinsicElement>>
+  $props: Partial<SwitchIntrinsicElement> & {
+    style?: StyleValue
+  }
 })
 
 export { useSwitchInject, createSwitchScope }
