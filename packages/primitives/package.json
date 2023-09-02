@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.4.0-alpha.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -44,7 +44,15 @@
     "@oku-ui/label": "latest",
     "@oku-ui/progress": "latest",
     "@oku-ui/separator": "latest",
-    "@oku-ui/toggle": "latest"
+    "@oku-ui/toggle": "latest",
+    "@oku-ui/switch": "latest",
+    "@oku-ui/tabs": "latest",
+    "@oku-ui/radio-group": "latest",
+    "@oku-ui/toggle-group": "latest",
+    "@oku-ui/tooltip": "latest",
+    "@oku-ui/toolbar": "latest",
+    "@oku-ui/slider": "latest",
+    "@oku-ui/popper": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

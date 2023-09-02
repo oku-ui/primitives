@@ -1000,15 +1000,39 @@ importers:
       '@oku-ui/label':
         specifier: latest
         version: link:../components/label
+      '@oku-ui/popper':
+        specifier: latest
+        version: link:../components/popper
       '@oku-ui/progress':
         specifier: latest
         version: link:../components/progress
+      '@oku-ui/radio-group':
+        specifier: latest
+        version: link:../components/radio-group
       '@oku-ui/separator':
         specifier: latest
         version: link:../components/separator
+      '@oku-ui/slider':
+        specifier: latest
+        version: link:../components/slider
+      '@oku-ui/switch':
+        specifier: latest
+        version: link:../components/switch
+      '@oku-ui/tabs':
+        specifier: latest
+        version: link:../components/tabs
       '@oku-ui/toggle':
         specifier: latest
         version: link:../components/toggle
+      '@oku-ui/toggle-group':
+        specifier: latest
+        version: link:../components/toggle-group
+      '@oku-ui/toolbar':
+        specifier: latest
+        version: link:../components/toolbar
+      '@oku-ui/tooltip':
+        specifier: latest
+        version: link:../components/tooltip
       vue:
         specifier: 3.3.4
         version: 3.3.4
