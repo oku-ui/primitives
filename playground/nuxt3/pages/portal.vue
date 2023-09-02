@@ -1,6 +1,7 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
-  <ToggleDemo :allshow="true" />
+  <PortalDemo allshow />
 </template>

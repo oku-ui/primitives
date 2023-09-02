@@ -2,5 +2,7 @@
 </script>
 
 <template>
-  <ToggleDemo :allshow="true" />
+  <div>
+    <ArrowDemo :allshow="true" />
+  </div>
 </template>

@@ -1,22 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { OkuLabelProps } from './LabelDemo.vue'
-import OkuLabelComponent from './LabelDemo.vue'
+import type { OkuPopoverProps } from './PopoverDemo.vue'
+import OkuLabelComponent from './PopoverDemo.vue'
 
-interface StoryProps extends OkuLabelProps {
+interface StoryProps extends OkuPopoverProps {
 }
 
 const meta = {
   title: 'Components/Popover',
   component: OkuLabelComponent,
   args: {
-    label: 'Label',
     template: '#1',
   },
   argTypes: {
-    label: {
-      control: 'text',
-    },
     template: {
       control: 'text',
     },
@@ -33,7 +29,6 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    label: 'Label',
     template: '#1',
   },
   render: (args: any) => ({
@@ -49,7 +44,6 @@ export const Styled: Story = {
 
 export const WithControl: Story = {
   args: {
-    label: 'Label',
     template: '#2',
   },
   render: (args: any) => ({
