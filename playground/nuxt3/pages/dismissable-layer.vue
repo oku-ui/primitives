@@ -1,8 +1,9 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
   <div>
-    <AspectRatioDemo :allshow="true" />
+    <DismissableLayerDemo :allshow="true" />
   </div>
 </template>

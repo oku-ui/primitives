@@ -3,6 +3,6 @@
 
 <template>
   <div>
-    <AspectRatioDemo template="#1" all-show />
+    <AspectRatioDemo :allshow="true" />
   </div>
 </template>
