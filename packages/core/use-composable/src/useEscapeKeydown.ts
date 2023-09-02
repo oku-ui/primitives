@@ -13,7 +13,7 @@ function useEscapeKeydown(
   watchEffect((onInvalidate) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape')
-        onEscapeKeyDown(event)
+        onEscapeKeyDown.value(event)
     }
     ownerDocument.addEventListener('keydown', handleKeyDown)
     onInvalidate(() => ownerDocument.removeEventListener('keydown', handleKeyDown))
