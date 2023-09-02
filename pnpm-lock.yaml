@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  vue: 3.3.4
   '@vue/runtime-core': 3.3.4
   vite: 4.3.5
+  vue: 3.3.4
 
 importers:
 
@@ -52,6 +52,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
+      '@oku-ui/popover':
+        specifier: workspace:^
+        version: link:packages/components/popover
       '@oku-ui/popper':
         specifier: workspace:^
         version: link:packages/components/popper
@@ -430,6 +433,52 @@ importers:
       '@oku-ui/utils':
         specifier: latest
         version: link:../../core/utils
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/popover:
+    dependencies:
+      '@oku-ui/dismissable-layer':
+        specifier: latest
+        version: link:../dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: latest
+        version: link:../../core/focus-guards
+      '@oku-ui/focus-scope':
+        specifier: latest
+        version: link:../focus-scope
+      '@oku-ui/popper':
+        specifier: latest
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: latest
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: latest
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      aria-hidden:
+        specifier: ^1.2.3
+        version: 1.2.3
       vue:
         specifier: 3.3.4
         version: 3.3.4
@@ -7472,8 +7521,7 @@ packages:
     resolution: {integrity: sha512-xcLxITLe2HYa1cnYnwCjkOO1PqUHQpozB8x9AR0OgWN2woOBi5kSDVxKfd0b7sb1hw5qFeJhXm9H1nu3xSfLeQ==}
     engines: {node: '>=10'}
     dependencies:
-      tslib: 2.5.0
-    dev: true
+      tslib: 2.6.2
 
   /aria-query@5.1.3:
     resolution: {integrity: sha512-R5iJ5lkuHybztUfuOAznmboyjWq8O6sqNqtK7CLOqdydi54VNbORp49mb14KbWgG1QD3JFO9hJdZ+y4KutfdOQ==}
@@ -14905,6 +14953,9 @@ packages:
   /tslib@2.5.0:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
     dev: true
+
+  /tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
   /tsscmp@1.0.6:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
