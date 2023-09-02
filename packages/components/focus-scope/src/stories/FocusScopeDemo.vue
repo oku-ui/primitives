@@ -5,7 +5,7 @@ import { OkuFocusScope } from '@oku-ui/focus-scope'
 
 export interface IFocusScopeProps extends FocusScopeProps {
   template?: '#1' | '#2' | '#3'
-  allShow?: boolean
+  allshow?: boolean
 }
 
 withDefaults(defineProps<IFocusScopeProps>(), {})
@@ -61,7 +61,7 @@ function onUnmountAutoFocus(event: Event) {
 <template>
   <div>
     <!-- #1 -->
-    <template v-if="template === '#1' || allShow">
+    <template v-if="template === '#1' || allshow">
       <div>
         <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" @click="trapped = true">
           Trap
@@ -115,7 +115,7 @@ function onUnmountAutoFocus(event: Event) {
       </div>
     </template>
     <!-- #2 -->
-    <template v-if="template === '#2' || allShow">
+    <template v-if="template === '#2' || allshow">
       <div class="inline-flex flex-col gap-[10px]">
         <div>
           <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" @click="trapped1 = true">
@@ -180,7 +180,7 @@ function onUnmountAutoFocus(event: Event) {
       </div>
     </template>
     <!-- #3 -->
-    <template v-if="template === '#3' || allShow">
+    <template v-if="template === '#3' || allshow">
       <div class="font-sans text-center">
         <h1>OkuFocusScope</h1>
 

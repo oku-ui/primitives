@@ -1,7 +1,7 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs } from 'vue'
-import type { type PropType, StyleValue } from 'vue'
+import type { PropType, StyleValue } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -11,7 +11,7 @@ import { makeContentId, makeTriggerId, scopeTabsProps } from './utils'
 export type TabsTriggerElementIntrinsicElement = ElementType<'button'>
 export type TabsTriggerElement = HTMLButtonElement
 
-const TAB_TRIGGER_NAME = 'OkuTabTrigger' as const
+const TAB_TRIGGER_NAME = 'OkuTabsTrigger' as const
 
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string

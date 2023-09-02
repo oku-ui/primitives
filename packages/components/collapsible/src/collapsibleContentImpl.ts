@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, nextTick, onMounted, ref, toRef, watch, watchEffect } from 'vue'
+import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue'
 import type { ComponentPublicInstanceRef, ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
@@ -51,11 +51,14 @@ const collapsibleContentImpl = defineComponent({
     const isMountAnimationPreventedRef = ref(isOpen.value)
     const originalStylesRef = ref<Record<string, string>>()
 
+    const rAf = ref()
+
     onMounted(() => {
-      watchEffect(async (onCleanup) => {
-        const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
-        onCleanup(() => cancelAnimationFrame(rAF))
-      })
+      rAf.value = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+    })
+
+    onBeforeUnmount(() => {
+      cancelAnimationFrame(rAf.value)
     })
 
     watch([isOpen, isPresent], async () => {
