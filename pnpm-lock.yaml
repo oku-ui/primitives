@@ -1002,6 +1002,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
+      '@oku-ui/slider':
+        specifier: workspace:^
+        version: link:../../packages/components/slider
       '@oku-ui/slot':
         specifier: workspace:^
         version: link:../../packages/components/slot
