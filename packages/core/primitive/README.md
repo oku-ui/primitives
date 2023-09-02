@@ -1,13 +1,13 @@
 # `primitive`
 
+<span><a href="https://www.npmjs.com/package/@oku-ui/primitive "><img src="https://img.shields.io/npm/v/@oku-ui/primitive?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/primitive"> <img src="https://img.shields.io/npm/dm/@oku-ui/primitive?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/primitive"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span>
+
 ## Installation
 
 ```sh
-$ yarn add @oku-ui/primitive
-# or
-$ npm install @oku-ui/primitive
+$ pnpm add @oku-ui/primitive
 ```
 
 ## Usage
 
-This is an internal utility, not intended for public usage.
+soon docs
