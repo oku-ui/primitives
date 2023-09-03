@@ -1,3 +1,5 @@
+import type { } from '@floating-ui/vue'
+
 export {
   OkuPopover,
   createPopoverScope,
