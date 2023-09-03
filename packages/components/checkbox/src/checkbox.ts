@@ -163,7 +163,7 @@ const Checkbox = defineComponent({
       [h(Primitive.button, {
         'type': 'button',
         'role': 'checkbox',
-        // 'aria-checked': isIndeterminate(state.value) ? 'mixed' : state.value as any,
+        'aria-checked': isIndeterminate(state.value) ? 'mixed' : state.value as any,
         'aria-required': required.value,
         'data-state': computed(() => getState(state.value)).value,
         'data-disabled': disabled.value ? '' : undefined,

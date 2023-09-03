@@ -15,7 +15,7 @@ withDefaults(defineProps<OkuLabelProps>(), {
 
 const slot = ref()
 onMounted(() => {
-  console.log(slot.value.$el, 'slot.value.$el')
+  console.log(slot.value, 'slot.value')
   console.log(slot.value, 'slot.value')
 })
 const alert = () => console.log('alert')

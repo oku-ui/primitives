@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue'
-import type { ComponentPublicInstanceRef, OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -36,7 +36,7 @@ const collapsibleContentImpl = defineComponent({
     const { ...contentAttrs } = attrs as CollapsibleContentImplNaviteElement
     const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 
-    const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | undefined>(undefined)
+    const _ref = ref<HTMLDivElement | undefined>(undefined)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(_ref, forwardedRef)
 
@@ -62,7 +62,7 @@ const collapsibleContentImpl = defineComponent({
 
     watch([isOpen, isPresent], async () => {
       await nextTick()
-      const node = _ref.value?.$el
+      const node = _ref.value
       if (node) {
         originalStylesRef.value = originalStylesRef.value || {
           transitionDuration: node.style.transitionDuration,

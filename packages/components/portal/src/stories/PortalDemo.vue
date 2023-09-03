@@ -8,8 +8,6 @@ export interface IPortalProps extends PortalProps {
   allshow?: boolean
 }
 
-// const container = computed(() => getCurrentInstance()?.proxy?.$el);
-
 defineProps<IPortalProps>()
 
 const portalContainer = ref<HTMLDivElement | null>(null)
