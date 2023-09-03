@@ -86,6 +86,8 @@ const hoverCard = defineComponent({
     const {
       open: openProp,
       defaultOpen,
+      openDelay: openDelayProp,
+      closeDelay: closeDelayProp,
     } = toRefs(props)
 
     const provideInject = useHoverCardInject(HOVERCARD_NAME, props.scopeOkuHoverCard)
@@ -106,26 +108,16 @@ const hoverCard = defineComponent({
     const { state, updateValue } = useControllable({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (result: boolean) => {
-        if (result) {
-          provideInject.onOpen()
-          document.dispatchEvent(new CustomEvent(HOVERCARD_NAME))
-        }
-        else {
-          provideInject.onClose()
-        }
-
-        emit('update:modelValue', result)
-        emit('openChange', result)
+      onChange: () => {
+        emit('openChange')
       },
-      initialValue: false,
     })
 
     const handleOpen = () => {
       window.clearTimeout(closeTimerRef.value)
       openTimerRef.value = window.setTimeout(() => {
         updateValue(true)
-      }, props.openDelay)
+      }, openDelayProp.value)
     }
 
     const handleClose = () => {
@@ -133,7 +125,7 @@ const hoverCard = defineComponent({
       if (!hasSelectionRef.value && !isPointerDownOnContentRef.value) {
         closeTimerRef.value = window.setTimeout(() => {
           updateValue(false)
-        }, props.closeDelay)
+        }, closeDelayProp.value)
       }
     }
 
@@ -149,7 +141,7 @@ const hoverCard = defineComponent({
     hoverCardProvide({
       scope: props.scopeOkuHoverCard,
       open: state,
-      onOpenChange: updateValue,
+      onOpenChange: open => updateValue(open),
       onOpen: () => handleOpen(),
       onClose: () => handleClose(),
       onDismiss: () => handleDismiss(),
@@ -163,7 +155,4 @@ const hoverCard = defineComponent({
   },
 })
 
-export const OkuHoverCard = hoverCard as typeof hoverCard &
-(new () => {
-  $props: HoverGroupElement // TODO
-})
+export const OkuHoverCard = hoverCard
