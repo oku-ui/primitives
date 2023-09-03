@@ -553,6 +553,64 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/primitives:
+    dependencies:
+      '@oku-ui/aspect-ratio':
+        specifier: latest
+        version: link:../aspect-ratio
+      '@oku-ui/avatar':
+        specifier: latest
+        version: link:../avatar
+      '@oku-ui/checkbox':
+        specifier: latest
+        version: link:../checkbox
+      '@oku-ui/collapsible':
+        specifier: latest
+        version: link:../collapsible
+      '@oku-ui/label':
+        specifier: latest
+        version: link:../label
+      '@oku-ui/popper':
+        specifier: latest
+        version: link:../popper
+      '@oku-ui/progress':
+        specifier: latest
+        version: link:../progress
+      '@oku-ui/radio-group':
+        specifier: latest
+        version: link:../radio-group
+      '@oku-ui/separator':
+        specifier: latest
+        version: link:../separator
+      '@oku-ui/slider':
+        specifier: latest
+        version: link:../slider
+      '@oku-ui/switch':
+        specifier: latest
+        version: link:../switch
+      '@oku-ui/tabs':
+        specifier: latest
+        version: link:../tabs
+      '@oku-ui/toggle':
+        specifier: latest
+        version: link:../toggle
+      '@oku-ui/toggle-group':
+        specifier: latest
+        version: link:../toggle-group
+      '@oku-ui/toolbar':
+        specifier: latest
+        version: link:../toolbar
+      '@oku-ui/tooltip':
+        specifier: latest
+        version: link:../tooltip
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/progress:
     dependencies:
       '@oku-ui/primitive':
@@ -983,64 +1041,6 @@ importers:
         specifier: workspace:^
         version: link:../tsconfig
 
-  packages/primitives:
-    dependencies:
-      '@oku-ui/aspect-ratio':
-        specifier: latest
-        version: link:../components/aspect-ratio
-      '@oku-ui/avatar':
-        specifier: latest
-        version: link:../components/avatar
-      '@oku-ui/checkbox':
-        specifier: latest
-        version: link:../components/checkbox
-      '@oku-ui/collapsible':
-        specifier: latest
-        version: link:../components/collapsible
-      '@oku-ui/label':
-        specifier: latest
-        version: link:../components/label
-      '@oku-ui/popper':
-        specifier: latest
-        version: link:../components/popper
-      '@oku-ui/progress':
-        specifier: latest
-        version: link:../components/progress
-      '@oku-ui/radio-group':
-        specifier: latest
-        version: link:../components/radio-group
-      '@oku-ui/separator':
-        specifier: latest
-        version: link:../components/separator
-      '@oku-ui/slider':
-        specifier: latest
-        version: link:../components/slider
-      '@oku-ui/switch':
-        specifier: latest
-        version: link:../components/switch
-      '@oku-ui/tabs':
-        specifier: latest
-        version: link:../components/tabs
-      '@oku-ui/toggle':
-        specifier: latest
-        version: link:../components/toggle
-      '@oku-ui/toggle-group':
-        specifier: latest
-        version: link:../components/toggle-group
-      '@oku-ui/toolbar':
-        specifier: latest
-        version: link:../components/toolbar
-      '@oku-ui/tooltip':
-        specifier: latest
-        version: link:../components/tooltip
-      vue:
-        specifier: 3.3.4
-        version: 3.3.4
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../tsconfig
-
   packages/tsconfig: {}
 
   playground/nuxt3:
@@ -1065,7 +1065,7 @@ importers:
         version: link:../../packages/components/label
       '@oku-ui/primitives':
         specifier: workspace:^
-        version: link:../../packages/primitives
+        version: link:../../packages/components/primitives
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../../packages/components/progress
