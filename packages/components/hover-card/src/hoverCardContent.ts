@@ -1,7 +1,5 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
-import type { PrimitiveProps } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -16,7 +14,7 @@ export const CONTENT_NAME = 'OkuHoverCardContent'
 export type HoverCardContentNaviteElement = HoverCardContentImplNaviteElement
 export type HoverCardContentElement = HoverCardContentImplElement
 
-export interface HoverCardContentProps extends PrimitiveProps, HoverCardContentImplProps {
+export interface HoverCardContentProps extends HoverCardContentImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -24,7 +22,10 @@ export interface HoverCardContentProps extends PrimitiveProps, HoverCardContentI
   forceMount?: true
 }
 
-export type HoverCardContentEmits = HoverCardContentImplEmits
+export type HoverCardContentEmits = HoverCardContentImplEmits & {
+  pointerenter: [event: PointerEvent]
+  pointerleave: [event: PointerEvent]
+}
 
 export const hoverCardContentProps = {
   props: {
@@ -36,6 +37,10 @@ export const hoverCardContentProps = {
   },
   emits: {
     ...hoverCardContentImplProps.emits,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerenter: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerleave: (event: PointerEvent) => true,
   },
 }
 
@@ -44,10 +49,9 @@ const hoverCardContent = defineComponent({
   inheritAttrs: false,
   props: {
     ...hoverCardContentProps.props,
-    ...primitiveProps,
     ...scopeHoverCardProps,
   },
-  emits: hoverCardContentImplProps.emits,
+  emits: hoverCardContentProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { forceMount, side, scopeOkuHoverCard } = toRefs(props)
     const portalInject = usePortalInject(CONTENT_NAME, scopeOkuHoverCard.value)
@@ -61,10 +65,10 @@ const hoverCardContent = defineComponent({
       default: () => h(OkuHoverCardContentImpl, {
         'data-state': inject.open.value ? 'open' : 'closed',
         ...mergeProps(attrs, props),
-        'onPointerenter': composeEventHandlers<PointerEvent>((el) => {
+        'onPointerenter': composeEventHandlers<HoverCardContentEmits['pointerenter'][0]>((el) => {
           emit('pointerenter', el)
         }, excludeTouch(inject.onOpen)),
-        'onPointerleave': composeEventHandlers<PointerEvent>((el) => {
+        'onPointerleave': composeEventHandlers<HoverCardContentEmits['pointerleave'][0]>((el) => {
           emit('pointerleave', el)
         }, excludeTouch(inject.onClose)),
         'ref': forwardedRef,

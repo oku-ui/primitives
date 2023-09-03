@@ -44,6 +44,7 @@ export type HoverCardContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
    */
   focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
   interactOutside: [event: DismissableLayerEmits['interactOutside'][0]]
+  pointerdown: [event: PointerEvent]
   close: []
 }
 
@@ -62,6 +63,8 @@ export const hoverCardContentImplProps = {
     focusoutSide: (event: DismissableLayerEmits['focusoutSide'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     interactOutside: (event: DismissableLayerEmits['interactOutside'][0]) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerdown: (event: MouseEvent) => true,
     close: () => true,
   },
 }
@@ -92,7 +95,7 @@ const hoverCardContentImpl = defineComponent({
     const { ...restAttrs } = attrs as HoverCardContentImplNaviteElement
     const inject = useHoverCardInject(CONTENT_NAME, props.scopeOkuHoverCard)
     const popperScope = usePopperScope(props.scopeOkuHoverCard)
-    const _ref = ref<HoverCardContentImplElement>(null)
+    const _ref = ref<HoverCardContentImplElement | null>(null)
 
     const contentRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -140,7 +143,7 @@ const hoverCardContentImpl = defineComponent({
       }
     })
 
-    watchEffect((onClean) => {
+    watchEffect(() => {
       if (_ref.value) {
         const tabbables = getTabbableNodes(_ref.value)
         tabbables.forEach((tabbable: any) => tabbable.setAttribute('tabindex', '-1'))
@@ -179,7 +182,7 @@ const hoverCardContentImpl = defineComponent({
       onPointerdownOutside(event) {
         emit('pointerdownOutside', event)
       },
-      onFocusOutside: composeEventHandlers<MouseEvent>((el) => {
+      onFocusOutside: composeEventHandlers<HoverCardContentImplEmits['focusoutSide'][0]>((el) => {
         emit('focusoutSide', el)
       }, (event) => {
         event.preventDefault()
@@ -192,11 +195,12 @@ const hoverCardContentImpl = defineComponent({
         ...popperScope,
         asChild: props.asChild,
         ...mergeProps(restAttrs, contentProps),
-        onPointerDown: composeEventHandlers<MouseEvent>((el) => {
+        onPointerDown: composeEventHandlers<HoverCardContentImplEmits['pointerdown'][0]>((el) => {
           emit('pointerdown', el)
         }, (event) => {
+          const target = event.currentTarget as HTMLElement
           // Contain selection to current layer
-          if (event.currentTarget.contains(event.target as HTMLElement))
+          if (target.contains(event.target as HTMLElement))
             containSelection.value = true
 
           inject.hasSelectionRef.value = false
