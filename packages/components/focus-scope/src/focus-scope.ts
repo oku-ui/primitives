@@ -32,7 +32,7 @@ const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 const FOCUS_SCOPE_NAME = 'OkuFocusScope'
 
 export type FocusScopeNativeElement = OkuElement<'div'>
-export type FocusNaviteElement = HTMLDivElement
+export type FocusScopeElement = HTMLDivElement
 
 export interface FocusScopeProps extends PrimitiveProps {
   /**
