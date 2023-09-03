@@ -21,7 +21,7 @@ const bubbleInputPropsObject = {
       required: true,
     },
     control: {
-      type: HTMLElement as PropType<HTMLElement | null>,
+      type: Object as PropType<HTMLElement | null>,
       default: null,
     },
     bubbles: {
