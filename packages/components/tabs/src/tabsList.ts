@@ -57,7 +57,7 @@ const tabsList = defineComponent({
         default: () => h(
           Primitive.div,
           {
-            'role': 'tabslist',
+            'role': 'tablist',
             'aria-orientation': injectTabs.orientation?.value,
             'asChild': props.asChild,
             ...listAttrs,

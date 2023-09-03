@@ -52,7 +52,7 @@ const toggleGroupItemImpl = defineComponent({
     const { pressed, disabled, value, scopeOkuToggleGroup, asChild } = toRefs(props)
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => {
-      return { 'role': 'radio', 'ariaChecked': pressed.value, 'aria-pressed': undefined }
+      return { 'role': 'radio', 'ariaChecked': pressed.value, 'aria-pressed': undefined } as ToggleElementNaviteElement
     })
     const typeProps = computed(() => valueInject.type.value === 'single' ? singleProps.value : undefined)
 
@@ -60,12 +60,12 @@ const toggleGroupItemImpl = defineComponent({
 
     return () => h(OkuToggle, {
       ...attrs,
-      ...typeProps.value,
+      ...typeProps.value as any,
       pressed: pressed.value,
       disabled: disabled.value,
       asChild: asChild.value,
       ref: forwardedRef,
-      onClick: (e) => {
+      onClick: (e: ToggleEmits['click'][0]) => {
         emit('click', e)
       },
       onPressedChange: (pressed: boolean) => {

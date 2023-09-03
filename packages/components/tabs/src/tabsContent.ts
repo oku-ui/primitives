@@ -45,7 +45,6 @@ const tabsContent = defineComponent({
   },
   setup(props, { slots, attrs }) {
     const { value } = toRefs(props)
-    const { ...ContentAttrs } = attrs
     const injectTabs = useTabsInject(TAB_CONTENT_NAME, props.scopeOkuTabs)
 
     const triggerId = makeTriggerId(injectTabs.baseId.value, value.value!)
@@ -76,10 +75,10 @@ const tabsContent = defineComponent({
         'hidden': !isPresent,
         'id': contentId,
         'tabindex': '0',
-        ...ContentAttrs,
+        ...attrs,
         'ref': forwardedRef,
         'style': {
-          ...ContentAttrs.style ?? {} as any,
+          ...attrs.style ?? {} as any,
           animationDuration: isMountAnimationPreventedRef.value ? '0s' : undefined,
         },
       }, {
