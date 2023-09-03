@@ -1,8 +1,11 @@
 import type {
   ComponentPublicInstance,
   DefineComponent,
+  Events,
   FunctionalComponent,
   IntrinsicElementAttributes,
+  ReservedProps,
+  StyleValue,
 } from 'vue'
 
 export const NODES = [
@@ -94,6 +97,16 @@ export type Primitives = {
 export type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<
   IntrinsicElementAttributes[T]
 >
+
+export type StyleOmit<T extends HTMLElement> = Partial<Omit<T, 'style'> & {
+  style?: StyleValue
+}> & AriaAttributes
+
+type OmitElementEvents<T extends keyof NodeElementTagNameMap> = Omit<NodeElementTagNameMap[T], Lowercase<keyof Events> | 'style'>
+
+export type OkuElement<T extends keyof NodeElementTagNameMap, TA extends boolean = false> = {
+  [K in keyof OmitElementEvents<T>]?: OmitElementEvents<T>[K]
+} & Partial<IntrinsicElementAttributes[T]> & (TA extends true ? ReservedProps : object) & Partial<AriaAttributes>
 
 /**
  * Wraps an array around itself at a given start index

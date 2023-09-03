@@ -8,10 +8,11 @@ import {
 
 import { OkuSlot } from '@oku-ui/slot'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { NODES, type Primitives } from './types'
+import { NODES } from './types'
+import type { OkuElement, Primitives } from './types'
 
 const Primitive = NODES.reduce((primitive, node) => {
-  const Node = defineComponent({
+  const selectNode = defineComponent({
     name: `Primitive${node}`,
     inheritAttrs: false,
     props: {
@@ -37,7 +38,12 @@ const Primitive = NODES.reduce((primitive, node) => {
     },
   })
 
-  return { ...primitive, [node]: Node }
+  const NodeProps = selectNode as typeof selectNode
+  & (new () => {
+    $props: OkuElement<typeof node, true>
+  })
+
+  return { ...primitive, [node]: NodeProps }
 }, {} as Primitives)
 
 const OkuPrimitive = Primitive
