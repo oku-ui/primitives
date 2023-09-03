@@ -50,7 +50,8 @@ pnpm build core utils # Build only core and utils package (packages/core) check 
 
 ```shell
 pnpm dev
-pnpm build
+pnpm build # Build all packages with cache (packages/components)
+pnpm build:skip # Build without cache (packages/components)
 
 pnpm story # Run Storybook
 pnpm build:storybook # Build Storybook
