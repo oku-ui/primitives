@@ -49,6 +49,7 @@
     "@oku-ui/dismissable-layer": "workspace:^",
     "@oku-ui/focus-guards": "workspace:^",
     "@oku-ui/focus-scope": "workspace:^",
+    "@oku-ui/hover-card": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/popover": "workspace:^",
     "@oku-ui/popper": "workspace:^",
