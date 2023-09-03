@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 
 /** Number of components which have requested interest to have focus guards */
 let count = 0
@@ -15,7 +15,7 @@ export function useFocusGuards() {
     count++
   })
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     if (count === 1)
       document.querySelectorAll('[data-oku-focus-guard]').forEach(node => node.remove())
 

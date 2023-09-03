@@ -11,8 +11,8 @@ import {
   defineComponent,
   h,
   nextTick,
+  onBeforeUnmount,
   onMounted,
-  onUnmounted,
   provide,
   ref,
   toRefs,
@@ -272,9 +272,10 @@ const DismissableLayer = defineComponent({
       document.addEventListener(INJECT_UPDATE, handleUpdate)
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener(INJECT_UPDATE, handleUpdate)
     })
+
     const originalReturn = () =>
       h(
         Primitive.div,

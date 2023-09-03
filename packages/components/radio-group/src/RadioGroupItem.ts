@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
@@ -79,7 +79,7 @@ const RadioGroupItem = defineComponent({
       document.addEventListener('keyup', handleKeyUp)
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('keyup', handleKeyUp)
     })

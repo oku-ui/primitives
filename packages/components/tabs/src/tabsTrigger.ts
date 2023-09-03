@@ -1,7 +1,7 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs } from 'vue'
-import type { type PropType, StyleValue } from 'vue'
+import type { PropType, StyleValue } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
