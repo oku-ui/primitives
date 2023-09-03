@@ -1,17 +1,16 @@
 import { defineComponent, h } from 'vue'
 import {
-  type ElementType,
+  type OkuElement,
   type PrimitiveProps,
   primitiveProps,
 } from '@oku-ui/primitive'
 import { type Scope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ScopeProgress } from './utils'
 import { getProgressState, scopeProgressProps } from './utils'
 import { useProgressInject } from './progress'
 import { INDICATOR_NAME } from './constants'
 
-type ProgressIndicatorElementIntrinsicElement = ElementType<'div'>
+type ProgressIndicatorElementNaviteElement = OkuElement<'div'>
 export type ProgressIndicatorElement = HTMLDivElement
 
 export interface ProgressIndicatorProps extends PrimitiveProps {
@@ -32,7 +31,7 @@ const progressIndicator = defineComponent({
     ...scopeProgressProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...indicatorAttrs } = attrs as ProgressIndicatorElementIntrinsicElement
+    const { ...indicatorAttrs } = attrs as ProgressIndicatorElementNaviteElement
 
     const forwardedRef = useForwardRef()
 
@@ -63,5 +62,5 @@ const progressIndicator = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuProgressIndicator = progressIndicator as typeof progressIndicator &
 (new () => {
-  $props: ScopeProgress<Partial<ProgressIndicatorElement>>
+  $props: ProgressIndicatorElementNaviteElement
 })

@@ -1,4 +1,4 @@
-import type { PropType, Ref, StyleValue } from 'vue'
+import type { PropType, Ref } from 'vue'
 import {
   computed,
   defineComponent,
@@ -14,7 +14,7 @@ import {
   useControllable,
   useForwardRef,
 } from '@oku-ui/use-composable'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -23,7 +23,7 @@ import { BubbleInput } from './BubbleInput'
 
 const SWITCH_NAME = 'OkuSwitch'
 
-export type SwitchIntrinsicElement = ElementType<'button'>
+export type SwitchNaviteElement = OkuElement<'button'>
 export type SwitchElement = HTMLButtonElement
 
 type SwitchProvideValue = {
@@ -115,7 +115,7 @@ const Switch = defineComponent({
       name,
     } = toRefs(props)
 
-    const { ...switchAttrs } = attrs as SwitchIntrinsicElement
+    const { ...switchAttrs } = attrs as SwitchNaviteElement
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
 
@@ -217,9 +217,7 @@ const Switch = defineComponent({
 
 export const OkuSwitch = Switch as typeof Switch &
 (new () => {
-  $props: Partial<SwitchIntrinsicElement> & {
-    style?: StyleValue
-  }
+  $props: SwitchNaviteElement
 })
 
 export { useSwitchInject, createSwitchScope }

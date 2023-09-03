@@ -5,15 +5,14 @@ import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { propsOmit } from '@oku-ui/primitive'
 import { useRadioGroupInject, useRovingFocusGroupScope } from './RadioGroup'
-import type { RadioGroupIntrinsicElement } from './RadioGroup'
+import type { RadioGroupNaviteElement } from './RadioGroup'
 import type { RadioElement, RadioEmits, RadioProps } from './Radio'
 import { OkuRadio, radioProps, useRadioScope } from './Radio'
-import type { ScopeRadioGroup } from './utils'
 import { ARROW_KEYS, scopeRadioGroupProps } from './utils'
 
 const ITEM_NAME = 'OkuRadioGroupItem'
 
-export type RadioGroupItemIntrinsicElement = RadioGroupIntrinsicElement
+export type RadioGroupItemNaviteElement = RadioGroupNaviteElement
 export type RadioGroupItemElement = HTMLDivElement
 
 export interface RadioGroupItemProps extends Omit<RadioProps, | 'name'> {
@@ -133,5 +132,5 @@ const RadioGroupItem = defineComponent({
 
 export const OkuRadioGroupItem = RadioGroupItem as typeof RadioGroupItem &
 (new () => {
-  $props: ScopeRadioGroup<Partial<RadioGroupItemIntrinsicElement>>
+  $props: RadioGroupItemNaviteElement
 })

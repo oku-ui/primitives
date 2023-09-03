@@ -1,10 +1,10 @@
-import type { PropType, StyleValue } from 'vue'
+import type { PropType } from 'vue'
 import { cloneVNode, defineComponent, h, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-export type ArrowIntrinsicElement = ElementType<'svg'>
+export type ArrowNaviteElement = OkuElement<'svg'>
 export type ArrowElement = Omit<SVGSVGElement, 'width' | 'height'> & {
   width: number
   height: number
@@ -77,7 +77,5 @@ const arrow = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuArrow = arrow as typeof arrow
 & (new () => {
-  $props: Partial<ArrowIntrinsicElement> & {
-    style?: StyleValue
-  }
+  $props: ArrowNaviteElement
 })

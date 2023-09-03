@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { ToggleGroupItemProps } from '@oku-ui/toggle-group'
@@ -10,7 +10,7 @@ import { OkuToolbarButton } from './toolbarButton'
 
 const TOGGLE_ITEM_NAME = 'OkuToolbarToggleItem'
 
-export type ToolbarToggleItemIntrinsicElement = ElementType<'div'>
+export type ToolbarToggleItemNaviteElement = OkuElement<'div'>
 export type ToggleItemElement = HTMLDivElement
 export interface ToolbarToggleItemProps extends ToggleGroupItemProps {}
 
@@ -55,5 +55,5 @@ const toolbarToggleItem = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarToggleItem = toolbarToggleItem as typeof toolbarToggleItem &
 (new () => {
-  $props: Partial<ToggleItemElement>
+  $props: ToolbarToggleItemNaviteElement
 })

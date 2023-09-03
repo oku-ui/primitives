@@ -1,7 +1,7 @@
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { PropType, Ref, StyleValue } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
@@ -11,7 +11,7 @@ import { scopeTabsProps } from './utils'
 
 const TAB_NAME = 'OkuTabs'
 
-export type TabsIntrinsicElement = ElementType<'div'>
+export type TabsNaviteElement = OkuElement<'div'>
 export type TabsElement = HTMLDivElement
 
 type Orientation = 'horizontal' | 'vertical'
@@ -165,7 +165,5 @@ const tabs = defineComponent({
 
 export const OkuTabs = tabs as typeof tabs &
 (new () => {
-  $props: Partial<TabsElement> & {
-    style?: StyleValue
-  }
+  $props: TabsNaviteElement
 })

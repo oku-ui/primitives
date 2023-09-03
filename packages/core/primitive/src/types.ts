@@ -50,7 +50,7 @@ export type ElementConstructor<P> =
   | (new () => { $props: P })
   | ((props: P, ...args: any) => FunctionalComponent<any, any>)
 
-//  extends keyof JSX.IntrinsicElements | ElementConstructor<any>
+//  extends keyof JSX.NaviteElements | ElementConstructor<any>
 export type ComponentProps<
   T extends keyof JSX.IntrinsicElements | ElementConstructor<any>,
 > = T extends ElementConstructor<infer P>

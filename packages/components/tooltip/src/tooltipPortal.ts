@@ -1,16 +1,17 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { OkuPortal, type PortalProps as OkuPortalProps, type PortalElement } from '@oku-ui/portal'
+import { OkuPortal } from '@oku-ui/portal'
+import type { PortalProps as OkuPortalProps, PortalElement, PortalElementNaviteElement } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
 import { createTooltipProvide } from './utils'
-import type { ScopeTooltip } from './types'
 import { scopeTooltipProps } from './types'
 import { useTooltipInject } from './tooltip'
 
 const PORTAL_NAME = 'OkuTooltipPortal'
 
 export type TooltipPortalElement = PortalElement
+export type TooltipPortalNaviteElement = PortalElementNaviteElement
 
 type PortalProvide = {
   forceMount?: Ref<true | undefined>
@@ -80,5 +81,5 @@ const tooltipPortal = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipPortal = tooltipPortal as typeof tooltipPortal &
 (new () => {
-  $props: ScopeTooltip<Partial<TooltipPortalElement>>
+  $props: TooltipPortalNaviteElement
 })

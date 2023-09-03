@@ -3,13 +3,12 @@ export type {
   ComponentProps,
   RefElement,
   MergeProps,
-  ElementType,
+  OkuElement,
   InstanceTypeRef,
   ComponentPublicInstanceRef,
   PrimitiveProps,
   StyleOmit,
   AriaAttributes,
-  OkuElement,
 } from './types'
 
 export { primitiveProps, renderSlotFragments } from './utils'

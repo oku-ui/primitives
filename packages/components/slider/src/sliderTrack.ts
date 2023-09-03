@@ -1,12 +1,12 @@
 import { defineComponent, h, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { scopeSliderProps, useSliderInject } from './utils'
 
 const TRACK_NAME = 'OkuSliderTrack'
 
-export type SliderTrackIntrinsicElement = ElementType<'span'>
+export type SliderTrackNaviteElement = OkuElement<'span'>
 
 export type SliderTrackElement = HTMLSpanElement
 
@@ -51,5 +51,5 @@ const sliderTrack = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderTrack = sliderTrack as typeof sliderTrack &
 (new () => {
-  $props: Partial<SliderTrackElement>
+  $props: SliderTrackNaviteElement
 })

@@ -3,7 +3,7 @@ import { computed, defineComponent, h, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuToggle, toggleProps } from '@oku-ui/toggle'
-import type { ToggleElement, ToggleElementIntrinsicElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
+import type { ToggleElement, ToggleElementNaviteElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
 
 import { scopeToggleGroupProps } from './utils'
 import { useToggleGroupValueInject } from './ToggleGroup'
@@ -11,7 +11,7 @@ import { TOGGLE_ITEM_NAME } from './ToggleGroupItem'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupItemImpl'
 
-export type ToggleGroupItemImplIntrinsicElement = ToggleElementIntrinsicElement
+export type ToggleGroupItemImplNaviteElement = ToggleElementNaviteElement
 export type ToggleGroupItemImplElement = ToggleElement
 
 interface ToggleGroupItemImplProps extends Omit<ToggleProps, 'defaultPressed' | 'onPressedChange'> {
@@ -81,7 +81,7 @@ const toggleGroupItemImpl = defineComponent({
 
 export const OkuToggleGroupItemImpl = toggleGroupItemImpl as typeof toggleGroupItemImpl &
 (new () => {
-  $props: Partial<ToggleGroupItemImplElement>
+  $props: ToggleGroupItemImplNaviteElement
 })
 
 export type { ToggleGroupItemImplProps }

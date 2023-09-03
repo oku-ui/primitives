@@ -1,12 +1,11 @@
 import { defineComponent, h, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeSlider } from './utils'
 import { ARROW_KEYS, PAGE_KEYS, SLIDER_NAME, scopeSliderProps, useSliderInject } from './utils'
 
-export type SliderImplIntrinsicElement = ElementType<'span'>
+export type SliderImplNaviteElement = OkuElement<'span'>
 export type SliderImplElement = HTMLSpanElement
 
 export type SliderImplPrivateEmits = {
@@ -139,5 +138,5 @@ const sliderImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderImpl = sliderImpl as typeof sliderImpl &
 (new () => {
-  $props: ScopeSlider<Partial<SliderImplElement>>
+  $props: SliderImplNaviteElement
 })

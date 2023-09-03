@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperContent, type PopperContentEmits, type PopperContentProps, popperContentProps } from '@oku-ui/popper'
@@ -10,7 +10,7 @@ import { useFocusGuards } from '@oku-ui/focus-guards'
 import { getState, scopePopoverProps } from './utils'
 import { usePopoverInject, usePopperScope } from './popover'
 
-export type PopoverContentImplIntrinsicElement = ElementType<'label'>
+export type PopoverContentImplNaviteElement = OkuElement<'label'>
 export type PopoverContentImplElement = HTMLLabelElement
 
 export interface PopoverContentImplProps
@@ -139,5 +139,5 @@ const popoverContentImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverContentImpl = popoverContentImpl as typeof popoverContentImpl &
 (new () => {
-  $props: Partial<PopoverContentImplElement>
+  $props: PopoverContentImplNaviteElement
 })

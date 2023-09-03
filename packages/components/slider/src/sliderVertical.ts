@@ -1,11 +1,11 @@
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { OkuSliderImpl, type SliderImplElement, type SliderImplIntrinsicElement } from './sliderImpl'
+import { OkuSliderImpl, type SliderImplElement, type SliderImplNaviteElement } from './sliderImpl'
 import { BACK_KEYS, linearScale, scopeSliderProps, sliderOrientationProvider } from './utils'
 import type { SliderOrientationProps } from './sliderHorizontal'
 import { sliderOrientationProps } from './sliderHorizontal'
 
-export type SliderVerticalIntrinsicElement = SliderImplIntrinsicElement
+export type SliderVerticalNaviteElement = SliderImplNaviteElement
 export type SliderVerticalElement = SliderImplElement
 
 const NAME = 'OkuSliderVertical'
@@ -107,5 +107,5 @@ const SliderVertical = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderVertical = SliderVertical as typeof SliderVertical &
 (new () => {
-  $props: Partial<SliderVerticalElement>
+  $props: SliderVerticalNaviteElement
 })

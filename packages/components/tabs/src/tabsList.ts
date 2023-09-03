@@ -1,16 +1,16 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
-  ElementType,
+  OkuElement,
   PrimitiveProps,
 } from '@oku-ui/primitive'
-import type { PropType, StyleValue } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { useTabsInject } from './tabs'
 import { scopeTabsProps } from './utils'
 
-export type TabsListElementIntrinsicElement = ElementType<'div'>
+export type TabsListElementNaviteElement = OkuElement<'div'>
 export type TabsListElement = HTMLDivElement
 
 const TAB_LIST_NAME = 'OkuTabsList' as const
@@ -73,7 +73,5 @@ const tabsList = defineComponent({
 
 export const OkuTabsList = tabsList as typeof tabsList &
 (new () => {
-  $props: Partial<TabsListElement> & {
-    style?: StyleValue
-  }
+  $props: TabsListElementNaviteElement
 })

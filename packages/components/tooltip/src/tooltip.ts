@@ -1,6 +1,5 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onUnmounted, ref, toRefs, useModel } from 'vue'
-import type { ElementType } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
@@ -10,9 +9,6 @@ import { useTooltipProviderInject } from './tooltipProvider'
 import { scopeTooltipProps } from './types'
 
 export const TOOLTIP_NAME = 'OkuTooltip'
-
-export type LabelIntrinsicElement = ElementType<'label'>
-export type LabelElement = HTMLLabelElement
 
 type TooltipInjectValue = {
   contentId: Ref<string>

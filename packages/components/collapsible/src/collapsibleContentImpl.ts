@@ -1,15 +1,14 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue'
-import type { ComponentPublicInstanceRef, ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { ComponentPublicInstanceRef, OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
-import type { ScopeCollapsible } from './utils'
 import { getState, scopeCollapsibleProps } from './utils'
 import { CONTENT_NAME } from './collapsibleContent'
 
-export type CollapsibleContentImplIntrinsicElement = ElementType<'div'>
+export type CollapsibleContentImplNaviteElement = OkuElement<'div'>
 export type CollapsibleContentImplElement = HTMLDivElement
 
 export interface CollapsibleContentImplProps extends PrimitiveProps {
@@ -34,7 +33,7 @@ const collapsibleContentImpl = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const present = toRef(props, 'present')
-    const { ...contentAttrs } = attrs as CollapsibleContentImplIntrinsicElement
+    const { ...contentAttrs } = attrs as CollapsibleContentImplNaviteElement
     const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 
     const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | undefined>(undefined)
@@ -118,5 +117,5 @@ const collapsibleContentImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCollapsibleContentImpl = collapsibleContentImpl as typeof collapsibleContentImpl &
 (new () => {
-  $props: ScopeCollapsible<Partial<CollapsibleContentImplElement>>
+  $props: CollapsibleContentImplNaviteElement
 })

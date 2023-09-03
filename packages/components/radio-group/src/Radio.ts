@@ -1,11 +1,10 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, unref } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeRadio } from './utils'
 import { getState, scopeRadioProps } from './utils'
 import { OkuBubbleInput } from './BubbleInput'
 
@@ -22,7 +21,7 @@ export const useRadioScope = createRadioScope()
 
 export const [radioProvider, useRadioInject] = createRadioProvide<RadioProvideValue>(RADIO_NAME)
 
-export type RadioIntrinsicIntrinsicElement = ElementType<'button'>
+export type RadioIntrinsicNaviteElement = OkuElement<'button'>
 export type RadioElement = HTMLButtonElement
 
 export interface RadioProps {
@@ -89,7 +88,7 @@ const Radio = defineComponent({
       ...radioProps
     } = toRefs(props)
 
-    const radioAttrs = attrs as RadioIntrinsicIntrinsicElement
+    const radioAttrs = attrs as RadioIntrinsicNaviteElement
 
     const hasConsumerStoppedPropagationRef = ref(false)
     const buttonRef = ref<HTMLButtonElement | null>(null)
@@ -149,7 +148,7 @@ const Radio = defineComponent({
         // of the button.
         style: {
           transform: 'translateX(-100%)',
-        } as CSSStyleDeclaration,
+        },
       }),
     ]
   },
@@ -157,5 +156,5 @@ const Radio = defineComponent({
 
 export const OkuRadio = Radio as typeof Radio &
 (new () => {
-  $props: ScopeRadio<Partial<RadioElement>>
+  $props: RadioIntrinsicNaviteElement
 })

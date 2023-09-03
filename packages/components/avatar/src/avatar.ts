@@ -1,6 +1,6 @@
-import type { Ref, StyleValue } from 'vue'
+import type { Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -18,7 +18,7 @@ type AvatarProvideValue = {
 
 export const [avatarProvider, useAvatarInject] = createAvatarProvide<AvatarProvideValue>(AVATAR_NAME)
 
-export type AvatarIntrinsicElement = ElementType<'span'>
+export type AvatarNaviteElement = OkuElement<'span'>
 export type AvatarElement = HTMLSpanElement
 
 export interface AvatarProps extends PrimitiveProps {
@@ -68,7 +68,5 @@ const avatar = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatar = avatar as typeof avatar &
 (new () => {
-  $props: Partial<AvatarElement> & {
-    style?: StyleValue
-  }
+  $props: AvatarNaviteElement
 })

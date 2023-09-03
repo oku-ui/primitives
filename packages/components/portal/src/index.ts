@@ -5,5 +5,5 @@ export {
 export type {
   PortalProps,
   PortalElement,
-  PortalElementIntrinsicElement,
+  PortalElementNaviteElement,
 } from './Portal'

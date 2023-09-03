@@ -22,24 +22,24 @@ export {
 export type {
   TabsProps,
   TabsElement,
-  TabsIntrinsicElement,
+  TabsNaviteElement,
 } from './tabs'
 
 export type {
   TabsListProps,
   TabsListElement,
-  TabsListElementIntrinsicElement,
+  TabsListElementNaviteElement,
 } from './tabsList'
 
 export type {
   TabsTriggerProps,
   TabsTriggerElement,
-  TabsTriggerElementIntrinsicElement,
+  TabsTriggerElementNaviteElement,
   TabsTriggerEmits,
 } from './tabsTrigger'
 
 export type {
   TabsContentProps,
   TabsContentElement,
-  TabsContentIntrinsicElement,
+  TabsContentNaviteElement,
 } from './tabsContent'

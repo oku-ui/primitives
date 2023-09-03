@@ -67,5 +67,4 @@ const popoverPortal = defineComponent({
   },
 })
 
-// TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverPortal = popoverPortal

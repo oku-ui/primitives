@@ -4,5 +4,5 @@ export {
 export type {
   LabelProps,
   LabelElement,
-  LabelIntrinsicElement,
+  LabelNaviteElement,
 } from './label'

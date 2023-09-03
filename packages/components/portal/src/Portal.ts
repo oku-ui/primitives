@@ -1,6 +1,6 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
-  ElementType,
+  OkuElement,
   PrimitiveProps,
 
 } from '@oku-ui/primitive'
@@ -10,7 +10,7 @@ import { Teleport, defineComponent, h, toRefs } from 'vue'
 
 const PORTAL_NAME = 'OkuPortal'
 
-export type PortalElementIntrinsicElement = ElementType<'div'>
+export type PortalElementNaviteElement = OkuElement<'div'>
 export type PortalElement = HTMLDivElement
 
 export interface PortalProps extends PrimitiveProps {
@@ -59,5 +59,5 @@ const portal = defineComponent({
 
 export const OkuPortal = portal as typeof portal &
 (new () => {
-  $props: Partial<PortalElementIntrinsicElement>
+  $props: PortalElementNaviteElement
 })
