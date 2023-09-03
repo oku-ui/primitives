@@ -14,12 +14,20 @@ export type VisuallyHiddenElement = HTMLButtonElement
 
 export interface VisuallyHiddenProps extends PrimitiveProps {}
 
+export const visuallyHiddenProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {},
+}
+
 const visuallyHidden = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
+    ...visuallyHiddenProps.props,
   },
+  emits: visuallyHiddenProps.emits,
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
