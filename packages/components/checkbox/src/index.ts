@@ -7,7 +7,7 @@ export {
 export type {
   CheckboxProps,
   CheckboxElement,
-  CheckboxIntrinsicElement,
+  CheckboxNaviteElement,
   CheckboxEmits,
 } from './checkbox'
 
@@ -17,7 +17,6 @@ export {
 } from './checkboxIndicator'
 
 export type {
-  CheckboxIndicatorElement,
   CheckboxIndicatorProps,
-  CheckboxIndicatorIntrinsicElement,
+  CheckboxIndicatorNaviteElement,
 } from './checkboxIndicator'

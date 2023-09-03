@@ -1,15 +1,15 @@
 import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { OkuTooltipContentImpl, type TooltipContentImplElement, type TooltipContentImplIntrinsicElement, type TooltipContentImplProps, tooltipContentImplProps } from './tooltipContentImpl'
+import { OkuTooltipContentImpl, type TooltipContentImplElement, type TooltipContentImplNaviteElement, type TooltipContentImplProps, tooltipContentImplProps } from './tooltipContentImpl'
 import { scopeTooltipProps } from './types'
-import type { Polygon, ScopeTooltip } from './types'
+import type { Polygon } from './types'
 import { useTooltipInject } from './tooltip'
 import { CONTENT_NAME } from './tooltipContent'
 import { useTooltipProviderInject } from './tooltipProvider'
 import { getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
 
-export type TooltipContentHoverableElementIntrinsicElement = TooltipContentImplIntrinsicElement
+export type TooltipContentHoverableElementNaviteElement = TooltipContentImplNaviteElement
 export type TooltipContentHoverableElement = TooltipContentImplElement
 
 export interface TooltipContentHoverableProps extends TooltipContentImplProps {
@@ -131,5 +131,5 @@ const tooltipContentHoverable = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipContentHoverable = tooltipContentHoverable as typeof tooltipContentHoverable &
 (new () => {
-  $props: ScopeTooltip<Partial<TooltipContentHoverableElement>>
+  $props: TooltipContentHoverableElementNaviteElement
 })

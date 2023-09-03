@@ -1,16 +1,15 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useRadioInject } from './Radio'
-import type { ScopeRadio } from './utils'
 import { getState, scopeRadioProps } from './utils'
 
 const INDICATOR_NAME = 'OkuRadioIndicator'
 
-export type RadioIndicatorIntrinsicElement = ElementType<'span'>
+export type RadioIndicatorNaviteElement = OkuElement<'span'>
 export type RadioIndicatorElement = HTMLSpanElement
 
 export interface RadioIndicatorProps extends PrimitiveProps {
@@ -62,5 +61,5 @@ const RadioIndicator = defineComponent({
 
 export const OkuRadioIndicator = RadioIndicator as typeof RadioIndicator &
 (new () => {
-  $props: ScopeRadio<Partial<RadioIndicatorIntrinsicElement>>
+  $props: RadioIndicatorNaviteElement
 })

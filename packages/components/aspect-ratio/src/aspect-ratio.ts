@@ -1,10 +1,10 @@
-import type { CSSProperties, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, toRef } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-export type AspectRatioIntrinsicElement = ElementType<'div'>
+export type AspectRatioNaviteElement = OkuElement<'div'>
 export type AspectRatioElement = HTMLDivElement
 
 const NAME = 'OkuAspectRatio'
@@ -23,7 +23,7 @@ export const aspectRatioProps = {
   emits: {},
 }
 
-const AspectRatio = defineComponent({
+const aspectRatio = defineComponent({
   name: NAME,
   inheritAttrs: false,
   props: {
@@ -32,7 +32,6 @@ const AspectRatio = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const ratio = toRef(props, 'ratio')
-    const { style, ...aspectRatioAttrs } = attrs as AspectRatioIntrinsicElement
 
     const forwardedRef = useForwardRef()
     const originalReturn = () => h(
@@ -41,7 +40,7 @@ const AspectRatio = defineComponent({
           position: 'relative',
           width: '100%',
           paddingBottom: `${100 / ratio.value}%`,
-        } as CSSProperties,
+        },
         'data-oku-aspect-ratio-wrapper': '',
       },
       [
@@ -49,10 +48,10 @@ const AspectRatio = defineComponent({
           Primitive.div,
           {
             asChild: props.asChild,
-            ...aspectRatioAttrs,
+            ...attrs,
             ref: forwardedRef,
             style: {
-              ...(style as any),
+              ...attrs.style as any,
               position: 'absolute',
               top: '0px',
               right: '0px',
@@ -72,7 +71,7 @@ const AspectRatio = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuAspectRatio = AspectRatio as typeof AspectRatio &
+export const OkuAspectRatio = aspectRatio as typeof aspectRatio &
 (new () => {
-  $props: Partial<AspectRatioElement>
+  $props: AspectRatioNaviteElement
 })

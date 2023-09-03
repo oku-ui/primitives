@@ -3,11 +3,11 @@ import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { OkuPopperContent, popperContentProps } from '@oku-ui/popper'
-import type { PopperContentProps as OkuPopperContentProps, PopperContentElement, PopperContentEmits, PopperContentIntrinsicElement } from '@oku-ui/popper'
+import type { PopperContentProps as OkuPopperContentProps, PopperContentElement, PopperContentEmits, PopperContentNaviteElement } from '@oku-ui/popper'
 import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { TOOLTIP_OPEN, createTooltipProvide, usePopperScope } from './utils'
-import { type ScopeTooltip, scopeTooltipProps } from './types'
+import { scopeTooltipProps } from './types'
 import { TOOLTIP_NAME, useTooltipInject } from './tooltip'
 
 const CONTENT_NAME = 'OkuTooltipContentImpl'
@@ -19,7 +19,7 @@ export {
   useVisuallyHiddenContentInject,
 }
 
-export type TooltipContentImplIntrinsicElement = PopperContentIntrinsicElement
+export type TooltipContentImplNaviteElement = PopperContentNaviteElement
 export type TooltipContentImplElement = PopperContentElement
 
 export type DismissableLayerProps = OkuDismissableLayerProps
@@ -89,7 +89,7 @@ const tooltipContentImpl = defineComponent({
       scopeOkuTooltip,
       ...contentProps
     } = props
-    const { ...restAttrs } = attrs as TooltipContentImplIntrinsicElement
+    const { ...restAttrs } = attrs as TooltipContentImplNaviteElement
     const inject = useTooltipInject(CONTENT_NAME, props.scopeOkuTooltip)
     const popperScope = usePopperScope(props.scopeOkuTooltip)
     const forwardedRef = useForwardRef()
@@ -189,5 +189,5 @@ const tooltipContentImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipContentImpl = tooltipContentImpl as typeof tooltipContentImpl &
 (new () => {
-  $props: ScopeTooltip<Partial<TooltipContentImplElement>>
+  $props: TooltipContentImplNaviteElement
 })

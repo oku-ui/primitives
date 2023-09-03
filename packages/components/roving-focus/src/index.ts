@@ -12,7 +12,7 @@ export {
 export type {
   RovingFocusGroupItemElement,
   RovingFocusGroupItemEmits,
-  RovingFocusGroupItemIntrinsicElement,
+  RovingFocusGroupItemNaviteElement,
   RovingFocusItemProps,
 } from './RovingFocusGroupItem'
 

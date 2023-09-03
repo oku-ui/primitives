@@ -1,5 +1,5 @@
 import { defineComponent, h, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -7,7 +7,7 @@ import { OkuPopperAnchor } from '@oku-ui/popper'
 import { getState, scopePopoverProps } from './utils'
 import { usePopoverInject, usePopperScope } from './popover'
 
-export type PopoverTriggerIntrinsicElement = ElementType<'button'>
+export type PopoverTriggerNaviteElement = OkuElement<'button'>
 export type PopoverTriggerElement = HTMLButtonElement
 
 export interface PopoverTriggerProps extends PrimitiveProps {}
@@ -82,5 +82,5 @@ const popoverTrigger = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverTrigger = popoverTrigger as typeof popoverTrigger &
 (new () => {
-  $props: Partial<PopoverTriggerElement>
+  $props: PopoverTriggerNaviteElement
 })

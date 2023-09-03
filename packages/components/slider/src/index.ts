@@ -4,7 +4,7 @@ export {
 } from './slider'
 
 export type {
-  SliderIntrinsicElement,
+  SliderNaviteElement,
   SliderPropsEmits,
   SliderProps,
 } from './slider'
@@ -16,7 +16,7 @@ export {
 
 export type {
   SliderTrackElement,
-  SliderTrackIntrinsicElement,
+  SliderTrackNaviteElement,
   SliderTrackProps,
 } from './sliderTrack'
 
@@ -27,7 +27,7 @@ export {
 
 export type {
   SliderRangeElement,
-  SliderRangeIntrinsicElement,
+  SliderRangeNaviteElement,
   SliderRangeProps,
 } from './sliderRange'
 
@@ -38,6 +38,6 @@ export {
 
 export type {
   SliderThumbElement,
-  SliderThumbIntrinsicElement,
+  SliderThumbNaviteElement,
   SliderThumbProps,
 } from './sliderThumb'

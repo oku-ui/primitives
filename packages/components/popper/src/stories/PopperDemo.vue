@@ -10,7 +10,7 @@ import { ref } from 'vue'
 
 export interface IPopperProps {
   template?: '#1' | '#2' | '#3'
-  allShow?: boolean
+  allshow?: boolean
 }
 
 withDefaults(defineProps<IPopperProps>(), {})

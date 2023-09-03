@@ -3,7 +3,7 @@ import { computed, defineComponent, h, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuToggle, toggleProps } from '@oku-ui/toggle'
-import type { ToggleElement, ToggleElementIntrinsicElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
+import type { ToggleElement, ToggleElementNaviteElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
 
 import { scopeToggleGroupProps } from './utils'
 import { useToggleGroupValueInject } from './ToggleGroup'
@@ -11,7 +11,7 @@ import { TOGGLE_ITEM_NAME } from './ToggleGroupItem'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupItemImpl'
 
-export type ToggleGroupItemImplIntrinsicElement = ToggleElementIntrinsicElement
+export type ToggleGroupItemImplNaviteElement = ToggleElementNaviteElement
 export type ToggleGroupItemImplElement = ToggleElement
 
 interface ToggleGroupItemImplProps extends Omit<ToggleProps, 'defaultPressed' | 'onPressedChange'> {
@@ -52,7 +52,7 @@ const toggleGroupItemImpl = defineComponent({
     const { pressed, disabled, value, scopeOkuToggleGroup, asChild } = toRefs(props)
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => {
-      return { 'role': 'radio', 'ariaChecked': pressed.value, 'aria-pressed': undefined }
+      return { 'role': 'radio', 'ariaChecked': pressed.value, 'aria-pressed': undefined } as ToggleElementNaviteElement
     })
     const typeProps = computed(() => valueInject.type.value === 'single' ? singleProps.value : undefined)
 
@@ -60,12 +60,12 @@ const toggleGroupItemImpl = defineComponent({
 
     return () => h(OkuToggle, {
       ...attrs,
-      ...typeProps.value,
+      ...typeProps.value as any,
       pressed: pressed.value,
       disabled: disabled.value,
       asChild: asChild.value,
       ref: forwardedRef,
-      onClick: (e) => {
+      onClick: (e: ToggleEmits['click'][0]) => {
         emit('click', e)
       },
       onPressedChange: (pressed: boolean) => {
@@ -81,7 +81,7 @@ const toggleGroupItemImpl = defineComponent({
 
 export const OkuToggleGroupItemImpl = toggleGroupItemImpl as typeof toggleGroupItemImpl &
 (new () => {
-  $props: Partial<ToggleGroupItemImplElement>
+  $props: ToggleGroupItemImplNaviteElement
 })
 
 export type { ToggleGroupItemImplProps }

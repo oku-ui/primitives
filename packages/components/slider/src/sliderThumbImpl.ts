@@ -1,12 +1,12 @@
 import { computed, defineComponent, h, ref, toRef, watchEffect } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { CollectionItemSlot, convertValueToPercentage, getLabel, getThumbInBoundsOffset, scopeSliderProps, useSliderInject, useSliderOrientationInject } from './utils'
 import { THUMB_NAME } from './sliderThumb'
 
-export type SliderThumbImplIntrinsicElement = ElementType<'span'>
+export type SliderThumbImplNaviteElement = OkuElement<'span'>
 export type SliderThumbImplElement = HTMLSpanElement
 
 export interface SliderThumbImplProps extends PrimitiveProps {
@@ -122,5 +122,5 @@ const sliderThumbImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderThumbImpl = sliderThumbImpl as typeof sliderThumbImpl &
 (new () => {
-  $props: Partial<SliderThumbImplElement>
+  $props: SliderThumbImplNaviteElement
 })

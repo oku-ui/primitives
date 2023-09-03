@@ -1,18 +1,17 @@
 import { defineComponent, h, ref, watchEffect } from 'vue'
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperAnchor } from '@oku-ui/popper'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { usePopperScope } from './utils'
-import type { ScopeTooltip } from './types'
 import { scopeTooltipProps } from './types'
 import { useTooltipProviderInject } from './tooltipProvider'
 import { useTooltipInject } from './tooltip'
 
 const TRIGGER_NAME = 'OkuTooltipTrigger'
 
-export type TooltipTriggerIntrinsicElement = ElementType<'button'>
+export type TooltipTriggerNaviteElement = OkuElement<'button'>
 export type TooltipTriggerElement = HTMLButtonElement
 
 export interface TooltipTriggerProps { }
@@ -128,5 +127,5 @@ const tooltipTrigger = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipTrigger = tooltipTrigger as typeof tooltipTrigger &
 (new () => {
-  $props: ScopeTooltip<Partial<TooltipTriggerElement>>
+  $props: TooltipTriggerNaviteElement
 })

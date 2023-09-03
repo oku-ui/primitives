@@ -1,15 +1,14 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, nextTick, onMounted, ref, toRef, watch, watchEffect } from 'vue'
-import type { ComponentPublicInstanceRef, ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
-import type { ScopeCollapsible } from './utils'
 import { getState, scopeCollapsibleProps } from './utils'
 import { CONTENT_NAME } from './collapsibleContent'
 
-export type CollapsibleContentImplIntrinsicElement = ElementType<'div'>
+export type CollapsibleContentImplNaviteElement = OkuElement<'div'>
 export type CollapsibleContentImplElement = HTMLDivElement
 
 export interface CollapsibleContentImplProps extends PrimitiveProps {
@@ -34,10 +33,10 @@ const collapsibleContentImpl = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const present = toRef(props, 'present')
-    const { ...contentAttrs } = attrs as CollapsibleContentImplIntrinsicElement
+    const { ...contentAttrs } = attrs as CollapsibleContentImplNaviteElement
     const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 
-    const _ref = ref<ComponentPublicInstanceRef<HTMLDivElement> | undefined>(undefined)
+    const _ref = ref<HTMLDivElement | undefined>(undefined)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(_ref, forwardedRef)
 
@@ -51,16 +50,19 @@ const collapsibleContentImpl = defineComponent({
     const isMountAnimationPreventedRef = ref(isOpen.value)
     const originalStylesRef = ref<Record<string, string>>()
 
+    const rAf = ref()
+
     onMounted(() => {
-      watchEffect(async (onCleanup) => {
-        const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
-        onCleanup(() => cancelAnimationFrame(rAF))
-      })
+      rAf.value = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+    })
+
+    onBeforeUnmount(() => {
+      cancelAnimationFrame(rAf.value)
     })
 
     watch([isOpen, isPresent], async () => {
       await nextTick()
-      const node = _ref.value?.$el
+      const node = _ref.value
       if (node) {
         originalStylesRef.value = originalStylesRef.value || {
           transitionDuration: node.style.transitionDuration,
@@ -115,5 +117,5 @@ const collapsibleContentImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCollapsibleContentImpl = collapsibleContentImpl as typeof collapsibleContentImpl &
 (new () => {
-  $props: ScopeCollapsible<Partial<CollapsibleContentImplElement>>
+  $props: CollapsibleContentImplNaviteElement
 })

@@ -1,16 +1,15 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
-  ElementType,
+  OkuElement,
   PrimitiveProps,
 
 } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { CSSProperties } from 'vue'
 import { defineComponent, h } from 'vue'
 
 const NAME = 'OkuVisuallyHidden'
 
-export type VisuallyHiddenIntrinsicElement = ElementType<'button'>
+export type VisuallyHiddenNaviteElement = OkuElement<'button'>
 export type VisuallyHiddenElement = HTMLButtonElement
 
 export interface VisuallyHiddenProps extends PrimitiveProps {}
@@ -22,15 +21,13 @@ const visuallyHidden = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...visuallyHiddenAttrs } = attrs as VisuallyHiddenIntrinsicElement
-
     const forwardedRef = useForwardRef()
 
     const originalReturn = () =>
       h(Primitive.span, {
         ref: forwardedRef,
         asChild: props.asChild,
-        ...visuallyHiddenAttrs,
+        ...attrs,
         style: {
           position: 'absolute',
           border: '0px',
@@ -42,7 +39,7 @@ const visuallyHidden = defineComponent({
           clip: 'rect(0px, 0px, 0px, 0px)',
           whiteSpace: 'nowrap',
           wordWrap: 'normal',
-          ...(visuallyHiddenAttrs.style as CSSProperties),
+          ...attrs.style as any,
         },
       }, slots)
 
@@ -53,5 +50,5 @@ const visuallyHidden = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuVisuallyHidden = visuallyHidden as typeof visuallyHidden &
 (new () => {
-  $props: Partial<VisuallyHiddenElement>
+  $props: VisuallyHiddenNaviteElement
 })

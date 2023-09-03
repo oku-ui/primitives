@@ -1,16 +1,15 @@
 import { defineComponent, h } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeToolbar } from './utils'
 import { scopeToolbarProps } from './utils'
 import { useRovingFocusGroupScope } from './toolbar'
 
 const LINK_NAME = 'OkuToolbarLink'
 
-export type ToolbarLinkIntrinsicElement = ElementType<'a'>
+export type ToolbarLinkNaviteElement = OkuElement<'a'>
 export type ToolbarLinkElement = HTMLAnchorElement
 
 export interface ToolbarLinkProps extends PrimitiveProps {
@@ -68,5 +67,5 @@ const toolbarLink = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarLink = toolbarLink as typeof toolbarLink &
 (new () => {
-  $props: ScopeToolbar<Partial<ToolbarLinkElement>>
+  $props: ToolbarLinkNaviteElement
 })

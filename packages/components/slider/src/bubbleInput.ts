@@ -2,9 +2,9 @@ import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 
 import { usePrevious } from '@oku-ui/use-composable'
 
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
-export type BubbleInputIntrinsicElement = ElementType<'input'>
+export type BubbleInputNaviteElement = OkuElement<'input'>
 
 export type BubbleInputElement = Partial<Omit<HTMLInputElement, 'checked'>>
 
@@ -57,5 +57,5 @@ const bubbleInput = defineComponent({
 
 export const OkuBubbleInput = bubbleInput as typeof bubbleInput
 & (new () => {
-  $props: Partial<BubbleInputElement>
+  $props: BubbleInputNaviteElement
 })

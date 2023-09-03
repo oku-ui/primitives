@@ -1,6 +1,6 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
-  ElementType,
+  OkuElement,
   PrimitiveProps,
 } from '@oku-ui/primitive'
 import { defineComponent, h, inject, ref, watchEffect } from 'vue'
@@ -13,7 +13,7 @@ import { DismissableLayerProvideKey } from './DismissableLayer'
  * ----------------------------------------------------------------------------------------------- */
 
 const BRANCH_NAME = 'OkuDismissableLayerBranch'
-export type DismissableLayerBranchIntrinsicElement = ElementType<'div'>
+export type DismissableLayerBranchNaviteElement = OkuElement<'div'>
 export type DismissableLayerBranchElement = HTMLDivElement
 
 export interface DismissableLayerBranchProps extends PrimitiveProps {}
@@ -58,5 +58,5 @@ const DismissableLayerBranch = defineComponent({
 export const OkuDismissableLayerBranch
 = DismissableLayerBranch as typeof DismissableLayerBranch &
 (new () => {
-  $props: Partial<DismissableLayerBranchElement>
+  $props: DismissableLayerBranchNaviteElement
 })

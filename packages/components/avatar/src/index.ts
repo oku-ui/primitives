@@ -17,18 +17,18 @@ export {
 export type {
   AvatarImageProps,
   AvatarImageElement,
-  AvatarImageIntrinsicElement,
+  AvatarImageNaviteElement,
   AvatarEmits,
 } from './avatarImage'
 
 export type {
   AvatarProps,
   AvatarElement,
-  AvatarIntrinsicElement,
+  AvatarNaviteElement,
 } from './avatar'
 
 export type {
   AvatarFallbackProps,
   AvatarFalbackElement,
-  AvatarFallbackIntrinsicElement,
+  AvatarFallbackNaviteElement,
 } from './avatarFallback'

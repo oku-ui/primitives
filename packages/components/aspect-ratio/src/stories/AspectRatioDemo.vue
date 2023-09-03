@@ -5,13 +5,13 @@ import { onMounted, ref } from 'vue'
 export interface IAspectRatioProps {
   template?: '#1' | '#2' | '#3' | '#4' | '#5'
   imageurl?: string
-  allShow?: boolean
+  allshow?: boolean
 }
 
 withDefaults(defineProps<IAspectRatioProps>(), {
   ratio: 16 / 9,
   template: '#1',
-  allShow: false,
+  allshow: false,
 })
 
 const root = ref()
@@ -22,12 +22,12 @@ onMounted(() => {
 
 <template>
   <div class="cursor-default inline-block gap-6">
-    <div v-if="template === '#1' || allShow" class="w-[300px] rounded-sm overflow-hidden">
+    <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
       <OkuAspectRatio ref="root" class="bg-cyan-500 flex items-center justify-center text-white font-bold">
         <h1>Default ratio (1/1)</h1>
       </OkuAspectRatio>
     </div>
-    <div v-if="template === '#2' || allShow" class="flex gap-6">
+    <div v-if="template === '#2' || allshow" class="flex gap-6">
       <div class="w-[150px] rounded-sm overflow-hidden">
         <OkuAspectRatio :ratio="1 / 2">
           <img

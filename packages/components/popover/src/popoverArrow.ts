@@ -1,11 +1,11 @@
 import { defineComponent, h } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperArrow, type PopperArrowElement, type PopperArrowIntrinsicElement, type PopperArrowProps, popperAnchorProps } from '@oku-ui/popper'
+import { OkuPopperArrow, type PopperArrowElement, type PopperArrowNaviteElement, type PopperArrowProps, popperAnchorProps } from '@oku-ui/popper'
 import { scopePopoverProps } from './utils'
 import { usePopperScope } from './popover'
 
-export type PopoverArrowIntrinsicElement = PopperArrowIntrinsicElement
+export type PopoverArrowNaviteElement = PopperArrowNaviteElement
 export type PopoverArrowElement = PopperArrowElement
 
 export interface PopoverArrowProps extends PopperArrowProps { }
@@ -49,5 +49,5 @@ const popoverArrow = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverArrow = popoverArrow as typeof popoverArrow &
 (new () => {
-  $props: Partial<PopoverArrowElement>
+  $props: PopoverArrowNaviteElement
 })

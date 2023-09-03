@@ -3,7 +3,7 @@ import {
   useEscapeKeydown,
   useForwardRef,
 } from '@oku-ui/use-composable'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Ref } from 'vue'
 import {
@@ -11,15 +11,14 @@ import {
   defineComponent,
   h,
   nextTick,
+  onBeforeUnmount,
   onMounted,
-  onUnmounted,
   provide,
   ref,
   toRefs,
   watchEffect,
 } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeDismissableLayer } from './util'
 import {
   dispatchUpdate,
   scopeDismissableLayerProps,
@@ -39,7 +38,7 @@ let originalBodyPointerEvents: string
 export const DISMISSABLE_NAME = 'OkuDismissableLayer'
 export const DismissableLayerProvideKey = Symbol('DismissableLayerProvide')
 
-export type DismissableLayerIntrinsicElement = ElementType<'div'>
+export type DismissableLayerNaviteElement = OkuElement<'div'>
 export type DismissableLayerElement = HTMLDivElement
 
 export type DismissableLayerProvideValue = {
@@ -272,9 +271,10 @@ const DismissableLayer = defineComponent({
       document.addEventListener(INJECT_UPDATE, handleUpdate)
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener(INJECT_UPDATE, handleUpdate)
     })
+
     const originalReturn = () =>
       h(
         Primitive.div,
@@ -311,5 +311,5 @@ const DismissableLayer = defineComponent({
 
 export const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer &
 (new () => {
-  $props: ScopeDismissableLayer<Partial<DismissableLayerElement>>
+  $props: DismissableLayerNaviteElement
 })

@@ -7,7 +7,7 @@ import { OkuPopoverContentImpl } from './popoverContentImpl'
 import { scopePopoverProps } from './utils'
 import { usePopoverInject } from './popover'
 import { CONTENT_NAME } from './popoverContent'
-import type { PopoverContentTypeElement, PopoverContentTypeEmits } from './popoverContentModal'
+import type { PopoverContentTypeEmits, PopoverContentTypeNaviteElement } from './popoverContentModal'
 import { popoverContentTypeProps } from './popoverContentModal'
 
 const NAME = 'OkuPopoverContentNonModal'
@@ -82,5 +82,5 @@ const popoverContentNonModal = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverContentNonModal = popoverContentNonModal as typeof popoverContentNonModal &
 (new () => {
-  $props: Partial<PopoverContentTypeElement>
+  $props: PopoverContentTypeNaviteElement
 })

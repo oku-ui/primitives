@@ -1,11 +1,12 @@
 import { defineComponent, h, toRefs, watchEffect } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperAnchor, type PopperAnchorElement, type PopperAnchorIntrinsicElement, type PopperAnchorProps, popperAnchorProps } from '@oku-ui/popper'
+import { OkuPopperAnchor, popperAnchorProps } from '@oku-ui/popper'
+import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps } from '@oku-ui/popper'
 import { scopePopoverProps } from './utils'
 import { usePopoverInject, usePopperScope } from './popover'
 
-export type PopoverAnchorIntrinsicElement = PopperAnchorIntrinsicElement
+export type PopoverAnchorNaviteElement = PopperAnchorNaviteElement
 export type PopoverAnchorElement = PopperAnchorElement
 
 export interface PopoverAnchorProps extends PopperAnchorProps { }
@@ -60,5 +61,5 @@ const popoverAnchor = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverAnchor = popoverAnchor as typeof popoverAnchor &
 (new () => {
-  $props: Partial<PopoverAnchorElement>
+  $props: PopoverAnchorNaviteElement
 })

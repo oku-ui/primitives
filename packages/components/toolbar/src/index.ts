@@ -5,7 +5,7 @@ export {
 export type {
   ToolbarProps,
   ToolbarElement,
-  ToolbarIntrinsicElement,
+  ToolbarNaviteElement,
 } from './toolbar'
 
 export {
@@ -15,7 +15,7 @@ export {
 
 export type {
   ToolbarButtonElement,
-  ToolbarButtonIntrinsicElement,
+  ToolbarButtonNaviteElement,
   ToolbarButtonProps,
 } from './toolbarButton'
 
@@ -35,7 +35,7 @@ export {
 } from './toolbarSeparator'
 
 export type {
-  ToolbarSeparatorIntrinsicElement,
+  ToolbarSeparatorNaviteElement,
   ToolbarSeparatorElement,
   ToolbarSeparatorProps,
 } from './toolbarSeparator'
@@ -55,6 +55,6 @@ export {
 } from './toolbarToggleItem'
 
 export type {
-  ToolbarToggleItemIntrinsicElement,
+  ToolbarToggleItemNaviteElement,
   ToolbarToggleItemProps,
 } from './toolbarToggleItem'

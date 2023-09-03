@@ -1,13 +1,13 @@
 import { computed, defineComponent, h, toRefs } from 'vue'
 
 import {
-  type ElementType,
+  type OkuElement,
 } from '@oku-ui/primitive'
 import type { ArrowElement, ArrowProps } from '@oku-ui/arrow'
 import { OkuArrow, arrowProps } from '@oku-ui/arrow'
 
 import { useForwardRef } from '@oku-ui/use-composable'
-import { type ScopePopper, type Side, scopePopperProps } from './utils'
+import { type Side, scopePopperProps } from './utils'
 import { usePopperContentInject } from './popperContent'
 
 const ARROW_NAME = 'OkuPopperArrow'
@@ -19,7 +19,7 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
   left: 'right',
 }
 
-export type PopperArrowIntrinsicElement = ElementType<'svg'>
+export type PopperArrowNaviteElement = OkuElement<'svg'>
 export type PopperArrowElement = ArrowElement
 
 export interface PopperArrowProps extends ArrowProps {
@@ -79,13 +79,13 @@ const popperArrow = defineComponent({
         },
         [
           h(OkuArrow, {
-            ...attrs,
+            ...attrs as any,
             asChild: asChild.value,
             ref: forwardedRef,
             width: width.value,
             height: height.value,
             style: {
-              ...(attrs.style as any),
+              ...attrs.style as any,
               display: 'block',
             },
           }),
@@ -98,5 +98,5 @@ const popperArrow = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopperArrow = popperArrow as typeof popperArrow
 & (new () => {
-  $props: ScopePopper<Partial<PopperArrowIntrinsicElement>>
+  $props: PopperArrowNaviteElement
 })

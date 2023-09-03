@@ -4,15 +4,14 @@ import { computed, defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
 import { OkuPresence } from '@oku-ui/presence'
-import type { ScopeCheckbox } from './utils'
 import { getState, isIndeterminate, scopeCheckboxProps } from './utils'
 import { useCheckboxInject } from './checkbox'
 
-export type CheckboxIndicatorIntrinsicElement = ElementType<'span'>
-export type CheckboxIndicatorElement = HTMLSpanElement
+export type CheckboxIndicatorNaviteElement = OkuElement<'span'>
+export type CheckboxElement = HTMLSpanElement
 
 export interface CheckboxIndicatorProps extends PrimitiveProps {
   forceMount?: true
@@ -39,7 +38,7 @@ const checkboxIndicator = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { forceMount } = toRefs(props)
-    const { ...indicatorAttrs } = attrs as CheckboxIndicatorIntrinsicElement
+    const { ...indicatorAttrs } = attrs as CheckboxIndicatorNaviteElement
 
     const forwardedRef = useForwardRef()
 
@@ -68,5 +67,5 @@ const checkboxIndicator = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCheckboxIndicator = checkboxIndicator as typeof checkboxIndicator &
 (new () => {
-  $props: ScopeCheckbox<Partial<CheckboxIndicatorElement>>
+  $props: CheckboxIndicatorNaviteElement
 })

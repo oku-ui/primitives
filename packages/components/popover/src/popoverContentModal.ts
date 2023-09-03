@@ -5,12 +5,12 @@ import { hideOthers } from 'aria-hidden'
 import { OkuSlot } from '@oku-ui/slot'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPopoverContentImpl, popoverContentImplProps } from './popoverContentImpl'
-import type { PopoverContentImplElement, PopoverContentImplEmits, PopoverContentImplIntrinsicElement, PopoverContentImplProps } from './popoverContentImpl'
+import type { PopoverContentImplElement, PopoverContentImplEmits, PopoverContentImplNaviteElement, PopoverContentImplProps } from './popoverContentImpl'
 import { scopePopoverProps } from './utils'
 import { usePopoverInject } from './popover'
 import { CONTENT_NAME } from './popoverContent'
 
-export type PopoverContentTypeIntrinsicElement = PopoverContentImplIntrinsicElement
+export type PopoverContentTypeNaviteElement = PopoverContentImplNaviteElement
 export type PopoverContentTypeElement = PopoverContentImplElement
 
 export interface PopoverContentTypeProps
@@ -93,5 +93,5 @@ const popoverContentModal = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverContentModal = popoverContentModal as typeof popoverContentModal &
 (new () => {
-  $props: Partial<PopoverContentTypeElement>
+  $props: PopoverContentTypeNaviteElement
 })
