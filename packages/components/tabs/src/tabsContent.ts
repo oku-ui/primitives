@@ -1,13 +1,13 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
 import type { ComputedRef, PropType, StyleValue } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useTabsInject } from './tabs'
 import { makeContentId, makeTriggerId, scopeTabsProps } from './utils'
 
-const TAB_CONTENT_NAME = 'OkuTabContent' as const
+const TAB_CONTENT_NAME = 'OkuTabsContent' as const
 
 export type TabsContentIntrinsicElement = ElementType<'div'>
 export type TabsContentElement = HTMLDivElement
@@ -55,9 +55,14 @@ const tabsContent = defineComponent({
     const forwardedRef = useForwardRef()
     const isMountAnimationPreventedRef = ref(isSelected.value)
 
-    watchEffect((onClean) => {
-      const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
-      onClean(() => cancelAnimationFrame(rAF))
+    const rAf = ref()
+
+    onMounted(() => {
+      rAf.value = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+    })
+
+    onBeforeUnmount(() => {
+      cancelAnimationFrame(rAf.value)
     })
 
     return () => h(OkuPresence, {

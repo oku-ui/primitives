@@ -9,7 +9,7 @@ import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
 import { scopeTabsProps } from './utils'
 
-const TAB_NAME = 'OkuTab'
+const TAB_NAME = 'OkuTabs'
 
 export type TabsIntrinsicElement = ElementType<'div'>
 export type TabsElement = HTMLDivElement

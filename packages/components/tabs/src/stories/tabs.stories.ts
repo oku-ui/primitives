@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>
 export const Styled: Story = {
   args: {
     template: '#1',
-    // allShow: true,
+    // allshow: true,
   },
   render: (args: any) => ({
     components: { OkuTabsComponent },
@@ -38,7 +38,7 @@ export const Styled: Story = {
 export const Indeterminate: Story = {
   args: {
     template: '#2',
-    // allShow: true,
+    // allshow: true,
   },
 
   render: (args: any) => ({
@@ -55,7 +55,7 @@ export const Indeterminate: Story = {
 export const Form: Story = {
   args: {
     template: '#3',
-    // allShow: true,
+    // allshow: true,
   },
 
   render: (args: any) => ({

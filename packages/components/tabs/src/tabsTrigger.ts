@@ -11,7 +11,7 @@ import { makeContentId, makeTriggerId, scopeTabsProps } from './utils'
 export type TabsTriggerElementIntrinsicElement = ElementType<'button'>
 export type TabsTriggerElement = HTMLButtonElement
 
-const TAB_TRIGGER_NAME = 'OkuTabTrigger' as const
+const TAB_TRIGGER_NAME = 'OkuTabsTrigger' as const
 
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string
