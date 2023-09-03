@@ -104,7 +104,7 @@ export type StyleOmit<T extends HTMLElement> = Partial<Omit<T, 'style'> & {
 
 type OmitElementEvents<T extends keyof NodeElementTagNameMap> = Omit<NodeElementTagNameMap[T], Lowercase<keyof Events> | 'style'>
 
-export type OkuElement<T extends keyof NodeElementTagNameMap, TA extends boolean = false> = {
+export type OkuElement<T extends keyof NodeElementTagNameMap, TA extends boolean = true> = {
   [K in keyof OmitElementEvents<T>]?: OmitElementEvents<T>[K]
 } & Partial<IntrinsicElementAttributes[T]> & (TA extends true ? ReservedProps : object) & Partial<AriaAttributes>
 
