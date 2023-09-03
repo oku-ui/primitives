@@ -6,5 +6,5 @@ export {
 export type {
   ArrowProps,
   ArrowElement,
-  ArrowIntrinsicElement,
+  ArrowNaviteElement,
 } from './arrow'

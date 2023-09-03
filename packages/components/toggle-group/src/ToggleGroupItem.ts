@@ -4,12 +4,12 @@ import { useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { scopeToggleGroupProps } from './utils'
-import { OkuToggleGroupItemImpl, type ToggleGroupItemImplElement, type ToggleGroupItemImplIntrinsicElement, type ToggleGroupItemImplProps, toggleGroupItemImplProps } from './ToggleGroupItemImpl'
+import { OkuToggleGroupItemImpl, type ToggleGroupItemImplElement, type ToggleGroupItemImplNaviteElement, type ToggleGroupItemImplProps, toggleGroupItemImplProps } from './ToggleGroupItemImpl'
 import { useRovingFocusGroupScope, useToggleGroupInject, useToggleGroupValueInject } from './ToggleGroup'
 
 export const TOGGLE_ITEM_NAME = 'OkuToggleGroupItem'
 
-export type ToggleGroupItemIntrinsicElement = ToggleGroupItemImplIntrinsicElement
+export type ToggleGroupItemNaviteElement = ToggleGroupItemImplNaviteElement
 export type ToggleGroupItemElement = ToggleGroupItemImplElement
 
 export interface ToggleGroupItemProps extends Omit<ToggleGroupItemImplProps, 'pressed'> {
@@ -75,5 +75,5 @@ const toggleGroupItem = defineComponent({
 
 export const OkuToggleGroupItem = toggleGroupItem as typeof toggleGroupItem &
 (new () => {
-  $props: Partial<ToggleGroupItemElement>
+  $props: ToggleGroupItemNaviteElement
 })

@@ -1,11 +1,10 @@
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ScopeProgress } from './utils'
 import {
   defaultGetValueLabel,
   getInvalidMaxError,
@@ -23,7 +22,7 @@ type ProgressInjectValue = {
   max: Ref<number>
 }
 
-export type ProgressIntrinsicElement = ElementType<'div'>
+export type ProgressNaviteElement = OkuElement<'div'>
 export type ProgressElement = HTMLDivElement
 
 export interface ProgressProps {
@@ -65,7 +64,7 @@ const progress = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { value, max, getValueLabel, scopeOkuProgress } = toRefs(props)
-    const { ...progressAttrs } = attrs as ProgressIntrinsicElement
+    const { ...progressAttrs } = attrs as ProgressNaviteElement
 
     const forwardedRef = useForwardRef()
 
@@ -126,5 +125,5 @@ const progress = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuProgress = progress as typeof progress &
 (new () => {
-  $props: ScopeProgress<Partial<ProgressElement>>
+  $props: ProgressNaviteElement
 })

@@ -6,7 +6,7 @@ export {
 
 export type {
   ToggleGroupProps,
-  ToggleGroupIntrinsicElement,
+  ToggleGroupNaviteElement,
   ToggleGroupElement,
 } from './ToggleGroup'
 
@@ -17,7 +17,7 @@ export {
 
 export type {
   ToggleGroupItemElement,
-  ToggleGroupItemIntrinsicElement,
+  ToggleGroupItemNaviteElement,
   ToggleGroupItemProps,
 } from './ToggleGroupItem'
 
@@ -29,6 +29,6 @@ export {
 export type {
   ToggleGroupVariantElement,
   ToggleGroupVariantEmits,
-  ToggleGroupVariantIntrinsicElement,
+  ToggleGroupVariantNaviteElement,
   ToggleGroupVariantProps,
 } from './ToggleGroupVariant'

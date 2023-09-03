@@ -1,7 +1,7 @@
 import { defineComponent, h } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ToggleGroupVariantElement, ToggleGroupVariantProps } from '@oku-ui/toggle-group'
+import type { ToggleGroupVariantProps } from '@oku-ui/toggle-group'
 import { OkuToggleGroup, toggleGroupVariantProps } from '@oku-ui/toggle-group'
 import { scopeToolbarProps } from './utils'
 import { useToggleGroupScope, useToolbarInject } from './toolbar'
@@ -52,5 +52,5 @@ const toolbarToggleGroup = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarToggleGroup = toolbarToggleGroup as typeof toolbarToggleGroup &
 (new () => {
-  $props: Partial<ToggleGroupVariantElement>
+  $props: ToolbarToggleGroupProps
 })

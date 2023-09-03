@@ -1,16 +1,15 @@
 import type {
-  ElementType, PrimitiveProps,
+  OkuElement, PrimitiveProps,
 } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, toValue } from 'vue'
 import { useSwitchInject } from './Switch'
-import type { ScopeSwitch } from './util'
 import { getState, scopeSwitchProps } from './util'
 
 const THUMB_NAME = 'OkuSwitchThumb'
 
-export type SwitchThumbIntrinsicElement = ElementType<'span'>
+export type SwitchThumbNaviteElement = OkuElement<'span'>
 export type SwitchThumbElement = HTMLSpanElement
 
 export interface SwitchThumbProps extends PrimitiveProps { }
@@ -29,7 +28,7 @@ const SwitchThumb = defineComponent({
     ...switchThumbProps.props,
   },
   setup(props, { attrs, slots }) {
-    const { ...thumbAttrs } = attrs as SwitchThumbIntrinsicElement
+    const { ...thumbAttrs } = attrs as SwitchThumbNaviteElement
 
     const forwardedRef = useForwardRef()
 
@@ -56,5 +55,5 @@ const SwitchThumb = defineComponent({
 
 export const OkuSwitchThumb = SwitchThumb as typeof SwitchThumb &
 (new () =>
-{ $props: ScopeSwitch<Partial<SwitchThumbElement>>
+{ $props: SwitchThumbNaviteElement
 })

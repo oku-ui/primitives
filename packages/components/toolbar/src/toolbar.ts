@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
@@ -29,7 +29,7 @@ type ToolbarProvideValue = {
 export const [toolbarProvider, useToolbarInject]
   = createToolbarProvider<ToolbarProvideValue>(TOOLBAR_NAME)
 
-export type ToolbarIntrinsicElement = ElementType<'div'>
+export type ToolbarNaviteElement = OkuElement<'div'>
 export type ToolbarElement = HTMLDivElement
 
 export interface ToolbarProps extends PrimitiveProps {
@@ -102,7 +102,7 @@ const toolbar = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbar = toolbar as typeof toolbar &
 (new () => {
-  $props: Partial<ToolbarElement>
+  $props: ToolbarNaviteElement
 })
 
 export {

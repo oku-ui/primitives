@@ -1,4 +1,4 @@
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
 import type { ComputedRef, PropType, Ref } from 'vue'
@@ -9,7 +9,6 @@ import { useDirection } from '@oku-ui/direction'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 
 import { type RadioProps, createRadioScope } from './Radio'
-import type { ScopeRadioGroup } from './utils'
 import { scopeRadioGroupProps } from './utils'
 
 const RADIO_GROUP_NAME = 'OkuRadioGroup'
@@ -24,7 +23,7 @@ export const [RadioGroupProvider, useRadioGroupInject]
 
 export const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
-export type RadioGroupIntrinsicElement = ElementType<'div'>
+export type RadioGroupNaviteElement = OkuElement<'div'>
 export type RadioElement = HTMLDivElement
 
 export interface RadioGroupProvideValue {
@@ -179,5 +178,5 @@ const RadioGroup = defineComponent({
 
 export const OkuRadioGroup = RadioGroup as typeof RadioGroup &
 (new () => {
-  $props: ScopeRadioGroup<Partial<RadioElement>>
+  $props: RadioGroupNaviteElement
 })

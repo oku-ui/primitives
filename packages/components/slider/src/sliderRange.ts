@@ -1,12 +1,12 @@
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { convertValueToPercentage, scopeSliderProps, useSliderInject, useSliderOrientationInject } from './utils'
 
 const RANGE_NAME = 'OkuSliderRange'
 
-export type SliderRangeIntrinsicElement = ElementType<'span'>
+export type SliderRangeNaviteElement = OkuElement<'span'>
 
 export type SliderRangeElement = HTMLSpanElement
 
@@ -66,5 +66,5 @@ const sliderRange = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderRange = sliderRange as typeof sliderRange &
 (new () => {
-  $props: Partial<SliderRangeElement>
+  $props: SliderRangeNaviteElement
 })

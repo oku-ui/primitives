@@ -6,5 +6,5 @@ export {
 export type {
   AspectRatioProps,
   AspectRatioElement,
-  AspectRatioIntrinsicElement,
+  AspectRatioNaviteElement,
 } from './aspect-ratio'

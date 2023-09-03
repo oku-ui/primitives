@@ -3,12 +3,12 @@ import type { PropType } from 'vue'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import { scopeToggleGroupProps } from './utils'
-import { OkuToggleGroupImpl, type ToggleGroupImplElement, type ToggleGroupImplIntrinsicElement, type ToggleGroupImplProps, toggleGroupImplProps } from './ToggleGroupImpl'
+import { OkuToggleGroupImpl, type ToggleGroupImplElement, type ToggleGroupImplNaviteElement, type ToggleGroupImplProps, toggleGroupImplProps } from './ToggleGroupImpl'
 import { toggleGroupValueProvider } from './ToggleGroup'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupImplSingle'
 
-export type ToggleGroupVariantIntrinsicElement = ToggleGroupImplIntrinsicElement
+export type ToggleGroupVariantNaviteElement = ToggleGroupImplNaviteElement
 export type ToggleGroupVariantElement = ToggleGroupImplElement
 
 export interface ToggleGroupVariantProps extends ToggleGroupImplProps {
@@ -153,5 +153,5 @@ const toggleGroupVariant = defineComponent({
 
 export const OkuToggleGroupVariant = toggleGroupVariant as typeof toggleGroupVariant &
 (new () => {
-  $props: Partial<ToggleGroupVariantElement>
+  $props: ToggleGroupVariantNaviteElement
 })

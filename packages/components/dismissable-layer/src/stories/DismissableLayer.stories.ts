@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta> & {
 export const Basic: Story = {
   args: {
     template: '#1',
-    // allShow: true,
+    // allshow: true,
   },
 
   render: (args: any) => ({

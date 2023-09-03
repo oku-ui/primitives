@@ -1,13 +1,13 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 const TOGGLE_NAME = 'OkuToggle'
 
-export type ToggleElementIntrinsicElement = ElementType<'button'>
+export type ToggleElementNaviteElement = OkuElement<'button'>
 export type ToggleElement = Omit<HTMLButtonElement, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
 
 export interface ToggleProps extends PrimitiveProps {
@@ -102,7 +102,7 @@ const toggle = defineComponent({
       initialValue: false,
     })
 
-    const { ...toggleAttrs } = attrs as ToggleElementIntrinsicElement
+    const { ...toggleAttrs } = attrs as ToggleElementNaviteElement
 
     const originalReturn = () => h(
       Primitive.button, {
@@ -132,5 +132,5 @@ const toggle = defineComponent({
 
 export const OkuToggle = toggle as typeof toggle &
 (new () => {
-  $props: Partial<ToggleElement>
+  $props: ToggleElementNaviteElement
 })

@@ -1,19 +1,18 @@
-import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { propsOmit } from '@oku-ui/primitive'
 import { useRadioGroupInject, useRovingFocusGroupScope } from './RadioGroup'
-import type { RadioGroupIntrinsicElement } from './RadioGroup'
+import type { RadioGroupNaviteElement } from './RadioGroup'
 import type { RadioElement, RadioEmits, RadioProps } from './Radio'
 import { OkuRadio, radioProps, useRadioScope } from './Radio'
-import type { ScopeRadioGroup } from './utils'
 import { ARROW_KEYS, scopeRadioGroupProps } from './utils'
 
 const ITEM_NAME = 'OkuRadioGroupItem'
 
-export type RadioGroupItemIntrinsicElement = RadioGroupIntrinsicElement
+export type RadioGroupItemNaviteElement = RadioGroupNaviteElement
 export type RadioGroupItemElement = HTMLDivElement
 
 export interface RadioGroupItemProps extends Omit<RadioProps, | 'name'> {
@@ -79,7 +78,7 @@ const RadioGroupItem = defineComponent({
       document.addEventListener('keyup', handleKeyUp)
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('keyup', handleKeyUp)
     })
@@ -133,5 +132,5 @@ const RadioGroupItem = defineComponent({
 
 export const OkuRadioGroupItem = RadioGroupItem as typeof RadioGroupItem &
 (new () => {
-  $props: ScopeRadioGroup<Partial<RadioGroupItemIntrinsicElement>>
+  $props: RadioGroupItemNaviteElement
 })

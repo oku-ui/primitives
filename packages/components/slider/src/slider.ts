@@ -6,8 +6,8 @@ import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-com
 import { clamp } from '@oku-ui/utils'
 import { ARROW_KEYS, CollectionProvider, CollectionSlot, type Direction, PAGE_KEYS, SLIDER_NAME, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, scopeSliderProps, sliderProvider } from './utils'
 import type { SliderThumbElement } from './sliderThumb'
-import { OkuSliderHorizontal, type SliderHorizontalElement, type SliderHorizontalIntrinsicElement, type SliderOrientationPrivateProps, sliderHorizontalProps } from './sliderHorizontal'
-import type { SliderVerticalElement, SliderVerticalIntrinsicElement, SliderVerticalProps } from './sliderVertical'
+import { OkuSliderHorizontal, type SliderHorizontalElement, type SliderHorizontalNaviteElement, type SliderOrientationPrivateProps, sliderHorizontalProps } from './sliderHorizontal'
+import type { SliderVerticalElement, SliderVerticalNaviteElement, SliderVerticalProps } from './sliderVertical'
 import { OkuSliderVertical, sliderVerticalProps } from './sliderVertical'
 import { OkuBubbleInput } from './bubbleInput'
 
@@ -15,7 +15,7 @@ interface SliderHorizontalProps extends SliderOrientationPrivateProps {
   dir?: Direction
 }
 
-export type SliderIntrinsicElement = SliderHorizontalIntrinsicElement | SliderVerticalIntrinsicElement
+export type SliderNaviteElement = SliderHorizontalNaviteElement | SliderVerticalNaviteElement
 export type SliderElement = SliderHorizontalElement | SliderVerticalElement
 
 export interface SliderProps extends Omit<
@@ -303,5 +303,5 @@ const slider = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSlider = slider as typeof slider &
 (new () => {
-  $props: Partial<SliderElement>
+  $props: SliderNaviteElement
 })

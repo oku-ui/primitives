@@ -3,13 +3,12 @@ import { useForwardRef } from '@oku-ui/use-composable'
 import type { RadioElement } from './Radio'
 import { useRadioScope } from './Radio'
 import { OkuRadioIndicator, type RadioIndicatorElement, type RadioIndicatorProps } from './RadioIndicator'
-import type { ScopeRadioGroup } from './utils'
 import { scopeRadioGroupProps } from './utils'
 import { radioGroupProps } from './RadioGroup'
 
 const INDICATOR_NAME = 'OkuRadioGroupIndicator'
 
-export type RadioGroupIndicatorIntrinsicElement = RadioIndicatorElement
+export type RadioGroupIndicatorNaviteElement = RadioIndicatorElement
 export type RadioGroupIndicatorElement = RadioElement
 
 export interface RadioGroupIndicatorProps extends RadioIndicatorProps {}
@@ -40,5 +39,5 @@ const RadioGroupIndicator = defineComponent({
 
 export const OkuRadioGroupIndicator = RadioGroupIndicator as typeof RadioGroupIndicator &
 (new () => {
-  $props: ScopeRadioGroup<Partial<RadioGroupIndicatorElement>>
+  $props: RadioGroupIndicatorNaviteElement
 })
