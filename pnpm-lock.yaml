@@ -474,6 +474,9 @@ importers:
 
   packages/components/popover:
     dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.4)
       '@oku-ui/dismissable-layer':
         specifier: latest
         version: 0.4.0-alpha.2(vue@3.3.4)
@@ -873,6 +876,9 @@ importers:
 
   packages/components/tooltip:
     dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.4)
       '@oku-ui/dismissable-layer':
         specifier: latest
         version: 0.4.0-alpha.2(vue@3.3.4)
