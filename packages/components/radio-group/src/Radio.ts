@@ -85,7 +85,6 @@ const Radio = defineComponent({
       name,
       scopeOkuRadio,
       asChild,
-      ...radioProps
     } = toRefs(props)
 
     const hasConsumerStoppedPropagationRef = ref(false)
