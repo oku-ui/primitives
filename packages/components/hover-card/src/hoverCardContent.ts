@@ -4,13 +4,12 @@ import type { PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import { ScopePropObject } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuHoverCardContentImpl, hoverCardContentImplProps } from './hoverCardContentImpl'
 import type { HoverCardContentImplElement, HoverCardContentImplEmits, HoverCardContentImplNaviteElement, HoverCardContentImplProps } from './hoverCardContentImpl'
 import { usePortalInject } from './hoverCardPortal'
 import { useHoverCardInject } from './hoverCard'
-import { excludeTouch } from './utils'
+import { excludeTouch, scopeHoverCardProps } from './utils'
 
 export const CONTENT_NAME = 'OkuHoverCardContent'
 
@@ -40,12 +39,6 @@ export const hoverCardContentProps = {
   },
 }
 
-export const scopeHoverCardProps = {
-  scopeOkuHoverCard: {
-    ...ScopePropObject,
-  },
-}
-
 const hoverCardContent = defineComponent({
   name: CONTENT_NAME,
   inheritAttrs: false,
@@ -58,19 +51,15 @@ const hoverCardContent = defineComponent({
   setup(props, { attrs, slots, emit }) {
     const { forceMount, side, scopeOkuHoverCard } = toRefs(props)
     const portalInject = usePortalInject(CONTENT_NAME, scopeOkuHoverCard.value)
-
     const forceMountProps = computed(() => forceMount.value || portalInject.forceMount?.value)
-    const sideProps = computed(() => side.value || 'top')
-
     const forwardedRef = useForwardRef()
-
     const inject = useHoverCardInject(CONTENT_NAME, scopeOkuHoverCard.value)
 
     return () => h(OkuPresence, {
       present: computed(() => forceMountProps.value || inject.open.value).value,
     }, {
       default: () => h(OkuHoverCardContentImpl, {
-        'data-state': inject.stateAttribute.value,
+        'data-state': inject.open.value ? 'open' : 'closed',
         ...mergeProps(attrs, props),
         'onPointerenter': composeEventHandlers<PointerEvent>((el) => {
           emit('pointerenter', el)

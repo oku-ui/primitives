@@ -15,7 +15,7 @@ export const [createHoverCardProvide, createHoverCardScope] = createProvideScope
 ])
 
 export function excludeTouch<E>(eventHandler: () => void) {
-  return (event: React.PointerEvent<E>) =>
+  return (event: PointerEvent) =>
     event.pointerType === 'touch' ? undefined : eventHandler()
 }
 

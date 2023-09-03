@@ -4,8 +4,7 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPortal } from '@oku-ui/portal'
 import type { PortalProps as OkuPortalProps, PortalElement, PortalElementNaviteElement } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
-import { ScopePropObject } from '@oku-ui/provide'
-import { createHoverCardProvide } from './utils'
+import { createHoverCardProvide, scopeHoverCardProps } from './utils'
 import { useHoverCardInject } from './hoverCard'
 
 /* -------------------------------------------------------------------------------------------------
@@ -54,12 +53,6 @@ export const hoverCardPortalProps = {
   },
 }
 
-export const scopeHoverCardProps = {
-  scopeOkuHoverCard: {
-    ...ScopePropObject,
-  },
-}
-
 const hoverCardPortal = defineComponent({
   name: PORTAL_NAME,
   inheritAttrs: false,
@@ -70,6 +63,7 @@ const hoverCardPortal = defineComponent({
   setup(props, { slots }) {
     const { container, forceMount, scopeOkuHoverCard } = toRefs(props)
     const inject = useHoverCardInject(PORTAL_NAME, scopeOkuHoverCard.value)
+
     portalProvider({
       scope: scopeOkuHoverCard.value,
       forceMount,

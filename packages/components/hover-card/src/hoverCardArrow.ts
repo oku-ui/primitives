@@ -1,14 +1,13 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperArrow, type PopperArrowElement, type PopperArrowNaviteElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
-import { ScopePropObject } from '@oku-ui/provide'
 import { usePopperScope } from './hoverCard'
+import { scopeHoverCardProps } from './utils'
 
 const ARROW_NAME = 'OkuHoverCardArrow'
 
 export type HoverCardArrowNaviteElement = PopperArrowNaviteElement
 export type HoverCardArrowElement = PopperArrowElement
-
 export interface HoverCardArrowProps extends PopperArrowProps { }
 
 export const hoverCardArrowProps = {
@@ -17,12 +16,6 @@ export const hoverCardArrowProps = {
   },
   emits: {
     ...popperArrowProps.emits,
-  },
-}
-
-export const scopeHoverCardProps = {
-  scopeOkuHoverCard: {
-    ...ScopePropObject,
   },
 }
 

@@ -1,7 +1,7 @@
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperAnchor } from '@oku-ui/popper'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { excludeTouch, scopeHoverCardProps } from './utils'
@@ -51,21 +51,17 @@ const hoverCardTrigger = defineComponent({
     const inject = useHoverCardInject(HOVERCARD_TRIGGER_NAME, props.scopeOkuHoverCard)
     const popperScope = usePopperScope(props.scopeOkuHoverCard)
 
-    const linkRef = ref<HTMLAnchorElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(linkRef, forwardedRef)
-
-    const hasPointerMoveEnteredRef = ref(false)
 
     return () => h(OkuPopperAnchor, {
       asChild: true,
       ...popperScope,
     }, {
       default: () => h(Primitive.a, {
-        'data-state': inject.stateAttribute.value,
+        'data-state': inject.open.value ? 'open' : 'closed',
         ...attrs,
         'asChild': props.asChild,
-        'ref': composedRefs,
+        'ref': forwardedRef,
         'onPointerenter': composeEventHandlers<PointerEvent>((el) => {
           emit('pointerenter', el)
         }, excludeTouch(inject.onOpen)),

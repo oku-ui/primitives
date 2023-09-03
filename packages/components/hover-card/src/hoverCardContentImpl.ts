@@ -23,7 +23,6 @@ export {
 
 export type HoverCardContentImplNaviteElement = PopperContentNaviteElement
 export type HoverCardContentImplElement = PopperContentElement
-
 export type DismissableLayerProps = OkuDismissableLayerProps
 export type PopperContentProps = OkuPopperContentProps
 
@@ -40,9 +39,11 @@ export type HoverCardContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
    * Can be prevented.
    */
   pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
-  // TODO
-  /* focusOutside: [event: DismissableLayerEmits['focusOutside'][0]]
-  interactOutside: [event: DismissableLayerEmits['interactOutside'][0]] */
+  /***
+   *
+   */
+  focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
+  interactOutside: [event: DismissableLayerEmits['interactOutside'][0]]
   close: []
 }
 
@@ -57,6 +58,10 @@ export const hoverCardContentImplProps = {
     escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     pointerdownOutside: (event: DismissableLayerEmits['pointerdownOutside'][0]) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focusoutSide: (event: DismissableLayerEmits['focusoutSide'][0]) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    interactOutside: (event: DismissableLayerEmits['interactOutside'][0]) => true,
     close: () => true,
   },
 }
@@ -165,14 +170,17 @@ const hoverCardContentImpl = defineComponent({
     return () => h(OkuDismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
+      onInteractOutside(event) {
+        emit('interactOutside', event)
+      },
       onEscapeKeyDown(event) {
         emit('escapeKeyDown', event)
       },
-      onPointerdownOutside(event: HoverCardContentImplEmits['pointerdownOutside'][0]) {
+      onPointerdownOutside(event) {
         emit('pointerdownOutside', event)
       },
       onFocusOutside: composeEventHandlers<MouseEvent>((el) => {
-        emit('focusoutside', el)
+        emit('focusoutSide', el)
       }, (event) => {
         event.preventDefault()
       }),
