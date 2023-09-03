@@ -72,9 +72,7 @@ const hoverCardContent = defineComponent({
           emit('pointerleave', el)
         }, excludeTouch(inject.onClose)),
         'ref': forwardedRef,
-      }, {
-        default: () => slots.default?.(),
-      }),
+      }, slots),
     })
   },
 })

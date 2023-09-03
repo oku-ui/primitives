@@ -90,8 +90,6 @@ const hoverCard = defineComponent({
       closeDelay: closeDelayProp,
     } = toRefs(props)
 
-    const provideInject = useHoverCardInject(HOVERCARD_NAME, props.scopeOkuHoverCard)
-
     const popperScope = usePopperScope(props.scopeOkuHoverCard)
     const openTimerRef = ref(0)
     const closeTimerRef = ref(0)
@@ -114,7 +112,7 @@ const hoverCard = defineComponent({
     })
 
     const handleOpen = () => {
-      window.clearTimeout(closeTimerRef.value)
+      clearTimeout(closeTimerRef.value)
       openTimerRef.value = window.setTimeout(() => {
         updateValue(true)
       }, openDelayProp.value)
