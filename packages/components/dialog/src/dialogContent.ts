@@ -1,0 +1,78 @@
+import { PropType, Ref, computed, defineComponent, h, ref, toRefs } from 'vue'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { useComposedRefs, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { OkuPresence } from '@oku-ui/presence'
+import { DIALOG_NAME, DialogProvider, getState, scopeDialogrops, useDialogInject } from './utils'
+import { DialogOverlayImplNaviteElement, DialogOverlayImplProps } from './dialogOverlayImpl'
+import type { DialogContentModalElement, DialogContentModalProps } from './dialogContentModal'
+import { OkuDialogContentModal } from './dialogContentModal'
+import { useDialogPortalInject } from './dialogPortal'
+import { OkuDialogContentNonModal } from './dialogContentNonModal'
+
+export const CONTENT_NAME = 'OkuDialogContent'
+
+export type DialogContentNaviteElement = DialogContentModalElement
+
+interface DialogContentProps extends DialogContentModalProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
+  forceMount?: true
+}
+export const dialogOverlayProps = {
+  props: {
+    ...primitiveProps,
+    forceMount: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  emits: {
+  },
+}
+
+const dialogContent = defineComponent({
+  name: CONTENT_NAME,
+  inheritAttrs: false,
+  props: {
+    ...dialogOverlayProps.props,
+    ...scopeDialogrops,
+  },
+  emits: dialogOverlayProps.emits,
+  setup(props, { attrs, slots, emit }) {
+    const { ...restAttrs } = attrs as DialogContentNaviteElement
+
+    const portalInject = useDialogPortalInject(CONTENT_NAME, props.scopeOkuDialog)
+
+    const { forceMount = ref(portalInject.forceMount) } = toRefs(props)
+
+    const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
+
+    const forwardRef = useForwardRef()
+
+    const originalReturn = () => h(OkuPresence, {
+      present: computed(() => forceMount?.value || inject.open.value).value,
+      ref: forwardRef,
+    },
+    {
+      default: () => inject.modal.value
+        ? h(OkuDialogContentModal, {
+          ...restAttrs,
+          ref: forwardRef,
+        })
+        : h(OkuDialogContentNonModal, {
+          ...restAttrs,
+          ref: forwardRef,
+        }),
+    })
+    return originalReturn
+  },
+})
+
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+export const OkuDialogContent = dialogContent as typeof dialogContent &
+(new () => {
+  $props: DialogContentNaviteElement
+})
