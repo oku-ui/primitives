@@ -38,6 +38,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
+    "@floating-ui/vue": "^1.0.2",
     "@oku-ui/dismissable-layer": "latest",
     "@oku-ui/focus-guards": "latest",
     "@oku-ui/focus-scope": "latest",
