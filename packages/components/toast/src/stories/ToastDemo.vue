@@ -221,7 +221,7 @@ const VIEWPORT_PADDING = ref(10)
           </option>
         </select>
         <OkuToast v-model="open" class="animated-toast" :open="open">
-          <OkuToastDescription>Swipe me {swipeDirection}</OkuToastDescription>
+          <OkuToastDescription>Swipe me {{ swipeDirection }}</OkuToastDescription>
           <OkuToastClose class="button">
             Dismiss
           </OkuToastClose>
