@@ -360,7 +360,7 @@ const toastImpl = defineComponent({
               },
             ),
 
-            h(inject.viewport.value!),
+            h(inject.viewport),
           ],
         ),
 
