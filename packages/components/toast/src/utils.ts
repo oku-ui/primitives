@@ -12,11 +12,11 @@ function getAnnounceTextContent(container: HTMLElement) {
       textContent.push(node.textContent)
     if (isHTMLElement(node)) {
       const isHidden = node.ariaHidden || node.hidden || node.style.display === 'none'
-      const isExcluded = node.dataset.radixToastAnnounceExclude === ''
+      const isExcluded = node.dataset.okuToastAnnounceExclude === ''
 
       if (!isHidden) {
         if (isExcluded) {
-          const altText = node.dataset.radixToastAnnounceAlt
+          const altText = node.dataset.okuToastAnnounceAlt
           if (altText)
             textContent.push(altText)
         }
@@ -34,10 +34,10 @@ function getAnnounceTextContent(container: HTMLElement) {
 
 /* ---------------------------------------------------------------------------------------------- */
 
-function handleAndDispatchCustomEvent<E extends CustomEvent, ReactEvent>(
+function handleAndDispatchCustomEvent<E extends CustomEvent, OriginalEvent extends Event>(
   name: string,
   handler: ((event: E) => void) | undefined,
-  detail: { originalEvent: ReactEvent } & (E extends CustomEvent<infer D> ? D : never),
+  detail: { originalEvent: OriginalEvent } & (E extends CustomEvent<infer D> ? D : never),
   { discrete }: { discrete: boolean },
 ) {
   const currentTarget = detail.originalEvent.currentTarget as HTMLElement
@@ -47,7 +47,6 @@ function handleAndDispatchCustomEvent<E extends CustomEvent, ReactEvent>(
 
   if (discrete)
     dispatchDiscreteCustomEvent(currentTarget, event)
-
   else
     currentTarget.dispatchEvent(event)
 }
