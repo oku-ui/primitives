@@ -55,8 +55,7 @@ const toastAction = defineComponent({
       if (!altText.value)
         throw new Error(`Missing prop \`altText\` expected on \`${ACTION_NAME}\``)
 
-      return h(
-        OkuToastAnnounceExclude,
+      return h(OkuToastAnnounceExclude,
         {
           altText: altText.value,
           asChild: true,

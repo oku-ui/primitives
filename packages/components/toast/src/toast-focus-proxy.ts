@@ -43,8 +43,7 @@ const toastFocusProxy = defineComponent({
 
     const inject = useToastProviderInject(FOCUS_PROXY_NAME, props.scopeOkuToast)
 
-    return () => h(
-      OkuVisuallyHidden,
+    return () => h(OkuVisuallyHidden,
       {
         'aria-hidden': true,
         'tabIndex': 0,

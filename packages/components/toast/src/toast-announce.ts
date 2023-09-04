@@ -55,26 +55,24 @@ const toastAnnounce = defineComponent({
       window.clearTimeout(timer)
     })
 
-    return () =>
-      isAnnounced.value
-        ? null
-        : h(
-          OkuPortal,
-          { asChild: true },
-          {
-            default: () => h(
-              OkuVisuallyHidden,
-              {
-                ...toastAnnounceAttrs,
-              },
-              {
-                default: () => renderAnnounceText.value && h(Fragment, {
-                  default: () => inject.label.value && slots.default?.(),
-                }),
-              },
-            ),
-          },
-        )
+    return () => isAnnounced.value
+      ? null
+      : h(OkuPortal,
+        { asChild: true },
+        {
+          default: () => h(
+            OkuVisuallyHidden,
+            {
+              ...toastAnnounceAttrs,
+            },
+            {
+              default: () => renderAnnounceText.value && h(Fragment, {
+                default: () => inject.label.value && slots.default?.(),
+              }),
+            },
+          ),
+        },
+      )
   },
 })
 

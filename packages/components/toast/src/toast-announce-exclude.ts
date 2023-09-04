@@ -41,21 +41,17 @@ const toastAnnounceExclude = defineComponent({
       altText,
     } = toRefs(props)
 
-    const originalReturn = () =>
-      h(
-        Primitive.div,
-        {
-          ...toastAnnounceExcludeAttrs,
-          'ref': forwardedRef,
-          'data-oku-toast-announce-exclude': '',
-          'data-oku-toast-announce-alt': altText.value || undefined,
-        },
-        {
-          default: () => slots.default?.(),
-        },
-      )
-
-    return originalReturn
+    return () => h(Primitive.div,
+      {
+        ...toastAnnounceExcludeAttrs,
+        'ref': forwardedRef,
+        'data-oku-toast-announce-exclude': '',
+        'data-oku-toast-announce-alt': altText.value || undefined,
+      },
+      {
+        default: () => slots.default?.(),
+      },
+    )
   },
 })
 

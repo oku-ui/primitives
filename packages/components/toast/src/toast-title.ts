@@ -29,18 +29,15 @@ const toastTitle = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const originalReturn = () =>
-      h(
-        Primitive.div,
-        {
-          ref: forwardedRef,
-          ...toastTitleAttrs,
-        },
-        {
-          default: () => slots.default?.(),
-        },
-      )
-    return originalReturn
+    return () => h(Primitive.div,
+      {
+        ref: forwardedRef,
+        ...toastTitleAttrs,
+      },
+      {
+        default: () => slots.default?.(),
+      },
+    )
   },
 })
 

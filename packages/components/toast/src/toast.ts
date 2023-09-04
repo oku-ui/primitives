@@ -95,10 +95,11 @@ const toast = defineComponent({
       initialValue: true,
     })
 
-    return () =>
-      h(OkuPresence, { present: computed(() => forceMount.value || state.value).value },
-        {
-          default: () => h(OkuToastImpl, {
+    return () => h(OkuPresence,
+      { present: computed(() => forceMount.value || state.value).value },
+      {
+        default: () => h(OkuToastImpl,
+          {
             open: state.value,
             ...attrs,
             ref: forwardedRef,
@@ -142,9 +143,10 @@ const toast = defineComponent({
               targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
               updateValue(false)
             }),
-          }, slots),
-        },
-      )
+          }, slots,
+        ),
+      },
+    )
   },
 })
 
