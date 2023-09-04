@@ -64,7 +64,7 @@ const VIEWPORT_PADDING = ref(10)
     <template v-if="template === '#1' || allShow">
       <OkuToastProvider>
         <ToastUpgradeAvailable />
-        <OkuToastViewport />
+        <OkuToastViewport class="viewport" />
       </OkuToastProvider>
     </template>
     <!-- #2 -->
@@ -118,7 +118,7 @@ const VIEWPORT_PADDING = ref(10)
           </OkuDialogContent>
         </OkuDialog>
 
-        <OkuToast v-model="open" class="error-toast" :open="open">
+        <OkuToast v-model="open" class="toast error-toast" :open="open">
           <OkuToastDescription>There was an error</OkuToastDescription>
           <OkuToastAction
             class="button" alt-text="Resubmit the form to try again."
@@ -220,7 +220,7 @@ const VIEWPORT_PADDING = ref(10)
             Slide down
           </option>
         </select>
-        <OkuToast v-model="open" class="animated-toast" :open="open">
+        <OkuToast v-model="open" class="toast animated-toast" :open="open">
           <OkuToastDescription>Swipe me {{ swipeDirection }}</OkuToastDescription>
           <OkuToastClose class="button">
             Dismiss
@@ -252,7 +252,7 @@ const VIEWPORT_PADDING = ref(10)
             <OkuToastTitle class="title">
               Toast {{ index + 1 }} title
             </OkuToastTitle>
-            <!-- <OkuToastDescription class="description">
+            <OkuToastDescription class="description">
               Toast {{ index + 1 }} description
             </OkuToastDescription>
 
@@ -265,7 +265,7 @@ const VIEWPORT_PADDING = ref(10)
               :style="{ 'margin-top': '10px' }"
             >
               Toast button {{ index + 1 }}.2
-            </OkuToastAction> -->
+            </OkuToastAction>
           </OkuToast>
           <OkuToastViewport class="viewport" />
 
@@ -314,10 +314,6 @@ const VIEWPORT_PADDING = ref(10)
   height: 22px;
   display: flex;
   align-items: center;
-}
-
-.successHeader {
-  background: green;
 }
 
 .title {
@@ -447,31 +443,6 @@ const VIEWPORT_PADDING = ref(10)
 
 [data-swipe="end"][data-swipe-direction="down"] {
   animation-name: slideRight;
-}
-
-@keyframes loading {
-  from {
-    transform: 'translateX(-100%)'
-  }
-  to {
-     transform: 'translateX(0%)'
-  }
-}
-
-.progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  overflow: hidden;
-  background-color: #ccc;
-}
-
-.progress-bar-inner {
-  height: 100%;
-  background-color: green;
-  animation: loading 2000ms linear;
 }
 
 .chromatic-viewport {

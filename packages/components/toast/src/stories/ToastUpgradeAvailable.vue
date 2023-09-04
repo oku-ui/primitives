@@ -12,7 +12,7 @@ defineProps({
       <OkuToastTitle class="title">
         Upgrade available
       </OkuToastTitle>
-      <OkuToastClose class="close" aria-label="Close">
+      <OkuToastClose class="button close" aria-label="Close">
         <span aria-hidden>×</span>
       </OkuToastClose>
     </div>

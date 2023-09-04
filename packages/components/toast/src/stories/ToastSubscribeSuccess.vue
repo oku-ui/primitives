@@ -8,11 +8,11 @@ defineProps({
 
 <template>
   <OkuToast class="toast" :open="open">
-    <div class="success-header">
+    <div class="header success-header">
       <OkuToastTitle class="title">
         Success!
       </OkuToastTitle>
-      <OkuToastClose class="close" aria-label="Close">
+      <OkuToastClose class="button close" aria-label="Close">
         <span aria-hidden>×</span>
       </OkuToastClose>
     </div>
@@ -21,3 +21,9 @@ defineProps({
     </OkuToastDescription>
   </OkuToast>
 </template>
+
+<style scoped>
+.success-header {
+  background: green;
+}
+</style>
