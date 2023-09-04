@@ -214,9 +214,13 @@ const toastImpl = defineComponent({
       onClose: () => handleClose.value(),
     })
 
-    const originalReturn = () =>
-      h(Fragment, [
-        announceTextContent.value
+    return () => {
+      if (type.value && !['foreground', 'background'].includes(type.value))
+        throw new Error(`Invalid prop \`type\` supplied to \`${TOAST_NAME}\`. Expected \`foreground | background\`.`)
+
+      return h(Fragment,
+        [
+          announceTextContent.value
           && h(
             OkuToastAnnounce,
             {
@@ -230,147 +234,143 @@ const toastImpl = defineComponent({
             },
           ),
 
-        h(Teleport, { to: 'body' },
-          [
-            h(CollectionItemSlot,
-              { scope: props.scopeOkuToast },
-              {
-                default: () => h(OkuDismissableLayer,
-                  {
-                    asChild: true,
-                    onEscapeKeyDown: composeEventHandlers<ToastImplEmits['escapeKeyDown'][0]>((event) => {
-                      emit('escapeKeyDown', event)
-                    }, () => {
-                      if (!inject.isFocusedToastEscapeKeyDownRef.value)
-                        handleClose.value()
-                      inject.isFocusedToastEscapeKeyDownRef.value = false
-                    }),
-                  },
-                  {
-                    default: () => h(
-                      Primitive.li,
-                      {
-                        // Ensure toasts are announced as status list or status when focused
-                        'role': 'status',
-                        'aria-live': 'off',
-                        'aria-atomic': true,
-                        'tabIndex': 0,
-                        'data-state': open.value ? 'open' : 'closed',
-                        'data-swipe-direction': inject.swipeDirection.value,
-                        ...toastImplAttrs,
-                        'ref': composedRefs,
-                        'style': { userSelect: 'none', touchAction: 'none' },
-                        'onKeydown': composeEventHandlers<ToastImplEmits['keydown'][0]>((event) => {
-                          emit('keydown', event)
-                        }, (event) => {
-                          if (event.key !== 'Escape')
-                            return
-                          emit('escapeKeyDown', event)
-                          if (!event.defaultPrevented) {
-                            inject.isFocusedToastEscapeKeyDownRef.value = true
-                            handleClose.value()
-                          }
-                        }),
-                        'onPointerdown': composeEventHandlers<ToastImplEmits['pointerdown'][0]>((event) => {
-                          emit('pointerdown', event)
-                        }, (event) => {
-                          if (event.button !== 0)
-                            return
-                          pointerStartRef.value = { x: event.clientX, y: event.clientY }
-                        }),
-                        'onPointermove': composeEventHandlers<ToastImplEmits['pointermove'][0]>((event) => {
-                          emit('pointermove', event)
-                        }, (event) => {
-                          if (!pointerStartRef.value)
-                            return
-                          const x = event.clientX - pointerStartRef.value.x
-                          const y = event.clientY - pointerStartRef.value.y
-                          const hasSwipeMoveStarted = Boolean(swipeDeltaRef.value)
-                          const isHorizontalSwipe = ['left', 'right'].includes(inject.swipeDirection.value)
-                          const clamp = ['left', 'up'].includes(inject.swipeDirection.value) ? Math.min : Math.max
-                          const clampedX = isHorizontalSwipe ? clamp(0, x) : 0
-                          const clampedY = !isHorizontalSwipe ? clamp(0, y) : 0
-                          const moveStartBuffer = event.pointerType === 'touch' ? 10 : 2
-                          const delta = { x: clampedX, y: clampedY }
-                          const eventDetail = { originalEvent: event, delta }
-                          if (hasSwipeMoveStarted) {
-                            swipeDeltaRef.value = delta
-                            handleAndDispatchCustomEvent(TOAST_SWIPE_MOVE, (event) => {
-                              emit('swipeMove', event as SwipeEvent)
-                            }, eventDetail, {
-                              discrete: false,
-                            })
-                          }
-                          else if (isDeltaInDirection(delta, inject.swipeDirection.value, moveStartBuffer)) {
-                            swipeDeltaRef.value = delta
-                            handleAndDispatchCustomEvent(TOAST_SWIPE_START, (event) => {
-                              emit('swipeStart', event as SwipeEvent)
-                            }, eventDetail, {
-                              discrete: false,
-                            });
-                            (event.target as HTMLElement).setPointerCapture(event.pointerId)
-                          }
-                          else if (Math.abs(x) > moveStartBuffer || Math.abs(y) > moveStartBuffer) {
+          h(Teleport,
+            { to: 'body' },
+            [
+              h(CollectionItemSlot,
+                { scope: props.scopeOkuToast },
+                {
+                  default: () => h(OkuDismissableLayer,
+                    {
+                      asChild: true,
+                      onEscapeKeyDown: composeEventHandlers<ToastImplEmits['escapeKeyDown'][0]>((event) => {
+                        emit('escapeKeyDown', event)
+                      }, () => {
+                        if (!inject.isFocusedToastEscapeKeyDownRef.value)
+                          handleClose.value()
+                        inject.isFocusedToastEscapeKeyDownRef.value = false
+                      }),
+                    },
+                    {
+                      default: () => h(
+                        Primitive.li,
+                        {
+                          // Ensure toasts are announced as status list or status when focused
+                          'role': 'status',
+                          'aria-live': 'off',
+                          'aria-atomic': true,
+                          'tabIndex': 0,
+                          'data-state': open.value ? 'open' : 'closed',
+                          'data-swipe-direction': inject.swipeDirection.value,
+                          ...toastImplAttrs,
+                          'ref': composedRefs,
+                          'style': { userSelect: 'none', touchAction: 'none' },
+                          'onKeydown': composeEventHandlers<ToastImplEmits['keydown'][0]>((event) => {
+                            emit('keydown', event)
+                          }, (event) => {
+                            if (event.key !== 'Escape')
+                              return
+                            emit('escapeKeyDown', event)
+                            if (!event.defaultPrevented) {
+                              inject.isFocusedToastEscapeKeyDownRef.value = true
+                              handleClose.value()
+                            }
+                          }),
+                          'onPointerdown': composeEventHandlers<ToastImplEmits['pointerdown'][0]>((event) => {
+                            emit('pointerdown', event)
+                          }, (event) => {
+                            if (event.button !== 0)
+                              return
+                            pointerStartRef.value = { x: event.clientX, y: event.clientY }
+                          }),
+                          'onPointermove': composeEventHandlers<ToastImplEmits['pointermove'][0]>((event) => {
+                            emit('pointermove', event)
+                          }, (event) => {
+                            if (!pointerStartRef.value)
+                              return
+                            const x = event.clientX - pointerStartRef.value.x
+                            const y = event.clientY - pointerStartRef.value.y
+                            const hasSwipeMoveStarted = Boolean(swipeDeltaRef.value)
+                            const isHorizontalSwipe = ['left', 'right'].includes(inject.swipeDirection.value)
+                            const clamp = ['left', 'up'].includes(inject.swipeDirection.value) ? Math.min : Math.max
+                            const clampedX = isHorizontalSwipe ? clamp(0, x) : 0
+                            const clampedY = !isHorizontalSwipe ? clamp(0, y) : 0
+                            const moveStartBuffer = event.pointerType === 'touch' ? 10 : 2
+                            const delta = { x: clampedX, y: clampedY }
+                            const eventDetail = { originalEvent: event, delta }
+                            if (hasSwipeMoveStarted) {
+                              swipeDeltaRef.value = delta
+                              handleAndDispatchCustomEvent(TOAST_SWIPE_MOVE, (event) => {
+                                emit('swipeMove', event as SwipeEvent)
+                              }, eventDetail, {
+                                discrete: false,
+                              })
+                            }
+                            else if (isDeltaInDirection(delta, inject.swipeDirection.value, moveStartBuffer)) {
+                              swipeDeltaRef.value = delta
+                              handleAndDispatchCustomEvent(TOAST_SWIPE_START, (event) => {
+                                emit('swipeStart', event as SwipeEvent)
+                              }, eventDetail, {
+                                discrete: false,
+                              });
+                              (event.target as HTMLElement).setPointerCapture(event.pointerId)
+                            }
+                            else if (Math.abs(x) > moveStartBuffer || Math.abs(y) > moveStartBuffer) {
                             // User is swiping in wrong direction so we disable swipe gesture
                             // for the current pointer down interaction
+                              pointerStartRef.value = null
+                            }
+                          }),
+                          'onPointerup': composeEventHandlers<ToastImplEmits['pointerup'][0]>((event) => {
+                            emit('pointerup', event)
+                          }, (event) => {
+                            const delta = swipeDeltaRef.value
+                            const target = event.target as HTMLElement
+                            if (target.hasPointerCapture(event.pointerId))
+                              target.releasePointerCapture(event.pointerId)
+
+                            swipeDeltaRef.value = null
                             pointerStartRef.value = null
-                          }
-                        }),
-                        'onPointerup': composeEventHandlers<ToastImplEmits['pointerup'][0]>((event) => {
-                          emit('pointerup', event)
-                        }, (event) => {
-                          const delta = swipeDeltaRef.value
-                          const target = event.target as HTMLElement
-                          if (target.hasPointerCapture(event.pointerId))
-                            target.releasePointerCapture(event.pointerId)
-
-                          swipeDeltaRef.value = null
-                          pointerStartRef.value = null
-                          if (delta) {
-                            const toast = event.currentTarget
-                            const eventDetail = { originalEvent: event, delta }
-                            if (isDeltaInDirection(delta, inject.swipeDirection.value, inject.swipeThreshold.value)) {
-                              handleAndDispatchCustomEvent(TOAST_SWIPE_END, (event) => {
-                                emit('swipeEnd', event as SwipeEvent)
-                              }, eventDetail, {
-                                discrete: true,
+                            if (delta) {
+                              const toast = event.currentTarget
+                              const eventDetail = { originalEvent: event, delta }
+                              if (isDeltaInDirection(delta, inject.swipeDirection.value, inject.swipeThreshold.value)) {
+                                handleAndDispatchCustomEvent(TOAST_SWIPE_END, (event) => {
+                                  emit('swipeEnd', event as SwipeEvent)
+                                }, eventDetail, {
+                                  discrete: true,
+                                })
+                              }
+                              else {
+                                handleAndDispatchCustomEvent(TOAST_SWIPE_CANCEL, (event) => {
+                                  emit('swipeCancel', event as SwipeEvent)
+                                }, eventDetail, {
+                                  discrete: true,
+                                })
+                              }
+                              // Prevent click event from triggering on items within the toast when
+                              // pointer up is part of a swipe gesture
+                              toast?.addEventListener('click', (event: Event) => event.preventDefault(), {
+                                once: true,
                               })
                             }
-                            else {
-                              handleAndDispatchCustomEvent(TOAST_SWIPE_CANCEL, (event) => {
-                                emit('swipeCancel', event as SwipeEvent)
-                              }, eventDetail, {
-                                discrete: true,
-                              })
-                            }
-                            // Prevent click event from triggering on items within the toast when
-                            // pointer up is part of a swipe gesture
-                            toast?.addEventListener('click', (event: Event) => event.preventDefault(), {
-                              once: true,
-                            })
-                          }
-                        }),
-                      },
-                      {
-                        default: () => slots.default?.(),
-                      },
-                    ),
-                  },
-                ),
-              },
-            ),
+                          }),
+                        },
+                        {
+                          default: () => slots.default?.(),
+                        },
+                      ),
+                    },
+                  ),
+                },
+              ),
 
-            h(inject.viewport),
-          ],
-        ),
-
-      ],
+              h(inject.viewport.value as HTMLOListElement),
+            ],
+          ),
+        ],
       )
-
-    // if (type.value && !['foreground', 'background'].includes(type.value))
-    //   throw new Error(`Invalid prop \`type\` supplied to \`${TOAST_NAME}\`. Expected \`foreground | background\`.`)
-
-    return originalReturn
+    }
   },
 })
 
