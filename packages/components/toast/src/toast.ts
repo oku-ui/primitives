@@ -36,11 +36,11 @@ const toastProps = {
     },
     open: {
       type: Boolean,
-      required: undefined,
+      default: undefined,
     },
     defaultOpen: {
       type: Boolean,
-      required: undefined,
+      default: undefined,
     },
     forceMount: {
       type: Boolean as PropType<true | undefined>,
