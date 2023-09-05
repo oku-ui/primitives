@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { defineComponent, h, toRef, watchEffect } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -23,8 +24,7 @@ export type AvatarEmits = {
 export const avatarImageProps = {
   props: {
     src: {
-      type: String,
-      required: true,
+      type: String as PropType<string | undefined>,
     },
   },
   emits: {
