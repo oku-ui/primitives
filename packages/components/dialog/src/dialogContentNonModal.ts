@@ -2,14 +2,14 @@ import { defineComponent, h, ref } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { scopeDialogrops, useDialogInject } from './utils'
-import type { DialogContentTypeElement, DialogContentTypeEmits } from './dialogContentModal'
+import { scopeDialogProps, useDialogInject } from './utils'
+import type { DialogContentModalElement, DialogContentModalEmits } from './dialogContentModal'
 import { CONTENT_NAME } from './dialogContent'
 import { OkuDialogContentImpl } from './dialogContentImpl'
 
 export const CONTENTNON_NAME = 'OkuDialogContentNonModal'
 
-export type DialogContentNonModalNaviteElement = DialogContentTypeElement
+export type DialogContentNonModalNaviteElement = DialogContentModalElement
 
 export const dialogOverlayProps = {
   props: {
@@ -24,7 +24,7 @@ const dialogContentNonModal = defineComponent({
   inheritAttrs: false,
   props: {
     ...dialogOverlayProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogOverlayProps.emits,
   setup(props, { attrs, slots, emit }) {
@@ -42,7 +42,7 @@ const dialogContentNonModal = defineComponent({
       ref: forwardRef,
       trapFocus: false,
       disableOutsidePointerEvents: false,
-      onCloseAutoFocus: composeEventHandlers<DialogContentTypeEmits['closeAutoFocus'][0]>((el) => {
+      onCloseAutoFocus: composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {
         emit('closeAutoFocus', el)
       }, (event) => {
         if (!event.defaultPrevented) {
@@ -55,7 +55,7 @@ const dialogContentNonModal = defineComponent({
         hasInteractedOutsideRef.value = false
         hasPointerDownOutsideRef.value = false
       }),
-      onInteractOutside: composeEventHandlers<DialogContentTypeEmits['interactOutside'][0]>((el) => {
+      onInteractOutside: composeEventHandlers<DialogContentModalEmits['interactOutside'][0]>((el) => {
         emit('interactOutside', el)
       }, (event) => {
         if (!event.defaultPrevented) {

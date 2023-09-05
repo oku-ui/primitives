@@ -9,7 +9,7 @@ export const DIALOG_NAME = 'OkuDialog'
 
 export type ScopeDialog<T> = T & { scopeOkuDialog?: Scope }
 
-export const scopeDialogrops = {
+export const scopeDialogProps = {
   scopeOkuDialog: {
     ...ScopePropObject,
   },

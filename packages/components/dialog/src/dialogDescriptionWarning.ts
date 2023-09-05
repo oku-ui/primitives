@@ -13,7 +13,7 @@ type DescriptionWarningProps = {
 export const dialogDescriptionWarningProps = {
   props: {
     contentRef: {
-      type: [HTMLDivElement] as PropType<DialogContentNaviteElement>,
+      type: [HTMLDivElement] as PropType<HTMLDivElement>,
       required: true,
     },
     descriptionId: {
@@ -37,7 +37,7 @@ const dialogDescriptionWarning = defineComponent({
     const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${(inject as any).contentName}}.`
 
     watchEffect(() => {
-      const describedById = props.contentRef.value?.getAttribute('aria-describedby')
+      const describedById = props.contentRef?.getAttribute('aria-describedby')
       // if we have an id and the user hasn't set aria-describedby={undefined}
       if (props.descriptionId && describedById) {
         const hasDescription = document.getElementById(props.descriptionId)

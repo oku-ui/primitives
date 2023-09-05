@@ -380,35 +380,35 @@ importers:
   packages/components/dialog:
     dependencies:
       '@oku-ui/dismissable-layer':
-        specifier: workspace:*
-        version: link:../dismissable-layer
+        specifier: latest
+        version: 0.4.0-alpha.1(vue@3.3.4)
       '@oku-ui/focus-guards':
-        specifier: workspace:*
-        version: link:../../core/focus-guards
+        specifier: latest
+        version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/focus-scope':
-        specifier: workspace:*
-        version: link:../focus-scope
+        specifier: latest
+        version: 0.4.0-alpha.1(vue@3.3.4)
       '@oku-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
+        specifier: latest
+        version: 0.4.0-alpha.1(vue@3.3.4)
       '@oku-ui/presence':
-        specifier: workspace:*
-        version: link:../presence
+        specifier: latest
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
-        specifier: workspace:*
-        version: link:../../core/primitive
+        specifier: latest
+        version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/provide':
-        specifier: workspace:*
-        version: link:../../core/provide
+        specifier: latest
+        version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/slot':
-        specifier: workspace:*
-        version: link:../slot
+        specifier: latest
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
-        specifier: workspace:*
-        version: link:../../core/use-composable
+        specifier: latest
+        version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/utils':
-        specifier: workspace:*
-        version: link:../../core/utils
+        specifier: latest
+        version: 0.3.0-alpha.1
       '@types/node':
         specifier: ^18.17.12
         version: 18.17.12

@@ -3,7 +3,7 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
-import { scopeDialogrops, useDialogInject } from './utils'
+import { scopeDialogProps, useDialogInject } from './utils'
 import type { DialogContentImplEmits, DialogContentImplNaviteElement, DialogContentImplProps } from './dialogContentImpl'
 import { OkuDialogContentImpl } from './dialogContentImpl'
 import { CONTENT_NAME } from './dialogContent'
@@ -30,7 +30,7 @@ const dialogContentModal = defineComponent({
   inheritAttrs: false,
   props: {
     ...dialogOverlayProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogOverlayProps.emits,
   setup(props, { attrs, slots, emit }) {

@@ -2,7 +2,7 @@ import { defineComponent, h } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { DIALOG_NAME, scopeDialogrops, useDialogInject } from './utils'
+import { scopeDialogProps, useDialogInject } from './utils'
 
 export const TITLE_NAME = 'OkuDialogTitle'
 
@@ -19,11 +19,11 @@ export const dialogTitleProps = {
 }
 
 const dialogTitle = defineComponent({
-  name: DIALOG_NAME,
+  name: TITLE_NAME,
   inheritAttrs: false,
   props: {
     ...dialogTitleProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogTitleProps.emits,
   setup(props, { attrs, slots, emit }) {

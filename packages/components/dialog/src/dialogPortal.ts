@@ -6,7 +6,7 @@ import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPortal, type PortalProps } from '@oku-ui/portal'
 
 import { OkuPresence } from '@oku-ui/presence'
-import { DIALOG_NAME, createDialogProvider, scopeDialogrops, useDialogInject } from './utils'
+import { DIALOG_NAME, createDialogProvider, scopeDialogProps, useDialogInject } from './utils'
 
 const PORTAL_NAME = 'OkuDialogPortal'
 
@@ -46,11 +46,11 @@ export const dialogPortalProps = {
 }
 
 const dialogPortal = defineComponent({
-  name: DIALOG_NAME,
+  name: PORTAL_NAME,
   inheritAttrs: false,
   props: {
     ...dialogPortalProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogPortalProps.emits,
   setup(props, { attrs, slots, emit }) {

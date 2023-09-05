@@ -3,7 +3,7 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
-import { DIALOG_NAME, DialogProvider, scopeDialogrops } from './utils'
+import { DIALOG_NAME, DialogProvider, scopeDialogProps } from './utils'
 
 export type DialogNaviteElement = OkuElement<'button'>
 
@@ -36,7 +36,7 @@ const dialog = defineComponent({
   inheritAttrs: false,
   props: {
     ...primitiveProps,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
     ...dialogProps.props,
   },
   emits: dialogProps.emits,

@@ -2,7 +2,7 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import { scopeDialogrops, useDialogInject } from './utils'
+import { scopeDialogProps, useDialogInject } from './utils'
 import type { DialogContentModalElement, DialogContentModalProps } from './dialogContentModal'
 import { OkuDialogContentModal } from './dialogContentModal'
 import { useDialogPortalInject } from './dialogPortal'
@@ -36,7 +36,7 @@ const dialogContent = defineComponent({
   inheritAttrs: false,
   props: {
     ...dialogContentProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogContentProps.emits,
   setup(props, { attrs, slots, emit }) {

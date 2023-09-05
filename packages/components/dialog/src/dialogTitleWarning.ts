@@ -1,3 +1,4 @@
+/// <reference path="utils.ts" />
 import { defineComponent, watchEffect } from 'vue'
 import { useWarningInject } from './utils'
 

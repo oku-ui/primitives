@@ -3,7 +3,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { DIALOG_NAME, scopeDialogrops, useDialogInject } from './utils'
+import { scopeDialogProps, useDialogInject } from './utils'
 
 export const CLOSE_NAME = 'OkuDialogClose'
 
@@ -23,11 +23,11 @@ export const dialogCloseProps = {
 }
 
 const dialogClose = defineComponent({
-  name: DIALOG_NAME,
+  name: CLOSE_NAME,
   inheritAttrs: false,
   props: {
     ...dialogCloseProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogCloseProps.emits,
   setup(props, { attrs, slots, emit }) {

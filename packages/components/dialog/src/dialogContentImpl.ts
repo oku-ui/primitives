@@ -6,7 +6,7 @@ import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
 import { useFocusGuards } from '@oku-ui/focus-guards'
-import { DIALOG_NAME, getState, scopeDialogrops, useDialogInject } from './utils'
+import { getState, scopeDialogProps, useDialogInject } from './utils'
 import { OkuDialogTitleWarning } from './dialogTitleWarning'
 import { OkuDialogDescriptionWarning } from './dialogDescriptionWarning'
 
@@ -57,7 +57,7 @@ export const dialogContentImplProps = {
 }
 
 const dialogContentImpl = defineComponent({
-  name: DIALOG_NAME,
+  name: CONTENT_NAME,
   components: {
     OkuFocusScope,
     OkuDismissableLayer,
@@ -66,7 +66,7 @@ const dialogContentImpl = defineComponent({
   props: {
     ...dialogContentImplProps.props,
     ...primitiveProps,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogContentImplProps.emits,
   setup(props, { attrs, slots, emit }) {

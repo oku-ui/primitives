@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogOverlay, OkuDialogPortal, OkuDialogTitle, OkuDialogTrigger } from '@oku-ui/dialog'
+import { OkuDialogTrigger } from '@oku-ui/dialog'
 </script>
 
 <template>
@@ -7,7 +7,7 @@ import { OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogOverla
     <OkuDialogTrigger class="triggerClass">
       open
     </OkuDialogTrigger>
-    <OkuDialogPortal>
+    <!-- <OkuDialogPortal>
       <OkuDialogOverlay class="overlayClass" />
       <OkuDialogContent class="contentDefaultClass">
         <OkuDialogTitle>
@@ -20,7 +20,7 @@ import { OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogOverla
           close
         </OkuDialogClose>
       </OkuDialogContent>
-    </OkuDialogPortal>
+    </OkuDialogPortal> -->
   </div>
 </template>
 

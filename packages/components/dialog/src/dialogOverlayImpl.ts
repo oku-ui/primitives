@@ -2,7 +2,7 @@ import { defineComponent, h } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { DIALOG_NAME, getState, scopeDialogrops, useDialogInject } from './utils'
+import { getState, scopeDialogProps, useDialogInject } from './utils'
 import { OVERLAY_NAME } from './dialogOverlay'
 
 export type DialogOverlayImplNaviteElement = OkuElement<'div'>
@@ -20,11 +20,11 @@ export const dialogOverlayImplProps = {
 }
 
 const dialogOverlayImpl = defineComponent({
-  name: DIALOG_NAME,
+  name: OVERLAY_NAME,
   inheritAttrs: false,
   props: {
     ...dialogOverlayImplProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogOverlayImplProps.emits,
   setup(props, { attrs, slots, emit }) {

@@ -1,8 +1,4 @@
 export {
-  createDialogScope,
-  WarningProvider,
-} from './utils'
-export {
   OkuDialog, type dialogProps,
 } from './dialog'
 export {

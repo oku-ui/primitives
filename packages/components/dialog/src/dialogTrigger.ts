@@ -3,7 +3,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { DIALOG_NAME, getState, scopeDialogrops, useDialogInject } from './utils'
+import { getState, scopeDialogProps, useDialogInject } from './utils'
 
 const TRIGGER_NAME = 'OkuDialogTrigger'
 
@@ -22,11 +22,11 @@ export const dialogTriggerProps = {
 }
 
 const dialogTrigger = defineComponent({
-  name: DIALOG_NAME,
+  name: TRIGGER_NAME,
   inheritAttrs: false,
   props: {
     ...dialogTriggerProps.props,
-    ...scopeDialogrops,
+    ...scopeDialogProps,
   },
   emits: dialogTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
