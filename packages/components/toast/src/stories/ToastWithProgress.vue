@@ -10,8 +10,8 @@ const duration = ref(3000)
   <OkuToast
     class="toast"
     :duration="duration"
-    @on-pause="paused = true"
-    @on-resume="paused = false"
+    @pause="paused = true"
+    @resume="paused = false"
   >
     <OkuToastDescription>Successfully saved</OkuToastDescription>
     <div class="progress-bar">
@@ -39,10 +39,10 @@ const duration = ref(3000)
 
 @keyframes loading {
   from {
-    transform: 'translateX(-100%)'
+    transform: translateX(-100%);
   }
   to {
-     transform: 'translateX(0%)'
+     transform: translateX(0%);
   }
 }
 
@@ -50,6 +50,6 @@ const duration = ref(3000)
   height: 100%;
   background-color: green;
   animation-name: loading;
-  animation-timing-function: linear,
+  animation-timing-function: linear;
 }
 </style>

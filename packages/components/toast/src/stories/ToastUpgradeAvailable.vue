@@ -19,7 +19,7 @@ defineProps({
     <OkuToastDescription class="description">
       We've just released Oku version 1.0
     </OkuToastDescription>
-    <OkuToastAction alt-text="Goto account settings to upgrade" class="button" :style="{ 'margin-top': '10px' }">
+    <OkuToastAction alt-text="Goto account settings to upgrade" class="button" :style="{ marginTop: '10px' }">
       Upgrade
     </OkuToastAction>
   </OkuToast>

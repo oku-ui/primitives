@@ -20,7 +20,7 @@ const errorCount = ref(0)
 
 watchEffect((onInvalidate) => {
   if (!hasUpgrade.value) {
-    const timer = window.setTimeout(() => (hasUpgrade.value = true), 10000)
+    const timer = window.setTimeout(() => hasUpgrade.value = true, 10000)
 
     onInvalidate(() => window.clearTimeout(timer))
   }
@@ -31,7 +31,7 @@ const saving = ref(false)
 
 watchEffect((onInvalidate) => {
   if (saving.value) {
-    const timer = window.setTimeout(() => (saving.value = false), 2000)
+    const timer = window.setTimeout(() => saving.value = false, 2000)
 
     onInvalidate(() => window.clearTimeout(timer))
   }
@@ -50,12 +50,12 @@ const timerRef = ref(0)
 function handelAnimatedOpen() {
   open.value = false
   window.clearTimeout(timerRef.value)
-  timerRef.value = window.setTimeout(() => (open.value = true), 150)
+  timerRef.value = window.setTimeout(() => open.value = true, 150)
 }
 
 const count = ref(0)
 
-const VIEWPORT_PADDING = ref(10)
+const VIEWPORT_PADDING = ref('10px')
 </script>
 
 <template>
@@ -79,10 +79,10 @@ const VIEWPORT_PADDING = ref(10)
         <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md" @click="savedCount++">
           save
         </button>
-        <ToastUpgradeAvailable v-model="hasUpgrade" :open="hasUpgrade" />
-        <ToastSubscribeSuccess v-model="isSubscribed" :open="isSubscribed" />
+        <ToastUpgradeAvailable v-model="hasUpgrade" />
+        <ToastSubscribeSuccess v-model="isSubscribed" />
 
-        <OkuToast v-for="(_, index) in errorCount" :key="index" class="error-toast">
+        <OkuToast v-for="(_, index) in errorCount" :key="index" class="toast error-toast">
           <OkuToastDescription>There was an error</OkuToastDescription>
           <OkuToastAction
             class="button" alt-text="Resubmit the form to try again."
@@ -106,7 +106,7 @@ const VIEWPORT_PADDING = ref(10)
         <OkuDialog>
           <OkuDialogTrigger>Open</OkuDialogTrigger>
           <OkuDialogOverlay />
-          <OkuDialogContent :style="{ border: '1px solid', width: 300, padding: 30 }">
+          <OkuDialogContent :style="{ border: '1px solid', width: '300px', padding: '30px' }">
             <OkuDialogTitle :style="{ margin: 0 }">
               Title
             </OkuDialogTitle>
@@ -118,7 +118,7 @@ const VIEWPORT_PADDING = ref(10)
           </OkuDialogContent>
         </OkuDialog>
 
-        <OkuToast v-model="open" class="toast error-toast" :open="open">
+        <OkuToast v-model="open" class="toast error-toast">
           <OkuToastDescription>There was an error</OkuToastDescription>
           <OkuToastAction
             class="button" alt-text="Resubmit the form to try again."
@@ -143,7 +143,7 @@ const VIEWPORT_PADDING = ref(10)
           <button type="submit" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
             Save
           </button>
-          <OkuToast v-model="open" class="toast" :duration="saving ? Infinity : 2000" :open="open">
+          <OkuToast v-model="open" class="toast" :duration="saving ? Infinity : 2000">
             <OkuToastDescription v-if="saving">
               Saving&hellip;
             </OkuToastDescription>
@@ -220,7 +220,7 @@ const VIEWPORT_PADDING = ref(10)
             Slide down
           </option>
         </select>
-        <OkuToast v-model="open" class="toast animated-toast" :open="open">
+        <OkuToast v-model="open" class="toast animated-toast">
           <OkuToastDescription>Swipe me {{ swipeDirection }}</OkuToastDescription>
           <OkuToastClose class="button">
             Dismiss
@@ -236,7 +236,7 @@ const VIEWPORT_PADDING = ref(10)
           Add toast
         </button>
         <div
-          :style="{ 'display': 'flex', 'justify-content': 'space-between', 'max-width': 700, 'margin': 'auto' }"
+          :style="{ display: 'flex', justifyContent: 'space-between', maxWidth: '700px', margin: 'auto' }"
         >
           <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
             Focusable before viewport
@@ -262,7 +262,7 @@ const VIEWPORT_PADDING = ref(10)
             <OkuToastAction
               alt-text="Go and perform an action"
               class="button"
-              :style="{ 'margin-top': '10px' }"
+              :style="{ marginTop: '10px' }"
             >
               Toast button {{ index + 1 }}.2
             </OkuToastAction>
@@ -288,8 +288,8 @@ const VIEWPORT_PADDING = ref(10)
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: v-bind(VIEWPORT_PADDING)px;
-  gap: v-bind(VIEWPORT_PADDING)px;
+  padding: v-bind(VIEWPORT_PADDING);
+  gap: v-bind(VIEWPORT_PADDING);
   list-style: none;
 }
 
@@ -375,7 +375,7 @@ const VIEWPORT_PADDING = ref(10)
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
   to {
-    transform: translateX(calc(100% + v-bind(VIEWPORT_PADDING)px));
+    transform: translateX(calc(100% + v-bind(VIEWPORT_PADDING)));
   }
 }
 
@@ -384,7 +384,7 @@ const VIEWPORT_PADDING = ref(10)
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
   to {
-    transform: translateX(calc(-100% - v-bind(VIEWPORT_PADDING)px));
+    transform: translateX(calc(-100% - v-bind(VIEWPORT_PADDING)));
   }
 }
 
@@ -393,7 +393,7 @@ const VIEWPORT_PADDING = ref(10)
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
   to {
-    transform: translateY(calc(-100% - v-bind(VIEWPORT_PADDING)px));
+    transform: translateY(calc(-100% - v-bind(VIEWPORT_PADDING)));
   }
 }
 
@@ -402,14 +402,14 @@ const VIEWPORT_PADDING = ref(10)
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
   to {
-    transform: translateY(calc(100% + v-bind(VIEWPORT_PADDING)px));
+    transform: translateY(calc(100% + v-bind(VIEWPORT_PADDING)));
   }
 }
 
 .error-toast {
-  display: 'flex';
-  align-items: 'center';
-  justify-content: 'space-between';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 [data-state="open"] {
@@ -449,7 +449,7 @@ const VIEWPORT_PADDING = ref(10)
   display: inline-flex;
   border: 5px solid royalblue;
   flex-direction: column;
-  padding: v-bind(VIEWPORT_PADDING)px;
-  gap: v-bind(VIEWPORT_PADDING)px;
+  padding: v-bind(VIEWPORT_PADDING);
+  gap: v-bind(VIEWPORT_PADDING);
 }
 </style>
