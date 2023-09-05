@@ -1,12 +1,9 @@
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvide, createProvideScope } from '@oku-ui/provide'
-import { type Ref, ref } from 'vue'
-import type { DialogContentNaviteElement } from './dialogContent'
+import { type Ref } from 'vue'
 import { CONTENT_NAME } from './dialogContent'
 import { TITLE_NAME } from './dialogTitle'
 import { TITLE_WARNING_NAME } from './dialogTitleWarning'
-
-export const SLIDER_NAME = 'OkuSlider'
 
 export const DIALOG_NAME = 'OkuDialog'
 

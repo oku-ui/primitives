@@ -1,9 +1,6 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import { createProvide } from '@oku-ui/provide'
+import { defineComponent, watchEffect } from 'vue'
 import type { DialogContentNaviteElement } from './dialogContent'
-import { CONTENT_NAME } from './dialogContent'
-import { TITLE_NAME } from './dialogTitle'
 import { useWarningInject } from './utils'
 
 export const DESCRIPTION_WARNING_NAME = 'OkuDialogDescriptionWarning'

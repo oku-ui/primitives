@@ -1,8 +1,8 @@
-import { PropType, Ref, computed, defineComponent, h, ref, toRefs } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
-import { DIALOG_NAME, DialogProvider, createDialogProvider, getState, scopeDialogrops, useDialogInject } from './utils'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { DIALOG_NAME, scopeDialogrops, useDialogInject } from './utils'
 
 export const TITLE_NAME = 'OkuDialogTitle'
 

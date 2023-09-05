@@ -1,10 +1,9 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
+import { useControllable, useId } from '@oku-ui/use-composable'
 import { DIALOG_NAME, DialogProvider, scopeDialogrops } from './utils'
-import type { DialogContentNaviteElement } from './dialogContent'
 
 export type DialogNaviteElement = OkuElement<'button'>
 

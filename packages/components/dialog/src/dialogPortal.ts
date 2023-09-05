@@ -1,13 +1,12 @@
 import type { PropType } from 'vue'
-import { Ref, computed, defineComponent, h, ref, toRefs } from 'vue'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
-import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, defineComponent, h, toRefs } from 'vue'
+import type { OkuElement } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPortal, type PortalProps } from '@oku-ui/portal'
 
 import { OkuPresence } from '@oku-ui/presence'
-import { DIALOG_NAME, DialogProvider, createDialogProvider, getState, scopeDialogrops, useDialogInject } from './utils'
+import { DIALOG_NAME, createDialogProvider, scopeDialogrops, useDialogInject } from './utils'
 
 const PORTAL_NAME = 'OkuDialogPortal'
 

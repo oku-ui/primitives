@@ -1,7 +1,4 @@
-import { PropType, Ref, computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import { createProvide } from '@oku-ui/provide'
-import { CONTENT_NAME } from './dialogContent'
-import { TITLE_NAME } from './dialogTitle'
+import { defineComponent, watchEffect } from 'vue'
 import { useWarningInject } from './utils'
 
 export const TITLE_WARNING_NAME = 'OkuDialogTitleWarning'
