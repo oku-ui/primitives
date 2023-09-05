@@ -1,5 +1,6 @@
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject } from '@oku-ui/provide'
+import { isClient } from '@oku-ui/use-composable'
 import type { Ref } from 'vue'
 import { onBeforeUnmount, ref, watchEffect } from 'vue'
 
@@ -18,6 +19,9 @@ export function useImageLoadingStatus(src: Ref<string | undefined>) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
 
   watchEffect(() => {
+    if (!isClient)
+      return
+
     if (!src.value) {
       loadingStatus.value = 'error'
       return

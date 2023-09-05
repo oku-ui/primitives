@@ -22,8 +22,8 @@ describe('collection', () => {
           const data = useCollection('List')
           const refData = ref()
           watchEffect(() => {
-            if (data.value)
-              refData.value = data.value
+            if (data())
+              refData.value = data()
           })
           if (refData.value?.[2]?.disabled)
             expect('disabled').toBe('disabled')

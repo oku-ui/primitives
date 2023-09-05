@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
-  OkuTabContent,
-  OkuTabList,
-  OkuTabTrigger,
   OkuTabs,
+  OkuTabsContent,
+  OkuTabsList,
+  OkuTabsTrigger,
 } from '@oku-ui/tabs'
 
 export interface ITabsProps {
@@ -18,29 +18,29 @@ defineProps<ITabsProps>()
   <div v-if="template === '#1' || allshow">
     <h1>Horizontal (automatic activation)</h1>
     <OkuTabs default-value="tab1" class="root-class">
-      <OkuTabList aria-label="tabs example" class="list-class">
-        <OkuTabTrigger value="tab1" class="trigger-class">
+      <OkuTabsList aria-label="tabs example" class="list-class">
+        <OkuTabsTrigger value="tab1" class="trigger-class">
           Tab 1
-        </OkuTabTrigger>
-        <OkuTabTrigger value="tab2" disabled class="trigger-class">
+        </OkuTabsTrigger>
+        <OkuTabsTrigger value="tab2" disabled class="trigger-class">
           Tab 2
-        </OkuTabTrigger>
-        <OkuTabTrigger value="tab3" class="trigger-class">
+        </OkuTabsTrigger>
+        <OkuTabsTrigger value="tab3" class="trigger-class">
           Tab 3
-        </OkuTabTrigger>
-      </OkuTabList>
-      <OkuTabContent value="tab1" class="content-class">
+        </OkuTabsTrigger>
+      </OkuTabsList>
+      <OkuTabsContent value="tab1" class="content-class">
         Dis metus rhoncus sit convallis sollicitudin vel cum, hac purus tincidunt eros sem himenaeos
         integer, faucibus varius nullam nostra bibendum consectetur mollis, gravida elementum
         pellentesque volutpat dictum ipsum.
-      </OkuTabContent>
-      <OkuTabContent value="tab2" class="content-class">
+      </OkuTabsContent>
+      <OkuTabsContent value="tab2" class="content-class">
         You'll never find me!
-      </OkuTabContent>
-      <OkuTabContent value="tab3" class="content-class">
+      </OkuTabsContent>
+      <OkuTabsContent value="tab3" class="content-class">
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
-      </OkuTabContent>
+      </OkuTabsContent>
     </OkuTabs>
   </div>
   <div v-if="template === '#3' || allshow">
@@ -51,25 +51,25 @@ defineProps<ITabsProps>()
       orientation="horizontal"
       class="flex flex-col w-[300px] shadow-[0_2px_10px] shadow-black/10"
     >
-      <OkuTabList
+      <OkuTabsList
         class="shrink-0 flex border-b border-red-500"
         aria-label="Manage your account"
         :loop="false"
       >
-        <OkuTabTrigger
+        <OkuTabsTrigger
           class="bg-white px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-red-500 select-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:text-violet11 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-current data-[state=active]:focus:relative data-[state=active]:focus:shadow-[0_0_0_2px] data-[state=active]:focus:shadow-black outline-none cursor-default"
           value="tab1"
         >
           Account
-        </OkuTabTrigger>
-        <OkuTabTrigger
+        </OkuTabsTrigger>
+        <OkuTabsTrigger
           class="bg-white px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-red-500 select-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:text-violet11 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-current data-[state=active]:focus:relative data-[state=active]:focus:shadow-[0_0_0_2px] data-[state=active]:focus:shadow-black outline-none cursor-default"
           value="tab2"
         >
           Password
-        </OkuTabTrigger>
-      </OkuTabList>
-      <OkuTabContent
+        </OkuTabsTrigger>
+      </OkuTabsList>
+      <OkuTabsContent
         class="grow p-5 bg-white rounded-b-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
         value="tab1"
       >
@@ -111,8 +111,8 @@ defineProps<ITabsProps>()
             Save changes
           </button>
         </div>
-      </OkuTabContent>
-      <OkuTabContent
+      </OkuTabsContent>
+      <OkuTabsContent
         class="grow p-5 bg-white rounded-b-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
         value="tab2"
       >
@@ -170,7 +170,7 @@ defineProps<ITabsProps>()
             </button>
           </div>
         </form>
-      </OkuTabContent>
+      </OkuTabsContent>
     </OkuTabs>
   </div>
 </template>

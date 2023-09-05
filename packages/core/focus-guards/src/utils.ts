@@ -1,4 +1,4 @@
-import { watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 
 /** Number of components which have requested interest to have focus guards */
 let count = 0
@@ -8,18 +8,18 @@ let count = 0
  * to ensure `focusin` & `focusout` events can be caught consistently.
  */
 export function useFocusGuards() {
-  watchEffect((onClean) => {
+  onMounted(() => {
     const edgeGuards = document.querySelectorAll('[data-oku-focus-guard]')
     document.body.insertAdjacentElement('afterbegin', edgeGuards[0] ?? createFocusGuard())
     document.body.insertAdjacentElement('beforeend', edgeGuards[1] ?? createFocusGuard())
     count++
+  })
 
-    onClean(() => {
-      if (count === 1)
-        document.querySelectorAll('[data-oku-focus-guard]').forEach(node => node.remove())
+  onBeforeUnmount(() => {
+    if (count === 1)
+      document.querySelectorAll('[data-oku-focus-guard]').forEach(node => node.remove())
 
-      count--
-    })
+    count--
   })
 }
 

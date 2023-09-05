@@ -3,17 +3,16 @@ export type {
   ComponentProps,
   RefElement,
   MergeProps,
-  ElementType,
-  // ComponentPropsWithoutRef,
+  OkuElement,
   InstanceTypeRef,
   ComponentPublicInstanceRef,
   PrimitiveProps,
+  StyleOmit,
+  AriaAttributes,
 } from './types'
 
 export { primitiveProps, renderSlotFragments } from './utils'
 
 export { dispatchDiscreteCustomEvent } from './utils'
-
-export type { AriaAttributes } from './types'
 
 export { omit as propsOmit, pick as propsPick } from 'filter-anything'

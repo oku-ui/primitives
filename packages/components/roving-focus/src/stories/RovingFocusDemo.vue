@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
-import { OkuLabel } from '@oku-ui/label'
-import ButtonProvide from './ButtonProvide.vue'
-import ButtonDeneme from './Button.vue'
+import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import Button from './Button.vue'
+import ButtonGroup from './ButtonGroup.vue'
 
 export interface ICheckBoxProps {
   template?: '#1' | '#2' | '#3'
@@ -14,54 +13,149 @@ withDefaults(defineProps<ICheckBoxProps>(), {
 
 })
 
-const extra = ref(false)
-const disabled = ref(false)
-const hidden = ref(false)
-const disabled3To5 = ref(false)
+const controller = ref({
+  extra: false,
+  disabled: false,
+  hidden: false,
+  disabled3To5: false,
+})
+
+function handleControler(key: 'extra' | 'disabled' | 'hidden' | 'disabled3To5') {
+  controller.value[key] = !controller.value[key]
+}
+
+const dir = ref<RovingFocusGroupProps['dir']>('ltr')
+
+function handleDir() {
+  dir.value = dir.value === 'ltr' ? 'rtl' : 'ltr'
+}
 </script>
 
 <template>
   <div class="dark:text-white">
-    <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <ButtonProvide>
-        <OkuRovingFocusGroup as-child class="flex flex-col mb-10" orientation="vertical" dir="ltr">
-          <span>
-            <OkuLabel>
+    <div v-if="template === '#1' || allshow" :dir="dir" class="rounded-sm overflow-hidden">
+      <h1>
+        Direction: {{ dir }}
+        <button type="button" @click="handleDir">
+          Toggle to {{ dir === 'ltr' ? 'rtl' : 'ltr' }}
+        </button>
+      </h1>
+      <h2>no orientation (both) + no looping</h2>
+      <ButtonGroup :dir="dir" value="two">
+        <Button value="one">
+          one
+        </Button>
+        <Button value="two">
+          two
+        </Button>
+        <Button value="three" disabled>
+          three
+        </Button>
+        <Button value="four">
+          four
+        </Button>
+      </ButtonGroup>
 
-              <ButtonDeneme value="one">
-                ButtonDeneme1
-              </ButtonDeneme>
-              test
-            </OkuLabel>
+      <h2>no orientation (both) + looping</h2>
+      <ButtonGroup :dir="dir" loop>
+        <Button value="hidden" style="display: none;">
+          Hidden
+        </Button>
+        <Button value="one">
+          One
+        </Button>
+        <Button value="two">
+          Two
+        </Button>
+        <Button disabled value="three">
+          Three
+        </Button>
+        <Button value="four">
+          Four
+        </Button>
+      </ButtonGroup>
 
-            <ButtonDeneme value="two" disabled>
-              ButtonDeneme2
-            </ButtonDeneme>
-            <ButtonDeneme value="three">
-              three
-            </ButtonDeneme>
-          </span>
-        </OkuRovingFocusGroup>
-      </ButtonProvide>
+      <h2>horizontal orientation + no looping</h2>
+      <ButtonGroup orientation="horizontal" :dir="dir">
+        <Button value="one">
+          One
+        </Button>
+        <Button value="two">
+          Two
+        </Button>
+        <Button disabled value="three">
+          Three
+        </Button>
+        <Button value="four">
+          Four
+        </Button>
+      </ButtonGroup>
 
-      <ButtonProvide>
+      <h2>horizontal orientation + looping</h2>
+      <ButtonGroup orientation="horizontal" :dir="dir" loop>
+        <Button value="one">
+          One
+        </Button>
+        <Button value="two">
+          Two
+        </Button>
+        <Button disabled value="three">
+          Three
+        </Button>
+        <Button value="four">
+          Four
+        </Button>
+      </ButtonGroup>
+
+      <h2>vertical orientation + no looping</h2>
+      <ButtonGroup orientation="vertical" :dir="dir">
+        <Button value="one">
+          One
+        </Button>
+        <Button value="two">
+          Two
+        </Button>
+        <Button disabled value="three">
+          Three
+        </Button>
+        <Button value="four">
+          Four
+        </Button>
+      </ButtonGroup>
+
+      <h2>vertical orientation + looping</h2>
+      <ButtonGroup orientation="vertical" :dir="dir" loop>
+        <Button value="one">
+          One
+        </Button>
+        <Button value="two">
+          Two
+        </Button>
+        <Button disabled value="three">
+          Three
+        </Button>
+        <Button value="four">
+          Four
+        </Button>
+      </ButtonGroup>
+
+      <!-- <ButtonProvide>
         <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
-          <ButtonDeneme value="one">
-            ButtonDeneme1
-          </ButtonDeneme>
-          <ButtonDeneme value="two" disabled>
-            ButtonDeneme2
-          </ButtonDeneme>
-          <ButtonDeneme value="three">
+          <Button value="one">
+            Button1
+          </Button>
+          <Button value="two" disabled>
+            Button2
+          </Button>
+          <Button value="three">
             three
-          </ButtonDeneme>
+          </Button>
         </OkuRovingFocusGroup>
       </ButtonProvide>
 
       <OkuRovingFocusGroup class="flex flex-col" loop>
         <OkuRovingFocusGroupItem
-          as-child
-          focusable @click="() => console.log('click')"
+          as-child focusable @click="() => console.log('click')"
           @focus="() => console.log('focus')"
         >
           <button>1</button>
@@ -73,8 +167,7 @@ const disabled3To5 = ref(false)
 
       <OkuRovingFocusGroup class="flex gap-4" orientation="horizontal">
         <OkuRovingFocusGroupItem
-          as-child
-          focusable :active="true" @click="() => console.log('click')"
+          as-child focusable :active="true" @click="() => console.log('click')"
           @focus="() => console.log('focus')"
         >
           <button>1</button>
@@ -90,68 +183,101 @@ const disabled3To5 = ref(false)
         <OkuRovingFocusGroupItem as-child focusable :active="true">
           <button>2</button>
         </OkuRovingFocusGroupItem>
-      </OkuRovingFocusGroup>
+      </OkuRovingFocusGroup> -->
     </div>
-    <div v-if="template === '#2' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <ButtonProvide>
-        <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
-          <ButtonDeneme value="2">
-            2
-          </ButtonDeneme>
-          <div class="flex flex-col my-4">
-            <OkuRovingFocusGroup class="flex" orientation="horizontal" loop>
-              <ButtonDeneme value="2.1">
-                2.1
-              </ButtonDeneme>
-              <ButtonDeneme value="2.2">
-                2.2
-              </ButtonDeneme>
-            </OkuRovingFocusGroup>
-          </div>
-          <ButtonDeneme value="3" disabled>
-            3
-          </ButtonDeneme>
+    <div v-if="template === '#2' || allshow" class="rounded-sm overflow-hidden">
+      <ButtonGroup orientation="vertical" loop>
+        <Button value="1">
+          1
+        </Button>
 
-          <ButtonDeneme value="4">
-            4
-          </ButtonDeneme>
-        </OkuRovingFocusGroup>
-      </ButtonProvide>
+        <div style="display: flex;flex-direction: column;">
+          <Button value="2" class="mb-2">
+            2
+          </Button>
+
+          <ButtonGroup orientation="horizontal" loop>
+            <Button value="2.1">
+              2.1
+            </Button>
+            <Button value="2.2">
+              2.2
+            </Button>
+            <Button disabled value="2.3">
+              2.3
+            </Button>
+            <Button value="2.4">
+              2.4
+            </Button>
+          </ButtonGroup>
+        </div>
+
+        <Button value="3" disabled>
+          3
+        </Button>
+        <Button value="4">
+          4
+        </Button>
+      </ButtonGroup>
     </div>
-    <div v-if="template === '#3' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <div class="flex space-x-5 w-full">
-        <button @click="extra = !extra">
-          Toggle extra
-        </button>
-        <button @click="disabled = !disabled">
-          Toggle disabled
-        </button>
-        <button @click="hidden = !hidden">
-          Toggle hidden
-        </button>
-        <button @click="disabled3To5 = !disabled3To5">
-          Toggle disabled 3-5
-        </button>
-      </div>
-      <ButtonProvide>
-        <OkuRovingFocusGroup class="flex flex-col" orientation="vertical" dir="ltr">
-          <ButtonDeneme v-if="extra" value="one" :class="hidden ? 'hidden' : ''">
-            Toggle extra
-          </ButtonDeneme>
-          <ButtonDeneme value="two" :disabled="disabled">
-            two
-          </ButtonDeneme>
-          <ButtonDeneme value="three" :disabled="disabled3To5">
-            three
-          </ButtonDeneme>
-          <ButtonDeneme value="four" :disabled="disabled3To5" class="hidden">
-            four
-          </ButtonDeneme>
-          <ButtonDeneme value="five" :disabled="disabled3To5">
-            five
-          </ButtonDeneme>
-        </OkuRovingFocusGroup>
-      </ButtonProvide>
+    <div v-if="template === '#3' || allshow" class="rounded-sm overflow-hidden">
+      <button class="mr-2" @click="handleControler('extra')">
+        Add/remove extra
+      </button>
+      <button class="mr-2" @click="handleControler('disabled')">
+        Disable/Enable "One"
+      </button>
+      <button class="mr-2" @click="handleControler('hidden')">
+        Hide/show "One"
+      </button>
+      <button class="mr-2" @click="handleControler('disabled3To5')">
+        Disable/Enable "Three" to "Five"
+      </button>
+      <hr class="my-3">
+      <ButtonGroup>
+        <Button v-if="controller.extra" value="extra">
+          Extra
+        </Button>
+        <Button v-show="controller.hidden" value="one" :disabled="controller.disabled">
+          One
+        </Button>
+        <Button value="two" disabled>
+          Two
+        </Button>
+        <Button value="three" :disabled="controller.disabled3To5">
+          Three
+        </Button>
+        <Button value="four" :disabled="controller.disabled3To5" style="display: none;">
+          Four
+        </Button>
+        <Button value="five" :disabled="controller.disabled3To5">
+          Five
+        </Button>
+      </ButtonGroup>
+      <hr class="my-3">
+      <button type="button">
+        Focusable outside of group
+      </button>
     </div>
   </div>
 </template>
+
+<style>
+h2 {
+  font-weight: 500;
+}
+
+h1 {
+  font-size: larger;
+  font-weight: bold;
+}
+
+button {
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 2px;
+}
+</style>

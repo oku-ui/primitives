@@ -6,5 +6,5 @@ export {
 export type {
   SeparatorProps,
   SeparatorElement,
-  SeparatorIntrinsicElement,
+  SeparatorNaviteElement,
 } from './separator'

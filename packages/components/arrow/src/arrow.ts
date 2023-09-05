@@ -1,11 +1,14 @@
 import type { PropType } from 'vue'
 import { cloneVNode, defineComponent, h, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-export type ArrowIntrinsicElement = ElementType<'svg'>
-export type ArrowElement = SVGSVGElement
+export type ArrowNaviteElement = OkuElement<'svg'>
+export type ArrowElement = Omit<SVGSVGElement, 'width' | 'height'> & {
+  width: number
+  height: number
+}
 
 export interface ArrowProps extends PrimitiveProps {
   width?: number
@@ -16,11 +19,11 @@ export const arrowProps = {
   props: {
     width: {
       type: Number as PropType<number>,
-      default: '5',
+      default: 10,
     },
     height: {
       type: Number as PropType<number>,
-      default: '10',
+      default: 5,
     },
     ...primitiveProps,
   },
@@ -74,5 +77,5 @@ const arrow = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuArrow = arrow as typeof arrow
 & (new () => {
-  $props: Partial<ArrowIntrinsicElement>
+  $props: ArrowNaviteElement
 })

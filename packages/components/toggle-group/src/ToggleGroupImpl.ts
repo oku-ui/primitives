@@ -1,17 +1,16 @@
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
+import { defineComponent, h, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, type RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { useDirection } from '@oku-ui/direction'
-import type { ScopeToggleGroup } from './utils'
 import { scopeToggleGroupProps } from './utils'
 import { toggleGroupProvide, useRovingFocusGroupScope } from './ToggleGroup'
 
 const TOGGLE_GROUP_IMPL_NAME = 'OkuToggleGroupImpl'
 
-export type ToggleGroupImplIntrinsicElement = ElementType<'div'>
+export type ToggleGroupImplNaviteElement = OkuElement<'div'>
 export type ToggleGroupImplElement = HTMLDivElement
 
 export interface ToggleGroupImplProps extends PrimitiveProps {
@@ -79,19 +78,7 @@ const toggleGroupImpl = defineComponent({
     const { dir, disabled, loop, orientation, rovingFocus } = toRefs(props)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
     const direction = useDirection(dir.value)
-    const commonProps = computed(() => {
-      return {
-        role: 'group',
-        dir: direction.value,
-        ...mergeProps(attrs),
-        asChild: props.asChild,
-        disabled: disabled.value,
-        loop: loop.value,
-        orientation: orientation.value,
-        rovingFocus: rovingFocus.value,
-        scopeOkuToggleGroup: props.scopeOkuToggleGroup,
-      }
-    })
+
     const forwardedRef = useForwardRef()
 
     toggleGroupProvide({
@@ -109,12 +96,19 @@ const toggleGroupImpl = defineComponent({
         loop: loop.value,
       }, {
         default: () => h(Primitive.div, {
-          ...commonProps.value,
+          role: 'group',
+          dir: direction.value,
+          asChild: props.asChild,
+          ...attrs,
+          scopeOkuToggleGroup: props.scopeOkuToggleGroup,
           ref: forwardedRef,
         }, slots),
       })
       : h(Primitive.div, {
-        ...commonProps.value,
+        role: 'group',
+        dir: direction.value,
+        ...attrs,
+        asChild: props.asChild,
         ref: forwardedRef,
       }, slots)
   },
@@ -122,5 +116,5 @@ const toggleGroupImpl = defineComponent({
 
 export const OkuToggleGroupImpl = toggleGroupImpl as typeof toggleGroupImpl &
 (new () => {
-  $props: ScopeToggleGroup<Partial<ToggleGroupImplElement>>
+  $props: ToggleGroupImplNaviteElement
 })

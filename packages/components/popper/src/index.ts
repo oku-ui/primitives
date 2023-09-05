@@ -1,3 +1,5 @@
+import type { } from '@floating-ui/vue'
+
 export {
   OkuPopper,
   createPopperScope,
@@ -15,7 +17,7 @@ export {
 export type {
   PopperAnchorProps,
   PopperAnchorElement,
-  PopperAnchorIntrinsicElement,
+  PopperAnchorNaviteElement,
 } from './popperAnchor'
 
 export {
@@ -26,7 +28,7 @@ export {
 export type {
   PopperContentProps,
   PopperContentElement,
-  PopperContentIntrinsicElement,
+  PopperContentNaviteElement,
   PopperContentEmits,
 } from './popperContent'
 
@@ -38,5 +40,5 @@ export {
 export type {
   PopperArrowProps,
   PopperArrowElement,
-  PopperArrowIntrinsicElement,
+  PopperArrowNaviteElement,
 } from './popperArrow'

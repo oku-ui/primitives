@@ -3,15 +3,13 @@ import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 
 import { usePrevious, useSize } from '@oku-ui/use-composable'
 
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 
 import { type CheckedState, isIndeterminate } from './utils'
 
-type BubbleInputIntrinsicElement = ElementType<'input'>
+export type BubbleInputNaviteElement = Omit<OkuElement<'input', true>, 'checked'>
 
-type BubbleInputElement = Partial<Omit<HTMLInputElement, 'checked'>>
-
-interface BubbleInputProps {
+export interface BubbleInputProps {
   checked: CheckedState
   control: HTMLElement | null
   bubbles: boolean
@@ -43,7 +41,6 @@ const bubbleInput = defineComponent({
     ...bubbleInputProps.props,
   },
   setup(props, { attrs }) {
-    const { ...inputAttrs } = attrs as BubbleInputIntrinsicElement
     const { checked, bubbles, control } = toRefs(props)
     const _ref = ref<HTMLInputElement>()
 
@@ -69,11 +66,11 @@ const bubbleInput = defineComponent({
         'type': 'checkbox',
         'aria-hidden': true,
         'defaultChecked': computed(() => isIndeterminate(checked.value) ? false : checked.value).value,
-        ...inputAttrs,
+        ...attrs,
         'tabindex': -1,
         'ref': _ref,
         'style': {
-          ...inputAttrs.style as any,
+          ...attrs.style as any,
           ...controlSize.value,
           position: 'absolute',
           pointerEvents: 'none',
@@ -86,9 +83,5 @@ const bubbleInput = defineComponent({
 
 export const OkuBubbleInput = bubbleInput as typeof bubbleInput
 & (new () => {
-  $props: Partial<BubbleInputElement>
+  $props: BubbleInputNaviteElement
 })
-
-export type {
-  BubbleInputProps,
-}

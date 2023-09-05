@@ -3,14 +3,16 @@ import {
   defineComponent,
   mergeProps,
   onMounted,
+  toRefs,
 } from 'vue'
 
 import { OkuSlot } from '@oku-ui/slot'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { NODES, type Primitives } from './types'
+import { NODES } from './types'
+import type { OkuElement, Primitives } from './types'
 
 const Primitive = NODES.reduce((primitive, node) => {
-  const Node = defineComponent({
+  const selectNode = defineComponent({
     name: `Primitive${node}`,
     inheritAttrs: false,
     props: {
@@ -20,13 +22,13 @@ const Primitive = NODES.reduce((primitive, node) => {
       const forwarded = useForwardRef()
       const composedRefs = useComposedRefs(forwarded)
 
-      const { asChild, ...primitiveProps } = props
+      const { asChild, ...primitiveProps } = toRefs(props)
 
       onMounted(() => {
         (window as any)[Symbol.for('oku-ui')] = true
       })
 
-      const Tag: any = asChild ? OkuSlot : node
+      const Tag: any = asChild.value ? OkuSlot : node
       return () => {
         const mergedProps = mergeProps(attrs, primitiveProps)
         return createVNode(Tag, { ...mergedProps, ref: composedRefs }, {
@@ -36,7 +38,12 @@ const Primitive = NODES.reduce((primitive, node) => {
     },
   })
 
-  return { ...primitive, [node]: Node }
+  const NodeProps = selectNode as typeof selectNode
+  & (new () => {
+    $props: OkuElement<typeof node, true>
+  })
+
+  return { ...primitive, [node]: NodeProps }
 }, {} as Primitives)
 
 const OkuPrimitive = Primitive

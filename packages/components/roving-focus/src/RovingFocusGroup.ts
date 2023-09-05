@@ -2,11 +2,11 @@ import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { Ref } from 'vue'
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, toRefs } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
-import type { RovingFocusGroupImplElement, RovingFocusGroupImplIntrinsicElement, RovingFocusGroupImplProps } from './RovingFocusGroupImpl'
+import type { RovingFocusGroupImplElement, RovingFocusGroupImplNaviteElement, RovingFocusGroupImplProps } from './RovingFocusGroupImpl'
 import { scopedProps } from './types'
 import type { Direction, Orientation } from './utils'
 
@@ -65,7 +65,7 @@ type RovingProvideValue = {
 export const [rovingFocusProvider, useRovingFocusInject]
   = createRovingFocusGroupProvide<RovingProvideValue>(GROUP_NAME)
 
-export type RovingFocusGroupIntrinsicElement = RovingFocusGroupImplIntrinsicElement
+export type RovingFocusGroupNaviteElement = RovingFocusGroupImplNaviteElement
 export type RovingFocusGroupElement = RovingFocusGroupImplElement
 
 export interface RovingFocusGroupProps extends RovingFocusGroupImplProps { }
@@ -90,7 +90,16 @@ const rovingFocusGroup = defineComponent({
   },
   emits: rovingFocusGroupProps.emits,
   setup(props, { slots, attrs }) {
-    const { currentTabStopId, dir, loop, orientation, defaultCurrentTabStopId, asChild } = toRefs(props)
+    const {
+      currentTabStopId,
+      dir,
+      loop,
+      orientation,
+      defaultCurrentTabStopId,
+      asChild,
+      ...rest
+    } = toRefs(props)
+
     const forwardedRef = useForwardRef()
     return () => {
       return h(CollectionProvider, {
@@ -100,7 +109,7 @@ const rovingFocusGroup = defineComponent({
           scope: props.scopeOkuRovingFocusGroup,
         }, {
           default: () => h(OkuRovingFocusGroupImpl, {
-            ...attrs,
+            ...mergeProps(rest, attrs),
             asChild: asChild.value,
             currentTabStopId: currentTabStopId?.value,
             defaultCurrentTabStopId: defaultCurrentTabStopId?.value,
@@ -118,7 +127,7 @@ const rovingFocusGroup = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 const OkuRovingFocusGroup = rovingFocusGroup as typeof rovingFocusGroup &
 (new () => {
-  $props: Partial<RovingFocusGroupElement>
+  $props: RovingFocusGroupNaviteElement
 })
 
 export {

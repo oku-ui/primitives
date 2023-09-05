@@ -1,16 +1,15 @@
 import { defineComponent, h } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
-import type { ScopeCollapsible } from './utils'
 import { getState, scopeCollapsibleProps } from './utils'
 
 const TRIGGER_NAME = 'OkuCollapsibleTrigger'
 
-export type CollapsibleTriggerIntrinsicElement = ElementType<'button'>
+export type CollapsibleTriggerNaviteElement = OkuElement<'button'>
 export type CollapsibleTriggerElement = HTMLButtonElement
 
 export interface CollapsibleTriggerProps extends PrimitiveProps { }
@@ -37,7 +36,7 @@ const collapsibleTrigger = defineComponent({
   },
   emits: collapsibleTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...triggerAttrs } = attrs as CollapsibleTriggerIntrinsicElement
+    const { ...triggerAttrs } = attrs as CollapsibleTriggerNaviteElement
     const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
 
     const forwardedRef = useForwardRef()
@@ -69,5 +68,5 @@ const collapsibleTrigger = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCollapsibleTrigger = collapsibleTrigger as typeof collapsibleTrigger &
 (new () => {
-  $props: ScopeCollapsible<Partial<CollapsibleTriggerElement>>
+  $props: CollapsibleTriggerNaviteElement
 })

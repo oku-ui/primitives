@@ -2,8 +2,8 @@ import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
-import { computedEager, useCallbackRef, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
@@ -11,28 +11,25 @@ import type {
   Padding,
   Placement,
 } from '@floating-ui/vue'
-import type { Align, ScopePopper, Side } from './utils'
-import { ALIGN_OPTIONS, SIDE_OPTIONS, getSideAndAlignFromPlacement, isDefined, isNotNull, scopePopperProps, transformOrigin } from './utils'
-import type { PopperProvideValue } from './popper'
+import type { Align, Side } from './utils'
+import { ALIGN_OPTIONS, SIDE_OPTIONS, getSideAndAlignFromPlacement, isNotNull, scopePopperProps, transformOrigin } from './utils'
 import { createPopperProvider, usePopperInject } from './popper'
 
 const CONTENT_NAME = 'OkuPopperContent'
 
 type PopperContentContextValue = {
-  placedSide: Ref<Side>
-  arrow: Ref<HTMLSpanElement | null>
-  arrowX?: Ref<string>
-  arrowY?: Ref<string>
-  shouldHideArrow: Ref<boolean>
-  x?: Ref<number>
-  y?: Ref<number>
-} & PopperProvideValue
+  placedSide: Ref<Side | undefined>
+  onArrowChange(arrow: HTMLSpanElement | null): void
+  arrowX?: Ref<number | undefined>
+  arrowY?: Ref<number | undefined>
+  shouldHideArrow: Ref<boolean | undefined>
+}
 
 export const [popperContentProvider, usePopperContentInject] = createPopperProvider<PopperContentContextValue>(CONTENT_NAME)
 
 type Boundary = Element | null
 
-export type PopperContentIntrinsicElement = ElementType<'div'>
+export type PopperContentNaviteElement = OkuElement<'div'>
 export type PopperContentElement = HTMLDivElement
 
 export interface PopperContentProps extends PrimitiveProps {
@@ -113,7 +110,7 @@ export const popperContentProps = {
       default: 'optimized',
     },
   },
-  emit: {
+  emits: {
     placed: () => true,
   },
 }
@@ -126,8 +123,8 @@ const PopperContent = defineComponent({
     ...scopePopperProps,
     ...primitiveProps,
   },
-  emits: popperContentProps.emit,
-  setup(props, { attrs, slots }) {
+  emits: popperContentProps.emits,
+  setup(props, { attrs, slots, emit }) {
     const {
       side,
       sideOffset,
@@ -142,12 +139,12 @@ const PopperContent = defineComponent({
       updatePositionStrategy,
     } = toRefs(props)
 
-    const { ...attrsElement } = attrs as PopperContentIntrinsicElement
+    const { ...attrsElement } = attrs as PopperContentNaviteElement
 
     const inject = usePopperInject(CONTENT_NAME, props.scopeOkuPopper)
 
     const content = ref<HTMLDivElement | null>(null)
-    const composedRefs = useComposedRefs(content, useForwardRef())
+    const composedRefs = useComposedRefs(useForwardRef(), content)
 
     const arrow = ref<HTMLSpanElement | null>(null)
     const arrowSize = useSize(arrow)
@@ -158,21 +155,26 @@ const PopperContent = defineComponent({
     const desiredPlacement = computed(() => (side.value + (align.value !== 'center' ? `-${align.value}` : '')) as Placement)
 
     const collisionPadding
-      = typeof collisionPaddingProp.value === 'number'
+      = computed(() => typeof collisionPaddingProp.value === 'number'
         ? collisionPaddingProp.value as Padding
-        : { top: 0, right: 0, bottom: 0, left: 0, ...collisionPaddingProp.value } as Padding
+        : { top: 0, right: 0, bottom: 0, left: 0, ...collisionPaddingProp.value } as Padding)
 
-    const boundary = Array.isArray(collisionBoundary.value) ? collisionBoundary.value : [collisionBoundary.value]
-    const hasExplicitBoundaries = boundary.length > 0
+    const boundary = computed(() => Array.isArray(collisionBoundary.value)
+      ? collisionBoundary.value
+      : [collisionBoundary.value])
 
-    const detectOverflowOptions = {
-      padding: collisionPadding,
-      boundary: boundary.filter(isNotNull),
-      // with `strategy: 'fixed'`, this is the only way to get it to respect boundaries
-      altBoundary: hasExplicitBoundaries,
-    } as DetectOverflowOptions
+    const hasExplicitBoundaries = computed(() => boundary.value.length > 0)
 
-    const computedMiddleware = computedEager(() => {
+    const detectOverflowOptions = computed(() => {
+      return {
+        padding: collisionPadding.value,
+        boundary: boundary.value.filter(isNotNull),
+        // with `strategy: 'fixed'`, this is the only way to get it to respect boundaries
+        altBoundary: hasExplicitBoundaries.value,
+      } as DetectOverflowOptions
+    })
+
+    const computedMiddleware = computed(() => {
       return [
         offset({ mainAxis: sideOffset.value + arrowHeight.value, alignmentAxis: alignOffset.value }),
 
@@ -180,13 +182,13 @@ const PopperContent = defineComponent({
           mainAxis: true,
           crossAxis: false,
           limiter: sticky.value === 'partial' ? limitShift() : undefined,
-          ...detectOverflowOptions,
+          ...detectOverflowOptions.value,
         }),
 
-        avoidCollisions.value && flip({ ...detectOverflowOptions }),
+        avoidCollisions.value && flip({ ...detectOverflowOptions.value }),
 
         size({
-          ...detectOverflowOptions,
+          ...detectOverflowOptions.value,
           apply: ({ elements, rects, availableWidth, availableHeight }) => {
             const { width: anchorWidth, height: anchorHeight } = rects.reference
             const contentStyle = elements.floating.style
@@ -201,23 +203,27 @@ const PopperContent = defineComponent({
 
         transformOrigin({ arrowWidth: arrowWidth.value, arrowHeight: arrowHeight.value }),
 
-        hideWhenDetached.value && hide({ strategy: 'referenceHidden', ...detectOverflowOptions }),
-      ].filter(isDefined) as Middleware[]
+        hideWhenDetached.value && hide({ strategy: 'referenceHidden', ...detectOverflowOptions.value }),
+      ] as Middleware[]
     })
 
     const refElement = ref()
-    const { x, y, placement, isPositioned, middlewareData, update, strategy } = useFloating(inject.anchor, refElement, {
+    const { strategy, placement, isPositioned, middlewareData, update, floatingStyles } = useFloating(
+      computed(() => inject.anchor.value),
+      computed(() => refElement.value),
+      {
       // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
-      strategy: 'fixed',
-      placement: desiredPlacement,
-      whileElementsMounted: (...args) => {
-        const cleanup = autoUpdate(...args, {
-          animationFrame: updatePositionStrategy.value === 'optimized',
-        })
-        return cleanup
-      },
-      middleware: computedMiddleware,
-    })
+        strategy: 'fixed',
+        placement: desiredPlacement,
+        whileElementsMounted: (...args) => {
+          const cleanup = autoUpdate(...args, {
+            animationFrame: updatePositionStrategy.value === 'always',
+          })
+          return cleanup
+        },
+        middleware: computedMiddleware,
+        transform: false,
+      })
 
     const placedSide = computed(
       () => getSideAndAlignFromPlacement(placement.value)[0],
@@ -228,25 +234,11 @@ const PopperContent = defineComponent({
 
     watchEffect(() => {
       if (isPositioned.value)
-        props.onPlaced?.()
+        emit('placed')
     })
 
-    onMounted(() => {
-      update()
-    })
-
-    const handlePlaced = useCallbackRef(props.onPlaced)
-
-    watch([isPositioned, handlePlaced], () => {
-      if (isPositioned.value)
-        handlePlaced?.()
-    })
-
-    const floatingTop = computed(() => `${y.value ?? 0}px`)
-    const floatingLeft = computed(() => `${x.value ?? 0}px`)
-
-    const arrowX = computed(() => `${middlewareData.value.arrow?.x || 0}px`)
-    const arrowY = computed(() => `${middlewareData.value.arrow?.y || 0}px`)
+    const arrowX = computed(() => middlewareData.value.arrow?.x || 0)
+    const arrowY = computed(() => middlewareData.value.arrow?.y || 0)
     const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffset !== 0)
 
     const contentZIndex = ref()
@@ -257,16 +249,22 @@ const PopperContent = defineComponent({
     })
 
     popperContentProvider({
-      arrowX,
-      arrowY,
       scope: props.scopeOkuPopper,
-      shouldHideArrow: cannotCenterArrow,
-      onAnchorChange(anchor: HTMLElement | null) {
+      placedSide,
+      onArrowChange(anchor: HTMLElement | null) {
         arrow.value = anchor
       },
-      arrow,
-      placedSide,
-      anchor: inject.anchor,
+      arrowX,
+      arrowY,
+      shouldHideArrow: cannotCenterArrow,
+    })
+
+    watch([inject.anchor, refElement], () => {
+      update()
+    })
+
+    onMounted(() => {
+      update()
     })
 
     const originalReturn = () =>
@@ -275,9 +273,9 @@ const PopperContent = defineComponent({
           'ref': refElement,
           'data-oku-popper-content-wrapper': '',
           'style': {
-            'top': floatingTop.value,
-            'left': floatingLeft.value,
+            ...floatingStyles.value,
             'position': strategy.value,
+            'transform': isPositioned ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
             'min-width': 'max-content',
             'zIndex': contentZIndex.value,
             ['--oku-popper-transform-origin' as any]: [
@@ -303,10 +301,7 @@ const PopperContent = defineComponent({
                 // hide the content if using the hide middleware and should be hidden
                 opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
               } as StyleValue,
-            },
-            {
-              default: () => slots.default?.(),
-            },
+            }, slots,
           ),
         ],
       )
@@ -318,5 +313,5 @@ const PopperContent = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopperContent = PopperContent as typeof PopperContent
 & (new () => {
-  $props: ScopePopper<Partial<PopperContentIntrinsicElement>>
+  $props: PopperContentNaviteElement
 })

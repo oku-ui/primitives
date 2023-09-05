@@ -10,7 +10,7 @@ import { ref } from 'vue'
 
 export interface IPopperProps {
   template?: '#1' | '#2' | '#3'
-  allShow?: boolean
+  allshow?: boolean
 }
 
 withDefaults(defineProps<IPopperProps>(), {})
@@ -47,8 +47,8 @@ function setPressed(value: boolean) {
             </button>
             <OkuPopperArrow
               class="fill-red-500"
-              width="12"
-              height="12"
+              :width="12"
+              :height="12"
               offset="0"
             />
           </OkuPopperContent>

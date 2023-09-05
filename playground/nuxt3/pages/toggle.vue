@@ -2,5 +2,5 @@
 </script>
 
 <template>
-  <ToggleDemo template="#1" all-show />
+  <ToggleDemo :allshow="true" />
 </template>

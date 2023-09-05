@@ -39,9 +39,7 @@ const Popper = defineComponent({
       },
     })
 
-    const originalReturn = () => slots.default?.()
-
-    return originalReturn
+    return () => slots.default?.()
   },
 })
 

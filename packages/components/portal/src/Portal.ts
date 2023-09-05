@@ -1,31 +1,31 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type {
-  ComponentPublicInstanceRef,
-  ElementType,
+  OkuElement,
   PrimitiveProps,
 
 } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { Teleport, defineComponent, h, ref, toRefs } from 'vue'
+import { useForwardRef } from '@oku-ui/use-composable'
+import type { PropType } from 'vue'
+import { Teleport, defineComponent, h, toRefs } from 'vue'
 
 const PORTAL_NAME = 'OkuPortal'
 
-export type PortalElementIntrinsicElement = ElementType<'div'>
+export type PortalElementNaviteElement = OkuElement<'div'>
 export type PortalElement = HTMLDivElement
 
 export interface PortalProps extends PrimitiveProps {
   /**
    * An optional container where the portaled content should be appended.
    */
-  container?: HTMLElement | null
+  container?: HTMLElement | null | string | undefined
 }
 
 export const portalProps = {
   props: {
     ...primitiveProps,
     container: {
-      type: Object as () => HTMLElement | null | undefined,
-      default: () => globalThis.document.body,
+      type: [Object, String] as PropType<HTMLElement | string | null | undefined>,
+      default: () => globalThis?.document?.body,
     },
   },
   emits: {},
@@ -41,28 +41,23 @@ const portal = defineComponent({
   setup(props, { slots, attrs }) {
     const { asChild, container } = toRefs(props)
 
-    const { ...portalAttrs } = attrs
-
-    const portalRef = ref<ComponentPublicInstanceRef<HTMLDivElement> | null>()
-
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(portalRef, forwardedRef)
 
-    return () => container.value && slots.default
-      ? h(Teleport, { to: container.value }, [
-        h(
-          Primitive.div,
-          { ref: composedRefs, asChild: asChild.value, ...portalAttrs },
-          {
-            default: () => slots.default?.(),
-          },
-        ),
-      ])
+    return () => container.value
+      ? h(Teleport, { to: container.value, disabled: false }, h(Primitive.div,
+        {
+          ...attrs,
+          ref: forwardedRef,
+          asChild: asChild.value,
+        }, {
+          default: () => slots.default?.(),
+        }),
+      )
       : null
   },
 })
 
 export const OkuPortal = portal as typeof portal &
 (new () => {
-  $props: Partial<PortalElementIntrinsicElement>
+  $props: PortalElementNaviteElement
 })

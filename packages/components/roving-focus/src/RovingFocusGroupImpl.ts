@@ -2,11 +2,11 @@ import type { ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, unref, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { RovingFocusGroupOptions, ScopeRovingFocus } from './utils'
+import type { RovingFocusGroupOptions } from './utils'
 import { focusFirst, rovingFocusGroupOptionsProps } from './utils'
 import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
 import { scopedProps } from './types'
@@ -14,7 +14,7 @@ import { scopedProps } from './types'
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-export type RovingFocusGroupImplIntrinsicElement = ElementType<'div'>
+export type RovingFocusGroupImplNaviteElement = OkuElement<'div'>
 export type RovingFocusGroupImplElement = HTMLDivElement
 
 export interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
@@ -60,18 +60,19 @@ const RovingFocusGroupImpl = defineComponent({
   },
   emits: rovingFocusGroupImplProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as Omit<RovingFocusGroupImplIntrinsicElement, 'dir'>
+    const _attrs = attrs as Omit<RovingFocusGroupImplNaviteElement, 'dir'>
     const {
       orientation,
       loop,
-      dir,
       currentTabStopId: currentTabStopIdProp,
       defaultCurrentTabStopId,
       onEntryFocus,
       asChild,
       scopeOkuRovingFocusGroup,
+      dir,
       ...propsData
     } = toRefs(props)
+
     const buttonRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
@@ -94,8 +95,8 @@ const RovingFocusGroupImpl = defineComponent({
     watchEffect(() => {
       const node = buttonRef.value
       if (node) {
-        node.addEventListener(ENTRY_FOCUS, handleEntryFocus)
-        return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus)
+        node.addEventListener(ENTRY_FOCUS, handleEntryFocus.value)
+        return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus.value)
       }
     })
 
@@ -148,13 +149,13 @@ const RovingFocusGroupImpl = defineComponent({
             const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
             event.currentTarget?.dispatchEvent(entryFocusEvent)
             if (!entryFocusEvent.defaultPrevented) {
-              const items = getItems.value.filter(item => item.focusable)
+              const items = getItems().filter(item => item.focusable)
               const activeItem = items.find(item => item.active)
               const currentItem = items.find(item => item.id === currentTabStopId.value)
               const candidateItems = [activeItem, currentItem, ...items].filter(
                 Boolean,
               ) as typeof items
-              const candidateNodes = candidateItems.map(item => item.ref)
+              const candidateNodes = candidateItems.map(item => item.ref.value)
               focusFirst(candidateNodes)
             }
           }
@@ -166,9 +167,7 @@ const RovingFocusGroupImpl = defineComponent({
         }, () => {
           isTabbingBackOut.value = false
         }),
-      }, {
-        default: () => slots.default?.(),
-      })
+      }, slots)
     }
   },
 })
@@ -176,5 +175,5 @@ const RovingFocusGroupImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocusGroupImpl &
 (new () => {
-  $props: ScopeRovingFocus<Partial<RovingFocusGroupImplElement>>
+  $props: RovingFocusGroupImplNaviteElement
 })

@@ -2,15 +2,14 @@ import { computed, defineComponent, h, nextTick, toRefs, watchEffect } from 'vue
 import { useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
 import { composeEventHandlers } from '@oku-ui/utils'
 import { CollectionItemSlot, useCollection, useRovingFocusInject } from './RovingFocusGroup'
-import type { ScopeRovingFocus } from './utils'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
 import { scopedProps } from './types'
 
-export type RovingFocusGroupItemIntrinsicElement = ElementType<'span'>
+export type RovingFocusGroupItemNaviteElement = OkuElement<'span'>
 export type RovingFocusGroupItemElement = HTMLSpanElement
 
 export interface RovingFocusItemProps extends PrimitiveProps {
@@ -139,8 +138,8 @@ const rovingFocusGroupItem = defineComponent({
               if (focusIntent !== undefined) {
                 event.preventDefault()
 
-                const items = getItems.value.filter(item => item.focusable)
-                let candidateNodes = items.map(item => item.ref)
+                const items = getItems().filter(item => item.focusable)
+                let candidateNodes = items.map(item => item.ref.value)
                 if (focusIntent === 'last') {
                   candidateNodes.reverse()
                 }
@@ -170,5 +169,5 @@ const rovingFocusGroupItem = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuRovingFocusGroupItem = rovingFocusGroupItem as typeof rovingFocusGroupItem &
 (new () => {
-  $props: ScopeRovingFocus<Partial<RovingFocusGroupItemElement>>
+  $props: RovingFocusGroupItemNaviteElement
 })
