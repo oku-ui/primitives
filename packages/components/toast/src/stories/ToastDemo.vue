@@ -7,7 +7,7 @@ import ToastSubscribeSuccess from './ToastSubscribeSuccess.vue'
 import ToastWithProgress from './ToastWithProgress.vue'
 
 export interface IToastProps {
-  template?: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7' | '#8'
+  template?: '#1' | '#2' | '#3' | '#4' | '#5' | '#6' | '#7' | '#8' | '#9'
   allShow?: boolean
 }
 
@@ -56,6 +56,8 @@ function handelAnimatedOpen() {
 const count = ref(0)
 
 const VIEWPORT_PADDING = ref('10px')
+
+const SNAPSHOT_DELAY = ref(300)
 </script>
 
 <template>
@@ -275,6 +277,219 @@ const VIEWPORT_PADDING = ref('10px')
         </div>
       </OkuToastProvider>
     </template>
+    <!-- #9 -->
+    <template v-if="template === '#9' || allShow">
+      <h1>Order</h1>
+      <OkuToastProvider :duration="Infinity">
+        <OkuToast class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast 1
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToast class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast 2
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h1>Uncontrolled</h1>
+
+      <h2>Open</h2>
+      <OkuToastProvider>
+        <OkuToast :duration="Infinity" class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h2>Closed</h2>
+      <OkuToastProvider>
+        <OkuToast :open="false" :duration="Infinity" class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Title
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Uncontrolled foreground closed
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h1>Controlled</h1>
+
+      <h2>Open</h2>
+      <OkuToastProvider>
+        <OkuToast open :duration="Infinity" class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h2>Closed</h2>
+      <OkuToastProvider>
+        <OkuToast :open="false" :duration="Infinity" class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h1>Dismissed</h1>
+      <h2>Uncontrolled</h2>
+      <OkuToastProvider>
+        <OkuToast :duration="SNAPSHOT_DELAY - 100" class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h2>Controlled</h2>
+      <OkuToastProvider>
+        <OkuToast v-model="open" :duration="SNAPSHOT_DELAY - 100" :open="open" class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h1>Provider</h1>
+      <h2>Duration</h2>
+      <OkuToastProvider :duration="SNAPSHOT_DELAY - 100">
+        <OkuToast class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+
+      <h2>Duration overidden</h2>
+      <OkuToastProvider :duration="Infinity">
+        <OkuToast :duration="SNAPSHOT_DELAY - 100" class="toast">
+          <div class="header">
+            <OkuToastTitle class="title">
+              Toast
+            </OkuToastTitle>
+            <OkuToastClose class="button close">
+              ×
+            </OkuToastClose>
+          </div>
+          <OkuToastDescription class="description">
+            Description
+          </OkuToastDescription>
+          <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+            Action
+          </OkuToastAction>
+        </OkuToast>
+        <OkuToastViewport class="chromatic-viewport" />
+      </OkuToastProvider>
+    </template>
   </div>
 </template>
 
@@ -374,6 +589,7 @@ const VIEWPORT_PADDING = ref('10px')
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
+
   to {
     transform: translateX(calc(100% + v-bind(VIEWPORT_PADDING)));
   }
@@ -383,6 +599,7 @@ const VIEWPORT_PADDING = ref('10px')
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
+
   to {
     transform: translateX(calc(-100% - v-bind(VIEWPORT_PADDING)));
   }
@@ -392,6 +609,7 @@ const VIEWPORT_PADDING = ref('10px')
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
+
   to {
     transform: translateY(calc(-100% - v-bind(VIEWPORT_PADDING)));
   }
@@ -401,6 +619,7 @@ const VIEWPORT_PADDING = ref('10px')
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
+
   to {
     transform: translateY(calc(100% + v-bind(VIEWPORT_PADDING)));
   }

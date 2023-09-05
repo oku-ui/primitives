@@ -140,3 +140,18 @@ export const Cypress: Story = {
     `,
   }),
 }
+
+export const Chromatic: Story = {
+  args: {
+    template: '#9',
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
