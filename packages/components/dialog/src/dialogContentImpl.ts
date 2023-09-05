@@ -4,35 +4,19 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuDismissableLayer, dismissableLayerProps } from '@oku-ui/dismissable-layer'
-import type { type DismissableLayerEmits, DismissableLayerProps, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
-import { type FocusScopeEmits, OkuFocusScope } from '@oku-ui/focus-scope'
+import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
+import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
 import { useFocusGuards } from '@oku-ui/focus-guards'
-import { DialogOverlayImplNaviteElement, DialogOverlayImplProps } from './dialogOverlayImpl'
 import { DIALOG_NAME, DialogProvider, getState, scopeDialogrops, useDialogInject } from './utils'
 import { OkuDialogTitleWarning } from './dialogTitleWarning'
 import { OkuDialogDescriptionWarning } from './dialogDescriptionWarning'
+import { dialogContentProps } from './dialogContent'
 
 export const CONTENT_NAME = 'OkuDialogContentImpl'
 
-export type DialogContentImplNaviteElement = OkuElement<HTMLDivElement>
+export type DialogContentImplNaviteElement = OkuElement<'div'>
 
-export interface FocusScopeProps extends PrimitiveProps {
-  /**
-   * When `true`, tabbing from last item will focus first tabbable
-   * and shift+tab from first item will focus last tababble.
-   * @defaultValue false
-   */
-  loop?: boolean
-
-  /**
-   * When `true`, focus cannot escape the focus scope via keyboard,
-   * pointer, or a programmatic focus.
-   * @defaultValue false
-   */
-  trapped?: boolean
-}
-export interface DialogContentImplProps extends Omit<DismissableLayerProps, 'onDismiss'> {
+export interface DialogContentImplProps extends Omit<OkuDismissableLayerProps, 'onDismiss'> {
   /**
    * When `true`, focus cannot escape the `Content` via keyboard,
    * pointer, or a programmatic focus.
@@ -56,9 +40,9 @@ export type DialogContentImplEmits = {
 
 } & Omit<DismissableLayerEmits, 'dismiss'>
 
-export const dialogOverlayProps = {
+export const dialogContentImplProps = {
   props: {
-    ...primitiveProps,
+
     ...dismissableLayerProps.props,
     trapFocus: {
       type: Boolean as PropType<FocusScopeProps['trapped']>,
@@ -76,12 +60,17 @@ export const dialogOverlayProps = {
 
 const dialogContentImpl = defineComponent({
   name: DIALOG_NAME,
+  components: {
+    OkuFocusScope,
+    OkuDismissableLayer,
+  },
   inheritAttrs: false,
   props: {
-    ...dialogOverlayProps.props,
+    ...dialogContentImplProps.props,
+    ...primitiveProps,
     ...scopeDialogrops,
   },
-  emits: dialogOverlayProps.emits,
+  emits: dialogContentImplProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { ...restAttrs } = attrs as DialogContentImplNaviteElement
 
@@ -113,7 +102,6 @@ const dialogContentImpl = defineComponent({
           'aria-describedby': inject.descriptionId.value,
           'aria-labelledby': inject.titleId.value,
           'data-state': getState(inject.open.value!),
-          ...restAttrs,
           'ref': composedRefs,
           'onDismiss': () => {
             inject.onOpenChange(false)

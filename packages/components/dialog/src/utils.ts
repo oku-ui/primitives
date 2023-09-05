@@ -22,7 +22,7 @@ export const [createDialogProvider, createDialogScope] = createProvideScope(DIAL
 
 type DialogProvideValue = {
   triggerRef: Ref<HTMLButtonElement | null>
-  contentRef: Ref<DialogContentNaviteElement | null>
+  contentRef: Ref<HTMLDivElement | null>
   contentId: Ref<string>
   titleId: Ref<string>
   descriptionId: Ref<string>

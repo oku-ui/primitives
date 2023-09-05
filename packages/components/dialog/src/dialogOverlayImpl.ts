@@ -34,7 +34,6 @@ const dialogOverlayImpl = defineComponent({
     const inject = useDialogInject(OVERLAY_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
-    const composedTriggerRef = useComposedRefs(forwardRef, inject.triggerRef)
 
     const originalReturn = () => h(Primitive.div, {
       'data-state': getState(inject.open.value!),

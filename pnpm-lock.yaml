@@ -37,6 +37,9 @@ importers:
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:packages/components/collection
+      '@oku-ui/dialog':
+        specifier: workspace:^
+        version: link:packages/components/dialog
       '@oku-ui/direction':
         specifier: workspace:^
         version: link:packages/components/direction
@@ -303,7 +306,7 @@ importers:
     dependencies:
       '@oku-ui/presence':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -328,7 +331,7 @@ importers:
     dependencies:
       '@oku-ui/presence':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -359,7 +362,7 @@ importers:
         version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/slot':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -376,15 +379,42 @@ importers:
 
   packages/components/dialog:
     dependencies:
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:*
+        version: link:../dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: workspace:*
+        version: link:../../core/focus-guards
+      '@oku-ui/focus-scope':
+        specifier: workspace:*
+        version: link:../focus-scope
+      '@oku-ui/portal':
+        specifier: workspace:*
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: workspace:*
+        version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
-        version: 0.3.0-alpha.1(vue@3.3.4)
+        specifier: workspace:*
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:*
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: workspace:*
+        version: link:../slot
       '@oku-ui/use-composable':
-        specifier: latest
-        version: 0.3.0-alpha.1(vue@3.3.4)
+        specifier: workspace:*
+        version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
-        version: 0.3.0-alpha.1
+        specifier: workspace:*
+        version: link:../../core/utils
+      '@types/node':
+        specifier: ^18.17.12
+        version: 18.17.12
+      aria-hidden:
+        specifier: ^1.1.1
+        version: 1.2.3
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -479,7 +509,7 @@ importers:
         version: 0.4.0-alpha.1(vue@3.3.4)
       '@oku-ui/presence':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -488,7 +518,7 @@ importers:
         version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/slot':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -513,7 +543,7 @@ importers:
         version: 1.0.2(vue@3.3.4)
       '@oku-ui/arrow':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -598,10 +628,10 @@ importers:
     dependencies:
       '@oku-ui/direction':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/presence':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -610,7 +640,7 @@ importers:
         version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/roving-focus':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -629,10 +659,10 @@ importers:
     dependencies:
       '@oku-ui/collection':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/direction':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -676,10 +706,10 @@ importers:
     dependencies:
       '@oku-ui/collection':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/direction':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -742,10 +772,10 @@ importers:
     dependencies:
       '@oku-ui/direction':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/presence':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -754,7 +784,7 @@ importers:
         version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/roving-focus':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -795,10 +825,10 @@ importers:
     dependencies:
       '@oku-ui/direction':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/presence':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -807,10 +837,10 @@ importers:
         version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/roving-focus':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/toggle':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -829,7 +859,7 @@ importers:
     dependencies:
       '@oku-ui/direction':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -838,7 +868,7 @@ importers:
         version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/roving-focus':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/separator':
         specifier: latest
         version: link:../separator
@@ -872,7 +902,7 @@ importers:
         version: 0.4.0-alpha.1(vue@3.3.4)
       '@oku-ui/presence':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -881,7 +911,7 @@ importers:
         version: 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/slot':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -929,7 +959,7 @@ importers:
     dependencies:
       '@oku-ui/slot':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable':
         specifier: latest
         version: 0.3.0-alpha.1(vue@3.3.4)
@@ -1027,7 +1057,7 @@ importers:
         version: link:../components/separator
       '@oku-ui/toggle':
         specifier: latest
-        version: 0.4.0-alpha.1(vue@3.3.4)
+        version: 0.4.0-alpha.4(vue@3.3.4)
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -3973,7 +4003,7 @@ packages:
     hasBin: true
     dependencies:
       nx: 16.7.4
-      tslib: 2.5.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - '@swc-node/register'
       - '@swc/core'
@@ -4304,8 +4334,8 @@ packages:
     dev: true
     optional: true
 
-  /@oku-ui/arrow@0.4.0-alpha.1(vue@3.3.4):
-    resolution: {integrity: sha512-fc0RGrLnFI0eh1bjLSPfRYZQFnrafIcj171zH2RzZNVXDEbQS6PdSgbDyHFEF+rV9uoDUXA6PEQcFBNPTuxdbw==}
+  /@oku-ui/arrow@0.4.0-alpha.4(vue@3.3.4):
+    resolution: {integrity: sha512-QblEyP6uzAO+l2t9TVMjkL93D/nLUzAyYLe09x3T4/Urwt+kKHV8mRCVW3p0Y1dquB1El/Tkb4HJrCDROok13g==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
@@ -4317,28 +4347,15 @@ packages:
       - '@vue/composition-api'
     dev: false
 
-  /@oku-ui/arrow@0.4.0-alpha.2(vue@3.3.4):
-    resolution: {integrity: sha512-eGNs1SLCQhjWsz6GbWzs20gTLUYgCoPTLgk2eXYyWzxKrbjMXTBFQsa9SAnVMfMi5uunS15+GqWjdxtBoqvqFg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^3.3.0
-    dependencies:
-      '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
-
-  /@oku-ui/collection@0.4.0-alpha.1(vue@3.3.4):
-    resolution: {integrity: sha512-Xzq2oKWlyVt1IcGahVNiRcMpgtgzRoFTn9TEXGfleBymxXEG89e0EyPfLRp4j9Q5Ndpl1wtK+badGRtCBN/1qw==}
+  /@oku-ui/collection@0.4.0-alpha.4(vue@3.3.4):
+    resolution: {integrity: sha512-hQzJsO4NSz2hff9G5ITXRhcZNnTM5PQ7sxFXlUxmaRmuAqyM0na+VVUFAULLcqcTyRTLrqiqX27hRXBMk8Ky3g==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
     dependencies:
       '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/provide': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/slot': 0.4.0-alpha.2(vue@3.3.4)
+      '@oku-ui/slot': 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/utils': 0.3.0-alpha.1
       vue: 3.3.4
@@ -4346,33 +4363,8 @@ packages:
       - '@vue/composition-api'
     dev: false
 
-  /@oku-ui/collection@0.4.0-alpha.2(vue@3.3.4):
-    resolution: {integrity: sha512-haoGUqxPOxC/jw/1R9JPHe/8NPRYCK4yDAXbISSxyLrSG/8jxOv2XPNQCWkKezDoYfYFYzx4I4zm2jwUtHkzgA==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^3.3.0
-    dependencies:
-      '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/provide': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/slot': 0.4.0-alpha.2(vue@3.3.4)
-      '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/utils': 0.3.0-alpha.1
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
-
-  /@oku-ui/direction@0.4.0-alpha.1(vue@3.3.4):
-    resolution: {integrity: sha512-/WgN4PAzqdktTOPKBhQ71cYAOB4N0i9XDwCsgY0wGOz/QsqGt/0r5nBe2DBnj8IBqfLYU3w9MMIdLWWSP4sumw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^3.3.0
-    dependencies:
-      vue: 3.3.4
-    dev: false
-
-  /@oku-ui/direction@0.4.0-alpha.2(vue@3.3.4):
-    resolution: {integrity: sha512-Jfsu8F+caOPLXZUnVMq2+2vruSnzgnDFEpCCRr0Oci/OoaZUTZE049EbiaLeplhKicUQZeUD3e2JXsiwXr1pgQ==}
+  /@oku-ui/direction@0.4.0-alpha.4(vue@3.3.4):
+    resolution: {integrity: sha512-ZAZvSuC/KXzh+R++6KednU6TJ2GM4sXlw/TxsZo52/WT6aRUJGHvMRORW10Hq59RA9SFTIcQQNqZZ4RgbxY4qQ==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
@@ -4424,7 +4416,7 @@ packages:
       vue: ^3.3.0
     dependencies:
       '@floating-ui/vue': 1.0.2(vue@3.3.4)
-      '@oku-ui/arrow': 0.4.0-alpha.2(vue@3.3.4)
+      '@oku-ui/arrow': 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/provide': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
@@ -4449,21 +4441,8 @@ packages:
       - '@vue/composition-api'
     dev: false
 
-  /@oku-ui/presence@0.4.0-alpha.1(vue@3.3.4):
-    resolution: {integrity: sha512-Gi6lLupiGii/KseSNS57vX/CK7SXdV1nNqQFHQHKTNsdqsm78Mk9SMSqSPOGagYRfVYaAPH4B5OeL6lT9psXJw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^3.3.0
-    dependencies:
-      '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/utils': 0.3.0-alpha.1
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
-
-  /@oku-ui/presence@0.4.0-alpha.2(vue@3.3.4):
-    resolution: {integrity: sha512-5dhAa+K+ZNBwBfGNDyWziXQvc+I6h5w34Ngi4L35Fk50ph5kRxLIdUmMzrm5hcMKvi9rUInbWE5+3qGSx3Kg9w==}
+  /@oku-ui/presence@0.4.0-alpha.4(vue@3.3.4):
+    resolution: {integrity: sha512-OVEzYDSjbU2/bSVKemRY/QKVuAjutV0FfNOedH2fMW9jk2KnWx82+Sn3lqjFGGw5wCpMzS3D77hNR2a0+3U7IA==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
@@ -4480,7 +4459,7 @@ packages:
     peerDependencies:
       vue: ^3.3.0
     dependencies:
-      '@oku-ui/slot': 0.4.0-alpha.2(vue@3.3.4)
+      '@oku-ui/slot': 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
       filter-anything: 3.0.7
       vue: 3.3.4
@@ -4496,14 +4475,14 @@ packages:
       vue: 3.3.4
     dev: false
 
-  /@oku-ui/roving-focus@0.4.0-alpha.1(vue@3.3.4):
-    resolution: {integrity: sha512-uj5ciRGTTdNK+79jqCwp1vCsDU5tcE76PrgfLkthxksy3TUCelUxTHozGdMHuURvUlLXFaiguWdzjCR2EN8nlw==}
+  /@oku-ui/roving-focus@0.4.0-alpha.4(vue@3.3.4):
+    resolution: {integrity: sha512-RZ8hk8728/5VeXXrYP/HVXsRaFuFZlXOJUpeSsv51mEE4HsUyikJv8SddPlGx5oQU6atPYlwKczPy9wot+o+Bw==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
     dependencies:
-      '@oku-ui/collection': 0.4.0-alpha.2(vue@3.3.4)
-      '@oku-ui/direction': 0.4.0-alpha.2(vue@3.3.4)
+      '@oku-ui/collection': 0.4.0-alpha.4(vue@3.3.4)
+      '@oku-ui/direction': 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/provide': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
@@ -4513,38 +4492,8 @@ packages:
       - '@vue/composition-api'
     dev: false
 
-  /@oku-ui/roving-focus@0.4.0-alpha.2(vue@3.3.4):
-    resolution: {integrity: sha512-ewV/8BeqlOjUf0rNBYdfkhGksVY/94BTbJCWjaXID5/4/1HPalhqUzPs/xB/fqhSxHLbYyXgmnn4Iic3qZrA+A==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^3.3.0
-    dependencies:
-      '@oku-ui/collection': 0.4.0-alpha.2(vue@3.3.4)
-      '@oku-ui/direction': 0.4.0-alpha.2(vue@3.3.4)
-      '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/provide': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/utils': 0.3.0-alpha.1
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
-
-  /@oku-ui/slot@0.4.0-alpha.1(vue@3.3.4):
-    resolution: {integrity: sha512-vnfba+RwMPVMKt6LLjCXIV8QQNIHIR/DgLvPP5rspER8OcxwMDL64X9xkSRsuREDPmUoXoZXmwuxbwfHr4bp3g==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^3.3.0
-    dependencies:
-      '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/utils': 0.3.0-alpha.1
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
-
-  /@oku-ui/slot@0.4.0-alpha.2(vue@3.3.4):
-    resolution: {integrity: sha512-fFFpegfkvTYydsWVBHCpDMmIX+/PC3hiK+bMUj3FPGXZ5EZn/RHJ1fTkDAKCSXteJLYocrOoG9Ekw2WoGh+xfw==}
+  /@oku-ui/slot@0.4.0-alpha.4(vue@3.3.4):
+    resolution: {integrity: sha512-4efEwM1k1EZ2HZieJKHa4AOS2HwzhJTDu4N6TvsRnicT6E9JBRBGDY0IBQmegIrk68NCi5J43VAz5hHRU9iLiA==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
@@ -4561,12 +4510,12 @@ packages:
     peerDependencies:
       vue: ^3.3.0
     dependencies:
-      '@oku-ui/direction': 0.4.0-alpha.2(vue@3.3.4)
-      '@oku-ui/presence': 0.4.0-alpha.2(vue@3.3.4)
+      '@oku-ui/direction': 0.4.0-alpha.4(vue@3.3.4)
+      '@oku-ui/presence': 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/provide': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/roving-focus': 0.4.0-alpha.2(vue@3.3.4)
-      '@oku-ui/toggle': 0.4.0-alpha.2(vue@3.3.4)
+      '@oku-ui/roving-focus': 0.4.0-alpha.4(vue@3.3.4)
+      '@oku-ui/toggle': 0.4.0-alpha.4(vue@3.3.4)
       '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
       '@oku-ui/utils': 0.3.0-alpha.1
       vue: 3.3.4
@@ -4574,23 +4523,8 @@ packages:
       - '@vue/composition-api'
     dev: false
 
-  /@oku-ui/toggle@0.4.0-alpha.1(vue@3.3.4):
-    resolution: {integrity: sha512-zfGDaT9leVD192WYwWRwrMfrGXW5YYssUie0nYkVhB/VfHRaoL6AdotyoOqwLkTZvJ8i4DLQ05g8g5Um5bxQFA==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^3.3.0
-    dependencies:
-      '@oku-ui/primitive': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/provide': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/use-composable': 0.3.0-alpha.1(vue@3.3.4)
-      '@oku-ui/utils': 0.3.0-alpha.1
-      vue: 3.3.4
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-    dev: false
-
-  /@oku-ui/toggle@0.4.0-alpha.2(vue@3.3.4):
-    resolution: {integrity: sha512-UJoMvHUrBmikAVHzBQl8xVp6WUn6GQB/lo0YDxDeAvUeCJHcWaBIb2GhGysCNfxod9Q96qdF7yP6FN7a+LPNOw==}
+  /@oku-ui/toggle@0.4.0-alpha.4(vue@3.3.4):
+    resolution: {integrity: sha512-PVymjvYsDhZpT2r47fCxLR5Qa2C4B4v5s4XA9UpoRNvH2GUhj07V32mjBSPOQTYZ5DoQ4J+mpKiCwaCMJ9IjUQ==}
     engines: {node: '>=18'}
     peerDependencies:
       vue: ^3.3.0
@@ -7628,7 +7562,7 @@ packages:
     engines: {node: '>=14.15.0'}
     dependencies:
       js-yaml: 3.14.1
-      tslib: 2.5.0
+      tslib: 2.6.2
     dev: true
 
   /@zkochan/js-yaml@0.0.6:
@@ -14047,7 +13981,7 @@ packages:
     dependencies:
       react: 18.2.0
       react-style-singleton: 2.2.1(react@18.2.0)
-      tslib: 2.5.0
+      tslib: 2.6.2
     dev: true
 
   /react-remove-scroll@2.5.5(react@18.2.0):
@@ -14063,7 +13997,7 @@ packages:
       react: 18.2.0
       react-remove-scroll-bar: 2.3.4(react@18.2.0)
       react-style-singleton: 2.2.1(react@18.2.0)
-      tslib: 2.5.0
+      tslib: 2.6.2
       use-callback-ref: 1.3.0(react@18.2.0)
       use-sidecar: 1.1.2(react@18.2.0)
     dev: true
@@ -14081,7 +14015,7 @@ packages:
       get-nonce: 1.0.1
       invariant: 2.2.4
       react: 18.2.0
-      tslib: 2.5.0
+      tslib: 2.6.2
     dev: true
 
   /react@18.2.0:
@@ -15902,7 +15836,7 @@ packages:
         optional: true
     dependencies:
       react: 18.2.0
-      tslib: 2.5.0
+      tslib: 2.6.2
     dev: true
 
   /use-resize-observer@9.1.0(react-dom@18.2.0)(react@18.2.0):
@@ -15928,7 +15862,7 @@ packages:
     dependencies:
       detect-node-es: 1.1.0
       react: 18.2.0
-      tslib: 2.5.0
+      tslib: 2.6.2
     dev: true
 
   /util-deprecate@1.0.2:

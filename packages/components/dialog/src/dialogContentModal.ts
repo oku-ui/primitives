@@ -2,7 +2,8 @@ import { PropType, Ref, computed, defineComponent, h, ref, toRefs, watchEffect }
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { DIALOG_NAME, DialogProvider, getState, hideOthers, scopeDialogrops, useDialogInject } from './utils'
+import { hideOthers } from 'aria-hidden'
+import { DIALOG_NAME, DialogProvider, getState, scopeDialogrops, useDialogInject } from './utils'
 import { DialogOverlayImplNaviteElement, DialogOverlayImplProps } from './dialogOverlayImpl'
 import type { DialogContentImplEmits, DialogContentImplNaviteElement, DialogContentImplProps } from './dialogContentImpl'
 import { OkuDialogContentImpl } from './dialogContentImpl'
@@ -75,7 +76,7 @@ const dialogContentModal = defineComponent({
           event.preventDefault()
       }),
 
-      onFocusOutside: composeEventHandlers<DialogContentModalEmits['focusOutside'][0]>((el) => {
+      onFocusOutside: composeEventHandlers<DialogContentModalEmits['focusoutSide'][0]>((el) => {
         emit('focusOutside', el)
       }, (event) => {
         event.preventDefault()

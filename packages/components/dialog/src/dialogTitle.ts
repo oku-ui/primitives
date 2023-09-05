@@ -6,7 +6,7 @@ import { DIALOG_NAME, DialogProvider, createDialogProvider, getState, scopeDialo
 
 export const TITLE_NAME = 'OkuDialogTitle'
 
-export type DialogTitleNaviteElement = OkuElement<typeof Primitive.h2>
+export type DialogTitleNaviteElement = OkuElement<'h2'>
 
 interface DialogTitleProps extends PrimitiveProps {}
 

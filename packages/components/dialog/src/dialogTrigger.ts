@@ -7,7 +7,7 @@ import { DIALOG_NAME, DialogProvider, getState, scopeDialogrops, useDialogInject
 
 const TRIGGER_NAME = 'OkuDialogTrigger'
 
-export type DialogTriggerNaviteElement = OkuElement<typeof Primitive.button>
+export type DialogTriggerNaviteElement = OkuElement<'button'>
 
 export interface DialogTriggerProps extends PrimitiveProps {
 }

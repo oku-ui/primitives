@@ -6,7 +6,7 @@ import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { DIALOG_NAME, DialogProvider, scopeDialogrops } from './utils'
 import type { DialogContentNaviteElement } from './dialogContent'
 
-export type DialogNaviteElement = OkuElement<typeof Primitive.button>
+export type DialogNaviteElement = OkuElement<'button'>
 
 interface DialogProps {
   open?: Ref<boolean | undefined>
@@ -49,7 +49,7 @@ const dialog = defineComponent({
       modal,
     } = toRefs(props)
     const triggerRef = ref<HTMLButtonElement | null>(null)
-    const contentRef = ref<DialogContentNaviteElement | null>(null)
+    const contentRef = ref<HTMLDivElement | null>(null)
 
     const { state, updateValue } = useControllable({
       prop: computed(() => openProp.value),

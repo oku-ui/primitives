@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/label",
+  "name": "@oku-ui/dialog",
   "type": "module",
   "version": "0.2.3",
   "license": "MIT",
@@ -37,11 +37,21 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/primitive": "latest",
-    "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest"
+    "@oku-ui/use-composable": "workspace:*",
+    "@oku-ui/provide": "workspace:*",
+    "@oku-ui/dismissable-layer": "workspace:*",
+    "@oku-ui/focus-guards": "workspace:*",
+    "@oku-ui/focus-scope": "workspace:*",
+    "@oku-ui/portal": "workspace:*",
+    "@oku-ui/presence": "workspace:*",
+    "@oku-ui/primitive": "workspace:*",
+    "@oku-ui/slot": "workspace:*",
+    "@oku-ui/utils": "workspace:*",
+    "aria-hidden": "^1.1.1",
+    "@types/node": "^18.17.12"
   },
   "devDependencies": {
+
     "tsconfig": "workspace:^"
   },
   "publishConfig": {

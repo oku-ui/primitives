@@ -21,7 +21,7 @@ interface DialogContentProps extends DialogContentModalProps {
    */
   forceMount?: true
 }
-export const dialogOverlayProps = {
+export const dialogContentProps = {
   props: {
     ...primitiveProps,
     forceMount: {
@@ -37,10 +37,10 @@ const dialogContent = defineComponent({
   name: CONTENT_NAME,
   inheritAttrs: false,
   props: {
-    ...dialogOverlayProps.props,
+    ...dialogContentProps.props,
     ...scopeDialogrops,
   },
-  emits: dialogOverlayProps.emits,
+  emits: dialogContentProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { ...restAttrs } = attrs as DialogContentNaviteElement
 

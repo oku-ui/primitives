@@ -8,7 +8,7 @@ import { DialogOverlayImplNaviteElement, DialogOverlayImplProps } from './dialog
 
 export const CLOSE_NAME = 'OkuDialogClose'
 
-export type DialogCloseNaviteElement = OkuElement<typeof Primitive.button>
+export type DialogCloseNaviteElement = OkuElement<'button'>
 
 export type DialogCloseEmits = {
   click: [event: MouseEvent]
