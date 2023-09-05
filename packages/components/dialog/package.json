@@ -36,7 +36,7 @@
   "peerDependencies": {
     "vue": "^3.3.0"
   },
-  "dependencies": {    
+  "dependencies": {
     "@oku-ui/dismissable-layer": "latest",
     "@oku-ui/focus-guards": "latest",
     "@oku-ui/focus-scope": "latest",
@@ -45,8 +45,8 @@
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
     "@oku-ui/slot": "latest",
-    "@oku-ui/use-composable": "latest",   
-    "@oku-ui/utils": "latest", 
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest",
     "@types/node": "^18.17.12",
     "aria-hidden": "^1.1.1"
   },
