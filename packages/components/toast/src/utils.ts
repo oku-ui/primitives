@@ -65,13 +65,14 @@ function isDeltaInDirection(delta: { x: number; y: number },
 
 function useNextFrame(callback = () => {}) {
   const fn = useCallbackRef(callback)
-  watchEffect(async (onClean) => {
+  watchEffect(async (onInvalidate) => {
     await nextTick()
 
     let raf1 = 0
     let raf2 = 0
     raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(fn.value)))
-    onClean(() => {
+
+    onInvalidate(() => {
       window.cancelAnimationFrame(raf1)
       window.cancelAnimationFrame(raf2)
     })

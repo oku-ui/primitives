@@ -1,4 +1,4 @@
-import { Fragment, defineComponent, h, onMounted, onUnmounted, ref, toRefs } from 'vue'
+import { Fragment, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
@@ -45,14 +45,10 @@ const toastAnnounce = defineComponent({
     // render text content in the next frame to ensure toast is announced in NVDA
     useNextFrame(() => renderAnnounceText.value = true)
 
-    let timer: number | undefined
+    watchEffect((onInvalidate) => {
+      const timer = window.setTimeout(() => isAnnounced.value = true, 1000)
 
-    onMounted(() => {
-      timer = window.setTimeout(() => isAnnounced.value = true, 1000)
-    })
-
-    onUnmounted(() => {
-      window.clearTimeout(timer)
+      onInvalidate(() => window.clearTimeout(timer))
     })
 
     return () => isAnnounced.value
@@ -66,9 +62,12 @@ const toastAnnounce = defineComponent({
               ...toastAnnounceAttrs,
             },
             {
-              default: () => renderAnnounceText.value && h(Fragment, {
-                default: () => inject.label.value && slots.default?.(),
-              }),
+              default: () => renderAnnounceText.value && h(Fragment,
+                [
+                  inject.label.value,
+                  slots.default?.(),
+                ],
+              ),
             },
           ),
         },

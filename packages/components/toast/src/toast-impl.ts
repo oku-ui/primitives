@@ -1,7 +1,7 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import { Fragment, Teleport, computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { Fragment, Teleport, computed, defineComponent, h, nextTick, ref, toRefs, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
@@ -196,7 +196,9 @@ const toastImpl = defineComponent({
         startTimer(duration.value)
     })
 
-    watchEffect((onInvalidate) => {
+    watchEffect(async (onInvalidate) => {
+      await nextTick()
+
       onToastAdd()
 
       onInvalidate(() => onToastRemove())
@@ -221,8 +223,7 @@ const toastImpl = defineComponent({
       return h(Fragment,
         [
           announceTextContent.value
-          && h(
-            OkuToastAnnounce,
+          && h(OkuToastAnnounce,
             {
               'scope': props.scopeOkuToast,
               // Toasts are always role=status to avoid stuttering issues with role=alert in SRs.
@@ -230,7 +231,7 @@ const toastImpl = defineComponent({
               'aria-live': computed(() => type.value === 'foreground' ? 'assertive' : 'polite').value,
               'aria-atomic': true,
             }, {
-              default: () => announceTextContent,
+              default: () => announceTextContent.value,
             },
           ),
 
