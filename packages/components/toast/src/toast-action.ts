@@ -61,8 +61,7 @@ const toastAction = defineComponent({
           asChild: true,
         },
         {
-          default: () => h(
-            OkuToastClose,
+          default: () => h(OkuToastClose,
             {
               ...attrs,
               ref: forwardedRef,

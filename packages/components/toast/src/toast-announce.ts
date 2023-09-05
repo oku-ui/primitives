@@ -56,8 +56,7 @@ const toastAnnounce = defineComponent({
       : h(OkuPortal,
         { asChild: true },
         {
-          default: () => h(
-            OkuVisuallyHidden,
+          default: () => h(OkuVisuallyHidden,
             {
               ...toastAnnounceAttrs,
             },
