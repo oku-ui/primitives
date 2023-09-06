@@ -25,6 +25,6 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
   </div>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="postcss">
 @import './hover.css'
 </style>

@@ -41,3 +41,18 @@ export const Basic: Story = {
     `,
   }),
 }
+
+export const ContainTextSelection: Story = {
+  args: {
+    template: 'ContainTextSelection',
+  },
+  render: (args: any) => ({
+    components: { HoverCardDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <HoverCardDemo v-bind="args" />
+    `,
+  }),
+}
