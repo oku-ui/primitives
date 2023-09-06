@@ -1,28 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { OkuLabelProps } from './LabelDemo.vue'
-import OkuLabelComponent from './LabelDemo.vue'
+import type { OkuHoverCardProps } from './HoverCardDemo.vue'
+import HoverCardDemo from './HoverCardDemo.vue'
 
-interface StoryProps extends OkuLabelProps {
+interface StoryProps extends OkuHoverCardProps {
 }
 
 const meta = {
-  title: 'Components/Label',
-  component: OkuLabelComponent,
+  title: 'Components/HoverCard',
+  component: HoverCardDemo,
   args: {
-    label: 'Label',
-    template: '#1',
+    template: 'basic',
   },
   argTypes: {
-    label: {
-      control: 'text',
-    },
     template: {
       control: 'text',
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof OkuLabelComponent> & {
+} satisfies Meta<typeof HoverCardDemo> & {
   args: StoryProps
 }
 
@@ -31,34 +27,17 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Styled: Story = {
+export const Basic: Story = {
   args: {
-    label: 'Label',
-    template: '#1',
+    template: 'basic',
   },
   render: (args: any) => ({
-    components: { OkuLabelComponent },
+    components: { HoverCardDemo },
     setup() {
       return { args }
     },
     template: `
-      <OkuLabelComponent v-bind="args" />
-    `,
-  }),
-}
-
-export const WithControl: Story = {
-  args: {
-    label: 'Label',
-    template: '#2',
-  },
-  render: (args: any) => ({
-    components: { OkuLabelComponent },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuLabelComponent v-bind="args" />
+      <HoverCardDemo v-bind="args" />
     `,
   }),
 }

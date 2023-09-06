@@ -278,7 +278,7 @@ import {
   </OkuTooltipProvider>
 </template>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 .positionButtonClass {
   margin: 5px;
   border: 1px solid black;
