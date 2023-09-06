@@ -119,9 +119,6 @@
   },
   "pnpm": {
     "overrides": {
-      "@vue/runtime-core": "3.3.4",
-      "vite": "4.3.5",
-      "vue": "3.3.4",
       "@oku-ui/arrow": "workspace:^",
       "@oku-ui/aspect-ratio": "workspace:^",
       "@oku-ui/avatar": "workspace:^",
@@ -152,7 +149,10 @@
       "@oku-ui/toggle": "workspace:^",
       "@oku-ui/toggle-group": "workspace:^",
       "@oku-ui/toolbar": "workspace:^",
-      "@oku-ui/tooltip": "workspace:^"
+      "@oku-ui/tooltip": "workspace:^",
+      "@vue/runtime-core": "3.3.4",
+      "vite": "4.3.5",
+      "vue": "3.3.4"
     }
   },
   "simple-git-hooks": {
