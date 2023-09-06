@@ -208,9 +208,6 @@ const toastImpl = defineComponent({
       return node.value ? getAnnounceTextContent(node.value) : null
     })
 
-    if (!inject.viewport.value)
-      return null
-
     toastInteractiveProvider({
       scope: props.scopeOkuToast,
       onClose: () => handleClose.value(),
@@ -219,6 +216,9 @@ const toastImpl = defineComponent({
     return () => {
       if (type.value && !['foreground', 'background'].includes(type.value))
         throw new Error(`Invalid prop \`type\` supplied to \`${TOAST_NAME}\`. Expected \`foreground | background\`.`)
+
+      if (!inject.viewport.value)
+        return null
 
       return h(Fragment,
         [

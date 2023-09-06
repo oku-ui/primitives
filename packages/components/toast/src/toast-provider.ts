@@ -101,9 +101,7 @@ const toastProvider = defineComponent({
       return h(CollectionProvider,
         {
           scope: props.scopeOkuToast,
-        }, {
-          default: () => slots.default?.(),
-        },
+        }, slots,
       )
     }
   },
