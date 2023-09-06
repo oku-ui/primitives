@@ -27,6 +27,8 @@ const duration = ref(3000)
 </template>
 
 <style scoped>
+@import './toast.css'
+
 .progress-bar {
   position: absolute;
   bottom: 0;

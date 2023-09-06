@@ -24,3 +24,7 @@ defineProps({
     </OkuToastAction>
   </OkuToast>
 </template>
+
+<style scoped lang="postcss">
+@import './toast.css'
+</style>

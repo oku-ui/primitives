@@ -22,7 +22,8 @@ defineProps({
   </OkuToast>
 </template>
 
-<style scoped>
+<style scoped lang="postcss">
+@import './toast.css'
 .success-header {
   background: green;
 }

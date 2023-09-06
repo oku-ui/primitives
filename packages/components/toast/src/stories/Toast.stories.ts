@@ -10,7 +10,7 @@ const meta = {
   component: OkuToastComponent,
   tags: ['autodocs'],
   args: {
-    template: '#1',
+    template: 'Styled',
   },
 } satisfies Meta<typeof OkuToastComponent> & {
   args: StoryProps
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    template: '#1',
+    template: 'Styled',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
@@ -38,7 +38,7 @@ export const Styled: Story = {
 
 export const Controlled: Story = {
   args: {
-    template: '#2',
+    template: 'Controlled',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
@@ -53,7 +53,7 @@ export const Controlled: Story = {
 
 // export const FromDialog: Story = {
 //   args: {
-//     template: '#3',
+//     template: 'FromDialog',
 //   },
 //   render: (args: any) => ({
 //     components: { OkuToastComponent },
@@ -68,7 +68,7 @@ export const Controlled: Story = {
 
 export const Promise: Story = {
   args: {
-    template: '#4',
+    template: 'Promise',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
@@ -83,7 +83,7 @@ export const Promise: Story = {
 
 export const KeyChange: Story = {
   args: {
-    template: '#5',
+    template: 'KeyChange',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
@@ -98,7 +98,7 @@ export const KeyChange: Story = {
 
 export const PauseResumeProps: Story = {
   args: {
-    template: '#6',
+    template: 'PauseResumeProps',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
@@ -113,7 +113,7 @@ export const PauseResumeProps: Story = {
 
 export const Animated: Story = {
   args: {
-    template: '#7',
+    template: 'Animated',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
@@ -128,7 +128,7 @@ export const Animated: Story = {
 
 export const Cypress: Story = {
   args: {
-    template: '#8',
+    template: 'Cypress',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
@@ -143,7 +143,7 @@ export const Cypress: Story = {
 
 export const Chromatic: Story = {
   args: {
-    template: '#9',
+    template: 'Chromatic',
   },
   render: (args: any) => ({
     components: { OkuToastComponent },
