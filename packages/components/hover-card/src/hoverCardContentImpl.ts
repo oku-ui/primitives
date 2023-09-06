@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, onMounted, ref, watchEffect } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -86,13 +86,15 @@ const hoverCardContentImpl = defineComponent({
   emits: hoverCardContentImplProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      asChild,
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      scopeOkuHoverCard,
+      asChild: _asChild,
+      scopeOkuHoverCard: _scope,
+      onEscapeKeyDown: _onEscapeKeyDown,
+      onPointerdownOutside: _onPointerDownOutside,
+      onFocusoutSide: _onFocusOutside,
+      onInteractOutside: _onInteractOutside,
       ...contentProps
     } = props
-    const { ...restAttrs } = attrs as HoverCardContentImplNaviteElement
+
     const inject = useHoverCardInject(CONTENT_NAME, props.scopeOkuHoverCard)
     const popperScope = usePopperScope(props.scopeOkuHoverCard)
     const _ref = ref<HoverCardContentImplElement | null>(null)
@@ -143,31 +145,11 @@ const hoverCardContentImpl = defineComponent({
       }
     })
 
-    watchEffect(() => {
+    onMounted(() => {
       if (_ref.value) {
         const tabbables = getTabbableNodes(_ref.value)
         tabbables.forEach((tabbable: any) => tabbable.setAttribute('tabindex', '-1'))
       }
-    })
-
-    visuallyHiddenContentProvider({
-      scope: props.scopeOkuHoverCard,
-      isInside: ref(false),
-    })
-
-    const VisuallyHiddenChild = defineComponent({
-      inheritAttrs: false,
-      props: {
-        scope: { type: null, required: false },
-      },
-      setup(props, { slots }) {
-        visuallyHiddenContentProvider({
-          scope: props.scope,
-          isInside: ref(true),
-        })
-
-        return () => slots.default?.()
-      },
     })
 
     return () => h(OkuDismissableLayer, {
@@ -182,7 +164,7 @@ const hoverCardContentImpl = defineComponent({
       onPointerdownOutside(event) {
         emit('pointerdownOutside', event)
       },
-      onFocusOutside: composeEventHandlers<HoverCardContentImplEmits['focusoutSide'][0]>((el) => {
+      onFocusoutSide: composeEventHandlers<HoverCardContentImplEmits['focusoutSide'][0]>((el) => {
         emit('focusoutSide', el)
       }, (event) => {
         event.preventDefault()
@@ -194,7 +176,7 @@ const hoverCardContentImpl = defineComponent({
       default: () => h(OkuPopperContent, {
         ...popperScope,
         asChild: props.asChild,
-        ...mergeProps(restAttrs, contentProps),
+        ...mergeProps(attrs, contentProps),
         onPointerDown: composeEventHandlers<HoverCardContentImplEmits['pointerdown'][0]>((el) => {
           emit('pointerdown', el)
         }, (event) => {
@@ -208,7 +190,7 @@ const hoverCardContentImpl = defineComponent({
         }),
         ref: composedRefs,
         style: {
-          ...restAttrs.style as any,
+          ...attrs.style as any,
           userSelect: containSelection.value ? 'text' : undefined,
           // Safari requires prefix
           WebkitUserSelect: containSelection.value ? 'text' : undefined,
@@ -222,12 +204,7 @@ const hoverCardContentImpl = defineComponent({
           },
         },
       }, {
-        default: () => [
-          h(OkuSlottable, {}, slots),
-          h(VisuallyHiddenChild, {
-            scope: props.scopeOkuHoverCard,
-          }),
-        ],
+        default: () => slots.default?.(),
       }),
     })
   },

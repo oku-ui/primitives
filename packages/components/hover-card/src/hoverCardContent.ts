@@ -22,10 +22,10 @@ export interface HoverCardContentProps extends HoverCardContentImplProps {
   forceMount?: true
 }
 
-export type HoverCardContentEmits = HoverCardContentImplEmits & {
+export type HoverCardContentEmits = {
   pointerenter: [event: PointerEvent]
   pointerleave: [event: PointerEvent]
-}
+} & HoverCardContentImplEmits
 
 export const hoverCardContentProps = {
   props: {
@@ -46,6 +46,10 @@ export const hoverCardContentProps = {
 
 const hoverCardContent = defineComponent({
   name: CONTENT_NAME,
+  components: {
+    OkuHoverCardContentImpl,
+    OkuPresence,
+  },
   inheritAttrs: false,
   props: {
     ...hoverCardContentProps.props,
@@ -53,18 +57,19 @@ const hoverCardContent = defineComponent({
   },
   emits: hoverCardContentProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { forceMount, side, scopeOkuHoverCard } = toRefs(props)
-    const portalInject = usePortalInject(CONTENT_NAME, scopeOkuHoverCard.value)
+    const { forceMount: _force, ...contentProps } = props
+    const { forceMount } = toRefs(props)
+    const portalInject = usePortalInject(CONTENT_NAME, props.scopeOkuHoverCard)
     const forceMountProps = computed(() => forceMount.value || portalInject.forceMount?.value)
     const forwardedRef = useForwardRef()
-    const inject = useHoverCardInject(CONTENT_NAME, scopeOkuHoverCard.value)
+    const inject = useHoverCardInject(CONTENT_NAME, props.scopeOkuHoverCard)
 
     return () => h(OkuPresence, {
       present: computed(() => forceMountProps.value || inject.open.value).value,
     }, {
       default: () => h(OkuHoverCardContentImpl, {
         'data-state': inject.open.value ? 'open' : 'closed',
-        ...mergeProps(attrs, props),
+        ...mergeProps(attrs, contentProps),
         'onPointerenter': composeEventHandlers<HoverCardContentEmits['pointerenter'][0]>((el) => {
           emit('pointerenter', el)
         }, excludeTouch(inject.onOpen)),

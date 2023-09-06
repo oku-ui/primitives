@@ -6,10 +6,6 @@ import { createProvideScope } from '@oku-ui/provide'
 import { OkuPopper, createPopperScope } from '@oku-ui/popper'
 import { scopeHoverCardProps } from './utils'
 
-/* -------------------------------------------------------------------------------------------------
- * HoverCard
- * ----------------------------------------------------------------------------------------------- */
-
 export const HOVERCARD_NAME = 'OkuHoverCard'
 
 const [createHoverCardProvider, createHoverCardScope] = createProvideScope(HOVERCARD_NAME, [
@@ -19,7 +15,7 @@ const [createHoverCardProvider, createHoverCardScope] = createProvideScope(HOVER
 export const usePopperScope = createPopperScope()
 
 type HoverCardProvideValue = {
-  open: Ref<boolean | undefined>
+  open: Ref<boolean>
   onOpenChange(open: boolean): void
   onOpen(): void
   onClose(): void
@@ -82,7 +78,7 @@ const hoverCard = defineComponent({
     ...hoverCardProps.props,
     ...scopeHoverCardProps,
   },
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { slots, emit }) {
     const {
       open: openProp,
       defaultOpen,
@@ -109,6 +105,7 @@ const hoverCard = defineComponent({
       onChange: () => {
         emit('openChange')
       },
+      initialValue: false,
     })
 
     const handleOpen = () => {
@@ -138,7 +135,7 @@ const hoverCard = defineComponent({
 
     hoverCardProvide({
       scope: props.scopeOkuHoverCard,
-      open: state,
+      open: computed(() => state.value || false),
       onOpenChange: open => updateValue(open),
       onOpen: () => handleOpen(),
       onClose: () => handleClose(),
@@ -154,3 +151,7 @@ const hoverCard = defineComponent({
 })
 
 export const OkuHoverCard = hoverCard
+
+export {
+  createHoverCardScope,
+}

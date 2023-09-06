@@ -31,14 +31,16 @@ const hoverCardArrow = defineComponent({
   },
   emits: hoverCardArrowProps.emits,
   setup(props, { attrs, slots }) {
+    const { scopeOkuHoverCard, ...arrowProps } = props
+
     const forwardedRef = useForwardRef()
-    const popperScope = usePopperScope(props.scopeOkuHoverCard)
+    const popperScope = usePopperScope(scopeOkuHoverCard)
 
     // if the arrow is inside the `VisuallyHidden`, we don't want to render it all to
     // prevent issues in positioning the arrow due to the duplicate
     return () => h(OkuPopperArrow, {
       ...popperScope,
-      ...mergeProps(attrs, props),
+      ...mergeProps(attrs, arrowProps),
       ref: forwardedRef,
     }, slots)
   },
