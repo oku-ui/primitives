@@ -1,13 +1,14 @@
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, toRefs } from 'vue'
 import { OkuToastClose, toastCloseProps } from './toast-close'
-import type { ToastCloseIntrinsicElement, ToastCloseProps } from './toast-close'
+import type { ToastCloseElement, ToastCloseNaviteElement, ToastCloseProps } from './toast-close'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
 import { scopedToastProps } from './types'
 
 const ACTION_NAME = 'OkuToastAction'
 
-type ToastActionElement = ToastCloseIntrinsicElement
+export type ToastActionNaviteElement = ToastCloseNaviteElement
+export type ToastActionElement = ToastCloseElement
 
 interface ToastActionProps extends ToastCloseProps {
   /**
@@ -77,6 +78,6 @@ const toastAction = defineComponent({
 })
 
 export const OkuToastAction = toastAction as typeof toastAction &
-(new () => { $props: Partial<ToastActionElement> })
+(new () => { $props: ToastActionNaviteElement })
 
-export type { ToastActionElement, ToastActionProps }
+export type { ToastActionProps }

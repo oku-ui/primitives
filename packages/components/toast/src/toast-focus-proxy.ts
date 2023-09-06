@@ -1,5 +1,5 @@
 import { defineComponent, h } from 'vue'
-import type { VisuallyHiddenElement, VisuallyHiddenIntrinsicElement } from '@oku-ui/visually-hidden'
+import type { VisuallyHiddenElement, VisuallyHiddenNaviteElement } from '@oku-ui/visually-hidden'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuVisuallyHidden, visuallyHiddenProps } from '@oku-ui/visually-hidden'
 import { useToastProviderInject } from './share'
@@ -7,8 +7,9 @@ import { scopedToastProps } from './types'
 
 const FOCUS_PROXY_NAME = 'OkuToastFocusProxy'
 
+export type FocusProxyNativeElement = VisuallyHiddenNaviteElement
 export type FocusProxyElement = VisuallyHiddenElement
-export type VisuallyHiddenProps = VisuallyHiddenIntrinsicElement
+export type VisuallyHiddenProps = VisuallyHiddenNaviteElement
 
 export interface FocusProxyProps extends VisuallyHiddenProps {
 }
@@ -51,7 +52,7 @@ const toastFocusProxy = defineComponent({
         ...attrs,
         'ref': forwardedRef,
         // Avoid page scrolling when focus is on the focus proxy
-        'style': { position: 'fixed' } as CSSStyleDeclaration,
+        'style': { position: 'fixed' },
         'onFocus': (event: FocusEvent) => {
           const prevFocusedElement = event.relatedTarget as HTMLElement | null
           const isFocusFromOutsideViewport = !inject.viewport.value?.contains(prevFocusedElement)
@@ -64,4 +65,4 @@ const toastFocusProxy = defineComponent({
 })
 
 export const OkuToastFocusProxy = toastFocusProxy as typeof toastFocusProxy &
-(new () => { $props: Partial<FocusProxyElement> })
+(new () => { $props: FocusProxyNativeElement })

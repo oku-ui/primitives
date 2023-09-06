@@ -4,7 +4,7 @@ import type { PropType } from 'vue'
 import type { ToastViewportElement } from './toast-viewport'
 import { scopedToastProps } from './types'
 import { CollectionProvider, PROVIDER_NAME, toastProviderProvider } from './share'
-import type { SwipeDirection, ToastElement } from './share'
+import type { SwipeDirection, ToastNativeElement } from './share'
 
 export interface ToastProviderProps {
   /**
@@ -110,4 +110,4 @@ const toastProvider = defineComponent({
 })
 
 export const OkuToastProvider = toastProvider as typeof toastProvider &
-(new () => { $props: Partial<ToastElement> })
+(new () => { $props: ToastNativeElement })

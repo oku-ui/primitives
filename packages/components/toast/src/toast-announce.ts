@@ -1,14 +1,14 @@
 import { Fragment, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { TOAST_NAME, useToastProviderInject } from './share'
 import { useNextFrame } from './utils'
 import { scopedToastProps } from './types'
 
-export type ToastAnnounceIntrinsicElement = ElementType<'div'>
-type ToastAnnounceElement = HTMLDivElement
+export type ToastAnnounceNaviteElement = OkuElement<'div'>
+export type ToastAnnounceElement = HTMLDivElement
 
 interface ToastAnnounceProps extends PrimitiveProps {}
 
@@ -75,6 +75,6 @@ const toastAnnounce = defineComponent({
 })
 
 export const OkuToastAnnounce = toastAnnounce as typeof toastAnnounce &
-(new () => { $props: Partial<ToastAnnounceElement> })
+(new () => { $props: ToastAnnounceNaviteElement })
 
-export type { ToastAnnounceElement, ToastAnnounceProps }
+export type { ToastAnnounceProps }

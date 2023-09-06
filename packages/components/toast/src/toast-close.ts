@@ -1,4 +1,4 @@
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h } from 'vue'
@@ -7,16 +7,12 @@ import { useToastInteractiveInject } from './share'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
 import { scopedToastProps } from './types'
 
-/* -------------------------------------------------------------------------------------------------
- * ToastClose
- * ----------------------------------------------------------------------------------------------- */
-
 const CLOSE_NAME = 'OkuToastClose'
 
-export type ToastCloseIntrinsicElement = ElementType<'button'>
-type ToastCloseElement = HTMLButtonElement
+export type ToastCloseNaviteElement = OkuElement<'button'>
+export type ToastCloseElement = HTMLButtonElement
 
-interface ToastCloseProps extends PrimitiveProps {}
+export interface ToastCloseProps extends PrimitiveProps {}
 
 export type ToastCloseEmits = {
   click: [event: MouseEvent]
@@ -44,7 +40,7 @@ const toastClose = defineComponent({
   },
   emits: toastCloseProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { ...toastCloseAttrs } = attrs as ToastCloseIntrinsicElement
+    const { ...toastCloseAttrs } = attrs as ToastCloseNaviteElement
 
     const forwardedRef = useForwardRef()
 
@@ -74,6 +70,4 @@ const toastClose = defineComponent({
 })
 
 export const OkuToastClose = toastClose as typeof toastClose &
-(new () => { $props: Partial<ToastCloseElement> })
-
-export type { ToastCloseElement, ToastCloseProps }
+(new () => { $props: ToastCloseNaviteElement })

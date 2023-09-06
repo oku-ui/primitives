@@ -1,19 +1,15 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h } from 'vue'
 import { scopedToastProps } from './types'
 
-/* -------------------------------------------------------------------------------------------------
- * ToastDescription
- * ----------------------------------------------------------------------------------------------- */
-
 const DESCRIPTION_NAME = 'OkuToastDescription'
 
-export type ToastDescriptionIntrinsicElement = ElementType<'div'>
-type ToastDescriptionElement = HTMLDivElement
+export type ToastDescriptionNaviteElement = OkuElement<'div'>
+export type ToastDescriptionElement = HTMLDivElement
 
-interface ToastDescriptionProps extends PrimitiveProps {}
+export interface ToastDescriptionProps extends PrimitiveProps {}
 
 const toastDescription = defineComponent({
   name: DESCRIPTION_NAME,
@@ -25,7 +21,7 @@ const toastDescription = defineComponent({
     ...primitiveProps,
   },
   setup(_props, { attrs, slots }) {
-    const { ...toastDescriptionAttrs } = attrs as ToastDescriptionIntrinsicElement
+    const { ...toastDescriptionAttrs } = attrs as ToastDescriptionNaviteElement
 
     const forwardedRef = useForwardRef()
 
@@ -42,6 +38,4 @@ const toastDescription = defineComponent({
 })
 
 export const OkuToastDescription = toastDescription as typeof toastDescription &
-(new () => { $props: Partial<ToastDescriptionElement> })
-
-export type { ToastDescriptionElement, ToastDescriptionProps }
+(new () => { $props: ToastDescriptionNaviteElement })

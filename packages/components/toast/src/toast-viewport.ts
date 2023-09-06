@@ -1,5 +1,5 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
@@ -20,10 +20,10 @@ export const VIEWPORT_DEFAULT_HOTKEY = ['F8']
 export const VIEWPORT_PAUSE = 'toast.viewportPause'
 export const VIEWPORT_RESUME = 'toast.viewportResume'
 
-export type ToastViewportIntrinsicElement = ElementType<'ol'>
-type ToastViewportElement = HTMLOListElement
+export type ToastViewportNaviteElement = OkuElement<'ol'>
+export type ToastViewportElement = HTMLOListElement
 
-export type PrimitiveOrderedListIntrinsicElement = ElementType<'ol'>
+export type PrimitiveOrderedListNaviteElement = OkuElement<'ol'>
 export type PrimitiveOrderedElement = HTMLOListElement
 
 interface ToastViewportProps extends PrimitiveProps {
@@ -65,7 +65,7 @@ const toastViewport = defineComponent({
     ...toastViewportProps.props,
   },
   setup(props, { attrs, slots }) {
-    const { ...toastViewportAttrs } = attrs as ToastViewportIntrinsicElement
+    const { ...toastViewportAttrs } = attrs as ToastViewportNaviteElement
 
     const {
       hotkey,
@@ -220,7 +220,7 @@ const toastViewport = defineComponent({
         'tabindex': -1,
         // incase list has size when empty (e.g. padding), we remove pointer events so
         // it doesn't prevent interactions with page elements that it overlays
-        'style': { pointerEvents: hasToasts.value ? undefined : 'none' } as CSSStyleDeclaration,
+        'style': { pointerEvents: hasToasts.value ? undefined : 'none' },
       },
       {
         default: () => [
@@ -269,6 +269,6 @@ const toastViewport = defineComponent({
 })
 
 export const OkuToastViewport = toastViewport as typeof toastViewport &
-(new () => { $props: Partial<ToastViewportElement> })
+(new () => { $props: ToastViewportNaviteElement })
 
-export type { ToastViewportElement, ToastViewportProps }
+export type { ToastViewportProps }

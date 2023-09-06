@@ -5,11 +5,11 @@ import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuToastImpl, toastImplProps } from './toast-impl'
-import type { SwipeEvent, ToastImplElement, ToastImplEmits, ToastImplIntrinsicElement, ToastImplPrivateEmits, ToastImplPrivateProps, ToastImplProps } from './toast-impl'
+import type { SwipeEvent, ToastImplElement, ToastImplEmits, ToastImplNaviteElement, ToastImplPrivateEmits, ToastImplPrivateProps, ToastImplProps } from './toast-impl'
 import { scopedToastProps } from './types'
 import { TOAST_NAME } from './share'
 
-export type ToastIntrinsicElement = ToastImplIntrinsicElement
+export type ToastNaviteElement = ToastImplNaviteElement
 export type ToastElement = ToastImplElement
 
 export interface ToastProps extends Omit<ToastImplProps, keyof ToastImplPrivateProps> {
@@ -151,4 +151,4 @@ const toast = defineComponent({
 })
 
 export const OkuToast = toast as typeof toast &
-(new () => { $props: Partial<ToastElement> })
+(new () => { $props: ToastNaviteElement })

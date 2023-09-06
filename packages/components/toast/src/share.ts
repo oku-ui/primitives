@@ -1,12 +1,13 @@
 import { createProvideScope } from '@oku-ui/provide'
 import { createCollection } from '@oku-ui/collection'
 import type { Ref } from 'vue'
-import type { ToastImplElement } from './toast-impl'
+import type { ToastImplElement, ToastImplNaviteElement } from './toast-impl'
 import type { ToastViewportElement } from './toast-viewport'
 
 export const PROVIDER_NAME = 'OkuToastProvider'
 export const TOAST_NAME = 'Toast'
 export type ToastElement = ToastImplElement
+export type ToastNativeElement = ToastImplNaviteElement
 
 export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<ToastElement>('Toast')
 

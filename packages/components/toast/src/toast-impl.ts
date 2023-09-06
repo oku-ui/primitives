@@ -1,5 +1,5 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
 import { Fragment, Teleport, computed, defineComponent, h, nextTick, ref, toRefs, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -22,7 +22,7 @@ export type SwipeEvent = { currentTarget: EventTarget & ToastImplElement } & Omi
   'currentTarget'
 >
 
-export type ToastImplIntrinsicElement = ElementType<'li'>
+export type ToastImplNaviteElement = OkuElement<'li'>
 export type ToastImplElement = HTMLLIElement
 
 export type ToastImplPrivateProps = {
@@ -45,7 +45,7 @@ export const toastImplPrivateProps = {
   },
 }
 
-export type PrimitiveListItemProps = ElementType<'li'>
+export type PrimitiveListItemProps = OkuElement<'li'>
 
 export interface ToastImplProps extends ToastImplPrivateProps, PrimitiveProps {
   type?: 'foreground' | 'background'
@@ -123,7 +123,7 @@ const toastImpl = defineComponent({
   },
   emits: toastImplProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { ...toastImplAttrs } = attrs as ToastImplIntrinsicElement
+    const { ...toastImplAttrs } = attrs as ToastImplNaviteElement
 
     const {
       type,
@@ -371,4 +371,4 @@ const toastImpl = defineComponent({
 })
 
 export const OkuToastImpl = toastImpl as typeof toastImpl &
-(new () => { $props: Partial<ToastImplIntrinsicElement> })
+(new () => { $props: ToastImplNaviteElement })

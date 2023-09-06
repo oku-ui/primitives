@@ -14,46 +14,53 @@ export { OkuToastViewport } from './toast-viewport'
 export type {
   ToastProps,
   ToastElement,
+  ToastNaviteElement,
+  ToastPropsEmits,
 } from './toast'
 
 export type {
   ToastActionProps,
   ToastActionElement,
+  ToastActionNaviteElement,
 } from './toast-action'
 
 export type {
   ToastAnnounceProps,
   ToastAnnounceElement,
-  ToastAnnounceIntrinsicElement,
+  ToastAnnounceNaviteElement,
 } from './toast-announce'
 
 export type {
   ToastAnnounceExcludeProps,
   ToastAnnounceExcludeElement,
-  ToastAnnounceExcludeIntrinsicElement,
+  ToastAnnounceExcludeNaviteElement,
 } from './toast-announce-exclude'
 
 export type {
   ToastCloseProps,
   ToastCloseElement,
-  ToastCloseIntrinsicElement,
+  ToastCloseNaviteElement,
+  ToastCloseEmits,
 } from './toast-close'
 
 export type {
   ToastDescriptionProps,
   ToastDescriptionElement,
-  ToastDescriptionIntrinsicElement,
+  ToastDescriptionNaviteElement,
 } from './toast-description'
 
 export type {
   FocusProxyProps,
   FocusProxyElement,
+  FocusProxyPropsEmits,
+  FocusProxyNativeElement,
 } from './toast-focus-proxy'
 
 export type {
   ToastImplProps,
   ToastImplElement,
-  ToastImplIntrinsicElement,
+  ToastImplNaviteElement,
+  ToastImplPrivateEmits,
 } from './toast-impl'
 
 export type {
@@ -63,9 +70,11 @@ export type {
 export type {
   ToastTitleProps,
   ToastTitleElement,
+  ToastTitleNaviteElement,
 } from './toast-title'
 
 export type {
   ToastViewportProps,
-  ToastViewportIntrinsicElement,
+  ToastViewportNaviteElement,
+  ToastViewportElement,
 } from './toast-viewport'
