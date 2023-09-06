@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, onMounted, ref, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -97,7 +97,6 @@ const hoverCardContentImpl = defineComponent({
 
     const inject = useHoverCardInject(CONTENT_NAME, props.scopeOkuHoverCard)
     const popperScope = usePopperScope(props.scopeOkuHoverCard)
-    const _ref = ref<HoverCardContentImplElement | null>(null)
 
     const contentRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -122,7 +121,7 @@ const hoverCardContentImpl = defineComponent({
     })
 
     watchEffect((onClean) => {
-      if (_ref.value) {
+      if (contentRef.value) {
         const handlePointerUp = () => {
           containSelection.value = false
           inject.isPointerDownOnContentRef.value = false
@@ -145,9 +144,9 @@ const hoverCardContentImpl = defineComponent({
       }
     })
 
-    onMounted(() => {
-      if (_ref.value) {
-        const tabbables = getTabbableNodes(_ref.value)
+    watchEffect(() => {
+      if (contentRef.value) {
+        const tabbables = getTabbableNodes(contentRef.value)
         tabbables.forEach((tabbable: any) => tabbable.setAttribute('tabindex', '-1'))
       }
     })
@@ -175,9 +174,9 @@ const hoverCardContentImpl = defineComponent({
     }, {
       default: () => h(OkuPopperContent, {
         ...popperScope,
-        asChild: props.asChild,
         ...mergeProps(attrs, contentProps),
-        onPointerDown: composeEventHandlers<HoverCardContentImplEmits['pointerdown'][0]>((el) => {
+        asChild: props.asChild,
+        onPointerdown: composeEventHandlers<HoverCardContentImplEmits['pointerdown'][0]>((el) => {
           emit('pointerdown', el)
         }, (event) => {
           const target = event.currentTarget as HTMLElement
@@ -196,16 +195,14 @@ const hoverCardContentImpl = defineComponent({
           WebkitUserSelect: containSelection.value ? 'text' : undefined,
           // re-namespace exposed content custom properties
           ...{
-            '--radix-hover-card-content-transform-origin': 'var(--radix-popper-transform-origin)',
-            '--radix-hover-card-content-available-width': 'var(--radix-popper-available-width)',
-            '--radix-hover-card-content-available-height': 'var(--radix-popper-available-height)',
-            '--radix-hover-card-trigger-width': 'var(--radix-popper-anchor-width)',
-            '--radix-hover-card-trigger-height': 'var(--radix-popper-anchor-height)',
+            '--oku-hover-card-content-transform-origin': 'var(--oku-popper-transform-origin)',
+            '--oku-hover-card-content-available-width': 'var(--oku-popper-available-width)',
+            '--oku-hover-card-content-available-height': 'var(--oku-popper-available-height)',
+            '--oku-hover-card-trigger-width': 'var(--oku-popper-anchor-width)',
+            '--oku-hover-card-trigger-height': 'var(--oku-popper-anchor-height)',
           },
         },
-      }, {
-        default: () => slots.default?.(),
-      }),
+      }, slots),
     })
   },
 })

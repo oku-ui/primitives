@@ -266,7 +266,6 @@ const PopperContent = defineComponent({
     onMounted(() => {
       update()
     })
-
     const originalReturn = () =>
       h('div',
         {

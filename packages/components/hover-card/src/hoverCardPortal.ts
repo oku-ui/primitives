@@ -75,9 +75,7 @@ const hoverCardPortal = defineComponent({
       default: () => h(OkuPortal, {
         asChild: true,
         container: container.value,
-      }, {
-        default: () => slots.default?.(),
-      }),
+      }, slots),
     })
   },
 })
