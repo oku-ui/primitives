@@ -17,7 +17,3 @@ const toastCount = ref(0)
     <OkuToastViewport class="viewport" />
   </OkuToastProvider>
 </template>
-
-<style lang="postcss">
-@import './toast.css'
-</style>

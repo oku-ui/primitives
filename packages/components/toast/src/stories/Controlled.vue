@@ -53,7 +53,3 @@ watchEffect((onInvalidate) => {
     <OkuToastViewport class="viewport" />
   </OkuToastProvider>
 </template>
-
-<style lang="postcss">
-@import './toast.css'
-</style>

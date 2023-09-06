@@ -238,7 +238,3 @@ const SNAPSHOT_DELAY = ref(300)
     <OkuToastViewport class="chromatic-viewport" />
   </OkuToastProvider>
 </template>
-
-<style lang="postcss">
-@import './toast.css'
-</style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Page {
   name: string
-  path: '/arrow' | '/aspect-ratio' | '/avatar' | '/checkbox' | '/collapsible' | '/collection' | '/direction' | '/dismissable-layer' | '/focus-scope' | '/label' | '/popover' | '/popper' | '/portal' | '/presence' | '/progress' | '/radio-group' | '/roving-focus' | '/separator' | '/slider' | '/slot' | '/switch' | '/tabs' | '/toggle' | '/toggle-group' | '/tooltip' | '/visually-hidden'
+  path: '/arrow' | '/aspect-ratio' | '/avatar' | '/checkbox' | '/collapsible' | '/collection' | '/direction' | '/dismissable-layer' | '/focus-scope' | '/label' | '/popover' | '/popper' | '/portal' | '/presence' | '/progress' | '/radio-group' | '/roving-focus' | '/separator' | '/slider' | '/slot' | '/switch' | '/tabs' | '/toggle' | '/toggle-group' | '/tooltip' | '/visually-hidden' | '/toast'
 }
 
 const pages: Page[] = [
@@ -108,6 +108,10 @@ const pages: Page[] = [
   {
     name: 'OkuVisuallyHidden',
     path: '/visually-hidden',
+  },
+  {
+    name: 'OkuToast',
+    path: '/toast',
   },
 ]
 </script>
