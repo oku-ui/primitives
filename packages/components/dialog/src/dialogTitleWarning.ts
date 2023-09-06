@@ -1,8 +1,6 @@
 /// <reference path="utils.ts" />
 import { defineComponent, watchEffect } from 'vue'
-import { useWarningInject } from './utils'
-
-export const TITLE_WARNING_NAME = 'OkuDialogTitleWarning'
+import { TITLE_WARNING_NAME, useWarningInject } from './utils'
 
 type TitleWarningProps = { titleId?: string }
 

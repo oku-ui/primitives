@@ -2,13 +2,11 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import { scopeDialogProps, useDialogInject } from './utils'
+import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
 import type { DialogContentModalElement, DialogContentModalProps } from './dialogContentModal'
 import { OkuDialogContentModal } from './dialogContentModal'
 import { useDialogPortalInject } from './dialogPortal'
 import { OkuDialogContentNonModal } from './dialogContentNonModal'
-
-export const CONTENT_NAME = 'OkuDialogContent'
 
 export type DialogContentNaviteElement = DialogContentModalElement
 

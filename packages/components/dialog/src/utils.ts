@@ -1,11 +1,12 @@
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvide, createProvideScope } from '@oku-ui/provide'
 import { type Ref } from 'vue'
-import { CONTENT_NAME } from './dialogContent'
-import { TITLE_NAME } from './dialogTitle'
-import { TITLE_WARNING_NAME } from './dialogTitleWarning'
 
+export const CONTENT_NAME = 'OkuDialogContent'
+export const TITLE_WARNING_NAME = 'OkuDialogTitleWarning'
+export const TITLE_NAME = 'OkuDialogTitle'
 export const DIALOG_NAME = 'OkuDialog'
+export const OVERLAY_NAME = 'OkuDialogOverlay'
 
 export type ScopeDialog<T> = T & { scopeOkuDialog?: Scope }
 

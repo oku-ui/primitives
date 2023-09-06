@@ -2,9 +2,7 @@ import { defineComponent, h } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { scopeDialogProps, useDialogInject } from './utils'
-
-export const TITLE_NAME = 'OkuDialogTitle'
+import { TITLE_NAME, scopeDialogProps, useDialogInject } from './utils'
 
 export type DialogTitleNaviteElement = OkuElement<'h2'>
 

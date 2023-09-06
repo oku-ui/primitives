@@ -37,7 +37,7 @@ export const Styled: Story = {
       return { args }
     },
     template: `
-      <OkuSliderComponent v-bind="args" />
+      <OkuDialogComponent v-bind="args" />
     `,
   }),
 }

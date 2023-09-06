@@ -3,10 +3,9 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
-import { scopeDialogProps, useDialogInject } from './utils'
+import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
 import type { DialogContentImplEmits, DialogContentImplNaviteElement, DialogContentImplProps } from './dialogContentImpl'
 import { OkuDialogContentImpl } from './dialogContentImpl'
-import { CONTENT_NAME } from './dialogContent'
 
 export const CONTENT_MODAL_NAME = 'OkuDialogContentModal'
 

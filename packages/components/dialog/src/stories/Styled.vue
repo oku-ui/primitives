@@ -7,7 +7,7 @@ import { OkuDialogTrigger } from '@oku-ui/dialog'
     <OkuDialogTrigger class="triggerClass">
       open
     </OkuDialogTrigger>
-    <!-- <OkuDialogPortal>
+    <OkuDialogPortal>
       <OkuDialogOverlay class="overlayClass" />
       <OkuDialogContent class="contentDefaultClass">
         <OkuDialogTitle>
@@ -20,7 +20,7 @@ import { OkuDialogTrigger } from '@oku-ui/dialog'
           close
         </OkuDialogClose>
       </OkuDialogContent>
-    </OkuDialogPortal> -->
+    </OkuDialogPortal>
   </div>
 </template>
 
