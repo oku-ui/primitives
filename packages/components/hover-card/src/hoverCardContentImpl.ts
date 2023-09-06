@@ -7,19 +7,12 @@ import type { PopperContentProps as OkuPopperContentProps, PopperContentElement,
 import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { createHoverCardProvide, getTabbableNodes, scopeHoverCardProps } from './utils'
-import { HOVERCARD_NAME, useHoverCardInject, usePopperScope } from './hoverCard'
+import { getTabbableNodes, scopeHoverCardProps } from './utils'
+import { useHoverCardInject, usePopperScope } from './hoverCard'
 
 let originalBodyUserSelect: string
 
 const CONTENT_NAME = 'OkuHoverCardContentImpl'
-
-const [visuallyHiddenContentProvider, useVisuallyHiddenContentInject]
-  = createHoverCardProvide(HOVERCARD_NAME, { isInside: ref(false) })
-
-export {
-  useVisuallyHiddenContentInject,
-}
 
 export type HoverCardContentImplNaviteElement = PopperContentNaviteElement
 export type HoverCardContentImplElement = PopperContentElement
