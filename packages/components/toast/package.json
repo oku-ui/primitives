@@ -1,5 +1,5 @@
 {
-  "name": "@oku-ui/tooltip",
+  "name": "@oku-ui/toast",
   "type": "module",
   "version": "0.2.3",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/components/tooltip"
+    "directory": "packages/components/toast"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -36,14 +36,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.0.2",
+    "@oku-ui/collection": "latest",
     "@oku-ui/dismissable-layer": "latest",
-    "@oku-ui/popper": "latest",
     "@oku-ui/portal": "latest",
     "@oku-ui/presence": "latest",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
-    "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
     "@oku-ui/visually-hidden": "latest"

@@ -97,6 +97,9 @@ importers:
       '@oku-ui/tabs':
         specifier: workspace:^
         version: link:packages/components/tabs
+      '@oku-ui/toast':
+        specifier: workspace:^
+        version: link:packages/components/toast
       '@oku-ui/toggle':
         specifier: workspace:^
         version: link:packages/components/toggle
@@ -492,6 +495,9 @@ importers:
 
   packages/components/popover:
     dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.4)
       '@oku-ui/dismissable-layer':
         specifier: latest
         version: 0.4.0-alpha.1(vue@3.3.4)
@@ -799,6 +805,43 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/toast:
+    dependencies:
+      '@oku-ui/collection':
+        specifier: latest
+        version: link:../collection
+      '@oku-ui/dismissable-layer':
+        specifier: latest
+        version: link:../dismissable-layer
+      '@oku-ui/portal':
+        specifier: latest
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: latest
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: latest
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: latest
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: latest
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: latest
+        version: link:../../core/utils
+      '@oku-ui/visually-hidden':
+        specifier: latest
+        version: link:../visually-hidden
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/toggle:
     dependencies:
       '@oku-ui/primitive':
@@ -891,6 +934,9 @@ importers:
 
   packages/components/tooltip:
     dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.4)
       '@oku-ui/dismissable-layer':
         specifier: latest
         version: 0.4.0-alpha.1(vue@3.3.4)
