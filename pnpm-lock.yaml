@@ -5,6 +5,39 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  '@oku-ui/arrow': workspace:^
+  '@oku-ui/aspect-ratio': workspace:^
+  '@oku-ui/avatar': workspace:^
+  '@oku-ui/checkbox': workspace:^
+  '@oku-ui/collapsible': workspace:^
+  '@oku-ui/collection': workspace:^
+  '@oku-ui/direction': workspace:^
+  '@oku-ui/dismissable-layer': workspace:^
+  '@oku-ui/focus-guards': workspace:^
+  '@oku-ui/focus-scope': workspace:^
+  '@oku-ui/label': workspace:^
+  '@oku-ui/popover': workspace:^
+  '@oku-ui/popper': workspace:^
+  '@oku-ui/portal': workspace:^
+  '@oku-ui/presence': workspace:^
+  '@oku-ui/primitive': workspace:^
+  '@oku-ui/progress': workspace:^
+  '@oku-ui/provide': workspace:^
+  '@oku-ui/radio-group': workspace:^
+  '@oku-ui/roving-focus': workspace:^
+  '@oku-ui/separator': workspace:^
+  '@oku-ui/slider': workspace:^
+  '@oku-ui/slot': workspace:^
+  '@oku-ui/switch': workspace:^
+  '@oku-ui/tabs': workspace:^
+  '@oku-ui/toast': workspace:^
+  '@oku-ui/toggle': workspace:^
+  '@oku-ui/toggle-group': workspace:^
+  '@oku-ui/toolbar': workspace:^
+  '@oku-ui/tooltip': workspace:^
+  '@oku-ui/use-composable': workspace:^
+  '@oku-ui/utils': workspace:^
+  '@oku-ui/visually-hidden': workspace:^
   '@vue/runtime-core': 3.3.4
   vite: 4.3.5
   vue: 3.3.4
@@ -251,10 +284,10 @@ importers:
   packages/components/arrow:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       vue:
         specifier: 3.3.4
@@ -267,10 +300,10 @@ importers:
   packages/components/aspect-ratio:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       vue:
         specifier: 3.3.4
@@ -283,16 +316,16 @@ importers:
   packages/components/avatar:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -305,19 +338,19 @@ importers:
   packages/components/checkbox:
     dependencies:
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -330,19 +363,19 @@ importers:
   packages/components/collapsible:
     dependencies:
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -355,19 +388,19 @@ importers:
   packages/components/collection:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/slot':
-        specifier: latest
+        specifier: workspace:^
         version: link:../slot
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -390,16 +423,16 @@ importers:
   packages/components/dismissable-layer:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -412,10 +445,10 @@ importers:
   packages/components/focus-scope:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       vue:
         specifier: 3.3.4
@@ -428,13 +461,13 @@ importers:
   packages/components/label:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -450,37 +483,37 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(vue@3.3.4)
       '@oku-ui/dismissable-layer':
-        specifier: latest
+        specifier: workspace:^
         version: link:../dismissable-layer
       '@oku-ui/focus-guards':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/focus-guards
       '@oku-ui/focus-scope':
-        specifier: latest
+        specifier: workspace:^
         version: link:../focus-scope
       '@oku-ui/popper':
-        specifier: latest
+        specifier: workspace:^
         version: link:../popper
       '@oku-ui/portal':
-        specifier: latest
+        specifier: workspace:^
         version: link:../portal
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/slot':
-        specifier: latest
+        specifier: workspace:^
         version: link:../slot
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       aria-hidden:
         specifier: ^1.2.3
@@ -499,19 +532,19 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(vue@3.3.4)
       '@oku-ui/arrow':
-        specifier: latest
+        specifier: workspace:^
         version: link:../arrow
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -524,16 +557,16 @@ importers:
   packages/components/portal:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -546,10 +579,10 @@ importers:
   packages/components/presence:
     dependencies:
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -562,16 +595,16 @@ importers:
   packages/components/progress:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -584,25 +617,25 @@ importers:
   packages/components/radio-group:
     dependencies:
       '@oku-ui/direction':
-        specifier: latest
+        specifier: workspace:^
         version: link:../direction
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/roving-focus':
-        specifier: latest
+        specifier: workspace:^
         version: link:../roving-focus
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -615,22 +648,22 @@ importers:
   packages/components/roving-focus:
     dependencies:
       '@oku-ui/collection':
-        specifier: latest
+        specifier: workspace:^
         version: link:../collection
       '@oku-ui/direction':
-        specifier: latest
+        specifier: workspace:^
         version: link:../direction
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -643,13 +676,13 @@ importers:
   packages/components/separator:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -662,22 +695,22 @@ importers:
   packages/components/slider:
     dependencies:
       '@oku-ui/collection':
-        specifier: latest
+        specifier: workspace:^
         version: link:../collection
       '@oku-ui/direction':
-        specifier: latest
+        specifier: workspace:^
         version: link:../direction
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -690,10 +723,10 @@ importers:
   packages/components/slot:
     dependencies:
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -706,16 +739,16 @@ importers:
   packages/components/switch:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -728,25 +761,25 @@ importers:
   packages/components/tabs:
     dependencies:
       '@oku-ui/direction':
-        specifier: latest
+        specifier: workspace:^
         version: link:../direction
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/roving-focus':
-        specifier: latest
+        specifier: workspace:^
         version: link:../roving-focus
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -759,31 +792,31 @@ importers:
   packages/components/toast:
     dependencies:
       '@oku-ui/collection':
-        specifier: latest
+        specifier: workspace:^
         version: link:../collection
       '@oku-ui/dismissable-layer':
-        specifier: latest
+        specifier: workspace:^
         version: link:../dismissable-layer
       '@oku-ui/portal':
-        specifier: latest
+        specifier: workspace:^
         version: link:../portal
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       '@oku-ui/visually-hidden':
-        specifier: latest
+        specifier: workspace:^
         version: link:../visually-hidden
       vue:
         specifier: 3.3.4
@@ -796,16 +829,16 @@ importers:
   packages/components/toggle:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -818,28 +851,28 @@ importers:
   packages/components/toggle-group:
     dependencies:
       '@oku-ui/direction':
-        specifier: latest
+        specifier: workspace:^
         version: link:../direction
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/roving-focus':
-        specifier: latest
+        specifier: workspace:^
         version: link:../roving-focus
       '@oku-ui/toggle':
-        specifier: latest
+        specifier: workspace:^
         version: link:../toggle
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -852,28 +885,28 @@ importers:
   packages/components/toolbar:
     dependencies:
       '@oku-ui/direction':
-        specifier: latest
+        specifier: workspace:^
         version: link:../direction
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/roving-focus':
-        specifier: latest
+        specifier: workspace:^
         version: link:../roving-focus
       '@oku-ui/separator':
-        specifier: latest
+        specifier: workspace:^
         version: link:../separator
       '@oku-ui/toggle-group':
-        specifier: latest
+        specifier: workspace:^
         version: link:../toggle-group
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       vue:
         specifier: 3.3.4
@@ -889,34 +922,34 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2(vue@3.3.4)
       '@oku-ui/dismissable-layer':
-        specifier: latest
+        specifier: workspace:^
         version: link:../dismissable-layer
       '@oku-ui/popper':
-        specifier: latest
+        specifier: workspace:^
         version: link:../popper
       '@oku-ui/portal':
-        specifier: latest
+        specifier: workspace:^
         version: link:../portal
       '@oku-ui/presence':
-        specifier: latest
+        specifier: workspace:^
         version: link:../presence
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/provide':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/provide
       '@oku-ui/slot':
-        specifier: latest
+        specifier: workspace:^
         version: link:../slot
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/utils
       '@oku-ui/visually-hidden':
-        specifier: latest
+        specifier: workspace:^
         version: link:../visually-hidden
       vue:
         specifier: 3.3.4
@@ -929,10 +962,10 @@ importers:
   packages/components/visually-hidden:
     dependencies:
       '@oku-ui/primitive':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/primitive
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../core/use-composable
       vue:
         specifier: 3.3.4
@@ -955,10 +988,10 @@ importers:
   packages/core/primitive:
     dependencies:
       '@oku-ui/slot':
-        specifier: latest
+        specifier: workspace:^
         version: link:../../components/slot
       '@oku-ui/use-composable':
-        specifier: latest
+        specifier: workspace:^
         version: link:../use-composable
       filter-anything:
         specifier: ^3.0.7
@@ -984,7 +1017,7 @@ importers:
   packages/core/use-composable:
     dependencies:
       '@oku-ui/utils':
-        specifier: latest
+        specifier: workspace:^
         version: link:../utils
       '@vue/shared':
         specifier: ^3.3.4
@@ -1032,28 +1065,28 @@ importers:
   packages/primitives:
     dependencies:
       '@oku-ui/aspect-ratio':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/aspect-ratio
       '@oku-ui/avatar':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/avatar
       '@oku-ui/checkbox':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/checkbox
       '@oku-ui/collapsible':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/collapsible
       '@oku-ui/label':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/label
       '@oku-ui/progress':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/progress
       '@oku-ui/separator':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/separator
       '@oku-ui/toggle':
-        specifier: latest
+        specifier: workspace:^
         version: link:../components/toggle
       vue:
         specifier: 3.3.4
@@ -6297,7 +6330,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.4
-      vue-component-type-helpers: 1.8.8
+      vue-component-type-helpers: 1.8.10
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -15983,12 +16016,12 @@ packages:
       ufo: 1.3.0
     dev: true
 
-  /vue-component-type-helpers@1.8.4:
-    resolution: {integrity: sha512-6bnLkn8O0JJyiFSIF0EfCogzeqNXpnjJ0vW/SZzNHfe6sPx30lTtTXlE5TFs2qhJlAtDFybStVNpL73cPe3OMQ==}
+  /vue-component-type-helpers@1.8.10:
+    resolution: {integrity: sha512-FJtmfw2Gn6eQ8kAVNEhw9nYIzWmVQJjdyQRtJXZ7tgXh/FoZhQnZ2KyxR+NuF9U4iZLBvSspeetIpnP9yxxyMw==}
     dev: true
 
-  /vue-component-type-helpers@1.8.8:
-    resolution: {integrity: sha512-Ohv9HQY92nSbpReC6WhY0X4YkOszHzwUHaaN/lev5tHQLM1AEw+LrLeB2bIGIyKGDU7ZVrncXcv/oBny4rjbYg==}
+  /vue-component-type-helpers@1.8.4:
+    resolution: {integrity: sha512-6bnLkn8O0JJyiFSIF0EfCogzeqNXpnjJ0vW/SZzNHfe6sPx30lTtTXlE5TFs2qhJlAtDFybStVNpL73cPe3OMQ==}
     dev: true
 
   /vue-demi@0.14.5(vue@3.3.4):
