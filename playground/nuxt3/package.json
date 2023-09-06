@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
-    "@types/node": "^18.17.12",
-    "nuxt": "^3.7.0"
+    "@types/node": "^18.17.14",
+    "nuxt": "^3.7.1"
   }
 }

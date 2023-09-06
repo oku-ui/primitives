@@ -7,10 +7,6 @@ import { defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { DismissableLayerContext } from './DismissableLayer'
 
-/* -------------------------------------------------------------------------------------------------
- * DismissableLayerBranch
- * ----------------------------------------------------------------------------------------------- */
-
 const BRANCH_NAME = 'OkuDismissableLayerBranch'
 export type DismissableLayerBranchNaviteElement = OkuElement<'div'>
 export type DismissableLayerBranchElement = HTMLDivElement
