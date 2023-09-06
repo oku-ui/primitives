@@ -1,7 +1,6 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, ref, toRefs } from 'vue'
+import { Fragment, defineComponent, h, ref, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
@@ -14,7 +13,7 @@ export const CONTENT_NAME = 'OkuDialogContentImpl'
 
 export type DialogContentImplNaviteElement = OkuElement<'div'>
 
-export interface DialogContentImplProps extends Omit<OkuDismissableLayerProps, 'onDismiss'> {
+export interface DialogContentImplProps extends OkuDismissableLayerProps {
   /**
    * When `true`, focus cannot escape the `Content` via keyboard,
    * pointer, or a programmatic focus.
@@ -22,6 +21,7 @@ export interface DialogContentImplProps extends Omit<OkuDismissableLayerProps, '
    */
   trapFocus?: FocusScopeProps['trapped']
 }
+
 export type DialogContentImplEmits = {
   /**
    * Event handler called when auto-focusing on open.
@@ -34,13 +34,12 @@ export type DialogContentImplEmits = {
    */
   closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
 
-  pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
+  // pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
 
 } & Omit<DismissableLayerEmits, 'dismiss'>
 
 export const dialogContentImplProps = {
   props: {
-
     ...dismissableLayerProps.props,
     trapFocus: {
       type: Boolean as PropType<FocusScopeProps['trapped']>,
@@ -65,14 +64,15 @@ const dialogContentImpl = defineComponent({
   inheritAttrs: false,
   props: {
     ...dialogContentImplProps.props,
-    ...primitiveProps,
     ...scopeDialogProps,
   },
   emits: dialogContentImplProps.emits,
-  setup(props, { emit }) {
+  setup(props, { emit, attrs, slots }) {
+    const { scopeOkuDialog, trapFocus: _trapFocus, onOpenAutoFocus, onCloseAutoFocus, ...contentProps } = props
+
     const { trapFocus } = toRefs(props)
 
-    const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
+    const inject = useDialogInject(CONTENT_NAME, scopeOkuDialog)
 
     const forwardRef = useForwardRef()
     const contentRef = ref<HTMLDivElement | null>(null)
@@ -80,8 +80,8 @@ const dialogContentImpl = defineComponent({
 
     useFocusGuards()
 
-    return () => {
-      return [h(OkuFocusScope, {
+    return () => h(Fragment,
+      [h(OkuFocusScope, {
         asChild: true,
         loop: true,
         trapped: trapFocus.value,
@@ -98,21 +98,27 @@ const dialogContentImpl = defineComponent({
           'aria-describedby': inject.descriptionId.value,
           'aria-labelledby': inject.titleId.value,
           'data-state': getState(inject.open?.value || false),
+          ...attrs,
+          ...contentProps,
           'ref': composedRefs,
           'onDismiss': () => {
             inject.onOpenChange(false)
           },
+        }, {
+          default: () => slots.default?.(),
         }),
       }),
       process.env.NODE_ENV !== 'production' && h(OkuDialogTitleWarning, {
         titleId: inject.titleId.value,
       })
-    && h(OkuDialogDescriptionWarning, {
-      contentRef: inject.contentRef.value,
-      descriptionId: inject.descriptionId.value,
-    }),
-      ]
-    }
+      && h(Fragment, {
+        default: () => h(OkuDialogDescriptionWarning, {
+          contentRef: inject.contentRef.value,
+          descriptionId: inject.descriptionId.value,
+        }),
+      }),
+      ],
+    )
   },
 })
 

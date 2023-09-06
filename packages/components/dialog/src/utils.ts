@@ -1,6 +1,6 @@
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvide, createProvideScope } from '@oku-ui/provide'
-import { type Ref } from 'vue'
+import { type Ref, ref } from 'vue'
 
 export const CONTENT_NAME = 'OkuDialogContent'
 export const TITLE_WARNING_NAME = 'OkuDialogTitleWarning'
@@ -24,7 +24,7 @@ type DialogProvideValue = {
   contentId: Ref<string>
   titleId: Ref<string>
   descriptionId: Ref<string>
-  open: Ref<boolean | undefined>
+  open: Ref<boolean>
   modal: Ref<boolean>
   onOpenToggle(): void
   onOpenChange(open: boolean): void
@@ -37,16 +37,24 @@ export function getState(open: boolean) {
   return open ? 'open' : 'closed'
 }
 
-export const [WarningProvider, useWarningInject] = createProvide(TITLE_WARNING_NAME, {
-  contentName: CONTENT_NAME,
-  titleName: TITLE_NAME,
-  docsSlug: 'dialog',
+type WarningProviderValue = {
+  contentName: Ref<string>
+  titleName: Ref<string>
+  docsSlug: Ref<string>
+}
+
+export const [WarningProvider, useWarningInject] = createProvide<WarningProviderValue>(TITLE_WARNING_NAME, {
+  contentName: ref(CONTENT_NAME),
+  titleName: ref(TITLE_NAME),
+  docsSlug: ref('dialog'),
 })
 
 export declare type Undo = () => void
 export declare const hideOthers: (originalTarget: Element | Element[], parentNode?: HTMLElement, markerName?: string) => Undo
 
-type PortalInjectValue = { forceMount?: true }
+type PortalInjectValue = {
+  forceMount?: Ref<true | undefined>
+}
 
 export const [DialogPortalProvider, useDialogPortalInject]
   = createDialogProvider<PortalInjectValue>(DIALOG_NAME, {

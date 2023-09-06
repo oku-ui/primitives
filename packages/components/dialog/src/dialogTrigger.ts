@@ -11,6 +11,11 @@ export type DialogTriggerNaviteElement = OkuElement<'button'>
 
 export interface DialogTriggerProps extends PrimitiveProps {
 }
+
+export interface DialogTriggerEmits {
+  click: [event: MouseEvent]
+}
+
 export const dialogTriggerProps = {
   props: {
     ...primitiveProps,
@@ -42,10 +47,10 @@ const dialogTrigger = defineComponent({
       'aria-haspopup': 'dialog',
       'aria-expanded': inject.open.value,
       'aria-controls': inject.contentId.value,
-      'data-state': getState(inject.open?.value || false),
+      'data-state': getState(inject.open.value),
       ...restAttrs,
       'ref': composedTriggerRef,
-      'onClick': composeEventHandlers((e: MouseEvent) => {
+      'onClick': composeEventHandlers((e: DialogTriggerEmits['click'][0]) => {
         emit('click', e)
       }, inject.onOpenToggle),
     },

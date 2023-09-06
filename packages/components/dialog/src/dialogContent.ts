@@ -1,15 +1,16 @@
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import type { PropType } from 'vue'
+import { computed, defineComponent, h, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { CONTENT_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
-import type { DialogContentModalElement, DialogContentModalProps } from './dialogContentModal'
-import { OkuDialogContentModal } from './dialogContentModal'
+import type { DialogContentModalElement, DialogContentTypeProps } from './dialogContentModal'
+import { OkuDialogContentModal, dialogContentTypeProps } from './dialogContentModal'
 import { OkuDialogContentNonModal } from './dialogContentNonModal'
 
 export type DialogContentNaviteElement = DialogContentModalElement
 
-export interface DialogContentProps extends DialogContentModalProps {
+export interface DialogContentProps extends DialogContentTypeProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -19,12 +20,14 @@ export interface DialogContentProps extends DialogContentModalProps {
 export const dialogContentProps = {
   props: {
     ...primitiveProps,
+    ...dialogContentTypeProps.props,
     forceMount: {
-      type: Boolean,
-      default: true,
+      type: Boolean as PropType<true | undefined>,
+      default: undefined,
     },
   },
   emits: {
+    ...dialogContentTypeProps.emits,
   },
 }
 
@@ -37,27 +40,29 @@ const dialogContent = defineComponent({
   },
   emits: dialogContentProps.emits,
   setup(props, { attrs }) {
-    const { ...restAttrs } = attrs as DialogContentNaviteElement
-
+    const { forceMount, ...dialogProps } = props
     const portalInject = useDialogPortalInject(CONTENT_NAME, props.scopeOkuDialog)
 
-    const { forceMount = ref(portalInject.forceMount) } = toRefs(props)
+    const { forceMount: force } = toRefs(props)
+    const forceMountRef = computed(() => force.value || portalInject.forceMount?.value)
 
     const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(OkuPresence, {
-      present: computed(() => forceMount?.value || inject.open?.value).value,
+      present: computed(() => forceMountRef?.value || inject.open.value).value,
     },
     {
       default: () => inject.modal.value
         ? h(OkuDialogContentModal, {
-          ...restAttrs,
+          ...attrs,
+          ...dialogProps,
           ref: forwardRef,
         })
         : h(OkuDialogContentNonModal, {
-          ...restAttrs,
+          ...attrs,
+          ...dialogProps,
           ref: forwardRef,
         }),
     })

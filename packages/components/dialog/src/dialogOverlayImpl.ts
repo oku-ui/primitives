@@ -1,7 +1,7 @@
 import { defineComponent, h } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { useForwardRef, useScrollLock } from '@oku-ui/use-composable'
 import { OVERLAY_NAME, getState, scopeDialogProps, useDialogInject } from './utils'
 
 export type DialogOverlayImplNaviteElement = OkuElement<'div'>
@@ -13,8 +13,6 @@ export const dialogOverlayImplProps = {
     ...primitiveProps,
   },
   emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
   },
 }
 
@@ -27,15 +25,15 @@ const dialogOverlayImpl = defineComponent({
   },
   emits: dialogOverlayImplProps.emits,
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as DialogOverlayImplNaviteElement
-
     const inject = useDialogInject(OVERLAY_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
 
+    useScrollLock(inject.contentRef, true)
+
     const originalReturn = () => h(Primitive.div, {
-      'data-state': getState(inject.open?.value || false),
-      ...restAttrs,
+      'data-state': getState(inject.open.value),
+      ...attrs,
       'ref': forwardRef,
       'style': {
         pointerEvents: 'auto',

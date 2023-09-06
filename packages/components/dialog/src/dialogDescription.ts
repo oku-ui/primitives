@@ -6,7 +6,8 @@ import { scopeDialogProps, useDialogInject } from './utils'
 
 export const DESCRIPTION_NAME = 'OkuDialogDescription'
 
-export type DialogDescriptionElement = OkuElement<'p'>
+export type DialogDescriptionNaviteElement = OkuElement<'p'>
+export type DialogDescriptionElement = HTMLParagraphElement
 
 export interface DialogDescriptionProps extends PrimitiveProps {}
 
@@ -27,15 +28,16 @@ const dialogDescription = defineComponent({
   },
   emits: dialogDescriptionProps.emits,
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as DialogDescriptionElement
+    const { scopeOkuDialog, ...descriptionProps } = props
 
-    const inject = useDialogInject(DESCRIPTION_NAME, props.scopeOkuDialog)
+    const inject = useDialogInject(DESCRIPTION_NAME, scopeOkuDialog)
 
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(Primitive.p, {
       id: inject.descriptionId.value,
-      ...restAttrs,
+      ...attrs,
+      ...descriptionProps,
       ref: forwardRef,
     },
     {

@@ -1,17 +1,21 @@
-import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import type { PropType } from 'vue'
+import { computed, defineComponent, ref, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
 import { DIALOG_NAME, DialogProvider, scopeDialogProps } from './utils'
 
 export type DialogNaviteElement = OkuElement<'button'>
 
 export interface DialogProps {
-  open?: Ref<boolean | undefined>
-  defaultOpen?: Ref<boolean | undefined>
-  modal?: Ref<boolean | undefined>
+  open?: boolean
+  defaultOpen?: boolean
+  modal?: boolean
 }
+
+export interface DialogEmits {
+  openChange: [open: boolean]
+}
+
 export const dialogProps = {
   props: {
     open: {
@@ -36,13 +40,11 @@ const dialog = defineComponent({
   name: DIALOG_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...scopeDialogProps,
     ...dialogProps.props,
   },
   emits: dialogProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as DialogNaviteElement
     const {
       open: openProp,
       defaultOpen,
@@ -59,6 +61,7 @@ const dialog = defineComponent({
       },
       initialValue: false,
     })
+
     DialogProvider({
       scope: props.scopeOkuDialog,
       triggerRef,
@@ -66,21 +69,15 @@ const dialog = defineComponent({
       contentId: computed(() => useId()),
       titleId: computed(() => useId()),
       descriptionId: computed(() => useId()),
-      open: state,
+      open: computed(() => state.value || false),
       modal: computed(() => modal.value || true),
       onOpenChange: (open: boolean) => updateValue(open),
       onOpenToggle: () => {
         updateValue(!state.value)
       },
     })
-    const originalReturn = () => h(Primitive.button, {
-      asChild: props.asChild,
-      ...restAttrs,
-    },
-    {
-      default: () => slots.default?.(),
-    })
-    return originalReturn
+
+    return () => slots.default?.()
   },
 })
 

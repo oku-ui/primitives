@@ -1,26 +1,28 @@
-import { defineComponent, h, ref, watchEffect } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
+import { defineComponent, h, onBeforeUnmount, ref } from 'vue'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
 import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
 import type { DialogContentImplEmits, DialogContentImplNaviteElement, DialogContentImplProps } from './dialogContentImpl'
-import { OkuDialogContentImpl } from './dialogContentImpl'
+import { OkuDialogContentImpl, dialogContentImplProps } from './dialogContentImpl'
 
 export const CONTENT_MODAL_NAME = 'OkuDialogContentModal'
 
 export type DialogContentModalElement = DialogContentImplNaviteElement
 
-export interface DialogContentModalProps
+export interface DialogContentTypeProps
   extends Omit<DialogContentImplProps, 'trapFocus' | 'disableOutsidePointerEvents'> {}
 
 export interface DialogContentModalEmits extends DialogContentImplEmits { }
 
-export const dialogOverlayProps = {
+export const dialogContentTypeProps = {
   props: {
+    ...propsOmit(dialogContentImplProps.props, ['trapFocus', 'disableOutsidePointerEvents']),
     ...primitiveProps,
   },
   emits: {
+    ...dialogContentImplProps.emits,
   },
 }
 
@@ -28,40 +30,37 @@ const dialogContentModal = defineComponent({
   name: CONTENT_MODAL_NAME,
   inheritAttrs: false,
   props: {
-    ...dialogOverlayProps.props,
+    ...dialogContentTypeProps.props,
     ...scopeDialogProps,
   },
-  emits: dialogOverlayProps.emits,
+  emits: dialogContentTypeProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as DialogContentModalElement
-
     const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
     const contentRef = ref<HTMLDivElement | null>(null)
     const composedRefs = useComposedRefs(forwardRef, inject.contentRef, contentRef)
 
-    watchEffect(() => {
-      const content = contentRef.value
-
-      if (content)
-        return hideOthers(content)
+    onBeforeUnmount(() => {
+      // console.log('test', 'dialogContentModal onBeforeUnmount')
+      if (contentRef.value)
+        return hideOthers(contentRef.value)
     })
 
     const originalReturn = () => h(OkuDialogContentImpl, {
-      ...restAttrs,
+      ...attrs,
+      ...props,
       ref: composedRefs,
-      trapFocus: inject.open?.value,
+      // we make sure focus isn't trapped once `DialogContent` has been closed
+      // (closed !== unmounted when animating out)
+      trapFocus: inject.open.value,
       disableOutsidePointerEvents: true,
-
-      onCloseAutoFocus:
-      composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {
+      onCloseAutoFocus: composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {
         emit('closeAutoFocus', el)
       }, (event) => {
         event.preventDefault()
         inject.triggerRef.value?.focus()
       }),
-
       onPointerdownOutside: composeEventHandlers<DialogContentModalEmits['pointerdownOutside'][0]>((el) => {
         emit('pointerdownOutside', el)
       }, (event) => {
@@ -75,8 +74,8 @@ const dialogContentModal = defineComponent({
           event.preventDefault()
       }),
 
-      onFocusOutside: composeEventHandlers<DialogContentModalEmits['focusoutSide'][0]>((el) => {
-        emit('focusOutside', el)
+      onFocusoutSide: composeEventHandlers<DialogContentModalEmits['focusoutSide'][0]>((el) => {
+        emit('focusoutSide', el)
       }, (event) => {
         event.preventDefault()
       }),

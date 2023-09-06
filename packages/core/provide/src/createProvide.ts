@@ -5,8 +5,7 @@ function createProvide<ProvideValueType extends object | null>(
   rootComponentName: string,
   defaultProvide?: ProvideValueType,
 ) {
-  const Provide = Symbol(rootComponentName)
-
+  const Provide: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
   function Provider(props: ProvideValueType) {
     provide(Provide, props)
   }
@@ -42,7 +41,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     rootComponentName: string,
     defaultValue?: ProvideValueType,
   ) {
-    const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName) as any
+    const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
 
     const BaseScope = BaseProvideKey
     const index = defaultProviders.length

@@ -3,18 +3,22 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
-import type { DialogContentModalElement, DialogContentModalEmits } from './dialogContentModal'
+import { type DialogContentModalElement, type DialogContentModalEmits, type DialogContentTypeProps, dialogContentTypeProps } from './dialogContentModal'
 import { OkuDialogContentImpl } from './dialogContentImpl'
 
 export const CONTENTNON_NAME = 'OkuDialogContentNonModal'
 
 export type DialogContentNonModalNaviteElement = DialogContentModalElement
 
-export const dialogOverlayProps = {
+export interface DialogContentNonModalProps extends DialogContentTypeProps {}
+
+export const dialogContentNonModalProps = {
   props: {
+    ...dialogContentTypeProps.props,
     ...primitiveProps,
   },
   emits: {
+    ...dialogContentTypeProps.emits,
   },
 }
 
@@ -22,13 +26,11 @@ const dialogContentNonModal = defineComponent({
   name: CONTENTNON_NAME,
   inheritAttrs: false,
   props: {
-    ...dialogOverlayProps.props,
+    ...dialogContentNonModalProps.props,
     ...scopeDialogProps,
   },
-  emits: dialogOverlayProps.emits,
+  emits: dialogContentNonModalProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as DialogContentNonModalNaviteElement
-
     const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
 
     const hasInteractedOutsideRef = ref(false)
@@ -37,7 +39,8 @@ const dialogContentNonModal = defineComponent({
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(OkuDialogContentImpl, {
-      ...restAttrs,
+      ...attrs,
+      ...props,
       ref: forwardRef,
       trapFocus: false,
       disableOutsidePointerEvents: false,

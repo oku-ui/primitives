@@ -5,6 +5,7 @@ import { useForwardRef } from '@oku-ui/use-composable'
 import { TITLE_NAME, scopeDialogProps, useDialogInject } from './utils'
 
 export type DialogTitleNaviteElement = OkuElement<'h2'>
+export type DialogTitleElement = HTMLHeadingElement
 
 export interface DialogTitleProps extends PrimitiveProps {}
 
@@ -25,15 +26,16 @@ const dialogTitle = defineComponent({
   },
   emits: dialogTitleProps.emits,
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as DialogTitleNaviteElement
+    const { scopeOkuDialog, ...titleProps } = props
 
-    const inject = useDialogInject(TITLE_NAME, props.scopeOkuDialog)
+    const inject = useDialogInject(TITLE_NAME, scopeOkuDialog)
 
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(Primitive.h2, {
       id: inject.titleId.value,
-      ...restAttrs,
+      ...attrs,
+      ...titleProps,
       ref: forwardRef,
     },
     {

@@ -8,6 +8,7 @@ import { scopeDialogProps, useDialogInject } from './utils'
 export const CLOSE_NAME = 'OkuDialogClose'
 
 export type DialogCloseNaviteElement = OkuElement<'button'>
+export type DialogCloseElement = HTMLButtonElement
 
 export type DialogCloseEmits = {
   click: [event: MouseEvent]
@@ -20,6 +21,8 @@ export const dialogCloseProps = {
     ...primitiveProps,
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (event: MouseEvent) => true,
   },
 }
 
@@ -32,15 +35,16 @@ const dialogClose = defineComponent({
   },
   emits: dialogCloseProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as DialogCloseNaviteElement
+    const { scopeOkuDialog, ...closeProps } = props
 
-    const inject = useDialogInject(CLOSE_NAME, props.scopeOkuDialog)
+    const inject = useDialogInject(CLOSE_NAME, scopeOkuDialog)
 
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(Primitive.button, {
       type: 'button',
-      ...restAttrs,
+      ...attrs,
+      ...closeProps,
       ref: forwardRef,
       onClick: composeEventHandlers<DialogCloseEmits['click'][0]>((event) => {
         emit('click', event)
