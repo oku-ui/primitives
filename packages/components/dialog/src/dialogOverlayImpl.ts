@@ -26,7 +26,7 @@ const dialogOverlayImpl = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogOverlayImplProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots }) {
     const { ...restAttrs } = attrs as DialogOverlayImplNaviteElement
 
     const inject = useDialogInject(OVERLAY_NAME, props.scopeOkuDialog)

@@ -69,10 +69,8 @@ const dialogContentImpl = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogContentImplProps.emits,
-  setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as DialogContentImplNaviteElement
-
-    const { trapFocus, asChild } = toRefs(props)
+  setup(props, { emit }) {
+    const { trapFocus } = toRefs(props)
 
     const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
 

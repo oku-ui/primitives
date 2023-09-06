@@ -7,7 +7,7 @@ import { DIALOG_NAME, DialogProvider, scopeDialogProps } from './utils'
 
 export type DialogNaviteElement = OkuElement<'button'>
 
-interface DialogProps {
+export interface DialogProps {
   open?: Ref<boolean | undefined>
   defaultOpen?: Ref<boolean | undefined>
   modal?: Ref<boolean | undefined>
@@ -28,6 +28,7 @@ export const dialogProps = {
     },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     openChange: (open: boolean) => true,
   },
 }

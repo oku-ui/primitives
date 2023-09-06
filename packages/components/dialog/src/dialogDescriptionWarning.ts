@@ -5,7 +5,7 @@ import { useWarningInject } from './utils'
 
 export const DESCRIPTION_WARNING_NAME = 'OkuDialogDescriptionWarning'
 
-type DescriptionWarningProps = {
+export type DescriptionWarningProps = {
   contentRef: Ref<DialogContentNaviteElement>
   descriptionId?: string
 }
@@ -31,7 +31,7 @@ const dialogDescriptionWarning = defineComponent({
   props: {
     ...dialogDescriptionWarningProps.props,
   },
-  setup(props, { attrs, slots, emit }) {
+  setup(props) {
     const inject = useWarningInject(DESCRIPTION_WARNING_NAME)
 
     const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${(inject as any).contentName}}.`

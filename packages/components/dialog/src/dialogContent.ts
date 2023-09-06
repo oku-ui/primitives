@@ -9,7 +9,7 @@ import { OkuDialogContentNonModal } from './dialogContentNonModal'
 
 export type DialogContentNaviteElement = DialogContentModalElement
 
-interface DialogContentProps extends DialogContentModalProps {
+export interface DialogContentProps extends DialogContentModalProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -36,7 +36,7 @@ const dialogContent = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogContentProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs }) {
     const { ...restAttrs } = attrs as DialogContentNaviteElement
 
     const portalInject = useDialogPortalInject(CONTENT_NAME, props.scopeOkuDialog)

@@ -2,7 +2,7 @@
 import { defineComponent, watchEffect } from 'vue'
 import { TITLE_WARNING_NAME, useWarningInject } from './utils'
 
-type TitleWarningProps = { titleId?: string }
+export type TitleWarningProps = { titleId?: string }
 
 export const dialogTitleWarningProps = {
   props: {
@@ -19,7 +19,7 @@ const dialogTitleWarning = defineComponent({
   props: {
     ...dialogTitleWarningProps.props,
   },
-  setup(props, { attrs, slots, emit }) {
+  setup(props) {
     const inject = useWarningInject(TITLE_WARNING_NAME)
 
     const MESSAGE = `${(inject as any).contentName}\` requires a \`${(inject as any).titleName}\` for the component to be accessible for screen reader users.

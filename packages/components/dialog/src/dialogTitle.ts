@@ -6,7 +6,7 @@ import { TITLE_NAME, scopeDialogProps, useDialogInject } from './utils'
 
 export type DialogTitleNaviteElement = OkuElement<'h2'>
 
-interface DialogTitleProps extends PrimitiveProps {}
+export interface DialogTitleProps extends PrimitiveProps {}
 
 export const dialogTitleProps = {
   props: {
@@ -24,7 +24,7 @@ const dialogTitle = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogTitleProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots }) {
     const { ...restAttrs } = attrs as DialogTitleNaviteElement
 
     const inject = useDialogInject(TITLE_NAME, props.scopeOkuDialog)

@@ -12,7 +12,8 @@ export type DialogCloseNaviteElement = OkuElement<'button'>
 export type DialogCloseEmits = {
   click: [event: MouseEvent]
 }
-interface DialogCloseProps extends PrimitiveProps {}
+
+export interface DialogCloseProps extends PrimitiveProps {}
 
 export const dialogCloseProps = {
   props: {

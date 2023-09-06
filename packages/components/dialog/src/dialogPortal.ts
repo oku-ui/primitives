@@ -2,7 +2,6 @@ import type { PropType } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPortal, type PortalProps } from '@oku-ui/portal'
 
 import { OkuPresence } from '@oku-ui/presence'
@@ -12,7 +11,7 @@ const PORTAL_NAME = 'OkuDialogPortal'
 
 export type DialogPortalNaviteElement = OkuElement<'div'>
 
-interface DialogPortalProps {
+export interface DialogPortalProps {
   /**
    * Specify a container element to portal the content into.
    */
@@ -47,13 +46,10 @@ const dialogPortal = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogPortalProps.emits,
-  setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as DialogPortalNaviteElement
-
+  setup(props, { slots }) {
     const { forceMount, container } = toRefs(props)
     const inject = useDialogInject(PORTAL_NAME, props.scopeOkuDialog)
 
-    const forwardRef = useForwardRef()
     DialogPortalProvider({
       scope: props.scopeOkuDialog,
       forceMount: forceMount.value,

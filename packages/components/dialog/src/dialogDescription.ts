@@ -8,7 +8,7 @@ export const DESCRIPTION_NAME = 'OkuDialogDescription'
 
 export type DialogDescriptionElement = OkuElement<'p'>
 
-interface DialogDescriptionProps extends PrimitiveProps {}
+export interface DialogDescriptionProps extends PrimitiveProps {}
 
 export const dialogDescriptionProps = {
   props: {
@@ -26,7 +26,7 @@ const dialogDescription = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogDescriptionProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots }) {
     const { ...restAttrs } = attrs as DialogDescriptionElement
 
     const inject = useDialogInject(DESCRIPTION_NAME, props.scopeOkuDialog)

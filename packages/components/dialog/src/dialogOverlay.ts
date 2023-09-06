@@ -8,7 +8,7 @@ import { OkuDialogOverlayImpl } from './dialogOverlayImpl'
 
 export type DialogOverlayNaviteElement = DialogOverlayImplNaviteElement
 
-interface DialogOverlayProps extends DialogOverlayImplProps {
+export interface DialogOverlayProps extends DialogOverlayImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -35,7 +35,7 @@ const dialogOverlay = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogOverlayProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs }) {
     const { ...restAttrs } = attrs as DialogOverlayNaviteElement
 
     const portalInject = useDialogPortalInject(OVERLAY_NAME, props.scopeOkuDialog)
