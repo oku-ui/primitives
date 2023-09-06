@@ -42,7 +42,7 @@ const dialogTrigger = defineComponent({
       'aria-haspopup': 'dialog',
       'aria-expanded': inject.open.value,
       'aria-controls': inject.contentId.value,
-      'data-state': getState(inject.open.value!),
+      'data-state': getState(inject.open?.value || false),
       ...restAttrs,
       'ref': composedTriggerRef,
       'onClick': composeEventHandlers((e: MouseEvent) => {

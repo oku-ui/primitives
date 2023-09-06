@@ -43,6 +43,7 @@ const dialogContentModal = defineComponent({
 
     watchEffect(() => {
       const content = contentRef.value
+
       if (content)
         return hideOthers(content)
     })
@@ -50,8 +51,8 @@ const dialogContentModal = defineComponent({
     const originalReturn = () => h(OkuDialogContentImpl, {
       ...restAttrs,
       ref: composedRefs,
-      trapFocus: inject.open.value,
-      disableOutsidePointerEvents: false,
+      trapFocus: inject.open?.value,
+      disableOutsidePointerEvents: true,
 
       onCloseAutoFocus:
       composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {

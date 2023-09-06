@@ -45,3 +45,10 @@ export const [WarningProvider, useWarningInject] = createProvide(TITLE_WARNING_N
 
 export declare type Undo = () => void
 export declare const hideOthers: (originalTarget: Element | Element[], parentNode?: HTMLElement, markerName?: string) => Undo
+
+type PortalInjectValue = { forceMount?: true }
+
+export const [DialogPortalProvider, useDialogPortalInject]
+  = createDialogProvider<PortalInjectValue>(DIALOG_NAME, {
+    forceMount: undefined,
+  })

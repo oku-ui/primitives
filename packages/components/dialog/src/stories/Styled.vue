@@ -1,26 +1,28 @@
 <script setup lang="ts">
-import { OkuDialogTrigger } from '@oku-ui/dialog'
+import { OkuDialog, OkuDialogTrigger } from '@oku-ui/dialog'
 </script>
 
 <template>
   <div>
-    <OkuDialogTrigger class="triggerClass">
-      open
-    </OkuDialogTrigger>
-    <OkuDialogPortal>
-      <OkuDialogOverlay class="overlayClass" />
-      <OkuDialogContent class="contentDefaultClass">
-        <OkuDialogTitle>
-          Booking info
-        </OkuDialogTitle>
-        <OkuDialogDescription>
-          Please enter the info for your booking below.
-        </OkuDialogDescription>
-        <OkuDialogClose class="closeClass">
-          close
-        </OkuDialogClose>
-      </OkuDialogContent>
-    </OkuDialogPortal>
+    <OkuDialog>
+      <OkuDialogTrigger class="triggerClass">
+        open
+      </OkuDialogTrigger>
+      <OkuDialogPortal>
+        <OkuDialogOverlay class="overlayClass" />
+        <OkuDialogContent class="contentDefaultClass">
+          <OkuDialogTitle>
+            Booking info
+          </OkuDialogTitle>
+          <OkuDialogDescription>
+            Please enter the info for your booking below.
+          </OkuDialogDescription>
+          <OkuDialogClose class="closeClass">
+            close
+          </OkuDialogClose>
+        </OkuDialogContent>
+      </OkuDialogPortal>
+    </OkuDialog>
   </div>
 </template>
 
@@ -77,6 +79,9 @@ import { OkuDialogTrigger } from '@oku-ui/dialog'
 
   overflow: 'auto';
   maxHeight: 300;
+
+ }
+ .closeClass{
 
  }
 </style>

@@ -65,7 +65,7 @@ const dialog = defineComponent({
       contentId: computed(() => useId()),
       titleId: computed(() => useId()),
       descriptionId: computed(() => useId()),
-      open: computed(() => state.value || false),
+      open: state,
       modal: computed(() => modal.value || true),
       onOpenChange: (open: boolean) => updateValue(open),
       onOpenToggle: () => {

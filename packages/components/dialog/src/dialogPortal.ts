@@ -6,18 +6,12 @@ import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPortal, type PortalProps } from '@oku-ui/portal'
 
 import { OkuPresence } from '@oku-ui/presence'
-import { DIALOG_NAME, createDialogProvider, scopeDialogProps, useDialogInject } from './utils'
+import { DialogPortalProvider, scopeDialogProps, useDialogInject } from './utils'
 
 const PORTAL_NAME = 'OkuDialogPortal'
 
 export type DialogPortalNaviteElement = OkuElement<'div'>
 
-type PortalInjectValue = { forceMount?: true }
-
-export const [DialogPortalProvider, useDialogPortalInject]
-  = createDialogProvider<PortalInjectValue>(DIALOG_NAME, {
-    forceMount: undefined,
-  })
 interface DialogPortalProps {
   /**
    * Specify a container element to portal the content into.
@@ -38,7 +32,7 @@ export const dialogPortalProps = {
     },
     forceMount: {
       type: Boolean as PropType<true | undefined>,
-      default: undefined,
+      default: true,
     },
   },
   emits: {
@@ -65,12 +59,11 @@ const dialogPortal = defineComponent({
       forceMount: forceMount.value,
     })
     const originalReturn = () => h(OkuPresence, {
-      present: computed(() => forceMount.value || inject.open.value).value,
-      ref: forwardRef,
+      present: computed(() => forceMount?.value || inject.open?.value).value,
     },
     {
       default: () => h(OkuPortal, {
-        asChild: props.asChild,
+        asChild: true,
         container: container.value,
       },
       {

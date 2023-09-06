@@ -99,7 +99,7 @@ const dialogContentImpl = defineComponent({
           'id': inject.contentId.value,
           'aria-describedby': inject.descriptionId.value,
           'aria-labelledby': inject.titleId.value,
-          'data-state': getState(inject.open.value!),
+          'data-state': getState(inject.open?.value || false),
           'ref': composedRefs,
           'onDismiss': () => {
             inject.onOpenChange(false)

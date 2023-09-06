@@ -2,10 +2,9 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
+import { CONTENT_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
 import type { DialogContentModalElement, DialogContentModalProps } from './dialogContentModal'
 import { OkuDialogContentModal } from './dialogContentModal'
-import { useDialogPortalInject } from './dialogPortal'
 import { OkuDialogContentNonModal } from './dialogContentNonModal'
 
 export type DialogContentNaviteElement = DialogContentModalElement
@@ -49,8 +48,7 @@ const dialogContent = defineComponent({
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(OkuPresence, {
-      present: computed(() => forceMount?.value || inject.open.value).value,
-      ref: forwardRef,
+      present: computed(() => forceMount?.value || inject.open?.value).value,
     },
     {
       default: () => inject.modal.value

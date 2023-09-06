@@ -34,7 +34,7 @@ const dialogOverlayImpl = defineComponent({
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(Primitive.div, {
-      'data-state': getState(inject.open.value!),
+      'data-state': getState(inject.open?.value || false),
       ...restAttrs,
       'ref': forwardRef,
       'style': {

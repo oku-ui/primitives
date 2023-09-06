@@ -2,10 +2,9 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import { OVERLAY_NAME, scopeDialogProps, useDialogInject } from './utils'
+import { OVERLAY_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
 import type { DialogOverlayImplNaviteElement, DialogOverlayImplProps } from './dialogOverlayImpl'
 import { OkuDialogOverlayImpl } from './dialogOverlayImpl'
-import { useDialogPortalInject } from './dialogPortal'
 
 export type DialogOverlayNaviteElement = DialogOverlayImplNaviteElement
 
@@ -49,8 +48,7 @@ const dialogOverlay = defineComponent({
 
     const originalReturn = () => inject.modal.value
       ? h(OkuPresence, {
-        present: computed(() => forceMount.value || inject.open.value).value,
-        ref: forwardRef,
+        present: computed(() => forceMount.value || inject.open?.value).value,
       },
       {
         default: () => h(OkuDialogOverlayImpl, {
