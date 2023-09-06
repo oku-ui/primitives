@@ -1,11 +1,11 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperArrow, type PopperArrowElement, type PopperArrowIntrinsicElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
-import { type ScopeTooltip, scopeTooltipProps } from './types'
+import { OkuPopperArrow, type PopperArrowElement, type PopperArrowNaviteElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
+import { scopeTooltipProps } from './types'
 import { usePopperScope } from './utils'
 import { useVisuallyHiddenContentInject } from './tooltipContentImpl'
 
-export type TooltipArrowIntrinsicElement = PopperArrowIntrinsicElement
+export type TooltipArrowNaviteElement = PopperArrowNaviteElement
 export type TooltipArrowElement = PopperArrowElement
 
 export interface TooltipArrowProps extends PopperArrowProps { }
@@ -53,5 +53,5 @@ const tooltipArrow = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipArrow = tooltipArrow as typeof tooltipArrow &
 (new () => {
-  $props: ScopeTooltip<Partial<PopperArrowElement>>
+  $props: TooltipArrowNaviteElement
 })

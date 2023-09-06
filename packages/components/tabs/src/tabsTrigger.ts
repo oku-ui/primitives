@@ -1,17 +1,17 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
-import { type PropType, computed, defineComponent, h, toRefs } from 'vue'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, toRefs } from 'vue'
+import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useRovingFocusGroupScope, useTabsInject } from './tabs'
-import type { ScopeTabs } from './utils'
 import { makeContentId, makeTriggerId, scopeTabsProps } from './utils'
 
-export type TabsTriggerElementIntrinsicElement = ElementType<'button'>
+export type TabsTriggerElementNaviteElement = OkuElement<'button'>
 export type TabsTriggerElement = HTMLButtonElement
 
-const TAB_TRIGGER_NAME = 'OkuTabTrigger' as const
+const TAB_TRIGGER_NAME = 'OkuTabsTrigger' as const
 
 export interface TabsTriggerProps extends PrimitiveProps {
   value: string
@@ -46,7 +46,7 @@ export const tabsTriggerProps = {
   },
 }
 
-const TabTrigger = defineComponent({
+const tabsTrigger = defineComponent({
   name: TAB_TRIGGER_NAME,
   inheritAttrs: false,
   props: {
@@ -123,7 +123,7 @@ const TabTrigger = defineComponent({
   },
 })
 
-export const OkuTabTrigger = TabTrigger as typeof TabTrigger &
+export const OkuTabsTrigger = tabsTrigger as typeof tabsTrigger &
 (new () => {
-  $props: ScopeTabs<Partial<TabsTriggerElement>>
+  $props: TabsTriggerElementNaviteElement
 })

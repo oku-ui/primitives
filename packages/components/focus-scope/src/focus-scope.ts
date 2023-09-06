@@ -1,5 +1,5 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
@@ -31,8 +31,8 @@ const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
 const FOCUS_SCOPE_NAME = 'OkuFocusScope'
 
-export type FocusScopeElement = ElementType<'div'>
-export type FocusIntrinsicElement = HTMLDivElement
+export type FocusScopeNativeElement = OkuElement<'div'>
+export type FocusScopeElement = HTMLDivElement
 
 export interface FocusScopeProps extends PrimitiveProps {
   /**
@@ -93,7 +93,7 @@ const focusScope = defineComponent({
   },
   emits: focusScopeProps.emits,
   setup(props, { slots, attrs, emit }) {
-    const { ...focusScopeAttrs } = attrs as FocusScopeElement
+    const { ...focusScopeAttrs } = attrs as FocusScopeNativeElement
 
     const { loop, trapped, asChild } = toRefs(props)
 
@@ -304,4 +304,6 @@ const focusScope = defineComponent({
 })
 
 export const OkuFocusScope = focusScope as typeof focusScope &
-(new () => { $props: Partial<FocusScopeElement> })
+(new () => {
+  $props: FocusScopeNativeElement
+})

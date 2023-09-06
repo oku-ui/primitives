@@ -1,9 +1,9 @@
 import { defineComponent, h } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-export type LabelIntrinsicElement = ElementType<'label'>
+export type LabelNaviteElement = OkuElement<'label'>
 export type LabelElement = HTMLLabelElement
 
 export interface LabelProps extends PrimitiveProps {}
@@ -17,7 +17,7 @@ const label = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as LabelIntrinsicElement
+    const { ...restAttrs } = attrs as LabelNaviteElement
 
     const forwardedRef = useForwardRef()
 
@@ -42,5 +42,5 @@ const label = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuLabel = label as typeof label &
 (new () => {
-  $props: Partial<LabelElement>
+  $props: LabelNaviteElement
 })

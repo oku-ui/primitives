@@ -1,3 +1,5 @@
+import type { } from '@floating-ui/vue'
+
 export {
   OkuPopover,
   createPopoverScope,
@@ -16,7 +18,7 @@ export {
 
 export type {
   PopoverAnchorElement,
-  PopoverAnchorIntrinsicElement,
+  PopoverAnchorNaviteElement,
   PopoverAnchorProps,
 } from './popoverAnchor'
 
@@ -26,7 +28,7 @@ export {
 } from './popoverTrigger'
 
 export type {
-  PopoverTriggerIntrinsicElement,
+  PopoverTriggerNaviteElement,
   PopoverTriggerEmits,
   PopoverTriggerProps,
 } from './popoverTrigger'
@@ -54,7 +56,7 @@ export {
 } from './popoverClose'
 
 export type {
-  PopoverCloseIntrinsicElement,
+  PopoverCloseNaviteElement,
   PopoverCloseElement,
   PopoverCloseEmits,
 } from './popoverClose'
@@ -67,5 +69,5 @@ export {
 export type {
   PopoverArrowProps,
   PopoverArrowElement,
-  PopoverArrowIntrinsicElement,
+  PopoverArrowNaviteElement,
 } from './popoverArrow'

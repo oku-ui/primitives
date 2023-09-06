@@ -1,4 +1,4 @@
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { defineComponent, h, toRefs } from 'vue'
 import type { PropType } from 'vue'
@@ -10,7 +10,7 @@ import { toggleGroupProvide, useRovingFocusGroupScope } from './ToggleGroup'
 
 const TOGGLE_GROUP_IMPL_NAME = 'OkuToggleGroupImpl'
 
-export type ToggleGroupImplIntrinsicElement = ElementType<'div'>
+export type ToggleGroupImplNaviteElement = OkuElement<'div'>
 export type ToggleGroupImplElement = HTMLDivElement
 
 export interface ToggleGroupImplProps extends PrimitiveProps {
@@ -116,5 +116,5 @@ const toggleGroupImpl = defineComponent({
 
 export const OkuToggleGroupImpl = toggleGroupImpl as typeof toggleGroupImpl &
 (new () => {
-  $props: Partial<ToggleGroupImplElement>
+  $props: ToggleGroupImplNaviteElement
 })

@@ -6,6 +6,6 @@ export {
 export type {
   ToggleProps,
   ToggleElement,
-  ToggleElementIntrinsicElement,
+  ToggleElementNaviteElement,
   ToggleEmits,
 } from './toggle'

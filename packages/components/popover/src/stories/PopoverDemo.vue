@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import {
   OkuPopover,
   OkuPopoverArrow,
@@ -9,20 +8,13 @@ import {
   OkuPopoverTrigger,
 } from '@oku-ui/popover'
 
-export interface OkuLabelProps {
-  label: string
+export interface OkuPopoverProps {
   template: '#1' | '#2'
   allshow?: boolean
 }
 
-withDefaults(defineProps<OkuLabelProps>(), {
-  label: 'First Name',
+withDefaults(defineProps<OkuPopoverProps>(), {
   template: '#1',
-})
-
-const labelRef = ref()
-onMounted(() => {
-  console.log(labelRef.value)
 })
 </script>
 

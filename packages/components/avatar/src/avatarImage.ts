@@ -1,5 +1,6 @@
+import type { PropType } from 'vue'
 import { defineComponent, h, toRef, watchEffect } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { useCallbackRef, useForwardRef } from '@oku-ui/use-composable'
@@ -9,7 +10,7 @@ import { useAvatarInject } from './avatar'
 
 const IMAGE_NAME = 'OkuAvatarImage'
 
-export type AvatarImageIntrinsicElement = ElementType<'img'>
+export type AvatarImageNaviteElement = OkuElement<'img'>
 export type AvatarImageElement = HTMLImageElement
 
 export interface AvatarImageProps extends PrimitiveProps {
@@ -23,8 +24,7 @@ export type AvatarEmits = {
 export const avatarImageProps = {
   props: {
     src: {
-      type: String,
-      required: true,
+      type: String as PropType<string | undefined>,
     },
   },
   emits: {
@@ -81,5 +81,5 @@ const avatarImage = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatarImage = avatarImage as typeof avatarImage &
 (new () => {
-  $props: Partial<AvatarImageElement>
+  $props: AvatarImageNaviteElement
 })

@@ -1,16 +1,15 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
 import type { ComputedRef, PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useTabsInject } from './tabs'
-import type { ScopeTabs } from './utils'
 import { makeContentId, makeTriggerId, scopeTabsProps } from './utils'
 
-const TAB_CONTENT_NAME = 'OkuTabContent' as const
+const TAB_CONTENT_NAME = 'OkuTabsContent' as const
 
-export type TabsContentIntrinsicElement = ElementType<'div'>
+export type TabsContentNaviteElement = OkuElement<'div'>
 export type TabsContentElement = HTMLDivElement
 
 export interface TabsContentProps extends PrimitiveProps {
@@ -37,7 +36,7 @@ export const tabsContentProps = {
   },
 }
 
-const TabContent = defineComponent({
+const tabsContent = defineComponent({
   name: TAB_CONTENT_NAME,
   inheritAttrs: false,
   props: {
@@ -46,7 +45,6 @@ const TabContent = defineComponent({
   },
   setup(props, { slots, attrs }) {
     const { value } = toRefs(props)
-    const { ...ContentAttrs } = attrs
     const injectTabs = useTabsInject(TAB_CONTENT_NAME, props.scopeOkuTabs)
 
     const triggerId = makeTriggerId(injectTabs.baseId.value, value.value!)
@@ -56,9 +54,14 @@ const TabContent = defineComponent({
     const forwardedRef = useForwardRef()
     const isMountAnimationPreventedRef = ref(isSelected.value)
 
-    watchEffect((onClean) => {
-      const rAF = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
-      onClean(() => cancelAnimationFrame(rAF))
+    const rAf = ref()
+
+    onMounted(() => {
+      rAf.value = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
+    })
+
+    onBeforeUnmount(() => {
+      cancelAnimationFrame(rAf.value)
     })
 
     return () => h(OkuPresence, {
@@ -72,10 +75,10 @@ const TabContent = defineComponent({
         'hidden': !isPresent,
         'id': contentId,
         'tabindex': '0',
-        ...ContentAttrs,
+        ...attrs,
         'ref': forwardedRef,
         'style': {
-          ...ContentAttrs.style ?? {} as any,
+          ...attrs.style ?? {} as any,
           animationDuration: isMountAnimationPreventedRef.value ? '0s' : undefined,
         },
       }, {
@@ -85,7 +88,7 @@ const TabContent = defineComponent({
   },
 })
 
-export const OkuTabContent = TabContent as typeof TabContent &
+export const OkuTabsContent = tabsContent as typeof tabsContent &
 (new () => {
-  $props: ScopeTabs<Partial<TabsContentElement>>
+  $props: TabsContentNaviteElement
 })

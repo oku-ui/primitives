@@ -1,5 +1,5 @@
 import { defineComponent, h, toRefs } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
@@ -8,7 +8,7 @@ import { useRovingFocusGroupScope } from './toolbar'
 
 const BUTTON_NAME = 'OkuToolbarButton'
 
-export type ToolbarButtonIntrinsicElement = ElementType<'button'>
+export type ToolbarButtonNaviteElement = OkuElement<'button'>
 export type ToolbarButtonElement = HTMLButtonElement
 
 export interface ToolbarButtonProps extends PrimitiveProps {
@@ -58,5 +58,5 @@ const toolbarButton = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarButton = toolbarButton as typeof toolbarButton &
 (new () => {
-  $props: Partial<ToolbarButtonElement>
+  $props: ToolbarButtonNaviteElement
 })

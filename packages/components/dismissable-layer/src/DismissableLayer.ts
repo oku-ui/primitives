@@ -3,7 +3,7 @@ import {
   useEscapeKeydown,
   useForwardRef,
 } from '@oku-ui/use-composable'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Ref } from 'vue'
 import {
@@ -19,7 +19,6 @@ import {
   watchEffect,
 } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScopeDismissableLayer } from './util'
 import {
   dispatchUpdate,
   scopeDismissableLayerProps,
@@ -42,7 +41,7 @@ let originalBodyPointerEvents: string
 export const DISMISSABLE_NAME = 'OkuDismissableLayer'
 export const DismissableLayerProvideKey = Symbol('DismissableLayerProvide')
 
-export type DismissableLayerIntrinsicElement = ElementType<'div'>
+export type DismissableLayerNativeElement = OkuElement<'div'>
 export type DismissableLayerElement = HTMLDivElement
 
 export type DismissableLayerProvideValue = {
@@ -307,5 +306,5 @@ const DismissableLayer = defineComponent({
 
 export const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer &
 (new () => {
-  $props: ScopeDismissableLayer<Partial<DismissableLayerElement>>
+  $props: DismissableLayerNativeElement
 })

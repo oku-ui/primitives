@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import type { IDismissableLayerProps } from './DismissableLayer.vue'
-import OkuDismissableLayerComponent from './DismissableLayer.vue'
+import type { IDismissableLayerProps } from './DismissableLayerDemo.vue'
+import OkuDismissableLayerComponent from './DismissableLayerDemo.vue'
 
 interface StoryProps extends IDismissableLayerProps {}
 
@@ -28,7 +28,7 @@ type Story = StoryObj<typeof meta> & {
 export const Basic: Story = {
   args: {
     template: '#1',
-    // allShow: true,
+    // allshow: true,
   },
 
   render: (args: any) => ({

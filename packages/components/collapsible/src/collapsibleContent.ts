@@ -3,17 +3,16 @@ import { Transition, defineComponent, h, toRefs } from 'vue'
 
 import { useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { isPresent } from '@oku-ui/presence'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuCollapsibleContentImpl } from './collapsibleContentImpl'
 import { useCollapsibleInject } from './collapsible'
-import type { ScopeCollapsible } from './utils'
 import { scopeCollapsibleProps } from './utils'
 
 export const CONTENT_NAME = 'OkuCollapsibleContent'
 
-export type CollapsibleContentIntrinsicElement = ElementType<'div'>
+export type CollapsibleContentNaviteElement = OkuElement<'div'>
 export type CollapsibleContentElement = HTMLDivElement
 
 export interface CollapsibleContentProps extends PrimitiveProps {
@@ -51,7 +50,7 @@ const collapsibleContent = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { scopeOkuCollapsible, forceMount } = toRefs(props)
-    const { ...contentAttrs } = attrs as CollapsibleContentIntrinsicElement
+    const { ...contentAttrs } = attrs as CollapsibleContentNaviteElement
 
     const context = useCollapsibleInject(CONTENT_NAME, scopeOkuCollapsible.value)
 
@@ -87,5 +86,5 @@ const collapsibleContent = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCollapsibleContent = collapsibleContent as typeof collapsibleContent &
 (new () => {
-  $props: ScopeCollapsible<Partial<CollapsibleContentElement>>
+  $props: CollapsibleContentNaviteElement
 })

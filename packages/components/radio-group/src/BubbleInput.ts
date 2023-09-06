@@ -1,11 +1,11 @@
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 import { usePrevious, useSize } from '@oku-ui/use-composable'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { PropType } from 'vue'
 
 const BUBBLE_INPUT_NAME = 'OkuBubbleInput'
 
-export type BubbleInputIntrinsicElement = ElementType<'button'>
+export type BubbleInputNaviteElement = OkuElement<'button'>
 export type BubbleInputElement = Omit<HTMLButtonElement, 'checked'>
 
 export interface BubbleInputProps {
@@ -21,7 +21,7 @@ const bubbleInputPropsObject = {
       required: true,
     },
     control: {
-      type: HTMLElement as PropType<HTMLElement | null>,
+      type: Object as PropType<HTMLElement | null>,
       default: null,
     },
     bubbles: {
@@ -77,5 +77,5 @@ const bubbleInput = defineComponent({
 
 export const OkuBubbleInput = bubbleInput as typeof bubbleInput &
 (new () => {
-  $props: Partial<BubbleInputElement>
+  $props: BubbleInputNaviteElement
 })

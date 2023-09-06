@@ -6,7 +6,7 @@ export {
 
 export type {
   SwitchProps,
-  SwitchIntrinsicElement,
+  SwitchNaviteElement,
   SwitchElement,
 } from './Switch'
 
@@ -18,5 +18,5 @@ export {
 export type {
   SwitchThumbProps,
   SwitchThumbElement,
-  SwitchThumbIntrinsicElement,
+  SwitchThumbNaviteElement,
 } from './SwitchThumb'

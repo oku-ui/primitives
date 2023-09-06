@@ -1,15 +1,14 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useAvatarInject } from './avatar'
-import type { ScopeAvatar } from './utils'
 import { scopeAvatarProps } from './utils'
 
 const FALLBACK_NAME = 'OkuAvatarFallback'
 
-export type AvatarFallbackIntrinsicElement = ElementType<'span'>
+export type AvatarFallbackNaviteElement = OkuElement<'span'>
 export type AvatarFalbackElement = HTMLSpanElement
 
 export interface AvatarFallbackProps extends PrimitiveProps {
@@ -86,5 +85,5 @@ const avatarFallback = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatarFallback = avatarFallback as typeof avatarFallback &
 (new () => {
-  $props: ScopeAvatar<Partial<AvatarFalbackElement>>
+  $props: AvatarFallbackNaviteElement
 })

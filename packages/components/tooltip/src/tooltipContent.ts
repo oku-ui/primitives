@@ -5,14 +5,13 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuTooltipContentImpl, tooltipContentImplProps } from './tooltipContentImpl'
-import type { TooltipContentImplElement, TooltipContentImplEmits, TooltipContentImplIntrinsicElement, TooltipContentImplProps } from './tooltipContentImpl'
+import type { TooltipContentImplElement, TooltipContentImplEmits, TooltipContentImplNaviteElement, TooltipContentImplProps } from './tooltipContentImpl'
 import { usePortalInject } from './tooltipPortal'
-import type { ScopeTooltip } from './types'
 import { scopeTooltipProps } from './types'
 import { useTooltipInject } from './tooltip'
 import { OkuTooltipContentHoverable } from './tooltipContentHoverable'
 
-export type TooltipContentIntrinsicElement = TooltipContentImplIntrinsicElement
+export type TooltipContentNaviteElement = TooltipContentImplNaviteElement
 export type TooltipContentElement = TooltipContentImplElement
 
 export interface TooltipContentProps extends PrimitiveProps, TooltipContentImplProps {
@@ -82,5 +81,5 @@ const tooltipContent = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipContent = tooltipContent as typeof tooltipContent &
 (new () => {
-  $props: ScopeTooltip<Partial<TooltipContentElement>>
+  $props: TooltipContentNaviteElement
 })

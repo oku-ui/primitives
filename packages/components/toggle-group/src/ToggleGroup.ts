@@ -8,7 +8,7 @@ import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 
 import { scopeToggleGroupProps } from './utils'
 
-import type { ToggleGroupImplElement, ToggleGroupImplIntrinsicElement } from './ToggleGroupImpl'
+import type { ToggleGroupImplElement, ToggleGroupImplNaviteElement } from './ToggleGroupImpl'
 import type { ToggleGroupVariantEmits, ToggleGroupVariantProps } from './ToggleGroupVariant'
 import { OkuToggleGroupVariant, toggleGroupVariantProps } from './ToggleGroupVariant'
 
@@ -42,7 +42,7 @@ export type ToggleGroupProps = ToggleGroupVariantProps
 export type ToggleGroupEmits = ToggleGroupVariantEmits
 
 export type ToggleGroupElement = ToggleGroupImplElement
-export type ToggleGroupIntrinsicElement = ToggleGroupImplIntrinsicElement
+export type ToggleGroupNaviteElement = ToggleGroupImplNaviteElement
 
 export const toggleGroupProps = {
   props: {
@@ -75,5 +75,5 @@ const toggleGroup = defineComponent({
 
 export const OkuToggleGroup = toggleGroup as typeof toggleGroup &
 (new () => {
-  $props: Partial<ToggleGroupElement>
+  $props: ToggleGroupNaviteElement
 })

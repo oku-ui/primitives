@@ -2,11 +2,11 @@ import type { ComputedRef, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, unref, watchEffect } from 'vue'
 import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-import type { ElementType } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { RovingFocusGroupOptions, ScopeRovingFocus } from './utils'
+import type { RovingFocusGroupOptions } from './utils'
 import { focusFirst, rovingFocusGroupOptionsProps } from './utils'
 import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
 import { scopedProps } from './types'
@@ -14,7 +14,7 @@ import { scopedProps } from './types'
 const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-export type RovingFocusGroupImplIntrinsicElement = ElementType<'div'>
+export type RovingFocusGroupImplNaviteElement = OkuElement<'div'>
 export type RovingFocusGroupImplElement = HTMLDivElement
 
 export interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
@@ -60,7 +60,7 @@ const RovingFocusGroupImpl = defineComponent({
   },
   emits: rovingFocusGroupImplProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as Omit<RovingFocusGroupImplIntrinsicElement, 'dir'>
+    const _attrs = attrs as Omit<RovingFocusGroupImplNaviteElement, 'dir'>
     const {
       orientation,
       loop,
@@ -175,5 +175,5 @@ const RovingFocusGroupImpl = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocusGroupImpl &
 (new () => {
-  $props: ScopeRovingFocus<Partial<RovingFocusGroupImplElement>>
+  $props: RovingFocusGroupImplNaviteElement
 })

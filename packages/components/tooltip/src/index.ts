@@ -1,3 +1,5 @@
+import type { } from '@floating-ui/vue'
+
 export {
   OkuTooltip,
   tooltipProps,
@@ -24,7 +26,7 @@ export {
 
 export type {
   TooltipTriggerElement,
-  TooltipTriggerIntrinsicElement,
+  TooltipTriggerNaviteElement,
   TooltipTriggerProps,
 } from './tooltipTrigger'
 
@@ -45,7 +47,7 @@ export {
 
 export type {
   TooltipContentElement,
-  TooltipContentIntrinsicElement,
+  TooltipContentNaviteElement,
   TooltipContentProps,
   TooltipContentEmits,
 } from './tooltipContent'
@@ -57,6 +59,6 @@ export {
 
 export type {
   TooltipArrowElement,
-  TooltipArrowIntrinsicElement,
+  TooltipArrowNaviteElement,
   TooltipArrowProps,
 } from './tooltipArrow'

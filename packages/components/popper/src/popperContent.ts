@@ -2,7 +2,7 @@ import type { PropType, Ref, StyleValue } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch, watchEffect } from 'vue'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
@@ -11,7 +11,7 @@ import type {
   Padding,
   Placement,
 } from '@floating-ui/vue'
-import type { Align, ScopePopper, Side } from './utils'
+import type { Align, Side } from './utils'
 import { ALIGN_OPTIONS, SIDE_OPTIONS, getSideAndAlignFromPlacement, isNotNull, scopePopperProps, transformOrigin } from './utils'
 import { createPopperProvider, usePopperInject } from './popper'
 
@@ -29,7 +29,7 @@ export const [popperContentProvider, usePopperContentInject] = createPopperProvi
 
 type Boundary = Element | null
 
-export type PopperContentIntrinsicElement = ElementType<'div'>
+export type PopperContentNaviteElement = OkuElement<'div'>
 export type PopperContentElement = HTMLDivElement
 
 export interface PopperContentProps extends PrimitiveProps {
@@ -139,7 +139,7 @@ const PopperContent = defineComponent({
       updatePositionStrategy,
     } = toRefs(props)
 
-    const { ...attrsElement } = attrs as PopperContentIntrinsicElement
+    const { ...attrsElement } = attrs as PopperContentNaviteElement
 
     const inject = usePopperInject(CONTENT_NAME, props.scopeOkuPopper)
 
@@ -313,5 +313,5 @@ const PopperContent = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopperContent = PopperContent as typeof PopperContent
 & (new () => {
-  $props: ScopePopper<Partial<PopperContentIntrinsicElement>>
+  $props: PopperContentNaviteElement
 })

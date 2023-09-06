@@ -1,14 +1,13 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { ElementType, PrimitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
-import type { ScopeCollapsible } from './utils'
 import { getState, scopeCollapsibleProps } from './utils'
 
-export type CollapsibleIntrinsicElement = ElementType<'div'>
+export type CollapsibleNaviteElement = OkuElement<'div'>
 export type CollapsibleElement = HTMLDivElement
 
 export type CollapsibleProvideValue = {
@@ -75,7 +74,7 @@ const collapsible = defineComponent({
   },
   emits: collapsibleProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...collapsibleAttr } = attrs as CollapsibleIntrinsicElement
+    const { ...collapsibleAttr } = attrs as CollapsibleNaviteElement
     const { disabled, open, defaultOpen } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
@@ -130,5 +129,5 @@ const collapsible = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCollapsible = collapsible as typeof collapsible &
 (new () => {
-  $props: ScopeCollapsible<Partial<CollapsibleElement>>
+  $props: CollapsibleNaviteElement
 })

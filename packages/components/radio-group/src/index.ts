@@ -6,7 +6,7 @@ export {
 
 export type {
   RadioElement,
-  RadioGroupIntrinsicElement,
+  RadioGroupNaviteElement,
   RadioGroupProps,
   RadioGroupEmits,
 } from './RadioGroup'
@@ -30,7 +30,7 @@ export {
 export type {
   RadioGroupIndicatorElement,
   RadioGroupIndicatorProps,
-  RadioGroupIndicatorIntrinsicElement,
+  RadioGroupIndicatorNaviteElement,
 } from './RadioGroupIndicator'
 
 export {

@@ -5,19 +5,18 @@ import Styled from './Styled.vue'
 import Controlled from './Controlled.vue'
 import CustomDurations from './CustomDurations.vue'
 
-export interface OkuLabelProps {
-  label: string
-  template: 'Styled' | 'Controlled' | 'CustomDurations'
+export interface OkuTooltipProps {
+  template?: 'Styled' | 'Controlled' | 'CustomDurations'
   allshow?: boolean
 }
 
-withDefaults(defineProps<OkuLabelProps>(), {
+withDefaults(defineProps<OkuTooltipProps>(), {
   template: 'Styled',
 })
 
-const labelRef = ref()
+const TooltipRef = ref()
 onMounted(() => {
-  console.log(labelRef.value)
+  console.log(TooltipRef.value)
 })
 </script>
 
@@ -30,7 +29,7 @@ onMounted(() => {
       <Controlled />
     </div>
 
-    <div v-if="template === 'CustomDurations'">
+    <div v-if="template === 'CustomDurations' || allshow">
       <CustomDurations />
     </div>
   </div>

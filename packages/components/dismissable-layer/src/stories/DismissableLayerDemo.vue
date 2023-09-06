@@ -172,11 +172,11 @@ const handlePopupClick = useCallbackRef(() => {
       </div>
     </div>
 
-    <div v-if="template === '#2'" class="flex flex-col">
+    <div v-if="template === '#2' || allshow" class="flex flex-col">
       <DismissableBox />
     </div>
 
-    <div v-if="template === '#3'" class="flex flex-col">
+    <div v-if="template === '#3' || allshow" class="flex flex-col">
       <div class="text-center font-sans">
         <h1 class="text-3xl font-bold mb-2">
           DismissableLayer + FocusScope
