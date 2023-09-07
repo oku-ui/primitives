@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
 import Controlled from './Controlled.vue'
 import Promise from './Promise.vue'
 import KeyChange from './KeyChange.vue'
@@ -18,9 +17,9 @@ export interface IToastProps {
 
 <template>
   <div>
-    <template v-if="template === 'Styled' || allshow">
+    <!-- <template v-if="template === 'Styled' || allshow">
       <Styled />
-    </template>
+    </template> -->
 
     <template v-if="template === 'Controlled' || allshow">
       <Controlled />
