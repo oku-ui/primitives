@@ -1,47 +1,58 @@
 import type { PropType } from 'vue'
-import { defineComponent, reactive, ref, toRefs } from 'vue'
+import { defineComponent, h, reactive, ref, toRefs } from 'vue'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { scopedProps } from './types'
-import { getScrollPositionFromPointer, getThumbRatio } from './utils'
+import { useForwardRef } from '@Oku-ui/use-composable'
+import { scopedScrollAreaProps } from './types'
+import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio } from './utils'
+import { useScrollAreaInject } from './scroll-area'
 import type { Direction, Sizes } from './scroll-area'
 import type { ScrollAreaThumbElement } from './scroll-area-thumb'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
+import { OkuScrollAreaScrollbarY } from './scroll-area-scrollbar-axis-y'
+import { OkuScrollAreaScrollbarX } from './scroll-area-scrollbar-axis-x'
+import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarAxisPrivateProps, ScrollAreaScrollbarAxisProps } from './share'
 
-const SCROLL_NAME = 'Visible'
+const SCROLL_NAME = 'OkuScrollAreaScrollbarVisible'
 
-export type ScrollAreaScrollbarVisibleIntrinsicElement = ScrollAreaScrollbarAxisIntrinsicElement
-type ScrollAreaScrollbarVisibleElement = ScrollAreaScrollbarAxisElement
+export type ScrollAreaScrollbarVisibleNaviteElement = ScrollAreaScrollbarAxisNaviteElement
+export type ScrollAreaScrollbarVisibleElement = ScrollAreaScrollbarAxisElement
 
-interface ScrollAreaScrollbarVisibleProps
-  extends Omit<ScrollAreaScrollbarAxisProps, keyof ScrollAreaScrollbarAxisPrivateProps> {
+export interface ScrollAreaScrollbarVisibleProps extends Omit<ScrollAreaScrollbarAxisProps, keyof ScrollAreaScrollbarAxisPrivateProps> {
   orientation?: 'horizontal' | 'vertical'
 }
+
 const scrollAreaScrollbarVisibleProps = {
-  orientation: {
-    type: String as PropType<ScrollAreaScrollbarVisibleProps>,
-    required: false,
-    default: 'vertical',
+  props: {
+    orientation: {
+      type: String as PropType<ScrollAreaScrollbarVisibleProps>,
+      required: false,
+      default: 'vertical',
+    },
   },
+  emits: {},
 }
 
 const scrollAreaScrollbarVisible = defineComponent({
   name: SCROLL_NAME,
+  components: {
+    OkuScrollAreaScrollbarX,
+    OkuScrollAreaScrollbarY,
+  },
   inheritAttrs: false,
   props: {
-    ...scrollAreaScrollbarVisibleProps,
-    ...scopedProps,
+    ...scrollAreaScrollbarVisibleProps.props,
+    ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
-    const { ...scrollAreaScrollbarVisibleAttrs } = attrs as ScrollAreaScrollbarVisibleIntrinsicElement
+  emits: scrollAreaScrollbarVisibleProps.emits,
+  setup(props, { attrs, slots }) {
+    // const { ...scrollAreaScrollbarVisibleAttrs } = attrs as ScrollAreaScrollbarVisibleNaviteElement
 
-    // const forwardedRef = useForwardRef()
+    const forwardedRef = useForwardRef()
 
-    const {
-      orientation,
-    } = toRefs(props)
+    const { orientation } = toRefs(props)
 
-    const context = useScrollAreaContext(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const thumbRef = ref<ScrollAreaThumbElement | null>(null)
     const pointerOffsetRef = ref(0)
     const sizes = reactive<Sizes>({
@@ -52,10 +63,15 @@ const scrollAreaScrollbarVisible = defineComponent({
     const thumbRatio = getThumbRatio(sizes.viewport, sizes.content)
 
     type UncommonProps = 'onThumbPositionChange' | 'onDragScroll' | 'onWheelScroll'
+
     const commonProps: Omit<ScrollAreaScrollbarAxisPrivateProps, UncommonProps> = {
-      ...scrollAreaScrollbarVisibleAttrs,
+      ...attrs,
       sizes,
-      onSizesChange: setSizes,
+      onSizesChange: (_sizes: Sizes) => {
+        sizes.content = _sizes.content
+        sizes.viewport = _sizes.viewport
+        sizes.scrollbar = _sizes.scrollbar
+      },
       hasThumb: Boolean(thumbRatio > 0 && thumbRatio < 1),
       onThumbChange: thumb => (thumbRef.value = thumb),
       onThumbPointerUp: () => (pointerOffsetRef.value = 0),
@@ -66,13 +82,57 @@ const scrollAreaScrollbarVisible = defineComponent({
       return getScrollPositionFromPointer(pointerPos, pointerOffsetRef.value, sizes, dir)
     }
 
-    // const originalReturn = () =>
+    return () => {
+      if (orientation.value === 'horizontal') {
+        return () => h(OkuScrollAreaScrollbarX,
+          {
+            ...commonProps,
+            ref: forwardedRef,
+            onThumbPositionChange: () => {
+              if (inject.viewport && thumbRef.value) {
+                const scrollPos = inject.viewport.scrollLeft
+                const offset = getThumbOffsetFromScroll(scrollPos, sizes, inject.dir)
+                thumbRef.value.style.transform = `translate3d(${offset}px, 0, 0)`
+              }
+            },
+            onWheelScroll: (scrollPos: number) => {
+              if (inject.viewport)
+                inject.viewport.scrollLeft = scrollPos
+            },
+            onDragScroll: (pointerPos: number) => {
+              if (inject.viewport)
+                inject.viewport.scrollLeft = getScrollPosition(pointerPos, inject.dir)
+            },
+          }, slots,
+        )
+      }
 
-    // return originalReturn
+      if (orientation.value === 'vertical') {
+        return () => h(OkuScrollAreaScrollbarY,
+          {
+            ...commonProps,
+            ref: forwardedRef,
+            onThumbPositionChange: () => {
+              if (inject.viewport && thumbRef.value) {
+                const scrollPos = inject.viewport.scrollTop
+                const offset = getThumbOffsetFromScroll(scrollPos, sizes)
+                thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`
+              }
+            },
+            onWheelScroll: (scrollPos: number) => {
+              if (inject.viewport)
+                inject.viewport.scrollTop = scrollPos
+            },
+            onDragScroll: (pointerPos: number) => {
+              if (inject.viewport)
+                inject.viewport.scrollTop = getScrollPosition(pointerPos)
+            },
+          }, slots,
+        )
+      }
+    }
   },
 })
 
 export const OkuScrollAreaScrollbarVisible = scrollAreaScrollbarVisible as typeof scrollAreaScrollbarVisible &
 (new () => { $props: Partial<ScrollAreaScrollbarVisibleElement> })
-
-export type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleProps }
