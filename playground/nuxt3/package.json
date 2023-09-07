@@ -25,6 +25,7 @@
     "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
     "@oku-ui/tabs": "workspace:^",
+    "@oku-ui/toast": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {

@@ -50,7 +50,3 @@ const count = ref(0)
     </div>
   </OkuToastProvider>
 </template>
-
-<style lang="postcss">
-@import './toast.css'
-</style>

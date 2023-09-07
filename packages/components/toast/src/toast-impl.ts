@@ -2,7 +2,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
 import { Fragment, Teleport, computed, defineComponent, h, nextTick, ref, toRefs, watchEffect } from 'vue'
-import { useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { isClient, useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -164,6 +164,9 @@ const toastImpl = defineComponent({
     }
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const viewport = inject.viewport.value
       if (viewport) {
         const handleResume = () => {
@@ -192,6 +195,9 @@ const toastImpl = defineComponent({
     // we include `open` in deps because closed !== unmounted when animating
     // so it could reopen before being completely unmounted
     watchEffect(() => {
+      if (!isClient)
+        return
+
       if (open.value && !inject.isClosePausedRef.value)
         startTimer(duration.value)
     })
