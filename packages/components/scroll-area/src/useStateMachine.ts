@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { ref } from 'vue'
 
 type Machine<S> = { [k: string]: { [k: string]: S } }
 type MachineState<T> = keyof T
@@ -13,8 +13,22 @@ export function useStateMachine<M>(
   initialState: MachineState<M>,
   machine: M & Machine<MachineState<M>>,
 ) {
-  return React.useReducer((state: MachineState<M>, event: MachineEvent<M>): MachineState<M> => {
-    const nextState = (machine[state] as any)[event]
-    return nextState ?? state
-  }, initialState)
+  const state = ref(initialState)
+
+  const reducer = (event: MachineEvent<M>) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const nextState = machine[state.value][event]
+
+    return nextState ?? state.value
+  }
+
+  const dispatch = (event: MachineEvent<M>) => {
+    state.value = reducer(event)
+  }
+
+  return {
+    state,
+    dispatch,
+  }
 }
