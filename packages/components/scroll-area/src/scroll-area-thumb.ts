@@ -2,9 +2,10 @@ import { useForwardRef } from '@Oku-ui/use-composable'
 import { defineComponent, h, toRefs } from 'vue'
 import { OkuPresence } from '@Oku-ui/presence'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { scopedProps } from './types'
-import type { ScrollAreaThumbImplElement, ScrollAreaThumbImplIntrinsicElement, ScrollAreaThumbImplProps } from './scroll-area-thumb-impl'
+import { scopedScrollAreaProps } from './types'
+import type { ScrollAreaThumbImplElement, ScrollAreaThumbImplNaviteElement, ScrollAreaThumbImplProps } from './scroll-area-thumb-impl'
 import { OkuScrollAreaThumbImpl } from './scroll-area-thumb-impl'
+import { useScrollbarInject } from './scroll-area-scrollbar-impl'
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaThumb
@@ -12,10 +13,10 @@ import { OkuScrollAreaThumbImpl } from './scroll-area-thumb-impl'
 
 export const THUMB_NAME = 'ScrollAreaThumb'
 
-export type ScrollAreaThumbIntrinsicElement = ScrollAreaThumbImplIntrinsicElement
-type ScrollAreaThumbElement = ScrollAreaThumbImplElement
+export type ScrollAreaThumbNaviteElement = ScrollAreaThumbImplNaviteElement
+export type ScrollAreaThumbElement = ScrollAreaThumbImplElement
 
-interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
+export interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -24,50 +25,53 @@ interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
 }
 
 const scrollAreaThumbProps = {
-  forceMount: {
-    type: Boolean,
-    required: false,
-    default: true,
+  props: {
+    forceMount: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
+  emits: {},
 }
 
 const scrollAreaThumb = defineComponent({
   name: THUMB_NAME,
+  components: {
+    OkuPresence,
+    OkuScrollAreaThumbImpl,
+  },
   inheritAttrs: false,
   props: {
-    ...scrollAreaThumbProps,
-    ...scopedProps,
+    ...scrollAreaThumbProps.props,
+    ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
-    const { ...ScrollAreaThumbAttrs } = attrs as ScrollAreaThumbIntrinsicElement
+  emits: scrollAreaThumbProps.emits,
+  setup(props, { attrs, slots }) {
+    // const { ...ScrollAreaThumbAttrs } = attrs as ScrollAreaThumbNaviteElement
 
     const forwardedRef = useForwardRef()
 
     const { forceMount } = toRefs(props)
 
-    const scrollbarContext = useScrollbarContext(THUMB_NAME, props.scopeOkuScrollArea)
+    const scrollbarInject = useScrollbarInject(THUMB_NAME, props.scopeOkuScrollArea)
 
-    const originalReturn = () =>
-      h(
-        OkuPresence,
-        {
-          present: forceMount.value || scrollbarContext.hasThumb,
-        },
-        h(
-          OkuScrollAreaThumbImpl,
+    return () => h(OkuPresence,
+      {
+        present: forceMount.value || scrollbarInject.hasThumb,
+      },
+      {
+        default: () => h(OkuScrollAreaThumbImpl,
           {
             ref: forwardedRef,
-            ...ScrollAreaThumbAttrs,
-          },
+            ...attrs,
+          }, slots,
         ),
-      )
-
-    return originalReturn
+      },
+    )
   },
 })
 
 export const OkuScrollAreaThumb = scrollAreaThumb as typeof scrollAreaThumb &
 (new () => { $props: Partial<ScrollAreaThumbElement> })
-
-export type { ScrollAreaThumbElement, ScrollAreaThumbProps }
