@@ -50,5 +50,5 @@ const dialogDescription = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogDescription = dialogDescription as typeof dialogDescription &
 (new () => {
-  $props: DialogDescriptionElement
+  $props: DialogDescriptionNaviteElement
 })

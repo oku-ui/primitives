@@ -36,7 +36,7 @@ const dialogTrigger = defineComponent({
   emits: dialogTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { ...restAttrs } = attrs as DialogTriggerNaviteElement
-
+    const { scopeOkuDialog, ...triggerProps } = props
     const inject = useDialogInject(TRIGGER_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
@@ -49,6 +49,7 @@ const dialogTrigger = defineComponent({
       'aria-controls': inject.contentId.value,
       'data-state': getState(inject.open.value),
       ...restAttrs,
+      ...triggerProps,
       'ref': composedTriggerRef,
       'onClick': composeEventHandlers((e: DialogTriggerEmits['click'][0]) => {
         emit('click', e)

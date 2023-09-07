@@ -54,8 +54,7 @@ const dialogPortal = defineComponent({
       scope: props.scopeOkuDialog,
       forceMount,
     })
-
-    return () => slots.default?.().map((child) => {
+    return () => slots.default?.().map((node) => {
       return h(OkuPresence, {
         present: computed(() => forceMount?.value || inject.open?.value).value,
       },
@@ -65,10 +64,10 @@ const dialogPortal = defineComponent({
           container: container.value,
         },
         {
-          default: () => child,
+          default: () => node.children,
         }),
       })
-    })
+    }) || []
   },
 })
 

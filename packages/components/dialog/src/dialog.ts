@@ -4,7 +4,7 @@ import type { OkuElement } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
 import { DIALOG_NAME, DialogProvider, scopeDialogProps } from './utils'
 
-export type DialogNaviteElement = OkuElement<'button'>
+export type DialogNaviteElement = OkuElement<'div'>
 
 export interface DialogProps {
   open?: boolean
@@ -82,7 +82,8 @@ const dialog = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuDialog = dialog as typeof dialog &
+export const OkuDialog = dialog as typeof dialog
+&
 (new () => {
   $props: DialogNaviteElement
 })

@@ -26,7 +26,7 @@ const dialogOverlayImpl = defineComponent({
   emits: dialogOverlayImplProps.emits,
   setup(props, { attrs, slots }) {
     const inject = useDialogInject(OVERLAY_NAME, props.scopeOkuDialog)
-
+    const { scopeOkuDialog, ...overlayProps } = props
     const forwardRef = useForwardRef()
 
     useScrollLock(inject.contentRef, true)
@@ -34,6 +34,7 @@ const dialogOverlayImpl = defineComponent({
     const originalReturn = () => h(Primitive.div, {
       'data-state': getState(inject.open.value),
       ...attrs,
+      ...overlayProps,
       'ref': forwardRef,
       'style': {
         pointerEvents: 'auto',

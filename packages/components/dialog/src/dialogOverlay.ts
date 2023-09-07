@@ -37,6 +37,7 @@ const dialogOverlay = defineComponent({
   },
   emits: dialogOverlayProps.emits,
   setup(props, { attrs }) {
+    const { scopeOkuDialog, ...overlayProps } = props
     const portalInject = useDialogPortalInject(OVERLAY_NAME, props.scopeOkuDialog)
 
     const { forceMount } = toRefs(props)
@@ -53,6 +54,7 @@ const dialogOverlay = defineComponent({
       {
         default: () => h(OkuDialogOverlayImpl, {
           ...attrs,
+          ...overlayProps,
           ref: forwardRef,
         }),
       })
