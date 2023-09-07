@@ -6,6 +6,7 @@ import PauseResumeProps from './PauseResumeProps.vue'
 import Animated from './Animated.vue'
 import Cypress from './Cypress.vue'
 import Chromatic from './Chromatic.vue'
+import Styled from './Styled.vue'
 
 withDefaults(defineProps<IToastProps>(), {})
 const VIEWPORT_PADDING = '20px'
@@ -17,9 +18,9 @@ export interface IToastProps {
 
 <template>
   <div>
-    <!-- <template v-if="template === 'Styled' || allshow">
+    <template v-if="template === 'Styled' || allshow">
       <Styled />
-    </template> -->
+    </template>
 
     <template v-if="template === 'Controlled' || allshow">
       <Controlled />
