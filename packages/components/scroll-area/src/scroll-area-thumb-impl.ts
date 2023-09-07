@@ -1,50 +1,67 @@
 import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
 import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import type { ElementType, PrimitiveProps } from '@Oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@Oku-ui/primitive'
 import { Primitive, primitiveProps } from '@Oku-ui/primitive'
 import { composeEventHandlers } from '@Oku-ui/utils'
-import { scopedProps } from './types'
+import { scopedScrollAreaProps } from './types'
 import { addUnlinkedScrollListener, useDebounceCallback } from './utils'
 import { THUMB_NAME } from './scroll-area-thumb'
-import { useScrollAreaContext } from './scroll-area'
+import { useScrollAreaInject } from './scroll-area'
+import { useScrollbarInject } from './scroll-area-scrollbar-impl'
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaThumbImpl
  * ----------------------------------------------------------------------------------------------- */
 
-export type ScrollAreaThumbImplIntrinsicElement = ElementType<'div'>
-type ScrollAreaThumbImplElement = HTMLDivElement
+export type ScrollAreaThumbImplNaviteElement = OkuElement<'div'>
+export type ScrollAreaThumbImplElement = HTMLDivElement
 
-interface ScrollAreaThumbImplProps extends PrimitiveProps {}
+export interface ScrollAreaThumbImplProps extends PrimitiveProps {}
 
 const scrollAreaThumbImplProps = {
-  style: {
-    type: Object,
-    required: false,
+  props: {
+    style: {
+      type: Object,
+      required: false,
+    },
   },
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerdownCapture: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerup: (event: PointerEvent) => true,
+  },
+}
+
+// export type PointerdownCaptureEvent = CustomEvent<{ originalEvent: PointerEvent }>
+
+export type scrollAreaThumbImplEmits = {
+  pointerdownCapture: [event: PointerEvent]
+  pointerup: [event: PointerEvent]
 }
 
 const scrollAreaThumbImpl = defineComponent({
   name: THUMB_NAME,
   inheritAttrs: false,
   props: {
-    ...scrollAreaThumbImplProps,
-    ...scopedProps,
+    ...scrollAreaThumbImplProps.props,
+    ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
-    const { ...scrollAreaThumbImplAttrs } = attrs as ScrollAreaThumbImplIntrinsicElement
+  emits: scrollAreaThumbImplProps.emits,
+  setup(props, { attrs, emit, slots }) {
+    // const { ...scrollAreaThumbImplAttrs } = attrs as ScrollAreaThumbImplNaviteElement
 
     const forwardedRef = useForwardRef()
 
     const { style } = toRefs(props)
 
-    const scrollAreaContext = useScrollAreaContext(THUMB_NAME, props.scopeOkuScrollArea)
-    const scrollbarContext = useScrollbarContext(THUMB_NAME, props.scopeOkuScrollArea)
+    const scrollAreaInject = useScrollAreaInject(THUMB_NAME, props.scopeOkuScrollArea)
+    const scrollbarInject = useScrollbarInject(THUMB_NAME, props.scopeOkuScrollArea)
 
-    const { onThumbPositionChange } = scrollbarContext
-    const composedRef = useComposedRefs(forwardedRef, node =>
-      scrollbarContext.onThumbChange(node),
+    const { onThumbPositionChange } = scrollbarInject
+    const composedRef = useComposedRefs(forwardedRef, (node: HTMLDivElement) =>
+      scrollbarInject.onThumbChange(node),
     )
     const removeUnlinkedScrollListenerRef = ref<() => void>()
     const debounceScrollEnd = useDebounceCallback(() => {
@@ -55,7 +72,7 @@ const scrollAreaThumbImpl = defineComponent({
     }, 100)
 
     watchEffect((onInvalidate) => {
-      const viewport = scrollAreaContext.viewport
+      const viewport = scrollAreaInject.viewport
       if (viewport) {
         /**
          * We only bind to native scroll event so we know when scroll starts and ends.
@@ -79,34 +96,32 @@ const scrollAreaThumbImpl = defineComponent({
       }
     })
 
-    const originalReturn = () =>
-      h(
-        Primitive.div,
-        {
-          'data-state': scrollbarContext.hasThumb ? 'visible' : 'hidden',
-          ...scrollAreaThumbImplAttrs,
-          'ref': composedRef,
-          'style': {
-            width: 'var(--oku-scroll-area-thumb-width)',
-            height: 'var(--oku-scroll-area-thumb-height)',
-            ...style.value,
-          },
-          'onPointerDownCapture': composeEventHandlers(props.onPointerDownCapture, (event) => {
-            const thumb = event.target as HTMLElement
-            const thumbRect = thumb.getBoundingClientRect()
-            const x = event.clientX - thumbRect.left
-            const y = event.clientY - thumbRect.top
-            scrollbarContext.onThumbPointerDown({ x, y })
-          }),
-          'onPointerUp': composeEventHandlers(props.onPointerUp, scrollbarContext.onThumbPointerUp),
+    return () => h(Primitive.div,
+      {
+        ['data-state' as any]: scrollbarInject.hasThumb ? 'visible' : 'hidden',
+        ...attrs,
+        ref: composedRef,
+        style: {
+          width: 'var(--oku-scroll-area-thumb-width)',
+          height: 'var(--oku-scroll-area-thumb-height)',
+          ...style.value,
         },
-      )
-
-    return originalReturn
+        onPointerDownCapture: composeEventHandlers<scrollAreaThumbImplEmits['pointerdownCapture'][0]>((event) => {
+          emit('pointerdownCapture', event)
+        }, (event) => {
+          const thumb = event.target as HTMLElement
+          const thumbRect = thumb.getBoundingClientRect()
+          const x = event.clientX - thumbRect.left
+          const y = event.clientY - thumbRect.top
+          scrollbarInject.onThumbPointerDown({ x, y })
+        }),
+        onPointerUp: composeEventHandlers<scrollAreaThumbImplEmits['pointerup'][0]>((event) => {
+          emit('pointerup', event)
+        }),
+      }, slots,
+    )
   },
 })
 
 export const OkuScrollAreaThumbImpl = scrollAreaThumbImpl as typeof scrollAreaThumbImpl &
 (new () => { $props: Partial<ScrollAreaThumbImplElement> })
-
-export type { ScrollAreaThumbImplElement, ScrollAreaThumbImplProps }
