@@ -30,7 +30,7 @@ export const tabsContentProps = {
     },
     forceMount: {
       type: Boolean as PropType<true | undefined>,
-      default: false,
+      default: undefined,
     },
     ...primitiveProps,
   },
