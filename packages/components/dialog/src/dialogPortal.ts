@@ -31,7 +31,7 @@ export const dialogPortalProps = {
     },
     forceMount: {
       type: Boolean as PropType<true | undefined>,
-      default: true,
+      default: undefined,
     },
   },
   emits: {
@@ -54,6 +54,7 @@ const dialogPortal = defineComponent({
       scope: props.scopeOkuDialog,
       forceMount,
     })
+
     return () => slots.default?.().map((child) => {
       return h(OkuPresence, {
         present: computed(() => forceMount?.value || inject.open?.value).value,

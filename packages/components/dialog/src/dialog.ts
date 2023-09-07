@@ -12,12 +12,17 @@ export interface DialogProps {
   modal?: boolean
 }
 
-export interface DialogEmits {
+export type DialogEmits = {
   openChange: [open: boolean]
+  modelValue: [open: boolean]
 }
 
 export const dialogProps = {
   props: {
+    modelValue: {
+      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      default: undefined,
+    },
     open: {
       type: [Boolean, undefined] as PropType<boolean | undefined>,
       default: undefined,
@@ -34,6 +39,8 @@ export const dialogProps = {
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
     openChange: (open: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    modelValue: (open: boolean) => true,
   },
 }
 const dialog = defineComponent({
@@ -58,6 +65,7 @@ const dialog = defineComponent({
       defaultProp: computed(() => defaultOpen.value),
       onChange: (result: any) => {
         emit('openChange', result)
+        emit('modelValue', result)
       },
       initialValue: false,
     })
