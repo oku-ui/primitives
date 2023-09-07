@@ -39,7 +39,7 @@ const dialogContent = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogContentProps.emits,
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const { forceMount, ...dialogProps } = props
     const portalInject = useDialogPortalInject(CONTENT_NAME, props.scopeOkuDialog)
 
@@ -49,7 +49,6 @@ const dialogContent = defineComponent({
     const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
-
     const originalReturn = () => h(OkuPresence, {
       present: computed(() => forceMountRef?.value || inject.open.value).value,
     },
@@ -59,11 +58,17 @@ const dialogContent = defineComponent({
           ...attrs,
           ...dialogProps,
           ref: forwardRef,
+        },
+        {
+          default: slots.default?.(),
         })
         : h(OkuDialogContentNonModal, {
           ...attrs,
           ...dialogProps,
           ref: forwardRef,
+        },
+        {
+          default: slots.default?.(),
         }),
     })
     return originalReturn

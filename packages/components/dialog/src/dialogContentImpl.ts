@@ -95,8 +95,8 @@ const dialogContentImpl = defineComponent({
         default: () => h(OkuDismissableLayer, {
           'role': 'dialog',
           'id': inject.contentId.value,
-          'aria-describedby': inject.descriptionId.value,
-          'aria-labelledby': inject.titleId.value,
+          'aria-describedby': inject.descriptionId?.value,
+          'aria-labelledby': inject.titleId?.value,
           'data-state': getState(inject.open?.value || false),
           ...attrs,
           ...contentProps,

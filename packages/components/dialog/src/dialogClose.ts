@@ -8,7 +8,6 @@ import { scopeDialogProps, useDialogInject } from './utils'
 export const CLOSE_NAME = 'OkuDialogClose'
 
 export type DialogCloseNaviteElement = OkuElement<'button'>
-export type DialogCloseElement = HTMLButtonElement
 
 export type DialogCloseEmits = {
   click: [event: MouseEvent]
@@ -35,6 +34,8 @@ const dialogClose = defineComponent({
   },
   emits: dialogCloseProps.emits,
   setup(props, { attrs, slots, emit }) {
+    const { ...restAttrs } = attrs as DialogCloseNaviteElement
+
     const { scopeOkuDialog, ...closeProps } = props
 
     const inject = useDialogInject(CLOSE_NAME, scopeOkuDialog)
@@ -43,11 +44,11 @@ const dialogClose = defineComponent({
 
     const originalReturn = () => h(Primitive.button, {
       type: 'button',
-      ...attrs,
+      ...restAttrs,
       ...closeProps,
       ref: forwardRef,
-      onClick: composeEventHandlers<DialogCloseEmits['click'][0]>((event) => {
-        emit('click', event)
+      onClick: composeEventHandlers((e: DialogCloseEmits['click'][0]) => {
+        emit('click', e)
       }, () => inject.onOpenChange(false)),
     },
     {

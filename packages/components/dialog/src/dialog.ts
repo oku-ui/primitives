@@ -58,6 +58,7 @@ const dialog = defineComponent({
       modal,
     } = toRefs(props)
     const triggerRef = ref<HTMLButtonElement | null>(null)
+    const closeRef = ref<HTMLButtonElement | null>(null)
     const contentRef = ref<HTMLDivElement | null>(null)
 
     const { state, updateValue } = useControllable({
