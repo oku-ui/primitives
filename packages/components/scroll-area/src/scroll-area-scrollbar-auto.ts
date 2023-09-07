@@ -2,80 +2,83 @@ import { defineComponent, h, ref, toRefs } from 'vue'
 import { OkuPresence } from '@Oku-ui/presence'
 import { useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { scopedProps } from './types'
-import { useDebounceCallback } from './utils'
-import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleIntrinsicElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
-import { useScrollAreaContext } from './scroll-area'
+import { scopedScrollAreaProps } from './types'
+import { useDebounceCallback, useResizeObserver } from './utils'
+import { OkuScrollAreaScrollbarVisible, type ScrollAreaScrollbarVisibleElement, type ScrollAreaScrollbarVisibleNaviteElement, type ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
+import { useScrollAreaInject } from './scroll-area'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 
-const SCROLL_NAME = 'Auto'
+const SCROLL_NAME = 'OkuScrollAreaScrollbarAuto'
 
-export type ScrollAreaScrollbarAutoIntrinsicElement = ScrollAreaScrollbarVisibleIntrinsicElement
-type ScrollAreaScrollbarAutoElement = ScrollAreaScrollbarVisibleElement
+export type ScrollAreaScrollbarAutoNaviteElement = ScrollAreaScrollbarVisibleNaviteElement
+export type ScrollAreaScrollbarAutoElement = ScrollAreaScrollbarVisibleElement
 
-interface ScrollAreaScrollbarAutoProps extends ScrollAreaScrollbarVisibleProps {
+export interface ScrollAreaScrollbarAutoProps extends ScrollAreaScrollbarVisibleProps {
   forceMount?: true
 }
 
 const scrollAreaScrollbarAutoProps = {
-  forceMount: {
-    type: Boolean,
-    required: false,
-    default: true,
+  props: {
+    forceMount: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
+  emits: {},
 }
 
 const scrollAreaScrollbarScroll = defineComponent({
   name: SCROLL_NAME,
+  components: {
+    OkuPresence,
+    OkuScrollAreaScrollbarVisible,
+  },
   inheritAttrs: false,
   props: {
-    ...scrollAreaScrollbarAutoProps,
-    ...scopedProps,
+    ...scrollAreaScrollbarAutoProps.props,
+    ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
-    const { ...scrollAreaScrollbarAutoAttrs } = attrs as ScrollAreaScrollbarAutoIntrinsicElement
+  emits: scrollAreaScrollbarAutoProps.emits,
+  setup(props, { attrs, slots }) {
+    // const { ...scrollAreaScrollbarAutoAttrs } = attrs as ScrollAreaScrollbarAutoNaviteElement
 
     const forwardedRef = useForwardRef()
 
     const { forceMount } = toRefs(props)
 
-    const context = useScrollAreaContext(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const visible = ref(false)
-    const isHorizontal = props.orientation === 'horizontal'
+    const isHorizontal = attrs.orientation === 'horizontal'
     const handleResize = useDebounceCallback(() => {
-      if (context.viewport) {
-        const isOverflowX = context.viewport.offsetWidth < context.viewport.scrollWidth
-        const isOverflowY = context.viewport.offsetHeight < context.viewport.scrollHeight
+      if (inject.viewport) {
+        const isOverflowX = inject.viewport.offsetWidth < inject.viewport.scrollWidth
+        const isOverflowY = inject.viewport.offsetHeight < inject.viewport.scrollHeight
         visible.value = isHorizontal ? isOverflowX : isOverflowY
       }
     }, 10)
 
-    useResizeObserver(context.viewport, handleResize)
-    useResizeObserver(context.content, handleResize)
+    useResizeObserver(inject.viewport, handleResize)
+    useResizeObserver(inject.content, handleResize)
 
-    const originalReturn = () =>
-      h(
-        OkuPresence,
-        {
-          present: forceMount.value || visible.value,
-        },
-        h(
-          'ScrollAreaScrollbarVisible',
+    return () => h(OkuPresence,
+      {
+        present: forceMount.value || visible.value,
+      },
+      {
+        default: () => h(OkuScrollAreaScrollbarVisible,
           {
 
-            'data-state': visible.value ? 'visible' : 'hidden',
-            ...scrollAreaScrollbarAutoAttrs,
-            'ref': forwardedRef,
-          },
+            ['data-state' as any]: visible.value ? 'visible' : 'hidden',
+            ...attrs,
+            ref: forwardedRef,
+          }, slots,
         ),
-      )
-
-    return originalReturn
+      },
+    )
   },
 })
 
 export const OkuScrollAreaScrollbarAuto = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll &
 (new () => { $props: Partial<ScrollAreaScrollbarAutoElement> })
-
-export type { ScrollAreaScrollbarAutoElement, ScrollAreaScrollbarAutoProps }
