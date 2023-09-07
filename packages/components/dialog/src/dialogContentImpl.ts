@@ -108,15 +108,15 @@ const dialogContentImpl = defineComponent({
           default: () => slots.default?.(),
         }),
       }),
-      process.env.NODE_ENV !== 'production' && h(OkuDialogTitleWarning, {
-        titleId: inject.titleId.value,
-      })
-      && h(Fragment, {
-        default: () => h(OkuDialogDescriptionWarning, {
-          contentRef: inject.contentRef.value,
-          descriptionId: inject.descriptionId.value,
-        }),
-      }),
+      process.env.NODE_ENV !== 'production'
+        && (h(Fragment,
+          [h(OkuDialogTitleWarning, {
+            titleId: inject.titleId.value,
+          }), h(OkuDialogDescriptionWarning, {
+            contentRef: inject.contentRef.value,
+            descriptionId: inject.descriptionId.value,
+          }),
+          ])),
       ],
     )
   },
