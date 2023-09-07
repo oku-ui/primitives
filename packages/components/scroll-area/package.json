@@ -36,8 +36,8 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/collection": "latest",
     "@oku-ui/direction": "latest",
+    "@oku-ui/presence": "latest",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
     "@oku-ui/use-composable": "latest",
