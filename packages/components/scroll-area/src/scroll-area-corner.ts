@@ -1,53 +1,55 @@
 import { primitiveProps } from '@oku-ui/primitive'
 import { defineComponent, h } from 'vue'
-import { useForwardRef } from '../../../core/use-composable/dist'
-import { scopedProps } from './types'
-import type { ScrollAreaCornerImplElement, ScrollAreaCornerImplIntrinsicElement, ScrollAreaCornerImplProps } from './scroll-area-corner-impl'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { scopedScrollAreaProps } from './types'
+import type { ScrollAreaCornerImplElement, ScrollAreaCornerImplNaviteElement, ScrollAreaCornerImplProps } from './scroll-area-corner-impl'
 import { OkuScrollAreaCornerImpl } from './scroll-area-corner-impl'
-import { useScrollAreaContext } from './scroll-area'
+import { useScrollAreaInject } from './scroll-area'
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaCorner
  * ----------------------------------------------------------------------------------------------- */
 
-export const CORNER_NAME = 'ScrollAreaCorner'
+export const CORNER_NAME = 'OkuScrollAreaCorner'
 
-export type ScrollAreaCornerIntrinsicElement = ScrollAreaCornerImplIntrinsicElement
-type ScrollAreaCornerElement = ScrollAreaCornerImplElement
+export type ScrollAreaCornerNaviteElement = ScrollAreaCornerImplNaviteElement
+export type ScrollAreaCornerElement = ScrollAreaCornerImplElement
 
-interface ScrollAreaCornerProps extends ScrollAreaCornerImplProps {}
+export interface ScrollAreaCornerProps extends ScrollAreaCornerImplProps {}
+
+const scrollAreaCornerProps = {
+  props: {},
+  emits: {},
+}
 
 const scrollAreaCorner = defineComponent({
   name: CORNER_NAME,
   inheritAttrs: false,
   props: {
-    ...scopedProps,
+    ...scrollAreaCornerProps.props,
+    ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
-    const { ...scrollAreaCornerAttrs } = attrs as ScrollAreaCornerIntrinsicElement
+  emits: scrollAreaCornerProps.emits,
+  setup(props, { attrs, slots }) {
+    // const { ...scrollAreaCornerAttrs } = attrs as ScrollAreaCornerNaviteElement
 
     const forwardedRef = useForwardRef()
 
-    const context = useScrollAreaContext(CORNER_NAME, props.scopeOkuScrollArea)
-    const hasBothScrollbarsVisible = Boolean(context.scrollbarX && context.scrollbarY)
-    const hasCorner = context.type !== 'scroll' && hasBothScrollbarsVisible
+    const inject = useScrollAreaInject(CORNER_NAME, props.scopeOkuScrollArea)
+    const hasBothScrollbarsVisible = Boolean(inject.scrollbarX && inject.scrollbarY)
+    const hasCorner = inject.type !== 'scroll' && hasBothScrollbarsVisible
 
-    const originalReturn = () =>
-      hasCorner
-        ? h(OkuScrollAreaCornerImpl,
-          {
-            ...scrollAreaCornerAttrs,
-            ref: forwardedRef,
-          },
-        )
-        : null
-
-    return originalReturn
+    return () => hasCorner
+      ? h(OkuScrollAreaCornerImpl,
+        {
+          ...attrs,
+          ref: forwardedRef,
+        }, slots,
+      )
+      : null
   },
 })
 
 export const OkuScrollAreaCorner = scrollAreaCorner as typeof scrollAreaCorner &
 (new () => { $props: Partial<ScrollAreaCornerElement> })
-
-export type { ScrollAreaCornerElement, ScrollAreaCornerProps }
