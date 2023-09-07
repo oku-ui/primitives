@@ -1,50 +1,54 @@
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, toRefs, watchEffect } from 'vue'
 import { composeEventHandlers } from '@Oku-ui/utils'
 import { OkuPresence } from '@Oku-ui/presence'
 import { useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
 import { useStateMachine } from './useStateMachine'
-import { scopedProps } from './types'
+import { scopedScrollAreaProps } from './types'
 import { useDebounceCallback } from './utils'
-import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleIntrinsicElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
+import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { OkuScrollAreaScrollbarVisible } from './scroll-area-scrollbar-visible'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import { useScrollAreaContext } from './scroll-area'
+import { useScrollAreaInject } from './scroll-area'
 
-const SCROLL_NAME = 'Scroll'
+const SCROLL_NAME = 'OkuScrollAreaScrollbarScroll'
 
-export type ScrollAreaScrollbarScrollIntrinsicElement = ScrollAreaScrollbarVisibleIntrinsicElement
-type ScrollAreaScrollbarScrollElement = ScrollAreaScrollbarVisibleElement
+export type ScrollAreaScrollbarScrollNaviteElement = ScrollAreaScrollbarVisibleNaviteElement
+export type ScrollAreaScrollbarScrollElement = ScrollAreaScrollbarVisibleElement
 
-interface ScrollAreaScrollbarScrollProps extends ScrollAreaScrollbarVisibleProps {
+export interface ScrollAreaScrollbarScrollProps extends ScrollAreaScrollbarVisibleProps {
   forceMount?: true
 }
+
 const scrollAreaScrollbarScrollProps = {
-  forceMount: {
-    type: Boolean,
-    required: false,
-    default: true,
+  props: {
+    forceMount: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
+  emits: {},
 }
 
 const scrollAreaScrollbarScroll = defineComponent({
   name: SCROLL_NAME,
   inheritAttrs: false,
   props: {
-    ...scrollAreaScrollbarScrollProps,
-    ...scopedProps,
+    ...scrollAreaScrollbarScrollProps.props,
+    ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
-    const { ...scrollAreaScrollbarScrollAttrs } = attrs as ScrollAreaScrollbarScrollIntrinsicElement
-
-    const forwardedRef = useForwardRef()
+  emits: scrollAreaScrollbarScrollProps.emits,
+  setup(props, { attrs, emit, slots }) {
+    // const { ...scrollAreaScrollbarScrollAttrs } = attrs as ScrollAreaScrollbarScrollNaviteElement
 
     const { forceMount } = toRefs(props)
 
-    const context = useScrollAreaContext(SCROLLBAR_NAME, props.scopeOkuScrollArea)
-    const isHorizontal = props.orientation === 'horizontal'
-    const [state, send] = useStateMachine('hidden', {
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const forwardedRef = useForwardRef()
+    const isHorizontal = attrs.orientation === 'horizontal'
+    const { state, dispatch: send } = useStateMachine('hidden', {
       hidden: {
         SCROLL: 'scrolling',
       },
@@ -65,15 +69,15 @@ const scrollAreaScrollbarScroll = defineComponent({
     const debounceScrollEnd = useDebounceCallback(() => send('SCROLL_END'), 100)
 
     watchEffect((onInvalidate) => {
-      if (state === 'idle') {
-        const hideTimer = window.setTimeout(() => send('HIDE'), context.scrollHideDelay)
+      if (state.value === 'idle') {
+        const hideTimer = window.setTimeout(() => send('HIDE'), inject.scrollHideDelay)
 
         onInvalidate(() => window.clearTimeout(hideTimer))
       }
     })
 
     watchEffect((onInvalidate) => {
-      const viewport = context.viewport
+      const viewport = inject.viewport
       const scrollDirection = isHorizontal ? 'scrollLeft' : 'scrollTop'
 
       if (viewport) {
@@ -93,29 +97,28 @@ const scrollAreaScrollbarScroll = defineComponent({
       }
     })
 
-    const originalReturn = () =>
-      h(
-        OkuPresence,
-        {
-          present: forceMount.value || state !== 'hidden',
-        },
-        h(
-          OkuScrollAreaScrollbarVisible,
+    return () => h(OkuPresence,
+      {
+        present: forceMount.value || state.value !== 'hidden',
+      },
+      {
+        default: () => h(OkuScrollAreaScrollbarVisible,
           {
-            'data-state': state === 'hidden' ? 'hidden' : 'visible',
-            ...scrollAreaScrollbarScrollAttrs,
-            'ref': forwardedRef,
-            'onPointerEnter': composeEventHandlers(props.onPointerEnter, () => send('POINTER_ENTER')),
-            'onPointerLeave': composeEventHandlers(props.onPointerLeave, () => send('POINTER_LEAVE')),
-          },
+            ['data-state' as any]: state.value === 'hidden' ? 'hidden' : 'visible',
+            ...attrs,
+            ref: forwardedRef,
+            onPointerEnter: composeEventHandlers(() => {
+              emit('pointerEnter', send('POINTER_ENTER'))
+            }),
+            onPointerLeave: composeEventHandlers(() => {
+              emit('pointerLeave', send('POINTER_LEAVE'))
+            }),
+          }, slots,
         ),
-      )
-
-    return originalReturn
+      },
+    )
   },
 })
 
 export const OkuScrollAreaScrollbarScroll = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll &
 (new () => { $props: Partial<ScrollAreaScrollbarScrollElement> })
-
-export type { ScrollAreaScrollbarScrollElement, ScrollAreaScrollbarScrollProps }
