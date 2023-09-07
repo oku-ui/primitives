@@ -2,49 +2,52 @@ import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { OkuPresence } from '@Oku-ui/presence'
 import { useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { scopedProps } from './types'
-import { useScrollAreaContext } from './scroll-area'
-import type { ScrollAreaScrollbarAutoElement, ScrollAreaScrollbarAutoIntrinsicElement, ScrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
+import { scopedScrollAreaProps } from './types'
+import { useScrollAreaInject } from './scroll-area'
+import type { ScrollAreaScrollbarAutoElement, ScrollAreaScrollbarAutoNaviteElement, ScrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
 import { OkuScrollAreaScrollbarAuto } from './scroll-area-scrollbar-auto'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 
-const SCROLL_NAME = 'Hover'
+const SCROLL_NAME = 'OkuScrollAreaScrollbarHover'
 
-export type ScrollAreaScrollbarHoverIntrinsicElement = ScrollAreaScrollbarAutoIntrinsicElement
-type ScrollAreaScrollbarHoverElement = ScrollAreaScrollbarAutoElement
+export type ScrollAreaScrollbarHoverNaviteElement = ScrollAreaScrollbarAutoNaviteElement
+export type ScrollAreaScrollbarHoverElement = ScrollAreaScrollbarAutoElement
 
-interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {
+export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {
   forceMount?: true
 }
 
 const scrollAreaScrollbarHoverProps = {
-  forceMount: {
-    type: Boolean,
-    required: false,
-    default: true,
+  props: {
+    forceMount: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
+  emits: {},
 }
 
 const scrollAreaScrollbarHover = defineComponent({
   name: SCROLL_NAME,
   inheritAttrs: false,
   props: {
-    ...scrollAreaScrollbarHoverProps,
-    ...scopedProps,
+    ...scrollAreaScrollbarHoverProps.props,
+    ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  setup(props, { attrs }) {
-    const { ...scrollAreaScrollbarHoverAttrs } = attrs as ScrollAreaScrollbarHoverIntrinsicElement
-
-    const forwardedRef = useForwardRef()
+  emits: scrollAreaScrollbarHoverProps.emits,
+  setup(props, { attrs, slots }) {
+    // const { ...scrollAreaScrollbarHoverAttrs } = attrs as ScrollAreaScrollbarHoverNaviteElement
 
     const { forceMount } = toRefs(props)
 
-    const context = useScrollAreaContext(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const forwardedRef = useForwardRef()
     const visible = ref(false)
 
     watchEffect((onInvalidate) => {
-      const scrollArea = context.scrollArea
+      const scrollArea = inject.scrollArea
       let hideTimer = 0
       if (scrollArea) {
         const handlePointerEnter = () => {
@@ -52,7 +55,7 @@ const scrollAreaScrollbarHover = defineComponent({
           visible.value = true
         }
         const handlePointerLeave = () => {
-          hideTimer = window.setTimeout(() => (visible.value = false), context.scrollHideDelay)
+          hideTimer = window.setTimeout(() => (visible.value = false), inject.scrollHideDelay)
         }
         scrollArea.addEventListener('pointerenter', handlePointerEnter)
         scrollArea.addEventListener('pointerleave', handlePointerLeave)
@@ -65,28 +68,22 @@ const scrollAreaScrollbarHover = defineComponent({
       }
     })
 
-    const originalReturn = () =>
-      h(
-        OkuPresence,
-        {
-          present: forceMount.value || visible.value,
-        },
-        h(
-          OkuScrollAreaScrollbarAuto,
+    return () => h(OkuPresence,
+      {
+        present: forceMount.value || visible.value,
+      },
+      {
+        default: () => h(OkuScrollAreaScrollbarAuto,
           {
-
-            'data-state': visible.value ? 'visible' : 'hidden',
-            ...scrollAreaScrollbarHoverAttrs,
-            'ref': forwardedRef,
-          },
+            ['data-state' as any]: visible.value ? 'visible' : 'hidden',
+            ...attrs,
+            ref: forwardedRef,
+          }, slots,
         ),
-      )
-
-    return originalReturn
+      },
+    )
   },
 })
 
 export const OkuScrollAreaScrollbarHover = scrollAreaScrollbarHover as typeof scrollAreaScrollbarHover &
 (new () => { $props: Partial<ScrollAreaScrollbarHoverElement> })
-
-export type { ScrollAreaScrollbarHoverElement, ScrollAreaScrollbarHoverProps }
