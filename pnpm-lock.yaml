@@ -609,9 +609,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../label
-      '@oku-ui/popper':
+      '@oku-ui/popover':
         specifier: workspace:^
-        version: link:../popper
+        version: link:../popover
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../progress
@@ -630,6 +630,9 @@ importers:
       '@oku-ui/tabs':
         specifier: workspace:^
         version: link:../tabs
+      '@oku-ui/toast':
+        specifier: workspace:^
+        version: link:../toast
       '@oku-ui/toggle':
         specifier: workspace:^
         version: link:../toggle
