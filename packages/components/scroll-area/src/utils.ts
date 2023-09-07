@@ -1,6 +1,6 @@
 import { clamp } from '@Oku-ui/utils'
-import { computed, ref, watch } from 'vue'
-import { useCallbackRef } from '../../../core/use-composable/dist'
+import { nextTick, onMounted, ref, watchEffect } from 'vue'
+import { useCallbackRef } from '@oku-ui/use-composable'
 import type { Direction, Sizes } from './scroll-area'
 
 function toInt(value?: string) {
@@ -84,40 +84,43 @@ function addUnlinkedScrollListener(node: HTMLElement, handler = () => {}) {
 function useDebounceCallback(callback: () => void, delay: number) {
   const handleCallback = useCallbackRef(callback)
   const debounceTimerRef = ref<number>(0)
-  const clearAndSchedule = () => {
+
+  onMounted(() => {
     window.clearTimeout(debounceTimerRef.value)
-    debounceTimerRef.value = window.setTimeout(handleCallback, delay)
+  })
+
+  return () => {
+    window.clearTimeout(debounceTimerRef.value)
+    debounceTimerRef.value = window.setTimeout(handleCallback.value, delay)
   }
-  watch(handleCallback, clearAndSchedule)
-  const debouncedComputedCallback = computed(() => clearAndSchedule)
-  watch([debouncedComputedCallback], () => {
-    debouncedComputedCallback.value()
+}
+
+function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
+  const handleResize = useCallbackRef(onResize)
+  watchEffect((onInvalidate) => {
+    nextTick()
+
+    let rAF = 0
+    if (element) {
+      /**
+       * Resize Observer will throw an often benign error that says `ResizeObserver loop
+       * completed with undelivered notifications`. This means that ResizeObserver was not
+       * able to deliver all observations within a single animation frame, so we use
+       * `requestAnimationFrame` to ensure we don't deliver unnecessary observations.
+       * Further reading: https://github.com/WICG/resize-observer/issues/38
+       */
+      const resizeObserver = new ResizeObserver(() => {
+        cancelAnimationFrame(rAF)
+        rAF = window.requestAnimationFrame(handleResize.value)
+      })
+      resizeObserver.observe(element)
+
+      onInvalidate(() => {
+        window.cancelAnimationFrame(rAF)
+        resizeObserver.unobserve(element)
+      })
+    }
   })
 }
 
-// function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
-//   const handleResize = useCallbackRef(onResize);
-//   useLayoutEffect(() => {
-//     let rAF = 0;
-//     if (element) {
-//       /**
-//        * Resize Observer will throw an often benign error that says `ResizeObserver loop
-//        * completed with undelivered notifications`. This means that ResizeObserver was not
-//        * able to deliver all observations within a single animation frame, so we use
-//        * `requestAnimationFrame` to ensure we don't deliver unnecessary observations.
-//        * Further reading: https://github.com/WICG/resize-observer/issues/38
-//        */
-//       const resizeObserver = new ResizeObserver(() => {
-//         cancelAnimationFrame(rAF);
-//         rAF = window.requestAnimationFrame(handleResize);
-//       });
-//       resizeObserver.observe(element);
-//       return () => {
-//         window.cancelAnimationFrame(rAF);
-//         resizeObserver.unobserve(element);
-//       };
-//     }
-//   }, [element, handleResize]);
-// }
-
-export { getThumbRatio, toInt, getScrollPositionFromPointer, getThumbOffsetFromScroll, isScrollingWithinScrollbarBounds, addUnlinkedScrollListener, useDebounceCallback }
+export { getThumbRatio, toInt, getThumbSize, getScrollPositionFromPointer, getThumbOffsetFromScroll, isScrollingWithinScrollbarBounds, addUnlinkedScrollListener, useDebounceCallback, useResizeObserver }
