@@ -31,7 +31,7 @@ const dialogOverlayImpl = defineComponent({
 
     useScrollLock(inject.contentRef, true)
 
-    const originalReturn = () => h(Primitive.div, {
+    return () => h(Primitive.div, {
       'data-state': getState(inject.open.value),
       ...mergeProps(attrs, overlayProps),
       'ref': forwardRef,
@@ -43,7 +43,6 @@ const dialogOverlayImpl = defineComponent({
     {
       default: () => slots.default?.(),
     })
-    return originalReturn
   },
 })
 

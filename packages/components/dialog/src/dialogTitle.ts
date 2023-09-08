@@ -32,15 +32,14 @@ const dialogTitle = defineComponent({
 
     const forwardRef = useForwardRef()
 
-    const originalReturn = () => h(Primitive.h2, {
-      id: inject.titleId.value,
+    return () => h(Primitive.h2, {
+      id: inject?.titleId.value,
       ...mergeProps(attrs, titleProps),
       ref: forwardRef,
     },
     {
       default: () => slots.default?.(),
     })
-    return originalReturn
   },
 })
 

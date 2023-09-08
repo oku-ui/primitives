@@ -36,7 +36,7 @@ const dialogDescriptionWarning = defineComponent({
 
     const inject = useWarningInject(DESCRIPTION_WARNING_NAME)
 
-    const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${(inject as any).contentName}}.`
+    const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${inject?.contentName.value}}.`
 
     watchEffect(() => {
       const describedById = contentRef.value?.getAttribute('aria-describedby')

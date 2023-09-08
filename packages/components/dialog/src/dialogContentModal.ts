@@ -42,12 +42,11 @@ const dialogContentModal = defineComponent({
     const composedRefs = useComposedRefs(forwardRef, inject.contentRef, contentRef)
 
     onBeforeUnmount(() => {
-      // console.log('test', 'dialogContentModal onBeforeUnmount')
       if (contentRef.value)
         return hideOthers(contentRef.value)
     })
 
-    const originalReturn = () => h(OkuDialogContentImpl, {
+    return () => h(OkuDialogContentImpl, {
       ...mergeProps(attrs, props),
       ref: composedRefs,
       // we make sure focus isn't trapped once `DialogContent` has been closed
@@ -72,14 +71,12 @@ const dialogContentModal = defineComponent({
         if (isRightClick)
           event.preventDefault()
       }),
-
       onFocusoutSide: composeEventHandlers<DialogContentModalEmits['focusoutSide'][0]>((el) => {
         emit('focusoutSide', el)
       }, (event) => {
         event.preventDefault()
       }),
     }, slots)
-    return originalReturn
   },
 })
 

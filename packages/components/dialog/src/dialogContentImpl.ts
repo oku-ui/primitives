@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { Fragment, defineComponent, h, ref, toRefs } from 'vue'
+import { Fragment, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -81,45 +81,42 @@ const dialogContentImpl = defineComponent({
     useFocusGuards()
 
     return () => h(Fragment,
-      [h(OkuFocusScope, {
-        asChild: true,
-        loop: true,
-        trapped: trapFocus.value,
-        onMountAutoFocus: (event) => {
-          emit('openAutoFocus', event)
-        },
-        onUnmountAutoFocus: (event) => {
-          emit('closeAutoFocus', event)
-        },
-      }, {
-        default: () => h(OkuDismissableLayer, {
-          'role': 'dialog',
-          'id': inject.contentId.value,
-          'aria-describedby': inject.descriptionId?.value,
-          'aria-labelledby': inject.titleId?.value,
-          'data-state': getState(inject.open?.value || false),
-          ...attrs,
-          ...contentProps,
-          'ref': composedRefs,
-          'onDismiss': () => {
-            inject.onOpenChange(false)
+      [
+        h(OkuFocusScope, {
+          asChild: true,
+          loop: true,
+          trapped: trapFocus.value,
+          onMountAutoFocus: (event) => {
+            emit('openAutoFocus', event)
+          },
+          onUnmountAutoFocus: (event) => {
+            emit('closeAutoFocus', event)
           },
         }, {
-          default: () => slots.default?.(),
+          default: () => h(OkuDismissableLayer, {
+            'role': 'dialog',
+            'id': inject.contentId.value,
+            'aria-describedby': inject.descriptionId?.value,
+            'aria-labelledby': inject.titleId?.value,
+            'data-state': getState(inject.open.value),
+            ...mergeProps(attrs, props),
+            'ref': composedRefs,
+            'onDismiss': () => {
+              inject.onOpenChange(false)
+            },
+          }, slots),
         }),
-      }),
-      process.env.NODE_ENV !== 'production'
-        && (h(Fragment,
+        process.env.NODE_ENV !== 'production'
+        && h(Fragment,
           [
             h(OkuDialogTitleWarning, {
               titleId: inject.titleId.value,
             }),
             h(OkuDialogDescriptionWarning, {
-              contentRef: inject.contentRef.value,
+              contentRef: contentRef.value,
               descriptionId: inject.descriptionId.value,
             }),
-          ])
-        ),
+          ]),
       ],
     )
   },

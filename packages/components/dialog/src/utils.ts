@@ -58,5 +58,5 @@ type PortalInjectValue = {
 
 export const [DialogPortalProvider, useDialogPortalInject]
   = createDialogProvider<PortalInjectValue>(DIALOG_NAME, {
-    forceMount: undefined,
+    forceMount: ref(undefined),
   })

@@ -38,7 +38,7 @@ const dialogContentNonModal = defineComponent({
 
     const forwardRef = useForwardRef()
 
-    const originalReturn = () => h(OkuDialogContentImpl, {
+    return () => h(OkuDialogContentImpl, {
       ...mergeProps(attrs, props),
       ref: forwardRef,
       trapFocus: false,
@@ -81,7 +81,6 @@ const dialogContentNonModal = defineComponent({
           event.preventDefault()
       }),
     }, slots)
-    return originalReturn
   },
 })
 

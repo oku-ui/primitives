@@ -34,15 +34,14 @@ const dialogDescription = defineComponent({
 
     const forwardRef = useForwardRef()
 
-    const originalReturn = () => h(Primitive.p, {
-      id: inject.descriptionId.value,
+    return () => h(Primitive.p, {
+      id: inject?.descriptionId.value,
       ...mergeProps(attrs, descriptionProps),
       ref: forwardRef,
     },
     {
       default: () => slots.default?.(),
     })
-    return originalReturn
   },
 })
 

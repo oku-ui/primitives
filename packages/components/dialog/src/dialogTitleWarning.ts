@@ -22,11 +22,11 @@ const dialogTitleWarning = defineComponent({
     const titleId = toRef(props, 'titleId')
     const inject = useWarningInject(TITLE_WARNING_NAME)
 
-    const MESSAGE = `${(inject as any).contentName.value}\` requires a \`${(inject as any).titleName.value}\` for the component to be accessible for screen reader users.
+    const MESSAGE = `${inject?.contentName.value}\` requires a \`${inject.titleName.value}\` for the component to be accessible for screen reader users.
 
-    If you want to hide the \`${(inject as any).titleName.value}\`, you can wrap it with our VisuallyHidden component.
+    If you want to hide the \`${inject?.titleName.value}\`, you can wrap it with our VisuallyHidden component.
     
-    For more information, see https://radix-ui.com/primitives/docs/components/${(inject as any).docsSlug.value}`
+    For more information, see https://oku-ui.com/primitives/components/${inject?.docsSlug.value}`
 
     watchEffect(() => {
       if (titleId.value) {

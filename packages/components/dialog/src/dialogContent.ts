@@ -49,6 +49,7 @@ const dialogContent = defineComponent({
     const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
+
     const originalReturn = () => h(OkuPresence, {
       present: computed(() => forceMountRef?.value || inject.open.value).value,
     },

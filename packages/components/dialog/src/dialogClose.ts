@@ -40,7 +40,7 @@ const dialogClose = defineComponent({
 
     const forwardRef = useForwardRef()
 
-    const originalReturn = () => h(Primitive.button, {
+    return () => h(Primitive.button, {
       type: 'button',
       ...mergeProps(attrs, closeProps),
       ref: forwardRef,
@@ -51,7 +51,6 @@ const dialogClose = defineComponent({
     {
       default: () => slots.default?.(),
     })
-    return originalReturn
   },
 })
 
