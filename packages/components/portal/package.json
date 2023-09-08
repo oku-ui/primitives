@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/portal",
   "type": "module",
-  "version": "0.4.0-alpha.9",
+  "version": "0.4.0-alpha.11",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
