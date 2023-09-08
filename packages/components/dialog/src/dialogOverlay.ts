@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
@@ -36,7 +36,7 @@ const dialogOverlay = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogOverlayProps.emits,
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const { scopeOkuDialog, ...overlayProps } = props
     const portalInject = useDialogPortalInject(OVERLAY_NAME, scopeOkuDialog)
 
@@ -47,20 +47,17 @@ const dialogOverlay = defineComponent({
 
     const forwardRef = useForwardRef()
 
-    const originalReturn = () => inject.modal.value
+    return () => inject.modal.value
       ? h(OkuPresence, {
         present: computed(() => forceMountRef.value || inject.open?.value).value,
       },
       {
         default: () => h(OkuDialogOverlayImpl, {
-          ...attrs,
-          ...overlayProps,
+          ...mergeProps(attrs, overlayProps),
           ref: forwardRef,
-        }),
+        }, slots),
       })
       : null
-
-    return originalReturn
   },
 })
 

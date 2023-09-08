@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogPortal, OkuDialogTitle, OkuDialogTrigger } from '@oku-ui/dialog'
+import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogOverlay, OkuDialogPortal, OkuDialogTitle, OkuDialogTrigger } from '@oku-ui/dialog'
 </script>
 
 <template>

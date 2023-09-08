@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -47,8 +47,7 @@ const dialogTrigger = defineComponent({
       'aria-expanded': inject.open.value,
       'aria-controls': inject.contentId.value,
       'data-state': getState(inject.open.value),
-      ...attrs,
-      ...triggerProps,
+      ...mergeProps(attrs, triggerProps),
       'ref': composedTriggerRef,
       'onClick': composeEventHandlers((e: DialogTriggerEmits['click'][0]) => {
         emit('click', e)

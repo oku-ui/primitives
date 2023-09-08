@@ -1,4 +1,4 @@
-import { defineComponent, h, onBeforeUnmount, ref } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -48,8 +48,7 @@ const dialogContentModal = defineComponent({
     })
 
     const originalReturn = () => h(OkuDialogContentImpl, {
-      ...attrs,
-      ...props,
+      ...mergeProps(attrs, props),
       ref: composedRefs,
       // we make sure focus isn't trapped once `DialogContent` has been closed
       // (closed !== unmounted when animating out)
@@ -79,10 +78,7 @@ const dialogContentModal = defineComponent({
       }, (event) => {
         event.preventDefault()
       }),
-    },
-    {
-      default: () => slots.default?.(),
-    })
+    }, slots)
     return originalReturn
   },
 })

@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -34,8 +34,6 @@ const dialogClose = defineComponent({
   },
   emits: dialogCloseProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...restAttrs } = attrs as DialogCloseNaviteElement
-
     const { scopeOkuDialog, ...closeProps } = props
 
     const inject = useDialogInject(CLOSE_NAME, scopeOkuDialog)
@@ -44,8 +42,7 @@ const dialogClose = defineComponent({
 
     const originalReturn = () => h(Primitive.button, {
       type: 'button',
-      ...restAttrs,
-      ...closeProps,
+      ...mergeProps(attrs, closeProps),
       ref: forwardRef,
       onClick: composeEventHandlers((e: DialogCloseEmits['click'][0]) => {
         emit('click', e)

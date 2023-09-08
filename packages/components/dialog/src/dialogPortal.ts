@@ -55,20 +55,21 @@ const dialogPortal = defineComponent({
       forceMount,
     })
 
-    return () => slots.default?.().map((child) => {
-      return h(OkuPresence, {
-        present: computed(() => forceMount?.value || inject.open?.value).value,
-      },
-      {
-        default: () => h(OkuPortal, {
-          asChild: true,
-          container: container.value,
+    return () => [
+      slots.default?.().map((child) => {
+        return h(OkuPresence, {
+          present: computed(() => forceMount?.value || inject.open?.value).value,
         },
         {
-          default: () => child,
-        }),
-      })
-    }) || []
+          default: () => h(OkuPortal, {
+            asChild: true,
+            container: container.value,
+          }, {
+            default: () => child,
+          }),
+        })
+      }),
+    ]
   },
 })
 

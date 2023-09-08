@@ -1,4 +1,4 @@
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, mergeProps, ref } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -39,8 +39,7 @@ const dialogContentNonModal = defineComponent({
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(OkuDialogContentImpl, {
-      ...attrs,
-      ...props,
+      ...mergeProps(attrs, props),
       ref: forwardRef,
       trapFocus: false,
       disableOutsidePointerEvents: false,
@@ -81,10 +80,7 @@ const dialogContentNonModal = defineComponent({
         if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef.value)
           event.preventDefault()
       }),
-    },
-    {
-      default: () => slots.default?.(),
-    })
+    }, slots)
     return originalReturn
   },
 })

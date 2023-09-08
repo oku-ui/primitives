@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -34,8 +34,7 @@ const dialogTitle = defineComponent({
 
     const originalReturn = () => h(Primitive.h2, {
       id: inject.titleId.value,
-      ...attrs,
-      ...titleProps,
+      ...mergeProps(attrs, titleProps),
       ref: forwardRef,
     },
     {

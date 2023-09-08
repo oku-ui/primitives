@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef, useScrollLock } from '@oku-ui/use-composable'
@@ -33,8 +33,7 @@ const dialogOverlayImpl = defineComponent({
 
     const originalReturn = () => h(Primitive.div, {
       'data-state': getState(inject.open.value),
-      ...attrs,
-      ...overlayProps,
+      ...mergeProps(attrs, overlayProps),
       'ref': forwardRef,
       'style': {
         pointerEvents: 'auto',

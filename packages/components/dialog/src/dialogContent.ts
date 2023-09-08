@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
@@ -55,21 +55,13 @@ const dialogContent = defineComponent({
     {
       default: () => inject.modal.value
         ? h(OkuDialogContentModal, {
-          ...attrs,
-          ...dialogProps,
+          ...mergeProps(attrs, dialogProps),
           ref: forwardRef,
-        },
-        {
-          default: slots.default?.(),
-        })
+        }, slots)
         : h(OkuDialogContentNonModal, {
-          ...attrs,
-          ...dialogProps,
+          ...mergeProps(attrs, dialogProps),
           ref: forwardRef,
-        },
-        {
-          default: slots.default?.(),
-        }),
+        }, slots),
     })
     return originalReturn
   },
