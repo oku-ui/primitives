@@ -1,4 +1,5 @@
-# `provide`
+# Provide
+Provide is a component that allows you to provide a value to all its children. It is similar to React's Context API, but it is not a replacement for it. It is a simple component that allows you to provide a value to all its children.
 
 <span><a href="https://www.npmjs.com/package/@oku-ui/provide "><img src="https://img.shields.io/npm/v/@oku-ui/provide?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/provide"> <img src="https://img.shields.io/npm/dm/@oku-ui/provide?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/provide"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span>
 
