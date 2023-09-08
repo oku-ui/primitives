@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, ref, toRefs } from 'vue'
+import { computed, defineComponent, ref, toRefs, useModel } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
 import { DIALOG_NAME, DialogProvider, scopeDialogProps } from './utils'
@@ -38,9 +38,9 @@ export const dialogProps = {
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    openChange: (open: boolean) => true,
+    'openChange': (open: boolean) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    modelValue: (open: boolean) => true,
+    'update:modelValue': (open: boolean) => true,
   },
 }
 const dialog = defineComponent({
@@ -59,13 +59,18 @@ const dialog = defineComponent({
     } = toRefs(props)
     const triggerRef = ref<HTMLButtonElement | null>(null)
     const contentRef = ref<HTMLDivElement | null>(null)
-
+    const modelValue = useModel(props, 'modelValue')
+    const proxyValue = computed({
+      get: () => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined,
+      set: () => {
+      },
+    })
     const { state, updateValue } = useControllable({
-      prop: computed(() => openProp.value),
+      prop: computed(() => proxyValue.value),
       defaultProp: computed(() => defaultOpen.value),
       onChange: (result: any) => {
         emit('openChange', result)
-        emit('modelValue', result)
+        emit('update:modelValue', result)
       },
       initialValue: false,
     })

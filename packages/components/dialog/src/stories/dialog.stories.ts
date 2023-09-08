@@ -41,3 +41,45 @@ export const Styled: Story = {
     `,
   }),
 }
+export const NonModal: Story = {
+  args: {
+    template: 'NonModal',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const Controlled: Story = {
+  args: {
+    template: 'Controlled',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const FocusTrap: Story = {
+  args: {
+    template: 'FocusTrap',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}

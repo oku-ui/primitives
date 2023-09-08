@@ -1,19 +1,18 @@
 import type { PropType } from 'vue'
 import { defineComponent, toRefs, watchEffect } from 'vue'
-import type { DialogContentNaviteElement } from './dialogContent'
 import { useWarningInject } from './utils'
 
 export const DESCRIPTION_WARNING_NAME = 'OkuDialogDescriptionWarning'
 
 export type DescriptionWarningProps = {
-  contentRef: DialogContentNaviteElement
+  contentRef: HTMLDivElement
   descriptionId?: string
 }
 
 export const dialogDescriptionWarningProps = {
   props: {
     contentRef: {
-      type: Object as PropType<HTMLElement | null>,
+      type: [Object, null] as PropType<HTMLDivElement | null>,
       required: true,
     },
     descriptionId: {
@@ -33,7 +32,6 @@ const dialogDescriptionWarning = defineComponent({
   },
   setup(props) {
     const { contentRef, descriptionId } = toRefs(props)
-
     const inject = useWarningInject(DESCRIPTION_WARNING_NAME)
 
     const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${inject?.contentName.value}}.`

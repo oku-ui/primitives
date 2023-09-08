@@ -5,6 +5,8 @@ import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
 import { useFocusGuards } from '@oku-ui/focus-guards'
+
+import { primitiveProps } from '@oku-ui/primitive'
 import { getState, scopeDialogProps, useDialogInject } from './utils'
 import { OkuDialogTitleWarning } from './dialogTitleWarning'
 import { OkuDialogDescriptionWarning } from './dialogDescriptionWarning'
@@ -57,22 +59,19 @@ export const dialogContentImplProps = {
 
 const dialogContentImpl = defineComponent({
   name: CONTENT_NAME,
-  components: {
-    OkuFocusScope,
-    OkuDismissableLayer,
-  },
   inheritAttrs: false,
   props: {
     ...dialogContentImplProps.props,
+    ...primitiveProps,
     ...scopeDialogProps,
   },
   emits: dialogContentImplProps.emits,
   setup(props, { emit, attrs, slots }) {
-    const { scopeOkuDialog, trapFocus: _trapFocus, onOpenAutoFocus: _onOpen, onCloseAutoFocus: _onClose, ...contentProps } = props
+    const { scopeOkuDialog: _scopeOkuDialog, trapFocus: _trapFocus, onOpenAutoFocus: _onOpen, onCloseAutoFocus: _onClose, disableOutsidePointerEvents, ...contentProps } = props
 
-    const { trapFocus } = toRefs(props)
+    const { scopeOkuDialog, trapFocus } = toRefs(props)
 
-    const inject = useDialogInject(CONTENT_NAME, scopeOkuDialog)
+    const inject = useDialogInject(CONTENT_NAME, scopeOkuDialog.value)
 
     const forwardRef = useForwardRef()
     const contentRef = ref<HTMLDivElement | null>(null)
@@ -94,12 +93,14 @@ const dialogContentImpl = defineComponent({
           },
         }, {
           default: () => h(OkuDismissableLayer, {
+            'asChild': true,
+
             'role': 'dialog',
             'id': inject.contentId.value,
             'aria-describedby': inject.descriptionId?.value,
             'aria-labelledby': inject.titleId?.value,
             'data-state': getState(inject.open.value),
-            ...mergeProps(attrs, props),
+            ...mergeProps(attrs, contentProps),
             'ref': composedRefs,
             'onDismiss': () => {
               inject.onOpenChange(false)

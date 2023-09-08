@@ -1,0 +1,62 @@
+<script setup lang="ts">
+import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogOverlay, OkuDialogPortal, OkuDialogTitle, OkuDialogTrigger } from '@oku-ui/dialog'
+import { ref } from 'vue'
+
+const open = ref(false)
+const dismissOnFocusOutside = ref(true)
+
+function onFocusOutside(event: Event): void {
+  if (dismissOnFocusOutside.value === false)
+    event.preventDefault()
+}
+</script>
+
+<template>
+  <div>
+    <OkuDialog v-model="open">
+      <OkuDialogTrigger class="triggerClass">
+        open
+      </OkuDialogTrigger>
+      <OkuDialogPortal>
+        <OkuDialogOverlay class="overlayClass" />
+        <OkuDialogContent class="contentDefaultClass" @focusout-side="onFocusOutside">
+          <OkuDialogClose>
+            close
+          </OkuDialogClose>
+          <OkuDialogTitle>
+            Title
+          </OkuDialogTitle>
+          <OkuDialogDescription>
+            Description
+          </OkuDialogDescription>
+          <table style="margin-top: 20px;">
+            <tr>
+              <td>
+                <label htmlFor="firstName">First Name</label>
+                <input id="firstName" type="text" placeholder="John">
+              </td>
+              <td>
+                <label htmlFor="lastName">Last Name</label>
+                <input id="lastName" type="text" placeholder="Doe">
+              </td>
+              <td>
+                <button type="submit">
+                  Send
+                </button>
+              </td>
+            </tr>
+          </table>
+        </okudialogcontent>
+      </okudialogportal>
+    </okudialog>
+    <div style="margin-top: 20px;">
+      <p>These elements can't be focused when the dialog is opened.</p>
+      <div style="margin-top: 15px;">
+        <button type="button">
+          A button
+        </button>
+        <input type="text" placeholder="Another focusable element">
+      </div>
+    </div>
+  </div>
+</template>

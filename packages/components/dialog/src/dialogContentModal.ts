@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
+import { defineComponent, h, onMounted, ref } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -19,7 +19,6 @@ export interface DialogContentModalEmits extends DialogContentImplEmits { }
 export const dialogContentTypeProps = {
   props: {
     ...propsOmit(dialogContentImplProps.props, ['trapFocus', 'disableOutsidePointerEvents']),
-    ...primitiveProps,
   },
   emits: {
     ...dialogContentImplProps.emits,
@@ -31,6 +30,7 @@ const dialogContentModal = defineComponent({
   inheritAttrs: false,
   props: {
     ...dialogContentTypeProps.props,
+    ...primitiveProps,
     ...scopeDialogProps,
   },
   emits: dialogContentTypeProps.emits,
@@ -41,23 +41,27 @@ const dialogContentModal = defineComponent({
     const contentRef = ref<HTMLDivElement | null>(null)
     const composedRefs = useComposedRefs(forwardRef, inject.contentRef, contentRef)
 
-    onBeforeUnmount(() => {
-      if (contentRef.value)
-        return hideOthers(contentRef.value)
+    const isRightClickOutsideRef = ref(false)
+    onMounted(() => {
+      const content = contentRef.value
+      if (content)
+        return hideOthers(content)
     })
 
     return () => h(OkuDialogContentImpl, {
-      ...mergeProps(attrs, props),
+      ...attrs,
+      ...props,
       ref: composedRefs,
       // we make sure focus isn't trapped once `DialogContent` has been closed
       // (closed !== unmounted when animating out)
       trapFocus: inject.open.value,
-      disableOutsidePointerEvents: true,
+      disableOutsidePointerEvents: inject.open.value,
       onCloseAutoFocus: composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {
         emit('closeAutoFocus', el)
       }, (event) => {
         event.preventDefault()
-        inject.triggerRef.value?.focus()
+        if (!isRightClickOutsideRef.value)
+          inject.triggerRef.value?.focus()
       }),
       onPointerdownOutside: composeEventHandlers<DialogContentModalEmits['pointerdownOutside'][0]>((el) => {
         emit('pointerdownOutside', el)
@@ -66,17 +70,15 @@ const dialogContentModal = defineComponent({
         const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true
         const isRightClick = originalEvent.button === 2 || ctrlLeftClick
 
-        // If the event is a right-click, we shouldn't close because
-        // it is effectively as if we right-clicked the `Overlay`.
-        if (isRightClick)
-          event.preventDefault()
-      }),
+        isRightClickOutsideRef.value = isRightClick
+      }, { checkForDefaultPrevented: false }),
       onFocusoutSide: composeEventHandlers<DialogContentModalEmits['focusoutSide'][0]>((el) => {
         emit('focusoutSide', el)
-      }, (event) => {
-        event.preventDefault()
-      }),
-    }, slots)
+      }, event => event.preventDefault(),
+      { checkForDefaultPrevented: false }),
+    }, {
+      default: () => slots.default?.(),
+    })
   },
 })
 

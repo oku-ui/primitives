@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import Styled from './Styled.vue'
+import NonModal from './NonModal.vue'
+import Controlled from './Controlled.vue'
+import FocusTrap from './FocusTrap.vue'
 
 export interface OkuDialogProps {
   template: 'Styled' | 'NonModal' | 'Controlled' | 'FocusTrap' | 'CustomFocus' | 'NoEscapeDismiss' | 'NoPointerDownOutsideDismiss'
@@ -15,16 +18,23 @@ withDefaults(defineProps<OkuDialogProps>(), {
   <div v-if="template === 'Styled' || allshow" class="flex flex-col w-full">
     <Styled />
   </div>
-  <!-- <div v-if="template === 'NonModal' || allshow" class="flex flex-col w-full">
-    <OnValueCommit />
+  <div v-if="template === 'NonModal' || allshow" class="flex flex-col w-full">
+    <NonModal />
   </div>
   <div v-if="template === 'Controlled' || allshow" class="flex flex-col w-full">
-    <Vertical />
-  </div> -->
+    <Controlled />
+  </div>
+  <div v-if="template === 'FocusTrap' || allshow" class="flex flex-col w-full">
+    <FocusTrap />
+  </div>
 </template>
 
 <style lang="postcss">
-.triggerClass {}
+.triggerClass {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 
 .overlayClass {
    position: fixed;
