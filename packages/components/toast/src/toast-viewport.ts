@@ -1,6 +1,6 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { isClient, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
@@ -88,6 +88,9 @@ const toastViewport = defineComponent({
     const hasToasts = computed(() => inject.toastCount.value > 0)
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const handleKeyDown = (event: KeyboardEvent) => {
         // we use `event.code` as it is consistent regardless of meta keys that were pressed.
         // for example, `event.key` for `Control+Alt+t` is `†` and `t !== †`
@@ -102,6 +105,9 @@ const toastViewport = defineComponent({
     })
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const wrapper = wrapperRef.value
       const viewport = viewportRef.value
       if (hasToasts.value && wrapper && viewport) {
@@ -167,6 +173,9 @@ const toastViewport = defineComponent({
     }
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const viewport = viewportRef.value
       // We programmatically manage tabbing as we are unable to influence
       // the source order with portals, this allows us to reverse the

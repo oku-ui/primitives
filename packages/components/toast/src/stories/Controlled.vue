@@ -4,6 +4,7 @@ import {
   OkuToastDescription, OkuToastProvider, OkuToastViewport,
 } from '@oku-ui/toast'
 import { ref, watchEffect } from 'vue'
+import { isClient } from '@oku-ui/use-composable'
 import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
 import ToastSubscribeSuccess from './ToastSubscribeSuccess.vue'
 
@@ -14,6 +15,8 @@ const errorCount = ref(0)
 const hasUpgrade = ref(false)
 
 watchEffect((onInvalidate) => {
+  if (!isClient)
+    return
   if (!hasUpgrade.value) {
     const timer = window.setTimeout(() => hasUpgrade.value = true, 10000)
 
@@ -53,7 +56,3 @@ watchEffect((onInvalidate) => {
     <OkuToastViewport class="viewport" />
   </OkuToastProvider>
 </template>
-
-<style lang="postcss">
-@import './toast.css'
-</style>

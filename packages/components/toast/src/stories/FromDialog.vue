@@ -38,7 +38,3 @@ const open = ref(false)
     <OkuToastViewport class="viewport" />
   </OkuToastProvider>
 </template>
-
-<style lang="postcss">
-@import './toast.css'
-</style>

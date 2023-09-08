@@ -3,6 +3,7 @@ import { OkuPortal } from '@oku-ui/portal'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
+import { isClient } from '@oku-ui/use-composable'
 import { TOAST_NAME, useToastProviderInject } from './share'
 import { useNextFrame } from './utils'
 import { scopedToastProps } from './types'
@@ -46,6 +47,9 @@ const toastAnnounce = defineComponent({
     useNextFrame(() => renderAnnounceText.value = true)
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const timer = window.setTimeout(() => isAnnounced.value = true, 1000)
 
       onInvalidate(() => window.clearTimeout(timer))
