@@ -38,12 +38,12 @@ const dialogOverlay = defineComponent({
   emits: dialogOverlayProps.emits,
   setup(props, { attrs }) {
     const { scopeOkuDialog, ...overlayProps } = props
-    const portalInject = useDialogPortalInject(OVERLAY_NAME, props.scopeOkuDialog)
+    const portalInject = useDialogPortalInject(OVERLAY_NAME, scopeOkuDialog)
 
     const { forceMount } = toRefs(props)
     const forceMountRef = computed(() => forceMount.value || portalInject.forceMount?.value)
 
-    const inject = useDialogInject(OVERLAY_NAME, props.scopeOkuDialog)
+    const inject = useDialogInject(OVERLAY_NAME, scopeOkuDialog)
 
     const forwardRef = useForwardRef()
 

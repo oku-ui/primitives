@@ -25,8 +25,8 @@ const dialogOverlayImpl = defineComponent({
   },
   emits: dialogOverlayImplProps.emits,
   setup(props, { attrs, slots }) {
-    const inject = useDialogInject(OVERLAY_NAME, props.scopeOkuDialog)
     const { scopeOkuDialog, ...overlayProps } = props
+    const inject = useDialogInject(OVERLAY_NAME, scopeOkuDialog)
     const forwardRef = useForwardRef()
 
     useScrollLock(inject.contentRef, true)

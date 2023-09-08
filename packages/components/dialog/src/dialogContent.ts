@@ -40,7 +40,7 @@ const dialogContent = defineComponent({
   },
   emits: dialogContentProps.emits,
   setup(props, { attrs, slots }) {
-    const { forceMount, ...dialogProps } = props
+    const { forceMount: _asForceMount, ...dialogProps } = props
     const portalInject = useDialogPortalInject(CONTENT_NAME, props.scopeOkuDialog)
 
     const { forceMount: force } = toRefs(props)

@@ -51,14 +51,13 @@ const dialog = defineComponent({
     ...dialogProps.props,
   },
   emits: dialogProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { slots, emit }) {
     const {
       open: openProp,
       defaultOpen,
       modal,
     } = toRefs(props)
     const triggerRef = ref<HTMLButtonElement | null>(null)
-    const closeRef = ref<HTMLButtonElement | null>(null)
     const contentRef = ref<HTMLDivElement | null>(null)
 
     const { state, updateValue } = useControllable({
