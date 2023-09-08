@@ -592,6 +592,67 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/components/primitives:
+    dependencies:
+      '@oku-ui/aspect-ratio':
+        specifier: workspace:^
+        version: link:../aspect-ratio
+      '@oku-ui/avatar':
+        specifier: workspace:^
+        version: link:../avatar
+      '@oku-ui/checkbox':
+        specifier: workspace:^
+        version: link:../checkbox
+      '@oku-ui/collapsible':
+        specifier: workspace:^
+        version: link:../collapsible
+      '@oku-ui/label':
+        specifier: workspace:^
+        version: link:../label
+      '@oku-ui/popover':
+        specifier: workspace:^
+        version: link:../popover
+      '@oku-ui/progress':
+        specifier: workspace:^
+        version: link:../progress
+      '@oku-ui/radio-group':
+        specifier: workspace:^
+        version: link:../radio-group
+      '@oku-ui/separator':
+        specifier: workspace:^
+        version: link:../separator
+      '@oku-ui/slider':
+        specifier: workspace:^
+        version: link:../slider
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:../switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../tabs
+      '@oku-ui/toast':
+        specifier: workspace:^
+        version: link:../toast
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:../toggle
+      '@oku-ui/toggle-group':
+        specifier: workspace:^
+        version: link:../toggle-group
+      '@oku-ui/toolbar':
+        specifier: workspace:^
+        version: link:../toolbar
+      '@oku-ui/tooltip':
+        specifier: workspace:^
+        version: link:../tooltip
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/progress:
     dependencies:
       '@oku-ui/primitive':
@@ -1062,40 +1123,6 @@ importers:
         specifier: workspace:^
         version: link:../tsconfig
 
-  packages/primitives:
-    dependencies:
-      '@oku-ui/aspect-ratio':
-        specifier: workspace:^
-        version: link:../components/aspect-ratio
-      '@oku-ui/avatar':
-        specifier: workspace:^
-        version: link:../components/avatar
-      '@oku-ui/checkbox':
-        specifier: workspace:^
-        version: link:../components/checkbox
-      '@oku-ui/collapsible':
-        specifier: workspace:^
-        version: link:../components/collapsible
-      '@oku-ui/label':
-        specifier: workspace:^
-        version: link:../components/label
-      '@oku-ui/progress':
-        specifier: workspace:^
-        version: link:../components/progress
-      '@oku-ui/separator':
-        specifier: workspace:^
-        version: link:../components/separator
-      '@oku-ui/toggle':
-        specifier: workspace:^
-        version: link:../components/toggle
-      vue:
-        specifier: 3.3.4
-        version: 3.3.4
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../tsconfig
-
   packages/tsconfig: {}
 
   playground/nuxt3:
@@ -1120,7 +1147,7 @@ importers:
         version: link:../../packages/components/label
       '@oku-ui/primitives':
         specifier: workspace:^
-        version: link:../../packages/primitives
+        version: link:../../packages/components/primitives
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../../packages/components/progress
@@ -5740,7 +5767,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.4
-      vue-component-type-helpers: 1.8.8
+      vue-component-type-helpers: 1.8.10
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -15181,12 +15208,12 @@ packages:
       ufo: 1.3.0
     dev: true
 
-  /vue-component-type-helpers@1.8.4:
-    resolution: {integrity: sha512-6bnLkn8O0JJyiFSIF0EfCogzeqNXpnjJ0vW/SZzNHfe6sPx30lTtTXlE5TFs2qhJlAtDFybStVNpL73cPe3OMQ==}
+  /vue-component-type-helpers@1.8.10:
+    resolution: {integrity: sha512-FJtmfw2Gn6eQ8kAVNEhw9nYIzWmVQJjdyQRtJXZ7tgXh/FoZhQnZ2KyxR+NuF9U4iZLBvSspeetIpnP9yxxyMw==}
     dev: true
 
-  /vue-component-type-helpers@1.8.8:
-    resolution: {integrity: sha512-Ohv9HQY92nSbpReC6WhY0X4YkOszHzwUHaaN/lev5tHQLM1AEw+LrLeB2bIGIyKGDU7ZVrncXcv/oBny4rjbYg==}
+  /vue-component-type-helpers@1.8.4:
+    resolution: {integrity: sha512-6bnLkn8O0JJyiFSIF0EfCogzeqNXpnjJ0vW/SZzNHfe6sPx30lTtTXlE5TFs2qhJlAtDFybStVNpL73cPe3OMQ==}
     dev: true
 
   /vue-demi@0.14.6(vue@3.3.4):

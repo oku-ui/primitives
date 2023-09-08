@@ -1,4 +1,5 @@
-# `visually-hidden`
+# Visually Hidden
+Visually hidden component for hiding elements from the visual display, but still available to screen readers.
 
 <span><a href="https://www.npmjs.com/package/@oku-ui/visually-hidden "><img src="https://img.shields.io/npm/v/@oku-ui/visually-hidden?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/visually-hidden"> <img src="https://img.shields.io/npm/dm/@oku-ui/visually-hidden?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/visually-hidden"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span>
 
