@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/primitives",
+  "name": "@oku-ui/toast",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.4.0-alpha.11",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/primitives"
+    "directory": "packages/components/toast"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -30,21 +30,21 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --stub",
-    "clean": "rimraf ./dist && rimraf ./node_modules"
+    "dev": "unbuild --watch"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/aspect-ratio": "latest",
-    "@oku-ui/avatar": "latest",
-    "@oku-ui/checkbox": "latest",
-    "@oku-ui/collapsible": "latest",
-    "@oku-ui/label": "latest",
-    "@oku-ui/progress": "latest",
-    "@oku-ui/separator": "latest",
-    "@oku-ui/toggle": "latest"
+    "@oku-ui/collection": "latest",
+    "@oku-ui/dismissable-layer": "latest",
+    "@oku-ui/portal": "latest",
+    "@oku-ui/presence": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest",
+    "@oku-ui/visually-hidden": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
