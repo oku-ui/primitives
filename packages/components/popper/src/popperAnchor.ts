@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, ref, toRefs, watch } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 
 import type {
   OkuElement,
@@ -23,7 +23,7 @@ export interface PopperAnchorProps extends PrimitiveProps {
 export const popperAnchorProps = {
   props: {
     virtualRef: {
-      type: Object as unknown as PropType<Ref<Measurable | null>>,
+      type: Object as unknown as PropType<Measurable | null>,
       required: false,
       default: undefined,
     },
@@ -40,22 +40,18 @@ const popperAnchor = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { virtualRef } = toRefs(props)
-    const { ...attrsAnchor } = attrs as PopperAnchorNaviteElement
-    const inject = usePopperInject(ANCHOR_NAME, props.scopeOkuPopper)
+    const { virtualRef, scopeOkuPopper, ...anchorProps } = toRefs(props)
+    const reactiveAnchorProps = reactive(anchorProps)
+    const inject = usePopperInject(ANCHOR_NAME, scopeOkuPopper.value)
 
     const _ref = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(_ref, forwardedRef, (el) => {
-      inject.anchor.value = el as Measurable
-    })
+    const composedRefs = useComposedRefs(_ref, forwardedRef)
 
-    watch(_ref, () => {
+    watchEffect(() => {
       // Consumer can anchor the popper to something that isn't
       // a DOM node e.g. pointer position, so we override the
       // `anchorRef` with their virtual ref in this case.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       inject.onAnchorChange(virtualRef?.value || _ref.value)
     })
 
@@ -65,8 +61,7 @@ const popperAnchor = defineComponent({
         : h(
           Primitive.div,
           {
-            ...attrsAnchor,
-            asChild: props.asChild,
+            ...mergeProps(reactiveAnchorProps, attrs),
             ref: composedRefs,
           }, slots)
 
