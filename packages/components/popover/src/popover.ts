@@ -81,6 +81,7 @@ const popover = defineComponent({
   emits: popoverProps.emits,
   setup(props, { slots, emit }) {
     const {
+      modelValue: _modelValue,
       open: openProp,
       defaultOpen,
       modal,
@@ -117,8 +118,8 @@ const popover = defineComponent({
       scope: scopeOkuPopover.value,
       contentId: computed(() => useId()),
       triggerRef,
-      open: computed(() => state.value !== undefined ? state.value : false),
-      onOpenChange: (open: boolean) => updateValue(open),
+      open: state,
+      onOpenChange: updateValue,
       onOpenToggle: () => {
         updateValue(!state.value)
       },

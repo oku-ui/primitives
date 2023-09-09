@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
@@ -45,25 +45,24 @@ const popoverContent = defineComponent({
   },
   emits: popoverContentProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuPopover, forceMount, ...contentProps } = props
+    const { scopeOkuPopover, forceMount: asForceMount, ...contentProps } = toRefs(props)
+    const reactiveContentProps = reactive(contentProps)
 
-    const portalInject = usePortalInject(CONTENT_NAME, scopeOkuPopover)
-    const _forceMount = computed(() => forceMount || portalInject.forceMount?.value)
-    const inject = usePopoverInject(CONTENT_NAME, scopeOkuPopover)
+    const portalInject = usePortalInject(CONTENT_NAME, scopeOkuPopover.value)
+    const forceMount = computed(() => asForceMount.value || portalInject.forceMount?.value)
+    const inject = usePopoverInject(CONTENT_NAME, scopeOkuPopover.value)
     const forwardedRef = useForwardRef()
 
     return () => h(OkuPresence, {
-      present: computed(() => _forceMount.value || inject.open.value).value,
+      present: computed(() => forceMount.value || inject.open.value).value,
     }, {
       default: () => inject.modal.value
         ? h(OkuPopoverContentModal, {
-          ...attrs,
-          ...contentProps,
+          ...mergeProps(attrs, reactiveContentProps),
           ref: forwardedRef,
         }, slots)
         : h(OkuPopoverContentNonModal, {
-          ...attrs,
-          ...contentProps,
+          ...mergeProps(attrs, reactiveContentProps),
           ref: forwardedRef,
         }, slots),
     })

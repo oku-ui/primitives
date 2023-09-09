@@ -1,4 +1,4 @@
-import { defineComponent, h, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperAnchor, popperAnchorProps } from '@oku-ui/popper'
@@ -32,7 +32,8 @@ const popoverAnchor = defineComponent({
   },
   emits: popoverAnchorProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuPopover, asChild, virtualRef } = toRefs(props)
+    const { scopeOkuPopover, ...anchorProps } = toRefs(props)
+    const reactiveAnchorProps = reactive(anchorProps)
 
     const inject = usePopoverInject(ANCHOR_NAME, scopeOkuPopover?.value)
 
@@ -48,9 +49,7 @@ const popoverAnchor = defineComponent({
 
     return () => h(OkuPopperAnchor, {
       ...popperScope,
-      ...attrs,
-      virtualRef: virtualRef.value,
-      asChild: asChild.value,
+      ...mergeProps(attrs, reactiveAnchorProps),
       ref: forwardedRef,
     }, {
       default: () => slots.default?.(),

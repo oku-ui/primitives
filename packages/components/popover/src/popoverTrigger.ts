@@ -1,4 +1,4 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
@@ -37,7 +37,8 @@ const popoverTrigger = defineComponent({
   },
   emits: popoverTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { scopeOkuPopover } = toRefs(props)
+    const { scopeOkuPopover, ...triggerProps } = toRefs(props)
+    const reactiveTriggerProps = reactive(triggerProps)
 
     const inject = usePopoverInject(TRIGGER_NAME, scopeOkuPopover?.value)
 
@@ -57,8 +58,7 @@ const popoverTrigger = defineComponent({
           'aria-expanded': inject.open.value,
           'aria-controls': inject.contentId.value,
           'data-state': getState(inject.open.value),
-          ...attrs,
-          'asChild': props.asChild,
+          ...mergeProps(attrs, reactiveTriggerProps),
           'ref': composedTriggerRef,
           'onClick': composeEventHandlers<MouseEvent>((el) => {
             emit('click', el)

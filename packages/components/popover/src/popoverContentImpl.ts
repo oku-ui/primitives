@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -72,7 +72,10 @@ const popoverContentImpl = defineComponent({
       trapFocus,
       disableOutsidePointerEvents,
       scopeOkuPopover,
+      ...contentProps
     } = toRefs(props)
+    const reactiveContentProps = reactive(contentProps)
+
     const inject = usePopoverInject(NAME, scopeOkuPopover.value)
     const popperScope = usePopperScope(scopeOkuPopover.value)
 
@@ -115,7 +118,7 @@ const popoverContentImpl = defineComponent({
           'role': 'dialog',
           'id': inject.contentId.value,
           ...popperScope,
-          ...attrs,
+          ...mergeProps(attrs, reactiveContentProps),
           'ref': forwardedRef,
           'style': {
             ...attrs.style as any,

@@ -212,7 +212,7 @@ const DismissableLayer = defineComponent({
 
       emit('escapeKeyDown', event)
 
-      if (!event.defaultPrevented)
+      if (!event.defaultPrevented && props.onDismiss)
         emit('dismiss')
     }, ownerDocument.value)
 
