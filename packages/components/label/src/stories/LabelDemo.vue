@@ -20,9 +20,6 @@ onMounted(() => {
 const alert = () => console.log('alert')
 
 const value = ref()
-function changeValue() {
-  value.value = true
-}
 </script>
 
 <template>
@@ -31,10 +28,7 @@ function changeValue() {
       <OkuLabel ref="labelRef" :value="value" class="text-black text-2xl border-2 border-gray-500 mb-4" for="firstName">
         {{ label }}
       </OkuLabel>
-      <button @click="changeValue">
-        asdasdasda
-      </button>
-      <!-- <input id="firstName" class="mt-4 bg-gray-200 p-2 border-2 border-gray-500" type="text" defaultValue="Pedro Duarte"> -->
+      <input id="firstName" class="mt-4 bg-gray-200 p-2 border-2 border-gray-500" type="text" defaultValue="Pedro Duarte">
     </div>
     <div v-if="template === '#2' || allshow" class="flex flex-col">
       <div>

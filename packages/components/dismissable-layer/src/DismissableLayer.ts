@@ -10,11 +10,12 @@ import {
   computed,
   defineComponent,
   h,
+  mergeProps,
   nextTick,
   onMounted,
   onUnmounted,
+  reactive,
   ref,
-  shallowReactive,
   toRefs,
   watchEffect,
 } from 'vue'
@@ -26,7 +27,7 @@ import {
   usePointerdownOutside,
 } from './util'
 
-export const DismissableLayerContext = shallowReactive({
+export const dismissableLayerContext = reactive({
   layersRoot: new Set<DismissableLayerElement>(),
   layersWithOutsidePointerEventsDisabled: new Set<DismissableLayerElement>(),
   branches: new Set<DismissableLayerElement>(),
@@ -137,9 +138,8 @@ const DismissableLayer = defineComponent({
   },
   emits: dismissableLayerProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { disableOutsidePointerEvents, asChild } = toRefs(props)
-
-    const provide = DismissableLayerContext
+    const { disableOutsidePointerEvents, ...layerProps } = toRefs(props)
+    const reactiveLayerProps = reactive(layerProps)
 
     const node = ref<HTMLDivElement | null>(null)
     const ownerDocument = computed(
@@ -149,11 +149,11 @@ const DismissableLayer = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(node, forwardedRef)
 
-    const layers = computed(() => Array.from(provide.layersRoot))
+    const layers = computed(() => Array.from(dismissableLayerContext.layersRoot))
 
     const highestLayerWithOutsidePointerEventsDisabled = computed(() => {
       const [highestLayerWithOutsidePointerEventsDisabled] = [
-        ...provide.layersWithOutsidePointerEventsDisabled,
+        ...dismissableLayerContext.layersWithOutsidePointerEventsDisabled,
       ].slice(-1)
 
       return highestLayerWithOutsidePointerEventsDisabled
@@ -169,12 +169,12 @@ const DismissableLayer = defineComponent({
     const isPointerEventsEnabled = computed(() => index.value >= highestLayerWithOutsidePointerEventsDisabledIndex.value)
 
     const isBodyPointerEventsDisabled = computed(
-      () => provide.layersWithOutsidePointerEventsDisabled.size > 0,
+      () => dismissableLayerContext.layersWithOutsidePointerEventsDisabled.size > 0,
     )
 
     const pointerdownOutside = usePointerdownOutside((event) => {
       const target = event.target as HTMLElement
-      const isPointerDownOnBranch = [...provide.branches].some(branch =>
+      const isPointerDownOnBranch = [...dismissableLayerContext.branches].some(branch =>
         branch.contains(target),
       )
 
@@ -190,7 +190,7 @@ const DismissableLayer = defineComponent({
 
     const focusoutSide = useFocusoutSide((event) => {
       const target = event.target as HTMLElement
-      const isFocusInBranch = [...provide.branches].some(branch =>
+      const isFocusInBranch = [...dismissableLayerContext.branches].some(branch =>
         branch.contains(target),
       )
 
@@ -205,7 +205,7 @@ const DismissableLayer = defineComponent({
     }, ownerDocument.value)
 
     useEscapeKeydown((event) => {
-      const isHighestLayer = index.value === provide.layersRoot.size - 1
+      const isHighestLayer = index.value === dismissableLayerContext.layersRoot.size - 1
 
       if (!isHighestLayer)
         return
@@ -221,23 +221,23 @@ const DismissableLayer = defineComponent({
         return
 
       if (disableOutsidePointerEvents.value) {
-        if (provide.layersWithOutsidePointerEventsDisabled.size === 0) {
+        if (dismissableLayerContext.layersWithOutsidePointerEventsDisabled.size === 0) {
           originalBodyPointerEvents
             = ownerDocument.value.body.style.pointerEvents
           ownerDocument.value.body.style.pointerEvents = 'none'
         }
         await nextTick()
-        provide.layersWithOutsidePointerEventsDisabled.add(node.value)
+        dismissableLayerContext.layersWithOutsidePointerEventsDisabled.add(node.value)
       }
 
-      provide.layersRoot.add(node.value)
+      dismissableLayerContext.layersRoot.add(node.value)
 
       dispatchUpdate()
 
       onInvalidate(() => {
         if (
           disableOutsidePointerEvents.value
-          && provide.layersWithOutsidePointerEventsDisabled.size === 1
+          && dismissableLayerContext.layersWithOutsidePointerEventsDisabled.size === 1
         ) {
           ownerDocument.value.body.style.pointerEvents
             = originalBodyPointerEvents
@@ -255,8 +255,8 @@ const DismissableLayer = defineComponent({
       onInvalidate(() => {
         if (!node.value)
           return
-        provide.layersRoot.delete(node.value)
-        provide.layersWithOutsidePointerEventsDisabled.delete(node.value)
+        dismissableLayerContext.layersRoot.delete(node.value)
+        dismissableLayerContext.layersWithOutsidePointerEventsDisabled.delete(node.value)
         dispatchUpdate()
       })
     })
@@ -274,9 +274,8 @@ const DismissableLayer = defineComponent({
       h(
         Primitive.div,
         {
-          ...attrs,
+          ...mergeProps(attrs, reactiveLayerProps),
           ref: composedRefs,
-          asChild: asChild.value,
           style: {
             pointerEvents: isBodyPointerEventsDisabled.value
               ? isPointerEventsEnabled.value

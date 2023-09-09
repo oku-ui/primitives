@@ -5,7 +5,7 @@ import type {
 } from '@oku-ui/primitive'
 import { defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { DismissableLayerContext } from './DismissableLayer'
+import { dismissableLayerContext } from './DismissableLayer'
 
 const BRANCH_NAME = 'OkuDismissableLayerBranch'
 export type DismissableLayerBranchNaviteElement = OkuElement<'div'>
@@ -20,8 +20,6 @@ const DismissableLayerBranch = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const provide = DismissableLayerContext
-
     const node = ref<HTMLDivElement | null>()
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, node)
@@ -30,11 +28,11 @@ const DismissableLayerBranch = defineComponent({
       const _node = node.value
 
       if (_node)
-        provide.branches.add(_node)
+        dismissableLayerContext.branches.add(_node)
 
       onInvalidate(() => {
         if (_node)
-          provide.branches.delete(_node)
+          dismissableLayerContext.branches.delete(_node)
       })
     })
 
