@@ -131,7 +131,7 @@ const scrollArea = defineComponent({
 
     scrollAreaProvider({
       scope: props.scopeOkuScrollArea,
-      type: type.value,
+      type: type.value || 'hover',
       dir: direction.value,
       scrollHideDelay: scrollHideDelay.value,
       scrollArea: scrollArea.value,

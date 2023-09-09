@@ -1,7 +1,9 @@
 import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { primitiveProps } from '@Oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
+import type { Sizes } from './scroll-area'
 import { useScrollAreaInject } from './scroll-area'
+import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 import { scopedScrollAreaProps } from './types'
 import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
@@ -30,9 +32,9 @@ const scrollAreaScrollbarY = defineComponent({
 
     const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const computedStyle = ref<CSSStyleDeclaration>()
-    const scrollbarAxisRef = ref<ScrollAreaScrollbarAxisElement>(null)
+    const scrollbarAxisRef = ref<ScrollAreaScrollbarAxisElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composeRefs = useComposedRefs(forwardedRef, scrollbarAxisRef, inject.onScrollbarYChange)
+    const composeRefs = useComposedRefs(forwardedRef, scrollbarAxisRef, el => inject.onScrollbarYChange(el as ScrollAreaScrollbarElement))
 
     watchEffect(() => {
       if (scrollbarAxisRef.value)
@@ -51,7 +53,7 @@ const scrollAreaScrollbarY = defineComponent({
           right: inject.dir === 'ltr' ? 0 : undefined,
           left: inject.dir === 'rtl' ? 0 : undefined,
           bottom: 'var(--oku-scroll-area-corner-height)',
-          ['--oku-scroll-area-thumb-height' as any]: `${getThumbSize(sizes.value)}px`,
+          ['--oku-scroll-area-thumb-height' as any]: `${getThumbSize(sizes.value as Sizes)}px`,
           ...attrs.style as CSSStyleRule,
         },
         onThumbPointerDown: (pointerPos: { y: number }) => emit('thumbPointerDown', pointerPos.y),

@@ -7,7 +7,7 @@ import { useStateMachine } from './useStateMachine'
 import { scopedScrollAreaProps } from './types'
 import { useDebounceCallback } from './utils'
 import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
-import { OkuScrollAreaScrollbarVisible } from './scroll-area-scrollbar-visible'
+import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 import { useScrollAreaInject } from './scroll-area'
 
@@ -36,6 +36,7 @@ const scrollAreaScrollbarScroll = defineComponent({
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarScrollProps.props,
+    ...scrollAreaScrollbarVisibleProps.props,
     ...scopedScrollAreaProps,
     ...primitiveProps,
   },
@@ -43,11 +44,14 @@ const scrollAreaScrollbarScroll = defineComponent({
   setup(props, { attrs, emit, slots }) {
     // const { ...scrollAreaScrollbarScrollAttrs } = attrs as ScrollAreaScrollbarScrollNaviteElement
 
-    const { forceMount } = toRefs(props)
+    const {
+      forceMount,
+      orientation,
+    } = toRefs(props)
 
     const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const forwardedRef = useForwardRef()
-    const isHorizontal = attrs.orientation === 'horizontal'
+    const isHorizontal = orientation.value === 'horizontal'
     const { state, dispatch: send } = useStateMachine('hidden', {
       hidden: {
         SCROLL: 'scrolling',

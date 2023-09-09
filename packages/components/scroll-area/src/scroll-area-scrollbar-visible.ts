@@ -21,10 +21,10 @@ export interface ScrollAreaScrollbarVisibleProps extends Omit<ScrollAreaScrollba
   orientation?: 'horizontal' | 'vertical'
 }
 
-const scrollAreaScrollbarVisibleProps = {
+export const scrollAreaScrollbarVisibleProps = {
   props: {
     orientation: {
-      type: String as PropType<ScrollAreaScrollbarVisibleProps>,
+      type: String as PropType<ScrollAreaScrollbarVisibleProps['orientation']>,
       required: false,
       default: 'vertical',
     },
@@ -73,9 +73,9 @@ const scrollAreaScrollbarVisible = defineComponent({
         sizes.scrollbar = _sizes.scrollbar
       },
       hasThumb: Boolean(thumbRatio > 0 && thumbRatio < 1),
-      onThumbChange: thumb => (thumbRef.value = thumb),
+      onThumbChange: (thumb: ScrollAreaThumbElement) => (thumbRef.value = thumb),
       onThumbPointerUp: () => (pointerOffsetRef.value = 0),
-      onThumbPointerDown: pointerPos => (pointerOffsetRef.value = pointerPos),
+      onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
     }
 
     function getScrollPosition(pointerPos: number, dir?: Direction) {

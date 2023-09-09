@@ -1,7 +1,9 @@
 import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { primitiveProps } from '@Oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import type { Sizes } from './scroll-area'
 import { useScrollAreaInject } from './scroll-area'
+import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 import { scopedScrollAreaProps } from './types'
 import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
@@ -30,9 +32,9 @@ const scrollAreaScrollbarX = defineComponent({
 
     const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const computedStyle = ref<CSSStyleDeclaration>()
-    const scrollbarAxisRef = ref<ScrollAreaScrollbarAxisElement>(null)
+    const scrollbarAxisRef = ref<ScrollAreaScrollbarAxisElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composeRefs = useComposedRefs(forwardedRef, scrollbarAxisRef, inject.onScrollbarXChange)
+    const composeRefs = useComposedRefs(forwardedRef, scrollbarAxisRef, el => inject.onScrollbarXChange(el as ScrollAreaScrollbarElement))
 
     watchEffect(() => {
       if (scrollbarAxisRef.value)
@@ -49,7 +51,7 @@ const scrollAreaScrollbarX = defineComponent({
           bottom: 0,
           left: inject.dir === 'rtl' ? 'var(--oku-scroll-area-corner-width)' : 0,
           right: inject.dir === 'ltr' ? 'var(--oku-scroll-area-corner-width)' : 0,
-          ['--oku-scroll-area-thumb-width' as any]: `${getThumbSize(sizes.value)}px`,
+          ['--oku-scroll-area-thumb-width' as any]: `${getThumbSize(sizes.value as Sizes)}px`,
           ...attrs.style as CSSStyleRule,
         },
         onThumbPointerDown: (pointerPos: any) => emit('thumbPointerDown', pointerPos.x),

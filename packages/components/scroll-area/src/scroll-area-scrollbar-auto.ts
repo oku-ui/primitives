@@ -4,7 +4,8 @@ import { useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
 import { scopedScrollAreaProps } from './types'
 import { useDebounceCallback, useResizeObserver } from './utils'
-import { OkuScrollAreaScrollbarVisible, type ScrollAreaScrollbarVisibleElement, type ScrollAreaScrollbarVisibleNaviteElement, type ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
+import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
+import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { useScrollAreaInject } from './scroll-area'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 
@@ -37,6 +38,7 @@ const scrollAreaScrollbarScroll = defineComponent({
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarAutoProps.props,
+    ...scrollAreaScrollbarVisibleProps.props,
     ...scopedScrollAreaProps,
     ...primitiveProps,
   },
@@ -46,11 +48,14 @@ const scrollAreaScrollbarScroll = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const { forceMount } = toRefs(props)
+    const {
+      forceMount,
+      orientation,
+    } = toRefs(props)
 
     const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const visible = ref(false)
-    const isHorizontal = attrs.orientation === 'horizontal'
+    const isHorizontal = orientation.value === 'horizontal'
     const handleResize = useDebounceCallback(() => {
       if (inject.viewport) {
         const isOverflowX = inject.viewport.offsetWidth < inject.viewport.scrollWidth

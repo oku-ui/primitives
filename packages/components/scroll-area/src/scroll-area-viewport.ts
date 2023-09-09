@@ -6,7 +6,7 @@ import { scopedScrollAreaProps } from './types'
 import { useScrollAreaInject } from './scroll-area'
 
 /* -------------------------------------------------------------------------------------------------
- * ScrollAreaViewportViewport
+ * ScrollAreaViewport
  * ----------------------------------------------------------------------------------------------- */
 
 const VIEWPORT_NAME = 'OkuScrollAreaViewport'
@@ -34,9 +34,9 @@ const scrollAreaViewport = defineComponent({
     // const { ...scrollAreaViewportAttrs } = attrs as ScrollAreaViewportNaviteElement
 
     const inject = useScrollAreaInject(VIEWPORT_NAME, props.scopeOkuScrollArea)
-    const scrollAreaViewportRef = ref<ScrollAreaViewportElement>(null)
+    const scrollAreaViewportRef = ref<ScrollAreaViewportElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(forwardedRef, scrollAreaViewportRef, inject.onViewportChange)
+    const composedRefs = useComposedRefs(forwardedRef, scrollAreaViewportRef, el => inject.onViewportChange(el as ScrollAreaViewportElement))
 
     return () => h(Fragment,
       [
@@ -69,23 +69,21 @@ const scrollAreaViewport = defineComponent({
               ...attrs.style as CSSStyleRule,
             },
           },
-          /**
-           * `display: table` ensures our content div will match the size of its children in both
-           * horizontal and vertical axis so we can determine if scroll width/height changed and
-           * recalculate thumb sizes. This doesn't account for children with *percentage*
-           * widths that change. We'll wait to see what use-cases consumers come up with there
-           * before trying to resolve it.
-           */
-          h('div',
-            {
-              ref: inject.onContentChange,
-              style: { minWidth: '100%', display: 'table' },
-            },
-            {
-              default: () => slots.default?.(),
-            },
-          ),
-
+          {
+            /**
+             * `display: table` ensures our content div will match the size of its children in both
+             * horizontal and vertical axis so we can determine if scroll width/height changed and
+             * recalculate thumb sizes. This doesn't account for children with *percentage*
+             * widths that change. We'll wait to see what use-cases consumers come up with there
+             * before trying to resolve it.
+             */
+            default: () => h('div',
+              {
+                ref: composedRefs,
+                style: { minWidth: '100%', display: 'table' },
+              }, slots,
+            ),
+          },
         ),
       ],
     )

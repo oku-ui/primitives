@@ -5,6 +5,7 @@ import { Primitive, primitiveProps } from '@Oku-ui/primitive'
 import { composeEventHandlers } from '@Oku-ui/utils'
 import { scopedScrollAreaProps } from './types'
 import { addUnlinkedScrollListener, useDebounceCallback } from './utils'
+import type { ScrollAreaThumbElement } from './scroll-area-thumb'
 import { THUMB_NAME } from './scroll-area-thumb'
 import { useScrollAreaInject } from './scroll-area'
 import { useScrollbarInject } from './scroll-area-scrollbar-impl'
@@ -60,9 +61,7 @@ const scrollAreaThumbImpl = defineComponent({
     const scrollbarInject = useScrollbarInject(THUMB_NAME, props.scopeOkuScrollArea)
 
     const { onThumbPositionChange } = scrollbarInject
-    const composedRef = useComposedRefs(forwardedRef, (node: HTMLDivElement) =>
-      scrollbarInject.onThumbChange(node),
-    )
+    const composedRef = useComposedRefs(forwardedRef, node => scrollbarInject.onThumbChange(node as ScrollAreaThumbElement))
     const removeUnlinkedScrollListenerRef = ref<() => void>()
     const debounceScrollEnd = useDebounceCallback(() => {
       if (removeUnlinkedScrollListenerRef.value) {

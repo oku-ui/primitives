@@ -2,7 +2,7 @@ import { defineComponent, h, toRefs, watchEffect } from 'vue'
 import { useForwardRef } from '@Oku-ui/use-composable/'
 import { primitiveProps } from '@Oku-ui/primitive'
 import { scopedScrollAreaProps } from './types'
-import { OkuScrollAreaScrollbarVisible } from './scroll-area-scrollbar-visible'
+import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { OkuScrollAreaScrollbarScroll } from './scroll-area-scrollbar-scroll'
 import { OkuScrollAreaScrollbarAuto } from './scroll-area-scrollbar-auto'
@@ -37,6 +37,7 @@ const scrollAreaScrollbar = defineComponent({
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarProps.props,
+    ...scrollAreaScrollbarVisibleProps.props,
     ...scopedScrollAreaProps,
     ...primitiveProps,
   },
@@ -46,12 +47,13 @@ const scrollAreaScrollbar = defineComponent({
 
     const {
       forceMount,
+      orientation,
     } = toRefs(props)
 
     const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const forwardedRef = useForwardRef()
     const { onScrollbarXEnabledChange, onScrollbarYEnabledChange } = inject
-    const isHorizontal = attrs.orientation === 'horizontal'
+    const isHorizontal = orientation.value === 'horizontal'
 
     watchEffect((onInvalidate) => {
       isHorizontal ? onScrollbarXEnabledChange(true) : onScrollbarYEnabledChange(true)

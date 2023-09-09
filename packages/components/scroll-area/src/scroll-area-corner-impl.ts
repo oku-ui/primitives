@@ -34,7 +34,7 @@ const scrollAreaCornerImpl = defineComponent({
     const inject = useScrollAreaInject(CORNER_NAME, props.scopeOkuScrollArea)
     const width = ref<number>(0)
     const height = ref<number>(0)
-    const hasSize = Boolean(width.value && height)
+    const hasSize = Boolean(width.value && height.value)
 
     useResizeObserver(inject.scrollbarX, () => {
       const _height = inject.scrollbarX?.offsetHeight || 0
