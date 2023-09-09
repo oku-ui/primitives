@@ -67,7 +67,7 @@ const dialogContentImpl = defineComponent({
   },
   emits: dialogContentImplProps.emits,
   setup(props, { emit, attrs, slots }) {
-    const { scopeOkuDialog: _scopeOkuDialog, trapFocus: _trapFocus, onOpenAutoFocus: _onOpen, onCloseAutoFocus: _onClose, disableOutsidePointerEvents, ...contentProps } = props
+    const { scopeOkuDialog: _scopeOkuDialog, trapFocus: _trapFocus, onOpenAutoFocus: _onOpen, onCloseAutoFocus: _onClose, disableOutsidePointerEvents: _disableOutsidePointerEvents, ...contentProps } = props
 
     const { scopeOkuDialog, trapFocus } = toRefs(props)
 
@@ -83,7 +83,7 @@ const dialogContentImpl = defineComponent({
       [
         h(OkuFocusScope, {
           asChild: true,
-          loop: true,
+          loop: trapFocus.value,
           trapped: trapFocus.value,
           onMountAutoFocus: (event) => {
             emit('openAutoFocus', event)

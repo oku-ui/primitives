@@ -3,8 +3,9 @@ import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
+import { composeEventHandlers } from '@oku-ui/utils'
 import { CONTENT_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
-import type { DialogContentModalElement, DialogContentTypeProps } from './dialogContentModal'
+import type { DialogContentModalElement, DialogContentModalEmits, DialogContentTypeProps } from './dialogContentModal'
 import { OkuDialogContentModal, dialogContentTypeProps } from './dialogContentModal'
 import { OkuDialogContentNonModal } from './dialogContentNonModal'
 
@@ -39,7 +40,7 @@ const dialogContent = defineComponent({
     ...scopeDialogProps,
   },
   emits: dialogContentProps.emits,
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs, slots, emit }) {
     const { forceMount: _asForceMount, ...dialogProps } = props
     const portalInject = useDialogPortalInject(CONTENT_NAME, props.scopeOkuDialog)
 
@@ -58,6 +59,16 @@ const dialogContent = defineComponent({
         ? h(OkuDialogContentModal, {
           ...mergeProps(attrs, dialogProps),
           ref: forwardRef,
+          onOpenAutoFocus: composeEventHandlers<DialogContentModalEmits['openAutoFocus'][0]>((el) => {
+            emit('openAutoFocus', el)
+          }, (event) => {
+            event.preventDefault()
+          }),
+          onCloseAutoFocus: composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {
+            emit('closeAutoFocus', el)
+          }, (event) => {
+            event.preventDefault()
+          }),
         }, slots)
         : h(OkuDialogContentNonModal, {
           ...mergeProps(attrs, dialogProps),

@@ -83,3 +83,17 @@ export const FocusTrap: Story = {
     `,
   }),
 }
+export const CustomFocus: Story = {
+  args: {
+    template: 'CustomFocus',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}

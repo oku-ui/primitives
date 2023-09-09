@@ -56,6 +56,13 @@ const dialogContentModal = defineComponent({
       // (closed !== unmounted when animating out)
       trapFocus: inject.open.value,
       disableOutsidePointerEvents: inject.open.value,
+      onOpenAutoFocus: composeEventHandlers<DialogContentModalEmits['openAutoFocus'][0]>((el) => {
+        emit('openAutoFocus', el)
+      }, (event) => {
+        event.preventDefault()
+        if (!isRightClickOutsideRef.value)
+          inject.triggerRef.value?.focus()
+      }),
       onCloseAutoFocus: composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {
         emit('closeAutoFocus', el)
       }, (event) => {

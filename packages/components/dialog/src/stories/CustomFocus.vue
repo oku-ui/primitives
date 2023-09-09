@@ -3,6 +3,22 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
 import { ref } from 'vue'
 
 const open = ref(false)
+
+const firstNameRef = ref<HTMLInputElement | null>(null)
+const searchFieldRef = ref<HTMLInputElement | null>
+(null)
+
+function onOpenAutoFocus(event: any) {
+  console.log('onOpenAutoFocus')
+  event.preventDefault()
+
+  firstNameRef.value?.focus()
+}
+function onCloseAutoFocus(event: any) {
+  console.log('onCloseAutoFocus')
+  event.preventDefault()
+  searchFieldRef.value?.focus()
+}
 </script>
 
 <template>
@@ -13,7 +29,11 @@ const open = ref(false)
       </OkuDialogTrigger>
       <OkuDialogPortal>
         <OkuDialogOverlay class="overlayClass" />
-        <OkuDialogContent class="contentDefaultClass">
+        <OkuDialogContent
+          class="contentDefaultClass"
+          @open-auto-focus="onOpenAutoFocus"
+          @close-auto-focus="onCloseAutoFocus"
+        >
           <OkuDialogClose>
             close
           </OkuDialogClose>
@@ -27,7 +47,7 @@ const open = ref(false)
             <tr>
               <td>
                 <label htmlFor="firstName">First Name</label>
-                <input id="firstName" type="text" placeholder="John">
+                <input ref="firstNameRef" type="text" placeholder="John">
               </td>
               <td>
                 <label htmlFor="lastName">Last Name</label>
@@ -49,7 +69,7 @@ const open = ref(false)
         <button type="button">
           A button
         </button>
-        <input type="text" placeholder="Another focusable element">
+        <input ref="searchFieldRef" type="text" placeholder="Another focusable element">
       </div>
     </div>
   </div>

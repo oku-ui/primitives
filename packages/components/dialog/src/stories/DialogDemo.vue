@@ -3,6 +3,7 @@ import Styled from './Styled.vue'
 import NonModal from './NonModal.vue'
 import Controlled from './Controlled.vue'
 import FocusTrap from './FocusTrap.vue'
+import CustomFocus from './CustomFocus.vue'
 
 export interface OkuDialogProps {
   template: 'Styled' | 'NonModal' | 'Controlled' | 'FocusTrap' | 'CustomFocus' | 'NoEscapeDismiss' | 'NoPointerDownOutsideDismiss'
@@ -26,6 +27,9 @@ withDefaults(defineProps<OkuDialogProps>(), {
   </div>
   <div v-if="template === 'FocusTrap' || allshow" class="flex flex-col w-full">
     <FocusTrap />
+  </div>
+  <div v-if="template === 'CustomFocus' || allshow" class="flex flex-col w-full">
+    <CustomFocus />
   </div>
 </template>
 
