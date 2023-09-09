@@ -20,7 +20,7 @@ function useControllable<T>({
     onChange,
   })
   const isControlled = computed(() => prop.value !== undefined)
-  const value = computed(() => isControlled.value ? prop.value : uncontrolledProp.value) as ComputedRef<T>
+  const value = computed(() => isControlled.value ? prop.value : uncontrolledProp.value === undefined && initialValue !== undefined ? initialValue : uncontrolledProp.value) as ComputedRef<T>
 
   const handleChange = useCallbackRef(onChange)
 
@@ -36,7 +36,7 @@ function useControllable<T>({
     }
   }
   return {
-    state: computed(() => value.value === undefined && initialValue ? initialValue : value.value),
+    state: value,
     updateValue,
   }
 }
