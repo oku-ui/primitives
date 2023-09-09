@@ -1,5 +1,4 @@
-import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRefs, watch } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
@@ -18,7 +17,7 @@ export interface CollapsibleContentImplProps extends PrimitiveProps {
 export const collapsibleContentImplProps = {
   props: {
     present: {
-      type: Object as unknown as PropType<Ref<boolean>>,
+      type: Boolean,
     },
   },
 }
@@ -32,9 +31,10 @@ const collapsibleContentImpl = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const present = toRef(props, 'present')
-    const { ...contentAttrs } = attrs as CollapsibleContentImplNaviteElement
-    const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
+    const { scopeOkuCollapsible, present, ...contentProps } = toRefs(props)
+    const reactiveContentProps = reactive(contentProps)
+
+    const context = useCollapsibleInject(CONTENT_NAME, scopeOkuCollapsible.value)
 
     const _ref = ref<HTMLDivElement | undefined>(undefined)
     const forwardedRef = useForwardRef()
@@ -45,7 +45,7 @@ const collapsibleContentImpl = defineComponent({
     const height = computed(() => heightRef.value)
     const width = computed(() => widthRef.value)
 
-    const isPresent = ref(present?.value?.value)
+    const isPresent = ref(present?.value)
     const isOpen = computed(() => context.open.value || isPresent.value)
     const isMountAnimationPreventedRef = ref(isOpen.value)
     const originalStylesRef = ref<Record<string, string>>()
@@ -83,7 +83,7 @@ const collapsibleContentImpl = defineComponent({
           node.style.animationName = originalStylesRef.value.animationName
         }
 
-        isPresent.value = present?.value?.value
+        isPresent.value = present?.value
       }
     })
 
@@ -94,18 +94,17 @@ const collapsibleContentImpl = defineComponent({
         'data-disabled': context.disabled?.value ? '' : undefined,
         'id': context.contentId.value,
         'hidden': !isOpen.value,
-        ...contentAttrs,
+        ...mergeProps(attrs, reactiveContentProps),
         'ref': composedRefs,
-        'asChild': props.asChild,
         'style': {
           ['--oku-collapsible-content-height' as any]: height.value ? `${height.value}px` : undefined,
           ['--oku-collapsible-content-width' as any]: width.value ? `${width.value}px` : undefined,
-          ...contentAttrs.style as any,
+          ...attrs.style as any,
         },
       },
       isOpen.value
         ? {
-            default: () => slots.default && slots.default(),
+            default: () => slots.default?.(),
           }
         : undefined,
     )

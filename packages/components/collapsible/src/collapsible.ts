@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -74,8 +74,16 @@ const collapsible = defineComponent({
   },
   emits: collapsibleProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...collapsibleAttr } = attrs as CollapsibleNaviteElement
-    const { disabled, open, defaultOpen } = toRefs(props)
+    const {
+      modelValue: _modelValue,
+      scopeOkuCollapsible,
+      open: openProp,
+      defaultOpen,
+      disabled,
+      ...collapsibleProps
+    } = toRefs(props)
+
+    const reactiveCollapsibleProps = reactive(collapsibleProps)
 
     const modelValue = useModel(props, 'modelValue')
 
@@ -84,7 +92,7 @@ const collapsible = defineComponent({
     const proxyOpen = computed({
       get: () => modelValue.value !== undefined
         ? modelValue.value
-        : open.value !== undefined ? open.value : undefined,
+        : openProp.value !== undefined ? openProp.value : undefined,
       set: () => {
       },
     })
@@ -105,8 +113,8 @@ const collapsible = defineComponent({
       onOpenToggle() {
         updateValue(!state.value)
       },
-      scope: props.scopeOkuCollapsible,
-      open: computed(() => state.value || false),
+      scope: scopeOkuCollapsible.value,
+      open: state,
     })
 
     const originalReturn = () => h(
@@ -115,8 +123,7 @@ const collapsible = defineComponent({
         'data-state': getState(state.value),
         'data-disabled': disabled.value ? '' : undefined,
         'ref': forwardedRef,
-        'asChild': props.asChild,
-        ...collapsibleAttr,
+        ...mergeProps(attrs, reactiveCollapsibleProps),
       },
       {
         default: () => slots.default?.(),

@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { Transition, defineComponent, h, toRefs } from 'vue'
+import { Transition, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 
 import { useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
@@ -49,10 +49,10 @@ const collapsibleContent = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeOkuCollapsible, forceMount } = toRefs(props)
-    const { ...contentAttrs } = attrs as CollapsibleContentNaviteElement
+    const { forceMount, ...contentProps } = toRefs(props)
+    const reactiveContentProps = reactive(contentProps)
 
-    const context = useCollapsibleInject(CONTENT_NAME, scopeOkuCollapsible.value)
+    const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 
     const forwardedRef = useForwardRef()
 
@@ -66,11 +66,9 @@ const collapsibleContent = defineComponent({
         default: ({ isPresent }: { isPresent: isPresent }) => h(
           OkuCollapsibleContentImpl,
           {
-            ...contentAttrs as any,
+            ...mergeProps(attrs, reactiveContentProps),
             ref: forwardedRef,
-            asChild: props.asChild,
-            scopeCollapsible: scopeOkuCollapsible.value,
-            present: isPresent,
+            present: isPresent.value,
           },
           {
             default: () => slots.default && slots.default(),
