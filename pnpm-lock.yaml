@@ -294,7 +294,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/use-composable
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -310,7 +310,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/use-composable
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -332,7 +332,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -357,7 +357,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -382,7 +382,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -407,7 +407,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -417,7 +417,7 @@ importers:
   packages/components/direction:
     dependencies:
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -439,7 +439,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -455,7 +455,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/use-composable
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -498,7 +498,7 @@ importers:
         specifier: workspace:^
         version: link:../visually-hidden
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -517,7 +517,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -566,7 +566,7 @@ importers:
         specifier: ^1.2.3
         version: 1.2.3
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -594,7 +594,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -616,7 +616,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -632,7 +632,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -654,7 +654,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -685,7 +685,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -713,7 +713,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -732,7 +732,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -760,7 +760,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -776,7 +776,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -798,7 +798,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -829,7 +829,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -866,7 +866,7 @@ importers:
         specifier: workspace:^
         version: link:../visually-hidden
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -888,7 +888,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -922,7 +922,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -956,7 +956,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -999,7 +999,7 @@ importers:
         specifier: workspace:^
         version: link:../visually-hidden
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -1015,7 +1015,7 @@ importers:
         specifier: workspace:^
         version: link:../../core/use-composable
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -1025,7 +1025,7 @@ importers:
   packages/core/focus-guards:
     dependencies:
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -1044,7 +1044,7 @@ importers:
         specifier: ^3.0.7
         version: 3.0.7
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -1054,7 +1054,7 @@ importers:
   packages/core/provide:
     dependencies:
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -1073,7 +1073,7 @@ importers:
         specifier: ^10.4.1
         version: 10.4.1(vue@3.3.4)
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       '@types/resize-observer-browser':
@@ -1102,7 +1102,7 @@ importers:
   packages/example-package:
     dependencies:
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -1136,7 +1136,7 @@ importers:
         specifier: workspace:^
         version: link:../components/toggle
       vue:
-        specifier: 3.3.4
+        specifier: ^3.3.0
         version: 3.3.4
     devDependencies:
       tsconfig:
@@ -3831,7 +3831,7 @@ packages:
     resolution: {integrity: sha512-/DJZNJ8al8P+O5GrmmgpUmtlaDKZfrm1bfGnjpsDR8VBN6dgxTvAYi5bCkxTLCbaJyXs4XcbYrAXCNSlsRrl3Q==}
     engines: {node: ^14.18.0 || >=16.10.0}
     peerDependencies:
-      vue: 3.3.4
+      vue: ^3.3.4
     dependencies:
       '@nuxt/kit': 3.7.1(rollup@3.29.0)
       '@rollup/plugin-replace': 5.0.2(rollup@3.29.0)
@@ -4100,6 +4100,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: true
     bundledDependencies:
       - napi-wasm
@@ -5290,7 +5291,7 @@ packages:
     peerDependencies:
       '@preact/preset-vite': '*'
       typescript: '>= 4.3.x'
-      vite: 4.3.5
+      vite: ^3.0.0 || ^4.0.0
       vite-plugin-glimmerx: '*'
     peerDependenciesMeta:
       '@preact/preset-vite':
@@ -5743,7 +5744,7 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      vite: 4.3.5
+      vite: ^3.0.0 || ^4.0.0
     dependencies:
       '@storybook/builder-vite': 7.4.0(typescript@5.2.2)(vite@4.3.5)
       '@storybook/core-server': 7.4.0
@@ -5771,7 +5772,7 @@ packages:
     engines: {node: '>=16.0.0'}
     peerDependencies:
       '@vue/compiler-core': ^3.0.0
-      vue: 3.3.4
+      vue: ^3.0.0
     dependencies:
       '@storybook/core-client': 7.4.0
       '@storybook/docs-tools': 7.4.0
@@ -6339,7 +6340,7 @@ packages:
   /@unhead/vue@1.5.3(vue@3.3.4):
     resolution: {integrity: sha512-9xo7/ArTE+sunIK5RomfQWOPJYw3Vbvs/aJ1/vzaSQandqrgzSX8THiaZ+ZveefdJUqBXlq8tuTIf9ggzrW5Ww==}
     peerDependencies:
-      vue: 3.3.4
+      vue: '>=2.7 || >=3'
     dependencies:
       '@unhead/schema': 1.5.3
       '@unhead/shared': 1.5.3
@@ -6373,8 +6374,8 @@ packages:
     resolution: {integrity: sha512-obF26P2Z4Ogy3cPp07B4VaW6rpiu0ue4OT2Y15UxT5BZZ76haUY9guOsZV3uWh/I6xc+VeiW+ZVabRE82FyzWw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: 4.3.5
-      vue: 3.3.4
+      vite: ^4.0.0
+      vue: ^3.0.0
     dependencies:
       '@babel/core': 7.22.15
       '@babel/plugin-transform-typescript': 7.22.15(@babel/core@7.22.15)
@@ -6389,8 +6390,8 @@ packages:
     resolution: {integrity: sha512-ciXNIHKPriERBisHFBvnTbfKa6r9SAesOYXeGDzgegcvy9Q4xdScSHAmKbNT0M3O0S9LKhIf5/G+UYG4NnnzYw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: 4.3.5
-      vue: 3.3.4
+      vite: ^4.0.0
+      vue: ^3.2.25
     dependencies:
       vite: 4.3.5(@types/node@18.17.14)
       vue: 3.3.4
@@ -6477,7 +6478,7 @@ packages:
     resolution: {integrity: sha512-0/2A4kWLTCNEx+DDQKLvs7zXpfjgAbGBZ58SIvDN1DjGXhG4WaIUZtgMqzA6bvc5dNN7RaOatZYubkVumwmjWA==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
-      vue: 3.3.4
+      vue: ^2.7.0 || ^3.2.25
     peerDependenciesMeta:
       vue:
         optional: true
@@ -6615,7 +6616,7 @@ packages:
     resolution: {integrity: sha512-VO8nragneNzUZUah6kOjiFmD/gwRjUauG9DROh6oaOeFwX1cZRUNHhdeogE8635cISigXFTtGLUQWx5KCb0xeg==}
     peerDependencies:
       '@vue/server-renderer': ^3.0.1
-      vue: 3.3.4
+      vue: ^3.0.1
     peerDependenciesMeta:
       '@vue/server-renderer':
         optional: true
@@ -11429,6 +11430,10 @@ packages:
     hasBin: true
     dev: true
 
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: true
+
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -14650,7 +14655,7 @@ packages:
     peerDependencies:
       '@babel/parser': ^7.15.8
       '@nuxt/kit': ^3.2.2
-      vue: 3.3.4
+      vue: 2 || 3
     peerDependenciesMeta:
       '@babel/parser':
         optional: true
@@ -14965,7 +14970,7 @@ packages:
       optionator: ^0.9.1
       stylelint: '>=13'
       typescript: '*'
-      vite: 4.3.5
+      vite: '>=2.0.0'
       vls: '*'
       vti: '*'
       vue-tsc: '>=1.3.9'
@@ -15014,7 +15019,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
-      vite: 4.3.5
+      vite: '*'
     peerDependenciesMeta:
       vite:
         optional: true
@@ -15037,7 +15042,7 @@ packages:
     resolution: {integrity: sha512-fw3onBfVTXQI7rOzAbSZhmfwvk50+3qNnGZpERjmD93c8nEjrGLyd53eFXYMxcJV4KA1vzi4qIHt2+6tS4dEMw==}
     peerDependencies:
       '@vue/compiler-sfc': ^2.7.0 || ^3.0.0
-      vite: 4.3.5
+      vite: ^2.0.0 || ^3.0.0-0 || ^4.0.0
     peerDependenciesMeta:
       '@vue/compiler-sfc':
         optional: true
@@ -15234,7 +15239,7 @@ packages:
     requiresBuild: true
     peerDependencies:
       '@vue/composition-api': ^1.0.0-rc.1
-      vue: 3.3.4
+      vue: ^3.0.0-0 || ^2.6.0
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
@@ -15285,7 +15290,7 @@ packages:
   /vue-inbrowser-compiler-independent-utils@4.71.1(vue@3.3.4):
     resolution: {integrity: sha512-K3wt3iVmNGaFEOUR4JIThQRWfqokxLfnPslD41FDZB2ajXp789+wCqJyGYlIFsvEQ2P61PInw6/ph5iiqg51gg==}
     peerDependencies:
-      vue: 3.3.4
+      vue: '>=2'
     dependencies:
       vue: 3.3.4
     dev: true
@@ -15293,7 +15298,7 @@ packages:
   /vue-router@4.2.4(vue@3.3.4):
     resolution: {integrity: sha512-9PISkmaCO02OzPVOMq2w82ilty6+xJmQrarYZDkjZBfl4RvYAlt4PKnEX21oW4KTtWfa9OuO/b3qk1Od3AEdCQ==}
     peerDependencies:
-      vue: 3.3.4
+      vue: ^3.2.0
     dependencies:
       '@vue/devtools-api': 6.5.0
       vue: 3.3.4
