@@ -1,5 +1,5 @@
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuToggle, toggleProps } from '@oku-ui/toggle'
@@ -36,46 +36,45 @@ export const toggleGroupItemImplProps = {
     ...primitiveProps,
   },
   emits: {
-    ...propsOmit(toggleProps.emits, ['update:modelValue', 'pressedChange']),
+    ...propsOmit(toggleProps.emits, ['pressedChange']),
   },
 }
 
 const toggleGroupItemImpl = defineComponent({
   name: TOGGLE_GROUP_NAME,
+  components: {
+    OkuToggle,
+  },
   inheritAttrs: false,
   props: {
     ...toggleGroupItemImplProps.props,
     ...scopeToggleGroupProps,
   },
   emits: toggleGroupItemImplProps.emits,
-  setup(props, { slots, emit, attrs }) {
-    const { pressed, disabled, value, scopeOkuToggleGroup, asChild } = toRefs(props)
+  setup(props, { slots, attrs }) {
+    const { scopeOkuToggleGroup, value, ...itemProps } = toRefs(props)
+
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => {
-      return { 'role': 'radio', 'ariaChecked': pressed.value, 'aria-pressed': undefined } as ToggleElementNaviteElement
+      return { 'role': 'radio', 'ariaChecked': itemProps.pressed.value, 'aria-pressed': undefined } as ToggleElementNaviteElement
     })
-    const typeProps = computed(() => valueInject.type.value === 'single' ? singleProps.value : undefined)
+    const typeProps = computed(() => valueInject.type === 'single' ? singleProps.value : undefined)
 
     const forwardedRef = useForwardRef()
+    const _itemProps = reactive(itemProps)
+    return () =>
+      h(OkuToggle, {
+        ...typeProps.value,
+        ...mergeProps(attrs, _itemProps),
+        ref: forwardedRef,
+        onPressedChange: (pressed: boolean) => {
+          if (pressed)
+            valueInject.onItemActivate(value.value!)
 
-    return () => h(OkuToggle, {
-      ...attrs,
-      ...typeProps.value as any,
-      pressed: pressed.value,
-      disabled: disabled.value,
-      asChild: asChild.value,
-      ref: forwardedRef,
-      onClick: (e: ToggleEmits['click'][0]) => {
-        emit('click', e)
-      },
-      onPressedChange: (pressed: boolean) => {
-        if (pressed)
-          valueInject.onItemActivate(value.value!)
-
-        else
-          valueInject.onItemDeactivate(value.value!)
-      },
-    }, slots)
+          else
+            valueInject.onItemDeactivate(value.value!)
+        },
+      }, slots)
   },
 })
 

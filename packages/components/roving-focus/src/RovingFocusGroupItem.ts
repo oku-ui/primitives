@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, nextTick, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, reactive, toRefs, watchEffect } from 'vue'
 import { useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -63,15 +63,13 @@ const rovingFocusGroupItem = defineComponent({
   },
   emits: rovingFocusItemProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as any
     const {
+      scopeOkuRovingFocusGroup,
       focusable,
       active,
       tabStopId,
-      scopeOkuRovingFocusGroup,
-      asChild,
+      ...itemProps
     } = toRefs(props)
-    const attrsItems = _attrs
 
     const autoId = useId()
     const id = computed(() => tabStopId.value || autoId)
@@ -91,7 +89,7 @@ const rovingFocusGroupItem = defineComponent({
         })
       })
     })
-
+    const reactiveItemProps = reactive(itemProps)
     return () => {
       return h(CollectionItemSlot, {
         id: id.value,
@@ -102,10 +100,9 @@ const rovingFocusGroupItem = defineComponent({
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
-            ...attrsItems,
+            ...mergeProps(attrs, reactiveItemProps),
             'data-orientation': inject.orientation?.value,
             'ref': forwardedRef,
-            'asChild': asChild.value,
             'onMousedown':
               composeEventHandlers<MouseEvent>((e) => {
                 emit('mousedown', e)

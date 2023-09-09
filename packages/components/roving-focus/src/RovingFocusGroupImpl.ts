@@ -1,6 +1,6 @@
 import type { ComputedRef, PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, toRefs, unref, watchEffect } from 'vue'
-import { useCallbackRef, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { OkuElement } from '@oku-ui/primitive'
 
@@ -60,17 +60,14 @@ const RovingFocusGroupImpl = defineComponent({
   },
   emits: rovingFocusGroupImplProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const _attrs = attrs as Omit<RovingFocusGroupImplNaviteElement, 'dir'>
     const {
+      scopeOkuRovingFocusGroup,
       orientation,
       loop,
+      dir,
       currentTabStopId: currentTabStopIdProp,
       defaultCurrentTabStopId,
-      onEntryFocus,
-      asChild,
-      scopeOkuRovingFocusGroup,
-      dir,
-      ...propsData
+      ...groupProps
     } = toRefs(props)
 
     const buttonRef = ref<HTMLDivElement | null>(null)
@@ -87,7 +84,6 @@ const RovingFocusGroupImpl = defineComponent({
     })
 
     const isTabbingBackOut = ref(false)
-    const handleEntryFocus = useCallbackRef(onEntryFocus?.value || undefined)
     const getItems = useCollection(scopeOkuRovingFocusGroup.value)
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
@@ -95,8 +91,12 @@ const RovingFocusGroupImpl = defineComponent({
     watchEffect(() => {
       const node = buttonRef.value
       if (node) {
-        node.addEventListener(ENTRY_FOCUS, handleEntryFocus.value)
-        return () => node.removeEventListener(ENTRY_FOCUS, handleEntryFocus.value)
+        node.addEventListener(ENTRY_FOCUS, (event) => {
+          emit('entryFocus', event)
+        })
+        return () => node.removeEventListener(ENTRY_FOCUS, (event) => {
+          emit('entryFocus', event)
+        })
       }
     })
 
@@ -105,7 +105,7 @@ const RovingFocusGroupImpl = defineComponent({
       orientation,
       dir,
       loop,
-      currentTabStopId: currentTabStopId || null,
+      currentTabStopId,
       onItemFocus: (tabStopId: string) => {
         updateCurrentTabStopId(tabStopId)
       },
@@ -120,17 +120,18 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
+    const _reactiveProupProps = reactive(groupProps)
+
     return () => {
       return h(Primitive.div, {
         'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': orientation?.value,
-        ...unref(mergeProps(propsData, _attrs)),
+        ...mergeProps(attrs, _reactiveProupProps),
         'ref': composedRefs,
         'style': {
           outline: 'none',
-          ..._attrs.style as any,
+          ...attrs.style as any,
         },
-        'asChild': asChild.value,
         'onMousedown': composeEventHandlers<MouseEvent>((e) => {
           emit('mousedown', e)
         }, () => {

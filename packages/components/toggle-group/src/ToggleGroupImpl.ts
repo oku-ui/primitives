@@ -1,6 +1,6 @@
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRef, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, type RovingFocusGroupProps } from '@oku-ui/roving-focus'
@@ -41,6 +41,7 @@ export const toggleGroupImplProps = {
     disabled: {
       type: [Boolean] as PropType<boolean>,
       default: false,
+      required: false,
     },
     /**
      * Whether the group should maintain roving focus of its buttons.
@@ -49,18 +50,22 @@ export const toggleGroupImplProps = {
     rovingFocus: {
       type: [Boolean] as PropType<boolean>,
       default: true,
+      required: false,
     },
     loop: {
       type: [Boolean, String] as PropType<RovingFocusGroupProps['loop']>,
       default: true,
+      required: false,
     },
     orientation: {
       type: [String] as PropType<RovingFocusGroupProps['orientation'] | undefined>,
       default: undefined,
+      required: false,
     },
     dir: {
       type: [String] as PropType<RovingFocusGroupProps['dir'] | undefined>,
       default: undefined,
+      required: false,
     },
     ...primitiveProps,
   },
@@ -68,6 +73,10 @@ export const toggleGroupImplProps = {
 
 const toggleGroupImpl = defineComponent({
   name: TOGGLE_GROUP_IMPL_NAME,
+  components: {
+    Primitive,
+    OkuRovingFocusGroup,
+  },
   inheritAttrs: false,
   props: {
     ...toggleGroupImplProps.props,
@@ -75,19 +84,27 @@ const toggleGroupImpl = defineComponent({
     ...primitiveProps,
   },
   setup(props, { slots, attrs }) {
-    const { dir, disabled, loop, orientation, rovingFocus } = toRefs(props)
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
+    const {
+      scopeOkuToggleGroup,
+      disabled,
+      rovingFocus,
+      orientation,
+      dir,
+      loop,
+      ...toggleGroupProps
+    } = toRefs(props)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuToggleGroup.value)
     const direction = useDirection(dir.value)
 
     const forwardedRef = useForwardRef()
 
     toggleGroupProvide({
-      scope: props.scopeOkuToggleGroup,
-      rovingFocus,
-      disabled,
+      scope: scopeOkuToggleGroup.value,
+      rovingFocus: toRef(props, 'rovingFocus'),
+      disabled: toRef(() => disabled.value),
     })
-
-    return () => rovingFocus.value
+    const _toggleGroupProps = reactive(toggleGroupProps)
+    return () => rovingFocus
       ? h(OkuRovingFocusGroup, {
         asChild: true,
         ...rovingFocusGroupScope,
@@ -96,19 +113,16 @@ const toggleGroupImpl = defineComponent({
         loop: loop.value,
       }, {
         default: () => h(Primitive.div, {
-          role: 'group',
+          role: 'radiogroup',
           dir: direction.value,
-          asChild: props.asChild,
-          ...attrs,
-          scopeOkuToggleGroup: props.scopeOkuToggleGroup,
+          ...mergeProps(attrs, _toggleGroupProps),
           ref: forwardedRef,
         }, slots),
       })
       : h(Primitive.div, {
-        role: 'group',
+        role: 'radiogroup',
         dir: direction.value,
-        ...attrs,
-        asChild: props.asChild,
+        ...mergeProps(attrs, _toggleGroupProps),
         ref: forwardedRef,
       }, slots)
   },

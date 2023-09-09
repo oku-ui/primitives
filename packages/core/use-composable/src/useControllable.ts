@@ -5,7 +5,7 @@ import { useCallbackRef } from './useCallbackRef'
 type UseControllableStateParams<T> = {
   prop: ComputedRef<T | undefined>
   onChange?: (value: T) => void
-  defaultProp?: ComputedRef<T>
+  defaultProp?: ComputedRef<T | undefined>
   initialValue?: T
 }
 
@@ -36,7 +36,7 @@ function useControllable<T>({
     }
   }
   return {
-    state: computed(() => value.value === undefined ? initialValue : value.value),
+    state: computed(() => value.value === undefined && initialValue ? initialValue : value.value),
     updateValue,
   }
 }
