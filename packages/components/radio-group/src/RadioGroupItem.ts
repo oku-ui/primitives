@@ -20,7 +20,6 @@ export interface RadioGroupItemProps extends Omit<RadioProps, | 'name'> {
 }
 
 export type RadioGroupItemEmits = Omit<RadioEmits, 'check'> & {
-  'update:modelValue': [value: string]
   focus: [event: FocusEvent]
 }
 
@@ -31,9 +30,7 @@ export const radioGroupItemProps = {
   emits: {
     ...propsOmit(radioProps.emits, ['check']),
     // eslint-disable-next-line unused-imports/no-unused-vars
-    'update:modelValue': (value: string) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'focus': (event: FocusEvent) => true,
+    focus: (event: FocusEvent) => true,
   },
 }
 

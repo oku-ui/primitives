@@ -135,7 +135,7 @@ const Checkbox = defineComponent({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (result: any) => {
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('checkedChange', result)
       },
       initialValue: false,

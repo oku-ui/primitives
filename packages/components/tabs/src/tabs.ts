@@ -134,7 +134,7 @@ const tabs = defineComponent({
       prop: computed(() => modelValue.value ?? valueProp.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: any) => {
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('valueChange', result)
       },
     })

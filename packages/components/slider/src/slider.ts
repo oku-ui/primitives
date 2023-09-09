@@ -163,7 +163,7 @@ const slider = defineComponent({
       onChange: (result: any) => {
         const thumbs = [...thumbRefs.value]
         thumbs[valueIndexToChangeRef.value]?.focus()
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('valueChange', result)
       },
       initialValue: [],

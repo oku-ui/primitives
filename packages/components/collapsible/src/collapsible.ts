@@ -93,8 +93,8 @@ const collapsible = defineComponent({
       prop: computed(() => proxyOpen.value),
       defaultProp: computed(() => defaultOpen.value),
       onChange: (open) => {
-        emit('update:modelValue', open as boolean)
         emit('openChange', open as boolean)
+        modelValue.value = open
       },
       initialValue: false,
     })

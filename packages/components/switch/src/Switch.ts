@@ -148,7 +148,7 @@ const Switch = defineComponent({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (value) => {
-        emit('update:modelValue', value as boolean)
+        modelValue.value = value
         emit('checkedChange', value as boolean)
       },
       initialValue: false,

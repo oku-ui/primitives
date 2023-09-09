@@ -107,7 +107,7 @@ const popover = defineComponent({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultOpen.value),
       onChange: (result: any) => {
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('openChange', result)
       },
       initialValue: false,

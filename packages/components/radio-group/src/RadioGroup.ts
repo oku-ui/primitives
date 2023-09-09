@@ -136,7 +136,7 @@ const RadioGroup = defineComponent({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: any) => {
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('valueChange', result)
       },
     })
