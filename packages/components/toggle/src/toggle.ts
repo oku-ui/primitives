@@ -60,6 +60,7 @@ export const toggleProps = {
     },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'update:modelValue': (pressed: boolean) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     'pressedChange': (pressed: boolean) => true,
