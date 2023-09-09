@@ -1,6 +1,6 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, useModel, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
@@ -103,12 +103,15 @@ const Checkbox = defineComponent({
   emits: checkboxProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
+      modelValue: _modelValue,
+      scopeOkuCheckbox,
       checked: checkedProp,
       defaultChecked,
       required,
       disabled,
       name,
       value,
+      ...checkboxProps
     } = toRefs(props)
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
@@ -154,23 +157,25 @@ const Checkbox = defineComponent({
     })
 
     CheckboxProvider({
-      scope: props.scopeOkuCheckbox,
+      scope: scopeOkuCheckbox.value,
       state,
       disabled,
     })
+
+    const reactiveCheckboxProps = reactive(checkboxProps)
 
     const originalReturn = () =>
       [h(Primitive.button, {
         'type': 'button',
         'role': 'checkbox',
-        'aria-checked': isIndeterminate(state.value) ? 'mixed' : state.value as any,
+        'aria-checked': computed(() => isIndeterminate(state.value) ? 'mixed' : state.value).value as any,
         'aria-required': required.value,
         'data-state': computed(() => getState(state.value)).value,
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
         'asChild': props.asChild,
-        ...checkboxAttrs,
+        ...mergeProps(checkboxAttrs, reactiveCheckboxProps),
         'ref': composedRefs,
         'onKeyDown': composeEventHandlers<KeyboardEvent>((e) => {
           emit('keydown', e)

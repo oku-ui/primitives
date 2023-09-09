@@ -12,13 +12,14 @@ export interface ITabsProps {
 
 defineProps<ITabsProps>()
 
-const value = ref<string>()
+const testValue = ref()
 </script>
 
 <template>
   <div v-if="template === '#1' || allshow">
+    {{ testValue }}
     <h1>Uncontrolled</h1>
-    <OkuToggleGroup type="single" class="root" aria-label="Options" default-value="1">
+    <OkuToggleGroup v-model="testValue" type="single" class="root" aria-label="Options">
       <OkuToggleGroupItem value="1" class="item">
         Option 1
       </OkuToggleGroupItem>
@@ -30,8 +31,8 @@ const value = ref<string>()
       </OkuToggleGroupItem>
     </OkuToggleGroup>
 
-    <h1>Group - {{ value }}</h1>
-    <OkuToggleGroup type="multiple" class="root" aria-label="Options" default-value="['1']">
+    <h1>Group</h1>
+    <OkuToggleGroup v-model="testValue" type="multiple" class="root" aria-label="Options" :default-value="['2']">
       <OkuToggleGroupItem value="1" class="item">
         Option 1
       </OkuToggleGroupItem>
@@ -45,7 +46,7 @@ const value = ref<string>()
   </div>
 </template>
 
-<style>
+<style lang="postcss">
 .root {
   display: inline-flex;
   gap: 5px;

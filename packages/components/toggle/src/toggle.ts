@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -7,7 +7,7 @@ import { useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 const TOGGLE_NAME = 'OkuToggle'
 
-export type ToggleElementNaviteElement = OkuElement<'button'>
+export type ToggleElementNaviteElement = Omit<OkuElement<'button'>, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
 export type ToggleElement = Omit<HTMLButtonElement, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
 
 export interface ToggleProps extends PrimitiveProps {
@@ -78,13 +78,15 @@ const toggle = defineComponent({
   },
   emits: toggleProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { pressed, defaultPressed, disabled, ariaChecked } = toRefs(props)
+    const { pressed: pressedProp, defaultPressed, onPressedChange: _press, ...buttonProps } = toRefs(props)
+
     const modelValue = useModel(props, 'modelValue')
+
     const proxyChecked = computed({
       get: () => modelValue.value !== undefined
         ? modelValue.value
-        : (pressed.value !== undefined
-            ? pressed.value
+        : (pressedProp.value !== undefined
+            ? pressedProp.value
             : undefined),
       set: () => {
       },
@@ -96,28 +98,27 @@ const toggle = defineComponent({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultPressed.value),
       onChange: (pressed) => {
-        emit('update:modelValue', pressed)
         emit('pressedChange', pressed)
+        modelValue.value = pressed
       },
       initialValue: false,
     })
 
-    const { ...toggleAttrs } = attrs as ToggleElementNaviteElement
+    const _buttonProps = reactive(buttonProps)
 
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
-        'aria-checked': ariaChecked.value,
+        'aria-checked': state.value,
         'aria-pressed': state.value ? 'true' : 'false',
         'data-state': state.value ? 'on' : 'off',
-        'data-disabled': disabled.value ? '' : undefined,
-        ...mergeProps(toggleAttrs),
+        'data-disabled': props.disabled ? '' : undefined,
+        ...mergeProps(attrs, _buttonProps),
         'ref': forwardedRef,
-        'asChild': props.asChild,
         'onClick': composeEventHandlers<MouseEvent>((e) => {
           emit('click', e)
         }, () => {
-          if (!disabled.value)
+          if (!props.disabled)
             updateValue(!state.value)
         }),
       },
