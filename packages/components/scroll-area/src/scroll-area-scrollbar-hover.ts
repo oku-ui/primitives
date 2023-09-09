@@ -47,7 +47,7 @@ const scrollAreaScrollbarHover = defineComponent({
     const visible = ref(false)
 
     watchEffect((onInvalidate) => {
-      const scrollArea = inject.scrollArea
+      const scrollArea = inject.scrollArea.value
       let hideTimer = 0
       if (scrollArea) {
         const handlePointerEnter = () => {
@@ -55,7 +55,7 @@ const scrollAreaScrollbarHover = defineComponent({
           visible.value = true
         }
         const handlePointerLeave = () => {
-          hideTimer = window.setTimeout(() => (visible.value = false), inject.scrollHideDelay)
+          hideTimer = window.setTimeout(() => visible.value = false, inject.scrollHideDelay.value)
         }
         scrollArea.addEventListener('pointerenter', handlePointerEnter)
         scrollArea.addEventListener('pointerleave', handlePointerLeave)
@@ -75,7 +75,7 @@ const scrollAreaScrollbarHover = defineComponent({
       {
         default: () => h(OkuScrollAreaScrollbarAuto,
           {
-            ['data-state' as any]: visible.value ? 'visible' : 'hidden',
+            ['data-state' as string]: visible.value ? 'visible' : 'hidden',
             ...attrs,
             ref: forwardedRef,
           }, slots,

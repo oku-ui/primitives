@@ -71,7 +71,7 @@ const scrollAreaThumbImpl = defineComponent({
     }, 100)
 
     watchEffect((onInvalidate) => {
-      const viewport = scrollAreaInject.viewport
+      const viewport = scrollAreaInject.viewport.value
       if (viewport) {
         /**
          * We only bind to native scroll event so we know when scroll starts and ends.
@@ -97,7 +97,7 @@ const scrollAreaThumbImpl = defineComponent({
 
     return () => h(Primitive.div,
       {
-        ['data-state' as any]: scrollbarInject.hasThumb ? 'visible' : 'hidden',
+        ['data-state' as string]: scrollbarInject.hasThumb.value ? 'visible' : 'hidden',
         ...attrs,
         ref: composedRef,
         style: {

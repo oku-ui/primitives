@@ -37,8 +37,8 @@ const scrollAreaCorner = defineComponent({
     const forwardedRef = useForwardRef()
 
     const inject = useScrollAreaInject(CORNER_NAME, props.scopeOkuScrollArea)
-    const hasBothScrollbarsVisible = Boolean(inject.scrollbarX && inject.scrollbarY)
-    const hasCorner = inject.type !== 'scroll' && hasBothScrollbarsVisible
+    const hasBothScrollbarsVisible = Boolean(inject.scrollbarX.value && inject.scrollbarY.value)
+    const hasCorner = inject.type.value !== 'scroll' && hasBothScrollbarsVisible
 
     return () => hasCorner
       ? h(OkuScrollAreaCornerImpl,

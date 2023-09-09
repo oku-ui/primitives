@@ -63,7 +63,7 @@ const scrollAreaScrollbar = defineComponent({
       })
     })
 
-    return () => inject.type === 'hover'
+    return () => inject.type.value === 'hover'
       ? h(OkuScrollAreaScrollbarHover,
         {
           ...attrs,
@@ -73,7 +73,7 @@ const scrollAreaScrollbar = defineComponent({
           default: () => slots.default?.(),
         },
       )
-      : inject.type === 'scroll'
+      : inject.type.value === 'scroll'
         ? h(OkuScrollAreaScrollbarScroll,
           {
             ...attrs,
@@ -83,7 +83,7 @@ const scrollAreaScrollbar = defineComponent({
             default: () => slots.default?.(),
           },
         )
-        : inject.type === 'auto'
+        : inject.type.value === 'auto'
           ? h(OkuScrollAreaScrollbarAuto,
             {
               ...attrs,
@@ -93,7 +93,7 @@ const scrollAreaScrollbar = defineComponent({
               default: () => slots.default?.(),
             },
           )
-          : inject.type === 'always'
+          : inject.type.value === 'always'
             ? h(OkuScrollAreaScrollbarVisible,
               {
                 ...attrs,

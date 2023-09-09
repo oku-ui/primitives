@@ -44,23 +44,23 @@ const scrollAreaScrollbarY = defineComponent({
     return () => h(OkuScrollAreaScrollbarImpl,
       {
 
-        ['data-orientation' as any]: 'vertical',
+        ['data-orientation' as string]: 'vertical',
         ...attrs,
         ref: composeRefs,
         sizes,
         style: {
           top: 0,
-          right: inject.dir === 'ltr' ? 0 : undefined,
-          left: inject.dir === 'rtl' ? 0 : undefined,
+          right: inject.dir.value === 'ltr' ? 0 : undefined,
+          left: inject.dir.value === 'rtl' ? 0 : undefined,
           bottom: 'var(--oku-scroll-area-corner-height)',
           ['--oku-scroll-area-thumb-height' as any]: `${getThumbSize(sizes.value as Sizes)}px`,
           ...attrs.style as CSSStyleRule,
         },
         onThumbPointerDown: (pointerPos: { y: number }) => emit('thumbPointerDown', pointerPos.y),
         onDragScroll: (pointerPos: { y: number }) => emit('dragScroll', pointerPos.y),
-        onWheelScroll: (event: any, maxScrollPos: number) => {
-          if (inject.viewport) {
-            const scrollPos = inject.viewport.scrollTop + event.deltaY
+        onWheelScroll: (event: WheelEvent, maxScrollPos: number) => {
+          if (inject.viewport.value) {
+            const scrollPos = inject.viewport.value.scrollTop + event.deltaY
             emit('wheelScroll', scrollPos)
             // prevent window scroll when wheeling on scrollbar
             if (isScrollingWithinScrollbarBounds(scrollPos, maxScrollPos))
@@ -68,10 +68,10 @@ const scrollAreaScrollbarY = defineComponent({
           }
         },
         onResize: () => {
-          if (scrollbarAxisRef.value && inject.viewport && computedStyle.value) {
+          if (scrollbarAxisRef.value && inject.viewport.value && computedStyle.value) {
             emit('sizesChange', {
-              content: inject.viewport.scrollHeight,
-              viewport: inject.viewport.offsetHeight,
+              content: inject.viewport.value.scrollHeight,
+              viewport: inject.viewport.value.offsetHeight,
               scrollbar: {
                 size: scrollbarAxisRef.value.clientHeight,
                 paddingStart: toInt(computedStyle.value.paddingTop),

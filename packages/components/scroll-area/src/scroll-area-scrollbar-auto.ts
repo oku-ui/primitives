@@ -57,15 +57,15 @@ const scrollAreaScrollbarScroll = defineComponent({
     const visible = ref(false)
     const isHorizontal = orientation.value === 'horizontal'
     const handleResize = useDebounceCallback(() => {
-      if (inject.viewport) {
-        const isOverflowX = inject.viewport.offsetWidth < inject.viewport.scrollWidth
-        const isOverflowY = inject.viewport.offsetHeight < inject.viewport.scrollHeight
+      if (inject.viewport.value) {
+        const isOverflowX = inject.viewport.value.offsetWidth < inject.viewport.value.scrollWidth
+        const isOverflowY = inject.viewport.value.offsetHeight < inject.viewport.value.scrollHeight
         visible.value = isHorizontal ? isOverflowX : isOverflowY
       }
     }, 10)
 
-    useResizeObserver(inject.viewport, handleResize)
-    useResizeObserver(inject.content, handleResize)
+    useResizeObserver(inject.viewport.value, handleResize)
+    useResizeObserver(inject.content.value, handleResize)
 
     return () => h(OkuPresence,
       {
@@ -75,7 +75,7 @@ const scrollAreaScrollbarScroll = defineComponent({
         default: () => h(OkuScrollAreaScrollbarVisible,
           {
 
-            ['data-state' as any]: visible.value ? 'visible' : 'hidden',
+            ['data-state' as string]: visible.value ? 'visible' : 'hidden',
             ...attrs,
             ref: forwardedRef,
           }, slots,

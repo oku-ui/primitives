@@ -59,7 +59,7 @@ const scrollAreaThumb = defineComponent({
 
     return () => h(OkuPresence,
       {
-        present: forceMount.value || scrollbarInject.hasThumb,
+        present: forceMount.value || scrollbarInject.hasThumb.value,
       },
       {
         default: () => h(OkuScrollAreaThumbImpl,

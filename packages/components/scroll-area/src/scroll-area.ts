@@ -2,7 +2,7 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { useDirection } from '@Oku-ui/direction'
-import type { PropType } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { createProvideScope } from '@Oku-ui/provide'
 import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
@@ -32,22 +32,23 @@ export type ScrollAreaElement = HTMLDivElement
 
 export const [createScrollAreaProvide, createScrollAreaScope] = createProvideScope(SCROLL_AREA_NAME)
 
+export type Type = 'auto' | 'always' | 'scroll' | 'hover'
 type ScrollAreaProvideValue = {
-  type: 'auto' | 'always' | 'scroll' | 'hover'
-  dir: Direction
-  scrollHideDelay: number
-  scrollArea: ScrollAreaElement | null
-  viewport: ScrollAreaViewportElement | null
+  type: Ref<'auto' | 'always' | 'scroll' | 'hover'>
+  dir: Ref<Direction>
+  scrollHideDelay: Ref<number>
+  scrollArea: Ref<ScrollAreaElement | null>
+  viewport: Ref<ScrollAreaViewportElement | null>
   onViewportChange(viewport: ScrollAreaViewportElement | null): void
-  content: HTMLDivElement | null
+  content: Ref<HTMLDivElement | null>
   onContentChange(content: HTMLDivElement): void
-  scrollbarX: ScrollAreaScrollbarElement | null
+  scrollbarX: Ref<ScrollAreaScrollbarElement | null>
   onScrollbarXChange(scrollbar: ScrollAreaScrollbarElement | null): void
-  scrollbarXEnabled: boolean
+  scrollbarXEnabled: Ref<boolean>
   onScrollbarXEnabledChange(rendered: boolean): void
-  scrollbarY: ScrollAreaScrollbarElement | null
+  scrollbarY: Ref<ScrollAreaScrollbarElement | null>
   onScrollbarYChange(scrollbar: ScrollAreaScrollbarElement | null): void
-  scrollbarYEnabled: boolean
+  scrollbarYEnabled: Ref<boolean>
   onScrollbarYEnabledChange(rendered: boolean): void
   onCornerWidthChange(width: number): void
   onCornerHeightChange(height: number): void
@@ -56,7 +57,7 @@ type ScrollAreaProvideValue = {
 export const [scrollAreaProvider, useScrollAreaInject] = createScrollAreaProvide<ScrollAreaProvideValue>(SCROLL_AREA_NAME)
 
 export interface ScrollAreaProps extends PrimitiveProps {
-  type?: ScrollAreaProvideValue['type']
+  type?: Type
   dir?: ScrollAreaProvideValue['dir']
   scrollHideDelay?: number
 }
@@ -64,17 +65,14 @@ export interface ScrollAreaProps extends PrimitiveProps {
 const scrollAreaProps = {
   props: {
     type: {
-      type: String as PropType<ScrollAreaProps['type']>,
-      required: false,
+      type: String as PropType<Type>,
       default: 'hover',
     },
     dir: {
-      type: String as PropType<ScrollAreaProps['dir']>,
-      required: false,
+      type: String as PropType<Direction>,
     },
     scrollHideDelay: {
-      type: Number,
-      required: false,
+      type: Number as PropType<number>,
       default: 600,
     },
   },
@@ -131,21 +129,21 @@ const scrollArea = defineComponent({
 
     scrollAreaProvider({
       scope: props.scopeOkuScrollArea,
-      type: type.value || 'hover',
-      dir: direction.value,
-      scrollHideDelay: scrollHideDelay.value,
-      scrollArea: scrollArea.value,
-      viewport: viewport.value,
+      type,
+      dir: direction,
+      scrollHideDelay,
+      scrollArea,
+      viewport,
       onViewportChange: (_viewport: ScrollAreaViewportElement) => viewport.value = _viewport,
-      content: content.value,
+      content,
       onContentChange: (_content: HTMLDivElement) => content.value = _content,
-      scrollbarX: scrollbarX.value,
+      scrollbarX,
       onScrollbarXChange: (scrollbar: ScrollAreaScrollbarElement) => scrollbarX.value = scrollbar,
-      scrollbarXEnabled: scrollbarXEnabled.value,
+      scrollbarXEnabled,
       onScrollbarXEnabledChange: (rendered: boolean) => scrollbarXEnabled.value = rendered,
-      scrollbarY: scrollbarY.value,
+      scrollbarY,
       onScrollbarYChange: (scrollbar: ScrollAreaScrollbarElement) => scrollbarY.value = scrollbar,
-      scrollbarYEnabled: scrollbarYEnabled.value,
+      scrollbarYEnabled,
       onScrollbarYEnabledChange: (rendered: boolean) => scrollbarYEnabled.value = rendered,
       onCornerWidthChange: (_width: number) => cornerWidth.value = _width,
       onCornerHeightChange: (_heigh: number) => cornerHeight.value = _heigh,

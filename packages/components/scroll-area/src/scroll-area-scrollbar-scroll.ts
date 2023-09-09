@@ -74,14 +74,14 @@ const scrollAreaScrollbarScroll = defineComponent({
 
     watchEffect((onInvalidate) => {
       if (state.value === 'idle') {
-        const hideTimer = window.setTimeout(() => send('HIDE'), inject.scrollHideDelay)
+        const hideTimer = window.setTimeout(() => send('HIDE'), inject.scrollHideDelay.value)
 
         onInvalidate(() => window.clearTimeout(hideTimer))
       }
     })
 
     watchEffect((onInvalidate) => {
-      const viewport = inject.viewport
+      const viewport = inject.viewport.value
       const scrollDirection = isHorizontal ? 'scrollLeft' : 'scrollTop'
 
       if (viewport) {
@@ -108,7 +108,7 @@ const scrollAreaScrollbarScroll = defineComponent({
       {
         default: () => h(OkuScrollAreaScrollbarVisible,
           {
-            ['data-state' as any]: state.value === 'hidden' ? 'hidden' : 'visible',
+            ['data-state' as string]: state.value === 'hidden' ? 'hidden' : 'visible',
             ...attrs,
             ref: forwardedRef,
             onPointerEnter: composeEventHandlers(() => {

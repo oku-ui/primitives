@@ -6,7 +6,7 @@ import type { ScrollAreaThumbElement } from './scroll-area-thumb'
 export type ScrollAreaScrollbarAxisNaviteElement = ScrollAreaScrollbarImplNaviteElement
 export type ScrollAreaScrollbarAxisElement = ScrollAreaScrollbarImplElement
 
-export interface ScrollAreaScrollbarAxisProps extends Omit<ScrollAreaScrollbarImplProps, keyof ScrollAreaScrollbarImplPrivateProps>, ScrollAreaScrollbarAxisPrivateProps {}
+export interface ScrollAreaScrollbarAxisProps extends Omit<ScrollAreaScrollbarImplProps, keyof ScrollAreaScrollbarImplPrivateProps>, ScrollAreaScrollbarAxisPrivateProps { }
 
 export type ScrollAreaScrollbarAxisPrivateProps = {
   hasThumb: boolean

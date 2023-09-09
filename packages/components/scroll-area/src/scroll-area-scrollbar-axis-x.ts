@@ -43,22 +43,22 @@ const scrollAreaScrollbarX = defineComponent({
 
     return () => h(OkuScrollAreaScrollbarImpl,
       {
-        ['data-orientation' as any]: 'horizontal',
+        ['data-orientation' as string]: 'horizontal',
         ...attrs,
         ref: composeRefs,
         sizes,
         style: {
           bottom: 0,
-          left: inject.dir === 'rtl' ? 'var(--oku-scroll-area-corner-width)' : 0,
-          right: inject.dir === 'ltr' ? 'var(--oku-scroll-area-corner-width)' : 0,
+          left: inject.dir.value === 'rtl' ? 'var(--oku-scroll-area-corner-width)' : 0,
+          right: inject.dir.value === 'ltr' ? 'var(--oku-scroll-area-corner-width)' : 0,
           ['--oku-scroll-area-thumb-width' as any]: `${getThumbSize(sizes.value as Sizes)}px`,
           ...attrs.style as CSSStyleRule,
         },
-        onThumbPointerDown: (pointerPos: any) => emit('thumbPointerDown', pointerPos.x),
-        onDragScroll: (pointerPos: any) => emit('dragScroll', pointerPos.x),
-        onWheelScroll: (event: any, maxScrollPos: any) => {
-          if (inject.viewport) {
-            const scrollPos = inject.viewport.scrollLeft + event.deltaX
+        onThumbPointerDown: (pointerPos: { x: number }) => emit('thumbPointerDown', pointerPos.x),
+        onDragScroll: (pointerPos: { x: number }) => emit('dragScroll', pointerPos.x),
+        onWheelScroll: (event: WheelEvent, maxScrollPos: number) => {
+          if (inject.viewport.value) {
+            const scrollPos = inject.viewport.value.scrollLeft + event.deltaX
             emit('wheelScroll', scrollPos)
             // prevent window scroll when wheeling on scrollbar
             if (isScrollingWithinScrollbarBounds(scrollPos, maxScrollPos))
@@ -66,10 +66,10 @@ const scrollAreaScrollbarX = defineComponent({
           }
         },
         onResize: () => {
-          if (scrollbarAxisRef.value && inject.viewport && computedStyle.value) {
+          if (scrollbarAxisRef.value && inject.viewport.value && computedStyle.value) {
             emit('sizesChange', {
-              content: inject.viewport.scrollWidth,
-              viewport: inject.viewport.offsetWidth,
+              content: inject.viewport.value.scrollWidth,
+              viewport: inject.viewport.value.offsetWidth,
               scrollbar: {
                 size: scrollbarAxisRef.value.clientWidth,
                 paddingStart: toInt(computedStyle.value.paddingLeft),

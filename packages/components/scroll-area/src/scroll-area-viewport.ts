@@ -64,8 +64,8 @@ const scrollAreaViewport = defineComponent({
                * the browser from having to work out whether to render native scrollbars or not,
                * we tell it to with the intention of hiding them in CSS.
                */
-              overflowX: inject.scrollbarXEnabled ? 'scroll' : 'hidden',
-              overflowY: inject.scrollbarYEnabled ? 'scroll' : 'hidden',
+              overflowX: inject.scrollbarXEnabled.value ? 'scroll' : 'hidden',
+              overflowY: inject.scrollbarYEnabled.value ? 'scroll' : 'hidden',
               ...attrs.style as CSSStyleRule,
             },
           },

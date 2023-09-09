@@ -36,14 +36,14 @@ const scrollAreaCornerImpl = defineComponent({
     const height = ref<number>(0)
     const hasSize = Boolean(width.value && height.value)
 
-    useResizeObserver(inject.scrollbarX, () => {
-      const _height = inject.scrollbarX?.offsetHeight || 0
+    useResizeObserver(inject.scrollbarX.value, () => {
+      const _height = inject.scrollbarX.value?.offsetHeight || 0
       inject.onCornerHeightChange(_height)
       height.value = _height
     })
 
-    useResizeObserver(inject.scrollbarY, () => {
-      const _width = inject.scrollbarY?.offsetWidth || 0
+    useResizeObserver(inject.scrollbarY.value, () => {
+      const _width = inject.scrollbarY.value?.offsetWidth || 0
       inject.onCornerWidthChange(_width)
       width.value = _width
     })
@@ -57,8 +57,8 @@ const scrollAreaCornerImpl = defineComponent({
             width: width.value,
             height: height.value,
             position: 'absolute',
-            right: inject.dir === 'ltr' ? 0 : undefined,
-            left: inject.dir === 'rtl' ? 0 : undefined,
+            right: inject.dir.value === 'ltr' ? 0 : undefined,
+            left: inject.dir.value === 'rtl' ? 0 : undefined,
             bottom: 0,
             ...attrs.style as CSSStyleRule,
           },

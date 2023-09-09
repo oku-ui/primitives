@@ -89,19 +89,19 @@ const scrollAreaScrollbarVisible = defineComponent({
             ...commonProps,
             ref: forwardedRef,
             onThumbPositionChange: () => {
-              if (inject.viewport && thumbRef.value) {
-                const scrollPos = inject.viewport.scrollLeft
-                const offset = getThumbOffsetFromScroll(scrollPos, sizes, inject.dir)
+              if (inject.viewport.value && thumbRef.value) {
+                const scrollPos = inject.viewport.value.scrollLeft
+                const offset = getThumbOffsetFromScroll(scrollPos, sizes, inject.dir.value)
                 thumbRef.value.style.transform = `translate3d(${offset}px, 0, 0)`
               }
             },
             onWheelScroll: (scrollPos: number) => {
-              if (inject.viewport)
-                inject.viewport.scrollLeft = scrollPos
+              if (inject.viewport.value)
+                inject.viewport.value.scrollLeft = scrollPos
             },
             onDragScroll: (pointerPos: number) => {
-              if (inject.viewport)
-                inject.viewport.scrollLeft = getScrollPosition(pointerPos, inject.dir)
+              if (inject.viewport.value)
+                inject.viewport.value.scrollLeft = getScrollPosition(pointerPos, inject.dir.value)
             },
           }, slots,
         )
@@ -113,19 +113,19 @@ const scrollAreaScrollbarVisible = defineComponent({
             ...commonProps,
             ref: forwardedRef,
             onThumbPositionChange: () => {
-              if (inject.viewport && thumbRef.value) {
-                const scrollPos = inject.viewport.scrollTop
+              if (inject.viewport.value && thumbRef.value) {
+                const scrollPos = inject.viewport.value.scrollTop
                 const offset = getThumbOffsetFromScroll(scrollPos, sizes)
                 thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`
               }
             },
             onWheelScroll: (scrollPos: number) => {
-              if (inject.viewport)
-                inject.viewport.scrollTop = scrollPos
+              if (inject.viewport.value)
+                inject.viewport.value.scrollTop = scrollPos
             },
             onDragScroll: (pointerPos: number) => {
-              if (inject.viewport)
-                inject.viewport.scrollTop = getScrollPosition(pointerPos)
+              if (inject.viewport.value)
+                inject.viewport.value.scrollTop = getScrollPosition(pointerPos)
             },
           }, slots,
         )
