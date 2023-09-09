@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/scroll-area",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.4.0-alpha.11",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -29,8 +29,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "unbuild",
+    "dev": "unbuild --watch"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
@@ -45,5 +45,8 @@
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
