@@ -1,7 +1,7 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { ARROW_KEYS, PAGE_KEYS, SLIDER_NAME, scopeSliderProps, useSliderInject } from './utils'
 
@@ -74,13 +74,17 @@ const sliderImpl = defineComponent({
   setup(props, { attrs, slots, emit }) {
     const {
       scopeOkuSlider,
+      ...sliderProps
     } = toRefs(props)
+    const _reactive = reactive(sliderProps)
+    const reactiveSliderProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const inject = useSliderInject(SLIDER_NAME, scopeOkuSlider.value)
 
     const forwardedRef = useForwardRef()
 
     return () => h(Primitive.span, {
-      ...attrs,
+      ...mergeProps(attrs, reactiveSliderProps),
       ref: forwardedRef,
       onKeydown: composeEventHandlers<SliderImplPrivateEmits['keydown'][0]>((event) => {
         emit('keydown', event)
