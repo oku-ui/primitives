@@ -1,6 +1,6 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
@@ -39,7 +39,8 @@ const RadioIndicator = defineComponent({
   },
   setup(props, { attrs }) {
     const { forceMount, scopeOkuRadio, ...indicatorProps } = toRefs(props)
-    const reactiveIndicatorProps = reactiveOmit(indicatorProps, (key, _value) => key === undefined)
+    const _reactive = reactive(indicatorProps)
+    const reactiveIndicatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
     const inject = useRadioInject(INDICATOR_NAME, scopeOkuRadio.value)
     const forwardedRef = useForwardRef()
 

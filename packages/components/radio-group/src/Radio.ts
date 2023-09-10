@@ -2,7 +2,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState, scopeRadioProps } from './utils'
@@ -87,7 +87,8 @@ const radio = defineComponent({
       ...groupProps
     } = toRefs(props)
     const checked = computed(() => checkedProp.value || false)
-    const reactiveGroupProps = reactiveOmit(groupProps, (key, _value) => key === undefined)
+    const _reactive = reactive(groupProps)
+    const reactiveGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const hasConsumerStoppedPropagationRef = ref(false)
     const buttonRef = ref<HTMLButtonElement | null>(null)

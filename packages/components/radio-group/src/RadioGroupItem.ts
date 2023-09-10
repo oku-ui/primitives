@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
@@ -48,7 +48,8 @@ const RadioGroupItem = defineComponent({
       disabled,
       ...itemProps
     } = toRefs(props)
-    const reactiveItemProps = reactiveOmit(itemProps, (key, _value) => key === undefined)
+    const _reactive = reactive(itemProps)
+    const reactiveItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useRadioGroupInject(ITEM_NAME, scopeOkuRadioGroup.value)
 
@@ -89,7 +90,7 @@ const RadioGroupItem = defineComponent({
     }, {
       default: () => h(OkuRadio, {
         disabled: isDisabled.value,
-        required: inject.required.value || reactiveItemProps.required?.value,
+        required: inject.required.value || reactiveItemProps.required,
         checked: checked.value,
         ...radioScope,
         ...mergeProps(attrs, reactiveItemProps),

@@ -1,6 +1,6 @@
 import type { OkuElement } from '@oku-ui/primitive'
 import { reactiveOmit, usePrevious, useSize } from '@oku-ui/use-composable'
-import { defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import type { PropType } from 'vue'
 
 const BUBBLE_INPUT_NAME = 'OkuBubbleInput'
@@ -39,7 +39,8 @@ const bubbleInput = defineComponent({
   },
   setup(props, { attrs }) {
     const { control, checked, bubbles, ...inputProps } = toRefs(props)
-    const reactiveInputProps = reactiveOmit(inputProps, (key, _value) => key === undefined)
+    const _reactive = reactive(inputProps)
+    const reactiveInputProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevChecked = usePrevious(checked)

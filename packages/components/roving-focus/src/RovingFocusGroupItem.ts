@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, nextTick, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, reactive, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -70,7 +70,8 @@ const rovingFocusGroupItem = defineComponent({
       tabStopId,
       ...itemProps
     } = toRefs(props)
-    const reactiveItemProps = reactiveOmit(itemProps, (key, _value) => key === undefined)
+    const _reactive = reactive(itemProps)
+    const reactiveItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const autoId = useId()
     const id = computed(() => tabStopId.value || autoId)

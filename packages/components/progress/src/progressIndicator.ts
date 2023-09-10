@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import {
   type OkuElement,
   type PrimitiveProps,
@@ -32,7 +32,8 @@ const progressIndicator = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { scopeOkuProgress, ...indicatorProps } = toRefs(props)
-    const reactiveIndicatorProps = reactiveOmit(indicatorProps, (key, _value) => key === undefined)
+    const _reactive = reactive(indicatorProps)
+    const reactiveIndicatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 

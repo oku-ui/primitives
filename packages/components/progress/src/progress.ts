@@ -3,7 +3,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import {
   defaultGetValueLabel,
@@ -79,7 +79,8 @@ const progress = defineComponent({
       scopeOkuProgress,
       ...progressProps
     } = toRefs(props)
-    const reactiveProgressProps = reactiveOmit(progressProps, (key, _value) => key === undefined)
+    const _reactive = reactive(progressProps)
+    const reactiveProgressProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
