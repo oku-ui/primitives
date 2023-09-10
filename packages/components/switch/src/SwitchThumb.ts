@@ -2,8 +2,8 @@ import type {
   OkuElement, PrimitiveProps,
 } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { defineComponent, h, toValue } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { useSwitchInject } from './Switch'
 import { getState, scopeSwitchProps } from './util'
 
@@ -28,11 +28,13 @@ const SwitchThumb = defineComponent({
     ...switchThumbProps.props,
   },
   setup(props, { attrs, slots }) {
-    const { ...thumbAttrs } = attrs as SwitchThumbNaviteElement
+    const { scopeOkuSwitch, ...thumbAttrs } = toRefs(props)
+    const _reactive = reactive(thumbAttrs)
+    const reactiveSwitchProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const context = toValue(useSwitchInject(THUMB_NAME, props.scopeOkuSwitch))
+    const context = useSwitchInject(THUMB_NAME, scopeOkuSwitch.value)
 
     const originalReturn = () =>
       h(
@@ -40,9 +42,8 @@ const SwitchThumb = defineComponent({
         {
           'data-disabled': context.disabled?.value ? '' : undefined,
           'data-state': getState(context.checked.value),
+          ...mergeProps(attrs, reactiveSwitchProps),
           'ref': forwardedRef,
-          'asChild': props.asChild,
-          ...thumbAttrs,
         },
         {
           default: () => slots.default?.(),

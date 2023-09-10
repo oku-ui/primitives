@@ -3,13 +3,16 @@ import {
   computed,
   defineComponent,
   h,
+  mergeProps,
   onMounted,
+  reactive,
   ref,
   toRefs,
   toValue,
   useModel,
 } from 'vue'
 import {
+  reactiveOmit,
   useComposedRefs,
   useControllable,
   useForwardRef,
@@ -107,15 +110,18 @@ const Switch = defineComponent({
   emits: switchProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
+      scopeOkuSwitch,
+      modelValue: _modelValue,
       checked: checkedProp,
       defaultChecked,
       required,
       disabled,
       value: switchValue,
       name,
+      ...switchProps
     } = toRefs(props)
-
-    const { ...switchAttrs } = attrs as SwitchNaviteElement
+    const _reactive = reactive(switchProps)
+    const reactiveSwitchProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
 
@@ -156,7 +162,7 @@ const Switch = defineComponent({
 
     switchProvider({
       disabled,
-      scope: props.scopeOkuSwitch,
+      scope: scopeOkuSwitch.value,
       checked: computed(() => state.value || false),
     })
 
@@ -173,8 +179,7 @@ const Switch = defineComponent({
           'value': switchValue.value,
           'data-state': getState(state.value),
           'ref': composedRefs,
-          'asChild': props.asChild,
-          ...switchAttrs,
+          ...mergeProps(attrs, reactiveSwitchProps),
           'onClick': composeEventHandlers<MouseEvent>(
             (e) => {
               emit('click', e)
