@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, nextTick, reactive, toRefs, watchEffect } from 'vue'
-import { useForwardRef, useId } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useId } from '@oku-ui/use-composable'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
@@ -70,6 +70,8 @@ const rovingFocusGroupItem = defineComponent({
       tabStopId,
       ...itemProps
     } = toRefs(props)
+    const _reactive = reactive(itemProps)
+    const reactiveItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const autoId = useId()
     const id = computed(() => tabStopId.value || autoId)
@@ -89,7 +91,6 @@ const rovingFocusGroupItem = defineComponent({
         })
       })
     })
-    const reactiveItemProps = reactive(itemProps)
     return () => {
       return h(CollectionItemSlot, {
         id: id.value,
@@ -100,8 +101,8 @@ const rovingFocusGroupItem = defineComponent({
         default: () => {
           return h(Primitive.span, {
             'tabindex': isCurrentTabStop.value ? 0 : -1,
-            ...mergeProps(attrs, reactiveItemProps),
             'data-orientation': inject.orientation?.value,
+            ...mergeProps(attrs, reactiveItemProps),
             'ref': forwardedRef,
             'onMousedown':
               composeEventHandlers<MouseEvent>((e) => {

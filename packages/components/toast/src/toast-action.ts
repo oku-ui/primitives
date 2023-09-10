@@ -1,5 +1,5 @@
-import { useForwardRef } from '@oku-ui/use-composable'
-import { defineComponent, h, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuToastClose, toastCloseProps } from './toast-close'
 import type { ToastCloseElement, ToastCloseNaviteElement, ToastCloseProps } from './toast-close'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
@@ -45,16 +45,19 @@ const toastAction = defineComponent({
     ...scopedToastProps,
   },
   setup(props, { attrs, slots }) {
+    const { altText, ...actionProps } = toRefs(props)
+
+    const _reactive = reactive(actionProps)
+    const reactiveActionProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
-
-    const { altText } = toRefs(props)
-
-    if (!altText.value)
-      return null
 
     return () => {
       if (!altText.value)
         throw new Error(`Missing prop \`altText\` expected on \`${ACTION_NAME}\``)
+
+      if (!altText.value)
+        return null
 
       return h(OkuToastAnnounceExclude,
         {
@@ -64,7 +67,7 @@ const toastAction = defineComponent({
         {
           default: () => h(OkuToastClose,
             {
-              ...attrs,
+              ...mergeProps(attrs, reactiveActionProps),
               ref: forwardedRef,
             },
             {

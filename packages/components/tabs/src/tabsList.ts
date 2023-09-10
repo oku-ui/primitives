@@ -4,8 +4,8 @@ import type {
   PrimitiveProps,
 } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import { defineComponent, h, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { useTabsInject } from './tabs'
 import { scopeTabsProps } from './utils'
@@ -23,7 +23,7 @@ export const tabsListProps = {
   props: {
     loop: {
       type: Boolean as PropType<boolean>,
-      default: true,
+      default: undefined,
     },
     ...primitiveProps,
   },
@@ -38,13 +38,16 @@ const tabsList = defineComponent({
     ...scopeTabsProps,
   },
   setup(props, { slots, attrs }) {
-    const { loop } = toRefs(props)
-    const { ...listAttrs } = attrs
+    const { loop: asLoop, scopeOkuTabs, ...listprops } = toRefs(props)
+    const loop = computed(() => asLoop?.value ?? true)
 
-    const injectTabs = useTabsInject(TAB_LIST_NAME, props.scopeOkuTabs)
+    const _reactive = reactive(listprops)
+    const reactiveListProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const injectTabs = useTabsInject(TAB_LIST_NAME, scopeOkuTabs.value)
     const forwardedRef = useForwardRef()
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuTabs)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuTabs.value)
 
     return () =>
       h(OkuRovingFocusGroup, {
@@ -59,8 +62,7 @@ const tabsList = defineComponent({
           {
             'role': 'tablist',
             'aria-orientation': injectTabs.orientation?.value,
-            'asChild': props.asChild,
-            ...listAttrs,
+            ...mergeProps(attrs, reactiveListProps),
             'ref': forwardedRef,
           },
           {

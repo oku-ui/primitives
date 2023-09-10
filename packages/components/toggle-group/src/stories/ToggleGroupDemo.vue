@@ -13,6 +13,7 @@ export interface ITabsProps {
 defineProps<ITabsProps>()
 
 const testValue = ref()
+const arrayValue = ref()
 </script>
 
 <template>
@@ -31,8 +32,9 @@ const testValue = ref()
       </OkuToggleGroupItem>
     </OkuToggleGroup>
 
+    {{ arrayValue }}
     <h1>Group</h1>
-    <OkuToggleGroup v-model="testValue" type="multiple" class="root" aria-label="Options" :default-value="['2']">
+    <OkuToggleGroup v-model="arrayValue" type="multiple" class="root" aria-label="Options">
       <OkuToggleGroupItem value="1" class="item">
         Option 1
       </OkuToggleGroupItem>

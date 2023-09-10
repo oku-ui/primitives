@@ -1,9 +1,9 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
 import type { ComputedRef, PropType } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { useTabsInject } from './tabs'
 import { makeContentId, makeTriggerId, scopeTabsProps } from './utils'
 
@@ -44,8 +44,11 @@ const tabsContent = defineComponent({
     ...scopeTabsProps,
   },
   setup(props, { slots, attrs }) {
-    const { value } = toRefs(props)
-    const injectTabs = useTabsInject(TAB_CONTENT_NAME, props.scopeOkuTabs)
+    const { scopeOkuTabs, value, forceMount, ...contentProps } = toRefs(props)
+    const _reactive = reactive(contentProps)
+    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const injectTabs = useTabsInject(TAB_CONTENT_NAME, scopeOkuTabs.value)
 
     const triggerId = makeTriggerId(injectTabs.baseId.value, value.value!)
     const contentId = makeContentId(injectTabs.baseId.value, value.value!)
@@ -64,25 +67,27 @@ const tabsContent = defineComponent({
       cancelAnimationFrame(rAf.value)
     })
 
+    const present = computed(() => forceMount.value || isSelected.value)
+
     return () => h(OkuPresence, {
-      present: isSelected.value || props.forceMount,
+      present: present.value,
     }, {
       default: ({ isPresent }: { isPresent: ComputedRef<boolean> }) => h(Primitive.div, {
         'data-state': isSelected.value ? 'active' : 'inactive',
         'data-orientation': injectTabs.orientation?.value,
         'role': 'tabpanel',
         'aria-labelledby': triggerId,
-        'hidden': !isPresent,
+        'hidden': !isPresent.value,
         'id': contentId,
         'tabindex': '0',
-        ...attrs,
+        ...mergeProps(attrs, reactiveContentProps),
         'ref': forwardedRef,
         'style': {
           ...attrs.style ?? {} as any,
           animationDuration: isMountAnimationPreventedRef.value ? '0s' : undefined,
         },
       }, {
-        default: () => isPresent ? slots.default?.() : null,
+        default: () => isPresent.value ? slots.default?.() : null,
       }),
     })
   },

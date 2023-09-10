@@ -1,4 +1,4 @@
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, mergeProps, ref } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { OkuSlot } from '@oku-ui/slot'
@@ -31,8 +31,7 @@ const popoverContentNonModal = defineComponent({
 
     return () => h(OkuSlot, {}, {
       default: () => h(OkuPopoverContentImpl, {
-        ...attrs,
-        ...props,
+        ...mergeProps(attrs, props),
         ref: forwardedRef,
         trapFocus: false,
         disableOutsidePointerEvents: false,

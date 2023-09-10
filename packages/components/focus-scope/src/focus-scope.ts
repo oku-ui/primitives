@@ -1,11 +1,12 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import {
   defineComponent,
   h,
+  mergeProps,
   nextTick,
   reactive,
   ref,
@@ -21,8 +22,8 @@ import {
 } from './utils'
 import { focusScopesStack, removeLinks } from './focus-scope-stack'
 
-const AUTOFOCUS_ON_MOUNT = 'okuFocusScope.autoFocusOnMount'
-const AUTOFOCUS_ON_UNMOUNT = 'okuFocusScope.autoFocusOnUnmount'
+const AUTOFOCUS_ON_MOUNT = 'okuFocusScope.autoFocusonMount'
+const AUTOFOCUS_ON_UNMOUNT = 'okuFocusScope.autoFocusonUnmount'
 const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
 /* -------------------------------------------------------------------------------------------------
@@ -93,9 +94,9 @@ const focusScope = defineComponent({
   },
   emits: focusScopeProps.emits,
   setup(props, { slots, attrs, emit }) {
-    const { ...focusScopeAttrs } = attrs as FocusScopeNativeElement
-
-    const { loop, trapped, asChild } = toRefs(props)
+    const { loop, trapped, ...scopeProps } = toRefs(props)
+    const _reactive = reactive(scopeProps)
+    const reactiveScopeProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const container = ref<HTMLElement | null>(null)
     const lastFocusedElementRef = ref<HTMLElement | null>(null)
@@ -175,6 +176,8 @@ const focusScope = defineComponent({
           })
         }
 
+        await nextTick()
+
         onInvalidate(() => {
           document.removeEventListener('focusin', handleFocusIn)
           document.removeEventListener('focusout', handleFocusOut)
@@ -184,10 +187,10 @@ const focusScope = defineComponent({
     })
 
     watchEffect(async (onInvalidate) => {
-      await nextTick()
-
       if (container.value) {
         focusScopesStack.add(focusScope)
+        await nextTick()
+
         const previouslyFocusedElement
           = document.activeElement as HTMLElement | null
         const hasFocusedCandidate = container.value?.contains(
@@ -209,7 +212,7 @@ const focusScope = defineComponent({
               focus(container.value)
           }
         }
-        onInvalidate(() => {
+        onInvalidate(async () => {
           container.value?.removeEventListener(AUTOFOCUS_ON_MOUNT, (event) => {
             emit('mountAutoFocus', event)
           })
@@ -241,12 +244,14 @@ const focusScope = defineComponent({
 
             focusScopesStack.remove(focusScope)
           }, 0)
+
+          await nextTick()
         })
       }
     })
 
     // Takes care of looping focus (when tabbing whilst at the edges)
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeydown = (event: KeyboardEvent) => {
       if (!loop.value && !trapped.value)
         return
       if (focusScope.paused)
@@ -289,9 +294,8 @@ const focusScope = defineComponent({
         Primitive.div,
         {
           tabIndex: -1,
-          ...focusScopeAttrs,
-          asChild: asChild.value,
-          onKeydown: handleKeyDown,
+          ...mergeProps(attrs, reactiveScopeProps),
+          onKeydown: handleKeydown,
           ref: composedRefs,
         },
         {

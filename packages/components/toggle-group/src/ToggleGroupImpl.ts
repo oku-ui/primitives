@@ -2,7 +2,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { defineComponent, h, mergeProps, reactive, toRef, toRefs } from 'vue'
 import type { PropType } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroup, type RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { useDirection } from '@oku-ui/direction'
 import { scopeToggleGroupProps } from './utils'
@@ -93,6 +93,9 @@ const toggleGroupImpl = defineComponent({
       loop,
       ...toggleGroupProps
     } = toRefs(props)
+    const _reactive = reactive(toggleGroupProps)
+    const reactiveGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuToggleGroup.value)
     const direction = useDirection(dir.value)
 
@@ -103,7 +106,7 @@ const toggleGroupImpl = defineComponent({
       rovingFocus: toRef(props, 'rovingFocus'),
       disabled: toRef(() => disabled.value),
     })
-    const _toggleGroupProps = reactive(toggleGroupProps)
+
     return () => rovingFocus
       ? h(OkuRovingFocusGroup, {
         asChild: true,
@@ -115,14 +118,14 @@ const toggleGroupImpl = defineComponent({
         default: () => h(Primitive.div, {
           role: 'radiogroup',
           dir: direction.value,
-          ...mergeProps(attrs, _toggleGroupProps),
+          ...mergeProps(attrs, reactiveGroupProps),
           ref: forwardedRef,
         }, slots),
       })
       : h(Primitive.div, {
         role: 'radiogroup',
         dir: direction.value,
-        ...mergeProps(attrs, _toggleGroupProps),
+        ...mergeProps(attrs, reactiveGroupProps),
         ref: forwardedRef,
       }, slots)
   },

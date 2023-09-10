@@ -1,6 +1,6 @@
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 
-import { usePrevious } from '@oku-ui/use-composable'
+import { reactiveOmit, usePrevious } from '@oku-ui/use-composable'
 
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
@@ -28,7 +28,9 @@ const bubbleInput = defineComponent({
     ...bubbleInputProps.props,
   },
   setup(props, { attrs }) {
-    const { value } = toRefs(props)
+    const { value, ...inputProps } = toRefs(props)
+    const _reactive = reactive(inputProps)
+    const reactiveInputProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevValue = usePrevious(value)
@@ -48,9 +50,9 @@ const bubbleInput = defineComponent({
     return () =>
       h('input', {
         style: { display: 'none' },
-        ...attrs,
+        ...mergeProps(attrs, reactiveInputProps),
         ref: inputRef,
-        defaultValue: value,
+        defaultValue: value.value,
       })
   },
 })

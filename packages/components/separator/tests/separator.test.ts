@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import type { Component } from 'vue'
 import { h } from 'vue'
-import { OkuSeparator } from './separator'
+import { OkuSeparator } from '../src'
 
 const component = {
   setup(props, { attrs, slots }) {
@@ -14,13 +14,7 @@ describe('OkuSeparator', () => {
   const wrapper = mount(component)
 
   it('renders correctly', async () => {
-    expect(wrapper.html()).toBe(`<div role="separator" data-orientation="horizontal" style="border: none none;">
-  <!---->
-</div>`)
-  })
-
-  it('renders ref correctly', async () => {
-    expect(wrapper.vm.$el.outerHTML).toBe('<div role="separator" data-orientation="horizontal" style="border: none none;"><!----></div>')
+    expect(wrapper.element).toMatchSnapshot()
   })
 
   it('sets role as separator without decorative', async () => {

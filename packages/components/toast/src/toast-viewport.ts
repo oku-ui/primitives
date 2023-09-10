@@ -1,8 +1,8 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { isClient, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { isClient, reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
 import { CollectionSlot, useCollection, useToastProviderInject } from './share'
 import { focusFirst, getTabbableCandidates } from './utils'
@@ -65,12 +65,13 @@ const toastViewport = defineComponent({
     ...toastViewportProps.props,
   },
   setup(props, { attrs, slots }) {
-    const { ...toastViewportAttrs } = attrs as ToastViewportNaviteElement
-
     const {
       hotkey,
       label,
+      ...viewportProps
     } = toRefs(props)
+    const _reactive = reactive(viewportProps)
+    const reactiveViewPortProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -252,8 +253,7 @@ const toastViewport = defineComponent({
               default: () => h(Primitive.ol,
                 {
                   tabindex: -1,
-                  ...toastViewportAttrs,
-                  asChild: props.asChild,
+                  ...mergeProps(attrs, reactiveViewPortProps),
                   ref: composedRefs,
                 }, slots,
               ),

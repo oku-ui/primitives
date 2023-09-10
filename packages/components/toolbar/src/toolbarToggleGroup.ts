@@ -1,6 +1,6 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { ToggleGroupVariantProps } from '@oku-ui/toggle-group'
 import { OkuToggleGroup, toggleGroupVariantProps } from '@oku-ui/toggle-group'
 import { scopeToolbarProps } from './utils'
@@ -28,19 +28,21 @@ const toolbarToggleGroup = defineComponent({
     ...scopeToolbarProps,
   },
   setup(props, { attrs, slots }) {
-    const inject = useToolbarInject(TOGGLE_GROUP_NAME, props.scopeOkuToolbar)
-    const toggleGroupScope = useToggleGroupScope(props.scopeOkuToolbar)
+    const { scopeOkuToolbar, ...toggleGroupProps } = toRefs(props)
+
+    const _reactive = reactive(toggleGroupProps)
+    const reactiveToggleGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useToolbarInject(TOGGLE_GROUP_NAME, scopeOkuToolbar.value)
+    const toggleGroupScope = useToggleGroupScope(scopeOkuToolbar.value)
 
     const forwardedRef = useForwardRef()
 
     return () => h(OkuToggleGroup, {
       'data-orientation': inject.orientation.value,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       'dir': inject.dir.value,
       ...toggleGroupScope,
-      ...attrs,
-      ...props,
+      ...mergeProps(attrs, reactiveToggleGroupProps),
       'ref': forwardedRef,
       'rovingFocus': false,
     }, {

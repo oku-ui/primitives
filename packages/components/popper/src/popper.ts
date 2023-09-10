@@ -34,8 +34,8 @@ const Popper = defineComponent({
     popperProvider({
       scope: props.scopeOkuPopper,
       anchor,
-      onAnchorChange(_anchor: Measurable | null) {
-        anchor.value = _anchor
+      onAnchorChange(value: Measurable | null) {
+        anchor.value = value
       },
     })
 

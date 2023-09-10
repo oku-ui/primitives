@@ -1,7 +1,7 @@
 import { primitiveProps } from '@oku-ui/primitive'
-import { defineComponent, h, mergeProps, reactive } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 
 import { createProvideScope } from '@oku-ui/provide'
 import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
@@ -114,20 +114,21 @@ const toggleGroup = defineComponent({
   },
   emits: toggleGroupProps.emits,
   setup(props, { slots, attrs }) {
-    const { type, ...toggleGroupProps } = props
+    const { type, ...toggleGroupProps } = toRefs(props)
+    const _reactive = reactive(toggleGroupProps)
 
     const forwardedRef = useForwardRef()
     return () => {
-      if (type === 'single') {
-        const singleProps = reactive(toggleGroupProps)
+      if (type.value === 'single') {
+        const singleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
         return h(OkuToggleGroupImplSingle, {
           ...mergeProps(attrs, singleProps),
           ref: forwardedRef,
         }, slots)
       }
 
-      if (type === 'multiple') {
-        const multipleProps = reactive(toggleGroupProps)
+      if (type.value === 'multiple') {
+        const multipleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
         return h(OkuToggleGroupImplMultiple, {
           ...mergeProps(attrs, multipleProps),
           ref: forwardedRef,

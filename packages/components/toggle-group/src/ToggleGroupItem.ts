@@ -1,6 +1,6 @@
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, ref } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, ref } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { scopeToggleGroupProps } from './utils'
@@ -39,6 +39,9 @@ const toggleGroupItem = defineComponent({
   },
   emits: toggleGroupItemProps.emits,
   setup(props, { slots, attrs }) {
+    const _reactive = reactive(props)
+    const reactiveGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const inject = useToggleGroupInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
@@ -57,14 +60,14 @@ const toggleGroupItem = defineComponent({
         ref: _ref,
       }, {
         default: () => h(OkuToggleGroupItemImpl, {
-          ...mergeProps(attrs, props),
+          ...mergeProps(attrs, reactiveGroupProps),
           pressed: pressed.value,
           disabled: disable.value,
           ref: forwardedRef,
         }, slots),
       })
       : h(OkuToggleGroupItemImpl, {
-        ...mergeProps(attrs, props),
+        ...mergeProps(attrs, reactiveGroupProps),
         pressed: pressed.value,
         disabled: disable.value,
         ref: forwardedRef,
