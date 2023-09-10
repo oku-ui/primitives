@@ -1,5 +1,5 @@
-import { defineComponent, h, mergeProps } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperArrow, type PopperArrowElement, type PopperArrowNaviteElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
 import { usePopperScope } from './hoverCard'
 import { scopeHoverCardProps } from './utils'
@@ -33,6 +33,9 @@ const hoverCardArrow = defineComponent({
   setup(props, { attrs, slots }) {
     const { scopeOkuHoverCard, ...arrowProps } = props
 
+    const _reactive = reactive(arrowProps)
+    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
     const popperScope = usePopperScope(scopeOkuHoverCard)
 
@@ -40,7 +43,7 @@ const hoverCardArrow = defineComponent({
     // prevent issues in positioning the arrow due to the duplicate
     return () => h(OkuPopperArrow, {
       ...popperScope,
-      ...mergeProps(attrs, arrowProps),
+      ...mergeProps(attrs, reactiveArrowProps),
       ref: forwardedRef,
     }, slots)
   },

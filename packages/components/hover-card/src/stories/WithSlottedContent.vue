@@ -17,7 +17,7 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
     <OkuHoverCardPortal>
       <OkuHoverCardContent as-child :side-offset="5">
         <div class="contentClass">
-          <OkuHoverCardArrow class="arrowClass" width="20px" height="10px" :offset="10" />
+          <OkuHoverCardArrow class="arrowClass" :width="20" :height="10" :offset="10" />
           <CardContentPlaceholder />
         </div>
       </OkuHoverCardContent>

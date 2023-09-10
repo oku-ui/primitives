@@ -13,14 +13,18 @@ const open = ref(false)
 </script>
 
 <template>
+  <button @click="open = !open">
+    Toggle
+  </button>
+
   <div style="padding: 50px; display: flex; justify-content: center">
-    <OkuHoverCard :open="open" @on-open-change="open = !open">
+    <OkuHoverCard :open="open" @open-change="open = !open">
       <OkuHoverCardTrigger href="/" class="triggerClass">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
         <OkuHoverCardContent class="contentClass">
-          <OkuHoverCardArrow class="arrowClass" width="20px" height="10px" />
+          <OkuHoverCardArrow class="arrowClass" :width="20" :height="10" />
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>

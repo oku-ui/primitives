@@ -107,7 +107,3 @@ import {
     </div>
   </div>
 </template>
-
-<style lang="postcss">
-@import './hover.css'
-</style>

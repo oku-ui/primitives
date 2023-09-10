@@ -24,7 +24,3 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
     </OkuHoverCard>
   </div>
 </template>
-
-<style lang="postcss">
-@import './hover.css'
-</style>

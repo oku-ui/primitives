@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuHoverCardContentImpl, hoverCardContentImplProps } from './hoverCardContentImpl'
@@ -57,19 +57,23 @@ const hoverCardContent = defineComponent({
   },
   emits: hoverCardContentProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { forceMount: _force, ...contentProps } = props
-    const { forceMount } = toRefs(props)
+    const { forceMount: forceMountProps, ...contentProps } = toRefs(props)
+    const _reactive = reactive(contentProps)
+    const reactiveTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const portalInject = usePortalInject(CONTENT_NAME, props.scopeOkuHoverCard)
-    const forceMountProps = computed(() => forceMount.value || portalInject.forceMount?.value)
+    const forceMount = computed(() => forceMountProps.value || portalInject.forceMount?.value)
+
     const forwardedRef = useForwardRef()
+
     const inject = useHoverCardInject(CONTENT_NAME, props.scopeOkuHoverCard)
 
     return () => h(OkuPresence, {
-      present: computed(() => forceMountProps.value || inject.open.value).value,
+      present: computed(() => forceMount.value || inject.open.value).value,
     }, {
       default: () => h(OkuHoverCardContentImpl, {
         'data-state': inject.open.value ? 'open' : 'closed',
-        ...mergeProps(attrs, contentProps),
+        ...mergeProps(attrs, reactiveTriggerProps),
         'onPointerenter': composeEventHandlers<HoverCardContentEmits['pointerenter'][0]>((el) => {
           emit('pointerenter', el)
         }, excludeTouch(inject.onOpen)),

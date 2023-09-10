@@ -34,8 +34,8 @@ import {
             >
               <OkuHoverCardArrow
                 class="arrowClass"
-                width="20px"
-                height="10px"
+                :width="20"
+                :height="10"
                 :offset="20"
                 :style="{ fill: 'green' }"
               />
@@ -53,8 +53,8 @@ import {
                   >
                     <OkuHoverCardArrow
                       class="arrowClass"
-                      width="20px"
-                      height="10px"
+                      :width="20"
+                      :height="10"
                       :offset="20"
                       :style="{ fill: 'purple' }"
                     />
@@ -68,8 +68,8 @@ import {
 
         <OkuHoverCardArrow
           class="arrowClass"
-          width="20px"
-          height="10px"
+          :width="20"
+          :height="10"
           :offset="20"
           :style="{ fill: 'crimson' }"
         />

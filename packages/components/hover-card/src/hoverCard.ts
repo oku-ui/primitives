@@ -51,7 +51,7 @@ export const hoverCardProps = {
     },
     defaultOpen: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: undefined,
     },
     openDelay: {
       type: Number as PropType<number | undefined>,
@@ -80,13 +80,14 @@ const hoverCard = defineComponent({
   },
   setup(props, { slots, emit }) {
     const {
+      scopeOkuHoverCard,
       open: openProp,
       defaultOpen,
       openDelay: openDelayProp,
       closeDelay: closeDelayProp,
     } = toRefs(props)
 
-    const popperScope = usePopperScope(props.scopeOkuHoverCard)
+    const popperScope = usePopperScope(scopeOkuHoverCard.value)
     const openTimerRef = ref(0)
     const closeTimerRef = ref(0)
     const hasSelectionRef = ref(false)
@@ -102,8 +103,9 @@ const hoverCard = defineComponent({
     const { state, updateValue } = useControllable({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: () => {
-        emit('openChange')
+      onChange: (value) => {
+        emit('openChange', value)
+        modelValue.value = value
       },
       initialValue: false,
     })
@@ -134,7 +136,7 @@ const hoverCard = defineComponent({
     })
 
     hoverCardProvide({
-      scope: props.scopeOkuHoverCard,
+      scope: scopeOkuHoverCard.value,
       open: computed(() => state.value || false),
       onOpenChange: open => updateValue(open),
       onOpen: () => handleOpen(),

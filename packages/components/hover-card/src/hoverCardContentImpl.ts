@@ -1,6 +1,6 @@
-import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { OkuPopperContent, popperContentProps } from '@oku-ui/popper'
 import type { PopperContentProps as OkuPopperContentProps, PopperContentElement, PopperContentEmits, PopperContentNaviteElement } from '@oku-ui/popper'
@@ -9,10 +9,11 @@ import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getTabbableNodes, scopeHoverCardProps } from './utils'
 import { useHoverCardInject, usePopperScope } from './hoverCard'
+import { CONTENT_NAME } from './hoverCardContent'
 
 let originalBodyUserSelect: string
 
-const CONTENT_NAME = 'OkuHoverCardContentImpl'
+const CONTENT_NAME_IMPL = 'OkuHoverCardContentImpl'
 
 export type HoverCardContentImplNaviteElement = PopperContentNaviteElement
 export type HoverCardContentImplElement = PopperContentElement
@@ -63,7 +64,7 @@ export const hoverCardContentImplProps = {
 }
 
 const hoverCardContentImpl = defineComponent({
-  name: CONTENT_NAME,
+  name: CONTENT_NAME_IMPL,
   components: {
     OkuDismissableLayer,
     OkuPopperContent,
@@ -79,17 +80,19 @@ const hoverCardContentImpl = defineComponent({
   emits: hoverCardContentImplProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
-      asChild: _asChild,
-      scopeOkuHoverCard: _scope,
-      onEscapeKeyDown: _onEscapeKeyDown,
-      onPointerdownOutside: _onPointerDownOutside,
-      onFocusoutSide: _onFocusOutside,
-      onInteractOutside: _onInteractOutside,
+      scopeOkuHoverCard,
+      // onEscapeKeyDown: _onEscapeKeyDown,
+      // onPointerdownOutside: _onPointerDownOutside,
+      // onFocusoutSide: _onFocusOutside,
+      // onInteractOutside: _onInteractOutside,
       ...contentProps
-    } = props
+    } = toRefs(props)
 
-    const inject = useHoverCardInject(CONTENT_NAME, props.scopeOkuHoverCard)
-    const popperScope = usePopperScope(props.scopeOkuHoverCard)
+    const _reactive = reactive(contentProps)
+    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useHoverCardInject(CONTENT_NAME, scopeOkuHoverCard.value)
+    const popperScope = usePopperScope(scopeOkuHoverCard.value)
 
     const contentRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -167,8 +170,7 @@ const hoverCardContentImpl = defineComponent({
     }, {
       default: () => h(OkuPopperContent, {
         ...popperScope,
-        ...mergeProps(attrs, contentProps),
-        asChild: props.asChild,
+        ...mergeProps(attrs, reactiveContentProps),
         onPointerdown: composeEventHandlers<HoverCardContentImplEmits['pointerdown'][0]>((el) => {
           emit('pointerdown', el)
         }, (event) => {

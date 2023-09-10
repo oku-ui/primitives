@@ -7,10 +7,6 @@ import { OkuPresence } from '@oku-ui/presence'
 import { createHoverCardProvide, scopeHoverCardProps } from './utils'
 import { useHoverCardInject } from './hoverCard'
 
-/* -------------------------------------------------------------------------------------------------
- * HoverCardPortal
- * ----------------------------------------------------------------------------------------------- */
-
 const PORTAL_NAME = 'OkuHoverCardPortal'
 
 export type HoverCardPortalElement = PortalElement
@@ -68,7 +64,6 @@ const hoverCardPortal = defineComponent({
       scope: scopeOkuHoverCard.value,
       forceMount,
     })
-
     return () => h(OkuPresence, {
       present: computed(() => forceMount.value || inject.open.value).value,
     }, {

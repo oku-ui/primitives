@@ -1,16 +1,12 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperAnchor } from '@oku-ui/popper'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { excludeTouch, scopeHoverCardProps } from './utils'
 
 import { useHoverCardInject, usePopperScope } from './hoverCard'
-
-/* -------------------------------------------------------------------------------------------------
- * HoverCardTrigger
- * ----------------------------------------------------------------------------------------------- */
 
 const HOVERCARD_TRIGGER_NAME = 'OkuHoverCardTrigger'
 
@@ -48,8 +44,13 @@ const hoverCardTrigger = defineComponent({
   },
   emits: hoverCardTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const inject = useHoverCardInject(HOVERCARD_TRIGGER_NAME, props.scopeOkuHoverCard)
-    const popperScope = usePopperScope(props.scopeOkuHoverCard)
+    const { scopeOkuHoverCard, ...triggerProps } = toRefs(props)
+
+    const _reactive = reactive(triggerProps)
+    const reactiveTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useHoverCardInject(HOVERCARD_TRIGGER_NAME, scopeOkuHoverCard.value)
+    const popperScope = usePopperScope(scopeOkuHoverCard.value)
 
     const forwardedRef = useForwardRef()
 
@@ -59,8 +60,7 @@ const hoverCardTrigger = defineComponent({
     }, {
       default: () => h(Primitive.a, {
         'data-state': inject.open.value ? 'open' : 'closed',
-        ...attrs,
-        'asChild': props.asChild,
+        ...mergeProps(attrs, reactiveTriggerProps),
         'ref': forwardedRef,
         'onPointerenter': composeEventHandlers<PointerEvent>((el) => {
           emit('pointerenter', el)

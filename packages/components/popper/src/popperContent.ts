@@ -129,6 +129,7 @@ const PopperContent = defineComponent({
   emits: popperContentProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
+      scopeOkuPopper,
       side,
       sideOffset,
       align,
@@ -145,7 +146,7 @@ const PopperContent = defineComponent({
     const _reactive = reactive(contentProps)
     const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = usePopperInject(CONTENT_NAME, props.scopeOkuPopper)
+    const inject = usePopperInject(CONTENT_NAME, scopeOkuPopper.value)
 
     const content = ref<HTMLDivElement | null>(null)
     const composedRefs = useComposedRefs(useForwardRef(), content)
@@ -253,7 +254,7 @@ const PopperContent = defineComponent({
     })
 
     popperContentProvider({
-      scope: props.scopeOkuPopper,
+      scope: scopeOkuPopper.value,
       placedSide,
       onArrowChange(anchor: HTMLElement | null) {
         arrow.value = anchor
