@@ -1,8 +1,8 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState, scopeRadioProps } from './utils'
@@ -40,8 +40,8 @@ export type RadioEmits = {
 export const radioProps = {
   props: {
     checked: {
-      type: Boolean as PropType<boolean>,
-      default: false,
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
     },
     required: {
       type: Boolean as PropType<boolean | undefined>,
@@ -68,7 +68,7 @@ export const radioProps = {
   },
 }
 
-const Radio = defineComponent({
+const radio = defineComponent({
   name: RADIO_NAME,
   inheritAttrs: false,
   props: {
@@ -78,14 +78,16 @@ const Radio = defineComponent({
   emits: radioProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
-      checked,
+      scopeOkuRadio,
+      name,
+      checked: checkedProp,
       required,
       disabled,
       value,
-      name,
-      scopeOkuRadio,
-      asChild,
+      ...groupProps
     } = toRefs(props)
+    const checked = computed(() => checkedProp.value || false)
+    const reactiveGroupProps = reactiveOmit(groupProps, (key, _value) => key === undefined)
 
     const hasConsumerStoppedPropagationRef = ref(false)
     const buttonRef = ref<HTMLButtonElement | null>(null)
@@ -109,8 +111,7 @@ const Radio = defineComponent({
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
-        ...attrs,
-        'asChild': asChild.value,
+        ...mergeProps(attrs, reactiveGroupProps),
         'ref': composedRefs,
         'onClick': composeEventHandlers((e: MouseEvent) => {
           emit('click', e)
@@ -151,7 +152,7 @@ const Radio = defineComponent({
   },
 })
 
-export const OkuRadio = Radio as typeof Radio &
+export const OkuRadio = radio as typeof radio &
 (new () => {
   $props: RadioIntrinsicNaviteElement
 })

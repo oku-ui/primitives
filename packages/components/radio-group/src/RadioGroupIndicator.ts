@@ -1,5 +1,5 @@
-import { defineComponent, h } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { RadioElement } from './Radio'
 import { useRadioScope } from './Radio'
 import { OkuRadioIndicator } from './RadioIndicator'
@@ -12,7 +12,7 @@ const INDICATOR_NAME = 'OkuRadioGroupIndicator'
 export type RadioGroupIndicatorNaviteElement = RadioIndicatorNaviteElement
 export type RadioGroupIndicatorElement = RadioElement
 
-export interface RadioGroupIndicatorProps extends RadioIndicatorProps {}
+export interface RadioGroupIndicatorProps extends RadioIndicatorProps { }
 
 export const radioGroupIndicatorProps = {
   props: {
@@ -28,14 +28,15 @@ const RadioGroupIndicator = defineComponent({
     ...scopeRadioGroupProps,
   },
   setup(props, { attrs }) {
-    const { scopeOkuRadioGroup } = props
-    const radioScope = useRadioScope(scopeOkuRadioGroup)
+    const { scopeOkuRadioGroup, ...indicatorProps } = toRefs(props)
+    const reactiveIndicatorProps = reactiveOmit(indicatorProps, (key, _value) => key === undefined)
+    const radioScope = useRadioScope(scopeOkuRadioGroup.value)
     const forwardedRef = useForwardRef()
 
     return () => h(OkuRadioIndicator,
       {
-        ...attrs,
         ...radioScope,
+        ...mergeProps(attrs, reactiveIndicatorProps),
         ref: forwardedRef,
       },
     )

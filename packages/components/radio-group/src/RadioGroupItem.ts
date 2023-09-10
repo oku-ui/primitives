@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -44,22 +44,23 @@ const RadioGroupItem = defineComponent({
   emits: radioGroupItemProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
+      scopeOkuRadioGroup,
       disabled,
-      required,
-      value,
+      ...itemProps
     } = toRefs(props)
+    const reactiveItemProps = reactiveOmit(itemProps, (key, _value) => key === undefined)
 
-    const inject = useRadioGroupInject(ITEM_NAME, props.scopeOkuRadioGroup)
+    const inject = useRadioGroupInject(ITEM_NAME, scopeOkuRadioGroup.value)
 
-    const isDisabled = computed(() => disabled.value || inject.disabled.value)
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuRadioGroup)
-    const radioScope = useRadioScope(props.scopeOkuRadioGroup)
+    const isDisabled = computed(() => inject.disabled.value || disabled.value)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuRadioGroup.value)
+    const radioScope = useRadioScope(scopeOkuRadioGroup.value)
 
     const rootRef = ref<RadioElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(rootRef, forwardedRef)
 
-    const checked = computed(() => inject.value?.value === value.value)
+    const checked = computed(() => inject.value?.value === reactiveItemProps.value)
     const isArrowKeyPressedRef = ref(false)
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -88,13 +89,10 @@ const RadioGroupItem = defineComponent({
     }, {
       default: () => h(OkuRadio, {
         disabled: isDisabled.value,
-        required: inject.required.value || required.value,
+        required: inject.required.value || reactiveItemProps.required?.value,
         checked: checked.value,
         ...radioScope,
-        ...mergeProps(attrs),
-        asChild: props.asChild,
-        value: value.value,
-        name: inject.name?.value,
+        ...mergeProps(attrs, reactiveItemProps),
         ref: composedRefs,
         onCheck: () => {
           return inject.onValueChange(props.value)

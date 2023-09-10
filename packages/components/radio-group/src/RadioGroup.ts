@@ -1,10 +1,10 @@
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import type { ComputedRef, PropType, Ref } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, useModel } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
-import { useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 
@@ -30,7 +30,7 @@ export interface RadioGroupProvideValue {
   name?: Ref<string | undefined>
   required: Ref<boolean>
   disabled: Ref<boolean>
-  value?: ComputedRef<string | undefined>
+  value?: Ref<string | undefined>
   onValueChange: (value: string) => void
 }
 
@@ -101,7 +101,7 @@ export const radioGroupProps = {
   },
 }
 
-const RadioGroup = defineComponent({
+const radioGroup = defineComponent({
   name: RADIO_GROUP_NAME,
   inheritAttrs: false,
   props: {
@@ -111,6 +111,7 @@ const RadioGroup = defineComponent({
   emits: radioGroupProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
+      scopeOkuRadioGroup,
       name,
       defaultValue,
       value: valueProp,
@@ -119,25 +120,29 @@ const RadioGroup = defineComponent({
       orientation,
       dir,
       loop,
+      ...groupProps
     } = toRefs(props)
+    const reactiveGroupProps = reactiveOmit(groupProps, (key, _value) => key === undefined)
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuRadioGroup)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuRadioGroup.value)
     const direction = useDirection(dir.value)
 
     const forwardedRef = useForwardRef()
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : valueProp.value !== undefined ? valueProp.value : undefined,
-      set: () => {
-      },
+    const proxyValue = computed(() => {
+      if (modelValue.value !== undefined)
+        return modelValue.value
+      if (valueProp.value !== undefined)
+        return valueProp.value
+      return undefined
     })
 
     const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+      prop: computed(() => proxyValue.value),
       defaultProp: computed(() => defaultValue.value),
-      onChange: (result: any) => {
-        modelValue.value = result
+      onChange: (result) => {
         emit('valueChange', result)
+        modelValue.value = result
       },
     })
 
@@ -164,10 +169,9 @@ const RadioGroup = defineComponent({
           'role': 'radiogroup',
           'aria-required': required.value,
           'aria-oriented': orientation.value,
-          'data-disabled': disabled.value,
+          'data-disabled': disabled.value ? '' : undefined,
           'dir': direction.value,
-          ...attrs,
-          'asChild': props.asChild,
+          ...mergeProps(attrs, reactiveGroupProps),
           'ref': forwardedRef,
         }, {
           default: () => slots.default?.(),
@@ -176,7 +180,7 @@ const RadioGroup = defineComponent({
   },
 })
 
-export const OkuRadioGroup = RadioGroup as typeof RadioGroup &
+export const OkuRadioGroup = radioGroup as typeof radioGroup &
 (new () => {
   $props: RadioGroupNaviteElement
 })
