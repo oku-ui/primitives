@@ -1,11 +1,11 @@
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
-import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
 import { scopeTabsProps } from './utils'
 
@@ -117,12 +117,17 @@ const tabs = defineComponent({
   emits: tabsProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
+      scopeOkuTabs,
+      modelValue: _modelValue,
       value: valueProp,
       defaultValue,
       orientation,
       dir,
       activationMode,
+      ...tabsProps
     } = toRefs(props)
+    const _reactive = reactive(tabsProps)
+    const reactiveTabsProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const direction = useDirection(dir.value)
 
@@ -146,7 +151,7 @@ const tabs = defineComponent({
       value: state,
       activationMode,
       baseId: computed(() => useId()),
-      scope: props.scopeOkuTabs,
+      scope: scopeOkuTabs.value,
     })
 
     return () =>
@@ -154,10 +159,9 @@ const tabs = defineComponent({
         Primitive.div,
         {
           'dir': direction.value,
-          'data-orientation': props.orientation,
+          'data-orientation': orientation.value,
+          ...mergeProps(attrs, reactiveTabsProps),
           'ref': forwardedRef,
-          ...attrs,
-          'asChild': props.asChild,
         }, slots,
       )
   },
