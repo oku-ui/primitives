@@ -15,6 +15,7 @@ overrides:
   '@oku-ui/dismissable-layer': workspace:^
   '@oku-ui/focus-guards': workspace:^
   '@oku-ui/focus-scope': workspace:^
+  '@oku-ui/hover-card': workspace:^
   '@oku-ui/label': workspace:^
   '@oku-ui/popover': workspace:^
   '@oku-ui/popper': workspace:^
@@ -82,6 +83,9 @@ importers:
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:packages/components/focus-scope
+      '@oku-ui/hover-card':
+        specifier: workspace:^
+        version: link:packages/components/hover-card
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
@@ -450,6 +454,49 @@ importers:
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:../../core/use-composable
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/hover-card:
+    dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.4)
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../dismissable-layer
+      '@oku-ui/popper':
+        specifier: workspace:^
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../visually-hidden
       vue:
         specifier: 3.3.4
         version: 3.3.4
@@ -9674,7 +9721,6 @@ packages:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
-    dev: true
 
   /glob@7.1.6:
     resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
@@ -9696,6 +9742,7 @@ packages:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
+    dev: true
 
   /glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
@@ -13381,7 +13428,7 @@ packages:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
     dependencies:
-      glob: 7.2.3
+      glob: 7.1.4
 
   /rimraf@5.0.1:
     resolution: {integrity: sha512-OfFZdwtd3lZ+XZzYP/6gTACubwFcHdLRqS9UX3UwpU2dnGQYkPFISRwvM3w9IiB2w7bW5qGo/uAwE4SmXXSKvg==}

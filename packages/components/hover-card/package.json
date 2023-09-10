@@ -1,0 +1,58 @@
+{
+  "name": "@oku-ui/hover-card",
+  "type": "module",
+  "version": "0.2.3",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/components/hover-card"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@floating-ui/vue": "^1.0.2",
+    "@oku-ui/dismissable-layer": "0.4.0-alpha.3",
+    "@oku-ui/popper": "latest",
+    "@oku-ui/portal": "latest",
+    "@oku-ui/presence": "0.4.0-alpha.3",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/slot": "0.4.0-alpha.3",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest",
+    "@oku-ui/visually-hidden": "0.4.0-alpha.3"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
