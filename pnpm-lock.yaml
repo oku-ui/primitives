@@ -653,6 +653,9 @@ importers:
       '@oku-ui/collapsible':
         specifier: workspace:^
         version: link:../collapsible
+      '@oku-ui/hover-card':
+        specifier: workspace:^
+        version: link:../hover-card
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../label

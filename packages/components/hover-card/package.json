@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/hover-card",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.4.0-alpha.12",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -38,16 +38,16 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.2",
-    "@oku-ui/dismissable-layer": "0.4.0-alpha.3",
+    "@oku-ui/dismissable-layer": "latest",
     "@oku-ui/popper": "latest",
     "@oku-ui/portal": "latest",
-    "@oku-ui/presence": "0.4.0-alpha.3",
+    "@oku-ui/presence": "latest",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
-    "@oku-ui/slot": "0.4.0-alpha.3",
+    "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
-    "@oku-ui/visually-hidden": "0.4.0-alpha.3"
+    "@oku-ui/visually-hidden": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
