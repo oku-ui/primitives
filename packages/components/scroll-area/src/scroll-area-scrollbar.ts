@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
@@ -25,8 +26,7 @@ export interface ScrollAreaScrollbarProps extends ScrollAreaScrollbarVisibleProp
 const scrollAreaScrollbarProps = {
   props: {
     forceMount: {
-      type: Boolean,
-      required: true,
+      type: Boolean as PropType<true | undefined>,
     },
   },
   emits: {},
@@ -53,8 +53,9 @@ const scrollAreaScrollbar = defineComponent({
     const _reactive = reactive(scrollAreaScrollbarProps)
     const reactiveScrollAreaScrollbarProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const forwardedRef = useForwardRef()
+
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const { onScrollbarXEnabledChange, onScrollbarYEnabledChange } = inject
     const isHorizontal = orientation.value === 'horizontal'
 

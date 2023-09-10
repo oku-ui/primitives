@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
@@ -27,9 +28,7 @@ export interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
 const scrollAreaThumbProps = {
   props: {
     forceMount: {
-      type: Boolean,
-      required: false,
-      default: true,
+      type: Boolean as PropType<true | undefined>,
     },
   },
   emits: {},

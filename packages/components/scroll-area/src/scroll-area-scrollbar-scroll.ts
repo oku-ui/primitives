@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
@@ -20,15 +21,23 @@ export interface ScrollAreaScrollbarScrollProps extends ScrollAreaScrollbarVisib
   forceMount?: true
 }
 
+export type ScrollAreaScrollbarScrollEmits = {
+  pointerenter: [event: PointerEvent]
+  pointerleave: [event: PointerEvent]
+}
+
 const scrollAreaScrollbarScrollProps = {
   props: {
     forceMount: {
-      type: Boolean,
-      required: false,
-      default: true,
+      type: Boolean as PropType<true | undefined>,
     },
   },
-  emits: {},
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerenter: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerleave: (event: PointerEvent) => true,
+  },
 }
 
 const scrollAreaScrollbarScroll = defineComponent({
@@ -113,12 +122,12 @@ const scrollAreaScrollbarScroll = defineComponent({
             ['data-state' as string]: state.value === 'hidden' ? 'hidden' : 'visible',
             ...mergeProps(attrs, reactiveScrollAreaScrollbarScrollProps),
             ref: forwardedRef,
-            onPointerEnter: composeEventHandlers(() => {
-              emit('pointerEnter', send('POINTER_ENTER'))
-            }),
-            onPointerLeave: composeEventHandlers(() => {
-              emit('pointerLeave', send('POINTER_LEAVE'))
-            }),
+            onPointerEnter: composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
+              emit('pointerenter', event)
+            }, () => send('POINTER_ENTER')),
+            onPointerLeave: composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
+              emit('pointerleave', event)
+            }, () => send('POINTER_LEAVE')),
           }, slots,
         ),
       },

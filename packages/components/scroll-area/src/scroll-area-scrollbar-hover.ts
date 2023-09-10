@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
@@ -20,9 +21,7 @@ export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoPr
 const scrollAreaScrollbarHoverProps = {
   props: {
     forceMount: {
-      type: Boolean,
-      required: false,
-      default: true,
+      type: Boolean as PropType<true | undefined>,
     },
   },
   emits: {},

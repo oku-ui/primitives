@@ -127,7 +127,7 @@ const scrollArea = defineComponent({
     const scrollbarXEnabled = ref<boolean>(false)
     const scrollbarYEnabled = ref<boolean>(false)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(forwardedRef, scrollArea)
+    const composedRefs = useComposedRefs(forwardedRef, node => scrollArea.value = (node as ScrollAreaElement))
     const direction = useDirection(dir.value)
 
     scrollAreaProvider({

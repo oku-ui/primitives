@@ -54,9 +54,13 @@ const scrollAreaScrollbarImplProps = {
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    sizesChange: (sizes: Sizes) => true,
+    thumbChange: (thumb: ScrollAreaThumbElement | null) => true,
+    thumbPointerUp: () => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    wheelScroll: (scrollPos: number) => true,
+    thumbPointerDown: (pointerPos: { x: number; y: number }) => true,
+    thumbPositionChange: () => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    wheelScroll: (event: WheelEvent, maxScrollPos: number) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     dragScroll: (pointerPos: { x: number; y: number }) => true,
     resize: () => true,
@@ -97,18 +101,15 @@ const scrollAreaScrollbarImpl = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const scrollbarInject = useScrollbarInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
-
     const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const scrollbar = ref<ScrollAreaScrollbarElement | null>(null)
-
     const composeRefs = useComposedRefs(forwardedRef, node => scrollbar.value = (node as ScrollAreaScrollbarElement))
     const rectRef = ref<ClientRect | null>(null)
     const prevWebkitUserSelectRef = ref<string>('')
-    const viewport = inject.viewport.value
+    // const viewport = inject.viewport.value
     const maxScrollPos = sizes.value?.content - sizes.value?.viewport
-    const handleWheelScroll = (maxScrollPos: number) => emit('wheelScroll', maxScrollPos)
-    const handleThumbPositionChange = () => scrollbarInject.onThumbPositionChange()
+    const handleWheelScroll = (event: WheelEvent, maxScrollPos: number) => emit('wheelScroll', event, maxScrollPos)
+    const handleThumbPositionChange = () => emit('thumbPositionChange')
     const handleResize = useDebounceCallback(() => emit('resize'), 10)
 
     function handleDragScroll(event: PointerEvent) {
@@ -128,7 +129,7 @@ const scrollAreaScrollbarImpl = defineComponent({
         const element = event.target as HTMLElement
         const isScrollbarWheel = scrollbar.value?.contains(element)
         if (isScrollbarWheel)
-          handleWheelScroll(maxScrollPos)
+          handleWheelScroll(event, maxScrollPos)
       }
       document.addEventListener('wheel', handleWheel, { passive: false })
 
@@ -150,9 +151,9 @@ const scrollAreaScrollbarImpl = defineComponent({
       scrollbar,
       hasThumb,
       onThumbChange: (thumb: ScrollAreaThumbElement) => thumb,
-      onThumbPointerUp: () => scrollbarInject.onThumbPointerUp,
+      onThumbPointerUp: () => emit('thumbPointerUp'),
       onThumbPositionChange: () => handleThumbPositionChange(),
-      onThumbPointerDown: (pointerPos: { x: number; y: number }) => scrollbarInject.onThumbPointerDown(pointerPos),
+      onThumbPointerDown: (pointerPos: { x: number; y: number }) => emit('thumbPointerDown', pointerPos),
     })
 
     return () => h(Primitive.div,

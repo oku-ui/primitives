@@ -1,7 +1,8 @@
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
-import { OkuPresence } from '@Oku-ui/presence'
 import { primitiveProps } from '@Oku-ui/primitive'
+import { OkuPresence } from '@Oku-ui/presence'
 import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
@@ -21,9 +22,7 @@ export interface ScrollAreaScrollbarAutoProps extends ScrollAreaScrollbarVisible
 const scrollAreaScrollbarAutoProps = {
   props: {
     forceMount: {
-      type: Boolean,
-      required: false,
-      default: true,
+      type: Boolean as PropType<true | undefined>,
     },
   },
   emits: {},

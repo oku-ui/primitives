@@ -85,7 +85,7 @@ const scrollAreaViewport = defineComponent({
              */
             default: () => h('div',
               {
-                ref: composedRefs,
+                ref: el => inject.onContentChange(el as HTMLDivElement),
                 style: { minWidth: '100%', display: 'table' },
               }, slots,
             ),
