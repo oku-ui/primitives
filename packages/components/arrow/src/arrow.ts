@@ -4,10 +4,14 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 
-export type ArrowNaviteElement = OkuElement<'svg'>
+export type ArrowNaviteElement = Omit<OkuElement<'svg'>, 'width' | 'height'> & {
+  width?: number
+  height?: number
+}
+
 export type ArrowElement = Omit<SVGSVGElement, 'width' | 'height'> & {
-  width: number
-  height: number
+  width?: number
+  height?: number
 }
 
 export interface ArrowProps extends PrimitiveProps {

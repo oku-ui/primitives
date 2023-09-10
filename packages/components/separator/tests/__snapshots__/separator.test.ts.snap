@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OkuSeparator > renders correctly 1`] = `
+<div
+  data-orientation="horizontal"
+  role="separator"
+>
+  <!---->
+</div>
+`;

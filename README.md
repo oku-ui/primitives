@@ -18,7 +18,7 @@ Website: [Oku Website](https://oku-ui.com)
 
 Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/master/CONTRIBUTING.md)
 
-# TODO Components - 17/28
+# TODO Components - 18/28
 
 Enter the component you want most in the components, leave the emojis and follow.
 
@@ -36,7 +36,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Dialog](https://github.com/oku-ui/primitives/issues/9) | A modal dialog that interrupts the user's workflow to get a response |  🚧 In Progress  | -  |
 | [Dropdown Menu](https://github.com/oku-ui/primitives/issues/10) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
 | [Form](https://github.com/oku-ui/primitives/issues/11) | A group of form controls | Not Started | -  |
-| [Hover Card](https://github.com/oku-ui/primitives/issues/12) | A card that appears when a user hovers over an element |  🚧 In Progress  | -  |
+| [Hover Card](https://oku-ui.com/primitives/components/hover-card) | <span><a href="https://www.npmjs.com/package/@oku-ui/hover-card "><img src="https://img.shields.io/npm/v/@oku-ui/hover-card?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/hover-card"> <img src="https://img.shields.io/npm/dm/@oku-ui/hover-card?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/hover-card"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
 | [Label](https://oku-ui.com/primitives/components/label) | <span><a href="https://www.npmjs.com/package/@oku-ui/label "><img src="https://img.shields.io/npm/v/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/label"> <img src="https://img.shields.io/npm/dm/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/label"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
 | [Menubar](https://github.com/oku-ui/primitives/issues/13) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
 | [Navigation Menu](https://github.com/oku-ui/primitives/issues/14) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |

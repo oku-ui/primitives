@@ -1,8 +1,8 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import { Fragment, Teleport, computed, defineComponent, h, nextTick, ref, toRefs, watchEffect } from 'vue'
-import { isClient, useCallbackRef, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { Fragment, Teleport, computed, defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs, watchEffect } from 'vue'
+import { isClient, reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -123,13 +123,14 @@ const toastImpl = defineComponent({
   },
   emits: toastImplProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { ...toastImplAttrs } = attrs as ToastImplNaviteElement
-
     const {
       type,
       duration: durationProp,
       open,
+      ...toastProps
     } = toRefs(props)
+    const _reactive = reactive(toastProps)
+    const reactiveReactiveProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useToastProviderInject(TOAST_NAME, props.scopeOkuToast)
 
@@ -146,21 +147,21 @@ const toastImpl = defineComponent({
 
     const { onToastAdd, onToastRemove } = inject
 
-    const handleClose = useCallbackRef(() => {
+    const handleClose = () => {
       // focus viewport if focus is within toast to read the remaining toast
       // count to SR users and ensure focus isn't lost
       const isFocusInToast = node.value?.contains(document.activeElement)
       if (isFocusInToast)
         inject.viewport?.value?.focus()
       emit('close')
-    })
+    }
 
     const startTimer = (duration: number) => {
       if (!duration || duration === Number.POSITIVE_INFINITY)
         return
       window.clearTimeout(closeTimerRef.value)
       closeTimerStartTimeRef.value = new Date().getTime()
-      closeTimerRef.value = window.setTimeout(handleClose.value, duration)
+      closeTimerRef.value = window.setTimeout(handleClose, duration)
     }
 
     watchEffect((onInvalidate) => {
@@ -216,7 +217,7 @@ const toastImpl = defineComponent({
 
     toastInteractiveProvider({
       scope: props.scopeOkuToast,
-      onClose: () => handleClose.value(),
+      onClose: () => handleClose(),
     })
 
     return () => {
@@ -253,7 +254,7 @@ const toastImpl = defineComponent({
                       emit('escapeKeyDown', event)
                     }, () => {
                       if (!inject.isFocusedToastEscapeKeyDownRef.value)
-                        handleClose.value()
+                        handleClose()
                       inject.isFocusedToastEscapeKeyDownRef.value = false
                     }),
                   },
@@ -267,9 +268,13 @@ const toastImpl = defineComponent({
                         'tabIndex': 0,
                         'data-state': open.value ? 'open' : 'closed',
                         'data-swipe-direction': inject.swipeDirection.value,
-                        ...toastImplAttrs,
+                        ...mergeProps(attrs, reactiveReactiveProps),
                         'ref': composedRefs,
-                        'style': { userSelect: 'none', touchAction: 'none' },
+                        'style': {
+                          userSelect: 'none',
+                          touchAction: 'none',
+                          ...attrs.style as any,
+                        },
                         'onKeydown': composeEventHandlers<ToastImplEmits['keydown'][0]>((event) => {
                           emit('keydown', event)
                         }, (event) => {
@@ -278,7 +283,7 @@ const toastImpl = defineComponent({
                           emit('escapeKeyDown', event)
                           if (!event.defaultPrevented) {
                             inject.isFocusedToastEscapeKeyDownRef.value = true
-                            handleClose.value()
+                            handleClose()
                           }
                         }),
                         'onPointerdown': composeEventHandlers<ToastImplEmits['pointerdown'][0]>((event) => {

@@ -1,13 +1,14 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel } from 'vue'
 import type { AriaAttributes } from '@oku-ui/primitive'
 import { propsOmit } from '@oku-ui/primitive'
-import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { clamp } from '@oku-ui/utils'
 import { ARROW_KEYS, CollectionProvider, CollectionSlot, type Direction, PAGE_KEYS, SLIDER_NAME, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, scopeSliderProps, sliderProvider } from './utils'
 import type { SliderThumbElement } from './sliderThumb'
-import { OkuSliderHorizontal, type SliderHorizontalElement, type SliderHorizontalNaviteElement, type SliderOrientationPrivateProps, sliderHorizontalProps } from './sliderHorizontal'
-import type { SliderVerticalElement, SliderVerticalNaviteElement, SliderVerticalProps } from './sliderVertical'
+import { OkuSliderHorizontal, sliderHorizontalProps } from './sliderHorizontal'
+import type { SliderHorizontalElement, SliderHorizontalEmits, SliderHorizontalNaviteElement, SliderOrientationPrivateProps } from './sliderHorizontal'
+import type { SliderVerticalElement, SliderVerticalEmits, SliderVerticalNaviteElement, SliderVerticalProps } from './sliderVertical'
 import { OkuSliderVertical, sliderVerticalProps } from './sliderVertical'
 import { OkuBubbleInput } from './bubbleInput'
 
@@ -38,7 +39,7 @@ keyof SliderOrientationPrivateProps | 'defaultValue'
 export type SliderPropsEmits = {
   valueChange: (value: number[]) => true
   valueCommit: (value: number[]) => true
-}
+} & SliderHorizontalEmits & SliderVerticalEmits
 
 export const sliderProps = {
   props: {
@@ -123,6 +124,7 @@ const slider = defineComponent({
   emits: sliderProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
+      modelValue: _modelValue,
       orientation,
       defaultValue,
       step,
@@ -130,11 +132,13 @@ const slider = defineComponent({
       max,
       disabled,
       minStepsBetweenThumbs,
-      asChild,
       inverted,
       name,
       value,
+      ...sliderProps
     } = toRefs(props)
+    const _reactive = reactive(sliderProps)
+    const reactiveSliderProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const sliderRef = ref<HTMLSpanElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -163,7 +167,7 @@ const slider = defineComponent({
       onChange: (result: any) => {
         const thumbs = [...thumbRefs.value]
         thumbs[valueIndexToChangeRef.value]?.focus()
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('valueChange', result)
       },
       initialValue: [],
@@ -221,6 +225,8 @@ const slider = defineComponent({
     })
 
     return () => {
+      const SliderOrientation = isHorizontal ? OkuSliderHorizontal : OkuSliderVertical
+
       return [
         h(CollectionProvider,
           {
@@ -231,12 +237,11 @@ const slider = defineComponent({
               scope: props.scopeOkuSlider,
             },
             {
-              default: () => h(isHorizontal ? OkuSliderHorizontal : OkuSliderVertical, {
+              default: () => h(SliderOrientation, {
                 'aria-disabled': disabled.value,
                 'data-disabled': disabled.value ? '' : undefined,
-                ...attrs,
+                ...mergeProps(attrs, reactiveSliderProps),
                 'ref': composedRefs,
-                'asChild': asChild.value,
                 'min': min.value,
                 'max': max.value,
                 'inverted': inverted.value,
@@ -250,11 +255,6 @@ const slider = defineComponent({
 
                   else if (event)
                     handleSlideStart(event)
-                },
-                'onChange': (value: number[]) => {
-                  const thumbs = [...thumbRefs.value]
-                  thumbs[valueIndexToChangeRef.value]?.focus()
-                  emit('valueChange', value)
                 },
                 'onSlideMove': (event) => {
                   if (disabled.value)

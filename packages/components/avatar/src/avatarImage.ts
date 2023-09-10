@@ -3,7 +3,7 @@ import { defineComponent, h, toRef, watchEffect } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { useCallbackRef, useForwardRef } from '@oku-ui/use-composable'
+import { useForwardRef } from '@oku-ui/use-composable'
 import type { ImageLoadingStatus } from './utils'
 import { scopeAvatarProps, useImageLoadingStatus } from './utils'
 import { useAvatarInject } from './avatar'
@@ -50,14 +50,14 @@ const avatarImage = defineComponent({
 
     const imageLoadingStatus = useImageLoadingStatus(src)
 
-    const handleLoadingStatusChange = useCallbackRef((status: ImageLoadingStatus) => {
+    const handleLoadingStatusChange = (status: ImageLoadingStatus) => {
       emit('loadingStatusChange', status)
       inject.onImageLoadingStatusChange(status)
-    })
+    }
 
     watchEffect(() => {
       if (imageLoadingStatus.value !== 'idle')
-        handleLoadingStatusChange.value(imageLoadingStatus.value)
+        handleLoadingStatusChange(imageLoadingStatus.value)
     })
 
     const originalReturn = () => imageLoadingStatus.value === 'loaded'

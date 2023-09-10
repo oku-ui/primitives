@@ -1,5 +1,4 @@
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
-import { useCallbackRef } from '@oku-ui/use-composable'
 import { nextTick, watchEffect } from 'vue'
 import type { SwipeDirection } from './share'
 
@@ -64,13 +63,12 @@ function isDeltaInDirection(delta: { x: number; y: number },
 }
 
 function useNextFrame(callback = () => {}) {
-  const fn = useCallbackRef(callback)
   watchEffect(async (onInvalidate) => {
     await nextTick()
 
     let raf1 = 0
     let raf2 = 0
-    raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(fn.value)))
+    raf1 = window.requestAnimationFrame(() => (raf2 = window.requestAnimationFrame(callback)))
 
     onInvalidate(() => {
       window.cancelAnimationFrame(raf1)

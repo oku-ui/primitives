@@ -1,9 +1,9 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
 import { getState, scopeCollapsibleProps } from './utils'
 
@@ -36,8 +36,11 @@ const collapsibleTrigger = defineComponent({
   },
   emits: collapsibleTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { ...triggerAttrs } = attrs as CollapsibleTriggerNaviteElement
-    const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
+    const { scopeOkuCollapsible, ...triggerProps } = toRefs(props)
+    const _reactive = reactive(triggerProps)
+    const reactiveTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const context = useCollapsibleInject(TRIGGER_NAME, scopeOkuCollapsible.value)
 
     const forwardedRef = useForwardRef()
 
@@ -47,11 +50,10 @@ const collapsibleTrigger = defineComponent({
         'type': 'button',
         'aria-controls': context.contentId.value,
         'aria-expanded': context.open.value || false,
-        'data-state': getState(context.open.value || false),
+        'data-state': getState(context.open.value),
         'data-disabled': context.disabled?.value ? '' : undefined,
         'disabled': context.disabled?.value,
-        ...triggerAttrs,
-        'asChild': props.asChild,
+        ...mergeProps(attrs, reactiveTriggerProps),
         'ref': forwardedRef,
         'onClick': composeEventHandlers<MouseEvent>((e) => {
           emit('click', e)

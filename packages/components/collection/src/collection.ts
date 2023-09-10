@@ -1,6 +1,6 @@
 import type { ComponentObjectPropsOptions, Ref, ShallowRef } from 'vue'
-import { defineComponent, h, markRaw, ref, shallowRef, watchEffect } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, markRaw, reactive, ref, shallowRef, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 
@@ -99,14 +99,18 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
       ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { scope, ...itemData } = props
+      const { scope, ...itemData } = toRefs(props)
+      const _reactive = reactive(itemData)
+      const reactiveItemData = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
       const refValue = ref<ItemElement | null>()
       const forwaredRef = useForwardRef()
-      const inject = useCollectionInject(ITEM_SLOT_NAME, scope)
+
+      const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
       const composedRefs = useComposedRefs(refValue, forwaredRef)
 
       watchEffect((onClean) => {
-        inject.itemMap.value.set(markRaw(refValue), { ref: markRaw(refValue), ...(itemData as any), ...attrs })
+        inject.itemMap.value.set(markRaw(refValue), { ref: markRaw(refValue), ...(reactiveItemData as any), ...attrs })
 
         onClean(() => {
           inject.itemMap.value.delete(refValue)

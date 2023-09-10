@@ -2,7 +2,6 @@
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { createApp, onUnmounted, ref } from 'vue'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
-import { useCallbackRef } from '@oku-ui/use-composable'
 import DummyDialog from './DummyDialog.vue'
 import DummyPopover from './DummyPopover.vue'
 import DismissableBox from './DismissableBox.vue'
@@ -75,7 +74,7 @@ function setColor() {
   color.value = color.value === 'royalblue' ? 'tomato' : 'royalblue'
 }
 
-const handlePopupClick = useCallbackRef(() => {
+function handlePopupClick() {
   const popupWindow = window.open(
     undefined,
     undefined,
@@ -96,7 +95,7 @@ const handlePopupClick = useCallbackRef(() => {
   app.mount(containerNode)
 
   onUnmounted(() => containerNode.remove())
-})
+}
 </script>
 
 <template>

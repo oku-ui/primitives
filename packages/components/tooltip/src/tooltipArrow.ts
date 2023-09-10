@@ -1,5 +1,5 @@
-import { defineComponent, h, mergeProps } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperArrow, type PopperArrowElement, type PopperArrowNaviteElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
 import { scopeTooltipProps } from './types'
 import { usePopperScope } from './utils'
@@ -33,10 +33,15 @@ const tooltipArrow = defineComponent({
   },
   emits: tooltipArrowProps.emits,
   setup(props, { attrs, slots }) {
-    const forwardedRef = useForwardRef()
-    const popperScope = usePopperScope(props.scopeOkuTooltip)
+    const { scopeOkuTooltip, ...arrowProps } = toRefs(props)
 
-    const visuallyHiddenContentInject = useVisuallyHiddenContentInject(ARROW_NAME, props.scopeOkuTooltip)
+    const _reactive = reactive(arrowProps)
+    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
+    const popperScope = usePopperScope(scopeOkuTooltip.value)
+
+    const visuallyHiddenContentInject = useVisuallyHiddenContentInject(ARROW_NAME, scopeOkuTooltip.value)
 
     // if the arrow is inside the `VisuallyHidden`, we don't want to render it all to
     // prevent issues in positioning the arrow due to the duplicate
@@ -44,7 +49,7 @@ const tooltipArrow = defineComponent({
       ? null
       : h(OkuPopperArrow, {
         ...popperScope,
-        ...mergeProps(attrs, props),
+        ...mergeProps(attrs, reactiveArrowProps),
         ref: forwardedRef,
       }, slots)
   },

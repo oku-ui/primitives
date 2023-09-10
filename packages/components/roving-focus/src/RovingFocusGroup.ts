@@ -2,7 +2,7 @@ import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { Ref } from 'vue'
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
@@ -90,16 +90,6 @@ const rovingFocusGroup = defineComponent({
   },
   emits: rovingFocusGroupProps.emits,
   setup(props, { slots, attrs }) {
-    const {
-      currentTabStopId,
-      dir,
-      loop,
-      orientation,
-      defaultCurrentTabStopId,
-      asChild,
-      ...rest
-    } = toRefs(props)
-
     const forwardedRef = useForwardRef()
     return () => {
       return h(CollectionProvider, {
@@ -109,13 +99,7 @@ const rovingFocusGroup = defineComponent({
           scope: props.scopeOkuRovingFocusGroup,
         }, {
           default: () => h(OkuRovingFocusGroupImpl, {
-            ...mergeProps(rest, attrs),
-            asChild: asChild.value,
-            currentTabStopId: currentTabStopId?.value,
-            defaultCurrentTabStopId: defaultCurrentTabStopId?.value,
-            dir: dir?.value,
-            loop: loop?.value,
-            orientation: orientation?.value,
+            ...mergeProps(attrs, props),
             ref: forwardedRef,
           }, slots),
         }),

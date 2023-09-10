@@ -1,7 +1,7 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { scopeToolbarProps } from './utils'
@@ -38,7 +38,11 @@ const toolbarLink = defineComponent({
   },
   emits: toolbarLinkProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToolbar)
+    const { scopeOkuToolbar, ...linkProps } = toRefs(props)
+    const _reactive = reactive(linkProps)
+    const reactiveLinkProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuToolbar.value)
 
     const forwardedRef = useForwardRef()
 
@@ -48,10 +52,9 @@ const toolbarLink = defineComponent({
       focusable: true,
     }, {
       default: () => h(Primitive.a, {
-        ...attrs,
-        ...props,
+        ...mergeProps(attrs, reactiveLinkProps),
         ref: forwardedRef,
-        onKeyDown: composeEventHandlers<ToolbarLinkEmits['keydown'][0]>((e) => {
+        onKeydown: composeEventHandlers<ToolbarLinkEmits['keydown'][0]>((e) => {
           emit('keydown', e)
         }, (event) => {
           if (event.key === ' ')
