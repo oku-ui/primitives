@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { scopePopoverProps } from './utils'
 import { usePopoverInject } from './popover'
@@ -35,7 +35,8 @@ const popoverClose = defineComponent({
   },
   setup(props, { attrs, slots, emit }) {
     const { scopeOkuPopover, ...closeProps } = toRefs(props)
-    const reactiveCloseProps = reactive(closeProps)
+    const _reactive = reactive(closeProps)
+    const reactiveCloseProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
     const inject = usePopoverInject(CLOSE_NAME, scopeOkuPopover?.value)

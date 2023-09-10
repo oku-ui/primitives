@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { ArrowElement, ArrowNaviteElement, ArrowProps } from '@oku-ui/arrow'
 import { OkuArrow, arrowProps } from '@oku-ui/arrow'
 
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { type Side, scopePopperProps } from './utils'
 import { usePopperContentInject } from './popperContent'
 
@@ -37,7 +37,9 @@ const popperArrow = defineComponent({
   },
   setup(props, { attrs }) {
     const { scopeOkuPopper, ...arrowProps } = toRefs(props)
-    const reactiveArrowProps = reactive(arrowProps)
+    const _reactive = reactive(arrowProps)
+    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const contentInject = usePopperContentInject(ARROW_NAME, scopeOkuPopper.value)
     const baseSide = computed(() => {
       return contentInject?.placedSide.value ? OPPOSITE_SIDE[contentInject.placedSide.value] : ''

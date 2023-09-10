@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, onMounted, reactive, ref, toR
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
@@ -142,7 +142,8 @@ const PopperContent = defineComponent({
       updatePositionStrategy,
       ...contentProps
     } = toRefs(props)
-    const reactiveContentProps = reactive(contentProps)
+    const _reactive = reactive(contentProps)
+    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = usePopperInject(CONTENT_NAME, props.scopeOkuPopper)
 

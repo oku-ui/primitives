@@ -2,7 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperContent, type PopperContentEmits, type PopperContentProps, popperContentProps } from '@oku-ui/popper'
 import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
 import { type DismissableLayerEmits, type DismissableLayerProps, OkuDismissableLayer, dismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -74,7 +74,8 @@ const popoverContentImpl = defineComponent({
       scopeOkuPopover,
       ...contentProps
     } = toRefs(props)
-    const reactiveContentProps = reactive(contentProps)
+    const _reactive = reactive(contentProps)
+    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = usePopoverInject(NAME, scopeOkuPopover.value)
     const popperScope = usePopperScope(scopeOkuPopover.value)

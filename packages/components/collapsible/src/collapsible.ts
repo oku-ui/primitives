@@ -4,7 +4,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@oku-ui/provide'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
-import { useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
 import { getState, scopeCollapsibleProps } from './utils'
 
 export type CollapsibleNaviteElement = OkuElement<'div'>
@@ -83,7 +83,8 @@ const collapsible = defineComponent({
       ...collapsibleProps
     } = toRefs(props)
 
-    const reactiveCollapsibleProps = reactive(collapsibleProps)
+    const _reactive = reactive(collapsibleProps)
+    const reactiveCollapsibleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const modelValue = useModel(props, 'modelValue')
 

@@ -2,7 +2,7 @@ import { computed, defineComponent, h, mergeProps, nextTick, onBeforeUnmount, on
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
 import { getState, scopeCollapsibleProps } from './utils'
 import { CONTENT_NAME } from './collapsibleContent'
@@ -32,7 +32,8 @@ const collapsibleContentImpl = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { scopeOkuCollapsible, present, ...contentProps } = toRefs(props)
-    const reactiveContentProps = reactive(contentProps)
+    const _reactive = reactive(contentProps)
+    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const context = useCollapsibleInject(CONTENT_NAME, scopeOkuCollapsible.value)
 

@@ -83,9 +83,7 @@ const tooltipContentImpl = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const {
       ariaLabel,
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      asChild,
-
+      asChild: _asChild,
       scopeOkuTooltip,
       ...contentProps
     } = toRefs(props)

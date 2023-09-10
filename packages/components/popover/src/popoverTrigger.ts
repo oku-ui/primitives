@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPopperAnchor } from '@oku-ui/popper'
 import { getState, scopePopoverProps } from './utils'
@@ -38,7 +38,8 @@ const popoverTrigger = defineComponent({
   emits: popoverTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { scopeOkuPopover, ...triggerProps } = toRefs(props)
-    const reactiveTriggerProps = reactive(triggerProps)
+    const _reactive = reactive(triggerProps)
+    const reactiveTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = usePopoverInject(TRIGGER_NAME, scopeOkuPopover?.value)
 

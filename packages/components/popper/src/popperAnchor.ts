@@ -7,7 +7,7 @@ import type {
 } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePopperInject } from './popper'
 import { scopePopperProps } from './utils'
 
@@ -41,7 +41,9 @@ const popperAnchor = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { virtualRef, scopeOkuPopper, ...anchorProps } = toRefs(props)
-    const reactiveAnchorProps = reactive(anchorProps)
+    const _reactive = reactive(anchorProps)
+    const reactiveAnchorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const inject = usePopperInject(ANCHOR_NAME, scopeOkuPopper.value)
 
     const _ref = ref<HTMLDivElement | null>(null)

@@ -3,7 +3,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { useCollapsibleInject } from './collapsible'
 import { getState, scopeCollapsibleProps } from './utils'
 
@@ -37,7 +37,9 @@ const collapsibleTrigger = defineComponent({
   emits: collapsibleTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
     const { scopeOkuCollapsible, ...triggerProps } = toRefs(props)
-    const reactiveTriggerProps = reactive(triggerProps)
+    const _reactive = reactive(triggerProps)
+    const reactiveTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const context = useCollapsibleInject(TRIGGER_NAME, scopeOkuCollapsible.value)
 
     const forwardedRef = useForwardRef()

@@ -4,7 +4,7 @@ import type {
   PrimitiveProps,
 
 } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
 import { Teleport, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 
@@ -40,7 +40,8 @@ const portal = defineComponent({
   },
   setup(props, { slots, attrs }) {
     const { container, ...portalProps } = toRefs(props)
-    const reactivePortalProps = reactive(portalProps)
+    const _reactive = reactive(portalProps)
+    const reactivePortalProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 

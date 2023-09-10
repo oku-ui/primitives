@@ -1,7 +1,7 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import {
   defineComponent,
@@ -95,7 +95,8 @@ const focusScope = defineComponent({
   emits: focusScopeProps.emits,
   setup(props, { slots, attrs, emit }) {
     const { loop, trapped, ...scopeProps } = toRefs(props)
-    const reactiveScopeProps = reactive(scopeProps)
+    const _reactive = reactive(scopeProps)
+    const reactiveScopeProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const container = ref<HTMLElement | null>(null)
     const lastFocusedElementRef = ref<HTMLElement | null>(null)

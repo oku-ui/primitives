@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { Transition, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { isPresent } from '@oku-ui/presence'
@@ -50,7 +50,8 @@ const collapsibleContent = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { forceMount, ...contentProps } = toRefs(props)
-    const reactiveContentProps = reactive(contentProps)
+    const _reactive = reactive(contentProps)
+    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 

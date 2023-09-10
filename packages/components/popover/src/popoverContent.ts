@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { scopePopoverProps } from './utils'
 import { usePortalInject } from './popoverPortal'
@@ -46,7 +46,8 @@ const popoverContent = defineComponent({
   emits: popoverContentProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuPopover, forceMount: asForceMount, ...contentProps } = toRefs(props)
-    const reactiveContentProps = reactive(contentProps)
+    const _reactive = reactive(contentProps)
+    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const portalInject = usePortalInject(CONTENT_NAME, scopeOkuPopover.value)
     const forceMount = computed(() => asForceMount.value || portalInject.forceMount?.value)

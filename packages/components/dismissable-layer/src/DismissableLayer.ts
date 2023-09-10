@@ -1,4 +1,5 @@
 import {
+  reactiveOmit,
   useComposedRefs,
   useEscapeKeydown,
   useForwardRef,
@@ -139,7 +140,8 @@ const DismissableLayer = defineComponent({
   emits: dismissableLayerProps.emits,
   setup(props, { attrs, emit, slots }) {
     const { disableOutsidePointerEvents, ...layerProps } = toRefs(props)
-    const reactiveLayerProps = reactive(layerProps)
+    const _reactive = reactive(layerProps)
+    const reactiveLayerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const node = ref<HTMLDivElement | null>(null)
     const ownerDocument = computed(

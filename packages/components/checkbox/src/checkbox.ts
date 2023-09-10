@@ -3,7 +3,7 @@ import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
@@ -114,13 +114,12 @@ const Checkbox = defineComponent({
       ...checkboxProps
     } = toRefs(props)
 
+    const _reactive = reactive(checkboxProps)
+    const reactiveCheckboxProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const buttonRef = ref<HTMLButtonElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
-
-    const {
-      ...checkboxAttrs
-    } = attrs as CheckboxNaviteElement
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
@@ -162,8 +161,6 @@ const Checkbox = defineComponent({
       disabled,
     })
 
-    const reactiveCheckboxProps = reactive(checkboxProps)
-
     const originalReturn = () =>
       [h(Primitive.button, {
         'type': 'button',
@@ -175,7 +172,7 @@ const Checkbox = defineComponent({
         'disabled': disabled.value,
         'value': value.value,
         'asChild': props.asChild,
-        ...mergeProps(checkboxAttrs, reactiveCheckboxProps),
+        ...mergeProps(attrs, reactiveCheckboxProps),
         'ref': composedRefs,
         'onKeydown': composeEventHandlers<KeyboardEvent>((e) => {
           emit('keydown', e)
