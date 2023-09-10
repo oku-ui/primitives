@@ -1,7 +1,7 @@
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { PropType } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuToggle, toggleProps } from '@oku-ui/toggle'
 import type { ToggleElement, ToggleElementNaviteElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
 
@@ -53,6 +53,8 @@ const toggleGroupItemImpl = defineComponent({
   emits: toggleGroupItemImplProps.emits,
   setup(props, { slots, attrs }) {
     const { scopeOkuToggleGroup, value, ...itemProps } = toRefs(props)
+    const _reactive = reactive(itemProps)
+    const reactiveItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => {
@@ -61,11 +63,10 @@ const toggleGroupItemImpl = defineComponent({
     const typeProps = computed(() => valueInject.type === 'single' ? singleProps.value : undefined)
 
     const forwardedRef = useForwardRef()
-    const _itemProps = reactive(itemProps)
     return () =>
       h(OkuToggle, {
         ...typeProps.value,
-        ...mergeProps(attrs, _itemProps),
+        ...mergeProps(attrs, reactiveItemProps),
         ref: forwardedRef,
         onPressedChange: (pressed: boolean) => {
           if (pressed)

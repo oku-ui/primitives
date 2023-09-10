@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 const TOGGLE_NAME = 'OkuToggle'
 
@@ -78,7 +78,15 @@ const toggle = defineComponent({
   },
   emits: toggleProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { pressed: pressedProp, defaultPressed, onPressedChange: _press, ...buttonProps } = toRefs(props)
+    const {
+      modelValue: _modelValue,
+      pressed: pressedProp,
+      defaultPressed,
+      ...buttonProps
+    } = toRefs(props)
+
+    const _reactive = reactive(buttonProps)
+    const reactiveButtonProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const modelValue = useModel(props, 'modelValue')
 
@@ -104,16 +112,13 @@ const toggle = defineComponent({
       initialValue: false,
     })
 
-    const _buttonProps = reactive(buttonProps)
-
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
-        'aria-checked': state.value,
-        'aria-pressed': state.value ? 'true' : 'false',
+        'aria-pressed': state.value,
         'data-state': state.value ? 'on' : 'off',
         'data-disabled': props.disabled ? '' : undefined,
-        ...mergeProps(attrs, _buttonProps),
+        ...mergeProps(attrs, reactiveButtonProps),
         'ref': forwardedRef,
         'onClick': composeEventHandlers<MouseEvent>((e) => {
           emit('click', e)
