@@ -1,6 +1,6 @@
 import type { ComputedRef, PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import type { OkuElement } from '@oku-ui/primitive'
 
@@ -69,6 +69,7 @@ const RovingFocusGroupImpl = defineComponent({
       defaultCurrentTabStopId,
       ...groupProps
     } = toRefs(props)
+    const reactiveProupProps = reactiveOmit(groupProps, (key, _value) => key === undefined)
 
     const buttonRef = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -120,13 +121,11 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    const _reactiveProupProps = reactive(groupProps)
-
     return () => {
       return h(Primitive.div, {
         'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': orientation?.value,
-        ...mergeProps(attrs, _reactiveProupProps),
+        ...mergeProps(attrs, reactiveProupProps),
         'ref': composedRefs,
         'style': {
           outline: 'none',
