@@ -1,15 +1,15 @@
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { Sizes } from './scroll-area'
 import { useScrollAreaInject } from './scroll-area'
 import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import { scopedScrollAreaProps } from './types'
-import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
+import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 import type { ScrollAreaScrollbarAxisElement } from './share'
 import { scrollAreaScrollbarAxisProps } from './share'
+import { scopedScrollAreaProps } from './types'
 
 const SCROLL_NAME = 'OkuScrollAreaScrollbarX'
 
@@ -26,11 +26,16 @@ const scrollAreaScrollbarX = defineComponent({
   },
   emits: scrollAreaScrollbarAxisProps.emits,
   setup(props, { attrs, emit, slots }) {
-    // const { ...scrollAreaScrollbarXAttrs } = attrs as ScrollAreaScrollbarXNaviteElement
+    const {
+      scopeOkuScrollArea,
+      sizes,
+      ...scrollAreaScrollbarAxisProps
+    } = toRefs(props)
 
-    const { sizes } = toRefs(props)
+    const _reactive = reactive(scrollAreaScrollbarAxisProps)
+    const reactiveScrollAreaScrollbarAxisProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const computedStyle = ref<CSSStyleDeclaration>()
     const scrollbarAxisRef = ref<ScrollAreaScrollbarAxisElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -44,7 +49,7 @@ const scrollAreaScrollbarX = defineComponent({
     return () => h(OkuScrollAreaScrollbarImpl,
       {
         ['data-orientation' as string]: 'horizontal',
-        ...attrs,
+        ...mergeProps(attrs, reactiveScrollAreaScrollbarAxisProps),
         ref: composeRefs,
         sizes,
         style: {

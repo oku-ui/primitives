@@ -1,15 +1,15 @@
-import { defineComponent, h, toRefs, watchEffect } from 'vue'
-import { composeEventHandlers } from '@Oku-ui/utils'
-import { OkuPresence } from '@Oku-ui/presence'
-import { useForwardRef } from '@Oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { useStateMachine } from './useStateMachine'
-import { scopedScrollAreaProps } from './types'
-import { useDebounceCallback } from './utils'
+import { OkuPresence } from '@Oku-ui/presence'
+import { composeEventHandlers } from '@Oku-ui/utils'
 import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 import { useScrollAreaInject } from './scroll-area'
+import { useStateMachine } from './useStateMachine'
+import { useDebounceCallback } from './utils'
+import { scopedScrollAreaProps } from './types'
 
 const SCROLL_NAME = 'OkuScrollAreaScrollbarScroll'
 
@@ -42,15 +42,19 @@ const scrollAreaScrollbarScroll = defineComponent({
   },
   emits: scrollAreaScrollbarScrollProps.emits,
   setup(props, { attrs, emit, slots }) {
-    // const { ...scrollAreaScrollbarScrollAttrs } = attrs as ScrollAreaScrollbarScrollNaviteElement
-
     const {
+      scopeOkuScrollArea,
       forceMount,
       orientation,
+      ...scrollAreaScrollbarScrollProps
     } = toRefs(props)
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const _reactive = reactive(scrollAreaScrollbarScrollProps)
+    const reactiveScrollAreaScrollbarScrollProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
+
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const isHorizontal = orientation.value === 'horizontal'
     const { state, dispatch: send } = useStateMachine('hidden', {
       hidden: {
@@ -102,14 +106,12 @@ const scrollAreaScrollbarScroll = defineComponent({
     })
 
     return () => h(OkuPresence,
-      {
-        present: forceMount.value || state.value !== 'hidden',
-      },
+      { present: computed(() => forceMount.value || state.value !== 'hidden').value },
       {
         default: () => h(OkuScrollAreaScrollbarVisible,
           {
             ['data-state' as string]: state.value === 'hidden' ? 'hidden' : 'visible',
-            ...attrs,
+            ...mergeProps(attrs, reactiveScrollAreaScrollbarScrollProps),
             ref: forwardedRef,
             onPointerEnter: composeEventHandlers(() => {
               emit('pointerEnter', send('POINTER_ENTER'))

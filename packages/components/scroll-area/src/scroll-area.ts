@@ -1,14 +1,15 @@
 /// <reference types="resize-observer-browser" />
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { useDirection } from '@Oku-ui/direction'
+
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, ref, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { createProvideScope } from '@Oku-ui/provide'
-import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
-import { scopedScrollAreaProps } from './types'
+import { useDirection } from '@Oku-ui/direction'
 import type { ScrollAreaViewportElement } from './scroll-area-viewport'
 import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
+import { scopedScrollAreaProps } from './types'
 
 export type Direction = 'ltr' | 'rtl'
 export type Sizes = {
@@ -32,7 +33,6 @@ export type ScrollAreaElement = HTMLDivElement
 
 export const [createScrollAreaProvide, createScrollAreaScope] = createProvideScope(SCROLL_AREA_NAME)
 
-export type Type = 'auto' | 'always' | 'scroll' | 'hover'
 type ScrollAreaProvideValue = {
   type: Ref<'auto' | 'always' | 'scroll' | 'hover'>
   dir: Ref<Direction>
@@ -57,7 +57,7 @@ type ScrollAreaProvideValue = {
 export const [scrollAreaProvider, useScrollAreaInject] = createScrollAreaProvide<ScrollAreaProvideValue>(SCROLL_AREA_NAME)
 
 export interface ScrollAreaProps extends PrimitiveProps {
-  type?: Type
+  type?: ScrollAreaProvideValue['type']
   dir?: ScrollAreaProvideValue['dir']
   scrollHideDelay?: number
 }
@@ -65,7 +65,7 @@ export interface ScrollAreaProps extends PrimitiveProps {
 const scrollAreaProps = {
   props: {
     type: {
-      type: String as PropType<Type>,
+      type: String as unknown as PropType<ScrollAreaProvideValue['type']>,
       default: 'hover',
     },
     dir: {
@@ -106,13 +106,16 @@ const scrollArea = defineComponent({
   },
   emits: scrollAreaProps.emits,
   setup(props, { attrs, slots }) {
-    // const { ...scrollAreaAttrs } = attrs as ScrollAreaNaviteElement
-
     const {
+      scopeOkuScrollArea,
       type,
       dir,
       scrollHideDelay,
+      ...scrollAreaProps
     } = toRefs(props)
+
+    const _reactive = reactive(scrollAreaProps)
+    const reactiveReactiveProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const scrollArea = ref<ScrollAreaElement | null>(null)
     const viewport = ref<ScrollAreaViewportElement | null>(null)
@@ -128,7 +131,7 @@ const scrollArea = defineComponent({
     const direction = useDirection(dir.value)
 
     scrollAreaProvider({
-      scope: props.scopeOkuScrollArea,
+      scope: scopeOkuScrollArea.value,
       type,
       dir: direction,
       scrollHideDelay,
@@ -152,7 +155,7 @@ const scrollArea = defineComponent({
     return () => h(Primitive.div,
       {
         dir: direction.value,
-        ...attrs,
+        ...mergeProps(attrs, reactiveReactiveProps),
         ref: composedRefs,
         style: {
           position: 'relative',

@@ -1,12 +1,12 @@
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import { OkuPresence } from '@Oku-ui/presence'
-import { useForwardRef } from '@Oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { scopedScrollAreaProps } from './types'
-import { useScrollAreaInject } from './scroll-area'
+import { OkuPresence } from '@Oku-ui/presence'
 import type { ScrollAreaScrollbarAutoElement, ScrollAreaScrollbarAutoNaviteElement, ScrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
 import { OkuScrollAreaScrollbarAuto } from './scroll-area-scrollbar-auto'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
+import { useScrollAreaInject } from './scroll-area'
+import { scopedScrollAreaProps } from './types'
 
 const SCROLL_NAME = 'OkuScrollAreaScrollbarHover'
 
@@ -38,12 +38,18 @@ const scrollAreaScrollbarHover = defineComponent({
   },
   emits: scrollAreaScrollbarHoverProps.emits,
   setup(props, { attrs, slots }) {
-    // const { ...scrollAreaScrollbarHoverAttrs } = attrs as ScrollAreaScrollbarHoverNaviteElement
+    const {
+      scopeOkuScrollArea,
+      forceMount,
+      ...scrollAreaScrollbarHoverProps
+    } = toRefs(props)
 
-    const { forceMount } = toRefs(props)
+    const _reactive = reactive(scrollAreaScrollbarHoverProps)
+    const reactiveScrollAreaScrollbarHoverProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const forwardedRef = useForwardRef()
+
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const visible = ref(false)
 
     watchEffect((onInvalidate) => {
@@ -69,14 +75,12 @@ const scrollAreaScrollbarHover = defineComponent({
     })
 
     return () => h(OkuPresence,
-      {
-        present: forceMount.value || visible.value,
-      },
+      { present: computed(() => forceMount.value || visible.value).value },
       {
         default: () => h(OkuScrollAreaScrollbarAuto,
           {
             ['data-state' as string]: visible.value ? 'visible' : 'hidden',
-            ...attrs,
+            ...mergeProps(attrs, reactiveScrollAreaScrollbarHoverProps),
             ref: forwardedRef,
           }, slots,
         ),

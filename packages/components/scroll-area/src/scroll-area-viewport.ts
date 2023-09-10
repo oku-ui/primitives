@@ -1,9 +1,9 @@
+import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
 import type { OkuElement, PrimitiveProps } from '@Oku-ui/primitive'
 import { Primitive, primitiveProps } from '@Oku-ui/primitive'
-import { Fragment, defineComponent, h, ref } from 'vue'
-import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
-import { scopedScrollAreaProps } from './types'
 import { useScrollAreaInject } from './scroll-area'
+import { scopedScrollAreaProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaViewport
@@ -31,9 +31,15 @@ const scrollAreaViewport = defineComponent({
   },
   emits: scrollAreaViewportProps.emits,
   setup(props, { attrs, slots }) {
-    // const { ...scrollAreaViewportAttrs } = attrs as ScrollAreaViewportNaviteElement
+    const {
+      scopeOkuScrollArea,
+      ...scrollAreaViewportProps
+    } = toRefs(props)
 
-    const inject = useScrollAreaInject(VIEWPORT_NAME, props.scopeOkuScrollArea)
+    const _reactive = reactive(scrollAreaViewportProps)
+    const reactiveScrollAreaViewportProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useScrollAreaInject(VIEWPORT_NAME, scopeOkuScrollArea.value)
     const scrollAreaViewportRef = ref<ScrollAreaViewportElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, scrollAreaViewportRef, el => inject.onViewportChange(el as ScrollAreaViewportElement))
@@ -50,7 +56,7 @@ const scrollAreaViewport = defineComponent({
         h(Primitive.div,
           {
             ['data-oku-scroll-area-viewport' as any]: '',
-            ...attrs,
+            ...mergeProps(attrs, reactiveScrollAreaViewportProps),
             ref: composedRefs,
             style: {
               /**

@@ -1,14 +1,14 @@
-import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
 import type { OkuElement, PrimitiveProps } from '@Oku-ui/primitive'
 import { Primitive, primitiveProps } from '@Oku-ui/primitive'
 import { composeEventHandlers } from '@Oku-ui/utils'
-import { scopedScrollAreaProps } from './types'
-import { addUnlinkedScrollListener, useDebounceCallback } from './utils'
-import type { ScrollAreaThumbElement } from './scroll-area-thumb'
-import { THUMB_NAME } from './scroll-area-thumb'
 import { useScrollAreaInject } from './scroll-area'
+import { THUMB_NAME } from './scroll-area-thumb'
 import { useScrollbarInject } from './scroll-area-scrollbar-impl'
+import type { ScrollAreaThumbElement } from './scroll-area-thumb'
+import { addUnlinkedScrollListener, useDebounceCallback } from './utils'
+import { scopedScrollAreaProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaThumbImpl
@@ -51,14 +51,19 @@ const scrollAreaThumbImpl = defineComponent({
   },
   emits: scrollAreaThumbImplProps.emits,
   setup(props, { attrs, emit, slots }) {
-    // const { ...scrollAreaThumbImplAttrs } = attrs as ScrollAreaThumbImplNaviteElement
+    const {
+      scopeOkuScrollArea,
+      style,
+      ...scrollAreaThumbImplProps
+    } = toRefs(props)
+
+    const _reactive = reactive(scrollAreaThumbImplProps)
+    const reactiveScrollAreaThumbImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const { style } = toRefs(props)
-
-    const scrollAreaInject = useScrollAreaInject(THUMB_NAME, props.scopeOkuScrollArea)
-    const scrollbarInject = useScrollbarInject(THUMB_NAME, props.scopeOkuScrollArea)
+    const scrollAreaInject = useScrollAreaInject(THUMB_NAME, scopeOkuScrollArea.value)
+    const scrollbarInject = useScrollbarInject(THUMB_NAME, scopeOkuScrollArea.value)
 
     const { onThumbPositionChange } = scrollbarInject
     const composedRef = useComposedRefs(forwardedRef, node => scrollbarInject.onThumbChange(node as ScrollAreaThumbElement))
@@ -98,7 +103,7 @@ const scrollAreaThumbImpl = defineComponent({
     return () => h(Primitive.div,
       {
         ['data-state' as string]: scrollbarInject.hasThumb.value ? 'visible' : 'hidden',
-        ...attrs,
+        ...mergeProps(attrs, reactiveScrollAreaThumbImplProps),
         ref: composedRef,
         style: {
           width: 'var(--oku-scroll-area-thumb-width)',

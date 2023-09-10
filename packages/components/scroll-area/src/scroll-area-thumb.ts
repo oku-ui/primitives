@@ -1,11 +1,11 @@
-import { useForwardRef } from '@Oku-ui/use-composable'
-import { defineComponent, h, toRefs } from 'vue'
-import { OkuPresence } from '@Oku-ui/presence'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@Oku-ui/use-composable'
 import { primitiveProps } from '@Oku-ui/primitive'
-import { scopedScrollAreaProps } from './types'
+import { OkuPresence } from '@Oku-ui/presence'
 import type { ScrollAreaThumbImplElement, ScrollAreaThumbImplNaviteElement, ScrollAreaThumbImplProps } from './scroll-area-thumb-impl'
 import { OkuScrollAreaThumbImpl } from './scroll-area-thumb-impl'
 import { useScrollbarInject } from './scroll-area-scrollbar-impl'
+import { scopedScrollAreaProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaThumb
@@ -49,23 +49,26 @@ const scrollAreaThumb = defineComponent({
   },
   emits: scrollAreaThumbProps.emits,
   setup(props, { attrs, slots }) {
-    // const { ...ScrollAreaThumbAttrs } = attrs as ScrollAreaThumbNaviteElement
+    const {
+      scopeOkuScrollArea,
+      forceMount,
+      ...scrollAreaThumbProps
+    } = toRefs(props)
+
+    const _reactive = reactive(scrollAreaThumbProps)
+    const reactiveScrollAreaThumbProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const { forceMount } = toRefs(props)
-
-    const scrollbarInject = useScrollbarInject(THUMB_NAME, props.scopeOkuScrollArea)
+    const scrollbarInject = useScrollbarInject(THUMB_NAME, scopeOkuScrollArea.value)
 
     return () => h(OkuPresence,
-      {
-        present: forceMount.value || scrollbarInject.hasThumb.value,
-      },
+      { present: computed(() => forceMount.value || scrollbarInject.hasThumb.value).value },
       {
         default: () => h(OkuScrollAreaThumbImpl,
           {
             ref: forwardedRef,
-            ...attrs,
+            ...mergeProps(attrs, reactiveScrollAreaThumbProps),
           }, slots,
         ),
       },

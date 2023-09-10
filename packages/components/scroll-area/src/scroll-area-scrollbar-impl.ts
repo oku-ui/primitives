@@ -1,16 +1,16 @@
 import type { Ref } from 'vue'
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
 import type { OkuElement, PrimitiveProps } from '@Oku-ui/primitive'
-import { createProvideScope } from '@oku-ui/provide'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useCallbackRef, useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
+import { createProvideScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useDebounceCallback, useResizeObserver } from './utils'
 import type { Sizes } from './scroll-area'
 import { useScrollAreaInject } from './scroll-area'
 import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 import type { ScrollAreaThumbElement } from './scroll-area-thumb'
+import { useDebounceCallback, useResizeObserver } from './utils'
 import { scopedScrollAreaProps } from './types'
 
 export type ScrollAreaScrollbarImplNaviteElement = OkuElement<'div'>
@@ -85,15 +85,21 @@ const scrollAreaScrollbarImpl = defineComponent({
   },
   emits: scrollAreaScrollbarImplProps.emits,
   setup(props, { attrs, emit, slots }) {
-    // const { ...scrollAreaAttrs } = attrs as ScrollAreaNaviteElement
+    const {
+      scopeOkuScrollArea,
+      sizes,
+      hasThumb,
+      ...scrollAreaScrollbarImplProps
+    } = toRefs(props)
+
+    const _reactive = reactive(scrollAreaScrollbarImplProps)
+    const reactiveScrollAreaScrollbarImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const { sizes, hasThumb } = toRefs(props)
+    const scrollbarInject = useScrollbarInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
 
-    const scrollbarInject = useScrollbarInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
-
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const scrollbar = ref<ScrollAreaScrollbarElement | null>(null)
 
     const composeRefs = useComposedRefs(forwardedRef, node => scrollbar.value = (node as ScrollAreaScrollbarElement))
@@ -102,7 +108,7 @@ const scrollAreaScrollbarImpl = defineComponent({
     const viewport = inject.viewport.value
     const maxScrollPos = sizes.value?.content - sizes.value?.viewport
     const handleWheelScroll = (maxScrollPos: number) => emit('wheelScroll', maxScrollPos)
-    const handleThumbPositionChange = useCallbackRef(() => scrollbarInject.onThumbPositionChange())
+    const handleThumbPositionChange = () => scrollbarInject.onThumbPositionChange()
     const handleResize = useDebounceCallback(() => emit('resize'), 10)
 
     function handleDragScroll(event: PointerEvent) {
@@ -133,7 +139,7 @@ const scrollAreaScrollbarImpl = defineComponent({
      * Update thumb position on sizes change
      */
     watchEffect(() => {
-      handleThumbPositionChange.value()
+      handleThumbPositionChange()
     })
 
     useResizeObserver(scrollbar.value, handleResize)
@@ -145,13 +151,13 @@ const scrollAreaScrollbarImpl = defineComponent({
       hasThumb,
       onThumbChange: (thumb: ScrollAreaThumbElement) => thumb,
       onThumbPointerUp: () => scrollbarInject.onThumbPointerUp,
-      onThumbPositionChange: () => handleThumbPositionChange.value(),
+      onThumbPositionChange: () => handleThumbPositionChange(),
       onThumbPointerDown: (pointerPos: { x: number; y: number }) => scrollbarInject.onThumbPointerDown(pointerPos),
     })
 
     return () => h(Primitive.div,
       {
-        ...attrs,
+        ...mergeProps(attrs, reactiveScrollAreaScrollbarImplProps),
         ref: composeRefs,
         style: { position: 'absolute', ...attrs.style as CSSRule },
         onPointerDown: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointerdown'][0]>((event) => {
