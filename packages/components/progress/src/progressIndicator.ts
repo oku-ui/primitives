@@ -1,16 +1,16 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import {
   type OkuElement,
   type PrimitiveProps,
   primitiveProps,
 } from '@oku-ui/primitive'
 import { type Scope } from '@oku-ui/provide'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getProgressState, scopeProgressProps } from './utils'
 import { useProgressInject } from './progress'
 import { INDICATOR_NAME } from './constants'
 
-type ProgressIndicatorElementNaviteElement = OkuElement<'div'>
+type ProgressIndicatorNaviteElement = OkuElement<'div'>
 export type ProgressIndicatorElement = HTMLDivElement
 
 export interface ProgressIndicatorProps extends PrimitiveProps {
@@ -31,11 +31,13 @@ const progressIndicator = defineComponent({
     ...scopeProgressProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...indicatorAttrs } = attrs as ProgressIndicatorElementNaviteElement
+    const { scopeOkuProgress, ...indicatorProps } = toRefs(props)
+    const _reactive = reactive(indicatorProps)
+    const reactiveIndicatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const context = useProgressInject(INDICATOR_NAME, props.scopeOkuProgress)
+    const context = useProgressInject(INDICATOR_NAME, scopeOkuProgress.value)
 
     const originalReturn = () =>
       h(
@@ -47,7 +49,7 @@ const progressIndicator = defineComponent({
           ),
           'data-value': context.value?.value ?? undefined,
           'data-max': context.max.value,
-          ...indicatorAttrs,
+          ...mergeProps(attrs, reactiveIndicatorProps),
           'ref': forwardedRef,
         },
         {
@@ -62,5 +64,5 @@ const progressIndicator = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuProgressIndicator = progressIndicator as typeof progressIndicator &
 (new () => {
-  $props: ProgressIndicatorElementNaviteElement
+  $props: ProgressIndicatorNaviteElement
 })

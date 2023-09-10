@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -16,17 +16,19 @@ const label = defineComponent({
   props: {
     ...primitiveProps,
   },
-  setup(props, { attrs, slots }) {
-    const { ...restAttrs } = attrs as LabelNaviteElement
-
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    mousedown: (event: MouseEvent) => true,
+  },
+  setup(props, { attrs, slots, emit }) {
     const forwardedRef = useForwardRef()
 
     const originalReturn = () => h(Primitive.label, {
-      ...restAttrs,
+      ...mergeProps(attrs, props),
       ref: forwardedRef,
       asChild: props.asChild,
       onMousedown: (event: MouseEvent) => {
-        restAttrs.onMousedown?.(event)
+        emit('mousedown', event)
         // prevent text selection when double clicking label
         if (!event.defaultPrevented && event.detail > 1)
           event.preventDefault()

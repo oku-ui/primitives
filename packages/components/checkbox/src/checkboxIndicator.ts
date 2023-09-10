@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
@@ -37,12 +37,13 @@ const checkboxIndicator = defineComponent({
     ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
-    const { forceMount } = toRefs(props)
-    const { ...indicatorAttrs } = attrs as CheckboxIndicatorNaviteElement
+    const { forceMount, scopeOkuCheckbox, ...indicatorProps } = toRefs(props)
+    const _reactive = reactive(indicatorProps)
+    const reactiveIndicatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const context = useCheckboxInject(INDICATOR_NAME, props.scopeOkuCheckbox)
+    const context = useCheckboxInject(INDICATOR_NAME, scopeOkuCheckbox.value)
 
     const originalReturn = () => h(OkuPresence, {
       present: computed(() => forceMount.value || isIndeterminate(context.state.value) || context.state.value === true).value,
@@ -51,8 +52,7 @@ const checkboxIndicator = defineComponent({
         'ref': forwardedRef,
         'data-state': computed(() => getState(context.state.value)).value,
         'data-disabled': context.disabled?.value ? '' : undefined,
-        ...indicatorAttrs,
-        'asChild': props.asChild,
+        ...mergeProps(attrs, reactiveIndicatorProps),
         'style': { pointerEvents: 'none', ...attrs.style as any },
       },
       {

@@ -1,7 +1,7 @@
-import { defineComponent, h, ref, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperAnchor } from '@oku-ui/popper'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { usePopperScope } from './utils'
@@ -45,9 +45,14 @@ const tooltipTrigger = defineComponent({
   },
   emits: tooltipTriggerProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const inject = useTooltipInject(TRIGGER_NAME, props.scopeOkuTooltip)
-    const providerInject = useTooltipProviderInject(TRIGGER_NAME, props.scopeOkuTooltip)
-    const popperScope = usePopperScope(props.scopeOkuTooltip)
+    const { scopeOkuTooltip, ...triggerProps } = toRefs(props)
+
+    const _reactive = reactive(triggerProps)
+    const reactiveTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useTooltipInject(TRIGGER_NAME, scopeOkuTooltip.value)
+    const providerInject = useTooltipProviderInject(TRIGGER_NAME, scopeOkuTooltip.value)
+    const popperScope = usePopperScope(scopeOkuTooltip.value)
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -76,8 +81,7 @@ const tooltipTrigger = defineComponent({
         // commonly anchors and the anchor `type` attribute signifies MIME type.
         'aria-describedby': inject.open.value ? inject.contentId.value : undefined,
         'data-state': inject.stateAttribute.value,
-        ...attrs,
-        'asChild': props.asChild,
+        ...mergeProps(attrs, reactiveTriggerProps),
         'ref': composedRefs,
         'onPointermove': composeEventHandlers<PointerEvent>((el) => {
           emit('pointermove', el)

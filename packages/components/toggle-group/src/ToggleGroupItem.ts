@@ -1,6 +1,6 @@
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, ref } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { scopeToggleGroupProps } from './utils'
@@ -28,6 +28,10 @@ export const toggleGroupItemProps = {
 
 const toggleGroupItem = defineComponent({
   name: TOGGLE_ITEM_NAME,
+  components: {
+    OkuToggleGroupItemImpl,
+    OkuRovingFocusGroupItem,
+  },
   inheritAttrs: false,
   props: {
     ...toggleGroupItemProps.props,
@@ -35,16 +39,14 @@ const toggleGroupItem = defineComponent({
   },
   emits: toggleGroupItemProps.emits,
   setup(props, { slots, attrs }) {
-    const {
-      value,
-      disabled,
-      scopeOkuToggleGroup,
-    } = toRefs(props)
+    const _reactive = reactive(props)
+    const reactiveGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
-    const inject = useToggleGroupInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
+    const inject = useToggleGroupInject(TOGGLE_ITEM_NAME, props.scopeOkuToggleGroup)
     const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToggleGroup)
-    const pressed = computed(() => valueInject?.value?.value.includes(value.value!))
-    const _disabled = computed(() => inject.disabled.value || disabled.value)
+    const pressed = computed(() => valueInject?.value.value.includes(props.value!))
+    const disable = computed(() => inject.disabled.value || props.disabled)
 
     const forwardedRef = useForwardRef()
     const _ref = ref<HTMLDivElement | null>(null)
@@ -53,21 +55,21 @@ const toggleGroupItem = defineComponent({
       ? h(OkuRovingFocusGroupItem, {
         asChild: true,
         ...rovingFocusGroupScope,
-        focusable: !_disabled.value,
-        active: true,
+        focusable: !disable.value,
+        active: pressed.value,
         ref: _ref,
       }, {
         default: () => h(OkuToggleGroupItemImpl, {
-          ...mergeProps(attrs, props),
+          ...mergeProps(attrs, reactiveGroupProps),
           pressed: pressed.value,
-          disabled: _disabled.value,
+          disabled: disable.value,
           ref: forwardedRef,
         }, slots),
       })
       : h(OkuToggleGroupItemImpl, {
-        ...mergeProps(attrs, props),
+        ...mergeProps(attrs, reactiveGroupProps),
         pressed: pressed.value,
-        disabled: _disabled.value,
+        disabled: disable.value,
         ref: forwardedRef,
       }, slots)
   },

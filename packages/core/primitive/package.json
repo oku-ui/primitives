@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitive",
   "type": "module",
-  "version": "0.3.0-alpha.6",
+  "version": "0.3.0-alpha.7",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",

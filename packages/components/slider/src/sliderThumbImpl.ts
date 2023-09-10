@@ -1,7 +1,7 @@
-import { computed, defineComponent, h, ref, toRef, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { CollectionItemSlot, convertValueToPercentage, getLabel, getThumbInBoundsOffset, scopeSliderProps, useSliderInject, useSliderOrientationInject } from './utils'
 import { THUMB_NAME } from './sliderThumb'
@@ -41,9 +41,13 @@ const sliderThumbImpl = defineComponent({
   },
   emits: sliderThumbImplProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const index = toRef(props, 'index')
-    const inject = useSliderInject(THUMB_NAME, props.scopeOkuSlider)
-    const orientation = useSliderOrientationInject(THUMB_NAME, props.scopeOkuSlider)
+    const { scopeOkuSlider, index, ...thumbProps } = toRefs(props)
+
+    const _reactive = reactive(thumbProps)
+    const reactiveThumbProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useSliderInject(THUMB_NAME, scopeOkuSlider.value)
+    const orientation = useSliderOrientationInject(THUMB_NAME, scopeOkuSlider.value)
     const thumb = ref<HTMLSpanElement | null>(null)
 
     const forwardedRef = useForwardRef()
@@ -79,7 +83,7 @@ const sliderThumbImpl = defineComponent({
     },
     [
       h(CollectionItemSlot, {
-        scope: props.scopeOkuSlider,
+        scope: scopeOkuSlider.value,
       }, {
         default: () => h(Primitive.span, {
           'role': 'slider',
@@ -91,8 +95,7 @@ const sliderThumbImpl = defineComponent({
           'data-orientation': inject.orientation.value,
           'data-disabled': inject.disabled?.value ? '' : undefined,
           'tabindex': inject.disabled?.value ? undefined : 0,
-          ...attrs,
-          'asChild': props.asChild,
+          ...mergeProps(attrs, reactiveThumbProps),
           'ref': composedRefs,
           /**
           * There will be no value on initial render while we work out the index so we hide thumbs

@@ -1,8 +1,8 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { PropType } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useRovingFocusGroupScope, useTabsInject } from './tabs'
@@ -55,8 +55,10 @@ const tabsTrigger = defineComponent({
   },
   emits: tabsTriggerProps.emits,
   setup(props, { slots, attrs, emit }) {
-    const { scopeOkuTabs, value, disabled } = toRefs(props)
-    const { ...triggerAttrs } = attrs
+    const { scopeOkuTabs, value, disabled, ...triggerProps } = toRefs(props)
+    const _reactive = reactive(triggerProps)
+    const reactiveTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const injectTabs = useTabsInject(TAB_TRIGGER_NAME, scopeOkuTabs.value)
 
     const forwardedRef = useForwardRef()
@@ -84,7 +86,7 @@ const tabsTrigger = defineComponent({
             'data-disabled': disabled.value ? '' : undefined,
             'disabled': disabled.value,
             'id': triggerId.value,
-            ...triggerAttrs,
+            ...mergeProps(attrs, reactiveTriggerProps),
             'ref': forwardedRef,
             'onMousedown': composeEventHandlers<MouseEvent>((e) => {
               emit('mousedown', e)

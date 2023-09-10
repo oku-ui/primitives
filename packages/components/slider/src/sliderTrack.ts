@@ -1,7 +1,7 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { scopeSliderProps, useSliderInject } from './utils'
 
 const TRACK_NAME = 'OkuSliderTrack'
@@ -31,14 +31,17 @@ const sliderTrack = defineComponent({
   setup(props, { attrs, slots }) {
     const {
       scopeOkuSlider,
+      ...trackProps
     } = toRefs(props)
+    const _reactive = reactive(trackProps)
+    const reactiveTrackProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const inject = useSliderInject(TRACK_NAME, scopeOkuSlider.value)
     const forwardedRef = useForwardRef()
     const originalReturn = () => h(Primitive.span, {
       'data-disabled': inject.disabled?.value ? '' : undefined,
       'data-orientation': inject.orientation.value,
-      ...attrs,
-      'asChild': props.asChild,
+      ...mergeProps(attrs, reactiveTrackProps),
       'ref': forwardedRef,
     },
     {

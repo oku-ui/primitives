@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, ref } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref } from 'vue'
 import { propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuSliderThumbImpl, type SliderThumbImplElement, type SliderThumbImplNaviteElement, type SliderThumbImplProps, sliderThumbImplProps } from './sliderThumbImpl'
@@ -39,8 +39,7 @@ const sliderThumb = defineComponent({
     const index = computed(() => (thumb.value ? getItems().findIndex(item => item.ref.value === thumb.value) : -1))
 
     return () => h(OkuSliderThumbImpl, {
-      ...attrs,
-      asChild: props.asChild,
+      ...mergeProps(attrs, props),
       ref: composedRefs,
       index: index.value,
     }, slots)

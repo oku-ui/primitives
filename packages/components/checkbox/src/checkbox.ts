@@ -1,9 +1,9 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, useModel, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
@@ -103,21 +103,23 @@ const Checkbox = defineComponent({
   emits: checkboxProps.emits,
   setup(props, { attrs, slots, emit }) {
     const {
+      modelValue: _modelValue,
+      scopeOkuCheckbox,
       checked: checkedProp,
       defaultChecked,
       required,
       disabled,
       name,
       value,
+      ...checkboxProps
     } = toRefs(props)
+
+    const _reactive = reactive(checkboxProps)
+    const reactiveCheckboxProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const buttonRef = ref<HTMLButtonElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
-
-    const {
-      ...checkboxAttrs
-    } = attrs as CheckboxNaviteElement
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
@@ -132,7 +134,7 @@ const Checkbox = defineComponent({
       prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultChecked.value),
       onChange: (result: any) => {
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('checkedChange', result)
       },
       initialValue: false,
@@ -154,7 +156,7 @@ const Checkbox = defineComponent({
     })
 
     CheckboxProvider({
-      scope: props.scopeOkuCheckbox,
+      scope: scopeOkuCheckbox.value,
       state,
       disabled,
     })
@@ -163,16 +165,16 @@ const Checkbox = defineComponent({
       [h(Primitive.button, {
         'type': 'button',
         'role': 'checkbox',
-        'aria-checked': isIndeterminate(state.value) ? 'mixed' : state.value as any,
+        'aria-checked': computed(() => isIndeterminate(state.value) ? 'mixed' : state.value).value as any,
         'aria-required': required.value,
         'data-state': computed(() => getState(state.value)).value,
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
         'asChild': props.asChild,
-        ...checkboxAttrs,
+        ...mergeProps(attrs, reactiveCheckboxProps),
         'ref': composedRefs,
-        'onKeyDown': composeEventHandlers<KeyboardEvent>((e) => {
+        'onKeydown': composeEventHandlers<KeyboardEvent>((e) => {
           emit('keydown', e)
         }, (event) => {
           // According to WAI ARIA, Checkboxes don't activate on enter keypress
