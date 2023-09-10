@@ -1,4 +1,4 @@
-import { clamp } from '@Oku-ui/utils'
+import { clamp } from '@oku-ui/utils'
 import { nextTick, onMounted, ref, watchEffect } from 'vue'
 import { useCallbackRef } from '@oku-ui/use-composable'
 import type { Direction, Sizes } from './scroll-area'

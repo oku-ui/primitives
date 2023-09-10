@@ -1,25 +1,14 @@
 /// <reference types="resize-observer-browser" />
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { useDirection } from '@Oku-ui/direction'
+import { useDirection } from '@oku-ui/direction'
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import { createProvideScope } from '@Oku-ui/provide'
-import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
+import { createProvideScope } from '@oku-ui/provide'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { scopedScrollAreaProps } from './types'
 import type { ScrollAreaViewportElement } from './scroll-area-viewport'
 import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
-
-export type Direction = 'ltr' | 'rtl'
-export type Sizes = {
-  content: number
-  viewport: number
-  scrollbar: {
-    size: number
-    paddingStart: number
-    paddingEnd: number
-  }
-}
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollArea

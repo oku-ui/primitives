@@ -1,7 +1,7 @@
-import type { OkuElement, PrimitiveProps } from '@Oku-ui/primitive'
-import { Primitive, primitiveProps } from '@Oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { Fragment, defineComponent, h, ref } from 'vue'
-import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { scopedScrollAreaProps } from './types'
 import { useScrollAreaInject } from './scroll-area'
 

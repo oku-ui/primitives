@@ -1,5 +1,5 @@
-import { Primitive, primitiveProps } from '@Oku-ui/primitive'
-import type { OkuElement, PrimitiveProps } from '@Oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { defineComponent, h, ref } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { scopedScrollAreaProps } from './types'

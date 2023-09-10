@@ -1,6 +1,6 @@
 import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import { primitiveProps } from '@Oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@Oku-ui/use-composable'
+import { primitiveProps } from '@oku-ui/primitive'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { Sizes } from './scroll-area'
 import { useScrollAreaInject } from './scroll-area'
 import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'

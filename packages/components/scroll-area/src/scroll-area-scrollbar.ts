@@ -1,6 +1,6 @@
 import { defineComponent, h, toRefs, watchEffect } from 'vue'
-import { useForwardRef } from '@Oku-ui/use-composable/'
-import { primitiveProps } from '@Oku-ui/primitive'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { primitiveProps } from '@oku-ui/primitive'
 import { scopedScrollAreaProps } from './types'
 import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
