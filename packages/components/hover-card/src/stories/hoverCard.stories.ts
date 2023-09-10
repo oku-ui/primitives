@@ -27,182 +27,32 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Basic: Story = {
-  args: {
-    template: 'basic',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
+export const Basic: Story = renderStory('Basic')
+export const ContainTextSelection: Story = renderStory('ContainTextSelection')
+export const AsyncUpdate: Story = renderStory('AsyncUpdate')
+export const CustomDurations: Story = renderStory('CustomDurations')
+export const Controlled: Story = renderStory('Controlled')
+export const Layerable: Story = renderStory('Layerable')
+export const Animated: Story = renderStory('Animated')
+export const ForcedMount: Story = renderStory('ForcedMount')
+export const Nested: Story = renderStory('Nested')
+export const NonPortal: Story = renderStory('NonPortal')
+export const WithSlottedTrigger: Story = renderStory('WithSlottedTrigger')
+export const WithSlottedContent: Story = renderStory('WithSlottedContent')
 
-export const ContainTextSelection: Story = {
-  args: {
-    template: 'ContainTextSelection',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
+function renderStory(templateName: OkuHoverCardProps['template']) {
+  return {
+    args: {
+      template: templateName,
     },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const AsyncUpdate: Story = {
-  args: {
-    template: 'AsyncUpdate',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const CustomDurations: Story = {
-  args: {
-    template: 'CustomDurations',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const Controlled: Story = {
-  args: {
-    template: 'Controlled',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const Layerable: Story = {
-  args: {
-    template: 'Layerable',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const Animated: Story = {
-  args: {
-    template: 'Animated',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const ForcedMount: Story = {
-  args: {
-    template: 'ForcedMount',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const Nested: Story = {
-  args: {
-    template: 'Nested',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const NonPortal: Story = {
-  args: {
-    template: 'NonPortal',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const WithSlottedTrigger: Story = {
-  args: {
-    template: 'WithSlottedTrigger',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
-}
-
-export const WithSlottedContent: Story = {
-  args: {
-    template: 'WithSlottedContent',
-  },
-  render: (args: any) => ({
-    components: { HoverCardDemo },
-    setup() {
-      return { args }
-    },
-    template: `
-      <HoverCardDemo v-bind="args" />
-    `,
-  }),
+    render: (args: any) => ({
+      components: { HoverCardDemo },
+      setup() {
+        return { args }
+      },
+      template: `
+        <HoverCardDemo v-bind="args" />
+      `,
+    }),
+  }
 }
