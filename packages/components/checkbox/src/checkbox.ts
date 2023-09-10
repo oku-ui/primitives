@@ -177,7 +177,7 @@ const Checkbox = defineComponent({
         'asChild': props.asChild,
         ...mergeProps(checkboxAttrs, reactiveCheckboxProps),
         'ref': composedRefs,
-        'onKeyDown': composeEventHandlers<KeyboardEvent>((e) => {
+        'onKeydown': composeEventHandlers<KeyboardEvent>((e) => {
           emit('keydown', e)
         }, (event) => {
           // According to WAI ARIA, Checkboxes don't activate on enter keypress
