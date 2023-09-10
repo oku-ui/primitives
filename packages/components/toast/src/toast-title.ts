@@ -1,7 +1,7 @@
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { defineComponent, h } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { scopedToastProps } from './types'
 
 /* -------------------------------------------------------------------------------------------------
@@ -24,15 +24,17 @@ const toastTitle = defineComponent({
     ...scopedToastProps,
     ...primitiveProps,
   },
-  setup(_props, { attrs, slots }) {
-    const { ...toastTitleAttrs } = attrs as ToastTitleNaviteElement
+  setup(props, { attrs, slots }) {
+    const { scopeOkuToast: _scopeOkuToast, ...titleProps } = toRefs(props)
 
+    const _reactive = reactive(titleProps)
+    const reactiveTitleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
     const forwardedRef = useForwardRef()
 
     return () => h(Primitive.div,
       {
+        ...mergeProps(attrs, reactiveTitleProps),
         ref: forwardedRef,
-        ...toastTitleAttrs,
       },
       {
         default: () => slots.default?.(),

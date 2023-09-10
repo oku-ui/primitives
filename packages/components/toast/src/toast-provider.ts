@@ -62,6 +62,7 @@ const toastProvider = defineComponent({
   },
   setup(props, { slots }) {
     const {
+      scopeOkuToast,
       label,
       duration,
       swipeDirection,
@@ -74,7 +75,7 @@ const toastProvider = defineComponent({
     const isClosePausedRef = ref(false)
 
     toastProviderProvider({
-      scope: props.scopeOkuToast,
+      scope: scopeOkuToast.value,
       label,
       duration,
       swipeDirection,
@@ -100,7 +101,7 @@ const toastProvider = defineComponent({
 
       return h(CollectionProvider,
         {
-          scope: props.scopeOkuToast,
+          scope: scopeOkuToast.value,
         }, slots,
       )
     }

@@ -1,8 +1,8 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { PropType } from 'vue'
-import { Fragment, Teleport, computed, defineComponent, h, nextTick, ref, toRefs, watchEffect } from 'vue'
-import { isClient, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { Fragment, Teleport, computed, defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs, watchEffect } from 'vue'
+import { isClient, reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -123,13 +123,14 @@ const toastImpl = defineComponent({
   },
   emits: toastImplProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { ...toastImplAttrs } = attrs as ToastImplNaviteElement
-
     const {
       type,
       duration: durationProp,
       open,
+      ...toastProps
     } = toRefs(props)
+    const _reactive = reactive(toastProps)
+    const reactiveReactiveProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useToastProviderInject(TOAST_NAME, props.scopeOkuToast)
 
@@ -267,9 +268,13 @@ const toastImpl = defineComponent({
                         'tabIndex': 0,
                         'data-state': open.value ? 'open' : 'closed',
                         'data-swipe-direction': inject.swipeDirection.value,
-                        ...toastImplAttrs,
+                        ...mergeProps(attrs, reactiveReactiveProps),
                         'ref': composedRefs,
-                        'style': { userSelect: 'none', touchAction: 'none' },
+                        'style': {
+                          userSelect: 'none',
+                          touchAction: 'none',
+                          ...attrs.style as any,
+                        },
                         'onKeydown': composeEventHandlers<ToastImplEmits['keydown'][0]>((event) => {
                           emit('keydown', event)
                         }, (event) => {

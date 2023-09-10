@@ -1,6 +1,6 @@
-import { useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -70,13 +70,17 @@ const toast = defineComponent({
   },
   emits: toastProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const forwardedRef = useForwardRef()
-
     const {
+      modelValue: _modelValue,
       forceMount,
       open: openProp,
       defaultOpen,
+      ...toastProps
     } = toRefs(props)
+    const _reactive = reactive(toastProps)
+    const reactiveReactiveProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     const modelValue = useModel(props, 'modelValue')
     const proxyChecked = computed({
@@ -101,7 +105,7 @@ const toast = defineComponent({
         default: () => h(OkuToastImpl,
           {
             open: state.value,
-            ...attrs,
+            ...mergeProps(attrs, reactiveReactiveProps),
             ref: forwardedRef,
             onClose: () => updateValue(false),
             onPause: () => emit('pause'),
