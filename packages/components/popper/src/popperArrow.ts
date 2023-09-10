@@ -1,9 +1,9 @@
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 
 import type { ArrowElement, ArrowNaviteElement, ArrowProps } from '@oku-ui/arrow'
 import { OkuArrow, arrowProps } from '@oku-ui/arrow'
 
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { type Side, scopePopperProps } from './utils'
 import { usePopperContentInject } from './popperContent'
 
@@ -36,7 +36,10 @@ const popperArrow = defineComponent({
     ...scopePopperProps,
   },
   setup(props, { attrs }) {
-    const { height, width, asChild, scopeOkuPopper } = toRefs(props)
+    const { scopeOkuPopper, ...arrowProps } = toRefs(props)
+    const _reactive = reactive(arrowProps)
+    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const contentInject = usePopperContentInject(ARROW_NAME, scopeOkuPopper.value)
     const baseSide = computed(() => {
       return contentInject?.placedSide.value ? OPPOSITE_SIDE[contentInject.placedSide.value] : ''
@@ -76,13 +79,11 @@ const popperArrow = defineComponent({
         },
         [
           h(OkuArrow, {
-            ...attrs as any,
-            asChild: asChild.value,
+            ...mergeProps(reactiveArrowProps, attrs),
             ref: forwardedRef,
-            width: width.value,
-            height: height.value,
             style: {
               ...attrs.style as any,
+              // ensures the element can be measured correctly (mostly for if SVG)
               display: 'block',
             },
           }),

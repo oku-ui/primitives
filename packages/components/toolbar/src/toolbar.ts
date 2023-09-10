@@ -1,8 +1,8 @@
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { createProvideScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
@@ -68,9 +68,13 @@ const toolbar = defineComponent({
       orientation,
       dir,
       loop,
+      scopeOkuToolbar,
+      ...toolbarProps
     } = toRefs(props)
+    const _reactive = reactive(toolbarProps)
+    const reactiveToolbarProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToolbar)
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuToolbar.value)
     const direction = useDirection(dir.value)
 
     const forwardedRef = useForwardRef()
@@ -78,7 +82,7 @@ const toolbar = defineComponent({
     toolbarProvider({
       dir,
       orientation,
-      scope: props.scopeOkuToolbar,
+      scope: scopeOkuToolbar.value,
     })
 
     return () => h(OkuRovingFocusGroup, {
@@ -92,7 +96,7 @@ const toolbar = defineComponent({
         role: 'toolbar',
         ariaOrientation: orientation.value,
         dir: direction.value,
-        ...attrs,
+        ...mergeProps(attrs, reactiveToolbarProps),
         ref: forwardedRef,
       }, slots),
     })

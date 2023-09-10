@@ -1,5 +1,3 @@
-import { useCallbackRef } from '@oku-ui/use-composable'
-import type { Ref } from 'vue'
 import { ref, watchEffect } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 
@@ -32,10 +30,6 @@ function usePointerdownOutside(
   onPointerDownOutside?: (event: PointerdownOutsideEvent) => void,
   ownerDocument: Document = globalThis?.document,
 ) {
-  const handlePointerDownOutside = useCallbackRef(
-    onPointerDownOutside,
-  ) as Ref<EventListener>
-
   const isPointerInsideTreeRef = ref<boolean>(false)
   const handleClickRef = ref(() => {})
 
@@ -47,7 +41,7 @@ function usePointerdownOutside(
         function handleAndDispatchPointerdownOutsideEvent() {
           handleAndDispatchCustomEvent(
             POINTER_DOWN_OUTSIDE,
-            handlePointerDownOutside.value,
+            onPointerDownOutside,
             eventDetail,
             { discrete: true },
           )
@@ -123,7 +117,6 @@ function useFocusoutSide(
   onFocusoutSide?: (event: FocusoutSideEvent) => void,
   ownerDocument: Document = globalThis?.document,
 ) {
-  const handleFocusoutSide = useCallbackRef(onFocusoutSide) as Ref<EventListener>
   const isFocusInsideReactTreeRef = ref<boolean>(false)
 
   watchEffect((onClean) => {
@@ -133,7 +126,7 @@ function useFocusoutSide(
 
         handleAndDispatchCustomEvent(
           FOCUS_OUTSIDE,
-          handleFocusoutSide.value,
+          event => onFocusoutSide?.(event as FocusoutSideEvent),
           eventDetail,
           {
             discrete: false,

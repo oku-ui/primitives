@@ -127,7 +127,7 @@ const tooltip = defineComponent({
           provideInject.onClose()
         }
 
-        emit('update:modelValue', result)
+        modelValue.value = result
         emit('openChange', result)
       },
       initialValue: false,

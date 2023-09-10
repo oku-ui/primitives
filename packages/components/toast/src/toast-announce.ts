@@ -1,8 +1,9 @@
-import { Fragment, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
+import { isClient, reactiveOmit } from '@oku-ui/use-composable'
 import { TOAST_NAME, useToastProviderInject } from './share'
 import { useNextFrame } from './utils'
 import { scopedToastProps } from './types'
@@ -32,11 +33,12 @@ const toastAnnounce = defineComponent({
     ...scopedToastProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...toastAnnounceAttrs } = attrs
-
     const {
       scopeOkuToast,
+      ...announceProps
     } = toRefs(props)
+    const _reactive = reactive(announceProps)
+    const reactiveAnnounceProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useToastProviderInject(TOAST_NAME, scopeOkuToast.value)
     const renderAnnounceText = ref<boolean>(false)
@@ -46,6 +48,9 @@ const toastAnnounce = defineComponent({
     useNextFrame(() => renderAnnounceText.value = true)
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const timer = window.setTimeout(() => isAnnounced.value = true, 1000)
 
       onInvalidate(() => window.clearTimeout(timer))
@@ -58,7 +63,7 @@ const toastAnnounce = defineComponent({
         {
           default: () => h(OkuVisuallyHidden,
             {
-              ...toastAnnounceAttrs,
+              ...mergeProps(attrs, reactiveAnnounceProps),
             },
             {
               default: () => renderAnnounceText.value && h(Fragment,

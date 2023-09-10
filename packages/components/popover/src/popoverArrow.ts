@@ -1,6 +1,6 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperArrow, type PopperArrowElement, type PopperArrowNaviteElement, type PopperArrowProps, popperAnchorProps } from '@oku-ui/popper'
 import { scopePopoverProps } from './utils'
 import { usePopperScope } from './popover'
@@ -31,14 +31,16 @@ const popoverArrow = defineComponent({
   },
   emits: popoverArrowProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuPopover, ...arrowProps } = props
+    const { scopeOkuPopover, ...arrowProps } = toRefs(props)
+    const _reactive = reactive(arrowProps)
+    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
-    const popperScope = usePopperScope(scopeOkuPopover)
+    const popperScope = usePopperScope(scopeOkuPopover.value)
 
     return () => h(OkuPopperArrow, {
       ...popperScope,
-      ...arrowProps,
-      ...attrs,
+      ...mergeProps(attrs, reactiveArrowProps),
       ref: forwardedRef,
     }, {
       default: () => slots.default?.(),

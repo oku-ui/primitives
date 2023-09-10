@@ -15,13 +15,13 @@ overrides:
   '@oku-ui/dismissable-layer': workspace:^
   '@oku-ui/focus-guards': workspace:^
   '@oku-ui/focus-scope': workspace:^
+  '@oku-ui/hover-card': workspace:^
   '@oku-ui/label': workspace:^
   '@oku-ui/popover': workspace:^
   '@oku-ui/popper': workspace:^
   '@oku-ui/portal': workspace:^
   '@oku-ui/presence': workspace:^
   '@oku-ui/primitive': workspace:^
-  '@oku-ui/hover-card': workspace:^
   '@oku-ui/progress': workspace:^
   '@oku-ui/provide': workspace:^
   '@oku-ui/radio-group': workspace:^
@@ -198,8 +198,8 @@ importers:
         specifier: ^3.5.3
         version: 3.5.3
       chromatic:
-        specifier: ^6.24.1
-        version: 6.24.1
+        specifier: ^7.1.0
+        version: 7.1.0
       eslint:
         specifier: 8.48.0
         version: 8.48.0
@@ -216,8 +216,8 @@ importers:
         specifier: ^13.2.2
         version: 13.2.2
       happy-dom:
-        specifier: ^10.11.2
-        version: 10.11.2
+        specifier: ^11.0.2
+        version: 11.0.2
       jiti:
         specifier: ^1.19.3
         version: 1.19.3
@@ -277,7 +277,7 @@ importers:
         version: 3.5.3(@types/node@18.17.14)(rollup@3.29.0)(typescript@5.2.2)(vite@4.3.5)
       vitest:
         specifier: ^0.34.3
-        version: 0.34.3(happy-dom@10.11.2)(jsdom@22.1.0)
+        version: 0.34.3(happy-dom@11.0.2)(jsdom@22.1.0)
       vitest-axe:
         specifier: ^0.1.0
         version: 0.1.0(vitest@0.34.3)
@@ -631,6 +631,67 @@ importers:
       '@oku-ui/utils':
         specifier: workspace:^
         version: link:../../core/utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/primitives:
+    dependencies:
+      '@oku-ui/aspect-ratio':
+        specifier: workspace:^
+        version: link:../aspect-ratio
+      '@oku-ui/avatar':
+        specifier: workspace:^
+        version: link:../avatar
+      '@oku-ui/checkbox':
+        specifier: workspace:^
+        version: link:../checkbox
+      '@oku-ui/collapsible':
+        specifier: workspace:^
+        version: link:../collapsible
+      '@oku-ui/label':
+        specifier: workspace:^
+        version: link:../label
+      '@oku-ui/popover':
+        specifier: workspace:^
+        version: link:../popover
+      '@oku-ui/progress':
+        specifier: workspace:^
+        version: link:../progress
+      '@oku-ui/radio-group':
+        specifier: workspace:^
+        version: link:../radio-group
+      '@oku-ui/separator':
+        specifier: workspace:^
+        version: link:../separator
+      '@oku-ui/slider':
+        specifier: workspace:^
+        version: link:../slider
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:../switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../tabs
+      '@oku-ui/toast':
+        specifier: workspace:^
+        version: link:../toast
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:../toggle
+      '@oku-ui/toggle-group':
+        specifier: workspace:^
+        version: link:../toggle-group
+      '@oku-ui/toolbar':
+        specifier: workspace:^
+        version: link:../toolbar
+      '@oku-ui/tooltip':
+        specifier: workspace:^
+        version: link:../tooltip
       vue:
         specifier: ^3.3.0
         version: 3.3.4
@@ -1167,7 +1228,7 @@ importers:
         version: link:../../packages/components/label
       '@oku-ui/primitives':
         specifier: workspace:^
-        version: link:../../packages/primitives
+        version: link:../../packages/components/primitives
       '@oku-ui/progress':
         specifier: workspace:^
         version: link:../../packages/components/progress
@@ -1189,6 +1250,9 @@ importers:
       '@oku-ui/tabs':
         specifier: workspace:^
         version: link:../../packages/components/tabs
+      '@oku-ui/toast':
+        specifier: workspace:^
+        version: link:../../packages/components/toast
       '@oku-ui/visually-hidden':
         specifier: workspace:^
         version: link:../../packages/components/visually-hidden
@@ -6413,7 +6477,7 @@ packages:
       std-env: 3.4.3
       test-exclude: 6.0.0
       v8-to-istanbul: 9.1.0
-      vitest: 0.34.3(happy-dom@10.11.2)(jsdom@22.1.0)
+      vitest: 0.34.3(happy-dom@11.0.2)(jsdom@22.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7592,8 +7656,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /chromatic@6.24.1:
-    resolution: {integrity: sha512-XbpdWWHvFpEHtcq1Km71UcuQ07effB+8q8L47E1Y7HJmJ4ZCoKCuPd8liNrbnvwEAxqfBZvTcONYU/3BPz2i5w==}
+  /chromatic@7.1.0:
+    resolution: {integrity: sha512-4hvWVxj2TxsgmzQK7zsAIVapxF+mzAXFuYIoAKKACdKtI+kjz0GfKJYpnzD4xciY3SGaySsis6gWxJ9q8GIxiQ==}
     hasBin: true
     dev: true
 
@@ -9684,7 +9748,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
 
@@ -9811,8 +9875,8 @@ packages:
       uglify-js: 3.17.4
     dev: true
 
-  /happy-dom@10.11.2:
-    resolution: {integrity: sha512-rzgmLjLkhyaOdFEyU8CWXzbgyCyM7wJHLqhaoeEVSTyur1fjcUaiNTHx+D4CPaLvx16tGy+SBPd9TVnP/kzL3w==}
+  /happy-dom@11.0.2:
+    resolution: {integrity: sha512-0yyYIBCByZVgWNuM+/tXXaAR+YUjsoXmzDisQ/KPI7Dt9kXtsPUOU6JAc/isVxridmeSb9/icthsaAhUBKJa4g==}
     dependencies:
       css.escape: 1.5.1
       entities: 4.5.0
@@ -11276,6 +11340,7 @@ packages:
     resolution: {integrity: sha512-tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==}
     dependencies:
       brace-expansion: 1.1.11
+    dev: true
 
   /minimatch@3.0.8:
     resolution: {integrity: sha512-6FsRAQsxQ61mw+qP1ZzbL9Bc78x2p5OqNgNpnoAFLTrX8n5Kxph0CsnhmKKNXTWjXqU5L0pGPR7hYk+XWZr60Q==}
@@ -15104,10 +15169,10 @@ packages:
       dom-accessibility-api: 0.5.16
       lodash-es: 4.17.21
       redent: 3.0.0
-      vitest: 0.34.3(happy-dom@10.11.2)(jsdom@22.1.0)
+      vitest: 0.34.3(happy-dom@11.0.2)(jsdom@22.1.0)
     dev: true
 
-  /vitest@0.34.3(happy-dom@10.11.2)(jsdom@22.1.0):
+  /vitest@0.34.3(happy-dom@11.0.2)(jsdom@22.1.0):
     resolution: {integrity: sha512-7+VA5Iw4S3USYk+qwPxHl8plCMhA5rtfwMjgoQXMT7rO5ldWcdsdo3U1QD289JgglGK4WeOzgoLTsGFu6VISyQ==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -15151,7 +15216,7 @@ packages:
       cac: 6.7.14
       chai: 4.3.8
       debug: 4.3.4
-      happy-dom: 10.11.2
+      happy-dom: 11.0.2
       jsdom: 22.1.0
       local-pkg: 0.4.3
       magic-string: 0.30.3

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { OkuToast, OkuToastAction, OkuToastClose, OkuToastDescription, OkuToastProvider, OkuToastTitle, OkuToastViewport } from '@oku-ui/toast'
+import { isClient } from '@oku-ui/use-composable'
 import { ref, watchEffect } from 'vue'
 
 const hasUpgrade = ref(false)
 
 watchEffect((onInvalidate) => {
+  if (!isClient)
+    return
   if (!hasUpgrade.value) {
     const timer = window.setTimeout(() => hasUpgrade.value = true, 10000)
 
@@ -16,6 +19,9 @@ const open = ref(false)
 const saving = ref(false)
 
 watchEffect((onInvalidate) => {
+  if (!isClient)
+    return
+
   if (saving.value) {
     const timer = window.setTimeout(() => saving.value = false, 2000)
 
@@ -238,7 +244,3 @@ const SNAPSHOT_DELAY = ref(300)
     <OkuToastViewport class="chromatic-viewport" />
   </OkuToastProvider>
 </template>
-
-<style lang="postcss">
-@import './toast.css'
-</style>

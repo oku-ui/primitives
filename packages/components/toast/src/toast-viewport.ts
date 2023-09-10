@@ -1,8 +1,8 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { isClient, reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
 import { CollectionSlot, useCollection, useToastProviderInject } from './share'
 import { focusFirst, getTabbableCandidates } from './utils'
@@ -65,12 +65,13 @@ const toastViewport = defineComponent({
     ...toastViewportProps.props,
   },
   setup(props, { attrs, slots }) {
-    const { ...toastViewportAttrs } = attrs as ToastViewportNaviteElement
-
     const {
       hotkey,
       label,
+      ...viewportProps
     } = toRefs(props)
+    const _reactive = reactive(viewportProps)
+    const reactiveViewPortProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -88,6 +89,9 @@ const toastViewport = defineComponent({
     const hasToasts = computed(() => inject.toastCount.value > 0)
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const handleKeyDown = (event: KeyboardEvent) => {
         // we use `event.code` as it is consistent regardless of meta keys that were pressed.
         // for example, `event.key` for `Control+Alt+t` is `†` and `t !== †`
@@ -102,6 +106,9 @@ const toastViewport = defineComponent({
     })
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const wrapper = wrapperRef.value
       const viewport = viewportRef.value
       if (hasToasts.value && wrapper && viewport) {
@@ -167,6 +174,9 @@ const toastViewport = defineComponent({
     }
 
     watchEffect((onInvalidate) => {
+      if (!isClient)
+        return
+
       const viewport = viewportRef.value
       // We programmatically manage tabbing as we are unable to influence
       // the source order with portals, this allows us to reverse the
@@ -243,8 +253,7 @@ const toastViewport = defineComponent({
               default: () => h(Primitive.ol,
                 {
                   tabindex: -1,
-                  ...toastViewportAttrs,
-                  asChild: props.asChild,
+                  ...mergeProps(attrs, reactiveViewPortProps),
                   ref: composedRefs,
                 }, slots,
               ),

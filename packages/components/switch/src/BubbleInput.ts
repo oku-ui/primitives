@@ -1,12 +1,15 @@
 import type { OkuElement } from '@oku-ui/primitive'
-import { usePrevious, useSize } from '@oku-ui/use-composable'
+import { reactiveOmit, usePrevious, useSize } from '@oku-ui/use-composable'
 import type {
   PropType,
   Ref,
 } from 'vue'
 import {
+  computed,
   defineComponent,
   h,
+  mergeProps,
+  reactive,
   ref,
   toRefs,
   watchEffect,
@@ -31,7 +34,7 @@ const bubbleInputProps = {
     },
     bubbles: {
       type: Boolean,
-      default: true,
+      default: undefined,
     },
     control: {
       type: Object as PropType<HTMLElement | null>,
@@ -47,7 +50,11 @@ export const BubbleInput = defineComponent({
     ...bubbleInputProps.props,
   },
   setup(props, { attrs }) {
-    const { control, checked, bubbles } = toRefs(props)
+    const { control, checked, bubbles: asBubbles, ...inputProps } = toRefs(props)
+    const bubbles = computed(() => asBubbles.value ?? true)
+    const _reactive = reactive(inputProps)
+    const reactiveSwitchProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevChecked = usePrevious(checked)
     const controlSize = useSize(control as Ref<HTMLElement>)
@@ -73,7 +80,7 @@ export const BubbleInput = defineComponent({
         'type': 'checkbox',
         'aria-hidden': true,
         'defaultChecked': checked.value,
-        ...attrs,
+        ...mergeProps(attrs, reactiveSwitchProps),
         'tabindex': -1,
         'ref': inputRef,
         'style': {
@@ -82,7 +89,7 @@ export const BubbleInput = defineComponent({
           position: 'absolute',
           pointerEvents: 'none',
           opacity: 0,
-          margin: 0,
+          margin: '0px',
         },
       })
 

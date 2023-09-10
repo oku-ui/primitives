@@ -1,6 +1,6 @@
-import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { OkuPopperContent, popperContentProps } from '@oku-ui/popper'
 import type { PopperContentProps as OkuPopperContentProps, PopperContentElement, PopperContentEmits, PopperContentNaviteElement } from '@oku-ui/popper'
@@ -83,15 +83,15 @@ const tooltipContentImpl = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const {
       ariaLabel,
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      asChild,
-      // eslint-disable-next-line unused-imports/no-unused-vars
+      asChild: _asChild,
       scopeOkuTooltip,
       ...contentProps
-    } = props
-    const { ...restAttrs } = attrs as TooltipContentImplNaviteElement
-    const inject = useTooltipInject(CONTENT_NAME, props.scopeOkuTooltip)
-    const popperScope = usePopperScope(props.scopeOkuTooltip)
+    } = toRefs(props)
+    const _reactive = reactive(contentProps)
+    const reactiveTooltipProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useTooltipInject(CONTENT_NAME, scopeOkuTooltip.value)
+    const popperScope = usePopperScope(scopeOkuTooltip.value)
     const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
@@ -116,7 +116,7 @@ const tooltipContentImpl = defineComponent({
     })
 
     visuallyHiddenContentProvider({
-      scope: props.scopeOkuTooltip,
+      scope: scopeOkuTooltip.value,
       isInside: ref(false),
     })
 
@@ -154,11 +154,10 @@ const tooltipContentImpl = defineComponent({
       default: () => h(OkuPopperContent, {
         'data-state': inject.stateAttribute.value,
         ...popperScope,
-        'asChild': props.asChild,
-        ...mergeProps(restAttrs, contentProps),
+        ...mergeProps(attrs, reactiveTooltipProps),
         'ref': forwardedRef,
         'style': {
-          ...restAttrs.style as any,
+          ...attrs.style as any,
           ...{
             '--oku-tooltip-content-transform-origin': 'var(--oku-popper-transform-origin)',
             '--oku-tooltip-content-available-width': 'var(--oku-popper-available-width)',
@@ -177,7 +176,7 @@ const tooltipContentImpl = defineComponent({
               id: inject.contentId.value,
               role: 'tooltip',
             }, {
-              default: () => ariaLabel || slots.default?.(),
+              default: () => ariaLabel.value || slots.default?.(),
             }),
           }),
         ],

@@ -23,7 +23,6 @@ defineProps({
 </template>
 
 <style scoped lang="postcss">
-@import './toast.css';
 .success-header {
   background: green;
 }
