@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.4.0-alpha.12",
+  "version": "0.4.0-alpha.13",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -41,6 +41,7 @@
     "@oku-ui/avatar": "latest",
     "@oku-ui/checkbox": "latest",
     "@oku-ui/collapsible": "latest",
+    "@oku-ui/dialog": "latest",
     "@oku-ui/hover-card": "latest",
     "@oku-ui/label": "latest",
     "@oku-ui/popover": "latest",

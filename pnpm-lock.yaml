@@ -703,6 +703,9 @@ importers:
       '@oku-ui/collapsible':
         specifier: workspace:^
         version: link:../collapsible
+      '@oku-ui/dialog':
+        specifier: workspace:^
+        version: link:../dialog
       '@oku-ui/hover-card':
         specifier: workspace:^
         version: link:../hover-card

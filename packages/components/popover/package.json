@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/popover",
   "type": "module",
-  "version": "0.4.0-alpha.12",
+  "version": "0.4.0-alpha.13",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
