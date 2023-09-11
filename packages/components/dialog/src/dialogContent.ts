@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { CONTENT_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
@@ -41,23 +41,25 @@ const dialogContent = defineComponent({
   },
   emits: dialogContentProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { forceMount: _asForceMount, ...dialogProps } = props
+    const { forceMount: asForceMount, ...dialogProps } = toRefs(props)
+    const _reactive = reactive(dialogProps)
+    const reactiveDialogProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const portalInject = useDialogPortalInject(CONTENT_NAME, props.scopeOkuDialog)
 
-    const { forceMount: force } = toRefs(props)
-    const forceMountRef = computed(() => force.value || portalInject.forceMount?.value)
+    const forceMount = computed(() => asForceMount.value || portalInject.forceMount?.value)
 
     const inject = useDialogInject(CONTENT_NAME, props.scopeOkuDialog)
 
     const forwardRef = useForwardRef()
 
     const originalReturn = () => h(OkuPresence, {
-      present: computed(() => forceMountRef?.value || inject.open.value).value,
+      present: computed(() => forceMount.value || inject.open.value).value,
     },
     {
       default: () => inject.modal.value
         ? h(OkuDialogContentModal, {
-          ...mergeProps(attrs, dialogProps),
+          ...mergeProps(attrs, reactiveDialogProps),
           ref: forwardRef,
           onOpenAutoFocus: composeEventHandlers<DialogContentModalEmits['openAutoFocus'][0]>((el) => {
             emit('openAutoFocus', el)
@@ -86,7 +88,7 @@ const dialogContent = defineComponent({
           },
         }, slots)
         : h(OkuDialogContentNonModal, {
-          ...mergeProps(attrs, dialogProps),
+          ...mergeProps(attrs, reactiveDialogProps),
           ref: forwardRef,
         }, slots),
     })

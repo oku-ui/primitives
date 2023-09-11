@@ -1,7 +1,7 @@
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { scopeDialogProps, useDialogInject } from './utils'
 
@@ -34,15 +34,18 @@ const dialogClose = defineComponent({
   },
   emits: dialogCloseProps.emits,
   setup(props, { attrs, slots, emit }) {
-    const { scopeOkuDialog, ...closeProps } = props
+    const { scopeOkuDialog, ...closeProps } = toRefs(props)
 
-    const inject = useDialogInject(CLOSE_NAME, scopeOkuDialog)
+    const _reactive = reactive(closeProps)
+    const reactiveCloseProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useDialogInject(CLOSE_NAME, scopeOkuDialog.value)
 
     const forwardRef = useForwardRef()
 
     return () => h(Primitive.button, {
       type: 'button',
-      ...mergeProps(attrs, closeProps),
+      ...mergeProps(attrs, reactiveCloseProps),
       ref: forwardRef,
       onClick: composeEventHandlers((e: DialogCloseEmits['click'][0]) => {
         emit('click', e)

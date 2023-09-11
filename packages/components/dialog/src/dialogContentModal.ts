@@ -1,4 +1,4 @@
-import { defineComponent, h, onMounted, ref } from 'vue'
+import { defineComponent, h, mergeProps, onUnmounted, ref } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -42,20 +42,20 @@ const dialogContentModal = defineComponent({
     const composedRefs = useComposedRefs(forwardRef, inject.contentRef, contentRef)
 
     const isRightClickOutsideRef = ref(false)
-    onMounted(() => {
+
+    onUnmounted(() => {
       const content = contentRef.value
       if (content)
         return hideOthers(content)
     })
 
     return () => h(OkuDialogContentImpl, {
-      ...attrs,
-      ...props,
+      ...mergeProps(attrs, props),
       ref: composedRefs,
       // we make sure focus isn't trapped once `DialogContent` has been closed
       // (closed !== unmounted when animating out)
       trapFocus: inject.open.value,
-      disableOutsidePointerEvents: inject.open.value,
+      disableOutsidePointerEvents: true,
       onOpenAutoFocus: composeEventHandlers<DialogContentModalEmits['openAutoFocus'][0]>((el) => {
         emit('openAutoFocus', el)
       }, (event) => {

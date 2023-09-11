@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
-import { Fragment, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
+import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
 import { useFocusGuards } from '@oku-ui/focus-guards'
@@ -67,9 +67,14 @@ const dialogContentImpl = defineComponent({
   },
   emits: dialogContentImplProps.emits,
   setup(props, { emit, attrs, slots }) {
-    const { scopeOkuDialog: _scopeOkuDialog, trapFocus: _trapFocus, onOpenAutoFocus: _onOpen, onCloseAutoFocus: _onClose, disableOutsidePointerEvents: _disableOutsidePointerEvents, ...contentProps } = props
+    const {
+      scopeOkuDialog,
+      trapFocus,
+      ...contentProps
+    } = toRefs(props)
 
-    const { scopeOkuDialog, trapFocus } = toRefs(props)
+    const _reactive = reactive(contentProps)
+    const reactiveDialogProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useDialogInject(CONTENT_NAME, scopeOkuDialog.value)
 
@@ -83,7 +88,7 @@ const dialogContentImpl = defineComponent({
       [
         h(OkuFocusScope, {
           asChild: true,
-          loop: trapFocus.value,
+          loop: true,
           trapped: trapFocus.value,
           onMountAutoFocus: (event) => {
             emit('openAutoFocus', event)
@@ -93,14 +98,12 @@ const dialogContentImpl = defineComponent({
           },
         }, {
           default: () => h(OkuDismissableLayer, {
-            'asChild': true,
-
             'role': 'dialog',
             'id': inject.contentId.value,
             'aria-describedby': inject.descriptionId?.value,
             'aria-labelledby': inject.titleId?.value,
             'data-state': getState(inject.open.value),
-            ...mergeProps(attrs, contentProps),
+            ...mergeProps(attrs, reactiveDialogProps),
             'ref': composedRefs,
             'onInteractOutside': (event) => {
               emit('interactOutside', event)

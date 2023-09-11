@@ -1,7 +1,7 @@
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { TITLE_NAME, scopeDialogProps, useDialogInject } from './utils'
 
 export type DialogTitleNaviteElement = OkuElement<'h2'>
@@ -26,15 +26,18 @@ const dialogTitle = defineComponent({
   },
   emits: dialogTitleProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuDialog, ...titleProps } = props
+    const { scopeOkuDialog, ...titleProps } = toRefs(props)
 
-    const inject = useDialogInject(TITLE_NAME, scopeOkuDialog)
+    const _reactive = reactive(titleProps)
+    const reactiveTitleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useDialogInject(TITLE_NAME, scopeOkuDialog.value)
 
     const forwardRef = useForwardRef()
 
     return () => h(Primitive.h2, {
       id: inject?.titleId.value,
-      ...mergeProps(attrs, titleProps),
+      ...mergeProps(attrs, reactiveTitleProps),
       ref: forwardRef,
     },
     {
