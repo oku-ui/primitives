@@ -46,6 +46,7 @@
     "@oku-ui/popover": "latest",
     "@oku-ui/progress": "latest",
     "@oku-ui/radio-group": "latest",
+    "@oku-ui/scroll-area": "latest",
     "@oku-ui/separator": "latest",
     "@oku-ui/slider": "latest",
     "@oku-ui/switch": "latest",

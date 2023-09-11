@@ -1,13 +1,13 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { OkuPresence } from '@oku-ui/presence'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { propsOmit } from '@oku-ui/primitive'
-import { scopedScrollAreaProps } from './types'
-import { useScrollAreaInject } from './scroll-area'
+import { OkuPresence } from '@oku-ui/presence'
 import type { ScrollAreaScrollbarAutoElement, ScrollAreaScrollbarAutoNaviteElement, ScrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
 import { OkuScrollAreaScrollbarAuto, scrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
+import { useScrollAreaInject } from './scroll-area'
+import { scopedScrollAreaProps } from './types'
 
 const SCROLL_NAME = 'OkuScrollAreaScrollbarHover'
 
@@ -21,8 +21,7 @@ export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoPr
 const scrollAreaScrollbarHoverProps = {
   props: {
     forceMount: {
-      type: Boolean as PropType<boolean | undefined>,
-      required: false,
+      type: Boolean as PropType<true | undefined>,
     },
     ...propsOmit(scrollAreaScrollbarAutoProps.props, ['forceMount']),
   },
@@ -40,12 +39,18 @@ const scrollAreaScrollbarHover = defineComponent({
   },
   emits: scrollAreaScrollbarHoverProps.emits,
   setup(props, { attrs, slots }) {
-    const { forceMount, ...scrollbarProps } = toRefs(props)
-    const _reactive = reactive(scrollbarProps)
-    const reactiveScrollbarProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const {
+      scopeOkuScrollArea,
+      forceMount,
+      ...scrollAreaScrollbarHoverProps
+    } = toRefs(props)
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const _reactive = reactive(scrollAreaScrollbarHoverProps)
+    const reactiveScrollAreaScrollbarHoverProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
+
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const visible = ref(false)
 
     watchEffect((onInvalidate) => {
@@ -71,14 +76,12 @@ const scrollAreaScrollbarHover = defineComponent({
     })
 
     return () => h(OkuPresence,
-      {
-        present: forceMount.value || visible.value,
-      },
+      { present: computed(() => forceMount.value || visible.value).value },
       {
         default: () => h(OkuScrollAreaScrollbarAuto,
           {
             'data-state': visible.value ? 'visible' : 'hidden',
-            ...mergeProps(attrs, reactiveScrollbarProps),
+            ...mergeProps(attrs, reactiveScrollAreaScrollbarHoverProps),
             'ref': forwardedRef,
           }, slots,
         ),

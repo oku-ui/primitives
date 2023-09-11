@@ -30,7 +30,8 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --watch"
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
     "vue": "^3.3.0"

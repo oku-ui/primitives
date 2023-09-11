@@ -1,9 +1,9 @@
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { scopedScrollAreaProps } from './types'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useScrollAreaInject } from './scroll-area'
+import { scopedScrollAreaProps } from './types'
 
 const VIEWPORT_NAME = 'OkuScrollAreaViewport'
 
@@ -28,9 +28,13 @@ const scrollAreaViewport = defineComponent({
   },
   emits: scrollAreaViewportProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuScrollArea, ...viewportProps } = toRefs(props)
-    const _reactive = reactive(viewportProps)
-    const reactiveViewPortProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const {
+      scopeOkuScrollArea,
+      ...scrollAreaViewportProps
+    } = toRefs(props)
+
+    const _reactive = reactive(scrollAreaViewportProps)
+    const reactiveScrollAreaViewportProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useScrollAreaInject(VIEWPORT_NAME, scopeOkuScrollArea.value)
     const scrollAreaViewportRef = ref<ScrollAreaViewportElement | null>(null)
@@ -49,7 +53,7 @@ const scrollAreaViewport = defineComponent({
         h(Primitive.div,
           {
             ['data-oku-scroll-area-viewport' as any]: '',
-            ...mergeProps(attrs, reactiveViewPortProps),
+            ...mergeProps(attrs, reactiveScrollAreaViewportProps),
             ref: composedRefs,
             style: {
               /**
@@ -78,7 +82,7 @@ const scrollAreaViewport = defineComponent({
              */
             default: () => h('div',
               {
-                ref: (el: any) => inject.onContentChange(el),
+                ref: el => inject.onContentChange(el as HTMLDivElement),
                 style: { minWidth: '100%', display: 'table' },
               }, slots,
             ),

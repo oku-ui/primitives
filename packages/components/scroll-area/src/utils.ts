@@ -1,6 +1,5 @@
-import { clamp } from '@Oku-ui/utils'
 import { nextTick, onMounted, ref, watchEffect } from 'vue'
-import { useCallbackRef } from '@oku-ui/use-composable'
+import { clamp } from '@oku-ui/utils'
 
 export type Direction = 'ltr' | 'rtl'
 export type Sizes = {
@@ -92,7 +91,7 @@ function addUnlinkedScrollListener(node: HTMLElement, handler = () => {}) {
 }
 
 function useDebounceCallback(callback: () => void, delay: number) {
-  const handleCallback = useCallbackRef(callback)
+  const handleCallback = callback
   const debounceTimerRef = ref<number>(0)
 
   onMounted(() => {
@@ -101,12 +100,12 @@ function useDebounceCallback(callback: () => void, delay: number) {
 
   return () => {
     window.clearTimeout(debounceTimerRef.value)
-    debounceTimerRef.value = window.setTimeout(handleCallback.value, delay)
+    debounceTimerRef.value = window.setTimeout(handleCallback, delay)
   }
 }
 
 function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
-  const handleResize = useCallbackRef(onResize)
+  const handleResize = onResize
   watchEffect((onInvalidate) => {
     nextTick()
 
@@ -121,7 +120,7 @@ function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
        */
       const resizeObserver = new ResizeObserver(() => {
         cancelAnimationFrame(rAF)
-        rAF = window.requestAnimationFrame(handleResize.value)
+        rAF = window.requestAnimationFrame(handleResize)
       })
       resizeObserver.observe(element)
 
