@@ -34,7 +34,6 @@
     ]
   },
   "include": [
-    "packages/**/*",
     "vitest-setup.ts",
     "vitest.config.ts",
     "scripts/**/*"
