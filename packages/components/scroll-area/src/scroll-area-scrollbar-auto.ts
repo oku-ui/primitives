@@ -1,7 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
@@ -21,11 +20,14 @@ export interface ScrollAreaScrollbarAutoProps extends ScrollAreaScrollbarVisible
 
 export const scrollAreaScrollbarAutoProps = {
   props: {
+    ...scrollAreaScrollbarVisibleProps.props,
     forceMount: {
       type: Boolean as PropType<true | undefined>,
     },
   },
-  emits: {},
+  emits: {
+    ...scrollAreaScrollbarVisibleProps.emits,
+  },
 }
 
 const scrollAreaScrollbarScroll = defineComponent({
@@ -37,16 +39,12 @@ const scrollAreaScrollbarScroll = defineComponent({
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarAutoProps.props,
-    ...scrollAreaScrollbarVisibleProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaScrollbarAutoProps.emits,
   setup(props, { attrs, slots }) {
     const {
-      scopeOkuScrollArea,
       forceMount,
-      orientation,
       ...scrollAreaScrollbarAutoProps
     } = toRefs(props)
 
@@ -55,9 +53,9 @@ const scrollAreaScrollbarScroll = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const visible = ref(false)
-    const isHorizontal = orientation.value === 'horizontal'
+    const isHorizontal = _reactive.orientation === 'horizontal'
     const handleResize = useDebounceCallback(() => {
       if (inject.viewport.value) {
         const isOverflowX = inject.viewport.value.offsetWidth < inject.viewport.value.scrollWidth
@@ -74,9 +72,9 @@ const scrollAreaScrollbarScroll = defineComponent({
       {
         default: () => h(OkuScrollAreaScrollbarVisible,
           {
-            ['data-state' as string]: visible.value ? 'visible' : 'hidden',
+            'data-state': visible.value ? 'visible' : 'hidden',
             ...mergeProps(attrs, reactiveScrollAreaScrollbarAutoProps),
-            ref: forwardedRef,
+            'ref': forwardedRef,
           }, slots,
         ),
       },
@@ -85,4 +83,4 @@ const scrollAreaScrollbarScroll = defineComponent({
 })
 
 export const OkuScrollAreaScrollbarAuto = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll &
-(new () => { $props: Partial<ScrollAreaScrollbarAutoElement> })
+(new () => { $props: ScrollAreaScrollbarAutoNaviteElement })

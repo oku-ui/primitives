@@ -1,7 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { propsOmit } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import type { ScrollAreaScrollbarAutoElement, ScrollAreaScrollbarAutoNaviteElement, ScrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
 import { OkuScrollAreaScrollbarAuto, scrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
@@ -20,10 +19,10 @@ export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoPr
 
 const scrollAreaScrollbarHoverProps = {
   props: {
+    ...scrollAreaScrollbarAutoProps.props,
     forceMount: {
       type: Boolean as PropType<true | undefined>,
     },
-    ...propsOmit(scrollAreaScrollbarAutoProps.props, ['forceMount']),
   },
   emits: {
     ...scrollAreaScrollbarAutoProps.emits,
@@ -40,7 +39,6 @@ const scrollAreaScrollbarHover = defineComponent({
   emits: scrollAreaScrollbarHoverProps.emits,
   setup(props, { attrs, slots }) {
     const {
-      scopeOkuScrollArea,
       forceMount,
       ...scrollAreaScrollbarHoverProps
     } = toRefs(props)
@@ -50,7 +48,7 @@ const scrollAreaScrollbarHover = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const visible = ref(false)
 
     watchEffect((onInvalidate) => {
@@ -91,4 +89,4 @@ const scrollAreaScrollbarHover = defineComponent({
 })
 
 export const OkuScrollAreaScrollbarHover = scrollAreaScrollbarHover as typeof scrollAreaScrollbarHover &
-(new () => { $props: ScrollAreaScrollbarHoverElement })
+(new () => { $props: ScrollAreaScrollbarHoverNaviteElement })

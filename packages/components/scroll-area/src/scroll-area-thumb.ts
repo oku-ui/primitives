@@ -8,10 +8,6 @@ import { OkuScrollAreaThumbImpl } from './scroll-area-thumb-impl'
 import { useScrollbarInject } from './scroll-area-scrollbar-impl'
 import { scopedScrollAreaProps } from './types'
 
-/* -------------------------------------------------------------------------------------------------
- * ScrollAreaThumb
- * ----------------------------------------------------------------------------------------------- */
-
 export const THUMB_NAME = 'ScrollAreaThumb'
 
 export type ScrollAreaThumbNaviteElement = ScrollAreaThumbImplNaviteElement
@@ -49,7 +45,6 @@ const scrollAreaThumb = defineComponent({
   emits: scrollAreaThumbProps.emits,
   setup(props, { attrs, slots }) {
     const {
-      scopeOkuScrollArea,
       forceMount,
       ...scrollAreaThumbProps
     } = toRefs(props)
@@ -59,7 +54,7 @@ const scrollAreaThumb = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const scrollbarInject = useScrollbarInject(THUMB_NAME, scopeOkuScrollArea.value)
+    const scrollbarInject = useScrollbarInject(THUMB_NAME, props.scopeOkuScrollArea)
 
     return () => h(OkuPresence,
       { present: computed(() => forceMount.value || scrollbarInject.hasThumb.value).value },
@@ -76,4 +71,4 @@ const scrollAreaThumb = defineComponent({
 })
 
 export const OkuScrollAreaThumb = scrollAreaThumb as typeof scrollAreaThumb &
-(new () => { $props: Partial<ScrollAreaThumbElement> })
+(new () => { $props: ScrollAreaThumbNaviteElement })

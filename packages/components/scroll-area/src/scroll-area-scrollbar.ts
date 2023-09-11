@@ -9,10 +9,6 @@ import { OkuScrollAreaScrollbarHover } from './scroll-area-scrollbar-hover'
 import { useScrollAreaInject } from './scroll-area'
 import { scopedScrollAreaProps } from './types'
 
-/* -------------------------------------------------------------------------------------------------
- * ScrollAreaScrollbar
- * ----------------------------------------------------------------------------------------------- */
-
 export const SCROLLBAR_NAME = 'OkuScrollAreaScrollbar'
 
 export type ScrollAreaScrollbarNaviteElement = ScrollAreaScrollbarVisibleNaviteElement
@@ -24,10 +20,10 @@ export interface ScrollAreaScrollbarProps extends ScrollAreaScrollbarVisibleProp
 
 const scrollAreaScrollbarProps = {
   props: {
+    ...scrollAreaScrollbarVisibleProps.props,
     forceMount: {
       type: Boolean as PropType<true | undefined>,
     },
-    ...scrollAreaScrollbarVisibleProps.props,
   },
   emits: {
     ...scrollAreaScrollbarVisibleProps.emits,
@@ -44,7 +40,6 @@ const scrollAreaScrollbar = defineComponent({
   emits: scrollAreaScrollbarProps.emits,
   setup(props, { attrs, slots }) {
     const {
-      scopeOkuScrollArea,
       forceMount,
       ...scrollAreaScrollbarProps
     } = toRefs(props)
@@ -54,7 +49,7 @@ const scrollAreaScrollbar = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const { onScrollbarXEnabledChange, onScrollbarYEnabledChange } = inject
     const isHorizontal = computed(() => _reactive.orientation === 'horizontal')
 
@@ -110,4 +105,4 @@ const scrollAreaScrollbar = defineComponent({
 })
 
 export const OkuScrollAreaScrollbar = scrollAreaScrollbar as typeof scrollAreaScrollbar &
-(new () => { $props: ScrollAreaScrollbarElement })
+(new () => { $props: ScrollAreaScrollbarNaviteElement })

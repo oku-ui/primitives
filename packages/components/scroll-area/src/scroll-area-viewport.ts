@@ -52,10 +52,10 @@ const scrollAreaViewport = defineComponent({
         ),
         h(Primitive.div,
           {
-            ['data-oku-scroll-area-viewport' as any]: '',
+            'data-oku-scroll-area-viewport': '',
             ...mergeProps(attrs, reactiveScrollAreaViewportProps),
-            ref: composedRefs,
-            style: {
+            'ref': composedRefs,
+            'style': {
               /**
                * We don't support `visible` because the intention is to have at least one scrollbar
                * if this component is used and `visible` will behave like `auto` in that case
@@ -94,4 +94,4 @@ const scrollAreaViewport = defineComponent({
 })
 
 export const OkuScrollAreaViewport = scrollAreaViewport as typeof scrollAreaViewport &
-(new () => { $props: ScrollAreaViewportElement })
+(new () => { $props: ScrollAreaViewportNaviteElement })

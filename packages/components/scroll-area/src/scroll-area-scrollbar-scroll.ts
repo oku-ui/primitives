@@ -27,10 +27,10 @@ export type ScrollAreaScrollbarScrollEmits = {
 
 const scrollAreaScrollbarScrollProps = {
   props: {
+    ...scrollAreaScrollbarVisibleProps.props,
     forceMount: {
       type: Boolean as PropType<true | undefined>,
     },
-    ...scrollAreaScrollbarVisibleProps.props,
   },
   emits: {
     ...scrollAreaScrollbarVisibleProps.emits,
@@ -51,9 +51,7 @@ const scrollAreaScrollbarScroll = defineComponent({
   emits: scrollAreaScrollbarScrollProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
-      scopeOkuScrollArea,
       forceMount,
-      orientation,
       ...scrollAreaScrollbarScrollProps
     } = toRefs(props)
 
@@ -62,8 +60,8 @@ const scrollAreaScrollbarScroll = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
-    const isHorizontal = computed(() => orientation.value === 'horizontal')
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const isHorizontal = computed(() => _reactive.orientation === 'horizontal')
     const { state, dispatch: send } = useStateMachine('hidden', {
       hidden: {
         SCROLL: 'scrolling',
@@ -118,13 +116,13 @@ const scrollAreaScrollbarScroll = defineComponent({
       {
         default: () => h(OkuScrollAreaScrollbarVisible,
           {
-            ['data-state' as string]: state.value === 'hidden' ? 'hidden' : 'visible',
+            'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
             ...mergeProps(attrs, reactiveScrollAreaScrollbarScrollProps),
-            ref: forwardedRef,
-            onPointerEnter: composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
+            'ref': forwardedRef,
+            'onpointerenter': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
               emit('pointerenter', event)
             }, () => send('POINTER_ENTER')),
-            onPointerLeave: composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
+            'onpointerleave': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
               emit('pointerleave', event)
             }, () => send('POINTER_LEAVE')),
           }, slots,
@@ -135,4 +133,4 @@ const scrollAreaScrollbarScroll = defineComponent({
 })
 
 export const OkuScrollAreaScrollbarScroll = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll &
-(new () => { $props: ScrollAreaScrollbarScrollElement })
+(new () => { $props: ScrollAreaScrollbarScrollNaviteElement })

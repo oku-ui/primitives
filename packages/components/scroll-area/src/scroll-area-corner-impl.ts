@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -12,8 +12,10 @@ export type ScrollAreaCornerImplElement = HTMLDivElement
 
 export interface ScrollAreaCornerImplProps extends PrimitiveProps { }
 
-const scrollAreaCornerImplProps = {
-  props: {},
+export const scrollAreaCornerImplProps = {
+  props: {
+    ...primitiveProps,
+  },
   emits: {},
 }
 
@@ -23,7 +25,6 @@ const scrollAreaCornerImpl = defineComponent({
   props: {
     ...scrollAreaCornerImplProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaCornerImplProps.emits,
   setup(props, { attrs, slots }) {
@@ -40,7 +41,7 @@ const scrollAreaCornerImpl = defineComponent({
     const inject = useScrollAreaInject(CORNER_NAME, scopeOkuScrollArea.value)
     const width = ref<number>(0)
     const height = ref<number>(0)
-    const hasSize = Boolean(width.value && height.value)
+    const hasSize = computed(() => Boolean(width.value && height.value))
 
     useResizeObserver(inject.scrollbarX.value, () => {
       const _height = inject.scrollbarX.value?.offsetHeight || 0
@@ -54,7 +55,7 @@ const scrollAreaCornerImpl = defineComponent({
       width.value = _width
     })
 
-    return () => hasSize
+    return () => hasSize.value
       ? h(Primitive.div,
         {
           ...mergeProps(attrs, reactiveScrollAreaCornerImplProps),
@@ -63,8 +64,8 @@ const scrollAreaCornerImpl = defineComponent({
             width: width.value,
             height: height.value,
             position: 'absolute',
-            right: inject.dir.value === 'ltr' ? 0 : undefined,
-            left: inject.dir.value === 'rtl' ? 0 : undefined,
+            right: inject.dir.value === 'ltr' ? '0px' : undefined,
+            left: inject.dir.value === 'rtl' ? '0px' : undefined,
             bottom: 0,
             ...attrs.style as CSSStyleRule,
           },
@@ -75,4 +76,4 @@ const scrollAreaCornerImpl = defineComponent({
 })
 
 export const OkuScrollAreaCornerImpl = scrollAreaCornerImpl as typeof scrollAreaCornerImpl &
-(new () => { $props: Partial<ScrollAreaCornerImplElement> })
+(new () => { $props: ScrollAreaCornerImplNaviteElement })

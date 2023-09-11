@@ -156,4 +156,4 @@ const scrollArea = defineComponent({
 })
 
 export const OkuScrollArea = scrollArea as typeof scrollArea &
-(new () => { $props: ScrollAreaElement })
+(new () => { $props: ScrollAreaNaviteElement })

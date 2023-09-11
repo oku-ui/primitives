@@ -10,21 +10,18 @@ import type { ScrollAreaThumbElement } from './scroll-area-thumb'
 import { addUnlinkedScrollListener, useDebounceCallback } from './utils'
 import { scopedScrollAreaProps } from './types'
 
-/* -------------------------------------------------------------------------------------------------
- * ScrollAreaThumbImpl
- * ----------------------------------------------------------------------------------------------- */
-
 export type ScrollAreaThumbImplNaviteElement = OkuElement<'div'>
 export type ScrollAreaThumbImplElement = HTMLDivElement
 
 export interface ScrollAreaThumbImplProps extends PrimitiveProps {}
 
-const scrollAreaThumbImplProps = {
+export const scrollAreaThumbImplProps = {
   props: {
     style: {
       type: Object,
       required: false,
     },
+    ...primitiveProps,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -33,8 +30,6 @@ const scrollAreaThumbImplProps = {
     pointerup: (event: PointerEvent) => true,
   },
 }
-
-// export type PointerdownCaptureEvent = CustomEvent<{ originalEvent: PointerEvent }>
 
 export type scrollAreaThumbImplEmits = {
   pointerdownCapture: [event: PointerEvent]
@@ -47,7 +42,6 @@ const scrollAreaThumbImpl = defineComponent({
   props: {
     ...scrollAreaThumbImplProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaThumbImplProps.emits,
   setup(props, { attrs, emit, slots }) {
@@ -110,7 +104,7 @@ const scrollAreaThumbImpl = defineComponent({
           height: 'var(--oku-scroll-area-thumb-height)',
           ...style.value,
         },
-        onPointerDownCapture: composeEventHandlers<scrollAreaThumbImplEmits['pointerdownCapture'][0]>((event) => {
+        onPointerdownCapture: composeEventHandlers<scrollAreaThumbImplEmits['pointerdownCapture'][0]>((event) => {
           emit('pointerdownCapture', event)
         }, (event) => {
           const thumb = event.target as HTMLElement
@@ -119,7 +113,7 @@ const scrollAreaThumbImpl = defineComponent({
           const y = event.clientY - thumbRect.top
           scrollbarInject.onThumbPointerDown({ x, y })
         }),
-        onPointerUp: composeEventHandlers<scrollAreaThumbImplEmits['pointerup'][0]>((event) => {
+        onPointerup: composeEventHandlers<scrollAreaThumbImplEmits['pointerup'][0]>((event) => {
           emit('pointerup', event)
         }),
       }, slots,
@@ -128,4 +122,4 @@ const scrollAreaThumbImpl = defineComponent({
 })
 
 export const OkuScrollAreaThumbImpl = scrollAreaThumbImpl as typeof scrollAreaThumbImpl &
-(new () => { $props: Partial<ScrollAreaThumbImplElement> })
+(new () => { $props: ScrollAreaThumbImplNaviteElement })

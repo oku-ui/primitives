@@ -5,7 +5,7 @@ import { useScrollAreaInject } from './scroll-area'
 import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
 import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
 import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
-import type { ScrollAreaScrollbarAxisElement } from './share'
+import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement } from './share'
 import { scrollAreaScrollbarAxisProps } from './share'
 import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 import { scopedScrollAreaProps } from './types'
@@ -26,7 +26,6 @@ const scrollAreaScrollbarY = defineComponent({
   emits: scrollAreaScrollbarAxisProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
-      scopeOkuScrollArea,
       sizes,
       ...scrollAreaScrollbarAxisProps
     } = toRefs(props)
@@ -34,7 +33,7 @@ const scrollAreaScrollbarY = defineComponent({
     const _reactive = reactive(scrollAreaScrollbarAxisProps)
     const reactiveScrollAreaScrollbarAxisProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
+    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const computedStyle = ref<CSSStyleDeclaration>()
     const scrollbarAxisRef = ref<ScrollAreaScrollbarAxisElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -89,4 +88,4 @@ const scrollAreaScrollbarY = defineComponent({
 })
 
 export const OkuScrollAreaScrollbarY = scrollAreaScrollbarY as typeof scrollAreaScrollbarY &
-(new () => { $props: Partial<ScrollAreaScrollbarAxisElement> })
+(new () => { $props: ScrollAreaScrollbarAxisNaviteElement })

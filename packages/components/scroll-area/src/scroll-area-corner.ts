@@ -1,14 +1,9 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { primitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, mergeProps } from 'vue'
+import { useForwardRef } from '@oku-ui/use-composable'
 import type { ScrollAreaCornerImplElement, ScrollAreaCornerImplNaviteElement, ScrollAreaCornerImplProps } from './scroll-area-corner-impl'
-import { OkuScrollAreaCornerImpl } from './scroll-area-corner-impl'
+import { OkuScrollAreaCornerImpl, scrollAreaCornerImplProps } from './scroll-area-corner-impl'
 import { useScrollAreaInject } from './scroll-area'
 import { scopedScrollAreaProps } from './types'
-
-/* -------------------------------------------------------------------------------------------------
- * ScrollAreaCorner
- * ----------------------------------------------------------------------------------------------- */
 
 export const CORNER_NAME = 'OkuScrollAreaCorner'
 
@@ -18,8 +13,12 @@ export type ScrollAreaCornerElement = ScrollAreaCornerImplElement
 export interface ScrollAreaCornerProps extends ScrollAreaCornerImplProps {}
 
 const scrollAreaCornerProps = {
-  props: {},
-  emits: {},
+  props: {
+    ...scrollAreaCornerImplProps.props,
+  },
+  emits: {
+    ...scrollAreaCornerImplProps.emits,
+  },
 }
 
 const scrollAreaCorner = defineComponent({
@@ -28,28 +27,19 @@ const scrollAreaCorner = defineComponent({
   props: {
     ...scrollAreaCornerProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaCornerProps.emits,
   setup(props, { attrs, slots }) {
-    const {
-      scopeOkuScrollArea,
-      ...scrollAreaCornerProps
-    } = toRefs(props)
-
-    const _reactive = reactive(scrollAreaCornerProps)
-    const reactiveScrollAreaCornerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
-
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(CORNER_NAME, scopeOkuScrollArea.value)
-    const hasBothScrollbarsVisible = Boolean(inject.scrollbarX.value && inject.scrollbarY.value)
-    const hasCorner = inject.type.value !== 'scroll' && hasBothScrollbarsVisible
+    const inject = useScrollAreaInject(CORNER_NAME, props.scopeOkuScrollArea)
+    const hasBothScrollbarsVisible = computed(() => Boolean(inject.scrollbarX.value && inject.scrollbarY.value))
+    const hasCorner = computed(() => inject.type.value !== 'scroll' && hasBothScrollbarsVisible.value)
 
-    return () => hasCorner
+    return () => hasCorner.value
       ? h(OkuScrollAreaCornerImpl,
         {
-          ...mergeProps(attrs, reactiveScrollAreaCornerProps),
+          ...mergeProps(attrs, props),
           ref: forwardedRef,
         }, slots,
       )
@@ -58,4 +48,4 @@ const scrollAreaCorner = defineComponent({
 })
 
 export const OkuScrollAreaCorner = scrollAreaCorner as typeof scrollAreaCorner &
-(new () => { $props: Partial<ScrollAreaCornerElement> })
+(new () => { $props: ScrollAreaCornerNaviteElement })

@@ -1,6 +1,7 @@
 import type { PropType } from 'vue'
+import { propsOmit } from '@oku-ui/primitive'
 import type { Sizes } from './scroll-area'
-import type { ScrollAreaScrollbarImplElement, ScrollAreaScrollbarImplNaviteElement, ScrollAreaScrollbarImplPrivateProps, ScrollAreaScrollbarImplProps } from './scroll-area-scrollbar-impl'
+import { type ScrollAreaScrollbarImplElement, type ScrollAreaScrollbarImplNaviteElement, type ScrollAreaScrollbarImplPrivateProps, type ScrollAreaScrollbarImplProps, scrollAreaScrollbarImplProps } from './scroll-area-scrollbar-impl'
 import type { ScrollAreaThumbElement } from './scroll-area-thumb'
 
 export type ScrollAreaScrollbarAxisNaviteElement = ScrollAreaScrollbarImplNaviteElement
@@ -11,22 +12,27 @@ export interface ScrollAreaScrollbarAxisProps extends Omit<ScrollAreaScrollbarIm
 export type ScrollAreaScrollbarAxisPrivateProps = {
   hasThumb: boolean
   sizes: Sizes
-  onSizesChange(sizes: Sizes): void
-  onThumbChange(thumb: ScrollAreaThumbElement | null): void
-  onThumbPointerDown(pointerPos: number): void
-  onThumbPointerUp(): void
-  onThumbPositionChange(): void
-  onWheelScroll(scrollPos: number): void
-  onDragScroll(pointerPos: number): void
 }
 
-export const scrollAreaScrollbarAxisProps = {
+export type ScrollAreaScrollbarAxisPrivateEmits = {
+  sizesChange: [sizes: Sizes]
+  thumbChange: [thumb: ScrollAreaThumbElement | null]
+  thumbPointerDown: [pointerPos: number]
+  thumbPointerUp: []
+  thumbPositionChange: []
+  wheelScroll: [scrollPos: number]
+  dragScroll: [pointerPos: number]
+}
+
+export const scrollAreaScrollbarAxisPrivateProps = {
   props: {
     hasThumb: {
       type: Boolean,
+      required: true,
     },
     sizes: {
       type: Object as PropType<Sizes>,
+      required: true,
     },
   },
   emits: {
@@ -42,5 +48,34 @@ export const scrollAreaScrollbarAxisProps = {
     wheelScroll: (scrollPos: number) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     dragScroll: (pointerPos: number) => true,
+  },
+  propKeys: ['hasThumb', 'sizes'] as ['hasThumb', 'sizes'],
+  emitKeys: [
+    'sizesChange',
+    'thumbChange',
+    'thumbPointerDown',
+    'thumbPointerUp',
+    'thumbPositionChange',
+    'wheelScroll',
+    'dragScroll',
+  ] as [
+    'sizesChange',
+    'thumbChange',
+    'thumbPointerDown',
+    'thumbPointerUp',
+    'thumbPositionChange',
+    'wheelScroll',
+    'dragScroll',
+  ],
+}
+
+export const scrollAreaScrollbarAxisProps = {
+  props: {
+    ...propsOmit(scrollAreaScrollbarImplProps.props, [...scrollAreaScrollbarImplProps.propKeys]),
+    ...scrollAreaScrollbarAxisPrivateProps.props,
+  },
+  emits: {
+    ...propsOmit(scrollAreaScrollbarImplProps.emits, scrollAreaScrollbarImplProps.emitKeys),
+    ...scrollAreaScrollbarAxisPrivateProps.emits,
   },
 }
