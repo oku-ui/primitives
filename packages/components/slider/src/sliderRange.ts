@@ -1,7 +1,7 @@
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { convertValueToPercentage, scopeSliderProps, useSliderInject, useSliderOrientationInject } from './utils'
 
 const RANGE_NAME = 'OkuSliderRange'
@@ -31,7 +31,11 @@ const sliderRange = defineComponent({
   setup(props, { attrs, slots }) {
     const {
       scopeOkuSlider,
+      ...rangeProps
     } = toRefs(props)
+    const _reactive = reactive(rangeProps)
+    const reactiveRangeProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const inject = useSliderInject(RANGE_NAME, scopeOkuSlider.value)
     const orientation = useSliderOrientationInject(RANGE_NAME, scopeOkuSlider.value)
     const forwardedRef = useForwardRef()
@@ -48,7 +52,7 @@ const sliderRange = defineComponent({
     const originalReturn = () => h(Primitive.span, {
       'data-disabled': inject.disabled?.value ? '' : undefined,
       'data-orientation': inject.orientation.value,
-      ...attrs,
+      ...mergeProps(attrs, reactiveRangeProps),
       'ref': composedRefs,
       'style': {
         ...attrs.style as any,

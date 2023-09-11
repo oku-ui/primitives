@@ -1,5 +1,5 @@
-import { defineComponent, h } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { SeparatorElement, SeparatorNaviteElement, SeparatorProps } from '@oku-ui/separator'
 import { OkuSeparator, separatorProps } from '@oku-ui/separator'
 import { scopeToolbarProps } from './utils'
@@ -26,14 +26,18 @@ const toolbarSeparator = defineComponent({
     ...scopeToolbarProps,
   },
   setup(props, { attrs, slots }) {
-    const inject = useToolbarInject(SEPARATOR_NAME, props.scopeOkuToolbar)
+    const { scopeOkuToolbar, ...separatorProps } = toRefs(props)
+    const _reactive = reactive(separatorProps)
+    const reactiveSeparatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const inject = useToolbarInject(SEPARATOR_NAME, scopeOkuToolbar.value)
     const forwardedRef = useForwardRef()
-    const orientation = props.orientation ? props.orientation : inject.orientation.value === 'horizontal' ? 'vertical' : 'horizontal'
+    const orientation = computed(() => inject.orientation.value === 'horizontal' ? 'vertical' : 'horizontal')
+
     return () => h(OkuSeparator, {
-      orientation,
+      orientation: orientation.value,
       decorative: props.decorative,
-      asChild: props.asChild,
-      ...attrs,
+      ...mergeProps(attrs, reactiveSeparatorProps),
       ref: forwardedRef,
     }, {
       default: slots.default?.(),

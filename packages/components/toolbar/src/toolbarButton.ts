@@ -1,7 +1,7 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { scopeToolbarProps } from './utils'
 import { useRovingFocusGroupScope } from './toolbar'
@@ -33,20 +33,22 @@ const toolbarButton = defineComponent({
     ...scopeToolbarProps,
   },
   setup(props, { attrs, slots }) {
-    const { disabled } = toRefs(props)
-    const rovingFocusGroupScope = useRovingFocusGroupScope(props.scopeOkuToolbar)
+    const { scopeOkuToolbar, ...buttonProps } = toRefs(props)
+    const _reactive = reactive(buttonProps)
+    const reactiveButtonProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuToolbar.value)
 
     const forwardedRef = useForwardRef()
 
     return () => h(OkuRovingFocusGroupItem, {
       asChild: true,
       ...rovingFocusGroupScope,
-      focusable: !disabled.value,
+      focusable: !props.disabled,
     }, {
       default: () => h(Primitive.button, {
         type: 'button',
-        ...attrs,
-        ...props,
+        ...mergeProps(attrs, reactiveButtonProps),
         ref: forwardedRef,
       }, {
         default: () => slots.default?.(),

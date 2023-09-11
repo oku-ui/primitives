@@ -1,273 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`OkuCheckbox > can be checked 1`] = `
-<div
-  data-v-app=""
->
-  
-  <div
-    aria-required="false"
-    class="root-class"
-    data-disabled="false"
-    dir="ltr"
-    role="radiogroup"
-    style="outline-color: none; outline-style: none; outline-width: initial;"
-    tabindex="-1"
-  >
-    
-    <button
-      aria-checked="true"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="checked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="1"
-    >
-      <span
-        class="indicator-class"
-        data-state="checked"
-      />
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="2"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="3"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-  </div>
-  
-</div>
-`;
-
-exports[`OkuCheckbox > can be checked 2`] = `
-<div
-  data-v-app=""
->
-  
-  <div
-    aria-required="false"
-    class="root-class"
-    data-disabled="false"
-    dir="ltr"
-    role="radiogroup"
-    style="outline-color: none; outline-style: none; outline-width: initial;"
-    tabindex="0"
-  >
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="1"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="true"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="checked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="2"
-    >
-      <span
-        class="indicator-class"
-        data-state="checked"
-      />
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="3"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-  </div>
-  
-</div>
-`;
-
-exports[`OkuCheckbox > can be checked 3`] = `
-<div
-  data-v-app=""
->
-  
-  <div
-    aria-required="false"
-    class="root-class"
-    data-disabled="false"
-    dir="ltr"
-    role="radiogroup"
-    style="outline-color: none; outline-style: none; outline-width: initial;"
-    tabindex="0"
-  >
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="1"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="2"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="true"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="checked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="3"
-    >
-      <span
-        class="indicator-class"
-        data-state="checked"
-      />
-    </button>
-    <!---->
-    
-  </div>
-  
-</div>
-`;
-
-exports[`OkuCheckbox > can be checked 4`] = `
-<div
-  data-v-app=""
->
-  
-  <div
-    aria-required="false"
-    class="root-class"
-    data-disabled="false"
-    dir="ltr"
-    role="radiogroup"
-    style="outline-color: none; outline-style: none; outline-width: initial;"
-    tabindex="0"
-  >
-    
-    <button
-      aria-checked="true"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="checked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="1"
-    >
-      <span
-        class="indicator-class"
-        data-state="checked"
-      />
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="2"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-    
-    <button
-      aria-checked="false"
-      class="item-class"
-      data-oku-collection-item=""
-      data-state="unchecked"
-      role="radio"
-      tabindex="-1"
-      type="button"
-      value="3"
-    >
-      <!---->
-    </button>
-    <!---->
-    
-  </div>
-  
-</div>
-`;
-
 exports[`OkuRadioGroup > can be checked 1`] = `
 <div
   data-v-app=""
@@ -276,7 +8,6 @@ exports[`OkuRadioGroup > can be checked 1`] = `
   <div
     aria-required="false"
     class="root-class"
-    data-disabled="false"
     dir="ltr"
     role="radiogroup"
     style="outline-color: none; outline-style: none; outline-width: initial;"
@@ -296,6 +27,9 @@ exports[`OkuRadioGroup > can be checked 1`] = `
       <span
         class="indicator-class"
         data-state="checked"
+        disabled="false"
+        loop="true"
+        required="false"
       />
     </button>
     <!---->
@@ -343,7 +77,6 @@ exports[`OkuRadioGroup > can be checked 2`] = `
   <div
     aria-required="false"
     class="root-class"
-    data-disabled="false"
     dir="ltr"
     role="radiogroup"
     style="outline-color: none; outline-style: none; outline-width: initial;"
@@ -378,6 +111,9 @@ exports[`OkuRadioGroup > can be checked 2`] = `
       <span
         class="indicator-class"
         data-state="checked"
+        disabled="false"
+        loop="true"
+        required="false"
       />
     </button>
     <!---->
@@ -410,7 +146,6 @@ exports[`OkuRadioGroup > can be checked 3`] = `
   <div
     aria-required="false"
     class="root-class"
-    data-disabled="false"
     dir="ltr"
     role="radiogroup"
     style="outline-color: none; outline-style: none; outline-width: initial;"
@@ -460,6 +195,9 @@ exports[`OkuRadioGroup > can be checked 3`] = `
       <span
         class="indicator-class"
         data-state="checked"
+        disabled="false"
+        loop="true"
+        required="false"
       />
     </button>
     <!---->
@@ -477,7 +215,6 @@ exports[`OkuRadioGroup > can be checked 4`] = `
   <div
     aria-required="false"
     class="root-class"
-    data-disabled="false"
     dir="ltr"
     role="radiogroup"
     style="outline-color: none; outline-style: none; outline-width: initial;"
@@ -497,6 +234,9 @@ exports[`OkuRadioGroup > can be checked 4`] = `
       <span
         class="indicator-class"
         data-state="checked"
+        disabled="false"
+        loop="true"
+        required="false"
       />
     </button>
     <!---->
@@ -543,7 +283,6 @@ exports[`OkuRadioGroup > renders the component correctly with a label 1`] = `
   
   <div
     aria-required="false"
-    data-disabled="false"
     dir="ltr"
     role="radiogroup"
     style="outline-color: none; outline-style: none; outline-width: initial;"

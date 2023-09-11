@@ -1,8 +1,8 @@
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuSliderImpl, type SliderImplElement, type SliderImplNaviteElement } from './sliderImpl'
 import { BACK_KEYS, linearScale, scopeSliderProps, sliderOrientationProvider } from './utils'
-import type { SliderOrientationProps } from './sliderHorizontal'
+import type { SliderOrientationEmits, SliderOrientationProps } from './sliderHorizontal'
 import { sliderOrientationProps } from './sliderHorizontal'
 
 export type SliderVerticalNaviteElement = SliderImplNaviteElement
@@ -11,6 +11,8 @@ export type SliderVerticalElement = SliderImplElement
 const NAME = 'OkuSliderVertical'
 
 export interface SliderVerticalProps extends SliderOrientationProps { }
+
+export type SliderVerticalEmits = SliderOrientationEmits
 
 export const sliderVerticalProps = {
   props: {
@@ -34,8 +36,10 @@ const SliderVertical = defineComponent({
       min,
       max,
       inverted,
-      scopeOkuSlider,
+      ...sliderProps
     } = toRefs(props)
+    const _reactive = reactive(sliderProps)
+    const reactiveSliderProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const slider = ref<SliderImplElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -55,7 +59,7 @@ const SliderVertical = defineComponent({
     }
 
     sliderOrientationProvider({
-      scope: scopeOkuSlider.value,
+      scope: props.scopeOkuSlider,
       startEdge: computed(() => isSlidingFromBottom.value ? 'bottom' : 'top'),
       endEdge: computed(() => isSlidingFromBottom.value ? 'top' : 'bottom'),
       direction: computed(() => isSlidingFromBottom.value ? 1 : -1),
@@ -64,7 +68,7 @@ const SliderVertical = defineComponent({
 
     return () => h(OkuSliderImpl, {
       'data-orientation': 'vertical',
-      ...attrs,
+      ...mergeProps(attrs, reactiveSliderProps),
       'ref': composedRefs,
       'style': {
         ...attrs.style as any,

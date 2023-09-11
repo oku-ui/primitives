@@ -24,7 +24,7 @@ withDefaults(defineProps<ISeparatorProps>(), {
         ignore this element.
       </p>
 
-      <OkuSeparator orientation="horizontal" class="border-0 my-4 bg-gray-500 w-full h-[1px]" decorative />
+      <OkuSeparator class="border-0 my-4 bg-gray-500 w-full h-[1px]" decorative />
       <h1>Vertical</h1>
       <div class="flex items-center h-full">
         <p>The following separator is vertical and has semantic meaning.</p>

@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { propsOmit } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
 import { OkuSliderImpl, type SliderImplElement, type SliderImplEmits, type SliderImplNaviteElement, type SliderImplProps, sliderImplProps } from './sliderImpl'
 import type { Direction } from './utils'
@@ -82,6 +82,7 @@ export const sliderOrientationProps = {
 export interface SliderHorizontalProps extends SliderOrientationProps {
   dir?: Direction
 }
+export type SliderHorizontalEmits = SliderOrientationEmits & SliderOrientationEmits
 
 export const sliderHorizontalProps = {
   props: {
@@ -110,8 +111,10 @@ const sliderHorizontal = defineComponent({
       max,
       dir,
       inverted,
-      scopeOkuSlider,
+      ...sliderProps
     } = toRefs(props)
+    const _reactive = reactive(sliderProps)
+    const reactiveSliderProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const slider = ref<SliderImplElement | null>(null)
     const forwardedRef = useForwardRef()
@@ -134,7 +137,7 @@ const sliderHorizontal = defineComponent({
     }
 
     sliderOrientationProvider({
-      scope: scopeOkuSlider.value,
+      scope: props.scopeOkuSlider,
       startEdge: computed(() => isSlidingFromLeft.value ? 'left' : 'right'),
       endEdge: computed(() => isSlidingFromLeft.value ? 'right' : 'left'),
       direction: computed(() => isSlidingFromLeft.value ? 1 : -1),
@@ -144,7 +147,7 @@ const sliderHorizontal = defineComponent({
     return () => h(OkuSliderImpl, {
       'dir': direction.value,
       'data-orientation': 'horizontal',
-      ...attrs,
+      ...mergeProps(attrs, reactiveSliderProps),
       'ref': composedRefs,
       'style': {
         ...attrs.style as any,

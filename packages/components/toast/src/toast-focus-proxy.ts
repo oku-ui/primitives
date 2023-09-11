@@ -1,6 +1,6 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { VisuallyHiddenElement, VisuallyHiddenNaviteElement } from '@oku-ui/visually-hidden'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuVisuallyHidden, visuallyHiddenProps } from '@oku-ui/visually-hidden'
 import { useToastProviderInject } from './share'
 import { scopedToastProps } from './types'
@@ -40,16 +40,19 @@ const toastFocusProxy = defineComponent({
   },
   emits: focusProxyProps.emits,
   setup(props, { attrs, emit, slots }) {
+    const { scopeOkuToast, ...proxyProps } = toRefs(props)
+    const _reactive = reactive(proxyProps)
+    const reactiveProxyProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
 
-    const inject = useToastProviderInject(FOCUS_PROXY_NAME, props.scopeOkuToast)
+    const inject = useToastProviderInject(FOCUS_PROXY_NAME, scopeOkuToast.value)
 
     return () => h(OkuVisuallyHidden,
       {
         'aria-hidden': true,
         'tabIndex': 0,
-        'asChild': props.asChild,
-        ...attrs,
+        ...mergeProps(attrs, reactiveProxyProps),
         'ref': forwardedRef,
         // Avoid page scrolling when focus is on the focus proxy
         'style': { position: 'fixed' },

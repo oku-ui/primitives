@@ -1,7 +1,7 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { defineComponent, h, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { scopedToastProps } from './types'
 
 export type ToastAnnounceExcludeNaviteElement = OkuElement<'div'>
@@ -33,20 +33,19 @@ const toastAnnounceExclude = defineComponent({
     ...scopedToastProps,
   },
   setup(props, { attrs, slots }) {
-    const { ...toastAnnounceExcludeAttrs } = attrs as ToastAnnounceExcludeNaviteElement
+    const { scopeOkuToast: _scopeToast, altText, ...announceExcludeProps } = toRefs(props)
+
+    const _reactive = reactive(announceExcludeProps)
+    const reactiveActionProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const {
-      altText,
-    } = toRefs(props)
-
     return () => h(Primitive.div,
       {
-        ...toastAnnounceExcludeAttrs,
-        'ref': forwardedRef,
         'data-oku-toast-announce-exclude': '',
         'data-oku-toast-announce-alt': altText.value || undefined,
+        ...mergeProps(attrs, reactiveActionProps),
+        'ref': forwardedRef,
       },
       {
         default: () => slots.default?.(),

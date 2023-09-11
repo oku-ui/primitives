@@ -1,7 +1,7 @@
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { ToggleGroupItemProps } from '@oku-ui/toggle-group'
 import { OkuToggleGroupItem, toggleGroupItemProps } from '@oku-ui/toggle-group'
 import { scopeToolbarProps } from './utils'
@@ -32,18 +32,22 @@ const toolbarToggleItem = defineComponent({
     ...scopeToolbarProps, // TODO: import edilecek
   },
   setup(props, { attrs, slots }) {
-    const toggleGroupScope = useToggleGroupScope(props.scopeOkuToolbar)
-    const scope = { scopeOkuToolbar: props.scopeOkuToolbar }
+    const { scopeOkuToolbar, ...toggleItemProps } = toRefs(props)
+
+    const _reactive = reactive(toggleItemProps)
+    const reactiveItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const toggleGroupScope = useToggleGroupScope(scopeOkuToolbar.value)
 
     const forwardedRef = useForwardRef()
 
     return () => h(OkuToolbarButton, {
       asChild: true,
-      ...scope,
+      scopeOkuToolbar: scopeOkuToolbar.value,
     }, {
       default: () => h(OkuToggleGroupItem, {
         ...toggleGroupScope,
-        ...mergeProps(attrs, props),
+        ...mergeProps(attrs, reactiveItemProps),
         ref: forwardedRef,
       }, {
         default: () => slots.default?.(),
