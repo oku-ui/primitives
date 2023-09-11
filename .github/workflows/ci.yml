@@ -23,7 +23,7 @@ jobs:
     name: "Lint"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-and-cache
 
       - name: Lint
@@ -32,7 +32,7 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-and-cache
       - uses: ./.github/actions/cache-build
 
@@ -43,6 +43,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     needs: [lint, typecheck]
+     
+    permissions:
+      # Required to checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
 
     strategy:
       matrix:
@@ -50,12 +56,12 @@ jobs:
         node_version: [18, 20]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-and-cache
       - uses: ./.github/actions/cache-build
 
-      - name: 🧪 Test
-        run: pnpm test
+      # - name: 🧪 Test
+      #   run: pnpm test
 
       - name: 🧪 Test with coverage
         run: pnpm coverage

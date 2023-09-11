@@ -17,6 +17,12 @@
   ],
   "packageRules": [
     {
+      "enabled": false,
+      "matchDepTypes": [
+        "peerDependencies"
+      ]
+    },
+    {
       "groupName": "components",
       "commitMessageTopic": "components",
       "matchPaths": [

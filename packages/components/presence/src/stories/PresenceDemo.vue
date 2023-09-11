@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
+import Animation from './Animation.vue'
 
 export interface OkuPresenceProps {
   template: '#1' | '#2' | '#3'
@@ -12,13 +13,13 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   template: '#1',
 })
 
-const open = ref(false)
+const open = ref(true)
 
 function toggle() {
   open.value = !open.value
 }
 
-const element = ref<HTMLElement>()
+const element = ref()
 
 watch(element, () => {
   console.log('element', element.value)
@@ -42,25 +43,16 @@ function handleToggleVisibility() {
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
       <button @click="toggle">
-        toggle - {{ open }}
+        toggle
       </button>
       <OkuPresence ref="element" :present="open">
         <div>
-          content
+          Content
         </div>
       </OkuPresence>
     </div>
     <div v-if="template === '#2' || allshow" class="flex flex-col">
-      <button @click="toggle">
-        toggle - {{ open }}
-      </button>
-      <Transition name="bounce">
-        <OkuPresence :present="open">
-          <div>
-            content
-          </div>
-        </OkuPresence>
-      </Transition>
+      <Animation />
     </div>
     <div v-if="template === '#3' || allshow" class="flex flex-col">
       <form class="flex space-x-4 mb-10">
@@ -87,22 +79,30 @@ function handleToggleVisibility() {
   </div>
 </template>
 
-<style scoped lang="postcss">
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
-}
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
+<style scoped>
+button {
+    appearance: auto;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    writing-mode: horizontal-tb !important;
+    margin: 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
 }
 </style>

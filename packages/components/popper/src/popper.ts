@@ -1,70 +1,47 @@
-import type { PropType, Ref } from 'vue'
-import { defineComponent, ref, toRefs } from 'vue'
+import type { Ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
-import type { RefElement } from '@oku-ui/primitive'
 import type { Measurable } from '@oku-ui/utils'
-import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
+import type { ScopePopper } from './utils'
+import { scopePopperProps } from './utils'
 
-/* -------------------------------------------------------------------------------------------------
- * Popper
- * ----------------------------------------------------------------------------------------------- */
+const POPPER_NAME = 'OkuPopper'
 
-const POPPER_NAME = 'Popper'
+export const [createPopperProvider, createPopperScope]
+  = createProvideScope(POPPER_NAME)
 
-export const [createPopperProvider, _createPopperScope] = createProvideScope(POPPER_NAME)
-
-export type PopperInjectValue = {
+export type PopperProvideValue = {
   anchor: Ref<Measurable | null>
   onAnchorChange(anchor: Measurable | null): void
 }
 
-export const [PopperProvider, usePopperInject]
-  = createPopperProvider<PopperInjectValue>(POPPER_NAME)
+export const [popperProvider, usePopperInject]
+  = createPopperProvider<PopperProvideValue>(POPPER_NAME)
 
-interface PopperProps {
-  scopeCheckbox?: Scope
+export interface PopperProps {
 }
 
 const Popper = defineComponent({
   name: POPPER_NAME,
   inheritAttrs: false,
   props: {
-    scopeCheckbox: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-      default: undefined,
-    },
+    ...scopePopperProps,
   },
-  setup(props, { attrs, expose, slots }) {
-    const { scopeCheckbox } = toRefs(props)
+  setup(props, { slots }) {
     const anchor = ref<Measurable | null>(null)
 
-    PopperProvider({
-      scope: scopeCheckbox.value as Scope,
+    popperProvider({
+      scope: props.scopeOkuPopper,
       anchor,
-      onAnchorChange(_anchor: Measurable | null) {
-        anchor.value = _anchor
+      onAnchorChange(value: Measurable | null) {
+        anchor.value = value
       },
     })
 
-    const originalReturn = () => slots.default?.()
-
-    return originalReturn
+    return () => slots.default?.()
   },
 })
 
-type _PopperProps = PopperProps
-
-type PopperRef = RefElement<typeof Popper>
-
-const OkuPopper = Popper as typeof Popper & (new () => { $props: _PopperProps })
-
-export {
-  OkuPopper,
-}
-
-export type {
-  PopperProps,
-  PopperRef,
-}
+export const OkuPopper = Popper as typeof Popper &
+(new () => { $props: ScopePopper<PopperProps> })

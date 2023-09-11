@@ -1,4 +1,10 @@
 export {
   OkuArrow,
+  arrowProps,
 } from './arrow'
-export type { ArrowProps, ArrowElement, ArrowRef } from './arrow'
+
+export type {
+  ArrowProps,
+  ArrowElement,
+  ArrowNaviteElement,
+} from './arrow'

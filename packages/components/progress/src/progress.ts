@@ -1,40 +1,46 @@
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import type { OkuElement } from '@oku-ui/primitive'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { createProvideScope } from '@oku-ui/provide'
-import type { ComputedRef, PropType } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
-import { useRef } from '@oku-ui/use-composable'
+import type { PropType, Ref } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import {
+  defaultGetValueLabel,
+  getInvalidMaxError,
+  getInvalidValueError,
+  getProgressState,
+  isNumber,
+  isValidMaxNumber,
+  isValidValueNumber,
+  scopeProgressProps,
+} from './utils'
+import { DEFAULT_MAX, PROGRESS_NAME } from './constants'
 
-// ---------- Progress ---------- //
+type ProgressInjectValue = {
+  value: Ref<number | null | undefined>
+  max: Ref<number>
+}
 
-type ProgressContextValue = { value: ComputedRef<number | null> | null; max: ComputedRef<number> }
-type ProgressElement = ElementType<'div'>
-type ProgressState = 'indeterminate' | 'complete' | 'loading'
+export type ProgressNaviteElement = OkuElement<'div'>
+export type ProgressElement = HTMLDivElement
 
-interface ProgressProps {
-  value?: number | null
+export interface ProgressProps {
+  value?: number | null | undefined
   max?: number
   getValueLabel?(value: number, max: number): string
   scopeProgress?: Scope
 }
 
-// ---constants---
-const PROGRESS_NAME = 'Progress'
-const DEFAULT_MAX = 100
-
-const [createProgressContext, createProgressScope] = createProvideScope(PROGRESS_NAME)
-
-const [progressProvider, useProgressContext]
-  = createProgressContext<ProgressContextValue>(PROGRESS_NAME)
-
-// ---component---
-const Progress = defineComponent({
-  name: PROGRESS_NAME,
-  inheritAttrs: false,
+export const progressProps = {
   props: {
+    modelValue: {
+      type: [Number, null] as PropType<number | null | undefined>,
+      default: undefined,
+    },
     value: {
       type: [Number, null] as PropType<number | null | undefined>,
+      default: undefined,
     },
     max: {
       type: Number,
@@ -44,16 +50,39 @@ const Progress = defineComponent({
       type: Function as PropType<(value: number, max: number) => string>,
       default: defaultGetValueLabel,
     },
-    scopeProgress: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
   },
-  setup(props, { attrs, slots, expose }) {
-    const { value, max, getValueLabel, scopeProgress } = toRefs(props)
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: number | null) => true,
+  },
+}
+
+export const [createProgressContext, createProgressScope]
+  = createProvideScope(PROGRESS_NAME)
+
+export const [progressProvider, useProgressInject]
+  = createProgressContext<ProgressInjectValue>(PROGRESS_NAME)
+
+const progress = defineComponent({
+  name: PROGRESS_NAME,
+  inheritAttrs: false,
+  props: {
+    ...progressProps.props,
+    ...scopeProgressProps,
+    ...primitiveProps,
+  },
+  setup(props, { attrs, slots }) {
     const {
+      value,
+      max,
+      getValueLabel,
+      scopeOkuProgress,
       ...progressProps
-    } = attrs as ProgressElement
+    } = toRefs(props)
+    const _reactive = reactive(progressProps)
+    const reactiveProgressProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     // propstype check
     if (max.value && !isValidMaxNumber(max.value))
@@ -62,166 +91,65 @@ const Progress = defineComponent({
     if (value.value != null && !isValidValueNumber(value.value, max.value))
       console.error(getInvalidValueError(value.value))
 
-    const { $el, newRef } = useRef<HTMLDivElement>()
-
-    const maxProp = computed(() => isValidMaxNumber(max.value) ? max.value : DEFAULT_MAX)
-    const valueProp = computed(() => isValidValueNumber(value.value, maxProp.value) ? value.value : null)
-    const valueLabel = computed(() => isNumber(valueProp.value) ? getValueLabel.value(valueProp.value, maxProp.value) : undefined)
-
-    const originalReturn = () => h(
-      Primitive.div,
-      {
-        'aria-valuemax': maxProp.value,
-        'aria-valuemin': 0,
-        'aria-valuenow': isNumber(valueProp.value) ? valueProp.value : undefined,
-        'aria-valuetext': valueLabel.value,
-        'role': 'progressbar',
-        'data-state': computed(() => getProgressState(maxProp.value, valueProp.value)).value,
-        'data-value': valueProp.value ?? undefined,
-        'data-max': maxProp.value,
-        ...progressProps,
-        'ref': newRef,
-      },
-      {
-        default: () => slots.default?.(),
-      },
+    const maxProp = computed(() =>
+      isValidMaxNumber(max.value) ? max.value : DEFAULT_MAX,
     )
 
-    expose({
-      inferRef: $el,
+    const valueProp = computed(() =>
+      isValidValueNumber(value.value, maxProp.value) ? value.value : null,
+    )
+
+    const valueLabel = computed(() =>
+      isNumber(valueProp.value)
+        ? getValueLabel.value(valueProp.value, maxProp.value)
+        : undefined,
+    )
+
+    const modelValue = useModel(props, 'modelValue')
+    const proxyValue = computed(() => {
+      if (modelValue.value !== undefined)
+        return modelValue.value
+      if (valueProp.value !== undefined)
+        return valueProp.value
+      return undefined
     })
 
     progressProvider({
-      scope: scopeProgress.value,
-      value: valueProp,
+      scope: scopeOkuProgress.value,
+      value: proxyValue,
       max: maxProp,
     })
 
-    return originalReturn as unknown as {
-      innerRef: ProgressElement
-    }
-  },
-})
+    const originalReturn = () =>
+      h(
+        Primitive.div,
+        {
+          'aria-valuemax': maxProp.value,
+          'aria-valuemin': 0,
+          'aria-valuenow': isNumber(proxyValue.value)
+            ? proxyValue.value
+            : undefined,
+          'aria-valuetext': valueLabel.value,
+          'role': 'progressbar',
+          'data-state': computed(() =>
+            getProgressState(maxProp.value, proxyValue.value),
+          ).value,
+          'data-value': proxyValue.value ?? undefined,
+          'data-max': maxProp.value,
+          ...mergeProps(attrs, reactiveProgressProps),
+          'ref': forwardedRef,
+        },
+        {
+          default: () => slots.default?.(),
+        },
+      )
 
-// ---function---
-
-function defaultGetValueLabel(value: number, max: number) {
-  return `${Math.round((value / max) * 100)}%`
-}
-
-function isNumber(value: any): value is number {
-  return typeof value === 'number'
-}
-
-function isValidMaxNumber(max: any): max is number {
-  return (
-    isNumber(max)
-    && !Number.isNaN(max)
-    && max > 0
-  )
-}
-
-function isValidValueNumber(value: any, max: number): value is number {
-  return (
-    isNumber(value)
-    && !Number.isNaN(value)
-    && value <= max
-    && value >= 0
-  )
-}
-
-function getProgressState(maxValue: number, value?: number | null): ProgressState {
-  return value == null ? 'indeterminate' : value === maxValue ? 'complete' : 'loading'
-}
-
-function getInvalidMaxError(propValue: string) {
-  return `Invalid prop \`max\` of value \`${propValue}\` supplied to \`${PROGRESS_NAME}\`. Only numbers greater than 0 are valid max values. Defaulting to \`${DEFAULT_MAX}\`.`
-}
-
-function getInvalidValueError(propValue: string) {
-  return `Invalid prop \`value\` of value \`${propValue}\` supplied to \`${PROGRESS_NAME}\`. The \`value\` prop must be:
-  - a positive number
-  - less than the value passed to \`max\` (or ${DEFAULT_MAX} if no \`max\` prop is set)
-  - \`null\` if the progress is indeterminate.
-
-Defaulting to \`null\`.`
-}
-
-// ---------- ProgressIndicator
-
-// ---constants---
-
-const INDICATOR_NAME = 'ProgressIndicator'
-
-// ---component---
-type ProgressIndicatorElement = ElementType<'div'>
-interface ProgressIndicatorProps extends PrimitiveProps {
-  scopeProgress?: Scope
-}
-
-const ProgressIndicator = defineComponent({
-  name: INDICATOR_NAME,
-  inheritAttrs: true,
-  props: {
-    scopeProgress: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-  },
-  setup(props, { attrs, slots, expose }) {
-    const { scopeProgress } = props
-    const {
-      ...indicatorProps
-    } = attrs as ProgressIndicatorProps
-
-    const { $el, newRef } = useRef<HTMLDivElement>()
-
-    const context = useProgressContext(INDICATOR_NAME, scopeProgress)
-
-    expose({
-      inferRef: $el,
-    })
-
-    const originalReturn = () => h(
-      'div',
-      {
-        'data-state': getProgressState(context.value.max.value, context.value.value?.value),
-        'data-value': context.value.value?.value ?? undefined,
-        'data-max': context.value.max.value,
-        ...indicatorProps,
-        'ref': newRef,
-      },
-      {
-        default: () => slots.default?.(),
-      })
-
-    return originalReturn as unknown as {
-      innerRef: ProgressIndicatorElement
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuProgressProps = MergeProps<ProgressProps, ProgressIndicatorProps>
-type _OkuProgressIndicatorProps = MergeProps<ProgressIndicatorProps, PrimitiveProps>
-
-type ProgressRef = RefElement<typeof Progress>
-type ProgressIndicatorRef = RefElement<typeof ProgressIndicator>
-
-const OkuProgress = Progress as typeof Progress & (new () => { $props: _OkuProgressProps })
-const OkuProgressIndicator = ProgressIndicator as typeof ProgressIndicator & (new () => { $props: _OkuProgressIndicatorProps })
-
-export {
-  createProgressScope,
-  OkuProgress,
-  OkuProgressIndicator,
-}
-
-export type {
-  ProgressProps,
-  ProgressIndicatorProps,
-  ProgressElement,
-  ProgressIndicatorElement,
-  ProgressRef,
-  ProgressIndicatorRef,
-}
+export const OkuProgress = progress as typeof progress &
+(new () => {
+  $props: ProgressNaviteElement
+})

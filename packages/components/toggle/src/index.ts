@@ -1,9 +1,11 @@
 export {
   OkuToggle,
+  toggleProps,
 } from './toggle'
 
 export type {
   ToggleProps,
   ToggleElement,
-  ToggleRef,
+  ToggleElementNaviteElement,
+  ToggleEmits,
 } from './toggle'

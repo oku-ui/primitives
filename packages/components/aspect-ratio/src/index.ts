@@ -1,8 +1,10 @@
 export {
   OkuAspectRatio,
+  aspectRatioProps,
 } from './aspect-ratio'
+
 export type {
   AspectRatioProps,
   AspectRatioElement,
-  AspectRatioRef,
+  AspectRatioNaviteElement,
 } from './aspect-ratio'

@@ -13,9 +13,10 @@ We're so excited you're interested in helping with Oku! We are happy to help you
 
 
 ### Prerequisites
--   [Min Nodejs 16] & [PNPM](https://pnpm.io) installed
+-   [Min Nodejs 18] & [PNPM > 8.7.0](https://pnpm.io) installed 
 -   IDE: [VSCode](https://code.visualstudio.com/download)(recommended) or equivalent IDE
 
+Note: If you have [nvm](https://github.com/nvm-sh/nvm), you can run `nvm i` to install the required version.
 
 ### VScode Extensions
 
@@ -34,21 +35,26 @@ Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/prim
    `pnpm build`
 4. If new package vue, go to `packages/example-package` example `packages/components` or `packages/core` copy. You can copy 
 this file and build your new build on it.
-5. Storybook works with the command `pnpm dev`
+
+Note: If only working on the core package 
+
+```sh
+pnpm dev label # Run only label component (packages/components) check files name
+pnpm dev core utils # Run only core and utils package (packages/core) check files name
+
+pnpm build label # Build only label component (packages/components) check files name
+pnpm build core utils # Build only core and utils package (packages/core) check files name
+```
 
 ### Scripts
 
 ```shell
-pnpm build # Build all packages
-pnpm build:components # Build components package
-pnpm build:core # Build core package
+pnpm dev
+pnpm build # Build all packages with cache (packages/components)
+pnpm build:skip # Build without cache (packages/components)
 
-pnpm dev # Run Storybook
+pnpm story # Run Storybook
 pnpm build:storybook # Build Storybook
-
-pnpm dev:all # Run all packages 
-pnpm dev:components # Run components package
-pnpm dev:core # Run core package
 
 pnpm lint # Run ESLint
 pnpm lint:fix # Run ESLint and fix errors

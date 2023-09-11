@@ -1,191 +1,153 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
-import { Transition, computed, defineComponent, h, onMounted, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel, watchEffect } from 'vue'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useControllable, usePrevious, useRef, useSize } from '@oku-ui/use-composable'
-import { Primitive } from '@oku-ui/primitive'
+import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
+import { getState, isIndeterminate, scopeCheckboxProps } from './utils'
+import type { CheckedState } from './utils'
+import { OkuBubbleInput } from './bubbleInput'
 
-function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
-  return checked === 'indeterminate'
-}
+const CHECKBOX_NAME = 'OkuCheckbox'
 
-function getState(checked: CheckedState) {
-  return isIndeterminate(checked) ? 'indeterminate' : checked ? 'checked' : 'unchecked'
-}
-
-/* -------------------------------------------------------------------------------------------------
- * Checkbox
- * ----------------------------------------------------------------------------------------------- */
-
-type BubbleInputElement = ElementType<'input'>
-
-interface BubbleInputProps extends PrimitiveProps {
-  checked: Ref<CheckedState>
-  control: HTMLElement | null
-  bubbles: boolean
-}
-
-const BubbleInput = defineComponent({
-  name: 'BubbleInput',
-  inheritAttrs: false,
-  props: {
-    checked: {
-      type: [Boolean, String, Number] as PropType<
-        boolean | string | number | undefined | 'indeterminate'
-      >,
-      default: false,
-    },
-    control: {
-      type: Object as PropType<Ref<HTMLElement | null>>,
-      default: null,
-    },
-    bubbles: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  setup(props, { attrs }) {
-    const { ...inputAttrs } = attrs as BubbleInputElement
-    const { checked, bubbles, control } = toRefs(props)
-    const _ref = ref<HTMLInputElement>()
-
-    const prevChecked = usePrevious(checked)
-    const controlSize = useSize(control)
-
-    watchEffect(() => {
-      const input = _ref.value!
-      const inputProto = window.HTMLInputElement.prototype
-      const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
-      const setChecked = descriptor.set
-
-      if (prevChecked !== checked.value && setChecked) {
-        const event = new Event('click', { bubbles: bubbles.value })
-        input.indeterminate = isIndeterminate(checked.value)
-        setChecked.call(input, isIndeterminate(checked.value) ? false : checked)
-        input.dispatchEvent(event)
-      }
-    })
-
-    return () =>
-      h('input', {
-        'type': 'checkbox',
-        'aria-hidden': true,
-        'defaultChecked': isIndeterminate(checked.value) ? false : checked,
-        ...inputAttrs,
-        'tabIndex': -1,
-        'ref': _ref,
-        'style': {
-          ...inputAttrs.style as any,
-          ...controlSize,
-          position: 'absolute',
-          pointerEvents: 'none',
-          opacity: 0,
-          margin: 0,
-        },
-      })
-  },
-})
-
-const CHECKBOX_NAME = 'Checkbox'
-
-const [createCheckboxProvider, _createCheckboxScope] = createProvideScope(CHECKBOX_NAME)
-
-type CheckedState = boolean | string | number | undefined | 'indeterminate'
+const [createCheckboxProvider, createCheckboxScope] = createProvideScope(CHECKBOX_NAME)
 
 type CheckboxInjectValue = {
   state: Ref<CheckedState>
-  disabled?: boolean
+  disabled?: Ref<boolean | undefined>
 }
 
-const [CheckboxProvider, useCheckboxInject]
+export const [CheckboxProvider, useCheckboxInject]
   = createCheckboxProvider<CheckboxInjectValue>(CHECKBOX_NAME)
 
-type CheckboxElement = ElementType<'button'>
+export type CheckboxNaviteElement = Omit<OkuElement<'button', true>, 'checked' | 'defaultChecked'>
+export type CheckboxElement = HTMLButtonElement
 
-interface CheckboxProps extends PrimitiveProps {
+export interface CheckboxProps extends PrimitiveProps {
+  modelValue?: CheckedState
   checked?: CheckedState
   defaultChecked?: CheckedState
   required?: boolean
-  onCheckedChange?(checked: CheckedState): void
   scopeCheckbox?: Scope
+  name?: string
+  disabled?: boolean
+  value?: string
 }
 
-const checkboxDisplayName = 'OkuCheckbox'
-const Checkbox = defineComponent({
-  name: checkboxDisplayName,
-  components: { BubbleInput },
-  inheritAttrs: false,
+export type CheckboxEmits = {
+  'update:modelValue': [checked: CheckedState]
+  'checkedChange': [checked: CheckedState]
+  'keydown': [event: KeyboardEvent]
+  'click': [event: MouseEvent]
+}
+
+export const checkboxProps = {
   props: {
     modelValue: {
-      type: [Boolean, String, Number] as PropType<
-        boolean | string | number | undefined | 'indeterminate'
-      >,
+      type: [Boolean, String, Number, undefined] as PropType<CheckedState>,
       default: undefined,
     },
     checked: {
-      type: [Boolean, String, Number] as PropType<
-        boolean | string | number | undefined | 'indeterminate'
-      >,
+      type: [Boolean, String, Number, undefined] as PropType<CheckedState>,
       default: undefined,
     },
     defaultChecked: {
-      type: [Boolean, String] as PropType<boolean | 'indeterminate'>,
+      type: [Boolean, String, undefined] as PropType<boolean | 'indeterminate' | undefined>,
       default: undefined,
     },
     required: {
-      type: Boolean,
+      type: Boolean as PropType<boolean | undefined>,
       default: undefined,
     },
-    scopeCheckbox: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
+    name: {
+      type: String as PropType<string | undefined>,
+      default: undefined,
+    },
+    disabled: {
+      type: Boolean as PropType<boolean | undefined>,
+      default: undefined,
+    },
+    value: {
+      type: String as PropType<string | undefined>,
       default: undefined,
     },
   },
-  emits: ['update:checked', 'update:modelValue'],
-  setup(props, { attrs, slots, expose, emit }) {
-    const { checked: checkedProp, scopeCheckbox, defaultChecked, required } = toRefs(props)
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (checked: CheckedState) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'checkedChange': (checked: CheckedState) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'keydown': (event: KeyboardEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'click': (event: MouseEvent) => true,
+  },
+}
 
-    const { newRef, $el } = useRef<HTMLButtonElement>()
+const checkboxDisplayName = 'OkuCheckbox'
 
-    expose({
-      innerRef: $el,
-    })
-
+const Checkbox = defineComponent({
+  name: checkboxDisplayName,
+  components: { OkuBubbleInput },
+  inheritAttrs: false,
+  props: {
+    ...checkboxProps.props,
+    ...scopeCheckboxProps,
+    ...primitiveProps,
+  },
+  emits: checkboxProps.emits,
+  setup(props, { attrs, slots, emit }) {
     const {
-      name,
+      modelValue: _modelValue,
+      scopeOkuCheckbox,
+      checked: checkedProp,
+      defaultChecked,
+      required,
       disabled,
-      value = 'on',
+      name,
+      value,
       ...checkboxProps
-    } = attrs as CheckboxElement
+    } = toRefs(props)
+
+    const _reactive = reactive(checkboxProps)
+    const reactiveCheckboxProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const buttonRef = ref<HTMLButtonElement | null>(null)
+    const forwardedRef = useForwardRef()
+    const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const hasConsumerStoppedPropagationRef = ref(false)
 
-    const isFormControl = ref(false)
-
-    const { state, updateValue } = useControllable({
-      prop: computed(() => checkedProp.value),
-      defaultProp: computed(() => defaultChecked.value),
-      onChange: (result: any) => {
-        emit('update:checked', result)
-        emit('update:modelValue', result)
+    const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed({
+      get: () => modelValue.value !== undefined ? modelValue.value : checkedProp.value !== undefined ? checkedProp.value : undefined,
+      set: () => {
       },
     })
 
-    const initialCheckedStateRef = ref()
+    const { state, updateValue } = useControllable({
+      prop: computed(() => proxyChecked.value),
+      defaultProp: computed(() => defaultChecked.value),
+      onChange: (result: any) => {
+        modelValue.value = result
+        emit('checkedChange', result)
+      },
+      initialValue: false,
+    })
 
-    onMounted(() => {
-      isFormControl.value = Boolean($el.value.closest('form')) || false
-      initialCheckedStateRef.value = state.value
+    const initialCheckedStateRef = ref(state.value)
+
+    const isFormControl = computed(() => {
+      return Boolean(buttonRef.value?.closest('form')) || false
     })
 
     watchEffect(() => {
-      const form = newRef.value?.$el.form
+      const form = buttonRef.value?.form
       if (form) {
         const reset = () => updateValue(initialCheckedStateRef.value)
         form.addEventListener('reset', reset)
@@ -194,39 +156,38 @@ const Checkbox = defineComponent({
     })
 
     CheckboxProvider({
-      scope: scopeCheckbox.value as Scope,
+      scope: scopeOkuCheckbox.value,
       state,
-      disabled: disabled as boolean,
+      disabled,
     })
 
     const originalReturn = () =>
       [h(Primitive.button, {
         'type': 'button',
         'role': 'checkbox',
-        'aria-checked': isIndeterminate(state.value) ? 'mixed' : state.value as any,
+        'aria-checked': computed(() => isIndeterminate(state.value) ? 'mixed' : state.value).value as any,
         'aria-required': required.value,
-        'data-state': getState(state.value as any),
-        'data-disabled': disabled ? '' : undefined,
-        'disabled': disabled,
-        'value': value,
-        ...checkboxProps,
-        'ref': newRef,
-        'onKeyDown': composeEventHandlers(checkboxProps.onKeydown, (event) => {
+        'data-state': computed(() => getState(state.value)).value,
+        'data-disabled': disabled.value ? '' : undefined,
+        'disabled': disabled.value,
+        'value': value.value,
+        'asChild': props.asChild,
+        ...mergeProps(attrs, reactiveCheckboxProps),
+        'ref': composedRefs,
+        'onKeydown': composeEventHandlers<KeyboardEvent>((e) => {
+          emit('keydown', e)
+        }, (event) => {
           // According to WAI ARIA, Checkboxes don't activate on enter keypress
           if (event.key === 'Enter')
             event.preventDefault()
         }),
-        'onClick': composeEventHandlers(checkboxProps.onClick, (event) => {
-          const data = isIndeterminate(checkedProp.value) ? true : !checkedProp.value
-          if (state.value === data)
-            updateValue(!data)
-          else if (state.value === 'indeterminate')
-            updateValue(!data)
-          else
-            updateValue(data)
+        'onClick': composeEventHandlers<MouseEvent>((e) => {
+          emit('click', e)
+        }, (event) => {
+          updateValue(isIndeterminate(state.value) ? true : !state.value)
 
           if (isFormControl.value) {
-            // hasConsumerStoppedPropagationRef.value.current = event.isPropagationStopped()
+            // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
             // if checkbox is in a form, stop propagation from the button so that we only propagate
             // one click event (from the input). We propagate changes from an input so that native
             // form validation works and form events reflect checkbox updates.
@@ -239,14 +200,15 @@ const Checkbox = defineComponent({
         default: () => slots.default?.(),
       }),
       isFormControl.value && h(
-        BubbleInput,
+        OkuBubbleInput,
         {
-          bubbles: !hasConsumerStoppedPropagationRef.value,
-          name,
-          value,
+          bubbles: computed(() => !hasConsumerStoppedPropagationRef.value).value,
+          name: name.value,
+          value: value.value,
           checked: state.value,
-          required,
-          disabled,
+          required: required.value,
+          control: buttonRef.value,
+          disabled: disabled.value,
           // We transform because the input is absolutely positioned but we have
           // rendered it **after** the button. This pulls it back to sit on top
           // of the button.
@@ -255,83 +217,16 @@ const Checkbox = defineComponent({
       ),
       ]
 
-    return originalReturn as unknown as {
-      innerRef: Ref<CheckboxElement>
-    }
-  },
-})
-
-type CheckboxIndicatorElement = ElementType<'span'>
-
-interface CheckboxIndicatorProps extends PrimitiveProps {
-  forceMount?: true
-}
-
-const INDICATOR_NAME = 'CheckboxIndicator'
-
-const CheckboxIndicator = defineComponent({
-  name: 'CheckboxIndicator',
-  components: { Transition },
-  props: {
-    scopeCheckbox: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
-    forceMount: Boolean,
-  },
-  setup(props, { attrs, expose, slots }) {
-    const { scopeCheckbox, forceMount } = toRefs(props)
-    const { ...indicatorProps } = attrs as CheckboxIndicatorElement
-    const { $el, newRef } = useRef<CheckboxIndicatorElement>()
-    expose({
-      innerRef: $el,
-    })
-
-    const context = useCheckboxInject(INDICATOR_NAME, scopeCheckbox.value)
-
-    const originalReturn = () => h(Transition, {}, {
-      default: () => (forceMount.value || isIndeterminate(context.value.state.value) || context.value.state.value === true)
-        ? h(Primitive.span, {
-          'ref': newRef,
-          'data-state': getState(context.value.state.value),
-          'data-disabled': context.value.disabled ? '' : undefined,
-          ...indicatorProps,
-          'style': { pointerEvents: 'none', ...attrs.style as any },
-        },
-        {
-          default: () => slots.default?.(),
-        },
-        )
-        : null,
-    })
-
-    return originalReturn as unknown as {
-      innerRef: Ref<HTMLButtonElement>
-    }
+    return originalReturn
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-type _OkuCheckboxProps = MergeProps<CheckboxProps, CheckboxElement>
-type _OkuCheckboxIndicatorProps = MergeProps<CheckboxIndicatorProps, CheckboxIndicatorElement>
-
-type CheckboxRef = RefElement<typeof OkuCheckbox>
-type CheckboxIndicatorRef = RefElement<typeof OkuCheckboxIndicator>
-
-const OkuCheckbox = Checkbox as typeof Checkbox & (new () => { $props: _OkuCheckboxProps })
-const OkuCheckboxIndicator = CheckboxIndicator as typeof CheckboxIndicator & (new () => { $props: _OkuCheckboxIndicatorProps })
+export const OkuCheckbox = Checkbox as typeof Checkbox &
+(new () => {
+  $props: CheckboxNaviteElement
+})
 
 export {
-  OkuCheckbox,
-  OkuCheckboxIndicator,
-}
-
-export type {
-  CheckboxProps,
-  CheckboxIndicatorProps,
-  CheckboxElement,
-  CheckboxIndicatorElement,
-  BubbleInputProps,
-  CheckboxRef,
-  CheckboxIndicatorRef,
+  createCheckboxScope,
 }

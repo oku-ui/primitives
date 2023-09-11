@@ -1,7 +1,5 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import type { LabelRef } from '@oku-ui/label'
 import { OkuLabel } from '@oku-ui/label'
 
 export interface OkuLabelProps {
@@ -15,17 +13,19 @@ withDefaults(defineProps<OkuLabelProps>(), {
   template: '#1',
 })
 
-const labelRef = ref<LabelRef>()
+const labelRef = ref()
 onMounted(() => {
-  console.log(labelRef.value?.innerRef)
+  console.log(labelRef.value)
 })
-const alert = () => window.alert('clicked')
+const alert = () => console.log('alert')
+
+const value = ref()
 </script>
 
 <template>
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <OkuLabel ref="labelRef" class="text-black text-2xl border-2 border-gray-500 mb-4" for="firstName">
+      <OkuLabel ref="labelRef" :value="value" class="text-black text-2xl border-2 border-gray-500 mb-4" for="firstName">
         {{ label }}
       </OkuLabel>
       <input id="firstName" class="mt-4 bg-gray-200 p-2 border-2 border-gray-500" type="text" defaultValue="Pedro Duarte">

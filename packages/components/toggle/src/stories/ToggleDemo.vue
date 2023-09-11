@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { ToggleProps } from '@oku-ui/toggle'
 import { OkuToggle } from '@oku-ui/toggle'
 
 import { ref } from 'vue'
 
-export interface IToggleProps extends ToggleProps {
+export interface IToggleProps {
   template?: '#1' | '#2' | '#3'
-  allShow?: boolean
+  allshow?: boolean
 }
 
 withDefaults(defineProps<IToggleProps>(), {
@@ -24,7 +23,7 @@ function setPressed(value: boolean) {
   <div>
     {{ _setPressed }}
     {{ pressed }}
-    <div v-if="template === '#1' || allShow" class="w-[300px]">
+    <div v-if="template === '#1' || allshow" class="w-[300px]">
       <div>
         <h1>Oku Default toggle</h1>
         <div class="max-w-xl mx-auto h-full items-center justify-center">

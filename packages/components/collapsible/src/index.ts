@@ -1,27 +1,46 @@
+export type {
+  CollapsibleElement,
+  CollapsibleProps,
+  CollapsibleNaviteElement,
+  CollapsibleEmits,
+} from './collapsible'
+
 export {
-  type CollapsibleElement,
-  type CollapsibleProps,
-  type CollapsibleRef,
   OkuCollapsible,
+  createCollapsibleScope,
+  collapsibleProps,
 } from './collapsible'
 
 export {
   OkuCollapsibleContent,
-  type CollapsibleContentRef,
-  type CollapsibleContentElement,
-  type CollapsibleContentProps,
+  collapsibleContentProps,
+} from './collapsibleContent'
+
+export type {
+  CollapsibleContentElement,
+  CollapsibleContentProps,
+  CollapsibleContentNaviteElement,
 } from './collapsibleContent'
 
 export {
   OkuCollapsibleContentImpl,
-  type CollapsibleContentImplElement,
-  type CollapsibleContentImplProps,
-  type CollapsibleContentImplRef,
+  collapsibleContentImplProps,
+} from './collapsibleContentImpl'
+
+export type {
+  CollapsibleContentImplElement,
+  CollapsibleContentImplProps,
+  CollapsibleContentImplNaviteElement,
 } from './collapsibleContentImpl'
 
 export {
   OkuCollapsibleTrigger,
-  type CollapsibleTriggerElement,
-  type CollapsibleTriggerProps,
-  type CollapsibleTriggerRef,
+  collapsibleTriggerProps,
+} from './collapsibleTrigger'
+
+export type {
+  CollapsibleTriggerElement,
+  CollapsibleTriggerProps,
+  CollapsibleTriggerNaviteElement,
+  CollapsibleTriggerEmits,
 } from './collapsibleTrigger'

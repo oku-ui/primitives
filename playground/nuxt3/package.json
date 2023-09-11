@@ -2,8 +2,8 @@
   "name": "nuxt3-playground",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "p:build": "nuxt build",
+    "p:dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -15,13 +15,22 @@
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
+    "@oku-ui/collection": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/primitives": "workspace:^",
     "@oku-ui/progress": "workspace:^",
-    "@oku-ui/separator": "workspace:^"
+    "@oku-ui/roving-focus": "workspace:^",
+    "@oku-ui/separator": "workspace:^",
+    "@oku-ui/slider": "workspace:^",
+    "@oku-ui/slot": "workspace:^",
+    "@oku-ui/switch": "workspace:^",
+    "@oku-ui/tabs": "workspace:^",
+    "@oku-ui/toast": "workspace:^",
+    "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
-    "@types/node": "^18.16.19",
-    "nuxt": "^3.6.3"
+    "@types/node": "^18.17.14",
+    "nuxt": "^3.7.1"
   }
 }

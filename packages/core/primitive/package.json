@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitive",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.4.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -17,24 +17,27 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     }
   },
-  "require": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@oku-ui/slot": "latest",
+    "@oku-ui/use-composable": "latest",
+    "filter-anything": "^3.0.7"
+  },
   "devDependencies": {
     "tsconfig": "workspace:^"
   },

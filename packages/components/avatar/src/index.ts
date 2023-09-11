@@ -1,17 +1,34 @@
 export {
   OkuAvatar,
-  OkuAvatarFallback,
-  OkuAvatarImage,
   createAvatarScope,
+  avatarProps,
 } from './avatar'
+
+export {
+  OkuAvatarFallback,
+  avatarFallbackProps,
+} from './avatarFallback'
+
+export {
+  OkuAvatarImage,
+  avatarImageProps,
+} from './avatarImage'
+
+export type {
+  AvatarImageProps,
+  AvatarImageElement,
+  AvatarImageNaviteElement,
+  AvatarEmits,
+} from './avatarImage'
+
+export type {
+  AvatarProps,
+  AvatarElement,
+  AvatarNaviteElement,
+} from './avatar'
+
 export type {
   AvatarFallbackProps,
-  AvatarProps,
-  AvatarImageProps,
-  AvatarElement,
-  AvatarFallbackElement,
-  AvatarImageElement,
-  AvatarRef,
-  AvatarFallbackRef,
-  AvatarImageRef,
-} from './avatar'
+  AvatarFalbackElement,
+  AvatarFallbackNaviteElement,
+} from './avatarFallback'

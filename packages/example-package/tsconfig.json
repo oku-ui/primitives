@@ -1,7 +1,7 @@
 {
-  "extends": "tsconfig/node16.json",
+  "extends": "tsconfig/node18.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "baseUrl": "./",
     "outDir": "dist"
   },
   "include": [

@@ -1,7 +1,13 @@
 import { promises as fsp } from 'node:fs'
+import process from 'node:process'
 import { resolve } from 'pathe'
 import { execaSync } from 'execa'
-import { determineSemverChange, getGitDiff, loadChangelogConfig, parseCommits } from 'changelogen'
+import {
+  determineSemverChange,
+  getGitDiff,
+  loadChangelogConfig,
+  parseCommits,
+} from 'changelogen'
 
 export interface Dep {
   name: string
@@ -14,11 +20,19 @@ export type Package = ThenArg<ReturnType<typeof loadPackage>>
 
 export async function loadPackage(dir: string) {
   const pkgPath = resolve(dir, 'package.json')
-  const data = JSON.parse(await fsp.readFile(pkgPath, 'utf-8').catch(() => '{}'))
-  const save = () => fsp.writeFile(pkgPath, `${JSON.stringify(data, null, 2)}\n`)
+  const data = JSON.parse(
+    await fsp.readFile(pkgPath, 'utf-8').catch(() => '{}'),
+  )
+  const save = () =>
+    fsp.writeFile(pkgPath, `${JSON.stringify(data, null, 2)}\n`)
 
   const updateDeps = (reviver: (dep: Dep) => Dep | void) => {
-    for (const type of ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies']) {
+    for (const type of [
+      'dependencies',
+      'devDependencies',
+      'optionalDependencies',
+      'peerDependencies',
+    ]) {
       if (!data[type])
         continue
       for (const e of Object.entries(data[type])) {
@@ -51,7 +65,11 @@ export async function loadWorkspace(dir: string) {
     })
   }
 
-  const setVersion = (newVersion: string, opts: { updateDeps?: boolean } = {}) => {
+  const setVersion = (
+    newVersion: string,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    opts: { updateDeps?: boolean } = {},
+  ) => {
     workspacePkg.data.version = newVersion
   }
 
@@ -77,7 +95,11 @@ export async function determineBumpType() {
 
 export async function getLatestCommits() {
   const config = await loadChangelogConfig(process.cwd())
-  const latestTag = execaSync('git', ['describe', '--tags', '--abbrev=0']).stdout
+  const latestTag = execaSync('git', [
+    'describe',
+    '--tags',
+    '--abbrev=0',
+  ]).stdout
 
   return parseCommits(await getGitDiff(latestTag), config)
 }

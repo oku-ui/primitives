@@ -1,15 +1,16 @@
-import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, toRefs, useModel } from 'vue'
-import { Primitive } from '@oku-ui/primitive'
-import type { ElementType, MergeProps, PrimitiveProps, RefElement } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
+import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useControllable, useRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
-const TOGGLE_NAME = 'Toggle'
+const TOGGLE_NAME = 'OkuToggle'
 
-type ToggleElement = ElementType<'button'>
+export type ToggleElementNaviteElement = Omit<OkuElement<'button'>, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
+export type ToggleElement = Omit<HTMLButtonElement, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
 
-interface ToggleProps extends PrimitiveProps {
+export interface ToggleProps extends PrimitiveProps {
   /**
    * The controlled state of the toggle.
    */
@@ -20,60 +21,109 @@ interface ToggleProps extends PrimitiveProps {
    * @defaultValue false
    */
   defaultPressed?: boolean
-
+  disabled?: boolean
+  ariaChecked?: boolean | undefined
 }
 
-const Toggle = defineComponent({
-  name: TOGGLE_NAME,
-  inheritAttrs: false,
+export type ToggleEmits = {
+  'update:modelValue': [pressed: boolean]
+  /**
+   * The callback that fires when the state of the toggle changes.
+   */
+  'pressedChange': [pressed: boolean]
+  'click': [event: MouseEvent]
+}
+
+export const toggleProps = {
   props: {
     modelValue: {
-      type: [Boolean, String, Number] as PropType<
-        boolean | string | number | undefined
+      type: [Boolean] as PropType<
+        boolean | undefined
       >,
       default: undefined,
     },
     pressed: {
-      type: Boolean,
+      type: Boolean as PropType<boolean | undefined>,
       default: undefined,
     },
     defaultPressed: {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    ariaChecked: {
+      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      default: undefined,
+    },
   },
-  emits: ['update:pressed', 'update:modelValue'],
-  setup(props, { attrs, expose, slots, emit }) {
-    const { pressed: pressedProp, defaultPressed } = toRefs(props)
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (pressed: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'pressedChange': (pressed: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'click': (event: MouseEvent) => true,
+  },
+}
+
+const toggle = defineComponent({
+  name: TOGGLE_NAME,
+  inheritAttrs: false,
+  props: {
+    ...toggleProps.props,
+    ...primitiveProps,
+  },
+  emits: toggleProps.emits,
+  setup(props, { attrs, slots, emit }) {
+    const {
+      modelValue: _modelValue,
+      pressed: pressedProp,
+      defaultPressed,
+      ...buttonProps
+    } = toRefs(props)
+
+    const _reactive = reactive(buttonProps)
+    const reactiveButtonProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const modelValue = useModel(props, 'modelValue')
 
-    const { $el, newRef } = useRef<ToggleElement>()
-
-    expose({
-      innerRef: $el,
-    })
-
-    const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? pressedProp.value),
-      defaultProp: computed(() => defaultPressed.value),
-      onChange: (pressed) => {
-        emit('update:pressed', pressed)
-        emit('update:modelValue', pressed)
+    const proxyChecked = computed({
+      get: () => modelValue.value !== undefined
+        ? modelValue.value
+        : (pressedProp.value !== undefined
+            ? pressedProp.value
+            : undefined),
+      set: () => {
       },
     })
 
-    const { disabled, ...toggleProps } = attrs as ToggleElement
+    const forwardedRef = useForwardRef()
+
+    const { state, updateValue } = useControllable({
+      prop: computed(() => proxyChecked.value),
+      defaultProp: computed(() => defaultPressed.value),
+      onChange: (pressed) => {
+        emit('pressedChange', pressed)
+        modelValue.value = pressed
+      },
+      initialValue: false,
+    })
 
     const originalReturn = () => h(
       Primitive.button, {
         'type': 'button',
         'aria-pressed': state.value,
         'data-state': state.value ? 'on' : 'off',
-        'data-disabled': disabled ? '' : undefined,
-        ...toggleProps,
-        'ref': newRef,
-        'onClick': composeEventHandlers(toggleProps.onClick, () => {
-          if (!disabled)
+        'data-disabled': props.disabled ? '' : undefined,
+        ...mergeProps(attrs, reactiveButtonProps),
+        'ref': forwardedRef,
+        'onClick': composeEventHandlers<MouseEvent>((e) => {
+          emit('click', e)
+        }, () => {
+          if (!props.disabled)
             updateValue(!state.value)
         }),
       },
@@ -82,24 +132,11 @@ const Toggle = defineComponent({
       },
     )
 
-    return originalReturn as unknown as {
-      innerRef: Ref<ToggleElement>
-    }
+    return originalReturn
   },
 })
 
-type _ToggleProps = MergeProps<ToggleProps, ToggleElement>
-
-type ToggleRef = RefElement<typeof Toggle>
-
-const OkuToggle = Toggle as typeof Toggle & (new () => { $props: _ToggleProps })
-
-export {
-  OkuToggle,
-}
-
-export type {
-  ToggleProps,
-  ToggleElement,
-  ToggleRef,
-}
+export const OkuToggle = toggle as typeof toggle &
+(new () => {
+  $props: ToggleElementNaviteElement
+})

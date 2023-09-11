@@ -1,14 +1,13 @@
-import type { PropType } from 'vue'
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 
-import type { ElementType, MergeProps, PrimitiveProps } from '@oku-ui/primitive'
-import type { Scope } from '@oku-ui/provide'
-import type { ArrowProps } from '@oku-ui/arrow'
-import { OkuArrow } from '@oku-ui/arrow'
-import type { Side } from './utils'
+import type { ArrowElement, ArrowNaviteElement, ArrowProps } from '@oku-ui/arrow'
+import { OkuArrow, arrowProps } from '@oku-ui/arrow'
+
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { type Side, scopePopperProps } from './utils'
 import { usePopperContentInject } from './popperContent'
 
-const ARROW_NAME = 'PopperArrow'
+const ARROW_NAME = 'OkuPopperArrow'
 
 const OPPOSITE_SIDE: Record<Side, Side> = {
   top: 'bottom',
@@ -17,73 +16,85 @@ const OPPOSITE_SIDE: Record<Side, Side> = {
   left: 'right',
 }
 
-type PopperArrowElement = ElementType<'svg'>
-interface PopperArrowProps extends PrimitiveProps, ArrowProps {
-  scopePopper?: Scope
+export type PopperArrowNaviteElement = ArrowNaviteElement
+export type PopperArrowElement = ArrowElement
+
+export interface PopperArrowProps extends ArrowProps {
 }
 
-const PopperArrow = defineComponent({
+export const popperArrowProps = {
+  props: {
+    ...arrowProps.props,
+  },
+  emits: {},
+}
+
+const popperArrow = defineComponent({
   name: ARROW_NAME,
   props: {
-    scopePopper: {
-      type: Object as unknown as PropType<Scope>,
-      required: false,
-    },
+    ...popperArrowProps.props,
+    ...scopePopperProps,
   },
-  setup(props, { attrs, slots }) {
-    const { ...attrsElement } = attrs as PopperArrowElement
-    const contentInject = usePopperContentInject(ARROW_NAME, props.scopePopper)
+  setup(props, { attrs }) {
+    const { scopeOkuPopper, ...arrowProps } = toRefs(props)
+    const _reactive = reactive(arrowProps)
+    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const contentInject = usePopperContentInject(ARROW_NAME, scopeOkuPopper.value)
     const baseSide = computed(() => {
-      return OPPOSITE_SIDE[contentInject.value.placedSide.value]
+      return contentInject?.placedSide.value ? OPPOSITE_SIDE[contentInject.placedSide.value] : ''
     })
+
+    const forwardedRef = useForwardRef()
+
     const originalReturn = () =>
-      h('span', {
-        ref: (el: any) => {
-          contentInject.value.onAnchorChange(el)
-          return undefined
-        },
-        style: {
-          position: 'absolute',
-          left: contentInject.value.arrowX?.value,
-          top: contentInject.value.arrowY?.value,
-          [baseSide.value]: '0px',
-          transformOrigin: {
-            top: '',
-            right: '0px 0px',
-            bottom: 'center 0px',
-            left: '100% 0px',
-          }[contentInject.value.placedSide.value],
-          transform: {
-            top: 'translateY(100%)',
-            right: 'translateY(50%) rotate(90deg) translateX(-50%)',
-            bottom: 'rotate(180deg)',
-            left: 'translateY(50%) rotate(-90deg) translateX(50%)',
-          }[contentInject.value.placedSide.value],
-          visibility: contentInject.value.shouldHideArrow.value ? 'hidden' : undefined,
-        },
-      },
-      [
-        h(OkuArrow, {
-          ...attrsElement,
-          style: {
-            ...attrsElement.style as any,
-            display: 'block',
+      h(
+        'span',
+        {
+          ref: (el: any) => {
+            contentInject.onArrowChange(el)
+            return undefined
           },
-        }),
-      ])
+          style: {
+            position: 'absolute',
+            left: `${contentInject.arrowX?.value}px`,
+            top: `${contentInject.arrowY?.value}px`,
+            [baseSide.value]: '0px',
+            transformOrigin: {
+              top: '',
+              right: '0px 0px',
+              bottom: 'center 0px',
+              left: '100% 0px',
+            }[contentInject.placedSide.value!],
+            transform: {
+              top: 'translateY(100%)',
+              right: 'translateY(50%) rotate(90deg) translateX(-50%)',
+              bottom: 'rotate(180deg)',
+              left: 'translateY(50%) rotate(-90deg) translateX(50%)',
+            }[contentInject.placedSide.value!],
+            visibility: contentInject.shouldHideArrow.value
+              ? 'hidden'
+              : undefined,
+          },
+        },
+        [
+          h(OkuArrow, {
+            ...mergeProps(reactiveArrowProps, attrs),
+            ref: forwardedRef,
+            style: {
+              ...attrs.style as any,
+              // ensures the element can be measured correctly (mostly for if SVG)
+              display: 'block',
+            },
+          }),
+        ],
+      )
     return originalReturn
   },
-
 })
 
-type _PopperArrow = MergeProps<PopperArrowProps, PopperArrowElement>
-
-const OkuPopperArrow = PopperArrow as typeof PopperArrow & (new () => { $props: _PopperArrow })
-
-export {
-  OkuPopperArrow,
-}
-
-export type {
-  PopperArrowProps,
-}
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+export const OkuPopperArrow = popperArrow as typeof popperArrow
+& (new () => {
+  $props: PopperArrowNaviteElement
+})

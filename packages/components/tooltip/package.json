@@ -1,0 +1,57 @@
+{
+  "name": "@oku-ui/tooltip",
+  "type": "module",
+  "version": "0.4.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/components/tooltip"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --watch"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@floating-ui/vue": "^1.0.2",
+    "@oku-ui/dismissable-layer": "latest",
+    "@oku-ui/popper": "latest",
+    "@oku-ui/portal": "latest",
+    "@oku-ui/presence": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/slot": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest",
+    "@oku-ui/visually-hidden": "latest"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

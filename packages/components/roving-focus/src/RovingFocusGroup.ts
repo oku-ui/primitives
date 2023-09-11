@@ -1,0 +1,120 @@
+import { createProvideScope } from '@oku-ui/provide'
+import type { CollectionPropsType } from '@oku-ui/collection'
+import { createCollection } from '@oku-ui/collection'
+import type { Ref } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { primitiveProps } from '@oku-ui/primitive'
+import { OkuRovingFocusGroupImpl, rovingFocusGroupImplProps } from './RovingFocusGroupImpl'
+import type { RovingFocusGroupImplElement, RovingFocusGroupImplNaviteElement, RovingFocusGroupImplProps } from './RovingFocusGroupImpl'
+import { scopedProps } from './types'
+import type { Direction, Orientation } from './utils'
+
+const GROUP_NAME = 'OkuRovingFocusGroup'
+
+export interface ItemData extends CollectionPropsType {
+  id: string
+  focusable: boolean
+  active: boolean
+}
+
+export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<
+  HTMLSpanElement,
+  ItemData
+>(GROUP_NAME, {
+  id: {
+    type: String,
+  },
+  focusable: {
+    type: Boolean,
+  },
+  active: {
+    type: Boolean,
+  },
+})
+
+const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createProvideScope(
+  GROUP_NAME,
+  [createCollectionScope],
+)
+
+// RovingFocusGroupOptions extends
+type RovingProvideValue = {
+  /**
+ * The orientation of the group.
+ * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+ */
+  orientation?: Ref<Orientation | undefined>
+  /**
+   * The direction of navigation between items.
+   */
+  dir?: Ref<Direction | undefined>
+  /**
+   * Whether keyboard navigation should loop around
+   * @defaultValue false
+   */
+  loop?: Ref<boolean | undefined>
+
+  currentTabStopId: Ref<string>
+  onItemFocus(tabStopId: string): void
+  onItemShiftTab(): void
+  onFocusableItemAdd(): void
+  onFocusableItemRemove(): void
+}
+
+export const [rovingFocusProvider, useRovingFocusInject]
+  = createRovingFocusGroupProvide<RovingProvideValue>(GROUP_NAME)
+
+export type RovingFocusGroupNaviteElement = RovingFocusGroupImplNaviteElement
+export type RovingFocusGroupElement = RovingFocusGroupImplElement
+
+export interface RovingFocusGroupProps extends RovingFocusGroupImplProps { }
+
+export const rovingFocusGroupProps = {
+  ...rovingFocusGroupImplProps,
+}
+
+const rovingFocusGroup = defineComponent({
+  name: GROUP_NAME,
+  components: {
+    OkuRovingFocusGroupImpl,
+    CollectionProvider,
+    CollectionSlot,
+    CollectionItemSlot,
+  },
+  inheritAttrs: false,
+  props: {
+    ...rovingFocusGroupProps.props,
+    ...scopedProps,
+    ...primitiveProps,
+  },
+  emits: rovingFocusGroupProps.emits,
+  setup(props, { slots, attrs }) {
+    const forwardedRef = useForwardRef()
+    return () => {
+      return h(CollectionProvider, {
+        scope: props.scopeOkuRovingFocusGroup,
+      }, {
+        default: () => h(CollectionSlot, {
+          scope: props.scopeOkuRovingFocusGroup,
+        }, {
+          default: () => h(OkuRovingFocusGroupImpl, {
+            ...mergeProps(attrs, props),
+            ref: forwardedRef,
+          }, slots),
+        }),
+      })
+    }
+  },
+})
+
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
+const OkuRovingFocusGroup = rovingFocusGroup as typeof rovingFocusGroup &
+(new () => {
+  $props: RovingFocusGroupNaviteElement
+})
+
+export {
+  OkuRovingFocusGroup,
+  createRovingFocusGroupScope,
+}
