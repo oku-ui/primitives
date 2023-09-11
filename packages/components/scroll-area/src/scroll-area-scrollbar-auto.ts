@@ -1,37 +1,15 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
-import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
-import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import { useScrollAreaInject } from './scroll-area'
+
+import { OkuScrollAreaScrollbarVisible } from './scroll-area-scrollbar-visible'
+
 import { useDebounceCallback, useResizeObserver } from './utils'
-import { scopedScrollAreaProps } from './types'
+import type { ScrollAreaScrollbarAutoNaviteElement } from './props'
+import { SCROLL_AREA_SCROLLBAR_AUTO_NAME, SCROLL_AREA_SCROLLBAR_NAME, scopedScrollAreaProps, scrollAreaScrollbarAutoProps, useScrollAreaInject } from './props'
 
-const SCROLL_NAME = 'OkuScrollAreaScrollbarAuto'
-
-export type ScrollAreaScrollbarAutoNaviteElement = ScrollAreaScrollbarVisibleNaviteElement
-export type ScrollAreaScrollbarAutoElement = ScrollAreaScrollbarVisibleElement
-
-export interface ScrollAreaScrollbarAutoProps extends ScrollAreaScrollbarVisibleProps {
-  forceMount?: true
-}
-
-export const scrollAreaScrollbarAutoProps = {
-  props: {
-    ...scrollAreaScrollbarVisibleProps.props,
-    forceMount: {
-      type: Boolean as PropType<true | undefined>,
-    },
-  },
-  emits: {
-    ...scrollAreaScrollbarVisibleProps.emits,
-  },
-}
-
-const scrollAreaScrollbarScroll = defineComponent({
-  name: SCROLL_NAME,
+const scrollAreaScrollbarAuto = defineComponent({
+  name: SCROLL_AREA_SCROLLBAR_AUTO_NAME,
   components: {
     OkuPresence,
     OkuScrollAreaScrollbarVisible,
@@ -53,7 +31,7 @@ const scrollAreaScrollbarScroll = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const visible = ref(false)
     const isHorizontal = _reactive.orientation === 'horizontal'
     const handleResize = useDebounceCallback(() => {
@@ -82,5 +60,5 @@ const scrollAreaScrollbarScroll = defineComponent({
   },
 })
 
-export const OkuScrollAreaScrollbarAuto = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll &
+export const OkuScrollAreaScrollbarAuto = scrollAreaScrollbarAuto as typeof scrollAreaScrollbarAuto &
 (new () => { $props: ScrollAreaScrollbarAutoNaviteElement })

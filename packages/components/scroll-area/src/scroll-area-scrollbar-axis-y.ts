@@ -1,19 +1,14 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useScrollAreaInject } from './scroll-area'
-import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
-import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
-import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement } from './share'
-import { scrollAreaScrollbarAxisProps } from './share'
-import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
-import { scopedScrollAreaProps } from './types'
 
-const SCROLL_NAME = 'OkuScrollAreaScrollbarY'
+import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
+import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarElement } from './props'
+import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_Y, scopedScrollAreaProps, scrollAreaScrollbarAxisProps, useScrollAreaInject } from './props'
+import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 
 const scrollAreaScrollbarY = defineComponent({
-  name: SCROLL_NAME,
+  name: SCROLL_AREA_SCROLLBAR_Y,
   components: {
     OkuScrollAreaScrollbarImpl,
   },
@@ -33,7 +28,7 @@ const scrollAreaScrollbarY = defineComponent({
     const _reactive = reactive(scrollAreaScrollbarAxisProps)
     const reactiveScrollAreaScrollbarAxisProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const computedStyle = ref<CSSStyleDeclaration>()
     const scrollbarAxisRef = ref<ScrollAreaScrollbarAxisElement | null>(null)
     const forwardedRef = useForwardRef()

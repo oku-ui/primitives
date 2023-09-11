@@ -1,28 +1,11 @@
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { ScrollAreaCornerImplElement, ScrollAreaCornerImplNaviteElement, ScrollAreaCornerImplProps } from './scroll-area-corner-impl'
-import { OkuScrollAreaCornerImpl, scrollAreaCornerImplProps } from './scroll-area-corner-impl'
-import { useScrollAreaInject } from './scroll-area'
-import { scopedScrollAreaProps } from './types'
-
-export const CORNER_NAME = 'OkuScrollAreaCorner'
-
-export type ScrollAreaCornerNaviteElement = ScrollAreaCornerImplNaviteElement
-export type ScrollAreaCornerElement = ScrollAreaCornerImplElement
-
-export interface ScrollAreaCornerProps extends ScrollAreaCornerImplProps {}
-
-const scrollAreaCornerProps = {
-  props: {
-    ...scrollAreaCornerImplProps.props,
-  },
-  emits: {
-    ...scrollAreaCornerImplProps.emits,
-  },
-}
+import { OkuScrollAreaCornerImpl } from './scroll-area-corner-impl'
+import type { ScrollAreaCornerNaviteElement } from './props'
+import { SCROLL_AREA_CORNER_NAME, scopedScrollAreaProps, scrollAreaCornerProps, useScrollAreaInject } from './props'
 
 const scrollAreaCorner = defineComponent({
-  name: CORNER_NAME,
+  name: SCROLL_AREA_CORNER_NAME,
   inheritAttrs: false,
   props: {
     ...scrollAreaCornerProps.props,
@@ -32,7 +15,7 @@ const scrollAreaCorner = defineComponent({
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(CORNER_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLL_AREA_CORNER_NAME, props.scopeOkuScrollArea)
     const hasBothScrollbarsVisible = computed(() => Boolean(inject.scrollbarX.value && inject.scrollbarY.value))
     const hasCorner = computed(() => inject.type.value !== 'scroll' && hasBothScrollbarsVisible.value)
 

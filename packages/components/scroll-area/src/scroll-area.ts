@@ -1,83 +1,11 @@
 /// <reference types="resize-observer-browser" />
 
-import type { PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { createProvideScope } from '@oku-ui/provide'
 import { useDirection } from '@oku-ui/direction'
-import type { ScrollAreaViewportElement } from './scroll-area-viewport'
-import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
-import { scopedScrollAreaProps } from './types'
-
-export type Direction = 'ltr' | 'rtl'
-export type Sizes = {
-  content: number
-  viewport: number
-  scrollbar: {
-    size: number
-    paddingStart: number
-    paddingEnd: number
-  }
-}
-
-/* -------------------------------------------------------------------------------------------------
- * ScrollArea
- * ----------------------------------------------------------------------------------------------- */
-
-const SCROLL_AREA_NAME = 'OkuScrollArea'
-
-export type ScrollAreaNaviteElement = OkuElement<'div'>
-export type ScrollAreaElement = HTMLDivElement
-
-export const [createScrollAreaProvide, createScrollAreaScope] = createProvideScope(SCROLL_AREA_NAME)
-
-type ScrollAreaProvideValue = {
-  type: Ref<'auto' | 'always' | 'scroll' | 'hover'>
-  dir: Ref<Direction>
-  scrollHideDelay: Ref<number>
-  scrollArea: Ref<ScrollAreaElement | null>
-  viewport: Ref<ScrollAreaViewportElement | null>
-  onViewportChange(viewport: ScrollAreaViewportElement | null): void
-  content: Ref<HTMLDivElement | null>
-  onContentChange(content: HTMLDivElement): void
-  scrollbarX: Ref<ScrollAreaScrollbarElement | null>
-  onScrollbarXChange(scrollbar: ScrollAreaScrollbarElement | null): void
-  scrollbarXEnabled: Ref<boolean>
-  onScrollbarXEnabledChange(rendered: boolean): void
-  scrollbarY: Ref<ScrollAreaScrollbarElement | null>
-  onScrollbarYChange(scrollbar: ScrollAreaScrollbarElement | null): void
-  scrollbarYEnabled: Ref<boolean>
-  onScrollbarYEnabledChange(rendered: boolean): void
-  onCornerWidthChange(width: number): void
-  onCornerHeightChange(height: number): void
-}
-
-export const [scrollAreaProvider, useScrollAreaInject] = createScrollAreaProvide<ScrollAreaProvideValue>(SCROLL_AREA_NAME)
-
-export interface ScrollAreaProps extends PrimitiveProps {
-  type?: ScrollAreaProvideValue['type']
-  dir?: ScrollAreaProvideValue['dir']
-  scrollHideDelay?: number
-}
-
-const scrollAreaProps = {
-  props: {
-    type: {
-      type: String as unknown as PropType<ScrollAreaProvideValue['type']>,
-      default: 'hover',
-    },
-    dir: {
-      type: String as PropType<Direction>,
-    },
-    scrollHideDelay: {
-      type: Number as PropType<number>,
-      default: 600,
-    },
-  },
-  emits: {},
-}
+import { SCROLL_AREA_NAME, scopedScrollAreaProps, scrollAreaProps, scrollAreaProvider } from './props'
+import type { ScrollAreaElement, ScrollAreaNaviteElement, ScrollAreaScrollbarElement, ScrollAreaViewportElement } from './props'
 
 const scrollArea = defineComponent({
   name: SCROLL_AREA_NAME,

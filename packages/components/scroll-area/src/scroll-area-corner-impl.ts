@@ -1,26 +1,11 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { CORNER_NAME } from './scroll-area-corner'
-import { useScrollAreaInject } from './scroll-area'
+import { Primitive } from '@oku-ui/primitive'
 import { useResizeObserver } from './utils'
-import { scopedScrollAreaProps } from './types'
-
-export type ScrollAreaCornerImplNaviteElement = OkuElement<'div'>
-export type ScrollAreaCornerImplElement = HTMLDivElement
-
-export interface ScrollAreaCornerImplProps extends PrimitiveProps { }
-
-export const scrollAreaCornerImplProps = {
-  props: {
-    ...primitiveProps,
-  },
-  emits: {},
-}
+import { SCROLL_AREA_CORNER_IMPL_NAME, scopedScrollAreaProps, scrollAreaCornerImplProps, useScrollAreaInject } from './props'
 
 const scrollAreaCornerImpl = defineComponent({
-  name: CORNER_NAME,
+  name: SCROLL_AREA_CORNER_IMPL_NAME,
   inheritAttrs: false,
   props: {
     ...scrollAreaCornerImplProps.props,
@@ -38,7 +23,7 @@ const scrollAreaCornerImpl = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(CORNER_NAME, scopeOkuScrollArea.value)
+    const inject = useScrollAreaInject(SCROLL_AREA_CORNER_IMPL_NAME, scopeOkuScrollArea.value)
     const width = ref<number>(0)
     const height = ref<number>(0)
     const hasSize = computed(() => Boolean(width.value && height.value))

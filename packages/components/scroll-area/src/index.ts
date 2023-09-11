@@ -17,78 +17,72 @@ export type {
   ScrollAreaProps,
   ScrollAreaElement,
   ScrollAreaNaviteElement,
-} from './scroll-area'
+} from './props'
 
 export type {
   ScrollAreaCornerProps,
   ScrollAreaCornerElement,
   ScrollAreaCornerNaviteElement,
-} from './scroll-area-corner'
+} from './props'
 
 export type {
   ScrollAreaCornerImplProps,
   ScrollAreaCornerImplElement,
   ScrollAreaCornerImplNaviteElement,
-} from './scroll-area-corner-impl'
+} from './props'
 
 export type {
   ScrollAreaScrollbarProps,
   ScrollAreaScrollbarElement,
   ScrollAreaScrollbarNaviteElement,
-} from './scroll-area-scrollbar'
+} from './props'
 
 export type {
   ScrollAreaScrollbarAutoProps,
   ScrollAreaScrollbarAutoElement,
   ScrollAreaScrollbarAutoNaviteElement,
-} from './scroll-area-scrollbar-auto'
-
-// export type {
-// } from './scroll-area-scrollbar-axis-x'
-
-// export type {
-// } from './scroll-area-scrollbar-axis-y'
+} from './props'
 
 export type {
   ScrollAreaScrollbarHoverProps,
   ScrollAreaScrollbarHoverElement,
   ScrollAreaScrollbarHoverNaviteElement,
-} from './scroll-area-scrollbar-hover'
+} from './props'
 
 export type {
   ScrollAreaScrollbarImplProps,
   ScrollAreaScrollbarImplEmits,
   ScrollAreaScrollbarImplElement,
   ScrollAreaScrollbarImplNaviteElement,
-} from './scroll-area-scrollbar-impl'
+} from './props'
 
 export type {
   ScrollAreaScrollbarScrollProps,
   ScrollAreaScrollbarScrollElement,
   ScrollAreaScrollbarScrollNaviteElement,
-} from './scroll-area-scrollbar-scroll'
+} from './props'
 
 export type {
   ScrollAreaScrollbarVisibleProps,
   ScrollAreaScrollbarVisibleElement,
   ScrollAreaScrollbarVisibleNaviteElement,
-} from './scroll-area-scrollbar-visible'
+} from './props'
 
 export type {
   ScrollAreaThumbProps,
   ScrollAreaThumbElement,
   ScrollAreaThumbNaviteElement,
-} from './scroll-area-thumb'
+} from './props'
 
 export type {
   ScrollAreaThumbImplProps,
   scrollAreaThumbImplEmits,
   ScrollAreaThumbImplElement,
   ScrollAreaThumbImplNaviteElement,
-} from './scroll-area-thumb-impl'
+} from './props'
 
 export type {
   ScrollAreaViewportProps,
   ScrollAreaViewportElement,
   ScrollAreaViewportNaviteElement,
-} from './scroll-area-viewport'
+} from './props'

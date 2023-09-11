@@ -1,118 +1,14 @@
-import type { Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { createProvideScope } from '@oku-ui/provide'
+import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useScrollAreaInject } from './scroll-area'
-import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
-import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import type { ScrollAreaThumbElement } from './scroll-area-thumb'
-import type { Sizes } from './utils'
+
 import { useDebounceCallback, useResizeObserver } from './utils'
-import { scopedScrollAreaProps } from './types'
-
-export type ScrollAreaScrollbarImplNaviteElement = OkuElement<'div'>
-export type ScrollAreaScrollbarImplElement = HTMLDivElement
-
-export interface ScrollAreaScrollbarImplProps extends PrimitiveProps, ScrollAreaScrollbarImplPrivateProps { }
-
-export const [createScrollProvide, createScrollScope] = createProvideScope(SCROLLBAR_NAME)
-
-type ScrollAreaProvideValue = {
-  hasThumb: Ref<boolean>
-  scrollbar: Ref<ScrollAreaScrollbarElement | null>
-  onThumbChange(thumb: ScrollAreaThumbElement | null): void
-  onThumbPointerUp(): void
-  onThumbPointerDown(pointerPos: { x: number; y: number }): void
-  onThumbPositionChange(): void
-}
-
-export const [scrollbarProvider, useScrollbarInject] = createScrollProvide<ScrollAreaProvideValue>(SCROLLBAR_NAME)
-
-export type ScrollAreaScrollbarImplPrivateProps = {
-  sizes: Ref<Sizes>
-  hasThumb: Ref<boolean>
-}
-
-export type ScrollAreaScrollbarImplPrivateEmits = {
-  thumbChange: [thumb: Parameters<ScrollAreaProvideValue['onThumbChange']>[0]]
-  thumbPointerUp: []
-  thumbPointerDown: [pointerPos: Parameters<ScrollAreaProvideValue['onThumbPointerDown']>[0]]
-  thumbPositionChange: []
-  wheelScroll: [event: WheelEvent, maxScrollPos: number]
-  dragScroll: [pointerPos: { x: number; y: number }]
-  resize: []
-  pointerdown: [event: PointerEvent]
-  pointermove: [event: PointerEvent]
-  pointerup: [event: PointerEvent]
-}
-
-export const scrollAreaScrollbarImplProps = {
-  props: {
-    hasThumb: {
-      type: Boolean,
-    },
-    sizes: {
-      type: Object,
-    },
-    ...primitiveProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    thumbChange: (thumb: Parameters<ScrollAreaProvideValue['onThumbChange']>[0]) => true,
-    thumbPointerUp: () => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    thumbPointerDown: (pointerPos: Parameters<ScrollAreaProvideValue['onThumbPointerDown']>[0]) => true,
-
-    thumbPositionChange: () => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    wheelScroll: (...args: ScrollAreaScrollbarImplPrivateEmits['wheelScroll']) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    dragScroll: (...args: ScrollAreaScrollbarImplPrivateEmits['dragScroll']) => true,
-    resize: () => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdown: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointermove: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerup: (event: PointerEvent) => true,
-  },
-  propKeys: ['hasThumb', 'sizes', 'asChild'] as ['hasThumb', 'sizes', 'asChild'],
-  emitKeys: [
-    'thumbChange',
-    'thumbPointerUp',
-    'thumbPointerDown',
-    'thumbPositionChange',
-    'wheelScroll',
-    'dragScroll',
-    'resize',
-    'pointerdown',
-    'pointermove',
-    'pointerup',
-  ] as [
-    'thumbChange',
-    'thumbPointerUp',
-    'thumbPointerDown',
-    'thumbPositionChange',
-    'wheelScroll',
-    'dragScroll',
-    'resize',
-    'pointerdown',
-    'pointermove',
-    'pointerup',
-  ],
-}
-
-export type ScrollAreaScrollbarImplEmits = {
-  pointerup: [event: PointerEvent]
-  pointermove: [event: PointerEvent]
-  pointerdown: [event: PointerEvent]
-}
+import type { ScrollAreaScrollbarElement, ScrollAreaScrollbarImplEmits, ScrollAreaScrollbarImplNaviteElement } from './props'
+import { SCROLL_AREA_SCROLLBAR_IMPL_NAME, SCROLL_AREA_SCROLLBAR_NAME, scopedScrollAreaProps, scrollAreaScrollbarImplProps, scrollbarProvider, useScrollAreaInject } from './props'
 
 const scrollAreaScrollbarImpl = defineComponent({
-  name: SCROLLBAR_NAME,
+  name: SCROLL_AREA_SCROLLBAR_IMPL_NAME,
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarImplProps.props,
@@ -132,7 +28,7 @@ const scrollAreaScrollbarImpl = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, scopeOkuScrollArea.value)
+    const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, scopeOkuScrollArea.value)
     const scrollbar = ref<ScrollAreaScrollbarElement | null>(null)
     const composeRefs = useComposedRefs(forwardedRef, node => scrollbar.value = (node as ScrollAreaScrollbarElement))
     const rectRef = ref<ClientRect | null>(null)

@@ -1,36 +1,13 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import type { ScrollAreaScrollbarAutoElement, ScrollAreaScrollbarAutoNaviteElement, ScrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
-import { OkuScrollAreaScrollbarAuto, scrollAreaScrollbarAutoProps } from './scroll-area-scrollbar-auto'
-import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import { useScrollAreaInject } from './scroll-area'
-import { scopedScrollAreaProps } from './types'
 
-const SCROLL_NAME = 'OkuScrollAreaScrollbarHover'
-
-export type ScrollAreaScrollbarHoverNaviteElement = ScrollAreaScrollbarAutoNaviteElement
-export type ScrollAreaScrollbarHoverElement = ScrollAreaScrollbarAutoElement
-
-export interface ScrollAreaScrollbarHoverProps extends ScrollAreaScrollbarAutoProps {
-  forceMount?: true
-}
-
-const scrollAreaScrollbarHoverProps = {
-  props: {
-    ...scrollAreaScrollbarAutoProps.props,
-    forceMount: {
-      type: Boolean as PropType<true | undefined>,
-    },
-  },
-  emits: {
-    ...scrollAreaScrollbarAutoProps.emits,
-  },
-}
+import type { ScrollAreaScrollbarHoverNaviteElement } from './props'
+import { SCROLL_AREA_SCROLLBAR_HOVER, SCROLL_AREA_SCROLLBAR_NAME, scopedScrollAreaProps, scrollAreaScrollbarHoverProps, useScrollAreaInject } from './props'
+import { OkuScrollAreaScrollbarAuto } from './scroll-area-scrollbar-auto'
 
 const scrollAreaScrollbarHover = defineComponent({
-  name: SCROLL_NAME,
+  name: SCROLL_AREA_SCROLLBAR_HOVER,
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarHoverProps.props,
@@ -48,7 +25,7 @@ const scrollAreaScrollbarHover = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const visible = ref(false)
 
     watchEffect((onInvalidate) => {

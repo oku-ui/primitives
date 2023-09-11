@@ -1,48 +1,15 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
-import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
-import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import { useScrollAreaInject } from './scroll-area'
 import { useStateMachine } from './useStateMachine'
 import { useDebounceCallback } from './utils'
-import { scopedScrollAreaProps } from './types'
-
-const SCROLL_NAME = 'OkuScrollAreaScrollbarScroll'
-
-export type ScrollAreaScrollbarScrollNaviteElement = ScrollAreaScrollbarVisibleNaviteElement
-export type ScrollAreaScrollbarScrollElement = ScrollAreaScrollbarVisibleElement
-
-export interface ScrollAreaScrollbarScrollProps extends ScrollAreaScrollbarVisibleProps {
-  forceMount?: true
-}
-
-export type ScrollAreaScrollbarScrollEmits = {
-  pointerenter: [event: PointerEvent]
-  pointerleave: [event: PointerEvent]
-}
-
-const scrollAreaScrollbarScrollProps = {
-  props: {
-    ...scrollAreaScrollbarVisibleProps.props,
-    forceMount: {
-      type: Boolean as PropType<true | undefined>,
-    },
-  },
-  emits: {
-    ...scrollAreaScrollbarVisibleProps.emits,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerenter: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerleave: (event: PointerEvent) => true,
-  },
-}
+import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollNaviteElement } from './props'
+import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_SCROLL_NAME, scopedScrollAreaProps, scrollAreaScrollbarScrollProps, useScrollAreaInject } from './props'
+import { OkuScrollAreaScrollbarVisible } from './scroll-area-scrollbar-visible'
 
 const scrollAreaScrollbarScroll = defineComponent({
-  name: SCROLL_NAME,
+  name: SCROLL_AREA_SCROLLBAR_SCROLL_NAME,
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarScrollProps.props,
@@ -60,7 +27,7 @@ const scrollAreaScrollbarScroll = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const isHorizontal = computed(() => _reactive.orientation === 'horizontal')
     const { state, dispatch: send } = useStateMachine('hidden', {
       hidden: {

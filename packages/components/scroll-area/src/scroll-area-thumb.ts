@@ -1,37 +1,13 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
-import type { ScrollAreaThumbImplElement, ScrollAreaThumbImplNaviteElement, ScrollAreaThumbImplProps } from './scroll-area-thumb-impl'
 import { OkuScrollAreaThumbImpl } from './scroll-area-thumb-impl'
-import { useScrollbarInject } from './scroll-area-scrollbar-impl'
-import { scopedScrollAreaProps } from './types'
-
-export const THUMB_NAME = 'ScrollAreaThumb'
-
-export type ScrollAreaThumbNaviteElement = ScrollAreaThumbImplNaviteElement
-export type ScrollAreaThumbElement = ScrollAreaThumbImplElement
-
-export interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
-  /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
-   */
-  forceMount?: true
-}
-
-const scrollAreaThumbProps = {
-  props: {
-    forceMount: {
-      type: Boolean as PropType<true | undefined>,
-    },
-  },
-  emits: {},
-}
+import { SCROLL_AREA_THUMB_NAME, scopedScrollAreaProps, scrollAreaThumbProps, useScrollbarInject } from './props'
+import type { ScrollAreaThumbNaviteElement } from './props'
 
 const scrollAreaThumb = defineComponent({
-  name: THUMB_NAME,
+  name: SCROLL_AREA_THUMB_NAME,
   components: {
     OkuPresence,
     OkuScrollAreaThumbImpl,
@@ -54,7 +30,7 @@ const scrollAreaThumb = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const scrollbarInject = useScrollbarInject(THUMB_NAME, props.scopeOkuScrollArea)
+    const scrollbarInject = useScrollbarInject(SCROLL_AREA_THUMB_NAME, props.scopeOkuScrollArea)
 
     return () => h(OkuPresence,
       { present: computed(() => forceMount.value || scrollbarInject.hasThumb.value).value },

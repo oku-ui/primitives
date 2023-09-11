@@ -1,43 +1,15 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { propsOmit } from '@oku-ui/primitive'
-import { useScrollAreaInject } from './scroll-area'
-import type { ScrollAreaThumbElement } from './scroll-area-thumb'
-import { SCROLLBAR_NAME } from './scroll-area-scrollbar'
-import { scrollAreaScrollbarAxisPrivateProps, scrollAreaScrollbarAxisProps } from './share'
-import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarAxisPrivateProps, ScrollAreaScrollbarAxisProps } from './share'
+
 import { OkuScrollAreaScrollbarY } from './scroll-area-scrollbar-axis-y'
 import { OkuScrollAreaScrollbarX } from './scroll-area-scrollbar-axis-x'
 import type { Direction, Sizes } from './utils'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio } from './utils'
-import { scopedScrollAreaProps } from './types'
-
-const SCROLL_NAME = 'OkuScrollAreaScrollbarVisible'
-
-export type ScrollAreaScrollbarVisibleNaviteElement = ScrollAreaScrollbarAxisNaviteElement
-export type ScrollAreaScrollbarVisibleElement = ScrollAreaScrollbarAxisElement
-
-export interface ScrollAreaScrollbarVisibleProps extends Omit<ScrollAreaScrollbarAxisProps, keyof ScrollAreaScrollbarAxisPrivateProps> {
-  orientation?: 'horizontal' | 'vertical'
-}
-
-export const scrollAreaScrollbarVisibleProps = {
-  props: {
-    ...propsOmit(scrollAreaScrollbarAxisProps.props, scrollAreaScrollbarAxisPrivateProps.propKeys),
-    orientation: {
-      type: String as PropType<ScrollAreaScrollbarVisibleProps['orientation']>,
-      required: false,
-      default: 'vertical',
-    },
-  },
-  emits: {
-    ...propsOmit(scrollAreaScrollbarAxisProps.emits, scrollAreaScrollbarAxisPrivateProps.emitKeys),
-  },
-}
+import type { ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaThumbElement } from './props'
+import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_VISIBLE_NAME, scopedScrollAreaProps, scrollAreaScrollbarVisibleProps, useScrollAreaInject } from './props'
 
 const scrollAreaScrollbarVisible = defineComponent({
-  name: SCROLL_NAME,
+  name: SCROLL_AREA_SCROLLBAR_VISIBLE_NAME,
   components: {
     OkuScrollAreaScrollbarX,
     OkuScrollAreaScrollbarY,
@@ -58,7 +30,7 @@ const scrollAreaScrollbarVisible = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const thumbRef = ref<ScrollAreaThumbElement | null>(null)
     const pointerOffsetRef = ref(0)
     const sizes = reactive<Sizes>({

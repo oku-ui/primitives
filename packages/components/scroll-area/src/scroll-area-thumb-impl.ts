@@ -1,43 +1,13 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useScrollAreaInject } from './scroll-area'
-import { THUMB_NAME } from './scroll-area-thumb'
-import { useScrollbarInject } from './scroll-area-scrollbar-impl'
-import type { ScrollAreaThumbElement } from './scroll-area-thumb'
+import { SCROLL_AREA_THUMB_IMPL_NAME, SCROLL_AREA_THUMB_NAME, scopedScrollAreaProps, scrollAreaThumbImplProps, useScrollAreaInject, useScrollbarInject } from './props'
 import { addUnlinkedScrollListener, useDebounceCallback } from './utils'
-import { scopedScrollAreaProps } from './types'
-
-export type ScrollAreaThumbImplNaviteElement = OkuElement<'div'>
-export type ScrollAreaThumbImplElement = HTMLDivElement
-
-export interface ScrollAreaThumbImplProps extends PrimitiveProps {}
-
-export const scrollAreaThumbImplProps = {
-  props: {
-    style: {
-      type: Object,
-      required: false,
-    },
-    ...primitiveProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdownCapture: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerup: (event: PointerEvent) => true,
-  },
-}
-
-export type scrollAreaThumbImplEmits = {
-  pointerdownCapture: [event: PointerEvent]
-  pointerup: [event: PointerEvent]
-}
+import type { ScrollAreaThumbElement, ScrollAreaThumbImplNaviteElement, scrollAreaThumbImplEmits } from './props'
 
 const scrollAreaThumbImpl = defineComponent({
-  name: THUMB_NAME,
+  name: SCROLL_AREA_THUMB_IMPL_NAME,
   inheritAttrs: false,
   props: {
     ...scrollAreaThumbImplProps.props,
@@ -56,8 +26,8 @@ const scrollAreaThumbImpl = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const scrollAreaInject = useScrollAreaInject(THUMB_NAME, scopeOkuScrollArea.value)
-    const scrollbarInject = useScrollbarInject(THUMB_NAME, scopeOkuScrollArea.value)
+    const scrollAreaInject = useScrollAreaInject(SCROLL_AREA_THUMB_NAME, scopeOkuScrollArea.value)
+    const scrollbarInject = useScrollbarInject(SCROLL_AREA_THUMB_NAME, scopeOkuScrollArea.value)
 
     const { onThumbPositionChange } = scrollbarInject
     const composedRef = useComposedRefs(forwardedRef, node => scrollbarInject.onThumbChange(node as ScrollAreaThumbElement))
