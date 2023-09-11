@@ -20,7 +20,7 @@ const arrayValue = ref()
   <div v-if="template === '#1' || allshow">
     {{ testValue }}
     <h1>Uncontrolled</h1>
-    <OkuToggleGroup v-model="testValue" type="single" class="root" aria-label="Options">
+    <OkuToggleGroup v-model="testValue" type="single" class="root" aria-label="Options" @value-change="console.log">
       <OkuToggleGroupItem value="1" class="item">
         Option 1
       </OkuToggleGroupItem>

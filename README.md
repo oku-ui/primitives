@@ -1,5 +1,5 @@
 <a href="https://oku-ui.com">
-  <img alt="Oku UI hero image" src="https://github.com/oku-ui/primitives/blob/main/.github/assets/oku-ui.png?raw=true"
+  <img alt="Oku UI hero image" src="https://github.com/oku-ui/primitives/blob/main/.github/assets/primitives-cover.png?raw=true"
 </a>
 
 ---
