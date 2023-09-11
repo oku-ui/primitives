@@ -97,3 +97,115 @@ export const CustomFocus: Story = {
     `,
   }),
 }
+export const NoEscapeDismiss: Story = {
+  args: {
+    template: 'NoEscapeDismiss',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const NoPointerDownOutsideDismiss: Story = {
+  args: {
+    template: 'NoPointerDownOutsideDismiss',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const WithPortalContainer: Story = {
+  args: {
+    template: 'WithPortalContainer',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const Animated: Story = {
+  args: {
+    template: 'Animated',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const ForcedMount: Story = {
+  args: {
+    template: 'ForcedMount',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const InnerScrollable: Story = {
+  args: {
+    template: 'InnerScrollable',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const OuterScrollable: Story = {
+  args: {
+    template: 'OuterScrollable',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}
+export const Chromatic: Story = {
+  args: {
+    template: 'Chromatic',
+  },
+  render: (args: any) => ({
+    components: { OkuDialogComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDialogComponent v-bind="args" />
+    `,
+  }),
+}

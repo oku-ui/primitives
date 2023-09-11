@@ -4,9 +4,17 @@ import NonModal from './NonModal.vue'
 import Controlled from './Controlled.vue'
 import FocusTrap from './FocusTrap.vue'
 import CustomFocus from './CustomFocus.vue'
+import NoEscapeDismiss from './NoEscapeDismiss.vue'
+import NoPointerDownOutsideDismiss from './NoPointerDownOutsideDismiss.vue'
+import WithPortalContainer from './WithPortalContainer.vue'
+import Animated from './Animated.vue'
+import ForcedMount from './ForcedMount.vue'
+import InnerScrollable from './InnerScrollable.vue'
+import OuterScrollable from './OuterScrollable.vue'
+import Chromatic from './Chromatic.vue'
 
 export interface OkuDialogProps {
-  template: 'Styled' | 'NonModal' | 'Controlled' | 'FocusTrap' | 'CustomFocus' | 'NoEscapeDismiss' | 'NoPointerDownOutsideDismiss'
+  template: 'Styled' | 'NonModal' | 'Controlled' | 'FocusTrap' | 'CustomFocus' | 'NoEscapeDismiss' | 'NoPointerDownOutsideDismiss' | 'WithPortalContainer' | 'Animated' | 'ForcedMount' | 'InnerScrollable' | 'OuterScrollable' | 'Chromatic'
   allshow?: boolean
 }
 
@@ -30,6 +38,30 @@ withDefaults(defineProps<OkuDialogProps>(), {
   </div>
   <div v-if="template === 'CustomFocus' || allshow" class="flex flex-col w-full">
     <CustomFocus />
+  </div>
+  <div v-if="template === 'NoEscapeDismiss' || allshow" class="flex flex-col w-full">
+    <NoEscapeDismiss />
+  </div>
+  <div v-if="template === 'NoPointerDownOutsideDismiss' || allshow" class="flex flex-col w-full">
+    <NoPointerDownOutsideDismiss />
+  </div>
+  <div v-if="template === 'WithPortalContainer' || allshow" class="flex flex-col w-full">
+    <WithPortalContainer />
+  </div>
+  <div v-if="template === 'Animated' || allshow" class="flex flex-col w-full">
+    <Animated />
+  </div>
+  <div v-if="template === 'ForcedMount' || allshow" class="flex flex-col w-full">
+    <ForcedMount />
+  </div>
+  <div v-if="template === 'InnerScrollable' || allshow" class="flex flex-col w-full">
+    <InnerScrollable />
+  </div>
+  <div v-if="template === 'OuterScrollable' || allshow" class="flex flex-col w-full">
+    <OuterScrollable />
+  </div>
+  <div v-if="template === 'Chromatic' || allshow" class="flex flex-col w-full">
+    <Chromatic />
   </div>
 </template>
 
@@ -55,7 +87,9 @@ withDefaults(defineProps<OkuDialogProps>(), {
   right: 0;
   bottom: 0;
   left: 0;
+
   background-color: rgba(0, 0, 0, 0.2);
+
   overflow: auto;
   display: flex;
   align-items: flex-start;
@@ -222,10 +256,13 @@ withDefaults(defineProps<OkuDialogProps>(), {
   border-radius: 10px;
   background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-
   position: fixed;
   top: 0;
   right: 0;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   padding: 10px;
   min-width: auto;
@@ -253,6 +290,8 @@ withDefaults(defineProps<OkuDialogProps>(), {
   bottom: 0;
   left: 0;
 
+  background-color: rgba(0,0,0,0.2);
+
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -271,9 +310,8 @@ withDefaults(defineProps<OkuDialogProps>(), {
   min-height: 150px;
   padding: 50px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 255, 0.3);
+  background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-
   position: fixed;
   top: 0;
   right: 0;

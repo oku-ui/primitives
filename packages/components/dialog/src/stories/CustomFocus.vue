@@ -41,7 +41,7 @@ function onCloseAutoFocus(event: any) {
             Title
           </OkuDialogTitle>
           <OkuDialogDescription>
-            Description
+            The first name input will receive the focus after opening the dialog.
           </OkuDialogDescription>
           <table style="margin-top: 20px;">
             <tr>
@@ -60,8 +60,8 @@ function onCloseAutoFocus(event: any) {
               </td>
             </tr>
           </table>
-        </okudialogcontent>
-      </okudialogportal>
+        </OkuDialogContent>
+      </OkuDialogPortal>
     </okudialog>
     <div style="margin-top: 20px;">
       <p>These elements can't be focused when the dialog is opened.</p>

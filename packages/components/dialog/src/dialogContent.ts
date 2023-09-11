@@ -69,6 +69,21 @@ const dialogContent = defineComponent({
           }, (event) => {
             event.preventDefault()
           }),
+          onInteractOutside: (event) => {
+            emit('interactOutside', event)
+          },
+          onEscapeKeyDown: (event) => {
+            emit('escapeKeyDown', event)
+          },
+          onPointerdownOutside: (event) => {
+            emit('pointerdownOutside', event)
+          },
+          onFocusoutSide: (event) => {
+            emit('focusoutSide', event)
+          },
+          onDismiss: () => {
+            inject.onOpenChange(false)
+          },
         }, slots)
         : h(OkuDialogContentNonModal, {
           ...mergeProps(attrs, dialogProps),

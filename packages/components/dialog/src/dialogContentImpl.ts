@@ -102,6 +102,18 @@ const dialogContentImpl = defineComponent({
             'data-state': getState(inject.open.value),
             ...mergeProps(attrs, contentProps),
             'ref': composedRefs,
+            'onInteractOutside': (event) => {
+              emit('interactOutside', event)
+            },
+            'onEscapeKeyDown': (event) => {
+              emit('escapeKeyDown', event)
+            },
+            'onPointerdownOutside': (event) => {
+              emit('pointerdownOutside', event)
+            },
+            'onFocusoutSide': (event) => {
+              emit('focusoutSide', event)
+            },
             'onDismiss': () => {
               inject.onOpenChange(false)
             },

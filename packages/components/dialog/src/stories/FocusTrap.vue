@@ -40,8 +40,8 @@ const open = ref(false)
               </td>
             </tr>
           </table>
-        </okudialogcontent>
-      </okudialogportal>
+        </OkuDialogContent>
+      </OkuDialogPortal>
     </okudialog>
     <div style="margin-top: 20px;">
       <p>These elements can't be focused when the dialog is opened.</p>

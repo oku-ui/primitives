@@ -79,10 +79,18 @@ const dialogContentModal = defineComponent({
 
         isRightClickOutsideRef.value = isRightClick
       }, { checkForDefaultPrevented: false }),
-      onFocusoutSide: composeEventHandlers<DialogContentModalEmits['focusoutSide'][0]>((el) => {
-        emit('focusoutSide', el)
-      }, event => event.preventDefault(),
-      { checkForDefaultPrevented: false }),
+      onInteractOutside: (event) => {
+        emit('interactOutside', event)
+      },
+      onEscapeKeyDown: (event) => {
+        emit('escapeKeyDown', event)
+      },
+      onFocusoutSide: (event) => {
+        emit('focusoutSide', event)
+      },
+      onDismiss: () => {
+        inject.onOpenChange(false)
+      },
     }, {
       default: () => slots.default?.(),
     })
