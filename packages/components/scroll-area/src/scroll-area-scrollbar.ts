@@ -1,6 +1,6 @@
-import { defineComponent, h, toRefs, watchEffect } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { primitiveProps } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { scopedScrollAreaProps } from './types'
 import { OkuScrollAreaScrollbarVisible, scrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
 import type { ScrollAreaScrollbarVisibleElement, ScrollAreaScrollbarVisibleNaviteElement, ScrollAreaScrollbarVisibleProps } from './scroll-area-scrollbar-visible'
@@ -25,11 +25,14 @@ export interface ScrollAreaScrollbarProps extends ScrollAreaScrollbarVisibleProp
 const scrollAreaScrollbarProps = {
   props: {
     forceMount: {
-      type: Boolean,
-      required: true,
+      type: Boolean as PropType<boolean | undefined>,
+      required: false,
     },
+    ...scrollAreaScrollbarVisibleProps.props,
   },
-  emits: {},
+  emits: {
+    ...scrollAreaScrollbarVisibleProps.emits,
+  },
 }
 
 const scrollAreaScrollbar = defineComponent({
@@ -37,36 +40,35 @@ const scrollAreaScrollbar = defineComponent({
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarProps.props,
-    ...scrollAreaScrollbarVisibleProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaScrollbarProps.emits,
   setup(props, { attrs, slots }) {
-    // const { ...scrollAreaScrollbarAttrs } = attrs
-
     const {
       forceMount,
-      orientation,
+      ...scrollbarProps
     } = toRefs(props)
+
+    const _reactive = reactive(scrollbarProps)
+    const reactiveScrollbarProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const forwardedRef = useForwardRef()
     const { onScrollbarXEnabledChange, onScrollbarYEnabledChange } = inject
-    const isHorizontal = orientation.value === 'horizontal'
+    const isHorizontal = computed(() => _reactive.orientation === 'horizontal')
 
     watchEffect((onInvalidate) => {
-      isHorizontal ? onScrollbarXEnabledChange(true) : onScrollbarYEnabledChange(true)
+      isHorizontal.value ? onScrollbarXEnabledChange(true) : onScrollbarYEnabledChange(true)
 
       onInvalidate(() => {
-        isHorizontal ? onScrollbarXEnabledChange(false) : onScrollbarYEnabledChange(false)
+        isHorizontal.value ? onScrollbarXEnabledChange(false) : onScrollbarYEnabledChange(false)
       })
     })
 
     return () => inject.type.value === 'hover'
       ? h(OkuScrollAreaScrollbarHover,
         {
-          ...attrs,
+          ...mergeProps(attrs, reactiveScrollbarProps),
           ref: forwardedRef,
           forceMount: forceMount.value,
         }, {
@@ -76,7 +78,7 @@ const scrollAreaScrollbar = defineComponent({
       : inject.type.value === 'scroll'
         ? h(OkuScrollAreaScrollbarScroll,
           {
-            ...attrs,
+            ...mergeProps(attrs, reactiveScrollbarProps),
             ref: forwardedRef,
             forceMount: forceMount.value,
           }, {
@@ -86,7 +88,7 @@ const scrollAreaScrollbar = defineComponent({
         : inject.type.value === 'auto'
           ? h(OkuScrollAreaScrollbarAuto,
             {
-              ...attrs,
+              ...mergeProps(attrs, reactiveScrollbarProps),
               ref: forwardedRef,
               forceMount: forceMount.value,
             }, {
@@ -96,7 +98,7 @@ const scrollAreaScrollbar = defineComponent({
           : inject.type.value === 'always'
             ? h(OkuScrollAreaScrollbarVisible,
               {
-                ...attrs,
+                ...mergeProps(attrs, reactiveScrollbarProps),
                 ref: forwardedRef,
               }, {
                 default: () => slots.default?.(),
@@ -107,4 +109,4 @@ const scrollAreaScrollbar = defineComponent({
 })
 
 export const OkuScrollAreaScrollbar = scrollAreaScrollbar as typeof scrollAreaScrollbar &
-(new () => { $props: Partial<ScrollAreaScrollbarElement> })
+(new () => { $props: ScrollAreaScrollbarElement })

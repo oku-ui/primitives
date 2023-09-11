@@ -3,16 +3,13 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { useDirection } from '@oku-ui/direction'
 import type { PropType, Ref } from 'vue'
-import { defineComponent, h, ref, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { createProvideScope } from '@oku-ui/provide'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { scopedScrollAreaProps } from './types'
 import type { ScrollAreaViewportElement } from './scroll-area-viewport'
 import type { ScrollAreaScrollbarElement } from './scroll-area-scrollbar'
-
-/* -------------------------------------------------------------------------------------------------
- * ScrollArea
- * ----------------------------------------------------------------------------------------------- */
+import type { Direction } from './utils'
 
 const SCROLL_AREA_NAME = 'OkuScrollArea'
 
@@ -46,7 +43,7 @@ type ScrollAreaProvideValue = {
 export const [scrollAreaProvider, useScrollAreaInject] = createScrollAreaProvide<ScrollAreaProvideValue>(SCROLL_AREA_NAME)
 
 export interface ScrollAreaProps extends PrimitiveProps {
-  type?: Type
+  type?: ScrollAreaProvideValue['type']
   dir?: ScrollAreaProvideValue['dir']
   scrollHideDelay?: number
 }
@@ -65,24 +62,7 @@ const scrollAreaProps = {
       default: 600,
     },
   },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    viewportChange: (viewport: ScrollAreaViewportElement | null) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    contentChange: (content: HTMLDivElement) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    scrollbarXChange: (scrollbar: ScrollAreaScrollbarElement | null) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    scrollbarXEnabledChange: (rendered: boolean) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    scrollbarYChange: (scrollbar: ScrollAreaScrollbarElement | null) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    scrollbarYEnabledChange: (rendered: boolean) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    cornerWidthChange: (width: number) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    cornerHeightChange: (height: number) => true,
-  },
+  emits: {},
 }
 
 const scrollArea = defineComponent({
@@ -95,13 +75,16 @@ const scrollArea = defineComponent({
   },
   emits: scrollAreaProps.emits,
   setup(props, { attrs, slots }) {
-    // const { ...scrollAreaAttrs } = attrs as ScrollAreaNaviteElement
-
     const {
+      scopeOkuScrollArea,
       type,
       dir,
       scrollHideDelay,
+      ...scrollAreaProps
     } = toRefs(props)
+
+    const _reactive = reactive(scrollAreaProps)
+    const reactiveScrollAreaProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const scrollArea = ref<ScrollAreaElement | null>(null)
     const viewport = ref<ScrollAreaViewportElement | null>(null)
@@ -117,7 +100,7 @@ const scrollArea = defineComponent({
     const direction = useDirection(dir.value)
 
     scrollAreaProvider({
-      scope: props.scopeOkuScrollArea,
+      scope: scopeOkuScrollArea.value,
       type,
       dir: direction,
       scrollHideDelay,
@@ -141,7 +124,7 @@ const scrollArea = defineComponent({
     return () => h(Primitive.div,
       {
         dir: direction.value,
-        ...attrs,
+        ...mergeProps(attrs, reactiveScrollAreaProps),
         ref: composedRefs,
         style: {
           position: 'relative',
@@ -159,4 +142,4 @@ const scrollArea = defineComponent({
 })
 
 export const OkuScrollArea = scrollArea as typeof scrollArea &
-(new () => { $props: Partial<ScrollAreaElement> })
+(new () => { $props: ScrollAreaElement })

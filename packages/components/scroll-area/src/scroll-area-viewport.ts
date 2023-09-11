@@ -1,13 +1,9 @@
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { Fragment, defineComponent, h, ref } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { scopedScrollAreaProps } from './types'
 import { useScrollAreaInject } from './scroll-area'
-
-/* -------------------------------------------------------------------------------------------------
- * ScrollAreaViewport
- * ----------------------------------------------------------------------------------------------- */
 
 const VIEWPORT_NAME = 'OkuScrollAreaViewport'
 
@@ -17,7 +13,9 @@ export type ScrollAreaViewportElement = HTMLDivElement
 export interface ScrollAreaViewportProps extends PrimitiveProps { }
 
 const scrollAreaViewportProps = {
-  props: {},
+  props: {
+    ...primitiveProps,
+  },
   emits: {},
 }
 
@@ -27,13 +25,14 @@ const scrollAreaViewport = defineComponent({
   props: {
     ...scrollAreaViewportProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaViewportProps.emits,
   setup(props, { attrs, slots }) {
-    // const { ...scrollAreaViewportAttrs } = attrs as ScrollAreaViewportNaviteElement
+    const { scopeOkuScrollArea, ...viewportProps } = toRefs(props)
+    const _reactive = reactive(viewportProps)
+    const reactiveViewPortProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = useScrollAreaInject(VIEWPORT_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(VIEWPORT_NAME, scopeOkuScrollArea.value)
     const scrollAreaViewportRef = ref<ScrollAreaViewportElement | null>(null)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, scrollAreaViewportRef, el => inject.onViewportChange(el as ScrollAreaViewportElement))
@@ -50,7 +49,7 @@ const scrollAreaViewport = defineComponent({
         h(Primitive.div,
           {
             ['data-oku-scroll-area-viewport' as any]: '',
-            ...attrs,
+            ...mergeProps(attrs, reactiveViewPortProps),
             ref: composedRefs,
             style: {
               /**
@@ -79,7 +78,7 @@ const scrollAreaViewport = defineComponent({
              */
             default: () => h('div',
               {
-                ref: composedRefs,
+                ref: (el: any) => inject.onContentChange(el),
                 style: { minWidth: '100%', display: 'table' },
               }, slots,
             ),
@@ -91,4 +90,4 @@ const scrollAreaViewport = defineComponent({
 })
 
 export const OkuScrollAreaViewport = scrollAreaViewport as typeof scrollAreaViewport &
-(new () => { $props: Partial<ScrollAreaViewportElement> })
+(new () => { $props: ScrollAreaViewportElement })

@@ -1,8 +1,8 @@
-import { defineComponent, h, toRefs, watchEffect } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPresence } from '@oku-ui/presence'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { primitiveProps } from '@oku-ui/primitive'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { useStateMachine } from './useStateMachine'
 import { scopedScrollAreaProps } from './types'
 import { useDebounceCallback } from './utils'
@@ -23,12 +23,14 @@ export interface ScrollAreaScrollbarScrollProps extends ScrollAreaScrollbarVisib
 const scrollAreaScrollbarScrollProps = {
   props: {
     forceMount: {
-      type: Boolean,
+      type: Boolean as PropType<boolean | undefined>,
       required: false,
-      default: true,
     },
+    ...scrollAreaScrollbarVisibleProps.props,
   },
-  emits: {},
+  emits: {
+    ...scrollAreaScrollbarVisibleProps.emits,
+  },
 }
 
 const scrollAreaScrollbarScroll = defineComponent({
@@ -36,22 +38,20 @@ const scrollAreaScrollbarScroll = defineComponent({
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarScrollProps.props,
-    ...scrollAreaScrollbarVisibleProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaScrollbarScrollProps.emits,
   setup(props, { attrs, emit, slots }) {
-    // const { ...scrollAreaScrollbarScrollAttrs } = attrs as ScrollAreaScrollbarScrollNaviteElement
-
     const {
       forceMount,
-      orientation,
+      ...scrollbarProps
     } = toRefs(props)
+    const _reactive = reactive(scrollbarProps)
+    const reactiveScrollbarProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useScrollAreaInject(SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const forwardedRef = useForwardRef()
-    const isHorizontal = orientation.value === 'horizontal'
+    const isHorizontal = _reactive.orientation === 'horizontal'
     const { state, dispatch: send } = useStateMachine('hidden', {
       hidden: {
         SCROLL: 'scrolling',
@@ -108,13 +108,13 @@ const scrollAreaScrollbarScroll = defineComponent({
       {
         default: () => h(OkuScrollAreaScrollbarVisible,
           {
-            ['data-state' as string]: state.value === 'hidden' ? 'hidden' : 'visible',
-            ...attrs,
-            ref: forwardedRef,
-            onPointerEnter: composeEventHandlers(() => {
+            'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
+            ...mergeProps(attrs, reactiveScrollbarProps),
+            'ref': forwardedRef,
+            'onpointerenter': composeEventHandlers(() => {
               emit('pointerEnter', send('POINTER_ENTER'))
             }),
-            onPointerLeave: composeEventHandlers(() => {
+            'onpointerleave': composeEventHandlers(() => {
               emit('pointerLeave', send('POINTER_LEAVE'))
             }),
           }, slots,
@@ -125,4 +125,4 @@ const scrollAreaScrollbarScroll = defineComponent({
 })
 
 export const OkuScrollAreaScrollbarScroll = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll &
-(new () => { $props: Partial<ScrollAreaScrollbarScrollElement> })
+(new () => { $props: ScrollAreaScrollbarScrollElement })

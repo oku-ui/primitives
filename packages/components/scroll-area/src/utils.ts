@@ -1,7 +1,17 @@
-import { clamp } from '@oku-ui/utils'
+import { clamp } from '@Oku-ui/utils'
 import { nextTick, onMounted, ref, watchEffect } from 'vue'
 import { useCallbackRef } from '@oku-ui/use-composable'
-import type { Direction, Sizes } from './scroll-area'
+
+export type Direction = 'ltr' | 'rtl'
+export type Sizes = {
+  content: number
+  viewport: number
+  scrollbar: {
+    size: number
+    paddingStart: number
+    paddingEnd: number
+  }
+}
 
 function toInt(value?: string) {
   return value ? Number.parseInt(value, 10) : 0

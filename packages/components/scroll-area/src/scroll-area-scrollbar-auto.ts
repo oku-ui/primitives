@@ -18,7 +18,7 @@ export interface ScrollAreaScrollbarAutoProps extends ScrollAreaScrollbarVisible
   forceMount?: true
 }
 
-const scrollAreaScrollbarAutoProps = {
+export const scrollAreaScrollbarAutoProps = {
   props: {
     forceMount: {
       type: Boolean,
