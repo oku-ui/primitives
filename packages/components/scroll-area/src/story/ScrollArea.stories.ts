@@ -7,7 +7,7 @@ interface StoryProps extends IScrollAreaProps {
 }
 
 const meta = {
-  title: 'component/ScrollArea',
+  title: 'components/ScrollArea',
   component: OkuScrollArea,
   tags: ['autodocs'],
   args: {

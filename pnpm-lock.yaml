@@ -672,6 +672,9 @@ importers:
       '@oku-ui/radio-group':
         specifier: workspace:^
         version: link:../radio-group
+      '@oku-ui/scroll-area':
+        specifier: workspace:^
+        version: link:../scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../separator
