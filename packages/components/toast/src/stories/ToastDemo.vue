@@ -216,15 +216,15 @@ export interface IToastProps {
 }
 
 [data-swipe="end"][data-swipe-direction="left"] {
-  animation-name: slideRight;
+  animation-name: slideLeft;
 }
 
 [data-swipe="end"][data-swipe-direction="up"] {
-  animation-name: slideRight;
+  animation-name: slideUp;
 }
 
 [data-swipe="end"][data-swipe-direction="down"] {
-  animation-name: slideRight;
+  animation-name: slideDown;
 }
 
 .chromatic-viewport {
