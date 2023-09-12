@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import {
   OkuToast, OkuToastAction,
   OkuToastDescription, OkuToastProvider, OkuToastViewport,
 } from '@oku-ui/toast'
-import { ref } from 'vue'
+import {
+  OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogOverlay, OkuDialogTitle, OkuDialogTrigger,
+} from '@oku-ui/dialog'
 
 const open = ref(false)
 </script>

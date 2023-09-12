@@ -7,6 +7,7 @@ import Animated from './Animated.vue'
 import Cypress from './Cypress.vue'
 import Chromatic from './Chromatic.vue'
 import Styled from './Styled.vue'
+import FromDialog from './FromDialog.vue'
 
 withDefaults(defineProps<IToastProps>(), {})
 const VIEWPORT_PADDING = '20px'
@@ -25,10 +26,10 @@ export interface IToastProps {
     <template v-if="template === 'Controlled' || allshow">
       <Controlled />
     </template>
-    <!-- TODO: Needs OkuDialog Component -->
-    <!-- <template v-if="template === 'FromDialog' || allshow">
+
+    <template v-if="template === 'FromDialog' || allshow">
       <FromDialog />
-    </template> -->
+    </template>
 
     <template v-if="template === 'Promise' || allshow">
       <Promise />
