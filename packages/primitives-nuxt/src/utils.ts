@@ -124,7 +124,14 @@ export async function installPackage(settings: {
   }
   // Full package installation
   else {
-    if (!Object.prototype.hasOwnProperty.call(settings.packageJson.dependencies, '@oku-ui/primitives') ?? !Object.prototype.hasOwnProperty.call(settings.packageJson.devDependencies, '@oku-ui/primitives')) {
+    if (
+      (settings.packageJson.dependencies
+         && !Object.prototype.hasOwnProperty.call(settings.packageJson.dependencies, '@oku-ui/primitives')
+      )
+    ?? (
+      settings.packageJson.devDependencies
+      && !Object.prototype.hasOwnProperty.call(settings.packageJson.devDependencies, '@oku-ui/primitives')
+    )) {
       consola.info('@oku-ui/primitives is not installed')
       execSync('ni @oku-ui/primitives', {
         cwd: settings.rootDir,

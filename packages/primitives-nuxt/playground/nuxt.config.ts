@@ -1,10 +1,11 @@
 export default defineNuxtConfig({
   modules: ['../src/module'],
+  // installComponents: {
+  //   'aspect-ratio': true,
+  //   'avatar': true,
+  // },
   primitives: {
-    installComponents: {
-      'aspect-ratio': true,
-      'avatar': true,
-    },
+    installComponents: true,
   },
   devtools: { enabled: true },
 })

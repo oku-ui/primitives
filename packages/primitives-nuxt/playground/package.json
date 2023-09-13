@@ -11,7 +11,6 @@
     "@oku-ui/aspect-ratio": "workspace:^",
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
-    "@oku-ui/hover-card": "workspace:^",
     "@oku-ui/primitives": "workspace:^"
   },
   "devDependencies": {
