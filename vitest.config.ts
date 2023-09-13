@@ -9,7 +9,11 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json-summary', 'json', 'html'],
     },
-    exclude: ['**/node_modules/**', '**/dist/**'],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      'packages/primitives-nuxt/**',
+    ],
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],
     globals: true,
