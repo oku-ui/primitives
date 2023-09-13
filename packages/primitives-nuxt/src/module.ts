@@ -7,9 +7,9 @@ import { checkForUpdateOf, components, getMainPackageJSON, installPackage } from
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@oku-ui/nuxt-primitives',
+    name: '@oku-ui/primitives-nuxt',
     configKey: 'primitives',
-    nuxt: '^3.7.0',
+    nuxt: '^3.5.0',
   },
   // Default configuration options of the Nuxt module
   defaults: {
@@ -67,7 +67,7 @@ export default defineNuxtModule<ModuleOptions>({
       logger.log('')
       let latestTag = `v${version}`
       try {
-        await checkForUpdateOf('@oku-ui/nuxt-primitives', version, nuxt).then((info) => {
+        await checkForUpdateOf('@oku-ui/primitives-nuxt', version, nuxt).then((info) => {
           if (info?.needsUpdate)
             latestTag = `v${info.latest}`
         },
@@ -77,7 +77,7 @@ export default defineNuxtModule<ModuleOptions>({
       }
       logger.log(`${chalk.green('Oku Primitives')} ${chalk.yellow(`v${version}`)} • Oku ${chalk.gray(`by ${chalk.underline('@productdevbook')}`)}`)
       if (latestTag !== `v${version}`)
-        logger.log(`${chalk.gray('  ├─ ')}🎉 New version available!${chalk.gray(` Run ${chalk.underline(`pnpm i @oku-ui/nuxt-primitives${latestTag}`)} to update.`)}`)
+        logger.log(`${chalk.gray('  ├─ ')}🎉 New version available!${chalk.gray(` Run ${chalk.underline(`pnpm i @oku-ui/primitives-nuxt${latestTag}`)} to update.`)}`)
 
       logger.log(chalk.dim('  └─ 💖 Like this package? Consider sponsoring me on GitHub https://github.com/sponsors/productdevbook'))
       logger.log('')

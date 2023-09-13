@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives-nuxt",
   "type": "module",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Oku Primitives for Nuxt Module",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/nuxt-primitives"
+    "directory": "packages/primitives-nuxt"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
