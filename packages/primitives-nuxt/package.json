@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/nuxt-primitives",
+  "name": "@oku-ui/primitives-nuxt",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Oku Primitives for Nuxt Module",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -31,7 +31,7 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "release": "npm run lint && npm run prepack && changelogen --release && pnpm publish --access public --no-git-checks && git push --follow-tags",
+    "release": "npm run lint && npm run prepack && pnpm publish --access public --no-git-checks && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
