@@ -7,12 +7,14 @@
     "build": "nuxi build",
     "generate": "nuxi generate"
   },
-  "dependencies": {
-    "@oku-ui/aspect-ratio": "workspace:^",
-    "@oku-ui/hover-card": "workspace:^",
-    "install": "^0.13.0"
-  },
   "devDependencies": {
     "nuxt": "latest"
+  },
+  "dependencies": {
+    "@oku-ui/aspect-ratio": "workspace:^",
+    "@oku-ui/avatar": "workspace:^",
+    "@oku-ui/checkbox": "workspace:^",
+    "@oku-ui/hover-card": "workspace:^",
+    "@oku-ui/primitives": "workspace:^"
   }
 }

@@ -3,8 +3,7 @@ export default defineNuxtConfig({
   primitives: {
     installComponents: {
       'aspect-ratio': true,
-      'hover-card': true,
-
+      'avatar': true,
     },
   },
   devtools: { enabled: true },
