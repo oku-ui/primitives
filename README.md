@@ -56,6 +56,11 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Tooltip](https://oku-ui.com/primitives/components/tooltip) | <span><a href="https://www.npmjs.com/package/@oku-ui/tooltip "><img src="https://img.shields.io/npm/v/@oku-ui/tooltip?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/tooltip"> <img src="https://img.shields.io/npm/dm/@oku-ui/tooltip?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/tooltip"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
 [Primitives](https://oku-ui.com/primitives) | <span><a href="https://www.npmjs.com/package/@oku-ui/primitives "><img src="https://img.shields.io/npm/v/@oku-ui/primitives?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/primitives"> <img src="https://img.shields.io/npm/dm/@oku-ui/primitives?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/primitives"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
 
+
+## Utils
+
+[Nuxt Module](https://oku-ui.com/primitives/introduction/nuxt) | <span><a href="https://www.npmjs.com/package/@oku-ui/primitives-nuxt"><img src="https://img.shields.io/npm/v/@oku-ui/primitives-nuxt?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/primitives-nuxt"> <img src="https://img.shields.io/npm/dm/@oku-ui/primitives-nuxt?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="ttps://oku-ui.com/primitives/introduction/nuxt"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+
 ## Community
 
 - [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.

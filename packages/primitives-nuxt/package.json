@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives-nuxt",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Oku Primitives for Nuxt Module",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -14,6 +14,14 @@
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "nuxtjs",
+    "oku",
+    "oku-ui",
+    "primitives"
+  ],
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
