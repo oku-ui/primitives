@@ -1243,12 +1243,21 @@ importers:
       install:
         specifier: ^0.13.0
         version: 0.13.0
+      local-pkg:
+        specifier: ^0.4.3
+        version: 0.4.3
       ofetch:
         specifier: ^1.3.3
         version: 1.3.3
       pacote:
         specifier: ^17.0.4
         version: 17.0.4
+      pathe:
+        specifier: ^1.1.1
+        version: 1.1.1
+      pkg-types:
+        specifier: ^1.0.3
+        version: 1.0.3
       semver:
         specifier: ^7.5.4
         version: 7.5.4
@@ -7455,7 +7464,7 @@ packages:
       '@babel/core': 7.22.15
       '@babel/plugin-transform-typescript': 7.22.15(@babel/core@7.22.15)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.22.15)
-      vite: 4.3.5(@types/node@18.17.15)
+      vite: 4.3.5(@types/node@20.6.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - supports-color
@@ -7601,8 +7610,8 @@ packages:
       '@babel/helper-module-imports': 7.22.15
       '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.17)
       '@babel/template': 7.22.15
-      '@babel/traverse': 7.22.15
-      '@babel/types': 7.22.15
+      '@babel/traverse': 7.22.17
+      '@babel/types': 7.22.17
       '@vue/babel-helper-vue-transform-on': 1.1.5
       camelcase: 6.3.0
       html-tags: 3.3.1
@@ -16935,7 +16944,7 @@ packages:
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.1
       typescript: 5.2.2
-      vite: 4.3.5(@types/node@18.17.15)
+      vite: 4.3.5(@types/node@20.6.0)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.8
