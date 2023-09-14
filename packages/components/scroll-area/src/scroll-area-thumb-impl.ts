@@ -64,7 +64,7 @@ const scrollAreaThumbImpl = defineComponent({
       }
     })
 
-    return () => h(Primitive.div,
+    return h(Primitive.div,
       {
         ['data-state' as string]: scrollbarInject.hasThumb.value ? 'visible' : 'hidden',
         ...mergeProps(attrs, reactiveScrollAreaThumbImplProps),

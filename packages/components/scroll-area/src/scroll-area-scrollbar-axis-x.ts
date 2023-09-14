@@ -2,7 +2,6 @@ import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } fr
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
-import type { Sizes } from './utils'
 import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarElement } from './props'
 import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_X, scopedScrollAreaProps, scrollAreaScrollbarAxisProps, useScrollAreaInject } from './props'
@@ -49,7 +48,7 @@ const scrollAreaScrollbarX = defineComponent({
           bottom: 0,
           left: inject.dir.value === 'rtl' ? 'var(--oku-scroll-area-corner-width)' : 0,
           right: inject.dir.value === 'ltr' ? 'var(--oku-scroll-area-corner-width)' : 0,
-          ['--oku-scroll-area-thumb-width' as any]: `${getThumbSize(sizes.value as Sizes)}px`,
+          ['--oku-scroll-area-thumb-width' as any]: `${getThumbSize(sizes.value!)}px`,
           ...attrs.style as CSSStyleRule,
         },
         'onThumbPointerDown': (pointerPos: { x: number }) => emit('thumbPointerDown', pointerPos.x),

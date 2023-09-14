@@ -2,6 +2,7 @@ import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { useResizeObserver } from './utils'
+import type { ScrollAreaCornerImplNaviteElement } from './props'
 import { SCROLL_AREA_CORNER_IMPL_NAME, scopedScrollAreaProps, scrollAreaCornerImplProps, useScrollAreaInject } from './props'
 
 const scrollAreaCornerImpl = defineComponent({

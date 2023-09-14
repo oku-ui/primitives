@@ -46,10 +46,10 @@ const scrollAreaScrollbarVisible = defineComponent({
 
     return () => {
       if (orientation.value === 'horizontal') {
-        return () => h(OkuScrollAreaScrollbarX,
+        return h(OkuScrollAreaScrollbarX,
           {
             ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
-            ...sizes,
+            sizes,
             onSizesChange: (_sizes: Sizes) => {
               sizes.content = _sizes.content
               sizes.viewport = _sizes.viewport
@@ -81,7 +81,7 @@ const scrollAreaScrollbarVisible = defineComponent({
       }
 
       if (orientation.value === 'vertical') {
-        return () => h(OkuScrollAreaScrollbarY,
+        return h(OkuScrollAreaScrollbarY,
           {
             ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
             ...sizes,

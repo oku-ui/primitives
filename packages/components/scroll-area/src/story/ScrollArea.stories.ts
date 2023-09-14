@@ -118,8 +118,6 @@ export const ChromaticDynamicContentBeforeLoaded: Story = {
   },
 }
 
-export const DYNAMIC_CONTENT_DELAY = 2000
-
 export const ChromaticDynamicContentAfterLoaded: Story = {
   args: {
     template: 'ChromaticDynamicContentAfterLoaded',
@@ -134,6 +132,6 @@ export const ChromaticDynamicContentAfterLoaded: Story = {
     `,
   }),
   parameters: {
-    chromatic: { disable: false, delay: DYNAMIC_CONTENT_DELAY },
+    chromatic: { disable: false, delay: 2000 },
   },
 }

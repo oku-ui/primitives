@@ -20,7 +20,7 @@ defineProps({
 <template>
   <OkuScrollArea class="scroll-area" :style="{ width: '200px', height: '200px' }">
     <OkuScrollAreaViewport class="scroll-area-viewport">
-      <slots />
+      <slot />
     </OkuScrollAreaViewport>
 
     <OkuScrollAreaScrollbar v-if="vertical" class="scrollbar" orientation="vertical">

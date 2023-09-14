@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { DYNAMIC_CONTENT_DELAY } from './ScrollArea.stories'
 import ScrollAreaStory from './ScrollAreaStory.vue'
 import Copy from './Copy.vue'
 
+const props = defineProps<Props>()
+
 const showContent = ref(false)
+
+interface Props {
+  delay: number
+}
 
 onMounted(() => {
   setTimeout(() => {
     showContent.value = true
-  }, DYNAMIC_CONTENT_DELAY)
+  }, props.delay)
 })
 </script>
 

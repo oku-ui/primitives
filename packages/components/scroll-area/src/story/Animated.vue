@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ScrollAreaStory from './ScrollAreaStory.vue'
+import Copy from './Copy.vue'
 </script>
 
 <template>

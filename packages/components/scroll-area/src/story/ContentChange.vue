@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ScrollAreaStory from './ScrollAreaStory.vue'
+import Copy from './Copy.vue'
 
 const verticalCount = ref(1)
 const horizontalCount = ref(1)
