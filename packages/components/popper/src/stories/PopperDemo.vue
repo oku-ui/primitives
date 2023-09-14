@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import Styled from './Styled.vue'
+import WithCustomArrow from './WithCustomArrow.vue'
 
-export interface IPopperProps {
-  template?: 'Styled'
+export interface Props {
+  template?: 'Styled' | 'WithCustomArrow'
   allshow?: boolean
 }
 
-withDefaults(defineProps<IPopperProps>(), {})
+withDefaults(defineProps<Props>(), {})
 </script>
 
 <template>
@@ -15,6 +16,13 @@ withDefaults(defineProps<IPopperProps>(), {})
     class="h-[200vh] flex justify-center items-center"
   >
     <Styled />
+  </div>
+
+  <div
+    v-if="template === 'WithCustomArrow'"
+    class="h-[200vh] flex justify-center items-center"
+  >
+    <WithCustomArrow />
   </div>
 
   <!-- <div v-if="template === '#2'" class="flex justify-center items-center">

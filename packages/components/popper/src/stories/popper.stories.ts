@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { IPopperProps } from './PopperDemo.vue'
+import type { Props } from './PopperDemo.vue'
 
 import OkuToggleComponent from './PopperDemo.vue'
 
-interface StoryProps extends IPopperProps {
+interface StoryProps extends Props {
 
 }
 
@@ -41,9 +41,9 @@ export const Styled: Story = {
   }),
 }
 
-export const CustomArrow: Story = {
+export const WithCustomArrow: Story = {
   args: {
-    template: '#2',
+    template: 'WithCustomArrow',
   },
 
   render: (args: any) => ({

@@ -12,7 +12,7 @@ const popperArrow = defineComponent({
     ...popperArrowProps.props,
     ...scopePopperProps,
   },
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const { scopeOkuPopper, ...arrowProps } = toRefs(props)
     const _reactive = reactive(arrowProps)
     const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
@@ -63,6 +63,8 @@ const popperArrow = defineComponent({
               // ensures the element can be measured correctly (mostly for if SVG)
               display: 'block',
             },
+          }, {
+            default: () => slots.default?.(),
           }),
         ],
       )

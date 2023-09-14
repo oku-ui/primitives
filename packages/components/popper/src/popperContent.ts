@@ -122,6 +122,7 @@ const PopperContent = defineComponent({
           return cleanup
         },
         middleware: computedMiddleware,
+        transform: true,
       })
 
     const placedSide = computed(
@@ -136,8 +137,8 @@ const PopperContent = defineComponent({
         emit('placed')
     })
 
-    const arrowX = computed(() => middlewareData.value.arrow?.x)
-    const arrowY = computed(() => middlewareData.value.arrow?.y)
+    const arrowX = computed(() => middlewareData.value.arrow?.x ?? 0)
+    const arrowY = computed(() => middlewareData.value.arrow?.y ?? 0)
     const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffset !== 0)
 
     const contentZIndex = ref()
