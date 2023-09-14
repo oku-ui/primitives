@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import Animated from './Animated.vue'
 import Styled from './Styled.vue'
 import WithCustomArrow from './WithCustomArrow.vue'
 
 export interface Props {
-  template?: 'Styled' | 'WithCustomArrow'
+  template?: 'Styled' | 'WithCustomArrow' | 'Animated'
   allshow?: boolean
 }
 
@@ -13,16 +14,20 @@ withDefaults(defineProps<Props>(), {})
 <template>
   <div
     v-if="template === 'Styled'"
-    class="h-[200vh] flex justify-center items-center"
   >
     <Styled />
   </div>
 
   <div
     v-if="template === 'WithCustomArrow'"
-    class="h-[200vh] flex justify-center items-center"
   >
     <WithCustomArrow />
+  </div>
+
+  <div
+    v-if="template === 'Animated'"
+  >
+    <Animated />
   </div>
 
   <!-- <div v-if="template === '#2'" class="flex justify-center items-center">
@@ -165,7 +170,30 @@ const animatedContentClass = css(contentClass, {
 }
 
 .animatedContentClass {
-  --direction: 1;
+    transform-origin: var(--oku-popper-transform-origin);
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
+  width: 300px;
+  height: 150px;
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
+
+  &.size-small {
+    width: 100px;
+    height: 50px;
+  }
+
+  &.size-large {
+    width: 300px;
+    height: 150px;
+  }
+
+  &.default {
+    width: 300px;
+    height: 150px;
+  }
 
   &[data-side='top'] {
     --direction: 1;

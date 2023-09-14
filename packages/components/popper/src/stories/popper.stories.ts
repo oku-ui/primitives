@@ -56,3 +56,19 @@ export const WithCustomArrow: Story = {
     `,
   }),
 }
+
+export const Animated: Story = {
+  args: {
+    template: 'Animated',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}

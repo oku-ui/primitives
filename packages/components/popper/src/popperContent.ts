@@ -1,5 +1,4 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watch, watchEffect } from 'vue'
-
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
@@ -170,8 +169,8 @@ const PopperContent = defineComponent({
             minWidth: 'max-content',
             zIndex: contentZIndex.value ?? undefined,
             ['--oku-popper-transform-origin' as any]: [
-              `${middlewareData.value.transformOrigin?.x}px`,
-              `${middlewareData.value.transformOrigin?.y}px`,
+              middlewareData.value.transformOrigin?.x,
+              middlewareData.value.transformOrigin?.y,
             ].join(' '),
           } as CSSStyleDeclaration,
           'dir': props.dir,
