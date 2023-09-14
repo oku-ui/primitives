@@ -1,33 +1,10 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 
-import type { ArrowElement, ArrowNaviteElement, ArrowProps } from '@oku-ui/arrow'
-import { OkuArrow, arrowProps } from '@oku-ui/arrow'
+import { OkuArrow } from '@oku-ui/arrow'
 
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { type Side, scopePopperProps } from './utils'
-import { usePopperContentInject } from './popperContent'
-
-const ARROW_NAME = 'OkuPopperArrow'
-
-const OPPOSITE_SIDE: Record<Side, Side> = {
-  top: 'bottom',
-  right: 'left',
-  bottom: 'top',
-  left: 'right',
-}
-
-export type PopperArrowNaviteElement = ArrowNaviteElement
-export type PopperArrowElement = ArrowElement
-
-export interface PopperArrowProps extends ArrowProps {
-}
-
-export const popperArrowProps = {
-  props: {
-    ...arrowProps.props,
-  },
-  emits: {},
-}
+import { ARROW_NAME, OPPOSITE_SIDE, popperArrowProps, scopePopperProps, usePopperContentInject } from './props'
+import type { PopperArrowNaviteElement } from './props'
 
 const popperArrow = defineComponent({
   name: ARROW_NAME,
@@ -57,14 +34,14 @@ const popperArrow = defineComponent({
           },
           style: {
             position: 'absolute',
-            left: `${contentInject.arrowX?.value}px`,
-            top: `${contentInject.arrowY?.value}px`,
+            left: contentInject.arrowX?.value ? `${contentInject.arrowX?.value}px` : undefined,
+            top: contentInject.arrowY?.value ? `${contentInject.arrowY?.value}px` : undefined,
             [baseSide.value]: '0px',
             transformOrigin: {
               top: '',
-              right: '0px 0px',
-              bottom: 'center 0px',
-              left: '100% 0px',
+              right: '0 0',
+              bottom: 'center 0',
+              left: '100% 0',
             }[contentInject.placedSide.value!],
             transform: {
               top: 'translateY(100%)',

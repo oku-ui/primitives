@@ -9,9 +9,9 @@ interface StoryProps extends IPopperProps {
 }
 
 const meta = {
-  title: 'Components/Popper',
+  title: 'Utilities/Popper',
   args: {
-    template: '#1',
+    template: 'Styled',
   },
   component: OkuToggleComponent,
   tags: ['autodocs'],
@@ -26,7 +26,7 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    template: '#1',
+    template: 'Styled',
     allshow: true,
   },
 
