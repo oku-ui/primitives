@@ -283,8 +283,8 @@ importers:
         specifier: ^0.34.4
         version: 0.34.4(happy-dom@11.0.2)(jsdom@22.1.0)
       vitest-axe:
-        specifier: ^0.1.0
-        version: 0.1.0(vitest@0.34.4)
+        specifier: ^1.0.0-pre.2
+        version: 1.0.0-pre.2(vitest@0.34.4)
       vue:
         specifier: 3.3.4
         version: 3.3.4
@@ -4271,8 +4271,8 @@ packages:
       nuxt: ^3.6.5
       vite: 4.3.5
     dependencies:
-      '@nuxt/kit': 3.7.2(rollup@3.29.0)
-      '@nuxt/schema': 3.7.2(rollup@3.29.0)
+      '@nuxt/kit': 3.7.3(rollup@3.29.0)
+      '@nuxt/schema': 3.7.3(rollup@3.29.0)
       execa: 7.2.0
       nuxt: 3.7.2(@types/node@20.6.0)(eslint@8.49.0)(rollup@3.29.0)(typescript@5.2.2)
       vite: 4.3.5(@types/node@20.6.0)
@@ -4308,7 +4308,7 @@ packages:
       '@antfu/utils': 0.7.6
       '@nuxt/devtools-kit': 0.8.3(nuxt@3.7.2)(rollup@3.29.0)(vite@4.3.5)
       '@nuxt/devtools-wizard': 0.8.3
-      '@nuxt/kit': 3.7.2(rollup@3.29.0)
+      '@nuxt/kit': 3.7.3(rollup@3.29.0)
       birpc: 0.2.14
       boxen: 7.1.1
       consola: 3.2.3
@@ -4340,7 +4340,7 @@ packages:
       sirv: 2.0.3
       unimport: 3.3.0(rollup@3.29.0)
       vite: 4.3.5(@types/node@20.6.0)
-      vite-plugin-inspect: 0.7.38(@nuxt/kit@3.7.2)(rollup@3.29.0)(vite@4.3.5)
+      vite-plugin-inspect: 0.7.38(@nuxt/kit@3.7.3)(rollup@3.29.0)(vite@4.3.5)
       vite-plugin-vue-inspector: 3.7.1(vite@4.3.5)
       wait-on: 7.0.1
       which: 3.0.1
@@ -8217,12 +8217,6 @@ packages:
     resolution: {integrity: sha512-R5iJ5lkuHybztUfuOAznmboyjWq8O6sqNqtK7CLOqdydi54VNbORp49mb14KbWgG1QD3JFO9hJdZ+y4KutfdOQ==}
     dependencies:
       deep-equal: 2.2.2
-    dev: true
-
-  /aria-query@5.3.0:
-    resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
-    dependencies:
-      dequal: 2.0.3
     dev: true
 
   /array-buffer-byte-length@1.0.0:
@@ -12670,6 +12664,7 @@ packages:
   /min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
+    dev: false
 
   /minimatch@3.0.5:
     resolution: {integrity: sha512-tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==}
@@ -14988,14 +14983,6 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /redent@3.0.0:
-    resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
-    engines: {node: '>=8'}
-    dependencies:
-      indent-string: 4.0.0
-      strip-indent: 3.0.0
-    dev: true
-
   /redis-errors@1.2.0:
     resolution: {integrity: sha512-1qny3OExCf0UvUV/5wpYKf2YwPcOqXzkwKKSmKHiE6ZMQs5heeE/c8eXK+PNllPvmjgAbfnsbpkGZWy8cBpn9w==}
     engines: {node: '>=4'}
@@ -15759,6 +15746,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       min-indent: 1.0.1
+    dev: false
 
   /strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
@@ -17039,7 +17027,7 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-inspect@0.7.38(@nuxt/kit@3.7.2)(rollup@3.29.0)(vite@4.3.5):
+  /vite-plugin-inspect@0.7.38(@nuxt/kit@3.7.3)(rollup@3.29.0)(vite@4.3.5):
     resolution: {integrity: sha512-+p6pJVtBOLGv+RBrcKAFUdx+euizg0bjL35HhPyM0MjtKlqoC5V9xkCmO9Ctc8JrTyXqODbHqiLWJKumu5zJ7g==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -17050,7 +17038,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.6
-      '@nuxt/kit': 3.7.2(rollup@3.29.0)
+      '@nuxt/kit': 3.7.3(rollup@3.29.0)
       '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
       debug: 4.3.4
       error-stack-parser-es: 0.1.1
@@ -17206,17 +17194,14 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest-axe@0.1.0(vitest@0.34.4):
-    resolution: {integrity: sha512-jvtXxeQPg8R/2ANTY8QicA5pvvdRP4F0FsVUAHANJ46YCDASie/cuhlSzu0DGcLmZvGBSBNsNuK3HqfaeknyvA==}
+  /vitest-axe@1.0.0-pre.2(vitest@0.34.4):
+    resolution: {integrity: sha512-tR8eu9tCxj5hEOjazHxfcCIfOoSe1Kba966ntkjGiHfTcBhBT6dfbyZ2UlUbNBt1j69h+JoRM796UgCpX8iFlA==}
     peerDependencies:
-      vitest: '>=0.16.0'
+      vitest: '>=0.31.0'
     dependencies:
-      aria-query: 5.3.0
       axe-core: 4.8.0
       chalk: 5.3.0
-      dom-accessibility-api: 0.5.16
       lodash-es: 4.17.21
-      redent: 3.0.0
       vitest: 0.34.4(happy-dom@11.0.2)(jsdom@22.1.0)
     dev: true
 

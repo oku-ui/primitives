@@ -115,7 +115,7 @@
     "vite": "4.3.5",
     "vite-plugin-dts": "^3.5.3",
     "vitest": "^0.34.4",
-    "vitest-axe": "^0.1.0",
+    "vitest-axe": "^1.0.0-pre.2",
     "vue": "3.3.4"
   },
   "pnpm": {
