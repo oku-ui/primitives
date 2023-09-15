@@ -108,8 +108,8 @@ const PopperContent = defineComponent({
 
     const refElement = ref()
     const { placement, isPositioned, middlewareData, floatingStyles } = useFloating(
-      computed(() => inject.anchor.value),
-      computed(() => refElement.value),
+      inject.anchor,
+      refElement,
       {
       // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
         strategy: 'fixed',
@@ -121,7 +121,6 @@ const PopperContent = defineComponent({
           return cleanup
         },
         middleware: computedMiddleware,
-        transform: true,
       })
 
     const placedSide = computed(

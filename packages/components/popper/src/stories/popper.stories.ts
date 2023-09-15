@@ -72,3 +72,51 @@ export const Animated: Story = {
     `,
   }),
 }
+
+export const WithPortal: Story = {
+  args: {
+    template: 'WithPortal',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithUpdatePositionStrategyAlways: Story = {
+  args: {
+    template: 'WithUpdatePositionStrategyAlways',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Chromatic: Story = {
+  args: {
+    template: 'Chromatic',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
