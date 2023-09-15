@@ -1,14 +1,4 @@
 import type { Middleware, Placement } from '@floating-ui/vue'
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject } from '@oku-ui/provide'
-
-export type ScopePopper<T> = T & { scopeOkuPopper?: Scope }
-
-export const scopePopperProps = {
-  scopeOkuPopper: {
-    ...ScopePropObject,
-  },
-}
 
 export const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 export const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
@@ -28,7 +18,7 @@ export function transformOrigin(options: { arrowWidth: number; arrowHeight: numb
   return {
     name: 'transformOrigin',
     options,
-    fn(data: any) {
+    fn(data) {
       const { placement, rects, middlewareData } = data
 
       const cannotCenterArrow = middlewareData.arrow?.centerOffset !== 0

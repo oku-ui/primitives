@@ -17,5 +17,10 @@ export default defineConfig({
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],
     globals: true,
+    alias: {
+      '@oku-ui/arrow': './packages/components/arrow/src',
+      '@oku-ui/popper': './packages/components/popper/src',
+      '@oku-ui/portal': './packages/components/portal/src',
+    },
   },
 })
