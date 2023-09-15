@@ -13,36 +13,39 @@ export interface Props {
   allshow?: boolean
 }
 
-withDefaults(defineProps<Props>(), {})
+withDefaults(defineProps<Props>(), {
+  template: 'Styled',
+  allshow: false,
+})
 </script>
 
 <template>
   <div
-    v-if="template === 'Styled'"
+    v-if="template === 'Styled' || allshow"
   >
     <Styled />
   </div>
 
   <div
-    v-if="template === 'WithCustomArrow'"
+    v-if="template === 'WithCustomArrow' || allshow"
   >
     <WithCustomArrow />
   </div>
 
   <div
-    v-if="template === 'Animated'"
+    v-if="template === 'Animated' || allshow"
   >
     <Animated />
   </div>
 
   <div
-    v-if="template === 'WithPortal'"
+    v-if="template === 'WithPortal' || allshow"
   >
     <WithPortal />
   </div>
 
   <div
-    v-if="template === 'WithUpdatePositionStrategyAlways'"
+    v-if="template === 'WithUpdatePositionStrategyAlways' || allshow"
   >
     <WithUpdatePositionStrategyAlways />
   </div>

@@ -14,7 +14,6 @@ const meta = {
     template: 'Styled',
   },
   component: OkuToggleComponent,
-  tags: ['autodocs'],
 } satisfies Meta<typeof OkuToggleComponent> & {
   args: StoryProps
 }
@@ -27,9 +26,8 @@ type Story = StoryObj<typeof meta> & {
 export const Styled: Story = {
   args: {
     template: 'Styled',
-    allshow: true,
+    allshow: false,
   },
-
   render: (args: any) => ({
     components: { OkuToggleComponent },
     setup() {
