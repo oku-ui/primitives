@@ -163,6 +163,11 @@ export const popperContentProps = {
       required: false,
       default: 'optimized',
     },
+    layoutShift: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
     dir: {
       type: String as unknown as PropType<'ltr' | 'rtl'>,
     },

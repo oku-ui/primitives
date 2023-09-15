@@ -5,9 +5,11 @@ import WithCustomArrow from './WithCustomArrow.vue'
 import WithPortal from './WithPortal.vue'
 import WithUpdatePositionStrategyAlways from './WithUpdatePositionStrategyAlways.vue'
 import Chromatic from './Chromatic.vue'
+import OneScroll from './OneScroll.vue'
+import TransitionVue from './Transition.vue'
 
 export interface Props {
-  template?: 'Styled' | 'WithCustomArrow' | 'Animated' | 'WithPortal' | 'WithUpdatePositionStrategyAlways' | 'Chromatic'
+  template?: 'Styled' | 'WithCustomArrow' | 'Animated' | 'WithPortal' | 'WithUpdatePositionStrategyAlways' | 'Chromatic' | 'OneScroll' | 'Transition'
   allshow?: boolean
 }
 
@@ -50,35 +52,21 @@ withDefaults(defineProps<Props>(), {})
   >
     <Chromatic />
   </div>
-  <!-- <div v-if="template === '#2'" class="flex justify-center items-center">
-    <OkuPopper>
-      <OkuPopperAnchor class="h-10 w-10 flex items-center">
-        <button class="bg-blue-500" @click="setPressed(!pressed)">
-          Toggle
-        </button>
-      </OkuPopperAnchor>
-      <Teleport to="body">
-        <Transition name="fade">
-          <OkuPopperContent
-            v-show="pressed"
-            :side-offset="5"
-            side="right"
-            align="start"
-          >
-            <button @click="setPressed(!pressed)">
-              close
-            </button>
-            <OkuPopperArrow as-child class="bg-gray-200" offset="20">
-              <div class="w-20 h-5 rounded-bl-xl rounded-br-xl bg-red-500" />
-            </OkuPopperArrow>
-          </OkuPopperContent>
-        </Transition>
-      </Teleport>
-    </OkuPopper>
-  </div> -->
+
+  <div
+    v-if="template === 'OneScroll' || allshow"
+  >
+    <OneScroll />
+  </div>
+
+  <div
+    v-if="template === 'Transition' || allshow"
+  >
+    <TransitionVue />
+  </div>
 </template>
 
-<style lang="postcss">
+<style>
 .contentClass {
   transform-origin: var(--oku-popper-transform-origin);
   background-color: #f9fafb;

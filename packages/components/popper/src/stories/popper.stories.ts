@@ -120,3 +120,35 @@ export const Chromatic: Story = {
     `,
   }),
 }
+
+export const OneScroll: Story = {
+  args: {
+    template: 'OneScroll',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Transition: Story = {
+  args: {
+    template: 'Transition',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}

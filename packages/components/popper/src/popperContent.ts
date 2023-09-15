@@ -35,6 +35,7 @@ const PopperContent = defineComponent({
       sticky,
       hideWhenDetached,
       updatePositionStrategy,
+      layoutShift,
       ...contentProps
     } = toRefs(props)
     const _reactive = reactive(contentProps)
@@ -117,6 +118,7 @@ const PopperContent = defineComponent({
         whileElementsMounted: (...args) => {
           const cleanup = autoUpdate(...args, {
             animationFrame: updatePositionStrategy.value === 'always',
+            layoutShift: layoutShift.value,
           })
           return cleanup
         },
