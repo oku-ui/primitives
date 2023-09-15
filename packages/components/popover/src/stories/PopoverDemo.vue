@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import Boundary from './Boundary.vue'
 import Styled from './Styled.vue'
 
 export interface OkuPopoverProps {
-  template: 'Styled'
+  template: 'Styled' | 'Boundary'
   allshow?: boolean
 }
 
@@ -15,6 +16,9 @@ withDefaults(defineProps<OkuPopoverProps>(), {
 <template>
   <div v-if="template === 'Styled' || allshow">
     <Styled />
+  </div>
+  <div v-if="template === 'Boundary' || allshow">
+    <Boundary />
   </div>
 </template>
 

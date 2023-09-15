@@ -40,3 +40,18 @@ export const Styled: Story = {
     `,
   }),
 }
+
+export const Boundary: Story = {
+  args: {
+    template: 'Boundary',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
