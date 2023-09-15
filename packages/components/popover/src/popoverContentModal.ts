@@ -1,40 +1,17 @@
 import { defineComponent, h, mergeProps, onUnmounted, ref } from 'vue'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
 import { hideOthers } from 'aria-hidden'
 import { OkuSlot } from '@oku-ui/slot'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuPopoverContentImpl, popoverContentImplProps } from './popoverContentImpl'
-import type { PopoverContentImplElement, PopoverContentImplEmits, PopoverContentImplNaviteElement, PopoverContentImplProps } from './popoverContentImpl'
-import { scopePopoverProps } from './utils'
-import { usePopoverInject } from './popover'
-import { CONTENT_NAME } from './popoverContent'
-
-export type PopoverContentTypeNaviteElement = PopoverContentImplNaviteElement
-export type PopoverContentTypeElement = PopoverContentImplElement
-
-export interface PopoverContentTypeProps
-  extends Omit<PopoverContentImplProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
-
-export interface PopoverContentTypeEmits extends PopoverContentImplEmits { }
-
-export const popoverContentTypeProps = {
-  props: {
-    ...propsOmit(popoverContentImplProps.props, ['trapFocus', 'disableOutsidePointerEvents']),
-  },
-  emits: {
-    ...popoverContentImplProps.emits,
-  },
-}
-
-const NAME = 'OkuPopoverContentModal'
+import { OkuPopoverContentImpl } from './popoverContentImpl'
+import type { PopoverContentTypeEmits, PopoverContentTypeNaviteElement } from './props'
+import { CONTENT_MODAL_NAME, CONTENT_NAME, popoverContentTypeProps, scopePopoverProps, usePopoverInject } from './props'
 
 const popoverContentModal = defineComponent({
-  name: NAME,
+  name: CONTENT_MODAL_NAME,
   inheritAttrs: false,
   props: {
     ...popoverContentTypeProps.props,
-    ...primitiveProps,
     ...scopePopoverProps,
   },
   emits: popoverContentTypeProps.emits,
@@ -54,6 +31,7 @@ const popoverContentModal = defineComponent({
     })
 
     useScrollLock(contentRef, true)
+
     return () => h(OkuSlot, {}, {
       default: () => h(OkuPopoverContentImpl, {
         ...mergeProps(attrs, props),

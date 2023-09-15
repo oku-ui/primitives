@@ -1,40 +1,20 @@
 <script setup lang="ts">
-import {
-  OkuPopover,
-  OkuPopoverArrow,
-  OkuPopoverClose,
-  OkuPopoverContent,
-  OkuPopoverPortal,
-  OkuPopoverTrigger,
-} from '@oku-ui/popover'
+import Styled from './Styled.vue'
 
 export interface OkuPopoverProps {
-  template: '#1' | '#2'
+  template: 'Styled'
   allshow?: boolean
 }
 
 withDefaults(defineProps<OkuPopoverProps>(), {
-  template: '#1',
+  template: 'Styled',
+  allshow: false,
 })
 </script>
 
 <template>
-  <div v-if="template === '#1' || allshow" class="flex flex-col">
-    <div>
-      <OkuPopover>
-        <OkuPopoverTrigger class="triggerClass">
-          open
-        </OkuPopoverTrigger>
-        <OkuPopoverPortal>
-          <OkuPopoverContent class="contentClass" :side-offset="15">
-            <OkuPopoverClose class="closeClass">
-              close
-            </OkuPopoverClose>
-            <OkuPopoverArrow class="arrowClass" :width="20" :height="10" />
-          </OkuPopoverContent>
-        </OkuPopoverPortal>
-      </OkuPopover>
-    </div>
+  <div v-if="template === 'Styled' || allshow">
+    <Styled />
   </div>
 </template>
 

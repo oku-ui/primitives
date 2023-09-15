@@ -1,37 +1,16 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { scopePopoverProps } from './utils'
-import { usePopoverInject } from './popover'
-
-export type PopoverCloseNaviteElement = OkuElement<'button'>
-export type PopoverCloseElement = HTMLButtonElement
-
-export interface PopoverCloseProps extends PrimitiveProps { }
-
-export type PopoverCloseEmits = {
-  click: [event: MouseEvent]
-}
-
-export const popoverArrowProps = {
-  props: {
-    ...primitiveProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
-  },
-}
-
-const CLOSE_NAME = 'OkuPopoverClose'
+import type { PopoverCloseEmits, PopoverCloseNaviteElement } from './props'
+import { CLOSE_NAME, popoverCloseProps, scopePopoverProps, usePopoverInject } from './props'
 
 const popoverClose = defineComponent({
   name: CLOSE_NAME,
   inheritAttrs: false,
   props: {
     ...scopePopoverProps,
+    ...popoverCloseProps.props,
   },
   setup(props, { attrs, slots, emit }) {
     const { scopeOkuPopover, ...closeProps } = toRefs(props)
