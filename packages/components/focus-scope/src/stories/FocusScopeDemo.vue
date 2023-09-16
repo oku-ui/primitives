@@ -44,7 +44,7 @@ function onMountAutoFocus(event: Event) {
       refForm.value?.focus()
   }
 }
-
+// TODO: waiting fix focusScope close  event
 function onUnmountAutoFocus(event: Event) {
   if (focusOnUnmount.value !== true) {
     event.preventDefault()

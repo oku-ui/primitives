@@ -1,7 +1,7 @@
 /// <reference types="resize-observer-browser" />
 
 import type { Ref } from 'vue'
-import { ref, watchEffect } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 
 interface Size {
   width: number
@@ -10,12 +10,13 @@ interface Size {
 
 function useSize(element: Ref<HTMLElement | null>) {
   const size = ref<Size>()
+  const resizeObserver = ref<ResizeObserver>()
 
-  watchEffect((onClean) => {
+  watch(element, () => {
     if (element.value) {
       size.value = { width: element.value.offsetWidth, height: element.value.offsetHeight }
 
-      const resizeObserver = new ResizeObserver((entries) => {
+      resizeObserver.value = new ResizeObserver((entries) => {
         if (!Array.isArray(entries))
           return
 
@@ -45,15 +46,16 @@ function useSize(element: Ref<HTMLElement | null>) {
         size.value = { width, height }
       })
 
-      resizeObserver.observe(element.value, { box: 'border-box' })
-
-      onClean(() => {
-        resizeObserver.unobserve(element.value!)
-      })
+      resizeObserver.value.observe(element.value, { box: 'border-box' })
     }
     else {
       size.value = undefined
     }
+  })
+
+  onUnmounted(() => {
+    if (element.value)
+      resizeObserver.value?.unobserve(element.value)
   })
 
   return size

@@ -67,7 +67,6 @@ const groupImplSingle = defineComponent({
       modelValue: _modelValue,
       value: valueProp,
       defaultValue,
-      onValueChange: _onValueChange,
       ...toggleGroupSingleProps
     } = toRefs(props)
     const _reactive = reactive(toggleGroupSingleProps)

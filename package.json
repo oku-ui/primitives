@@ -1,8 +1,8 @@
 {
   "name": "primitives",
   "type": "module",
-  "version": "0.3.0",
-  "packageManager": "pnpm@8.7.0",
+  "version": "0.4.0",
+  "packageManager": "pnpm@8.7.4",
   "repository": "oku-ui/primitives",
   "engines": {
     "node": ">=18"
@@ -45,6 +45,7 @@
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/collection": "workspace:^",
+    "@oku-ui/dialog": "workspace:^",
     "@oku-ui/direction": "workspace:^",
     "@oku-ui/dismissable-layer": "workspace:^",
     "@oku-ui/focus-guards": "workspace:^",
@@ -115,7 +116,7 @@
     "vite": "4.3.5",
     "vite-plugin-dts": "^3.5.3",
     "vitest": "^0.34.4",
-    "vitest-axe": "^0.1.0",
+    "vitest-axe": "^1.0.0-pre.2",
     "vue": "3.3.4"
   },
   "pnpm": {
@@ -126,6 +127,7 @@
       "@oku-ui/checkbox": "workspace:^",
       "@oku-ui/collapsible": "workspace:^",
       "@oku-ui/collection": "workspace:^",
+      "@oku-ui/dialog": "workspace:^",
       "@oku-ui/direction": "workspace:^",
       "@oku-ui/dismissable-layer": "workspace:^",
       "@oku-ui/focus-guards": "workspace:^",

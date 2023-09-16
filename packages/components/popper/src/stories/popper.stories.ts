@@ -1,20 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { IPopperProps } from './PopperDemo.vue'
+import type { Props } from './PopperDemo.vue'
 
 import OkuToggleComponent from './PopperDemo.vue'
 
-interface StoryProps extends IPopperProps {
+interface StoryProps extends Props {
 
 }
 
 const meta = {
-  title: 'Components/Popper',
+  title: 'Utilities/Popper',
   args: {
-    template: '#1',
+    template: 'Styled',
   },
   component: OkuToggleComponent,
-  tags: ['autodocs'],
 } satisfies Meta<typeof OkuToggleComponent> & {
   args: StoryProps
 }
@@ -26,8 +25,23 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    template: '#1',
-    allshow: true,
+    template: 'Styled',
+    allshow: false,
+  },
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithCustomArrow: Story = {
+  args: {
+    template: 'WithCustomArrow',
   },
 
   render: (args: any) => ({
@@ -41,9 +55,89 @@ export const Styled: Story = {
   }),
 }
 
-export const CustomArrow: Story = {
+export const Animated: Story = {
   args: {
-    template: '#2',
+    template: 'Animated',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithPortal: Story = {
+  args: {
+    template: 'WithPortal',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithUpdatePositionStrategyAlways: Story = {
+  args: {
+    template: 'WithUpdatePositionStrategyAlways',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Chromatic: Story = {
+  args: {
+    template: 'Chromatic',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const OneScroll: Story = {
+  args: {
+    template: 'OneScroll',
+  },
+
+  render: (args: any) => ({
+    components: { OkuToggleComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToggleComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const Transition: Story = {
+  args: {
+    template: 'Transition',
   },
 
   render: (args: any) => ({

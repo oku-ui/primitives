@@ -1,8 +1,8 @@
 import type { PropType } from 'vue'
-import { cloneVNode, defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 
 export type ArrowNaviteElement = Omit<OkuElement<'svg'>, 'width' | 'height'> & {
   width?: number
@@ -45,36 +45,26 @@ const arrow = defineComponent({
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
-    const { width, height } = toRefs(props)
+    const { width, height, ...arrowProps } = toRefs(props)
 
-    const originalReturn = () => {
-      const defaultSlot = typeof slots.default === 'function' ? slots.default()[0] : slots.default ?? null
-      return props.asChild
-        ? defaultSlot
-          ? cloneVNode(defaultSlot, {
-            ...attrs,
-            width: `${width.value}px`,
-            height: `${height.value}px`,
-            viewBox: '0 0 30 10',
-            preserveAspectRatio: 'none',
-          })
-          : null
-        : h(Primitive.svg, {
-          ...attrs,
-          ref: forwardedRef,
-          width: width.value,
-          height: height.value,
-          viewBox: '0 0 30 10',
-          preserveAspectRatio: 'none',
-        },
-        {
-          default: () => h('polygon', {
-            points: '0,0 30,0 15,10',
-          }),
-        })
-    }
+    const _reactive = reactive(arrowProps)
+    const reactiveProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    return originalReturn
+    return () => h(Primitive.svg, {
+      ...mergeProps(reactiveProps, attrs),
+      ref: forwardedRef,
+      width: width.value,
+      height: height.value,
+      viewBox: '0 0 30 10',
+      preserveAspectRatio: 'none',
+    },
+    {
+      default: () => props.asChild
+        ? slots.default?.()
+        : h('polygon', {
+          points: '0,0 30,0 15,10',
+        }),
+    })
   },
 })
 
