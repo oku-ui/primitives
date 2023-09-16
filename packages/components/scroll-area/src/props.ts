@@ -218,8 +218,8 @@ export type ScrollbarProvideValue = {
 export const [scrollbarProvider, useScrollbarInject] = createScrollProvide<ScrollbarProvideValue>(SCROLL_AREA_SCROLLBAR_NAME)
 
 export type ScrollAreaScrollbarImplPrivateProps = {
-  sizes: Ref<Sizes>
-  hasThumb: Ref<boolean>
+  sizes: Sizes
+  hasThumb: boolean
 }
 
 export type ScrollAreaScrollbarImplPrivateEmits = {
@@ -308,8 +308,8 @@ export type ScrollAreaScrollbarAxisElement = ScrollAreaScrollbarImplElement
 export interface ScrollAreaScrollbarAxisProps extends Omit<ScrollAreaScrollbarImplProps, keyof ScrollAreaScrollbarImplPrivateProps>, ScrollAreaScrollbarAxisPrivateProps { }
 
 export type ScrollAreaScrollbarAxisPrivateProps = {
-  hasThumb: Ref<boolean>
-  sizes: Ref<Sizes>
+  hasThumb: boolean
+  sizes: Sizes
 }
 
 export type ScrollAreaScrollbarAxisPrivateEmits = {
