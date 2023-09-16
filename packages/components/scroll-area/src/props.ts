@@ -299,7 +299,7 @@ export type ScrollAreaScrollbarImplEmits = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- *  ScrollAreaScrollbarAxis
+ *  ScrollAreaScrollbarAxisX/Y - scroll-area-scrollbar-axis-x/y.ts
  * ----------------------------------------------------------------------------------------------- */
 
 export type ScrollAreaScrollbarAxisNaviteElement = ScrollAreaScrollbarImplNaviteElement
