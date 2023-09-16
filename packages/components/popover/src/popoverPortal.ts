@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, toRefs } from 'vue'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
 import { PORTAL_NAME, popoverPortalProps, portalProvider, scopePopoverProps, usePopoverInject } from './props'
@@ -20,7 +20,7 @@ const popoverPortal = defineComponent({
     })
 
     return () => h(OkuPresence, {
-      present: computed(() => forceMount?.value || inject.open.value).value,
+      present: forceMount?.value || inject.open.value,
     }, {
       default: () => h(OkuPortal, {
         asChild: true,

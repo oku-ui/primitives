@@ -1,17 +1,11 @@
+import type { Ref } from 'vue'
 import { ref, watchEffect } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject } from '@oku-ui/provide'
-import type {
-  FocusoutSideEvent,
-  PointerdownOutsideEvent,
-} from './DismissableLayer'
-import {
-  FOCUS_OUTSIDE,
-  INJECT_UPDATE,
-  POINTER_DOWN_OUTSIDE,
-} from './DismissableLayer'
+import type { FocusoutSideEvent, PointerdownOutsideEvent } from './props'
+import { FOCUS_OUTSIDE, INJECT_UPDATE, POINTER_DOWN_OUTSIDE } from './props'
 
 export type ScopeDismissableLayer<T> = T & { scopeOkuDismissableLayer?: Scope }
 
@@ -28,7 +22,7 @@ export const scopeDismissableLayerProps = {
  */
 function usePointerdownOutside(
   onPointerDownOutside?: (event: PointerdownOutsideEvent) => void,
-  ownerDocument: Document = globalThis?.document,
+  ownerDocument: Ref<Document> = ref(globalThis?.document),
 ) {
   const isPointerInsideTreeRef = ref<boolean>(false)
   const handleClickRef = ref(() => {})
@@ -41,7 +35,7 @@ function usePointerdownOutside(
         function handleAndDispatchPointerdownOutsideEvent() {
           handleAndDispatchCustomEvent(
             POINTER_DOWN_OUTSIDE,
-            onPointerDownOutside,
+            event => onPointerDownOutside?.(event as PointerdownOutsideEvent),
             eventDetail,
             { discrete: true },
           )
@@ -59,10 +53,10 @@ function usePointerdownOutside(
          * certain that it was raised, and therefore cleaned-up.
          */
         if (event.pointerType === 'touch') {
-          ownerDocument.removeEventListener('click', handleClickRef.value)
+          ownerDocument.value.removeEventListener('click', handleClickRef.value)
           handleClickRef.value = handleAndDispatchPointerdownOutsideEvent
 
-          ownerDocument.addEventListener('click', handleClickRef.value, {
+          ownerDocument.value.addEventListener('click', handleClickRef.value, {
             once: true,
           })
         }
@@ -73,7 +67,7 @@ function usePointerdownOutside(
       else {
         // We need to remove the event listener in case the outside click has been canceled.
         // See: https://github.com/radix-ui/primitives/issues/2171
-        ownerDocument.removeEventListener('click', handleClickRef.value)
+        ownerDocument.value.removeEventListener('click', handleClickRef.value)
       }
       isPointerInsideTreeRef.value = false
     }
@@ -92,15 +86,13 @@ function usePointerdownOutside(
      * });
      */
     const timerId = window.setTimeout(() => {
-      ownerDocument.addEventListener('pointerdown', handlePointerDown)
+      ownerDocument.value.addEventListener('pointerdown', handlePointerDown)
     }, 0)
 
     onInvalidate(() => {
-      clearTimeout(timerId)
-
-      ownerDocument.removeEventListener('pointerdown', handlePointerDown)
-      ownerDocument.removeEventListener('click', handleClickRef.value)
       window.clearTimeout(timerId)
+      ownerDocument.value.removeEventListener('pointerdown', handlePointerDown)
+      ownerDocument.value.removeEventListener('click', handleClickRef.value)
     })
   })
 
@@ -114,8 +106,8 @@ function usePointerdownOutside(
  * Returns props to pass to the root (node) of the subtree we want to check.
  */
 function useFocusoutSide(
-  onFocusoutSide?: (event: FocusoutSideEvent) => void,
-  ownerDocument: Document = globalThis?.document,
+  onFocusOutside?: (event: FocusoutSideEvent) => void,
+  ownerDocument: Ref<Document> = ref(globalThis?.document),
 ) {
   const isFocusInsideReactTreeRef = ref<boolean>(false)
 
@@ -126,7 +118,7 @@ function useFocusoutSide(
 
         handleAndDispatchCustomEvent(
           FOCUS_OUTSIDE,
-          event => onFocusoutSide?.(event as FocusoutSideEvent),
+          event => onFocusOutside?.(event as FocusoutSideEvent),
           eventDetail,
           {
             discrete: false,
@@ -134,9 +126,9 @@ function useFocusoutSide(
         )
       }
     }
-    ownerDocument.addEventListener('focusin', handleFocus)
+    ownerDocument.value.addEventListener('focusin', handleFocus)
     onClean(() => {
-      ownerDocument.removeEventListener('focusin', handleFocus)
+      ownerDocument.value.removeEventListener('focusin', handleFocus)
     })
   })
 
