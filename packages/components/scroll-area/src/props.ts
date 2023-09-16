@@ -239,9 +239,11 @@ export const scrollAreaScrollbarImplProps = {
   props: {
     hasThumb: {
       type: Boolean,
+      required: true,
     },
     sizes: {
-      type: Object,
+      type: Object as PropType<Sizes>,
+      required: true,
     },
     ...primitiveProps,
   },
@@ -251,7 +253,6 @@ export const scrollAreaScrollbarImplProps = {
     thumbPointerUp: () => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     thumbPointerDown: (pointerPos: Parameters<ScrollbarProvideValue['onThumbPointerDown']>[0]) => true,
-
     thumbPositionChange: () => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     wheelScroll: (...args: ScrollAreaScrollbarImplPrivateEmits['wheelScroll']) => true,
@@ -298,7 +299,7 @@ export type ScrollAreaScrollbarImplEmits = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- *  ScrollAreaScrollbarAxisX - scroll-area-scrollbar-axis-x.ts
+ *  ScrollAreaScrollbarAxis
  * ----------------------------------------------------------------------------------------------- */
 
 export type ScrollAreaScrollbarAxisNaviteElement = ScrollAreaScrollbarImplNaviteElement
@@ -307,8 +308,8 @@ export type ScrollAreaScrollbarAxisElement = ScrollAreaScrollbarImplElement
 export interface ScrollAreaScrollbarAxisProps extends Omit<ScrollAreaScrollbarImplProps, keyof ScrollAreaScrollbarImplPrivateProps>, ScrollAreaScrollbarAxisPrivateProps { }
 
 export type ScrollAreaScrollbarAxisPrivateProps = {
-  hasThumb: boolean
-  sizes: Sizes
+  hasThumb: Ref<boolean>
+  sizes: Ref<Sizes>
 }
 
 export type ScrollAreaScrollbarAxisPrivateEmits = {
@@ -320,8 +321,6 @@ export type ScrollAreaScrollbarAxisPrivateEmits = {
   wheelScroll: [scrollPos: number]
   dragScroll: [pointerPos: number]
 }
-
-export const SCROLL_AREA_SCROLLBAR_X = 'OkuScrollAreaScrollbarX'
 
 export const scrollAreaScrollbarAxisPrivateProps = {
   props: {
@@ -378,6 +377,18 @@ export const scrollAreaScrollbarAxisProps = {
     ...scrollAreaScrollbarAxisPrivateProps.emits,
   },
 }
+
+/* -------------------------------------------------------------------------------------------------
+ *  ScrollAreaScrollbarAxisX - scroll-area-scrollbar-axis-x.ts
+ * ----------------------------------------------------------------------------------------------- */
+
+export const SCROLL_AREA_SCROLLBAR_X = 'OkuScrollAreaScrollbarX'
+
+/* -------------------------------------------------------------------------------------------------
+ *  ScrollAreaScrollbarAxisY - scroll-area-scrollbar-axis-y.ts
+ * ----------------------------------------------------------------------------------------------- */
+
+export const SCROLL_AREA_SCROLLBAR_Y = 'OkuScrollAreaScrollbarY'
 
 /* -------------------------------------------------------------------------------------------------
  *  ScrollAreaScrollVisible - scroll-area-scrollbar-visible.ts
@@ -506,9 +517,3 @@ export const scrollAreaScrollbarHoverProps = {
     ...scrollAreaScrollbarAutoProps.emits,
   },
 }
-
-/* -------------------------------------------------------------------------------------------------
- *  ScrollAreaScrollbarAxisY - scroll-area-scrollbar-axis-y.ts
- * ----------------------------------------------------------------------------------------------- */
-
-export const SCROLL_AREA_SCROLLBAR_Y = 'OkuScrollAreaScrollbarY'

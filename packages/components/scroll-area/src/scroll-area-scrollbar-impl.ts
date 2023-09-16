@@ -33,7 +33,7 @@ const scrollAreaScrollbarImpl = defineComponent({
     const composeRefs = useComposedRefs(forwardedRef, node => scrollbar.value = (node as ScrollAreaScrollbarElement))
     const rectRef = ref<ClientRect | null>(null)
     const prevWebkitUserSelectRef = ref<string>('')
-    const maxScrollPos = computed(() => sizes.value?.content - sizes.value?.viewport)
+    const maxScrollPos = computed(() => sizes.value!.content - sizes.value!.viewport)
     const handleWheelScroll = (event: WheelEvent, maxScrollPos: number) => emit('wheelScroll', event, maxScrollPos)
 
     const handleThumbPositionChange = () => emit('thumbPositionChange')
