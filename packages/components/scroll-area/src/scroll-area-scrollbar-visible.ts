@@ -84,7 +84,7 @@ const scrollAreaScrollbarVisible = defineComponent({
         return h(OkuScrollAreaScrollbarY,
           {
             ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
-            ...sizes,
+            sizes,
             onSizesChange: (_sizes: Sizes) => {
               sizes.content = _sizes.content
               sizes.viewport = _sizes.viewport
