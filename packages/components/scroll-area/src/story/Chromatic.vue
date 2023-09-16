@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { OkuDirectionProvider } from '@oku-ui/direction'
 import ScrollAreaStory from './ScrollAreaStory.vue'
 import Copy from './Copy.vue'
 </script>
@@ -16,7 +17,7 @@ import Copy from './Copy.vue'
   </ScrollAreaStory>
 
   <h2>Always with overflow</h2>
-  <ScrollAreaStory type="always" vertical ::horizontal="false">
+  <ScrollAreaStory type="always" vertical :horizontal="false">
     <Copy v-for="(_, index) in 10" :key="index" />
   </ScrollAreaStory>
 
@@ -37,9 +38,7 @@ import Copy from './Copy.vue'
 
   <h2>Hover with overflow</h2>
   <ScrollAreaStory type="hover" vertical :horizontal="false">
-    {Array.from({ length: 10 }).map((_, index) => (
-    <Copy key="{index}" />
-    ))}
+    <Copy v-for="(_, index) in 10" :key="index" />
   </ScrollAreaStory>
 
   <h2>Hover without overflow</h2>
@@ -161,9 +160,9 @@ import Copy from './Copy.vue'
   </ScrollAreaStory>
 
   <h2>Inherited</h2>
-  <DirectionProvider dir="rtl">
+  <OkuDirectionProvider dir="rtl">
     <ScrollAreaStory type="always" vertical horizontal>
       <Copy v-for="(_, index) in 10" :key="index" />
     </ScrollAreaStory>
-  </DirectionProvider>
+  </OkuDirectionProvider>
 </template>
