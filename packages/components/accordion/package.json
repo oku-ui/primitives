@@ -1,0 +1,58 @@
+{
+  "name": "@oku-ui/accordion",
+  "type": "module",
+  "version": "0.4.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/components/label"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@oku-ui/collapsible": "latest",
+    "@oku-ui/collection": "latest",
+    "@oku-ui/direction": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/roving-focus": "latest",
+    "@oku-ui/slot": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest",
+    "@types/node": "^18.17.12",
+    "aria-hidden": "^1.1.1"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
