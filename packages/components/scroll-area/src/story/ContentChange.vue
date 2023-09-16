@@ -14,7 +14,7 @@ const horizontalCount = ref(1)
   <button @click="horizontalCount++">
     Increase horizontal size
   </button>
-  <ScrollAreaStory type="always" :style="{ width: 800, height: 800 }">
+  <ScrollAreaStory type="always" :style="{ width: '800px', height: '800px' }">
     <Copy v-for="(_, index) in verticalCount" :key="index" :style="{ width: `${300 * horizontalCount}px` }" />
   </ScrollAreaStory>
 </template>
