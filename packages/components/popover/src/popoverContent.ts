@@ -24,7 +24,9 @@ const popoverContent = defineComponent({
     const forwardedRef = useForwardRef()
 
     return () => h(OkuPresence, {
-      present: computed(() => forceMount.value || inject.open.value).value,
+      present: computed(() => {
+        return forceMount.value || inject.open.value
+      }).value,
     }, {
       default: () => inject.modal.value
         ? h(OkuPopoverContentModal, {

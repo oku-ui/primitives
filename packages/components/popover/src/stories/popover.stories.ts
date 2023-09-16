@@ -70,3 +70,48 @@ export const Modality: Story = {
     `,
   }),
 }
+
+export const Controlled: Story = {
+  args: {
+    template: 'Controlled',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const VControlled: Story = {
+  args: {
+    template: 'VControlled',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const Animated: Story = {
+  args: {
+    template: 'Animated',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}

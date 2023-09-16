@@ -23,15 +23,27 @@ import {
         open
       </OkuPopoverTrigger>
       <OkuPopoverPortal>
-        <OkuPopoverContent class="contentClass" :side-offset="5">
-          <OkuPopoverClose class="closeClass">
-            close
-          </OkuPopoverClose>
-          <OkuPopoverArrow class="arrowClass" :width="20" :height="10" />
-        </OkuPopoverContent>
+        <Transition name="fade">
+          <OkuPopoverContent class="animatedContentClass" :side-offset="10">
+            <OkuPopoverClose class="closeClass">
+              close
+            </OkuPopoverClose>
+            <OkuPopoverArrow class="arrowClass" :width="20" :height="10" />
+          </OkuPopoverContent>
+        </Transition>
       </OkuPopoverPortal>
     </OkuPopover>
-
-    <input>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

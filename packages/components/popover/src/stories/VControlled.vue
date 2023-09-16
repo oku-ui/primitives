@@ -7,6 +7,9 @@ import {
   OkuPopoverPortal,
   OkuPopoverTrigger,
 } from '@oku-ui/popover'
+import { ref } from 'vue'
+
+const open = ref(false)
 </script>
 
 <template>
@@ -15,15 +18,15 @@ import {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      height: '200vh',
+      height: '50vh',
     }"
   >
-    <OkuPopover>
+    <OkuPopover v-model="open">
       <OkuPopoverTrigger class="triggerClass">
-        open
+        {{ open ? 'close' : 'open' }}
       </OkuPopoverTrigger>
       <OkuPopoverPortal>
-        <OkuPopoverContent class="contentClass" :side-offset="5">
+        <OkuPopoverContent class="contentClass">
           <OkuPopoverClose class="closeClass">
             close
           </OkuPopoverClose>
@@ -31,7 +34,5 @@ import {
         </OkuPopoverContent>
       </OkuPopoverPortal>
     </OkuPopover>
-
-    <input>
   </div>
 </template>

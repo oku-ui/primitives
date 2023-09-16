@@ -2,9 +2,17 @@
 import Boundary from './Boundary.vue'
 import Styled from './Styled.vue'
 import Modality from './Modality.vue'
+import Controlled from './Controlled.vue'
+import VControlled from './VControlled.vue'
+import Animated from './Animated.vue'
 
 export interface OkuPopoverProps {
-  template: 'Styled' | 'Boundary' | 'Modality'
+  template: 'Styled'
+  | 'Boundary'
+  | 'Modality'
+  | 'Controlled'
+  | 'VControlled'
+  | 'Animated'
   allshow?: boolean
 }
 
@@ -23,6 +31,15 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   </div>
   <div v-if="template === 'Modality' || allshow">
     <Modality />
+  </div>
+  <div v-if="template === 'Controlled' || allshow">
+    <Controlled />
+  </div>
+  <div v-if="template === 'VControlled' || allshow">
+    <VControlled />
+  </div>
+  <div v-if="template === 'Animated' || allshow">
+    <Animated />
   </div>
 </template>
 
@@ -63,16 +80,16 @@ withDefaults(defineProps<OkuPopoverProps>(), {
 }
 
 .animatedContentClass {
-   transform-origin: var(--oku-popover-content-transform-origin);
+  transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
   border-radius: 5px;
 
-  & [data-state='open'] {
-    animation: fadeIn 300ms ease-out;
+  &[data-state='open'] {
+    animation: fadeIn 3100ms ease-out;
   }
-  & [data-state='closed'] {
-    animation: fadeOut 300ms ease-in;
+  &[data-state='closed'] {
+    animation: fadeOut 3100ms ease-in;
   }
 }
 
