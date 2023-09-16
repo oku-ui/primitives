@@ -17,7 +17,7 @@ function handleChange(event: any) {
   <div :style="{ margin: '20px auto', width: 'max-content', textAlign: 'center' }">
     <form @change="handleChange">
       <label>
-        type:
+        type:{{ ' ' }}
         <select name="type">
           <option />
           <option>always</option>
@@ -27,13 +27,13 @@ function handleChange(event: any) {
         </select>
       </label>
       <label>
-        dir:
+        dir:{{ ' ' }}
         <select name="dir">
           <option />
           <option>ltr</option>
           <option>rtl</option>
         </select>
-      </label>
+      </label>{{ ' ' }}
       <label>
         scrollHideDelay: <input type="number" name="scrollHideDelay">
       </label>
