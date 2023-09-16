@@ -1,10 +1,11 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
+
 import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
-import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarElement } from './props'
 import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_X, scopedScrollAreaProps, scrollAreaScrollbarAxisProps, useScrollAreaInject } from './props'
+import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 
 const scrollAreaScrollbarX = defineComponent({
   name: SCROLL_AREA_SCROLLBAR_X,
@@ -43,7 +44,7 @@ const scrollAreaScrollbarX = defineComponent({
         'data-orientation': 'horizontal',
         ...mergeProps(attrs, reactiveScrollAreaScrollbarAxisProps),
         'ref': composeRefs,
-        sizes,
+        'sizes': sizes.value,
         'style': {
           bottom: 0,
           left: inject.dir.value === 'rtl' ? 'var(--oku-scroll-area-corner-width)' : 0,
