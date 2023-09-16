@@ -55,3 +55,18 @@ export const Boundary: Story = {
     `,
   }),
 }
+
+export const Modality: Story = {
+  args: {
+    template: 'Modality',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}

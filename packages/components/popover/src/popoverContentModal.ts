@@ -37,7 +37,7 @@ const popoverContentModal = defineComponent({
         ...mergeProps(attrs, props),
         ref: composedRefs,
         trapFocus: inject.open.value,
-        disableOutsidePointerEvents: inject.open.value,
+        disableOutsidePointerEvents: true,
         onCloseAutoFocus: composeEventHandlers<PopoverContentTypeEmits['closeAutoFocus'][0]>((el) => {
           emit('closeAutoFocus', el)
         }, (event) => {
