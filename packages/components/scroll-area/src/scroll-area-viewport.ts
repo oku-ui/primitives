@@ -28,11 +28,10 @@ const scrollAreaViewport = defineComponent({
 
     return () => h(Fragment,
       [
+        /* Hide scrollbars cross-browser and enable momentum scroll for touch devices */
         h('style',
           {
-            dangerouslySetInnerHTML: {
-              __html: '[data-oku-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-oku-scroll-area-viewport]::-webkit-scrollbar{display:none}',
-            },
+            innerHTML: '[data-oku-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-oku-scroll-area-viewport]::-webkit-scrollbar{display:none}',
           },
         ),
         h(Primitive.div,
