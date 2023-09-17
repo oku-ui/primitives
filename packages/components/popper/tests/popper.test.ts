@@ -60,8 +60,7 @@ describe('OkuPopper', () => {
         attachTo: document.body,
       })
 
-      const button = wrapper.find('[class="anchorClass"]')
-      button.trigger('click')
+      await wrapper.find('[class="anchorClass"]').trigger('click')
       await nextTick()
     })
 
@@ -95,8 +94,7 @@ describe('OkuPopper', () => {
         attachTo: document.body,
       })
 
-      const button = wrapper.find('[class="anchorClass"]')
-      button.trigger('click')
+      await wrapper.find('[class="anchorClass"]').trigger('click')
       await nextTick()
     })
 
@@ -130,8 +128,7 @@ describe('OkuPopper', () => {
       wrapper = mount(OneScroll, {
         attachTo: document.body,
       })
-      const button = wrapper.find('[class="anchorClass small"]')
-      button.trigger('click')
+      await wrapper.find('[class="anchorClass small"]').trigger('click')
     })
 
     /**
@@ -160,8 +157,8 @@ describe('OkuPopper', () => {
       wrapper = mount(Transition, {
         attachTo: document.body,
       })
-      const button = wrapper.find('[class="anchorClass"]')
-      button.trigger('click')
+      await wrapper.find('[class="anchorClass"]').trigger('click')
+
       await new Promise(resolve => setTimeout(resolve, 300))
       await nextTick()
     })
@@ -197,8 +194,7 @@ describe('OkuPopper', () => {
       wrapper = mount(WithCustomArrow, {
         attachTo: document.body,
       })
-      const button = wrapper.find('[class="anchorClass"]')
-      button.trigger('click')
+      await wrapper.find('[class="anchorClass"]').trigger('click')
     })
 
     /**
@@ -221,8 +217,7 @@ describe('OkuPopper', () => {
         attachTo: document.body,
       })
 
-      const button = wrapper.find('[class="anchorClass"]')
-      button.trigger('click')
+      await wrapper.find('[class="anchorClass"]').trigger('click')
     })
 
     /**
