@@ -5,10 +5,10 @@ import Copy from './Copy.vue'
 
 const props = ref({} as any)
 
-function handleChange(event: any) {
-  const formData = new FormData(event.currentTarget)
+function handleChange(event: Event) {
+  const formData = new FormData(event.currentTarget as HTMLFormElement)
   const entries = (formData as any).entries()
-  const cleanup = [...entries].map(([key, value]: any) => [key, value || undefined])
+  const cleanup = [...entries].map(([key, value]: any) => [key, key === 'scrollHideDelay' && value ? Number(value) : value || undefined])
   props.value = Object.fromEntries(cleanup)
 }
 </script>
