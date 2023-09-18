@@ -126,7 +126,8 @@ export interface ScrollAreaThumbProps extends ScrollAreaThumbImplProps {
 export const scrollAreaThumbProps = {
   props: {
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean,
+      default: true,
     },
   },
   emits: {},
@@ -430,7 +431,8 @@ export const scrollAreaScrollbarProps = {
   props: {
     ...scrollAreaScrollbarVisibleProps.props,
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean,
+      default: true,
     },
   },
   emits: {
@@ -453,7 +455,8 @@ export const scrollAreaScrollbarAutoProps = {
   props: {
     ...scrollAreaScrollbarVisibleProps.props,
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean,
+      default: true,
     },
   },
   emits: {
@@ -481,7 +484,8 @@ export const scrollAreaScrollbarScrollProps = {
   props: {
     ...scrollAreaScrollbarVisibleProps.props,
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean,
+      default: true,
     },
   },
   emits: {
@@ -510,7 +514,8 @@ export const scrollAreaScrollbarHoverProps = {
   props: {
     ...scrollAreaScrollbarAutoProps.props,
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean,
+      default: true,
     },
   },
   emits: {

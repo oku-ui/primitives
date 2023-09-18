@@ -64,17 +64,17 @@ const scrollAreaThumbImpl = defineComponent({
       }
     })
 
-    return h(Primitive.div,
+    return () => h(Primitive.div,
       {
-        ['data-state' as string]: scrollbarInject.hasThumb.value ? 'visible' : 'hidden',
+        'data-state': scrollbarInject.hasThumb.value ? 'visible' : 'hidden',
         ...mergeProps(attrs, reactiveScrollAreaThumbImplProps),
-        ref: composedRef,
-        style: {
+        'ref': composedRef,
+        'style': {
           width: 'var(--oku-scroll-area-thumb-width)',
           height: 'var(--oku-scroll-area-thumb-height)',
           ...style.value,
         },
-        onPointerdownCapture: composeEventHandlers<scrollAreaThumbImplEmits['pointerdownCapture'][0]>((event) => {
+        'onPointerdownCapture': composeEventHandlers<scrollAreaThumbImplEmits['pointerdownCapture'][0]>((event) => {
           emit('pointerdownCapture', event)
         }, (event) => {
           const thumb = event.target as HTMLElement
@@ -83,7 +83,7 @@ const scrollAreaThumbImpl = defineComponent({
           const y = event.clientY - thumbRect.top
           scrollbarInject.onThumbPointerDown({ x, y })
         }),
-        onPointerup: composeEventHandlers<scrollAreaThumbImplEmits['pointerup'][0]>((event) => {
+        'onPointerup': composeEventHandlers<scrollAreaThumbImplEmits['pointerup'][0]>((event) => {
           emit('pointerup', event)
         }, () => scrollbarInject.onThumbPointerUp()),
       }, slots,
