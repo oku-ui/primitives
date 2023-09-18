@@ -73,7 +73,7 @@ const scrollArea = defineComponent({
           // Pass corner sizes as CSS vars to reduce re-renders of context consumers
           ['--oku-scroll-area-corner-width' as any]: `${cornerWidth.value}px`,
           ['--oku-scroll-area-corner-height' as any]: `${cornerHeight.value}px`,
-          ...attrs.style as CSSStyleRule,
+          ...attrs.style as any,
         },
       },
       {

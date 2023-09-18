@@ -88,7 +88,7 @@ const scrollAreaScrollbarImpl = defineComponent({
       {
         ...mergeProps(attrs, reactiveScrollAreaScrollbarImplProps),
         ref: composeRefs,
-        style: { position: 'absolute', ...attrs.style as CSSRule },
+        style: { position: 'absolute', ...attrs.style as any },
         onPointerdown: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointerdown'][0]>((event) => {
           emit('pointerdown', event)
         }, (event) => {

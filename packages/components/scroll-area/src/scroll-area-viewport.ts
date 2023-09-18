@@ -53,7 +53,7 @@ const scrollAreaViewport = defineComponent({
                */
               overflowX: inject.scrollbarXEnabled.value ? 'scroll' : 'hidden',
               overflowY: inject.scrollbarYEnabled.value ? 'scroll' : 'hidden',
-              ...attrs.style as CSSStyleRule,
+              ...attrs.style as any,
             },
           },
           {
