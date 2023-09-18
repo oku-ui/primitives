@@ -7,9 +7,12 @@ import type { AccordionTriggerElement } from './accordionTrigger'
 import type { AccordionImplProps } from './accordionImpl'
 
 export const ACCORDION_KEYS = ['Home', 'End', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight']
+
 export type Direction = 'ltr' | 'rtl'
 export type SelectionType = 'single' | 'multiple'
+
 export const ACCORDION_NAME = 'OkuAccordion'
+export const ITEM_NAME = 'OkuAccordionItem'
 
 export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<AccordionTriggerElement>(ACCORDION_NAME)
 
@@ -26,8 +29,10 @@ export const [createAccordionProvider, createAccordionScope] = createProvideScop
   createCollapsibleScope,
 ])
 
+export const useCollapsibleScope = createCollapsibleScope()
+
 type AccordionValueProviderValue = {
-  value: Ref<string[] | string>
+  modelValue: Ref<string[] | string>
   onItemOpen(value: string): void
   onItemClose(value: string): void
 }
@@ -48,3 +53,15 @@ type AccordionImplContextValue = {
 export const [AccordionImplProvider, useAccordionInject] = createAccordionProvider<AccordionImplContextValue>(
   ACCORDION_NAME,
 )
+
+export function getState(open?: boolean) {
+  return open ? 'open' : 'closed'
+}
+
+type AccordionItemContextValue =
+{ open?: Ref<boolean>
+  disabled?: Ref<boolean | undefined>
+  triggerId: Ref<string>
+}
+export const [AccordionItemProvider, useAccordionItemInject]
+  = createAccordionProvider<AccordionItemContextValue>(ITEM_NAME)

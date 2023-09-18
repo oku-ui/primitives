@@ -29,6 +29,10 @@ export interface AccordionImplProps extends PrimitiveProps {
   dir?: RovingFocusGroupProps['dir']
 
 }
+export interface AccordionImplEmits {
+  valueChange: [value: string | string[]]
+  keydown: [event: KeyboardEvent]
+}
 export const accordionImplProps = {
   props: {
 

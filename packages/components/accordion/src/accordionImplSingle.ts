@@ -2,7 +2,8 @@ import { type OkuElement, primitiveProps } from '@oku-ui/primitive'
 import { type PropType, h, mergeProps } from 'vue'
 import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { useControllable, useForwardRef } from '@oku-ui/use-composable'
-import { type AccordionImplProps, OkuAccordionImpl } from './accordionImpl'
+import { OkuAccordionImpl, accordionImplProps } from './accordionImpl'
+import type { AccordionImplEmits, AccordionImplProps } from './accordionImpl'
 import { AccordionCollapsibleProvider, AccordionValueProvider, scopeAccordionProps } from './utils'
 
 const ACCORDION_IMPL_SINGLE_NAME = 'OkuAccordionImplSingle'
@@ -13,7 +14,7 @@ export interface AccordionImplSingleProps extends AccordionImplProps {
   /**
    * The controlled stateful value of the accordion item whose content is expanded.
    */
-  value?: string
+  modelValue?: string
   /**
    * The value of the item whose content is expanded when the accordion is initially rendered. Use
    * `defaultValue` if you do not need to control the state of an accordion.
@@ -26,7 +27,7 @@ export interface AccordionImplSingleProps extends AccordionImplProps {
    */
   collapsible?: boolean
 }
-export interface AccordionImplSingleEmits {
+export interface AccordionImplSingleEmits extends AccordionImplEmits {
   /**
    * The callback that fires when the state of the accordion changes.
    */
@@ -34,9 +35,9 @@ export interface AccordionImplSingleEmits {
   valueChange: [value: string]
 }
 
-export const accordionSingleProps = {
+export const accordionImplSingleProps = {
   props: {
-
+    ...accordionImplProps.props,
     modelValue: {
       type: [String, undefined] as PropType<string | undefined>,
       default: undefined,
@@ -51,6 +52,7 @@ export const accordionSingleProps = {
     },
   },
   emits: {
+    ...accordionImplProps.emits,
     /**
    * The callback that fires when the state of the accordion changes.
    */
@@ -63,10 +65,10 @@ const accordionImplSingle = defineComponent({
   inheritAttrs: false,
   props: {
     ...primitiveProps,
-    ...accordionSingleProps.props,
+    ...accordionImplSingleProps.props,
     ...scopeAccordionProps,
   },
-  emits: accordionSingleProps.emits,
+  emits: accordionImplSingleProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
       modelValue: valueProp,
@@ -90,7 +92,7 @@ const accordionImplSingle = defineComponent({
 
     AccordionValueProvider({
       scope: props.scopeOkuAccordion,
-      value: computed(() => state.value),
+      modelValue: computed(() => state.value),
       onItemOpen: (e) => {
         updateValue(e)
       },

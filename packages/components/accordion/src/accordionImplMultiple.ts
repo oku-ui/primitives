@@ -4,7 +4,8 @@ import type { OkuElement } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { useControllable } from '../../../core/use-composable/dist'
 import { AccordionCollapsibleProvider, AccordionValueProvider, scopeAccordionProps } from './utils'
-import { type AccordionImplProps, OkuAccordionImpl } from './accordionImpl'
+import { OkuAccordionImpl, accordionImplProps } from './accordionImpl'
+import type { AccordionImplEmits, AccordionImplProps } from './accordionImpl'
 
 const ACCORDION_IMPL_MULTIPLE_NAME = 'OkuAccordionImplMultiple'
 export type AccordionImplMultipleNativeElement = OkuElement<'div'>
@@ -22,15 +23,15 @@ export interface AccordionImplMultipleProps extends AccordionImplProps {
    */
   defaultValue?: string[]
 }
-export interface AccordionImplMultipleEmits {
+export interface AccordionImplMultipleEmits extends AccordionImplEmits {
   /**
    * The callback that fires when the state of the accordion changes.
    */
   valueChange: [value: string[]]
 }
-export const accordionMultipleProps = {
+export const accordionImplMultipleProps = {
   props: {
-
+    ...accordionImplProps.props,
     modelValue: {
       type: [Array, undefined] as PropType<string[] | undefined>,
       default: undefined,
@@ -41,6 +42,7 @@ export const accordionMultipleProps = {
     },
   },
   emits: {
+    ...accordionImplProps.emits,
     /**
    * The callback that fires when the state of the accordion changes.
    */
@@ -53,10 +55,10 @@ const accordionImplMultiple = defineComponent({
   inheritAttrs: false,
   props: {
     ...primitiveProps,
-    ...accordionMultipleProps.props,
+    ...accordionImplMultipleProps.props,
     ...scopeAccordionProps,
   },
-  emits: accordionMultipleProps.emits,
+  emits: accordionImplMultipleProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
       modelValue: valueProp,
@@ -88,7 +90,7 @@ const accordionImplMultiple = defineComponent({
 
     AccordionValueProvider({
       scope: props.scopeOkuAccordion,
-      value: computed(() => state.value),
+      modelValue: computed(() => state.value),
       onItemOpen: handleItemOpen,
       onItemClose: handleItemClose,
     })
