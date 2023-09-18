@@ -85,7 +85,7 @@ const scrollAreaThumbImpl = defineComponent({
         }),
         onPointerup: composeEventHandlers<scrollAreaThumbImplEmits['pointerup'][0]>((event) => {
           emit('pointerup', event)
-        }),
+        }, () => scrollbarInject.onThumbPointerUp()),
       }, slots,
     )
   },

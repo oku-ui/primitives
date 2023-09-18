@@ -78,7 +78,7 @@ const scrollAreaScrollbarImpl = defineComponent({
       scope: props.scopeOkuScrollArea,
       scrollbar,
       hasThumb,
-      onThumbChange: thumb => thumb,
+      onThumbChange: thumb => emit('thumbChange', thumb),
       onThumbPointerUp: () => emit('thumbPointerUp'),
       onThumbPositionChange: () => handleThumbPositionChange(),
       onThumbPointerDown: pointerPos => emit('thumbPointerDown', pointerPos),
