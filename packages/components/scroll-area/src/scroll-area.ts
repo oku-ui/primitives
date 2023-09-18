@@ -39,7 +39,7 @@ const scrollArea = defineComponent({
     const scrollbarYEnabled = ref<boolean>(false)
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, node => scrollArea.value = (node as ScrollAreaElement))
-    const direction = useDirection(dir.value)
+    const direction = useDirection(dir)
 
     scrollAreaProvider({
       scope: scopeOkuScrollArea.value,

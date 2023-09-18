@@ -1,7 +1,7 @@
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
-
+import type { Direction } from '@oku-ui/direction'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 
@@ -29,7 +29,6 @@ export const SCROLL_AREA_CORNER_IMPL_NAME = 'OkuScrollAreaCornerImpl'
  * ScrollArea - scroll-area.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type Direction = 'ltr' | 'rtl'
 export type Sizes = {
   content: number
   viewport: number
@@ -45,7 +44,7 @@ export type ScrollAreaElement = HTMLDivElement
 
 export type ScrollAreaProvideValue = {
   type: Ref<'auto' | 'always' | 'scroll' | 'hover'>
-  dir: Ref<Direction>
+  dir: Ref<Direction | undefined>
   scrollHideDelay: Ref<number>
   scrollArea: Ref<ScrollAreaElement | null>
   viewport: Ref<ScrollAreaViewportElement | null>
