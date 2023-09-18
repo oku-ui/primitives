@@ -8,6 +8,10 @@ import { OkuScrollAreaScrollbarAuto } from './scroll-area-scrollbar-auto'
 
 const scrollAreaScrollbarHover = defineComponent({
   name: SCROLL_AREA_SCROLLBAR_HOVER,
+  components: {
+    OkuPresence,
+    OkuScrollAreaScrollbarAuto,
+  },
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarHoverProps.props,

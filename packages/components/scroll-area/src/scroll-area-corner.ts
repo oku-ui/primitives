@@ -6,6 +6,9 @@ import { SCROLL_AREA_CORNER_NAME, scopedScrollAreaProps, scrollAreaCornerProps, 
 
 const scrollAreaCorner = defineComponent({
   name: SCROLL_AREA_CORNER_NAME,
+  components: {
+    OkuScrollAreaCornerImpl,
+  },
   inheritAttrs: false,
   props: {
     ...scrollAreaCornerProps.props,

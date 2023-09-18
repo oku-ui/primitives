@@ -9,6 +9,12 @@ import { SCROLL_AREA_NAME, SCROLL_AREA_SCROLLBAR_NAME, scopedScrollAreaProps, sc
 
 const scrollAreaScrollbar = defineComponent({
   name: SCROLL_AREA_SCROLLBAR_NAME,
+  components: {
+    OkuScrollAreaScrollbarHover,
+    OkuScrollAreaScrollbarScroll,
+    OkuScrollAreaScrollbarAuto,
+    OkuScrollAreaScrollbarVisible,
+  },
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarProps.props,

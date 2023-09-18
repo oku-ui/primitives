@@ -10,6 +10,10 @@ import { OkuScrollAreaScrollbarVisible } from './scroll-area-scrollbar-visible'
 
 const scrollAreaScrollbarScroll = defineComponent({
   name: SCROLL_AREA_SCROLLBAR_SCROLL_NAME,
+  components: {
+    OkuPresence,
+    OkuScrollAreaScrollbarVisible,
+  },
   inheritAttrs: false,
   props: {
     ...scrollAreaScrollbarScrollProps.props,
