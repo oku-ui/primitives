@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 
 import { OkuScrollAreaScrollbarY } from './scroll-area-scrollbar-axis-y'
@@ -38,7 +38,7 @@ const scrollAreaScrollbarVisible = defineComponent({
       viewport: 0,
       scrollbar: { size: 0, paddingStart: 0, paddingEnd: 0 },
     })
-    const thumbRatio = getThumbRatio(sizes.viewport, sizes.content)
+    const thumbRatio = computed(() => getThumbRatio(sizes.viewport, sizes.content))
 
     function getScrollPosition(pointerPos: number, dir?: Direction) {
       return getScrollPositionFromPointer(pointerPos, pointerOffsetRef.value, sizes, dir)
@@ -55,7 +55,7 @@ const scrollAreaScrollbarVisible = defineComponent({
               sizes.viewport = _sizes.viewport
               sizes.scrollbar = _sizes.scrollbar
             },
-            hasThumb: Boolean(thumbRatio > 0 && thumbRatio < 1),
+            hasThumb: computed(() => Boolean(thumbRatio.value > 0 && thumbRatio.value < 1)).value,
             onThumbChange: thumb => (thumbRef.value = thumb),
             onThumbPointerUp: () => (pointerOffsetRef.value = 0),
             onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
@@ -90,7 +90,7 @@ const scrollAreaScrollbarVisible = defineComponent({
               sizes.viewport = _sizes.viewport
               sizes.scrollbar = _sizes.scrollbar
             },
-            hasThumb: Boolean(thumbRatio > 0 && thumbRatio < 1),
+            hasThumb: computed(() => Boolean(thumbRatio.value > 0 && thumbRatio.value < 1)).value,
             onThumbChange: thumb => (thumbRef.value = thumb),
             onThumbPointerUp: () => (pointerOffsetRef.value = 0),
             onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
