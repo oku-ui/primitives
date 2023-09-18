@@ -5,7 +5,7 @@ import { OkuScrollAreaScrollbarScroll } from './scroll-area-scrollbar-scroll'
 import { OkuScrollAreaScrollbarAuto } from './scroll-area-scrollbar-auto'
 import { OkuScrollAreaScrollbarHover } from './scroll-area-scrollbar-hover'
 import type { ScrollAreaScrollbarNaviteElement } from './props'
-import { SCROLL_AREA_NAME, SCROLL_AREA_SCROLLBAR_NAME, scopedScrollAreaProps, scrollAreaScrollbarProps, useScrollAreaInject } from './props'
+import { SCROLL_AREA_SCROLLBAR_NAME, scopedScrollAreaProps, scrollAreaScrollbarProps, useScrollAreaInject } from './props'
 
 const scrollAreaScrollbar = defineComponent({
   name: SCROLL_AREA_SCROLLBAR_NAME,
@@ -32,7 +32,7 @@ const scrollAreaScrollbar = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLL_AREA_NAME, props.scopeOkuScrollArea)
+    const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const { onScrollbarXEnabledChange, onScrollbarYEnabledChange } = inject
     const isHorizontal = computed(() => _reactive.orientation === 'horizontal')
 

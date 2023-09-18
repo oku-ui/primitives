@@ -3,7 +3,7 @@ import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { useResizeObserver } from './utils'
 import type { ScrollAreaCornerImplNaviteElement } from './props'
-import { SCROLL_AREA_CORNER_IMPL_NAME, scopedScrollAreaProps, scrollAreaCornerImplProps, useScrollAreaInject } from './props'
+import { SCROLL_AREA_CORNER_IMPL_NAME, SCROLL_AREA_CORNER_NAME, scopedScrollAreaProps, scrollAreaCornerImplProps, useScrollAreaInject } from './props'
 
 const scrollAreaCornerImpl = defineComponent({
   name: SCROLL_AREA_CORNER_IMPL_NAME,
@@ -24,7 +24,7 @@ const scrollAreaCornerImpl = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    const inject = useScrollAreaInject(SCROLL_AREA_CORNER_IMPL_NAME, scopeOkuScrollArea.value)
+    const inject = useScrollAreaInject(SCROLL_AREA_CORNER_NAME, scopeOkuScrollArea.value)
     const width = ref<number>(0)
     const height = ref<number>(0)
     const hasSize = computed(() => Boolean(width.value && height.value))
@@ -52,8 +52,8 @@ const scrollAreaCornerImpl = defineComponent({
             position: 'absolute',
             right: inject.dir.value === 'ltr' ? '0px' : undefined,
             left: inject.dir.value === 'rtl' ? '0px' : undefined,
-            bottom: 0,
-            ...attrs.style as CSSStyleRule,
+            bottom: '0px',
+            ...attrs.style as any,
           },
         }, slots,
       )
