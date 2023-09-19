@@ -11,7 +11,6 @@ const alertDialogPortal = defineComponent({
     ...alertDialogPortalProps.props,
     ...scopeAlertDialogProps,
   },
-  emits: alertDialogPortalProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuAlertDialog, ...portalProps } = toRefs(props)
     const _reactive = reactive(portalProps)

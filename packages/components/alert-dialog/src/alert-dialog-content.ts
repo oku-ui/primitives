@@ -43,32 +43,14 @@ const alertDialogContent = defineComponent({
       ...dialogScope,
       ...mergeProps(attrs, reactiveContentProps),
       ref: composedRefs,
-      onOpenAutoFocus: composeEventHandlers<DialogContentModalEmits['openAutoFocus'][0]>((el) => {
+      onOpenAutoFocus: composeEventHandlers<DialogContentModalEmits['openAutoFocus'][0]>((event) => {
+        event.preventDefault()
+      }, (el) => {
         el.preventDefault()
         cancelRef.value?.focus({ preventScroll: true })
-        emit('openAutoFocus', el)
-      }, (event) => {
-        event.preventDefault()
       }),
-      onCloseAutoFocus: composeEventHandlers<DialogContentModalEmits['closeAutoFocus'][0]>((el) => {
-        emit('closeAutoFocus', el)
-      }, (event) => {
-        event.preventDefault()
-      }),
-      onInteractOutside: (event) => {
-        event.preventDefault()
-        emit('interactOutside', event)
-      },
-      onEscapeKeyDown: (event) => {
-        emit('escapeKeyDown', event)
-      },
-      onPointerdownOutside: (event) => {
-        event.preventDefault()
-        emit('pointerdownOutside', event)
-      },
-      onFocusoutSide: (event) => {
-        emit('focusoutSide', event)
-      },
+      onInteractOutside: event => event.preventDefault(),
+      onPointerdownOutside: event => event.preventDefault(),
     },
     {
       /**

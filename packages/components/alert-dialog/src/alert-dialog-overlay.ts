@@ -11,7 +11,6 @@ const alertDialogOverlay = defineComponent({
     ...alertDialogOverlayProps.props,
     ...scopeAlertDialogProps,
   },
-  emits: alertDialogOverlayProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuAlertDialog, ...overlayProps } = toRefs(props)
     const _reactive = reactive(overlayProps)

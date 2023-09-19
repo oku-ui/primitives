@@ -8,7 +8,6 @@ const alertDialogDescriptionWarning = defineComponent({
   props: {
     ...dialogDescriptionWarningProps.props,
   },
-  emits: dialogDescriptionWarningProps.emits,
   setup(props, { attrs: _attrs }) {
     const { contentRef } = toRefs(props)
 

@@ -14,7 +14,6 @@ const alertDialog = defineComponent({
     ...alertDialogProps.props,
     ...scopeAlertDialogProps,
   },
-  emits: alertDialogProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuAlertDialog, ...alertDialogProps } = toRefs(props)
     const _reactive = reactive(alertDialogProps)
@@ -25,10 +24,7 @@ const alertDialog = defineComponent({
       ...useDialogScope,
       ...mergeProps(attrs, reactiveAlertDialogProps),
       modal: true,
-    },
-    {
-      default: () => slots.default?.(),
-    })
+    }, slots)
   },
 })
 

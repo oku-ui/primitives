@@ -11,7 +11,6 @@ const alertDialogTrigger = defineComponent({
     ...alertDialogTriggerProps.props,
     ...scopeAlertDialogProps,
   },
-  emits: alertDialogTriggerProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuAlertDialog, ...triggerProps } = toRefs(props)
     const _reactive = reactive(triggerProps)

@@ -13,7 +13,6 @@ const alertDialogCancel = defineComponent({
     ...alertDialogCancelProps.props,
     ...scopeAlertDialogProps,
   },
-  emits: alertDialogCancelProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuAlertDialog, ...cancelProps } = toRefs(props)
     const _reactive = reactive(cancelProps)

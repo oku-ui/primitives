@@ -11,7 +11,6 @@ const alertDialogDescription = defineComponent({
     ...alertDialogDescriptionProps.props,
     ...scopeAlertDialogProps,
   },
-  emits: alertDialogDescriptionProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuAlertDialog, ...descriptionProps } = toRefs(props)
     const _reactive = reactive(descriptionProps)
