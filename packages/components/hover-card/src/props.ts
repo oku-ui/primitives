@@ -10,7 +10,7 @@ import type { PortalProps as OkuPortalProps, PortalElement, PortalElementNaviteE
 import { type DismissableLayerEmits, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { createHoverCardProvide } from './utils'
 
-export type ScopePopper<T> = T & { scopeOkuPopper?: Scope }
+export type ScopeHoverCard<T> = T & { scopeOkuHoverCard?: Scope }
 
 export const scopeHoverCardProps = {
   scopeOkuHoverCard: {
@@ -22,7 +22,7 @@ export const scopeHoverCardProps = {
 /*                            OkuHoverCard - hoverCard.ts                     */
 /* -------------------------------------------------------------------------- */
 
-export const HOVERCARD_NAME = 'OkuPopper'
+export const HOVERCARD_NAME = 'OkuHoverCard'
 
 export const [createHoverCardProvider, createHoverCardScope] = createProvideScope(HOVERCARD_NAME, [
   createPopperScope,
