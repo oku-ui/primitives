@@ -46,7 +46,7 @@ const dialogContentModal = defineComponent({
     onBeforeUnmount(() => {
       const content = contentRef.value
       if (content)
-        return hideOthers(content)
+        hideOthers(content)
     })
 
     return () => h(OkuDialogContentImpl, {
