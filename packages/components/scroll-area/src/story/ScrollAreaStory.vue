@@ -61,11 +61,11 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
     </OkuScrollAreaViewport>
 
     <OkuScrollAreaScrollbar v-if="vertical" class="scrollbar" orientation="vertical">
-      <OkuScrollAreaThumb :class="animated ? 'animated-thumb' : 'thumb'" />
+      <OkuScrollAreaThumb class="thumb" :class="{ 'animated-thumb': animated }" />
     </OkuScrollAreaScrollbar>
 
     <OkuScrollAreaScrollbar v-if="horizontal" class="scrollbar" orientation="horizontal">
-      <OkuScrollAreaThumb :class="animated ? 'animated-thumb' : 'thumb'" />
+      <OkuScrollAreaThumb class="thumb" :class="{ 'animated-thumb': animated }" />
     </OkuScrollAreaScrollbar>
 
     <OkuScrollAreaCorner class="corner" />
@@ -142,7 +142,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   border-radius: v-bind(SCROLLBAR_SIZE);
 }
 
-@keyframes fadeIn {
+@keyframes thumbFadeIn {
   from {
     transform: scale(0.2);
     opacity: 0;
@@ -154,7 +154,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   }
 }
 
-@keyframes fadeOut {
+@keyframes thumbFadeOut {
   from {
     transform: scale(1);
     opacity: 1;
@@ -167,10 +167,10 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
 }
 
 .animated-thumb[data-state="visible"] {
-  animation: fadeIn 300ms ease;
+  animation: thumbFadeIn 300ms ease;
 }
 
 .animated-thumb[data-state="hidden"] {
-  animation: fadeOut 300ms ease;
+  animation: thumbFadeOut 300ms ease;
 }
 </style>
