@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OkuPopper > Animated > document.body has correct html 1`] = `"<div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"><div style=\\"display: flex; align-items: center; justify-content: center; height: 200vh;\\" container=\\"[object HTMLBodyElement]\\"><div class=\\"anchorClass\\"> open </div><!--teleport start--><!--teleport end--></div></div><div data-oku-popper-content-wrapper=\\"\\" style=\\"position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;\\"><div data-side=\\"bottom\\" data-align=\\"center\\" class=\\"animatedContentClass\\" style=\\"animation: none;\\"><button> close </button><span style=\\"position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;\\"><svg class=\\"arrowClass\\" offset=\\"25\\" style=\\"display: block;\\" width=\\"20\\" height=\\"10\\" viewBox=\\"0 0 30 10\\" preserveAspectRatio=\\"none\\"><polygon points=\\"0,0 30,0 15,10\\"></polygon></svg></span></div></div>"`;
+
+exports[`OkuPopper > Animated > renders correctly 1`] = `
+"<div style=\\"display: flex; align-items: center; justify-content: center; height: 200vh;\\" container=\\"[object HTMLBodyElement]\\">
+  <div class=\\"anchorClass\\"> open </div>
+  <!--teleport start-->
+  <!--teleport end-->
+</div>"
+`;
+
+exports[`OkuPopper > Animated > should be able to close 1`] = `"<div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"><div style=\\"display: flex; align-items: center; justify-content: center; height: 200vh;\\" container=\\"[object HTMLBodyElement]\\"><div class=\\"anchorClass\\"> open </div><!--v-if--></div></div>"`;
+
+exports[`OkuPopper > OneScroll > renders correctly 1`] = `"<div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"><div style=\\"display: flex; gap: 100px;\\"><div><h1>In scrolling container</h1><div style=\\"width: 400px; height: 600px; overflow: auto; border: 1px solid black;\\"><div style=\\"height: 2000px;\\"><div class=\\"anchorClass small\\"> 9 </div><div data-oku-popper-content-wrapper=\\"\\" style=\\"position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;\\"><div data-side=\\"bottom\\" data-align=\\"center\\" class=\\"contentClass small\\" style=\\"animation: none;\\"><span style=\\"position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;\\"><svg class=\\"arrowClass\\" style=\\"display: block;\\" width=\\"10\\" height=\\"5\\" viewBox=\\"0 0 30 10\\" preserveAspectRatio=\\"none\\"><polygon points=\\"0,0 30,0 15,10\\"></polygon></svg></span> 9 </div></div></div></div></div></div></div>"`;
+
+exports[`OkuPopper > OneScroll > should be able to close 1`] = `"<div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"><div style=\\"display: flex; gap: 100px;\\"><div><h1>In scrolling container</h1><div style=\\"width: 400px; height: 600px; overflow: auto; border: 1px solid black;\\"><div style=\\"height: 2000px;\\"><div class=\\"anchorClass small\\"> 9 </div><div data-oku-popper-content-wrapper=\\"\\" style=\\"position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;\\"><div data-side=\\"bottom\\" data-align=\\"center\\" class=\\"contentClass small\\" style=\\"animation: none;\\"><span style=\\"position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;\\"><svg class=\\"arrowClass\\" style=\\"display: block;\\" width=\\"10\\" height=\\"5\\" viewBox=\\"0 0 30 10\\" preserveAspectRatio=\\"none\\"><polygon points=\\"0,0 30,0 15,10\\"></polygon></svg></span> 9 </div></div></div></div></div></div></div>"`;
+
+exports[`OkuPopper > StyledVue > renders correctly 1`] = `
+"<div style=\\"display: flex; align-items: center; justify-content: center; height: 200vh;\\">
+  <div class=\\"anchorClass\\"> open </div>
+  <div data-oku-popper-content-wrapper=\\"\\" style=\\"position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;\\">
+    <div data-side=\\"bottom\\" data-align=\\"center\\" class=\\"contentClass\\" style=\\"animation: none;\\"><button> close </button><span style=\\"position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;\\"><svg class=\\"arrowClass\\" style=\\"display: block;\\" width=\\"20\\" height=\\"10\\" viewBox=\\"0 0 30 10\\" preserveAspectRatio=\\"none\\"><polygon points=\\"0,0 30,0 15,10\\"></polygon></svg></span></div>
+  </div>
+</div>"
+`;
+
+exports[`OkuPopper > StyledVue > should be able to close 1`] = `
+"<div style=\\"display: flex; align-items: center; justify-content: center; height: 200vh;\\">
+  <div class=\\"anchorClass\\"> open </div>
+  <!--v-if-->
+</div>"
+`;
+
+exports[`OkuPopper > Transition > renders correctly 1`] = `
+"<div data-v-21f44795=\\"\\" class=\\"anchorClass\\"> Open </div>
+<!--teleport start-->
+<!--teleport end-->"
+`;
+
+exports[`OkuPopper > Transition > renders correctly 2`] = `"<div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"><div data-v-21f44795=\\"\\" class=\\"anchorClass\\"> Open </div><!--teleport start--><!--teleport end--></div><transition-stub data-v-21f44795=\\"\\" name=\\"fade\\" appear=\\"false\\" persisted=\\"true\\" css=\\"true\\"><div data-v-21f44795=\\"\\" data-oku-popper-content-wrapper=\\"\\" style=\\"position: fixed; left: 0px; top: 0px; transform: translate(5px, 0px); min-width: max-content; --oku-popper-transform-origin: 0px 0px; --oku-popper-available-width: -5px; --oku-popper-available-height: 0px; --oku-popper-anchor-width: 0px; --oku-popper-anchor-height: 0px;\\"><div data-side=\\"right\\" data-align=\\"start\\" class=\\"animatedContentClass\\" style=\\"\\"><button data-v-21f44795=\\"\\"> close </button><span data-v-21f44795=\\"\\" style=\\"position: absolute; left: 0px; transform-origin: 0 0; transform: translateY(50%) rotate(90deg) translateX(-50%);\\"><svg class=\\"arrowClass\\" offset=\\"25\\" style=\\"display: block;\\" width=\\"20\\" height=\\"10\\" viewBox=\\"0 0 30 10\\" preserveAspectRatio=\\"none\\"><polygon points=\\"0,0 30,0 15,10\\"></polygon></svg></span></div></div></transition-stub>"`;
+
+exports[`OkuPopper > Transition > should be able to close 1`] = `"<div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"></div><div data-v-app=\\"\\"><div data-v-21f44795=\\"\\" class=\\"anchorClass\\"> Open </div><!--teleport start--><!--teleport end--></div><transition-stub data-v-21f44795=\\"\\" name=\\"fade\\" appear=\\"false\\" persisted=\\"true\\" css=\\"true\\"><div data-v-21f44795=\\"\\" data-oku-popper-content-wrapper=\\"\\" style=\\"position: fixed; left: 0px; top: 0px; transform: translate(5px, 0px); min-width: max-content; --oku-popper-transform-origin: 0px 0px; --oku-popper-available-width: -5px; --oku-popper-available-height: 0px; --oku-popper-anchor-width: 0px; --oku-popper-anchor-height: 0px; display: none;\\"><div data-side=\\"right\\" data-align=\\"start\\" class=\\"animatedContentClass\\" style=\\"\\"><button data-v-21f44795=\\"\\"> close </button><span data-v-21f44795=\\"\\" style=\\"position: absolute; left: 0px; transform-origin: 0 0; transform: translateY(50%) rotate(90deg) translateX(-50%);\\"><svg class=\\"arrowClass\\" offset=\\"25\\" style=\\"display: block;\\" width=\\"20\\" height=\\"10\\" viewBox=\\"0 0 30 10\\" preserveAspectRatio=\\"none\\"><polygon points=\\"0,0 30,0 15,10\\"></polygon></svg></span></div></div></transition-stub>"`;
+
+exports[`OkuPopper > WithCustomArrow > renders correctly 1`] = `
+"<div style=\\"display: flex; align-items: center; justify-content: center; height: 200vh;\\">
+  <div class=\\"anchorClass\\"> open </div>
+  <div data-oku-popper-content-wrapper=\\"\\" style=\\"position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;\\">
+    <div data-side=\\"right\\" data-align=\\"center\\" class=\\"contentClass\\" style=\\"animation: none;\\"><button> close </button><span style=\\"position: absolute; left: 0px; transform-origin: 0 0; transform: translateY(50%) rotate(90deg) translateX(-50%); visibility: hidden;\\"><div style=\\"display: block; width: 20px; height: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; background-color: tomato;\\" width=\\"10\\" height=\\"5\\" offset=\\"20\\" viewbox=\\"0 0 30 10\\" preserveaspectratio=\\"none\\"></div></span></div>
+  </div>
+</div>"
+`;
+
+exports[`OkuPopper > WithPortal > renders correctly 1`] = `
+"<div style=\\"display: flex; align-items: center; justify-content: center; height: 200vh;\\">
+  <div class=\\"anchorClass\\"> open </div>
+  <!--teleport start-->
+  <!--teleport end-->
+</div>"
+`;

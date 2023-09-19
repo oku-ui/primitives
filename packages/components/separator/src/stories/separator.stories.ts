@@ -12,7 +12,7 @@ const meta = {
   args: {
     template: '#1',
   },
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof OkuSeparatorComponent> & {
   args: StoryProps
 }

@@ -34,6 +34,9 @@ const OkuSlot = defineComponent({
         })
       }
       else if (defaultSlot) {
+        if (defaultSlot.length > 1)
+          console.error(`OkuSlot can only contain a single child, but found ${defaultSlot.length} children. Please use a single wrapper element.`)
+
         const [child] = defaultSlot
         const slot = cloneVNode(child, { ...mergeProps(attrs, props), ref: composedRefs }, true)
 

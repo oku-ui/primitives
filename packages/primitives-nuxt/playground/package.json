@@ -1,0 +1,19 @@
+{
+  "name": "my-module-playground",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi generate"
+  },
+  "dependencies": {
+    "@oku-ui/aspect-ratio": "workspace:^",
+    "@oku-ui/avatar": "workspace:^",
+    "@oku-ui/checkbox": "workspace:^",
+    "@oku-ui/primitives": "workspace:^"
+  },
+  "devDependencies": {
+    "nuxt": "latest"
+  }
+}

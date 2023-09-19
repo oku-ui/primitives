@@ -129,7 +129,7 @@ const tabs = defineComponent({
     const _reactive = reactive(tabsProps)
     const reactiveTabsProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const direction = useDirection(dir.value)
+    const direction = useDirection(dir)
 
     const forwardedRef = useForwardRef()
 

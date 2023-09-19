@@ -1,18 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-  .sb-show-main.sb-main-padded.dark {
+.sb-show-main.sb-main-padded.dark {
     background-color: #ffffff !important;
-  }
+}
 
-
-
-  .sb-show-main.sb-main-padded.dark {
+.sb-show-main.sb-main-padded.dark {
     background-color: #333 !important;
-  }
+}
 
-body {
-  @apply dark:text-white
+
+.dark body {
+  text-color: #fff;
 }

@@ -8,7 +8,7 @@ interface StoryProps extends IToastProps { }
 const meta = {
   title: 'Components/Toast',
   component: OkuToastComponent,
-  tags: ['autodocs'],
+
   args: {
     template: 'Styled',
   },
@@ -51,20 +51,20 @@ export const Controlled: Story = {
   }),
 }
 
-// export const FromDialog: Story = {
-//   args: {
-//     template: 'FromDialog',
-//   },
-//   render: (args: any) => ({
-//     components: { OkuToastComponent },
-//     setup() {
-//       return { args }
-//     },
-//     template: `
-//       <OkuToastComponent v-bind="args" />
-//     `,
-//   }),
-// }
+export const FromDialog: Story = {
+  args: {
+    template: 'FromDialog',
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
 
 export const Promise: Story = {
   args: {

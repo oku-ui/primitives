@@ -1,7 +1,7 @@
-import { computed, defineComponent, inject, provide, toRefs } from 'vue'
-import type { InjectionKey, PropType, Ref } from 'vue'
+import { computed, defineComponent, inject, provide, toRefs, unref } from 'vue'
+import type { InjectionKey, MaybeRef, PropType, Ref } from 'vue'
 
-type Direction = 'ltr' | 'rtl'
+export type Direction = 'ltr' | 'rtl'
 const DirectionContextSymbol = Symbol('OkuDirectionProvider') as InjectionKey<Ref<Direction>>
 
 export interface DirectionProviderProps {
@@ -32,9 +32,9 @@ const DirectionProvider = defineComponent({
 
 /* ----------------------------------------------------------------------------------------------- */
 
-export function useDirection(localDir?: Direction) {
+export function useDirection(localDir?: MaybeRef<Direction | undefined>) {
   const globalDir = inject(DirectionContextSymbol, null)
-  return computed(() => localDir ?? globalDir?.value ?? 'ltr')
+  return computed(() => unref(localDir) ?? globalDir?.value ?? 'ltr')
 }
 
 export const OkuDirectionProvider = DirectionProvider
