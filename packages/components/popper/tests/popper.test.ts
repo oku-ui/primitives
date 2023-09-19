@@ -77,7 +77,7 @@ describe('OkuPopper', () => {
 
     it('should be able to close', async () => {
       const button = wrapper.find('button')
-      button.trigger('click')
+      await button.trigger('click')
       await nextTick()
       expect(wrapper.html()).toMatchSnapshot()
     })

@@ -15,6 +15,7 @@ overrides:
   '@oku-ui/direction': workspace:^
   '@oku-ui/dismissable-layer': workspace:^
   '@oku-ui/focus-guards': workspace:^
+  '@oku-ui/alert-dialog': workspace:^
   '@oku-ui/focus-scope': workspace:^
   '@oku-ui/hover-card': workspace:^
   '@oku-ui/label': workspace:^
@@ -54,6 +55,9 @@ importers:
       '@iconify-json/ph':
         specifier: ^1.1.6
         version: 1.1.6
+      '@oku-ui/alert-dialog':
+        specifier: workspace:^
+        version: link:packages/components/alert-dialog
       '@oku-ui/arrow':
         specifier: workspace:^
         version: link:packages/components/arrow
@@ -288,6 +292,37 @@ importers:
       vue:
         specifier: 3.3.4
         version: 3.3.4
+
+  packages/components/alert-dialog:
+    dependencies:
+      '@oku-ui/dialog':
+        specifier: workspace:^
+        version: link:../dialog
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      '@types/node':
+        specifier: ^18.17.12
+        version: 18.17.17
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
 
   packages/components/arrow:
     dependencies:
