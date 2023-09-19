@@ -10,7 +10,7 @@ interface StoryProps extends IFocusScopeProps {
 const meta = {
   title: 'Utilities/FocusScope',
   component: FocusScopeDemoComponent,
-  tags: ['autodocs'],
+
   args: {
     template: '#1',
   },
