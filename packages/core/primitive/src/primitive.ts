@@ -27,13 +27,11 @@ const Primitive = NODES.reduce((primitive, node) => {
       onMounted(() => {
         (window as any)[Symbol.for('oku-ui')] = true
       })
-
       const Tag: any = asChild.value ? OkuSlot : node
+
       return () => {
         const mergedProps = mergeProps(attrs, primitiveProps)
-        return createVNode(Tag, { ...mergedProps, ref: composedRefs }, {
-          default: () => slots.default?.(),
-        })
+        return createVNode(Tag, { ...mergedProps, ref: composedRefs }, slots)
       }
     },
   })

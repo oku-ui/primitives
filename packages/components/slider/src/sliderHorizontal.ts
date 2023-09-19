@@ -122,7 +122,7 @@ const sliderHorizontal = defineComponent({
 
     const rectRef = ref<ClientRect>()
 
-    const direction = useDirection(dir.value)
+    const direction = useDirection(dir)
     const isDirectionLTR = computed(() => direction.value === 'ltr')
     const isSlidingFromLeft = computed(() => (isDirectionLTR.value && !inverted.value) || (!isDirectionLTR.value && inverted.value))
 

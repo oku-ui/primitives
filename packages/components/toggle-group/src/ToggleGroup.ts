@@ -112,7 +112,6 @@ const toggleGroup = defineComponent({
     ...scopeToggleGroupProps,
     ...primitiveProps,
   },
-  emits: toggleGroupProps.emits,
   setup(props, { slots, attrs }) {
     const { type, ...toggleGroupProps } = toRefs(props)
     const _reactive = reactive(toggleGroupProps)

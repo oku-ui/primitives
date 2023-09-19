@@ -1,35 +1,8 @@
-import type { PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-
-import type {
-  OkuElement,
-  PrimitiveProps,
-} from '@oku-ui/primitive'
-import type { Measurable } from '@oku-ui/utils'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { usePopperInject } from './popper'
-import { scopePopperProps } from './utils'
-
-const ANCHOR_NAME = 'OkuPopperAnchor'
-
-export type PopperAnchorNaviteElement = OkuElement<'div'>
-export type PopperAnchorElement = HTMLDivElement
-
-export interface PopperAnchorProps extends PrimitiveProps {
-  virtualRef?: Ref<Measurable | null>
-}
-
-export const popperAnchorProps = {
-  props: {
-    virtualRef: {
-      type: Object as unknown as PropType<Measurable | null>,
-      required: false,
-      default: undefined,
-    },
-  },
-  emits: {},
-}
+import type { PopperAnchorNaviteElement } from './props'
+import { ANCHOR_NAME, popperAnchorProps, scopePopperProps, usePopperInject } from './props'
 
 const popperAnchor = defineComponent({
   name: ANCHOR_NAME,
@@ -37,7 +10,6 @@ const popperAnchor = defineComponent({
   props: {
     ...popperAnchorProps.props,
     ...scopePopperProps,
-    ...primitiveProps,
   },
   setup(props, { attrs, slots }) {
     const { virtualRef, scopeOkuPopper, ...anchorProps } = toRefs(props)
@@ -48,7 +20,7 @@ const popperAnchor = defineComponent({
 
     const _ref = ref<HTMLDivElement | null>(null)
     const forwardedRef = useForwardRef()
-    const composedRefs = useComposedRefs(_ref, forwardedRef)
+    const composedRefs = useComposedRefs(forwardedRef, _ref)
 
     watchEffect(() => {
       // Consumer can anchor the popper to something that isn't
@@ -57,7 +29,7 @@ const popperAnchor = defineComponent({
       inject.onAnchorChange(virtualRef?.value || _ref.value)
     })
 
-    const originalReturn = () =>
+    return () =>
       virtualRef.value
         ? null
         : h(
@@ -66,8 +38,6 @@ const popperAnchor = defineComponent({
             ...mergeProps(reactiveAnchorProps, attrs),
             ref: composedRefs,
           }, slots)
-
-    return originalReturn
   },
 })
 

@@ -75,7 +75,7 @@ const toolbar = defineComponent({
     const reactiveToolbarProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuToolbar.value)
-    const direction = useDirection(dir.value)
+    const direction = useDirection(dir)
 
     const forwardedRef = useForwardRef()
 

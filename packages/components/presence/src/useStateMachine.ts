@@ -21,7 +21,6 @@ export function useStateMachine<M>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     const nextState = machine[state.value][event]
-
     return nextState ?? state.value
   }
 

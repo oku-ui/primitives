@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/dialog",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.4.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -51,7 +51,6 @@
     "aria-hidden": "^1.1.1"
   },
   "devDependencies": {
-
     "tsconfig": "workspace:^"
   },
   "publishConfig": {

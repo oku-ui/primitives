@@ -1,91 +1,127 @@
 <script setup lang="ts">
-import {
-  OkuPopper,
-  OkuPopperAnchor,
-  OkuPopperArrow,
-  OkuPopperContent,
-} from '@oku-ui/popper'
+import Animated from './Animated.vue'
+import Styled from './Styled.vue'
+import WithCustomArrow from './WithCustomArrow.vue'
+import WithPortal from './WithPortal.vue'
+import WithUpdatePositionStrategyAlways from './WithUpdatePositionStrategyAlways.vue'
+import Chromatic from './Chromatic.vue'
+import OneScroll from './OneScroll.vue'
+import TransitionVue from './Transition.vue'
 
-import { ref } from 'vue'
-
-export interface IPopperProps {
-  template?: '#1' | '#2' | '#3'
+export interface Props {
+  template?: 'Styled' | 'WithCustomArrow' | 'Animated' | 'WithPortal' | 'WithUpdatePositionStrategyAlways' | 'Chromatic' | 'OneScroll' | 'Transition'
   allshow?: boolean
 }
 
-withDefaults(defineProps<IPopperProps>(), {})
-
-const pressed = ref(false)
-function setPressed(value: boolean) {
-  pressed.value = value
-}
-
-// TODO: more example adds
+withDefaults(defineProps<Props>(), {
+  template: 'Styled',
+  allshow: false,
+})
 </script>
 
 <template>
   <div
-    v-if="template === '#1'"
-    class="h-[200vh] flex justify-center items-center"
+    v-if="template === 'Styled' || allshow"
   >
-    <OkuPopper>
-      <OkuPopperAnchor class="h-10 w-10 flex items-center">
-        <button class="bg-blue-500" @click="setPressed(!pressed)">
-          Toggle
-        </button>
-      </OkuPopperAnchor>
-      <Teleport to="body">
-        <Transition name="fade">
-          <OkuPopperContent
-            v-show="pressed"
-            :side-offset="15"
-            side="top"
-            align="start"
-          >
-            <button class="bg-blue-500" @click="setPressed(!pressed)">
-              close
-            </button>
-            <OkuPopperArrow
-              class="fill-red-500"
-              :width="12"
-              :height="12"
-              offset="0"
-            />
-          </OkuPopperContent>
-        </Transition>
-      </Teleport>
-    </OkuPopper>
+    <Styled />
   </div>
 
-  <div v-if="template === '#2'" class="flex justify-center items-center">
-    <OkuPopper>
-      <OkuPopperAnchor class="h-10 w-10 flex items-center">
-        <button class="bg-blue-500" @click="setPressed(!pressed)">
-          Toggle
-        </button>
-      </OkuPopperAnchor>
-      <Teleport to="body">
-        <Transition name="fade">
-          <OkuPopperContent
-            v-show="pressed"
-            :side-offset="5"
-            side="right"
-            align="start"
-          >
-            <button @click="setPressed(!pressed)">
-              close
-            </button>
-            <OkuPopperArrow as-child class="bg-gray-200" offset="20">
-              <div class="w-20 h-5 rounded-bl-xl rounded-br-xl bg-red-500" />
-            </OkuPopperArrow>
-          </OkuPopperContent>
-        </Transition>
-      </Teleport>
-    </OkuPopper>
+  <div
+    v-if="template === 'WithCustomArrow' || allshow"
+  >
+    <WithCustomArrow />
+  </div>
+
+  <div
+    v-if="template === 'Animated' || allshow"
+  >
+    <Animated />
+  </div>
+
+  <div
+    v-if="template === 'WithPortal' || allshow"
+  >
+    <WithPortal />
+  </div>
+
+  <div
+    v-if="template === 'WithUpdatePositionStrategyAlways' || allshow"
+  >
+    <WithUpdatePositionStrategyAlways />
+  </div>
+
+  <div
+    v-if="template === 'Chromatic' || allshow"
+  >
+    <Chromatic />
+  </div>
+
+  <div
+    v-if="template === 'OneScroll' || allshow"
+  >
+    <OneScroll />
+  </div>
+
+  <div
+    v-if="template === 'Transition' || allshow"
+  >
+    <TransitionVue />
   </div>
 </template>
 
-<style lang="postcss">
+<style>
+.contentClass {
+  transform-origin: var(--oku-popper-transform-origin);
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
+  width: 300px;
+  height: 150px;
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
+
+  &.small {
+    width: 100px;
+    height: 50px;
+  }
+
+  &.large {
+    width: 300px;
+    height: 150px;
+  }
+
+  &.default {
+    width: 300px;
+    height: 150px;
+  }
+}
+
+.anchorClass {
+  background-color: hotpink;
+  width: 100px;
+  height: 100px;
+
+  &.small {
+    width: 50px;
+    height: 50px;
+  }
+
+  &.large {
+    width: 100px;
+    height: 100px;
+  }
+
+  &.default {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.arrowClass {
+  fill: #f9fafb;
+}
+
 @keyframes rotateIn {
   0% {
     transform: scale(0) rotateZ(calc(var(--direction, 0) * 45deg));
@@ -95,27 +131,40 @@ function setPressed(value: boolean) {
   }
 }
 
-.fade-enter-from {
-  transform: scale(0) rotateZ(calc(var(--direction, 0) * 45deg));
-}
+.animatedContentClass {
+  transform-origin: var(--oku-popper-transform-origin);
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
+  width: 300px;
+  height: 150px;
+  background-color: #f9fafb;
+  padding: 10px;
+  border-radius: 10px;
 
-.fade-enter-to {
-  transform: scale(1);
-}
+  &.small {
+    width: 100px;
+    height: 50px;
+  }
 
-.fade-enter-active {
-  animation: rotateIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  &.large {
+    width: 300px;
+    height: 150px;
+  }
 
-  &[data-state="top"] {
+  &.default {
+    width: 300px;
+    height: 150px;
+  }
+
+  &[data-side='top'] {
     --direction: 1;
   }
 
-  &[data-state="bottom"] {
+  &[data-side='bottom'] {
     --direction: -1;
   }
-}
 
-.fade-leave-to {
-  animation: rotateIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) reverse;
+  animation: rotateIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 </style>

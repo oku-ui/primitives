@@ -51,20 +51,20 @@ export const Controlled: Story = {
   }),
 }
 
-// export const FromDialog: Story = {
-//   args: {
-//     template: 'FromDialog',
-//   },
-//   render: (args: any) => ({
-//     components: { OkuToastComponent },
-//     setup() {
-//       return { args }
-//     },
-//     template: `
-//       <OkuToastComponent v-bind="args" />
-//     `,
-//   }),
-// }
+export const FromDialog: Story = {
+  args: {
+    template: 'FromDialog',
+  },
+  render: (args: any) => ({
+    components: { OkuToastComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuToastComponent v-bind="args" />
+    `,
+  }),
+}
 
 export const Promise: Story = {
   args: {
