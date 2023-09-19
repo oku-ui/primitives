@@ -7,13 +7,14 @@ import {
   OkuHoverCardTrigger,
 } from '@oku-ui/hover-card'
 
-/* import {
+import {
   OkuDialog,
   OkuDialogClose,
   OkuDialogContent,
   OkuDialogTitle,
   OkuDialogTrigger,
-} from '@oku-ui/dialog' */
+} from '@oku-ui/dialog'
+
 import CardContentPlaceholder from './CardContentPlaceholder.vue'
 </script>
 
@@ -29,8 +30,8 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
           transform: 'translate(-50%, -50%)';
           background: 'white';
           border: '1px solid';
-          borderRadius: 4;
-          padding: 20;
+          border-radius: '4px';
+          padding: '20px';
         "
       >
         <OkuDialogTitle>Some dialog title</OkuDialogTitle>

@@ -1,9 +1,7 @@
 import { computed, defineComponent, h, onBeforeUnmount, ref, toRefs, useModel } from 'vue'
 import { useControllable } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
-import { scopeHoverCardProps } from './utils'
-
-import { HOVERCARD_NAME, createHoverCardScope, hoverCardProps, hoverCardProvide, usePopperScope } from './props'
+import { HOVERCARD_NAME, createHoverCardScope, hoverCardProps, hoverCardProvide, scopeHoverCardProps, usePopperScope } from './props'
 
 export { usePopperScope }
 

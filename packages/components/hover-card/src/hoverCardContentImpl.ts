@@ -6,9 +6,9 @@ import { OkuPopperContent } from '@oku-ui/popper'
 import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { getTabbableNodes, scopeHoverCardProps } from './utils'
+import { getTabbableNodes } from './utils'
+import { CONTENT_NAME, CONTENT_NAME_IMPL, hoverCardContentImplProps, scopeHoverCardProps, useHoverCardInject, usePopperScope } from './props'
 
-import { CONTENT_NAME, CONTENT_NAME_IMPL, hoverCardContentImplProps, useHoverCardInject, usePopperScope } from './props'
 import type { HoverCardContentImplEmits, HoverCardContentImplNaviteElement } from './props'
 
 let originalBodyUserSelect: string

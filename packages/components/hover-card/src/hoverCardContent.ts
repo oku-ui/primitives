@@ -3,9 +3,9 @@ import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuHoverCardContentImpl } from './hoverCardContentImpl'
-import { excludeTouch, scopeHoverCardProps } from './utils'
+import { excludeTouch } from './utils'
+import { CONTENT_NAME, hoverCardContentProps, scopeHoverCardProps, useHoverCardInject, usePortalInject } from './props'
 
-import { CONTENT_NAME, hoverCardContentProps, useHoverCardInject, usePortalInject } from './props'
 import type { HoverCardContentEmits, HoverCardContentNaviteElement } from './props'
 
 const hoverCardContent = defineComponent({

@@ -1,10 +1,9 @@
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
-import { scopeHoverCardProps } from './utils'
+import { PORTAL_NAME, hoverCardPortalProps, portalProvider, scopeHoverCardProps, useHoverCardInject } from './props'
 
 import type { HoverCardPortalNaviteElement } from './props'
-import { PORTAL_NAME, hoverCardPortalProps, portalProvider, useHoverCardInject } from './props'
 
 const hoverCardPortal = defineComponent({
   name: PORTAL_NAME,

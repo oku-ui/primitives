@@ -8,7 +8,6 @@ import type { PopperContentProps as OkuPopperContentProps, PopperArrowElement, P
 import { createPopperScope, popperArrowProps, popperContentProps } from '@oku-ui/popper'
 import type { PortalProps as OkuPortalProps, PortalElement, PortalElementNaviteElement } from '@oku-ui/portal'
 import { type DismissableLayerEmits, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
-import { createHoverCardProvide } from './utils'
 
 export type ScopeHoverCard<T> = T & { scopeOkuHoverCard?: Scope }
 
@@ -18,13 +17,18 @@ export const scopeHoverCardProps = {
   },
 }
 
+export const HOVERCARD_NAME = 'OkuHoverCard'
+export const HOVERCARD_TRIGGER_NAME = 'OkuHoverCardTrigger'
+export const CONTENT_NAME_IMPL = 'OkuHoverCardContentImpl'
+export const PORTAL_NAME = 'OkuHoverCardPortal'
+export const CONTENT_NAME = 'OkuHoverCardContent'
+export const ARROW_NAME = 'OkuHoverCardArrow'
+
 /* -------------------------------------------------------------------------- */
 /*                            OkuHoverCard - hoverCard.ts                     */
 /* -------------------------------------------------------------------------- */
 
-export const HOVERCARD_NAME = 'OkuHoverCard'
-
-export const [createHoverCardProvider, createHoverCardScope] = createProvideScope(HOVERCARD_NAME, [
+export const [createHoverCardProvide, createHoverCardScope] = createProvideScope(HOVERCARD_NAME, [
   createPopperScope,
 ])
 
@@ -41,7 +45,7 @@ export type HoverCardProvideValue = {
 }
 
 export const [hoverCardProvide, useHoverCardInject]
-  = createHoverCardProvider<HoverCardProvideValue>(HOVERCARD_NAME)
+  = createHoverCardProvide<HoverCardProvideValue>(HOVERCARD_NAME)
 
 export interface HoverCardProps {
   open?: boolean
@@ -91,8 +95,6 @@ export const hoverCardProps = {
 /*                         OkuHoverCardTrigger - hoverCardTrigger.ts          */
 /* -------------------------------------------------------------------------- */
 
-export const HOVERCARD_TRIGGER_NAME = 'OkuHoverCardTrigger'
-
 export type HoverCardTriggerNativeElement = OkuElement<'a'>
 export type HoverCardTriggerElement = HTMLAnchorElement
 
@@ -121,8 +123,6 @@ export const hoverCardTriggerProps = {
 /* -------------------------------------------------------------------------- */
 /*                         OkuHoverCardPortal - hoverCardPortal.ts            */
 /* -------------------------------------------------------------------------- */
-
-export const PORTAL_NAME = 'OkuHoverCardPortal'
 
 export type HoverCardPortalElement = PortalElement
 export type HoverCardPortalNaviteElement = PortalElementNaviteElement
@@ -168,8 +168,6 @@ export const hoverCardPortalProps = {
 /* -------------------------------------------------------------------------- */
 /*                         OkuHoverCardContentImpl - hoverCardContentImpl.ts  */
 /* -------------------------------------------------------------------------- */
-
-export const CONTENT_NAME_IMPL = 'OkuHoverCardContentImpl'
 
 export type HoverCardContentImplNaviteElement = PopperContentNaviteElement
 export type HoverCardContentImplElement = PopperContentElement
@@ -223,8 +221,6 @@ export const hoverCardContentImplProps = {
 /*                         OkuHoverCardContent - hoverCardContent.ts          */
 /* -------------------------------------------------------------------------- */
 
-export const CONTENT_NAME = 'OkuHoverCardContent'
-
 export type HoverCardContentNaviteElement = HoverCardContentImplNaviteElement
 export type HoverCardContentElement = HoverCardContentImplElement
 
@@ -261,8 +257,6 @@ export const hoverCardContentProps = {
 /* -------------------------------------------------------------------------- */
 /*                         OkuHoverCardArrow - hoverCardArrow.ts              */
 /* -------------------------------------------------------------------------- */
-
-export const ARROW_NAME = 'OkuHoverCardArrow'
 
 export type HoverCardArrowNaviteElement = PopperArrowNaviteElement
 export type HoverCardArrowElement = PopperArrowElement

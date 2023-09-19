@@ -1,19 +1,3 @@
-import { createPopperScope } from '@oku-ui/popper'
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
-
-export type ScopeHoverCard<T> = T & { scopeOkuHoverCard?: Scope }
-
-export const scopeHoverCardProps = {
-  scopeOkuHoverCard: {
-    ...ScopePropObject,
-  },
-}
-
-export const [createHoverCardProvide, createHoverCardScope] = createProvideScope('HoverCard', [
-  createPopperScope,
-])
-
 export function excludeTouch(eventHandler: () => void) {
   return (event: PointerEvent) =>
     event.pointerType === 'touch' ? undefined : eventHandler()
