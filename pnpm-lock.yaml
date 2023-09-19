@@ -220,8 +220,8 @@ importers:
         specifier: ^13.2.2
         version: 13.2.2
       happy-dom:
-        specifier: ^11.2.0
-        version: 11.2.0
+        specifier: ^12.1.2
+        version: 12.1.2
       jiti:
         specifier: ^1.20.0
         version: 1.20.0
@@ -281,7 +281,7 @@ importers:
         version: 3.5.3(@types/node@18.17.17)(rollup@3.29.0)(typescript@5.2.2)(vite@4.3.5)
       vitest:
         specifier: ^0.34.4
-        version: 0.34.4(happy-dom@11.2.0)(jsdom@22.1.0)
+        version: 0.34.4(happy-dom@12.1.2)(jsdom@22.1.0)
       vitest-axe:
         specifier: ^1.0.0-pre.2
         version: 1.0.0-pre.2(vitest@0.34.4)
@@ -1294,7 +1294,7 @@ importers:
         version: 3.7.2(@types/node@20.6.0)(eslint@8.49.0)(rollup@3.29.0)(typescript@5.2.2)
       vitest:
         specifier: ^0.34.4
-        version: 0.34.4(happy-dom@11.2.0)(jsdom@22.1.0)
+        version: 0.34.4(happy-dom@12.1.2)(jsdom@22.1.0)
 
   packages/primitives-nuxt/playground:
     dependencies:
@@ -2863,15 +2863,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@babel/types@7.22.15:
-    resolution: {integrity: sha512-X+NLXr0N8XXmN5ZsaQdm9U2SSC3UbIYq/doL++sueHOTisgZHoKaQtZxGuV2cUPQHMfjKEfg/g6oy7Hm6SKFtA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-string-parser': 7.22.5
-      '@babel/helper-validator-identifier': 7.22.15
-      to-fast-properties: 2.0.0
-    dev: true
-
   /@babel/types@7.22.17:
     resolution: {integrity: sha512-YSQPHLFtQNE5xN9tHuZnzu8vPr61wVTBZdfv1meex1NBosa4iT05k/Jw06ddJugi4bk7The/oSwQGFcksmEJQg==}
     engines: {node: '>=6.9.0'}
@@ -4354,7 +4345,7 @@ packages:
       ofetch: 1.3.3
       pathe: 1.1.1
       ufo: 1.3.0
-      vitest: 0.34.4(happy-dom@11.2.0)(jsdom@22.1.0)
+      vitest: 0.34.4(happy-dom@12.1.2)(jsdom@22.1.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - rollup
@@ -6772,7 +6763,7 @@ packages:
     resolution: {integrity: sha512-aACu/U/omhdk15O4Nfb+fHgH/z3QsfQzpnvRZhYhThms83ZnAOZz7zZAWO7mn2yyNQaA4xTO8GLK3uqFU4bYYw==}
     dependencies:
       '@babel/parser': 7.22.16
-      '@babel/types': 7.22.15
+      '@babel/types': 7.22.17
       '@types/babel__generator': 7.6.4
       '@types/babel__template': 7.4.1
       '@types/babel__traverse': 7.20.1
@@ -6781,20 +6772,20 @@ packages:
   /@types/babel__generator@7.6.4:
     resolution: {integrity: sha512-tFkciB9j2K755yrTALxD44McOrk+gfpIpvC3sxHjRawj6PfnQxrse4Clq5y/Rq+G3mrBurMax/lG8Qn2t9mSsg==}
     dependencies:
-      '@babel/types': 7.22.15
+      '@babel/types': 7.22.17
     dev: true
 
   /@types/babel__template@7.4.1:
     resolution: {integrity: sha512-azBFKemX6kMg5Io+/rdGT0dkGreboUVR0Cdm3fz9QJWpaQGJRQXl7C+6hOTCZcMll7KFyEQpgbYI2lHdsS4U7g==}
     dependencies:
       '@babel/parser': 7.22.16
-      '@babel/types': 7.22.15
+      '@babel/types': 7.22.17
     dev: true
 
   /@types/babel__traverse@7.20.1:
     resolution: {integrity: sha512-MitHFXnhtgwsGZWtT68URpOvLN4EREih1u3QtQiN4VdAxWKRVvGCSvw/Qth0M0Qq3pJpnGOu5JaM/ydK7OGbqg==}
     dependencies:
-      '@babel/types': 7.22.15
+      '@babel/types': 7.22.17
     dev: true
 
   /@types/body-parser@1.19.2:
@@ -7459,7 +7450,7 @@ packages:
       std-env: 3.4.3
       test-exclude: 6.0.0
       v8-to-istanbul: 9.1.0
-      vitest: 0.34.4(happy-dom@11.2.0)(jsdom@22.1.0)
+      vitest: 0.34.4(happy-dom@12.1.2)(jsdom@22.1.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10965,8 +10956,8 @@ packages:
       uglify-js: 3.17.4
     dev: true
 
-  /happy-dom@11.2.0:
-    resolution: {integrity: sha512-z4PshcYIIH6SkymSNRcDFwYUJOENe+FOQDx5BbHgg/wQUgxF5p9I9/BN45Jff34bbhXV8yJgkC5N99eyOzXK3w==}
+  /happy-dom@12.1.2:
+    resolution: {integrity: sha512-Ee0MdMXAMzfmZ4gLe33iKt8Rza5Fkyr+DxtHzCiBihTkI8JoX2XOfPdSsKDr0JAoMNYdMrFqIDYBoHq5DJqDXg==}
     dependencies:
       css.escape: 1.5.1
       entities: 4.5.0
@@ -12684,7 +12675,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      citty: 0.1.3
+      citty: 0.1.4
       defu: 6.1.2
       esbuild: 0.18.20
       fs-extra: 11.1.1
@@ -17012,7 +17003,7 @@ packages:
       '@types/node': 18.17.14
       esbuild: 0.17.19
       postcss: 8.4.30
-      rollup: 3.29.1
+      rollup: 3.29.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -17077,7 +17068,7 @@ packages:
       '@types/node': 20.6.0
       esbuild: 0.17.19
       postcss: 8.4.30
-      rollup: 3.29.1
+      rollup: 3.29.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -17090,10 +17081,10 @@ packages:
       axe-core: 4.8.0
       chalk: 5.3.0
       lodash-es: 4.17.21
-      vitest: 0.34.4(happy-dom@11.2.0)(jsdom@22.1.0)
+      vitest: 0.34.4(happy-dom@12.1.2)(jsdom@22.1.0)
     dev: true
 
-  /vitest@0.34.4(happy-dom@11.2.0)(jsdom@22.1.0):
+  /vitest@0.34.4(happy-dom@12.1.2)(jsdom@22.1.0):
     resolution: {integrity: sha512-SE/laOsB6995QlbSE6BtkpXDeVNLJc1u2LHRG/OpnN4RsRzM3GQm4nm3PQCK5OBtrsUqnhzLdnT7se3aeNGdlw==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -17137,7 +17128,7 @@ packages:
       cac: 6.7.14
       chai: 4.3.8
       debug: 4.3.4
-      happy-dom: 11.2.0
+      happy-dom: 12.1.2
       jsdom: 22.1.0
       local-pkg: 0.4.3
       magic-string: 0.30.3
