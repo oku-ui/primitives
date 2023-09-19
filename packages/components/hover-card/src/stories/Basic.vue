@@ -10,7 +10,13 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
 </script>
 
 <template>
-  <div class="p-28 flex flex-center justify-center">
+  <div
+    :style="{
+      padding: '50px',
+      display: 'flex',
+      justifyContent: 'center',
+    }"
+  >
     <OkuHoverCard>
       <OkuHoverCardTrigger href="/" class="triggerClass">
         trigger

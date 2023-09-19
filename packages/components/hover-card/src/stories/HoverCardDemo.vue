@@ -23,50 +23,48 @@ export interface OkuHoverCardProps {
 withDefaults(defineProps<OkuHoverCardProps>(), {
   template: 'Basic',
 })
-
-const templateClass = 'flex flex-col justify-center'
 </script>
 
 <template>
-  <div v-if="template === 'Basic' || allshow" :class="templateClass">
-    <Basic />
+  <div>
+    <Basic v-if="template === 'Basic' || allshow" />
   </div>
-  <div v-if="template === 'ContainTextSelection' || allshow" :class="templateClass">
+  <div v-if="template === 'ContainTextSelection' || allshow">
     <ContainTextSelection />
   </div>
-  <div v-if="template === 'AsyncUpdate' || allshow" :class="templateClass">
+  <div v-if="template === 'AsyncUpdate' || allshow">
     <AsyncUpdate />
   </div>
-  <div v-if="template === 'CustomDurations' || allshow" :class="templateClass">
+  <div v-if="template === 'CustomDurations' || allshow">
     <CustomDurations />
   </div>
-  <div v-if="template === 'Controlled' || allshow" :class="templateClass">
+  <div v-if="template === 'Controlled' || allshow">
     <Controlled />
   </div>
-  <div v-if="template === 'Layerable' || allshow" :class="templateClass">
+  <div v-if="template === 'Layerable' || allshow">
     <Layerable />
   </div>
-  <div v-if="template === 'Animated' || allshow" :class="templateClass">
+  <div v-if="template === 'Animated' || allshow">
     <Animated />
   </div>
-  <div v-if="template === 'ForcedMount' || allshow" :class="templateClass">
+  <div v-if="template === 'ForcedMount' || allshow">
     <ForcedMount />
   </div>
-  <div v-if="template === 'Nested' || allshow" :class="templateClass">
+  <div v-if="template === 'Nested' || allshow">
     <Nested />
   </div>
-  <div v-if="template === 'NonPortal' || allshow" :class="templateClass">
+  <div v-if="template === 'NonPortal' || allshow">
     <NonPortal />
   </div>
-  <div v-if="template === 'WithSlottedTrigger' || allshow" :class="templateClass">
+  <div v-if="template === 'WithSlottedTrigger' || allshow">
     <WithSlottedTrigger />
   </div>
-  <div v-if="template === 'WithSlottedContent' || allshow" :class="templateClass">
+  <div v-if="template === 'WithSlottedContent' || allshow">
     <WithSlottedContent />
   </div>
 </template>
 
-<style lang="postcss">
+<style>
 .triggerClass {}
 
 .contentClass {

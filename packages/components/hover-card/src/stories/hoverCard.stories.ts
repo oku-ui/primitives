@@ -10,7 +10,7 @@ const meta = {
   title: 'Components/HoverCard',
   component: HoverCardDemo,
   args: {
-    template: 'basic',
+    template: 'Nested',
   },
   argTypes: {
     template: {
