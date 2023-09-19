@@ -47,8 +47,8 @@
     "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
-    "@types/node": "^18.17.12",
-    "aria-hidden": "^1.1.1"
+    "@types/node": "^18.17.17",
+    "aria-hidden": "^1.2.3"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
