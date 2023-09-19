@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import Styled from './Styled.vue'
+import Controlled from './Controlled.vue'
+import Chromatic from './Chromatic.vue'
 
 export interface OkuAlertDialogProps {
-  template: 'Styled' | 'NonModal' | 'Controlled' | 'FocusTrap' | 'CustomFocus' | 'NoEscapeDismiss' | 'NoPointerDownOutsideDismiss' | 'WithPortalContainer' | 'Animated' | 'ForcedMount' | 'InnerScrollable' | 'OuterScrollable' | 'Chromatic'
+  template: 'Styled' | 'Controlled' | 'Chromatic'
   allshow?: boolean
 }
 
@@ -12,21 +14,26 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
 </script>
 
 <template>
-  <div class="cursor-default inline-block">
-    <div v-if="template === 'Styled' || allshow" class="flex flex-col">
-      <Styled />
-    </div>
+  <div v-if="template === 'Styled' || allshow">
+    <Styled />
+  </div>
+
+  <div v-if="template === 'Controlled' || allshow">
+    <Controlled />
+  </div>
+
+  <div v-if="template === 'Chromatic' || allshow">
+    <Chromatic />
   </div>
 </template>
 
-<style lang="postcss">
+<style>
 /* Define CSS classes without using css() */
 .triggerClass {
   /* Your styles here */
 }
 
 .overlayClass {
-  /* Your styles here */
   position: fixed;
   top: 0;
   right: 0;
@@ -37,10 +44,10 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
 }
 
 .contentClass {
-  /* Your styles here */
   position: fixed;
   top: 0;
   left: 0;
+
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -74,13 +81,29 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   margin-top: 15px;
 }
 
-.titleClass {
-  /* Your styles here */
-}
+.titleClass {}
 
-.descriptionClass {
-  /* Your styles here */
-  margin-top: 15px;
+.descriptionClass {}
+
+.chromaticContentClass{
+    position: fixed;
+  top: 0;
+  left: 0;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  padding: 10px;
+  min-width: auto;
+  min-height: auto;
 }
 
 /* Define styles object as standard CSS */
@@ -88,52 +111,159 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
-}
 
-/* Define styles for specific data states */
-.styles[data-state="closed"] {
-  border-color: red;
-}
+  &[data-state="closed"] {
+    border-color: red;
+  }
 
-.styles[data-state="open"] {
-  border-color: green;
-}
-
-/* Apply classes to elements */
-.triggerAttrClass {
-  /* Your styles here */
-  @extend .styles;
-}
-
-.overlayAttrClass {
-  /* Your styles here */
-  @extend .overlayClass;
-  @extend .styles;
+  &[data-state="open"] {
+    border-color: green;
+  }
 }
 
 .contentAttrClass {
-  /* Your styles here */
-  @extend .chromaticContentClass;
-  @extend .styles;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  padding: 10px;
+  min-width: 300px;
+  min-height: 150px;
+}
+
+.triggerAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+}
+
+.overlayAttrClass {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.2;
+
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+}
+
+.contentAttrClass {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  padding: 10px;
+  min-width: 300px;
+  min-height: 150px;
+
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
 }
 
 .cancelAttrClass {
-  /* Your styles here */
-  @extend .styles;
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
 }
 
 .actionAttrClass {
-  /* Your styles here */
-  @extend .styles;
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
 }
 
 .titleAttrClass {
-  /* Your styles here */
-  @extend .styles;
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
 }
 
 .descriptionAttrClass {
-  /* Your styles here */
-  @extend .styles;
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
 }
 </style>
