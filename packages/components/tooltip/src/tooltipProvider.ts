@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { defineComponent, onMounted, onUnmounted, ref, toRefs } from 'vue'
+import { defineComponent, onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
 import { DEFAULT_DELAY_DURATION, createTooltipProvide } from './utils'
 import { scopeTooltipProps } from './types'
 
@@ -79,7 +79,7 @@ const tooltipProvider = defineComponent({
       skipDelayTimer.value = skipDelayTimerRef.value
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       window.clearTimeout(skipDelayTimer.value)
     })
 

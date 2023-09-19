@@ -13,8 +13,8 @@ import {
   h,
   mergeProps,
   nextTick,
+  onBeforeUnmount,
   onMounted,
-  onUnmounted,
   reactive,
   ref,
   toRefs,
@@ -269,7 +269,7 @@ const DismissableLayer = defineComponent({
       document.addEventListener(INJECT_UPDATE, handleUpdate)
     })
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener(INJECT_UPDATE, handleUpdate)
     })
     const originalReturn = () =>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
-import { createApp, onUnmounted, ref } from 'vue'
+import { createApp, onBeforeUnmount, ref } from 'vue'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
 import DummyDialog from './DummyDialog.vue'
 import DummyPopover from './DummyPopover.vue'
@@ -94,7 +94,7 @@ function handlePopupClick() {
   const app = createApp(DismissableBox)
   app.mount(containerNode)
 
-  onUnmounted(() => containerNode.remove())
+  onBeforeUnmount(() => containerNode.remove())
 }
 </script>
 

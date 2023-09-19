@@ -1,4 +1,4 @@
-import { type Ref, computed, nextTick, onUnmounted, ref, watch } from 'vue'
+import { type Ref, computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useStateMachine } from './useStateMachine'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
@@ -117,7 +117,7 @@ export function usePresence(present: Ref<boolean>) {
     immediate: true,
   })
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     elWatch()
     presentWatch()
   })

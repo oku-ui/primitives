@@ -12,7 +12,7 @@ const meta = {
     template: '#1',
   },
   component: OkuCheckboxComponent,
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof OkuCheckboxComponent> & {
   args: StoryProps
 }

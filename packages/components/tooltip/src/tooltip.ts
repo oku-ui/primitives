@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, onUnmounted, ref, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, onBeforeUnmount, ref, toRefs, useModel } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
@@ -156,7 +156,7 @@ const tooltip = defineComponent({
       }, delayDuration.value)
     }
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       window.clearTimeout(openTimerRef.value)
     })
 
