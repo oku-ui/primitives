@@ -40,7 +40,7 @@ function handleChange(event: Event) {
     </form>
   </div>
 
-  <ScrollAreaStory :key="props.type" v-bind:="props" :style="{ width: '800px', height: '800px', margin: '30px auto' }">
+  <ScrollAreaStory :key="props.type" v-bind="props" :style="{ width: '800px', height: '800px', margin: '30px auto' }">
     <Copy v-for="(_, index) in 30" :key="index" />
   </ScrollAreaStory>
 </template>
