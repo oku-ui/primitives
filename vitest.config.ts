@@ -18,6 +18,7 @@ export default defineConfig({
     setupFiles: ['./vitest-setup.ts'],
     globals: true,
     alias: {
+      '@oku-ui/scroll-area': 'packages/components/scroll-area/src',
       '@oku-ui/checkbox': 'packages/components/checkbox/src',
       '@oku-ui/portal': 'packages/components/portal/src',
       '@oku-ui/slider': 'packages/components/slider/src',
