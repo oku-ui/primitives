@@ -33,6 +33,10 @@ const presence = defineComponent({
       const slot = slots.default?.({
         isPresent,
       })
+
+      if (slot && slot?.length > 1)
+        console.error(`OkuPresence can only contain a single child, but found ${slot.length} children. Please use a single wrapper element.`)
+
       const [child] = slot ?? []
       return isPresent.value
         ? cloneVNode(child, {
