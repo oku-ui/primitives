@@ -86,7 +86,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
 .descriptionClass {}
 
 .chromaticContentClass{
-    position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
 

@@ -50,7 +50,7 @@ describe('Animated', () => {
     wrapper = mount(AnimatedVue, {
       attachTo: document.body,
     })
-    const button = wrapper.find('[class="triggerClass"]')
+    const button = wrapper.find('[class="hover_card_triggerClass"]')
     button.trigger('click')
   })
 
@@ -59,7 +59,7 @@ describe('Animated', () => {
   })
 
   it('should be able to close', async () => {
-    const _element = wrapper.find('[class="triggerClass"]')
+    const _element = wrapper.find('[class="hover_card_triggerClass"]')
     _element.trigger('pointerleave')
     await nextTick()
     expect(document.body.innerHTML).toMatchSnapshot()
@@ -74,7 +74,7 @@ describe('AsyncUpdate', async () => {
       attachTo: document.body,
     })
 
-    await wrapper.find('[class="triggerClass"]').trigger('pointerenter')
+    await wrapper.find('[class="hover_card_triggerClass"]').trigger('pointerenter')
     await new Promise(resolve => setTimeout(resolve, 500))
     await nextTick()
   })
@@ -91,7 +91,7 @@ describe('AsyncUpdate', async () => {
   })
 
   it('should be able to close', async () => {
-    await wrapper.find('[class="triggerClass"]').trigger('pointerleave')
+    await wrapper.find('[class="hover_card_triggerClass"]').trigger('pointerleave')
     await nextTick()
     expect(wrapper.html()).toMatchSnapshot()
   })
@@ -105,7 +105,7 @@ describe('ContainTextSelection', async () => {
       attachTo: document.body,
     })
 
-    await wrapper.find('[class="triggerClass"]').trigger('pointerenter')
+    await wrapper.find('[class="hover_card_triggerClass"]').trigger('pointerenter')
     await nextTick()
   })
 
@@ -121,7 +121,7 @@ describe('ContainTextSelection', async () => {
   })
 
   it('should be able to close', async () => {
-    await wrapper.find('[class="triggerClass"]').trigger('pointerleave')
+    await wrapper.find('[class="hover_card_triggerClass"]').trigger('pointerleave')
     await nextTick()
     expect(wrapper.html()).toMatchSnapshot()
   })
@@ -135,7 +135,7 @@ describe('Controlled', async () => {
       attachTo: document.body,
     })
 
-    await wrapper.find('[class="triggerClass"]').trigger('pointerenter')
+    await wrapper.find('[class="hover_card_triggerClass"]').trigger('pointerenter')
     await nextTick()
   })
 
@@ -151,7 +151,7 @@ describe('Controlled', async () => {
   })
 
   it('should be able to close', async () => {
-    await wrapper.find('[class="triggerClass"]').trigger('pointerleave')
+    await wrapper.find('[class="hover_card_triggerClass"]').trigger('pointerleave')
     await nextTick()
     expect(wrapper.html()).toMatchSnapshot()
   })

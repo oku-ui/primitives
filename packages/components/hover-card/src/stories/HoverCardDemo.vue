@@ -65,16 +65,16 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
 </template>
 
 <style>
-.triggerClass {}
+.hover_card_triggerClass {}
 
-.contentClass {
+.hover_card_contentClass {
   transform-origin: var(--oku-hover-card-content-transform-origin);
   background-color: #5d9bda;
   padding: 20px;
   border-radius: 5px;
 }
 
-.arrowClass {
+.hover_card_arrowClass {
   fill: #f9fafb;
 }
 
@@ -100,7 +100,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   }
 }
 
-.animatedContentClass {
+.hover_card_animatedContentClass {
   transform-origin: var(--oku-hover-card-content-transform-origin);
   background-color: #f9fafb;
   padding: 20px;
@@ -113,7 +113,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   }
 }
 
-.gridClass {
+.hover_card_gridClass {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -122,7 +122,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   border: 1px solid black;
 }
 
-.chromaticTriggerClass {
+.hover_card_chromaticTriggerClass {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -130,7 +130,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.chromaticContentClass {
+.hover_card_chromaticContentClass {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -142,11 +142,11 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.chromaticArrowClass {
+.hover_card_chromaticArrowClass {
   fill: black;
 }
 
-.styles {
+.hover_card_styles {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -158,7 +158,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   }
 }
 
-.triggerAttrClass {
+.hover_card_triggerAttrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -170,7 +170,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   }
 }
 
-.contentAttrClass {
+.hover_card_contentAttrClass {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -189,7 +189,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   }
 }
 
-.arrowAttrClass {
+.hover_card_arrowAttrClass {
   fill: black;
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;

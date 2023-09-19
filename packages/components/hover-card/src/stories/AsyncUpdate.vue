@@ -36,12 +36,12 @@ onBeforeUnmount(() => {
 <template>
   <div style="padding: 50px; display: flex; justify-content: center">
     <OkuHoverCard v-model="open" @open-change="handleOpenChange(!open)">
-      <OkuHoverCardTrigger href="/" class="triggerClass">
+      <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="contentClass" :side-offset="5">
-          <OkuHoverCardArrow class="arrowClass" :width="20" :height="10" />
+        <OkuHoverCardContent class="hover_card_contentClass" :side-offset="5">
+          <OkuHoverCardArrow class="hover_card_arrowClass" :width="20" :height="10" />
           <template v-if="contentLoaded">
             <CardContentPlaceholder />
           </template>
