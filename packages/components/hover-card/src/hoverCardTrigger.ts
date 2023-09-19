@@ -6,34 +6,10 @@ import { OkuPopperAnchor } from '@oku-ui/popper'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { excludeTouch, scopeHoverCardProps } from './utils'
 
-import { useHoverCardInject, usePopperScope } from './hoverCard'
+import { usePopperScope } from './hoverCard'
 
-const HOVERCARD_TRIGGER_NAME = 'OkuHoverCardTrigger'
-
-export type HoverCardTriggerNativeElement = OkuElement<'a'>
-export type HoverCardTriggerElement = HTMLAnchorElement
-
-export interface HoverCardTriggerProps { }
-
-export const hoverCardTriggerProps = {
-  props: {
-    ...primitiveProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerenter: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerleave: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    focus: (event: FocusEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    blur: (event: FocusEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    touchstart: (event: MouseEvent) => true,
-  },
-}
+import { HOVERCARD_TRIGGER_NAME, hoverCardTriggerProps, useHoverCardInject } from './props'
+import type { HoverCardTriggerNativeElement } from './props'
 
 const hoverCardTrigger = defineComponent({
   name: HOVERCARD_TRIGGER_NAME,

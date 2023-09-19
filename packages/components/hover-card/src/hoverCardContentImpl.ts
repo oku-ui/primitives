@@ -1,67 +1,17 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
-import { OkuPopperContent, popperContentProps } from '@oku-ui/popper'
-import type { PopperContentProps as OkuPopperContentProps, PopperContentElement, PopperContentEmits, PopperContentNaviteElement } from '@oku-ui/popper'
+import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
+import { OkuPopperContent } from '@oku-ui/popper'
 import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getTabbableNodes, scopeHoverCardProps } from './utils'
-import { useHoverCardInject, usePopperScope } from './hoverCard'
-import { CONTENT_NAME } from './hoverCardContent'
+
+import { CONTENT_NAME, CONTENT_NAME_IMPL, hoverCardContentImplProps, useHoverCardInject, usePopperScope } from './props'
+import type { HoverCardContentImplEmits, HoverCardContentImplNaviteElement } from './props'
 
 let originalBodyUserSelect: string
-
-const CONTENT_NAME_IMPL = 'OkuHoverCardContentImpl'
-
-export type HoverCardContentImplNaviteElement = PopperContentNaviteElement
-export type HoverCardContentImplElement = PopperContentElement
-export type DismissableLayerProps = OkuDismissableLayerProps
-export type PopperContentProps = OkuPopperContentProps
-
-export interface HoverCardContentImplProps extends PopperContentProps { }
-
-export type HoverCardContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
-  /**
-   * Event handler called when the escape key is down.
-   * Can be prevented.
-   */
-  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
-  /**
-   * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
-   * Can be prevented.
-   */
-  pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
-  /***
-   *
-   */
-  focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
-  interactOutside: [event: DismissableLayerEmits['interactOutside'][0]]
-  pointerdown: [event: PointerEvent]
-  close: []
-}
-
-export const hoverCardContentImplProps = {
-  props: {
-    ...popperContentProps.props,
-    ...primitiveProps,
-  },
-  emits: {
-    ...propsOmit(popperContentProps.emits, ['placed']),
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdownOutside: (event: DismissableLayerEmits['pointerdownOutside'][0]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    focusoutSide: (event: DismissableLayerEmits['focusoutSide'][0]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    interactOutside: (event: DismissableLayerEmits['interactOutside'][0]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdown: (event: MouseEvent) => true,
-    close: () => true,
-  },
-}
 
 const hoverCardContentImpl = defineComponent({
   name: CONTENT_NAME_IMPL,

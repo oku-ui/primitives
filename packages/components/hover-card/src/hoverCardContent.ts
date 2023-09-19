@@ -1,48 +1,12 @@
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuHoverCardContentImpl, hoverCardContentImplProps } from './hoverCardContentImpl'
-import type { HoverCardContentImplElement, HoverCardContentImplEmits, HoverCardContentImplNaviteElement, HoverCardContentImplProps } from './hoverCardContentImpl'
-import { usePortalInject } from './hoverCardPortal'
-import { useHoverCardInject } from './hoverCard'
+import { OkuHoverCardContentImpl } from './hoverCardContentImpl'
 import { excludeTouch, scopeHoverCardProps } from './utils'
 
-export const CONTENT_NAME = 'OkuHoverCardContent'
-
-export type HoverCardContentNaviteElement = HoverCardContentImplNaviteElement
-export type HoverCardContentElement = HoverCardContentImplElement
-
-export interface HoverCardContentProps extends HoverCardContentImplProps {
-  /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
-   */
-  forceMount?: true
-}
-
-export type HoverCardContentEmits = {
-  pointerenter: [event: PointerEvent]
-  pointerleave: [event: PointerEvent]
-} & HoverCardContentImplEmits
-
-export const hoverCardContentProps = {
-  props: {
-    forceMount: {
-      type: Boolean as PropType<true | undefined>,
-      default: undefined,
-    },
-    ...hoverCardContentImplProps.props,
-  },
-  emits: {
-    ...hoverCardContentImplProps.emits,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerenter: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerleave: (event: PointerEvent) => true,
-  },
-}
+import { CONTENT_NAME, hoverCardContentProps, useHoverCardInject, usePortalInject } from './props'
+import type { HoverCardContentEmits, HoverCardContentNaviteElement } from './props'
 
 const hoverCardContent = defineComponent({
   name: CONTENT_NAME,

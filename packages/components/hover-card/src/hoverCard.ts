@@ -1,75 +1,11 @@
-import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onBeforeUnmount, ref, toRefs, useModel } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { useControllable } from '@oku-ui/use-composable'
-import { createProvideScope } from '@oku-ui/provide'
-import { OkuPopper, createPopperScope } from '@oku-ui/popper'
+import { OkuPopper } from '@oku-ui/popper'
 import { scopeHoverCardProps } from './utils'
 
-export const HOVERCARD_NAME = 'OkuHoverCard'
+import { HOVERCARD_NAME, createHoverCardScope, hoverCardProps, hoverCardProvide, usePopperScope } from './props'
 
-const [createHoverCardProvider, createHoverCardScope] = createProvideScope(HOVERCARD_NAME, [
-  createPopperScope,
-])
-
-export const usePopperScope = createPopperScope()
-
-type HoverCardProvideValue = {
-  open: Ref<boolean>
-  onOpenChange(open: boolean): void
-  onOpen(): void
-  onClose(): void
-  onDismiss(): void
-  hasSelectionRef: Ref<boolean>
-  isPointerDownOnContentRef: Ref<boolean>
-}
-
-export const [hoverCardProvide, useHoverCardInject]
-  = createHoverCardProvider<HoverCardProvideValue>(HOVERCARD_NAME)
-
-export interface HoverCardProps {
-  open?: boolean
-  defaultOpen?: boolean
-  openDelay?: number
-  closeDelay?: number
-}
-
-export type HoverCardEmits = {
-  'update:modelValue': [open: boolean]
-  'openChange': [open: boolean]
-}
-
-export const hoverCardProps = {
-  props: {
-    modelValue: {
-      type: [Boolean] as PropType<boolean | undefined>,
-      default: undefined,
-    },
-    open: {
-      type: Boolean as PropType<boolean | undefined>,
-      default: undefined,
-    },
-    defaultOpen: {
-      type: Boolean as PropType<boolean>,
-      default: undefined,
-    },
-    openDelay: {
-      type: Number as PropType<number | undefined>,
-      default: 700,
-    },
-    closeDelay: {
-      type: Number as PropType<number | undefined>,
-      default: 300,
-    },
-    ...primitiveProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'update:modelValue': (open: boolean) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'openChange': (open: boolean) => true,
-  },
-}
+export { usePopperScope }
 
 const hoverCard = defineComponent({
   name: HOVERCARD_NAME,
@@ -94,11 +30,7 @@ const hoverCard = defineComponent({
     const isPointerDownOnContentRef = ref(false)
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined,
-      set: () => {
-      },
-    })
+    const proxyChecked = computed(() => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined)
 
     const { state, updateValue } = useControllable({
       prop: computed(() => proxyChecked.value),

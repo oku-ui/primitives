@@ -1,53 +1,10 @@
-import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPortal } from '@oku-ui/portal'
-import type { PortalProps as OkuPortalProps, PortalElement, PortalElementNaviteElement } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
-import { createHoverCardProvide, scopeHoverCardProps } from './utils'
-import { useHoverCardInject } from './hoverCard'
+import { scopeHoverCardProps } from './utils'
 
-const PORTAL_NAME = 'OkuHoverCardPortal'
-
-export type HoverCardPortalElement = PortalElement
-export type HoverCardPortalNaviteElement = PortalElementNaviteElement
-
-type PortalProvide = {
-  forceMount?: Ref<true | undefined>
-}
-const [portalProvider, usePortalInject] = createHoverCardProvide<PortalProvide>(PORTAL_NAME, {
-  forceMount: undefined,
-})
-
-export { usePortalInject }
-
-type PortalProps = OkuPortalProps
-
-export interface HoverCardPortalProps {
-  /**
-   * Specify a container element to portal the content into.
-   */
-  container?: PortalProps['container']
-  /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
-   */
-  forceMount?: true
-}
-
-export const hoverCardPortalProps = {
-  props: {
-    container: {
-      type: Object as PropType<PortalProps['container']>,
-      default: undefined,
-    },
-    forceMount: {
-      type: Boolean as PropType<true | undefined>,
-      default: undefined,
-    },
-    ...primitiveProps,
-  },
-}
+import type { HoverCardPortalNaviteElement } from './props'
+import { PORTAL_NAME, hoverCardPortalProps, portalProvider, useHoverCardInject } from './props'
 
 const hoverCardPortal = defineComponent({
   name: PORTAL_NAME,

@@ -1,23 +1,10 @@
 import { defineComponent, h, mergeProps, reactive } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperArrow, type PopperArrowElement, type PopperArrowNaviteElement, type PopperArrowProps, popperArrowProps } from '@oku-ui/popper'
-import { usePopperScope } from './hoverCard'
+import { OkuPopperArrow } from '@oku-ui/popper'
 import { scopeHoverCardProps } from './utils'
 
-const ARROW_NAME = 'OkuHoverCardArrow'
-
-export type HoverCardArrowNaviteElement = PopperArrowNaviteElement
-export type HoverCardArrowElement = PopperArrowElement
-export interface HoverCardArrowProps extends PopperArrowProps { }
-
-export const hoverCardArrowProps = {
-  props: {
-    ...popperArrowProps.props,
-  },
-  emits: {
-    ...popperArrowProps.emits,
-  },
-}
+import { ARROW_NAME, hoverCardArrowProps, usePopperScope } from './props'
+import type { HoverCardArrowNaviteElement } from './props'
 
 const hoverCardArrow = defineComponent({
   name: ARROW_NAME,
