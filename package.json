@@ -121,6 +121,7 @@
   },
   "pnpm": {
     "overrides": {
+      "@oku-ui/alert-dialog": "workspace:^",
       "@oku-ui/arrow": "workspace:^",
       "@oku-ui/aspect-ratio": "workspace:^",
       "@oku-ui/avatar": "workspace:^",

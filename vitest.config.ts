@@ -19,6 +19,7 @@ export default defineConfig({
     globals: true,
     alias: {
       '@oku-ui/checkbox': 'packages/components/checkbox/src',
+      '@oku-ui/alert-dialog': 'packages/components/alert-dialog/src',
       '@oku-ui/portal': 'packages/components/portal/src',
       '@oku-ui/slider': 'packages/components/slider/src',
       '@oku-ui/label': 'packages/components/label/src',
