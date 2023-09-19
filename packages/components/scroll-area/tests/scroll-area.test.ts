@@ -3,23 +3,6 @@ import type { VueWrapper } from '@vue/test-utils'
 import { enableAutoUnmount, mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
 
-import {
-  OkuScrollArea,
-  OkuScrollAreaCorner,
-  OkuScrollAreaCornerImpl,
-  OkuScrollAreaScrollbar,
-  OkuScrollAreaScrollbarAuto,
-  OkuScrollAreaScrollbarHover,
-  OkuScrollAreaScrollbarImpl,
-  OkuScrollAreaScrollbarScroll,
-  OkuScrollAreaScrollbarVisible,
-  OkuScrollAreaScrollbarX,
-  OkuScrollAreaScrollbarY,
-  OkuScrollAreaThumb,
-  OkuScrollAreaThumbImpl,
-  OkuScrollAreaViewport,
-} from '../src'
-
 import Basic from '../src/story/Basic.vue'
 import Resizable from '../src/story/Resizable.vue'
 import ContentChange from '../src/story/ContentChange.vue'
