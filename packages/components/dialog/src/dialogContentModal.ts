@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, onUnmounted, ref } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -43,7 +43,7 @@ const dialogContentModal = defineComponent({
 
     const isRightClickOutsideRef = ref(false)
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       const content = contentRef.value
       if (content)
         return hideOthers(content)
