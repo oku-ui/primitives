@@ -1,22 +1,7 @@
-import type { PropType } from 'vue'
 import { defineComponent, toRefs, watchEffect } from 'vue'
 
-import { CONTENT_NAME, DESCRIPTION_NAME } from './utils'
+import { CONTENT_NAME, DESCRIPTION_NAME, DESCRIPTION_WARNING_NAME, dialogDescriptionWarningProps } from './props'
 
-const DESCRIPTION_WARNING_NAME = 'OkuAlertDialogDescriptionWarning'
-export type DescriptionWarningProps = {
-  contentRef: HTMLDivElement
-}
-export const dialogDescriptionWarningProps = {
-  props: {
-    contentRef: {
-      type: [Object, null] as PropType<HTMLDivElement | null>,
-      required: true,
-    },
-  },
-  emits: {
-  },
-}
 const alertDialogDescriptionWarning = defineComponent({
   name: DESCRIPTION_WARNING_NAME,
   inheritAttrs: false,

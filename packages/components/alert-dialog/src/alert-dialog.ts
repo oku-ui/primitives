@@ -1,28 +1,9 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import type { DialogProps } from '@oku-ui/dialog'
-import { OkuDialog, dialogProps } from '@oku-ui/dialog'
-import { ROOT_NAME, scopeAlertDialogProps } from './utils'
+import { primitiveProps } from '@oku-ui/primitive'
+import { OkuDialog } from '@oku-ui/dialog'
+import { ROOT_NAME, alertDialogProps, scopeAlertDialogProps } from './props'
+import type { AlertDialogNaviteElement } from './props'
 
-export type AlertDialogNaviteElement = OkuElement<'div'>
-export type AlertDialogElement = typeof OkuDialog
-
-export interface AlertDialogProps extends Omit<DialogProps, 'modal'> {}
-
-export type AlertDialogEmits = {
-  openChange: [open: boolean]
-  modelValue: [open: boolean]
-}
-
-export const alertDialogProps = {
-  props: {
-    ...propsOmit(dialogProps.props, ['modal']),
-  },
-  emits: {
-    ...dialogProps.emits,
-  },
-}
 const alertDialog = defineComponent({
   name: ROOT_NAME,
   components: { OkuDialog },

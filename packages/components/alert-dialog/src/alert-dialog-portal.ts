@@ -1,34 +1,12 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
-import type { DialogTriggerProps } from '@oku-ui/dialog'
-import { OkuDialogPortal, dialogTriggerProps } from '@oku-ui/dialog'
-import { scopeAlertDialogProps, useAlertDialogScope } from './utils'
+import { OkuDialogPortal } from '@oku-ui/dialog'
+import type { AlertDialogPortalNaviteElement } from './props'
+import { PORTAL_NAME, alertDialogPortalProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
-const PORTAL_NAME = 'OkuAlertDialogPortal'
-
-export type AlertDialogPortalNaviteElement = OkuElement<'div'>
-export type AlertDialogPortalElement = typeof OkuDialogPortal
-
-export interface AlertDialogPortalProps extends DialogTriggerProps {}
-
-export type AlertDialogPortalEmits = {
-  click: [event: MouseEvent]
-}
-
-export const alertDialogPortalProps = {
-  props: {
-    ...dialogTriggerProps.props,
-  },
-  emits: {
-    ...dialogTriggerProps.emits,
-  },
-}
 const alertDialogPortal = defineComponent({
   name: PORTAL_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...alertDialogPortalProps.props,
     ...scopeAlertDialogProps,
   },

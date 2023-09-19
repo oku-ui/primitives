@@ -1,35 +1,13 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { DialogTitleProps } from '@oku-ui/dialog'
-import { OkuDialogTitle, dialogTitleProps } from '@oku-ui/dialog'
-import { scopeAlertDialogProps, useAlertDialogScope } from './utils'
+import { OkuDialogTitle } from '@oku-ui/dialog'
+import type { AlertDialogTitleNaviteElement } from './props'
+import { TITLE_NAME, alertDialogTitleProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
-const TITLE_NAME = 'OkuAlertDialogTitle'
-
-export type AlertDialogTitleNaviteElement = OkuElement<'h2'>
-export type AlertDialogTitleElement = typeof OkuDialogTitle
-
-export interface AlertDialogTitleProps extends DialogTitleProps {}
-
-export type AlertDialogTitleEmits = {
-  click: [event: MouseEvent]
-}
-
-export const alertDialogTitleProps = {
-  props: {
-    ...dialogTitleProps.props,
-  },
-  emits: {
-    ...dialogTitleProps.emits,
-  },
-}
 const alertDialogTitle = defineComponent({
   name: TITLE_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...alertDialogTitleProps.props,
     ...scopeAlertDialogProps,
   },

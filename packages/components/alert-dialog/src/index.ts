@@ -1,30 +1,50 @@
 export {
-  OkuAlertDialog, type AlertDialogProps, alertDialogProps,
+  OkuAlertDialog,
 } from './alert-dialog'
+
 export {
-  OkuAlertDialogAction, type AlertDialogActionProps, alertDialogActionProps,
+  OkuAlertDialogAction,
 } from './alert-dialog-action'
+
 export {
-  OkuAlertDialogCancel, type AlertDialogCancelProps, alertDialogCancelProps,
+  OkuAlertDialogCancel,
 } from './alert-dialog-cancel'
+
 export {
-  OkuAlertDialogContent, type AlertDialogContentProps, alertDialogContentProps,
+  OkuAlertDialogContent,
 } from './alert-dialog-content'
+
 export {
-  OkuAlertDialogDescription, type AlertDialogDescriptionProps, alertDialogDescriptionProps,
+  OkuAlertDialogDescription, alertDialogDescriptionProps,
 } from './alert-dialog-description'
+
 export {
-  OkuAlertDialogDescriptionWarning, type DescriptionWarningProps, dialogDescriptionWarningProps,
+  OkuAlertDialogDescriptionWarning, dialogDescriptionWarningProps,
 } from './alert-dialog-description-warning'
+
 export {
-  OkuAlertDialogOverlay, type AlertDialogOverlayProps, alertDialogOverlayProps,
+  OkuAlertDialogOverlay, alertDialogOverlayProps,
 } from './alert-dialog-overlay'
+
 export {
-  OkuAlertDialogPortal, type AlertDialogPortalProps, alertDialogPortalProps,
+  OkuAlertDialogPortal, alertDialogPortalProps,
 } from './alert-dialog-portal'
+
 export {
-  OkuAlertDialogTitle, type AlertDialogTitleProps, alertDialogTitleProps,
+  OkuAlertDialogTitle, alertDialogTitleProps,
 } from './alert-dialog-title'
+
 export {
-  OkuAlertDialogTrigger, type AlertDialogTriggerProps, alertDialogTriggerProps,
+  OkuAlertDialogTrigger, alertDialogTriggerProps,
 } from './alert-dialog-trigger'
+
+export type {
+  AlertDialogProps, AlertDialogActionProps, AlertDialogCancelProps, AlertDialogContentProps, AlertDialogDescriptionProps, AlertDialogOverlayProps, AlertDialogPortalProps, AlertDialogTitleProps, AlertDialogTriggerProps, DescriptionWarningProps,
+} from './props'
+
+export {
+  alertDialogProps,
+  alertDialogActionProps,
+  alertDialogCancelProps,
+  alertDialogContentProps,
+} from './props'

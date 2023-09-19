@@ -1,35 +1,13 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
-import type { DialogOverlayProps } from '@oku-ui/dialog'
-import { OkuDialogOverlay, dialogOverlayProps } from '@oku-ui/dialog'
-import { scopeAlertDialogProps, useAlertDialogScope } from './utils'
+import { OkuDialogOverlay } from '@oku-ui/dialog'
+import type { AlertDialogOverlayNaviteElement } from './props'
+import { OVERLAY_NAME, alertDialogOverlayProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
-const OVERLAY_NAME = 'OkuAlertDialogOverlay'
-
-export type AlertDialogOverlayNaviteElement = OkuElement<'div'>
-export type AlertDialogOverlayElement = typeof OkuDialogOverlay
-
-export interface AlertDialogOverlayProps extends DialogOverlayProps {}
-
-export type AlertDialogOverlayEmits = {
-  click: [event: MouseEvent]
-}
-
-export const alertDialogOverlayProps = {
-  props: {
-    ...dialogOverlayProps.props,
-  },
-  emits: {
-    ...dialogOverlayProps.emits,
-  },
-}
 const alertDialogOverlay = defineComponent({
   name: OVERLAY_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...alertDialogOverlayProps.props,
     ...scopeAlertDialogProps,
   },

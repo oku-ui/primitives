@@ -1,35 +1,16 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
-import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import type { DialogContentModalEmits, DialogContentProps } from '@oku-ui/dialog'
-import { OkuDialogContent, OkuDialogDescriptionWarning, WarningProvider, dialogContentProps } from '@oku-ui/dialog'
+import type { DialogContentModalEmits } from '@oku-ui/dialog'
+import { OkuDialogContent, OkuDialogDescriptionWarning, WarningProvider } from '@oku-ui/dialog'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuSlottable } from '@oku-ui/slot'
-import { AlertDialogContentProvider, CONTENT_NAME, TITLE_NAME, scopeAlertDialogProps, useAlertDialogScope } from './utils'
+import type { AlertDialogContentNaviteElement } from './props'
+import { AlertDialogContentProvider, CONTENT_NAME, TITLE_NAME, alertDialogContentProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
-export type AlertDialogContentNaviteElement = OkuElement<'div'>
-export type AlertDialogContentElement = typeof OkuDialogContent
-
-export interface AlertDialogContentProps extends Omit<DialogContentProps, 'onPointerDownOutside' | 'onInteractOutside'> {}
-
-export type AlertDialogContentEmits = {
-  click: [event: MouseEvent]
-}
-
-export const alertDialogContentProps = {
-  props: {
-    ...dialogContentProps.props,
-  },
-  emits: {
-    ...propsOmit(dialogContentProps.emits, ['pointerdownOutside', 'interactOutside']),
-  },
-}
 const alertDialogContent = defineComponent({
   name: CONTENT_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...alertDialogContentProps.props,
     ...scopeAlertDialogProps,
   },
