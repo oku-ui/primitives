@@ -6,7 +6,7 @@ import {
   OkuPopperContent,
 } from '@oku-ui/popper'
 import { OkuPortal } from '@oku-ui/portal'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import Scrollable from './Scrollable.vue'
 
 // const [left, setLeft] = React.useState(0);
@@ -27,7 +27,7 @@ onMounted(() => {
   }, 500)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (intervalId)
     clearInterval(intervalId)
 })

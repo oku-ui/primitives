@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, onUnmounted, ref } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
 import { hideOthers } from 'aria-hidden'
@@ -47,10 +47,10 @@ const popoverContentModal = defineComponent({
 
     const isRightClickOutsideRef = ref(false)
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       const content = contentRef.value
       if (content)
-        return hideOthers(content)
+        hideOthers(content)
     })
 
     useScrollLock(contentRef, true)
