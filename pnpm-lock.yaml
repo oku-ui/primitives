@@ -315,7 +315,7 @@ importers:
         version: link:../../core/utils
       '@types/node':
         specifier: ^18.17.12
-        version: 18.17.15
+        version: 18.17.17
       vue:
         specifier: 3.3.4
         version: 3.3.4
