@@ -21,7 +21,7 @@ const meta = {
       control: 'text',
     },
   },
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof OkuLabelComponent> & {
   args: StoryProps
 }
