@@ -1,5 +1,6 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuDialogPortal } from '@oku-ui/dialog'
+import { reactiveOmit } from '@oku-ui/use-composable'
 import type { AlertDialogPortalNaviteElement } from './props'
 import { PORTAL_NAME, alertDialogPortalProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
@@ -12,19 +13,16 @@ const alertDialogPortal = defineComponent({
   },
   emits: alertDialogPortalProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuAlertDialog, ...alertDialogPortalProps } = toRefs(props)
+    const { scopeOkuAlertDialog, ...portalProps } = toRefs(props)
+    const _reactive = reactive(portalProps)
+    const reactivePortalProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const dialogScope = useAlertDialogScope(scopeOkuAlertDialog.value)
 
-    const _props = reactive(alertDialogPortalProps)
-
-    const originalReturn = () => h(OkuDialogPortal, {
+    return () => h(OkuDialogPortal, {
       ...dialogScope,
-      ...mergeProps(attrs, _props),
-    },
-    {
-      default: () => slots.default?.(),
-    })
-    return originalReturn
+      ...mergeProps(attrs, reactivePortalProps),
+    }, slots)
   },
 })
 

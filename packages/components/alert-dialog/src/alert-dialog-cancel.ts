@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { OkuDialogClose } from '@oku-ui/dialog'
 import type { AlertDialogCancelNaviteElement } from './props'
 import { CANCEL_NAME, alertDialogCancelProps, scopeAlertDialogProps, useAlertDialogContentInject, useAlertDialogScope } from './props'
@@ -15,7 +15,10 @@ const alertDialogCancel = defineComponent({
   },
   emits: alertDialogCancelProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuAlertDialog, ...alertDialogCancelProps } = toRefs(props)
+    const { scopeOkuAlertDialog, ...cancelProps } = toRefs(props)
+    const _reactive = reactive(cancelProps)
+    const reactiveCancelProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const dialogScope = useAlertDialogScope(scopeOkuAlertDialog.value)
 
     const { cancelRef } = useAlertDialogContentInject(CANCEL_NAME, scopeOkuAlertDialog.value)
@@ -23,17 +26,11 @@ const alertDialogCancel = defineComponent({
     const forwardRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardRef, cancelRef)
 
-    const _props = reactive(alertDialogCancelProps)
-
-    const originalReturn = () => h(OkuDialogClose, {
+    return () => h(OkuDialogClose, {
       ...dialogScope,
-      ...mergeProps(attrs, _props),
+      ...mergeProps(attrs, reactiveCancelProps),
       ref: composedRefs,
-    },
-    {
-      default: () => slots.default?.(),
-    })
-    return originalReturn
+    }, slots)
   },
 })
 

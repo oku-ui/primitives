@@ -15,27 +15,27 @@ export {
 } from './alert-dialog-content'
 
 export {
-  OkuAlertDialogDescription, alertDialogDescriptionProps,
+  OkuAlertDialogDescription,
 } from './alert-dialog-description'
 
 export {
-  OkuAlertDialogDescriptionWarning, dialogDescriptionWarningProps,
+  OkuAlertDialogDescriptionWarning,
 } from './alert-dialog-description-warning'
 
 export {
-  OkuAlertDialogOverlay, alertDialogOverlayProps,
+  OkuAlertDialogOverlay,
 } from './alert-dialog-overlay'
 
 export {
-  OkuAlertDialogPortal, alertDialogPortalProps,
+  OkuAlertDialogPortal,
 } from './alert-dialog-portal'
 
 export {
-  OkuAlertDialogTitle, alertDialogTitleProps,
+  OkuAlertDialogTitle,
 } from './alert-dialog-title'
 
 export {
-  OkuAlertDialogTrigger, alertDialogTriggerProps,
+  OkuAlertDialogTrigger,
 } from './alert-dialog-trigger'
 
 export type {
@@ -47,4 +47,11 @@ export {
   alertDialogActionProps,
   alertDialogCancelProps,
   alertDialogContentProps,
+  alertDialogDescriptionProps,
+  alertDialogOverlayProps,
+  alertDialogPortalProps,
+  alertDialogTitleProps,
+  alertDialogTriggerProps,
+  dialogDescriptionWarningProps,
+  scopeAlertDialogProps,
 } from './props'

@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuDialogOverlay } from '@oku-ui/dialog'
 import type { AlertDialogOverlayNaviteElement } from './props'
 import { OVERLAY_NAME, alertDialogOverlayProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
@@ -13,21 +13,18 @@ const alertDialogOverlay = defineComponent({
   },
   emits: alertDialogOverlayProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuAlertDialog, ...alertDialogOverlayProps } = toRefs(props)
+    const { scopeOkuAlertDialog, ...overlayProps } = toRefs(props)
+    const _reactive = reactive(overlayProps)
+    const reactiveOverlayProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const dialogScope = useAlertDialogScope(scopeOkuAlertDialog.value)
     const forwardRef = useForwardRef()
 
-    const _props = reactive(alertDialogOverlayProps)
-
-    const originalReturn = () => h(OkuDialogOverlay, {
+    return () => h(OkuDialogOverlay, {
       ...dialogScope,
-      ...mergeProps(attrs, _props),
+      ...mergeProps(attrs, reactiveOverlayProps),
       ref: forwardRef,
-    },
-    {
-      default: () => slots.default?.(),
-    })
-    return originalReturn
+    }, slots)
   },
 })
 

@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuDialogTitle } from '@oku-ui/dialog'
 import type { AlertDialogTitleNaviteElement } from './props'
 import { TITLE_NAME, alertDialogTitleProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
@@ -13,21 +13,18 @@ const alertDialogTitle = defineComponent({
   },
   emits: alertDialogTitleProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuAlertDialog, ...alertDialogTitleProps } = toRefs(props)
+    const { scopeOkuAlertDialog, ...titleProps } = toRefs(props)
+    const _reactive = reactive(titleProps)
+    const reactiveTitleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const dialogScope = useAlertDialogScope(scopeOkuAlertDialog.value)
     const forwardRef = useForwardRef()
 
-    const _props = reactive(alertDialogTitleProps)
-
-    const originalReturn = () => h(OkuDialogTitle, {
+    return () => h(OkuDialogTitle, {
       ...dialogScope,
-      ...mergeProps(attrs, _props),
+      ...mergeProps(attrs, reactiveTitleProps),
       ref: forwardRef,
-    },
-    {
-      default: () => slots.default?.(),
-    })
-    return originalReturn
+    }, slots)
   },
 })
 
