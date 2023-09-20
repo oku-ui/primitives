@@ -8,38 +8,38 @@ const test = ref()
 <template>
   <div class="flex gap-14">
     <OkuSlider
-      class="slider_rootSliderClass"
+      class="slider-rootSlider"
       orientation="vertical"
     >
-      <OkuSliderTrack class="slider_trackClass">
-        <OkuSliderRange class="slider_rangeClass" />
+      <OkuSliderTrack class="slider-track">
+        <OkuSliderRange class="slider-range" />
       </OkuSliderTrack>
-      <OkuSliderThumb class="slider_thumbClassT" />
+      <OkuSliderThumb class="slider-thumb" />
     </OkuSlider>
 
     <OkuSlider
       :default-value="[10, 50]"
-      class="slider_rootSliderClass"
+      class="slider-rootSlider"
       orientation="vertical"
     >
-      <OkuSliderTrack class="slider_trackClass">
-        <OkuSliderRange class="slider_rangeClass" />
+      <OkuSliderTrack class="slider-track">
+        <OkuSliderRange class="slider-range" />
       </OkuSliderTrack>
-      <OkuSliderThumb class="slider_thumbClassT" />
-      <OkuSliderThumb class="slider_thumbClassT" />
+      <OkuSliderThumb class="slider-thumb" />
+      <OkuSliderThumb class="slider-thumb" />
     </OkuSlider>
 
     <OkuSlider
       v-model="test"
       :default-value="[10, 50]"
-      class="slider_rootSliderClass"
+      class="slider-rootSlider"
       orientation="vertical"
     >
-      <OkuSliderTrack class="slider_trackClass">
-        <OkuSliderRange class="slider_rangeClass" />
+      <OkuSliderTrack class="slider-track">
+        <OkuSliderRange class="slider-range" />
       </OkuSliderTrack>
-      <OkuSliderThumb class="slider_thumbClassT" />
-      <OkuSliderThumb class="slider_thumbClassT" />
+      <OkuSliderThumb class="slider-thumb" />
+      <OkuSliderThumb class="slider-thumb" />
     </OkuSlider>
     {{ test }}
   </div>

@@ -7,19 +7,19 @@ defineProps({
 </script>
 
 <template>
-  <OkuToast class="toast_toastClass" :open="open">
-    <div class="toast_headerClass">
-      <OkuToastTitle class="toast_titleClass">
+  <OkuToast class="toast-toast" :open="open">
+    <div class="toast-header">
+      <OkuToastTitle class="toast-title">
         Upgrade available
       </OkuToastTitle>
       <OkuToastClose class="button close" aria-label="Close">
         <span aria-hidden>×</span>
       </OkuToastClose>
     </div>
-    <OkuToastDescription class="toast_descriptionClass">
+    <OkuToastDescription class="toast-description">
       We've just released Oku version 1.0
     </OkuToastDescription>
-    <OkuToastAction alt-text="Goto account settings to upgrade" class="buttonClass" :style="{ marginTop: '10px' }">
+    <OkuToastAction alt-text="Goto account settings to upgrade" class="button" :style="{ marginTop: '10px' }">
       Upgrade
     </OkuToastAction>
   </OkuToast>

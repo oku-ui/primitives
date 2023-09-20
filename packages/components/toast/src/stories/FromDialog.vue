@@ -28,16 +28,16 @@ const open = ref(false)
       </OkuDialogContent>
     </OkuDialog>
 
-    <OkuToast v-model="open" class="toast toast_errorToast">
+    <OkuToast v-model="open" class="toast toast-errorToast">
       <OkuToastDescription>There was an error</OkuToastDescription>
       <OkuToastAction
-        class="buttonClass" alt-text="Resubmit the form to try again."
+        class="button" alt-text="Resubmit the form to try again."
         @click="console.log('try again')"
       >
         Try again
       </OkuToastAction>
     </OkuToast>
 
-    <OkuToastViewport class="toast_viewport" />
+    <OkuToastViewport class="toast-viewport" />
   </OkuToastProvider>
 </template>

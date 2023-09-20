@@ -24,13 +24,13 @@ function onCloseAutoFocus(event: any) {
 <template>
   <div>
     <OkuDialog v-model="open">
-      <OkuDialogTrigger class="dialog_triggerClass">
+      <OkuDialogTrigger class="dialog-trigger">
         open
       </OkuDialogTrigger>
       <OkuDialogPortal>
-        <OkuDialogOverlay class="dialog_overlayClass" />
+        <OkuDialogOverlay class="dialog-overlay" />
         <OkuDialogContent
-          class="dialog_contentDefaultClass"
+          class="dialog-contentDefault"
           @open-auto-focus="onOpenAutoFocus"
           @close-auto-focus="onCloseAutoFocus"
         >

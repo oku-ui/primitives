@@ -24,7 +24,7 @@ withDefaults(defineProps<OkuToolbarProps>(), {
 </template>
 
 <style>
-.toolbar_rootClass {
+.toolbar-root {
   &[data-orientation="vertical"] {
     flex-direction: column;
   }
@@ -49,7 +49,7 @@ withDefaults(defineProps<OkuToolbarProps>(), {
   }
 }
 
-.toolbar_separatorClass {
+.toolbar-separator {
   height: 1px;
   margin: 5px;
   background-color: #f0f0f0;
@@ -60,7 +60,7 @@ withDefaults(defineProps<OkuToolbarProps>(), {
   }
 }
 
-.toolbar_itemClass {
+.toolbar-item {
   border: 1px solid #000;
   border-radius: 6px;
   background-color: transparent;
@@ -83,7 +83,7 @@ withDefaults(defineProps<OkuToolbarProps>(), {
   }
 }
 
-.toolbar_linkClass {
+.toolbar-link {
   border: 1px solid #000;
   border-radius: 6px;
   background-color: transparent;
@@ -111,7 +111,7 @@ withDefaults(defineProps<OkuToolbarProps>(), {
   color: black;
 }
 
-.toolbar_toggleButtonClass {
+.toolbar-toggleButton {
   border: 1px solid #000;
   border-radius: 6px;
   background-color: transparent;
@@ -139,7 +139,7 @@ withDefaults(defineProps<OkuToolbarProps>(), {
   }
 }
 
-.toolbar_toggleGroupClass {
+.toolbar-toggleGroup {
   display: flex;
   gap: 5px;
 
@@ -148,7 +148,7 @@ withDefaults(defineProps<OkuToolbarProps>(), {
   }
 }
 
-.toolbar_toggleItemClass {
+.toolbar-toggleItem {
   border: 1px solid #000;
   border-radius: 6px;
   background-color: transparent;

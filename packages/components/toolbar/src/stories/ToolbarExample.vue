@@ -24,53 +24,53 @@ const props = defineProps<{
   <div>
     <h1>{{ props.title }}</h1>
     <OkuToolbar
-      class="toolbar_rootClass"
+      class="toolbar-root"
       :orientation="props.orientation"
       :loop="props.loop"
       :aria-label="`Toolbar ${props.title}`"
       :dir="props.dir"
     >
-      <OkuToolbarButton class="toolbar_itemClass">
+      <OkuToolbarButton class="toolbar-item">
         Button
       </OkuToolbarButton>
-      <OkuToolbarButton class="toolbar_itemClass" disabled>
+      <OkuToolbarButton class="toolbar-item" disabled>
         Button (disabled)
       </OkuToolbarButton>
-      <OkuToolbarSeparator class="toolbar_separatorClass" />
+      <OkuToolbarSeparator class="toolbar-separator" />
       <OkuToolbarLink
-        class="toolbar_linkClass"
+        class="toolbar-link"
         href="https://www.w3.org/TR/2019/WD-wai-aria-practices-1.2-20191218/examples/toolbar/toolbar.html"
-        target="_blank"
+        target="-blank"
       >
         Link
       </OkuToolbarLink>
-      <OkuToolbarSeparator class="toolbar_separatorClass" />
-      <OkuToolbarButton class="toolbar_toggleButtonClass" as-child>
+      <OkuToolbarSeparator class="toolbar-separator" />
+      <OkuToolbarButton class="toolbar-toggleButton" as-child>
         <OkuToggle>Toggle</OkuToggle>a
       </OkuToolbarButton>
-      <OkuToolbarSeparator class="toolbar_separatorClass" />
-      <OkuToolbarToggleGroup type="single" class="toolbar_toggleGroupClass">
-        <OkuToolbarToggleItem value="left" class="toolbar_toggleItemClass">
+      <OkuToolbarSeparator class="toolbar-separator" />
+      <OkuToolbarToggleGroup type="single" class="toolbar-toggleGroup">
+        <OkuToolbarToggleItem value="left" class="toolbar-toggleItem">
           Left
         </OkuToolbarToggleItem>
-        <OkuToolbarToggleItem value="center" class="toolbar_toggleItemClass">
+        <OkuToolbarToggleItem value="center" class="toolbar-toggleItem">
           Center
         </OkuToolbarToggleItem>
-        <OkuToolbarToggleItem value="right" class="toolbar_toggleItemClass">
+        <OkuToolbarToggleItem value="right" class="toolbar-toggleItem">
           Right
         </OkuToolbarToggleItem>
       </OkuToolbarToggleGroup>
-      <OkuToolbarSeparator class="toolbar_separatorClass" />
+      <OkuToolbarSeparator class="toolbar-separator" />
       <!-- TODO: DropdownMenu issua: https://github.com/oku-ui/primitives/issues/10 -->
       <!-- <DropdownMenu.Root>
-        <OkuToolbarButton class="toolbar_itemClass" as-child>
+        <OkuToolbarButton class="toolbar-item" as-child>
           <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>
         </OkuToolbarButton>
-        <DropdownMenu.Content class="dropdownMenuContentClass" side-offset="5}">
-          <DropdownMenu.Item class="dropdownMenuItemClass">
+        <DropdownMenu.Content class="dropdownMenuContent" side-offset="5}">
+          <DropdownMenu.Item class="dropdownMenuItem">
             Undo
           </DropdownMenu.Item>
-          <DropdownMenu.Item class="dropdownMenuItemClass">
+          <DropdownMenu.Item class="dropdownMenuItem">
             Redo
           </DropdownMenu.Item>
           <DropdownMenu.Arrow />

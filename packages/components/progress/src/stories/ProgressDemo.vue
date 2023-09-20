@@ -17,7 +17,7 @@ const max = 150
 const value = ref<number | null>(13)
 const valueCopy = ref<number | null>(null)
 const percentage = computed(() => value.value != null ? Math.round((value.value / max) * 100) : null)
-const rootClass = ['w-[400px]', 'h-[25px]', 'max-w-full', 'border-[5px]', 'border-black', 'bg-gray-200']
+const root = ['w-[400px]', 'h-[25px]', 'max-w-full', 'border-[5px]', 'border-black', 'bg-gray-200']
 
 function toggleIndeterminate() {
   if (value.value === null) {
@@ -34,9 +34,9 @@ function toggleIndeterminate() {
 <template>
   <div class="cursor-default inline-block">
     <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <OkuProgress :class="rootClass" :value="value" :max="max">
+      <OkuProgress :class="root" :value="value" :max="max">
         <OkuProgressIndicator
-          class="progress_indicator w-0 h-full transition duration-150 ease-out"
+          class="progress-indicator w-0 h-full transition duration-150 ease-out"
           :style="{ width: percentage != null ? `${percentage}%` : undefined }"
         />
       </OkuProgress>
@@ -47,70 +47,70 @@ function toggleIndeterminate() {
       </button>
       <input v-model.number="value" type="range" min="0" :max="max" :disabled="value === null">
     </div>
-    <!-- TODO: How to bind CSS progress_styles with Element properties simply？ -->
+    <!-- TODO: How to bind CSS progress-styles with Element properties simply？ -->
     <div v-if="template === '#2' || allshow" class="flex flex-col">
       <h1>Loading (not started)</h1>
       0/100
-      <OkuProgress :value="0" :class="rootClass">
-        <OkuProgressIndicator class="progress_indicator" />
+      <OkuProgress :value="0" :class="root">
+        <OkuProgressIndicator class="progress-indicator" />
       </OkuProgress>
 
       <h1>Loading (started)</h1>
       30/100
-      <OkuProgress :value="30" :class="rootClass">
-        <OkuProgressIndicator class="progress_indicator" />
+      <OkuProgress :value="30" :class="root">
+        <OkuProgressIndicator class="progress-indicator" />
       </OkuProgress>
 
       <h1>Indeterminate</h1>
       /100
-      <OkuProgress :value="null" :class="rootClass">
-        <OkuProgressIndicator class="progress_indicator" />
+      <OkuProgress :value="null" :class="root">
+        <OkuProgressIndicator class="progress-indicator" />
       </OkuProgress>
 
       <h1>Complete</h1>
       100/100
-      <OkuProgress :value="100" :class="rootClass">
-        <OkuProgressIndicator class="progress_indicator" />
+      <OkuProgress :value="100" :class="root">
+        <OkuProgressIndicator class="progress-indicator" />
       </OkuProgress>
 
       <h1>State attributes</h1>
       <h2>Loading (started)</h2>
-      <OkuProgress :value="30" class="progress_styledClass">
-        <OkuProgressIndicator class="progress_styledClass" />
+      <OkuProgress :value="30" class="progress-styled">
+        <OkuProgressIndicator class="progress-styled" />
       </OkuProgress>
 
       <h2>Indeterminate</h2>
-      <OkuProgress :value="null" class="progress_styledClass">
-        <OkuProgressIndicator class="progress_styledClass" />
+      <OkuProgress :value="null" class="progress-styled">
+        <OkuProgressIndicator class="progress-styled" />
       </OkuProgress>
 
       <h2>Complete</h2>
-      <OkuProgress :value="100" class="progress_styledClass">
-        <OkuProgressIndicator class="progress_styledClass" />
+      <OkuProgress :value="100" class="progress-styled">
+        <OkuProgressIndicator class="progress-styled" />
       </OkuProgress>
     </div>
   </div>
 </template>
 
 <style scoped>
-.progress_indicator[data-state="complete"] {
+.progress-indicator[data-state="complete"] {
   background-color: green;
 }
 
-.progress_indicator[data-state="loading"] {
+.progress-indicator[data-state="loading"] {
   background-color: gray;
 }
-.progress_styles[data-state="complete"] {
+.progress-styles[data-state="complete"] {
   border-color: green;
 }
 
-.progress_styles[data-state="loading"] {
+.progress-styles[data-state="loading"] {
   border-color: red;
 }
-.progress_styles[data-state="indeterminate"] {
+.progress-styles[data-state="indeterminate"] {
   border-color: purple;
 }
-.progress_styledClass {
+.progress-styled {
   border: 2px solid blue;
   padding: 10px;
   background-color: #eee;

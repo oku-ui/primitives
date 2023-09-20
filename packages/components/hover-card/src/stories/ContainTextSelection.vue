@@ -20,12 +20,12 @@ import {
   >
     <div style="display: flex; gap: 30px;">
       <OkuHoverCard>
-        <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
+        <OkuHoverCardTrigger href="/" class="hover-card-trigger">
           single
         </OkuHoverCardTrigger>
         <OkuHoverCardPortal>
-          <OkuHoverCardContent class="hover_card_animatedContentClass" :side-offset="5">
-            <OkuHoverCardArrow class="hover_card_arrowClass" :width="20" :height="10" />
+          <OkuHoverCardContent class="hover-card-animatedContent" :side-offset="5">
+            <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" />
             <div style="max-width: 400px;">
               Text selections will be contained within the content. While a selection is active
               the content will not dismiss unless the selection is cleared or an outside
@@ -36,12 +36,12 @@ import {
       </OkuHoverCard>
 
       <OkuHoverCard>
-        <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
+        <OkuHoverCardTrigger href="/" class="hover-card-trigger">
           nested
         </OkuHoverCardTrigger>
         <OkuHoverCardPortal>
-          <OkuHoverCardContent class="hover_card_animatedContentClass" :side-offset="5">
-            <OkuHoverCardArrow class="hover_card_arrowClass" :width="20" :height="10" />
+          <OkuHoverCardContent class="hover-card-animatedContent" :side-offset="5">
+            <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" />
             <div style="max-width: 400px;">
               Text selections will be contained within the content. While a selection is active
               the content will not dismiss unless the selection is cleared or an outside
@@ -49,12 +49,12 @@ import {
             </div>
 
             <OkuHoverCard>
-              <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
+              <OkuHoverCardTrigger href="/" class="hover-card-trigger">
                 nested trigger
               </OkuHoverCardTrigger>
               <OkuHoverCardPortal>
-                <OkuHoverCardContent class="hover_card_animatedContentClass" :side-offset="5" style="background-color: crimson">
-                  <OkuHoverCardArrow class="hover_card_arrowClass" :width="20" :height="10" style="fill: crimson" />
+                <OkuHoverCardContent class="hover-card-animatedContent" :side-offset="5" style="background-color: crimson">
+                  <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" style="fill: crimson" />
                   <div style="max-width: 400px;">
                     Text selections will be contained within the content. While a selection is
                     active the content will not dismiss unless the selection is cleared or an
@@ -62,12 +62,12 @@ import {
                   </div>
 
                   <OkuHoverCard>
-                    <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
+                    <OkuHoverCardTrigger href="/" class="hover-card-trigger">
                       nested trigger
                     </OkuHoverCardTrigger>
                     <OkuHoverCardPortal>
-                      <OkuHoverCardContent class="hover_card_animatedContentClass" :side-offset="5" style="background-color: green">
-                        <OkuHoverCardArrow class="hover_card_arrowClass" :width="20" :height="10" style="fill: green" />
+                      <OkuHoverCardContent class="hover-card-animatedContent" :side-offset="5" style="background-color: green">
+                        <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" style="fill: green" />
                         <div style="max-width: 400px;">
                           Text selections will be contained within the content. While a selection
                           is active the content will not dismiss unless the selection is cleared

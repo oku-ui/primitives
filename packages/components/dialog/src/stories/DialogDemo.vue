@@ -66,13 +66,13 @@ withDefaults(defineProps<OkuDialogProps>(), {
 </template>
 
 <style lang="postcss">
-.dialog_triggerClass {
+.dialog-trigger {
   position: fixed;
   top: 0;
   left: 0;
 }
 
-.dialog_overlayClass {
+.dialog-overlay {
    position: fixed;
   top: 0;
   right: 0;
@@ -81,7 +81,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.dialog_scrollableOverlayClass {
+.dialog-scrollableOverlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -96,7 +96,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   justify-content: center;
 }
 
-.dialog_contentStyles {
+.dialog-contentStyles {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -105,7 +105,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
-.dialog_contentDefaultClass {
+.dialog-contentDefault {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -122,7 +122,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   transform: translate(-50%, -50%);
 }
 
-.dialog_contentScrollableClass {
+.dialog-contentScrollable {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -142,7 +142,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   max-height: 300px;
 }
 
-.dialog_contentInScrollableOverlayClass {
+.dialog-contentInScrollableOverlay {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -154,7 +154,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   margin-bottom: 50px;
 }
 
-.dialog_contentSheetClass {
+.dialog-contentSheet {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -174,9 +174,9 @@ withDefaults(defineProps<OkuDialogProps>(), {
   border-bottom-right-radius: 0;
 }
 
-.dialog_closeClass {}
+.dialog-close {}
 
-@keyframes dialog_fadeIn {
+@keyframes dialog-fadeIn {
   from {
     opacity: 0;
   }
@@ -186,7 +186,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-@keyframes dialog_fadeOut {
+@keyframes dialog-fadeOut {
   from {
     opacity: 1;
   }
@@ -196,7 +196,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-@keyframes dialog_scaleIn {
+@keyframes dialog-scaleIn {
   from {
     transform: translate(-50%, -50%) scale(0.75);
   }
@@ -206,7 +206,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog_animatedOverlayClass {
+.dialog-animatedOverlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -216,15 +216,15 @@ withDefaults(defineProps<OkuDialogProps>(), {
   background-color: rgba(0, 0, 0, 0.2);
 
   &[data-state="open"] {
-    animation: dialog_fadeIn 300ms ease-out;
+    animation: dialog-fadeIn 300ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: dialog_fadeOut 300ms ease-in;
+    animation: dialog-fadeOut 300ms ease-in;
   }
 }
 
-.dialog_animatedContentClass {
+.dialog-animatedContent {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -241,15 +241,15 @@ withDefaults(defineProps<OkuDialogProps>(), {
   transform: translate(-50%, -50%);
 
   &[data-state="open"] {
-    animation: dialog_fadeIn 150ms ease-out, dialog_scaleIn 200ms ease-out;
+    animation: dialog-fadeIn 150ms ease-out, dialog-scaleIn 200ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: dialog_fadeOut 300ms ease-in;
+    animation: dialog-fadeOut 300ms ease-in;
   }
 }
 
-.dialog_chromaticContentClass {
+.dialog-chromaticContent {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -269,7 +269,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   min-height: auto;
 }
 
-.dialog_triggerAttrClass {
+.dialog-triggerAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -283,7 +283,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog_overlayAttrClass {
+.dialog-overlayAttr {
   position: fixed;
   top: 0;
   right: 0;
@@ -305,7 +305,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog_contentAttrClass {
+.dialog-contentAttr {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -337,7 +337,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog_closeAttrClass {
+.dialog-closeAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

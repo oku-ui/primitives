@@ -19,12 +19,12 @@ const open = ref(false)
 
   <div style="padding: 50px; display: flex; justify-content: center">
     <OkuHoverCard :open="open" @open-change="open = !open">
-      <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
+      <OkuHoverCardTrigger href="/" class="hover-card-trigger">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="contentClass">
-          <OkuHoverCardArrow class="hover_card_arrowClass" :width="20" :height="10" />
+        <OkuHoverCardContent class="content">
+          <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" />
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>

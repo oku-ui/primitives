@@ -100,10 +100,10 @@ function updated(res: any) {
           id="checkbox"
           ref="refdd"
           :checked="data"
-          class="checkbox_rootClass"
+          class="checkbox-root"
           @checked-change="updated"
         >
-          <OkuCheckboxIndicator class="checkbox_indicatorClass" />
+          <OkuCheckboxIndicator class="checkbox-indicator" />
         </OkuCheckbox>
 
         <div>
@@ -118,9 +118,9 @@ function updated(res: any) {
           id="checkbox"
           ref="refdd"
           v-model="data"
-          class="checkbox_rootClass"
+          class="checkbox-root"
         >
-          <OkuCheckboxIndicator class="checkbox_indicatorClass" />
+          <OkuCheckboxIndicator class="checkbox-indicator" />
         </OkuCheckbox>
 
         <div>
@@ -143,12 +143,12 @@ function updated(res: any) {
   --blue: #0000ff;
 }
 
-/* RECOMMENDED_CSS__CHECKBOX__ROOT */
+/* RECOMMENDED-CSS-CHECKBOX-ROOT */
 .root {
   vertical-align: middle;
 }
 
-.checkbox_rootClass {
+.checkbox-root {
   border: 1px solid var(--gray300);
   width: 30px;
   height: 30px;
@@ -165,8 +165,8 @@ function updated(res: any) {
   }
 }
 
-/* checkbox_indicatorClass */
-.checkbox_indicatorClass {
+/* checkbox-indicator */
+.checkbox-indicator {
   background-color: var(--red);
   display: block;
   width: 20px;
@@ -178,8 +178,8 @@ function updated(res: any) {
   }
 }
 
-/* checkbox_fadeIn and checkbox_fadeOut keyframes */
-@keyframes checkbox_fadeIn {
+/* checkbox-fadeIn and checkbox-fadeOut keyframes */
+@keyframes checkbox-fadeIn {
   from {
     opacity: 0;
   }
@@ -188,7 +188,7 @@ function updated(res: any) {
   }
 }
 
-@keyframes checkbox_fadeOut {
+@keyframes checkbox-fadeOut {
   from {
     opacity: 1;
   }
@@ -197,21 +197,21 @@ function updated(res: any) {
   }
 }
 
-/* checkbox_animatedIndicatorClass */
-.checkbox_animatedIndicatorClass {
+/* checkbox-animatedIndicator */
+.checkbox-animatedIndicator {
   transition: height 300ms;
 
   &[data-state="checked"] {
-    animation: checkbox_fadeIn 1000ms ease-out;
+    animation: checkbox-fadeIn 1000ms ease-out;
   }
 
   &[data-state="unchecked"] {
-    animation: checkbox_fadeOut 1000ms ease-in;
+    animation: checkbox-fadeOut 1000ms ease-in;
   }
 }
 
 /* styles */
-.checkbox_rootAttrClass {
+.checkbox-rootAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -237,7 +237,7 @@ function updated(res: any) {
   }
 }
 
-.checkbox_indicatorAttrClass {
+.checkbox-indicatorAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

@@ -24,63 +24,63 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   template: 'Basic',
 })
 
-const templateClass = 'flex flex-col justify-center'
+const template = 'flex flex-col justify-center'
 </script>
 
 <template>
-  <div v-if="template === 'Basic' || allshow" :class="templateClass">
+  <div v-if="template === 'Basic' || allshow" :class="template">
     <Basic />
   </div>
-  <div v-if="template === 'ContainTextSelection' || allshow" :class="templateClass">
+  <div v-if="template === 'ContainTextSelection' || allshow" :class="template">
     <ContainTextSelection />
   </div>
-  <div v-if="template === 'AsyncUpdate' || allshow" :class="templateClass">
+  <div v-if="template === 'AsyncUpdate' || allshow" :class="template">
     <AsyncUpdate />
   </div>
-  <div v-if="template === 'CustomDurations' || allshow" :class="templateClass">
+  <div v-if="template === 'CustomDurations' || allshow" :class="template">
     <CustomDurations />
   </div>
-  <div v-if="template === 'Controlled' || allshow" :class="templateClass">
+  <div v-if="template === 'Controlled' || allshow" :class="template">
     <Controlled />
   </div>
-  <div v-if="template === 'Layerable' || allshow" :class="templateClass">
+  <div v-if="template === 'Layerable' || allshow" :class="template">
     <Layerable />
   </div>
-  <div v-if="template === 'Animated' || allshow" :class="templateClass">
+  <div v-if="template === 'Animated' || allshow" :class="template">
     <Animated />
   </div>
-  <div v-if="template === 'ForcedMount' || allshow" :class="templateClass">
+  <div v-if="template === 'ForcedMount' || allshow" :class="template">
     <ForcedMount />
   </div>
-  <div v-if="template === 'Nested' || allshow" :class="templateClass">
+  <div v-if="template === 'Nested' || allshow" :class="template">
     <Nested />
   </div>
-  <div v-if="template === 'NonPortal' || allshow" :class="templateClass">
+  <div v-if="template === 'NonPortal' || allshow" :class="template">
     <NonPortal />
   </div>
-  <div v-if="template === 'WithSlottedTrigger' || allshow" :class="templateClass">
+  <div v-if="template === 'WithSlottedTrigger' || allshow" :class="template">
     <WithSlottedTrigger />
   </div>
-  <div v-if="template === 'WithSlottedContent' || allshow" :class="templateClass">
+  <div v-if="template === 'WithSlottedContent' || allshow" :class="template">
     <WithSlottedContent />
   </div>
 </template>
 
 <style lang="postcss">
-.hover_card_triggerClass {}
+.hover-card-trigger {}
 
-.contentClass {
+.content {
   transform-origin: var(--oku-hover-card-content-transform-origin);
   background-color: #5d9bda;
   padding: 20px;
   border-radius: 5px;
 }
 
-.hover_card_arrowClass {
+.hover-card-arrow {
   fill: #f9fafb;
 }
 
-@keyframes hover_card_fadeIn {
+@keyframes hover-card-fadeIn {
   from {
     transform: scale(0.9);
     opacity: 0;
@@ -91,7 +91,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-@keyframes hover_card_fadeOut {
+@keyframes hover-card-fadeOut {
   from {
     transform: scale(1);
     opacity: 1;
@@ -102,20 +102,20 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover_card_animatedContentClass {
+.hover-card-animatedContent {
   transform-origin: var(--oku-hover-card-content-transform-origin);
   background-color: #f9fafb;
   padding: 20px;
   border-radius: 5px;
   &[data-state='open'] {
-    animation: hover_card_fadeIn 250ms ease;
+    animation: hover-card-fadeIn 250ms ease;
   }
   &[data-state='closed'] {
-    animation: hover_card_fadeOut 250ms ease;
+    animation: hover-card-fadeOut 250ms ease;
   }
 }
 
-.hover_card_gridClass {
+.hover-card-grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -124,7 +124,7 @@ const templateClass = 'flex flex-col justify-center'
   border: 1px solid black;
 }
 
-.hover_card_chromaticTriggerClass {
+.hover-card-chromaticTrigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -132,7 +132,7 @@ const templateClass = 'flex flex-col justify-center'
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.hover_card_chromaticContentClass {
+.hover-card-chromaticContent {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -144,11 +144,11 @@ const templateClass = 'flex flex-col justify-center'
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.hover_card_chromaticArrowClass {
+.hover-card-chromaticArrow {
   fill: black;
 }
 
-.hover_card_styles {
+.hover-card-styles {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -160,7 +160,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover_card_triggerAttrClass {
+.hover-card-triggerAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -172,7 +172,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover_card_contentAttrClass {
+.hover-card-contentAttr {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -191,7 +191,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover_card_arrowAttrClass {
+.hover-card-arrowAttr {
   fill: black;
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;

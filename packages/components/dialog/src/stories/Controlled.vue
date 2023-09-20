@@ -7,12 +7,12 @@ const open = ref(false)
 
 <template>
   <OkuDialog v-model="open">
-    <OkuDialogTrigger class="dialog_triggerClass">
+    <OkuDialogTrigger class="dialog-trigger">
       {{ open ? 'close' : 'open' }}
     </OkuDialogTrigger>
     <OkuDialogPortal>
-      <OkuDialogOverlay class="dialog_overlayClass" />
-      <OkuDialogContent class="dialog_contentDefaultClass">
+      <OkuDialogOverlay class="dialog-overlay" />
+      <OkuDialogContent class="dialog-contentDefault">
         <OkuDialogTitle>
           Title
         </OkuDialogTitle>

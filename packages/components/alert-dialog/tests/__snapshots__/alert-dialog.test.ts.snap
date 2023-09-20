@@ -2,7 +2,7 @@
 
 exports[`OkuAlertDialog > Controlled > renders correctly 1`] = `
 "<div>
-  <div><img src=\\"https://images.unsplash.com/photo-1682686580224-cd46ea1a6950?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80\\" alt=\\"a large white house with a red roof\\"></div><button type=\\"button\\" aria-haspopup=\\"dialog\\" aria-expanded=\\"true\\" aria-controls=\\"oku-15\\" data-state=\\"open\\" class=\\"alert_dialog_triggerClass\\">Buy this house</button>
+  <div><img src=\\"https://images.unsplash.com/photo-1682686580224-cd46ea1a6950?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80\\" alt=\\"a large white house with a red roof\\"></div><button type=\\"button\\" aria-haspopup=\\"dialog\\" aria-expanded=\\"true\\" aria-controls=\\"oku-15\\" data-state=\\"open\\" class=\\"alert-dialog-trigger\\">Buy this house</button>
   <!--teleport start-->
   <!--teleport end-->
   <!--teleport start-->
@@ -66,7 +66,7 @@ exports[`OkuAlertDialog > Controlled > should be able to close 1`] = `
         aria-controls="oku-21"
         aria-expanded="false"
         aria-haspopup="dialog"
-        class="alert_dialog_triggerClass"
+        class="alert-dialog-trigger"
         data-state="closed"
         type="button"
       >
@@ -138,7 +138,7 @@ exports[`OkuAlertDialog > Controlled > should be able to open 1`] = `
         aria-controls="oku-18"
         aria-expanded="true"
         aria-haspopup="dialog"
-        class="alert_dialog_triggerClass"
+        class="alert-dialog-trigger"
         data-state="open"
         type="button"
       >
@@ -156,7 +156,7 @@ exports[`OkuAlertDialog > Controlled > should be able to open 1`] = `
     </div>
   </div>
   <div
-    class="alert_dialog_overlayClass"
+    class="alert-dialog-overlay"
     data-state="open"
     style="pointer-events: auto;"
   >
@@ -167,7 +167,7 @@ exports[`OkuAlertDialog > Controlled > should be able to open 1`] = `
   <div
     aria-describedby="oku-20"
     aria-labelledby="oku-19"
-    class="alert_dialog_contentClass"
+    class="alert-dialog-content"
     data-state="open"
     id="oku-18"
     role="alertdialog"
@@ -176,25 +176,25 @@ exports[`OkuAlertDialog > Controlled > should be able to open 1`] = `
   >
     
     <h2
-      class="alert_dialog_titleClass"
+      class="alert-dialog-title"
       id="oku-19"
     >
        Are you sure? 
     </h2>
     <p
-      class="alert_dialog_descriptionClass"
+      class="alert-dialog-description"
       id="oku-20"
     >
        This will do a very dangerous thing. Thar be dragons! 
     </p>
     <button
-      class="alert_dialog_actionClass"
+      class="alert-dialog-action"
       type="button"
     >
        yolo, do it 
     </button>
     <button
-      class="alert_dialog_cancelClass"
+      class="alert-dialog-cancel"
       type="button"
     >
        maybe not 
@@ -237,7 +237,7 @@ exports[`OkuAlertDialog > OkuAlertDialogTitle renders correctly 1`] = `"\`OkuDia
 exports[`OkuAlertDialog > OkuAlertDialogTrigger renders correctly 1`] = `"\`OkuDialogTrigger\` must be used within \`OkuDialog\`"`;
 
 exports[`OkuAlertDialog > StyledVue > renders correctly 1`] = `
-"<div><button type=\\"button\\" aria-haspopup=\\"dialog\\" aria-expanded=\\"true\\" aria-controls=\\"oku-3\\" data-state=\\"open\\" class=\\"alert_dialog_triggerClass\\"> delete everything </button>
+"<div><button type=\\"button\\" aria-haspopup=\\"dialog\\" aria-expanded=\\"true\\" aria-controls=\\"oku-3\\" data-state=\\"open\\" class=\\"alert-dialog-trigger\\"> delete everything </button>
   <!--teleport start-->
   <!--teleport end-->
   <!--teleport start-->
@@ -275,7 +275,7 @@ exports[`OkuAlertDialog > StyledVue > should be able to close 1`] = `
         aria-controls="oku-9"
         aria-expanded="false"
         aria-haspopup="dialog"
-        class="alert_dialog_triggerClass"
+        class="alert-dialog-trigger"
         data-state="closed"
         type="button"
       >
@@ -321,7 +321,7 @@ exports[`OkuAlertDialog > StyledVue > should be able to open 1`] = `
         aria-controls="oku-6"
         aria-expanded="true"
         aria-haspopup="dialog"
-        class="alert_dialog_triggerClass"
+        class="alert-dialog-trigger"
         data-state="open"
         type="button"
       >
@@ -339,7 +339,7 @@ exports[`OkuAlertDialog > StyledVue > should be able to open 1`] = `
     </div>
   </div>
   <div
-    class="alert_dialog_overlayClass"
+    class="alert-dialog-overlay"
     data-state="open"
     style="pointer-events: auto;"
   >
@@ -350,7 +350,7 @@ exports[`OkuAlertDialog > StyledVue > should be able to open 1`] = `
   <div
     aria-describedby="oku-8"
     aria-labelledby="oku-7"
-    class="alert_dialog_contentClass"
+    class="alert-dialog-content"
     data-state="open"
     id="oku-6"
     role="alertdialog"
@@ -359,25 +359,25 @@ exports[`OkuAlertDialog > StyledVue > should be able to open 1`] = `
   >
     
     <h2
-      class="alert_dialog_titleClass"
+      class="alert-dialog-title"
       id="oku-7"
     >
        Are you sure? 
     </h2>
     <p
-      class="alert_dialog_descriptionClass"
+      class="alert-dialog-description"
       id="oku-8"
     >
        This will do a very dangerous thing. Thar be dragons! 
     </p>
     <button
-      class="alert_dialog_actionClass"
+      class="alert-dialog-action"
       type="button"
     >
        yolo, do it 
     </button>
     <button
-      class="alert_dialog_cancelClass"
+      class="alert-dialog-cancel"
       type="button"
     >
        maybe not 
