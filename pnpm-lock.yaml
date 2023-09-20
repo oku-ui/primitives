@@ -28,6 +28,7 @@ overrides:
   '@oku-ui/provide': workspace:^
   '@oku-ui/radio-group': workspace:^
   '@oku-ui/roving-focus': workspace:^
+  '@oku-ui/scroll-area': workspace:^
   '@oku-ui/separator': workspace:^
   '@oku-ui/slider': workspace:^
   '@oku-ui/slot': workspace:^
@@ -124,6 +125,9 @@ importers:
       '@oku-ui/roving-focus':
         specifier: workspace:^
         version: link:packages/components/roving-focus
+      '@oku-ui/scroll-area':
+        specifier: workspace:^
+        version: link:packages/components/scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
@@ -756,6 +760,9 @@ importers:
       '@oku-ui/radio-group':
         specifier: workspace:^
         version: link:../radio-group
+      '@oku-ui/scroll-area':
+        specifier: workspace:^
+        version: link:../scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../separator
@@ -852,6 +859,34 @@ importers:
       '@oku-ui/direction':
         specifier: workspace:^
         version: link:../direction
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/scroll-area:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../direction
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
@@ -1381,6 +1416,9 @@ importers:
       '@oku-ui/roving-focus':
         specifier: workspace:^
         version: link:../../packages/components/roving-focus
+      '@oku-ui/scroll-area':
+        specifier: workspace:^
+        version: link:../../packages/components/scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator
@@ -1436,6 +1474,9 @@ importers:
       '@oku-ui/roving-focus':
         specifier: workspace:^
         version: link:../../packages/components/roving-focus
+      '@oku-ui/scroll-area':
+        specifier: workspace:^
+        version: link:../../packages/components/scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:../../packages/components/separator

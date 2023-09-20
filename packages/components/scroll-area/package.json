@@ -1,7 +1,7 @@
 {
-  "name": "@oku-ui/primitives",
+  "name": "@oku-ui/scroll-area",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.4.0-alpha.11",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/primitives"
+    "directory": "packages/components/scroll-area"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
@@ -37,26 +37,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/aspect-ratio": "latest",
-    "@oku-ui/avatar": "latest",
-    "@oku-ui/checkbox": "latest",
-    "@oku-ui/collapsible": "latest",
-    "@oku-ui/dialog": "latest",
-    "@oku-ui/hover-card": "latest",
-    "@oku-ui/label": "latest",
-    "@oku-ui/popover": "latest",
-    "@oku-ui/progress": "latest",
-    "@oku-ui/radio-group": "latest",
-    "@oku-ui/scroll-area": "latest",
-    "@oku-ui/separator": "latest",
-    "@oku-ui/slider": "latest",
-    "@oku-ui/switch": "latest",
-    "@oku-ui/tabs": "latest",
-    "@oku-ui/toast": "latest",
-    "@oku-ui/toggle": "latest",
-    "@oku-ui/toggle-group": "latest",
-    "@oku-ui/toolbar": "latest",
-    "@oku-ui/tooltip": "latest"
+    "@oku-ui/direction": "latest",
+    "@oku-ui/presence": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
