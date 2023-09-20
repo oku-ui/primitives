@@ -37,7 +37,7 @@ function handleToggleVisibility() {
 </template>
 
 <style scoped>
-button {
+/* button {
     appearance: auto;
     text-rendering: auto;
     color: buttontext;
@@ -86,5 +86,5 @@ fieldset {
     border-style: groove;
     border-color: rgb(192, 192, 192);
     border-image: initial;
-}
+} */
 </style>

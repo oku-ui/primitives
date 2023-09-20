@@ -100,10 +100,10 @@ function updated(res: any) {
           id="checkbox"
           ref="refdd"
           :checked="data"
-          class="rootClass"
+          class="checkbox_rootClass"
           @checked-change="updated"
         >
-          <OkuCheckboxIndicator class="indicatorClass" />
+          <OkuCheckboxIndicator class="checkbox_indicatorClass" />
         </OkuCheckbox>
 
         <div>
@@ -118,9 +118,9 @@ function updated(res: any) {
           id="checkbox"
           ref="refdd"
           v-model="data"
-          class="rootClass"
+          class="checkbox_rootClass"
         >
-          <OkuCheckboxIndicator class="indicatorClass" />
+          <OkuCheckboxIndicator class="checkbox_indicatorClass" />
         </OkuCheckbox>
 
         <div>
@@ -148,7 +148,7 @@ function updated(res: any) {
   vertical-align: middle;
 }
 
-.rootClass {
+.checkbox_rootClass {
   border: 1px solid var(--gray300);
   width: 30px;
   height: 30px;
@@ -165,8 +165,8 @@ function updated(res: any) {
   }
 }
 
-/* indicatorClass */
-.indicatorClass {
+/* checkbox_indicatorClass */
+.checkbox_indicatorClass {
   background-color: var(--red);
   display: block;
   width: 20px;
@@ -178,8 +178,8 @@ function updated(res: any) {
   }
 }
 
-/* fadeIn and fadeOut keyframes */
-@keyframes fadeIn {
+/* checkbox_fadeIn and checkbox_fadeOut keyframes */
+@keyframes checkbox_fadeIn {
   from {
     opacity: 0;
   }
@@ -188,7 +188,7 @@ function updated(res: any) {
   }
 }
 
-@keyframes fadeOut {
+@keyframes checkbox_fadeOut {
   from {
     opacity: 1;
   }
@@ -197,21 +197,21 @@ function updated(res: any) {
   }
 }
 
-/* animatedIndicatorClass */
-.animatedIndicatorClass {
+/* checkbox_animatedIndicatorClass */
+.checkbox_animatedIndicatorClass {
   transition: height 300ms;
 
   &[data-state="checked"] {
-    animation: fadeIn 1000ms ease-out;
+    animation: checkbox_fadeIn 1000ms ease-out;
   }
 
   &[data-state="unchecked"] {
-    animation: fadeOut 1000ms ease-in;
+    animation: checkbox_fadeOut 1000ms ease-in;
   }
 }
 
 /* styles */
-.rootAttrClass {
+.checkbox_rootAttrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -237,7 +237,7 @@ function updated(res: any) {
   }
 }
 
-.indicatorAttrClass {
+.checkbox_indicatorAttrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

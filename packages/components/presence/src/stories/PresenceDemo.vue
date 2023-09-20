@@ -50,7 +50,7 @@ withDefaults(defineProps<OkuPresenceProps>(), {
 </template>
 
 <style>
-@keyframes fadeIn {
+@keyframes presence_fadeIn {
   from {
     opacity: 0;
   }
@@ -59,7 +59,7 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   }
 }
 
-@keyframes fadeOut {
+@keyframes presence_fadeOut {
   from {
     opacity: 1;
   }
@@ -68,7 +68,7 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   }
 }
 
-@keyframes slideUp {
+@keyframes presence_slideUp {
   from {
     transform: translateY(30px);
   }
@@ -77,7 +77,7 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   }
 }
 
-@keyframes slideDown {
+@keyframes presence_slideDown {
   from {
     transform: translateY(0);
   }
@@ -86,35 +86,35 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   }
 }
 
-.mountAnimationClass {
-  animation: fadeIn 3s ease-out;
+.presence_mountAnimationClass {
+  animation: presence_fadeIn 3s ease-out;
 }
 
-.unmountAnimationClass {
+.presence_unmountAnimationClass {
   &[data-state="closed"] {
-    animation: fadeOut 3s ease-in;
+    animation: presence_fadeOut 3s ease-in;
   }
 }
 
-.multipleMountAnimationsClass {
-  animation: fadeIn 6s cubic-bezier(0.22, 1, 0.36, 1), slideUp 6s cubic-bezier(0.22, 1, 0.36, 1);
+.presence_multipleMountAnimationsClass {
+  animation: presence_fadeIn 6s cubic-bezier(0.22, 1, 0.36, 1), presence_slideUp 6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.openAndCloseAnimationClass {
+.presence_openAndCloseAnimationClass {
   &[data-state="open"] {
-    animation: fadeIn 3s ease-out;
+    animation: presence_fadeIn 3s ease-out;
   }
   &[data-state="closed"] {
-    animation: fadeOut 3s ease-in;
+    animation: presence_fadeOut 3s ease-in;
   }
 }
 
-.multipleOpenAndCloseAnimationsClass {
+.presence_multipleOpenAndCloseAnimationsClass {
   &[data-state="open"] {
-    animation: fadeIn 3s cubic-bezier(0.22, 1, 0.36, 1), slideUp 1s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: presence_fadeIn 3s cubic-bezier(0.22, 1, 0.36, 1), presence_slideUp 1s cubic-bezier(0.22, 1, 0.36, 1);
   }
   &[data-state="closed"] {
-    animation: fadeOut 3s cubic-bezier(0.22, 1, 0.36, 1), slideDown 1s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: presence_fadeOut 3s cubic-bezier(0.22, 1, 0.36, 1), presence_slideDown 1s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 </style>

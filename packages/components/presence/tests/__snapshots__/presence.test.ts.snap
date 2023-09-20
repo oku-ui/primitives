@@ -103,7 +103,7 @@ exports[`OkuPresence > WithMountAnimation > should be able to mount click 1`] = 
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"mountAnimationClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_mountAnimationClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount click 2`] = `
@@ -126,7 +126,7 @@ exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 1
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"mountAnimationClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_mountAnimationClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 2`] = `
@@ -138,7 +138,7 @@ exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 2
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"mountAnimationClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
+<div class=\\"presence_mountAnimationClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 3`] = `
@@ -150,7 +150,7 @@ exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 3
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"mountAnimationClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
+<div class=\\"presence_mountAnimationClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > renders correctly 1`] = `
@@ -173,7 +173,7 @@ exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount cli
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleMountAnimationsClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_multipleMountAnimationsClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount click 2`] = `
@@ -196,7 +196,7 @@ exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount vis
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleMountAnimationsClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_multipleMountAnimationsClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount visibility 2`] = `
@@ -208,7 +208,7 @@ exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount vis
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleMountAnimationsClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
+<div class=\\"presence_multipleMountAnimationsClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount visibility 3`] = `
@@ -220,7 +220,7 @@ exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount vis
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleMountAnimationsClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
+<div class=\\"presence_multipleMountAnimationsClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > renders correctly 1`] = `
@@ -243,7 +243,7 @@ exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mo
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount click 2`] = `
@@ -266,7 +266,7 @@ exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mo
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount visibility 2`] = `
@@ -278,7 +278,7 @@ exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mo
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
+<div class=\\"presence_multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount visibility 3`] = `
@@ -290,7 +290,7 @@ exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mo
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
+<div class=\\"presence_multipleOpenAndCloseAnimationsClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > renders correctly 1`] = `
@@ -313,7 +313,7 @@ exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount click
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"openAndCloseAnimationClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_openAndCloseAnimationClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount click 2`] = `
@@ -336,7 +336,7 @@ exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visib
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"openAndCloseAnimationClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_openAndCloseAnimationClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visibility 2`] = `
@@ -348,7 +348,7 @@ exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visib
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"openAndCloseAnimationClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
+<div class=\\"presence_openAndCloseAnimationClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visibility 3`] = `
@@ -360,7 +360,7 @@ exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visib
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"openAndCloseAnimationClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
+<div class=\\"presence_openAndCloseAnimationClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > renders correctly 1`] = `
@@ -383,7 +383,7 @@ exports[`OkuPresence > WithUnmountAnimation > should be able to mount click 1`] 
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"unmountAnimationClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_unmountAnimationClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount click 2`] = `
@@ -406,7 +406,7 @@ exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"unmountAnimationClass\\" data-state=\\"open\\"> Content </div>"
+<div class=\\"presence_unmountAnimationClass\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility 2`] = `
@@ -418,7 +418,7 @@ exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"unmountAnimationClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
+<div class=\\"presence_unmountAnimationClass\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility 3`] = `
@@ -430,7 +430,7 @@ exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility
     <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
-<div class=\\"unmountAnimationClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
+<div class=\\"presence_unmountAnimationClass\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > renders correctly 1`] = `""`;

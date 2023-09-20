@@ -9,13 +9,13 @@ const open = ref(false)
 <template>
   <div>
     <OkuDialog v-model="open">
-      <OkuDialogTrigger class="triggerClass">
+      <OkuDialogTrigger class="dialog_triggerClass">
         open
       </OkuDialogTrigger>
       <OkuDialogPortal>
-        <OkuDialogOverlay class="animatedOverlayClass" />
+        <OkuDialogOverlay class="dialog_animatedOverlayClass" />
         <OkuDialogContent
-          class="animatedContentClass"
+          class="dialog_animatedContentClass"
         >
           <OkuDialogTitle>
             Title

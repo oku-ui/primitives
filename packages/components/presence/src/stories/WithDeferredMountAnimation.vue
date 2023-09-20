@@ -30,7 +30,7 @@ watch(open, () => {
   <OkuPresence :present="open">
     <div
       ref="elementRef"
-      :class="animate ? 'mountAnimationClass' : undefined"
+      :class="animate ? 'presence_mountAnimationClass' : undefined"
       :data-state="open ? 'open' : 'closed'"
     >
       Content
