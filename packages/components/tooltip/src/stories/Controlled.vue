@@ -15,13 +15,13 @@ const open = ref(true)
 <template>
   <OkuTooltipProvider>
     <OkuTooltip v-model="open">
-      <OkuTooltipTrigger class="triggerClass">
+      <OkuTooltipTrigger class="tooltip_triggerClass">
         I'm controlled, look I'm {{ open ? 'open' : 'closed' }}
       </OkuTooltipTrigger>
       <OkuTooltipPortal>
-        <OkuTooltipContent class="contentClass" :side-offset="5">
+        <OkuTooltipContent class="tooltip_contentClass" :side-offset="5">
           Nicely done!
-          <OkuTooltipArrow class="arrowClass" :offset="10" />
+          <OkuTooltipArrow class="tooltip_arrowClass" :offset="10" />
         </OkuTooltipContent>
       </OkuTooltipPortal>
     </OkuTooltip>
