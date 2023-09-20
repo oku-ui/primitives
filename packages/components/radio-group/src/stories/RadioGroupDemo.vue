@@ -21,22 +21,22 @@ defineProps<ITabsProps>()
     <h1>Horizontal (automatic activation)</h1>
     <OkuLabel>
       Favourite pet
-      <OkuRadioGroup default-value="1" class="root-class">
+      <OkuRadioGroup default-value="1" class="radio_group_rootClass">
         <OkuLabel>
-          <OkuRadioGroupItem value="1" class="item-class">
-            <OkuRadioGroupIndicator class="indicator-class" />
+          <OkuRadioGroupItem value="1" class="radio_group_itemClass">
+            <OkuRadioGroupIndicator class="radio_group_indicatorClass" />
           </OkuRadioGroupItem>
           Cat
         </OkuLabel>
         <OkuLabel>
-          <OkuRadioGroupItem value="2" class="item-class">
-            <OkuRadioGroupIndicator class="indicator-class" />
+          <OkuRadioGroupItem value="2" class="radio_group_itemClass">
+            <OkuRadioGroupIndicator class="radio_group_indicatorClass" />
           </OkuRadioGroupItem>
           Dog
         </OkuLabel>
         <OkuLabel>
-          <OkuRadioGroupItem value="3" class="item-class">
-            <OkuRadioGroupIndicator class="indicator-class" />
+          <OkuRadioGroupItem value="3" class="radio_group_itemClass">
+            <OkuRadioGroupIndicator class="radio_group_indicatorClass" />
           </OkuRadioGroupItem>
           Rabbit
         </OkuLabel>
@@ -54,14 +54,14 @@ defineProps<ITabsProps>()
 }
 
 /* Root Class */
-.root-class {
+.radio_group_rootClass {
   display: inline-block;
   vertical-align: middle;
   cursor: default;
 }
 
 /* Radio Group Item */
-.item-class {
+.radio_group_itemClass {
   vertical-align: middle;
   width: 30px;
   height: 30px;
@@ -83,7 +83,7 @@ defineProps<ITabsProps>()
 }
 
 /* Indicator */
-.indicator-class {
+.radio_group_indicatorClass {
   width: 18px;
   height: 18px;
   background-color: var(--red);
@@ -93,16 +93,16 @@ defineProps<ITabsProps>()
   border-radius: inherit;
 
   &[data-state="checked"] {
-    animation: fadeIn 300ms ease-out;
+    animation: radio_group_fadeIn 300ms ease-out;
   }
 
   &[data-state="unchecked"] {
-    animation: fadeOut 300ms ease-in;
+    animation: radio_group_fadeOut 300ms ease-in;
   }
 }
 
 /* Animations */
-@keyframes fadeIn {
+@keyframes radio_group_fadeIn {
   from {
     opacity: 0;
   }
@@ -111,7 +111,7 @@ defineProps<ITabsProps>()
   }
 }
 
-@keyframes fadeOut {
+@keyframes radio_group_fadeOut {
   from {
     opacity: 1;
   }
@@ -121,7 +121,7 @@ defineProps<ITabsProps>()
 }
 
 /* Styles */
-.styles {
+.radio_group_styles {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

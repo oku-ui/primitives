@@ -24,46 +24,46 @@ const props = defineProps<{
   <div>
     <h1>{{ props.title }}</h1>
     <OkuToolbar
-      class="toolbarClass"
+      class="toolbar_rootClass"
       :orientation="props.orientation"
       :loop="props.loop"
       :aria-label="`Toolbar ${props.title}`"
       :dir="props.dir"
     >
-      <OkuToolbarButton class="toolbarItemClass">
+      <OkuToolbarButton class="toolbar_itemClass">
         Button
       </OkuToolbarButton>
-      <OkuToolbarButton class="toolbarItemClass" disabled>
+      <OkuToolbarButton class="toolbar_itemClass" disabled>
         Button (disabled)
       </OkuToolbarButton>
-      <OkuToolbarSeparator class="toolbarSeparatorClass" />
+      <OkuToolbarSeparator class="toolbar_separatorClass" />
       <OkuToolbarLink
-        class="toolbarLinkClass"
+        class="toolbar_linkClass"
         href="https://www.w3.org/TR/2019/WD-wai-aria-practices-1.2-20191218/examples/toolbar/toolbar.html"
         target="_blank"
       >
         Link
       </OkuToolbarLink>
-      <OkuToolbarSeparator class="toolbarSeparatorClass" />
-      <OkuToolbarButton class="toolbarToggleButtonClass" as-child>
+      <OkuToolbarSeparator class="toolbar_separatorClass" />
+      <OkuToolbarButton class="toolbar_toggleButtonClass" as-child>
         <OkuToggle>Toggle</OkuToggle>a
       </OkuToolbarButton>
-      <OkuToolbarSeparator class="toolbarSeparatorClass" />
-      <OkuToolbarToggleGroup type="single" class="toolbarToggleGroupClass">
-        <OkuToolbarToggleItem value="left" class="toolbarToggleItemClass">
+      <OkuToolbarSeparator class="toolbar_separatorClass" />
+      <OkuToolbarToggleGroup type="single" class="toolbar_toggleGroupClass">
+        <OkuToolbarToggleItem value="left" class="toolbar_toggleItemClass">
           Left
         </OkuToolbarToggleItem>
-        <OkuToolbarToggleItem value="center" class="toolbarToggleItemClass">
+        <OkuToolbarToggleItem value="center" class="toolbar_toggleItemClass">
           Center
         </OkuToolbarToggleItem>
-        <OkuToolbarToggleItem value="right" class="toolbarToggleItemClass">
+        <OkuToolbarToggleItem value="right" class="toolbar_toggleItemClass">
           Right
         </OkuToolbarToggleItem>
       </OkuToolbarToggleGroup>
-      <OkuToolbarSeparator class="toolbarSeparatorClass" />
+      <OkuToolbarSeparator class="toolbar_separatorClass" />
       <!-- TODO: DropdownMenu issua: https://github.com/oku-ui/primitives/issues/10 -->
       <!-- <DropdownMenu.Root>
-        <OkuToolbarButton class="toolbarItemClass" as-child>
+        <OkuToolbarButton class="toolbar_itemClass" as-child>
           <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>
         </OkuToolbarButton>
         <DropdownMenu.Content class="dropdownMenuContentClass" side-offset="5}">
@@ -79,155 +79,3 @@ const props = defineProps<{
     </OkuToolbar>
   </div>
 </template>
-
-<style>
-.toolbarClass {
-  @apply flex gap-1;
-
-  &[data-orientation="vertical"] {
-    flex-direction: column;
-  }
-
-  display: inline-flex;
-  box-sizing: border-box;
-  min-width: 130px;
-  background-color: #fff;
-  border: 1px solid #f0f0f0;
-  border-radius: 6px;
-  padding: 5px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
-  font-size: 13px;
-
-  &:focus-within {
-    border-color: #000;
-  }
-}
-
-.toolbarSeparatorClass {
-  height: 1px;
-  margin: 5px;
-  background-color: #f0f0f0;
-
-  &[data-orientation="vertical"] {
-    width: 1px;
-    height: auto;
-  }
-}
-
-.toolbarItemClass {
-  border: 1px solid #000;
-  border-radius: 6px;
-  background-color: transparent;
-  padding: 5px 10px;
-  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
-  font-size: 13px;
-
-  display: flex;
-  align-items: center;
-
-  &:focus,
-  &:focus-within {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
-  }
-
-  &[data-disabled] {
-    opacity: 0.5;
-    user-select: none;
-  }
-}
-
-.toolbarLinkClass {
-  border: 1px solid #000;
-  border-radius: 6px;
-  background-color: transparent;
-  padding: 5px 10px;
-  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
-  font-size: 13px;
-
-  display: flex;
-  align-items: center;
-
-  &:focus,
-  &:focus-within {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
-  }
-
-  &[data-disabled] {
-    opacity: 0.5;
-    user-select: none;
-  }
-
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
-}
-
-.toolbarToggleButtonClass {
-  border: 1px solid #000;
-  border-radius: 6px;
-  background-color: transparent;
-  padding: 5px 10px;
-  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
-  font-size: 13px;
-
-  display: flex;
-  align-items: center;
-
-  &:focus,
-  &:focus-within {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
-  }
-
-  &[data-disabled] {
-    opacity: 0.5;
-    user-select: none;
-  }
-
-  &[data-state="on"] {
-    background: black;
-    color: white;
-  }
-}
-
-.toolbarToggleGroupClass {
-  display: flex;
-  gap: 5px;
-
-  &[data-orientation="vertical"] {
-    flex-direction: column;
-  }
-}
-
-.toolbarToggleItemClass {
-    border: 1px solid #000;
-  border-radius: 6px;
-  background-color: transparent;
-  padding: 5px 10px;
-  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
-  font-size: 13px;
-
-  display: flex;
-  align-items: center;
-
-  &:focus,
-  &:focus-within {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
-  }
-
-  &[data-disabled] {
-    opacity: 0.5;
-    user-select: none;
-  }
-
-  &[data-state="on"] {
-    background: black;
-    color: white;
-  }
-}
-</style>

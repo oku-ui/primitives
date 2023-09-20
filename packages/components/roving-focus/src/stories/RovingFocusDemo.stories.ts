@@ -12,7 +12,7 @@ const meta = {
     template: '#1',
   },
   component: RovingFocusComponent,
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof RovingFocusComponent> & {
   args: StoryProps
 }

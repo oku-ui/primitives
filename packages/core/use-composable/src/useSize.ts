@@ -1,7 +1,7 @@
 /// <reference types="resize-observer-browser" />
 
 import type { Ref } from 'vue'
-import { onUnmounted, ref, watch } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 
 interface Size {
   width: number
@@ -53,7 +53,7 @@ function useSize(element: Ref<HTMLElement | null>) {
     }
   })
 
-  onUnmounted(() => {
+  onBeforeUnmount(() => {
     if (element.value)
       resizeObserver.value?.unobserve(element.value)
   })

@@ -66,13 +66,13 @@ withDefaults(defineProps<OkuDialogProps>(), {
 </template>
 
 <style lang="postcss">
-.triggerClass {
+.dialog_triggerClass {
   position: fixed;
   top: 0;
   left: 0;
 }
 
-.overlayClass {
+.dialog_overlayClass {
    position: fixed;
   top: 0;
   right: 0;
@@ -81,7 +81,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.scrollableOverlayClass {
+.dialog_scrollableOverlayClass {
   position: fixed;
   top: 0;
   right: 0;
@@ -96,7 +96,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   justify-content: center;
 }
 
-.contentStyles {
+.dialog_contentStyles {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -105,7 +105,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
-.contentDefaultClass {
+.dialog_contentDefaultClass {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -122,7 +122,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   transform: translate(-50%, -50%);
 }
 
-.contentScrollableClass {
+.dialog_contentScrollableClass {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -142,7 +142,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   max-height: 300px;
 }
 
-.contentInScrollableOverlayClass {
+.dialog_contentInScrollableOverlayClass {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -154,7 +154,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   margin-bottom: 50px;
 }
 
-.contentSheetClass {
+.dialog_contentSheetClass {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -174,9 +174,9 @@ withDefaults(defineProps<OkuDialogProps>(), {
   border-bottom-right-radius: 0;
 }
 
-.closeClass {}
+.dialog_closeClass {}
 
-@keyframes fadeIn {
+@keyframes dialog_fadeIn {
   from {
     opacity: 0;
   }
@@ -186,7 +186,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-@keyframes fadeOut {
+@keyframes dialog_fadeOut {
   from {
     opacity: 1;
   }
@@ -196,7 +196,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-@keyframes scaleIn {
+@keyframes dialog_scaleIn {
   from {
     transform: translate(-50%, -50%) scale(0.75);
   }
@@ -206,7 +206,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.animatedOverlayClass {
+.dialog_animatedOverlayClass {
   position: fixed;
   top: 0;
   right: 0;
@@ -216,15 +216,15 @@ withDefaults(defineProps<OkuDialogProps>(), {
   background-color: rgba(0, 0, 0, 0.2);
 
   &[data-state="open"] {
-    animation: fadeIn 300ms ease-out;
+    animation: dialog_fadeIn 300ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: fadeOut 300ms ease-in;
+    animation: dialog_fadeOut 300ms ease-in;
   }
 }
 
-.animatedContentClass {
+.dialog_animatedContentClass {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -241,15 +241,15 @@ withDefaults(defineProps<OkuDialogProps>(), {
   transform: translate(-50%, -50%);
 
   &[data-state="open"] {
-    animation: fadeIn 150ms ease-out, scaleIn 200ms ease-out;
+    animation: dialog_fadeIn 150ms ease-out, dialog_scaleIn 200ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: fadeOut 300ms ease-in;
+    animation: dialog_fadeOut 300ms ease-in;
   }
 }
 
-.chromaticContentClass {
+.dialog_chromaticContentClass {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -269,7 +269,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   min-height: auto;
 }
 
-.triggerAttrClass {
+.dialog_triggerAttrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -283,7 +283,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.overlayAttrClass {
+.dialog_overlayAttrClass {
   position: fixed;
   top: 0;
   right: 0;
@@ -305,7 +305,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.contentAttrClass {
+.dialog_contentAttrClass {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -337,7 +337,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.closeAttrClass {
+.dialog_closeAttrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

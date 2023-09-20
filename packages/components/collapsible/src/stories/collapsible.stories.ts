@@ -15,7 +15,7 @@ const meta = {
     template: '#1',
   },
   component: OkuCollapsibleDemo,
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof OkuCollapsibleDemo> & {
   args: StoryProps
 }

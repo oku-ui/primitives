@@ -1,108 +1,120 @@
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { OkuPresence } from '@oku-ui/presence'
-import Animation from './Animation.vue'
+import WithMountAnimation from './WithMountAnimation.vue'
+import WithUnmountAnimation from './WithUnmountAnimation.vue'
+import WithMultipleMountAnimations from './WithMultipleMountAnimations.vue'
+import WithOpenAndCloseAnimation from './WithOpenAndCloseAnimation.vue'
+import WithMultipleOpenAndCloseAnimations from './WithMultipleOpenAndCloseAnimations.vue'
+import WithDeferredMountAnimation from './WithDeferredMountAnimation.vue'
+import Basic from './Basic.vue'
 
 export interface OkuPresenceProps {
-  template: '#1' | '#2' | '#3'
+  template: 'Basic'
+  | 'WithMountAnimation'
+  | 'WithUnmountAnimation'
+  | 'WithMultipleMountAnimations'
+  | 'WithOpenAndCloseAnimation'
+  | 'WithMultipleOpenAndCloseAnimations'
+  | 'WithDeferredMountAnimation'
   allshow?: boolean
 }
 
 withDefaults(defineProps<OkuPresenceProps>(), {
-  template: '#1',
+  template: 'Basic',
 })
-
-const open = ref(true)
-
-function toggle() {
-  open.value = !open.value
-}
-
-const element = ref()
-
-watch(element, () => {
-  console.log('element', element.value)
-})
-
-function handleToggleVisibility() {
-  console.log(element.value, 'handleToggleVisibility')
-  const node = element.value
-
-  if (node) {
-    if (node.style.display === 'none')
-      node.style.display = 'block'
-
-    else
-      node.style.display = 'none'
-  }
-}
 </script>
 
 <template>
-  <div class="cursor-default inline-block">
-    <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <button @click="toggle">
-        toggle
-      </button>
-      <OkuPresence ref="element" :present="open">
-        <div>
-          Content
-        </div>
-      </OkuPresence>
+  <div>
+    <div v-if="template === 'Basic' || allshow">
+      <Basic />
     </div>
-    <div v-if="template === '#2' || allshow" class="flex flex-col">
-      <Animation />
+    <div v-if="template === 'WithMountAnimation' || allshow">
+      <WithMountAnimation />
     </div>
-    <div v-if="template === '#3' || allshow" class="flex flex-col">
-      <form class="flex space-x-4 mb-10">
-        <fieldset>
-          <legend>Mount</legend>
-          <button type="button" @click="toggle">
-            toggle
-          </button>
-        </fieldset>
-        <fieldset>
-          <legend>Visibility (triggers cancel event)</legend>
-          <button type="button" @click="handleToggleVisibility">
-            toggle
-          </button>
-        </fieldset>
-      </form>
-
-      <OkuPresence :present="open">
-        <div ref="element">
-          content
-        </div>
-      </OkuPresence>
+    <div v-if="template === 'WithUnmountAnimation' || allshow">
+      <WithUnmountAnimation />
+    </div>
+    <div v-if="template === 'WithMultipleMountAnimations' || allshow">
+      <WithMultipleMountAnimations />
+    </div>
+    <div v-if="template === 'WithOpenAndCloseAnimation' || allshow">
+      <WithOpenAndCloseAnimation />
+    </div>
+    <div v-if="template === 'WithMultipleOpenAndCloseAnimations' || allshow">
+      <WithMultipleOpenAndCloseAnimations />
+    </div>
+    <div v-if="template === 'WithDeferredMountAnimation' || allshow">
+      <WithDeferredMountAnimation />
     </div>
   </div>
 </template>
 
-<style scoped>
-button {
-    appearance: auto;
-    text-rendering: auto;
-    color: buttontext;
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    align-items: flex-start;
-    cursor: default;
-    box-sizing: border-box;
-    background-color: buttonface;
-    writing-mode: horizontal-tb !important;
-    margin: 0em;
-    padding-block: 1px;
-    padding-inline: 6px;
-    border-width: 2px;
-    border-style: outset;
-    border-color: buttonborder;
-    border-image: initial;
+<style>
+@keyframes presence_fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes presence_fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes presence_slideUp {
+  from {
+    transform: translateY(30px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes presence_slideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(30px);
+  }
+}
+
+.presence_mountAnimationClass {
+  animation: presence_fadeIn 3s ease-out;
+}
+
+.presence_unmountAnimationClass {
+  &[data-state="closed"] {
+    animation: presence_fadeOut 3s ease-in;
+  }
+}
+
+.presence_multipleMountAnimationsClass {
+  animation: presence_fadeIn 6s cubic-bezier(0.22, 1, 0.36, 1), presence_slideUp 6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.presence_openAndCloseAnimationClass {
+  &[data-state="open"] {
+    animation: presence_fadeIn 3s ease-out;
+  }
+  &[data-state="closed"] {
+    animation: presence_fadeOut 3s ease-in;
+  }
+}
+
+.presence_multipleOpenAndCloseAnimationsClass {
+  &[data-state="open"] {
+    animation: presence_fadeIn 3s cubic-bezier(0.22, 1, 0.36, 1), presence_slideUp 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &[data-state="closed"] {
+    animation: presence_fadeOut 3s cubic-bezier(0.22, 1, 0.36, 1), presence_slideDown 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
 }
 </style>

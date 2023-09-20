@@ -10,14 +10,14 @@ const meta = {
   title: 'Utilities/Presence',
   component: OkuPresenceComponent,
   args: {
-    template: '#1',
+    template: 'Basic',
   },
   argTypes: {
     template: {
       control: 'text',
     },
   },
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof OkuPresenceComponent> & {
   args: StoryProps
 }
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta> & {
 
 export const Basic: Story = {
   args: {
-    template: '#1',
+    template: 'Basic',
   },
   render: (args: any) => ({
     components: { OkuPresenceComponent },
@@ -42,10 +42,84 @@ export const Basic: Story = {
   }),
 }
 
-// TODO: Visibility cannot trigger animation
-export const WithAnimation: Story = {
+export const WithMountAnimation: Story = {
   args: {
-    template: '#2',
+    template: 'WithMountAnimation',
+  },
+  render: (args: any) => ({
+    components: { OkuPresenceComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuPresenceComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithUnmountAnimation: Story = {
+  args: {
+    template: 'WithUnmountAnimation',
+  },
+  render: (args: any) => ({
+    components: { OkuPresenceComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuPresenceComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithMultipleMountAnimations: Story = {
+  args: {
+    template: 'WithMultipleMountAnimations',
+  },
+  render: (args: any) => ({
+    components: { OkuPresenceComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuPresenceComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithOpenAndCloseAnimation: Story = {
+  args: {
+    template: 'WithOpenAndCloseAnimation',
+  },
+  render: (args: any) => ({
+    components: { OkuPresenceComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuPresenceComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithMultipleOpenAndCloseAnimations: Story = {
+  args: {
+    template: 'WithMultipleOpenAndCloseAnimations',
+  },
+  render: (args: any) => ({
+    components: { OkuPresenceComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuPresenceComponent v-bind="args" />
+    `,
+  }),
+}
+
+export const WithDeferredMountAnimation: Story = {
+  args: {
+    template: 'WithDeferredMountAnimation',
   },
   render: (args: any) => ({
     components: { OkuPresenceComponent },

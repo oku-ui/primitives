@@ -9,7 +9,6 @@ function handleChange() {
 }
 
 function handleToggleVisibility() {
-  console.log(props.nodeRef)
   const node = props.nodeRef
   if (node) {
     if (node.style.display === 'none')
@@ -24,13 +23,13 @@ function handleToggleVisibility() {
   <form style="display: flex;margin-bottom: 30px;">
     <fieldset>
       <legend>Mount</legend>
-      <button type="button" @click="handleChange">
+      <button id="button1" type="button" @click="handleChange">
         toggle
       </button>
     </fieldset>
     <fieldset>
       <legend>Visibility (triggers cancel event)</legend>
-      <button type="button" @click="handleToggleVisibility">
+      <button id="button2" type="button" @click="handleToggleVisibility">
         toggle
       </button>
     </fieldset>
@@ -38,7 +37,7 @@ function handleToggleVisibility() {
 </template>
 
 <style scoped>
-button {
+/* button {
     appearance: auto;
     text-rendering: auto;
     color: buttontext;
@@ -87,5 +86,5 @@ fieldset {
     border-style: groove;
     border-color: rgb(192, 192, 192);
     border-image: initial;
-}
+} */
 </style>

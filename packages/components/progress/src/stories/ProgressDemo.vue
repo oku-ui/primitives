@@ -36,7 +36,7 @@ function toggleIndeterminate() {
     <div v-if="template === '#1' || allshow" class="flex flex-col">
       <OkuProgress :class="rootClass" :value="value" :max="max">
         <OkuProgressIndicator
-          class="indicator w-0 h-full transition duration-150 ease-out"
+          class="progress_indicator w-0 h-full transition duration-150 ease-out"
           :style="{ width: percentage != null ? `${percentage}%` : undefined }"
         />
       </OkuProgress>
@@ -47,70 +47,70 @@ function toggleIndeterminate() {
       </button>
       <input v-model.number="value" type="range" min="0" :max="max" :disabled="value === null">
     </div>
-    <!-- TODO: How to bind CSS styles with Element properties simply？ -->
+    <!-- TODO: How to bind CSS progress_styles with Element properties simply？ -->
     <div v-if="template === '#2' || allshow" class="flex flex-col">
       <h1>Loading (not started)</h1>
       0/100
       <OkuProgress :value="0" :class="rootClass">
-        <OkuProgressIndicator class="indicator" />
+        <OkuProgressIndicator class="progress_indicator" />
       </OkuProgress>
 
       <h1>Loading (started)</h1>
       30/100
       <OkuProgress :value="30" :class="rootClass">
-        <OkuProgressIndicator class="indicator" />
+        <OkuProgressIndicator class="progress_indicator" />
       </OkuProgress>
 
       <h1>Indeterminate</h1>
       /100
       <OkuProgress :value="null" :class="rootClass">
-        <OkuProgressIndicator class="indicator" />
+        <OkuProgressIndicator class="progress_indicator" />
       </OkuProgress>
 
       <h1>Complete</h1>
       100/100
       <OkuProgress :value="100" :class="rootClass">
-        <OkuProgressIndicator class="indicator" />
+        <OkuProgressIndicator class="progress_indicator" />
       </OkuProgress>
 
       <h1>State attributes</h1>
       <h2>Loading (started)</h2>
-      <OkuProgress :value="30" class="styledClass">
-        <OkuProgressIndicator class="styledClass" />
+      <OkuProgress :value="30" class="progress_styledClass">
+        <OkuProgressIndicator class="progress_styledClass" />
       </OkuProgress>
 
       <h2>Indeterminate</h2>
-      <OkuProgress :value="null" class="styledClass">
-        <OkuProgressIndicator class="styledClass" />
+      <OkuProgress :value="null" class="progress_styledClass">
+        <OkuProgressIndicator class="progress_styledClass" />
       </OkuProgress>
 
       <h2>Complete</h2>
-      <OkuProgress :value="100" class="styledClass">
-        <OkuProgressIndicator class="styledClass" />
+      <OkuProgress :value="100" class="progress_styledClass">
+        <OkuProgressIndicator class="progress_styledClass" />
       </OkuProgress>
     </div>
   </div>
 </template>
 
 <style scoped>
-.indicator[data-state="complete"] {
+.progress_indicator[data-state="complete"] {
   background-color: green;
 }
 
-.indicator[data-state="loading"] {
+.progress_indicator[data-state="loading"] {
   background-color: gray;
 }
-.styles[data-state="complete"] {
+.progress_styles[data-state="complete"] {
   border-color: green;
 }
 
-.styles[data-state="loading"] {
+.progress_styles[data-state="loading"] {
   border-color: red;
 }
-.styles[data-state="indeterminate"] {
+.progress_styles[data-state="indeterminate"] {
   border-color: purple;
 }
-.styledClass {
+.progress_styledClass {
   border: 2px solid blue;
   padding: 10px;
   background-color: #eee;
