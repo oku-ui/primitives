@@ -102,7 +102,7 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
 
 .hover_card_animatedContentClass {
   transform-origin: var(--oku-hover-card-content-transform-origin);
-  background-color: #f9fafb;
+  background-color: #5d9bda;
   padding: 20px;
   border-radius: 5px;
   &[data-state='open'] {
