@@ -38,7 +38,7 @@ onBeforeUnmount(() => {
   <Scrollable>
     <OkuPopper>
       <OkuPopperAnchor
-        class="anchorClass"
+        class="popper_anchorClass"
         :style="{
           marginLeft: `${left}px`,
         }"
@@ -49,14 +49,14 @@ onBeforeUnmount(() => {
 
       <OkuPortal v-if="open" as-child>
         <OkuPopperContent
-          class="contentClass"
+          class="popper_contentClass"
           :side-offset="5"
           update-position-strategy="always"
         >
           <button @click="open = false">
             close
           </button>
-          <OkuPopperArrow class="arrowClass" :width="20" :height="10" />
+          <OkuPopperArrow class="popper_arrowClass" :width="20" :height="10" />
         </OkuPopperContent>
       </OkuPortal>
     </OkuPopper>
