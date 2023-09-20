@@ -47,7 +47,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -63,7 +63,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -86,7 +86,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -107,7 +107,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Uncontrolled foreground closed
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -130,7 +130,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -151,7 +151,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -173,7 +173,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -194,7 +194,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -216,7 +216,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>
@@ -237,7 +237,7 @@ const SNAPSHOT_DELAY = ref(300)
       <OkuToastDescription class="toast_descriptionClass">
         Description
       </OkuToastDescription>
-      <OkuToastAction alt-text="alternative" class="button" :style="{ marginTop: '10px' }">
+      <OkuToastAction alt-text="alternative" class="buttonClass" :style="{ marginTop: '10px' }">
         Action
       </OkuToastAction>
     </OkuToast>

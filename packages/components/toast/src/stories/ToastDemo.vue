@@ -104,20 +104,21 @@ export interface IToastProps {
   margin: 0;
 }
 
-/* .button {
+.buttonClass {
   border: 1px solid black;
   border-radius: 4px;
   background: gainsboro;
   font-family: inherit;
   padding: 2px 5px;
-}
 
-.button:hover,
-.button:focus {
-  background: royalblue;
-  border-color: darkblue;
-  color: white;
-} */
+  &:hover,
+  &:focus {
+    background: royalblue;
+    border-color: darkblue;
+    color: white;
+  }
+
+}
 
 .close {
   position: absolute;
@@ -195,37 +196,44 @@ export interface IToastProps {
   justify-content: space-between;
 }
 
-[data-state="open"] {
-  animation: toast_fadeIn 200ms ease-out;
-}
+.animatedRootClass {
+  &[data-state="open"] {
+    animation: toast_fadeIn 200ms ease-out;
+  }
 
-[data-state="closed"] {
-  animation: toast_fadeOut 200ms ease-out;
-}
+  &[data-state="closed"] {
+    animation: toast_fadeOut 200ms ease-out;
+  }
 
-[data-swipe="move"] {
-  transform: translate(var(--oku-toast-swipe-move-x), var(--oku-toast-swipe-move-y));
-}
+  &[data-swipe="move"] {
+    transform: translate(var(--oku-toast-swipe-move-x), var(--oku-toast-swipe-move-y));
+  }
 
-[data-swipe="cancel"] {
-  transform: translate(0, 0);
-  transition: transform 200ms ease-out;
-}
+  &[data-swipe="cancel"] {
+    transform: translate(0, 0);
+    transition: transform 200ms ease-out;
+  }
 
-[data-swipe="end"][data-swipe-direction="right"] {
-  animation-name: toast_slideRight;
-}
+  &[data-swipe="end"] {
+    animation-duration: 300ms;
+    animation-timing-function: ease-out;
 
-[data-swipe="end"][data-swipe-direction="left"] {
-  animation-name: toast_slideLeft;
-}
+    &[data-swipe-direction="right"] {
+      animation-name: toast_slideRight;
+    }
 
-[data-swipe="end"][data-swipe-direction="up"] {
-  animation-name: toast_slideUp;
-}
+    &[data-swipe-direction="left"] {
+      animation-name: toast_slideLeft;
+    }
 
-[data-swipe="end"][data-swipe-direction="down"] {
-  animation-name: toast_slideDown;
+    &[data-swipe-direction="up"] {
+      animation-name: toast_slideUp;
+    }
+
+    &[data-swipe-direction="down"] {
+      animation-name: toast_slideDown;
+    }
+  }
 }
 
 .toast_chromatic_toast_viewport {

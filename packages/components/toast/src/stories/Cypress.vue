@@ -31,12 +31,12 @@ const count = ref(0)
           Toast {{ index + 1 }} description
         </OkuToastDescription>
 
-        <OkuToastClose class="button" aria-label="Close">
+        <OkuToastClose class="buttonClass" aria-label="Close">
           Toast button {{ index + 1 }}.1
         </OkuToastClose>
         <OkuToastAction
           alt-text="Go and perform an action"
-          class="button"
+          class="buttonClass"
           :style="{ marginTop: '10px' }"
         >
           Toast button {{ index + 1 }}.2

@@ -42,7 +42,7 @@ watchEffect((onInvalidate) => {
     <OkuToast v-for="(_, index) in errorCount" :key="index" class="toast toast_errorToast">
       <OkuToastDescription>There was an error</OkuToastDescription>
       <OkuToastAction
-        class="button" alt-text="Resubmit the form to try again."
+        class="buttonClass" alt-text="Resubmit the form to try again."
         @click="console.log('try again')"
       >
         Try again
