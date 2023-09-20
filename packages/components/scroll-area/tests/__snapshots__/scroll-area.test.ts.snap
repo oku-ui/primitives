@@ -26,6 +26,32 @@ exports[`OkuScrollArea > OkuScrollAreaThumbImpl renders correctly 1`] = `"\`OkuS
 
 exports[`OkuScrollArea > OkuScrollAreaViewport renders correctly 1`] = `"\`OkuScrollAreaViewport\` must be used within \`OkuScrollArea\`"`;
 
+exports[`OkuScrollArea > should render OkuScrollAreaCorner correctly 1`] = `"\`OkuScrollAreaCorner\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaCornerImpl correctly 1`] = `"\`OkuScrollAreaCorner\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbar correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbarAuto correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbarHover correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbarImpl correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbarScroll correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbarVisible correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbarX correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaScrollbarY correctly 1`] = `"\`OkuScrollAreaScrollbar\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaThumb correctly 1`] = `"\`OkuScrollAreaThumb\` must be used within \`OkuScrollAreaScrollbar\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaThumbImpl correctly 1`] = `"\`OkuScrollAreaThumb\` must be used within \`OkuScrollArea\`"`;
+
+exports[`OkuScrollArea > should render OkuScrollAreaViewport correctly 1`] = `"\`OkuScrollAreaViewport\` must be used within \`OkuScrollArea\`"`;
+
 exports[`OkuScrollArea Stories > Animated > should render correctly 1`] = `
 "<div dir=\\"ltr\\" class=\\"scroll-area\\" style=\\"position: relative; --oku-scroll-area-corner-width: 0px; --oku-scroll-area-corner-height: 0px; width: 800px; height: 800px;\\">
   <style>

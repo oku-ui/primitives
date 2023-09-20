@@ -31,12 +31,12 @@ import ChromaticDynamicContent from '../src/story/ChromaticDynamicContent.vue'
 enableAutoUnmount(afterEach)
 
 describe('OkuScrollArea', () => {
-  it('OkuScrollArea renders correctly', () => {
+  it('should render OkuScrollArea correctly', () => {
     const wrapper = mount(OkuScrollArea)
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('OkuScrollAreaCorner renders correctly', () => {
+  it('should render OkuScrollAreaCorner correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaCorner)
 
@@ -47,7 +47,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaCornerImpl renders correctly', () => {
+  it('should render OkuScrollAreaCornerImpl correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaCornerImpl)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -56,7 +56,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbar renders correctly', () => {
+  it('should render OkuScrollAreaScrollbar correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbar)
 
@@ -66,7 +66,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbarAuto renders correctly', () => {
+  it('should render OkuScrollAreaScrollbarAuto correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarAuto)
 
@@ -76,7 +76,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbarHover renders correctly', () => {
+  it('should render OkuScrollAreaScrollbarHover correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarHover)
 
@@ -86,7 +86,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbarImpl renders correctly', () => {
+  it('should render OkuScrollAreaScrollbarImpl correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarImpl)
 
@@ -98,7 +98,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[2][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbarScroll renders correctly', () => {
+  it('should render OkuScrollAreaScrollbarScroll correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarScroll)
 
@@ -108,7 +108,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbarVisible renders correctly', () => {
+  it('should render OkuScrollAreaScrollbarVisible correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarVisible)
 
@@ -118,7 +118,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbarX renders correctly', () => {
+  it('should render OkuScrollAreaScrollbarX correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarX)
 
@@ -130,7 +130,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[2][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaScrollbarY renders correctly', () => {
+  it('should render OkuScrollAreaScrollbarY correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarY)
 
@@ -142,7 +142,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[2][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaThumb renders correctly', () => {
+  it('should render OkuScrollAreaThumb correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaThumb)
 
@@ -152,7 +152,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollAreaScrollbar)" not found.')
   })
 
-  it('OkuScrollAreaThumbImpl renders correctly', () => {
+  it('should render OkuScrollAreaThumbImpl correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaThumbImpl)
 
@@ -162,7 +162,7 @@ describe('OkuScrollArea', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
   })
 
-  it('OkuScrollAreaViewport renders correctly', () => {
+  it('should render OkuScrollAreaViewport correctly', () => {
     const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaViewport)
 
