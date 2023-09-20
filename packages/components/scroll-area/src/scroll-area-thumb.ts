@@ -18,7 +18,6 @@ const scrollAreaThumb = defineComponent({
     ...scopedScrollAreaProps,
     ...primitiveProps,
   },
-  emits: scrollAreaThumbProps.emits,
   setup(props, { attrs, slots }) {
     const {
       forceMount,

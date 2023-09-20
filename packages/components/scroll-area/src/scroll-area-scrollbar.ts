@@ -20,7 +20,6 @@ const scrollAreaScrollbar = defineComponent({
     ...scrollAreaScrollbarProps.props,
     ...scopedScrollAreaProps,
   },
-  emits: scrollAreaScrollbarProps.emits,
   setup(props, { attrs, slots }) {
     const {
       forceMount,
@@ -50,9 +49,7 @@ const scrollAreaScrollbar = defineComponent({
           ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
           ref: forwardedRef,
           forceMount: forceMount.value,
-        }, {
-          default: () => slots.default?.(),
-        },
+        }, slots,
       )
       : inject.type.value === 'scroll'
         ? h(OkuScrollAreaScrollbarScroll,
@@ -60,9 +57,7 @@ const scrollAreaScrollbar = defineComponent({
             ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
             ref: forwardedRef,
             forceMount: forceMount.value,
-          }, {
-            default: () => slots.default?.(),
-          },
+          }, slots,
         )
         : inject.type.value === 'auto'
           ? h(OkuScrollAreaScrollbarAuto,
@@ -70,18 +65,14 @@ const scrollAreaScrollbar = defineComponent({
               ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
               ref: forwardedRef,
               forceMount: forceMount.value,
-            }, {
-              default: () => slots.default?.(),
-            },
+            }, slots,
           )
           : inject.type.value === 'always'
             ? h(OkuScrollAreaScrollbarVisible,
               {
                 ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
                 ref: forwardedRef,
-              }, {
-                default: () => slots.default?.(),
-              },
+              }, slots,
             )
             : null
   },

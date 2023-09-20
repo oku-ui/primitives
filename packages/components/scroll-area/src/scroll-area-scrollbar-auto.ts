@@ -19,7 +19,6 @@ const scrollAreaScrollbarAuto = defineComponent({
     ...scrollAreaScrollbarAutoProps.props,
     ...scopedScrollAreaProps,
   },
-  emits: scrollAreaScrollbarAutoProps.emits,
   setup(props, { attrs, slots }) {
     const {
       forceMount,

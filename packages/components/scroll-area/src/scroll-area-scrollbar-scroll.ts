@@ -90,10 +90,10 @@ const scrollAreaScrollbarScroll = defineComponent({
             'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
             ...mergeProps(attrs, reactiveScrollAreaScrollbarScrollProps),
             'ref': forwardedRef,
-            'onpointerenter': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
+            'onPointerenter': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
               emit('pointerenter', event)
             }, () => send('POINTER_ENTER')),
-            'onpointerleave': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
+            'onPointerleave': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
               emit('pointerleave', event)
             }, () => send('POINTER_LEAVE')),
           }, slots,

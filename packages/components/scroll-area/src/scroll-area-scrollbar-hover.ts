@@ -17,7 +17,6 @@ const scrollAreaScrollbarHover = defineComponent({
     ...scrollAreaScrollbarHoverProps.props,
     ...scopedScrollAreaProps,
   },
-  emits: scrollAreaScrollbarHoverProps.emits,
   setup(props, { attrs, slots }) {
     const {
       forceMount,

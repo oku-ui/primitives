@@ -10,9 +10,9 @@ export function usePresence(present: Ref<boolean>) {
   const stylesRef = ref<CSSStyleDeclaration>({} as any)
   const prevPresentRef = ref(present.value)
   const prevAnimationNameRef = ref<string>('none')
-  const initialState = present.value ? 'mounted' : 'unmounted'
+  const initialState = computed(() => (present.value ? 'mounted' : 'unmounted'))
 
-  const { state, dispatch: send } = useStateMachine(initialState, {
+  const { state, dispatch: send } = useStateMachine(initialState.value, {
     mounted: {
       UNMOUNT: 'unmounted',
       ANIMATION_OUT: 'unmountSuspended',
@@ -134,8 +134,8 @@ export function usePresence(present: Ref<boolean>) {
       //   return
       // node is ComponentPublicInstance
       if (node && node.$el) {
-        stylesRef.value = getComputedStyle(node.$el)
-        el.value = node.$el as HTMLElement
+        // stylesRef.value = getComputedStyle(node.$el)
+        // el.value = node.$el as HTMLElement
       }
       else if (node) {
         stylesRef.value = getComputedStyle(node)

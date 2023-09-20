@@ -14,7 +14,6 @@ const scrollAreaCorner = defineComponent({
     ...scrollAreaCornerProps.props,
     ...scopedScrollAreaProps,
   },
-  emits: scrollAreaCornerProps.emits,
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
