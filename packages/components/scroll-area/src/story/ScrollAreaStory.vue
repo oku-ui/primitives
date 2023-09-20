@@ -72,7 +72,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   </OkuScrollArea>
 </template>
 
-<style>
+<style lang="postcss">
 .scroll-area {
   width: v-bind('RECOMMENDED_CSS__SCROLLAREA.width');
   height: v-bind('RECOMMENDED_CSS__SCROLLAREA.height');
@@ -92,7 +92,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   padding: 2px;
   background: rgba(0, 0, 0, 0.3);
 
-  &hover {
+  &:hover {
     background: rgba(0, 0, 0, 0.5);
   }
 
@@ -112,7 +112,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   background: black;
   border-radius: v-bind(SCROLLBAR_SIZE);
 
-  ::before {
+  &::before {
     content: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.content');
     position: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.position');
     top: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.top');
@@ -129,7 +129,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   background: rgba(0, 0, 0, 0.3);
   position: relative;
 
-  ::after {
+  &::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -142,7 +142,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   }
 }
 
-@keyframes scroll_area_thumbFadeIn {
+@keyframes scroll-area-thumb-fade-in {
   from {
     transform: scale(0.2);
     opacity: 0;
@@ -154,7 +154,7 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   }
 }
 
-@keyframes scroll_area_thumbFadeOut {
+@keyframes scroll-area-thumb-fade-out {
   from {
     transform: scale(1);
     opacity: 1;
@@ -167,12 +167,12 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
 }
 
 .animated-thumb {
-  &[data-orientation="vertical"] {
-   animation-name: scroll_area_thumbFadeIn, scroll_area_thumbFadeOut;
+  &[data-state="visible"] {
+    animation: scroll-area-thumb-fade-in 300ms ease;
   }
 
-  &[data-orientation="horizontal"] {
-   animation-name: scroll_area_thumbFadeIn, scroll_area_thumbFadeOut;
+  &[data-state="hidden"] {
+    animation: scroll-area-thumb-fade-out 300ms ease;
   }
 }
 </style>
