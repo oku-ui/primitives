@@ -104,7 +104,7 @@ export interface IToastProps {
   margin: 0;
 }
 
-.button {
+/* .button {
   border: 1px solid black;
   border-radius: 4px;
   background: gainsboro;
@@ -117,7 +117,7 @@ export interface IToastProps {
   background: royalblue;
   border-color: darkblue;
   color: white;
-}
+} */
 
 .close {
   position: absolute;
