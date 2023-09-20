@@ -12,11 +12,11 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
   <div>
     <button>button</button>
     <OkuHoverCard>
-      <OkuHoverCardTrigger href="/" class="triggerClass">
+      <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardContent class="contentClass" :side-offset="5">
-        <OkuHoverCardArrow class="arrowClass" :width="20" :height="10" :offset="10" />
+        <OkuHoverCardArrow class="hover_card_arrowClass" :width="20" :height="10" :offset="10" />
         <a href="#link">Should not be able to focus me</a>
         <CardContentPlaceholder />
       </OkuHoverCardContent>

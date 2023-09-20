@@ -10,7 +10,7 @@ import {
 
 <template>
   <OkuHoverCard>
-    <OkuHoverCardTrigger href="/" class="triggerClass">
+    <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
       trigger level 1
     </OkuHoverCardTrigger>
 
@@ -21,7 +21,7 @@ import {
         :style="{ backgroundColor: 'crimson' }"
       >
         <OkuHoverCard>
-          <OkuHoverCardTrigger href="/" class="triggerClass">
+          <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
             trigger level 2
           </OkuHoverCardTrigger>
           <OkuHoverCardPortal>
@@ -33,14 +33,14 @@ import {
               :style="{ backgroundColor: 'green' }"
             >
               <OkuHoverCardArrow
-                class="arrowClass"
+                class="hover_card_arrowClass"
                 :width="20"
                 :height="10"
                 :offset="20"
                 :style="{ fill: 'green' }"
               />
               <OkuHoverCard>
-                <OkuHoverCardTrigger href="/" class="triggerClass">
+                <OkuHoverCardTrigger href="/" class="hover_card_triggerClass">
                   trigger level 3
                 </OkuHoverCardTrigger>
                 <OkuHoverCardPortal>
@@ -52,7 +52,7 @@ import {
                     :style="{ backgroundColor: 'purple' }"
                   >
                     <OkuHoverCardArrow
-                      class="arrowClass"
+                      class="hover_card_arrowClass"
                       :width="20"
                       :height="10"
                       :offset="20"
@@ -67,7 +67,7 @@ import {
         </OkuHoverCard>
 
         <OkuHoverCardArrow
-          class="arrowClass"
+          class="hover_card_arrowClass"
           :width="20"
           :height="10"
           :offset="20"
