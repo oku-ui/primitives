@@ -42,14 +42,14 @@ watchEffect((onInvalidate) => {
     <OkuToast v-for="(_, index) in errorCount" :key="index" class="toast toast-errorToast">
       <OkuToastDescription>There was an error</OkuToastDescription>
       <OkuToastAction
-        class="buttonClass" alt-text="Resubmit the form to try again."
+        class="button" alt-text="Resubmit the form to try again."
         @click="console.log('try again')"
       >
         Try again
       </OkuToastAction>
     </OkuToast>
 
-    <OkuToast v-for="(_, index) in savedCount" :key="index" class="toast-toastClass">
+    <OkuToast v-for="(_, index) in savedCount" :key="index" class="toast-toast">
       <OkuToastDescription>Successfully saved</OkuToastDescription>
     </OkuToast>
 

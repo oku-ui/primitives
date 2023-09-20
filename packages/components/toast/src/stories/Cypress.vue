@@ -21,22 +21,22 @@ const count = ref(0)
         v-for="(_, index) in count"
         :key="index"
         open
-        class="toast-toastClass"
+        class="toast-toast"
         :data-testid="`toast-${index + 1}`"
       >
-        <OkuToastTitle class="toast-titleClass">
+        <OkuToastTitle class="toast-title">
           Toast {{ index + 1 }} title
         </OkuToastTitle>
-        <OkuToastDescription class="toast-descriptionClass">
+        <OkuToastDescription class="toast-description">
           Toast {{ index + 1 }} description
         </OkuToastDescription>
 
-        <OkuToastClose class="buttonClass" aria-label="Close">
+        <OkuToastClose class="button" aria-label="Close">
           Toast button {{ index + 1 }}.1
         </OkuToastClose>
         <OkuToastAction
           alt-text="Go and perform an action"
-          class="buttonClass"
+          class="button"
           :style="{ marginTop: '10px' }"
         >
           Toast button {{ index + 1 }}.2

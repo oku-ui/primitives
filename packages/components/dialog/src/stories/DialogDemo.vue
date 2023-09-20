@@ -66,13 +66,13 @@ withDefaults(defineProps<OkuDialogProps>(), {
 </template>
 
 <style lang="postcss">
-.dialog-triggerClass {
+.dialog-trigger {
   position: fixed;
   top: 0;
   left: 0;
 }
 
-.dialog-overlayClass {
+.dialog-overlay {
    position: fixed;
   top: 0;
   right: 0;
@@ -81,7 +81,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.dialog-scrollableOverlayClass {
+.dialog-scrollableOverlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -105,7 +105,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
-.dialog-contentDefaultClass {
+.dialog-contentDefault {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -122,7 +122,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   transform: translate(-50%, -50%);
 }
 
-.dialog-contentScrollableClass {
+.dialog-contentScrollable {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -142,7 +142,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   max-height: 300px;
 }
 
-.dialog-contentInScrollableOverlayClass {
+.dialog-contentInScrollableOverlay {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -154,7 +154,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   margin-bottom: 50px;
 }
 
-.dialog-contentSheetClass {
+.dialog-contentSheet {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -174,7 +174,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   border-bottom-right-radius: 0;
 }
 
-.dialog-closeClass {}
+.dialog-close {}
 
 @keyframes dialog-fadeIn {
   from {
@@ -206,7 +206,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog-animatedOverlayClass {
+.dialog-animatedOverlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -224,7 +224,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog-animatedContentClass {
+.dialog-animatedContent {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -249,7 +249,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog-chromaticContentClass {
+.dialog-chromaticContent {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -269,7 +269,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   min-height: auto;
 }
 
-.dialog-triggerAttrClass {
+.dialog-triggerAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -283,7 +283,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog-overlayAttrClass {
+.dialog-overlayAttr {
   position: fixed;
   top: 0;
   right: 0;
@@ -305,7 +305,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog-contentAttrClass {
+.dialog-contentAttr {
   min-width: 300px;
   min-height: 150px;
   padding: 50px;
@@ -337,7 +337,7 @@ withDefaults(defineProps<OkuDialogProps>(), {
   }
 }
 
-.dialog-closeAttrClass {
+.dialog-closeAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

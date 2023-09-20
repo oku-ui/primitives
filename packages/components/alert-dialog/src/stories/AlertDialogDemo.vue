@@ -29,11 +29,11 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
 
 <style>
 /* Define CSS classes without using css() */
-.alert-dialog-triggerClass {
+.alert-dialog-trigger {
   /* Your alert-dialog-styles here */
 }
 
-.alert-dialog-overlayClass {
+.alert-dialog-overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -43,7 +43,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   opacity: 0.2;
 }
 
-.alert-dialog-contentClass {
+.alert-dialog-content {
   position: fixed;
   top: 0;
   left: 0;
@@ -60,7 +60,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
-.alert-dialog-cancelClass {
+.alert-dialog-cancel {
   /* Your alert-dialog-styles here */
   appearance: none;
   padding: 10px;
@@ -70,7 +70,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   margin-top: 15px;
 }
 
-.alert-dialog-actionClass {
+.alert-dialog-action {
   /* Your alert-dialog-styles here */
   appearance: none;
   padding: 10px;
@@ -81,11 +81,11 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   margin-top: 15px;
 }
 
-.alert-dialog-titleClass {}
+.alert-dialog-title {}
 
-.alert-dialog-descriptionClass {}
+.alert-dialog-description {}
 
-.alert-dialog-chromaticContentClass{
+.alert-dialog-chromaticContent{
     position: fixed;
   top: 0;
   left: 0;
@@ -121,7 +121,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   }
 }
 
-.alert-dialog-contentAttrClass {
+.alert-dialog-contentAttr {
   position: fixed;
   top: 0;
   left: 0;
@@ -142,7 +142,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   min-height: 150px;
 }
 
-.alert-dialog-triggerAttrClass {
+.alert-dialog-triggerAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -156,7 +156,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   }
 }
 
-.alert-dialog-overlayAttrClass {
+.alert-dialog-overlayAttr {
   position: fixed;
   top: 0;
   right: 0;
@@ -178,7 +178,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   }
 }
 
-.alert-dialog-contentAttrClass {
+.alert-dialog-contentAttr {
   position: fixed;
   top: 0;
   left: 0;
@@ -211,7 +211,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   }
 }
 
-.alert-dialog-cancelAttrClass {
+.alert-dialog-cancelAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -225,7 +225,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   }
 }
 
-.alert-dialog-actionAttrClass {
+.alert-dialog-actionAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -239,7 +239,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   }
 }
 
-.alert-dialog-titleAttrClass {
+.alert-dialog-titleAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -253,7 +253,7 @@ withDefaults(defineProps<OkuAlertDialogProps>(), {
   }
 }
 
-.alert-dialog-descriptionAttrClass {
+.alert-dialog-descriptionAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

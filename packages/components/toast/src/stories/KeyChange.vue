@@ -15,11 +15,11 @@ const toastTwoCount = ref(0)
       Open toast two
     </button>
 
-    <OkuToast v-if="toastOneCount > 0" :key="`one-${String(toastOneCount)}`" class="toast-toastClass">
+    <OkuToast v-if="toastOneCount > 0" :key="`one-${String(toastOneCount)}`" class="toast-toast">
       <OkuToastDescription>Toast one</OkuToastDescription>
     </OkuToast>
 
-    <OkuToast v-if="toastTwoCount > 0" :key="`two-${String(toastTwoCount)}`" class="toast-toastClass">
+    <OkuToast v-if="toastTwoCount > 0" :key="`two-${String(toastTwoCount)}`" class="toast-toast">
       <OkuToastDescription>Toast two</OkuToastDescription>
     </OkuToast>
 

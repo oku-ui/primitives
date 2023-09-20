@@ -20,28 +20,28 @@ const arrayValue = ref()
   <div v-if="template === '#1' || allshow">
     {{ testValue }}
     <h1>Uncontrolled</h1>
-    <OkuToggleGroup v-model="testValue" type="single" class="toggle-group-rootClass" aria-label="Options" @value-change="console.log">
-      <OkuToggleGroupItem value="1" class="toggle-group-itemClass">
+    <OkuToggleGroup v-model="testValue" type="single" class="toggle-group-root" aria-label="Options" @value-change="console.log">
+      <OkuToggleGroupItem value="1" class="toggle-group-item">
         Option 1
       </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="2" class="toggle-group-itemClass">
+      <OkuToggleGroupItem value="2" class="toggle-group-item">
         Option 2
       </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="3" class="toggle-group-itemClass">
+      <OkuToggleGroupItem value="3" class="toggle-group-item">
         Option 3
       </OkuToggleGroupItem>
     </OkuToggleGroup>
 
     {{ arrayValue }}
     <h1>Group</h1>
-    <OkuToggleGroup v-model="arrayValue" type="multiple" class="toggle-group-rootClass" aria-label="Options">
-      <OkuToggleGroupItem value="1" class="toggle-group-itemClass">
+    <OkuToggleGroup v-model="arrayValue" type="multiple" class="toggle-group-root" aria-label="Options">
+      <OkuToggleGroupItem value="1" class="toggle-group-item">
         Option 1
       </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="2" class="toggle-group-itemClass">
+      <OkuToggleGroupItem value="2" class="toggle-group-item">
         Option 2
       </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="3" class="toggle-group-itemClass">
+      <OkuToggleGroupItem value="3" class="toggle-group-item">
         Option 3
       </OkuToggleGroupItem>
     </OkuToggleGroup>
@@ -49,7 +49,7 @@ const arrayValue = ref()
 </template>
 
 <style lang="postcss">
-.toggle-group-rootClass {
+.toggle-group-root {
   display: inline-flex;
   gap: 5px;
   padding: 5px;
@@ -58,7 +58,7 @@ const arrayValue = ref()
   }
 }
 
-.toggle-group-itemClass {
+.toggle-group-item {
   border: 1px solid black;
   border-radius: 6px;
   padding: 5px 10px;
@@ -81,7 +81,7 @@ const arrayValue = ref()
   }
 }
 
-.toggle-group-itemClass-attr {
+.toggle-group-item-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

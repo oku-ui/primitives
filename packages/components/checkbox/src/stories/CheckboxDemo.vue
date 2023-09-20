@@ -100,10 +100,10 @@ function updated(res: any) {
           id="checkbox"
           ref="refdd"
           :checked="data"
-          class="checkbox-rootClass"
+          class="checkbox-root"
           @checked-change="updated"
         >
-          <OkuCheckboxIndicator class="checkbox-indicatorClass" />
+          <OkuCheckboxIndicator class="checkbox-indicator" />
         </OkuCheckbox>
 
         <div>
@@ -118,9 +118,9 @@ function updated(res: any) {
           id="checkbox"
           ref="refdd"
           v-model="data"
-          class="checkbox-rootClass"
+          class="checkbox-root"
         >
-          <OkuCheckboxIndicator class="checkbox-indicatorClass" />
+          <OkuCheckboxIndicator class="checkbox-indicator" />
         </OkuCheckbox>
 
         <div>
@@ -148,7 +148,7 @@ function updated(res: any) {
   vertical-align: middle;
 }
 
-.checkbox-rootClass {
+.checkbox-root {
   border: 1px solid var(--gray300);
   width: 30px;
   height: 30px;
@@ -165,8 +165,8 @@ function updated(res: any) {
   }
 }
 
-/* checkbox-indicatorClass */
-.checkbox-indicatorClass {
+/* checkbox-indicator */
+.checkbox-indicator {
   background-color: var(--red);
   display: block;
   width: 20px;
@@ -197,8 +197,8 @@ function updated(res: any) {
   }
 }
 
-/* checkbox-animatedIndicatorClass */
-.checkbox-animatedIndicatorClass {
+/* checkbox-animatedIndicator */
+.checkbox-animatedIndicator {
   transition: height 300ms;
 
   &[data-state="checked"] {
@@ -211,7 +211,7 @@ function updated(res: any) {
 }
 
 /* styles */
-.checkbox-rootAttrClass {
+.checkbox-rootAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -237,7 +237,7 @@ function updated(res: any) {
   }
 }
 
-.checkbox-indicatorAttrClass {
+.checkbox-indicatorAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

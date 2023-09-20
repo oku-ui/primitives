@@ -36,14 +36,14 @@ onMounted(() => {
 </template>
 
 <style>
-.tooltip-triggerClass {}
-.tooltip-positionButtonClass {
+.tooltip-trigger {}
+.tooltip-positionButton {
   margin: 5px;
   border: 1px solid black;
   background: transparent;
 }
 
-.tooltip-contentClass {
+.tooltip-content {
   transform-origin: var(--radix-tooltip-content-transform-origin);
   /* ensures content isn't selectable */
   /* this is just a detterent to people putting interactive content inside a `Tooltip.Root` */
@@ -56,7 +56,7 @@ onMounted(() => {
   max-width: 300px;
 }
 
-.tooltip-arrowClass {
+.tooltip-arrow {
   fill: black;
 }
 
@@ -92,7 +92,7 @@ onMounted(() => {
   }
 }
 
-.tooltip-animatedContentClass {
+.tooltip-animatedContent {
   & [data-state='delayed-open'] {
     animation: tooltip-scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -106,7 +106,7 @@ onMounted(() => {
   }
 }
 
-.tooltip-gridClass {
+.tooltip-grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -115,7 +115,7 @@ onMounted(() => {
   border: 1px solid black;
 }
 
-.tooltip-chromaticTriggerClass {
+.tooltip-chromaticTrigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -123,7 +123,7 @@ onMounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.tooltip-chromaticContentClass {
+.tooltip-chromaticContent {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -135,7 +135,7 @@ onMounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.tooltip-chromaticArrowClass {
+.tooltip-chromaticArrow {
   fill: black;
 }
 </style>

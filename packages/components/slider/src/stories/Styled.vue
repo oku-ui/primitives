@@ -4,11 +4,11 @@ import { OkuSlider, OkuSliderRange, OkuSliderThumb, OkuSliderTrack } from '@oku-
 
 <template>
   <div>
-    <OkuSlider class="slider-rootSliderClass">
-      <OkuSliderTrack class="slider-trackClass">
-        <OkuSliderRange class="slider-rangeClass" />
+    <OkuSlider class="slider-rootSlider">
+      <OkuSliderTrack class="slider-track">
+        <OkuSliderRange class="slider-range" />
       </OkuSliderTrack>
-      <OkuSliderThumb class="slider-thumbClassT" />
+      <OkuSliderThumb class="slider-thumb" />
     </OkuSlider>
   </div>
 </template>

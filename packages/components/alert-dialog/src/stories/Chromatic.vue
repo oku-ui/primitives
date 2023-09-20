@@ -18,22 +18,22 @@ import {
       <h1>Uncontrolled</h1>
       <h2>Closed</h2>
       <OkuAlertDialog>
-        <OkuAlertDialogTrigger class="alert-dialog-triggerClass">
+        <OkuAlertDialogTrigger class="alert-dialog-trigger">
           delete everything
         </OkuAlertDialogTrigger>
         <OkuAlertDialogPortal>
-          <OkuAlertDialogOverlay class="alert-dialog-overlayClass" />
-          <OkuAlertDialogContent class="alert-dialog-chromaticContentClass">
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+          <OkuAlertDialogOverlay class="alert-dialog-overlay" />
+          <OkuAlertDialogContent class="alert-dialog-chromaticContent">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
@@ -42,28 +42,28 @@ import {
 
       <h2>Open</h2>
       <OkuAlertDialog default-open>
-        <OkuAlertDialogTrigger class="alert-dialog-triggerClass">
+        <OkuAlertDialogTrigger class="alert-dialog-trigger">
           delete everything
         </OkuAlertDialogTrigger>
         <OkuAlertDialogPortal>
           <OkuAlertDialogOverlay
-            class="alert-dialog-overlayClass"
+            class="alert-dialog-overlay"
             :style="{ left: '0px', bottom: '50%', width: '25%' }"
           />
           <OkuAlertDialogContent
-            class="alert-dialog-chromaticContentClass"
+            class="alert-dialog-chromaticContent"
             :style="{ top: '25%', left: '12%' }"
           >
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
@@ -76,23 +76,23 @@ import {
       <h2>Closed</h2>
       <OkuAlertDialog>
         <OkuAlertDialogPortal>
-          <OkuAlertDialogOverlay class="alert-dialog-overlayClass" />
-          <OkuAlertDialogContent class="alert-dialog-chromaticContentClass">
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+          <OkuAlertDialogOverlay class="alert-dialog-overlay" />
+          <OkuAlertDialogContent class="alert-dialog-chromaticContent">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
         </OkuAlertDialogPortal>
-        <OkuAlertDialogTrigger class="alert-dialog-triggerClass">
+        <OkuAlertDialogTrigger class="alert-dialog-trigger">
           delete everything
         </OkuAlertDialogTrigger>
       </OkuAlertDialog>
@@ -101,23 +101,23 @@ import {
       <OkuAlertDialog default-open>
         <OkuAlertDialogPortal>
           <OkuAlertDialogOverlay
-            class="alert-dialog-overlayClass"
+            class="alert-dialog-overlay"
             :style="{ left: '25%', bottom: '50%', width: '25%' }"
           />
           <OkuAlertDialogContent
-            class="alert-dialog-chromaticContentClass"
+            class="alert-dialog-chromaticContent"
             :style="{ top: '25%', left: '37%' }"
           >
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
@@ -129,22 +129,22 @@ import {
       <h1>Controlled</h1>
       <h2>Closed</h2>
       <OkuAlertDialog :open="false">
-        <OkuAlertDialogTrigger class="alert-dialog-triggerClass">
+        <OkuAlertDialogTrigger class="alert-dialog-trigger">
           delete everything
         </OkuAlertDialogTrigger>
         <OkuAlertDialogPortal>
-          <OkuAlertDialogOverlay class="alert-dialog-overlayClass" />
-          <OkuAlertDialogContent class="alert-dialog-chromaticContentClass">
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+          <OkuAlertDialogOverlay class="alert-dialog-overlay" />
+          <OkuAlertDialogContent class="alert-dialog-chromaticContent">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
@@ -153,28 +153,28 @@ import {
 
       <h2>Open</h2>
       <OkuAlertDialog open>
-        <OkuAlertDialogTrigger class="alert-dialog-triggerClass">
+        <OkuAlertDialogTrigger class="alert-dialog-trigger">
           delete everything
         </OkuAlertDialogTrigger>
         <OkuAlertDialogPortal>
           <OkuAlertDialogOverlay
-            class="alert-dialog-overlayClass"
+            class="alert-dialog-overlay"
             :style="{ left: '50%', bottom: '50%', width: '25%' }"
           />
           <OkuAlertDialogContent
-            class="alert-dialog-chromaticContentClass"
+            class="alert-dialog-chromaticContent"
             :style="{ top: '25%', left: '62%' }"
           >
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
@@ -187,23 +187,23 @@ import {
       <h2>Closed</h2>
       <OkuAlertDialog :open="false">
         <OkuAlertDialogPortal>
-          <OkuAlertDialogOverlay class="alert-dialog-overlayClass" />
-          <OkuAlertDialogContent class="alert-dialog-chromaticContentClass">
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+          <OkuAlertDialogOverlay class="alert-dialog-overlay" />
+          <OkuAlertDialogContent class="alert-dialog-chromaticContent">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
         </OkuAlertDialogPortal>
-        <OkuAlertDialogTrigger class="alert-dialog-triggerClass">
+        <OkuAlertDialogTrigger class="alert-dialog-trigger">
           delete everything
         </OkuAlertDialogTrigger>
       </OkuAlertDialog>
@@ -212,23 +212,23 @@ import {
       <OkuAlertDialog open>
         <OkuAlertDialogPortal>
           <OkuAlertDialogOverlay
-            class="alert-dialog-overlayClass"
+            class="alert-dialog-overlay"
             :style="{ left: '75%', bottom: '50%', width: '25%' }"
           />
           <OkuAlertDialogContent
-            class="alert-dialog-chromaticContentClass"
+            class="alert-dialog-chromaticContent"
             :style="{ top: '25%', left: '88%' }"
           >
-            <OkuAlertDialogTitle class="alert-dialog-titleClass">
+            <OkuAlertDialogTitle class="alert-dialog-title">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
+            <OkuAlertDialogDescription class="alert-dialog-description">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionClass">
+            <OkuAlertDialogAction class="alert-dialog-action">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancel">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
@@ -241,22 +241,22 @@ import {
       <h2>Closed</h2>
 
       <OkuAlertDialog :open="false">
-        <OkuAlertDialogTrigger class="alert-dialog-triggerAttrClass">
+        <OkuAlertDialogTrigger class="alert-dialog-triggerAttr">
           delete everything
         </OkuAlertDialogTrigger>
         <OkuAlertDialogPortal>
-          <OkuAlertDialogOverlay class="alert-dialog-overlayAttrClass" />
-          <OkuAlertDialogContent class="alert-dialog-contentAttrClass">
-            <OkuAlertDialogTitle class="alert-dialog-titleAttrClass">
+          <OkuAlertDialogOverlay class="alert-dialog-overlayAttr" />
+          <OkuAlertDialogContent class="alert-dialog-contentAttr">
+            <OkuAlertDialogTitle class="alert-dialog-titleAttr">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionAttrClass">
+            <OkuAlertDialogDescription class="alert-dialog-descriptionAttr">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionAttrClass">
+            <OkuAlertDialogAction class="alert-dialog-actionAttr">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelAttrClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancelAttr">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>
@@ -265,22 +265,22 @@ import {
 
       <h2>Open</h2>
       <OkuAlertDialog open>
-        <OkuAlertDialogTrigger class="alert-dialog-triggerAttrClass">
+        <OkuAlertDialogTrigger class="alert-dialog-triggerAttr">
           delete everything
         </OkuAlertDialogTrigger>
         <OkuAlertDialogPortal>
-          <OkuAlertDialogOverlay class="alert-dialog-overlayAttrClass" :style="{ top: '50%' }" />
-          <OkuAlertDialogContent class="alert-dialog-contentAttrClass" :style="{ top: '75%' }">
-            <OkuAlertDialogTitle class="alert-dialog-titleAttrClass">
+          <OkuAlertDialogOverlay class="alert-dialog-overlayAttr" :style="{ top: '50%' }" />
+          <OkuAlertDialogContent class="alert-dialog-contentAttr" :style="{ top: '75%' }">
+            <OkuAlertDialogTitle class="alert-dialog-titleAttr">
               Title
             </OkuAlertDialogTitle>
-            <OkuAlertDialogDescription class="alert-dialog-descriptionAttrClass">
+            <OkuAlertDialogDescription class="alert-dialog-descriptionAttr">
               Description
             </OkuAlertDialogDescription>
-            <OkuAlertDialogAction class="alert-dialog-actionAttrClass">
+            <OkuAlertDialogAction class="alert-dialog-actionAttr">
               Confirm
             </OkuAlertDialogAction>
-            <OkuAlertDialogCancel class="alert-dialog-cancelAttrClass">
+            <OkuAlertDialogCancel class="alert-dialog-cancelAttr">
               Cancel
             </OkuAlertDialogCancel>
           </OkuAlertDialogContent>

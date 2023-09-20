@@ -7,226 +7,9 @@ import {
   OkuTooltipProvider,
   OkuTooltipTrigger,
 } from '@oku-ui/tooltip'
-
-// const open = ref(true)
 </script>
 
-<!-- export const CustomDurations = () => (
-<Tooltip.Provider>
-    <h1>Delay duration</h1>
-    <h2>Default (700ms)</h2>
-
-    <div style={{ display: 'flex', gap: 50 }}>
-      <Tooltip.Root>
-        <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-            Nicely done!
-            <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-      <Tooltip.Root>
-        <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-            Nicely done!
-            <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-      <Tooltip.Root>
-        <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-            Nicely done!
-            <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-    </div>
-
-    <h2>Custom (0ms = instant open)</h2>
-    <div style={{ display: 'flex', gap: 50 }}>
-      <Tooltip.Provider delayDuration={0}>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      </Tooltip.Provider>
-    </div>
-
-<h2>Custom (2s)</h2>
-<div style={{ display: 'flex', gap: 50 }}>
-      <Tooltip.Provider delayDuration={2000}>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      </Tooltip.Provider>
-    </div>
-
-<h1>Skip delay duration</h1>
-<h2>Default (300ms to move from one to another tooltip)</h2>
-<div style={{ display: 'flex', gap: 50 }}>
-      <Tooltip.Root>
-        <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-            Nicely done!
-            <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-      <Tooltip.Root>
-        <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-            Nicely done!
-            <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-      <Tooltip.Root>
-        <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-            Nicely done!
-            <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
-    </div>
-
-<h2>Custom (0ms to move from one to another tooltip = never skip)</h2>
-<div style={{ display: 'flex', gap: 50 }}>
-      <Tooltip.Provider skipDelayDuration={0}>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      </Tooltip.Provider>
-    </div>
-
-<h2>Custom (5s to move from one to another tooltip)</h2>
-<div style={{ display: 'flex', gap: 50 }}>
-      <Tooltip.Provider skipDelayDuration={5000}>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-        <Tooltip.Root>
-          <Tooltip.Trigger className={tooltip-triggerClass()}>Hover me</Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Content className={tooltip-contentClass()} sideOffset={5}>
-              Nicely done!
-              <Tooltip.Arrow className={tooltip-arrowClass()} offset={10} />
-            </Tooltip.Content>
-          </Tooltip.Portal>
-        </Tooltip.Root>
-      </Tooltip.Provider>
-    </div>
-  </Tooltip.Provider>
-); -->
-
 <template>
-  <!-- <OkuTooltipProvider>
-    <OkuTooltip v-model="open">
-      <OkuTooltipTrigger class="tooltip-triggerClass">
-        I'm controlled, look I'm {{ open ? 'open' : 'closed' }}
-      </OkuTooltipTrigger>
-      <OkuTooltipPortal>
-        <OkuTooltipContent class="tooltip-contentClass" :side-offset="5">
-          Nicely done!
-          <OkuTooltipArrow class="tooltip-arrowClass" :offset="10" />
-        </OkuTooltipContent>
-      </OkuTooltipPortal>
-    </OkuTooltip>
-  </OkuTooltipProvider> -->
-
   <OkuTooltipProvider>
     <h1 class="text-2xl">
       Delay duration
@@ -242,35 +25,35 @@ import {
     }"
     >
       <OkuTooltip>
-        <OkuTooltipTrigger class="tooltip-triggerClass">
+        <OkuTooltipTrigger class="tooltip-trigger">
           Hover me
         </OkuTooltipTrigger>
         <OkuTooltipPortal>
-          <OkuTooltipContent class="tooltip-contentClass" :side-offset="5">
+          <OkuTooltipContent class="tooltip-content" :side-offset="5">
             Nicely done!
-            <OkuTooltipArrow class="tooltip-arrowClass" :offset="10" />
+            <OkuTooltipArrow class="tooltip-arrow" :offset="10" />
           </OkuTooltipContent>
         </OkuTooltipPortal>
       </OkuTooltip>
       <OkuTooltip>
-        <OkuTooltipTrigger class="tooltip-triggerClass">
+        <OkuTooltipTrigger class="tooltip-trigger">
           Hover me
         </OkuTooltipTrigger>
         <OkuTooltipPortal>
-          <OkuTooltipContent class="tooltip-contentClass" :side-offset="5">
+          <OkuTooltipContent class="tooltip-content" :side-offset="5">
             Nicely done!
-            <OkuTooltipArrow class="tooltip-arrowClass" :offset="10" />
+            <OkuTooltipArrow class="tooltip-arrow" :offset="10" />
           </OkuTooltipContent>
         </OkuTooltipPortal>
       </OkuTooltip>
       <OkuTooltip>
-        <OkuTooltipTrigger class="tooltip-triggerClass">
+        <OkuTooltipTrigger class="tooltip-trigger">
           Hover me
         </OkuTooltipTrigger>
         <OkuTooltipPortal>
-          <OkuTooltipContent class="tooltip-contentClass" :side-offset="5">
+          <OkuTooltipContent class="tooltip-content" :side-offset="5">
             Nicely done!
-            <OkuTooltipArrow class="tooltip-arrowClass" :offset="10" />
+            <OkuTooltipArrow class="tooltip-arrow" :offset="10" />
           </OkuTooltipContent>
         </OkuTooltipPortal>
       </OkuTooltip>
@@ -279,13 +62,13 @@ import {
 </template>
 
 <style lang="postcss" scoped>
-.tooltip-positionButtonClass {
+.tooltip-positionButton {
   margin: 5px;
   border: 1px solid black;
   background: transparent;
 }
 
-.tooltip-contentClass {
+.tooltip-content {
   transform-origin: var(--radix-tooltip-content-transform-origin);
   /* ensures content isn't selectable */
   /* this is just a detterent to people putting interactive content inside a `Tooltip.Root` */
@@ -298,7 +81,7 @@ import {
   max-width: 300px;
 }
 
-.tooltip-arrowClass {
+.tooltip-arrow {
   fill: black;
 }
 
@@ -334,7 +117,7 @@ import {
   }
 }
 
-.tooltip-animatedContentClass {
+.tooltip-animatedContent {
   & [data-state='delayed-open'] {
     animation: tooltip-scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -348,7 +131,7 @@ import {
   }
 }
 
-.tooltip-gridClass {
+.tooltip-grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -357,7 +140,7 @@ import {
   border: 1px solid black;
 }
 
-.tooltip-chromaticTriggerClass {
+.tooltip-chromaticTrigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -365,7 +148,7 @@ import {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.tooltip-chromaticContentClass {
+.tooltip-chromaticContent {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -377,7 +160,7 @@ import {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.tooltip-chromaticArrowClass {
+.tooltip-chromaticArrow {
   fill: black;
 }
 </style>

@@ -12,12 +12,12 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
 <template>
   <div class="p-28 flex flex-center justify-center">
     <OkuHoverCard>
-      <OkuHoverCardTrigger href="/" class="hover-card-triggerClass">
+      <OkuHoverCardTrigger href="/" class="hover-card-trigger">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="contentClass" :side-offset="5">
-          <OkuHoverCardArrow class="hover-card-arrowClass" :width="20" :height="10" />
+        <OkuHoverCardContent class="content" :side-offset="5">
+          <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" />
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>

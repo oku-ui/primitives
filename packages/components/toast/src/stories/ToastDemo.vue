@@ -72,7 +72,7 @@ export interface IToastProps {
   list-style: none;
 }
 
-.toast-toastClass {
+.toast-toast {
   position: relative;
   overflow: hidden;
   list-style: none;
@@ -84,7 +84,7 @@ export interface IToastProps {
   font-size: 12px;
 }
 
-.toast-headerClass {
+.toast-header {
   padding: 5px 10px;
   margin: -10px -10px 10px;
   background: black;
@@ -95,16 +95,16 @@ export interface IToastProps {
   align-items: center;
 }
 
-.toast-titleClass {
+.toast-title {
   font-size: inherit;
   font-weight: normal;
 }
 
-.toast-descriptionClass {
+.toast-description {
   margin: 0;
 }
 
-.buttonClass {
+.button {
   border: 1px solid black;
   border-radius: 4px;
   background: gainsboro;
@@ -196,7 +196,7 @@ export interface IToastProps {
   justify-content: space-between;
 }
 
-.animatedRootClass {
+.animatedRoot {
   &[data-state="open"] {
     animation: toast-fadeIn 200ms ease-out;
   }

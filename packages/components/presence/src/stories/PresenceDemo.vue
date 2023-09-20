@@ -86,21 +86,21 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   }
 }
 
-.presence-mountAnimationClass {
+.presence-mountAnimation {
   animation: presence-fadeIn 3s ease-out;
 }
 
-.presence-unmountAnimationClass {
+.presence-unmountAnimation {
   &[data-state="closed"] {
     animation: presence-fadeOut 3s ease-in;
   }
 }
 
-.presence-multipleMountAnimationsClass {
+.presence-multipleMountAnimations {
   animation: presence-fadeIn 6s cubic-bezier(0.22, 1, 0.36, 1), presence-slideUp 6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.presence-openAndCloseAnimationClass {
+.presence-openAndCloseAnimation {
   &[data-state="open"] {
     animation: presence-fadeIn 3s ease-out;
   }
@@ -109,7 +109,7 @@ withDefaults(defineProps<OkuPresenceProps>(), {
   }
 }
 
-.presence-multipleOpenAndCloseAnimationsClass {
+.presence-multipleOpenAndCloseAnimations {
   &[data-state="open"] {
     animation: presence-fadeIn 3s cubic-bezier(0.22, 1, 0.36, 1), presence-slideUp 1s cubic-bezier(0.22, 1, 0.36, 1);
   }

@@ -26,7 +26,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
 </template>
 
 <style>
-.slider-rootSliderClass {
+.slider-rootSlider {
   position: relative;
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
   }
 }
 
-.slider-trackClass {
+.slider-track {
   position: relative;
   /* ensures full width in horizontal orientation, ignored in vertical orientation */
   flex-grow: 1;
@@ -68,7 +68,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
   }
 }
 
-.slider-rangeClass {
+.slider-range {
   position: absolute;
 
   /* good default for both orientation (match track width/height respectively) */
@@ -84,7 +84,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
   border-radius: inherit;
 }
 
-.slider-thumbClassT {
+.slider-thumb {
   /* ensures the thumb is sizeable */
   display: block;
 
@@ -121,7 +121,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
   }
 }
 
-.slider-rootAttrClass {
+.slider-rootAttr {
   position: relative;
   display: flex;
   align-items: center;
@@ -140,7 +140,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
   }
 }
 
-.slider-trackAttrClass {
+.slider-trackAttr {
   position: relative;
   /* ensures full width in horizontal orientation, ignored in vertical orientation */
   flex-grow: 1;
@@ -150,7 +150,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
   padding: 10px;
 }
 
-.slider-rangeAttrClass {
+.slider-rangeAttr {
   position: absolute;
 
   &[data-orientation="horizontal"] {
@@ -166,7 +166,7 @@ withDefaults(defineProps<OkuSliderProps>(), {
   padding: 10px;
 }
 
-.slider-thumbAttrClass {
+.slider-thumbAttr {
   /* ensures the thumb is sizeable */
   display: block;
 

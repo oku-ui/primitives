@@ -10,49 +10,49 @@ import {
 
 <template>
   <OkuHoverCard>
-    <OkuHoverCardTrigger href="/" class="hover-card-triggerClass">
+    <OkuHoverCardTrigger href="/" class="hover-card-trigger">
       trigger level 1
     </OkuHoverCardTrigger>
 
     <OkuHoverCardPortal>
       <OkuHoverCardContent
-        class="contentClass"
+        class="content"
         :side-offset="5"
         :style="{ backgroundColor: 'crimson' }"
       >
         <OkuHoverCard>
-          <OkuHoverCardTrigger href="/" class="hover-card-triggerClass">
+          <OkuHoverCardTrigger href="/" class="hover-card-trigger">
             trigger level 2
           </OkuHoverCardTrigger>
           <OkuHoverCardPortal>
             <OkuHoverCardContent
-              class="contentClass"
+              class="content"
               side="top"
               align="center"
               :side-offset="5"
               :style="{ backgroundColor: 'green' }"
             >
               <OkuHoverCardArrow
-                class="hover-card-arrowClass"
+                class="hover-card-arrow"
                 :width="20"
                 :height="10"
                 :offset="20"
                 :style="{ fill: 'green' }"
               />
               <OkuHoverCard>
-                <OkuHoverCardTrigger href="/" class="hover-card-triggerClass">
+                <OkuHoverCardTrigger href="/" class="hover-card-trigger">
                   trigger level 3
                 </OkuHoverCardTrigger>
                 <OkuHoverCardPortal>
                   <OkuHoverCardContent
-                    class="contentClass"
+                    class="content"
                     side="bottom"
                     align="start"
                     :side-offset="5"
                     :style="{ backgroundColor: 'purple' }"
                   >
                     <OkuHoverCardArrow
-                      class="hover-card-arrowClass"
+                      class="hover-card-arrow"
                       :width="20"
                       :height="10"
                       :offset="20"
@@ -67,7 +67,7 @@ import {
         </OkuHoverCard>
 
         <OkuHoverCardArrow
-          class="hover-card-arrowClass"
+          class="hover-card-arrow"
           :width="20"
           :height="10"
           :offset="20"

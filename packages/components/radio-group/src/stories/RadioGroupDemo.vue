@@ -21,22 +21,22 @@ defineProps<ITabsProps>()
     <h1>Horizontal (automatic activation)</h1>
     <OkuLabel>
       Favourite pet
-      <OkuRadioGroup default-value="1" class="radio-group-rootClass">
+      <OkuRadioGroup default-value="1" class="radio-group-root">
         <OkuLabel>
-          <OkuRadioGroupItem value="1" class="radio-group-itemClass">
-            <OkuRadioGroupIndicator class="radio-group-indicatorClass" />
+          <OkuRadioGroupItem value="1" class="radio-group-item">
+            <OkuRadioGroupIndicator class="radio-group-indicator" />
           </OkuRadioGroupItem>
           Cat
         </OkuLabel>
         <OkuLabel>
-          <OkuRadioGroupItem value="2" class="radio-group-itemClass">
-            <OkuRadioGroupIndicator class="radio-group-indicatorClass" />
+          <OkuRadioGroupItem value="2" class="radio-group-item">
+            <OkuRadioGroupIndicator class="radio-group-indicator" />
           </OkuRadioGroupItem>
           Dog
         </OkuLabel>
         <OkuLabel>
-          <OkuRadioGroupItem value="3" class="radio-group-itemClass">
-            <OkuRadioGroupIndicator class="radio-group-indicatorClass" />
+          <OkuRadioGroupItem value="3" class="radio-group-item">
+            <OkuRadioGroupIndicator class="radio-group-indicator" />
           </OkuRadioGroupItem>
           Rabbit
         </OkuLabel>
@@ -53,15 +53,15 @@ defineProps<ITabsProps>()
   --colors-red: #ff5555;
 }
 
-/* Root Class */
-.radio-group-rootClass {
+/* Root  */
+.radio-group-root {
   display: inline-block;
   vertical-align: middle;
   cursor: default;
 }
 
 /* Radio Group Item */
-.radio-group-itemClass {
+.radio-group-item {
   vertical-align: middle;
   width: 30px;
   height: 30px;
@@ -83,7 +83,7 @@ defineProps<ITabsProps>()
 }
 
 /* Indicator */
-.radio-group-indicatorClass {
+.radio-group-indicator {
   width: 18px;
   height: 18px;
   background-color: var(--red);

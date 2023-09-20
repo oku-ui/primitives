@@ -17,7 +17,7 @@ const saving = ref(false)
       <button type="submit" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
         Save
       </button>
-      <OkuToast v-model="open" class="toast-toastClass" :duration="saving ? Infinity : 2000">
+      <OkuToast v-model="open" class="toast-toast" :duration="saving ? Infinity : 2000">
         <OkuToastDescription v-if="saving">
           Saving&hellip;
         </OkuToastDescription>

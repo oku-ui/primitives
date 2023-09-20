@@ -70,7 +70,7 @@ withDefaults(defineProps<Props>(), {
 </template>
 
 <style>
-.popper-contentClass {
+.popper-content {
   transform-origin: var(--oku-popper-transform-origin);
   background-color: #f9fafb;
   padding: 10px;
@@ -97,7 +97,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-.popper-anchorClass {
+.popper-anchor {
   background-color: hotpink;
   width: 100px;
   height: 100px;
@@ -118,7 +118,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-.popper-arrowClass {
+.popper-arrow {
   fill: #f9fafb;
 }
 
@@ -131,7 +131,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-.popper-animatedContentClass {
+.popper-animatedContent {
   transform-origin: var(--oku-popper-transform-origin);
   background-color: #f9fafb;
   padding: 10px;

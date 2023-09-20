@@ -22,15 +22,15 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   <div v-if="template === '#1' || allshow" class="flex flex-col">
     <div>
       <OkuPopover>
-        <OkuPopoverTrigger class="popover-triggerClass">
+        <OkuPopoverTrigger class="popover-trigger">
           open
         </OkuPopoverTrigger>
         <OkuPopoverPortal>
-          <OkuPopoverContent class="popover-contentClass" :side-offset="15">
-            <OkuPopoverClose class="popover-closeClass">
+          <OkuPopoverContent class="popover-content" :side-offset="15">
+            <OkuPopoverClose class="popover-close">
               close
             </OkuPopoverClose>
-            <OkuPopoverArrow class="popover-arrowClass" :width="20" :height="10" />
+            <OkuPopoverArrow class="popover-arrow" :width="20" :height="10" />
           </OkuPopoverContent>
         </OkuPopoverPortal>
       </OkuPopover>
@@ -39,20 +39,20 @@ withDefaults(defineProps<OkuPopoverProps>(), {
 </template>
 
 <style>
-.popover-triggerClass {
+.popover-trigger {
 
 }
 
-.popover-contentClass {
+.popover-content {
   transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
   border-radius: 5px;
 }
-.popover-closeClass {
+.popover-close {
 }
 
-.popover-arrowClass {
+.popover-arrow {
   fill: #e5e7eb;
 }
 
@@ -74,7 +74,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-animatedContentClass {
+.popover-animatedContent {
    transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
@@ -88,7 +88,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-gridClass {
+.popover-grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -97,7 +97,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid black;
 }
 
-.popover-chromaticTriggerClass {
+.popover-chromaticTrigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -105,7 +105,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover-chromaticContentClass {
+.popover-chromaticContent {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -117,11 +117,11 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover-chromaticArrowClass {
+.popover-chromaticArrow {
   fill: black;
 }
 
-.popover-triggerAttrClass {
+.popover-triggerAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -134,7 +134,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-contentAttrClass {
+.popover-contentAttr {
   transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
@@ -151,7 +151,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-arrowAttrClass {
+.popover-arrowAttr {
   fill: #e5e7eb;
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
@@ -165,7 +165,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-closeAttrClass {
+.popover-closeAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

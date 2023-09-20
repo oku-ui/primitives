@@ -9,13 +9,13 @@ const portalContainer = ref<HTMLDivElement | null>(null)
 <template>
   <div>
     <OkuDialog v-model="open">
-      <OkuDialogTrigger class="dialog-triggerClass">
+      <OkuDialogTrigger class="dialog-trigger">
         open
       </OkuDialogTrigger>
       <OkuDialogPortal :container="portalContainer">
-        <OkuDialogOverlay class="dialog-overlayClass" />
+        <OkuDialogOverlay class="dialog-overlay" />
         <OkuDialogContent
-          class="dialog-contentDefaultClass"
+          class="dialog-contentDefault"
         >
           <OkuDialogTitle>
             Title

@@ -24,59 +24,59 @@ withDefaults(defineProps<OkuHoverCardProps>(), {
   template: 'Basic',
 })
 
-const templateClass = 'flex flex-col justify-center'
+const template = 'flex flex-col justify-center'
 </script>
 
 <template>
-  <div v-if="template === 'Basic' || allshow" :class="templateClass">
+  <div v-if="template === 'Basic' || allshow" :class="template">
     <Basic />
   </div>
-  <div v-if="template === 'ContainTextSelection' || allshow" :class="templateClass">
+  <div v-if="template === 'ContainTextSelection' || allshow" :class="template">
     <ContainTextSelection />
   </div>
-  <div v-if="template === 'AsyncUpdate' || allshow" :class="templateClass">
+  <div v-if="template === 'AsyncUpdate' || allshow" :class="template">
     <AsyncUpdate />
   </div>
-  <div v-if="template === 'CustomDurations' || allshow" :class="templateClass">
+  <div v-if="template === 'CustomDurations' || allshow" :class="template">
     <CustomDurations />
   </div>
-  <div v-if="template === 'Controlled' || allshow" :class="templateClass">
+  <div v-if="template === 'Controlled' || allshow" :class="template">
     <Controlled />
   </div>
-  <div v-if="template === 'Layerable' || allshow" :class="templateClass">
+  <div v-if="template === 'Layerable' || allshow" :class="template">
     <Layerable />
   </div>
-  <div v-if="template === 'Animated' || allshow" :class="templateClass">
+  <div v-if="template === 'Animated' || allshow" :class="template">
     <Animated />
   </div>
-  <div v-if="template === 'ForcedMount' || allshow" :class="templateClass">
+  <div v-if="template === 'ForcedMount' || allshow" :class="template">
     <ForcedMount />
   </div>
-  <div v-if="template === 'Nested' || allshow" :class="templateClass">
+  <div v-if="template === 'Nested' || allshow" :class="template">
     <Nested />
   </div>
-  <div v-if="template === 'NonPortal' || allshow" :class="templateClass">
+  <div v-if="template === 'NonPortal' || allshow" :class="template">
     <NonPortal />
   </div>
-  <div v-if="template === 'WithSlottedTrigger' || allshow" :class="templateClass">
+  <div v-if="template === 'WithSlottedTrigger' || allshow" :class="template">
     <WithSlottedTrigger />
   </div>
-  <div v-if="template === 'WithSlottedContent' || allshow" :class="templateClass">
+  <div v-if="template === 'WithSlottedContent' || allshow" :class="template">
     <WithSlottedContent />
   </div>
 </template>
 
 <style lang="postcss">
-.hover-card-triggerClass {}
+.hover-card-trigger {}
 
-.contentClass {
+.content {
   transform-origin: var(--oku-hover-card-content-transform-origin);
   background-color: #5d9bda;
   padding: 20px;
   border-radius: 5px;
 }
 
-.hover-card-arrowClass {
+.hover-card-arrow {
   fill: #f9fafb;
 }
 
@@ -102,7 +102,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover-card-animatedContentClass {
+.hover-card-animatedContent {
   transform-origin: var(--oku-hover-card-content-transform-origin);
   background-color: #f9fafb;
   padding: 20px;
@@ -115,7 +115,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover-card-gridClass {
+.hover-card-grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -124,7 +124,7 @@ const templateClass = 'flex flex-col justify-center'
   border: 1px solid black;
 }
 
-.hover-card-chromaticTriggerClass {
+.hover-card-chromaticTrigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -132,7 +132,7 @@ const templateClass = 'flex flex-col justify-center'
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.hover-card-chromaticContentClass {
+.hover-card-chromaticContent {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -144,7 +144,7 @@ const templateClass = 'flex flex-col justify-center'
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.hover-card-chromaticArrowClass {
+.hover-card-chromaticArrow {
   fill: black;
 }
 
@@ -160,7 +160,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover-card-triggerAttrClass {
+.hover-card-triggerAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -172,7 +172,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover-card-contentAttrClass {
+.hover-card-contentAttr {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -191,7 +191,7 @@ const templateClass = 'flex flex-col justify-center'
   }
 }
 
-.hover-card-arrowAttrClass {
+.hover-card-arrowAttr {
   fill: black;
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
