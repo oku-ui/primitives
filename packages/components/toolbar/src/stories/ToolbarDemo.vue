@@ -25,8 +25,6 @@ withDefaults(defineProps<OkuToolbarProps>(), {
 
 <style>
 .toolbar_rootClass {
-  @apply flex gap-1;
-
   &[data-orientation="vertical"] {
     flex-direction: column;
   }

@@ -380,8 +380,4 @@ import {
 .tooltip_chromaticArrowClass {
   fill: black;
 }
-
-button {
-  @apply inline-flex items-center mx-4 justify-center px-4 py-2 bg-blue-500;
-}
 </style>

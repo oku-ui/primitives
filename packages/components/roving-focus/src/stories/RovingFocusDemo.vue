@@ -272,12 +272,12 @@ h1 {
   font-weight: bold;
 }
 
-button {
+/* button {
   border: 1px solid black;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 400;
   padding: 2px;
-}
+} */
 </style>
