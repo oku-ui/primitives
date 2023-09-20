@@ -58,7 +58,7 @@ export interface IToastProps {
 </template>
 
 <style>
-.viewport {
+.toast_viewport {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -72,7 +72,7 @@ export interface IToastProps {
   list-style: none;
 }
 
-.toast {
+.toast_toastClass {
   position: relative;
   overflow: hidden;
   list-style: none;
@@ -84,7 +84,7 @@ export interface IToastProps {
   font-size: 12px;
 }
 
-.header {
+.toast_headerClass {
   padding: 5px 10px;
   margin: -10px -10px 10px;
   background: black;
@@ -95,12 +95,12 @@ export interface IToastProps {
   align-items: center;
 }
 
-.title {
+.toast_titleClass {
   font-size: inherit;
   font-weight: normal;
 }
 
-.description {
+.toast_descriptionClass {
   margin: 0;
 }
 
@@ -129,7 +129,7 @@ export interface IToastProps {
   padding: 0;
 }
 
-@keyframes fadeIn {
+@keyframes toast_fadeIn {
   from {
     opacity: 0;
   }
@@ -139,7 +139,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes fadeOut {
+@keyframes toast_fadeOut {
   from {
     opacity: 1;
   }
@@ -149,7 +149,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideRight {
+@keyframes toast_slideRight {
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
@@ -159,7 +159,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideLeft {
+@keyframes toast_slideLeft {
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
@@ -169,7 +169,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideUp {
+@keyframes toast_slideUp {
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
@@ -179,7 +179,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideDown {
+@keyframes toast_slideDown {
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
@@ -189,18 +189,18 @@ export interface IToastProps {
   }
 }
 
-.error-toast {
+.toast_errorToast {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 [data-state="open"] {
-  animation: fadeIn 200ms ease-out;
+  animation: toast_fadeIn 200ms ease-out;
 }
 
 [data-state="closed"] {
-  animation: fadeOut 200ms ease-out;
+  animation: toast_fadeOut 200ms ease-out;
 }
 
 [data-swipe="move"] {
@@ -213,22 +213,22 @@ export interface IToastProps {
 }
 
 [data-swipe="end"][data-swipe-direction="right"] {
-  animation-name: slideRight;
+  animation-name: toast_slideRight;
 }
 
 [data-swipe="end"][data-swipe-direction="left"] {
-  animation-name: slideLeft;
+  animation-name: toast_slideLeft;
 }
 
 [data-swipe="end"][data-swipe-direction="up"] {
-  animation-name: slideUp;
+  animation-name: toast_slideUp;
 }
 
 [data-swipe="end"][data-swipe-direction="down"] {
-  animation-name: slideDown;
+  animation-name: toast_slideDown;
 }
 
-.chromatic-viewport {
+.toast_chromatic_toast_viewport {
   display: inline-flex;
   border: 5px solid royalblue;
   flex-direction: column;

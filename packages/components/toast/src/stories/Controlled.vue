@@ -39,7 +39,7 @@ watchEffect((onInvalidate) => {
     <ToastUpgradeAvailable v-model="hasUpgrade" />
     <ToastSubscribeSuccess v-model="isSubscribed" />
 
-    <OkuToast v-for="(_, index) in errorCount" :key="index" class="toast error-toast">
+    <OkuToast v-for="(_, index) in errorCount" :key="index" class="toast toast_errorToast">
       <OkuToastDescription>There was an error</OkuToastDescription>
       <OkuToastAction
         class="button" alt-text="Resubmit the form to try again."
@@ -49,10 +49,10 @@ watchEffect((onInvalidate) => {
       </OkuToastAction>
     </OkuToast>
 
-    <OkuToast v-for="(_, index) in savedCount" :key="index" class="toast">
+    <OkuToast v-for="(_, index) in savedCount" :key="index" class="toast_toastClass">
       <OkuToastDescription>Successfully saved</OkuToastDescription>
     </OkuToast>
 
-    <OkuToastViewport class="viewport" />
+    <OkuToastViewport class="toast_viewport" />
   </OkuToastProvider>
 </template>

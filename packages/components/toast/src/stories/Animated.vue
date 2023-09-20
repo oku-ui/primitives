@@ -52,6 +52,6 @@ function handelAnimatedOpen() {
         Dismiss
       </OkuToastClose>
     </OkuToast>
-    <OkuToastViewport class="viewport" />
+    <OkuToastViewport class="toast_viewport" />
   </OkuToastProvider>
 </template>
