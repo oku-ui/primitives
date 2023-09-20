@@ -26,6 +26,8 @@ exports[`OkuScrollArea > OkuScrollAreaThumbImpl renders correctly 1`] = `"\`OkuS
 
 exports[`OkuScrollArea > OkuScrollAreaViewport renders correctly 1`] = `"\`OkuScrollAreaViewport\` must be used within \`OkuScrollArea\`"`;
 
+exports[`OkuScrollArea > should render OkuScrollArea correctly 1`] = `"<primitivediv-stub aschild=\\"false\\" dir=\\"ltr\\" style=\\"position: relative; --oku-scroll-area-corner-width: 0px; --oku-scroll-area-corner-height: 0px;\\"></primitivediv-stub>"`;
+
 exports[`OkuScrollArea > should render OkuScrollAreaCorner correctly 1`] = `"\`OkuScrollAreaCorner\` must be used within \`OkuScrollArea\`"`;
 
 exports[`OkuScrollArea > should render OkuScrollAreaCornerImpl correctly 1`] = `"\`OkuScrollAreaCorner\` must be used within \`OkuScrollArea\`"`;

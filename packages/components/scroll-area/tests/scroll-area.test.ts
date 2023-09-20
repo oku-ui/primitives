@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
-import { enableAutoUnmount, mount } from '@vue/test-utils'
+import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
 import { nextTick } from 'vue'
 
@@ -32,7 +32,7 @@ enableAutoUnmount(afterEach)
 
 describe('OkuScrollArea', () => {
   it('should render OkuScrollArea correctly', () => {
-    const wrapper = mount(OkuScrollArea)
+    const wrapper = shallowMount(OkuScrollArea)
     expect(wrapper.html()).toMatchSnapshot()
   })
 
