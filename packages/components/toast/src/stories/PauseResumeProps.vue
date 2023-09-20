@@ -14,6 +14,6 @@ const toastCount = ref(0)
 
     <ToastWithProgress v-for="(_, index) in toastCount" :key="index" />
 
-    <OkuToastViewport class="toast_viewport" />
+    <OkuToastViewport class="toast-viewport" />
   </OkuToastProvider>
 </template>

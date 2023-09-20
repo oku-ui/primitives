@@ -6,6 +6,6 @@ import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
 <template>
   <OkuToastProvider>
     <ToastUpgradeAvailable open />
-    <OkuToastViewport class="toast_viewport" />
+    <OkuToastViewport class="toast-viewport" />
   </OkuToastProvider>
 </template>

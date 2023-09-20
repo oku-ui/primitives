@@ -37,22 +37,22 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
     >
       <h1>In fixed header</h1>
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           1
         </OkuPopperAnchor>
-        <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-          <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+        <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+          <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
           1
         </OkuPopperContent>
       </OkuPopper>
 
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           2
         </OkuPopperAnchor>
         <OkuPortal>
-          <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-            <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+          <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+            <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
             2 (portalled)
           </OkuPopperContent>
         </OkuPortal>
@@ -71,22 +71,22 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
     >
       <h1>In normal page flow</h1>
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           3
         </OkuPopperAnchor>
-        <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-          <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+        <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+          <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
           3
         </OkuPopperContent>
       </OkuPopper>
 
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           4
         </OkuPopperAnchor>
         <OkuPortal>
-          <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-            <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+          <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+            <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
             4 (portalled)
           </OkuPopperContent>
         </OkuPortal>
@@ -106,22 +106,22 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
     >
       <h1>In relative parent</h1>
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           5
         </OkuPopperAnchor>
-        <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-          <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+        <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+          <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
           5
         </OkuPopperContent>
       </OkuPopper>
 
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           6
         </OkuPopperAnchor>
         <OkuPortal>
-          <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-            <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+          <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+            <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
             6 (portalled)
           </OkuPopperContent>
         </OkuPortal>
@@ -141,22 +141,22 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
     >
       <h1>In translated parent</h1>
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           7
         </OkuPopperAnchor>
-        <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-          <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+        <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+          <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
           7
         </OkuPopperContent>
       </OkuPopper>
 
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           8
         </OkuPopperAnchor>
         <OkuPortal>
-          <OkuPopperContent class="popper_contentClass small" :side-offset="5">
-            <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+          <OkuPopperContent class="popper-contentClass small" :side-offset="5">
+            <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
             8 (portalled)
           </OkuPopperContent>
         </OkuPortal>
@@ -197,32 +197,32 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
               }"
             >
               <OkuPopper>
-                <OkuPopperAnchor class="popper_anchorClass small">
+                <OkuPopperAnchor class="popper-anchorClass small">
                   9.{{ i + 1 }}
                 </OkuPopperAnchor>
                 <OkuPopperContent
-                  class="popper_contentClass small"
+                  class="popper-contentClass small"
                   :side-offset="5"
                   hide-when-detached
                   :collision-boundary="scrollContainer1"
                 >
-                  <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+                  <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
                   9.{{ i + 1 }}
                 </OkuPopperContent>
               </OkuPopper>
 
               <OkuPopper>
-                <OkuPopperAnchor class="popper_anchorClass small">
+                <OkuPopperAnchor class="popper-anchorClass small">
                   10.{{ i + 1 }}
                 </OkuPopperAnchor>
                 <OkuPortal>
                   <OkuPopperContent
-                    class="popper_contentClass small"
+                    class="popper-contentClass small"
                     :side-offset="5"
                     hide-when-detached
                     :collision-boundary="scrollContainer1"
                   >
-                    <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+                    <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
                     10.{{ i + 1 }} (portalled)
                   </OkuPopperContent>
                 </OkuPortal>
@@ -262,32 +262,32 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
               }"
             >
               <OkuPopper>
-                <OkuPopperAnchor class="popper_anchorClass small">
+                <OkuPopperAnchor class="popper-anchorClass small">
                   9.{{ i + 1 }}
                 </OkuPopperAnchor>
                 <OkuPopperContent
-                  class="popper_contentClass small"
+                  class="popper-contentClass small"
                   :side-offset="5"
                   hide-when-detached
                   :collision-boundary="scrollContainer2"
                 >
-                  <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+                  <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
                   9.{{ i + 1 }}
                 </OkuPopperContent>
               </OkuPopper>
 
               <OkuPopper>
-                <OkuPopperAnchor class="popper_anchorClass small">
+                <OkuPopperAnchor class="popper-anchorClass small">
                   10.{{ i + 1 }}
                 </OkuPopperAnchor>
                 <OkuPortal>
                   <OkuPopperContent
-                    class="popper_contentClass small"
+                    class="popper-contentClass small"
                     :side-offset="5"
                     hide-when-detached
                     :collision-boundary="scrollContainer2"
                   >
-                    <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+                    <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
                     10.{{ i + 1 }} (portalled)
                   </OkuPopperContent>
                 </OkuPortal>
@@ -310,22 +310,22 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
     >
       <h1>Logical &quot;start&quot; alignment (LTR)</h1>
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           11
         </OkuPopperAnchor>
-        <OkuPopperContent class="popper_contentClass small" :side-offset="5" align="start">
-          <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+        <OkuPopperContent class="popper-contentClass small" :side-offset="5" align="start">
+          <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
           11
         </OkuPopperContent>
       </OkuPopper>
 
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           12
         </OkuPopperAnchor>
         <OkuPortal>
-          <OkuPopperContent class="popper_contentClass small" :side-offset="5" align="start">
-            <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+          <OkuPopperContent class="popper-contentClass small" :side-offset="5" align="start">
+            <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
             12 (portalled)
           </OkuPopperContent>
         </OkuPortal>
@@ -344,22 +344,22 @@ const scrollContainer2 = ref<HTMLDivElement | null>(null)
     >
       <h1>Logical &quot;start&quot; alignment (RTL)</h1>
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           13
         </OkuPopperAnchor>
-        <OkuPopperContent class="popper_contentClass small" :side-offset="5" align="start" dir="rtl">
-          <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+        <OkuPopperContent class="popper-contentClass small" :side-offset="5" align="start" dir="rtl">
+          <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
           13
         </OkuPopperContent>
       </OkuPopper>
 
       <OkuPopper>
-        <OkuPopperAnchor class="popper_anchorClass small">
+        <OkuPopperAnchor class="popper-anchorClass small">
           14
         </OkuPopperAnchor>
         <OkuPortal>
-          <OkuPopperContent class="popper_contentClass small" :side-offset="5" align="start" dir="rtl">
-            <OkuPopperArrow class="popper_arrowClass" :width="10" :height="5" />
+          <OkuPopperContent class="popper-contentClass small" :side-offset="5" align="start" dir="rtl">
+            <OkuPopperArrow class="popper-arrowClass" :width="10" :height="5" />
             14 (portalled)
           </OkuPopperContent>
         </OkuPortal>

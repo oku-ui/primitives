@@ -5,14 +5,14 @@ import { OkuSlider, OkuSliderRange, OkuSliderThumb, OkuSliderTrack } from '@oku-
 <template>
   <div>
     <OkuSlider
-      class="slider_rootSliderClass"
+      class="slider-rootSliderClass"
       :default-value="[20]"
       @value-commit="console.log"
     >
-      <OkuSliderTrack class="slider_trackClass">
-        <OkuSliderRange class="slider_rangeClass" />
+      <OkuSliderTrack class="slider-trackClass">
+        <OkuSliderRange class="slider-rangeClass" />
       </OkuSliderTrack>
-      <OkuSliderThumb class="slider_thumbClassT" />
+      <OkuSliderThumb class="slider-thumbClassT" />
     </OkuSlider>
   </div>
 </template>

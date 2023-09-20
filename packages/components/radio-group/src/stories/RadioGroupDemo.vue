@@ -21,22 +21,22 @@ defineProps<ITabsProps>()
     <h1>Horizontal (automatic activation)</h1>
     <OkuLabel>
       Favourite pet
-      <OkuRadioGroup default-value="1" class="radio_group_rootClass">
+      <OkuRadioGroup default-value="1" class="radio-group-rootClass">
         <OkuLabel>
-          <OkuRadioGroupItem value="1" class="radio_group_itemClass">
-            <OkuRadioGroupIndicator class="radio_group_indicatorClass" />
+          <OkuRadioGroupItem value="1" class="radio-group-itemClass">
+            <OkuRadioGroupIndicator class="radio-group-indicatorClass" />
           </OkuRadioGroupItem>
           Cat
         </OkuLabel>
         <OkuLabel>
-          <OkuRadioGroupItem value="2" class="radio_group_itemClass">
-            <OkuRadioGroupIndicator class="radio_group_indicatorClass" />
+          <OkuRadioGroupItem value="2" class="radio-group-itemClass">
+            <OkuRadioGroupIndicator class="radio-group-indicatorClass" />
           </OkuRadioGroupItem>
           Dog
         </OkuLabel>
         <OkuLabel>
-          <OkuRadioGroupItem value="3" class="radio_group_itemClass">
-            <OkuRadioGroupIndicator class="radio_group_indicatorClass" />
+          <OkuRadioGroupItem value="3" class="radio-group-itemClass">
+            <OkuRadioGroupIndicator class="radio-group-indicatorClass" />
           </OkuRadioGroupItem>
           Rabbit
         </OkuLabel>
@@ -54,14 +54,14 @@ defineProps<ITabsProps>()
 }
 
 /* Root Class */
-.radio_group_rootClass {
+.radio-group-rootClass {
   display: inline-block;
   vertical-align: middle;
   cursor: default;
 }
 
 /* Radio Group Item */
-.radio_group_itemClass {
+.radio-group-itemClass {
   vertical-align: middle;
   width: 30px;
   height: 30px;
@@ -83,7 +83,7 @@ defineProps<ITabsProps>()
 }
 
 /* Indicator */
-.radio_group_indicatorClass {
+.radio-group-indicatorClass {
   width: 18px;
   height: 18px;
   background-color: var(--red);
@@ -93,16 +93,16 @@ defineProps<ITabsProps>()
   border-radius: inherit;
 
   &[data-state="checked"] {
-    animation: radio_group_fadeIn 300ms ease-out;
+    animation: radio-group-fadeIn 300ms ease-out;
   }
 
   &[data-state="unchecked"] {
-    animation: radio_group_fadeOut 300ms ease-in;
+    animation: radio-group-fadeOut 300ms ease-in;
   }
 }
 
 /* Animations */
-@keyframes radio_group_fadeIn {
+@keyframes radio-group-fadeIn {
   from {
     opacity: 0;
   }
@@ -111,7 +111,7 @@ defineProps<ITabsProps>()
   }
 }
 
-@keyframes radio_group_fadeOut {
+@keyframes radio-group-fadeOut {
   from {
     opacity: 1;
   }
@@ -121,7 +121,7 @@ defineProps<ITabsProps>()
 }
 
 /* Styles */
-.radio_group_styles {
+.radio-group-styles {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

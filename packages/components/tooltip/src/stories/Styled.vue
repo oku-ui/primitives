@@ -12,13 +12,13 @@ import {
 <template>
   <OkuTooltipProvider>
     <OkuTooltip>
-      <OkuTooltipTrigger class="tooltip_triggerClass">
+      <OkuTooltipTrigger class="tooltip-triggerClass">
         Hover or Focus me
       </OkuTooltipTrigger>
       <OkuTooltipPortal>
-        <OkuTooltipContent class="tooltip_contentClass" :side-offset="5">
+        <OkuTooltipContent class="tooltip-contentClass" :side-offset="5">
           Nicely done!
-          <OkuTooltipArrow class="tooltip_arrowClass" :offset="10" />
+          <OkuTooltipArrow class="tooltip-arrowClass" :offset="10" />
         </OkuTooltipContent>
       </OkuTooltipPortal>
     </OkuTooltip>

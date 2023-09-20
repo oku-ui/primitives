@@ -5,19 +5,19 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
 <template>
   <div>
     <OkuDialog>
-      <OkuDialogTrigger class="dialog_triggerClass">
+      <OkuDialogTrigger class="dialog-triggerClass">
         open
       </OkuDialogTrigger>
       <OkuDialogPortal :force-mount="true">
-        <OkuDialogOverlay class="dialog_overlayClass" />
-        <OkuDialogContent class="dialog_contentDefaultClass">
+        <OkuDialogOverlay class="dialog-overlayClass" />
+        <OkuDialogContent class="dialog-contentDefaultClass">
           <OkuDialogTitle>
             Title
           </OkuDialogTitle>
           <OkuDialogDescription>
             Description
           </OkuDialogDescription>
-          <OkuDialogClose class="dialog_closeClass">
+          <OkuDialogClose class="dialog-closeClass">
             close
           </OkuDialogClose>
         </OkuDialogContent>

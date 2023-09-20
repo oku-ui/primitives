@@ -12,7 +12,7 @@ const open = ref(false)
 
 <template>
   <OkuPopper>
-    <OkuPopperAnchor class="popper_anchorClass" @click="open = true">
+    <OkuPopperAnchor class="popper-anchorClass" @click="open = true">
       Open
     </OkuPopperAnchor>
     <Teleport to="body">
@@ -22,12 +22,12 @@ const open = ref(false)
           :side-offset="5"
           side="right"
           align="start"
-          class="popper_animatedContentClass"
+          class="popper-animatedContentClass"
         >
           <button @click="open = false">
             close
           </button>
-          <OkuPopperArrow class="popper_arrowClass" :width="20" :height="10" :offset="25" />
+          <OkuPopperArrow class="popper-arrowClass" :width="20" :height="10" :offset="25" />
         </OkuPopperContent>
       </Transition>
     </Teleport>

@@ -17,27 +17,27 @@ defineProps<ITabsProps>()
 <template>
   <div v-if="template === '#1' || allshow">
     <h1>Horizontal (automatic activation)</h1>
-    <OkuTabs default-value="tab1" class="tabs_rootClass">
-      <OkuTabsList aria-label="tabs example" class="tabs_listClass">
-        <OkuTabsTrigger value="tab1" class="tabs_triggerClass">
+    <OkuTabs default-value="tab1" class="tabs-rootClass">
+      <OkuTabsList aria-label="tabs example" class="tabs-listClass">
+        <OkuTabsTrigger value="tab1" class="tabs-triggerClass">
           Tab 1
         </OkuTabsTrigger>
-        <OkuTabsTrigger value="tab2" disabled class="tabs_triggerClass">
+        <OkuTabsTrigger value="tab2" disabled class="tabs-triggerClass">
           Tab 2
         </OkuTabsTrigger>
-        <OkuTabsTrigger value="tab3" class="tabs_triggerClass">
+        <OkuTabsTrigger value="tab3" class="tabs-triggerClass">
           Tab 3
         </OkuTabsTrigger>
       </OkuTabsList>
-      <OkuTabsContent value="tab1" class="tabs_contentClass">
+      <OkuTabsContent value="tab1" class="tabs-contentClass">
         Dis metus rhoncus sit convallis sollicitudin vel cum, hac purus tincidunt eros sem himenaeos
         integer, faucibus varius nullam nostra bibendum consectetur mollis, gravida elementum
         pellentesque volutpat dictum ipsum.
       </OkuTabsContent>
-      <OkuTabsContent value="tab2" class="tabs_contentClass">
+      <OkuTabsContent value="tab2" class="tabs-contentClass">
         You'll never find me!
       </OkuTabsContent>
-      <OkuTabsContent value="tab3" class="tabs_contentClass">
+      <OkuTabsContent value="tab3" class="tabs-contentClass">
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </OkuTabsContent>
@@ -183,7 +183,7 @@ defineProps<ITabsProps>()
 }
 
 /* Root Class */
-.tabs_rootClass {
+.tabs-rootClass {
   display: flex;
   border: 1px solid #eee;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -195,7 +195,7 @@ defineProps<ITabsProps>()
 }
 
 /* List Class */
-.tabs_listClass {
+.tabs-listClass {
   flex-shrink: 0;
   display: flex;
   background-color: #eee;
@@ -206,7 +206,7 @@ defineProps<ITabsProps>()
 }
 
 /* Trigger Class */
-.tabs_triggerClass {
+.tabs-triggerClass {
 
   all: unset;
   flex-shrink: 0;
@@ -244,7 +244,7 @@ defineProps<ITabsProps>()
 }
 
 /* Content Class */
-.tabs_contentClass {
+.tabs-contentClass {
   flex-grow: 1;
   padding: 1em;
   font-weight: 300;
@@ -260,12 +260,12 @@ defineProps<ITabsProps>()
   }
 
   &[data-state="active"] {
-    animation: tabs_show 400ms ease;
+    animation: tabs-show 400ms ease;
   }
 }
 
 /* Keyframes */
-@keyframes tabs_show {
+@keyframes tabs-show {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -277,7 +277,7 @@ defineProps<ITabsProps>()
 }
 
 /* Attribute Classes */
-.tabs_attrClass {
+.tabs-attrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

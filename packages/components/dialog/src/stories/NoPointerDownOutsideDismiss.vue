@@ -12,13 +12,13 @@ function pointerDown(event: any) {
 <template>
   <div>
     <OkuDialog v-model="open">
-      <OkuDialogTrigger class="dialog_triggerClass">
+      <OkuDialogTrigger class="dialog-triggerClass">
         open
       </OkuDialogTrigger>
       <OkuDialogPortal>
-        <OkuDialogOverlay class="dialog_overlayClass" />
+        <OkuDialogOverlay class="dialog-overlayClass" />
         <OkuDialogContent
-          class="dialog_contentDefaultClass"
+          class="dialog-contentDefaultClass"
           @pointerdown-outside="pointerDown"
         >
           <OkuDialogTitle>

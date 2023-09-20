@@ -19,7 +19,7 @@ const housePurchased = ref(false)
     </div>
     <OkuAlertDialog :open="open" @open-change="open = $event">
       <OkuAlertDialogTrigger
-        class="alert_dialog_triggerClass"
+        class="alert-dialog-triggerClass"
         @click="(e) => {
           console.log('housePurchased', housePurchased)
           if (housePurchased) {
@@ -31,18 +31,18 @@ const housePurchased = ref(false)
         {{ housePurchased ? 'You bought the house! Sell it!' : 'Buy this house' }}
       </OkuAlertDialogTrigger>
       <OkuAlertDialogPortal>
-        <OkuAlertDialogOverlay class="alert_dialog_overlayClass" />
-        <OkuAlertDialogContent class="alert_dialog_contentClass">
-          <OkuAlertDialogTitle class="alert_dialog_titleClass">
+        <OkuAlertDialogOverlay class="alert-dialog-overlayClass" />
+        <OkuAlertDialogContent class="alert-dialog-contentClass">
+          <OkuAlertDialogTitle class="alert-dialog-titleClass">
             Are you sure?
           </OkuAlertDialogTitle>
-          <OkuAlertDialogDescription class="alert_dialog_descriptionClass">
+          <OkuAlertDialogDescription class="alert-dialog-descriptionClass">
             This will do a very dangerous thing. Thar be dragons!
           </OkuAlertDialogDescription>
-          <OkuAlertDialogAction class="alert_dialog_actionClass" @click="housePurchased = true">
+          <OkuAlertDialogAction class="alert-dialog-actionClass" @click="housePurchased = true">
             yolo, do it
           </OkuAlertDialogAction>
-          <OkuAlertDialogCancel class="alert_dialog_cancelClass">
+          <OkuAlertDialogCancel class="alert-dialog-cancelClass">
             maybe not
           </OkuAlertDialogCancel>
         </OkuAlertDialogContent>

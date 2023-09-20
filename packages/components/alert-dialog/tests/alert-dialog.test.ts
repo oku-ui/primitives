@@ -113,7 +113,7 @@ describe('OkuAlertDialog', () => {
         attachTo: document.body,
       })
 
-      await wrapper.find('[class="alert_dialog_triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-triggerClass"]').trigger('click')
       await nextTick()
     })
 
@@ -133,7 +133,7 @@ describe('OkuAlertDialog', () => {
     })
 
     it('should be able to close', async () => {
-      await wrapper.find('[class="alert_dialog_triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-triggerClass"]').trigger('click')
       await nextTick()
       expect(document.body).toMatchSnapshot()
     })
@@ -147,7 +147,7 @@ describe('OkuAlertDialog', () => {
         attachTo: document.body,
       })
 
-      await wrapper.find('[class="alert_dialog_triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-triggerClass"]').trigger('click')
       await nextTick()
     })
 
@@ -168,7 +168,7 @@ describe('OkuAlertDialog', () => {
     })
 
     it('should be able to close', async () => {
-      await wrapper.find('[class="alert_dialog_triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-triggerClass"]').trigger('click')
       await nextTick()
       expect(document.body).toMatchSnapshot()
     })

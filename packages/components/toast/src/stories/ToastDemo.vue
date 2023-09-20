@@ -58,7 +58,7 @@ export interface IToastProps {
 </template>
 
 <style>
-.toast_viewport {
+.toast-viewport {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -72,7 +72,7 @@ export interface IToastProps {
   list-style: none;
 }
 
-.toast_toastClass {
+.toast-toastClass {
   position: relative;
   overflow: hidden;
   list-style: none;
@@ -84,7 +84,7 @@ export interface IToastProps {
   font-size: 12px;
 }
 
-.toast_headerClass {
+.toast-headerClass {
   padding: 5px 10px;
   margin: -10px -10px 10px;
   background: black;
@@ -95,12 +95,12 @@ export interface IToastProps {
   align-items: center;
 }
 
-.toast_titleClass {
+.toast-titleClass {
   font-size: inherit;
   font-weight: normal;
 }
 
-.toast_descriptionClass {
+.toast-descriptionClass {
   margin: 0;
 }
 
@@ -130,7 +130,7 @@ export interface IToastProps {
   padding: 0;
 }
 
-@keyframes toast_fadeIn {
+@keyframes toast-fadeIn {
   from {
     opacity: 0;
   }
@@ -140,7 +140,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes toast_fadeOut {
+@keyframes toast-fadeOut {
   from {
     opacity: 1;
   }
@@ -150,7 +150,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes toast_slideRight {
+@keyframes toast-slideRight {
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
@@ -160,7 +160,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes toast_slideLeft {
+@keyframes toast-slideLeft {
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
@@ -170,7 +170,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes toast_slideUp {
+@keyframes toast-slideUp {
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
@@ -180,7 +180,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes toast_slideDown {
+@keyframes toast-slideDown {
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
@@ -190,7 +190,7 @@ export interface IToastProps {
   }
 }
 
-.toast_errorToast {
+.toast-errorToast {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -198,11 +198,11 @@ export interface IToastProps {
 
 .animatedRootClass {
   &[data-state="open"] {
-    animation: toast_fadeIn 200ms ease-out;
+    animation: toast-fadeIn 200ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: toast_fadeOut 200ms ease-out;
+    animation: toast-fadeOut 200ms ease-out;
   }
 
   &[data-swipe="move"] {
@@ -219,24 +219,24 @@ export interface IToastProps {
     animation-timing-function: ease-out;
 
     &[data-swipe-direction="right"] {
-      animation-name: toast_slideRight;
+      animation-name: toast-slideRight;
     }
 
     &[data-swipe-direction="left"] {
-      animation-name: toast_slideLeft;
+      animation-name: toast-slideLeft;
     }
 
     &[data-swipe-direction="up"] {
-      animation-name: toast_slideUp;
+      animation-name: toast-slideUp;
     }
 
     &[data-swipe-direction="down"] {
-      animation-name: toast_slideDown;
+      animation-name: toast-slideDown;
     }
   }
 }
 
-.toast_chromatic_toast_viewport {
+.toast-chromatic-toast-viewport {
   display: inline-flex;
   border: 5px solid royalblue;
   flex-direction: column;

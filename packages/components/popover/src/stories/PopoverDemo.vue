@@ -22,15 +22,15 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   <div v-if="template === '#1' || allshow" class="flex flex-col">
     <div>
       <OkuPopover>
-        <OkuPopoverTrigger class="popover_triggerClass">
+        <OkuPopoverTrigger class="popover-triggerClass">
           open
         </OkuPopoverTrigger>
         <OkuPopoverPortal>
-          <OkuPopoverContent class="popover_contentClass" :side-offset="15">
-            <OkuPopoverClose class="popover_closeClass">
+          <OkuPopoverContent class="popover-contentClass" :side-offset="15">
+            <OkuPopoverClose class="popover-closeClass">
               close
             </OkuPopoverClose>
-            <OkuPopoverArrow class="popover_arrowClass" :width="20" :height="10" />
+            <OkuPopoverArrow class="popover-arrowClass" :width="20" :height="10" />
           </OkuPopoverContent>
         </OkuPopoverPortal>
       </OkuPopover>
@@ -39,24 +39,24 @@ withDefaults(defineProps<OkuPopoverProps>(), {
 </template>
 
 <style>
-.popover_triggerClass {
+.popover-triggerClass {
 
 }
 
-.popover_contentClass {
+.popover-contentClass {
   transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
   border-radius: 5px;
 }
-.popover_closeClass {
+.popover-closeClass {
 }
 
-.popover_arrowClass {
+.popover-arrowClass {
   fill: #e5e7eb;
 }
 
-@keyframes popover_fadeIn {
+@keyframes popover-fadeIn {
   from {
     opacity: 0;
   }
@@ -65,7 +65,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-@keyframes popover_fadeOut {
+@keyframes popover-fadeOut {
   from {
     opacity: 1;
   }
@@ -74,21 +74,21 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover_animatedContentClass {
+.popover-animatedContentClass {
    transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
   border-radius: 5px;
 
   & [data-state='open'] {
-    animation: popover_fadeIn 300ms ease-out;
+    animation: popover-fadeIn 300ms ease-out;
   }
   & [data-state='closed'] {
-    animation: popover_fadeOut 300ms ease-in;
+    animation: popover-fadeOut 300ms ease-in;
   }
 }
 
-.popover_gridClass {
+.popover-gridClass {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -97,7 +97,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid black;
 }
 
-.popover_chromaticTriggerClass {
+.popover-chromaticTriggerClass {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -105,7 +105,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover_chromaticContentClass {
+.popover-chromaticContentClass {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -117,11 +117,11 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover_chromaticArrowClass {
+.popover-chromaticArrowClass {
   fill: black;
 }
 
-.popover_triggerAttrClass {
+.popover-triggerAttrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -134,7 +134,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover_contentAttrClass {
+.popover-contentAttrClass {
   transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
@@ -151,7 +151,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover_arrowAttrClass {
+.popover-arrowAttrClass {
   fill: #e5e7eb;
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
@@ -165,7 +165,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover_closeAttrClass {
+.popover-closeAttrClass {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
