@@ -3,7 +3,7 @@ import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-compos
 import { primitiveProps } from '@oku-ui/primitive'
 
 import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
-import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarElement } from './props'
+import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarAxisPrivateEmits, ScrollAreaScrollbarElement } from './props'
 import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_X, scopedScrollAreaProps, scrollAreaScrollbarAxisProps, useScrollAreaInject } from './props'
 import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 
@@ -62,6 +62,15 @@ const scrollAreaScrollbarX = defineComponent({
             if (isScrollingWithinScrollbarBounds(scrollPos, maxScrollPos))
               event.preventDefault()
           }
+        },
+        'onThumbPositionChange': () => {
+          emit('thumbPositionChange')
+        },
+        'onThumbPointerUp': () => {
+          emit('thumbPointerUp')
+        },
+        'onThumbChange': (thumb: ScrollAreaScrollbarAxisPrivateEmits['thumbChange'][0]) => {
+          emit('thumbChange', thumb)
         },
         'onResize': () => {
           if (scrollbarAxisRef.value && inject.viewport.value && computedStyle.value) {

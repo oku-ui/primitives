@@ -106,8 +106,8 @@ function useDebounceCallback(callback: () => void, delay: number) {
 
 function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
   const handleResize = onResize
-  watchEffect((onInvalidate) => {
-    nextTick()
+  watchEffect(async (onInvalidate) => {
+    await nextTick()
 
     let rAF = 0
     if (element) {

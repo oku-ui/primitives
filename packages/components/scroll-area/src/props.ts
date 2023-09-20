@@ -148,10 +148,6 @@ export type scrollAreaThumbImplEmits = {
 
 export const scrollAreaThumbImplProps = {
   props: {
-    style: {
-      type: Object,
-      required: false,
-    },
     ...primitiveProps,
   },
   emits: {

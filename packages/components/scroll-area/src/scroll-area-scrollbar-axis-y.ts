@@ -1,9 +1,8 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { primitiveProps } from '@oku-ui/primitive'
 
 import { OkuScrollAreaScrollbarImpl } from './scroll-area-scrollbar-impl'
-import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarElement } from './props'
+import type { ScrollAreaScrollbarAxisElement, ScrollAreaScrollbarAxisNaviteElement, ScrollAreaScrollbarAxisPrivateEmits, ScrollAreaScrollbarElement } from './props'
 import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_Y, scopedScrollAreaProps, scrollAreaScrollbarAxisProps, useScrollAreaInject } from './props'
 import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 
@@ -16,7 +15,6 @@ const scrollAreaScrollbarY = defineComponent({
   props: {
     ...scrollAreaScrollbarAxisProps.props,
     ...scopedScrollAreaProps,
-    ...primitiveProps,
   },
   emits: scrollAreaScrollbarAxisProps.emits,
   setup(props, { attrs, emit, slots }) {
@@ -63,6 +61,15 @@ const scrollAreaScrollbarY = defineComponent({
             if (isScrollingWithinScrollbarBounds(scrollPos, maxScrollPos))
               event.preventDefault()
           }
+        },
+        'onThumbPositionChange': () => {
+          emit('thumbPositionChange')
+        },
+        'onThumbPointerUp': () => {
+          emit('thumbPointerUp')
+        },
+        'onThumbChange': (thumb: ScrollAreaScrollbarAxisPrivateEmits['thumbChange'][0]) => {
+          emit('thumbChange', thumb)
         },
         'onResize': () => {
           if (scrollbarAxisRef.value && inject.viewport.value && computedStyle.value) {

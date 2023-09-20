@@ -33,7 +33,7 @@ const scrollAreaScrollbar = defineComponent({
 
     const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const { onScrollbarXEnabledChange, onScrollbarYEnabledChange } = inject
-    const isHorizontal = computed(() => _reactive.orientation === 'horizontal')
+    const isHorizontal = computed(() => props.orientation === 'horizontal')
 
     watchEffect((onInvalidate) => {
       isHorizontal.value ? onScrollbarXEnabledChange(true) : onScrollbarYEnabledChange(true)

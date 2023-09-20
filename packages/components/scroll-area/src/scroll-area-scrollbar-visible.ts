@@ -19,6 +19,7 @@ const scrollAreaScrollbarVisible = defineComponent({
     ...scrollAreaScrollbarVisibleProps.props,
     ...scopedScrollAreaProps,
   },
+  emits: scrollAreaScrollbarVisibleProps.emits,
   setup(props, { attrs, slots }) {
     const {
       orientation,
@@ -94,7 +95,6 @@ const scrollAreaScrollbarVisible = defineComponent({
             onThumbChange: thumb => (thumbRef.value = thumb),
             onThumbPointerUp: () => (pointerOffsetRef.value = 0),
             onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
-
             ref: forwardedRef,
             onThumbPositionChange: () => {
               if (inject.viewport.value && thumbRef.value) {

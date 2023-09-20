@@ -17,7 +17,6 @@ const scrollAreaThumbImpl = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuScrollArea,
-      style,
       ...scrollAreaThumbImplProps
     } = toRefs(props)
 
@@ -72,7 +71,7 @@ const scrollAreaThumbImpl = defineComponent({
         'style': {
           width: 'var(--oku-scroll-area-thumb-width)',
           height: 'var(--oku-scroll-area-thumb-height)',
-          ...style.value,
+          ...attrs as any,
         },
         'onPointerdownCapture': composeEventHandlers<scrollAreaThumbImplEmits['pointerdownCapture'][0]>((event) => {
           emit('pointerdownCapture', event)
