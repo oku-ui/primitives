@@ -12,13 +12,13 @@ function escapeKeyDown(event: any) {
 <template>
   <div>
     <OkuDialog v-model="open">
-      <OkuDialogTrigger class="triggerClass">
+      <OkuDialogTrigger class="dialog_triggerClass">
         open
       </OkuDialogTrigger>
       <OkuDialogPortal>
-        <OkuDialogOverlay class="overlayClass" />
+        <OkuDialogOverlay class="dialog_overlayClass" />
         <OkuDialogContent
-          class="contentDefaultClass"
+          class="dialog_contentDefaultClass"
           @escape-key-down="escapeKeyDown"
         >
           <OkuDialogTitle>
