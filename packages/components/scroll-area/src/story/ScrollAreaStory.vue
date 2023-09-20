@@ -91,19 +91,19 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   transition: background 160ms ease-out;
   padding: 2px;
   background: rgba(0, 0, 0, 0.3);
-}
 
-.scrollbar:hover {
-  background: rgba(0, 0, 0, 0.5);
-}
+  &:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
 
-.scrollbar[data-orientation="vertical"] {
-  width: v-bind(SCROLLBAR_SIZE);
-}
+  &[data-orientation="vertical"] {
+    width: v-bind(SCROLLBAR_SIZE);
+  }
 
-.scrollbar[data-orientation="horizontal"] {
-  flex-direction: column;
-  height: v-bind(SCROLLBAR_SIZE);
+  &[data-orientation="horizontal"] {
+    flex-direction: column;
+    height: v-bind(SCROLLBAR_SIZE);
+  }
 }
 
 .thumb {
@@ -111,35 +111,35 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   position: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.position');
   background: black;
   border-radius: v-bind(SCROLLBAR_SIZE);
-}
 
-.thumb::before {
-  content: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.content');
-  position: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.position');
-  top: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.top');
-  left: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.left');
-  transform: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.transform');
-  width: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.width');
-  height: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.height');
-  min-width: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.minWidth');
-  min-height: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.minHeight');
+  &::before {
+    content: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.content');
+    position: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.position');
+    top: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.top');
+    left: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.left');
+    transform: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.transform');
+    width: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.width');
+    height: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.height');
+    min-width: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.minWidth');
+    min-height: v-bind('RECOMMENDED_CSS__SCROLLBAR__THUMB.before.minHeight');
+  }
 }
 
 .corner {
   background: rgba(0, 0, 0, 0.3);
   position: relative;
-}
 
-.corner::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: black;
-  width: v-bind(SCROLLBAR_SIZE);
-  height: v-bind(SCROLLBAR_SIZE);
-  border-radius: v-bind(SCROLLBAR_SIZE);
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: black;
+    width: v-bind(SCROLLBAR_SIZE);
+    height: v-bind(SCROLLBAR_SIZE);
+    border-radius: v-bind(SCROLLBAR_SIZE);
+  }
 }
 
 @keyframes scroll-area-thumb-fade-in {
@@ -166,11 +166,13 @@ const RECOMMENDED_CSS__SCROLLBAR__THUMB = {
   }
 }
 
-.animated-thumb[data-state="visible"] {
-  animation: scroll-area-thumb-fade-in 300ms ease;
-}
+.animated-thumb {
+  &[data-state="visible"] {
+    animation: scroll-area-thumb-fade-in 300ms ease;
+  }
 
-.animated-thumb[data-state="hidden"] {
-  animation: scroll-area-thumb-fade-out 300ms ease;
+  &[data-state="hidden"] {
+    animation: scroll-area-thumb-fade-out 300ms ease;
+  }
 }
 </style>
