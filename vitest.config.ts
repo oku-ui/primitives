@@ -18,6 +18,7 @@ export default defineConfig({
     setupFiles: ['./vitest-setup.ts'],
     globals: true,
     alias: {
+      '@oku-ui/menu': 'packages/components/menu/src',
       '@oku-ui/checkbox': 'packages/components/checkbox/src',
       '@oku-ui/alert-dialog': 'packages/components/alert-dialog/src',
       '@oku-ui/portal': 'packages/components/portal/src',
