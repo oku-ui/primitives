@@ -70,7 +70,7 @@ withDefaults(defineProps<Props>(), {
 </template>
 
 <style>
-.contentClass {
+.popper-content {
   transform-origin: var(--oku-popper-transform-origin);
   background-color: #f9fafb;
   padding: 10px;
@@ -97,7 +97,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-.anchorClass {
+.popper-anchor {
   background-color: hotpink;
   width: 100px;
   height: 100px;
@@ -118,11 +118,11 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-.arrowClass {
+.popper-arrow {
   fill: #f9fafb;
 }
 
-@keyframes rotateIn {
+@keyframes popper-rotateIn {
   0% {
     transform: scale(0) rotateZ(calc(var(--direction, 0) * 45deg));
   }
@@ -131,7 +131,7 @@ withDefaults(defineProps<Props>(), {
   }
 }
 
-.animatedContentClass {
+.popper-animatedContent {
   transform-origin: var(--oku-popper-transform-origin);
   background-color: #f9fafb;
   padding: 10px;
@@ -165,6 +165,6 @@ withDefaults(defineProps<Props>(), {
     --direction: -1;
   }
 
-  animation: rotateIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: popper-rotateIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 </style>

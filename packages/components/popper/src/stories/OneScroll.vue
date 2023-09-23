@@ -33,14 +33,14 @@ const scrollContainer1 = ref<HTMLDivElement | null>(null)
           }"
         >
           <OkuPopper>
-            <OkuPopperAnchor class="anchorClass small">
+            <OkuPopperAnchor class="popper-anchor small">
               9
             </OkuPopperAnchor>
             <OkuPopperContent
-              class="contentClass small" :side-offset="5" hide-when-detached
+              class="popper-content small" :side-offset="5" hide-when-detached
               :collision-boundary="scrollContainer1"
             >
-              <OkuPopperArrow class="arrowClass" :width="10" :height="5" />
+              <OkuPopperArrow class="popper-arrow" :width="10" :height="5" />
               9
             </OkuPopperContent>
           </OkuPopper>

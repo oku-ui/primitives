@@ -11,7 +11,7 @@ const elementRef = ref<VNodeRef>()
 <template>
   <Toggles v-model:open="open" :node-ref="elementRef" />
   <OkuPresence v-show="open" :present="open">
-    <div ref="elementRef" class="mountAnimationClass" :data-state="open ? 'open' : 'closed'">
+    <div ref="elementRef" class="presence-mountAnimation" :data-state="open ? 'open' : 'closed'">
       Content
     </div>
   </OkuPresence>

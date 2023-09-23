@@ -225,7 +225,7 @@ function handlePopupClick() {
       <h1 class="text-3xl font-bold mb-2">
         Dialog (fully modal example)
       </h1>
-      <ul :style="{ 'list-style': 'none', 'padding': 0, 'margin-bottom': 30 }">
+      <ul :style="{ 'dismissable-layer-list-style': 'none', 'padding': 0, 'margin-bottom': 30 }">
         <li>✅ focus should move inside `Dialog` when mounted</li>
         <li>✅ focus should be trapped inside `Dialog`</li>
         <li>✅ scrolling outside `Dialog` should be disabled</li>
@@ -297,7 +297,7 @@ function handlePopupClick() {
         Popover (semi-modal example)
       </h1>
 
-      <ul class="list">
+      <ul class="dismissable-layer-list">
         <li>✅ focus should move inside `Popover` when mounted</li>
         <li>✅ focus should be trapped inside `Popover`</li>
         <li>✅ scrolling outside `Popover` should be allowed</li>
@@ -350,7 +350,7 @@ function handlePopupClick() {
         Popover (non modal example)
       </h1>
 
-      <ul class="list">
+      <ul class="dismissable-layer-list">
         <li>✅ focus should move inside `Popover` when mounted</li>
         <li>
           ✅ focus should <span class="font-semibold">NOT</span> be trapped
@@ -412,7 +412,7 @@ function handlePopupClick() {
         Popover (semi-modal) in Dialog (fully modal)
       </h1>
 
-      <ul class="list">
+      <ul class="dismissable-layer-list">
         <li>
           ✅ dismissing `Popover` by pressing escape should{' '}
           <span class="font-semibold">NOT</span> dismiss `Dialog`
@@ -438,7 +438,7 @@ function handlePopupClick() {
       <h1 class="text-3xl font-bold mb-2">
         Popover (nested example)
       </h1>
-      <ul class="list">
+      <ul class="dismissable-layer-list">
         <li>
           ✅ dismissing a `Popover` by pressing escape should only dismiss that
           given `Popover`, not its parents
@@ -514,8 +514,8 @@ function handlePopupClick() {
 </template>
 
 <style lang="css">
-.list {
-  list-style: "none";
+.dismissable-layer-list {
+  dismissable-layer-list-style: "none";
   padding: 0px;
   margin-bottom: 30px;
 }

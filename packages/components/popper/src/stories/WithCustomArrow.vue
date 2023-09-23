@@ -15,11 +15,11 @@ const open = ref(false)
 <template>
   <Scrollable>
     <OkuPopper>
-      <OkuPopperAnchor class="anchorClass" @click="open = true">
+      <OkuPopperAnchor class="popper-anchor" @click="open = true">
         open
       </OkuPopperAnchor>
 
-      <OkuPopperContent v-if="open" class="contentClass" :side-offset="5" side="right">
+      <OkuPopperContent v-if="open" class="popper-content" :side-offset="5" side="right">
         <button @click="open = false">
           close
         </button>
