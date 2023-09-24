@@ -1,65 +1,14 @@
-import { type OkuElement, primitiveProps } from '@oku-ui/primitive'
-import { type PropType, h, mergeProps } from 'vue'
-import { computed, defineComponent, reactive, toRefs } from 'vue'
-import { useControllable, useForwardRef } from '@oku-ui/use-composable'
-import { OkuAccordionImpl, accordionImplProps } from './accordionImpl'
-import type { AccordionImplEmits, AccordionImplProps } from './accordionImpl'
-import { AccordionCollapsibleProvider, AccordionValueProvider, scopeAccordionProps } from './utils'
+import { primitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { OkuAccordionImpl } from './accordionImpl'
+import {
+  ACCORDION_IMPL_SINGLE_NAME, AccordionCollapsibleProvider,
+  AccordionValueProvider, accordionImplSingleProps,
+  scopeAccordionProps,
+} from './props'
+import type { AccordionImplSingleNativeElement } from './props'
 
-const ACCORDION_IMPL_SINGLE_NAME = 'OkuAccordionImplSingle'
-
-export type AccordionImplSingleNativeElement = OkuElement<'div'>
-
-export interface AccordionImplSingleProps extends AccordionImplProps {
-  /**
-   * The controlled stateful value of the accordion item whose content is expanded.
-   */
-  modelValue?: string
-  /**
-   * The value of the item whose content is expanded when the accordion is initially rendered. Use
-   * `defaultValue` if you do not need to control the state of an accordion.
-   */
-  defaultValue?: string
-
-  /**
-   * Whether an accordion item can be collapsed after it has been opened.
-   * @default false
-   */
-  collapsible?: boolean
-}
-export interface AccordionImplSingleEmits extends AccordionImplEmits {
-  /**
-   * The callback that fires when the state of the accordion changes.
-   */
-
-  valueChange: [value: string]
-}
-
-export const accordionImplSingleProps = {
-  props: {
-    ...accordionImplProps.props,
-    modelValue: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    defaultValue: {
-      type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
-    },
-    collapsible: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
-      default: false,
-    },
-  },
-  emits: {
-    ...accordionImplProps.emits,
-    /**
-   * The callback that fires when the state of the accordion changes.
-   */
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    valueChange: (value: string) => true,
-  },
-}
 const accordionImplSingle = defineComponent({
   name: ACCORDION_IMPL_SINGLE_NAME,
   inheritAttrs: false,
@@ -71,7 +20,7 @@ const accordionImplSingle = defineComponent({
   emits: accordionImplSingleProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
-      modelValue: valueProp,
+      value: valueProp,
       defaultValue,
       collapsible,
       ...accordionSingleProps
@@ -88,11 +37,12 @@ const accordionImplSingle = defineComponent({
 
     const forwardRef = useForwardRef()
 
-    const _accordionSingleProps = reactive(accordionSingleProps)
+    const _reactive = reactive(accordionSingleProps)
+    const _accordionSingleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     AccordionValueProvider({
       scope: props.scopeOkuAccordion,
-      modelValue: computed(() => state.value),
+      value: computed(() => state.value ? [state.value] : []),
       onItemOpen: (e) => {
         updateValue(e)
       },

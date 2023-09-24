@@ -1,45 +1,14 @@
-import type { OkuElement } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { PropType } from 'vue'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { useForwardRef, useId } from '@oku-ui/use-composable'
-import { type CollapsibleProps, OkuCollapsible, collapsibleProps } from '@oku-ui/collapsible'
-import { AccordionItemProvider, ITEM_NAME, getState, scopeAccordionProps, useAccordionInject, useAccordionValueInject, useCollapsibleScope } from './utils'
+import { primitiveProps } from '@oku-ui/primitive'
+import { reactiveOmit, useForwardRef, useId } from '@oku-ui/use-composable'
+import { OkuCollapsible } from '@oku-ui/collapsible'
+import type { AccordionItemNativeElement } from './props'
+import {
+  AccordionItemProvider, ITEM_NAME, accordionItemProps, scopeAccordionProps, useAccordionInject, useAccordionValueInject,
+  useCollapsibleScope,
+} from './props'
+import { getState } from './utils'
 
-type AccordionItemNativeElement = OkuElement<'div'>
-
-export interface AccordionItemProps extends Omit<CollapsibleProps, 'open' | 'defaultOpen' | 'openChange'> {
-  /**
-   * Whether or not an accordion is disabled from user interaction.
-   *
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
-   * A string value for the accordion item. All items within an accordion should use a unique value.
-   */
-  modelValue: string
-
-}
-export interface AccordionItemEmits extends Omit<CollapsibleProps, 'open' | 'defaultOpen' | 'openChange'> {
-}
-
-export const accordionItemProps = {
-  props: {
-    ...propsOmit(collapsibleProps.props, ['open', 'defaultOpen']),
-    disabled: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
-      default: undefined,
-    },
-    modelValue: {
-      type: String as PropType<string>,
-      default: '',
-    },
-  },
-  emits: {
-    ...propsOmit(collapsibleProps.emits, ['openChange']),
-  },
-}
 /**
  * `AccordionItem` contains all of the parts of a collapsible section inside of an `Accordion`.
  */
@@ -54,7 +23,7 @@ const accordionItem = defineComponent({
   emits: accordionItemProps.emits,
   setup(props, { slots, attrs }) {
     const {
-      scopeOkuAccordion, modelValue, ...accordionItemProps
+      scopeOkuAccordion, value: valueProp, ...accordionItemProps
     } = toRefs(props)
 
     const forwardRef = useForwardRef()
@@ -62,30 +31,32 @@ const accordionItem = defineComponent({
     const valueInject = useAccordionValueInject(ITEM_NAME, scopeOkuAccordion.value)
     const collapsibleScope = useCollapsibleScope(scopeOkuAccordion.value)
     const triggerId = useId()
-    const open = (modelValue && valueInject.modelValue.value.includes(modelValue.value)) || false
-    const disabled = accordionInject.disabled?.value || props.disabled
 
-    const _accordionItemProps = reactive(accordionItemProps)
+    const open = computed(() => (valueProp.value && valueInject.value.value?.includes(valueProp.value)) || false)
+    const disabled = computed(() => accordionInject.disabled?.value || props.disabled)
+
+    const _reactive = reactive(accordionItemProps)
+    const _accordionItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     AccordionItemProvider({
       scope: scopeOkuAccordion.value,
-      open: computed(() => open),
+      open,
       triggerId: computed(() => triggerId),
-      disabled: computed(() => disabled),
+      disabled,
     })
     return () => h(OkuCollapsible, {
       'data-orientation': accordionInject.orientation.value,
-      'data-state': getState(open),
+      'data-state': getState(open.value),
       ...mergeProps(attrs, collapsibleScope, _accordionItemProps),
       'ref': forwardRef,
-      'disabled': disabled,
-      'open': open,
-      'onOpenChange': (open) => {
-        if (open)
-          valueInject.onItemOpen(modelValue.value)
+      'disabled': disabled.value,
+      'open': open.value,
+      'onOpenChange': (event) => {
+        if (event)
+          valueInject.onItemOpen(valueProp.value)
 
         else
-          valueInject.onItemClose(modelValue.value)
+          valueInject.onItemClose(valueProp.value)
       },
     }, { default: () => slots.default?.() })
   },

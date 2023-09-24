@@ -1,64 +1,10 @@
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { type PropType, computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
-import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
-import { composeEventHandlers } from '../../../core/utils/dist'
-import { ACCORDION_KEYS, AccordionImplProvider, CollectionSlot, scopeAccordionProps, useCollection } from './utils'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { ACCORDION_IMPL_NAME, ACCORDION_KEYS, type AccordionImplNativeElement, AccordionImplProvider, CollectionSlot, accordionImplProps, scopeAccordionProps, useCollection } from './props'
 
-const ACCORDION_IMPL_NAME = 'OkuAccordionImpl'
-
-type AccordionImplNativeElement = OkuElement<'div'>
-
-export interface AccordionImplProps extends PrimitiveProps {
-  /**
-   * Whether or not an accordion is disabled from user interaction.
-   *
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
-   * The layout in which the Accordion operates.
-   * @default vertical
-   */
-  orientation?: RovingFocusGroupProps['orientation']
-  /**
-   * The language read direction.
-   */
-  dir?: RovingFocusGroupProps['dir']
-
-}
-export interface AccordionImplEmits {
-  valueChange: [value: string | string[]]
-  keydown: [event: KeyboardEvent]
-}
-export const accordionImplProps = {
-  props: {
-
-    disabled: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
-      default: undefined,
-    },
-    orientation: {
-      type: String as PropType<RovingFocusGroupProps['orientation']>,
-      default: 'vertical',
-    },
-    dir: {
-      type: String as PropType<RovingFocusGroupProps['dir']>,
-      default: undefined,
-    },
-  },
-  emits: {
-    /**
-   * The callback that fires when the state of the accordion changes.
-   */
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    valueChange: (value: string | string[]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    keydown: (event: KeyboardEvent) => true,
-  },
-}
 const accordionImpl = defineComponent({
   name: ACCORDION_IMPL_NAME,
   inheritAttrs: false,
@@ -158,7 +104,8 @@ const accordionImpl = defineComponent({
       emit('keydown', event)
     })
 
-    const _accordionProps = reactive(accordionProps)
+    const _reactive = reactive(accordionProps)
+    const _accordionProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     AccordionImplProvider({
       scope: scopeOkuAccordion.value,

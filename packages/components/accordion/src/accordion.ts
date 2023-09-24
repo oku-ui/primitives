@@ -1,62 +1,11 @@
-import type { OkuElement } from '@oku-ui/primitive'
-import type { PropType } from 'vue'
-import { defineComponent, h, reactive, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { type AccordionImplSingleEmits, type AccordionImplSingleProps, OkuAccordionImplSingle } from './accordionImplSingle'
-import { type AccordionImplMultipleEmits, type AccordionImplMultipleProps, OkuAccordionImplMultiple } from './accordionImplMultiple'
-import type { SelectionType } from './utils'
-import { ACCORDION_NAME, CollectionProvider, scopeAccordionProps } from './utils'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { OkuAccordionImplSingle } from './accordionImplSingle'
+import { OkuAccordionImplMultiple } from './accordionImplMultiple'
+import { ACCORDION_NAME, CollectionProvider, accordionProps, scopeAccordionProps } from './props'
+import type { AccordionImplMultipleProps, AccordionImplSingleProps, AccordionNativeElement } from './props'
 
-export type AccordionNativeElement = OkuElement<'div'>
-
-export type AccordionElement = HTMLDivElement
-
-export interface AccordionSingleProps extends AccordionImplSingleProps {
-  selectionType: 'single'
-}
-
-export interface AccordionSingleEmits extends AccordionImplSingleEmits {
-}
-
-export interface AccordionMultipleProps extends AccordionImplMultipleProps {
-  selectionType: 'multiple'
-}
-
-export interface AccordionMultipleEmits extends AccordionImplMultipleEmits {
-}
-export const accordionProps = {
-  props: {
-
-    modelValue: {
-      type: [String, Array, undefined] as PropType<string | string[] | undefined>,
-      default: undefined,
-    },
-    selectionType: {
-      type: String as PropType<SelectionType>,
-      default: 'single',
-    },
-    defaultValue: {
-      type: [String, Array, undefined] as PropType<string | string[] | undefined>,
-      default: undefined,
-    },
-    /**
-   * Whether an accordion item can be collapsed after it has been opened.
-   * @default false
-   */
-    collapsible: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
-      default: undefined,
-    },
-  },
-  emits: {
-    /**
-   * The callback that fires when the state of the accordion changes.
-   */
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    valueChange: (value: string | string[]) => true,
-  },
-}
 const accordion = defineComponent({
   name: ACCORDION_NAME,
   inheritAttrs: false,
@@ -66,27 +15,39 @@ const accordion = defineComponent({
     ...scopeAccordionProps,
   },
   emits: accordionProps.emits,
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots, emit }) {
     const {
       selectionType, ...accordionPropsRefs
     } = toRefs(props)
-    const singleProps = reactive(accordionPropsRefs) as AccordionImplSingleProps
-    const multipleProps = reactive(accordionPropsRefs) as AccordionImplMultipleProps
-
     const forwardRef = useForwardRef
+
+    const _reactiveSingleProps = reactive(accordionPropsRefs) as AccordionImplSingleProps
+    const singleProps = reactiveOmit(_reactiveSingleProps, (key, _value) => key === undefined)
+
+    const _reactiveMultipleProps = reactive(accordionPropsRefs) as AccordionImplMultipleProps
+    const multipleProps = reactiveOmit(_reactiveMultipleProps, (key, _value) => key === undefined)
     //* *********** */
     return () => h(CollectionProvider, {
       scope: props.scopeOkuAccordion,
     },
     selectionType.value === 'multiple'
       ? h(OkuAccordionImplMultiple, {
-        ...multipleProps,
-        ...attrs,
+        ...mergeProps(attrs, multipleProps),
         ref: forwardRef,
+        onValueChange: (result) => {
+          emit('valueChange', result)
+        },
+      }, {
+        default: () => slots.default?.(),
       })
       : h(OkuAccordionImplSingle, {
-        ...singleProps,
+        ...mergeProps(attrs, singleProps),
         ref: forwardRef,
+        onValueChange: (result) => {
+          emit('valueChange', result)
+        },
+      }, {
+        default: () => slots.default?.(),
       }))
   },
 })

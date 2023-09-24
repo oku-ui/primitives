@@ -41,3 +41,17 @@ export const Single: Story = {
     `,
   }),
 }
+export const Multiple: Story = {
+  args: {
+    template: 'Multiple',
+  },
+  render: (args: any) => ({
+    components: { OkuAccordionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuAccordionComponent v-bind="args" />
+    `,
+  }),
+}

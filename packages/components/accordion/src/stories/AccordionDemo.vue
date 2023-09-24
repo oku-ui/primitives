@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Single from './Single.vue'
+import Multiple from './Multiple.vue'
 
 export interface OkuAccordionProps {
-  template: 'Single'
+  template: 'Single' | 'Multiple'
   allshow?: boolean
 }
 
@@ -15,22 +16,22 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   <div v-if="template === 'Single' || allshow" class="flex flex-col w-full">
     <Single />
   </div>
+  <div v-if="template === 'Multiple' || allshow" class="flex flex-col w-full">
+    <Multiple />
+  </div>
 </template>
 
-<style lang="postcss">
-/* rootClass */
+<style>
 .rootClass {
   font-family: sans-serif;
-}
-
-.rootClass[data-orientation="horizontal"] {
+  &[data-orientation="horizontal"] {
   display: flex;
   max-width: 40em;
   height: 50vh;
 }
-
-.rootClass[data-orientation="vertical"] {
+&[data-orientation="vertical"] {
   max-width: 20em;
+}
 }
 
 /* itemClass */
@@ -76,7 +77,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   appearance: none;
   border: none;
   padding: 10px;
-  background-color: $black;
+  background-color: black;
   color: white;
   font-family: inherit;
   font-size: 1.2em;
@@ -86,21 +87,21 @@ withDefaults(defineProps<OkuAccordionProps>(), {
 .triggerClass:focus {
   outline: none;
   box-shadow: inset 0 -5px 0 0 var(--shadow-color);
-  color: $red;
+  color: red;
 }
 
 .triggerClass[data-disabled] {
-  color: $gray300;
+  color: gray;
 }
 
 .triggerClass[data-state="open"] {
-  background-color: $red;
-  color: $white;
+  background-color: red;
+  color: white;
 }
 
 .triggerClass[data-state="open"]:focus {
   --shadow-color: #111;
-  color: $black;
+  color: black;
 }
 
 /* contentClass */

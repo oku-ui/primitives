@@ -1,36 +1,44 @@
-export { type AccordionMultipleEmits, type AccordionMultipleProps, type AccordionSingleEmits, type AccordionSingleProps, OkuAccordion, accordionProps } from './accordion'
+export { OkuAccordion } from './accordion'
 
 export {
-  OkuAccordionContent, accordionContentProps,
-  type AccordionContentProps,
+  type AccordionMultipleEmits, accordionProps, type AccordionMultipleProps, type AccordionSingleEmits, type AccordionSingleProps,
+  accordionContentProps,
+  type AccordionContentProps, accordionHeaderProps,
+  type AccordionHeaderProps, accordionImplProps,
+  type AccordionImplProps, type AccordionImplEmits,
+  accordionImplSingleProps,
+  type AccordionImplSingleProps, type AccordionImplSingleEmits,
+  accordionImplMultipleProps,
+  type AccordionImplMultipleProps, type AccordionImplMultipleEmits,
+  accordionItemProps,
+  type AccordionItemProps, type AccordionItemEmits,
+  accordionTriggerProps,
+  type AccordionTriggerProps, type AccordionTriggerEmits,
+} from './props'
+export {
+  OkuAccordionContent,
 } from './accordionContent'
 
 export {
-  OkuAccordionHeader, accordionHeaderProps,
-  type AccordionHeaderProps,
+  OkuAccordionHeader,
 } from './accordionHeader'
 
 export {
-  OkuAccordionImpl, accordionImplProps,
-  type AccordionImplProps, type AccordionImplEmits,
+  OkuAccordionImpl,
 } from './accordionImpl'
 
 export {
-  OkuAccordionImplSingle, accordionImplSingleProps,
-  type AccordionImplSingleProps, type AccordionImplSingleEmits,
+  OkuAccordionImplSingle,
 } from './accordionImplSingle'
 
 export {
-  OkuAccordionImplMultiple, accordionImplMultipleProps,
-  type AccordionImplMultipleProps, type AccordionImplMultipleEmits,
+  OkuAccordionImplMultiple,
 } from './accordionImplMultiple'
 
 export {
-  OkuAccordionItem, accordionItemProps,
-  type AccordionItemProps, type AccordionItemEmits,
+  OkuAccordionItem,
 } from './accordionItem'
 
 export {
-  OkuAccordionTrigger, accordionTriggerProps,
-  type AccordionTriggerProps, type AccordionTriggerEmits,
+  OkuAccordionTrigger,
 } from './accordionTrigger'

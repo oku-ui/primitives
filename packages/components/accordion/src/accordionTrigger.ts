@@ -1,29 +1,15 @@
-import { OkuCollapsibleTrigger, collapsibleTriggerProps } from '@oku-ui/collapsible'
-import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from '@oku-ui/collapsible'
+import { OkuCollapsibleTrigger } from '@oku-ui/collapsible'
 import { primitiveProps } from '@oku-ui/primitive'
-import type { OkuElement } from '@oku-ui/primitive'
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { ACCORDION_NAME, CollectionItemSlot, scopeAccordionProps, useAccordionCollapsibleInject, useAccordionInject, useAccordionItemInject, useCollapsibleScope } from './utils'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import type { AccordionTriggerNativeElement } from './props'
+import {
+  ACCORDION_NAME, CollectionItemSlot, TRIGGER_NAME, accordionTriggerProps,
+  scopeAccordionProps, useAccordionCollapsibleInject,
+  useAccordionInject, useAccordionItemInject, useCollapsibleScope,
 
-const TRIGGER_NAME = 'OkuAccordionTrigger'
+} from './props'
 
-export type AccordionTriggerNativeElement = OkuElement<'button'>
-
-export type AccordionTriggerElement = HTMLButtonElement
-
-export interface AccordionTriggerProps extends CollapsibleTriggerProps {}
-
-export interface AccordionTriggerEmits extends CollapsibleTriggerEmits {}
-
-export const accordionTriggerProps = {
-  props: {
-    ...collapsibleTriggerProps.props,
-  },
-  emits: {
-    ...collapsibleTriggerProps.emits,
-  },
-}
 const accordionTrigger = defineComponent({
   name: TRIGGER_NAME,
   inheritAttrs: false,
@@ -33,7 +19,7 @@ const accordionTrigger = defineComponent({
     ...scopeAccordionProps,
   },
   emits: accordionTriggerProps.emits,
-  setup(props, { attrs }) {
+  setup(props, { attrs, slots }) {
     const {
       scopeOkuAccordion,
       ...triggerProps
@@ -44,19 +30,24 @@ const accordionTrigger = defineComponent({
     const collapsibleInject = useAccordionCollapsibleInject(TRIGGER_NAME, scopeOkuAccordion.value)
     const collapsibleScope = useCollapsibleScope(scopeOkuAccordion.value)
 
-    const _triggerProps = reactive(triggerProps)
+    const _reactive = reactive(triggerProps)
+    const _triggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardRef = useForwardRef()
+
+    const disabled = computed(() => (itemInject.open?.value && !collapsibleInject.collapsible) || undefined)
 
     return () => h(CollectionItemSlot, {
       scope: scopeOkuAccordion.value,
     }, {
       default: () => h(OkuCollapsibleTrigger, {
-        'aria-disabled': (itemInject.open?.value && !collapsibleInject.collapsible) || undefined,
+        'aria-disabled': disabled.value,
         'data-orientation': accordionInject.orientation.value,
         'id': itemInject.triggerId.value,
         ...mergeProps(attrs, collapsibleScope, _triggerProps),
         'ref': forwardRef,
+      }, {
+        default: () => slots.default?.(),
       }),
     })
   },

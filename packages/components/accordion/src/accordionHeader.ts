@@ -1,22 +1,9 @@
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { ACCORDION_NAME, getState, scopeAccordionProps, useAccordionInject, useAccordionItemInject } from './utils'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { ACCORDION_NAME, type AccordionHeaderNativeElement, HEADER_NAME, accordionHeaderProps, scopeAccordionProps, useAccordionInject, useAccordionItemInject } from './props'
+import { getState } from './utils'
 
-const HEADER_NAME = 'OkuAccordionHeader'
-
-type AccordionHeaderNativeElement = OkuElement<'h3'>
-
-export interface AccordionHeaderProps extends PrimitiveProps {}
-
-export const accordionHeaderProps = {
-  props: {
-
-  },
-  emits: {
-  },
-}
 /**
  * `AccordionHeader` contains the content for the parts of an `AccordionItem` that will be visible
  * whether or not its content is collapsed.
@@ -39,7 +26,8 @@ const accordionHeader = defineComponent({
 
     const itemInject = useAccordionItemInject(HEADER_NAME, scopeOkuAccordion.value)
 
-    const _headerProps = reactive(headerProps)
+    const _reactive = reactive(headerProps)
+    const _headerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardRef = useForwardRef()
 

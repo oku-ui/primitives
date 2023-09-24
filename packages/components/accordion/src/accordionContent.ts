@@ -1,26 +1,8 @@
-import { OkuCollapsibleContent, collapsibleContentProps } from '@oku-ui/collapsible'
-import type { CollapsibleContentProps } from '@oku-ui/collapsible'
+import { OkuCollapsibleContent } from '@oku-ui/collapsible'
 import { primitiveProps } from '@oku-ui/primitive'
-import type { OkuElement } from '@oku-ui/primitive'
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { ACCORDION_NAME, scopeAccordionProps, useAccordionInject, useAccordionItemInject, useCollapsibleScope } from './utils'
-
-const CONTENT_NAME = 'OkuAccordionContent'
-
-export type AccordionContentNativeElement = OkuElement<'div'>
-
-export type AccordionContentElement = HTMLDivElement
-
-export interface AccordionContentProps extends CollapsibleContentProps {}
-
-export const accordionContentProps = {
-  props: {
-    ...collapsibleContentProps.props,
-  },
-  emits: {
-  },
-}
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { ACCORDION_NAME, type AccordionContentNativeElement, CONTENT_NAME, accordionContentProps, scopeAccordionProps, useAccordionInject, useAccordionItemInject, useCollapsibleScope } from './props'
 
 /**
  * `AccordionContent` contains the collapsible content for an `AccordionItem`.
@@ -44,7 +26,8 @@ const accordionContent = defineComponent({
     const itemInject = useAccordionItemInject(CONTENT_NAME, scopeOkuAccordion.value)
     const collapsibleScope = useCollapsibleScope(scopeOkuAccordion.value)
 
-    const _contentProps = reactive(contentProps)
+    const _reactive = reactive(contentProps)
+    const _contentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardRef = useForwardRef()
 
@@ -56,8 +39,8 @@ const accordionContent = defineComponent({
       'ref': forwardRef,
       'style': {
         ...attrs.style as any,
-        ['--radix-accordion-content-height' as any]: 'var(--radix-collapsible-content-height)',
-        ['--radix-accordion-content-width' as any]: 'var(--radix-collapsible-content-width)',
+        ['--oku-accordion-content-height' as any]: 'var(--oku-collapsible-content-height)',
+        ['--oku-accordion-content-width' as any]: 'var(--oku-collapsible-content-width)',
       },
     }, {
       default: () => slots.default?.(),
