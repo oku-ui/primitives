@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import Single from './Single.vue'
 import Multiple from './Multiple.vue'
+import Animated from './Animated.vue'
 
 export interface OkuAccordionProps {
-  template: 'Single' | 'Multiple'
+  template: 'Single' | 'Multiple' | 'Animated'
   allshow?: boolean
 }
 
@@ -19,9 +20,52 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   <div v-if="template === 'Multiple' || allshow" class="flex flex-col w-full">
     <Multiple />
   </div>
+  <div v-if="template === 'Animated' || allshow" class="flex flex-col w-full">
+    <Animated />
+  </div>
 </template>
 
 <style>
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--oku-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--oku-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes open2D {
+  from {
+    width: 0;
+    height: 0;
+  }
+  to {
+    width: var(--oku-accordion-content-width);
+    height: var(--oku-accordion-content-height);
+  }
+}
+
+@keyframes close2D {
+  from {
+    width: var(--oku-accordion-content-width);
+    height: var(--oku-accordion-content-height);
+  }
+  to {
+    width: 0;
+    height: 0;
+  }
+}
+
 .rootClass {
   font-family: sans-serif;
   &[data-orientation="horizontal"] {
@@ -113,14 +157,12 @@ withDefaults(defineProps<OkuAccordionProps>(), {
 /* animatedContentClass */
 .animatedContentClass {
   overflow: hidden;
-}
-
-.animatedContentClass[data-state="open"] {
+  &[data-state="open"] {
   animation: slideDown 300ms ease-out;
 }
-
-.animatedContentClass[data-state="closed"] {
+&[data-state="closed"] {
   animation: slideUp 300ms ease-out;
+}
 }
 
 /* animated2DContentClass */

@@ -55,3 +55,17 @@ export const Multiple: Story = {
     `,
   }),
 }
+export const Animated: Story = {
+  args: {
+    template: 'Animated',
+  },
+  render: (args: any) => ({
+    components: { OkuAccordionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuAccordionComponent v-bind="args" />
+    `,
+  }),
+}

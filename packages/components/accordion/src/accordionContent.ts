@@ -38,9 +38,10 @@ const accordionContent = defineComponent({
       ...mergeProps(attrs, collapsibleScope, _contentProps),
       'ref': forwardRef,
       'style': {
+
+        '--oku-accordion-content-height': 'var(--oku-collapsible-content-height)',
+        '--oku-accordion-content-width': 'var(--oku-collapsible-content-width)',
         ...attrs.style as any,
-        ['--oku-accordion-content-height' as any]: 'var(--oku-collapsible-content-height)',
-        ['--oku-accordion-content-width' as any]: 'var(--oku-collapsible-content-width)',
       },
     }, {
       default: () => slots.default?.(),
