@@ -2,6 +2,7 @@ import { setTimeout } from 'node:timers/promises'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { execSync } from 'node:child_process'
+import { exit } from 'node:process'
 import { defineCommand } from 'citty'
 import type { MultiSelectOptions } from '@clack/prompts'
 import { intro, isCancel, multiselect, outro, select } from '@clack/prompts'
@@ -123,8 +124,10 @@ async function commandsPackages(npmPackages: string[]): Promise<{
     ],
   })
 
-  if (isCancel(which))
+  if (isCancel(which)) {
     outro('Commit cancelled')
+    exit(0)
+  }
 
   if (which === 'all')
     selectPackages.push(...npmPackages)
@@ -158,8 +161,10 @@ async function commandsPackages(npmPackages: string[]): Promise<{
     ],
   })
 
-  if (isCancel(version))
+  if (isCancel(version)) {
     outro('Commit cancelled')
+    exit(0)
+  }
 
   let selectedTags: 'alpha' | 'beta' | 'rc' | 'latest' = 'latest'
 
@@ -177,8 +182,10 @@ async function commandsPackages(npmPackages: string[]): Promise<{
       ],
     })
 
-    if (isCancel(selectedTags))
+    if (isCancel(selectedTags)) {
       outro('Commit cancelled')
+      exit(0)
+    }
 
     selectedTags = selectTags as 'alpha' | 'beta' | 'rc' | 'latest'
   }
