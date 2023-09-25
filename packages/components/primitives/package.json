@@ -56,6 +56,7 @@
     "@oku-ui/toggle": "latest",
     "@oku-ui/toggle-group": "latest",
     "@oku-ui/toolbar": "latest",
+    "@oku-ui/alert-dialog": "latest",
     "@oku-ui/tooltip": "latest"
   },
   "devDependencies": {
