@@ -37,6 +37,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
+    "@oku-ui/alert-dialog": "latest",
     "@oku-ui/aspect-ratio": "latest",
     "@oku-ui/avatar": "latest",
     "@oku-ui/checkbox": "latest",
@@ -56,7 +57,6 @@
     "@oku-ui/toggle": "latest",
     "@oku-ui/toggle-group": "latest",
     "@oku-ui/toolbar": "latest",
-    "@oku-ui/alert-dialog": "latest",
     "@oku-ui/tooltip": "latest"
   },
   "devDependencies": {
