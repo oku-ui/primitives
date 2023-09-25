@@ -69,3 +69,73 @@ export const Animated: Story = {
     `,
   }),
 }
+export const Animated2D: Story = {
+  args: {
+    template: 'Animated2D',
+  },
+  render: (args: any) => ({
+    components: { OkuAccordionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuAccordionComponent v-bind="args" />
+    `,
+  }),
+}
+export const AnimatedControlled: Story = {
+  args: {
+    template: 'AnimatedControlled',
+  },
+  render: (args: any) => ({
+    components: { OkuAccordionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuAccordionComponent v-bind="args" />
+    `,
+  }),
+}
+export const OutsideViewport: Story = {
+  args: {
+    template: 'OutsideViewport',
+  },
+  render: (args: any) => ({
+    components: { OkuAccordionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuAccordionComponent v-bind="args" />
+    `,
+  }),
+}
+export const Horizontal: Story = {
+  args: {
+    template: 'Horizontal',
+  },
+  render: (args: any) => ({
+    components: { OkuAccordionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuAccordionComponent v-bind="args" />
+    `,
+  }),
+}
+export const Chromatic: Story = {
+  args: {
+    template: 'Chromatic',
+  },
+  render: (args: any) => ({
+    components: { OkuAccordionComponent },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuAccordionComponent v-bind="args" />
+    `,
+  }),
+}

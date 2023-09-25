@@ -2,9 +2,14 @@
 import Single from './Single.vue'
 import Multiple from './Multiple.vue'
 import Animated from './Animated.vue'
+import Animated2D from './Animated2D.vue'
+import AnimatedControlled from './AnimatedControlled.vue'
+import OutsideViewport from './OutsideViewport.vue'
+import Horizontal from './Horizontal.vue'
+import Chromatic from './Chromatic.vue'
 
 export interface OkuAccordionProps {
-  template: 'Single' | 'Multiple' | 'Animated'
+  template: 'Single' | 'Multiple' | 'Animated' | 'Animated2D' | 'AnimatedControlled' | 'OutsideViewport' | 'Horizontal' | 'Chromatic'
   allshow?: boolean
 }
 
@@ -23,181 +28,200 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   <div v-if="template === 'Animated' || allshow" class="flex flex-col w-full">
     <Animated />
   </div>
+  <div v-if="template === 'Animated2D' || allshow" class="flex flex-col w-full">
+    <Animated2D />
+  </div>
+  <div v-if="template === 'AnimatedControlled' || allshow" class="flex flex-col w-full">
+    <AnimatedControlled />
+  </div>
+  <div v-if="template === 'OutsideViewport' || allshow" class="flex flex-col w-full">
+    <OutsideViewport />
+  </div>
+  <div v-if="template === 'Horizontal' || allshow" class="flex flex-col w-full">
+    <Horizontal />
+  </div>
+  <div v-if="template === 'Chromatic' || allshow" class="flex flex-col w-full">
+    <Chromatic />
+  </div>
 </template>
 
 <style>
-@keyframes slideDown {
-  from {
-    height: 0;
+  @keyframes slideDown {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--oku-accordion-content-height);
+    }
   }
-  to {
-    height: var(--oku-accordion-content-height);
+
+  @keyframes slideUp {
+    from {
+      height: var(--oku-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
   }
-}
 
-@keyframes slideUp {
-  from {
-    height: var(--oku-accordion-content-height);
+  @keyframes open2D {
+    from {
+      width: 0;
+      height: 0;
+    }
+    to {
+      width: var(--oku-accordion-content-width);
+      height: var(--oku-accordion-content-height);
+    }
   }
-  to {
-    height: 0;
+
+  @keyframes close2D {
+    from {
+      width: var(--oku-accordion-content-width);
+      height: var(--oku-accordion-content-height);
+    }
+    to {
+      width: 0;
+      height: 0;
+    }
   }
-}
 
-@keyframes open2D {
-  from {
-    width: 0;
-    height: 0;
+  .rootClass {
+    font-family: sans-serif;
   }
-  to {
-    width: var(--oku-accordion-content-width);
-    height: var(--oku-accordion-content-height);
+
+  .rootClass[data-orientation="horizontal"] {
+    display: flex;
+    max-width: 40em;
+    height: 50vh;
   }
-}
 
-@keyframes close2D {
-  from {
-    width: var(--oku-accordion-content-width);
-    height: var(--oku-accordion-content-height);
+  .rootClass[data-orientation="vertical"] {
+    max-width: 20em;
   }
-  to {
-    width: 0;
-    height: 0;
+
+  /* itemClass */
+  .itemClass {
+    border-right: 1px solid white;
   }
-}
 
-.rootClass {
-  font-family: sans-serif;
-  &[data-orientation="horizontal"] {
-  display: flex;
-  max-width: 40em;
-  height: 50vh;
-}
-&[data-orientation="vertical"] {
-  max-width: 20em;
-}
-}
+  .itemClass[data-orientation="horizontal"] {
+    display: flex;
+  }
 
-/* itemClass */
-.itemClass {
-  border-right: 1px solid white;
-}
+  .itemClass[data-orientation="vertical"] {
+    border-bottom: 1px solid white;
+  }
 
-.itemClass[data-orientation="horizontal"] {
-  display: flex;
-}
+  /* headerClass */
+  .headerClass {
+    margin: 0;
+  }
 
-.itemClass[data-orientation="vertical"] {
-  border-bottom: 1px solid white;
-}
+  .headerClass[data-orientation="horizontal"] {
+    height: 100%;
+  }
 
-/* headerClass */
-.headerClass {
-  margin: 0;
-}
+  /* RECOMMENDED_CSS__ACCORDION__TRIGGER */
+  .triggerClass {
+    height: 100%;
+    width: 100%;
+    text-align: inherit;
+  }
 
-.headerClass[data-orientation="horizontal"] {
-  height: 100%;
-}
+  .triggerClass[data-orientation="vertical"] {
+    width: 100%;
+  }
 
-/* RECOMMENDED_CSS__ACCORDION__TRIGGER */
-.triggerClass {
-  height: 100%;
-  width: 100%;
-  text-align: inherit;
-}
+  .triggerClass[data-orientation="horizontal"] {
+    height: 100%;
+  }
 
-.triggerClass[data-orientation="vertical"] {
-  width: 100%;
-}
+  /* triggerClass */
+  .triggerClass {
+    box-sizing: border-box;
+    appearance: none;
+    border: none;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-family: inherit;
+    font-size: 1.2em;
+    --shadow-color: crimson;
+  }
 
-.triggerClass[data-orientation="horizontal"] {
-  height: 100%;
-}
+  .triggerClass:focus {
+    outline: none;
+    box-shadow: inset 0 -5px 0 0 var(--shadow-color);
+    color: red;
+  }
 
-/* triggerClass */
-.triggerClass {
-  box-sizing: border-box;
-  appearance: none;
-  border: none;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-family: inherit;
-  font-size: 1.2em;
-  --shadow-color: crimson;
-}
+  .triggerClass[data-disabled] {
+    color: gray;
+  }
 
-.triggerClass:focus {
-  outline: none;
-  box-shadow: inset 0 -5px 0 0 var(--shadow-color);
-  color: red;
-}
+  .triggerClass[data-state="open"] {
+    background-color: red;
+    color: white;
+  }
 
-.triggerClass[data-disabled] {
-  color: gray;
-}
+  .triggerClass[data-state="open"]:focus {
+    --shadow-color: #111;
+    color: black;
+  }
 
-.triggerClass[data-state="open"] {
-  background-color: red;
-  color: white;
-}
+  /* contentClass */
+  .contentClass {
+    padding: 10px;
+    line-height: 1.5;
+  }
 
-.triggerClass[data-state="open"]:focus {
-  --shadow-color: #111;
-  color: black;
-}
+  /* animatedContentClass */
+  .animatedContentClass {
+    overflow: hidden;
+  }
 
-/* contentClass */
-.contentClass {
-  padding: 10px;
-  line-height: 1.5;
-}
+  .animatedContentClass[data-state="open"] {
+    animation: slideDown 300ms ease-out;
+  }
 
-/* animatedContentClass */
-.animatedContentClass {
-  overflow: hidden;
-  &[data-state="open"] {
-  animation: slideDown 300ms ease-out;
-}
-&[data-state="closed"] {
-  animation: slideUp 300ms ease-out;
-}
-}
+  .animatedContentClass[data-state="closed"] {
+    animation: slideUp 300ms ease-out;
+  }
 
-/* animated2DContentClass */
-.animated2DContentClass {
-  overflow: hidden;
-}
+  /* animated2DContentClass */
+  .animated2DContentClass {
+    overflow: hidden;
+  }
 
-.animated2DContentClass[data-state="open"] {
-  animation: open2D 1000ms ease-out;
-}
+  .animated2DContentClass[data-state="open"] {
+    animation: open2D 1000ms ease-out;
+  }
 
-.animated2DContentClass[data-state="closed"] {
-  animation: close2D 1000ms ease-out;
-}
+  .animated2DContentClass[data-state="closed"] {
+    animation: close2D 1000ms ease-out;
+  }
 
-/* styles */
-.styles {
-  background-color: rgba(0, 0, 255, 0.3);
-  border: 2px solid blue;
-  padding: 10px;
-}
+  /* styles */
+  .styles {
+    background-color: rgba(0, 0, 255, 0.3);
+    border: 2px solid blue;
+    padding: 10px;
+  }
 
-.styles[data-state="closed"] {
-  border-color: red;
-}
+  .styles[data-state="closed"] {
+    border-color: red;
+  }
 
-.styles[data-state="open"] {
-  border-color: green;
-}
+  .styles[data-state="open"] {
+    border-color: green;
+  }
 
-.styles[data-disabled] {
-  border-style: dashed;
-}
+  .styles[data-disabled] {
+    border-style: dashed;
+  }
 
-:disabled {
-  opacity: 0.5;
-}
+  :disabled {
+    opacity: 0.5;
+  }
 </style>
