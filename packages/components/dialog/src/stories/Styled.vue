@@ -5,19 +5,19 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
 <template>
   <div>
     <OkuDialog>
-      <OkuDialogTrigger class="triggerClass">
+      <OkuDialogTrigger class="dialog-trigger">
         open
       </OkuDialogTrigger>
       <OkuDialogPortal>
-        <OkuDialogOverlay class="overlayClass" />
-        <OkuDialogContent class="contentDefaultClass">
+        <OkuDialogOverlay class="dialog-overlay" />
+        <OkuDialogContent class="dialog-contentDefault">
           <OkuDialogTitle>
             Booking info
           </OkuDialogTitle>
           <OkuDialogDescription>
             Please enter the info for your booking below.
           </OkuDialogDescription>
-          <OkuDialogClose class="closeClass">
+          <OkuDialogClose class="dialog-close">
             close
           </OkuDialogClose>
         </OkuDialogContent>

@@ -20,6 +20,7 @@
     "@oku-ui/primitives": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/roving-focus": "workspace:^",
+    "@oku-ui/scroll-area": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/slider": "workspace:^",
     "@oku-ui/slot": "workspace:^",
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0",
-    "@types/node": "^18.17.14",
-    "nuxt": "^3.7.1"
+    "@types/node": "^18.17.17",
+    "nuxt": "^3.7.3"
   }
 }

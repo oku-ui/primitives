@@ -14,7 +14,7 @@ const meta = {
     template: '#1',
   },
   component: OkuToggleComponent,
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof OkuToggleComponent> & {
   args: StoryProps
 }

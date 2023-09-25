@@ -36,14 +36,14 @@ onMounted(() => {
 </template>
 
 <style>
-.triggerClass {}
-.positionButtonClass {
+.tooltip-trigger {}
+.tooltip-positionButton {
   margin: 5px;
   border: 1px solid black;
   background: transparent;
 }
 
-.contentClass {
+.tooltip-content {
   transform-origin: var(--radix-tooltip-content-transform-origin);
   /* ensures content isn't selectable */
   /* this is just a detterent to people putting interactive content inside a `Tooltip.Root` */
@@ -56,11 +56,11 @@ onMounted(() => {
   max-width: 300px;
 }
 
-.arrowClass {
+.tooltip-arrow {
   fill: black;
 }
 
-@keyframes scaleIn {
+@keyframes tooltip-scaleIn {
   0% {
     opacity: 0;
     transform: scale(0);
@@ -72,7 +72,7 @@ onMounted(() => {
   }
 }
 
-@keyframes fadeIn {
+@keyframes tooltip-fadeIn {
   0% {
     opacity: 0;
   }
@@ -82,7 +82,7 @@ onMounted(() => {
   }
 }
 
-@keyframes fadeOut {
+@keyframes tooltip-fadeOut {
   0% {
     opacity: 1;
   }
@@ -92,21 +92,21 @@ onMounted(() => {
   }
 }
 
-.animatedContentClass {
+.tooltip-animatedContent {
   & [data-state='delayed-open'] {
-    animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: tooltip-scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   & [data-state='instant-open'] {
-    animation: fadeIn 0.2s ease-out;
+    animation: tooltip-fadeIn 0.2s ease-out;
   }
 
   & [data-state='closed'] {
-    animation: fadeOut 0.2s ease-out;
+    animation: tooltip-fadeOut 0.2s ease-out;
   }
 }
 
-.gridClass {
+.tooltip-grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 50px);
   column-gap: 150px;
@@ -115,7 +115,7 @@ onMounted(() => {
   border: 1px solid black;
 }
 
-.chromaticTriggerClass {
+.tooltip-chromaticTrigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -123,7 +123,7 @@ onMounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.chromaticContentClass {
+.tooltip-chromaticContent {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -135,7 +135,7 @@ onMounted(() => {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.chromaticArrowClass {
+.tooltip-chromaticArrow {
   fill: black;
 }
 </style>

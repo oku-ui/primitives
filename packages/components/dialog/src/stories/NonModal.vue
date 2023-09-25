@@ -5,19 +5,19 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
 <template>
   <div>
     <OkuDialog :modal="false">
-      <OkuDialogTrigger class="triggerClass">
+      <OkuDialogTrigger class="dialog-trigger">
         open (non-modal)
       </OkuDialogTrigger>
       <OkuDialogPortal>
-        <OkuDialogOverlay class="overlayClass" />
-        <OkuDialogContent class="contentSheetClass" :on-interact-outside="(event) => event.preventDefault()">
+        <OkuDialogOverlay class="dialog-overlay" />
+        <OkuDialogContent class="dialog-contentSheet" :on-interact-outside="(event) => event.preventDefault()">
           <OkuDialogTitle>
             Booking info
           </OkuDialogTitle>
           <OkuDialogDescription>
             Please enter the info for your booking below.
           </OkuDialogDescription>
-          <OkuDialogClose class="closeClass">
+          <OkuDialogClose class="dialog-close">
             close
           </OkuDialogClose>
         </OkuDialogContent>

@@ -97,7 +97,7 @@ const toggleGroupImpl = defineComponent({
     const reactiveGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuToggleGroup.value)
-    const direction = useDirection(dir.value)
+    const direction = useDirection(dir)
 
     const forwardedRef = useForwardRef()
 
