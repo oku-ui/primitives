@@ -8,17 +8,8 @@ const main = defineCommand({
     version: '0.0.0',
     description: 'Oku Primitives',
   },
-  args: {
-    publish: {
-      type: 'boolean',
-      description: 'Add component',
-    },
-  },
   subCommands: {
     publish: () => import('./commands/publish').then(m => m.default),
-  },
-  run({ args }) {
-
   },
 })
 
