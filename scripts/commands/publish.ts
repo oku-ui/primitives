@@ -18,7 +18,7 @@ export default defineCommand({
   async run() {
     const corePath = 'packages/core'
     const componentsPath = 'packages/components'
-    const packages = globbySync(`${corePath}/*`, { onlyDirectories: true, cwd: process.cwd() })
+    const corePackages = globbySync(`${corePath}/*`, { onlyDirectories: true, cwd: process.cwd() })
     const components = globbySync(`${componentsPath}/*`, { onlyDirectories: true, cwd: process.cwd() })
 
     console.clear()
@@ -52,9 +52,12 @@ export default defineCommand({
       _tags = selectedTags
     }
 
-    if (type === 'core')
-      await commandsPackages(packages)
-
+    if (type === 'core') {
+      const { selectPackages, selectedTags } = await commandsPackages(corePackages)
+      console.log(selectPackages)
+      _packages = selectPackages
+      _tags = selectedTags
+    }
     const wherePublish = await select({
       message: 'Publish package?',
       initialValue: 'ts',
@@ -110,7 +113,7 @@ export default defineCommand({
 
 async function commandsPackages(npmPackages: string[]): Promise<{
   selectPackages: string[]
-  selectedTags: 'no' | 'alpha' | 'beta' | 'rc' | 'latest'
+  selectedTags: 'alpha' | 'beta' | 'rc' | 'latest'
 }> {
   const selectPackages: string[] = []
 
