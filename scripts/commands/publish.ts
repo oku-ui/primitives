@@ -14,11 +14,11 @@ export default defineCommand({
     description: 'Oku Primitives CLI Publish',
     version: '0.0.1',
   },
-  async run(ctx) {
+  async run() {
     const corePath = 'packages/core'
     const componentsPath = 'packages/components'
-    const packages = globbySync(`${corePath}/*`, { onlyDirectories: true })
-    const components = globbySync(`${componentsPath}/*`, { onlyDirectories: true })
+    const packages = globbySync(`${corePath}/*`, { onlyDirectories: true, cwd: process.cwd() })
+    const components = globbySync(`${componentsPath}/*`, { onlyDirectories: true, cwd: process.cwd() })
 
     console.clear()
 
@@ -27,7 +27,7 @@ export default defineCommand({
     intro(`${color.bgCyan(color.black(' create-app '))}`)
 
     const type = await select({
-      message: 'Pick a',
+      message: 'Pick a folder',
       initialValue: 'ts',
       maxItems: 5,
       options: [
@@ -41,17 +41,56 @@ export default defineCommand({
       return
     }
 
-    if (type === 'component')
-      await commandsPackages(components)
+    let _packages: string[] = []
+    let _tags: 'no' | 'alpha' | 'beta' | 'rc' | 'latest' = 'no'
+
+    if (type === 'component') {
+      const { selectPackages, selectedTags } = await commandsPackages(components)
+      _packages = selectPackages
+      _tags = selectedTags
+    }
 
     if (type === 'core')
       await commandsPackages(packages)
 
-    outro(`🎉  ${color.bgCyan(color.black(' Publish '))}  🎉`)
+    const wherePublish = await select({
+      message: 'Pick a folder',
+      initialValue: 'ts',
+      maxItems: 5,
+      options: [
+        { value: 'npm', name: 'NPM' },
+      ],
+    })
+
+    if (isCancel(wherePublish)) {
+      outro('Commit cancelled')
+      return
+    }
+
+    if (wherePublish === 'npm') {
+      for await (const component of _packages) {
+        if (_tags === 'alpha')
+          execSync(`cd ${component} && npm publish --tag alpha`)
+
+        if (_tags === 'beta')
+          execSync(`cd ${component} && npm publish --tag beta`)
+
+        if (_tags === 'rc')
+          execSync(`cd ${component} && npm publish --tag rc`)
+
+        if (_tags === 'latest')
+          execSync(`cd ${component} && npm publish`)
+
+        outro(`🎉  ${color.bgCyan(color.black(' Publish '))}  🎉`)
+      }
+    }
   },
 })
 
-async function commandsPackages(npmPackages: string[]) {
+async function commandsPackages(npmPackages: string[]): Promise<{
+  selectPackages: string[]
+  selectedTags: 'no' | 'alpha' | 'beta' | 'rc' | 'latest'
+}> {
   const selectPackages: string[] = []
 
   const which = await select({
@@ -64,10 +103,8 @@ async function commandsPackages(npmPackages: string[]) {
     ],
   })
 
-  if (isCancel(which)) {
+  if (isCancel(which))
     outro('Commit cancelled')
-    return
-  }
 
   if (which === 'all')
     selectPackages.push(...npmPackages)
@@ -83,10 +120,8 @@ async function commandsPackages(npmPackages: string[]) {
       options,
     }) as string[]
 
-    if (isCancel(seletedComponent)) {
+    if (isCancel(seletedComponent))
       outro('Commit cancelled')
-      return
-    }
 
     selectPackages.push(...seletedComponent)
   }
@@ -102,10 +137,8 @@ async function commandsPackages(npmPackages: string[]) {
     ],
   })
 
-  if (isCancel(version)) {
+  if (isCancel(version))
     outro('Commit cancelled')
-    return
-  }
 
   switch (version) {
     case 'patch':
@@ -121,7 +154,7 @@ async function commandsPackages(npmPackages: string[]) {
       break
   }
 
-  let addTags: 'no' | 'alpha' | 'beta' | 'rc' = 'no'
+  let selectedTags: 'no' | 'alpha' | 'beta' | 'rc' | 'latest' = 'no'
 
   if (version !== 'patch') {
     const selectTags = await select({
@@ -133,22 +166,18 @@ async function commandsPackages(npmPackages: string[]) {
         { value: 'alpha', label: 'Alpha' },
         { value: 'beta', label: 'Beta' },
         { value: 'rc', label: 'RC' },
+        { value: 'latest', label: 'Latest' },
       ],
     })
 
-    if (isCancel(addTags)) {
+    if (isCancel(selectedTags))
       outro('Commit cancelled')
-      return
-    }
 
-    addTags = selectTags as 'no' | 'alpha' | 'beta' | 'rc'
+    selectedTags = selectTags as 'no' | 'alpha' | 'beta' | 'rc' | 'latest'
   }
 
   for await (const component of selectPackages) {
     const file = readFileSync(resolve(`${component}/package.json`), 'utf8')
-
-    if (!file)
-      return
 
     const packageJson = JSON.parse(file)
     const pkversion = packageJson.version
@@ -189,8 +218,8 @@ async function commandsPackages(npmPackages: string[]) {
       })
     }
 
-    if (addTags !== 'no')
-      packageJson.version = `${packageJson.version}-${addTags}.0`
+    if (selectedTags !== 'no')
+      packageJson.version = `${packageJson.version}-${selectedTags}.0`
 
     const newPackage = JSON.stringify(packageJson, null, 2)
     writeFileSync(`${component}/package.json`, newPackage)
@@ -199,13 +228,15 @@ async function commandsPackages(npmPackages: string[]) {
   for await (const component of selectPackages) {
     const file = readFileSync(resolve(`${component}/package.json`), 'utf8')
 
-    if (!file)
-      return
-
     // diff version
     const newVersion = JSON.parse(file).version
     const oldPackageJson = execSync(`git show HEAD:${component}/package.json 2>/dev/null`).toString()
     const oldVersion = JSON.parse(oldPackageJson).version
     console.log(`old version: ${oldVersion} -> new version: ${newVersion}`)
+  }
+
+  return {
+    selectPackages,
+    selectedTags,
   }
 }
