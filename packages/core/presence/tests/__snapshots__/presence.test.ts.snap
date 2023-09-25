@@ -9,24 +9,24 @@ exports[`OkuPresence > Basic > should be able to close 1`] = `"<button> toggle <
 
 exports[`OkuPresence > WithDeferredMountAnimation > renders correctly 1`] = `
 "<p> Deferred animation should unmount correctly when toggled. Content will flash briefly while we wait for animation to be applied. </p>
-<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount click 1`] = `
 "<p> Deferred animation should unmount correctly when toggled. Content will flash briefly while we wait for animation to be applied. </p>
-<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"\\" data-state=\\"open\\"> Content </div>"
@@ -34,24 +34,24 @@ exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount clic
 
 exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount click 2`] = `
 "<p> Deferred animation should unmount correctly when toggled. Content will flash briefly while we wait for animation to be applied. </p>
-<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount visibility 1`] = `
 "<p> Deferred animation should unmount correctly when toggled. Content will flash briefly while we wait for animation to be applied. </p>
-<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"\\" data-state=\\"open\\"> Content </div>"
@@ -59,12 +59,12 @@ exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount visi
 
 exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount visibility 2`] = `
 "<p> Deferred animation should unmount correctly when toggled. Content will flash briefly while we wait for animation to be applied. </p>
-<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
@@ -72,362 +72,362 @@ exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount visi
 
 exports[`OkuPresence > WithDeferredMountAnimation > should be able to mount visibility 3`] = `
 "<p> Deferred animation should unmount correctly when toggled. Content will flash briefly while we wait for animation to be applied. </p>
-<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > renders correctly 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount click 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-mountAnimation\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount click 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-mountAnimation\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-mountAnimation\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMountAnimation > should be able to mount visibility 3`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-mountAnimation\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > renders correctly 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount click 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleMountAnimations\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount click 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount visibility 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleMountAnimations\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount visibility 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleMountAnimations\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleMountAnimations > should be able to mount visibility 3`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleMountAnimations\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > renders correctly 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount click 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleOpenAndCloseAnimations\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount click 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount visibility 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleOpenAndCloseAnimations\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount visibility 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleOpenAndCloseAnimations\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithMultipleOpenAndCloseAnimations > should be able to mount visibility 3`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-multipleOpenAndCloseAnimations\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > renders correctly 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount click 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-openAndCloseAnimation\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount click 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visibility 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-openAndCloseAnimation\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visibility 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-openAndCloseAnimation\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithOpenAndCloseAnimation > should be able to mount visibility 3`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-openAndCloseAnimation\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > renders correctly 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount click 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-unmountAnimation\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount click 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility 1`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-unmountAnimation\\" data-state=\\"open\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility 2`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-unmountAnimation\\" data-state=\\"open\\" style=\\"display: none;\\"> Content </div>"
 `;
 
 exports[`OkuPresence > WithUnmountAnimation > should be able to mount visibility 3`] = `
-"<form data-v-e3bd0491=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Mount</legend><button data-v-e3bd0491=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
+"<form data-v-24014b8d=\\"\\" style=\\"display: flex; margin-bottom: 30px;\\">
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Mount</legend><button data-v-24014b8d=\\"\\" id=\\"button1\\" type=\\"button\\"> toggle </button>
   </fieldset>
-  <fieldset data-v-e3bd0491=\\"\\">
-    <legend data-v-e3bd0491=\\"\\">Visibility (triggers cancel event)</legend><button data-v-e3bd0491=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
+  <fieldset data-v-24014b8d=\\"\\">
+    <legend data-v-24014b8d=\\"\\">Visibility (triggers cancel event)</legend><button data-v-24014b8d=\\"\\" id=\\"button2\\" type=\\"button\\"> toggle </button>
   </fieldset>
 </form>
 <div class=\\"presence-unmountAnimation\\" data-state=\\"open\\" style=\\"display: block;\\"> Content </div>"
