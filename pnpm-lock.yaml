@@ -578,6 +578,9 @@ importers:
 
   packages/components/primitives:
     dependencies:
+      '@oku-ui/alert-dialog':
+        specifier: workspace:^
+        version: link:../alert-dialog
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
         version: link:../aspect-ratio
