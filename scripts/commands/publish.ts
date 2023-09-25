@@ -42,10 +42,11 @@ export default defineCommand({
     }
 
     let _packages: string[] = []
-    let _tags: 'no' | 'alpha' | 'beta' | 'rc' | 'latest' = 'no'
+    let _tags: 'alpha' | 'beta' | 'rc' | 'latest' = 'latest'
 
     if (type === 'component') {
       const { selectPackages, selectedTags } = await commandsPackages(components)
+      console.log(selectPackages)
       _packages = selectPackages
       _tags = selectedTags
     }
@@ -54,10 +55,11 @@ export default defineCommand({
       await commandsPackages(packages)
 
     const wherePublish = await select({
-      message: 'Pick a folder',
+      message: 'Publish package?',
       initialValue: 'ts',
       maxItems: 5,
       options: [
+        { value: 'no', name: 'No' },
         { value: 'npm', name: 'NPM' },
       ],
     })
@@ -69,17 +71,35 @@ export default defineCommand({
 
     if (wherePublish === 'npm') {
       for await (const component of _packages) {
-        if (_tags === 'alpha')
-          execSync(`cd ${component} && npm publish --tag alpha`)
+        const file = readFileSync(resolve(`${component}/package.json`), 'utf8')
+        const packageJson = JSON.parse(file)
+        const pkversion = packageJson.version
+        const isAlphaBetaRc = pkversion.includes('alpha') || pkversion.includes('beta') || pkversion.includes('rc')
+        if (isAlphaBetaRc) {
+          if (_tags === 'alpha') {
+            execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks --tag alpha`, {
+              stdio: 'inherit',
+            })
+          }
 
-        if (_tags === 'beta')
-          execSync(`cd ${component} && npm publish --tag beta`)
+          if (_tags === 'beta') {
+            execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks  --tag beta`, {
+              stdio: 'inherit',
+            })
+          }
 
-        if (_tags === 'rc')
-          execSync(`cd ${component} && npm publish --tag rc`)
+          if (_tags === 'rc') {
+            execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks  --tag rc`, {
+              stdio: 'inherit',
+            })
+          }
+        }
 
-        if (_tags === 'latest')
-          execSync(`cd ${component} && npm publish`)
+        if (_tags === 'latest') {
+          execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks`, {
+            stdio: 'inherit',
+          })
+        }
 
         outro(`🎉  ${color.bgCyan(color.black(' Publish '))}  🎉`)
       }
@@ -140,21 +160,7 @@ async function commandsPackages(npmPackages: string[]): Promise<{
   if (isCancel(version))
     outro('Commit cancelled')
 
-  switch (version) {
-    case 'patch':
-      console.log('patch')
-      break
-    case 'minor':
-      console.log('minor')
-      break
-    case 'major':
-      console.log('major')
-      break
-    default:
-      break
-  }
-
-  let selectedTags: 'no' | 'alpha' | 'beta' | 'rc' | 'latest' = 'no'
+  let selectedTags: 'alpha' | 'beta' | 'rc' | 'latest' = 'latest'
 
   if (version !== 'patch') {
     const selectTags = await select({
@@ -173,7 +179,7 @@ async function commandsPackages(npmPackages: string[]): Promise<{
     if (isCancel(selectedTags))
       outro('Commit cancelled')
 
-    selectedTags = selectTags as 'no' | 'alpha' | 'beta' | 'rc' | 'latest'
+    selectedTags = selectTags as 'alpha' | 'beta' | 'rc' | 'latest'
   }
 
   for await (const component of selectPackages) {
@@ -217,9 +223,6 @@ async function commandsPackages(npmPackages: string[]): Promise<{
         return `${major + 1}.${0}.0`
       })
     }
-
-    if (selectedTags !== 'no')
-      packageJson.version = `${packageJson.version}-${selectedTags}.0`
 
     const newPackage = JSON.stringify(packageJson, null, 2)
     writeFileSync(`${component}/package.json`, newPackage)
