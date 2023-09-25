@@ -83,13 +83,13 @@ export default defineCommand({
           }
 
           if (_tags === 'beta') {
-            execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks  --tag beta`, {
+            execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks --tag beta`, {
               stdio: 'inherit',
             })
           }
 
           if (_tags === 'rc') {
-            execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks  --tag rc`, {
+            execSync(`cd ${component} && pnpm build && pnpm publish --access public --no-git-checks --tag rc`, {
               stdio: 'inherit',
             })
           }
@@ -154,6 +154,7 @@ async function commandsPackages(npmPackages: string[]): Promise<{
       { value: 'patch', label: 'Patch - v0.0.1' },
       { value: 'minor', label: 'Minor - v0.1.0' },
       { value: 'major', label: 'Major - v1.0.0' },
+      { value: 'latest', label: 'v0.1.0-alpha.0 -> v0.1.0' },
     ],
   })
 
@@ -162,7 +163,7 @@ async function commandsPackages(npmPackages: string[]): Promise<{
 
   let selectedTags: 'alpha' | 'beta' | 'rc' | 'latest' = 'latest'
 
-  if (version !== 'patch') {
+  if (version !== 'patch' && version !== 'latest') {
     const selectTags = await select({
       message: 'Add tags?',
       initialValue: 'ts',
@@ -222,6 +223,16 @@ async function commandsPackages(npmPackages: string[]): Promise<{
         const [major, _minor, _patch] = p1.split('.').map(Number)
         return `${major + 1}.${0}.0`
       })
+    }
+
+    selectedTags === 'alpha' && (packageJson.version += '-alpha.0')
+    selectedTags === 'beta' && (packageJson.version += '-beta.0')
+    selectedTags === 'rc' && (packageJson.version += '-rc.0')
+
+    if (selectedTags === 'latest' || version === 'latest') {
+      const regex = /(\d+\.\d+\.\d+)(?:-.+)?/
+      const result = packageJson.version.match(regex) as RegExpMatchArray
+      packageJson.version = result[1]
     }
 
     const newPackage = JSON.stringify(packageJson, null, 2)
