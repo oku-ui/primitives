@@ -177,7 +177,6 @@ async function commandsPackages(npmPackages: string[]): Promise<{
       initialValue: 'ts',
       maxItems: 5,
       options: [
-        { value: 'no', label: 'No' },
         { value: 'alpha', label: 'Alpha' },
         { value: 'beta', label: 'Beta' },
         { value: 'rc', label: 'RC' },

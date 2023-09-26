@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/provide",
   "type": "module",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
