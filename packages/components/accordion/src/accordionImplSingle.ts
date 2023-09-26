@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel } from 'vue'
 import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { OkuAccordionImpl } from './accordionImpl'
 import {
@@ -55,7 +55,7 @@ const accordionImplSingle = defineComponent({
 
     AccordionCollapsibleProvider({
       scope: props.scopeOkuAccordion,
-      collapsible: collapsible.value || false,
+      collapsible: ref(collapsible.value || false),
     })
 
     return () => h(OkuAccordionImpl, {
