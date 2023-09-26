@@ -12,7 +12,7 @@ function onValueChange(value: any) {
 <template>
   <div>
     <h1>Uncontrolled</h1>
-    <OkuAccordion selection-type="single" class="accordion-root">
+    <OkuAccordion type="single" class="accordion-root">
       <OkuAccordionItem class="accordion-item" value="one">
         <OkuAccordionHeader class="accordion-header">
           <OkuAccordionTrigger class="accordion-trigger">
@@ -61,7 +61,7 @@ function onValueChange(value: any) {
       </OkuAccordionItem>
     </OkuAccordion>
     <h1>Controlled ({{ valueOne }})</h1>
-    <OkuAccordion selection-type="single" class="accordion-root" :value="valueOne" @value-change="onValueChange">
+    <OkuAccordion type="single" class="accordion-root" :value="valueOne" @value-change="onValueChange">
       <OkuAccordionItem class="accordion-item" value="one">
         <OkuAccordionHeader class="accordion-header">
           <OkuAccordionTrigger class="accordion-trigger">
@@ -110,7 +110,7 @@ function onValueChange(value: any) {
       </OkuAccordionItem>
     </OkuAccordion>
     <h1>Collapsible</h1>
-    <OkuAccordion selection-type="single" class="accordion-root" default-value="one" collapsible>
+    <OkuAccordion type="single" class="accordion-root" default-value="one" collapsible>
       <OkuAccordionItem class="accordion-item" value="one">
         <OkuAccordionHeader class="accordion-header">
           <OkuAccordionTrigger class="accordion-trigger">

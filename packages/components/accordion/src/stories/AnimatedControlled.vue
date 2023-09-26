@@ -11,7 +11,7 @@ function onValueChange(value: any) {
 
 <template>
   <div>
-    <OkuAccordion selection-type="multiple" class="accordion-root" :value="values" @value-change="onValueChange">
+    <OkuAccordion type="multiple" class="accordion-root" :value="values" @value-change="onValueChange">
       <OkuAccordionItem class="accordion-item" value="one">
         <OkuAccordionHeader class="accordion-header">
           <OkuAccordionTrigger class="accordion-trigger">

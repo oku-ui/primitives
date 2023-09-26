@@ -10,7 +10,7 @@ import { OkuAccordion, OkuAccordionContent, OkuAccordionHeader, OkuAccordionItem
       When accordion buttons are focused and the user is navigating via keyboard, the page should
       not scroll unless the next tab is entering the viewport.
     </p>
-    <OkuAccordion selection-type="single" class="accordion-root">
+    <OkuAccordion type="single" class="accordion-root">
       <OkuAccordionItem class="accordion-item" value="one">
         <OkuAccordionHeader class="accordion-header">
           <OkuAccordionTrigger class="accordion-trigger">

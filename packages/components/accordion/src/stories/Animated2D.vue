@@ -9,7 +9,7 @@ const count = ref(1)
 
 <template>
   <div>
-    <OkuAccordion selection-type="single" class="accordion-root">
+    <OkuAccordion type="single" class="accordion-root">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">
           <OkuAccordionTrigger class="accordion-trigger">

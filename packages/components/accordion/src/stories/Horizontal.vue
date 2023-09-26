@@ -5,7 +5,7 @@ import { OkuAccordion, OkuAccordionContent, OkuAccordionHeader, OkuAccordionItem
 <template>
   <div>
     <h1>Horizontal Orientation</h1>
-    <OkuAccordion selection-type="single" class="accordion-root" orientation="horizontal">
+    <OkuAccordion type="single" class="accordion-root" orientation="horizontal">
       <OkuAccordionItem class="accordion-item" value="one">
         <OkuAccordionHeader class="accordion-header">
           <OkuAccordionTrigger class="accordion-trigger">
