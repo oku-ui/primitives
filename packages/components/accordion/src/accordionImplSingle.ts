@@ -1,5 +1,4 @@
-import { primitiveProps } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { OkuAccordionImpl } from './accordionImpl'
 import {
@@ -13,7 +12,6 @@ const accordionImplSingle = defineComponent({
   name: ACCORDION_IMPL_SINGLE_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...accordionImplSingleProps.props,
     ...scopeAccordionProps,
   },
@@ -26,13 +24,16 @@ const accordionImplSingle = defineComponent({
       ...accordionSingleProps
     } = toRefs(props)
 
+    const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed(() => valueProp.value !== undefined ? valueProp.value : modelValue.value !== undefined ? modelValue.value : undefined)
+
     const { state, updateValue } = useControllable({
-      prop: computed(() => valueProp.value),
+      prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result) => {
         emit('valueChange', result)
+        modelValue.value = result
       },
-      initialValue: undefined,
     })
 
     const forwardRef = useForwardRef()
@@ -51,16 +52,16 @@ const accordionImplSingle = defineComponent({
           updateValue('')
       },
     })
+
     AccordionCollapsibleProvider({
       scope: props.scopeOkuAccordion,
       collapsible: collapsible.value || false,
     })
+
     return () => h(OkuAccordionImpl, {
       ...mergeProps(attrs, _accordionSingleProps),
       ref: forwardRef,
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, slots)
   },
 })
 

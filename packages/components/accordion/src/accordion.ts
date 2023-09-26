@@ -1,54 +1,59 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuAccordionImplSingle } from './accordionImplSingle'
 import { OkuAccordionImplMultiple } from './accordionImplMultiple'
 import { ACCORDION_NAME, CollectionProvider, accordionProps, scopeAccordionProps } from './props'
-import type { AccordionImplMultipleProps, AccordionImplSingleProps, AccordionNativeElement } from './props'
+import type { AccordionImplSingleProps, AccordionNativeElement } from './props'
 
 const accordion = defineComponent({
   name: ACCORDION_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...accordionProps.props,
     ...scopeAccordionProps,
   },
-  emits: accordionProps.emits,
-  setup(props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots }) {
     const {
-      selectionType, ...accordionPropsRefs
+      type, ...accordionPropsRefs
     } = toRefs(props)
     const forwardRef = useForwardRef
 
-    const _reactiveSingleProps = reactive(accordionPropsRefs) as AccordionImplSingleProps
-    const singleProps = reactiveOmit(_reactiveSingleProps, (key, _value) => key === undefined)
+    const _reactiveProps = reactive(accordionPropsRefs) as AccordionImplSingleProps
+    const reactiveProps = reactiveOmit(_reactiveProps, (key, _value) => key === undefined)
 
-    const _reactiveMultipleProps = reactive(accordionPropsRefs) as AccordionImplMultipleProps
-    const multipleProps = reactiveOmit(_reactiveMultipleProps, (key, _value) => key === undefined)
-    //* *********** */
-    return () => h(CollectionProvider, {
-      scope: props.scopeOkuAccordion,
-    },
-    selectionType.value === 'multiple'
-      ? h(OkuAccordionImplMultiple, {
-        ...mergeProps(attrs, multipleProps),
-        ref: forwardRef,
-        onValueChange: (result) => {
-          emit('valueChange', result)
-        },
-      }, {
-        default: () => slots.default?.(),
-      })
-      : h(OkuAccordionImplSingle, {
-        ...mergeProps(attrs, singleProps),
-        ref: forwardRef,
-        onValueChange: (result) => {
-          emit('valueChange', result)
-        },
-      }, {
-        default: () => slots.default?.(),
-      }))
+    return () => {
+      if (props.type) {
+        const value = props.value || props.defaultValue
+        if (props.type && !['single', 'multiple'].includes(props.type)) {
+          return new Error(
+            'Invalid prop `type` supplied to `Accordion`. Expected one of `single | multiple`.',
+          )
+        }
+        if (props.type === 'multiple' && typeof value === 'string') {
+          return new Error(
+            'Invalid prop `type` supplied to `Accordion`. Expected `single` when `defaultValue` or `value` is type `string`.',
+          )
+        }
+        if (props.type === 'single' && Array.isArray(value)) {
+          return new Error(
+            'Invalid prop `type` supplied to `Accordion`. Expected `multiple` when `defaultValue` or `value` is type `string[]`.',
+          )
+        }
+      }
+
+      return h(CollectionProvider, {
+        scope: props.scopeOkuAccordion,
+      },
+      type.value === 'multiple'
+        ? h(OkuAccordionImplMultiple, {
+          ...mergeProps(attrs, reactiveProps),
+          ref: forwardRef,
+        }, slots)
+        : h(OkuAccordionImplSingle, {
+          ...mergeProps(attrs, reactiveProps),
+          ref: forwardRef,
+        }, slots))
+    }
   },
 })
 
@@ -58,4 +63,3 @@ export const OkuAccordion = accordion as typeof accordion
 (new () => {
   $props: AccordionNativeElement
 })
-//* **AccordionItem da kaldım */

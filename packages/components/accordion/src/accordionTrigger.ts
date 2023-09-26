@@ -1,5 +1,4 @@
 import { OkuCollapsibleTrigger } from '@oku-ui/collapsible'
-import { primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { AccordionTriggerNativeElement } from './props'
@@ -14,7 +13,6 @@ const accordionTrigger = defineComponent({
   name: TRIGGER_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...accordionTriggerProps.props,
     ...scopeAccordionProps,
   },
@@ -44,11 +42,10 @@ const accordionTrigger = defineComponent({
         'aria-disabled': disabled.value,
         'data-orientation': accordionInject.orientation.value,
         'id': itemInject.triggerId.value,
-        ...mergeProps(attrs, collapsibleScope, _triggerProps),
+        ...collapsibleScope,
+        ...mergeProps(attrs, _triggerProps),
         'ref': forwardRef,
-      }, {
-        default: () => slots.default?.(),
-      }),
+      }, slots),
     })
   },
 })

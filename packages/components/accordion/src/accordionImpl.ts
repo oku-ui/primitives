@@ -24,94 +24,90 @@ const accordionImpl = defineComponent({
     const composedRefs = useComposedRefs(accordionRef, forwardRef)
 
     const getItems = useCollection(scopeOkuAccordion.value)
-    const direction = useDirection(dir.value)
-    const isDirectionLTR = direction.value === 'ltr'
+    const direction = useDirection(dir)
+    const isDirectionLTR = computed(() => direction.value === 'ltr')
 
-    const handleKeyDown = composeEventHandlers<KeyboardEvent>((event) => {
-      if (!ACCORDION_KEYS.includes(event.key)) {
-        emit('keydown', event)
-        return
-      }
-      const target = event.target as HTMLElement
-      const triggerCollection = getItems().filter(item => !item.ref.value?.disabled)
-      const triggerIndex = triggerCollection.findIndex(item => item.ref.value === target)
-      const triggerCount = triggerCollection.length
+    const handleKeyDown = composeEventHandlers<KeyboardEvent>(
+      event => emit('keydown', event),
+      (event) => {
+        if (!ACCORDION_KEYS.includes(event.key))
+          return
 
-      if (triggerIndex === -1) {
-        emit('keydown', event)
-        return
-      }
+        const target = event.target as HTMLElement
+        const triggerCollection = getItems().filter(item => !item.ref.value?.disabled)
+        const triggerIndex = triggerCollection.findIndex(item => item.ref.value === target)
+        const triggerCount = triggerCollection.length
 
-      // Prevents page scroll while user is navigating
-      event.preventDefault()
+        if (triggerIndex === -1)
+          return
 
-      let nextIndex = triggerIndex
-      const homeIndex = 0
-      const endIndex = triggerCount - 1
+        // Prevents page scroll while user is navigating
+        event.preventDefault()
 
-      const moveNext = () => {
-        nextIndex = triggerIndex + 1
-        if (nextIndex > endIndex)
-          nextIndex = homeIndex
-      }
+        let nextIndex = triggerIndex
+        const homeIndex = 0
+        const endIndex = triggerCount - 1
 
-      const movePrev = () => {
-        nextIndex = triggerIndex - 1
-        if (nextIndex < homeIndex)
-          nextIndex = endIndex
-      }
+        const moveNext = () => {
+          nextIndex = triggerIndex + 1
+          if (nextIndex > endIndex)
+            nextIndex = homeIndex
+        }
 
-      switch (event.key) {
-        case 'Home':
-          nextIndex = homeIndex
-          break
-        case 'End':
-          nextIndex = endIndex
-          break
-        case 'ArrowRight':
-          if (orientation.value === 'horizontal') {
-            if (isDirectionLTR)
+        const movePrev = () => {
+          nextIndex = triggerIndex - 1
+          if (nextIndex < homeIndex)
+            nextIndex = endIndex
+        }
+
+        switch (event.key) {
+          case 'Home':
+            nextIndex = homeIndex
+            break
+          case 'End':
+            nextIndex = endIndex
+            break
+          case 'ArrowRight':
+            if (orientation.value === 'horizontal') {
+              if (isDirectionLTR.value)
+                moveNext()
+              else
+                movePrev()
+            }
+            break
+          case 'ArrowDown':
+            if (orientation.value === 'vertical')
               moveNext()
 
-            else
+            break
+          case 'ArrowLeft':
+            if (orientation.value === 'horizontal') {
+              if (isDirectionLTR.value)
+                movePrev()
+
+              else
+                moveNext()
+            }
+            break
+          case 'ArrowUp':
+            if (orientation.value === 'vertical')
               movePrev()
-          }
-          break
-        case 'ArrowDown':
-          if (orientation.value === 'vertical')
-            moveNext()
 
-          break
-        case 'ArrowLeft':
-          if (orientation.value === 'horizontal') {
-            if (isDirectionLTR)
-              movePrev()
+            break
+        }
 
-            else
-              moveNext()
-          }
-          break
-        case 'ArrowUp':
-          if (orientation.value === 'vertical')
-            movePrev()
-
-          break
-      }
-
-      const clampedIndex = nextIndex % triggerCount
-      triggerCollection[clampedIndex].ref.value?.focus()
-
-      emit('keydown', event)
-    })
+        const clampedIndex = nextIndex % triggerCount
+        triggerCollection[clampedIndex].ref.value?.focus()
+      })
 
     const _reactive = reactive(accordionProps)
     const _accordionProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     AccordionImplProvider({
       scope: scopeOkuAccordion.value,
-      disabled: computed(() => disabled.value),
-      direction: computed(() => dir.value),
-      orientation: computed(() => orientation.value),
+      disabled,
+      direction: dir,
+      orientation,
     })
 
     return () => h(CollectionSlot, {
@@ -122,7 +118,7 @@ const accordionImpl = defineComponent({
         'data-orientation': orientation.value,
         'ref': composedRefs,
         'onKeydown': disabled.value ? undefined : handleKeyDown,
-      }, { default: () => slots.default?.() }),
+      }, slots),
     })
   },
 })

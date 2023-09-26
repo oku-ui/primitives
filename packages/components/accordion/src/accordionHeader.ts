@@ -34,7 +34,7 @@ const accordionHeader = defineComponent({
     return () => h(Primitive.h3, {
       'data-orientation': accordionInject.orientation.value,
       'data-state': getState(itemInject.open?.value),
-      'data-disabled': itemInject.disabled?.value,
+      'data-disabled': itemInject.disabled?.value ? '' : undefined,
       ...mergeProps(attrs, _headerProps),
       'ref': forwardRef,
 

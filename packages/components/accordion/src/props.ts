@@ -101,26 +101,25 @@ export type AccordionNativeElement = OkuElement<'div'>
 export type AccordionElement = HTMLDivElement
 
 export interface AccordionSingleProps extends AccordionImplSingleProps {
-  selectionType: 'single'
+  type: 'single'
 }
 
 export interface AccordionSingleEmits extends AccordionImplSingleEmits {
 }
 
 export interface AccordionMultipleProps extends AccordionImplMultipleProps {
-  selectionType: 'multiple'
+  type: 'multiple'
 }
 
 export interface AccordionMultipleEmits extends AccordionImplMultipleEmits {
 }
 export const accordionProps = {
   props: {
-
     value: {
       type: [String, Array, undefined] as PropType<string | string[] | undefined>,
       default: undefined,
     },
-    selectionType: {
+    type: {
       type: String as PropType<SelectionType>,
       default: 'single',
     },
@@ -209,7 +208,6 @@ export interface AccordionImplEmits {
 }
 export const accordionImplProps = {
   props: {
-
     disabled: {
       type: [Boolean, undefined] as PropType<boolean | undefined>,
       default: undefined,
@@ -260,6 +258,10 @@ export interface AccordionImplMultipleEmits extends AccordionImplEmits {
 export const accordionImplMultipleProps = {
   props: {
     ...accordionImplProps.props,
+    modelValue: {
+      type: [Array, undefined] as PropType<string[] | undefined>,
+      default: undefined,
+    },
     value: {
       type: [Array, undefined] as PropType<string[] | undefined>,
       default: undefined,
@@ -275,7 +277,9 @@ export const accordionImplMultipleProps = {
    * The callback that fires when the state of the accordion changes.
    */
     // eslint-disable-next-line unused-imports/no-unused-vars
-    valueChange: (value: string[]) => true,
+    'valueChange': (value: string[]) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: string[]) => true,
   },
 }
 
@@ -312,6 +316,10 @@ export interface AccordionImplSingleEmits extends AccordionImplEmits {
 export const accordionImplSingleProps = {
   props: {
     ...accordionImplProps.props,
+    modelValue: {
+      type: [String, undefined] as PropType<string | undefined>,
+      default: undefined,
+    },
     value: {
       type: [String, undefined] as PropType<string | undefined>,
       default: undefined,
@@ -331,7 +339,9 @@ export const accordionImplSingleProps = {
    * The callback that fires when the state of the accordion changes.
    */
     // eslint-disable-next-line unused-imports/no-unused-vars
-    valueChange: (value: string) => true,
+    'valueChange': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    'update:modelValue': (value: string) => true,
   },
 }
 /* -------------------------------------------------------------------------- */
@@ -361,11 +371,9 @@ export const accordionItemProps = {
     ...propsOmit(collapsibleProps.props, ['open', 'defaultOpen']),
     disabled: {
       type: [Boolean, undefined] as PropType<boolean | undefined>,
-      default: undefined,
     },
     value: {
       type: String as PropType<string>,
-      default: '',
     },
   },
   emits: {

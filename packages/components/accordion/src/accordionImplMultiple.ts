@@ -1,5 +1,4 @@
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import {
   ACCORDION_IMPL_MULTIPLE_NAME, AccordionCollapsibleProvider, type AccordionImplMultipleNativeElement, AccordionValueProvider, accordionImplMultipleProps,
@@ -11,7 +10,6 @@ const accordionImplMultiple = defineComponent({
   name: ACCORDION_IMPL_MULTIPLE_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...accordionImplMultipleProps.props,
     ...scopeAccordionProps,
   },
@@ -22,13 +20,17 @@ const accordionImplMultiple = defineComponent({
       defaultValue,
       ...accordionMultipleProps
     } = toRefs(props)
+
+    const modelValue = useModel(props, 'modelValue')
+    const proxyChecked = computed(() => valueProp.value !== undefined ? valueProp.value : modelValue.value !== undefined ? modelValue.value : undefined)
+
     const { state, updateValue } = useControllable({
-      prop: computed(() => valueProp.value),
+      prop: computed(() => proxyChecked.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result) => {
         emit('valueChange', result)
+        modelValue.value = result
       },
-      initialValue: undefined,
     })
 
     const forwardRef = useForwardRef()
@@ -52,15 +54,17 @@ const accordionImplMultiple = defineComponent({
         updateValue(state.value)
       },
     })
+
     AccordionCollapsibleProvider({
       scope: props.scopeOkuAccordion,
       collapsible: true,
     })
+
     return () => h(OkuAccordionImpl, {
       ...mergeProps(attrs, _accordionMultipleProps),
       ref: forwardRef,
     }, {
-      default: () => slots.default?.(),
+      default: slots.default?.(),
     })
   },
 })

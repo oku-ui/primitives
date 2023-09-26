@@ -1,5 +1,4 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef, useId } from '@oku-ui/use-composable'
 import { OkuCollapsible } from '@oku-ui/collapsible'
 import type { AccordionItemNativeElement } from './props'
@@ -16,11 +15,9 @@ const accordionItem = defineComponent({
   name: ITEM_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
     ...accordionItemProps.props,
     ...scopeAccordionProps,
   },
-  emits: accordionItemProps.emits,
   setup(props, { slots, attrs }) {
     const {
       scopeOkuAccordion, value: valueProp, ...accordionItemProps
@@ -44,21 +41,23 @@ const accordionItem = defineComponent({
       triggerId: computed(() => triggerId),
       disabled,
     })
+
     return () => h(OkuCollapsible, {
       'data-orientation': accordionInject.orientation.value,
       'data-state': getState(open.value),
-      ...mergeProps(attrs, collapsibleScope, _accordionItemProps),
+      ...collapsibleScope,
+      ...mergeProps(attrs, _accordionItemProps),
       'ref': forwardRef,
       'disabled': disabled.value,
       'open': open.value,
       'onOpenChange': (event) => {
         if (event)
-          valueInject.onItemOpen(valueProp.value)
+          valueInject.onItemOpen(valueProp.value as string)
 
         else
-          valueInject.onItemClose(valueProp.value)
+          valueInject.onItemClose(valueProp.value as string)
       },
-    }, { default: () => slots.default?.() })
+    }, slots)
   },
 })
 
