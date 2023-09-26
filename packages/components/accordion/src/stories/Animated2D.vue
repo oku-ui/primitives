@@ -9,14 +9,14 @@ const count = ref(1)
 
 <template>
   <div>
-    <OkuAccordion selection-type="single" class="rootClass">
-      <OkuAccordionItem v-for="item in values" :key="item" class="itemClass" :value="item">
-        <OkuAccordionHeader class="headerClass">
-          <OkuAccordionTrigger class="triggerClass">
+    <OkuAccordion selection-type="single" class="accordion-root">
+      <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
+        <OkuAccordionHeader class="accordion-header">
+          <OkuAccordionTrigger class="accordion-trigger">
             {{ item }}
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
-        <OkuAccordionContent class="animated2DContentClass">
+        <OkuAccordionContent class="accordion-animated-2D-content">
           <div v-for="index in count" :key="index" style="padding: 10px">
             <div style="padding: 10; background: whitesmoke; overflow: hidden">
               <div style="width: calc(20em - 20px); height: 100px">

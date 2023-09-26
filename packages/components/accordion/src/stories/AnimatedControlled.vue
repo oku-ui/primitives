@@ -11,10 +11,10 @@ function onValueChange(value: any) {
 
 <template>
   <div>
-    <OkuAccordion selection-type="multiple" class="rootClass" :value="values" @value-change="onValueChange">
-      <OkuAccordionItem class="itemClass" value="one">
-        <OkuAccordionHeader class="headerClass">
-          <OkuAccordionTrigger class="triggerClass">
+    <OkuAccordion selection-type="multiple" class="accordion-root" :value="values" @value-change="onValueChange">
+      <OkuAccordionItem class="accordion-item" value="one">
+        <OkuAccordionHeader class="accordion-header">
+          <OkuAccordionTrigger class="accordion-trigger">
             One
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
@@ -24,9 +24,9 @@ function onValueChange(value: any) {
           habitant sed.
         </OkuAccordionContent>
       </OkuAccordionItem>
-      <OkuAccordionItem class="itemClass" value="two">
-        <OkuAccordionHeader class="headerClass">
-          <OkuAccordionTrigger class="triggerClass">
+      <OkuAccordionItem class="accordion-item" value="two">
+        <OkuAccordionHeader class="accordion-header">
+          <OkuAccordionTrigger class="accordion-trigger">
             Two
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
@@ -35,9 +35,9 @@ function onValueChange(value: any) {
           porta nascetur ac dictum, leo tellus dis integer platea ultrices mi.
         </OkuAccordionContent>
       </OkuAccordionItem>
-      <OkuAccordionItem class="itemClass" value="three">
-        <OkuAccordionHeader class="headerClass">
-          <OkuAccordionTrigger class="triggerClass">
+      <OkuAccordionItem class="accordion-item" value="three">
+        <OkuAccordionHeader class="accordion-header">
+          <OkuAccordionTrigger class="accordion-trigger">
             Three
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
@@ -46,9 +46,9 @@ function onValueChange(value: any) {
           himenaeos euismod magna, nec tempor pulvinar eu etiam mattis.
         </OkuAccordionContent>
       </OkuAccordionItem>
-      <OkuAccordionItem class="itemClass" value="four">
-        <OkuAccordionHeader class="headerClass">
-          <OkuAccordionTrigger class="triggerClass">
+      <OkuAccordionItem class="accordion-item" value="four">
+        <OkuAccordionHeader class="accordion-header">
+          <OkuAccordionTrigger class="accordion-trigger">
             Four
           </OkuAccordionTrigger>
         </OkuAccordionHeader>

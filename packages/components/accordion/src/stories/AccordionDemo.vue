@@ -46,7 +46,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
 </template>
 
 <style>
-@keyframes slideDown {
+@keyframes accordion-slide-down {
   from {
     height: 0;
   }
@@ -56,7 +56,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-@keyframes slideUp {
+@keyframes accordion-slide-up {
   from {
     height: var(--oku-accordion-content-height);
   }
@@ -66,7 +66,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-@keyframes open2D {
+@keyframes accordion-open-2D {
   from {
     width: 0;
     height: 0;
@@ -78,7 +78,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-@keyframes close2D {
+@keyframes accordion-close-2D {
   from {
     width: var(--oku-accordion-content-width);
     height: var(--oku-accordion-content-height);
@@ -90,7 +90,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-.rootClass {
+.accordion-root {
   font-family: sans-serif;
 
   &[data-orientation="horizontal"] {
@@ -104,8 +104,8 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-/* itemClass */
-.itemClass {
+/* accordion-item */
+.accordion-item {
 
   &[data-orientation="horizontal"] {
     display: flex;
@@ -117,8 +117,8 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-/* headerClass */
-.headerClass {
+/* accordion-header */
+.accordion-header {
   margin: 0px;
 
   &[data-orientation="horizontal"] {
@@ -127,7 +127,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
 }
 
 /* RECOMMENDED_CSS__ACCORDION__TRIGGER */
-.triggerClass {
+.accordion-trigger {
   &[data-orientation="horizontal"] {
     height: 100%;
   }
@@ -167,8 +167,8 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-/* contentClass */
-.contentClass {
+/* accordion-content */
+.accordion-content {
   padding: 10px;
   line-height: 1.5;
 }
@@ -178,28 +178,28 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   overflow: hidden;
 
   &[data-state="open"] {
-    animation: slideDown 300ms ease-out;
+    animation: accordion-slide-down 300ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: slideUp 300ms ease-out;
+    animation: accordion-slide-up 300ms ease-out;
   }
 }
 
-/* animated2DContentClass */
-.animated2DContentClass {
+/* accordion-animated-2D-content */
+.accordion-animated-2D-content {
   overflow: hidden;
 
   &[data-state="open"] {
-    animation: open2D 1000ms ease-out;
+    animation: accordion-open-2D 1000ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: close2D 1000ms ease-out;
+    animation: accordion-close-2D 1000ms ease-out;
   }
 }
 
-.styles {
+.accordion-styles {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -221,7 +221,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-.rootAttrClass {
+.accordion-root-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -243,7 +243,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-.itemAttrClass {
+.accordion-item-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -265,7 +265,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-.headerAttrClass {
+.accordion-header-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -287,7 +287,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-.triggerAttrClass {
+.accordion-trigger-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -309,7 +309,7 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   }
 }
 
-.contentAttrClass {
+.accordion-content-attr {
   /* ensure we can see the content (because it has `hidden` attribute) */
   display: block;
 

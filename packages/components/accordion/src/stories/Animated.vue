@@ -36,10 +36,10 @@ watchEffect(() => {
       Dynamic content
     </label>
     <h1>Closed by default</h1>
-    <OkuAccordion selection-type="single" class="rootClass">
-      <OkuAccordionItem v-for="item in values" :key="item" class="itemClass" :value="item">
-        <OkuAccordionHeader class="headerClass">
-          <OkuAccordionTrigger class="triggerClass">
+    <OkuAccordion selection-type="single" class="accordion-root">
+      <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
+        <OkuAccordionHeader class="accordion-header">
+          <OkuAccordionTrigger class="accordion-trigger">
             {{ item }}
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
@@ -53,10 +53,10 @@ watchEffect(() => {
       </OkuAccordionItem>
     </OkuAccordion>
     <h1>Open by default</h1>
-    <OkuAccordion selection-type="single" class="rootClass" default-value="One">
-      <OkuAccordionItem v-for="item in values" :key="item" class="itemClass" :value="item">
-        <OkuAccordionHeader class="headerClass">
-          <OkuAccordionTrigger class="triggerClass">
+    <OkuAccordion selection-type="single" class="accordion-root" default-value="One">
+      <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
+        <OkuAccordionHeader class="accordion-header">
+          <OkuAccordionTrigger class="accordion-trigger">
             {{ item }}
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
