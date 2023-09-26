@@ -44,15 +44,18 @@ const accordion = defineComponent({
       return h(CollectionProvider, {
         scope: props.scopeOkuAccordion,
       },
-      type.value === 'multiple'
-        ? h(OkuAccordionImplMultiple, {
-          ...mergeProps(attrs, reactiveProps),
-          ref: forwardRef,
-        }, slots)
-        : h(OkuAccordionImplSingle, {
-          ...mergeProps(attrs, reactiveProps),
-          ref: forwardRef,
-        }, slots))
+      {
+        default: () => type.value === 'multiple'
+          ? h(OkuAccordionImplMultiple, {
+            ...mergeProps(attrs, reactiveProps),
+            ref: forwardRef,
+          }, slots)
+          : h(OkuAccordionImplSingle, {
+            ...mergeProps(attrs, reactiveProps),
+            ref: forwardRef,
+          }, slots),
+      },
+      )
     }
   },
 })
