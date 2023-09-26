@@ -50,6 +50,9 @@ importers:
 
   .:
     devDependencies:
+      '@clack/prompts':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@egoist/tailwindcss-icons':
         specifier: ^1.1.0
         version: 1.1.0(tailwindcss@3.3.3)
@@ -575,6 +578,9 @@ importers:
 
   packages/components/primitives:
     dependencies:
+      '@oku-ui/alert-dialog':
+        specifier: workspace:^
+        version: link:../alert-dialog
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
         version: link:../aspect-ratio
@@ -2964,6 +2970,23 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@clack/core@0.3.3:
+    resolution: {integrity: sha512-5ZGyb75BUBjlll6eOa1m/IZBxwk91dooBWhPSL67sWcLS0zt9SnswRL0l26TVdBhb0wnWORRxUn//uH6n4z7+A==}
+    dependencies:
+      picocolors: 1.0.0
+      sisteransi: 1.0.5
+    dev: true
+
+  /@clack/prompts@0.7.0:
+    resolution: {integrity: sha512-0MhX9/B4iL6Re04jPrttDm+BsP8y6mS7byuv0BvXgdXhbV5PdlsHt55dvNsuBCPZ7xq1oTAOOuotR9NFbQyMSA==}
+    dependencies:
+      '@clack/core': 0.3.3
+      picocolors: 1.0.0
+      sisteransi: 1.0.5
+    dev: true
+    bundledDependencies:
+      - is-unicode-supported
 
   /@cloudflare/kv-asset-handler@0.3.0:
     resolution: {integrity: sha512-9CB/MKf/wdvbfkUdfrj+OkEwZ5b7rws0eogJ4293h+7b6KX5toPwym+VQKmILafNB9YiehqY0DlNrDcDhdWHSQ==}
@@ -16227,7 +16250,7 @@ packages:
       vue-router:
         optional: true
     dependencies:
-      '@babel/types': 7.22.17
+      '@babel/types': 7.23.0
       '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
       '@vue-macros/common': 1.8.0(rollup@3.29.0)(vue@3.3.4)
       ast-walker-scope: 0.4.2
