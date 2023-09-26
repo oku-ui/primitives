@@ -33,7 +33,7 @@ const accordionTrigger = defineComponent({
 
     const forwardRef = useForwardRef()
 
-    const disabled = computed(() => (itemInject.open?.value && !collapsibleInject.collapsible) || undefined)
+    const disabled = computed(() => (itemInject.open?.value && !collapsibleInject.collapsible.value) || undefined)
 
     return () => h(CollectionItemSlot, {
       scope: scopeOkuAccordion.value,

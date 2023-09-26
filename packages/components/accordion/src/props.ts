@@ -1,4 +1,5 @@
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { ref } from 'vue'
 import type { PropType, Ref } from 'vue'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
@@ -74,7 +75,7 @@ export const [AccordionValueProvider, useAccordionValueInject]
 
 export const [AccordionCollapsibleProvider, useAccordionCollapsibleInject] = createAccordionProvider(
   ACCORDION_NAME,
-  { collapsible: false },
+  { collapsible: ref(false) },
 )
 type AccordionImplContextValue = {
   disabled?: Ref<boolean | undefined>
