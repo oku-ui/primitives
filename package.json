@@ -41,6 +41,7 @@
     "@clack/prompts": "^0.7.0",
     "@egoist/tailwindcss-icons": "^1.1.0",
     "@iconify-json/ph": "^1.1.6",
+    "@oku-ui/accordion": "workspace:^",
     "@oku-ui/alert-dialog": "workspace:^",
     "@oku-ui/arrow": "workspace:^",
     "@oku-ui/aspect-ratio": "workspace:^",
@@ -124,6 +125,7 @@
   },
   "pnpm": {
     "overrides": {
+      "@oku-ui/accordion": "workspace:^",
       "@oku-ui/alert-dialog": "workspace:^",
       "@oku-ui/arrow": "workspace:^",
       "@oku-ui/aspect-ratio": "workspace:^",

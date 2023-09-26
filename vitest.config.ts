@@ -40,6 +40,7 @@ export default defineConfig({
       '@oku-ui/tabs': 'packages/components/tabs/src',
       '@oku-ui/dialog': 'packages/components/dialog/src',
       '@oku-ui/primitives': 'packages/components/primitives/src',
+      '@oku-ui/accordion': 'packages/components/accordion/src',
 
       '@oku-ui/dismissable-layer': 'packages/core/dismissable-layer/src',
       '@oku-ui/roving-focus': 'packages/core/roving-focus/src',
