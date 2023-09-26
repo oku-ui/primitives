@@ -30,6 +30,9 @@ export const primitivesPackageNames = [
   'toggle-group',
   'toolbar',
   'tooltip',
+  'accordion',
+  'alert-dialog',
+  'scroll-area',
 ]
 
 export const components = {
@@ -52,6 +55,9 @@ export const components = {
   'toggle-group': ['OkuToggleGroup', 'OkuToggleGroupItem'],
   'toolbar': ['OkuToolbar', 'OkuToolbarButton', 'OkuToolbarLink', 'OkuToolbarSeparator', 'OkuToolbarToggleGroup'],
   'tooltip': ['OkuTooltip', 'OkuTooltipArrow', 'OkuTooltipContent', 'OkuTooltipPortal', 'OkuTooltipProvider', 'OkuTooltipTrigger'],
+  'accordion': ['OkuAccordion', 'OkuAccordionContent', 'OkuAccordionHeader', 'OkuAccordionImpl', 'OkuAccordionImplSingle', 'OkuAccordionImplMultiple', 'OkuAccordionItem', 'OkuAccordionTrigger'],
+  'alert-dialog': ['OkuAlertDialog', 'OkuAlertDialogAction', 'OkuAlertDialogCancel', 'OkuAlertDialogContent', 'OkuAlertDialogDescription', 'OkuAlertDialogDescriptionWarning', 'OkuAlertDialogOverlay', 'OkuAlertDialogPortal', 'OkuAlertDialogTitle', 'OkuAlertDialogTrigger'],
+  'scroll-area': ['OkuScrollArea', 'OkuScrollAreaCorner', 'OkuScrollAreaCornerImpl', 'OkuScrollAreaScrollbar', 'OkuScrollAreaScrollbarAuto', 'OkuScrollAreaScrollbarX', 'OkuScrollAreaScrollbarY', 'OkuScrollAreaScrollbarHover', 'OkuScrollAreaScrollbarImpl', 'OkuScrollAreaScrollbarScroll', 'OkuScrollAreaScrollbarVisible', 'OkuScrollAreaThumb', 'OkuScrollAreaThumbImpl', 'OkuScrollAreaViewport'],
 }
 
 export async function getMainPackageJSON(nuxt = useNuxt()) {
