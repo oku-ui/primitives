@@ -19,209 +19,318 @@ withDefaults(defineProps<OkuAccordionProps>(), {
 </script>
 
 <template>
-  <div v-if="template === 'Single' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Single' || allshow">
     <Single />
   </div>
-  <div v-if="template === 'Multiple' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Multiple' || allshow">
     <Multiple />
   </div>
-  <div v-if="template === 'Animated' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Animated' || allshow">
     <Animated />
   </div>
-  <div v-if="template === 'Animated2D' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Animated2D' || allshow">
     <Animated2D />
   </div>
-  <div v-if="template === 'AnimatedControlled' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'AnimatedControlled' || allshow">
     <AnimatedControlled />
   </div>
-  <div v-if="template === 'OutsideViewport' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'OutsideViewport' || allshow">
     <OutsideViewport />
   </div>
-  <div v-if="template === 'Horizontal' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Horizontal' || allshow">
     <Horizontal />
   </div>
-  <div v-if="template === 'Chromatic' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Chromatic' || allshow">
     <Chromatic />
   </div>
 </template>
 
 <style>
-  @keyframes slideDown {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--oku-accordion-content-height);
-    }
+@keyframes slideDown {
+  from {
+    height: 0;
   }
 
-  @keyframes slideUp {
-    from {
-      height: var(--oku-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
+  to {
+    height: var(--oku-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--oku-accordion-content-height);
   }
 
-  @keyframes open2D {
-    from {
-      width: 0;
-      height: 0;
-    }
-    to {
-      width: var(--oku-accordion-content-width);
-      height: var(--oku-accordion-content-height);
-    }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes open2D {
+  from {
+    width: 0;
+    height: 0;
   }
 
-  @keyframes close2D {
-    from {
-      width: var(--oku-accordion-content-width);
-      height: var(--oku-accordion-content-height);
-    }
-    to {
-      width: 0;
-      height: 0;
-    }
+  to {
+    width: var(--oku-accordion-content-width);
+    height: var(--oku-accordion-content-height);
+  }
+}
+
+@keyframes close2D {
+  from {
+    width: var(--oku-accordion-content-width);
+    height: var(--oku-accordion-content-height);
   }
 
-  .rootClass {
-    font-family: sans-serif;
+  to {
+    width: 0;
+    height: 0;
   }
+}
 
-  .rootClass[data-orientation="horizontal"] {
+.rootClass {
+  font-family: sans-serif;
+
+  &[data-orientation="horizontal"] {
     display: flex;
     max-width: 40em;
     height: 50vh;
   }
 
-  .rootClass[data-orientation="vertical"] {
+  &[data-orientation="vertical"] {
     max-width: 20em;
   }
+}
 
-  /* itemClass */
-  .itemClass {
+/* itemClass */
+.itemClass {
+
+  &[data-orientation="horizontal"] {
+    display: flex;
     border-right: 1px solid white;
   }
 
-  .itemClass[data-orientation="horizontal"] {
-    display: flex;
-  }
-
-  .itemClass[data-orientation="vertical"] {
+  &[data-orientation="vertical"] {
     border-bottom: 1px solid white;
   }
+}
 
-  /* headerClass */
-  .headerClass {
-    margin: 0;
-  }
+/* headerClass */
+.headerClass {
+  margin: 0px;
 
-  .headerClass[data-orientation="horizontal"] {
+  &[data-orientation="horizontal"] {
     height: 100%;
   }
+}
 
-  /* RECOMMENDED_CSS__ACCORDION__TRIGGER */
-  .triggerClass {
+/* RECOMMENDED_CSS__ACCORDION__TRIGGER */
+.triggerClass {
+  &[data-orientation="horizontal"] {
     height: 100%;
+  }
+  &[data-orientation="vertical"] {
     width: 100%;
-    text-align: inherit;
   }
+  text-align: inherit;
 
-  .triggerClass[data-orientation="vertical"] {
-    width: 100%;
-  }
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-family: inherit;
+  font-size: 1.2em;
+  --shadow-color: crimson;
 
-  .triggerClass[data-orientation="horizontal"] {
-    height: 100%;
-  }
-
-  /* triggerClass */
-  .triggerClass {
-    box-sizing: border-box;
-    appearance: none;
-    border: none;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    font-family: inherit;
-    font-size: 1.2em;
-    --shadow-color: crimson;
-  }
-
-  .triggerClass:focus {
+  &:focus {
     outline: none;
     box-shadow: inset 0 -5px 0 0 var(--shadow-color);
     color: red;
   }
 
-  .triggerClass[data-disabled] {
+  &[data-disabled] {
     color: gray;
   }
 
-  .triggerClass[data-state="open"] {
+  &[data-state="open"] {
     background-color: red;
     color: white;
-  }
 
-  .triggerClass[data-state="open"]:focus {
-    --shadow-color: #111;
-    color: black;
+    &:focus {
+      --shadow-color: #111;
+      color: black;
+    }
   }
+}
 
-  /* contentClass */
-  .contentClass {
-    padding: 10px;
-    line-height: 1.5;
-  }
+/* contentClass */
+.contentClass {
+  padding: 10px;
+  line-height: 1.5;
+}
 
-  /* animatedContentClass */
-  .animatedContentClass {
-    overflow: hidden;
-  }
+/* animatedContentClass */
+.animatedContentClass {
+  overflow: hidden;
 
-  .animatedContentClass[data-state="open"] {
+  &[data-state="open"] {
     animation: slideDown 300ms ease-out;
   }
 
-  .animatedContentClass[data-state="closed"] {
+  &[data-state="closed"] {
     animation: slideUp 300ms ease-out;
   }
+}
 
-  /* animated2DContentClass */
-  .animated2DContentClass {
-    overflow: hidden;
-  }
+/* animated2DContentClass */
+.animated2DContentClass {
+  overflow: hidden;
 
-  .animated2DContentClass[data-state="open"] {
+  &[data-state="open"] {
     animation: open2D 1000ms ease-out;
   }
 
-  .animated2DContentClass[data-state="closed"] {
+  &[data-state="closed"] {
     animation: close2D 1000ms ease-out;
   }
+}
 
-  /* styles */
-  .styles {
-    background-color: rgba(0, 0, 255, 0.3);
-    border: 2px solid blue;
-    padding: 10px;
-  }
+.styles {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
 
-  .styles[data-state="closed"] {
+  &[data-state="closed"] {
     border-color: red;
   }
 
-  .styles[data-state="open"] {
+  &[data-state="open"] {
     border-color: green;
   }
 
-  .styles[data-disabled] {
+  &[data-disabled] {
     border-style: dashed;
   }
 
-  :disabled {
+  &:disabled {
     opacity: 0.5;
   }
+}
+
+.rootAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.itemAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.headerAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.triggerAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.contentAttrClass {
+  /* ensure we can see the content (because it has `hidden` attribute) */
+  display: block;
+
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
 </style>

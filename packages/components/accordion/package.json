@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/accordion",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.0.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -44,9 +44,7 @@
     "@oku-ui/provide": "latest",
     "@oku-ui/roving-focus": "latest",
     "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest",
-    "@types/node": "^18.17.12",
-    "aria-hidden": "^1.1.1"
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

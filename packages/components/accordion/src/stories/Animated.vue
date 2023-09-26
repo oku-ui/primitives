@@ -3,15 +3,13 @@ import { ref, watchEffect } from 'vue'
 import { OkuAccordion, OkuAccordionContent, OkuAccordionHeader, OkuAccordionItem, OkuAccordionTrigger } from '@oku-ui/accordion'
 
 const values = ref(['One', 'Two', 'Three', 'Four'])
-
 const count = ref(1)
-
 const hasDynamicContent = ref(false)
+const timerRef = ref()
 
-// TODO: has problem with count
 watchEffect(() => {
   if (hasDynamicContent.value) {
-    const timer = window.setTimeout(() => {
+    timerRef.value = window.setTimeout(() => {
       const nextCount = count.value < 5 ? count.value + 1 : count.value
 
       if (nextCount === 5)
@@ -21,7 +19,7 @@ watchEffect(() => {
     }, 3000)
 
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timerRef.value)
     }
   }
 })
