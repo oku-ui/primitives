@@ -63,9 +63,7 @@ const accordionImplMultiple = defineComponent({
     return () => h(OkuAccordionImpl, {
       ...mergeProps(attrs, _accordionMultipleProps),
       ref: forwardRef,
-    }, {
-      default: slots.default?.(),
-    })
+    }, slots)
   },
 })
 

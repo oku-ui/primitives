@@ -173,8 +173,8 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   line-height: 1.5;
 }
 
-/* animatedContentClass */
-.animatedContentClass {
+/* accordion-animated-content */
+.accordion-animated-content {
   overflow: hidden;
 
   &[data-state="open"] {

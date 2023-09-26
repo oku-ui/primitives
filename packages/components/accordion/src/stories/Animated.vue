@@ -31,7 +31,6 @@ watchEffect(() => {
       <input
         v-model="hasDynamicContent"
         type="checkbox"
-        :checked="hasDynamicContent"
       >
       Dynamic content
     </label>
@@ -43,7 +42,7 @@ watchEffect(() => {
             {{ item }}
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
-        <OkuAccordionContent class="animatedContentClass">
+        <OkuAccordionContent class="accordion-animated-content">
           <div v-for="index in count" :key="index" style="padding: 10px">
             Per erat orci nostra luctus sociosqu mus risus penatibus, duis elit vulputate
             viverra integer ullamcorper congue curabitur sociis, nisi malesuada scelerisque
@@ -60,7 +59,7 @@ watchEffect(() => {
             {{ item }}
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
-        <OkuAccordionContent class="animatedContentClass">
+        <OkuAccordionContent class="accordion-animated-content">
           <div v-for="index in count" :key="index" style="padding: 10px">
             Per erat orci nostra luctus sociosqu mus risus penatibus, duis elit vulputate
             viverra integer ullamcorper congue curabitur sociis, nisi malesuada scelerisque

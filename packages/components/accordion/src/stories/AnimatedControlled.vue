@@ -18,7 +18,7 @@ function onValueChange(value: any) {
             One
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
-        <OkuAccordionContent class="animatedContentClass">
+        <OkuAccordionContent class="accordion-animated-content">
           Per erat orci nostra luctus sociosqu mus risus penatibus, duis elit vulputate viverra
           integer ullamcorper congue curabitur sociis, nisi malesuada scelerisque quam suscipit
           habitant sed.
@@ -30,7 +30,7 @@ function onValueChange(value: any) {
             Two
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
-        <OkuAccordionContent class="animatedContentClass">
+        <OkuAccordionContent class="accordion-animated-content">
           Cursus sed mattis commodo fermentum conubia ipsum pulvinar sagittis, diam eget bibendum
           porta nascetur ac dictum, leo tellus dis integer platea ultrices mi.
         </OkuAccordionContent>
@@ -41,7 +41,7 @@ function onValueChange(value: any) {
             Three
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
-        <OkuAccordionContent class="animatedContentClass">
+        <OkuAccordionContent class="accordion-animated-content">
           Sociis hac sapien turpis conubia sagittis justo dui, inceptos penatibus feugiat
           himenaeos euismod magna, nec tempor pulvinar eu etiam mattis.
         </OkuAccordionContent>
@@ -52,7 +52,7 @@ function onValueChange(value: any) {
             Four
           </OkuAccordionTrigger>
         </OkuAccordionHeader>
-        <OkuAccordionContent class="animatedContentClass">
+        <OkuAccordionContent class="accordion-animated-content">
           Odio placerat <a href="#">quisque</a> sapien sagittis non sociis ligula penatibus
           dignissim vitae, enim vulputate nullam semper potenti etiam volutpat libero.
           <button>Cool</button>
