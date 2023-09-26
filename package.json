@@ -18,6 +18,7 @@
     "build": "pnpm nx run-many -t build",
     "build:skip": "pnpm nx run-many -t build --skip-nx-cache",
     "p:build": "tsup",
+    "oku": "pnpm jiti ./scripts/index.ts",
     "story": "pnpm storybook dev -p 6006 --no-open",
     "lint": "eslint . --cache ",
     "lint:fix": "eslint . --fix --cache",
@@ -37,6 +38,7 @@
     "update:version": "esno scripts/update-version.ts"
   },
   "devDependencies": {
+    "@clack/prompts": "^0.7.0",
     "@egoist/tailwindcss-icons": "^1.1.0",
     "@iconify-json/ph": "^1.1.6",
     "@oku-ui/accordion": "workspace:^",

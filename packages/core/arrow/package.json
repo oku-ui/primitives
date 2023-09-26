@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/arrow",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",

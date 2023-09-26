@@ -1,12 +1,12 @@
 import { defineComponent, toRefs, watchEffect } from 'vue'
 
-import { CONTENT_NAME, DESCRIPTION_NAME, DESCRIPTION_WARNING_NAME, dialogDescriptionWarningProps } from './props'
+import { CONTENT_NAME, DESCRIPTION_NAME, DESCRIPTION_WARNING_NAME, alertDialogDescriptionWarningProps } from './props'
 
 const alertDialogDescriptionWarning = defineComponent({
   name: DESCRIPTION_WARNING_NAME,
   inheritAttrs: false,
   props: {
-    ...dialogDescriptionWarningProps.props,
+    ...alertDialogDescriptionWarningProps.props,
   },
   setup(props, { attrs: _attrs }) {
     const { contentRef } = toRefs(props)
