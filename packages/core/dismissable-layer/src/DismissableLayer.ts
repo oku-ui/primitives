@@ -116,7 +116,7 @@ const DismissableLayer = defineComponent({
 
       if (!event.defaultPrevented)
         emit('dismiss')
-    }, ownerDocument.value)
+    }, ownerDocument)
 
     watchEffect(async (onInvalidate) => {
       if (!node.value)
