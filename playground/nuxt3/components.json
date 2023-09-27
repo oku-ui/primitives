@@ -1,0 +1,126 @@
+[
+  {
+    "name": "AccordionDemo",
+    "path": "/accordion"
+  },
+  {
+    "name": "AlertDialogDemo",
+    "path": "/alert-dialog"
+  },
+  {
+    "name": "AspectRatioDemo",
+    "path": "/aspect-ratio"
+  },
+  {
+    "name": "AvatarDemo",
+    "path": "/avatar"
+  },
+  {
+    "name": "CheckboxDemo",
+    "path": "/checkbox"
+  },
+  {
+    "name": "CollapsibleDemo",
+    "path": "/collapsible"
+  },
+  {
+    "name": "DialogDemo",
+    "path": "/dialog"
+  },
+  {
+    "name": "HoverCardDemo",
+    "path": "/hover-card"
+  },
+  {
+    "name": "LabelDemo",
+    "path": "/label"
+  },
+  {
+    "name": "PopoverDemo",
+    "path": "/popover"
+  },
+  {
+    "name": "ProgressDemo",
+    "path": "/progress"
+  },
+  {
+    "name": "RadioGroupDemo",
+    "path": "/radio-group"
+  },
+  {
+    "name": "SeparatorDemo",
+    "path": "/separator"
+  },
+  {
+    "name": "SliderDemo",
+    "path": "/slider"
+  },
+  {
+    "name": "SwitchDemo",
+    "path": "/switch"
+  },
+  {
+    "name": "TabsDemo",
+    "path": "/tabs"
+  },
+  {
+    "name": "ToastDemo",
+    "path": "/toast"
+  },
+  {
+    "name": "ToggleDemo",
+    "path": "/toggle"
+  },
+  {
+    "name": "ToggleGroupDemo",
+    "path": "/toggle-group"
+  },
+  {
+    "name": "ToolbarDemo",
+    "path": "/toolbar"
+  },
+  {
+    "name": "TooltipDemo",
+    "path": "/tooltip"
+  },
+  {
+    "name": "ArrowDemo",
+    "path": "/arrow"
+  },
+  {
+    "name": "CollectionDemo",
+    "path": "/collection"
+  },
+  {
+    "name": "DismissableLayerDemo",
+    "path": "/dismissable-layer"
+  },
+  {
+    "name": "FocusScopeDemo",
+    "path": "/focus-scope"
+  },
+  {
+    "name": "PopperDemo",
+    "path": "/popper"
+  },
+  {
+    "name": "PortalDemo",
+    "path": "/portal"
+  },
+  {
+    "name": "PresenceDemo",
+    "path": "/presence"
+  },
+  {
+    "name": "RovingFocusDemo",
+    "path": "/roving-focus"
+  },
+  {
+    "name": "SlotDemo",
+    "path": "/slot"
+  },
+  {
+    "name": "VisuallyHiddenDemo",
+    "path": "/visually-hidden"
+  }
+]

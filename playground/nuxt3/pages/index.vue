@@ -125,12 +125,12 @@ const pages: Page[] = [
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-6">
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem;">
     <nuxt-link
       v-for="page in pages"
       :key="page.name"
       :to="page.path"
-      class="bg-cyan-900 hover:text-white text-white cursor-pointer hover:bg-cyan-700 py-4 rounded-lg px-4"
+      style="background-color: #2b6cb0; color: #fff; cursor: pointer; padding-top: 1rem; padding-bottom: 1rem; padding-left: 1.5rem; padding-right: 1.5rem; border-radius: 0.375rem;"
     >
       {{ page.name }}
     </nuxt-link>
