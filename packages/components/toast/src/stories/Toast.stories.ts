@@ -8,7 +8,7 @@ interface StoryProps extends IToastProps { }
 const meta = {
   title: 'Components/Toast',
   component: OkuToastComponent,
-  tags: ['autodocs'],
+
   args: {
     template: 'Styled',
   },

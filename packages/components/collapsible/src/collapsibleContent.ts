@@ -57,7 +57,6 @@ const collapsibleContent = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    // TODO: Transition
     const originalReturn = () => h(
       OkuPresence,
       {
@@ -70,10 +69,7 @@ const collapsibleContent = defineComponent({
             ...mergeProps(attrs, reactiveContentProps),
             ref: forwardedRef,
             present: isPresent.value,
-          },
-          {
-            default: () => slots.default && slots.default(),
-          },
+          }, slots,
         ),
       },
     )

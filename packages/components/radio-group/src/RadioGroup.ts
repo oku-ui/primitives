@@ -126,7 +126,7 @@ const radioGroup = defineComponent({
     const reactiveGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuRadioGroup.value)
-    const direction = useDirection(dir.value)
+    const direction = useDirection(dir)
 
     const forwardedRef = useForwardRef()
     const modelValue = useModel(props, 'modelValue')

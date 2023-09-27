@@ -10,7 +10,7 @@ const meta = {
     template: '#1',
   },
   component: OkuSwitchComponent,
-  tags: ['autodocs'],
+
 } satisfies Meta<typeof OkuSwitchComponent> & {
   args: StoryProps
 }

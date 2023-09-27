@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRefs, watch } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
@@ -61,8 +61,7 @@ const collapsibleContentImpl = defineComponent({
       cancelAnimationFrame(rAf.value)
     })
 
-    watch([isOpen, isPresent], async () => {
-      await nextTick()
+    watchEffect(async () => {
       const node = _ref.value
       if (node) {
         originalStylesRef.value = originalStylesRef.value || {
@@ -77,6 +76,7 @@ const collapsibleContentImpl = defineComponent({
         const rect = node.getBoundingClientRect()
         heightRef.value = rect.height
         widthRef.value = rect.width
+        await nextTick()
 
         // kick off any animations/transitions that were originally set up if it isn't the initial mount
         if (!isMountAnimationPreventedRef.value) {

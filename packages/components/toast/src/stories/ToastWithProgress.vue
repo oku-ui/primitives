@@ -8,7 +8,7 @@ const duration = ref(3000)
 
 <template>
   <OkuToast
-    class="toast"
+    class="toast-toast"
     :duration="duration"
     @pause="paused = true"
     @resume="paused = false"

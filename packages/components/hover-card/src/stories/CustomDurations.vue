@@ -18,11 +18,11 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
     </h2>
 
     <OkuHoverCard>
-      <OkuHoverCardTrigger href="/" class="triggerClass underline">
+      <OkuHoverCardTrigger href="/" class="hover-card-trigger underline">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="contentClass">
+        <OkuHoverCardContent class="content">
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>
@@ -32,11 +32,11 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
       Custom (instant, 0ms open, 0ms close)
     </h2>
     <OkuHoverCard :open-delay="0" :close-delay="0">
-      <OkuHoverCardTrigger href="/" class="triggerClass underline">
+      <OkuHoverCardTrigger href="/" class="hover-card-trigger underline">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="contentClass">
+        <OkuHoverCardContent class="content">
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>
@@ -47,11 +47,11 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
     </h2>
 
     <OkuHoverCard :open-delay="300" :close-delay="100">
-      <OkuHoverCardTrigger href="/" class="triggerClass underline">
+      <OkuHoverCardTrigger href="/" class="hover-card-trigger underline">
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="contentClass">
+        <OkuHoverCardContent class="content">
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>

@@ -15,7 +15,12 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
     "types": [
-      "vite/client"
+      "vite/client",
+      "node"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
