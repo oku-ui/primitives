@@ -1,5 +1,6 @@
 {
   "name": "nuxt3-playground",
+  "type": "module",
   "private": true,
   "scripts": {
     "p:build": "nuxt build",

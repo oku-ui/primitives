@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <SlotDemo allshow />
-  </div>
+  <div><SlotDemo allshow /></div>
 </template>

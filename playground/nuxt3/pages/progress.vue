@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <ProgressDemo allshow />
-  </div>
+  <div><ProgressDemo allshow /></div>
 </template>
