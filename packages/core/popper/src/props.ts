@@ -19,11 +19,14 @@ export const scopePopperProps = {
   },
 }
 
+export const POPPER_NAME = 'OkuPopper'
+export const ARROW_NAME = 'OkuPopperArrow'
+export const CONTENT_NAME = 'OkuPopperContent'
+export const ANCHOR_NAME = 'OkuPopperAnchor'
+
 /* -------------------------------------------------------------------------- */
 /*                            OkuPopper - popper.ts                           */
 /* -------------------------------------------------------------------------- */
-
-export const POPPER_NAME = 'OkuPopper'
 
 export const [createPopperProvider, createPopperScope]
   = createProvideScope(POPPER_NAME)
@@ -42,8 +45,6 @@ export interface PopperProps {
 /* -------------------------------------------------------------------------- */
 /*                         OkuPopperAnchor - popperAnchor.ts                  */
 /* -------------------------------------------------------------------------- */
-
-export const ANCHOR_NAME = 'OkuPopperAnchor'
 
 export type PopperAnchorNaviteElement = OkuElement<'div'>
 export type PopperAnchorElement = HTMLDivElement
@@ -68,8 +69,6 @@ export const popperAnchorProps = {
 /* -------------------------------------------------------------------------- */
 /*                         OkuPopperContent - popperContent.ts                */
 /* -------------------------------------------------------------------------- */
-
-export const CONTENT_NAME = 'OkuPopperContent'
 
 type PopperContentContextValue = {
   placedSide: Ref<Side | undefined>
@@ -180,8 +179,6 @@ export const popperContentProps = {
 /* -------------------------------------------------------------------------- */
 /*                         OkuPopperArrow - popperArrow.ts                    */
 /* -------------------------------------------------------------------------- */
-
-export const ARROW_NAME = 'OkuPopperArrow'
 
 export const OPPOSITE_SIDE: Record<Side, Side> = {
   top: 'bottom',
