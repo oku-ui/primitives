@@ -25,7 +25,7 @@ import {
 } from './props'
 import { useTypeaheadSearch } from './useTypeAheadSearch'
 import { OPEN_KEYS, findNextItem, shouldShowPlaceholder } from './utils'
-import type { ItemData } from './types'
+import type { ItemData, SelectTriggerElement } from './types'
 
 const SelectTrigger = defineComponent({
   name: TRIGGER_NAME,
@@ -174,4 +174,9 @@ const SelectTrigger = defineComponent({
         },
       )
   },
+})
+
+export const OkuSelectTrigger = SelectTrigger as typeof SelectTrigger &
+(new () => {
+  $props: SelectTriggerElement
 })

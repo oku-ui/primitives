@@ -117,3 +117,18 @@ export const selectTriggerProps = {
     keydown: (event: KeyboardEvent) => true,
   },
 }
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectValue
+ * ----------------------------------------------------------------------------------------------- */
+
+export const VALUE_NAME = 'OkuSelectValue'
+
+export const selectValueProps = {
+  props: {
+    placeholder: {
+      type: [String, Object] as PropType<string | object>,
+      default: '',
+    },
+  },
+}

@@ -38,13 +38,13 @@
   },
   "dependencies": {
     "@oku-ui/collection": "latest",
+    "@oku-ui/direction": "latest",
     "@oku-ui/focus-scope": "latest",
     "@oku-ui/popper": "latest",
     "@oku-ui/portal": "latest",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
     "@oku-ui/slot": "latest",
-    "@oku-ui/direction": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
     "@oku-ui/visually-hidden": "latest"

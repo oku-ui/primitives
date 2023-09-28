@@ -6,7 +6,6 @@ export type SelectNativeElement = OkuElement<'select'>
 
 export type Direction = 'ltr' | 'rtl'
 
-export type SelectValueElement = OkuElement<'span'>
 export type SelectItemElement = OkuElement<'div'>
 
 export type SelectProvideValue = {
@@ -89,4 +88,12 @@ export interface SelectTriggerProps extends PrimitiveProps {
    * @defaultValue undefined
    */
   disabled?: boolean
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectValue
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectValueElement = OkuElement<'span'>
+export interface SelectValueProps extends PrimitiveProps {
+  placeholder?: string | Record<string, unknown>
 }
