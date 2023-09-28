@@ -70,6 +70,8 @@ pnpm play:nuxt # Run the playground with Nuxt
 pnpm clean: all # Clean all node_modules
 pnpm clean:dist # Clean dist folder in all packages
 pnpm clean:dts # Clean dts folder in all packages
+
+pnpm oku # Run Oku CLI (packages/cli) // pnpm oku publish (publish packages)
 ``` 
 
 ## Testing

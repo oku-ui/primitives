@@ -46,12 +46,12 @@ function handelAnimatedOpen() {
         Slide down
       </option>
     </select>
-    <OkuToast v-model="open" class="toast animated-toast">
+    <OkuToast v-model="open" class="animatedRoot">
       <OkuToastDescription>Swipe me {{ swipeDirection }}</OkuToastDescription>
       <OkuToastClose class="button">
         Dismiss
       </OkuToastClose>
     </OkuToast>
-    <OkuToastViewport class="viewport" />
+    <OkuToastViewport class="toast-viewport" />
   </OkuToastProvider>
 </template>

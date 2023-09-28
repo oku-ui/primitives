@@ -58,7 +58,7 @@ export interface IToastProps {
 </template>
 
 <style>
-.viewport {
+.toast-viewport {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -72,7 +72,7 @@ export interface IToastProps {
   list-style: none;
 }
 
-.toast {
+.toast-toast {
   position: relative;
   overflow: hidden;
   list-style: none;
@@ -84,7 +84,7 @@ export interface IToastProps {
   font-size: 12px;
 }
 
-.header {
+.toast-header {
   padding: 5px 10px;
   margin: -10px -10px 10px;
   background: black;
@@ -95,12 +95,12 @@ export interface IToastProps {
   align-items: center;
 }
 
-.title {
+.toast-title {
   font-size: inherit;
   font-weight: normal;
 }
 
-.description {
+.toast-description {
   margin: 0;
 }
 
@@ -110,13 +110,14 @@ export interface IToastProps {
   background: gainsboro;
   font-family: inherit;
   padding: 2px 5px;
-}
 
-.button:hover,
-.button:focus {
-  background: royalblue;
-  border-color: darkblue;
-  color: white;
+  &:hover,
+  &:focus {
+    background: royalblue;
+    border-color: darkblue;
+    color: white;
+  }
+
 }
 
 .close {
@@ -129,7 +130,7 @@ export interface IToastProps {
   padding: 0;
 }
 
-@keyframes fadeIn {
+@keyframes toast-fadeIn {
   from {
     opacity: 0;
   }
@@ -139,7 +140,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes fadeOut {
+@keyframes toast-fadeOut {
   from {
     opacity: 1;
   }
@@ -149,7 +150,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideRight {
+@keyframes toast-slideRight {
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
@@ -159,7 +160,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideLeft {
+@keyframes toast-slideLeft {
   from {
     transform: translateX(var(--oku-toast-swipe-end-x));
   }
@@ -169,7 +170,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideUp {
+@keyframes toast-slideUp {
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
@@ -179,7 +180,7 @@ export interface IToastProps {
   }
 }
 
-@keyframes slideDown {
+@keyframes toast-slideDown {
   from {
     transform: translateY(var(--oku-toast-swipe-end-y));
   }
@@ -189,46 +190,53 @@ export interface IToastProps {
   }
 }
 
-.error-toast {
+.toast-errorToast {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-[data-state="open"] {
-  animation: fadeIn 200ms ease-out;
+.animatedRoot {
+  &[data-state="open"] {
+    animation: toast-fadeIn 200ms ease-out;
+  }
+
+  &[data-state="closed"] {
+    animation: toast-fadeOut 200ms ease-out;
+  }
+
+  &[data-swipe="move"] {
+    transform: translate(var(--oku-toast-swipe-move-x), var(--oku-toast-swipe-move-y));
+  }
+
+  &[data-swipe="cancel"] {
+    transform: translate(0, 0);
+    transition: transform 200ms ease-out;
+  }
+
+  &[data-swipe="end"] {
+    animation-duration: 300ms;
+    animation-timing-function: ease-out;
+
+    &[data-swipe-direction="right"] {
+      animation-name: toast-slideRight;
+    }
+
+    &[data-swipe-direction="left"] {
+      animation-name: toast-slideLeft;
+    }
+
+    &[data-swipe-direction="up"] {
+      animation-name: toast-slideUp;
+    }
+
+    &[data-swipe-direction="down"] {
+      animation-name: toast-slideDown;
+    }
+  }
 }
 
-[data-state="closed"] {
-  animation: fadeOut 200ms ease-out;
-}
-
-[data-swipe="move"] {
-  transform: translate(var(--oku-toast-swipe-move-x), var(--oku-toast-swipe-move-y));
-}
-
-[data-swipe="cancel"] {
-  transform: translate(0, 0);
-  transition: transform 200ms ease-out;
-}
-
-[data-swipe="end"][data-swipe-direction="right"] {
-  animation-name: slideRight;
-}
-
-[data-swipe="end"][data-swipe-direction="left"] {
-  animation-name: slideLeft;
-}
-
-[data-swipe="end"][data-swipe-direction="up"] {
-  animation-name: slideUp;
-}
-
-[data-swipe="end"][data-swipe-direction="down"] {
-  animation-name: slideDown;
-}
-
-.chromatic-viewport {
+.toast-chromatic-toast-viewport {
   display: inline-flex;
   border: 5px solid royalblue;
   flex-direction: column;

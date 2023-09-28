@@ -14,20 +14,20 @@ const count = ref(0)
       :style="{ display: 'flex', justifyContent: 'space-between', maxWidth: '700px', margin: 'auto' }"
     >
       <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
-        Focusable before viewport
+        Focusable before toast-viewport
       </button>
 
       <OkuToast
         v-for="(_, index) in count"
         :key="index"
         open
-        class="toast"
+        class="toast-toast"
         :data-testid="`toast-${index + 1}`"
       >
-        <OkuToastTitle class="title">
+        <OkuToastTitle class="toast-title">
           Toast {{ index + 1 }} title
         </OkuToastTitle>
-        <OkuToastDescription class="description">
+        <OkuToastDescription class="toast-description">
           Toast {{ index + 1 }} description
         </OkuToastDescription>
 
@@ -42,10 +42,10 @@ const count = ref(0)
           Toast button {{ index + 1 }}.2
         </OkuToastAction>
       </OkuToast>
-      <OkuToastViewport class="viewport" />
+      <OkuToastViewport class="toast-viewport" />
 
       <button type="button" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
-        Focusable after viewport
+        Focusable after toast-viewport
       </button>
     </div>
   </OkuToastProvider>

@@ -15,8 +15,10 @@
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/primitives": "workspace:^",
     "@oku-ui/progress": "workspace:^",
     "@oku-ui/roving-focus": "workspace:^",
+    "@oku-ui/scroll-area": "workspace:^",
     "@oku-ui/separator": "workspace:^",
     "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
@@ -31,6 +33,6 @@
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.7",
-    "vue-tsc": "^1.8.10"
+    "vue-tsc": "^1.8.11"
   }
 }
