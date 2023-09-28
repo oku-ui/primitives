@@ -60,8 +60,7 @@ describe('OkuAlertDialog', () => {
     const wrapper = () => mount(OkuAlertDialogDescription)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('Missing required prop: "contentRef"')
   })
 
   it('OkuAlertDialogDescriptionWarning renders correctly', () => {
@@ -113,7 +112,7 @@ describe('OkuAlertDialog', () => {
         attachTo: document.body,
       })
 
-      await wrapper.find('[class="triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-trigger"]').trigger('click')
       await nextTick()
     })
 
@@ -133,7 +132,7 @@ describe('OkuAlertDialog', () => {
     })
 
     it('should be able to close', async () => {
-      await wrapper.find('[class="triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-trigger"]').trigger('click')
       await nextTick()
       expect(document.body).toMatchSnapshot()
     })
@@ -147,7 +146,7 @@ describe('OkuAlertDialog', () => {
         attachTo: document.body,
       })
 
-      await wrapper.find('[class="triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-trigger"]').trigger('click')
       await nextTick()
     })
 
@@ -168,7 +167,7 @@ describe('OkuAlertDialog', () => {
     })
 
     it('should be able to close', async () => {
-      await wrapper.find('[class="triggerClass"]').trigger('click')
+      await wrapper.find('[class="alert-dialog-trigger"]').trigger('click')
       await nextTick()
       expect(document.body).toMatchSnapshot()
     })

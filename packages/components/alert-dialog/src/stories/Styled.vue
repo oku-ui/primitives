@@ -8,22 +8,22 @@ import {
 <template>
   <div>
     <OkuAlertDialog>
-      <OkuAlertDialogTrigger class="triggerClass">
+      <OkuAlertDialogTrigger class="alert-dialog-trigger">
         delete everything
       </OkuAlertDialogTrigger>
       <OkuAlertDialogPortal>
-        <OkuAlertDialogOverlay class="overlayClass" />
-        <OkuAlertDialogContent class="contentClass">
-          <OkuAlertDialogTitle class="titleClass">
+        <OkuAlertDialogOverlay class="alert-dialog-overlay" />
+        <OkuAlertDialogContent class="alert-dialog-content">
+          <OkuAlertDialogTitle class="alert-dialog-title">
             Are you sure?
           </OkuAlertDialogTitle>
-          <OkuAlertDialogDescription class="descriptionClass">
+          <OkuAlertDialogDescription class="alert-dialog-description">
             This will do a very dangerous thing. Thar be dragons!
           </OkuAlertDialogDescription>
-          <OkuAlertDialogAction class="actionClass">
+          <OkuAlertDialogAction class="alert-dialog-action">
             yolo, do it
           </OkuAlertDialogAction>
-          <OkuAlertDialogCancel class="cancelClass">
+          <OkuAlertDialogCancel class="alert-dialog-cancel">
             maybe not
           </OkuAlertDialogCancel>
         </OkuAlertDialogContent>

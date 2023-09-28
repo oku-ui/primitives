@@ -176,7 +176,7 @@ export const alertDialogDescriptionProps = {
 export type DescriptionWarningProps = {
   contentRef: HTMLDivElement
 }
-export const dialogDescriptionWarningProps = {
+export const alertDialogDescriptionWarningProps = {
   props: {
     contentRef: {
       type: [Object, null] as PropType<HTMLDivElement | null>,

@@ -153,14 +153,6 @@ function sendForm(event: any) {
   -webkit-transition: 0.4s;
   transition: background-color 166ms ease-out;
 
-  &:focus {
-    @apply outline-none shadow-sm;
-  }
-
-  &[data-state="checked"] {
-    @apply bg-green-700 border-green-500;
-  }
-
   &[data-disabled] {
     opacity: 0.5;
   }

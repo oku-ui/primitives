@@ -17,7 +17,10 @@ export type SelectPackage =
 'toggle' |
 'toggle-group' |
 'toolbar' |
-'tooltip'
+'tooltip' |
+'accordion' |
+'alert-dialog' |
+'scroll-area'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {

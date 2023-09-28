@@ -7,16 +7,16 @@ defineProps({
 </script>
 
 <template>
-  <OkuToast class="toast" :open="open">
+  <OkuToast class="toast-toast" :open="open">
     <div class="header success-header">
-      <OkuToastTitle class="title">
+      <OkuToastTitle class="toast-title">
         Success!
       </OkuToastTitle>
       <OkuToastClose class="button close" aria-label="Close">
         <span aria-hidden>×</span>
       </OkuToastClose>
     </div>
-    <OkuToastDescription class="description">
+    <OkuToastDescription class="toast-description">
       You have subscribed. We'll be in touch.
     </OkuToastDescription>
   </OkuToast>

@@ -14,19 +14,19 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
         <h1>Uncontrolled</h1>
         <h2>Closed</h2>
         <OkuDialog>
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
           <OkuDialogPortal>
-            <OkuDialogOverlay class="overlayClass" />
-            <OkuDialogContent class="chromaticContentClass">
+            <OkuDialogOverlay class="dialog-overlay" />
+            <OkuDialogContent class="dialog-chromaticContent">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
@@ -35,22 +35,22 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
 
         <h2>Open</h2>
         <OkuDialog :default-open="true">
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
           <OkuDialogPortal>
             <OkuDialogOverlay
-              class="overlayClass" style=" left: 0; bottom: 50%; width: 25%
+              class="dialog-overlay" style=" left: 0; bottom: 50%; width: 25%
             ;"
             />
-            <OkuDialogContent class="chromaticContentClass" style="top: 25%; left:12%;">
+            <OkuDialogContent class="dialog-chromaticContent" style="top: 25%; left:12%;">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
@@ -62,20 +62,20 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
         <h2>Closed</h2>
         <OkuDialog>
           <OkuDialogPortal>
-            <OkuDialogOverlay class="overlayClass" />
-            <OkuDialogContent class="chromaticContentClass">
+            <OkuDialogOverlay class="dialog-overlay" />
+            <OkuDialogContent class="dialog-chromaticContent">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
           </OkuDialogPortal>
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
         </OkuDialog>
@@ -84,22 +84,22 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
         <OkuDialog :default-open="true">
           <OkuDialogPortal>
             <OkuDialogOverlay
-              class="overlayClass" style=" left: 25%; bottom: 50%; width: 25%
+              class="dialog-overlay" style=" left: 25%; bottom: 50%; width: 25%
             ;"
             />
-            <OkuDialogContent class="chromaticContentClass" style="top: 25%; left:37%;">
+            <OkuDialogContent class="dialog-chromaticContent" style="top: 25%; left:37%;">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
           </OkuDialogPortal>
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
         </OkuDialog>
@@ -108,19 +108,19 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
         <h1>Controlled</h1>
         <h2>Closed</h2>
         <OkuDialog :open="false">
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
           <OkuDialogPortal>
-            <OkuDialogOverlay class="overlayClass" />
-            <OkuDialogContent class="chromaticContentClass">
+            <OkuDialogOverlay class="dialog-overlay" />
+            <OkuDialogContent class="dialog-chromaticContent">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
@@ -129,22 +129,22 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
 
         <h2>Open</h2>
         <OkuDialog :open="true">
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
           <OkuDialogPortal>
             <OkuDialogOverlay
-              class="overlayClass" style=" left: 50%; bottom: 50%; width: 25%
+              class="dialog-overlay" style=" left: 50%; bottom: 50%; width: 25%
             ;"
             />
-            <OkuDialogContent class="chromaticContentClass" style="top: 25%; left:62%;">
+            <OkuDialogContent class="dialog-chromaticContent" style="top: 25%; left:62%;">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
@@ -156,20 +156,20 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
         <h2>Closed</h2>
         <OkuDialog :open="false">
           <OkuDialogPortal>
-            <OkuDialogOverlay class="overlayClass" />
-            <OkuDialogContent class="chromaticContentClass">
+            <OkuDialogOverlay class="dialog-overlay" />
+            <OkuDialogContent class="dialog-chromaticContent">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
           </OkuDialogPortal>
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
         </OkuDialog>
@@ -178,22 +178,22 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
         <OkuDialog :open="true">
           <OkuDialogPortal>
             <OkuDialogOverlay
-              class="overlayClass" style=" left: 75%; bottom: 50%; width: 25%
+              class="dialog-overlay" style=" left: 75%; bottom: 50%; width: 25%
             ;"
             />
-            <OkuDialogContent class="chromaticContentClass" style="top: 25%; left:88%;">
+            <OkuDialogContent class="dialog-chromaticContent" style="top: 25%; left:88%;">
               <OkuDialogTitle>
                 Title
               </OkuDialogTitle>
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
           </OkuDialogPortal>
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
         </OkuDialog>
@@ -208,18 +208,18 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
       <div>
         <h1>Forced mount</h1>
         <OkuDialog>
-          <OkuDialogTrigger class="triggerClass">
+          <OkuDialogTrigger class="dialog-trigger">
             open
           </OkuDialogTrigger>
           <OkuDialogPortal :force-mount="true">
             <OkuDialogOverlay
-              class="overlayClass" style="
+              class="dialog-overlay" style="
                 top: 50%;
                 background-color: rgba(0, 0, 0, 0.3);
               "
             />
             <OkuDialogContent
-              class="chromaticContentClass"
+              class="dialog-chromaticContent"
               style="left: 25%; top: 75%;"
             >
               <OkuDialogTitle>
@@ -228,7 +228,7 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeClass">
+              <OkuDialogClose class="dialog-close">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
@@ -239,15 +239,15 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
         <h1>State attributes</h1>
         <h2>Closed</h2>
         <OkuDialog>
-          <OkuDialogTrigger class="triggerAttrClass">
+          <OkuDialogTrigger class="dialog-triggerAttr">
             open
           </OkuDialogTrigger>
           <OkuDialogPortal>
             <OkuDialogOverlay
-              class="overlayAttrClass"
+              class="dialog-overlayAttr"
             />
             <OkuDialogContent
-              class="contentAttrClass"
+              class="dialog-contentAttr"
             >
               <OkuDialogTitle>
                 Title
@@ -255,7 +255,7 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeAttrClass">
+              <OkuDialogClose class="dialog-closeAttr">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
@@ -264,15 +264,15 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
 
         <h2>Open</h2>
         <OkuDialog :default-open="true">
-          <OkuDialogTrigger class="triggerAttrClass">
+          <OkuDialogTrigger class="dialog-triggerAttr">
             open
           </OkuDialogTrigger>
           <OkuDialogPortal>
             <OkuDialogOverlay
-              class="overlayAttrClass" style="left: 50%;top: 50%;"
+              class="dialog-overlayAttr" style="left: 50%;top: 50%;"
             />
             <OkuDialogContent
-              class="contentAttrClass" style="left: 75%;top: 75%;"
+              class="dialog-contentAttr" style="left: 75%;top: 75%;"
             >
               <OkuDialogTitle>
                 Title
@@ -280,7 +280,7 @@ import { OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuD
               <OkuDialogDescription>
                 Description
               </OkuDialogDescription>
-              <OkuDialogClose class="closeAttrClass">
+              <OkuDialogClose class="dialog-closeAttr">
                 close
               </OkuDialogClose>
             </OkuDialogContent>
