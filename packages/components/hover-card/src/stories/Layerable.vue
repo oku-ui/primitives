@@ -19,23 +19,23 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
 </script>
 
 <template>
-  <div style="padding: 50px; display: 'flex'; justify-content: 'center'">
+  <div style="padding: 50px; text-align: center;">
     <OkuDialog>
       <OkuDialogTrigger>Open</OkuDialogTrigger>
       <OkuDialogContent
-        style="
-          position: 'fixed';
-          top: '50%';
-          left: '50%';
-          transform: 'translate(-50%, -50%)';
-          background: 'white';
-          border: '1px solid';
-          border-radius: '4px';
-          padding: '20px';
-        "
+        :style="{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: 'white',
+          border: '1px solid',
+          borderRadius: '4px',
+          padding: '20px',
+        }"
       >
         <OkuDialogTitle>Some dialog title</OkuDialogTitle>
-        Some dialog content with a{' '}
+        Some dialog content with a
         <OkuHoverCard>
           <OkuHoverCardTrigger href="/" class="hover-card-trigger">
             trigger

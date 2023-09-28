@@ -100,7 +100,7 @@ const template = 'flex flex-col justify-center'
 
 .hover-card-animatedContent {
   transform-origin: var(--oku-hover-card-content-transform-origin);
-  background-color: #f9fafb;
+  background-color: #5d9bda;
   padding: 20px;
   border-radius: 5px;
   &[data-state='open'] {
