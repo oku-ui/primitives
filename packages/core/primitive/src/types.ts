@@ -25,6 +25,7 @@ export const NODES = [
   'span',
   'svg',
   'ul',
+  'select',
 ] as const
 
 export interface NodeElementTagNameMap {
@@ -44,6 +45,7 @@ export interface NodeElementTagNameMap {
   span: HTMLSpanElement
   svg: SVGSVGElement
   ul: HTMLUListElement
+  select: HTMLSelectElement
 }
 
 export type ElementConstructor<P> =
@@ -64,11 +66,17 @@ export type RefElement<T extends abstract new (...args: any) => any> = Omit<
   keyof ComponentPublicInstance | 'class' | 'style'
 >
 
-export type InstanceTypeRef<C extends abstract new (...args: any) => any, T> = Omit<InstanceType<C>, '$el'> & {
+export type InstanceTypeRef<
+  C extends abstract new (...args: any) => any,
+  T,
+> = Omit<InstanceType<C>, '$el'> & {
   $el: T
 }
 
-export type ComponentPublicInstanceRef<T> = Omit<ComponentPublicInstance, '$el'> & {
+export type ComponentPublicInstanceRef<T> = Omit<
+  ComponentPublicInstance,
+  '$el'
+> & {
   $el: T
 }
 
@@ -89,24 +97,39 @@ export interface PrimitiveProps {
 // > = PropsWithoutRef<ComponentPropsOptions<T>>
 
 export type Primitives = {
-  [E in (typeof NODES)[number]]: DefineComponent<{
-    asChild?: boolean
-  } & IntrinsicElementAttributes[E]> & NodeElementTagNameMap[E] & AriaAttributes
+  [E in (typeof NODES)[number]]: DefineComponent<
+    {
+      asChild?: boolean
+    } & IntrinsicElementAttributes[E]
+  > &
+  NodeElementTagNameMap[E] &
+  AriaAttributes;
 }
 
 export type ElementType<T extends keyof IntrinsicElementAttributes> = Partial<
   IntrinsicElementAttributes[T]
 >
 
-export type StyleOmit<T extends HTMLElement> = Partial<Omit<T, 'style'> & {
-  style?: StyleValue
-}> & AriaAttributes
+export type StyleOmit<T extends HTMLElement> = Partial<
+  Omit<T, 'style'> & {
+    style?: StyleValue
+  }
+> &
+AriaAttributes
 
-type OmitElementEvents<T extends keyof NodeElementTagNameMap> = Omit<NodeElementTagNameMap[T], Lowercase<keyof Events> | 'style'>
+type OmitElementEvents<T extends keyof NodeElementTagNameMap> = Omit<
+  NodeElementTagNameMap[T],
+  Lowercase<keyof Events> | 'style'
+>
 
-export type OkuElement<T extends keyof NodeElementTagNameMap, TA extends boolean = true> = {
-  [K in keyof OmitElementEvents<T>]?: OmitElementEvents<T>[K]
-} & Partial<IntrinsicElementAttributes[T]> & (TA extends true ? ReservedProps : object) & Partial<AriaAttributes>
+export type OkuElement<
+  T extends keyof NodeElementTagNameMap,
+  TA extends boolean = true,
+> = {
+  [K in keyof OmitElementEvents<T>]?: OmitElementEvents<T>[K];
+} & Partial<IntrinsicElementAttributes[T]> &
+(TA extends true ? ReservedProps : object) &
+Partial<AriaAttributes>
 
 /**
  * Wraps an array around itself at a given start index
@@ -197,7 +220,13 @@ export interface AriaAttributes {
    */
   'aria-grabbed'?: Booleanish
   /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
-  'aria-haspopup'?: Booleanish | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog'
+  'aria-haspopup'?:
+  | Booleanish
+  | 'menu'
+  | 'listbox'
+  | 'tree'
+  | 'grid'
+  | 'dialog'
   /**
    * Indicates whether the element is exposed to an accessibility API.
    * @see aria-disabled.
@@ -262,7 +291,12 @@ export interface AriaAttributes {
    * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
    * @see aria-atomic.
    */
-  'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text'
+  'aria-relevant'?:
+  | 'additions'
+  | 'additions text'
+  | 'all'
+  | 'removals'
+  | 'text'
   /** Indicates that user input is required on the element before a form may be submitted. */
   'aria-required'?: Booleanish
   /** Defines a human-readable, author-localized description for the role of an element. */

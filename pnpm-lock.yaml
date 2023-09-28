@@ -776,6 +776,9 @@ importers:
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:../../core/collection
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../../core/direction
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:../../core/focus-scope
