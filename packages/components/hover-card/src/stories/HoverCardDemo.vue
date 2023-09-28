@@ -23,45 +23,43 @@ export interface OkuHoverCardProps {
 withDefaults(defineProps<OkuHoverCardProps>(), {
   template: 'Basic',
 })
-
-const template = 'flex flex-col justify-center'
 </script>
 
 <template>
-  <div v-if="template === 'Basic' || allshow" :class="template">
+  <div v-if="template === 'Basic' || allshow">
     <Basic />
   </div>
-  <div v-if="template === 'ContainTextSelection' || allshow" :class="template">
+  <div v-if="template === 'ContainTextSelection' || allshow">
     <ContainTextSelection />
   </div>
-  <div v-if="template === 'AsyncUpdate' || allshow" :class="template">
+  <div v-if="template === 'AsyncUpdate' || allshow">
     <AsyncUpdate />
   </div>
-  <div v-if="template === 'CustomDurations' || allshow" :class="template">
+  <div v-if="template === 'CustomDurations' || allshow">
     <CustomDurations />
   </div>
-  <div v-if="template === 'Controlled' || allshow" :class="template">
+  <div v-if="template === 'Controlled' || allshow">
     <Controlled />
   </div>
-  <div v-if="template === 'Layerable' || allshow" :class="template">
+  <div v-if="template === 'Layerable' || allshow">
     <Layerable />
   </div>
-  <div v-if="template === 'Animated' || allshow" :class="template">
+  <div v-if="template === 'Animated' || allshow">
     <Animated />
   </div>
-  <div v-if="template === 'ForcedMount' || allshow" :class="template">
+  <div v-if="template === 'ForcedMount' || allshow">
     <ForcedMount />
   </div>
-  <div v-if="template === 'Nested' || allshow" :class="template">
+  <div v-if="template === 'Nested' || allshow">
     <Nested />
   </div>
-  <div v-if="template === 'NonPortal' || allshow" :class="template">
+  <div v-if="template === 'NonPortal' || allshow">
     <NonPortal />
   </div>
-  <div v-if="template === 'WithSlottedTrigger' || allshow" :class="template">
+  <div v-if="template === 'WithSlottedTrigger' || allshow">
     <WithSlottedTrigger />
   </div>
-  <div v-if="template === 'WithSlottedContent' || allshow" :class="template">
+  <div v-if="template === 'WithSlottedContent' || allshow">
     <WithSlottedContent />
   </div>
 </template>
@@ -69,7 +67,7 @@ const template = 'flex flex-col justify-center'
 <style lang="postcss">
 .hover-card-trigger {}
 
-.content {
+.hover-card-content {
   transform-origin: var(--oku-hover-card-content-transform-origin);
   background-color: #5d9bda;
   padding: 20px;
@@ -79,8 +77,13 @@ const template = 'flex flex-col justify-center'
 .hover-card-arrow {
   fill: #f9fafb;
 }
+
+@keyframes hover-card-fadeIn {
+  from {
     transform: scale(0.9);
+    opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -92,6 +95,7 @@ const template = 'flex flex-col justify-center'
     transform: scale(1);
     opacity: 1;
   }
+
   to {
     transform: scale(0.9);
     opacity: 0;
@@ -100,12 +104,14 @@ const template = 'flex flex-col justify-center'
 
 .hover-card-animatedContent {
   transform-origin: var(--oku-hover-card-content-transform-origin);
-  background-color: #5d9bda;
+  background-color: #f9fafb;
   padding: 20px;
   border-radius: 5px;
+
   &[data-state='open'] {
     animation: hover-card-fadeIn 250ms ease;
   }
+
   &[data-state='closed'] {
     animation: hover-card-fadeOut 250ms ease;
   }
@@ -148,9 +154,11 @@ const template = 'flex flex-col justify-center'
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
+
   &[data-state='closed'] {
     border-color: red;
   }
+
   &[data-state='open'] {
     border-color: green;
   }
@@ -160,9 +168,11 @@ const template = 'flex flex-col justify-center'
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
+
   &[data-state='closed'] {
     border-color: red;
   }
+
   &[data-state='open'] {
     border-color: green;
   }
@@ -179,9 +189,11 @@ const template = 'flex flex-col justify-center'
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
+
   &[data-state='closed'] {
     border-color: red;
   }
+
   &[data-state='open'] {
     border-color: green;
   }
@@ -192,9 +204,11 @@ const template = 'flex flex-col justify-center'
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
+
   &[data-state='closed'] {
     border-color: red;
   }
+
   &[data-state='open'] {
     border-color: green;
   }

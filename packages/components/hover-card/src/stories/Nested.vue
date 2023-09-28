@@ -16,7 +16,7 @@ import {
 
     <OkuHoverCardPortal>
       <OkuHoverCardContent
-        class="content"
+        class="hover-card-content"
         :side-offset="5"
         :style="{ backgroundColor: 'crimson' }"
       >
@@ -26,7 +26,7 @@ import {
           </OkuHoverCardTrigger>
           <OkuHoverCardPortal>
             <OkuHoverCardContent
-              class="content"
+              class="hover-card-content"
               side="top"
               align="center"
               :side-offset="5"
@@ -45,7 +45,7 @@ import {
                 </OkuHoverCardTrigger>
                 <OkuHoverCardPortal>
                   <OkuHoverCardContent
-                    class="content"
+                    class="hover-card-content"
                     side="bottom"
                     align="start"
                     :side-offset="5"

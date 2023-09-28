@@ -22,7 +22,7 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="content">
+        <OkuHoverCardContent class="hover-card-content">
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>
@@ -36,7 +36,7 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="content">
+        <OkuHoverCardContent class="hover-card-content">
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>
@@ -51,7 +51,7 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="content">
+        <OkuHoverCardContent class="hover-card-content">
           <CardContentPlaceholder />
         </OkuHoverCardContent>
       </OkuHoverCardPortal>

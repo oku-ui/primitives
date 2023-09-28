@@ -40,7 +40,7 @@ onBeforeUnmount(() => {
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="content" :side-offset="5">
+        <OkuHoverCardContent class="hover-card-content" :side-offset="5">
           <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" />
           <template v-if="contentLoaded">
             <CardContentPlaceholder />

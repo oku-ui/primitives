@@ -16,7 +16,7 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
         triggers
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal force-mount>
-        <OkuHoverCardContent class="content" :side-offset="10">
+        <OkuHoverCardContent class="hover-card-content" :side-offset="10">
           <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" />
           <CardContentPlaceholder />
         </OkuHoverCardContent>

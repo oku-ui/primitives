@@ -23,7 +23,7 @@ const open = ref(false)
         trigger
       </OkuHoverCardTrigger>
       <OkuHoverCardPortal>
-        <OkuHoverCardContent class="content">
+        <OkuHoverCardContent class="hover-card-content">
           <OkuHoverCardArrow class="hover-card-arrow" :width="20" :height="10" />
           <CardContentPlaceholder />
         </OkuHoverCardContent>
