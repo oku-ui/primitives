@@ -19,31 +19,17 @@ import {
     }"
   >
     <OkuPopover>
-      <OkuPopoverTrigger class="triggerClass">
+      <OkuPopoverTrigger class="popover-trigger">
         open
       </OkuPopoverTrigger>
       <OkuPopoverPortal>
-        <Transition name="fade">
-          <OkuPopoverContent class="animatedContentClass" :side-offset="10">
-            <OkuPopoverClose class="closeClass">
-              close
-            </OkuPopoverClose>
-            <OkuPopoverArrow class="arrowClass" :width="20" :height="10" />
-          </OkuPopoverContent>
-        </Transition>
+        <OkuPopoverContent class="popover-animatedContent" :side-offset="10">
+          <OkuPopoverClose class="popover-close">
+            close
+          </OkuPopoverClose>
+          <OkuPopoverArrow class="popover-arrow" :width="20" :height="10" />
+        </OkuPopoverContent>
       </OkuPopoverPortal>
     </OkuPopover>
   </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

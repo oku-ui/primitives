@@ -19,15 +19,15 @@ import {
     }"
   >
     <OkuPopover>
-      <OkuPopoverTrigger class="triggerClass">
+      <OkuPopoverTrigger class="popover-trigger">
         open
       </OkuPopoverTrigger>
-      <OkuPopoverPortal>
-        <OkuPopoverContent class="contentClass" :side-offset="5">
-          <OkuPopoverClose class="closeClass">
+      <OkuPopoverPortal force-mount>
+        <OkuPopoverContent class="popover-content" :side-offset="10">
+          <OkuPopoverClose class="popover-close">
             close
           </OkuPopoverClose>
-          <OkuPopoverArrow class="arrowClass" :width="20" :height="10" />
+          <OkuPopoverArrow class="popover-arrow" :width="20" :height="10" />
         </OkuPopoverContent>
       </OkuPopoverPortal>
     </OkuPopover>

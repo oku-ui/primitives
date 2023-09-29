@@ -5,6 +5,8 @@ import Modality from './Modality.vue'
 import Controlled from './Controlled.vue'
 import VControlled from './VControlled.vue'
 import Animated from './Animated.vue'
+import ForcedMount from './ForcedMount.vue'
+import Nested from './Nested.vue'
 
 export interface OkuPopoverProps {
   template: 'Styled'
@@ -13,6 +15,8 @@ export interface OkuPopoverProps {
   | 'Controlled'
   | 'VControlled'
   | 'Animated'
+  | 'ForcedMount'
+  | 'Nested'
   allshow?: boolean
 }
 
@@ -40,6 +44,12 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   </div>
   <div v-if="template === 'Animated' || allshow">
     <Animated />
+  </div>
+  <div v-if="template === 'ForcedMount' || allshow">
+    <ForcedMount />
+  </div>
+  <div v-if="template === 'Nested' || allshow">
+    <Nested />
   </div>
 </template>
 
@@ -80,15 +90,15 @@ withDefaults(defineProps<OkuPopoverProps>(), {
 }
 
 .popover-animatedContent {
-   transform-origin: var(--oku-popover-content-transform-origin);
+  transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
   border-radius: 5px;
 
-  & [data-state='open'] {
+  &[data-state='open'] {
     animation: popover-fadeIn 300ms ease-out;
   }
-  & [data-state='closed'] {
+  &[data-state='closed'] {
     animation: popover-fadeOut 300ms ease-in;
   }
 }

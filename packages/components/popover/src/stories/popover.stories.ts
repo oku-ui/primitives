@@ -115,3 +115,33 @@ export const Animated: Story = {
     `,
   }),
 }
+
+export const ForcedMount: Story = {
+  args: {
+    template: 'ForcedMount',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const Nested: Story = {
+  args: {
+    template: 'Nested',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}

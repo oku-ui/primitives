@@ -28,18 +28,18 @@ import {
       >
         <h1>Non modal (default)</h1>
         <OkuPopover>
-          <OkuPopoverTrigger class="triggerClass">
+          <OkuPopoverTrigger class="popover-trigger">
             open
           </OkuPopoverTrigger>
           <OkuPopoverPortal>
             <OkuPopoverContent
-              class="contentClass"
+              class="popover-content"
               :side-offset="5"
             >
-              <OkuPopoverClose class="closeClass">
+              <OkuPopoverClose class="popover-close">
                 close
               </OkuPopoverClose>
-              <OkuPopoverArrow class="arrowClass" :width="20" :height="10" :offset="10" />
+              <OkuPopoverArrow class="popover-arrow" :width="20" :height="10" :offset="10" />
             </OkuPopoverContent>
           </OkuPopoverPortal>
         </OkuPopover>
@@ -57,18 +57,18 @@ import {
       >
         <h1>Modal</h1>
         <OkuPopover modal>
-          <OkuPopoverTrigger class="triggerClass">
+          <OkuPopoverTrigger class="popover-trigger">
             open
           </OkuPopoverTrigger>
           <OkuPopoverPortal>
             <OkuPopoverContent
-              class="contentClass"
+              class="popover-content"
               :side-offset="5"
             >
-              <OkuPopoverClose class="closeClass">
+              <OkuPopoverClose class="popover-close">
                 close
               </OkuPopoverClose>
-              <OkuPopoverArrow class="arrowClass" :width="20" :height="10" :offset="10" />
+              <OkuPopoverArrow class="popover-arrow" :width="20" :height="10" :offset="10" />
             </OkuPopoverContent>
           </OkuPopoverPortal>
         </OkuPopover>
