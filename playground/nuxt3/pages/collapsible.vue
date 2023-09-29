@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <CollapsibleDemo allshow />
-  </div>
+  <div><CollapsibleDemo allshow /></div>
 </template>

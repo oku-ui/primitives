@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <PopperDemo allshow />
+  <div><PopperDemo allshow /></div>
 </template>

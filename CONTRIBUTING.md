@@ -66,6 +66,7 @@ pnpm test testfilename # Run a specific test file name
 pnpm play # Run the playground
 pnpm play:vue # Run the playground with Vue
 pnpm play:nuxt # Run the playground with Nuxt
+pnpm play:gencomponents # Run the playground with GenComponents
 
 pnpm clean: all # Clean all node_modules
 pnpm clean:dist # Clean dist folder in all packages

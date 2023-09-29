@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <LabelDemo />
-  </div>
+  <div><LabelDemo allshow /></div>
 </template>

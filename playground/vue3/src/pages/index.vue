@@ -1,75 +1,12 @@
 <script setup lang="ts">
-interface Page {
-  name: string
-  path: string
-}
-const pages: Page[] = [
-  {
-    name: 'OkuLabel',
-    path: '/label',
-  },
-  {
-    name: 'OkuAvatar',
-    path: '/avatar',
-  },
-  {
-    name: 'OkuAspectRatio',
-    path: '/aspect-ratio',
-  },
-  {
-    name: 'OkuSeparator',
-    path: '/separator',
-  },
-  {
-    name: 'OkuCheckbox',
-    path: '/checkbox',
-  },
-  {
-    name: 'OkuProgress',
-    path: '/progress',
-  },
-  {
-    name: 'OkuToggle',
-    path: '/toggle',
-  },
-  {
-    name: 'OkuTabs',
-    path: '/tabs',
-  },
-  {
-    name: 'OkuPopper',
-    path: '/popper',
-  },
-  {
-    name: 'OkuCollapsible',
-    path: '/collapsible',
-  },
-  {
-    name: 'OkuSwitch',
-    path: '/switch',
-  },
-  {
-    name: 'OkuSlot',
-    path: '/slot',
-  },
-  {
-    name: 'roving-focus',
-    path: '/roving-focus',
-  },
-  {
-    name: 'OkuRadioGroup',
-    path: '/radio-group',
-  },
-]
+import json from '../components.json'
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-6">
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem;">
     <router-link
-      v-for="page in pages"
-      :key="page.name"
-      :to="page.path"
-      class="bg-cyan-900 hover:text-white text-white cursor-pointer hover:bg-cyan-700 py-4 rounded-lg px-4"
+      v-for="page in json" :key="page.name" :to="page.path"
+      style="background-color: #2b6cb0; color: #fff; cursor: pointer; padding-top: 1rem; padding-bottom: 1rem; padding-left: 1.5rem; padding-right: 1.5rem; border-radius: 0.375rem;"
     >
       {{ page.name }}
     </router-link>

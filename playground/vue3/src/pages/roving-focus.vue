@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <RovingFocusDemo allshow />
-  </div>
+  <div><RovingFocusDemo allshow /></div>
 </template>
