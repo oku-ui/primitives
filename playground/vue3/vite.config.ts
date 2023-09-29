@@ -13,10 +13,11 @@ export default defineConfig({
     Pages(),
     Components({
       dirs: [
-        resolve(__dirname, './../../packages/components/**/src/stories'),
+        resolve(__dirname, './../../packages/components/**/*Demo.vue'),
+        resolve(__dirname, './../../packages/core/**/*Demo.vue'),
       ],
-      deep: true,
       extensions: ['vue'],
+      globs: ['**/*Demo.vue'],
       dts: resolve(__dirname, './src/components.d.ts'),
     }),
     AutoImport({

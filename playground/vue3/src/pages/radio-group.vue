@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <RadioGroupDemo allshow />
-  </div>
+  <div><RadioGroupDemo allshow /></div>
 </template>

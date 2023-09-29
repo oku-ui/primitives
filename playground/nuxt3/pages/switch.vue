@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <SwitchDemo allshow />
-  </div>
+  <div><SwitchDemo allshow /></div>
 </template>
