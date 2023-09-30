@@ -3,8 +3,6 @@ import {
   defineComponent,
   h,
   mergeProps,
-  nextTick,
-  onMounted,
   reactive,
   ref,
   toRefs,
@@ -62,14 +60,12 @@ const SelectScrollButtonImpl = defineComponent({
     // Because it is part of the normal flow, it will push down (top button) or shrink (bottom button)
     // the viewport, potentially causing the active item to now be partially out of view.
     // We re-run the `scrollIntoView` logic to make sure it stays within the viewport.
-    onMounted(() => {
-      nextTick(() => {
-        const activeItem = getItems().find(
-          item => item.ref.value === document.activeElement,
-        )
+    watchEffect(() => {
+      const activeItem = getItems().find(
+        item => item.ref.value === document.activeElement,
+      )
 
-        activeItem?.ref.value?.scrollIntoView?.({ block: 'nearest' })
-      })
+      activeItem?.ref.value?.scrollIntoView?.({ block: 'nearest' })
     })
 
     return () =>
