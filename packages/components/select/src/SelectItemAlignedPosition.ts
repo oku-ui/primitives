@@ -20,12 +20,7 @@ import { clamp } from '@oku-ui/utils'
 import { Primitive } from '@oku-ui/primitive'
 import {
   CONTENT_MARGIN,
-} from './types'
-import type {
-  SelectItemAlignedPositionElement,
-  SelectScrollButtonImplElement,
-} from './types'
-import {
+
   CONTENT_NAME,
   ITEM_ALIGNED_POSITION_NAME,
   SelectViewportProvider,
@@ -34,6 +29,10 @@ import {
   useCollection,
   useSelectContentInject,
   useSelectInject,
+} from './props'
+import type {
+  SelectItemAlignedPositionElement,
+  SelectScrollButtonImplElement,
 } from './props'
 
 const SelectItemAlignedPosition = defineComponent({

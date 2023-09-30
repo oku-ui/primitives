@@ -21,7 +21,7 @@ import {
   useSelectItemInject,
   useSelectNativeOptionsInject,
 } from './props'
-import type { SelectItemTextElement } from './types'
+import type { SelectItemTextElement } from './props'
 
 const SelectItemText = defineComponent({
   name: ITEM_TEXT_NAME,

@@ -18,7 +18,7 @@ import {
   useSelectInject,
 } from './props'
 import { shouldShowPlaceholder } from './utils'
-import type { SelectValueElement } from './types'
+import type { SelectValueElement } from './props'
 
 const SelectValue = defineComponent({
   name: VALUE_NAME,

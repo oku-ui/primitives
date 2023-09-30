@@ -7,7 +7,7 @@ import {
   selectLabelProps,
   useSelectGroupInject,
 } from './props'
-import type { SelectLabelElement } from './types'
+import type { SelectLabelElement } from './props'
 
 const SelectLabel = defineComponent({
   name: LABEL_NAME,

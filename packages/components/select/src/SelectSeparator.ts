@@ -6,7 +6,7 @@ import {
   scopeSelectProps,
   selectSeperatorProps,
 } from './props'
-import type { SelectSeparatorElement } from './types'
+import type { SelectSeparatorElement } from './props'
 
 const SelectSeparator = defineComponent({
   name: SEPARATOR_NAME,

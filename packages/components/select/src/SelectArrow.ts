@@ -9,7 +9,7 @@ import {
   useSelectContentInject,
   useSelectInject,
 } from './props'
-import type { SelectArrowElement } from './types'
+import type { SelectArrowElement } from './props'
 
 const SelectArrow = defineComponent({
   name: ARROW_NAME,
@@ -21,7 +21,7 @@ const SelectArrow = defineComponent({
   setup(props, { attrs }) {
     const { scopeOkuSelect, ...arrowProps } = toRefs(props)
 
-    const popperScope = usePopperScope(scopeOkuSelect)
+    const popperScope = usePopperScope(scopeOkuSelect.value)
     const selectInject = useSelectInject(ARROW_NAME, scopeOkuSelect.value)
     const contentInject = useSelectContentInject(
       ARROW_NAME,

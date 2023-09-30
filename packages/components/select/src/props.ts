@@ -1,24 +1,28 @@
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
-import type { PropType } from 'vue'
+import type { ComputedRef, PropType, Ref, VNode } from 'vue'
 import { createCollection } from '@oku-ui/collection'
+import type { CollectionPropsType } from '@oku-ui/collection'
+
 import {
-  createPopperScope,
-  popperArrowProps,
+  createPopperScope, popperArrowProps,
   popperContentProps,
 } from '@oku-ui/popper'
-import { primitiveProps } from '@oku-ui/primitive'
 import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { focusScopeProps } from '@oku-ui/focus-scope'
+import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
 import type {
-  Direction,
-  ItemData,
-  SelectContentContextValue,
-  SelectGroupContextValue,
-  SelectItemContextValue,
-  SelectNativeOptionsContextValue,
-  SelectProvideValue,
-  SelectViewportContextValue,
-} from './types'
+  PopperArrowNaviteElement,
+  PopperArrowProps,
+  PopperContentElement,
+  PopperContentEmits,
+
+  PopperContentProps,
+} from '@oku-ui/popper'
+import type { FocusScopeEmits } from '@oku-ui/focus-scope'
+import type {
+  DismissableLayerEmits,
+} from '@oku-ui/dismissable-layer'
 
 export const SELECT_NAME = 'OkuSelect'
 export const TRIGGER_NAME = 'OkuSelectTrigger'
@@ -35,10 +39,97 @@ export const ARROW_NAME = 'OkuSelectArrow'
 export const ITEM_NAME = 'OkuSelectItem'
 export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
 export const ITEM_TEXT_NAME = 'OkuSelectItemText'
+export const VIEWPORT_NAME = 'OkuSelectViewport'
 
 /* -------------------------------------------------------------------------------------------------
  * Select
  * ----------------------------------------------------------------------------------------------- */
+
+export type SelectNativeElement = OkuElement<'select'>
+
+export type Direction = 'ltr' | 'rtl'
+
+export type SelectScrollButtonImplElement = OkuElement<'button'>
+
+export type SelectProvideValue = {
+  trigger: Ref<SelectTriggerElement | null | undefined>
+  onTriggerChange(node: SelectTriggerElement | null): void
+  valueNode: Ref<SelectValueElement | null>
+  onValueNodeChange(node: SelectValueElement): void
+  valueNodeHasChildren: Ref<boolean>
+  onValueNodeHasChildrenChange(hasChildren: boolean): void
+  contentId: string
+  value?: ComputedRef<string | undefined>
+  onValueChange(value: string): void
+  open: ComputedRef<boolean | undefined>
+  required?: Ref<boolean | undefined>
+  onOpenChange(open: boolean): void
+  dir: ComputedRef<SelectProps['dir']>
+  triggerPointerDownPosRef: Ref<{ x: number; y: number } | null>
+  disabled?: Ref<boolean | undefined>
+}
+
+export type NativeOption = VNode<Record<string, any>>
+
+export type SelectNativeOptionsContextValue = {
+  onNativeOptionAdd(option: NativeOption): void
+  onNativeOptionRemove(option: NativeOption): void
+}
+
+export interface SelectProps {
+  value?: string
+  defaultValue?: string
+  open?: boolean
+  defaultOpen?: boolean
+  dir?: Direction
+  name?: string
+  autoComplete?: string
+  /**
+   * Whether or not select is disabled from user interaction.
+   *
+   * @defaultValue undefined
+   */
+  disabled?: boolean
+  /**
+   * Whether or not select is required from user interaction.
+   *
+   * @defaultValue undefined
+   */
+  required?: boolean
+}
+
+export interface SelectEmits {
+  valueChange: [value: string]
+  openChange: [open: boolean]
+  keydown: [event: KeyboardEvent]
+}
+
+export interface SelectSingleEmits extends SelectEmits {
+  /**
+   * The callback that fires when the value state of the select changes.
+   */
+  valueChange: [value: string]
+  /**
+   * The callback that fires when the open state of the select changes.
+   */
+  openChange: [open: boolean]
+}
+
+export type ItemData = {
+  value: string
+  disabled: boolean
+  textValue: string
+} & CollectionPropsType
+
+export type SelectTriggerElement = OkuElement<'button'>
+export interface SelectTriggerProps extends PrimitiveProps {
+  /**
+   * Whether or not select is disabled from user interaction.
+   *
+   * @defaultValue undefined
+   */
+  disabled?: boolean
+}
 
 export const scopeSelectProps = {
   scopeOkuSelect: {
@@ -160,6 +251,11 @@ export const selectTriggerProps = {
  * SelectValue
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectValueElement = OkuElement<'span'>
+export interface SelectValueProps extends PrimitiveProps {
+  placeholder?: string | Record<string, unknown>
+}
+
 export const selectValueProps = {
   props: {
     ...primitiveProps,
@@ -174,6 +270,9 @@ export const selectValueProps = {
  * SelectIcon
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectIconElement = OkuElement<'span'>
+export interface SelectIconProps extends PrimitiveProps {}
+
 export const selectIconProps = {
   props: {
     ...primitiveProps,
@@ -184,11 +283,76 @@ export const selectIconProps = {
  * SelectContent
  * ----------------------------------------------------------------------------------------------- */
 
+export interface SelectContentProps extends SelectContentImplProps {}
+
+export type SelectContentElement = SelectContentImplElement
+
 /* -------------------------------------------------------------------------------------------------
  * SelectContentImpl
  * ----------------------------------------------------------------------------------------------- */
 
 export const CONTENT_MARGIN = 10
+
+export type SelectContentContextValue = {
+  content?: Ref<SelectContentElement | null>
+  viewport?: Ref<SelectViewportElement | null>
+  onViewportChange?: (node: SelectViewportElement | null) => void
+  itemRefCallback?: (
+    node: SelectItemElement | null,
+    value: string,
+    disabled: boolean
+  ) => void
+  selectedItem?: Ref<SelectItemElement | null>
+  onItemLeave?: () => void
+  itemTextRefCallback?: (
+    node: SelectItemTextElement | null,
+    value: string,
+    disabled: boolean
+  ) => void
+  focusSelectedItem?: () => void
+  selectedItemText?: Ref<SelectItemTextElement | null>
+  position?: Ref<SelectContentProps['position']>
+  isPositioned?: ComputedRef<boolean> | Ref<boolean>
+  searchRef?: Ref<string>
+}
+
+export type SelectPopperPrivateProps = object
+
+export type SelectPopperPrivateEmits = {
+  placed: [event: PopperContentEmits['placed']]
+}
+
+interface SelectContentImplProps
+  extends Omit<SelectPopperPositionProps, keyof SelectPopperPrivateProps>,
+  Omit<SelectItemAlignedPositionProps, keyof SelectPopperPrivateProps> {
+  position?: 'item-aligned' | 'popper'
+}
+
+export type SelectContentImplEmits = {
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
+  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
+  /**
+   * Event handler called when the a `pointerdown` event happens`.
+   * Can be prevented.
+   */
+  pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
+
+  /**
+   * Event handler called when the a `autofocus` event happens`.
+   * Can be prevented.
+   */
+  closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
+} & Omit<SelectPopperPositionEmits, keyof SelectPopperPrivateEmits> & Omit<
+  SelectItemAlignedPositionEmits,
+  keyof SelectPopperPrivateEmits
+>
+
+export type SelectContentImplElement =
+  | SelectPopperPositionElement
+  | SelectItemAlignedPositionElement
 
 export const [createSelectContentProvide, createSelectContentScope]
   = createProvideScope(CONTENT_NAME, [
@@ -224,6 +388,13 @@ export const selectContentProps = {
  * SelectPopperPosition
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectPopperPositionElement = PopperContentElement
+export interface SelectPopperPositionProps
+  extends PopperContentProps,
+  SelectPopperPrivateProps {}
+
+export type SelectPopperPositionEmits = object
+
 export const selectPopperPositionProps = {
   props: {
     ...primitiveProps,
@@ -242,6 +413,13 @@ export const selectPopperPositionProps = {
  * SelectItemAlignedPosition
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectItemAlignedPositionElement = OkuElement<'div'>
+export interface SelectItemAlignedPositionProps
+  extends PrimitiveProps,
+  SelectPopperPrivateProps {}
+
+export type SelectItemAlignedPositionEmits = object
+
 export const selectItemAlignedPositionProps = {
   props: {
     ...primitiveProps,
@@ -255,7 +433,15 @@ export const selectItemAlignedPositionProps = {
  * SelectViewport
  * ----------------------------------------------------------------------------------------------- */
 
-export const VIEWPORT_NAME = 'OkuSelectViewport'
+export type SelectViewportElement = OkuElement<'div'>
+
+export interface SelectViewportProps extends PrimitiveProps {}
+
+export type SelectViewportContextValue = {
+  contentWrapper?: Ref<HTMLDivElement | null>
+  shouldExpandOnScrollRef?: Ref<boolean>
+  onScrollButtonChange?: (node: SelectScrollButtonImplElement | null) => void
+}
 
 export const [createSelectViewpointProvide, createSelectViewpointScope]
   = createProvideScope(VIEWPORT_NAME, [
@@ -282,6 +468,11 @@ export const selectViewportProps = {
  * SelectGroup
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectGroupContextValue = { id: string }
+
+export type SelectGroupElement = OkuElement<'div'>
+export interface SelectGroupProps extends PrimitiveProps {}
+
 export const [createSelectGroupProvide, createSelectGroupScope]
   = createProvideScope(GROUP_NAME, [
     createCollectionScope,
@@ -303,6 +494,9 @@ export const selectGroupProps = {
  * SelectLabel
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectLabelElement = OkuElement<'div'>
+export interface SelectLabelProps extends PrimitiveProps {}
+
 export const selectLabelProps = {
   props: {
     ...primitiveProps,
@@ -312,6 +506,9 @@ export const selectLabelProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectSeparator
  * ----------------------------------------------------------------------------------------------- */
+
+export type SelectSeparatorElement = OkuElement<'div'>
+export interface SelectSeparatorProps extends PrimitiveProps {}
 
 export const selectSeperatorProps = {
   props: {
@@ -323,10 +520,13 @@ export const selectSeperatorProps = {
  * SelectArrow
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectArrowElement = PopperArrowNaviteElement
+export interface SelectArrowProps extends PopperArrowProps {}
+
 export const selectArrowProps = {
   props: {
     ...primitiveProps,
-    ...popperArrowProps,
+    ...popperArrowProps.props,
   },
 }
 
@@ -334,6 +534,20 @@ export const selectArrowProps = {
  * SelectItem
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectItemContextValue = {
+  value: Ref<string>
+  disabled: Ref<boolean>
+  textId: string
+  isSelected: Ref<boolean>
+  onItemTextChange(node: SelectItemTextElement | null): void
+}
+
+export type SelectItemElement = OkuElement<'div'>
+export interface SelectItemProps extends PrimitiveProps {
+  value: string
+  disabled?: boolean
+  textValue?: string
+}
 export const [createSelectItemProvide, createSelectItemScope]
   = createProvideScope(ITEM_NAME, [
     createCollectionScope,
@@ -367,6 +581,9 @@ export const selectItemProps = {
  * SelectItemText
  * ----------------------------------------------------------------------------------------------- */
 
+export type SelectItemTextElement = OkuElement<'span'>
+export interface SelectItemTextProps extends PrimitiveProps {}
+
 export const selectItemTextProps = {
   props: {
     ...primitiveProps,
@@ -376,6 +593,9 @@ export const selectItemTextProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectItemIndicator
  * ----------------------------------------------------------------------------------------------- */
+export type SelectItemIndicatorElement = OkuElement<'span'>
+export interface SelectItemIndicatorProps extends PrimitiveProps {}
+
 export const selectItemIndicatorProps = {
   props: {
     ...primitiveProps,

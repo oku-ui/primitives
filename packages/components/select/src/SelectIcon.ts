@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { ICON_NAME, scopeSelectProps, selectIconProps } from './props'
-import type { SelectIconElement } from './types'
+import type { SelectIconElement } from './props'
 
 const SelectIcon = defineComponent({
   name: ICON_NAME,

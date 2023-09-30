@@ -18,7 +18,7 @@ import {
   useSelectInject,
 } from './props'
 import { OkuSelectContentImpl } from './SelectContentImpl'
-import type { SelectContentElement } from './types'
+import type { SelectContentElement } from './props'
 
 const SelectContent = defineComponent({
   name: CONTENT_NAME,

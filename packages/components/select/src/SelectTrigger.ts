@@ -25,7 +25,7 @@ import {
 } from './props'
 import { useTypeaheadSearch } from './useTypeAheadSearch'
 import { OPEN_KEYS, findNextItem, shouldShowPlaceholder } from './utils'
-import type { ItemData, SelectTriggerElement } from './types'
+import type { ItemData, SelectTriggerElement } from './props'
 
 const SelectTrigger = defineComponent({
   name: TRIGGER_NAME,
@@ -53,7 +53,7 @@ const SelectTrigger = defineComponent({
       dir,
       ...selectContext
     } = useSelectInject(TRIGGER_NAME, scopeOkuSelect.value)
-    const popperScope = usePopperScope(scopeOkuSelect)
+    const popperScope = usePopperScope(scopeOkuSelect.value)
     const getItems = useCollection(scopeOkuSelect)
 
     const forwardedRef = useForwardRef()
@@ -87,7 +87,7 @@ const SelectTrigger = defineComponent({
       if (!isDisabled.value) {
         onOpenChange(true)
         // reset typeahead when we open
-        resetTypeahead.value?.()
+        resetTypeahead?.()
       }
     }
 
@@ -159,7 +159,7 @@ const SelectTrigger = defineComponent({
                     = event.ctrlKey || event.altKey || event.metaKey
 
                   if (!isModifierKey && event.key.length === 1)
-                    handleTypeaheadSearch.value?.(event.key)
+                    handleTypeaheadSearch?.(event.key)
                   if (isTypingAhead && event.key === ' ')
                     return
 

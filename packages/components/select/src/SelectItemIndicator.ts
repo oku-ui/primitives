@@ -7,7 +7,7 @@ import {
   selectItemIndicatorProps,
   useSelectItemInject,
 } from './props'
-import type { SelectItemIndicatorElement } from './types'
+import type { SelectItemIndicatorElement } from './props'
 
 const SelectItemIndicator = defineComponent({
   name: ITEM_INDICATOR_NAME,

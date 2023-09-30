@@ -8,7 +8,7 @@ import {
   selectPopperPositionProps,
   usePopperScope,
 } from './props'
-import type { SelectPopperPositionElement } from './types'
+import type { SelectPopperPositionElement } from './props'
 
 const SelectPopperPosition = defineComponent({
   name: POPPER_POSITION_NAME,
@@ -25,7 +25,7 @@ const SelectPopperPosition = defineComponent({
       ...selectPopperPositionProps
     } = toRefs(props)
 
-    const popperScope = usePopperScope(scopeOkuSelect)
+    const popperScope = usePopperScope(scopeOkuSelect.value)
 
     const forwardedRef = useForwardRef()
 

@@ -10,7 +10,7 @@ import {
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { SelectViewportElement } from './types'
+import type { SelectViewportElement } from './props'
 import {
   CONTENT_MARGIN,
   CollectionSlot,

@@ -3,7 +3,6 @@ import {
   computed,
   defineComponent,
   h,
-  reactive,
   ref,
   toRefs,
   useModel,
@@ -13,10 +12,9 @@ import { useControllable, useId } from '@oku-ui/use-composable'
 import type {
   NativeOption,
   SelectNativeElement,
-  SelectProps,
   SelectTriggerElement,
   SelectValueElement,
-} from './types'
+} from './props'
 import {
   CollectionProvider,
   CollectionSlot,
@@ -49,10 +47,9 @@ const Select = defineComponent({
       defaultOpen,
       defaultValue,
       scopeOkuSelect,
-      ...selectPropsRefs
+      autoComplete,
+      name,
     } = toRefs(props)
-
-    const _reactiveProps = reactive(selectPropsRefs) as SelectProps
 
     const modelValue = useModel(props, 'modelValue')
     const proxyValueChecked = computed(() =>
@@ -133,8 +130,8 @@ const Select = defineComponent({
       onValueNodeHasChildrenChange: (hasChildren: boolean) => {
         valueNodeHasChildren.value = hasChildren
       },
-      onOpenChange: updateOpenValue,
-      onValueChange: updateValue,
+      onOpenChange: (open: boolean) => updateOpenValue(open),
+      onValueChange: (value: string) => updateValue(value),
     })
 
     SelectNativeOptionsProvider({
@@ -179,8 +176,8 @@ const Select = defineComponent({
                   'aria-hidden': true,
                   'required': required.value,
                   'tab-index': '-1',
-                  'name': selectPropsRefs.name.value,
-                  'auto-complete': selectPropsRefs.autoComplete.value,
+                  'name': name.value,
+                  'auto-complete': autoComplete.value,
                   'value': valueState.value,
                   'onChange': (event: Event) =>
                     updateValue((event.target as HTMLInputElement)?.value),

@@ -26,7 +26,7 @@ import type {
   SelectItemElement,
   SelectItemTextElement,
   SelectViewportElement,
-} from './types'
+} from './props'
 import { useTypeaheadSearch } from './useTypeAheadSearch'
 import {
   CONTENT_IMPL_NAME,

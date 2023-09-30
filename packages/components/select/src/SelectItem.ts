@@ -15,7 +15,7 @@ import {
 } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { SelectItemElement, SelectItemTextElement } from './types'
+import type { SelectItemElement, SelectItemTextElement } from './props'
 import {
   CollectionItemSlot,
   ITEM_NAME,

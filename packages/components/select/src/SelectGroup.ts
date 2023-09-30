@@ -7,7 +7,7 @@ import {
   scopeSelectProps,
   selectGroupProps,
 } from './props'
-import type { SelectGroupElement } from './types'
+import type { SelectGroupElement } from './props'
 
 const SelectGroup = defineComponent({
   name: GROUP_NAME,
