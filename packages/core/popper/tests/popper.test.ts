@@ -22,7 +22,7 @@ enableAutoUnmount(afterEach)
 describe('OkuPopper', () => {
   it('OkuPopper renders correctly', () => {
     const wrapper = mount(OkuPopper)
-    expect(wrapper.html()).toBe('')
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('OkuPopperArrow renders correctly', () => {
@@ -72,14 +72,14 @@ describe('OkuPopper', () => {
     })
 
     it('renders correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
 
     it('should be able to close', async () => {
       const button = wrapper.find('button')
       await button.trigger('click')
       await nextTick()
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
   })
 
@@ -106,18 +106,18 @@ describe('OkuPopper', () => {
     })
 
     test('renders correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
 
     test('document.body has correct html', () => {
-      expect(document.body.innerHTML).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
 
     test('should be able to close', async () => {
       const button = document.querySelector('button')
       button?.dispatchEvent(new Event('click'))
       await nextTick()
-      expect(document.body.innerHTML).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
   })
 
@@ -171,7 +171,7 @@ describe('OkuPopper', () => {
     })
 
     test('renders correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
 
     test('renders correctly', () => {
@@ -205,7 +205,7 @@ describe('OkuPopper', () => {
     })
 
     test('renders correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
   })
 
@@ -228,7 +228,7 @@ describe('OkuPopper', () => {
     })
 
     test('renders correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
+      expect(document.body).toMatchSnapshot()
     })
   })
 })
