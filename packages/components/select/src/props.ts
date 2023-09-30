@@ -11,7 +11,7 @@ import {
 import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { focusScopeProps } from '@oku-ui/focus-scope'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type {
   PopperArrowElement,
   PopperArrowNaviteElement,
@@ -334,6 +334,16 @@ export type SelectPopperPrivateEmits = {
   placed: [event: PopperContentEmits['placed']]
 }
 
+export const selectPopperPrivateProps = {
+  props: {},
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    placed: (event?: PopperContentEmits['placed']) => true,
+  },
+  emitKeys: ['placed'] as ['placed'],
+  propKeys: [] as [],
+}
+
 interface SelectContentImplProps
   extends Omit<SelectPopperPositionProps, keyof SelectPopperPrivateProps>,
   Omit<SelectItemAlignedPositionProps, keyof SelectPopperPrivateProps> {
@@ -370,20 +380,11 @@ export type SelectContentImplElement =
   | SelectPopperPositionElement
   | SelectItemAlignedPositionElement
 
-export const [createSelectContentProvide, createSelectContentScope]
-  = createProvideScope(CONTENT_NAME, [
-    createCollectionScope,
-    createPopperScope,
-    createSelectScope,
-  ])
-
-export const [SelectContentProvider, useSelectContentInject]
-  = createSelectContentProvide<SelectContentContextValue>(CONTENT_NAME)
-
 export const selectContentImplProps = {
   props: {
     ...primitiveProps,
     ...popperContentProps.props,
+    // ...propsOmit(selectPopperPrivateProps.props, selectPopperPrivateProps.propKeys),
     position: {
       type: String as PropType<'item-aligned' | 'popper'>,
       default: 'item-aligned',
@@ -395,12 +396,23 @@ export const selectContentImplProps = {
     closeAutoFocus: focusScopeProps.emits.unmountAutoFocus,
     // eslint-disable-next-line unused-imports/no-unused-vars
     onKeydown: (event: KeyboardEvent) => true,
+    ...propsOmit(selectPopperPrivateProps.emits, selectPopperPrivateProps.emitKeys),
   },
 }
 
 export const selectContentProps = {
   ...selectContentImplProps,
 }
+
+export const [createSelectContentProvide, createSelectContentScope]
+  = createProvideScope(CONTENT_NAME, [
+    createCollectionScope,
+    createPopperScope,
+    createSelectScope,
+  ])
+
+export const [SelectContentProvider, useSelectContentInject]
+  = createSelectContentProvide<SelectContentContextValue>(CONTENT_NAME)
 
 /* -------------------------------------------------------------------------------------------------
  * SelectPopperPosition
@@ -417,14 +429,12 @@ export type SelectPopperPositionEmits = object
 export const selectPopperPositionProps = {
   props: {
     ...primitiveProps,
-    align: {
-      ...popperContentProps.props.align,
-      default: 'start',
-    },
-    collisionPadding: {
-      ...popperContentProps.props.collisionPadding,
-      default: CONTENT_MARGIN,
-    },
+    ...popperContentProps.props,
+    ...selectPopperPrivateProps.props,
+  },
+  emits: {
+    ...popperContentProps.emits,
+    ...selectPopperPrivateProps.emits,
   },
 }
 
@@ -444,9 +454,10 @@ export type SelectItemAlignedPositionEmits = object
 export const selectItemAlignedPositionProps = {
   props: {
     ...primitiveProps,
+    ...selectPopperPrivateProps.props,
   },
   emits: {
-    placed: popperContentProps.emits.placed,
+    ...selectPopperPrivateProps.emits,
   },
 }
 

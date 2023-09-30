@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'vue'
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPopperContent } from '@oku-ui/popper'
 import {
   POPPER_POSITION_NAME,
@@ -22,8 +22,11 @@ const SelectPopperPosition = defineComponent({
       scopeOkuSelect,
       align,
       collisionPadding,
-      ...selectPopperPositionProps
+      ...popperProps
     } = toRefs(props)
+
+    const _reactive = reactive(popperProps)
+    const reactivePopperProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const popperScope = usePopperScope(scopeOkuSelect.value)
 
@@ -34,7 +37,7 @@ const SelectPopperPosition = defineComponent({
         OkuPopperContent,
         {
           ...popperScope,
-          ...mergeProps(attrs, selectPopperPositionProps),
+          ...mergeProps(attrs, reactivePopperProps),
           ref: forwardedRef,
           align: align.value,
           collisionPadding: collisionPadding.value,
