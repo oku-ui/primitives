@@ -64,7 +64,7 @@ export type FocusScopeEmits = {
   unmountAutoFocus: [event: Event]
 }
 
-const focusScopeProps = {
+export const focusScopeProps = {
   props: {
     loop: {
       type: Boolean,

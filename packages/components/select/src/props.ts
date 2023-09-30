@@ -95,9 +95,13 @@ export const selectProps = {
     },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'valueChange': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'openChange': (open: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'update:modelValue': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'update:openValue': (open: boolean) => true,
   },
 }
