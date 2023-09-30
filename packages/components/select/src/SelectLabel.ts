@@ -1,6 +1,6 @@
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import {
   LABEL_NAME,
   scopeSelectProps,
@@ -19,6 +19,9 @@ const SelectLabel = defineComponent({
   setup(props, { slots, attrs }) {
     const { scopeOkuSelect, ...selectLabelProps } = toRefs(props)
 
+    const _reactive = reactive(selectLabelProps)
+    const reactiveSelectLabelProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const groupInject = useSelectGroupInject(LABEL_NAME, scopeOkuSelect.value)
 
     const forwardedRef = useForwardRef()
@@ -27,7 +30,7 @@ const SelectLabel = defineComponent({
       h(
         Primitive.div,
         {
-          ...mergeProps(attrs, selectLabelProps),
+          ...mergeProps(attrs, reactiveSelectLabelProps),
           id: groupInject.id,
           ref: forwardedRef,
         },

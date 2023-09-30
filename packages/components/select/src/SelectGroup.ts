@@ -1,5 +1,5 @@
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
-import { useForwardRef, useId } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef, useId } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import {
   GROUP_NAME,
@@ -19,6 +19,9 @@ const SelectGroup = defineComponent({
   setup(props, { slots, attrs }) {
     const { scopeOkuSelect, ...selectGroupProps } = toRefs(props)
 
+    const _reactive = reactive(selectGroupProps)
+    const reactiveSelectGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const groupId = useId()
     const forwardedRef = useForwardRef()
 
@@ -33,7 +36,7 @@ const SelectGroup = defineComponent({
         {
           'role': 'group',
           'aria-labelledby': groupId,
-          ...mergeProps(attrs, selectGroupProps),
+          ...mergeProps(attrs, reactiveSelectGroupProps),
           'ref': forwardedRef,
         },
         slots,
