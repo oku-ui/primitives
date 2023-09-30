@@ -20,10 +20,25 @@ import type {
   SelectViewportContextValue,
 } from './types'
 
+export const SELECT_NAME = 'OkuSelect'
+export const TRIGGER_NAME = 'OkuSelectTrigger'
+export const VALUE_NAME = 'OkuSelectValue'
+export const LABEL_NAME = 'OkuSelectLabel'
+export const GROUP_NAME = 'OkuSelectGroup'
+export const ITEM_ALIGNED_POSITION_NAME = 'OkuSelectItemAlignedPosition'
+export const POPPER_POSITION_NAME = 'OkuSelectPopperPosition'
+export const CONTENT_IMPL_NAME = 'OkuSelectContentImpl'
+export const ICON_NAME = 'OkuSelectIcon'
+export const CONTENT_NAME = 'OkuSelectContent'
+export const SEPARATOR_NAME = 'OkuSelectSeparator'
+export const ARROW_NAME = 'OkuSelectArrow'
+export const ITEM_NAME = 'OkuSelectItem'
+export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
+export const ITEM_TEXT_NAME = 'OkuSelectItemText'
+
 /* -------------------------------------------------------------------------------------------------
  * Select
  * ----------------------------------------------------------------------------------------------- */
-export const SELECT_NAME = 'OkuSelect'
 
 export const scopeSelectProps = {
   scopeOkuSelect: {
@@ -80,9 +95,13 @@ export const selectProps = {
     },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'valueChange': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'openChange': (open: boolean) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'update:modelValue': (value: string) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     'update:openValue': (open: boolean) => true,
   },
 }
@@ -119,8 +138,6 @@ export const [SelectNativeOptionsProvider, useSelectNativeOptionsInject]
  * SelectTrigger
  * ----------------------------------------------------------------------------------------------- */
 
-export const TRIGGER_NAME = 'OkuSelectTrigger'
-
 export const selectTriggerProps = {
   props: {
     ...primitiveProps,
@@ -130,8 +147,11 @@ export const selectTriggerProps = {
     },
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     click: (event: Event) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     pointerdown: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     keydown: (event: KeyboardEvent) => true,
   },
 }
@@ -139,8 +159,6 @@ export const selectTriggerProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectValue
  * ----------------------------------------------------------------------------------------------- */
-
-export const VALUE_NAME = 'OkuSelectValue'
 
 export const selectValueProps = {
   props: {
@@ -156,8 +174,6 @@ export const selectValueProps = {
  * SelectIcon
  * ----------------------------------------------------------------------------------------------- */
 
-export const ICON_NAME = 'OkuSelectIcon'
-
 export const selectIconProps = {
   props: {
     ...primitiveProps,
@@ -167,15 +183,12 @@ export const selectIconProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectContent
  * ----------------------------------------------------------------------------------------------- */
-export const CONTENT_NAME = 'OkuSelectContent'
 
 /* -------------------------------------------------------------------------------------------------
  * SelectContentImpl
  * ----------------------------------------------------------------------------------------------- */
 
 export const CONTENT_MARGIN = 10
-
-export const CONTENT_IMPL_NAME = 'OkuSelectContentImpl'
 
 export const [createSelectContentProvide, createSelectContentScope]
   = createProvideScope(CONTENT_NAME, [
@@ -211,8 +224,6 @@ export const selectContentProps = {
  * SelectPopperPosition
  * ----------------------------------------------------------------------------------------------- */
 
-export const POPPER_POSITION_NAME = 'OkuSelectPopperPosition'
-
 export const selectPopperPositionProps = {
   props: {
     ...primitiveProps,
@@ -230,8 +241,6 @@ export const selectPopperPositionProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectItemAlignedPosition
  * ----------------------------------------------------------------------------------------------- */
-
-export const ITEM_ALIGNED_POSITION_NAME = 'OkuSelectItemAlignedPosition'
 
 export const selectItemAlignedPositionProps = {
   props: {
@@ -264,6 +273,7 @@ export const selectViewportProps = {
     ...primitiveProps,
   },
   emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     onscroll: (event: Event) => true,
   },
 }
@@ -271,8 +281,6 @@ export const selectViewportProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectGroup
  * ----------------------------------------------------------------------------------------------- */
-
-export const GROUP_NAME = 'OkuSelectGroup'
 
 export const [createSelectGroupProvide, createSelectGroupScope]
   = createProvideScope(GROUP_NAME, [
@@ -295,8 +303,6 @@ export const selectGroupProps = {
  * SelectLabel
  * ----------------------------------------------------------------------------------------------- */
 
-export const LABEL_NAME = 'OkuSelectLabel'
-
 export const selectLabelProps = {
   props: {
     ...primitiveProps,
@@ -306,8 +312,6 @@ export const selectLabelProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectSeparator
  * ----------------------------------------------------------------------------------------------- */
-
-export const SEPARATOR_NAME = 'OkuSelectSeparator'
 
 export const selectSeperatorProps = {
   props: {
@@ -319,7 +323,6 @@ export const selectSeperatorProps = {
  * SelectArrow
  * ----------------------------------------------------------------------------------------------- */
 
-export const ARROW_NAME = 'OkuSelectArrow'
 export const selectArrowProps = {
   props: {
     ...primitiveProps,
@@ -330,8 +333,6 @@ export const selectArrowProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectItem
  * ----------------------------------------------------------------------------------------------- */
-
-export const ITEM_NAME = 'OkuSelectItem'
 
 export const [createSelectItemProvide, createSelectItemScope]
   = createProvideScope(ITEM_NAME, [
@@ -366,8 +367,6 @@ export const selectItemProps = {
  * SelectItemText
  * ----------------------------------------------------------------------------------------------- */
 
-export const ITEM_TEXT_NAME = 'OkuSelectItemText'
-
 export const selectItemTextProps = {
   props: {
     ...primitiveProps,
@@ -377,9 +376,6 @@ export const selectItemTextProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectItemIndicator
  * ----------------------------------------------------------------------------------------------- */
-
-export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
-
 export const selectItemIndicatorProps = {
   props: {
     ...primitiveProps,
