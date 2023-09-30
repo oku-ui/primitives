@@ -3,7 +3,6 @@ import {
   defineComponent,
   h,
   mergeProps,
-  nextTick,
   onMounted,
   ref,
 } from 'vue'
@@ -27,9 +26,6 @@ const SelectContent = defineComponent({
     ...selectContentProps.props,
     ...scopeSelectProps,
   },
-  emits: {
-    ...selectContentProps.emits,
-  },
   setup(props, { slots, attrs }) {
     const selectInject = useSelectInject(CONTENT_NAME, props.scopeOkuSelect)
 
@@ -39,41 +35,42 @@ const SelectContent = defineComponent({
 
     // setting the fragment in `onMounted` as `DocumentFragment` doesn't exist on the server
     onMounted(() => {
-      nextTick(() => {
-        const frag = document.createDocumentFragment()
-        frag.appendChild(document.createElement('div'))
-
-        fragment.value = frag
-      })
+      fragment.value = new DocumentFragment()
     })
 
-    return () =>
-      !selectInject.open.value
-        ? h(
-          Teleport,
-          { to: fragment.value },
-          h(
-            SelectContentProvider,
-            { scope: props.scopeOkuSelect },
-            {
-              default: () =>
-                h(
-                  CollectionSlot,
-                  { scope: props.scopeOkuSelect },
-                  { default: () => h(Primitive.div, {}, slots) },
-                ),
-            },
-          ),
-        )
-        : h(
-          OkuSelectContentImpl,
-          {
-            ...mergeProps(attrs, props),
-            ref: forwardedRef,
-            ...selectContentProps.emits,
-          },
-          slots,
-        )
+    return () => {
+      if (selectInject.open.value) {
+        const frag = fragment.value as Element | undefined
+
+        return frag
+          ? h(
+            Teleport,
+            { to: fragment.value },
+            h(
+              SelectContentProvider,
+              { scope: props.scopeOkuSelect },
+              {
+                default: () =>
+                  h(
+                    CollectionSlot,
+                    { scope: props.scopeOkuSelect },
+                    { default: () => h(Primitive.div, {}, slots) },
+                  ),
+              },
+            ),
+          )
+          : null
+      }
+
+      return h(
+        OkuSelectContentImpl,
+        {
+          ...mergeProps(attrs, props),
+          ref: forwardedRef,
+        },
+        slots,
+      )
+    }
   },
 })
 
