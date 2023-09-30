@@ -63,9 +63,7 @@ const popoverContentNonModal = defineComponent({
         if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef.value)
           event.preventDefault()
       }),
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, slots)
   },
 })
 
