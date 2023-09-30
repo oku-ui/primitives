@@ -1,7 +1,12 @@
 import type { CollectionPropsType } from '@oku-ui/collection'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { ComputedRef, Ref, VNode } from 'vue'
-import type { PopperContentElement, PopperContentProps } from '@oku-ui/popper'
+import type {
+  PopperArrowNaviteElement,
+  PopperArrowProps,
+  PopperContentElement,
+  PopperContentProps,
+} from '@oku-ui/popper'
 import type { FocusScopeProps } from '@oku-ui/focus-scope'
 import type {
   DismissableLayerEmits,
@@ -241,3 +246,16 @@ export interface SelectGroupProps extends PrimitiveProps {}
 
 export type SelectLabelElement = OkuElement<'div'>
 export interface SelectLabelProps extends PrimitiveProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectSeparator
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectSeparatorElement = OkuElement<'div'>
+export interface SelectSeparatorProps extends PrimitiveProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectArrow
+ * ----------------------------------------------------------------------------------------------- */
+
+export type SelectArrowElement = PopperArrowNaviteElement
+export interface SelectArrowProps extends PopperArrowProps {}

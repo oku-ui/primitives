@@ -5,6 +5,7 @@ import { createPopperScope, popperContentProps } from '@oku-ui/popper'
 import { primitiveProps } from '@oku-ui/primitive'
 import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { focusScopeProps } from '@oku-ui/focus-scope'
+import { popperArrowProps } from '../../../core/popper/src/props'
 import type {
   Direction,
   ItemData,
@@ -290,10 +291,34 @@ export const selectGroupProps = {
  * SelectLabel
  * ----------------------------------------------------------------------------------------------- */
 
-export const LABEL_NAME = 'SelectLabel'
+export const LABEL_NAME = 'OkuSelectLabel'
 
 export const selectLabelProps = {
   props: {
     ...primitiveProps,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectSeparator
+ * ----------------------------------------------------------------------------------------------- */
+
+export const SEPARATOR_NAME = 'OkuSelectSeparator'
+
+export const selectSeperatorProps = {
+  props: {
+    ...primitiveProps,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectArrow
+ * ----------------------------------------------------------------------------------------------- */
+
+export const ARROW_NAME = 'OkuSelectArrow'
+export const selectArrowProps = {
+  props: {
+    ...primitiveProps,
+    ...popperArrowProps,
   },
 }
