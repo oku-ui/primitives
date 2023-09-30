@@ -1,3 +1,8 @@
 {
-  "extends": "tsconfig/node18.json"
+  "extends": "tsconfig/node18.json",
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "node_modules/tsconfig"
+  ]
 }

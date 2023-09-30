@@ -31,7 +31,5 @@ import {
         </OkuPopoverContent>
       </OkuPopoverPortal>
     </OkuPopover>
-
-    <input>
   </div>
 </template>
