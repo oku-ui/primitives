@@ -1,11 +1,4 @@
-import {
-  Teleport,
-  defineComponent,
-  h,
-  mergeProps,
-  onMounted,
-  ref,
-} from 'vue'
+import { Teleport, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import {
@@ -39,7 +32,7 @@ const SelectContent = defineComponent({
     })
 
     return () => {
-      if (selectInject.open.value) {
+      if (!selectInject.open.value) {
         const frag = fragment.value as Element | undefined
 
         return frag
