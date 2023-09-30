@@ -1,19 +1,24 @@
-import { watchEffect } from 'vue'
+import type { Ref } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 
 /**
  * Listens for when the escape key is down
  */
 function useEscapeKeydown(
   onEscapeKeyDownProp?: (event: KeyboardEvent) => void,
-  ownerDocument: Document = globalThis?.document,
+  ownerDocument: Ref<Document> = ref(globalThis?.document),
 ) {
-  watchEffect((onInvalidate) => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape')
-        onEscapeKeyDownProp?.(event)
-    }
-    ownerDocument.addEventListener('keydown', handleKeyDown)
-    onInvalidate(() => ownerDocument.removeEventListener('keydown', handleKeyDown))
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape')
+      onEscapeKeyDownProp?.(event)
+  }
+
+  watch([ownerDocument], () => {
+    ownerDocument.value.addEventListener('keydown', handleKeyDown)
+  })
+
+  onBeforeUnmount(() => {
+    ownerDocument.value.removeEventListener('keydown', handleKeyDown)
   })
 }
 

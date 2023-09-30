@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <CheckboxDemo allshow />
+  <div><CheckboxDemo allshow /></div>
 </template>
