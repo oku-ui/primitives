@@ -18,7 +18,7 @@ import {
   useSelectInject,
 } from './props'
 import { shouldShowPlaceholder } from './utils'
-import type { SelectValueElement } from './props'
+import type { SelectValueElement, SelectValueNativeElement } from './props'
 
 const SelectValue = defineComponent({
   name: VALUE_NAME,
@@ -75,5 +75,5 @@ const SelectValue = defineComponent({
 
 export const OkuSelectValue = SelectValue as typeof SelectValue &
 (new () => {
-  $props: SelectValueElement
+  $props: SelectValueNativeElement
 })

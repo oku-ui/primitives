@@ -9,7 +9,7 @@ import {
   useSelectContentInject,
   useSelectInject,
 } from './props'
-import type { SelectArrowElement } from './props'
+import type { SelectArrowNativeElement } from './props'
 
 const SelectArrow = defineComponent({
   name: ARROW_NAME,
@@ -43,5 +43,5 @@ const SelectArrow = defineComponent({
 
 export const OkuSelectArrow = SelectArrow as typeof SelectArrow &
 (new () => {
-  $props: SelectArrowElement
+  $props: SelectArrowNativeElement
 })

@@ -10,7 +10,7 @@ import {
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { SelectViewportElement } from './props'
+import type { SelectViewportElement, SelectViewportNativeElement } from './props'
 import {
   CONTENT_MARGIN,
   CollectionSlot,
@@ -142,5 +142,5 @@ const SelectViewport = defineComponent({
 
 export const OkuSelectViewport = SelectViewport as typeof SelectViewport &
 (new () => {
-  $props: SelectViewportElement
+  $props: SelectViewportNativeElement
 })

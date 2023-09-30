@@ -7,7 +7,7 @@ import {
   selectLabelProps,
   useSelectGroupInject,
 } from './props'
-import type { SelectLabelElement } from './props'
+import type { SelectLabelNativeElement } from './props'
 
 const SelectLabel = defineComponent({
   name: LABEL_NAME,
@@ -38,5 +38,5 @@ const SelectLabel = defineComponent({
 
 export const OkuSelectLabel = SelectLabel as typeof SelectLabel &
 (new () => {
-  $props: SelectLabelElement
+  $props: SelectLabelNativeElement
 })

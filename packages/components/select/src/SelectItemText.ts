@@ -21,7 +21,7 @@ import {
   useSelectItemInject,
   useSelectNativeOptionsInject,
 } from './props'
-import type { SelectItemTextElement } from './props'
+import type { SelectItemTextElement, SelectItemTextNativeElement } from './props'
 
 const SelectItemText = defineComponent({
   name: ITEM_TEXT_NAME,
@@ -123,5 +123,5 @@ const SelectItemText = defineComponent({
 
 export const OkuSelectItemText = SelectItemText as typeof SelectItemText &
 (new () => {
-  $props: SelectItemTextElement
+  $props: SelectItemTextNativeElement
 })

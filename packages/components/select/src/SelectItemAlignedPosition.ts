@@ -31,7 +31,7 @@ import {
   useSelectInject,
 } from './props'
 import type {
-  SelectItemAlignedPositionElement,
+  SelectItemAlignedPositionNativeElement,
   SelectScrollButtonImplElement,
 } from './props'
 
@@ -289,5 +289,5 @@ const SelectItemAlignedPosition = defineComponent({
 export const OkuSelectItemAlignedPosition
   = SelectItemAlignedPosition as typeof SelectItemAlignedPosition &
   (new () => {
-    $props: SelectItemAlignedPositionElement
+    $props: SelectItemAlignedPositionNativeElement
   })

@@ -7,7 +7,7 @@ import {
   scopeSelectProps,
   selectGroupProps,
 } from './props'
-import type { SelectGroupElement } from './props'
+import type { SelectGroupNativeElement } from './props'
 
 const SelectGroup = defineComponent({
   name: GROUP_NAME,
@@ -43,5 +43,5 @@ const SelectGroup = defineComponent({
 
 export const OkuSelectGroup = SelectGroup as typeof SelectGroup &
 (new () => {
-  $props: SelectGroupElement
+  $props: SelectGroupNativeElement
 })

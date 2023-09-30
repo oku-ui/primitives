@@ -12,17 +12,17 @@ import { useControllable, useId } from '@oku-ui/use-composable'
 import type {
   NativeOption,
   SelectNativeElement,
-  SelectTriggerElement,
-  SelectValueElement,
+  SelectTriggerNativeElement,
+  SelectValueNativeElement,
 } from './props'
 import {
   CollectionProvider,
   CollectionSlot,
   SELECT_NAME,
   SelectNativeOptionsProvider,
-  SelectProvider,
   scopeSelectProps,
   selectProps,
+  selectProvider,
   usePopperScope,
 } from './props'
 import { BubbleSelect } from './BubbleSelect'
@@ -73,8 +73,8 @@ const Select = defineComponent({
     const direction = useDirection(dir)
 
     const valueNodeHasChildren = ref<boolean>(false)
-    const trigger = ref<SelectTriggerElement | null | undefined>(null)
-    const valueNode = ref<SelectValueElement | null>(null)
+    const trigger = ref<SelectTriggerNativeElement | null | undefined>(null)
+    const valueNode = ref<SelectValueNativeElement | null>(null)
 
     const triggerPointerDownPosRef = ref<{ x: number; y: number } | null>(null)
     const nativeOptionsSet = ref<Set<NativeOption>>(new Set<NativeOption>())
@@ -111,9 +111,10 @@ const Select = defineComponent({
         emit('openChange', result)
         openValue.value = result
       },
+      initialValue: false,
     })
 
-    SelectProvider({
+    selectProvider({
       scope: scopeOkuSelect.value,
       disabled,
       required,
@@ -122,11 +123,11 @@ const Select = defineComponent({
       value: valueState,
       valueNode,
       valueNodeHasChildren,
-      triggerPointerDownPosRef,
       trigger,
+      triggerPointerDownPosRef,
       contentId: useId(),
-      onTriggerChange: (node: SelectTriggerElement) => (trigger.value = node),
-      onValueNodeChange: (node: SelectValueElement) => (valueNode.value = node),
+      onTriggerChange: (node: SelectTriggerNativeElement) => (trigger.value = node),
+      onValueNodeChange: (node: SelectValueNativeElement) => (valueNode.value = node),
       onValueNodeHasChildrenChange: (hasChildren: boolean) => {
         valueNodeHasChildren.value = hasChildren
       },

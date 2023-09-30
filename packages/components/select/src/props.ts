@@ -4,7 +4,8 @@ import { createCollection } from '@oku-ui/collection'
 import type { CollectionPropsType } from '@oku-ui/collection'
 
 import {
-  createPopperScope, popperArrowProps,
+  createPopperScope,
+  popperArrowProps,
   popperContentProps,
 } from '@oku-ui/popper'
 import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
@@ -12,10 +13,14 @@ import { focusScopeProps } from '@oku-ui/focus-scope'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps } from '@oku-ui/primitive'
 import type {
+  PopperArrowElement,
   PopperArrowNaviteElement,
   PopperArrowProps,
   PopperContentElement,
+
   PopperContentEmits,
+
+  PopperContentNaviteElement,
 
   PopperContentProps,
 } from '@oku-ui/popper'
@@ -51,16 +56,16 @@ export type SelectNativeElement = OkuElement<'select'>
 export type Direction = 'ltr' | 'rtl'
 
 export type SelectProvideValue = {
-  trigger: Ref<SelectTriggerElement | null | undefined>
-  onTriggerChange(node: SelectTriggerElement | null): void
-  valueNode: Ref<SelectValueElement | null>
-  onValueNodeChange(node: SelectValueElement): void
+  trigger: Ref<SelectTriggerNativeElement | null | undefined>
+  onTriggerChange(node: SelectTriggerNativeElement | null): void
+  valueNode: Ref<SelectValueNativeElement | null>
+  onValueNodeChange(node: SelectValueNativeElement): void
   valueNodeHasChildren: Ref<boolean>
   onValueNodeHasChildrenChange(hasChildren: boolean): void
   contentId: string
-  value?: ComputedRef<string | undefined>
+  value?: ComputedRef<string>
   onValueChange(value: string): void
-  open: ComputedRef<boolean | undefined>
+  open: ComputedRef<boolean>
   required?: Ref<boolean | undefined>
   onOpenChange(open: boolean): void
   dir: ComputedRef<SelectProps['dir']>
@@ -120,7 +125,9 @@ export type ItemData = {
   textValue: string
 } & CollectionPropsType
 
-export type SelectTriggerElement = OkuElement<'button'>
+export type SelectTriggerNativeElement = OkuElement<'button'>
+export type SelectTriggerElement = HTMLButtonElement
+
 export interface SelectTriggerProps extends PrimitiveProps {
   /**
    * Whether or not select is disabled from user interaction.
@@ -218,7 +225,7 @@ export const [createSelectNativeProvide, createSelectNativeScope]
 
 export const usePopperScope = createPopperScope()
 
-export const [SelectProvider, useSelectInject]
+export const [selectProvider, useSelectInject]
   = createSelectProvide<SelectProvideValue>(SELECT_NAME)
 
 export const [SelectNativeOptionsProvider, useSelectNativeOptionsInject]
@@ -250,7 +257,9 @@ export const selectTriggerProps = {
  * SelectValue
  * ----------------------------------------------------------------------------------------------- */
 
-export type SelectValueElement = OkuElement<'span'>
+export type SelectValueNativeElement = OkuElement<'span'>
+export type SelectValueElement = HTMLSpanElement
+
 export interface SelectValueProps extends PrimitiveProps {
   placeholder?: string | Record<string, unknown>
 }
@@ -268,8 +277,9 @@ export const selectValueProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectIcon
  * ----------------------------------------------------------------------------------------------- */
+export type SelectIconNativeElement = OkuElement<'span'>
+export type SelectIconElement = HTMLSpanElement
 
-export type SelectIconElement = OkuElement<'span'>
 export interface SelectIconProps extends PrimitiveProps {}
 
 export const selectIconProps = {
@@ -284,6 +294,7 @@ export const selectIconProps = {
 
 export interface SelectContentProps extends SelectContentImplProps {}
 
+export type SelectContentNativeElement = SelectContentImplNativeElement
 export type SelectContentElement = SelectContentImplElement
 
 /* -------------------------------------------------------------------------------------------------
@@ -349,6 +360,10 @@ export type SelectContentImplEmits = {
   keyof SelectPopperPrivateEmits
 >
 
+export type SelectContentImplNativeElement =
+ | SelectPopperPositionNativeElement
+ | SelectItemAlignedPositionNativeElement
+
 export type SelectContentImplElement =
   | SelectPopperPositionElement
   | SelectItemAlignedPositionElement
@@ -386,8 +401,9 @@ export const selectContentProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectPopperPosition
  * ----------------------------------------------------------------------------------------------- */
-
+export type SelectPopperPositionNativeElement = PopperContentNaviteElement
 export type SelectPopperPositionElement = PopperContentElement
+
 export interface SelectPopperPositionProps
   extends PopperContentProps,
   SelectPopperPrivateProps {}
@@ -412,7 +428,9 @@ export const selectPopperPositionProps = {
  * SelectItemAlignedPosition
  * ----------------------------------------------------------------------------------------------- */
 
-export type SelectItemAlignedPositionElement = OkuElement<'div'>
+export type SelectItemAlignedPositionNativeElement = OkuElement<'div'>
+export type SelectItemAlignedPositionElement = HTMLDivElement
+
 export interface SelectItemAlignedPositionProps
   extends PrimitiveProps,
   SelectPopperPrivateProps {}
@@ -432,7 +450,8 @@ export const selectItemAlignedPositionProps = {
  * SelectViewport
  * ----------------------------------------------------------------------------------------------- */
 
-export type SelectViewportElement = OkuElement<'div'>
+export type SelectViewportNativeElement = OkuElement<'div'>
+export type SelectViewportElement = HTMLDivElement
 
 export interface SelectViewportProps extends PrimitiveProps {}
 
@@ -469,7 +488,9 @@ export const selectViewportProps = {
 
 export type SelectGroupContextValue = { id: string }
 
-export type SelectGroupElement = OkuElement<'div'>
+export type SelectGroupNativeElement = OkuElement<'div'>
+export type SelectGroupElement = HTMLDivElement
+
 export interface SelectGroupProps extends PrimitiveProps {}
 
 export const [createSelectGroupProvide, createSelectGroupScope]
@@ -492,8 +513,8 @@ export const selectGroupProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectLabel
  * ----------------------------------------------------------------------------------------------- */
-
-export type SelectLabelElement = OkuElement<'div'>
+export type SelectLabelNativeElement = OkuElement<'div'>
+export type SelectLabelElement = HTMLDivElement
 export interface SelectLabelProps extends PrimitiveProps {}
 
 export const selectLabelProps = {
@@ -505,8 +526,8 @@ export const selectLabelProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectSeparator
  * ----------------------------------------------------------------------------------------------- */
-
-export type SelectSeparatorElement = OkuElement<'div'>
+export type SelectSeparatorNativeElement = OkuElement<'div'>
+export type SelectSeparatorElement = HTMLDivElement
 export interface SelectSeparatorProps extends PrimitiveProps {}
 
 export const selectSeperatorProps = {
@@ -519,7 +540,8 @@ export const selectSeperatorProps = {
  * SelectArrow
  * ----------------------------------------------------------------------------------------------- */
 
-export type SelectArrowElement = PopperArrowNaviteElement
+export type SelectArrowNativeElement = PopperArrowNaviteElement
+export type SelectArrowElement = PopperArrowElement
 export interface SelectArrowProps extends PopperArrowProps {}
 
 export const selectArrowProps = {
@@ -541,7 +563,9 @@ export type SelectItemContextValue = {
   onItemTextChange(node: SelectItemTextElement | null): void
 }
 
-export type SelectItemElement = OkuElement<'div'>
+export type SelectItemNativeElement = OkuElement<'div'>
+export type SelectItemElement = HTMLDivElement
+
 export interface SelectItemProps extends PrimitiveProps {
   value: string
   disabled?: boolean
@@ -579,8 +603,8 @@ export const selectItemProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectItemText
  * ----------------------------------------------------------------------------------------------- */
-
-export type SelectItemTextElement = OkuElement<'span'>
+export type SelectItemTextNativeElement = OkuElement<'span'>
+export type SelectItemTextElement = HTMLSpanElement
 export interface SelectItemTextProps extends PrimitiveProps {}
 
 export const selectItemTextProps = {
@@ -592,7 +616,8 @@ export const selectItemTextProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectItemIndicator
  * ----------------------------------------------------------------------------------------------- */
-export type SelectItemIndicatorElement = OkuElement<'span'>
+export type SelectItemIndicatorNativeElement = OkuElement<'span'>
+export type SelectItemIndicatorElement = HTMLSpanElement
 export interface SelectItemIndicatorProps extends PrimitiveProps {}
 
 export const selectItemIndicatorProps = {
@@ -604,8 +629,8 @@ export const selectItemIndicatorProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectScrollButtonImpl
  * ----------------------------------------------------------------------------------------------- */
-
-export type SelectScrollButtonImplElement = OkuElement<'div'>
+export type SelectScrollButtonImplNativeElement = OkuElement<'div'>
+export type SelectScrollButtonImplElement = HTMLDivElement
 export interface SelectScrollButtonImplProps extends PrimitiveProps {
   autoScroll?(): void
 }

@@ -6,7 +6,7 @@ import {
   scopeSelectProps,
   selectSeperatorProps,
 } from './props'
-import type { SelectSeparatorElement } from './props'
+import type { SelectSeparatorNativeElement } from './props'
 
 const SelectSeparator = defineComponent({
   name: SEPARATOR_NAME,
@@ -35,5 +35,5 @@ const SelectSeparator = defineComponent({
 
 export const OkuSelectSeparator = SelectSeparator as typeof SelectSeparator &
 (new () => {
-  $props: SelectSeparatorElement
+  $props: SelectSeparatorNativeElement
 })

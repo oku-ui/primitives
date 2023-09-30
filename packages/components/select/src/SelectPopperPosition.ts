@@ -8,7 +8,7 @@ import {
   selectPopperPositionProps,
   usePopperScope,
 } from './props'
-import type { SelectPopperPositionElement } from './props'
+import type { SelectPopperPositionNativeElement } from './props'
 
 const SelectPopperPosition = defineComponent({
   name: POPPER_POSITION_NAME,
@@ -63,5 +63,5 @@ const SelectPopperPosition = defineComponent({
 export const OkuSelectPopperPosition
   = SelectPopperPosition as typeof SelectPopperPosition &
   (new () => {
-    $props: SelectPopperPositionElement
+    $props: SelectPopperPositionNativeElement
   })

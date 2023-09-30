@@ -7,7 +7,7 @@ import {
   selectItemIndicatorProps,
   useSelectItemInject,
 } from './props'
-import type { SelectItemIndicatorElement } from './props'
+import type { SelectItemIndicatorNativeElement } from './props'
 
 const SelectItemIndicator = defineComponent({
   name: ITEM_INDICATOR_NAME,
@@ -44,5 +44,5 @@ const SelectItemIndicator = defineComponent({
 export const OkuSelectIndicator
   = SelectItemIndicator as typeof SelectItemIndicator &
   (new () => {
-    $props: SelectItemIndicatorElement
+    $props: SelectItemIndicatorNativeElement
   })

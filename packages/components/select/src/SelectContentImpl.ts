@@ -23,6 +23,7 @@ import type {
   ItemData,
   SelectContentImplElement,
   SelectContentImplEmits,
+  SelectContentImplNativeElement,
   SelectItemElement,
   SelectItemTextElement,
   SelectViewportElement,
@@ -269,11 +270,11 @@ const SelectContentImpl = defineComponent({
       onViewportChange: (node: SelectViewportElement | null) => {
         viewport.value = node
       },
-      itemRefCallback: itemRefCallback.value,
+      itemRefCallback,
       selectedItem,
-      onItemLeave: handleItemLeave.value,
-      itemTextRefCallback: itemTextRefCallback.value,
-      focusSelectedItem: focusSelectedItem.value,
+      onItemLeave: handleItemLeave,
+      itemTextRefCallback,
+      focusSelectedItem,
       selectedItemText,
       position,
       isPositioned,
@@ -348,7 +349,7 @@ const SelectContentImpl = defineComponent({
                             event.preventDefault()
 
                           if (!isModifierKey && event.key.length === 1)
-                            handleTypeaheadSearch.value(event.key)
+                            handleTypeaheadSearch(event.key)
 
                           if (
                             ['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(
@@ -379,7 +380,7 @@ const SelectContentImpl = defineComponent({
                              * Imperative focus during keydown is risky so we prevent React's batching updates
                              * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
                              */
-                            setTimeout(() => focusFirst.value(candidateNodes))
+                            setTimeout(() => focusFirst(candidateNodes))
 
                             event.preventDefault()
                           }
@@ -398,5 +399,5 @@ const SelectContentImpl = defineComponent({
 export const OkuSelectContentImpl
   = SelectContentImpl as typeof SelectContentImpl &
   (new () => {
-    $props: SelectContentImplElement
+    $props: SelectContentImplNativeElement
   })
