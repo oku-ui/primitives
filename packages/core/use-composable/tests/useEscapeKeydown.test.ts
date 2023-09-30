@@ -1,18 +1,17 @@
-import { beforeEach, describe, it, vi } from 'vitest'
-import type { SpyInstance } from 'vitest'
+import { beforeEach, describe, it } from 'vitest'
 
 // TODO: Since the document ref has changed, the tests should be written accordingly.
 describe('useEscapeKeydown', () => {
-  let onEscapeKeyDown: any
-  let ownerDocument: Document
-  let addSpy: SpyInstance
-  let removeSpy: SpyInstance
+  // let onEscapeKeyDown: any
+  // let ownerDocument: Document
+  // let addSpy: SpyInstance
+  // let removeSpy: SpyInstance
 
   beforeEach(() => {
-    onEscapeKeyDown = vi.fn()
-    ownerDocument = globalThis.document
-    addSpy = vi.spyOn(ownerDocument, 'addEventListener')
-    removeSpy = vi.spyOn(ownerDocument, 'removeEventListener')
+    // onEscapeKeyDown = vi.fn()
+    // ownerDocument = globalThis.document
+    // addSpy = vi.spyOn(ownerDocument, 'addEventListener')
+    // removeSpy = vi.spyOn(ownerDocument, 'removeEventListener')
   })
 
   it('should add event listener when the component mounts', () => {
