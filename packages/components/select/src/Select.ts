@@ -34,9 +34,7 @@ const Select = defineComponent({
     ...selectProps.props,
     ...scopeSelectProps,
   },
-  emits: {
-    ...selectProps.emits,
-  },
+  emits: selectProps.emits,
   setup(props, { emit, slots }) {
     const {
       dir,
@@ -52,7 +50,7 @@ const Select = defineComponent({
     } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyValueChecked = computed(() =>
+    const proxyValueProp = computed(() =>
       valueProp.value !== undefined
         ? valueProp.value
         : modelValue.value !== undefined
@@ -96,7 +94,7 @@ const Select = defineComponent({
     )
 
     const { state: valueState, updateValue } = useControllable({
-      prop: computed(() => proxyValueChecked.value),
+      prop: computed(() => proxyValueProp.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result: string) => {
         emit('valueChange', result)
@@ -180,12 +178,13 @@ const Select = defineComponent({
                   'name': name.value,
                   'auto-complete': autoComplete.value,
                   'value': valueState.value,
+                  // enable form autofill
                   'onChange': (event: Event) =>
                     updateValue((event.target as HTMLInputElement)?.value),
                   'disabled': disabled.value,
                 },
                 [
-                  proxyValueChecked.value === undefined
+                  proxyValueProp.value === undefined
                     ? h('option', { value: '' })
                     : null,
                   Array.from(nativeOptionsSet.value).map((option, index) =>
