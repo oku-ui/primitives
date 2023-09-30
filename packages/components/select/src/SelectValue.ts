@@ -1,10 +1,9 @@
-import type { CSSProperties } from 'vue'
 import {
+  Fragment,
   computed,
   defineComponent,
   h,
   mergeProps,
-  onMounted,
   ref,
   toRefs,
   watchEffect,
@@ -18,7 +17,7 @@ import {
   useSelectInject,
 } from './props'
 import { shouldShowPlaceholder } from './utils'
-import type { SelectValueElement, SelectValueNativeElement } from './props'
+import type { SelectValueNativeElement } from './props'
 
 const SelectValue = defineComponent({
   name: VALUE_NAME,
@@ -36,20 +35,12 @@ const SelectValue = defineComponent({
 
     const composedRefs = useComposedRefs(forwardedRef, selectValueRef)
 
-    const {
-      onValueNodeHasChildrenChange,
-      value: contextValue,
-      onValueNodeChange,
-    } = useSelectInject(VALUE_NAME, scopeOkuSelect.value)
+    const inject = useSelectInject(VALUE_NAME, scopeOkuSelect.value)
 
     const hasChildren = computed(() => slots.default !== undefined)
 
     watchEffect(() => {
-      onValueNodeHasChildrenChange(hasChildren.value)
-    })
-
-    onMounted(() => {
-      onValueNodeChange(selectValueRef.value as unknown as SelectValueElement)
+      inject.onValueNodeHasChildrenChange(hasChildren.value)
     })
 
     return () =>
@@ -59,14 +50,15 @@ const SelectValue = defineComponent({
           ...mergeProps(attrs, valueProps),
           ref: composedRefs,
           style: {
-            ...(attrs.style as CSSProperties),
+            // we don't want events from the portalled `SelectValue` children to bubble
+            // through the item they came from
             pointerEvents: 'none',
           },
         },
         {
           default: () =>
-            shouldShowPlaceholder(contextValue?.value)
-              ? h(Primitive.div, { default: () => placeholder.value })
+            shouldShowPlaceholder(inject.value?.value)
+              ? h(Fragment, [placeholder.value])
               : slots.default?.(),
         },
       )

@@ -257,8 +257,8 @@ export const selectTriggerProps = {
  * SelectValue
  * ----------------------------------------------------------------------------------------------- */
 
-export type SelectValueNativeElement = OkuElement<'span'>
-export type SelectValueElement = HTMLSpanElement
+export type SelectValueNativeElement = Omit<OkuElement<'span'>, 'placeholder'>
+export type SelectValueElement = Omit<HTMLSpanElement, 'placeholder'>
 
 export interface SelectValueProps extends PrimitiveProps {
   placeholder?: string | Record<string, unknown>
@@ -268,7 +268,7 @@ export const selectValueProps = {
   props: {
     ...primitiveProps,
     placeholder: {
-      type: [String, Object] as PropType<string | object>,
+      type: [String, Object] as PropType<VNode | string | undefined>,
       default: '',
     },
   },
