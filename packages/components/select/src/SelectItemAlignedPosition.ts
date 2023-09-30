@@ -8,11 +8,14 @@ import {
   mergeProps,
   nextTick,
   onMounted,
+  reactive,
   ref,
   toRefs,
   unref,
+  watch,
 } from 'vue'
 import {
+  reactiveOmit,
   useComposedRefs,
   useForwardRef,
 } from '@oku-ui/use-composable'
@@ -42,11 +45,11 @@ const SelectItemAlignedPosition = defineComponent({
     ...selectItemAlignedPositionProps.props,
     ...scopeSelectProps,
   },
-  emits: {
-    ...selectItemAlignedPositionProps.emits,
-  },
+  emits: selectItemAlignedPositionProps.emits,
   setup(props, { slots, emit, attrs }) {
     const { scopeOkuSelect, ...selectItemAlignedProps } = toRefs(props)
+    const _reactive = reactive(selectItemAlignedProps)
+    const reactiveSelectItemAlignedProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const selectInject = useSelectInject(CONTENT_NAME, scopeOkuSelect.value)
     const selectContentInject = useSelectContentInject(
@@ -67,7 +70,7 @@ const SelectItemAlignedPosition = defineComponent({
 
     const getItems = useCollection(scopeOkuSelect)
 
-    const { viewport, selectedItem, selectedItemText, focusSelectedItem }
+    const inject
       = selectContentInject
 
     const position = () => {
@@ -76,9 +79,9 @@ const SelectItemAlignedPosition = defineComponent({
         && selectInject.valueNode.value
         && contentWrapper.value
         && content.value
-        && viewport?.value
-        && selectedItem?.value
-        && selectedItemText?.value
+        && inject.viewport?.value
+        && inject.selectedItem?.value
+        && inject.selectedItemText?.value
       ) {
         const triggerRect
           = selectInject.trigger.value?.getBoundingClientRect?.()
@@ -89,7 +92,7 @@ const SelectItemAlignedPosition = defineComponent({
         const contentRect = content.value?.getBoundingClientRect?.()
         const valueNodeRect
           = selectInject.valueNode.value?.getBoundingClientRect?.()
-        const itemTextRect = selectedItemText?.value?.getBoundingClientRect?.()
+        const itemTextRect = inject.selectedItemText?.value?.getBoundingClientRect?.()
 
         if (selectInject.dir.value !== 'rtl') {
           const itemTextOffset = itemTextRect!.left - contentRect.left
@@ -128,7 +131,7 @@ const SelectItemAlignedPosition = defineComponent({
         // -----------------------------------------------------------------------------------------
         const items = getItems()
         const availableHeight = window.innerHeight - CONTENT_MARGIN * 2
-        const itemsHeight = viewport?.value?.scrollHeight
+        const itemsHeight = inject.viewport?.value?.scrollHeight
 
         const contentStyles = window.getComputedStyle(content.value as Element)
         const contentBorderTopWidth = Number.parseInt(
@@ -143,12 +146,12 @@ const SelectItemAlignedPosition = defineComponent({
         const contentPaddingBottom = Number.parseInt(contentStyles.paddingBottom, 10)
         const fullContentHeight = contentBorderTopWidth + contentPaddingTop + itemsHeight! + contentPaddingBottom + contentBorderBottomWidth // prettier-ignore
         const minContentHeight = Math.min(
-          selectedItem.value.offsetHeight! * 5,
+          inject.selectedItem.value.offsetHeight! * 5,
           fullContentHeight,
         )
 
         const viewportStyles = window.getComputedStyle(
-          viewport?.value as Element,
+          inject.viewport?.value as Element,
         )
         const viewportPaddingTop = Number.parseInt(viewportStyles.paddingTop, 10)
         const viewportPaddingBottom = Number.parseInt(
@@ -161,9 +164,9 @@ const SelectItemAlignedPosition = defineComponent({
         const triggerMiddleToBottomEdge
           = availableHeight - topEdgeToTriggerMiddle
 
-        const selectedItemHalfHeight = selectedItem.value.offsetHeight! / 2
+        const selectedItemHalfHeight = inject.selectedItem.value.offsetHeight! / 2
         const itemOffsetMiddle
-          = selectedItem.value.offsetTop! + selectedItemHalfHeight
+          = inject.selectedItem.value.offsetTop! + selectedItemHalfHeight
         const contentTopToItemMiddle
           = contentBorderTopWidth + contentPaddingTop + itemOffsetMiddle
         const itemMiddleToContentBottom
@@ -174,12 +177,12 @@ const SelectItemAlignedPosition = defineComponent({
 
         if (willAlignWithoutTopOverflow) {
           const isLastItem
-            = selectedItem === items[items.length - 1].ref.current
+            = inject.selectedItem.value === items[items.length - 1].ref.value
           contentWrapper.value.style.bottom = `${0}px`
           const viewportOffsetBottom
             = content.value.clientHeight
-            - viewport.value.offsetTop!
-            - viewport.value.offsetHeight!
+            - inject.viewport.value.offsetTop!
+            - inject.viewport.value.offsetHeight!
           const clampedTriggerMiddleToBottomEdge = Math.max(
             triggerMiddleToBottomEdge,
             selectedItemHalfHeight
@@ -193,12 +196,12 @@ const SelectItemAlignedPosition = defineComponent({
           contentWrapper.value.style.height = `${height}px`
         }
         else {
-          const isFirstItem = selectedItem === items[0].ref.current
+          const isFirstItem = inject.selectedItem.value === items[0].ref.value
           contentWrapper.value.style.top = `${0}px`
           const clampedTopEdgeToTriggerMiddle = Math.max(
             topEdgeToTriggerMiddle,
             contentBorderTopWidth
-              + viewport.value.offsetTop!
+            + inject.viewport.value.offsetTop!
               // viewport might have padding top, include it to avoid a scrollable viewport
               + (isFirstItem ? viewportPaddingTop : 0)
               + selectedItemHalfHeight,
@@ -206,10 +209,10 @@ const SelectItemAlignedPosition = defineComponent({
           const height
             = clampedTopEdgeToTriggerMiddle + itemMiddleToContentBottom
           contentWrapper.value.style.height = `${height}px`
-          viewport.value.scrollTop
+          inject.viewport.value.scrollTop
             = contentTopToItemMiddle
             - topEdgeToTriggerMiddle
-            + viewport.value.offsetTop!
+          + inject.viewport.value.offsetTop!
         }
 
         contentWrapper.value.style.margin = `${CONTENT_MARGIN}px 0`
@@ -226,10 +229,12 @@ const SelectItemAlignedPosition = defineComponent({
     }
 
     onMounted(() => {
+      nextTick(() => position())
+    })
+
+    watch([content], () => {
       if (content.value)
         contentZIndex.value = window.getComputedStyle(content.value).zIndex
-
-      nextTick(() => position())
     })
 
     // When the viewport becomes scrollable at the top, the scroll up button will mount.
@@ -240,7 +245,7 @@ const SelectItemAlignedPosition = defineComponent({
       = (node: MaybeRef<SelectScrollButtonImplElement | null>) => {
         if (unref(node) && shouldRepositionRef.value === true) {
           position()
-          focusSelectedItem?.()
+          inject.focusSelectedItem?.()
           shouldRepositionRef.value = false
         }
       }
@@ -269,12 +274,13 @@ const SelectItemAlignedPosition = defineComponent({
             h(
               Primitive.div,
               {
-                ...mergeProps(attrs, selectItemAlignedProps),
+                ...mergeProps(attrs, reactiveSelectItemAlignedProps),
                 ref: composedRefs,
                 style: {
                   // When we get the height of the content, it includes borders. If we were to set
                   // the height without having `boxSizing: 'border-box'` it would be too big.
                   'box-sizing': 'border-box',
+                  // We need to ensure the content doesn't get taller than the wrapper
                   'max-height': '100%',
                   ...(attrs.style as CSSProperties),
                 },
