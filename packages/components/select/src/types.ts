@@ -17,7 +17,6 @@ export type SelectNativeElement = OkuElement<'select'>
 
 export type Direction = 'ltr' | 'rtl'
 
-export type SelectItemTextElement = OkuElement<'span'>
 export type SelectScrollButtonImplElement = OkuElement<'button'>
 
 export type SelectProvideValue = {
@@ -277,3 +276,10 @@ export interface SelectItemProps extends PrimitiveProps {
   disabled?: boolean
   textValue?: string
 }
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectItemText
+ * ----------------------------------------------------------------------------------------------- */
+
+export type SelectItemTextElement = OkuElement<'span'>
+export interface SelectItemTextProps extends PrimitiveProps {}
