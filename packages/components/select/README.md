@@ -3,7 +3,7 @@
 ## Installation
 
 ```sh
-$ pnpm add @oku-ui/example
+$ pnpm add @oku-ui/select
 ```
 
 ## Usage

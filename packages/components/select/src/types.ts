@@ -17,7 +17,6 @@ export type SelectNativeElement = OkuElement<'select'>
 
 export type Direction = 'ltr' | 'rtl'
 
-export type SelectItemElement = OkuElement<'div'>
 export type SelectItemTextElement = OkuElement<'span'>
 export type SelectScrollButtonImplElement = OkuElement<'button'>
 
@@ -259,3 +258,22 @@ export interface SelectSeparatorProps extends PrimitiveProps {}
 
 export type SelectArrowElement = PopperArrowNaviteElement
 export interface SelectArrowProps extends PopperArrowProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectItem
+ * ----------------------------------------------------------------------------------------------- */
+
+export type SelectItemContextValue = {
+  value: Ref<string>
+  disabled: Ref<boolean>
+  textId: string
+  isSelected: Ref<boolean>
+  onItemTextChange(node: SelectItemTextElement | null): void
+}
+
+export type SelectItemElement = OkuElement<'div'>
+export interface SelectItemProps extends PrimitiveProps {
+  value: string
+  disabled?: boolean
+  textValue?: string
+}

@@ -14,6 +14,7 @@ import type {
   ItemData,
   SelectContentContextValue,
   SelectGroupContextValue,
+  SelectItemContextValue,
   SelectNativeOptionsContextValue,
   SelectProvideValue,
   SelectViewportContextValue,
@@ -325,3 +326,44 @@ export const selectArrowProps = {
     ...popperArrowProps,
   },
 }
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectItem
+ * ----------------------------------------------------------------------------------------------- */
+
+export const ITEM_NAME = 'OkuSelectItem'
+
+export const [createSelectItemProvide, createSelectItemScope]
+  = createProvideScope(ITEM_NAME, [
+    createCollectionScope,
+    createPopperScope,
+    createSelectScope,
+    createSelectContentScope,
+  ])
+
+export const [SelectItemProvider, useSelectItemInject]
+  = createSelectViewpointProvide<SelectItemContextValue>(ITEM_NAME)
+
+export const selectItemProps = {
+  props: {
+    ...primitiveProps,
+    value: {
+      type: String as PropType<string>,
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    textValue: {
+      type: [String, undefined] as PropType<string | undefined>,
+      default: undefined,
+    },
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectItemIndicator
+ * ----------------------------------------------------------------------------------------------- */
+
+export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
