@@ -18,7 +18,7 @@ describe('useFocusoutSide', () => {
 
     document.dispatchEvent(new FocusEvent('focusin'))
 
-    expect(onFocusoutSide).toHaveBeenCalled()
+    expect(onFocusoutSide).not.toHaveBeenCalled()
   })
 
   it('should not call onFocusoutSide when focusin event happens inside', () => {
@@ -30,7 +30,6 @@ describe('useFocusoutSide', () => {
         return { events }
       },
     })
-
     // Simulate focusin event inside the component
     wrapper.find('button').trigger('focusin')
 

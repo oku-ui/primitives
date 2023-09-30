@@ -8,8 +8,8 @@ export const dismissableLayerContext = reactive({
 })
 
 export const INJECT_UPDATE = 'dismissableLayer.update'
-export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside'
-export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
+export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerdownOutside'
+export const FOCUS_OUTSIDE = 'dismissableLayer.focusoutSide'
 
 export const DISMISSABLE_NAME = 'OkuDismissableLayer'
 export const DismissableLayerProvideKey = Symbol('DismissableLayerProvide')
