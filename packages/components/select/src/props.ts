@@ -649,6 +649,13 @@ export interface SelectScrollButtonImplProps extends PrimitiveProps {
   autoScroll?(): void
 }
 
+export type SelectScrollButtonImplEmits = {
+  autoScroll: []
+  pointerdown: [event: PointerEvent]
+  pointermove: [event: PointerEvent]
+  pointerleave: [event: PointerEvent]
+}
+
 export const selectScrollButtonProps = {
   props: {
     ...primitiveProps,

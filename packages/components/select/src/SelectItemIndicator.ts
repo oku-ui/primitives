@@ -1,5 +1,5 @@
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import {
   ITEM_INDICATOR_NAME,
@@ -17,7 +17,10 @@ const SelectItemIndicator = defineComponent({
     ...scopeSelectProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeOkuSelect, ...selectItemIndicatorProps } = toRefs(props)
+    const { scopeOkuSelect, ...propsRefs } = toRefs(props)
+
+    const _reactive = reactive(propsRefs)
+    const reactivePropsRefs = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const itemInject = useSelectItemInject(
       ITEM_INDICATOR_NAME,
@@ -33,7 +36,7 @@ const SelectItemIndicator = defineComponent({
           {
             'aria-hidden': true,
             'ref': forwardedRef,
-            ...mergeProps(attrs, selectItemIndicatorProps),
+            ...mergeProps(attrs, reactivePropsRefs),
           },
           slots,
         )

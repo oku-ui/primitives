@@ -5,14 +5,15 @@ import {
   mergeProps,
   nextTick,
   onMounted,
+  reactive,
   ref,
   toRefs,
   watchEffect,
 } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ItemData, SelectScrollButtonImplNativeElement } from './props'
+import type { SelectScrollButtonImplEmits, SelectScrollButtonImplNativeElement } from './props'
 import {
   SELECT_SCROLL_BUTTON,
   scopeSelectProps,
@@ -28,11 +29,12 @@ const SelectScrollButtonImpl = defineComponent({
     ...selectScrollButtonProps.props,
     ...scopeSelectProps,
   },
-  emits: {
-    ...selectScrollButtonProps.emits,
-  },
+  emits: selectScrollButtonProps.emits,
   setup(props, { emit, attrs }) {
-    const { scopeOkuSelect, ...scrollIndicatorProps } = toRefs(props)
+    const { scopeOkuSelect, ...propsRefs } = toRefs(props)
+
+    const _reactive = reactive(propsRefs)
+    const reactivePropsRefs = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const contentInject = useSelectContentInject(
       SELECT_SCROLL_BUTTON,
@@ -63,49 +65,49 @@ const SelectScrollButtonImpl = defineComponent({
     onMounted(() => {
       nextTick(() => {
         const activeItem = getItems().find(
-          (item: ItemData) => item === document.activeElement,
+          item => item.ref.value === document.activeElement,
         )
 
-        activeItem?.scrollIntoView?.({ block: 'nearest' })
+        activeItem?.ref.value?.scrollIntoView?.({ block: 'nearest' })
       })
     })
 
     return () =>
       h(Primitive.div, {
         'aria-hidden': true,
-        ...mergeProps(attrs, scrollIndicatorProps),
+        ...mergeProps(attrs, reactivePropsRefs),
         'ref': forwardedRef,
         'style': {
           'flex-shrink': 0,
           ...(attrs.style as CSSProperties),
         },
-        'onPointerDown': composeEventHandlers((event: PointerEvent) => {
-          emit('pointerdown', event)
+        'onPointerdown': composeEventHandlers(
+          (event: SelectScrollButtonImplEmits['pointerdown'][0]) => emit('pointerdown', event),
+          () => {
+            if (autoScrollTimerRef.value === null) {
+              autoScrollTimerRef.value = window.setInterval(
+                () => emit('autoScroll'),
+                50,
+              )
+            }
+          }),
+        'onPointermove': composeEventHandlers(
+          (event: SelectScrollButtonImplEmits['pointermove'][0]) => emit('pointermove', event),
+          () => {
+            contentInject.onItemLeave?.()
 
-          if (autoScrollTimerRef.value === null) {
-            autoScrollTimerRef.value = window.setInterval(
-              () => emit('autoScroll'),
-              50,
-            )
-          }
-        }),
-        'onPointerMove': composeEventHandlers((event: PointerEvent) => {
-          emit('pointermove', event)
-
-          contentInject.onItemLeave?.()
-
-          if (autoScrollTimerRef.value === null) {
-            autoScrollTimerRef.value = window.setInterval(
-              () => emit('autoScroll'),
-              50,
-            )
-          }
-        }),
-        'onPointerLeave': composeEventHandlers((event: PointerEvent) => {
-          emit('pointerleave', event)
-
-          clearAutoScrollTimer()
-        }),
+            if (autoScrollTimerRef.value === null) {
+              autoScrollTimerRef.value = window.setInterval(
+                () => emit('autoScroll'),
+                50,
+              )
+            }
+          }),
+        'onPointerleave': composeEventHandlers(
+          (event: SelectScrollButtonImplEmits['pointerleave'][0]) => emit('pointerleave', event),
+          () => {
+            clearAutoScrollTimer()
+          }),
       })
   },
 })
