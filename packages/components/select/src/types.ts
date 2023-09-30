@@ -17,8 +17,6 @@ export type SelectNativeElement = OkuElement<'select'>
 
 export type Direction = 'ltr' | 'rtl'
 
-export type SelectScrollButtonImplElement = OkuElement<'button'>
-
 export type SelectProvideValue = {
   trigger: Ref<SelectTriggerElement | null | undefined>
   onTriggerChange(node: SelectTriggerElement | null): void
@@ -290,3 +288,11 @@ export interface SelectItemTextProps extends PrimitiveProps {}
 
 export type SelectItemIndicatorElement = OkuElement<'span'>
 export interface SelectItemIndicatorProps extends PrimitiveProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectScrollButtonImpl
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectScrollButtonImplElement = OkuElement<'div'>
+export interface SelectScrollButtonImplProps extends PrimitiveProps {
+  autoScroll?(): void
+}

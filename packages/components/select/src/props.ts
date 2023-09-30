@@ -35,6 +35,7 @@ export const ARROW_NAME = 'OkuSelectArrow'
 export const ITEM_NAME = 'OkuSelectItem'
 export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
 export const ITEM_TEXT_NAME = 'OkuSelectItemText'
+export const SELECT_SCROLL_BUTTON = 'OkuSelectScrollButton'
 
 /* -------------------------------------------------------------------------------------------------
  * Select
@@ -379,5 +380,20 @@ export const selectItemTextProps = {
 export const selectItemIndicatorProps = {
   props: {
     ...primitiveProps,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectScrollButtonImpl
+ * ----------------------------------------------------------------------------------------------- */
+export const selectScrollButtonProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {
+    autoScroll: () => true,
+    pointerdown: (event: PointerEvent) => true,
+    pointermove: (event: PointerEvent) => true,
+    pointerleave: (event: PointerEvent) => true,
   },
 }
