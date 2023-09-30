@@ -6,11 +6,12 @@ import {
   mergeProps,
   nextTick,
   onMounted,
+  reactive,
   ref,
   toRefs,
   watchEffect,
 } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import {
   ITEM_TEXT_NAME,
@@ -33,8 +34,11 @@ const SelectItemText = defineComponent({
   setup(props, { attrs, slots }) {
     const { scopeOkuSelect, ...itemTextProps } = toRefs(props)
 
+    const _reactive = reactive(itemTextProps)
+    const reactiveItemTextProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     // We ignore `class` and `style` as this part shouldn't be styled.
-    const { style, className, ...selectItemTextAttrs } = attrs as any
+    const { style: _style, className: _class, ...selectItemTextAttrs } = attrs as any
 
     const selectInject = useSelectInject(ITEM_TEXT_NAME, scopeOkuSelect.value)
     const contentInject = useSelectContentInject(
@@ -102,7 +106,7 @@ const SelectItemText = defineComponent({
         Primitive.span,
         {
           id: itemInject.textId,
-          ...mergeProps(selectItemTextAttrs, itemTextProps),
+          ...mergeProps(selectItemTextAttrs, reactiveItemTextProps),
           ref: composedRefs,
         },
         slots,
@@ -114,7 +118,7 @@ const SelectItemText = defineComponent({
         ? h(
           Teleport,
           { to: selectInject.valueNode.value },
-          { default: () => attrs.children },
+          { default: () => slots.default?.() },
         )
         : null,
     ]
