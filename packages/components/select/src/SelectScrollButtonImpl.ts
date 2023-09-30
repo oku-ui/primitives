@@ -12,7 +12,7 @@ import {
 import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { ItemData, SelectScrollButtonImplElement } from './types'
+import type { ItemData, SelectScrollButtonImplElement } from './props'
 import {
   SELECT_SCROLL_BUTTON,
   scopeSelectProps,
