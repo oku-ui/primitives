@@ -13,7 +13,6 @@ import {
   unref,
 } from 'vue'
 import {
-  useCallbackRef,
   useComposedRefs,
   useForwardRef,
 } from '@oku-ui/use-composable'
@@ -72,7 +71,7 @@ const SelectItemAlignedPosition = defineComponent({
     const { viewport, selectedItem, selectedItemText, focusSelectedItem }
       = selectContentInject
 
-    const position = useCallbackRef(() => {
+    const position = () => {
       if (
         selectInject.trigger.value
         && selectInject.valueNode.value
@@ -225,34 +224,33 @@ const SelectItemAlignedPosition = defineComponent({
         // so we explicitly turn it on only after they've registered.
         requestAnimationFrame(() => (shouldExpandOnScrollRef.value = true))
       }
-    })
+    }
 
     onMounted(() => {
       if (content.value)
         contentZIndex.value = window.getComputedStyle(content.value).zIndex
 
-      nextTick(() => position.value())
+      nextTick(() => position())
     })
 
     // When the viewport becomes scrollable at the top, the scroll up button will mount.
     // Because it is part of the normal flow, it will push down the viewport, thus throwing our
     // trigger => selectedItem alignment off by the amount the viewport was pushed down.
     // We wait for this to happen and then re-run the positining logic one more time to account for it.
-    const handleScrollButtonChange = useCallbackRef(
-      (node: MaybeRef<SelectScrollButtonImplElement | null>) => {
+    const handleScrollButtonChange
+      = (node: MaybeRef<SelectScrollButtonImplElement | null>) => {
         if (unref(node) && shouldRepositionRef.value === true) {
-          position.value()
+          position()
           focusSelectedItem?.()
           shouldRepositionRef.value = false
         }
-      },
-    )
+      }
 
     SelectViewportProvider({
       scope: scopeOkuSelect.value,
       contentWrapper,
       shouldExpandOnScrollRef,
-      onScrollButtonChange: handleScrollButtonChange.value,
+      onScrollButtonChange: handleScrollButtonChange,
     })
 
     return () =>

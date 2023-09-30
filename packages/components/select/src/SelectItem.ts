@@ -9,7 +9,6 @@ import {
   toRefs,
 } from 'vue'
 import {
-  useCallbackRef,
   useComposedRefs,
   useForwardRef,
   useId,
@@ -93,9 +92,9 @@ const SelectItem = defineComponent({
       disabled,
       textId,
       isSelected,
-      onItemTextChange: useCallbackRef((node: SelectItemTextElement | null) => {
+      onItemTextChange: (node: SelectItemTextElement | null) => {
         textValue.value = textValue.value || (node?.textContent ?? '').trim()
-      }).value,
+      },
     })
 
     return () =>
