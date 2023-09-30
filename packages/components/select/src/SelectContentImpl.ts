@@ -1,8 +1,8 @@
-import type { Ref } from 'vue'
 import {
   defineComponent,
   h,
   mergeProps,
+  reactive,
   ref,
   toRefs,
   watch,
@@ -11,6 +11,7 @@ import {
 import { hideOthers } from 'aria-hidden'
 
 import {
+  reactiveOmit,
   useComposedRefs,
   useForwardRef,
 } from '@oku-ui/use-composable'
@@ -20,7 +21,6 @@ import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { findNextItem } from './utils'
 import type {
-  ItemData,
   SelectContentImplElement,
   SelectContentImplEmits,
   SelectContentImplNativeElement,
@@ -49,9 +49,7 @@ const SelectContentImpl = defineComponent({
     ...selectContentImplProps.props,
     ...scopeSelectProps,
   },
-  emits: {
-    ...selectContentImplProps.emits,
-  },
+  emits: selectContentImplProps.emits,
   setup(props, { emit, slots, attrs }) {
     const {
       scopeOkuSelect,
@@ -68,6 +66,9 @@ const SelectContentImpl = defineComponent({
       avoidCollisions,
       ...selectContentProps
     } = toRefs(props)
+
+    const _reactive = reactive(selectContentProps)
+    const reactiveSelectContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const selectInject = useSelectInject(CONTENT_NAME, scopeOkuSelect.value)
 
@@ -95,34 +96,34 @@ const SelectContentImpl = defineComponent({
     useFocusGuards()
 
     const focusFirst
-      = (candidates: Array<Ref<HTMLElement | null>>) => {
-        const [firstItem, ...restItems] = getItems()
+      = (candidates: Array<HTMLElement | null>) => {
+        const [firstItem, ...restItems] = getItems().map(item => item.ref.value)
         const [lastItem] = restItems.slice(-1)
 
         const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement
 
         for (const candidate of candidates) {
           // if focus is already where we want to go, we don't want to keep going through the candidates
-          if (candidate.value === PREVIOUSLY_FOCUSED_ELEMENT)
+          if (candidate === PREVIOUSLY_FOCUSED_ELEMENT)
             return
-          candidate.value?.scrollIntoView({ block: 'nearest' })
+          candidate?.scrollIntoView({ block: 'nearest' })
           // viewport might have padding so scroll to its edges when focusing first/last items.
           if (candidate === firstItem && viewport.value)
             viewport.value.scrollTop = 0
           if (candidate === lastItem && viewport.value)
             viewport.value.scrollTop = viewport.value.scrollHeight
-          candidate.value?.focus()
+          candidate?.focus()
           if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT)
             return
         }
       }
 
     const focusSelectedItem = () =>
-      focusFirst([selectedItem, content])
+      focusFirst([selectedItem.value, content.value])
 
     // Since this is not dependent on layout, we want to ensure this runs at the same time as
     // other effects across components. Hence why we don't call `focusSelectedItem` inside `position`.
-    watchEffect(() => {
+    watch([selectedItem, content], () => {
       if (isPositioned.value)
         focusSelectedItem()
     })
@@ -157,7 +158,7 @@ const SelectContentImpl = defineComponent({
           }
           else {
             // otherwise, if the event was outside the content, close.
-            if (!content.value.contains(event.target as HTMLElement))
+            if (!content.value?.contains(event.target as HTMLElement))
               onOpenChange(false)
           }
           document.removeEventListener('pointermove', handlePointerMove)
@@ -195,10 +196,10 @@ const SelectContentImpl = defineComponent({
 
     const [searchRef, handleTypeaheadSearch] = useTypeaheadSearch((search) => {
       const enabledItems = getItems().filter(
-        (item: ItemData) => !item.disabled,
+        item => !item.disabled,
       )
       const currentItem = enabledItems.find(
-        (item: ItemData) => item === document.activeElement,
+        item => item.ref.value === document.activeElement,
       )
       const nextItem = findNextItem(enabledItems, search, currentItem)
 
@@ -207,7 +208,7 @@ const SelectContentImpl = defineComponent({
          * Imperative focus during keydown is risky so we prevent React's batching updates
          * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
          */
-        setTimeout(() => (nextItem as HTMLElement).focus())
+        setTimeout(() => (nextItem.ref.value as HTMLElement).focus())
       }
     })
 
@@ -238,13 +239,13 @@ const SelectContentImpl = defineComponent({
           = selectValue?.value !== undefined && selectValue.value === value
 
         if (isSelectedItem || isFirstValidItem)
-          selectedItem.value = node
+          selectedItemText.value = node
       }
 
     const SelectPosition
       = position.value === 'popper'
         ? OkuSelectPopperPosition
-        : OkuSelectItemAlignedPosition
+        : OkuSelectItemAlignedPosition as any
 
     // Silently ignore props that are not supported by `SelectItemAlignedPosition`
     const popperContentProps
@@ -309,8 +310,8 @@ const SelectContentImpl = defineComponent({
               {
                 asChild: true,
                 disableOutsidePointerEvents: true,
-                onEscapeKeyDown: (event: Event) => emit('escapeKeyDown', event),
-                onPointerdownOutside: (event: Event) =>
+                onEscapeKeyDown: (event: SelectContentImplEmits['escapeKeyDown'][0]) => emit('escapeKeyDown', event),
+                onPointerdownOutside: (event: SelectContentImplEmits['pointerdownOutside'][0]) =>
                   emit('pointerdownOutside', event),
                 onFocusoutside: (event: Event) => event.preventDefault(),
                 onDismiss: () => selectInject.onOpenChange(false),
@@ -325,7 +326,7 @@ const SelectContentImpl = defineComponent({
                       'data-state': selectInject.open.value ? 'open' : 'closed',
                       'dir': selectInject.dir.value,
                       'onContextMenu': (event: Event) => event.preventDefault(),
-                      ...mergeProps(attrs, selectContentProps),
+                      ...mergeProps(attrs, reactiveSelectContentProps),
                       ...popperContentProps,
                       'onPlaced': () => (isPositioned.value = true),
                       'ref': composedRefs,
@@ -335,12 +336,11 @@ const SelectContentImpl = defineComponent({
                         'flex-direction': 'column',
                         // reset the outline by default as the content MAY get focused
                         'outline': 'none',
-                        ...selectContentProps.style,
+                        ...attrs.style as any,
                       },
-                      'onKeyDown': composeEventHandlers(
+                      'onKeydown': composeEventHandlers(
+                        event => emit('onKeydown', event),
                         (event: KeyboardEvent) => {
-                          emit('escapeKeyDown', event)
-
                           const isModifierKey
                             = event.ctrlKey || event.altKey || event.metaKey
 
@@ -357,10 +357,10 @@ const SelectContentImpl = defineComponent({
                             )
                           ) {
                             const items = getItems().filter(
-                              (item: ItemData) => !item.disabled,
+                              item => !item.disabled,
                             )
                             let candidateNodes = items.map(
-                              (item: ItemData) => item.ref.current!,
+                              item => item.ref.value!,
                             )
 
                             if (['ArrowUp', 'End'].includes(event.key))

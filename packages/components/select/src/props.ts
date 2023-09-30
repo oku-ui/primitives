@@ -211,7 +211,7 @@ export const {
   CollectionSlot,
   useCollection,
   createCollectionScope,
-} = createCollection<HTMLSelectElement, ItemData>(SELECT_NAME)
+} = createCollection<HTMLDivElement, ItemData>(SELECT_NAME)
 
 export const [createSelectProvide, createSelectScope] = createProvideScope(
   SELECT_NAME,
@@ -393,6 +393,8 @@ export const selectContentImplProps = {
     escapeKeyDown: dismissableLayerProps.emits.escapeKeyDown,
     pointerdownOutside: dismissableLayerProps.emits.pointerdownOutside,
     closeAutoFocus: focusScopeProps.emits.unmountAutoFocus,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    onKeydown: (event: KeyboardEvent) => true,
   },
 }
 
