@@ -40,6 +40,7 @@ export const ITEM_NAME = 'OkuSelectItem'
 export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
 export const ITEM_TEXT_NAME = 'OkuSelectItemText'
 export const VIEWPORT_NAME = 'OkuSelectViewport'
+export const SELECT_SCROLL_BUTTON = 'OkuSelectScrollButton'
 
 /* -------------------------------------------------------------------------------------------------
  * Select
@@ -599,5 +600,20 @@ export interface SelectItemIndicatorProps extends PrimitiveProps {}
 export const selectItemIndicatorProps = {
   props: {
     ...primitiveProps,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectScrollButtonImpl
+ * ----------------------------------------------------------------------------------------------- */
+export const selectScrollButtonProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {
+    autoScroll: () => true,
+    pointerdown: (event: PointerEvent) => true,
+    pointermove: (event: PointerEvent) => true,
+    pointerleave: (event: PointerEvent) => true,
   },
 }
