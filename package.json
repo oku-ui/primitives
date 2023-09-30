@@ -25,6 +25,7 @@
     "play:vue": "pnpm clean:dts && pnpm --filter=vue3 p:dev",
     "play:nuxt": "pnpm clean:dts && pnpm --filter=nuxt3 p:dev",
     "play": "pnpm clean:dts && pnpm --filter='./playground/**' p:dev",
+    "play:gencomponents": "pnpm jiti ./scripts/playground-generator.ts",
     "postinstall": "simple-git-hooks",
     "test": "vitest run",
     "test:watch": "vitest --watch",

@@ -1,5 +1,6 @@
 {
   "name": "nuxt3-playground",
+  "type": "module",
   "private": true,
   "scripts": {
     "p:build": "nuxt build",
@@ -11,14 +12,26 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@oku-ui/accordion": "workspace:^",
+    "@oku-ui/alert-dialog": "workspace:^",
+    "@oku-ui/arrow": "workspace:^",
     "@oku-ui/aspect-ratio": "workspace:^",
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/collection": "workspace:^",
+    "@oku-ui/dialog": "workspace:^",
+    "@oku-ui/dismissable-layer": "workspace:^",
+    "@oku-ui/focus-scope": "workspace:^",
+    "@oku-ui/hover-card": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/popover": "workspace:^",
+    "@oku-ui/popper": "workspace:^",
+    "@oku-ui/portal": "workspace:^",
+    "@oku-ui/presence": "workspace:^",
     "@oku-ui/primitives": "workspace:^",
     "@oku-ui/progress": "workspace:^",
+    "@oku-ui/radio-group": "workspace:^",
     "@oku-ui/roving-focus": "workspace:^",
     "@oku-ui/scroll-area": "workspace:^",
     "@oku-ui/separator": "workspace:^",
@@ -27,11 +40,14 @@
     "@oku-ui/switch": "workspace:^",
     "@oku-ui/tabs": "workspace:^",
     "@oku-ui/toast": "workspace:^",
+    "@oku-ui/toggle": "workspace:^",
+    "@oku-ui/toggle-group": "workspace:^",
+    "@oku-ui/toolbar": "workspace:^",
+    "@oku-ui/tooltip": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.8.0",
-    "@types/node": "^18.17.17",
-    "nuxt": "^3.7.3"
+    "@types/node": "^20.7.0",
+    "nuxt": "^3.7.4"
   }
 }

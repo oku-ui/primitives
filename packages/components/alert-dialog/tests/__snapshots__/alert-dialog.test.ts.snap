@@ -86,7 +86,7 @@ exports[`OkuAlertDialog > Controlled > should be able to close 1`] = `
 
 exports[`OkuAlertDialog > Controlled > should be able to open 1`] = `
 <body
-  style=""
+  style="pointer-events: none;"
 >
   <span
     data-oku-focus-guard=""
@@ -295,7 +295,7 @@ exports[`OkuAlertDialog > StyledVue > should be able to close 1`] = `
 
 exports[`OkuAlertDialog > StyledVue > should be able to open 1`] = `
 <body
-  style=""
+  style="pointer-events: none;"
 >
   <span
     data-oku-focus-guard=""

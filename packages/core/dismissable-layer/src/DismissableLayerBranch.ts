@@ -5,7 +5,7 @@ import type {
 } from '@oku-ui/primitive'
 import { defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { dismissableLayerContext } from './DismissableLayer'
+import { dismissableLayerContext } from './props'
 
 const BRANCH_NAME = 'OkuDismissableLayerBranch'
 export type DismissableLayerBranchNaviteElement = OkuElement<'div'>
