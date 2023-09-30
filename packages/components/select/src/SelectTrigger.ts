@@ -25,7 +25,7 @@ import {
 } from './props'
 import { useTypeaheadSearch } from './useTypeAheadSearch'
 import { OPEN_KEYS, findNextItem, shouldShowPlaceholder } from './utils'
-import type { ItemData, SelectTriggerNativeElement } from './props'
+import type { SelectTriggerNativeElement } from './props'
 
 const SelectTrigger = defineComponent({
   name: TRIGGER_NAME,
@@ -42,17 +42,7 @@ const SelectTrigger = defineComponent({
       = toRefs(props)
     const selectTriggerRef = ref<HTMLButtonElement | null>(null)
 
-    const {
-      contentId,
-      disabled: selectContextDisabled,
-      value: contextValueProp,
-      onValueChange,
-      open,
-      required,
-      onOpenChange,
-      dir,
-      ...selectContext
-    } = useSelectInject(TRIGGER_NAME, scopeOkuSelect.value)
+    const inject = useSelectInject(TRIGGER_NAME, scopeOkuSelect.value)
     const popperScope = usePopperScope(scopeOkuSelect.value)
     const getItems = useCollection(scopeOkuSelect)
 
@@ -67,25 +57,25 @@ const SelectTrigger = defineComponent({
     )
 
     const isDisabled = computed(
-      () => selectContextDisabled?.value || disabled.value,
+      () => inject.disabled?.value || disabled.value || false,
     )
 
     const [searchRef, handleTypeaheadSearch, resetTypeahead]
       = useTypeaheadSearch((search) => {
         const enabledItems = getItems()?.filter(
-          (item: ItemData) => !item.disabled,
+          item => !item.disabled,
         )
         const currentItem = enabledItems.find(
-          (item: ItemData) => item.value === contextValueProp?.value,
+          item => item.value === inject?.value?.value,
         )
         const nextItem = findNextItem(enabledItems, search, currentItem)
         if (nextItem !== undefined)
-          onValueChange(nextItem.value)
+          inject.onValueChange(nextItem.value)
       })
 
     const handleOpen = () => {
       if (!isDisabled.value) {
-        onOpenChange(true)
+        inject.onOpenChange(true)
         // reset typeahead when we open
         resetTypeahead?.()
       }
@@ -103,23 +93,23 @@ const SelectTrigger = defineComponent({
             h(
               Primitive.button,
               {
-                'ref': composedRefs,
                 'type': 'button',
                 'role': 'combobox',
-                'aria-controls': contentId,
-                'aria-expanded': open.value,
-                'aria-required': required?.value,
+                'aria-controls': inject.contentId,
+                'aria-expanded': inject.open.value,
+                'aria-required': inject.required?.value,
                 'aria-autocomplete': 'none',
-                'dir': dir.value,
-                'data-state': open.value ? 'open' : 'closed',
+                'dir': inject.dir.value,
+                'data-state': inject.open.value ? 'open' : 'closed',
                 'disabled': isDisabled.value,
                 'data-disabled': isDisabled.value ? '' : undefined,
                 'data-placeholder': shouldShowPlaceholder(
-                  contextValueProp?.value,
+                  inject.value?.value,
                 )
                   ? ''
                   : undefined,
                 ...mergeProps(attrs, _selectTriggerProps),
+                'ref': composedRefs,
                 // Enable compatibility with native label or custom `Label` "click" for Safari:
                 'onClick': composeEventHandlers((event: Event) => {
                   emit('click', event);
@@ -130,44 +120,44 @@ const SelectTrigger = defineComponent({
                   // this only runs for a label "click"
                   (event.currentTarget as HTMLButtonElement)?.focus()
                 }),
-                'onPointerDown': composeEventHandlers((event: PointerEvent) => {
-                  emit('pointerdown', event)
+                'onPointerdown': composeEventHandlers(
+                  event => emit('pointerdown', event),
+                  (event: PointerEvent) => {
+                    // prevent implicit pointer capture
+                    // https://www.w3.org/TR/pointerevents3/#implicit-pointer-capture
+                    const target = event.target as HTMLElement
+                    if (target.hasPointerCapture(event.pointerId))
+                      target.releasePointerCapture(event.pointerId)
 
-                  // prevent implicit pointer capture
-                  // https://www.w3.org/TR/pointerevents3/#implicit-pointer-capture
-                  const target = event.target as HTMLElement
-                  if (target.hasPointerCapture(event.pointerId))
-                    target.releasePointerCapture(event.pointerId)
-
-                  // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
-                  // but not when the control key is pressed (avoiding MacOS right click)
-                  if (event.button === 0 && event.ctrlKey === false) {
-                    handleOpen()
-                    selectContext.triggerPointerDownPosRef.value = {
-                      x: Math.round(event.pageX),
-                      y: Math.round(event.pageY),
+                    // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
+                    // but not when the control key is pressed (avoiding MacOS right click)
+                    if (event.button === 0 && event.ctrlKey === false) {
+                      handleOpen()
+                      inject.triggerPointerDownPosRef.value = {
+                        x: Math.round(event.pageX),
+                        y: Math.round(event.pageY),
+                      }
+                      // prevent trigger from stealing focus from the active item after opening.
+                      event.preventDefault()
                     }
-                    // prevent trigger from stealing focus from the active item after opening.
-                    event.preventDefault()
-                  }
-                }),
-                'onKeyDown': composeEventHandlers((event: KeyboardEvent) => {
-                  emit('keydown', event)
-
-                  const isTypingAhead = searchRef.value !== ''
-                  const isModifierKey
+                  }),
+                'onKeydown': composeEventHandlers(
+                  event => emit('keydown', event),
+                  (event: KeyboardEvent) => {
+                    const isTypingAhead = searchRef.value !== ''
+                    const isModifierKey
                     = event.ctrlKey || event.altKey || event.metaKey
 
-                  if (!isModifierKey && event.key.length === 1)
-                    handleTypeaheadSearch?.(event.key)
-                  if (isTypingAhead && event.key === ' ')
-                    return
+                    if (!isModifierKey && event.key.length === 1)
+                      handleTypeaheadSearch?.(event.key)
+                    if (isTypingAhead && event.key === ' ')
+                      return
 
-                  if (OPEN_KEYS.includes(event.key)) {
-                    handleOpen()
-                    event.preventDefault()
-                  }
-                }),
+                    if (OPEN_KEYS.includes(event.key)) {
+                      handleOpen()
+                      event.preventDefault()
+                    }
+                  }),
               },
               slots,
             ),
