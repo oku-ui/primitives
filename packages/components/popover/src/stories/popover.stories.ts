@@ -145,3 +145,51 @@ export const Nested: Story = {
     `,
   }),
 }
+
+export const CustomAnchor: Story = {
+  args: {
+    template: 'CustomAnchor',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+        <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const WithSlottedTrigger: Story = {
+  args: {
+    template: 'WithSlottedTrigger',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: '<PopoverDemo v-bind="args" />',
+  }),
+}
+
+export const Chromatic = {
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+  args: {
+    template: 'Chromatic',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}

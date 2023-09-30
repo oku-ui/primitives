@@ -7,6 +7,9 @@ import VControlled from './VControlled.vue'
 import Animated from './Animated.vue'
 import ForcedMount from './ForcedMount.vue'
 import Nested from './Nested.vue'
+import CustomAnchor from './CustomAnchor.vue'
+import WithSlottedTrigger from './WithSlottedTrigger.vue'
+import Chromatic from './Chromatic.vue'
 
 export interface OkuPopoverProps {
   template: 'Styled'
@@ -17,6 +20,9 @@ export interface OkuPopoverProps {
   | 'Animated'
   | 'ForcedMount'
   | 'Nested'
+  | 'CustomAnchor'
+  | 'WithSlottedTrigger'
+  | 'Chromatic'
   allshow?: boolean
 }
 
@@ -50,6 +56,15 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   </div>
   <div v-if="template === 'Nested' || allshow">
     <Nested />
+  </div>
+  <div v-if="template === 'CustomAnchor' || allshow">
+    <CustomAnchor />
+  </div>
+  <div v-if="template === 'WithSlottedTrigger' || allshow">
+    <WithSlottedTrigger />
+  </div>
+  <div v-if="template === 'Chromatic' || allshow">
+    <Chromatic />
   </div>
 </template>
 
@@ -112,7 +127,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid black;
 }
 
-.popover-chromaticTrigger {
+.popover-chromatic-trigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -120,7 +135,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover-chromaticContent {
+.popover-chromatic-content {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -132,11 +147,11 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover-chromaticArrow {
+.popover-chromatic-arrow {
   fill: black;
 }
 
-.popover-triggerAttr {
+.popover-trigger-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -149,7 +164,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-contentAttr {
+.popover-content-attr {
   transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
@@ -166,7 +181,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-arrowAttr {
+.popover-arrow-attr {
   fill: #e5e7eb;
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
@@ -180,7 +195,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-closeAttr {
+.popover-close-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

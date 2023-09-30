@@ -40,3 +40,8 @@ export {
   popperAnchorProps,
   createPopperScope,
 } from './props'
+
+export {
+  SIDE_OPTIONS,
+  ALIGN_OPTIONS,
+} from './utils'
