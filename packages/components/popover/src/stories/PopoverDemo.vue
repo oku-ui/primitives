@@ -1,40 +1,70 @@
 <script setup lang="ts">
-import {
-  OkuPopover,
-  OkuPopoverArrow,
-  OkuPopoverClose,
-  OkuPopoverContent,
-  OkuPopoverPortal,
-  OkuPopoverTrigger,
-} from '@oku-ui/popover'
+import Boundary from './Boundary.vue'
+import Styled from './Styled.vue'
+import Modality from './Modality.vue'
+import Controlled from './Controlled.vue'
+import VControlled from './VControlled.vue'
+import Animated from './Animated.vue'
+import ForcedMount from './ForcedMount.vue'
+import Nested from './Nested.vue'
+import CustomAnchor from './CustomAnchor.vue'
+import WithSlottedTrigger from './WithSlottedTrigger.vue'
+import Chromatic from './Chromatic.vue'
 
 export interface OkuPopoverProps {
-  template: '#1' | '#2'
+  template: 'Styled'
+  | 'Boundary'
+  | 'Modality'
+  | 'Controlled'
+  | 'VControlled'
+  | 'Animated'
+  | 'ForcedMount'
+  | 'Nested'
+  | 'CustomAnchor'
+  | 'WithSlottedTrigger'
+  | 'Chromatic'
   allshow?: boolean
 }
 
 withDefaults(defineProps<OkuPopoverProps>(), {
-  template: '#1',
+  template: 'Styled',
+  allshow: false,
 })
 </script>
 
 <template>
-  <div v-if="template === '#1' || allshow" class="flex flex-col">
-    <div>
-      <OkuPopover>
-        <OkuPopoverTrigger class="popover-trigger">
-          open
-        </OkuPopoverTrigger>
-        <OkuPopoverPortal>
-          <OkuPopoverContent class="popover-content" :side-offset="15">
-            <OkuPopoverClose class="popover-close">
-              close
-            </OkuPopoverClose>
-            <OkuPopoverArrow class="popover-arrow" :width="20" :height="10" />
-          </OkuPopoverContent>
-        </OkuPopoverPortal>
-      </OkuPopover>
-    </div>
+  <div v-if="template === 'Styled' || allshow">
+    <Styled />
+  </div>
+  <div v-if="template === 'Boundary' || allshow">
+    <Boundary />
+  </div>
+  <div v-if="template === 'Modality' || allshow">
+    <Modality />
+  </div>
+  <div v-if="template === 'Controlled' || allshow">
+    <Controlled />
+  </div>
+  <div v-if="template === 'VControlled' || allshow">
+    <VControlled />
+  </div>
+  <div v-if="template === 'Animated' || allshow">
+    <Animated />
+  </div>
+  <div v-if="template === 'ForcedMount' || allshow">
+    <ForcedMount />
+  </div>
+  <div v-if="template === 'Nested' || allshow">
+    <Nested />
+  </div>
+  <div v-if="template === 'CustomAnchor' || allshow">
+    <CustomAnchor />
+  </div>
+  <div v-if="template === 'WithSlottedTrigger' || allshow">
+    <WithSlottedTrigger />
+  </div>
+  <div v-if="template === 'Chromatic' || allshow">
+    <Chromatic />
   </div>
 </template>
 
@@ -75,15 +105,15 @@ withDefaults(defineProps<OkuPopoverProps>(), {
 }
 
 .popover-animatedContent {
-   transform-origin: var(--oku-popover-content-transform-origin);
+  transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
   border-radius: 5px;
 
-  & [data-state='open'] {
+  &[data-state='open'] {
     animation: popover-fadeIn 300ms ease-out;
   }
-  & [data-state='closed'] {
+  &[data-state='closed'] {
     animation: popover-fadeOut 300ms ease-in;
   }
 }
@@ -97,7 +127,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid black;
 }
 
-.popover-chromaticTrigger {
+.popover-chromatic-trigger {
   box-sizing: border-box;
   width: 30px;
   height: 30px;
@@ -105,7 +135,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover-chromaticContent {
+.popover-chromatic-content {
   box-sizing: border-box;
   display: grid;
   place-content: center;
@@ -117,11 +147,11 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.popover-chromaticArrow {
+.popover-chromatic-arrow {
   fill: black;
 }
 
-.popover-triggerAttr {
+.popover-trigger-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -134,7 +164,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-contentAttr {
+.popover-content-attr {
   transform-origin: var(--oku-popover-content-transform-origin);
   background-color: #e5e7eb;
   padding: 20px;
@@ -151,7 +181,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-arrowAttr {
+.popover-arrow-attr {
   fill: #e5e7eb;
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
@@ -165,7 +195,7 @@ withDefaults(defineProps<OkuPopoverProps>(), {
   }
 }
 
-.popover-closeAttr {
+.popover-close-attr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

@@ -37,7 +37,7 @@ const open = ref(false)
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 5.3s ease;
 }
 
 .fade-enter-from,

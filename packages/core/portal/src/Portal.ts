@@ -52,9 +52,7 @@ const portal = defineComponent({
           {
             ...mergeProps(attrs, reactivePortalProps),
             ref: forwardedRef,
-          }, {
-            default: () => slots.default?.(),
-          }),
+          }, slots),
       )
       : null
   },

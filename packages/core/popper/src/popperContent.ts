@@ -123,6 +123,7 @@ const PopperContent = defineComponent({
           return cleanup
         },
         middleware: computedMiddleware,
+        transform: true,
       })
 
     const placedSide = computed(
