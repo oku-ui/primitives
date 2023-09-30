@@ -28,6 +28,7 @@ import type { FocusScopeEmits } from '@oku-ui/focus-scope'
 import type {
   DismissableLayerEmits,
 } from '@oku-ui/dismissable-layer'
+import type { PortalProps } from '@oku-ui/portal'
 
 export const SELECT_NAME = 'OkuSelect'
 export const TRIGGER_NAME = 'OkuSelectTrigger'
@@ -46,6 +47,7 @@ export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
 export const ITEM_TEXT_NAME = 'OkuSelectItemText'
 export const VIEWPORT_NAME = 'OkuSelectViewport'
 export const SELECT_SCROLL_BUTTON = 'OkuSelectScrollButton'
+export const PORTAL_NAME = 'OkuSelectPortal'
 
 /* -------------------------------------------------------------------------------------------------
  * Select
@@ -648,4 +650,15 @@ export const selectScrollButtonProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     pointerleave: (event: PointerEvent) => true,
   },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectPortal
+ * ----------------------------------------------------------------------------------------------- */
+
+export interface SelectPortalProps {
+  /**
+   * Specify a container element to portal the content into.
+   */
+  container?: PortalProps['container']
 }

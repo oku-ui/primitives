@@ -1,19 +1,10 @@
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import {
   OkuPortal,
   type PortalElementNaviteElement,
-  type PortalProps,
   portalProps,
 } from '@oku-ui/portal'
-
-const PORTAL_NAME = 'OkuSelectPortal'
-
-export interface SelectPortalProps {
-  /**
-   * Specify a container element to portal the content into.
-   */
-  container?: PortalProps['container']
-}
+import { PORTAL_NAME } from './props'
 
 const SelectPortal = defineComponent({
   name: PORTAL_NAME,
@@ -22,14 +13,12 @@ const SelectPortal = defineComponent({
     ...portalProps.props,
   },
   setup(props, { attrs, slots }) {
-    const { ...selectPortalProps } = toRefs(props)
-
     return () =>
       h(
         OkuPortal,
         {
           asChild: true,
-          ...mergeProps(attrs, selectPortalProps),
+          ...mergeProps(attrs, props),
         },
         slots,
       )
