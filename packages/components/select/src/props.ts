@@ -50,8 +50,6 @@ export type SelectNativeElement = OkuElement<'select'>
 
 export type Direction = 'ltr' | 'rtl'
 
-export type SelectScrollButtonImplElement = OkuElement<'button'>
-
 export type SelectProvideValue = {
   trigger: Ref<SelectTriggerElement | null | undefined>
   onTriggerChange(node: SelectTriggerElement | null): void
@@ -606,14 +604,23 @@ export const selectItemIndicatorProps = {
 /* -------------------------------------------------------------------------------------------------
  * SelectScrollButtonImpl
  * ----------------------------------------------------------------------------------------------- */
+
+export type SelectScrollButtonImplElement = OkuElement<'div'>
+export interface SelectScrollButtonImplProps extends PrimitiveProps {
+  autoScroll?(): void
+}
+
 export const selectScrollButtonProps = {
   props: {
     ...primitiveProps,
   },
   emits: {
     autoScroll: () => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     pointerdown: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     pointermove: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
     pointerleave: (event: PointerEvent) => true,
   },
 }
