@@ -4,11 +4,12 @@ import {
   defineComponent,
   h,
   mergeProps,
+  reactive,
   ref,
   toRefs,
   watchEffect,
 } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import {
   VALUE_NAME,
@@ -29,10 +30,14 @@ const SelectValue = defineComponent({
   setup(props, { slots, attrs }) {
     const { scopeOkuSelect, placeholder, ...valueProps } = toRefs(props)
 
+    const _reactive = reactive(valueProps)
+    const _valueProps = reactiveOmit(
+      _reactive,
+      (key, _value) => key === undefined,
+    )
+
     const selectValueRef = ref<HTMLSpanElement | null>(null)
-
     const forwardedRef = useForwardRef()
-
     const composedRefs = useComposedRefs(forwardedRef, selectValueRef)
 
     const inject = useSelectInject(VALUE_NAME, scopeOkuSelect.value)
@@ -47,7 +52,7 @@ const SelectValue = defineComponent({
       h(
         Primitive.span,
         {
-          ...mergeProps(attrs, valueProps),
+          ...mergeProps(attrs, _valueProps),
           ref: composedRefs,
           style: {
             // we don't want events from the portalled `SelectValue` children to bubble
