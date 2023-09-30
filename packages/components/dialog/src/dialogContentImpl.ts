@@ -1,9 +1,30 @@
 import type { PropType } from 'vue'
-import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import {
+  Fragment,
+  defineComponent,
+  h,
+  mergeProps,
+  reactive,
+  ref,
+  toRefs,
+} from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
-import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
+import {
+  reactiveOmit,
+  useComposedRefs,
+  useForwardRef,
+} from '@oku-ui/use-composable'
+import {
+  type DismissableLayerEmits,
+  OkuDismissableLayer,
+  type DismissableLayerProps as OkuDismissableLayerProps,
+  dismissableLayerProps,
+} from '@oku-ui/dismissable-layer'
+import {
+  type FocusScopeEmits,
+  type FocusScopeProps,
+  OkuFocusScope,
+} from '@oku-ui/focus-scope'
 import { useFocusGuards } from '@oku-ui/focus-guards'
 
 import { primitiveProps } from '@oku-ui/primitive'
@@ -37,7 +58,6 @@ export type DialogContentImplEmits = {
   closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
 
   // pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
-
 } & Omit<DismissableLayerEmits, 'dismiss'>
 
 export const dialogContentImplProps = {
@@ -67,14 +87,13 @@ const dialogContentImpl = defineComponent({
   },
   emits: dialogContentImplProps.emits,
   setup(props, { emit, attrs, slots }) {
-    const {
-      scopeOkuDialog,
-      trapFocus,
-      ...contentProps
-    } = toRefs(props)
+    const { scopeOkuDialog, trapFocus, ...contentProps } = toRefs(props)
 
     const _reactive = reactive(contentProps)
-    const reactiveDialogProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const reactiveDialogProps = reactiveOmit(
+      _reactive,
+      (key, _value) => key === undefined,
+    )
 
     const inject = useDialogInject(CONTENT_NAME, scopeOkuDialog.value)
 
@@ -84,47 +103,55 @@ const dialogContentImpl = defineComponent({
 
     useFocusGuards()
 
-    return () => h(Fragment,
-      [
-        h(OkuFocusScope, {
-          asChild: true,
-          loop: true,
-          trapped: trapFocus.value,
-          onMountAutoFocus: (event) => {
-            emit('openAutoFocus', event)
+    return () =>
+      h(Fragment, [
+        h(
+          OkuFocusScope,
+          {
+            asChild: true,
+            loop: true,
+            trapped: trapFocus.value,
+            onMountAutoFocus: (event: Event) => {
+              emit('openAutoFocus', event)
+            },
+            onUnmountAutoFocus: (event: Event) => {
+              emit('closeAutoFocus', event)
+            },
           },
-          onUnmountAutoFocus: (event) => {
-            emit('closeAutoFocus', event)
+          {
+            default: () =>
+              h(
+                OkuDismissableLayer,
+                {
+                  'role': 'dialog',
+                  'id': inject.contentId.value,
+                  'aria-describedby': inject.descriptionId?.value,
+                  'aria-labelledby': inject.titleId?.value,
+                  'data-state': getState(inject.open.value),
+                  ...mergeProps(attrs, reactiveDialogProps),
+                  'ref': composedRefs,
+                  'onInteractOutside': (event) => {
+                    emit('interactOutside', event)
+                  },
+                  'onEscapeKeyDown': (event) => {
+                    emit('escapeKeyDown', event)
+                  },
+                  'onPointerdownOutside': (event) => {
+                    emit('pointerdownOutside', event)
+                  },
+                  'onFocusoutSide': (event) => {
+                    emit('focusoutSide', event)
+                  },
+                  'onDismiss': () => {
+                    inject.onOpenChange(false)
+                  },
+                },
+                slots,
+              ),
           },
-        }, {
-          default: () => h(OkuDismissableLayer, {
-            'role': 'dialog',
-            'id': inject.contentId.value,
-            'aria-describedby': inject.descriptionId?.value,
-            'aria-labelledby': inject.titleId?.value,
-            'data-state': getState(inject.open.value),
-            ...mergeProps(attrs, reactiveDialogProps),
-            'ref': composedRefs,
-            'onInteractOutside': (event) => {
-              emit('interactOutside', event)
-            },
-            'onEscapeKeyDown': (event) => {
-              emit('escapeKeyDown', event)
-            },
-            'onPointerdownOutside': (event) => {
-              emit('pointerdownOutside', event)
-            },
-            'onFocusoutSide': (event) => {
-              emit('focusoutSide', event)
-            },
-            'onDismiss': () => {
-              inject.onOpenChange(false)
-            },
-          }, slots),
-        }),
+        ),
         process.env.NODE_ENV !== 'production'
-        && h(Fragment,
-          [
+          && h(Fragment, [
             h(OkuDialogTitleWarning, {
               titleId: inject.titleId.value,
             }),
@@ -133,13 +160,13 @@ const dialogContentImpl = defineComponent({
               descriptionId: inject.descriptionId.value,
             }),
           ]),
-      ],
-    )
+      ])
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuDialogContentImpl = dialogContentImpl as typeof dialogContentImpl &
-(new () => {
-  $props: DialogContentImplNaviteElement
-})
+export const OkuDialogContentImpl
+  = dialogContentImpl as typeof dialogContentImpl &
+  (new () => {
+    $props: DialogContentImplNaviteElement
+  })

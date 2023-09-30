@@ -4,6 +4,7 @@ import {
   defineComponent,
   h,
   mergeProps,
+  onMounted,
   ref,
   toRefs,
   watchEffect,
@@ -26,7 +27,7 @@ const SelectValue = defineComponent({
     ...selectValueProps.props,
     ...scopeSelectProps,
   },
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { slots, attrs }) {
     const { scopeOkuSelect, placeholder, ...valueProps } = toRefs(props)
 
     const selectValueRef = ref<HTMLSpanElement | null>(null)
@@ -35,13 +36,20 @@ const SelectValue = defineComponent({
 
     const composedRefs = useComposedRefs(forwardedRef, selectValueRef)
 
-    const { onValueNodeHasChildrenChange, value: contextValue }
-      = useSelectInject(VALUE_NAME, scopeOkuSelect.value)
+    const {
+      onValueNodeHasChildrenChange,
+      value: contextValue,
+      onValueNodeChange,
+    } = useSelectInject(VALUE_NAME, scopeOkuSelect.value)
 
     const hasChildren = computed(() => slots.default !== undefined)
 
     watchEffect(() => {
       onValueNodeHasChildrenChange(hasChildren.value)
+    })
+
+    onMounted(() => {
+      onValueNodeChange(selectValueRef.value as unknown as SelectValueElement)
     })
 
     return () =>

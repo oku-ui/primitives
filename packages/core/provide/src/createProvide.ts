@@ -5,7 +5,8 @@ function createProvide<ProvideValueType extends object | null>(
   rootComponentName: string,
   defaultProvide?: ProvideValueType,
 ) {
-  const Provide: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
+  const Provide: InjectionKey<ProvideValueType | null>
+    = Symbol(rootComponentName)
   function Provider(props: ProvideValueType) {
     provide(Provide, props)
   }
@@ -17,7 +18,9 @@ function createProvide<ProvideValueType extends object | null>(
     if (defaultProvide !== undefined)
       return defaultProvide
     // if a defaultProvide wasn't specified, it's a required provide.
-    throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``)
+    throw new Error(
+      `\`${consumerName}\` must be used within \`${rootComponentName}\``,
+    )
   }
 
   return [Provider, useInject] as const
@@ -31,7 +34,10 @@ interface CreateScope {
   (): ScopeHook
 }
 
-function createProvideScope(scopeName: string, createProvideScopeDeps: CreateScope[] = []) {
+function createProvideScope(
+  scopeName: string,
+  createProvideScopeDeps: CreateScope[] = [],
+) {
   let defaultProviders: any[] = []
   /* -----------------------------------------------------------------------------------------------
    * createProvide
@@ -41,7 +47,8 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     rootComponentName: string,
     defaultValue?: ProvideValueType,
   ) {
-    const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
+    const BaseProvideKey: InjectionKey<ProvideValueType | null>
+      = Symbol(rootComponentName)
 
     const BaseScope = BaseProvideKey
     const index = defaultProviders.length
@@ -57,7 +64,10 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
       provide(Provide, context as any)
     }
 
-    function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
+    function useInject(
+      consumerName: string,
+      scope: Scope<ProvideValueType | undefined> | undefined,
+    ): ProvideValueType {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
       const provide = inject(Provide)
       if (provide)
@@ -66,7 +76,9 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
         return defaultValue
 
       // // if a defaultProvide wasn't specified, it's a required provide.
-      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``)
+      throw new Error(
+        `\`${consumerName}\` must be used within \`${rootComponentName}\``,
+      )
     }
 
     return [Provider, useInject] as const
@@ -83,41 +95,47 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     return function useScope(scope: Scope) {
       const providers = scope?.[scopeName] || scopeProviders
 
-      return ({
+      return {
         [`scope${scopeName}`]: {
           ...scope,
           [scopeName]: providers,
         },
-      })
+      }
     }
   }
 
   createScope.scopeName = scopeName
-  return [createProvide, composeProvderScopes(createScope, ...createProvideScopeDeps)] as const
+  return [
+    createProvide,
+    composeProviderScopes(createScope, ...createProvideScopeDeps),
+  ] as const
 }
 
-function composeProvderScopes(...scopes: CreateScope[]) {
+function composeProviderScopes(...scopes: CreateScope[]) {
   const baseScope = scopes[0]
   if (scopes.length === 1)
     return baseScope
   const createScope: CreateScope = () => {
     const scopeHooks = scopes.map((createScope) => {
-      return ({
+      return {
         useScope: createScope(),
         scopeName: createScope.scopeName,
-      })
+      }
     })
     return function useComposedScopes(overrideScopes) {
-      const nextScopes = scopeHooks.reduce((nextScopes, { useScope, scopeName }) => {
-        // We are calling a hook inside a callback which React warns against to avoid inconsistent
-        // renders, however, scoping doesn't have render side effects so we ignore the rule.
-        const scopeProps = useScope(overrideScopes)
+      const nextScopes = scopeHooks.reduce(
+        (nextScopes, { useScope, scopeName }) => {
+          // We are calling a hook inside a callback which React warns against to avoid inconsistent
+          // renders, however, scoping doesn't have render side effects so we ignore the rule.
+          const scopeProps = useScope(overrideScopes)
 
-        const currentScope = scopeProps[`scope${scopeName}`]
+          const currentScope = scopeProps[`scope${scopeName}`]
 
-        return { ...nextScopes, ...currentScope }
-      }, {})
-      const data = ({ [`scope${baseScope.scopeName}`]: nextScopes })
+          return { ...nextScopes, ...currentScope }
+        },
+        {},
+      )
+      const data = { [`scope${baseScope.scopeName}`]: nextScopes }
       return data
     }
   }

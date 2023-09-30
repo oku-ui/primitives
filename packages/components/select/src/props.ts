@@ -1,17 +1,22 @@
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import type { PropType } from 'vue'
 import { createCollection } from '@oku-ui/collection'
-import { createPopperScope } from '@oku-ui/popper'
+import { createPopperScope, popperContentProps } from '@oku-ui/popper'
 import { primitiveProps } from '@oku-ui/primitive'
+import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
+import { focusScopeProps } from '@oku-ui/focus-scope'
 import type {
   Direction,
   ItemData,
+  SelectContentContextValue,
+  SelectGroupContextValue,
   SelectNativeOptionsContextValue,
   SelectProvideValue,
+  SelectViewportContextValue,
 } from './types'
 
 /* -------------------------------------------------------------------------------------------------
- * SelectTrigger
+ * Select
  * ----------------------------------------------------------------------------------------------- */
 export const SELECT_NAME = 'OkuSelect'
 
@@ -90,13 +95,20 @@ export const [createSelectProvide, createSelectScope] = createProvideScope(
   [createCollectionScope, createPopperScope],
 )
 
+export const [createSelectNativeProvide, createSelectNativeScope]
+  = createProvideScope(SELECT_NAME, [
+    createCollectionScope,
+    createPopperScope,
+    createSelectScope,
+  ])
+
 export const usePopperScope = createPopperScope()
 
 export const [SelectProvider, useSelectInject]
   = createSelectProvide<SelectProvideValue>(SELECT_NAME)
 
 export const [SelectNativeOptionsProvider, useSelectNativeOptionsInject]
-  = createSelectProvide<SelectNativeOptionsContextValue>(SELECT_NAME)
+  = createSelectNativeProvide<SelectNativeOptionsContextValue>(SELECT_NAME)
 
 /* -------------------------------------------------------------------------------------------------
  * SelectTrigger
@@ -106,6 +118,7 @@ export const TRIGGER_NAME = 'OkuSelectTrigger'
 
 export const selectTriggerProps = {
   props: {
+    ...primitiveProps,
     disabled: {
       type: [Boolean, undefined] as PropType<boolean | undefined>,
       default: undefined,
@@ -126,9 +139,161 @@ export const VALUE_NAME = 'OkuSelectValue'
 
 export const selectValueProps = {
   props: {
+    ...primitiveProps,
     placeholder: {
       type: [String, Object] as PropType<string | object>,
       default: '',
     },
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectIcon
+ * ----------------------------------------------------------------------------------------------- */
+
+export const ICON_NAME = 'OkuSelectIcon'
+
+export const selectIconProps = {
+  props: {
+    ...primitiveProps,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectContent
+ * ----------------------------------------------------------------------------------------------- */
+export const CONTENT_NAME = 'OkuSelectContent'
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectContentImpl
+ * ----------------------------------------------------------------------------------------------- */
+
+export const CONTENT_MARGIN = 10
+
+export const CONTENT_IMPL_NAME = 'OkuSelectContentImpl'
+
+export const [createSelectContentProvide, createSelectContentScope]
+  = createProvideScope(CONTENT_NAME, [
+    createCollectionScope,
+    createPopperScope,
+    createSelectScope,
+  ])
+
+export const [SelectContentProvider, useSelectContentInject]
+  = createSelectContentProvide<SelectContentContextValue>(CONTENT_NAME)
+
+export const selectContentImplProps = {
+  props: {
+    ...primitiveProps,
+    ...popperContentProps.props,
+    position: {
+      type: String as PropType<'item-aligned' | 'popper'>,
+      default: 'item-aligned',
+    },
+  },
+  emits: {
+    escapeKeyDown: dismissableLayerProps.emits.escapeKeyDown,
+    pointerdownOutside: dismissableLayerProps.emits.pointerdownOutside,
+    closeAutoFocus: focusScopeProps.emits.unmountAutoFocus,
+  },
+}
+
+export const selectContentProps = {
+  ...selectContentImplProps,
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectPopperPosition
+ * ----------------------------------------------------------------------------------------------- */
+
+export const POPPER_POSITION_NAME = 'OkuSelectPopperPosition'
+
+export const selectPopperPositionProps = {
+  props: {
+    ...primitiveProps,
+    align: {
+      ...popperContentProps.props.align,
+      default: 'start',
+    },
+    collisionPadding: {
+      ...popperContentProps.props.collisionPadding,
+      default: CONTENT_MARGIN,
+    },
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectItemAlignedPosition
+ * ----------------------------------------------------------------------------------------------- */
+
+export const ITEM_ALIGNED_POSITION_NAME = 'OkuSelectItemAlignedPosition'
+
+export const selectItemAlignedPositionProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {
+    placed: popperContentProps.emits.placed,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectViewport
+ * ----------------------------------------------------------------------------------------------- */
+
+export const VIEWPORT_NAME = 'OkuSelectViewport'
+
+export const [createSelectViewpointProvide, createSelectViewpointScope]
+  = createProvideScope(VIEWPORT_NAME, [
+    createCollectionScope,
+    createPopperScope,
+    createSelectScope,
+    createSelectContentScope,
+  ])
+
+export const [SelectViewportProvider, useSelectViewportContext]
+  = createSelectViewpointProvide<SelectViewportContextValue>(VIEWPORT_NAME)
+
+export const selectViewportProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {
+    onscroll: (event: Event) => true,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectGroup
+ * ----------------------------------------------------------------------------------------------- */
+
+export const GROUP_NAME = 'OkuSelectGroup'
+
+export const [createSelectGroupProvide, createSelectGroupScope]
+  = createProvideScope(GROUP_NAME, [
+    createCollectionScope,
+    createPopperScope,
+    createSelectScope,
+    createSelectContentScope,
+  ])
+
+export const [SelectGroupProvider, useSelectGroupInject]
+  = createSelectViewpointProvide<SelectGroupContextValue>(GROUP_NAME)
+
+export const selectGroupProps = {
+  props: {
+    ...primitiveProps,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectLabel
+ * ----------------------------------------------------------------------------------------------- */
+
+export const LABEL_NAME = 'SelectLabel'
+
+export const selectLabelProps = {
+  props: {
+    ...primitiveProps,
   },
 }

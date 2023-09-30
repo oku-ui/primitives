@@ -39,6 +39,7 @@
   "dependencies": {
     "@oku-ui/collection": "latest",
     "@oku-ui/direction": "latest",
+    "@oku-ui/dismissable-layer": "latest",
     "@oku-ui/focus-scope": "latest",
     "@oku-ui/popper": "latest",
     "@oku-ui/portal": "latest",
@@ -47,7 +48,8 @@
     "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
-    "@oku-ui/visually-hidden": "latest"
+    "@oku-ui/visually-hidden": "latest",
+    "aria-hidden": "^1.2"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

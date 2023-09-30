@@ -1,12 +1,20 @@
 import type { CollectionPropsType } from '@oku-ui/collection'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import type { ComputedRef, Ref, VNode } from 'vue'
+import type { PopperContentElement, PopperContentProps } from '@oku-ui/popper'
+import type { FocusScopeProps } from '@oku-ui/focus-scope'
+import type {
+  DismissableLayerEmits,
+  DismissableLayerProps,
+} from '@oku-ui/dismissable-layer'
 
 export type SelectNativeElement = OkuElement<'select'>
 
 export type Direction = 'ltr' | 'rtl'
 
 export type SelectItemElement = OkuElement<'div'>
+export type SelectItemTextElement = OkuElement<'span'>
+export type SelectScrollButtonImplElement = OkuElement<'button'>
 
 export type SelectProvideValue = {
   trigger: Ref<SelectTriggerElement | null | undefined>
@@ -97,3 +105,139 @@ export type SelectValueElement = OkuElement<'span'>
 export interface SelectValueProps extends PrimitiveProps {
   placeholder?: string | Record<string, unknown>
 }
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectIcon
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectIconElement = OkuElement<'span'>
+export interface SelectIconProps extends PrimitiveProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectContent
+ * ----------------------------------------------------------------------------------------------- */
+export interface SelectContentProps extends SelectContentImplProps {}
+
+export type SelectContentElement = SelectContentImplElement
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectContentImpl
+ * ----------------------------------------------------------------------------------------------- */
+
+export const CONTENT_MARGIN = 10
+
+export type SelectContentContextValue = {
+  content?: Ref<SelectContentElement | null>
+  viewport?: Ref<SelectViewportElement | null>
+  onViewportChange?: (node: SelectViewportElement | null) => void
+  itemRefCallback?: (
+    node: SelectItemElement | null,
+    value: string,
+    disabled: boolean
+  ) => void
+  selectedItem?: Ref<SelectItemElement | null>
+  onItemLeave?: () => void
+  itemTextRefCallback?: (
+    node: SelectItemTextElement | null,
+    value: string,
+    disabled: boolean
+  ) => void
+  focusSelectedItem?: () => void
+  selectedItemText?: Ref<SelectItemTextElement | null>
+  position?: Ref<SelectContentProps['position']>
+  isPositioned?: ComputedRef<boolean> | Ref<boolean>
+  searchRef?: Ref<string>
+}
+
+export type SelectPopperPrivateProps = {
+  onPlaced?: PopperContentProps['onPlaced']
+}
+
+export interface SelectContentImplProps
+  extends Omit<SelectPopperPositionProps, keyof SelectPopperPrivateProps>,
+  Omit<SelectItemAlignedPositionProps, keyof SelectPopperPrivateProps> {
+  /**
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
+   */
+  closeAutoFocus?: FocusScopeProps['onUnmountAutoFocus']
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
+  escapeKeyDown?: DismissableLayerProps['onEscapeKeyDown']
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
+  pointerdownOutside?: DismissableLayerProps['onPointerDownOutside']
+
+  position?: 'item-aligned' | 'popper'
+}
+
+export type SelectContentImplEmits = {
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
+  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
+  /**
+   * Event handler called when the a `pointerdown` event happens`.
+   * Can be prevented.
+   */
+  pointerdownOutside: [event: DismissableLayerEmits['pointerdownOut'][0]]
+
+  /**
+   * Event handler called when the a `autofocus` event happens`.
+   * Can be prevented.
+   */
+  closeAutoFocus: [event: FocusScopeProps['onUnmountAutoFocus'][0]]
+}
+
+export type SelectContentImplElement =
+  | SelectPopperPositionElement
+  | SelectItemAlignedPositionElement
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectPopperPosition
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectPopperPositionElement = typeof PopperContentElement
+export interface SelectPopperPositionProps
+  extends PopperContentProps,
+  SelectPopperPrivateProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectItemAlignedPosition
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectItemAlignedPositionElement = OkuElement<'div'>
+export interface SelectItemAlignedPositionProps
+  extends PrimitiveProps,
+  SelectPopperPrivateProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectViewport
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectViewportElement = OkuElement<'div'>
+
+export interface SelectViewportProps extends PrimitiveProps {}
+
+export type SelectViewportContextValue = {
+  contentWrapper?: Ref<HTMLDivElement | null>
+  shouldExpandOnScrollRef?: Ref<boolean>
+  onScrollButtonChange?: (node: SelectScrollButtonImplElement | null) => void
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectGroup
+ * ----------------------------------------------------------------------------------------------- */
+
+export type SelectGroupContextValue = { id: string }
+
+export type SelectGroupElement = OkuElement<'div'>
+export interface SelectGroupProps extends PrimitiveProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectLabel
+ * ----------------------------------------------------------------------------------------------- */
+
+export type SelectLabelElement = OkuElement<'div'>
+export interface SelectLabelProps extends PrimitiveProps {}

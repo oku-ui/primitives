@@ -779,6 +779,9 @@ importers:
       '@oku-ui/direction':
         specifier: workspace:^
         version: link:../../core/direction
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../../core/dismissable-layer
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:../../core/focus-scope
@@ -806,6 +809,9 @@ importers:
       '@oku-ui/visually-hidden':
         specifier: workspace:^
         version: link:../../core/visually-hidden
+      aria-hidden:
+        specifier: ^1.2
+        version: 1.2.3
       vue:
         specifier: 3.3.4
         version: 3.3.4
