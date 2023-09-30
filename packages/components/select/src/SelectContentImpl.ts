@@ -11,7 +11,6 @@ import {
 import { hideOthers } from 'aria-hidden'
 
 import {
-  useCallbackRef,
   useComposedRefs,
   useForwardRef,
 } from '@oku-ui/use-composable'
@@ -94,8 +93,8 @@ const SelectContentImpl = defineComponent({
     // the last element in the DOM (because of the `Portal`)
     useFocusGuards()
 
-    const focusFirst = useCallbackRef(
-      (candidates: Array<Ref<HTMLElement | null>>) => {
+    const focusFirst
+      = (candidates: Array<Ref<HTMLElement | null>>) => {
         const [firstItem, ...restItems] = getItems()
         const [lastItem] = restItems.slice(-1)
 
@@ -115,18 +114,16 @@ const SelectContentImpl = defineComponent({
           if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT)
             return
         }
-      },
-    )
+      }
 
-    const focusSelectedItem = useCallbackRef(() =>
-      focusFirst.value([selectedItem, content]),
-    )
+    const focusSelectedItem = () =>
+      focusFirst([selectedItem, content])
 
     // Since this is not dependent on layout, we want to ensure this runs at the same time as
     // other effects across components. Hence why we don't call `focusSelectedItem` inside `position`.
     watchEffect(() => {
       if (isPositioned.value)
-        focusSelectedItem.value()
+        focusSelectedItem()
     })
 
     // prevent selecting items on `pointerup` in some cases after opening from `pointerdown`
@@ -213,8 +210,8 @@ const SelectContentImpl = defineComponent({
       }
     })
 
-    const itemRefCallback = useCallbackRef(
-      (node: SelectItemElement | null, value: string, disabled: boolean) => {
+    const itemRefCallback
+      = (node: SelectItemElement | null, value: string, disabled: boolean) => {
         const isFirstValidItem = !firstValidItemFoundRef.value && !disabled
 
         const isSelectedItem
@@ -225,13 +222,12 @@ const SelectContentImpl = defineComponent({
           if (isFirstValidItem)
             firstValidItemFoundRef.value = true
         }
-      },
-    )
+      }
 
-    const handleItemLeave = useCallbackRef(() => content.value?.focus())
+    const handleItemLeave = () => content.value?.focus()
 
-    const itemTextRefCallback = useCallbackRef(
-      (
+    const itemTextRefCallback
+      = (
         node: SelectItemTextElement | null,
         value: string,
         disabled: boolean,
@@ -242,8 +238,7 @@ const SelectContentImpl = defineComponent({
 
         if (isSelectedItem || isFirstValidItem)
           selectedItem.value = node
-      },
-    )
+      }
 
     const SelectPosition
       = position.value === 'popper'

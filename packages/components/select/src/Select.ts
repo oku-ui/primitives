@@ -9,7 +9,7 @@ import {
   useModel,
 } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
-import { useCallbackRef, useControllable, useId } from '@oku-ui/use-composable'
+import { useControllable, useId } from '@oku-ui/use-composable'
 import type {
   NativeOption,
   SelectNativeElement,
@@ -139,12 +139,12 @@ const Select = defineComponent({
 
     SelectNativeOptionsProvider({
       scope: scopeOkuSelect.value,
-      onNativeOptionAdd: useCallbackRef((option: NativeOption) => {
+      onNativeOptionAdd: (option: NativeOption) => {
         nativeOptionsSet.value.add(option)
-      }).value,
-      onNativeOptionRemove: useCallbackRef((option: NativeOption) => {
+      },
+      onNativeOptionRemove: (option: NativeOption) => {
         nativeOptionsSet.value.delete(option)
-      }).value,
+      },
     })
 
     return () =>
