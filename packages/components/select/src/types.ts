@@ -283,3 +283,10 @@ export interface SelectItemProps extends PrimitiveProps {
 
 export type SelectItemTextElement = OkuElement<'span'>
 export interface SelectItemTextProps extends PrimitiveProps {}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectItemIndicator
+ * ----------------------------------------------------------------------------------------------- */
+
+export type SelectItemIndicatorElement = OkuElement<'span'>
+export interface SelectItemIndicatorProps extends PrimitiveProps {}

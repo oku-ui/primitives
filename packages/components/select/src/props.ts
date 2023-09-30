@@ -379,3 +379,9 @@ export const selectItemTextProps = {
  * ----------------------------------------------------------------------------------------------- */
 
 export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
+
+export const selectItemIndicatorProps = {
+  props: {
+    ...primitiveProps,
+  },
+}
