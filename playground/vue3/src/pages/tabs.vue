@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <TabsDemo />
+  <div><TabsDemo allshow /></div>
 </template>
