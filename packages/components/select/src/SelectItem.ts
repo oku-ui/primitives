@@ -1,3 +1,4 @@
+import type { Ref } from 'vue'
 import {
   computed,
   defineComponent,
@@ -5,10 +6,12 @@ import {
   mergeProps,
   nextTick,
   onMounted,
+  reactive,
   ref,
   toRefs,
 } from 'vue'
 import {
+  reactiveOmit,
   useComposedRefs,
   useForwardRef,
   useId,
@@ -34,7 +37,7 @@ const SelectItem = defineComponent({
     ...selectItemProps.props,
     ...scopeSelectProps,
   },
-  setup(props, { attrs, emit }) {
+  setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuSelect,
       value: itemValue,
@@ -42,6 +45,9 @@ const SelectItem = defineComponent({
       textValue: textValueProp,
       ...selectItemProps
     } = toRefs(props)
+
+    const _reactive = reactive(selectItemProps)
+    const reactiveSelectItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const selectInject = useSelectInject(ITEM_NAME, scopeOkuSelect.value)
     const contentInject = useSelectContentInject(
@@ -67,7 +73,7 @@ const SelectItem = defineComponent({
       nextTick(() => {
         contentInject?.itemRefCallback?.(
           selectItemRef.value as unknown as SelectItemElement,
-          itemValue.value,
+          itemValue.value!,
           disabled.value,
         )
       })
@@ -75,20 +81,14 @@ const SelectItem = defineComponent({
 
     const handleSelect = () => {
       if (!disabled.value) {
-        selectInject.onValueChange(itemValue.value)
+        selectInject.onValueChange(itemValue.value!)
         selectInject.onOpenChange(false)
       }
     }
 
-    if (itemValue.value === '') {
-      throw new Error(
-        'A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.',
-      )
-    }
-
     SelectItemProvider({
       scope: scopeOkuSelect.value,
-      value: itemValue,
+      value: itemValue as Ref<string>,
       disabled,
       textId,
       isSelected,
@@ -97,8 +97,14 @@ const SelectItem = defineComponent({
       },
     })
 
-    return () =>
-      h(
+    return () => {
+      if (itemValue.value === '') {
+        throw new Error(
+          'A <SelectItem /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.',
+        )
+      }
+
+      return h(
         CollectionItemSlot,
         {
           scope: scopeOkuSelect.value,
@@ -118,58 +124,61 @@ const SelectItem = defineComponent({
               'aria-disabled': disabled.value || undefined,
               'data-disabled': disabled.value ? '' : undefined,
               'tabindex': disabled.value ? undefined : '-1',
-              ...mergeProps(attrs, selectItemProps),
+              ...mergeProps(attrs, reactiveSelectItemProps),
               'ref': composedRefs,
-              'onFocus': composeEventHandlers((event: FocusEvent) => {
-                emit('focus', event)
-
-                isFocused.value = true
-              }),
-              'onBlur': composeEventHandlers((event: FocusEvent) => {
-                emit('blur', event)
-
-                isFocused.value = false
-              }),
-              'onPointerUp': composeEventHandlers((event: PointerEvent) => {
-                emit('pointerup', event)
-                handleSelect()
-              }),
-              'onPointerMove': composeEventHandlers((event: PointerEvent) => {
-                emit('pointermove', event)
-
-                if (disabled.value) {
-                  contentInject.onItemLeave?.()
-                }
-                else {
+              'onFocus': composeEventHandlers(
+                event => emit('focus', event),
+                () => {
+                  isFocused.value = true
+                }),
+              'onBlur': composeEventHandlers(
+                event => emit('blur', event),
+                () => {
+                  isFocused.value = false
+                }),
+              'onPointerup': composeEventHandlers(
+                event => emit('pointerup', event),
+                handleSelect,
+              ),
+              'onPointermove': composeEventHandlers(
+                event => emit('pointermove', event),
+                (event: PointerEvent) => {
+                  if (disabled.value) {
+                    contentInject.onItemLeave?.()
+                  }
+                  else {
                   // even though safari doesn't support this option, it's acceptable
                   // as it only means it might scroll a few pixels when using the pointer.
-                  (event.currentTarget as HTMLElement).focus({
-                    preventScroll: true,
-                  })
-                }
-              }),
-              'onPointerLeave': composeEventHandlers((event: PointerEvent) => {
-                emit('pointerleave', event)
+                    (event.currentTarget as HTMLElement).focus({
+                      preventScroll: true,
+                    })
+                  }
+                }),
+              'onPointerleave': composeEventHandlers(
+                event => emit('pointerleave', event),
+                (event: PointerEvent) => {
+                  if (event.currentTarget === document.activeElement)
+                    contentInject.onItemLeave?.()
+                }),
+              'onKeydown': composeEventHandlers(
+                event => emit('keydown', event),
+                (event: KeyboardEvent) => {
+                  const isTypingAhead = contentInject.searchRef?.value !== ''
 
-                if (event.currentTarget === document.activeElement)
-                  contentInject.onItemLeave?.()
-              }),
-              'onKeyDown': composeEventHandlers((event: KeyboardEvent) => {
-                emit('keydown', event)
-
-                const isTypingAhead = contentInject.searchRef?.value !== ''
-
-                if (isTypingAhead && event.key === ' ')
-                  return
-                if (SELECTION_KEYS.includes(event.key))
-                  handleSelect()
-                // prevent page scroll if using the space key to select an item
-                if (event.key === ' ')
-                  event.preventDefault()
-              }),
+                  if (isTypingAhead && event.key === ' ')
+                    return
+                  if (SELECTION_KEYS.includes(event.key))
+                    handleSelect()
+                  // prevent page scroll if using the space key to select an item
+                  if (event.key === ' ')
+                    event.preventDefault()
+                }),
+            }, {
+              default: () => slots.default?.(),
             }),
         },
       )
+    }
   },
 })
 

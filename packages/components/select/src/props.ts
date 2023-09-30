@@ -602,7 +602,7 @@ export const selectItemProps = {
     ...primitiveProps,
     value: {
       type: String as PropType<string>,
-      default: '',
+      required: true,
     },
     disabled: {
       type: Boolean,
@@ -610,7 +610,6 @@ export const selectItemProps = {
     },
     textValue: {
       type: [String, undefined] as PropType<string | undefined>,
-      default: undefined,
     },
   },
 }
