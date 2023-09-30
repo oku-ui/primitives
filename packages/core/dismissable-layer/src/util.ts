@@ -21,7 +21,7 @@ export const scopeDismissableLayerProps = {
  * Returns props to pass to the node we want to check for outside events.
  */
 function usePointerdownOutside(
-  onPointerDownOutside?: (event: PointerdownOutsideEvent) => void,
+  onPointerdownOutside?: (event: PointerdownOutsideEvent) => void,
   ownerDocument: Ref<Document> = ref(globalThis?.document),
 ) {
   const isPointerInsideTreeRef = ref<boolean>(false)
@@ -34,7 +34,7 @@ function usePointerdownOutside(
       function handleAndDispatchPointerdownOutsideEvent() {
         handleAndDispatchCustomEvent(
           POINTER_DOWN_OUTSIDE,
-          event => onPointerDownOutside?.(event as PointerdownOutsideEvent),
+          event => onPointerdownOutside?.(event as PointerdownOutsideEvent),
           eventDetail,
           { discrete: true },
         )
@@ -108,7 +108,7 @@ function usePointerdownOutside(
  * Returns props to pass to the root (node) of the subtree we want to check.
  */
 function useFocusoutSide(
-  onFocusOutside?: (event: FocusoutSideEvent) => void,
+  onFocusoutSide?: (event: FocusoutSideEvent) => void,
   ownerDocument: Ref<Document> = ref(globalThis?.document),
 ) {
   const isFocusInsideReactTreeRef = ref<boolean>(false)
@@ -119,7 +119,7 @@ function useFocusoutSide(
 
       handleAndDispatchCustomEvent(
         FOCUS_OUTSIDE,
-        onFocusOutside,
+        onFocusoutSide,
         eventDetail,
         {
           discrete: false,
