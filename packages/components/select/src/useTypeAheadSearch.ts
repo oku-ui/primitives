@@ -1,4 +1,4 @@
-import { ref, watchEffect } from 'vue'
+import { onUnmounted, ref } from 'vue'
 
 function useTypeaheadSearch(onSearchChange: (search: string) => void) {
   const searchRef = ref('')
@@ -22,8 +22,8 @@ function useTypeaheadSearch(onSearchChange: (search: string) => void) {
     window.clearTimeout(timerRef.value)
   }
 
-  watchEffect((onInvalidate) => {
-    onInvalidate(() => window.clearTimeout(timerRef.value))
+  onUnmounted(() => {
+    window.clearTimeout(timerRef.value)
   })
 
   return [searchRef, handleTypeaheadSearch, resetTypeahead] as const

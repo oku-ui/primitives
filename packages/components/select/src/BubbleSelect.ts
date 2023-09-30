@@ -81,23 +81,20 @@ export const BubbleSelect = defineComponent({
      * We use `VisuallyHidden` rather than `display: "none"` because Safari autofill
      * won't work otherwise.
      */
-    const originalReturn = () =>
-      h(
-        OkuVisuallyHidden,
-        {
-          asChild: true,
-        },
-        {
-          default: () =>
-            h('select', {
-              ...mergeProps(attrs, reactiveSelectProps),
-              ref: composedRefs,
-              defaultValue: defaultValue.value,
-            }),
-        },
-      )
-
-    return originalReturn
+    return () => h(
+      OkuVisuallyHidden,
+      {
+        asChild: true,
+      },
+      {
+        default: () =>
+          h('select', {
+            ...mergeProps(attrs, reactiveSelectProps),
+            ref: composedRefs,
+            defaultValue: defaultValue.value,
+          }),
+      },
+    )
   },
 })
 

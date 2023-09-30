@@ -564,6 +564,9 @@ export const selectArrowProps = {
     ...primitiveProps,
     ...popperArrowProps.props,
   },
+  emits: {
+    ...popperArrowProps.emits,
+  },
 }
 
 /* -------------------------------------------------------------------------------------------------

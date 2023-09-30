@@ -1,5 +1,5 @@
-import { defineComponent, h, mergeProps, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import {
   SEPARATOR_NAME,
@@ -16,7 +16,10 @@ const SelectSeparator = defineComponent({
     ...scopeSelectProps,
   },
   setup(props, { slots, attrs }) {
-    const { scopeOkuSelect, ...selectSeperatorProps } = toRefs(props)
+    const { scopeOkuSelect: _scope, ...propsRefs } = toRefs(props)
+
+    const _reactive = reactive(propsRefs)
+    const reactivePropsRefs = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -25,7 +28,7 @@ const SelectSeparator = defineComponent({
         Primitive.div,
         {
           'aria-hidden': true,
-          ...mergeProps(attrs, selectSeperatorProps),
+          ...mergeProps(attrs, reactivePropsRefs),
           'ref': forwardedRef,
         },
         slots,
