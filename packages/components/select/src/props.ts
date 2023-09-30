@@ -1,11 +1,14 @@
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import type { PropType } from 'vue'
 import { createCollection } from '@oku-ui/collection'
-import { createPopperScope, popperContentProps } from '@oku-ui/popper'
+import {
+  createPopperScope,
+  popperArrowProps,
+  popperContentProps,
+} from '@oku-ui/popper'
 import { primitiveProps } from '@oku-ui/primitive'
 import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { focusScopeProps } from '@oku-ui/focus-scope'
-import { popperArrowProps } from '../../../core/popper/src/props'
 import type {
   Direction,
   ItemData,
