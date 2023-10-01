@@ -30,7 +30,7 @@ const SelectScrollUpButton = defineComponent({
     ...scopeSelectProps,
   },
   emits: selectScrollUpButtonProps.emits,
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { slots, attrs }) {
     const { scopeOkuSelect, ...propsRefs } = toRefs(props)
 
     const _reactive = reactive(propsRefs)
@@ -80,17 +80,21 @@ const SelectScrollUpButton = defineComponent({
 
     return () =>
       canScrollUpRef.value
-        ? h(OkuSelectScrollButtonImpl, {
-          ...mergeProps(attrs, reactivePropsRefs),
-          ref: composedRefs,
-          onAutoScroll: () => {
-            const { viewport, selectedItem } = contentInject
-            if (viewport?.value && selectedItem?.value) {
-              viewport.value.scrollTop
-                  = viewport.value.scrollTop - selectedItem.value.offsetHeight
-            }
+        ? h(
+          OkuSelectScrollButtonImpl,
+          {
+            ...mergeProps(attrs, reactivePropsRefs),
+            ref: composedRefs,
+            onAutoScroll: () => {
+              const { viewport, selectedItem } = contentInject
+              if (viewport?.value && selectedItem?.value) {
+                viewport.value.scrollTop
+                    = viewport.value.scrollTop - selectedItem.value.offsetHeight
+              }
+            },
           },
-        })
+          slots,
+        )
         : null
   },
 })
