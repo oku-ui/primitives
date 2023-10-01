@@ -60,7 +60,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
-    "@nuxt/module-builder": "^0.5.1",
+    "@nuxt/module-builder": "^0.5.2",
     "@nuxt/schema": "^3.7.3",
     "@nuxt/test-utils": "^3.7.3",
     "@types/node": "^20.6.0",
