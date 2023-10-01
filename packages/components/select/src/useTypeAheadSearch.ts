@@ -2,7 +2,7 @@ import { onUnmounted, ref } from 'vue'
 
 function useTypeaheadSearch(onSearchChange: (search: string) => void) {
   const searchRef = ref('')
-  const timerRef = ref(0)
+  const timerRef = ref<number>(0)
 
   const handleTypeaheadSearch = (key: string) => {
     const search = searchRef.value + key

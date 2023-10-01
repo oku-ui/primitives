@@ -1,16 +1,12 @@
 import type { CSSProperties } from 'vue'
-import {
-  defineComponent,
-  h,
-  mergeProps,
-  onMounted,
-  ref,
-  toRefs,
-} from 'vue'
+import { defineComponent, h, mergeProps, onMounted, ref, toRefs } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { SelectViewportElement, SelectViewportNativeElement } from './props'
+import type {
+  SelectViewportElement,
+  SelectViewportNativeElement,
+} from './props'
 import {
   CONTENT_MARGIN,
   CollectionSlot,
@@ -88,16 +84,19 @@ const SelectViewport = defineComponent({
                     const viewport = event.currentTarget as HTMLElement
 
                     const { contentWrapper, shouldExpandOnScrollRef }
-                    = viewportInject
+                      = viewportInject
 
-                    if (shouldExpandOnScrollRef?.value && contentWrapper?.value) {
+                    if (
+                      shouldExpandOnScrollRef?.value
+                      && contentWrapper?.value
+                    ) {
                       const scrolledBy = Math.abs(
                         prevScrollTopRef.value - viewport.scrollTop!,
                       )
 
                       if (scrolledBy > 0) {
                         const availableHeight
-                        = window.innerHeight - CONTENT_MARGIN * 2
+                          = window.innerHeight - CONTENT_MARGIN * 2
                         const cssMinHeight = Number.parseFloat(
                           contentWrapper.value.style.minHeight,
                         )
@@ -114,21 +113,22 @@ const SelectViewport = defineComponent({
                           )
 
                           const heightDiff = nextHeight - clampedNextHeight
-                          contentWrapper.value.style.height
-                          = `${clampedNextHeight}px`
+                          contentWrapper.value.style.height = `${clampedNextHeight}px`
 
                           if (contentWrapper.value.style.bottom === '0px') {
-                            viewport.scrollTop = heightDiff > 0 ? heightDiff : 0
+                            viewport.scrollTop
+                              = heightDiff > 0 ? heightDiff : 0
                             // ensure the content stays pinned to the bottom
                             contentWrapper.value.style.justifyContent
-                            = 'flex-end'
+                              = 'flex-end'
                           }
                         }
                       }
                     }
 
-                    prevScrollTopRef.value = viewport?.scrollTop
-                  }),
+                    prevScrollTopRef.value = viewport.scrollTop
+                  },
+                ),
               },
               slots,
             ),

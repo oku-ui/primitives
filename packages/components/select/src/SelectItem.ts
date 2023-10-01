@@ -18,7 +18,11 @@ import {
 } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { SelectItemElement, SelectItemNativeElement, SelectItemTextElement } from './props'
+import type {
+  SelectItemElement,
+  SelectItemNativeElement,
+  SelectItemTextElement,
+} from './props'
 import {
   CollectionItemSlot,
   ITEM_NAME,
@@ -47,7 +51,10 @@ const SelectItem = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(selectItemProps)
-    const reactiveSelectItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const reactiveSelectItemProps = reactiveOmit(
+      _reactive,
+      (key, _value) => key === undefined,
+    )
 
     const selectInject = useSelectInject(ITEM_NAME, scopeOkuSelect.value)
     const contentInject = useSelectContentInject(
@@ -114,68 +121,77 @@ const SelectItem = defineComponent({
         },
         {
           default: () =>
-            h(Primitive.div, {
-              'role': 'option',
-              'aria-labelledby': textId,
-              'data-highlighted': isFocused.value ? '' : undefined,
-              // `isFocused` caveat fixes stuttering in VoiceOver
-              'aria-selected': isSelected.value && isFocused.value,
-              'data-state': isSelected.value ? 'checked' : 'unchecked',
-              'aria-disabled': disabled.value || undefined,
-              'data-disabled': disabled.value ? '' : undefined,
-              'tabindex': disabled.value ? undefined : '-1',
-              ...mergeProps(attrs, reactiveSelectItemProps),
-              'ref': composedRefs,
-              'onFocus': composeEventHandlers(
-                event => emit('focus', event),
-                () => {
-                  isFocused.value = true
-                }),
-              'onBlur': composeEventHandlers(
-                event => emit('blur', event),
-                () => {
-                  isFocused.value = false
-                }),
-              'onPointerup': composeEventHandlers(
-                event => emit('pointerup', event),
-                handleSelect,
-              ),
-              'onPointermove': composeEventHandlers(
-                event => emit('pointermove', event),
-                (event: PointerEvent) => {
-                  if (disabled.value) {
-                    contentInject.onItemLeave?.()
-                  }
-                  else {
-                  // even though safari doesn't support this option, it's acceptable
-                  // as it only means it might scroll a few pixels when using the pointer.
-                    (event.currentTarget as HTMLElement).focus({
-                      preventScroll: true,
-                    })
-                  }
-                }),
-              'onPointerleave': composeEventHandlers(
-                event => emit('pointerleave', event),
-                (event: PointerEvent) => {
-                  if (event.currentTarget === document.activeElement)
-                    contentInject.onItemLeave?.()
-                }),
-              'onKeydown': composeEventHandlers(
-                event => emit('keydown', event),
-                (event: KeyboardEvent) => {
-                  const isTypingAhead = contentInject.searchRef?.value !== ''
+            h(
+              Primitive.div,
+              {
+                'role': 'option',
+                'aria-labelledby': textId,
+                'data-highlighted': isFocused.value ? '' : undefined,
+                // `isFocused` caveat fixes stuttering in VoiceOver
+                'aria-selected': isSelected.value && isFocused.value,
+                'data-state': isSelected.value ? 'checked' : 'unchecked',
+                'aria-disabled': disabled.value || undefined,
+                'data-disabled': disabled.value ? '' : undefined,
+                'tabindex': disabled.value ? undefined : '-1',
+                ...mergeProps(attrs, reactiveSelectItemProps),
+                'ref': composedRefs,
+                'onFocus': composeEventHandlers(
+                  event => emit('focus', event),
+                  () => {
+                    isFocused.value = true
+                  },
+                ),
+                'onBlur': composeEventHandlers(
+                  event => emit('blur', event),
+                  () => {
+                    isFocused.value = false
+                  },
+                ),
+                'onPointerup': composeEventHandlers(
+                  event => emit('pointerup', event),
+                  handleSelect,
+                ),
+                'onPointermove': composeEventHandlers(
+                  event => emit('pointermove', event),
+                  (event: PointerEvent) => {
+                    if (disabled.value) {
+                      contentInject.onItemLeave?.()
+                    }
+                    else {
+                      // even though safari doesn't support this option, it's acceptable
+                      // as it only means it might scroll a few pixels when using the pointer.
+                      (event.currentTarget as HTMLElement).focus({
+                        preventScroll: true,
+                      })
+                    }
+                  },
+                ),
+                'onPointerleave': composeEventHandlers(
+                  event => emit('pointerleave', event),
+                  (event: PointerEvent) => {
+                    if (event.currentTarget === document.activeElement)
+                      contentInject.onItemLeave?.()
+                  },
+                ),
+                'onKeydown': composeEventHandlers(
+                  event => emit('keydown', event),
+                  (event: KeyboardEvent) => {
+                    const isTypingAhead = contentInject.searchRef?.value !== ''
 
-                  if (isTypingAhead && event.key === ' ')
-                    return
-                  if (SELECTION_KEYS.includes(event.key))
-                    handleSelect()
-                  // prevent page scroll if using the space key to select an item
-                  if (event.key === ' ')
-                    event.preventDefault()
-                }),
-            }, {
-              default: () => slots.default?.(),
-            }),
+                    if (isTypingAhead && event.key === ' ')
+                      return
+                    if (SELECTION_KEYS.includes(event.key))
+                      handleSelect()
+                    // prevent page scroll if using the space key to select an item
+                    if (event.key === ' ')
+                      event.preventDefault()
+                  },
+                ),
+              },
+              {
+                default: () => slots.default?.(),
+              },
+            ),
         },
       )
     }
