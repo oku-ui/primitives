@@ -39,7 +39,7 @@
     "@vueuse/core": "^10.4.1"
   },
   "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.7",
+    "@types/resize-observer-browser": "^0.1.8",
     "tsconfig": "workspace:^"
   },
   "publishConfig": {
