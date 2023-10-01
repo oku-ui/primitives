@@ -14,7 +14,7 @@ import {
   scopeSelectProps,
   selectViewportProps,
   useSelectContentInject,
-  useSelectViewportContext,
+  useSelectViewportInject,
 } from './props'
 
 const SelectViewport = defineComponent({
@@ -32,7 +32,7 @@ const SelectViewport = defineComponent({
       VIEWPORT_NAME,
       scopeOkuSelect.value,
     )
-    const viewportInject = useSelectViewportContext(
+    const viewportInject = useSelectViewportInject(
       VIEWPORT_NAME,
       scopeOkuSelect.value,
     )

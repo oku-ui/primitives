@@ -17,17 +17,12 @@ import type {
   PopperArrowNaviteElement,
   PopperArrowProps,
   PopperContentElement,
-
   PopperContentEmits,
-
   PopperContentNaviteElement,
-
   PopperContentProps,
 } from '@oku-ui/popper'
 import type { FocusScopeEmits } from '@oku-ui/focus-scope'
-import type {
-  DismissableLayerEmits,
-} from '@oku-ui/dismissable-layer'
+import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import type { PortalProps } from '@oku-ui/portal'
 
 export const SELECT_NAME = 'OkuSelect'
@@ -47,6 +42,8 @@ export const ITEM_INDICATOR_NAME = 'OkuSelectItemIndicator'
 export const ITEM_TEXT_NAME = 'OkuSelectItemText'
 export const VIEWPORT_NAME = 'OkuSelectViewport'
 export const SELECT_SCROLL_BUTTON = 'OkuSelectScrollButton'
+export const SCROLL_UP_BUTTON_NAME = 'OkuSelectScrollUpButton'
+export const SCROLL_DOWN_BUTTON_NAME = 'OkuSelectScrollDownButton'
 export const PORTAL_NAME = 'OkuSelectPortal'
 
 /* -------------------------------------------------------------------------------------------------
@@ -367,14 +364,12 @@ export type SelectContentImplEmits = {
    * Can be prevented.
    */
   closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
-} & Omit<SelectPopperPositionEmits, keyof SelectPopperPrivateEmits> & Omit<
-  SelectItemAlignedPositionEmits,
-  keyof SelectPopperPrivateEmits
->
+} & Omit<SelectPopperPositionEmits, keyof SelectPopperPrivateEmits> &
+Omit<SelectItemAlignedPositionEmits, keyof SelectPopperPrivateEmits>
 
 export type SelectContentImplNativeElement =
- | SelectPopperPositionNativeElement
- | SelectItemAlignedPositionNativeElement
+  | SelectPopperPositionNativeElement
+  | SelectItemAlignedPositionNativeElement
 
 export type SelectContentImplElement =
   | SelectPopperPositionElement
@@ -396,7 +391,10 @@ export const selectContentImplProps = {
     closeAutoFocus: focusScopeProps.emits.unmountAutoFocus,
     // eslint-disable-next-line unused-imports/no-unused-vars
     onKeydown: (event: KeyboardEvent) => true,
-    ...propsOmit(selectPopperPrivateProps.emits, selectPopperPrivateProps.emitKeys),
+    ...propsOmit(
+      selectPopperPrivateProps.emits,
+      selectPopperPrivateProps.emitKeys,
+    ),
   },
 }
 
@@ -484,7 +482,7 @@ export const [createSelectViewpointProvide, createSelectViewpointScope]
     createSelectContentScope,
   ])
 
-export const [SelectViewportProvider, useSelectViewportContext]
+export const [SelectViewportProvider, useSelectViewportInject]
   = createSelectViewpointProvide<SelectViewportContextValue>(VIEWPORT_NAME)
 
 export const selectViewportProps = {
@@ -673,6 +671,40 @@ export const selectScrollButtonProps = {
     pointerleave: (event: PointerEvent) => true,
   },
 }
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectScrollUpButton
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectScrollUpButtonElement = SelectScrollButtonImplElement
+export interface SelectScrollUpButtonProps
+  extends Omit<SelectScrollButtonImplProps, 'autoScroll'> {}
+
+export type SelectScrollUpButtonEmits = {
+  pointerdown: [event: PointerEvent]
+  pointermove: [event: PointerEvent]
+  pointerleave: [event: PointerEvent]
+}
+
+export const selectScrollUpButtonProps = {
+  props: {
+    ...primitiveProps,
+  },
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerdown: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointermove: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerleave: (event: PointerEvent) => true,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * SelectScrollUpButton
+ * ----------------------------------------------------------------------------------------------- */
+export type SelectScrollDownButtonElement = SelectScrollButtonImplElement
+export interface SelectScrollDownButtonProps
+  extends Omit<SelectScrollButtonImplProps, 'autoScroll'> {}
 
 /* -------------------------------------------------------------------------------------------------
  * SelectPortal
