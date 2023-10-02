@@ -1,7 +1,7 @@
 {
   "name": "primitives",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "packageManager": "pnpm@8.7.4",
   "repository": "oku-ui/primitives",
   "engines": {
@@ -18,12 +18,14 @@
     "build": "pnpm nx run-many -t build",
     "build:skip": "pnpm nx run-many -t build --skip-nx-cache",
     "p:build": "tsup",
+    "oku": "pnpm jiti ./scripts/index.ts",
     "story": "pnpm storybook dev -p 6006 --no-open",
     "lint": "eslint . --cache ",
     "lint:fix": "eslint . --fix --cache",
     "play:vue": "pnpm clean:dts && pnpm --filter=vue3 p:dev",
     "play:nuxt": "pnpm clean:dts && pnpm --filter=nuxt3 p:dev",
     "play": "pnpm clean:dts && pnpm --filter='./playground/**' p:dev",
+    "play:gencomponents": "pnpm jiti ./scripts/playground-generator.ts",
     "postinstall": "simple-git-hooks",
     "test": "vitest run",
     "test:watch": "vitest --watch",
@@ -37,8 +39,10 @@
     "update:version": "esno scripts/update-version.ts"
   },
   "devDependencies": {
+    "@clack/prompts": "^0.7.0",
     "@egoist/tailwindcss-icons": "^1.1.0",
     "@iconify-json/ph": "^1.1.6",
+    "@oku-ui/accordion": "workspace:^",
     "@oku-ui/alert-dialog": "workspace:^",
     "@oku-ui/arrow": "workspace:^",
     "@oku-ui/aspect-ratio": "workspace:^",
@@ -123,6 +127,7 @@
   },
   "pnpm": {
     "overrides": {
+      "@oku-ui/accordion": "workspace:^",
       "@oku-ui/alert-dialog": "workspace:^",
       "@oku-ui/arrow": "workspace:^",
       "@oku-ui/aspect-ratio": "workspace:^",

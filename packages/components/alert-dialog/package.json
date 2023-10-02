@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/alert-dialog",
   "type": "module",
-  "version": "0.4.0-alpha.12",
+  "version": "0.5.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -43,7 +43,7 @@
     "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
-    "@types/node": "^18.17.17"
+    "@types/node": "^18.18.1"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

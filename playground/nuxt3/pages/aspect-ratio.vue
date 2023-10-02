@@ -1,8 +1,3 @@
-<script setup lang="ts">
-</script>
-
 <template>
-  <div>
-    <AspectRatioDemo :allshow="true" />
-  </div>
+  <div><AspectRatioDemo allshow /></div>
 </template>

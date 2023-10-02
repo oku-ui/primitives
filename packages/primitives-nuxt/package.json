@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives-nuxt",
   "type": "module",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Oku Primitives for Nuxt Module",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -60,14 +60,14 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
-    "@nuxt/module-builder": "^0.5.1",
+    "@nuxt/module-builder": "^0.5.2",
     "@nuxt/schema": "^3.7.3",
     "@nuxt/test-utils": "^3.7.3",
-    "@types/node": "^20.6.0",
-    "@types/pacote": "^11.1.5",
+    "@types/node": "^20.8.0",
+    "@types/pacote": "^11.1.6",
     "changelogen": "^0.5.5",
     "eslint": "^8.48.0",
     "nuxt": "^3.7.3",
-    "vitest": "^0.34.4"
+    "vitest": "^0.34.6"
   }
 }

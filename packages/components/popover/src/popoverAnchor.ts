@@ -1,33 +1,15 @@
 import { defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperAnchor, popperAnchorProps } from '@oku-ui/popper'
-import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps } from '@oku-ui/popper'
-import { scopePopoverProps } from './utils'
-import { usePopoverInject, usePopperScope } from './popover'
+import { OkuPopperAnchor } from '@oku-ui/popper'
 
-export type PopoverAnchorNaviteElement = PopperAnchorNaviteElement
-export type PopoverAnchorElement = PopperAnchorElement
-
-export interface PopoverAnchorProps extends PopperAnchorProps { }
-
-export const popoverAnchorProps = {
-  props: {
-    ...popperAnchorProps.props,
-  },
-  emits: {
-    ...popperAnchorProps.emits,
-  },
-}
-
-const ANCHOR_NAME = 'OkuPopoverAnchor'
+import type { PopoverAnchorNaviteElement } from './props'
+import { ANCHOR_NAME, popoverAnchorProps, scopePopoverProps, usePopoverInject, usePopperScope } from './props'
 
 const popoverAnchor = defineComponent({
   name: ANCHOR_NAME,
   inheritAttrs: false,
   props: {
     ...popoverAnchorProps.props,
-    ...primitiveProps,
     ...scopePopoverProps,
   },
   emits: popoverAnchorProps.emits,

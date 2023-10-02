@@ -60,8 +60,7 @@ describe('OkuAlertDialog', () => {
     const wrapper = () => mount(OkuAlertDialogDescription)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('Missing required prop: "contentRef"')
   })
 
   it('OkuAlertDialogDescriptionWarning renders correctly', () => {

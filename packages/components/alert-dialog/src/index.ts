@@ -52,6 +52,6 @@ export {
   alertDialogPortalProps,
   alertDialogTitleProps,
   alertDialogTriggerProps,
-  dialogDescriptionWarningProps,
+  alertDialogDescriptionWarningProps,
   scopeAlertDialogProps,
 } from './props'

@@ -1,81 +1,13 @@
-import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs, useModel } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { useControllable, useId } from '@oku-ui/use-composable'
-import { createProvideScope } from '@oku-ui/provide'
-import { OkuPopper, createPopperScope } from '@oku-ui/popper'
-import { scopePopoverProps } from './utils'
-
-const POPOVER_NAME = 'OkuPopover'
-
-export const [createPopoverProvide, createPopoverScope] = createProvideScope(POPOVER_NAME, [
-  createPopperScope,
-])
-
-export const usePopperScope = createPopperScope()
-
-type PopoverProvideValue = {
-  triggerRef: Ref<HTMLButtonElement | null>
-  contentId: Ref<string>
-  open: Ref<boolean>
-  onOpenChange(open: boolean): void
-  onOpenToggle(): void
-  hasCustomAnchor: Ref<boolean>
-  onCustomAnchorAdd(): void
-  onCustomAnchorRemove(): void
-  modal: Ref<boolean>
-}
-
-const [popoverProvide, usePopoverInject]
-  = createPopoverProvide<PopoverProvideValue>(POPOVER_NAME)
-
-export {
-  usePopoverInject,
-}
-
-export interface PopoverProps {
-  open?: boolean
-  defaultOpen?: boolean
-  modal?: boolean
-}
-
-export interface PopoverEmits {
-  'openChange': [open: boolean]
-}
-
-export const popoverProps = {
-  props: {
-    modelValue: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
-      default: undefined,
-    },
-    open: {
-      type: Boolean,
-      default: undefined,
-    },
-    defaultOpen: {
-      type: Boolean,
-      default: undefined,
-    },
-    modal: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'openChange': (open: boolean) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    'update:modelValue': (open: boolean) => true,
-  },
-}
+import { OkuPopper } from '@oku-ui/popper'
+import { POPOVER_NAME, popoverProps, popoverProvide, scopePopoverProps, usePopperScope } from './props'
 
 const popover = defineComponent({
   name: POPOVER_NAME,
   inheritAttrs: false,
   props: {
     ...popoverProps.props,
-    ...primitiveProps,
     ...scopePopoverProps,
   },
   emits: popoverProps.emits,
@@ -94,14 +26,16 @@ const popover = defineComponent({
     const hasCustomAnchor = ref(false)
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined
-        ? modelValue.value
-        : openProp.value !== undefined
-          ? openProp.value
-          : undefined,
-      set: () => {
-      },
+
+    const proxyChecked = computed(() => {
+      if (modelValue.value !== undefined)
+        return modelValue.value
+
+      else if (openProp.value !== undefined)
+        return openProp.value
+
+      else
+        return undefined
     })
 
     const { state, updateValue } = useControllable({

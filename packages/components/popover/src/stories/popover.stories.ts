@@ -1,24 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { OkuPopoverProps } from './PopoverDemo.vue'
-import OkuLabelComponent from './PopoverDemo.vue'
+import PopoverDemo from './PopoverDemo.vue'
 
 interface StoryProps extends OkuPopoverProps {
 }
 
 const meta = {
   title: 'Components/Popover',
-  component: OkuLabelComponent,
+  component: PopoverDemo,
   args: {
-    template: '#1',
+    template: 'Styled',
   },
   argTypes: {
     template: {
       control: 'text',
     },
   },
-
-} satisfies Meta<typeof OkuLabelComponent> & {
+} satisfies Meta<typeof PopoverDemo> & {
   args: StoryProps
 }
 
@@ -29,30 +28,168 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    template: '#1',
+    template: 'Styled',
   },
   render: (args: any) => ({
-    components: { OkuLabelComponent },
+    components: { PopoverDemo },
     setup() {
       return { args }
     },
     template: `
-      <OkuLabelComponent v-bind="args" />
+      <PopoverDemo v-bind="args" />
     `,
   }),
 }
 
-export const WithControl: Story = {
+export const Boundary: Story = {
   args: {
-    template: '#2',
+    template: 'Boundary',
   },
   render: (args: any) => ({
-    components: { OkuLabelComponent },
+    components: { PopoverDemo },
     setup() {
       return { args }
     },
     template: `
-      <OkuLabelComponent v-bind="args" />
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const Modality: Story = {
+  args: {
+    template: 'Modality',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const Controlled: Story = {
+  args: {
+    template: 'Controlled',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const VControlled: Story = {
+  args: {
+    template: 'VControlled',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const Animated: Story = {
+  args: {
+    template: 'Animated',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const ForcedMount: Story = {
+  args: {
+    template: 'ForcedMount',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const Nested: Story = {
+  args: {
+    template: 'Nested',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const CustomAnchor: Story = {
+  args: {
+    template: 'CustomAnchor',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+        <PopoverDemo v-bind="args" />
+    `,
+  }),
+}
+
+export const WithSlottedTrigger: Story = {
+  args: {
+    template: 'WithSlottedTrigger',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: '<PopoverDemo v-bind="args" />',
+  }),
+}
+
+export const Chromatic = {
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+  args: {
+    template: 'Chromatic',
+  },
+  render: (args: any) => ({
+    components: { PopoverDemo },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PopoverDemo v-bind="args" />
     `,
   }),
 }

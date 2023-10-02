@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -37,6 +37,8 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
+    "@oku-ui/accordion": "latest",
+    "@oku-ui/alert-dialog": "latest",
     "@oku-ui/aspect-ratio": "latest",
     "@oku-ui/avatar": "latest",
     "@oku-ui/checkbox": "latest",

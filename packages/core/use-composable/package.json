@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/use-composable",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -39,7 +39,7 @@
     "@vueuse/core": "^10.4.1"
   },
   "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.7",
+    "@types/resize-observer-browser": "^0.1.8",
     "tsconfig": "workspace:^"
   },
   "publishConfig": {

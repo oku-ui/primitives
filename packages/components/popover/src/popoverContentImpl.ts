@@ -1,69 +1,18 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperContent, type PopperContentEmits, type PopperContentProps, popperContentProps } from '@oku-ui/popper'
-import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
-import { type DismissableLayerEmits, type DismissableLayerProps, OkuDismissableLayer, dismissableLayerProps } from '@oku-ui/dismissable-layer'
+import { OkuPopperContent } from '@oku-ui/popper'
+import { OkuFocusScope } from '@oku-ui/focus-scope'
+import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { useFocusGuards } from '@oku-ui/focus-guards'
-import { getState, scopePopoverProps } from './utils'
-import { usePopoverInject, usePopperScope } from './popover'
-
-export type PopoverContentImplNaviteElement = OkuElement<'label'>
-export type PopoverContentImplElement = HTMLLabelElement
-
-export interface PopoverContentImplProps
-  extends PopperContentProps,
-  DismissableLayerProps {
-  /**
-   * Whether focus should be trapped within the `Popover`
-   * (default: false)
-   */
-  trapFocus?: FocusScopeProps['trapped']
-}
-
-export type PopoverContentImplEmits = {
-  /**
-   * Event handler called when auto-focusing on open.
-   * Can be prevented.
-   */
-  openAutoFocus: [event: FocusScopeEmits['mountAutoFocus'][0]]
-  /**
-   * Event handler called when auto-focusing on close.
-   * Can be prevented.
-   */
-  closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
-} & Omit<DismissableLayerEmits, 'dismiss'>
-& Omit<PopperContentEmits, 'placed'>
-
-export const popoverContentImplProps = {
-  props: {
-    ...popperContentProps.props,
-    ...dismissableLayerProps.props,
-    trapFocus: {
-      type: Boolean as PropType<FocusScopeProps['trapped']>,
-      default: false,
-    },
-  },
-  emits: {
-    ...popperContentProps.emits,
-    ...dismissableLayerProps.emits,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    openAutoFocus: (event: FocusScopeEmits['mountAutoFocus'][0]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    closeAutoFocus: (event: FocusScopeEmits['unmountAutoFocus'][0]) => true,
-  },
-}
-
-const NAME = 'OkuPopoverContentImpl'
+import type { PopoverContentImplNaviteElement } from './props'
+import { CONTENT_IMPL_NAME, popoverContentImplProps, scopePopoverProps, usePopoverInject, usePopperScope } from './props'
+import { getState } from './utils'
 
 const popoverContentImpl = defineComponent({
-  name: NAME,
+  name: CONTENT_IMPL_NAME,
   inheritAttrs: false,
   props: {
     ...popoverContentImplProps.props,
-    ...primitiveProps,
     ...scopePopoverProps,
   },
   emits: popoverContentImplProps.emits,
@@ -77,7 +26,7 @@ const popoverContentImpl = defineComponent({
     const _reactive = reactive(contentProps)
     const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const inject = usePopoverInject(NAME, scopeOkuPopover.value)
+    const inject = usePopoverInject(CONTENT_IMPL_NAME, scopeOkuPopover.value)
     const popperScope = usePopperScope(scopeOkuPopover.value)
 
     const forwardedRef = useForwardRef()

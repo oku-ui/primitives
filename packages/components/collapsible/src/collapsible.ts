@@ -123,8 +123,8 @@ const collapsible = defineComponent({
       {
         'data-state': getState(state.value),
         'data-disabled': disabled.value ? '' : undefined,
-        'ref': forwardedRef,
         ...mergeProps(attrs, reactiveCollapsibleProps),
+        'ref': forwardedRef,
       },
       {
         default: () => slots.default?.(),

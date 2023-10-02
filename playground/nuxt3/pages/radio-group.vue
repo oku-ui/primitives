@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-  <RadioGroupDemo allshow />
+  <div><RadioGroupDemo allshow /></div>
 </template>

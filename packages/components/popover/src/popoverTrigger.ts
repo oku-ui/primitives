@@ -1,33 +1,11 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPopperAnchor } from '@oku-ui/popper'
-import { getState, scopePopoverProps } from './utils'
-import { usePopoverInject, usePopperScope } from './popover'
-
-export type PopoverTriggerNaviteElement = OkuElement<'button'>
-export type PopoverTriggerElement = HTMLButtonElement
-
-export interface PopoverTriggerProps extends PrimitiveProps {}
-
-export interface PopoverTriggerEmits {
-  click: [event: MouseEvent]
-}
-
-export const popoverTriggerProps = {
-  props: {
-    ...primitiveProps,
-    ...scopePopoverProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
-  },
-}
-
-const TRIGGER_NAME = 'OkuPopoverTrigger'
+import type { PopoverTriggerNaviteElement } from './props'
+import { TRIGGER_NAME, popoverTriggerProps, usePopoverInject, usePopperScope } from './props'
+import { getState } from './utils'
 
 const popoverTrigger = defineComponent({
   name: TRIGGER_NAME,
@@ -63,7 +41,7 @@ const popoverTrigger = defineComponent({
           'ref': composedTriggerRef,
           'onClick': composeEventHandlers<MouseEvent>((el) => {
             emit('click', el)
-          }, () => inject.onOpenToggle()),
+          }, inject.onOpenToggle),
         }, {
           default: () => slots.default?.(),
         })
