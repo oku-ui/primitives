@@ -198,7 +198,7 @@ export const scrollAreaCornerProps = {
 export type ScrollAreaScrollbarImplNaviteElement = OkuElement<'div'>
 export type ScrollAreaScrollbarImplElement = HTMLDivElement
 
-export interface ScrollAreaScrollbarImplProps extends Omit<PrimitiveProps, keyof ScrollAreaScrollbarImplPrivateProps>, 
+export interface ScrollAreaScrollbarImplProps extends Omit<PrimitiveProps, keyof ScrollAreaScrollbarImplPrivateProps>,
   ScrollAreaScrollbarImplPrivateProps { }
 
 export const [createScrollProvide, createScrollScope] = createProvideScope(SCROLL_AREA_SCROLLBAR_NAME)
