@@ -1,7 +1,8 @@
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
 import { useDirection } from '@oku-ui/direction'
 import { primitiveProps } from '@oku-ui/primitive'
+import { reactiveOmit } from '@oku-ui/use-composable'
 import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'
 import type { MenuContentElement } from './props'
 
@@ -13,7 +14,7 @@ const menu = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuProps.emits,
@@ -24,6 +25,9 @@ const menu = defineComponent({
       dir,
       modal,
     } = toRefs(props)
+
+    // const _reactive = reactive(menuProps)
+    // const reactiveMenuProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
     const content = ref<MenuContentElement | null>(null)
@@ -67,8 +71,9 @@ const menu = defineComponent({
 
     return () => h(OkuPopper,
       {
-        ...attrs,
-        ...popperScope,
+        ...mergeProps(attrs, popperScope),
+        // ...attrs,
+        // ...popperScope,
       },
       {
         default: () => slots.default?.(),

@@ -1,8 +1,8 @@
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuItemImplEmits, MenuItemImplNaviteElement } from './props'
 import { CollectionItemSlot, MENU_ITEM_IMPL_NAME, MENU_ITEM_NAME, menuItemImplProps, scopedMenuProps, useMenuContentInject, useRovingFocusGroupScope } from './props'
 import { whenMouse } from './utils'
@@ -15,16 +15,19 @@ const menuItemImpl = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuItemImplProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuItemImplProps.emits,
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,
       disabled,
       textValue,
     } = toRefs(props)
+
+    const _reactive = reactive(menuItemImplProps)
+    const reactiveMenuItemImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -47,7 +50,7 @@ const menuItemImpl = defineComponent({
       {
         scope: scopeOkuMenu.value,
         disabled: disabled.value,
-        textValue: textValue.value ?? textContent,
+        textValue: textValue.value ?? textContent.value,
       },
       {
         default: () => h(OkuRovingFocusGroupItem,
@@ -63,7 +66,7 @@ const menuItemImpl = defineComponent({
                 'data-highlighted': isFocused.value ? '' : undefined,
                 'aria-disabled': disabled.value || undefined,
                 'data-disabled': disabled.value ? '' : undefined,
-                ...attrs,
+                ...mergeProps(attrs, reactiveMenuItemImplProps),
                 'ref': composedRefs,
                 /**
                 * We focus items on `pointerMove` to achieve the following:
@@ -76,22 +79,29 @@ const menuItemImpl = defineComponent({
                 * If we used `mouseOver`/`mouseEnter` it would not re-focus when the mouse
                 * wiggles. This is to match native menu implementation.
                 */
-                'onPointermove': composeEventHandlers<MenuItemImplEmits['pointermove'][0]>(whenMouse((event) => {
+                'onPointermove': composeEventHandlers<MenuItemImplEmits['pointermove'][0]>((event) => {
+                  emit('pointermove', event)
+                }, whenMouse((event: PointerEvent) => {
                   if (disabled.value) {
                     contentInject.onItemLeave(event)
                   }
                   else {
                     contentInject.onItemEnter(event)
                     if (!event.defaultPrevented) {
-                      const item = event.currentTarget
+                      const item = event.currentTarget as HTMLElement
                       item.focus()
                     }
                   }
-                }),
-                ),
-                'onPointerleave': composeEventHandlers<MenuItemImplEmits['pointerleave'][0]>(whenMouse(event => contentInject.onItemLeave(event))),
-                'onFocus': composeEventHandlers<MenuItemImplEmits['focus'][0]>(() => isFocused.value = true),
-                'onBlur': composeEventHandlers<MenuItemImplEmits['blur'][0]>(() => isFocused.value = false),
+                })),
+                'onPointerleave': composeEventHandlers<MenuItemImplEmits['pointerleave'][0]>((event) => {
+                  emit('pointerleave', event)
+                }, event => contentInject.onItemLeave(event)),
+                'onFocus': composeEventHandlers<MenuItemImplEmits['focus'][0]>((event) => {
+                  emit('focus', event)
+                }, () => isFocused.value = true),
+                'onBlur': composeEventHandlers<MenuItemImplEmits['blur'][0]>((event) => {
+                  emit('blur', event)
+                }, () => isFocused.value = false),
               }, slots,
             ),
           },

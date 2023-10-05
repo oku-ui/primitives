@@ -1,9 +1,9 @@
-import { defineComponent, h, ref, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { dispatchDiscreteCustomEvent, primitiveProps } from '@oku-ui/primitive'
-import { ITEM_SELECT, MENU_ITEM_NAME, SELECTION_KEYS, menuItemProps, scopedMenuProps, useMenuContentInject, useMenuRootInject } from './props'
 import type { MenuItemEmits, MenuItemNaviteElement } from './props'
+import { ITEM_SELECT, MENU_ITEM_NAME, SELECTION_KEYS, menuItemProps, scopedMenuProps, useMenuContentInject, useMenuRootInject } from './props'
 import { OkuMenuItemImpl } from './menu-item-impl'
 
 const menuItem = defineComponent({
@@ -14,16 +14,18 @@ const menuItem = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuItemProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuItemProps.emits,
-
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,
       disabled,
     } = toRefs(props)
+
+    const _reactive = reactive(menuItemProps)
+    const reactiveMenuItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -48,27 +50,32 @@ const menuItem = defineComponent({
 
     return () => h(OkuMenuItemImpl,
       {
-        ...attrs,
+        ...mergeProps(attrs, reactiveMenuItemProps),
         ref: composedRefs,
         disabled: disabled.value,
-        onClick: composeEventHandlers(props.onClick, handleSelect),
-        onPointerDown: (event) => {
-          props.onPointerDown?.(event)
-          isPointerDownRef.value = true
-        },
+        onClick: composeEventHandlers<MenuItemEmits['click'][0]>((event) => {
+          emit('click', event)
+        }, () => handleSelect),
+        onPointerdown: composeEventHandlers<MenuItemEmits['pointerdown'][0]>((event) => {
+          emit('pointerdown', event)
+        }, () => isPointerDownRef.value = true),
         onPointerUp: composeEventHandlers<MenuItemEmits['pointerup'][0]>((event) => {
+          emit('pointerup', event)
+        }, (event) => {
           // Pointer down can move to a different menu item which should activate it on pointer up.
           // We dispatch a click for selection to allow composition with click based triggers and to
           // prevent Firefox from getting stuck in text selection mode when the menu closes.
           if (!isPointerDownRef.value)
-            event.currentTarget?.click()
+            (event.currentTarget as HTMLElement)?.click()
         }),
         onKeyDown: composeEventHandlers<MenuItemEmits['keydown'][0]>((event) => {
+          emit('keydown', event)
+        }, (event) => {
           const isTypingAhead = contentInject.searchRef.value !== ''
           if (disabled.value || (isTypingAhead && event.key === ' '))
             return
           if (SELECTION_KEYS.includes(event.key)) {
-            event.currentTarget.click()
+            (event.currentTarget as HTMLElement)?.click()
             /**
              * We prevent default browser behaviour for selection keys as they should trigger
              * a selection only:

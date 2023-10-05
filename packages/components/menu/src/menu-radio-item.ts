@@ -1,12 +1,11 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { itemIndicatorProvider } from './menu-item-indicator'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getCheckedState } from './utils'
 import { OkuMenuItem } from './menu-item'
 import type { MenuRadioItemEmits, MenuRadioItemNaviteElement } from './props'
-import { MENU_RADIO_ITEM_NAME, menuRadioItemProps, scopedMenuProps, useRadioGroupInject } from './props'
+import { MENU_RADIO_ITEM_NAME, itemIndicatorProvider, menuRadioItemProps, scopedMenuProps, useRadioGroupInject } from './props'
 
 const menuRadioItem = defineComponent({
   name: MENU_RADIO_ITEM_NAME,
@@ -16,7 +15,7 @@ const menuRadioItem = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuRadioItemProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuRadioItemProps.emits,
@@ -26,10 +25,13 @@ const menuRadioItem = defineComponent({
       value,
     } = toRefs(props)
 
+    const _reactive = reactive(menuRadioItemProps)
+    const reactiveMenuRadioItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
 
     const inject = useRadioGroupInject(MENU_RADIO_ITEM_NAME, scopeOkuMenu.value)
-    const checked = value.value === inject.value
+    const checked = computed(() => value.value === inject.value)
 
     itemIndicatorProvider({
       scope: scopeOkuMenu.value,
@@ -39,15 +41,13 @@ const menuRadioItem = defineComponent({
     return h(OkuMenuItem,
       {
         'role': 'menuitemradio',
-        'aria-checked': checked,
-        ...attrs,
+        'aria-checked': checked.value,
+        ...mergeProps(attrs, reactiveMenuRadioItemProps),
         'ref': forwardedRef,
-        'data-state': getCheckedState(checked),
+        'data-state': getCheckedState(checked.value),
         'onSelect': composeEventHandlers<MenuRadioItemEmits['select'][0]>((event) => {
           emit('select', event)
-        }, () => {
-          inject.onValueChange?.(value.value)
-        }, { checkForDefaultPrevented: false }),
+        }, () => inject.onValueChange?.(value.value!), { checkForDefaultPrevented: false }),
       }, slots,
     )
   },

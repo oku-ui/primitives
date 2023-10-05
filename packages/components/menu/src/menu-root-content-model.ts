@@ -1,20 +1,21 @@
-import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
 import type { MenuRootContentTypeElement, MenuRootContentTypeEmits, MenuRootContentTypeNaviteElement } from './props'
-import { MENU_CONTENT_NAME, MENU_ROOT_CONTENT_TYPE_NAME, menuRootContentTypeProps, scopedMenuProps, useMenuInject } from './props'
+import { MENU_CONTENT_NAME, MENU_ROOT_CONTENT_MODEL_NAME, menuRootContentTypeProps, scopedMenuProps, useMenuInject } from './props'
+import { OkuMenuContentImpl } from './menu-content-impl'
 
-const menuRootContentType = defineComponent({
-  name: MENU_ROOT_CONTENT_TYPE_NAME,
+const menuRootContentModel = defineComponent({
+  name: MENU_ROOT_CONTENT_MODEL_NAME,
   components: {
-    // OkuMenuContentImpl,
+    OkuMenuContentImpl,
   },
   inheritAttrs: false,
   props: {
     ...menuRootContentTypeProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuRootContentTypeProps.emits,
@@ -23,6 +24,9 @@ const menuRootContentType = defineComponent({
     const {
       scopeOkuMenu,
     } = toRefs(props)
+
+    const _reactive = reactive(menuRootContentTypeProps)
+    const reactiveMenuRootContentTypeProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -37,9 +41,9 @@ const menuRootContentType = defineComponent({
         return hideOthers(content)
     })
 
-    return () => h('OkuMenuContentImpl',
+    return () => h(OkuMenuContentImpl,
       {
-        ...attrs,
+        ...mergeProps(attrs, reactiveMenuRootContentTypeProps),
         ref: composedRefs,
         // we make sure we're not trapping once it's been closed
         // (closed !== unmounted when animating out)
@@ -52,9 +56,7 @@ const menuRootContentType = defineComponent({
         // We make sure we don't trigger our `onDismiss` in such case.
         onFocusOutside: composeEventHandlers<MenuRootContentTypeEmits['focusOutside'][0]>((event) => {
           emit('focusOutside', event)
-        }, (event) => {
-          event.preventDefault()
-        }, { checkForDefaultPrevented: false }),
+        }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
         onDismiss: () => inject.onOpenChange(false),
       }, slots,
     )
@@ -62,5 +64,5 @@ const menuRootContentType = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuRootContentTypel = menuRootContentType as typeof menuRootContentType &
+export const OkuMenuRootContentModal = menuRootContentModel as typeof menuRootContentModel &
 (new () => { $props: MenuRootContentTypeNaviteElement })

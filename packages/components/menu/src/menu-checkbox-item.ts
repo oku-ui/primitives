@@ -1,11 +1,10 @@
-import { defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { itemIndicatorProvider } from './menu-item-indicator'
 import { getCheckedState, isIndeterminate } from './utils'
 import type { MenuCheckboxItemEmits, MenuCheckboxItemNaviteElement } from './props'
-import { MENU_CHECKBOX_ITEM_NAME, menuCheckboxItemProps, scopedMenuProps } from './props'
+import { MENU_CHECKBOX_ITEM_NAME, itemIndicatorProvider, menuCheckboxItemProps, scopedMenuProps } from './props'
 import { OkuMenuItem } from './menu-item'
 
 const menuCheckboxItem = defineComponent({
@@ -16,7 +15,7 @@ const menuCheckboxItem = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuCheckboxItemProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuCheckboxItemProps.emits,
@@ -26,26 +25,26 @@ const menuCheckboxItem = defineComponent({
       checked,
     } = toRefs(props)
 
+    const _reactive = reactive(menuCheckboxItemProps)
+    const reactiveMenuCheckboxItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
 
-    itemIndicatorProvider(
-      {
-        scope: scopeOkuMenu.value,
-        checked,
-      },
-    )
+    itemIndicatorProvider({
+      scope: scopeOkuMenu.value,
+      checked,
+    })
 
     return () => h(OkuMenuItem,
       {
         'role': 'menuitemcheckbox',
-        'aria-checked': isIndeterminate(checked) ? 'mixed' : checked,
-        ...attrs,
+        'aria-checked': isIndeterminate(checked.value) ? 'mixed' : checked.value,
+        ...mergeProps(attrs, reactiveMenuCheckboxItemProps),
         'ref': forwardedRef,
-        'data-state': getCheckedState(checked),
+        'data-state': getCheckedState(checked.value),
         'onSelect': composeEventHandlers<MenuCheckboxItemEmits['select'][0]>(() => {
-          emit('checkedChange', isIndeterminate(checked) ? true : !checked.value)
-        }, (event) => {
-        }, { checkForDefaultPrevented: false }),
+          emit('checkedChange', isIndeterminate(checked.value) ? true : !checked.value)
+        }, undefined, { checkForDefaultPrevented: false }),
       }, slots,
     )
   },

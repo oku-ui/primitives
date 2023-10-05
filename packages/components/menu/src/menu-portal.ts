@@ -1,7 +1,8 @@
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuPortal } from '@oku-ui/portal'
+import { reactiveOmit } from '@oku-ui/use-composable'
 import type { MenuPortalNaviteElement } from './props'
 import { MENU_PORTAL_NAME, menuPortalProps, portalProvider, scopedMenuProps, useMenuInject } from './props'
 
@@ -25,6 +26,9 @@ const menuPortal = defineComponent({
       container,
     } = toRefs(props)
 
+    const _reactive = reactive(menuPortalProps)
+    const reactiveMmenuPortalProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const inject = useMenuInject(MENU_PORTAL_NAME, scopeOkuMenu.value)
 
     portalProvider({
@@ -37,7 +41,7 @@ const menuPortal = defineComponent({
       {
         default: () => h(OkuPortal,
           {
-            ...attrs,
+            ...mergeProps(attrs, reactiveMmenuPortalProps),
             asChild: true,
             container: container.value,
           }, slots,

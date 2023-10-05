@@ -1,21 +1,23 @@
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuContentNaviteElement } from './props'
 import { CollectionProvider, CollectionSlot, MENU_CONTENT_NAME, menuContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, usePortalInject } from './props'
+import { OkuMenuRootContentModal } from './menu-root-content-model'
+import { OkuMenuRootContentNonModal } from './menu-root-content-non-modal'
 
 const menuContent = defineComponent({
   name: MENU_CONTENT_NAME,
   components: {
     OkuPresence,
-    // OkuMenuContentModal,
-    // OkuMenuContentNonModal,
+    OkuMenuRootContentModal,
+    OkuMenuRootContentNonModal,
   },
   inheritAttrs: false,
   props: {
     ...menuContentProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuContentProps.emits,
@@ -25,8 +27,11 @@ const menuContent = defineComponent({
       forceMount,
     } = toRefs(props)
 
+    const _reactive = reactive(menuContentProps)
+    const reactiveMenuContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const portalInject = usePortalInject(MENU_CONTENT_NAME, props.scopeOkuMenu)
-    forceMount.value = portalInject.forceMount.value
+    forceMount.value = portalInject.forceMount?.value
 
     const forwardedRef = useForwardRef()
 
@@ -47,15 +52,15 @@ const menuContent = defineComponent({
               },
               {
                 default: () => rootInject.modal.value
-                  ? h('OkuMenuContentModal',
+                  ? h(OkuMenuRootContentModal,
                     {
-                      ...attrs,
+                      ...mergeProps(attrs, reactiveMenuContentProps),
                       ref: forwardedRef,
                     }, slots,
                   )
-                  : h('OkuMenuContentNonModal',
+                  : h(OkuMenuRootContentNonModal,
                     {
-                      ...attrs,
+                      ...mergeProps(attrs, reactiveMenuContentProps),
                       ref: forwardedRef,
                     }, slots,
                   ),

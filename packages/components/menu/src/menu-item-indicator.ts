@@ -1,7 +1,7 @@
 import { OkuPresence } from '@oku-ui/presence'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getCheckedState, isIndeterminate } from './utils'
 import type { MenuItemIndicatorNaviteElement } from './props'
 import { MENU_ITEM_INDICATOR_NAME, menuItemIndicatorProps, scopedMenuProps, useItemIndicatorInject } from './props'
@@ -14,7 +14,7 @@ const menuItemIndicator = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuItemIndicatorProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuItemIndicatorProps.emits,
@@ -24,20 +24,23 @@ const menuItemIndicator = defineComponent({
       forceMount,
     } = toRefs(props)
 
+    const _reactive = reactive(menuItemIndicatorProps)
+    const reactiveMenuItemIndicatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
 
     const indicatorInject = useItemIndicatorInject(MENU_ITEM_INDICATOR_NAME, scopeOkuMenu.value)
 
     return () => h(OkuPresence,
       {
-        present: computed(() => forceMount.value || isIndeterminate(indicatorInject.checked) || indicatorInject.checked === true).value,
+        present: computed(() => forceMount.value || isIndeterminate(indicatorInject.checked.value) || indicatorInject.checked.value === true).value,
       },
       {
         default: () => h(Primitive.span,
           {
-            ...attrs,
+            ...mergeProps(attrs, reactiveMenuItemIndicatorProps),
             'ref': forwardedRef,
-            'data-state': getCheckedState(indicatorInject.checked),
+            'data-state': getCheckedState(indicatorInject.checked.value),
           }, slots,
         ),
       },

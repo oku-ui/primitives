@@ -1,18 +1,19 @@
-import { defineComponent, h, toRefs } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { MENU_CONTENT_NAME, MENU_NON_MODEL_NAME, menuRootContentNonModalProps, scopedMenuProps, useMenuInject } from './props'
 import type { MenuPortalNaviteElement } from './props'
+import { OkuMenuContentImpl } from './menu-content-impl'
 
 const menuRootContentNonModal = defineComponent({
   name: MENU_NON_MODEL_NAME,
   components: {
-    // OkuMenuContentImpl,
+    OkuMenuContentImpl,
   },
   inheritAttrs: false,
   props: {
     ...menuRootContentNonModalProps.props,
-    ...primitiveProps,
+    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuRootContentNonModalProps.emits,
@@ -20,13 +21,16 @@ const menuRootContentNonModal = defineComponent({
   setup(props, { attrs, slots }) {
     const { scopeOkuMenu } = toRefs(props)
 
+    const _reactive = reactive(menuRootContentNonModalProps)
+    const reactiveMenuRootContentNonModalProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
 
-    return () => h('OkuMenuContentImpl',
+    return () => h(OkuMenuContentImpl,
       {
-        ...attrs,
+        ...mergeProps(attrs, reactiveMenuRootContentNonModalProps),
         ref: forwardedRef,
         trapFocus: false,
         disableOutsidePointerEvents: false,
