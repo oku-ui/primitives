@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
-import type { MenuRadioGroupNaviteElement } from './props'
+import type { MenuRadioGroupNativeElement } from './props'
 import { MENU_RADIO_GROUP_NAME, menuRadioGroupProps, radioGroupProvider, scopedMenuProps } from './props'
 import { OkuMenuGroup } from './menu-group'
 
@@ -48,4 +48,4 @@ const menuRadioGroup = defineComponent({
 })
 
 export const OkuMenuRadioGroup = menuRadioGroup as typeof menuRadioGroup &
-(new () => { $props: MenuRadioGroupNaviteElement })
+(new () => { $props: MenuRadioGroupNativeElement })

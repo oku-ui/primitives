@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { dispatchDiscreteCustomEvent, primitiveProps } from '@oku-ui/primitive'
-import type { MenuItemEmits, MenuItemNaviteElement } from './props'
+import type { MenuItemEmits, MenuItemNativeElement } from './props'
 import { ITEM_SELECT, MENU_ITEM_NAME, SELECTION_KEYS, menuItemProps, scopedMenuProps, useMenuContentInject, useMenuRootInject } from './props'
 import { OkuMenuItemImpl } from './menu-item-impl'
 
@@ -92,4 +92,4 @@ const menuItem = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuItem = menuItem as typeof menuItem &
-(new () => { $props: MenuItemNaviteElement })
+(new () => { $props: MenuItemNativeElement })

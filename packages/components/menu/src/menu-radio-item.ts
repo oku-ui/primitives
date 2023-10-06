@@ -4,7 +4,7 @@ import { composeEventHandlers } from '@oku-ui/utils'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getCheckedState } from './utils'
 import { OkuMenuItem } from './menu-item'
-import type { MenuRadioItemEmits, MenuRadioItemNaviteElement } from './props'
+import type { MenuRadioItemEmits, MenuRadioItemNativeElement } from './props'
 import { MENU_RADIO_ITEM_NAME, itemIndicatorProvider, menuRadioItemProps, scopedMenuProps, useRadioGroupInject } from './props'
 
 const menuRadioItem = defineComponent({
@@ -53,5 +53,5 @@ const menuRadioItem = defineComponent({
   },
 })
 
-export const OkuMenuRadioItemProps = menuRadioItem as typeof menuRadioItem &
-(new () => { $props: MenuRadioItemNaviteElement })
+export const OkuMenuRadioItem = menuRadioItem as typeof menuRadioItem &
+(new () => { $props: MenuRadioItemNativeElement })

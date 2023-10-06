@@ -3,7 +3,7 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getCheckedState, isIndeterminate } from './utils'
-import type { MenuCheckboxItemEmits, MenuCheckboxItemNaviteElement } from './props'
+import type { MenuCheckboxItemEmits, MenuCheckboxItemNativeElement } from './props'
 import { MENU_CHECKBOX_ITEM_NAME, itemIndicatorProvider, menuCheckboxItemProps, scopedMenuProps } from './props'
 import { OkuMenuItem } from './menu-item'
 
@@ -51,4 +51,4 @@ const menuCheckboxItem = defineComponent({
 })
 
 export const OkuMenuCheckboxItem = menuCheckboxItem as typeof menuCheckboxItem &
-(new () => { $props: MenuCheckboxItemNaviteElement })
+(new () => { $props: MenuCheckboxItemNativeElement })

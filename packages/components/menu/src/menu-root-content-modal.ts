@@ -3,12 +3,12 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
-import type { MenuRootContentTypeElement, MenuRootContentTypeEmits, MenuRootContentTypeNaviteElement } from './props'
-import { MENU_CONTENT_NAME, MENU_ROOT_CONTENT_MODEL_NAME, menuRootContentTypeProps, scopedMenuProps, useMenuInject } from './props'
+import type { MenuRootContentTypeElement, MenuRootContentTypeEmits, MenuRootContentTypeNativeElement } from './props'
+import { MENU_CONTENT_NAME, MENU_ROOT_CONTENT_MODAL_NAME, menuRootContentTypeProps, scopedMenuProps, useMenuInject } from './props'
 import { OkuMenuContentImpl } from './menu-content-impl'
 
 const menuRootContentModel = defineComponent({
-  name: MENU_ROOT_CONTENT_MODEL_NAME,
+  name: MENU_ROOT_CONTENT_MODAL_NAME,
   components: {
     OkuMenuContentImpl,
   },
@@ -65,4 +65,4 @@ const menuRootContentModel = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuRootContentModal = menuRootContentModel as typeof menuRootContentModel &
-(new () => { $props: MenuRootContentTypeNaviteElement })
+(new () => { $props: MenuRootContentTypeNativeElement })

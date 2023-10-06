@@ -1,12 +1,12 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
-import { MENU_CONTENT_NAME, MENU_NON_MODEL_NAME, menuRootContentNonModalProps, scopedMenuProps, useMenuInject } from './props'
-import type { MenuPortalNaviteElement } from './props'
+import { MENU_CONTENT_NAME, MENU_NON_MODAL_NAME, menuRootContentNonModalProps, scopedMenuProps, useMenuInject } from './props'
+import type { MenuPortalNativeElement } from './props'
 import { OkuMenuContentImpl } from './menu-content-impl'
 
 const menuRootContentNonModal = defineComponent({
-  name: MENU_NON_MODEL_NAME,
+  name: MENU_NON_MODAL_NAME,
   components: {
     OkuMenuContentImpl,
   },
@@ -43,4 +43,4 @@ const menuRootContentNonModal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuRootContentNonModal = menuRootContentNonModal as typeof menuRootContentNonModal &
-(new () => { $props: MenuPortalNaviteElement })
+(new () => { $props: MenuPortalNativeElement })

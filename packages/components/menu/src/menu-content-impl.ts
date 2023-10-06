@@ -8,7 +8,7 @@ import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
 import { OkuPopperContent } from '@oku-ui/popper'
 import { OkuSlot } from '@oku-ui/slot'
-import type { MenuContentElement, MenuContentImplEmits, MenuContentImplNaviteElement } from './props'
+import type { MenuContentElement, MenuContentImplEmits, MenuContentImplNativeElement } from './props'
 import { FIRST_LAST_KEYS, LAST_KEYS, MENU_CONTENT_IMPL_NAME, MENU_CONTENT_NAME, menuContentImplProps, menuContentProvider, scopedMenuProps, useCollection, useMenuInject, useMenuRootInject, usePopperScope, useRovingFocusGroupScope } from './props'
 import type { GraceIntent, Side } from './utils'
 import { focusFirst, getNextMatch, getOpenState, isPointerInGraceArea, whenMouse } from './utils'
@@ -56,8 +56,8 @@ const menuContentImpl = defineComponent({
     const lastPointerXRef = ref(0)
 
     // TODO
-    const ScrollLockWrapper = Fragment
-    // disableOutsideScroll.value ? RemoveScroll : Fragment
+    // const ScrollLockWrapper = disableOutsideScroll.value ? RemoveScroll : Fragment
+    const ScrollLockWrapper = disableOutsideScroll.value ? Fragment : Fragment
     const scrollLockWrapperProps = disableOutsideScroll.value ? { as: OkuSlot, allowPinchZoom: true } : undefined
 
     const handleTypeaheadSearch = (key: string) => {
@@ -126,8 +126,8 @@ const menuContentImpl = defineComponent({
       {
         ...scrollLockWrapperProps,
       },
-      {
-        default: () => h(OkuFocusScope,
+      [
+        h(OkuFocusScope,
           {
             asChild: true,
             trapped: trapFocus.value,
@@ -176,7 +176,7 @@ const menuContentImpl = defineComponent({
                       {
                         'role': 'menu',
                         'aria-orientation': 'vertical',
-                        'data-state': getOpenState(inject.open.value),
+                        'data-state': getOpenState(inject.open.value!),
                         'data-oku-menu-content': '',
                         'dir': rootInject.dir.value,
                         ...popperScope,
@@ -242,11 +242,11 @@ const menuContentImpl = defineComponent({
             ),
           },
         ),
-      },
+      ],
     )
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuContentImpl = menuContentImpl as typeof menuContentImpl &
-(new () => { $props: MenuContentImplNaviteElement })
+(new () => { $props: MenuContentImplNativeElement })

@@ -48,13 +48,13 @@ const menuSub = defineComponent({
       onContentChange: _content => content.value = _content,
     })
 
-    // menuSubProvider({
-    //   scope: scopeOkuMenu.value,
-    //   contentId: computed(() => useId()),
-    //   triggerId: computed(() => useId()),
-    //   trigger,
-    //   onTriggerChange: _trigger => trigger.value = _trigger,
-    // })
+    menuSubProvider({
+      scope: scopeOkuMenu.value,
+      contentId: computed(() => useId()),
+      triggerId: computed(() => useId()),
+      trigger,
+      onTriggerChange: _trigger => trigger.value = _trigger,
+    })
 
     return () => h(OkuPopper, { ...mergeProps(attrs, popperScope) }, slots)
   },

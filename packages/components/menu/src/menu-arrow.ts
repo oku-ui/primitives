@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPopperArrow } from '@oku-ui/popper'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuArrowNaviteElement } from './props'
+import type { MenuArrowNativeElement } from './props'
 import { MENU_ARROW_NAME, menuArrowProps, scopedMenuProps, usePopperScope } from './props'
 
 const menuArrow = defineComponent({
@@ -35,4 +35,4 @@ const menuArrow = defineComponent({
 })
 
 export const OkuMenuArrow = menuArrow as typeof menuArrow &
-(new () => { $props: MenuArrowNaviteElement })
+(new () => { $props: MenuArrowNativeElement })

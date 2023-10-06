@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getCheckedState, isIndeterminate } from './utils'
-import type { MenuItemIndicatorNaviteElement } from './props'
+import type { MenuItemIndicatorNativeElement } from './props'
 import { MENU_ITEM_INDICATOR_NAME, menuItemIndicatorProps, scopedMenuProps, useItemIndicatorInject } from './props'
 
 const menuItemIndicator = defineComponent({
@@ -49,4 +49,4 @@ const menuItemIndicator = defineComponent({
 })
 
 export const OkuMenuItemIndicator = menuItemIndicator as typeof menuItemIndicator &
-(new () => { $props: MenuItemIndicatorNaviteElement })
+(new () => { $props: MenuItemIndicatorNativeElement })

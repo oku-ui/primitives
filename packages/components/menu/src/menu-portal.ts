@@ -3,7 +3,7 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuPortal } from '@oku-ui/portal'
 import { reactiveOmit } from '@oku-ui/use-composable'
-import type { MenuPortalNaviteElement } from './props'
+import type { MenuPortalNativeElement } from './props'
 import { MENU_PORTAL_NAME, menuPortalProps, portalProvider, scopedMenuProps, useMenuInject } from './props'
 
 const menuPortal = defineComponent({
@@ -53,4 +53,4 @@ const menuPortal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuPortal = menuPortal as typeof menuPortal &
-(new () => { $props: MenuPortalNaviteElement })
+(new () => { $props: MenuPortalNativeElement })

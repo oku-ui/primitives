@@ -3,7 +3,7 @@ import { OkuPopperAnchor } from '@oku-ui/popper'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { MENU_ANCHOR_NAME, menuAnchorProps, scopedMenuProps, usePopperScope } from './props'
-import type { MenuAnchorNaviteElement } from './props'
+import type { MenuAnchorNativeElement } from './props'
 
 const menuAnchor = defineComponent({
   name: MENU_ANCHOR_NAME,
@@ -41,4 +41,4 @@ const menuAnchor = defineComponent({
 })
 
 export const OkuMenuAnchor = menuAnchor as typeof menuAnchor &
-(new () => { $props: MenuAnchorNaviteElement })
+(new () => { $props: MenuAnchorNativeElement })

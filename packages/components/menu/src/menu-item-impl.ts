@@ -3,7 +3,7 @@ import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuItemImplEmits, MenuItemImplNaviteElement } from './props'
+import type { MenuItemImplEmits, MenuItemImplNativeElement } from './props'
 import { CollectionItemSlot, MENU_ITEM_IMPL_NAME, MENU_ITEM_NAME, menuItemImplProps, scopedMenuProps, useMenuContentInject, useRovingFocusGroupScope } from './props'
 import { whenMouse } from './utils'
 
@@ -113,4 +113,4 @@ const menuItemImpl = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuItemImpl = menuItemImpl as typeof menuItemImpl &
-(new () => { $props: MenuItemImplNaviteElement })
+(new () => { $props: MenuItemImplNativeElement })

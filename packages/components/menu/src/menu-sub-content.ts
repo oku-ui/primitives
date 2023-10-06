@@ -3,7 +3,7 @@ import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-compos
 import { primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPresence } from '@oku-ui/presence'
-import type { MenuSubContentElement, MenuSubContentEmits, MenuSubContentNaviteElement } from './props'
+import type { MenuSubContentElement, MenuSubContentEmits, MenuSubContentNativeElement } from './props'
 import { CollectionProvider, CollectionSlot, MENU_SUB_CONTENT_NAME, SUB_CLOSE_KEYS, menuSubContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, useMenuSubInject, usePortalInject } from './props'
 import { OkuMenuContentImpl } from './menu-content-impl'
 
@@ -89,7 +89,7 @@ const menuSubContent = defineComponent({
                       emit('keydown', event)
                     }, (event) => {
                       // Submenu key events bubble through portals. We only care about keys in this menu.
-                      const isKeyDownInside = event.currentTarget.contains(event.target as HTMLElement)
+                      const isKeyDownInside = (event.currentTarget as HTMLElement).contains(event.target as HTMLElement)
                       const isCloseKey = SUB_CLOSE_KEYS[rootInject.dir.value].includes(event.key)
                       if (isKeyDownInside && isCloseKey) {
                         inject.onOpenChange(false)
@@ -112,4 +112,4 @@ const menuSubContent = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuSubContent = menuSubContent as typeof menuSubContent &
-(new () => { $props: MenuSubContentNaviteElement })
+(new () => { $props: MenuSubContentNativeElement })

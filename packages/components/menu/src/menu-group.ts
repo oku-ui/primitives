@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, reactive } from 'vue'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuGroupNaviteElement } from './props'
+import type { MenuGroupNativeElement } from './props'
 import { MENU_GROUP_NAME, menuGroupProps, scopedMenuProps } from './props'
 
 const menuGroup = defineComponent({
@@ -34,4 +34,4 @@ const menuGroup = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuGroup = menuGroup as typeof menuGroup &
-(new () => { $props: MenuGroupNaviteElement })
+(new () => { $props: MenuGroupNativeElement })

@@ -2,9 +2,9 @@ import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuContentNaviteElement } from './props'
+import type { MenuContentNativeElement } from './props'
 import { CollectionProvider, CollectionSlot, MENU_CONTENT_NAME, menuContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, usePortalInject } from './props'
-import { OkuMenuRootContentModal } from './menu-root-content-model'
+import { OkuMenuRootContentModal } from './menu-root-content-modal'
 import { OkuMenuRootContentNonModal } from './menu-root-content-non-modal'
 
 const menuContent = defineComponent({
@@ -76,4 +76,4 @@ const menuContent = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuContent = menuContent as typeof menuContent &
-(new () => { $props: MenuContentNaviteElement })
+(new () => { $props: MenuContentNativeElement })

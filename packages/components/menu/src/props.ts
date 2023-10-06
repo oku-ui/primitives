@@ -5,7 +5,7 @@ import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import { createPopperScope, popperContentProps } from '@oku-ui/popper'
-import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps, PopperArrowElement, PopperArrowNaviteElement, PopperArrowProps, PopperContentElement, PopperContentNaviteElement } from '@oku-ui/popper'
+import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps, PopperArrowElement, PopperArrowNaviteElement, PopperArrowProps, PopperContentElement, PopperContentNaviteElement, PopperContentProps } from '@oku-ui/popper'
 import type { Direction } from '@oku-ui/direction'
 import type { PortalProps } from '@oku-ui/portal'
 import { createCollection } from '@oku-ui/collection'
@@ -13,7 +13,8 @@ import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import type { DismissableLayerEmits, DismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import type { FocusScopeEmits, FocusScopeProps } from '@oku-ui/focus-scope'
-import type { RovingFocusGroupImplEmits, RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import type { RovingFocusGroupImplEmits } from '../../../core/roving-focus/src/RovingFocusGroupImpl'
 import type { GraceIntent } from './utils'
 
 export type ScopedMenu<P> = P & { scopeOkuMenu?: Scope }
@@ -29,8 +30,8 @@ export const MENU_NAME = 'OkuMenu'
 export const MENU_ANCHOR_NAME = 'OkuMenuAnchor'
 export const MENU_PORTAL_NAME = 'OkuMenuPortal'
 export const MENU_CONTENT_NAME = 'OkuMenuContent'
-export const MENU_NON_MODEL_NAME = 'OkuMenuContentNonModel'
-export const MENU_ROOT_CONTENT_MODEL_NAME = 'OkuMenuRootContentModel'
+export const MENU_NON_MODAL_NAME = 'OkuMenuContentNonModal'
+export const MENU_ROOT_CONTENT_MODAL_NAME = 'OkuMenuRootContentModal'
 export const MENU_CONTENT_IMPL_NAME = 'OkuMenuContentImpl'
 export const MENU_GROUP_NAME = 'OkuMenuGroup'
 export const MENU_LABEL_NAME = 'OkuMenuLabel'
@@ -65,7 +66,7 @@ export const SUB_CLOSE_KEYS: Record<Direction, string[]> = {
 
 type ItemData = { disabled: boolean; textValue: string }
 
-export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<MenuItemNaviteElement, ItemData>(MENU_NAME)
+export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<MenuItemElement, ItemData>(MENU_NAME)
 
 export const [createMenuProvide, createMenuScope] = createProvideScope(MENU_NAME,
   [
@@ -127,8 +128,8 @@ export const menuProps = {
  * MenuAnchor - menu-anchor.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuAnchorNativeElement = PopperAnchorNaviteElement
 export type MenuAnchorElement = PopperAnchorElement
-export type MenuAnchorNaviteElement = PopperAnchorNaviteElement
 
 export interface MenuAnchorProps extends PopperAnchorProps { }
 
@@ -141,7 +142,7 @@ export const menuAnchorProps = {
  * MenuPortal - menu-portal.ts
 * ----------------------------------------------------------------------------------------------- */
 
-export type MenuPortalNaviteElement = OkuElement<'div'>
+export type MenuPortalNativeElement = OkuElement<'div'>
 export type MenuPortalElement = HTMLDivElement
 
 type PortalInjectValue = {
@@ -175,7 +176,6 @@ export const menuPortalProps = {
       type: Boolean as PropType<true | undefined>,
       default: undefined,
     },
-    ...primitiveProps,
   },
   emits: {},
 }
@@ -184,8 +184,8 @@ export const menuPortalProps = {
  * MenuContent - menu-content.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuContentNativeElement = MenuRootContentTypeNativeElement
 export type MenuContentElement = MenuRootContentTypeElement
-export type MenuContentNaviteElement = MenuRootContentTypeNaviteElement
 
 type MenuContentInjectValue = {
   onItemEnter(event: PointerEvent): void
@@ -230,7 +230,7 @@ export const menuContentProps = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- * MenuContentNonModel - menu-root-content-non-modal.ts
+ * MenuRootContentNonModal - menu-root-content-non-modal.ts
  * ----------------------------------------------------------------------------------------------- */
 
 export const menuRootContentNonModalProps = {
@@ -239,11 +239,11 @@ export const menuRootContentNonModalProps = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- *  MenuRootContentType - menu-root-content-type.ts
+ *  MenuRootContentModal - menu-root-content-modal.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuRootContentTypeNativeElement = MenuContentImplNativeElement
 export type MenuRootContentTypeElement = MenuContentImplElement
-export type MenuRootContentTypeNaviteElement = MenuContentImplNaviteElement
 
 export interface MenuRootContentTypeProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> { }
 // TODO
@@ -263,14 +263,14 @@ export const menuRootContentTypeProps = {
  *  MenuContentImpl - menu-content-impl
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuContentImplNativeElement = PopperContentNaviteElement
 export type MenuContentImplElement = PopperContentElement
-export type MenuContentImplNaviteElement = PopperContentNaviteElement
 
 // export type FocusScopeProps = FocusScopeElement
 // export type DismissableLayerProps = DismissableLayerElement
 // export type RovingFocusGroupProps = RovingFocusGroupElement
 
-export type PopperContentProps = PopperContentElement
+// export type PopperContentProps = PopperContentElement
 
 export type MenuContentImplPrivateProps = {
   disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents']
@@ -293,7 +293,7 @@ export type MenuContentImplPrivateEmits = {
   dismiss: [event: DismissableLayerEmits['dismiss']]
 }
 
-export interface MenuContentImplProps extends MenuContentImplPrivateProps, Omit<PopperContentProps, 'dir' | 'onPlaced'> {
+export interface MenuContentImplProps extends MenuContentImplPrivateProps, Omit<PopperContentProps, 'dir'> {
   /**
    * Whether keyboard navigation should loop around
    * @defaultValue false
@@ -340,7 +340,7 @@ export const menuContentImplProps = {
     ...propsOmit(popperContentProps.props, ['dir']),
   },
   emits: {
-    // ...propsOmit(popperContentProps.emits, ['placed']),
+    ...propsOmit(popperContentProps.emits, ['placed']),
     // eslint-disable-next-line unused-imports/no-unused-vars
     openAutoFocus: (event: FocusScopeEmits['mountAutoFocus'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -371,8 +371,8 @@ export const menuContentImplProps = {
  * MenuGroup - menu-group.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type MenuGroupElement = OkuElement<'div'>
-export type MenuGroupNaviteElement = HTMLDivElement
+export type MenuGroupNativeElement = OkuElement<'div'>
+export type MenuGroupElement = HTMLDivElement
 
 export interface MenuGroupProps extends PrimitiveProps {}
 
@@ -385,8 +385,8 @@ export const menuGroupProps = {
  * MenuLabel - menu-label.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type MenuLabelElement = OkuElement<'div'>
-export type MenuLabelNaviteElement = HTMLDivElement
+export type MenuLabelNativeElement = OkuElement<'div'>
+export type MenuLabelElement = HTMLDivElement
 
 export interface MenuLabelProps extends PrimitiveProps { }
 
@@ -401,8 +401,8 @@ export const menuLabelProps = {
 
 export const ITEM_SELECT = 'menu.itemSelect'
 
+export type MenuItemNativeElement = MenuItemImplNativeElement
 export type MenuItemElement = MenuItemImplElement
-export type MenuItemNaviteElement = MenuItemImplNaviteElement
 
 export interface MenuItemProps extends Omit<MenuItemImplProps, 'onSelect'> {
   onSelect?: (event: Event) => void
@@ -440,8 +440,8 @@ export const menuItemProps = {
  * MenuItemImpl - menu-item-impl.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type MenuItemImplElement = OkuElement<'div'>
-export type MenuItemImplNaviteElement = HTMLDivElement
+export type MenuItemImplNativeElement = OkuElement<'div'>
+export type MenuItemImplElement = HTMLDivElement
 
 export interface MenuItemImplProps extends PrimitiveProps {
   disabled?: boolean
@@ -481,8 +481,8 @@ export const menuItemImplProps = {
  * MenuCheckboxItem - menu-checkbox-item.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuCheckboxItemNativeElement = MenuItemNativeElement
 export type MenuCheckboxItemElement = MenuItemElement
-export type MenuCheckboxItemNaviteElement = MenuItemNaviteElement
 
 export type CheckedState = boolean | 'indeterminate'
 
@@ -518,8 +518,8 @@ export const [radioGroupProvider, useRadioGroupInject] = createMenuProvide<MenuR
   { value: undefined, onValueChange: () => {} },
 )
 
+export type MenuRadioGroupNativeElement = MenuGroupNativeElement
 export type MenuRadioGroupElement = MenuGroupElement
-export type MenuRadioGroupNaviteElement = MenuGroupNaviteElement
 
 export interface MenuRadioGroupProps extends MenuGroupProps {
   value?: Ref<string | undefined>
@@ -542,8 +542,8 @@ export const menuRadioGroupProps = {
  * MenuRadioItem - menu-radio-item.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuRadioItemNativeElement = MenuItemNativeElement
 export type MenuRadioItemElement = MenuItemElement
-export type MenuRadioItemNaviteElement = MenuItemNaviteElement
 
 export interface MenuRadioItemProps extends MenuItemProps {
   value: Ref<string>
@@ -578,8 +578,8 @@ export const [itemIndicatorProvider, useItemIndicatorInject] = createMenuProvide
   { checked: ref(false) },
 )
 
-export type MenuItemIndicatorElement = OkuElement<'span'>
-export type MenuItemIndicatorNaviteElement = HTMLSpanElement
+export type MenuItemIndicatorNativeElement = OkuElement<'span'>
+export type MenuItemIndicatorElement = HTMLSpanElement
 
 // export type PrimitiveSpanProps = Radix.ComponentPropsWithoutRef<typeof Primitive.span>;
 export interface MenuItemIndicatorProps extends PrimitiveProps {
@@ -604,8 +604,8 @@ export const menuItemIndicatorProps = {
  * MenuSeparator - menu-separator.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type MenuSeparatorElement = OkuElement<'div'>
-export type MenuSeparatorNaviteElement = HTMLDivElement
+export type MenuSeparatorNativeElement = OkuElement<'div'>
+export type MenuSeparatorElement = HTMLDivElement
 
 export interface MenuSeparatorProps extends PrimitiveProps { }
 
@@ -618,8 +618,8 @@ export const menuSeparatorProps = {
  * MenuArrow - menu-arrow.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuArrowNativeElement = PopperArrowNaviteElement
 export type MenuArrowElement = PopperArrowElement
-export type MenuArrowNaviteElement = PopperArrowNaviteElement
 export interface MenuArrowProps extends PopperArrowProps {}
 
 export const menuArrowProps = {
@@ -664,8 +664,8 @@ export const menuSubProps = {
  * MenuSubTrigger - menu-sub-trigger.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuSubTriggerNativeElement = MenuItemImplNativeElement
 export type MenuSubTriggerElement = MenuItemImplElement
-export type MenuSubTriggerNaviteElement = MenuItemImplNaviteElement
 
 export interface MenuSubTriggerProps extends MenuItemImplProps {
   click: [event: MouseEvent]
@@ -702,8 +702,8 @@ export const menuSubTriggerProps = {
  * MenuSubContent - menu-sub-content.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuSubContentNativeElement = MenuContentImplNativeElement
 export type MenuSubContentElement = MenuContentImplElement
-export type MenuSubContentNaviteElement = MenuContentImplNaviteElement
 
 export interface MenuSubContentProps extends Omit<MenuContentImplProps, 'side' | 'align'> {
   /**

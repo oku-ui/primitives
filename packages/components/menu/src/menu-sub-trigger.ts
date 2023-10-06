@@ -4,7 +4,7 @@ import { primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { Side } from './utils'
 import { getOpenState, whenMouse } from './utils'
-import type { MenuItemImplElement, MenuSubTriggerEmits, MenuSubTriggerNaviteElement } from './props'
+import type { MenuItemImplElement, MenuSubTriggerEmits, MenuSubTriggerNativeElement } from './props'
 import { MENU_SUB_TRIGGER_NAME, SUB_OPEN_KEYS, menuSubTriggerProps, scopedMenuProps, useMenuContentInject, useMenuInject, useMenuRootInject, useMenuSubInject } from './props'
 import { OkuMenuAnchor } from './menu-anchor'
 import { OkuMenuItemImpl } from './menu-item-impl'
@@ -66,7 +66,7 @@ const menuSubTrigger = defineComponent({
             'aria-haspopup': 'menu',
             'aria-expanded': inject.open.value,
             'aria-controls': subInject.contentId.value,
-            'data-state': getOpenState(inject.open.value),
+            'data-state': getOpenState(inject.open.value!),
             ...mergeProps(attrs, reactiveMenuSubTriggerProps),
             'ref': useComposedRefs(forwardedRef, el => subInject.onTriggerChange(el as MenuItemImplElement)),
             // This is redundant for mouse users but we cannot determine pointer type from
@@ -164,4 +164,4 @@ const menuSubTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuSubTrigger = menuSubTrigger as typeof menuSubTrigger &
-(new () => { $props: MenuSubTriggerNaviteElement })
+(new () => { $props: MenuSubTriggerNativeElement })
