@@ -24,12 +24,12 @@ const checkboxItems = reactive([
   <br>
   <MenuWithAnchor class="animated-content content" :open="open">
     <OkuMenuCheckboxItem
-      v-for="({ label, state, disabled }) in checkboxItems"
+      v-for="({ label, state, disabled }, index) in checkboxItems"
       :key="label"
       class="item"
       :checked="state"
       :disabled="disabled"
-      @checked-change="(el) => state = el"
+      @checked-change="checkboxItems[index].state = state"
     >
       {{ label }}
       <OkuMenuItemIndicator class="animated-item-indicator">
