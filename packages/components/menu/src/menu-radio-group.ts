@@ -47,5 +47,6 @@ const menuRadioGroup = defineComponent({
   },
 })
 
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuRadioGroup = menuRadioGroup as typeof menuRadioGroup &
 (new () => { $props: MenuRadioGroupNativeElement })

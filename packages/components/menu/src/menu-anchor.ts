@@ -40,5 +40,6 @@ const menuAnchor = defineComponent({
   },
 })
 
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuAnchor = menuAnchor as typeof menuAnchor &
 (new () => { $props: MenuAnchorNativeElement })

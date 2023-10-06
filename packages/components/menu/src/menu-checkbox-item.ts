@@ -50,5 +50,6 @@ const menuCheckboxItem = defineComponent({
   },
 })
 
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuCheckboxItem = menuCheckboxItem as typeof menuCheckboxItem &
 (new () => { $props: MenuCheckboxItemNativeElement })

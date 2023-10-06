@@ -32,5 +32,6 @@ const menuSeparator = defineComponent({
   },
 })
 
+// TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuSeparator = menuSeparator as typeof menuSeparator &
 (new () => { $props: MenuSeparatorNativeElement })
