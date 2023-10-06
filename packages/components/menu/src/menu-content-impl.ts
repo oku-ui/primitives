@@ -1,6 +1,6 @@
 import { Fragment, defineComponent, h, onBeforeUnmount, ref, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
 import { useFocusGuards } from '@oku-ui/focus-guards'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
@@ -56,7 +56,7 @@ const menuContentImpl = defineComponent({
     const lastPointerXRef = ref(0)
 
     // TODO
-    // const ScrollLockWrapper = disableOutsideScroll.value ? RemoveScroll : Fragment
+    // const ScrollLockWrapper = disableOutsideScroll.value ? useScrollLock(null, true) : Fragment
     const ScrollLockWrapper = disableOutsideScroll.value ? Fragment : Fragment
     const scrollLockWrapperProps = disableOutsideScroll.value ? { as: OkuSlot, allowPinchZoom: true } : undefined
 
