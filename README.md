@@ -18,7 +18,7 @@ Website: [Oku Website](https://oku-ui.com)
 
 Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/master/CONTRIBUTING.md)
 
-# TODO Components - 23/30
+# TODO Components - 22/28
 
 Enter the component you want most in the components, leave the emojis and follow.
 
@@ -38,7 +38,6 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Form](https://github.com/oku-ui/primitives/issues/11) | A group of form controls | Not Started | -  |
 | [Hover Card](https://oku-ui.com/primitives/components/hover-card) | <span><a href="https://www.npmjs.com/package/@oku-ui/hover-card "><img src="https://img.shields.io/npm/v/@oku-ui/hover-card?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/hover-card"> <img src="https://img.shields.io/npm/dm/@oku-ui/hover-card?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/hover-card"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
 | [Label](https://oku-ui.com/primitives/components/label) | <span><a href="https://www.npmjs.com/package/@oku-ui/label "><img src="https://img.shields.io/npm/v/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/label"> <img src="https://img.shields.io/npm/dm/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/label"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
-| [Menu](https://oku-ui.com/primitives/components/menu) | <span><a href="https://www.npmjs.com/package/@oku-ui/menu "><img src="https://img.shields.io/npm/v/@oku-ui/menu?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/menu"> <img src="https://img.shields.io/npm/dm/@oku-ui/menu?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/menu"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
 | [Menubar](https://github.com/oku-ui/primitives/issues/13) | A menu that appears when a user interacts with an element's trigger | 🚧 In Progress | -  |
 | [Navigation Menu](https://github.com/oku-ui/primitives/issues/14) | A collection of links for navigating websites | Not Started | -  |
 | [Popover](https://oku-ui.com/primitives/components/popover) | <span><a href="https://www.npmjs.com/package/@oku-ui/popover "><img src="https://img.shields.io/npm/v/@oku-ui/popover?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/popover"> <img src="https://img.shields.io/npm/dm/@oku-ui/popover?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/popover"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
@@ -61,6 +60,10 @@ Enter the component you want most in the components, leave the emojis and follow
 ## Utils
 
 [Nuxt Module](https://oku-ui.com/primitives/introduction/nuxt) | <span><a href="https://www.npmjs.com/package/@oku-ui/primitives-nuxt"><img src="https://img.shields.io/npm/v/@oku-ui/primitives-nuxt?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/primitives-nuxt"> <img src="https://img.shields.io/npm/dm/@oku-ui/primitives-nuxt?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="ttps://oku-ui.com/primitives/introduction/nuxt"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+
+## Core
+
+| [Menu](https://oku-ui.com/primitives/components/menu) | <span><a href="https://www.npmjs.com/package/@oku-ui/menu "><img src="https://img.shields.io/npm/v/@oku-ui/menu?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/menu"> <img src="https://img.shields.io/npm/dm/@oku-ui/menu?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/menu"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
 
 ## Community
 
