@@ -319,17 +319,12 @@ export type MenuRootContentTypeElement = MenuContentImplElement
 
 export interface MenuRootContentTypeProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> { }
 
-export type MenuRootContentTypeEmits = {
-  focusOutside: [event: FocusEvent]
-}
-
+export type MenuRootContentTypeEmits = Omit<MenuContentImplEmits, keyof MenuContentImplPrivateEmits>
 export const menuRootContentTypeProps = {
   props: {
     ...propsOmit(menuContentImplProps.props, menuContentImplPrivateProps.propsKeys),
   },
   emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    focusOutside: (event: FocusEvent) => true,
     ...propsOmit(menuContentImplProps.emits, menuContentImplPrivateProps.emitsKeys),
   },
 }

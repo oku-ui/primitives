@@ -52,8 +52,8 @@ const menuRootContentModel = defineComponent({
         // disableOutsideScroll,
         // When focus is trapped, a `focusout` event may still happen.
         // We make sure we don't trigger our `onDismiss` in such case.
-        onFocusoutSide: composeEventHandlers<MenuRootContentTypeEmits['focusOutside'][0]>((event) => {
-          emit('focusOutside', event)
+        onFocusoutSide: composeEventHandlers<MenuRootContentTypeEmits['focusoutSide'][0]>((event) => {
+          emit('focusoutSide', event)
         }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
         onDismiss: () => inject.onOpenChange(false),
       }, slots,

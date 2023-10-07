@@ -1,4 +1,4 @@
-import { Fragment, defineComponent, h, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
+import { Fragment, defineComponent, h, mergeProps, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useFocusGuards } from '@oku-ui/focus-guards'
@@ -164,8 +164,10 @@ const menuContentImpl = defineComponent({
                     orientation: 'vertical',
                     loop: loop.value,
                     currentTabStopId: currentItemId.value,
-                    onCurrentTabStopIdChange: tabStopId => currentItemId.value = tabStopId,
-                    OnEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
+                    onCurrentTabStopIdChange: (tabStopId) => {
+                      currentItemId.value = tabStopId
+                    },
+                    onEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
                       emit('entryFocus', event)
                     }, (event) => {
                       // only focus first item when using keyboard
@@ -182,7 +184,7 @@ const menuContentImpl = defineComponent({
                         'data-oku-menu-content': '',
                         'dir': rootInject.dir.value,
                         ...popperScope,
-                        ...attrs,
+                        ...mergeProps(attrs, reactiveCheckboxProps),
                         'ref': composedRefs,
                         'style': { outline: 'none', ...attrs.style as any },
                         'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
