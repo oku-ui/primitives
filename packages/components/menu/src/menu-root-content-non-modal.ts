@@ -1,6 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { primitiveProps } from '@oku-ui/primitive'
 import { MENU_CONTENT_NAME, MENU_NON_MODAL_NAME, menuRootContentNonModalProps, scopedMenuProps, useMenuInject } from './props'
 import type { MenuPortalNativeElement } from './props'
 import { OkuMenuContentImpl } from './menu-content-impl'

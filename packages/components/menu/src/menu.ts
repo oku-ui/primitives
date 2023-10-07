@@ -1,8 +1,6 @@
-import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
 import { useDirection } from '@oku-ui/direction'
-import { primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit } from '@oku-ui/use-composable'
 import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'
 import type { MenuContentElement } from './props'
 

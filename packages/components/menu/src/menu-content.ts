@@ -1,6 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
-import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuContentNativeElement } from './props'
 import { CollectionProvider, CollectionSlot, MENU_CONTENT_NAME, menuContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, usePortalInject } from './props'

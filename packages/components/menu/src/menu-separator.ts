@@ -1,5 +1,5 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { defineComponent, h, mergeProps, reactive } from 'vue'
+import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuSeparatorNativeElement } from './props'
 import { MENU_SEPARATOR_NAME, menuSeparatorProps, scopedMenuProps } from './props'

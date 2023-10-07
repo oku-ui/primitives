@@ -1,6 +1,6 @@
 import { OkuPresence } from '@oku-ui/presence'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getCheckedState, isIndeterminate } from './utils'
 import type { MenuItemIndicatorNativeElement } from './props'

@@ -1,5 +1,4 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getCheckedState } from './utils'

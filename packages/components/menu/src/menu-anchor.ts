@@ -1,7 +1,6 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPopperAnchor } from '@oku-ui/popper'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { primitiveProps } from '@oku-ui/primitive'
 import { MENU_ANCHOR_NAME, menuAnchorProps, scopedMenuProps, usePopperScope } from './props'
 import type { MenuAnchorNativeElement } from './props'
 

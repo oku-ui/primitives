@@ -1,6 +1,5 @@
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useId } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { useId } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
 import type { MenuContentElement, MenuSubTriggerElement } from './props'
 import { MENU_SUB_NAME, menuProvider, menuSubProps, menuSubProvider, scopedMenuProps, useMenuInject, usePopperScope } from './props'

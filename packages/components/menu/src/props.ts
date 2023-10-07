@@ -1,7 +1,7 @@
 import type { PropType, Ref } from 'vue'
 import { ref } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
+import { propsOmit } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
 import { createPopperScope, popperContentProps } from '@oku-ui/popper'

@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'

@@ -1,5 +1,4 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
