@@ -20,6 +20,7 @@ overrides:
   '@oku-ui/focus-scope': workspace:^
   '@oku-ui/hover-card': workspace:^
   '@oku-ui/label': workspace:^
+  '@oku-ui/menu': workspace:^
   '@oku-ui/popover': workspace:^
   '@oku-ui/popper': workspace:^
   '@oku-ui/portal': workspace:^
@@ -42,7 +43,6 @@ overrides:
   '@oku-ui/tooltip': workspace:^
   '@oku-ui/use-composable': workspace:^
   '@oku-ui/utils': workspace:^
-  '@oku-ui/menu': workspace:^
   '@oku-ui/visually-hidden': workspace:^
   '@vue/runtime-core': 3.3.4
   vite: 4.3.5
@@ -571,6 +571,9 @@ importers:
 
   packages/components/menu:
     dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.4)
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:../../core/collection
@@ -583,6 +586,9 @@ importers:
       '@oku-ui/focus-guards':
         specifier: workspace:^
         version: link:../../core/focus-guards
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:../../core/focus-scope
       '@oku-ui/popper':
         specifier: workspace:^
         version: link:../../core/popper
@@ -610,6 +616,9 @@ importers:
       '@oku-ui/utils':
         specifier: workspace:^
         version: link:../../core/utils
+      aria-hidden:
+        specifier: ^1.2.3
+        version: 1.2.3
       vue:
         specifier: 3.3.4
         version: 3.3.4

@@ -12,11 +12,8 @@ const menuRootContentNonModal = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuRootContentNonModalProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
-  emits: menuRootContentNonModalProps.emits,
-
   setup(props, { attrs, slots }) {
     const { scopeOkuMenu } = toRefs(props)
 

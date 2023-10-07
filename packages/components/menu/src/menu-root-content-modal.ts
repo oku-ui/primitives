@@ -14,7 +14,6 @@ const menuRootContentModel = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuRootContentTypeProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuRootContentTypeProps.emits,
@@ -53,7 +52,7 @@ const menuRootContentModel = defineComponent({
         // disableOutsideScroll,
         // When focus is trapped, a `focusout` event may still happen.
         // We make sure we don't trigger our `onDismiss` in such case.
-        onFocusOutside: composeEventHandlers<MenuRootContentTypeEmits['focusOutside'][0]>((event) => {
+        onFocusoutSide: composeEventHandlers<MenuRootContentTypeEmits['focusOutside'][0]>((event) => {
           emit('focusOutside', event)
         }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
         onDismiss: () => inject.onOpenChange(false),

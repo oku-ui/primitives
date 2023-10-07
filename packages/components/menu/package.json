@@ -37,10 +37,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
+    "@floating-ui/vue": "^1.0.2",
     "@oku-ui/collection": "latest",
     "@oku-ui/direction": "latest",
     "@oku-ui/dismissable-layer": "latest",
     "@oku-ui/focus-guards": "latest",
+    "@oku-ui/focus-scope": "workspace:^",
     "@oku-ui/popper": "latest",
     "@oku-ui/portal": "latest",
     "@oku-ui/presence": "latest",
@@ -49,7 +51,8 @@
     "@oku-ui/roving-focus": "latest",
     "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest"
+    "@oku-ui/utils": "latest",
+    "aria-hidden": "^1.2.3"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

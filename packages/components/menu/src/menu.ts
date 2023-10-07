@@ -12,7 +12,6 @@ const menu = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuProps.emits,
@@ -23,9 +22,6 @@ const menu = defineComponent({
       dir,
       modal,
     } = toRefs(props)
-
-    // const _reactive = reactive(menuProps)
-    // const reactiveMenuProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
     const content = ref<MenuContentElement | null>(null)
@@ -69,13 +65,9 @@ const menu = defineComponent({
 
     return () => h(OkuPopper,
       {
-        ...mergeProps(attrs, popperScope),
-        // ...attrs,
-        // ...popperScope,
-      },
-      {
-        default: () => slots.default?.(),
-      },
+        ...mergeProps(attrs),
+        ...popperScope,
+      }, slots,
     )
   },
 })

@@ -1,6 +1,6 @@
-import { Fragment, defineComponent, h, onBeforeUnmount, ref, toRefs } from 'vue'
+import { Fragment, defineComponent, h, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { useFocusGuards } from '@oku-ui/focus-guards'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
@@ -28,7 +28,6 @@ const menuContentImpl = defineComponent({
     ...scopedMenuProps,
   },
   emits: menuContentImplProps.emits,
-
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,
@@ -36,7 +35,11 @@ const menuContentImpl = defineComponent({
       trapFocus,
       disableOutsidePointerEvents,
       disableOutsideScroll,
+      ...restProps
     } = toRefs(props)
+
+    const _reactive = reactive(restProps)
+    const reactiveCheckboxProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -160,9 +163,8 @@ const menuContentImpl = defineComponent({
                     dir: rootInject.dir.value,
                     orientation: 'vertical',
                     loop: loop.value,
-                    // TODO
-                    // currentTabStopId: currentItemId.value,
-                    // onCurrentTabStopIdChange: () => emit('currentTabStopIdChange', currentItemId.value),
+                    currentTabStopId: currentItemId.value,
+                    onCurrentTabStopIdChange: tabStopId => currentItemId.value = tabStopId,
                     OnEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
                       emit('entryFocus', event)
                     }, (event) => {
@@ -183,7 +185,7 @@ const menuContentImpl = defineComponent({
                         ...attrs,
                         'ref': composedRefs,
                         'style': { outline: 'none', ...attrs.style as any },
-                        'onKeyDown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
+                        'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
                           emit('keydown', event)
                         }, (event) => {
                           // submenu key events bubble through portals. We only care about keys in this menu.
@@ -220,7 +222,7 @@ const menuContentImpl = defineComponent({
                             searchRef.value = ''
                           }
                         }),
-                        'onPointerMove': composeEventHandlers<MenuContentImplEmits['pointermove'][0]>((event) => {
+                        'onPointermove': composeEventHandlers<MenuContentImplEmits['pointermove'][0]>((event) => {
                           emit('pointermove', event)
                         }, whenMouse((event: any) => {
                           const target = event.target as HTMLElement

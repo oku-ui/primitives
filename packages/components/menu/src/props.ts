@@ -1,10 +1,10 @@
 import type { PropType, Ref } from 'vue'
 import { ref } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { propsOmit } from '@oku-ui/primitive'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
-import { createPopperScope, popperContentProps } from '@oku-ui/popper'
+import { createPopperScope, popperAnchorProps, popperContentProps } from '@oku-ui/popper'
 import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps, PopperArrowElement, PopperArrowNaviteElement, PopperArrowProps, PopperContentElement, PopperContentNaviteElement, PopperContentProps } from '@oku-ui/popper'
 import type { Direction } from '@oku-ui/direction'
 import type { PortalProps } from '@oku-ui/portal'
@@ -134,8 +134,12 @@ export type MenuAnchorElement = PopperAnchorElement
 export interface MenuAnchorProps extends PopperAnchorProps { }
 
 export const menuAnchorProps = {
-  props: {},
-  emits: {},
+  props: {
+    ...popperAnchorProps.props,
+  },
+  emits: {
+    ...popperAnchorProps.emits,
+  },
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -181,85 +185,6 @@ export const menuPortalProps = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- * MenuContent - menu-content.ts
- * ----------------------------------------------------------------------------------------------- */
-
-export type MenuContentNativeElement = MenuRootContentTypeNativeElement
-export type MenuContentElement = MenuRootContentTypeElement
-
-type MenuContentInjectValue = {
-  onItemEnter(event: PointerEvent): void
-  onItemLeave(event: PointerEvent): void
-  onTriggerLeave(event: PointerEvent): void
-  searchRef: Ref<string>
-  pointerGraceTimerRef: Ref<number>
-  onPointerGraceIntentChange(intent: GraceIntent | null): void
-}
-export const [menuContentProvider, useMenuContentInject] = createMenuProvide<MenuContentInjectValue>(MENU_CONTENT_NAME)
-
-/**
- * We purposefully don't union MenuRootContent and MenuSubContent props here because
- * they have conflicting prop types. We agreed that we would allow MenuSubContent to
- * accept props that it would just ignore.
- */
-export interface MenuContentProps extends MenuRootContentTypeProps {
-  /**
-   * Used to force mounting when more control is needed. Useful when
-   * controlling animation with React animation libraries.
-   */
-  forceMount?: true
-}
-
-export const menuContentProps = {
-  props: {
-    forceMount: {
-      type: Boolean as PropType<true | undefined>,
-      default: undefined,
-    },
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    itemEnter: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    itemLeave: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    triggerLeave: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerGraceIntentChange: (intent: GraceIntent | null) => true,
-  },
-}
-
-/* -------------------------------------------------------------------------------------------------
- * MenuRootContentNonModal - menu-root-content-non-modal.ts
- * ----------------------------------------------------------------------------------------------- */
-
-export const menuRootContentNonModalProps = {
-  props: {},
-  emits: {},
-}
-
-/* -------------------------------------------------------------------------------------------------
- *  MenuRootContentModal - menu-root-content-modal.ts
- * ----------------------------------------------------------------------------------------------- */
-
-export type MenuRootContentTypeNativeElement = MenuContentImplNativeElement
-export type MenuRootContentTypeElement = MenuContentImplElement
-
-export interface MenuRootContentTypeProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> { }
-// TODO
-export type MenuRootContentTypeEmits = {
-  focusOutside: [event: FocusEvent]
-}
-
-export const menuRootContentTypeProps = {
-  props: {},
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    focusOutside: (event: FocusEvent) => true,
-  },
-}
-
-/* -------------------------------------------------------------------------------------------------
  *  MenuContentImpl - menu-content-impl
  * ----------------------------------------------------------------------------------------------- */
 
@@ -293,6 +218,32 @@ export type MenuContentImplPrivateEmits = {
   dismiss: [event: DismissableLayerEmits['dismiss']]
 }
 
+const menuContentImplPrivateProps = {
+  props: {
+    disableOutsidePointerEvents: {
+      type: Boolean as PropType<DismissableLayerProps['disableOutsidePointerEvents']>,
+      default: undefined,
+    },
+    disableOutsideScroll: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    trapFocus: {
+      type: Boolean as PropType<FocusScopeProps['trapped']>,
+      default: false,
+    },
+  },
+
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    openAutoFocus: (event: FocusScopeEmits['mountAutoFocus'][0]) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    dismiss: (event: DismissableLayerEmits['dismiss']) => true,
+  },
+  propsKeys: ['disableOutsidePointerEvents', 'disableOutsideScroll', 'trapFocus'] as ['disableOutsidePointerEvents', 'disableOutsideScroll', 'trapFocus'],
+  emitsKeys: ['openAutoFocus', 'dismiss'] as ['openAutoFocus', 'dismiss'],
+}
+
 export interface MenuContentImplProps extends MenuContentImplPrivateProps, Omit<PopperContentProps, 'dir'> {
   /**
    * Whether keyboard navigation should loop around
@@ -301,7 +252,6 @@ export interface MenuContentImplProps extends MenuContentImplPrivateProps, Omit<
   loop?: RovingFocusGroupProps['loop']
 }
 
-// TODO
 export type MenuContentImplEmits = {
   /**
    * Event handler called when auto-focusing on close.
@@ -325,19 +275,12 @@ export type MenuContentImplEmits = {
 export const menuContentImplProps = {
   props: {
     ...dismissableLayerProps.props,
-    disableOutsideScroll: {
-      type: Boolean,
-      default: undefined,
-    },
-    trapFocus: {
-      type: Boolean as PropType<FocusScopeProps['trapped']>,
-      default: false,
-    },
+    ...menuContentImplPrivateProps.props,
+    ...propsOmit(popperContentProps.props, ['dir']),
     loop: {
       type: Boolean as PropType<RovingFocusGroupProps['loop']>,
-      default: undefined,
+      default: false,
     },
-    ...propsOmit(popperContentProps.props, ['dir']),
   },
   emits: {
     ...propsOmit(popperContentProps.emits, ['placed']),
@@ -368,6 +311,82 @@ export const menuContentImplProps = {
 }
 
 /* -------------------------------------------------------------------------------------------------
+ *  MenuRootContentModal - menu-root-content-modal.ts
+ * ----------------------------------------------------------------------------------------------- */
+
+export type MenuRootContentTypeNativeElement = MenuContentImplNativeElement
+export type MenuRootContentTypeElement = MenuContentImplElement
+
+export interface MenuRootContentTypeProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> { }
+
+export type MenuRootContentTypeEmits = {
+  focusOutside: [event: FocusEvent]
+}
+
+export const menuRootContentTypeProps = {
+  props: {
+    ...propsOmit(menuContentImplProps.props, menuContentImplPrivateProps.propsKeys),
+  },
+  emits: {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    focusOutside: (event: FocusEvent) => true,
+    ...propsOmit(menuContentImplProps.emits, menuContentImplPrivateProps.emitsKeys),
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * MenuContent - menu-content.ts
+ * ----------------------------------------------------------------------------------------------- */
+
+export type MenuContentNativeElement = MenuRootContentTypeNativeElement
+export type MenuContentElement = MenuRootContentTypeElement
+
+type MenuContentInjectValue = {
+  onItemEnter(event: PointerEvent): void
+  onItemLeave(event: PointerEvent): void
+  onTriggerLeave(event: PointerEvent): void
+  searchRef: Ref<string>
+  pointerGraceTimerRef: Ref<number>
+  onPointerGraceIntentChange(intent: GraceIntent | null): void
+}
+export const [menuContentProvider, useMenuContentInject] = createMenuProvide<MenuContentInjectValue>(MENU_CONTENT_NAME)
+
+/**
+ * We purposefully don't union MenuRootContent and MenuSubContent props here because
+ * they have conflicting prop types. We agreed that we would allow MenuSubContent to
+ * accept props that it would just ignore.
+ */
+export interface MenuContentProps extends MenuRootContentTypeProps {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
+  forceMount?: true
+}
+
+export const menuContentProps = {
+  props: {
+    ...menuRootContentTypeProps.props,
+    forceMount: {
+      type: Boolean as PropType<true | undefined>,
+      default: undefined,
+    },
+  },
+  emits: {
+    ...menuRootContentTypeProps.emits,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * MenuRootContentNonModal - menu-root-content-non-modal.ts
+ * ----------------------------------------------------------------------------------------------- */
+
+export const menuRootContentNonModalProps = {
+  props: {},
+  emits: {},
+}
+
+/* -------------------------------------------------------------------------------------------------
  * MenuGroup - menu-group.ts
  * ----------------------------------------------------------------------------------------------- */
 
@@ -377,7 +396,9 @@ export type MenuGroupElement = HTMLDivElement
 export interface MenuGroupProps extends PrimitiveProps {}
 
 export const menuGroupProps = {
-  props: {},
+  props: {
+    ...primitiveProps,
+  },
   emits: {},
 }
 

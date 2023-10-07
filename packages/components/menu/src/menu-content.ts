@@ -16,10 +16,8 @@ const menuContent = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuContentProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
-  emits: menuContentProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu,

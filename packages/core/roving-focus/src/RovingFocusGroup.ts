@@ -1,7 +1,7 @@
 import { createProvideScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
@@ -55,7 +55,7 @@ type RovingProvideValue = {
    */
   loop?: Ref<boolean | undefined>
 
-  currentTabStopId: Ref<string>
+  currentTabStopId: ComputedRef<string | null>
   onItemFocus(tabStopId: string): void
   onItemShiftTab(): void
   onFocusableItemAdd(): void

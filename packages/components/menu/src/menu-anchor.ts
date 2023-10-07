@@ -12,10 +12,8 @@ const menuAnchor = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuAnchorProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
-  emits: menuAnchorProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuMenu } = toRefs(props)
 

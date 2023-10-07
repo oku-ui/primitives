@@ -1,4 +1,6 @@
-// export { OkuMenu } from './menu'
+import type { } from '@floating-ui/vue'
+
+export { OkuMenu } from './menu'
 export { OkuMenuAnchor } from './menu-anchor'
 export { OkuMenuArrow } from './menu-arrow'
 export { OkuMenuCheckboxItem } from './menu-checkbox-item'

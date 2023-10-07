@@ -9,7 +9,6 @@ const menuGroup = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuGroupProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuGroupProps.emits,

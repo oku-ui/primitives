@@ -9,10 +9,8 @@ const menuArrow = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuArrowProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
-  emits: menuArrowProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuMenu } = toRefs(props)
 

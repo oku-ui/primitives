@@ -1,4 +1,4 @@
-import type { ComputedRef, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
@@ -32,8 +32,13 @@ export type RovingFocusGroupImplEmits = {
 
 export const rovingFocusGroupImplProps = {
   props: {
-    currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
-    defaultCurrentTabStopId: String,
+    currentTabStopId: {
+      type: String as PropType<string | null>,
+    },
+    defaultCurrentTabStopId: {
+      type: String as PropType<string>,
+      default: null,
+    },
     ...rovingFocusGroupOptionsProps.props,
   },
   emits: {
@@ -107,7 +112,7 @@ const RovingFocusGroupImpl = defineComponent({
       orientation,
       dir,
       loop,
-      currentTabStopId,
+      currentTabStopId: computed(() => currentTabStopId.value || null),
       onItemFocus: (tabStopId: string) => {
         updateCurrentTabStopId(tabStopId)
       },

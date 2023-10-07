@@ -1,5 +1,4 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
 import { OkuPresence } from '@oku-ui/presence'
 import { OkuPortal } from '@oku-ui/portal'
 import { reactiveOmit } from '@oku-ui/use-composable'
@@ -15,10 +14,8 @@ const menuPortal = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuPortalProps.props,
-    ...primitiveProps,
     ...scopedMenuProps,
   },
-  emits: menuPortalProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu,
