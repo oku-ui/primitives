@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { primitiveProps } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupImpl } from './RovingFocusGroupImpl'
 import type { RovingFocusGroupNaviteElement } from './props'
@@ -19,8 +19,12 @@ const rovingFocusGroup = defineComponent({
     ...scopedProps,
     ...primitiveProps,
   },
+  emits: rovingFocusGroupProps.emits,
   setup(props, { slots, attrs }) {
     const forwardedRef = useForwardRef()
+
+    const emits = useListeners()
+
     return () => {
       return h(CollectionProvider, {
         scope: props.scopeOkuRovingFocusGroup,
@@ -29,7 +33,7 @@ const rovingFocusGroup = defineComponent({
           scope: props.scopeOkuRovingFocusGroup,
         }, {
           default: () => h(OkuRovingFocusGroupImpl, {
-            ...mergeProps(attrs, props),
+            ...mergeProps(attrs, props, emits),
             ref: forwardedRef,
           }, slots),
         }),
