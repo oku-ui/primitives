@@ -24,8 +24,8 @@ const menuCheckboxItem = defineComponent({
       ...otherPropsRef
     } = toRefs(props)
 
-    const _reactive = reactive(otherPropsRef)
-    const reactiveMenuCheckboxItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(otherPropsRef)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -38,7 +38,7 @@ const menuCheckboxItem = defineComponent({
       {
         'role': 'menuitemcheckbox',
         'aria-checked': isIndeterminate(checked.value) ? 'mixed' : checked.value,
-        ...mergeProps(attrs, reactiveMenuCheckboxItemProps),
+        ...mergeProps(attrs, otherProps),
         'ref': forwardedRef,
         'data-state': getCheckedState(checked.value),
         'onSelect': composeEventHandlers<MenuCheckboxItemEmits['select'][0]>(() => {

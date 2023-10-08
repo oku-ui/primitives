@@ -1,6 +1,6 @@
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuGroupNativeElement } from './props'
 import { MENU_GROUP_NAME, menuGroupProps, scopedMenuProps } from './props'
 
@@ -14,16 +14,15 @@ const menuGroup = defineComponent({
   emits: menuGroupProps.emits,
 
   setup(props, { attrs, slots }) {
-    // const { scopeOkuMenu } = toRefs(props)
-
-    // const _reactive = reactive(menuGroupProps)
-    // const reactiveMenuGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const { scopeOkuMenu: _sc, ...restProps } = toRefs(props)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
     return () => h(Primitive.div,
       {
-        ...mergeProps(attrs, props),
+        ...mergeProps(attrs, otherProps),
         role: 'group',
         ref: forwardedRef,
       }, slots,

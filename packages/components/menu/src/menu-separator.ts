@@ -13,10 +13,13 @@ const menuSeparator = defineComponent({
   },
   emits: menuSeparatorProps.emits,
   setup(props, { attrs, slots }) {
-    const { scopeOkuMenu: _scopeOkuMenu, ...otherPropsRef } = toRefs(props)
+    const {
+      scopeOkuMenu: _scopeOkuMenu,
+      ...restProps
+    } = toRefs(props)
 
-    const _reactive = reactive(otherPropsRef)
-    const reactiveMenuSeparatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -24,7 +27,7 @@ const menuSeparator = defineComponent({
       {
         'role': 'separator',
         'aria-orientation': 'horizontal',
-        ...mergeProps(attrs, reactiveMenuSeparatorProps),
+        ...mergeProps(attrs, otherProps),
         'ref': forwardedRef,
       }, slots,
     )

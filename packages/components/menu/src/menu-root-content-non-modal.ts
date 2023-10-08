@@ -15,10 +15,13 @@ const menuRootContentNonModal = defineComponent({
     ...scopedMenuProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeOkuMenu } = toRefs(props)
+    const {
+      scopeOkuMenu,
+      ...restProps
+    } = toRefs(props)
 
-    const _reactive = reactive(menuRootContentNonModalProps)
-    const reactiveMenuRootContentNonModalProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -26,7 +29,7 @@ const menuRootContentNonModal = defineComponent({
 
     return () => h(OkuMenuContentImpl,
       {
-        ...mergeProps(attrs, reactiveMenuRootContentNonModalProps),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
         trapFocus: false,
         disableOutsidePointerEvents: false,

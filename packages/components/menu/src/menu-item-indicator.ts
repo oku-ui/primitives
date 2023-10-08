@@ -20,11 +20,11 @@ const menuItemIndicator = defineComponent({
     const {
       scopeOkuMenu,
       forceMount,
-      ...otherPropsRef
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(otherPropsRef)
-    const reactiveMenuItemIndicatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -37,7 +37,7 @@ const menuItemIndicator = defineComponent({
       {
         default: () => h(Primitive.span,
           {
-            ...mergeProps(attrs, reactiveMenuItemIndicatorProps),
+            ...mergeProps(attrs, otherProps),
             'ref': forwardedRef,
             'data-state': getCheckedState(indicatorInject.checked.value),
           }, slots,

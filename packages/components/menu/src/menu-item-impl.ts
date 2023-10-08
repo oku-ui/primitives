@@ -23,11 +23,11 @@ const menuItemImpl = defineComponent({
       scopeOkuMenu,
       disabled,
       textValue,
-      ...propsMenuItem
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(propsMenuItem)
-    const reactiveMenuItemImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -66,7 +66,7 @@ const menuItemImpl = defineComponent({
                 'data-highlighted': isFocused.value ? '' : undefined,
                 'aria-disabled': disabled.value || undefined,
                 'data-disabled': disabled.value ? '' : undefined,
-                ...mergeProps(attrs, reactiveMenuItemImplProps),
+                ...mergeProps(attrs, otherProps),
                 'ref': composedRefs,
                 /**
                 * We focus items on `pointerMove` to achieve the following:

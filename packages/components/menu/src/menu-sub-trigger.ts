@@ -21,10 +21,13 @@ const menuSubTrigger = defineComponent({
   },
   emits: menuSubTriggerProps.emits,
   setup(props, { attrs, emit, slots }) {
-    const { scopeOkuMenu } = toRefs(props)
+    const {
+      scopeOkuMenu,
+      ...restProps
+    } = toRefs(props)
 
-    const _reactive = reactive(menuSubTriggerProps)
-    const reactiveMenuSubTriggerProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -65,7 +68,7 @@ const menuSubTrigger = defineComponent({
             'aria-expanded': inject.open.value,
             'aria-controls': subInject.contentId.value,
             'data-state': getOpenState(inject.open.value!),
-            ...mergeProps(attrs, reactiveMenuSubTriggerProps),
+            ...mergeProps(attrs, otherProps),
             'ref': useComposedRefs(forwardedRef, el => subInject.onTriggerChange(el as MenuItemImplElement)),
             // This is redundant for mouse users but we cannot determine pointer type from
             // click event and we cannot use pointerup event (see git history for reasons why)

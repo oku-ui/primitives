@@ -19,11 +19,11 @@ const menuRadioGroup = defineComponent({
     const {
       scopeOkuMenu,
       value,
-      ...otherPropsRef
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(otherPropsRef)
-    const reactiveMenuRadioGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -39,7 +39,7 @@ const menuRadioGroup = defineComponent({
 
     return () => h(OkuMenuGroup,
       {
-        ...mergeProps(attrs, reactiveMenuRadioGroupProps),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
       }, slots,
     )

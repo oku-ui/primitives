@@ -15,10 +15,10 @@ const menuAnchor = defineComponent({
     ...scopedMenuProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeOkuMenu } = toRefs(props)
+    const { scopeOkuMenu, ...otherPropsRef } = toRefs(props)
 
-    const _reactive = reactive(menuAnchorProps)
-    const reactiveMenuAnchorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(otherPropsRef)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -26,7 +26,7 @@ const menuAnchor = defineComponent({
 
     return () => h(OkuPopperAnchor,
       {
-        ...mergeProps(attrs, reactiveMenuAnchorProps),
+        ...mergeProps(attrs, otherProps),
         ...popperScope,
         ref: forwardedRef,
       },

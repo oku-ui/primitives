@@ -22,10 +22,11 @@ const menuContent = defineComponent({
     const {
       scopeOkuMenu,
       forceMount,
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(menuContentProps)
-    const reactiveMenuContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const portalInject = usePortalInject(MENU_CONTENT_NAME, props.scopeOkuMenu)
     forceMount.value = portalInject.forceMount?.value
@@ -51,13 +52,13 @@ const menuContent = defineComponent({
                 default: () => rootInject.modal.value
                   ? h(OkuMenuRootContentModal,
                     {
-                      ...mergeProps(attrs, reactiveMenuContentProps),
+                      ...mergeProps(attrs, otherProps),
                       ref: forwardedRef,
                     }, slots,
                   )
                   : h(OkuMenuRootContentNonModal,
                     {
-                      ...mergeProps(attrs, reactiveMenuContentProps),
+                      ...mergeProps(attrs, otherProps),
                       ref: forwardedRef,
                     }, slots,
                   ),

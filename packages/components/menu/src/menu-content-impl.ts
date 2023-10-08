@@ -38,8 +38,8 @@ const menuContentImpl = defineComponent({
       ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(restProps)
-    const reactiveCheckboxProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -184,7 +184,7 @@ const menuContentImpl = defineComponent({
                         'data-oku-menu-content': '',
                         'dir': rootInject.dir.value,
                         ...popperScope,
-                        ...mergeProps(attrs, reactiveCheckboxProps),
+                        ...mergeProps(attrs, otherProps),
                         'ref': composedRefs,
                         'style': { outline: 'none', ...attrs.style as any },
                         'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {

@@ -21,10 +21,11 @@ const menuItem = defineComponent({
     const {
       scopeOkuMenu,
       disabled,
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(menuItemProps)
-    const reactiveMenuItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -49,7 +50,7 @@ const menuItem = defineComponent({
 
     return () => h(OkuMenuItemImpl,
       {
-        ...mergeProps(attrs, reactiveMenuItemProps),
+        ...mergeProps(attrs, otherProps),
         ref: composedRefs,
         disabled: disabled.value,
         onClick: composeEventHandlers<MenuItemEmits['click'][0]>((event) => {

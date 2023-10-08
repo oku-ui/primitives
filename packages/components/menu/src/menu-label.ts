@@ -16,10 +16,10 @@ const menuLabel = defineComponent({
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu: _scopeOkuMenu,
-      ...otherPropsRef
+      ...restProps
     } = toRefs(props)
 
-    const _other = reactive(otherPropsRef)
+    const _other = reactive(restProps)
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()

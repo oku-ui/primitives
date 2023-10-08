@@ -21,10 +21,11 @@ const menuRootContentModel = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(menuRootContentTypeProps)
-    const reactiveMenuRootContentTypeProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -41,7 +42,7 @@ const menuRootContentModel = defineComponent({
 
     return () => h(OkuMenuContentImpl,
       {
-        ...mergeProps(attrs, reactiveMenuRootContentTypeProps),
+        ...mergeProps(attrs, otherProps),
         ref: composedRefs,
         // we make sure we're not trapping once it's been closed
         // (closed !== unmounted when animating out)

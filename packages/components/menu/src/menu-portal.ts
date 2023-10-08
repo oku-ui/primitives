@@ -21,10 +21,11 @@ const menuPortal = defineComponent({
       scopeOkuMenu,
       forceMount,
       container,
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(menuPortalProps)
-    const reactiveMenuPortalProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const inject = useMenuInject(MENU_PORTAL_NAME, scopeOkuMenu.value)
 
@@ -38,7 +39,7 @@ const menuPortal = defineComponent({
       {
         default: () => h(OkuPortal,
           {
-            ...mergeProps(attrs, reactiveMenuPortalProps),
+            ...mergeProps(attrs, otherProps),
             asChild: true,
             container: container.value,
           }, slots,

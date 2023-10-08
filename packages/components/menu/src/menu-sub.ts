@@ -1,5 +1,5 @@
-import { computed, defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
-import { useId } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useId } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
 import type { MenuContentElement, MenuSubTriggerElement } from './props'
 import { MENU_SUB_NAME, menuProvider, menuSubProps, menuSubProvider, scopedMenuProps, useMenuInject, usePopperScope } from './props'
@@ -18,7 +18,11 @@ const menuSub = defineComponent({
     const {
       scopeOkuMenu,
       open,
+      ...restProps
     } = toRefs(props)
+
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const parentMenuInject = useMenuInject(MENU_SUB_NAME, scopeOkuMenu.value)
     const popperScope = usePopperScope(scopeOkuMenu.value)
@@ -53,7 +57,7 @@ const menuSub = defineComponent({
     return () => h(OkuPopper,
       {
         ...popperScope,
-        ...mergeProps(attrs),
+        ...mergeProps(attrs, otherProps),
       },
       slots,
     )

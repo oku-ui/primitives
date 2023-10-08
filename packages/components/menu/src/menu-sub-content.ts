@@ -21,10 +21,10 @@ const menuSubContent = defineComponent({
     const {
       scopeOkuMenu,
       forceMount,
-      ...otherPropsRef
+      ...restProps
     } = toRefs(props)
 
-    const _other = reactive(otherPropsRef)
+    const _other = reactive(restProps)
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const portalInject = usePortalInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)

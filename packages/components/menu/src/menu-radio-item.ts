@@ -21,11 +21,11 @@ const menuRadioItem = defineComponent({
     const {
       scopeOkuMenu,
       value,
-      ...otherPropsRef
+      ...restProps
     } = toRefs(props)
 
-    const _reactive = reactive(otherPropsRef)
-    const reactiveMenuRadioItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(restProps)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -41,7 +41,7 @@ const menuRadioItem = defineComponent({
       {
         'role': 'menuitemradio',
         'aria-checked': checked.value,
-        ...mergeProps(attrs, reactiveMenuRadioItemProps),
+        ...mergeProps(attrs, otherProps),
         'ref': forwardedRef,
         'data-state': getCheckedState(checked.value),
         'onSelect': composeEventHandlers<MenuRadioItemEmits['select'][0]>((event) => {
