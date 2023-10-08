@@ -7,7 +7,7 @@ import {
 } from 'vue'
 
 import { OkuSlot } from '@oku-ui/slot'
-import { useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { NODES } from './types'
 import type { OkuElement, Primitives } from './types'
 
@@ -28,10 +28,9 @@ const Primitive = NODES.reduce((primitive, node) => {
         (window as any)[Symbol.for('oku-ui')] = true
       })
       const Tag: any = asChild.value ? OkuSlot : node
-      const emits = useListeners()
 
       return () => {
-        const mergedProps = mergeProps(attrs, primitiveProps, emits)
+        const mergedProps = mergeProps(attrs, primitiveProps)
         return createVNode(Tag, { ...mergedProps, ref: composedRefs }, slots)
       }
     },
