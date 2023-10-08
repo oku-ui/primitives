@@ -15,7 +15,6 @@ const menuItemImpl = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuItemImplProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuItemImplProps.emits,
@@ -24,9 +23,10 @@ const menuItemImpl = defineComponent({
       scopeOkuMenu,
       disabled,
       textValue,
+      ...propsMenuItem
     } = toRefs(props)
 
-    const _reactive = reactive(menuItemImplProps)
+    const _reactive = reactive(propsMenuItem)
     const reactiveMenuItemImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()

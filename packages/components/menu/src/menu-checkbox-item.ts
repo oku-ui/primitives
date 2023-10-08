@@ -14,7 +14,6 @@ const menuCheckboxItem = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuCheckboxItemProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuCheckboxItemProps.emits,
@@ -22,9 +21,10 @@ const menuCheckboxItem = defineComponent({
     const {
       scopeOkuMenu,
       checked,
+      ...otherPropsRef
     } = toRefs(props)
 
-    const _reactive = reactive(menuCheckboxItemProps)
+    const _reactive = reactive(otherPropsRef)
     const reactiveMenuCheckboxItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()

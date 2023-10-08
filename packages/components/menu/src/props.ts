@@ -441,6 +441,7 @@ export const menuItemImplProps = {
       type: Boolean as PropType<false | undefined>,
       default: undefined,
     },
+    ...primitiveProps,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -505,12 +506,12 @@ export type CheckedState = boolean | 'indeterminate'
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState
-  // `onCheckedChange` can never be called with `"indeterminate"` from the inside
-  onCheckedChange?: (checked: boolean) => void
 }
-// TODO
+
 export type MenuCheckboxItemEmits = {
   select: [event: Event]
+  // `onCheckedChange` can never be called with `"indeterminate"` from the inside
+  checkedChange: [checked: boolean]
 }
 
 export const menuCheckboxItemProps = {
@@ -519,10 +520,12 @@ export const menuCheckboxItemProps = {
       type: Boolean as PropType<CheckedState>,
       default: false,
     },
+    ...menuItemProps.props,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
     checkedChange: (checked: boolean) => true,
+    ...menuItemProps.emits,
   },
 }
 
