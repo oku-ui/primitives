@@ -15,18 +15,18 @@ function alert(text: string) {
 
 <template>
   <MenuWithAnchor>
-    <OkuMenuItem class="item" @select="alert('minimize')">
+    <OkuMenuItem class="menu-item" @select="alert('minimize')">
       Minimize window
     </OkuMenuItem>
-    <OkuMenuItem class="item" @select="alert('zoom')">
+    <OkuMenuItem class="menu-item" @select="alert('zoom')">
       Zoom
     </OkuMenuItem>
-    <OkuMenuItem class="item" @select="alert('smaller')">
+    <OkuMenuItem class="menu-item" @select="alert('smaller')">
       Smaller
     </OkuMenuItem>
-    <OkuMenuSeparator class="separator" />
+    <OkuMenuSeparator class="menu-separator" />
     <OkuMenuRadioGroup :value="file" @value-change="(_file: string) => file = _file">
-      <OkuMenuRadioItem v-for="_file in files" :key="_file" class="item" :value="_file">
+      <OkuMenuRadioItem v-for="_file in files" :key="_file" class="menu-item" :value="_file">
         {{ file }}
         <OkuMenuItemIndicator>
           <TickIcon />

@@ -25,9 +25,9 @@ function handleSelectAll() {
         </template>
       </OkuMenuItemIndicator>
     </OkuMenuCheckboxItem>
-    <OkuMenuSeparator class="separator" />
+    <OkuMenuSeparator class="menu-separator" />
     <OkuMenuCheckboxItem
-      v-for="option in options" :key="option" class="item" :checked="selection.includes(option)"
+      v-for="option in options" :key="option" class="menu-item" :checked="selection.includes(option)"
       @checked-change="selection = (current) => (current.includes(option) ? current.filter((el) => el !== option) : current.concat(option))"
     >
       {{ option }}

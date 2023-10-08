@@ -38,74 +38,74 @@ function alert(text: string) {
       </label>
     </div>
     <MenuWithAnchor>
-      <OkuMenuItem class="item" @select="alert('undo')">
+      <OkuMenuItem class="menu-item" @select="alert('undo')">
         Undo
       </OkuMenuItem>
       <Submenu :open="open1" :animated="animated" @open-change="open1 = true">
-        <OkuMenuItem class="item" disabled>
+        <OkuMenuItem class="menu-item" disabled>
           Disabled
         </OkuMenuItem>
-        <OkuMenuItem class="item" @select="alert('one')">
+        <OkuMenuItem class="menu-item" @select="alert('one')">
           One
         </OkuMenuItem>
         <Submenu :open="open2" :animated="animated" @open-change="open2 = true">
-          <OkuMenuItem class="item" @select="alert('one')">
+          <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('two')">
+          <OkuMenuItem class="menu-item" @select="alert('two')">
             Two
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('three')">
+          <OkuMenuItem class="menu-item" @select="alert('three')">
             Three
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('four')">
+          <OkuMenuItem class="menu-item" @select="alert('four')">
             Four
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('five')">
+          <OkuMenuItem class="menu-item" @select="alert('five')">
             Five
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('six')">
+          <OkuMenuItem class="menu-item" @select="alert('six')">
             Six
           </OkuMenuItem>
         </Submenu>
         <Submenu heading="Sub Menu" :open="open3" :animated="animated" @open-change="open3 = true">
-          <OkuMenuItem class="item" @select="alert('one')">
+          <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('two')">
+          <OkuMenuItem class="menu-item" @select="alert('two')">
             Two
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('three')">
+          <OkuMenuItem class="menu-item" @select="alert('three')">
             Three
           </OkuMenuItem>
         </Submenu>
-        <OkuMenuItem class="item" @select="alert('two')">
+        <OkuMenuItem class="menu-item" @select="alert('two')">
           Two
         </OkuMenuItem>
         <Submenu :open="open4" :animated="animated" disabled @open-change="open4 = true">
-          <OkuMenuItem class="item" @select="alert('one')">
+          <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('two')">
+          <OkuMenuItem class="menu-item" @select="alert('two')">
             Two
           </OkuMenuItem>
-          <OkuMenuItem class="item" @select="alert('three')">
+          <OkuMenuItem class="menu-item" @select="alert('three')">
             Three
           </OkuMenuItem>
         </Submenu>
-        <OkuMenuItem class="item" @select="alert('three')">
+        <OkuMenuItem class="menu-item" @select="alert('three')">
           Three
         </OkuMenuItem>
       </Submenu>
 
-      <OkuMenuSeparator class="separator" />
-      <OkuMenuItem class="item" disabled @select="alert('cut')">
+      <OkuMenuSeparator class="menu-separator" />
+      <OkuMenuItem class="menu-item" disabled @select="alert('cut')">
         Cut
       </OkuMenuItem>
-      <OkuMenuItem class="item" @select="alert('copy')">
+      <OkuMenuItem class="menu-item" @select="alert('copy')">
         Copy
       </OkuMenuItem>
-      <OkuMenuItem class="item" @select="alert('paste')">
+      <OkuMenuItem class="menu-item" @select="alert('paste')">
         Paste
       </OkuMenuItem>
     </MenuWithAnchor>

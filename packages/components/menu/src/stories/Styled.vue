@@ -10,20 +10,20 @@ function alert(text: string) {
 
 <template>
   <MenuWithAnchor>
-    <OkuMenuItem class="item" @select="alert('undo')">
+    <OkuMenuItem class="menu-item" @select="alert('undo')">
       Undo
     </OkuMenuItem>
-    <OkuMenuItem class="item" @select="alert('redo')">
+    <OkuMenuItem class="menu-item" @select="alert('redo')">
       Redo
     </OkuMenuItem>
     <OkuMenuSeparator class="separator" />
-    <OkuMenuItem class="item" disabled @select="alert('cut')">
+    <OkuMenuItem class="menu-item" disabled @select="alert('cut')">
       Cut
     </OkuMenuItem>
-    <OkuMenuItem class="item" @select="alert('copy')">
+    <OkuMenuItem class="menu-item" @select="alert('copy')">
       Copy
     </OkuMenuItem>
-    <OkuMenuItem class="item" @select="alert('paste')">
+    <OkuMenuItem class="menu-item" @select="alert('paste')">
       Paste
     </OkuMenuItem>
   </MenuWithAnchor>

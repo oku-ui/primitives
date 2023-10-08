@@ -12,20 +12,20 @@ function alert(text: string) {
 <template>
   <MenuWithAnchor>
     <OkuMenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
-      <OkuMenuLabel v-if="foodGroup.label" :key="foodGroup.label" class="label">
+      <OkuMenuLabel v-if="foodGroup.label" :key="foodGroup.label" class="menu-label">
         {{ foodGroup.label }}
       </OkuMenuLabel>
 
       <OkuMenuItem
         v-for="(food) in foodGroups.foods"
         :key="food.value"
-        class="item"
+        class="menu-item"
         :disabled="food.disabled"
         @select="alert(food.label)"
       >
         {{ food.label }}
       </OkuMenuItem>
-      <OkuMenuSeparator v-if="index < foodGroups.length - 1" class="separator" />
+      <OkuMenuSeparator v-if="index < foodGroups.length - 1" class="menu-separator" />
     </OkuMenuGroup>
   </MenuWithAnchor>
 </template>

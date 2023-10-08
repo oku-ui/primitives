@@ -21,11 +21,11 @@ defineProps({
 
 <template>
   <OkuMenuSub :open="open" @open-change="open">
-    <OkuMenuSubTrigger class="sub-trigger item" :disabled="disabled">
+    <OkuMenuSubTrigger class="menu-sub-trigger item" :disabled="disabled">
       {{ heading }} →
     </OkuMenuSubTrigger>
     <OkuMenuPortal>
-      <OkuMenuSubContent class="content" :class="{ 'animated-content': animated }">
+      <OkuMenuSubContent class="menu-content" :class="{ 'animated-content': animated }">
         <slot />
       </OkuMenuSubContent>
     </OkuMenuPortal>

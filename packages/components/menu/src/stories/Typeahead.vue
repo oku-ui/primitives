@@ -39,7 +39,7 @@ const suits = [
       <h2>Complex children</h2>
       <p>(relying on `.textContent` — default)</p>
       <MenuWithAnchor>
-        <OkuMenuItem v-for="suit in suits" :key="suit.emoji" class="item">
+        <OkuMenuItem v-for="suit in suits" :key="suit.emoji" class="menu-item">
           {{ suit.label }}
           <span role="img" :aria-label="suit.label">
             {{ suit.emoji }}
@@ -52,7 +52,7 @@ const suits = [
       <h2>Complex children</h2>
       <p>(with explicit `textValue` prop)</p>
       <MenuWithAnchor>
-        <OkuMenuItem v-for="suit in suits" :key="suit.emoji" class="item" :text-value="suit.label">
+        <OkuMenuItem v-for="suit in suits" :key="suit.emoji" class="menu-item" :text-value="suit.label">
           <span role="img" :aria-label="suit.label">
             {{ suit.emoji }}
           </span>

@@ -48,7 +48,7 @@ export interface IMenuProps {
 </template>
 
 <style>
-.content {
+.menu-content {
   display: inline-block;
   box-sizing: border-box;
   min-width: 130px;
@@ -78,7 +78,7 @@ export interface IMenuProps {
   border-radius: 3px;
 } */
 
-.label {
+.menu-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -94,7 +94,7 @@ export interface IMenuProps {
   color: #ccc;
 }
 
-.item {
+.menu-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -119,14 +119,14 @@ export interface IMenuProps {
   }
 }
 
-.sub-trigger {
+.menu-sub-trigger {
   &:not([data-highlighted])[data-state="open"] {
     background-color: #ccc;
     color: black;
   }
 }
 
-.separator {
+.menu-separator {
   height: 1px;
   margin: 5px 10px;
   background-color: #ccc;
@@ -156,7 +156,7 @@ export interface IMenuProps {
   }
 }
 
-.animated-content {
+.menu-animated-content {
   &[data-state="open"] {
     animation: menu-animate-in 300ms ease;
   }
@@ -166,7 +166,7 @@ export interface IMenuProps {
   }
 }
 
-.animated-item-indicator {
+.menu-animated-item-indicator {
   &[data-state="checked"] {
     animation: menu-animate-in 300ms ease;
   }
