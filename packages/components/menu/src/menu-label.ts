@@ -1,6 +1,6 @@
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuLabelNativeElement } from './props'
 import { MENU_LABEL_NAME, menuLabelProps, scopedMenuProps } from './props'
 
@@ -14,16 +14,19 @@ const menuLabel = defineComponent({
   emits: menuLabelProps.emits,
 
   setup(props, { attrs, slots }) {
-    // const { scopeOkuMenu } = toRefs(props)
+    const {
+      scopeOkuMenu: _scopeOkuMenu,
+      ...otherPropsRef
+    } = toRefs(props)
 
-    // const _reactive = reactive(menuLabelProps)
-    // const reactiveMenuLabelProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(otherPropsRef)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
     return () => h(Primitive.div,
       {
-        ...mergeProps(attrs, props),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
       }, slots,
     )

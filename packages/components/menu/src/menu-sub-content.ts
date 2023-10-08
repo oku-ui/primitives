@@ -24,8 +24,8 @@ const menuSubContent = defineComponent({
       ...otherPropsRef
     } = toRefs(props)
 
-    const _reactive = reactive(otherPropsRef)
-    const reactiveMenuSubContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const _other = reactive(otherPropsRef)
+    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const portalInject = usePortalInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
     const _forceMount = computed(() => portalInject.forceMount?.value || forceMount.value)
@@ -51,7 +51,7 @@ const menuSubContent = defineComponent({
                   {
                     'id': subInject.contentId.value,
                     'aria-labelledby': subInject.triggerId.value,
-                    ...mergeProps(attrs, reactiveMenuSubContentProps),
+                    ...mergeProps(attrs, otherProps),
                     'ref': composedRefs,
                     'align': 'start',
                     'side': rootInject.dir.value === 'rtl' ? 'left' : 'right',
