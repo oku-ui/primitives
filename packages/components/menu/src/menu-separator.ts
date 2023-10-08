@@ -11,7 +11,6 @@ const menuSeparator = defineComponent({
     ...menuSeparatorProps.props,
     ...scopedMenuProps,
   },
-  emits: menuSeparatorProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu: _scopeOkuMenu,

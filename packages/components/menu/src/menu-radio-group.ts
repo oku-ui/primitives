@@ -14,7 +14,6 @@ const menuRadioGroup = defineComponent({
     ...menuRadioGroupProps.props,
     ...scopedMenuProps,
   },
-  emits: menuRadioGroupProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,

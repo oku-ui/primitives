@@ -11,8 +11,6 @@ const menuLabel = defineComponent({
     ...menuLabelProps.props,
     ...scopedMenuProps,
   },
-  emits: menuLabelProps.emits,
-
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu: _scopeOkuMenu,

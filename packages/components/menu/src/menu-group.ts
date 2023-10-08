@@ -11,8 +11,6 @@ const menuGroup = defineComponent({
     ...menuGroupProps.props,
     ...scopedMenuProps,
   },
-  emits: menuGroupProps.emits,
-
   setup(props, { attrs, slots }) {
     const { scopeOkuMenu: _sc, ...restProps } = toRefs(props)
     const _other = reactive(restProps)
