@@ -19,7 +19,6 @@ const rovingFocusGroup = defineComponent({
     ...scopedProps,
     ...primitiveProps,
   },
-  emits: rovingFocusGroupProps.emits,
   setup(props, { slots, attrs }) {
     const forwardedRef = useForwardRef()
     return () => {

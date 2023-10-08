@@ -95,7 +95,9 @@ const menuItemImpl = defineComponent({
                 })),
                 'onPointerleave': composeEventHandlers<MenuItemImplEmits['pointerleave'][0]>((event) => {
                   emit('pointerleave', event)
-                }, event => contentInject.onItemLeave(event)),
+                }, whenMouse((event: PointerEvent) => {
+                  contentInject.onItemLeave(event)
+                })),
                 'onFocus': composeEventHandlers<MenuItemImplEmits['focus'][0]>((event) => {
                   emit('focus', event)
                 }, () => isFocused.value = true),
