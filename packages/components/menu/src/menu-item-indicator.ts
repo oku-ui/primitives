@@ -14,17 +14,16 @@ const menuItemIndicator = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuItemIndicatorProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
-  emits: menuItemIndicatorProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu,
       forceMount,
+      ...otherPropsRef
     } = toRefs(props)
 
-    const _reactive = reactive(menuItemIndicatorProps)
+    const _reactive = reactive(otherPropsRef)
     const reactiveMenuItemIndicatorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()

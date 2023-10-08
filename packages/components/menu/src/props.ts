@@ -618,6 +618,7 @@ export const menuItemIndicatorProps = {
       type: Boolean as PropType<true | undefined>,
       default: undefined,
     },
+    ...primitiveProps,
   },
   emits: {},
 }
