@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, onBeforeUnmount, reactive, ref, toRefs, watch } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useListeners, useScrollLock } from '@oku-ui/use-composable'
 import { useFocusGuards } from '@oku-ui/focus-guards'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
@@ -41,6 +41,7 @@ const menuContentImpl = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
@@ -184,7 +185,7 @@ const menuContentImpl = defineComponent({
                     'data-oku-menu-content': '',
                     'dir': rootInject.dir.value,
                     ...popperScope,
-                    ...mergeProps(attrs, otherProps),
+                    ...mergeProps(attrs, otherProps, emits),
                     'ref': composedRefs,
                     'style': { outline: 'none', ...attrs.style as any },
                     'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {

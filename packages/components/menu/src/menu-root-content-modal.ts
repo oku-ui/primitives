@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, onBeforeMount, onMounted, reactive, ref, toRefs } from 'vue'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
 import type { MenuRootContentTypeElement, MenuRootContentTypeEmits, MenuRootContentTypeNativeElement } from './props'
@@ -43,9 +43,11 @@ const menuRootContentModel = defineComponent({
         return hideOthers(content.value)
     })
 
+    const emits = useListeners()
+
     return () => h(OkuMenuContentImpl,
       {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         ref: composedRefs,
         // we make sure we're not trapping once it's been closed
         // (closed !== unmounted when animating out)

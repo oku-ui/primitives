@@ -1,6 +1,6 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { getCheckedState } from './utils'
 import { OkuMenuItem } from './menu-item'
 import type { MenuRadioItemEmits, MenuRadioItemNativeElement } from './props'
@@ -28,6 +28,7 @@ const menuRadioItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const inject = useRadioGroupInject(MENU_RADIO_ITEM_NAME, scopeOkuMenu.value)
     const checked = computed(() => value.value === inject.value)
@@ -41,7 +42,7 @@ const menuRadioItem = defineComponent({
       {
         'role': 'menuitemradio',
         'aria-checked': checked.value,
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         'ref': forwardedRef,
         'data-state': getCheckedState(checked.value),
         'onSelect': composeEventHandlers<MenuRadioItemEmits['select'][0]>((event) => {

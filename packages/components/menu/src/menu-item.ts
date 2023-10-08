@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import type { MenuItemEmits, MenuItemNativeElement } from './props'
 import { ITEM_SELECT, MENU_ITEM_NAME, SELECTION_KEYS, menuItemProps, scopedMenuProps, useMenuContentInject, useMenuRootInject } from './props'
@@ -28,6 +28,7 @@ const menuItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const menuItemRef = ref<HTMLDivElement | null>(null)
     const rootInject = useMenuRootInject(MENU_ITEM_NAME, scopeOkuMenu.value)
@@ -50,7 +51,7 @@ const menuItem = defineComponent({
 
     return () => h(OkuMenuItemImpl,
       {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         ref: composedRefs,
         disabled: disabled.value,
         onClick: composeEventHandlers<MenuItemEmits['click'][0]>((event) => {

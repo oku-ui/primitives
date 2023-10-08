@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPresence } from '@oku-ui/presence'
 import type { MenuSubContentElement, MenuSubContentEmits, MenuSubContentNativeElement } from './props'
@@ -31,6 +31,7 @@ const menuSubContent = defineComponent({
     const forceMount = computed(() => _forceMount.value || portalInject.forceMount?.value)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const inject = useMenuInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
@@ -51,7 +52,7 @@ const menuSubContent = defineComponent({
                   {
                     'id': subInject.contentId.value,
                     'aria-labelledby': subInject.triggerId.value,
-                    ...mergeProps(attrs, otherProps),
+                    ...mergeProps(attrs, otherProps, emits),
                     'ref': composedRefs,
                     'align': 'start',
                     'side': rootInject.dir.value === 'rtl' ? 'left' : 'right',

@@ -1,6 +1,7 @@
 import { defineComponent, h, mergeProps, onBeforeMount, onMounted, ref, toRefs } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
 import { useDirection } from '@oku-ui/direction'
+import { useListeners } from '@oku-ui/use-composable'
 import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'
 import type { MenuContentElement } from './props'
 
@@ -28,6 +29,7 @@ const menu = defineComponent({
     const isUsingKeyboardRef = ref(false)
     const handleOpenChange = (open: boolean) => emit('openChange', open)
     const direction = useDirection(dir.value)
+    const emits = useListeners()
 
     // Capture phase ensures we set the boolean before any side effects execute
     // in response to the key or pointer event as they might depend on this value.
@@ -66,7 +68,7 @@ const menu = defineComponent({
 
     return () => h(OkuPopper,
       {
-        ...mergeProps(attrs),
+        ...mergeProps(attrs, popperScope, emits),
         ...popperScope,
       }, slots,
     )

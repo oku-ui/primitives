@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { Side } from './utils'
 import { getOpenState, whenMouse } from './utils'
@@ -30,6 +30,7 @@ const menuSubTrigger = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const inject = useMenuInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
@@ -68,7 +69,7 @@ const menuSubTrigger = defineComponent({
             'aria-expanded': inject.open.value,
             'aria-controls': subInject.contentId.value,
             'data-state': getOpenState(inject.open.value!),
-            ...mergeProps(attrs, otherProps),
+            ...mergeProps(attrs, otherProps, emits),
             'ref': useComposedRefs(forwardedRef, el => subInject.onTriggerChange(el as MenuItemImplElement)),
             // This is redundant for mouse users but we cannot determine pointer type from
             // click event and we cannot use pointerup event (see git history for reasons why)

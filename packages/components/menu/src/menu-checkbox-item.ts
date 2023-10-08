@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getCheckedState, isIndeterminate } from './utils'
 import type { MenuCheckboxItemEmits, MenuCheckboxItemNativeElement } from './props'
@@ -34,11 +34,13 @@ const menuCheckboxItem = defineComponent({
       checked,
     })
 
+    const emits = useListeners()
+
     return () => h(OkuMenuItem,
       {
         'role': 'menuitemcheckbox',
         'aria-checked': isIndeterminate(checked.value) ? 'mixed' : checked.value,
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         'ref': forwardedRef,
         'data-state': getCheckedState(checked.value),
         'onSelect': composeEventHandlers<MenuCheckboxItemEmits['select'][0]>(() => {

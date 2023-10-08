@@ -1,6 +1,6 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import type { MenuContentNativeElement } from './props'
 import { CollectionProvider, CollectionSlot, MENU_CONTENT_NAME, menuContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, usePortalInject } from './props'
 import { OkuMenuRootContentModal } from './menu-root-content-modal'
@@ -37,6 +37,8 @@ const menuContent = defineComponent({
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
 
+    const emits = useListeners()
+
     return () => h(CollectionProvider,
       {
         scope: scopeOkuMenu.value,
@@ -53,13 +55,13 @@ const menuContent = defineComponent({
                 default: () => rootInject.modal.value
                   ? h(OkuMenuRootContentModal,
                     {
-                      ...mergeProps(attrs, otherProps),
+                      ...mergeProps(attrs, otherProps, emits),
                       ref: forwardedRef,
                     }, slots,
                   )
                   : h(OkuMenuRootContentNonModal,
                     {
-                      ...mergeProps(attrs, otherProps),
+                      ...mergeProps(attrs, otherProps, emits),
                       ref: forwardedRef,
                     }, slots,
                   ),
