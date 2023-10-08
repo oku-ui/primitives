@@ -37,7 +37,7 @@ const menuRadioItem = defineComponent({
       checked,
     })
 
-    return h(OkuMenuItem,
+    return () => h(OkuMenuItem,
       {
         'role': 'menuitemradio',
         'aria-checked': checked.value,

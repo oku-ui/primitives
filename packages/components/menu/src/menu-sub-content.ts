@@ -38,7 +38,7 @@ const menuSubContent = defineComponent({
     const menuSubContentRef = ref<MenuSubContentElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, ref)
 
-    return h(CollectionProvider,
+    return () => h(CollectionProvider,
       { scope: scopeOkuMenu.value },
       {
         default: () => h(OkuPresence,

@@ -55,7 +55,7 @@ const menuSubTrigger = defineComponent({
       })
     })
 
-    return h(OkuMenuAnchor,
+    return () => h(OkuMenuAnchor,
       {
         asChild: true,
         ...scope,
