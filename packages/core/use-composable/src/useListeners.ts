@@ -2,7 +2,10 @@ import { isOn } from '@oku-ui/utils'
 import type { ComponentInternalInstance } from 'vue'
 import { getCurrentInstance } from 'vue'
 
-export function useListeners(instance?: ComponentInternalInstance) {
+export function useListeners(
+  omitKeys?: string[],
+  instance?: ComponentInternalInstance,
+) {
   const vm = getCurrentInstance()
   const _instance = instance || vm
   const listeners: Record<string, any> = {}
@@ -14,5 +17,9 @@ export function useListeners(instance?: ComponentInternalInstance) {
     if (isOn(key))
       listeners[key] = rawProps[key]
   }
+
+  if (omitKeys)
+    omitKeys.forEach(key => delete listeners[key])
+
   return listeners
 }
