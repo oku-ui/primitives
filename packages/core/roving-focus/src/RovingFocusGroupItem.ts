@@ -1,55 +1,12 @@
 import { computed, defineComponent, h, mergeProps, nextTick, reactive, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useForwardRef, useId } from '@oku-ui/use-composable'
 
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 
 import { composeEventHandlers } from '@oku-ui/utils'
-import { CollectionItemSlot, useCollection, useRovingFocusInject } from './RovingFocusGroup'
+import type { RovingFocusGroupItemNaviteElement } from './props'
+import { CollectionItemSlot, ITEM_NAME, rovingFocusItemProps, scopedProps, useCollection, useRovingFocusInject } from './props'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
-import { scopedProps } from './types'
-
-export type RovingFocusGroupItemNaviteElement = OkuElement<'span'>
-export type RovingFocusGroupItemElement = HTMLSpanElement
-
-export interface RovingFocusItemProps extends PrimitiveProps {
-  tabStopId?: string
-  focusable?: boolean
-  active?: boolean
-}
-
-export type RovingFocusGroupItemEmits = {
-  focus: [event: FocusEvent]
-  keydown: [event: KeyboardEvent]
-  mousedown: [event: MouseEvent]
-}
-
-export const rovingFocusItemProps = {
-  props: {
-    tabStopId: {
-      type: String,
-    },
-    focusable: {
-      type: Boolean,
-      default: true,
-    },
-    active: {
-      type: Boolean,
-      default: false,
-    },
-    ...primitiveProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    focus: (event: FocusEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    keydown: (event: KeyboardEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    mousedown: (event: MouseEvent) => true,
-  },
-}
-
-const ITEM_NAME = 'OkuRovingFocusGroupItem'
 
 const rovingFocusGroupItem = defineComponent({
   name: ITEM_NAME,

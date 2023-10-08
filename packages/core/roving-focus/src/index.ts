@@ -1,12 +1,9 @@
 export {
   OkuRovingFocusGroup,
-  createRovingFocusGroupScope,
-  rovingFocusGroupProps,
 } from './RovingFocusGroup'
 
 export {
   OkuRovingFocusGroupItem,
-  rovingFocusItemProps,
 } from './RovingFocusGroupItem'
 
 export type {
@@ -14,8 +11,15 @@ export type {
   RovingFocusGroupItemEmits,
   RovingFocusGroupItemNaviteElement,
   RovingFocusItemProps,
-} from './RovingFocusGroupItem'
+} from './props'
 
 export type {
   RovingFocusGroupProps,
-} from './RovingFocusGroup'
+  RovingFocusGroupEmits,
+} from './props'
+
+export {
+  createRovingFocusGroupScope,
+  rovingFocusGroupProps,
+  rovingFocusItemProps,
+} from './props'
