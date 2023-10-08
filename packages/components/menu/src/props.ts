@@ -725,9 +725,9 @@ export const menuSubTriggerProps = {
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
     click: (event: MouseEvent) => true,
-    ...menuItemImplProps.emits,
     // eslint-disable-next-line unused-imports/no-unused-vars
     keydown: (event: KeyboardEvent) => true,
+    ...menuItemImplProps.emits,
   },
 }
 
