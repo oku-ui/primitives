@@ -164,7 +164,7 @@ const menuContentImpl = defineComponent({
                 orientation: 'vertical',
                 loop: loop.value,
                 currentTabStopId: currentItemId.value,
-                onCurrentTabStopIdChange: (tabStopId) => {
+                onCurrentTabStopIdChange: (tabStopId: string | null) => {
                   currentItemId.value = tabStopId
                 },
                 onEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
