@@ -155,7 +155,7 @@ type PortalInjectValue = {
 
 export const [portalProvider, usePortalInject] = createMenuProvide<PortalInjectValue>(MENU_PORTAL_NAME,
   {
-    forceMount: undefined,
+    forceMount: ref<true | undefined>(undefined),
   },
 )
 

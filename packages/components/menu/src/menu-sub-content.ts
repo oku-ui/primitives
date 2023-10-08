@@ -20,7 +20,7 @@ const menuSubContent = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,
-      forceMount,
+      forceMount: _forceMount,
       ...restProps
     } = toRefs(props)
 
@@ -28,7 +28,7 @@ const menuSubContent = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const portalInject = usePortalInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
-    const _forceMount = computed(() => portalInject.forceMount?.value || forceMount.value)
+    const forceMount = computed(() => _forceMount.value || portalInject.forceMount?.value)
 
     const forwardedRef = useForwardRef()
 
@@ -42,7 +42,7 @@ const menuSubContent = defineComponent({
       { scope: scopeOkuMenu.value },
       {
         default: () => h(OkuPresence,
-          { present: computed(() => _forceMount.value || inject.open.value).value },
+          { present: computed(() => forceMount.value || inject.open.value).value },
           {
             default: () => h(CollectionSlot,
               { scope: scopeOkuMenu.value },
