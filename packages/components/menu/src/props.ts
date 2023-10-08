@@ -735,8 +735,8 @@ export const menuSubTriggerProps = {
  * MenuSubContent - menu-sub-content.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type MenuSubContentNativeElement = MenuContentImplNativeElement
-export type MenuSubContentElement = MenuContentImplElement
+export type MenuSubContentNativeElement = Omit<MenuContentImplNativeElement, 'side' | 'align'>
+export type MenuSubContentElement = Omit<MenuContentImplElement, 'side' | 'align'>
 
 export interface MenuSubContentProps extends Omit<MenuContentImplProps, 'side' | 'align'> {
   /**
@@ -754,7 +754,11 @@ export interface MenuSubContentProps extends Omit<MenuContentImplProps, 'side' |
 //   escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
 // }
 
-export interface MenuSubContentEmits extends Omit<MenuContentImplEmits, 'closeAutoFocus' | 'entryFocus'> { }
+export interface MenuSubContentEmits extends Omit<
+MenuContentImplEmits,
+ keyof MenuContentImplPrivateEmits | 'closeAutoFocus' | 'entryFocus'
+ > {
+}
 
 export const menuSubContentProps = {
   props: {

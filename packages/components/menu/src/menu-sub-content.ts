@@ -14,7 +14,6 @@ const menuSubContent = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuSubContentProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuSubContentProps.emits,
@@ -22,13 +21,14 @@ const menuSubContent = defineComponent({
     const {
       scopeOkuMenu,
       forceMount,
+      ...otherPropsRef
     } = toRefs(props)
 
-    const _reactive = reactive(menuSubContentProps)
+    const _reactive = reactive(otherPropsRef)
     const reactiveMenuSubContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const portalInject = usePortalInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
-    forceMount.value = portalInject.forceMount?.value
+    const _forceMount = computed(() => portalInject.forceMount?.value || forceMount.value)
 
     const forwardedRef = useForwardRef()
 
@@ -42,7 +42,7 @@ const menuSubContent = defineComponent({
       { scope: scopeOkuMenu.value },
       {
         default: () => h(OkuPresence,
-          { present: computed(() => forceMount.value || inject.open.value).value },
+          { present: computed(() => _forceMount.value || inject.open.value).value },
           {
             default: () => h(CollectionSlot,
               { scope: scopeOkuMenu.value },
@@ -69,7 +69,7 @@ const menuSubContent = defineComponent({
                     // The menu might close because of focusing another menu item in the parent menu. We
                     // don't want it to refocus the trigger in that case so we handle trigger focus ourselves.
                     'onCloseAutoFocus': event => event.preventDefault(),
-                    'onFocusOutside': composeEventHandlers<MenuSubContentEmits['focusoutSide'][0]>((event) => {
+                    'onFocusoutSide': composeEventHandlers<MenuSubContentEmits['focusoutSide'][0]>((event) => {
                       emit('focusoutSide', event)
                     }, (event) => {
                       // We prevent closing when the trigger is focused to avoid triggering a re-open animation
@@ -77,7 +77,7 @@ const menuSubContent = defineComponent({
                       if (event.target !== subInject.trigger.value)
                         inject.onOpenChange(false)
                     }),
-                    'onEscapeKeydown': composeEventHandlers<MenuSubContentEmits['escapeKeyDown'][0]>((event) => {
+                    'onEscapeKeyDown': composeEventHandlers<MenuSubContentEmits['escapeKeyDown'][0]>((event) => {
                       emit('escapeKeyDown', event)
                     }, (event) => {
                       rootInject.onClose()
