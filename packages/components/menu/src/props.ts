@@ -633,7 +633,9 @@ export type MenuSeparatorElement = HTMLDivElement
 export interface MenuSeparatorProps extends PrimitiveProps { }
 
 export const menuSeparatorProps = {
-  props: {},
+  props: {
+    ...primitiveProps,
+  },
   emits: {},
 }
 
