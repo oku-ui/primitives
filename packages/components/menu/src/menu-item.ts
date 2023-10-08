@@ -14,7 +14,6 @@ const menuItem = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuItemProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuItemProps.emits,
@@ -59,7 +58,7 @@ const menuItem = defineComponent({
         onPointerdown: composeEventHandlers<MenuItemEmits['pointerdown'][0]>((event) => {
           emit('pointerdown', event)
         }, () => isPointerDownRef.value = true),
-        onPointerUp: composeEventHandlers<MenuItemEmits['pointerup'][0]>((event) => {
+        onPointerup: composeEventHandlers<MenuItemEmits['pointerup'][0]>((event) => {
           emit('pointerup', event)
         }, (event) => {
           // Pointer down can move to a different menu item which should activate it on pointer up.
@@ -68,7 +67,7 @@ const menuItem = defineComponent({
           if (!isPointerDownRef.value)
             (event.currentTarget as HTMLElement)?.click()
         }),
-        onKeyDown: composeEventHandlers<MenuItemEmits['keydown'][0]>((event) => {
+        onKeydown: composeEventHandlers<MenuItemEmits['keydown'][0]>((event) => {
           emit('keydown', event)
         }, (event) => {
           const isTypingAhead = contentInject.searchRef.value !== ''

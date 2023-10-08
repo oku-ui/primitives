@@ -407,49 +407,10 @@ export type MenuLabelElement = HTMLDivElement
 export interface MenuLabelProps extends PrimitiveProps { }
 
 export const menuLabelProps = {
-  props: {},
-  emits: {},
-}
-
-/* -------------------------------------------------------------------------------------------------
- * MenuItem - menu-item.ts
- * ----------------------------------------------------------------------------------------------- */
-
-export const ITEM_SELECT = 'menu.itemSelect'
-
-export type MenuItemNativeElement = MenuItemImplNativeElement
-export type MenuItemElement = MenuItemImplElement
-
-export interface MenuItemProps extends Omit<MenuItemImplProps, 'onSelect'> {
-  onSelect?: (event: Event) => void
-}
-
-export type MenuItemEmits = {
-  click: [event: MouseEvent]
-  pointerdown: [event: PointerEvent]
-  pointerup: [event: PointerEvent]
-  keydown: [event: KeyboardEvent]
-}
-
-export const menuItemProps = {
   props: {
-    disabled: {
-      type: Boolean as PropType<false | undefined>,
-      default: undefined,
-    },
+    ...primitiveProps,
   },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    select: (event: Event) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdown: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerup: (event: PointerEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    keydown: (event: KeyboardEvent) => true,
-  },
+  emits: {},
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -490,6 +451,46 @@ export const menuItemImplProps = {
     focus: (event: FocusEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     blur: (event: FocusEvent) => true,
+  },
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * MenuItem - menu-item.ts
+ * ----------------------------------------------------------------------------------------------- */
+
+export const ITEM_SELECT = 'menu.itemSelect'
+
+export type MenuItemNativeElement = MenuItemImplNativeElement
+export type MenuItemElement = MenuItemImplElement
+
+export interface MenuItemProps extends Omit<MenuItemImplProps, 'onSelect'> {
+  onSelect?: (event: Event) => void
+}
+
+export type MenuItemEmits = Omit<MenuItemImplEmits, 'select'> & {
+  select: [event: Event]
+  pointerdown: [event: PointerEvent]
+  pointerup: [event: PointerEvent]
+  click: [event: MouseEvent]
+  keydown: [event: KeyboardEvent]
+}
+
+export const menuItemProps = {
+  props: {
+    ...menuItemImplProps.props,
+  },
+  emits: {
+    ...menuItemImplProps.emits,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    select: (event: Event) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    click: (event: MouseEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerdown: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    pointerup: (event: PointerEvent) => true,
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    keydown: (event: KeyboardEvent) => true,
   },
 }
 

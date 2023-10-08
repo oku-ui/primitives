@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import type { MenuLabelNativeElement } from './props'
 import { MENU_LABEL_NAME, menuLabelProps, scopedMenuProps } from './props'
@@ -9,7 +9,6 @@ const menuLabel = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuLabelProps.props,
-    ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuLabelProps.emits,
