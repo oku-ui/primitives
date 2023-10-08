@@ -12,9 +12,9 @@ const menuArrow = defineComponent({
     ...scopedMenuProps,
   },
   setup(props, { attrs, slots }) {
-    const { scopeOkuMenu } = toRefs(props)
+    const { scopeOkuMenu, ...otherPropsRef } = toRefs(props)
 
-    const _reactive = reactive(menuArrowProps)
+    const _reactive = reactive(otherPropsRef)
     const reactiveMenuArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()

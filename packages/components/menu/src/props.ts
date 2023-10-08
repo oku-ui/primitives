@@ -4,7 +4,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
-import { createPopperScope, popperAnchorProps, popperContentProps } from '@oku-ui/popper'
+import { createPopperScope, popperAnchorProps, popperArrowProps, popperContentProps } from '@oku-ui/popper'
 import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps, PopperArrowElement, PopperArrowNaviteElement, PopperArrowProps, PopperContentElement, PopperContentNaviteElement, PopperContentProps } from '@oku-ui/popper'
 import type { Direction } from '@oku-ui/direction'
 import type { PortalProps } from '@oku-ui/portal'
@@ -648,8 +648,12 @@ export type MenuArrowElement = PopperArrowElement
 export interface MenuArrowProps extends PopperArrowProps {}
 
 export const menuArrowProps = {
-  props: {},
-  emits: {},
+  props: {
+    ...popperArrowProps.props,
+  },
+  emits: {
+    ...popperArrowProps.emits,
+  },
 }
 
 /* -------------------------------------------------------------------------------------------------
