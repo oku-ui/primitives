@@ -22,7 +22,7 @@ const menuContent = defineComponent({
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu,
-      forceMount: _forceMoutent,
+      forceMount: _forceMount,
       ...restProps
     } = toRefs(props)
 
@@ -30,7 +30,7 @@ const menuContent = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const portalInject = usePortalInject(MENU_CONTENT_NAME, props.scopeOkuMenu)
-    const forceMount = computed(() => _forceMoutent.value || portalInject.forceMount?.value)
+    const forceMount = computed(() => _forceMount.value || portalInject.forceMount?.value)
 
     const forwardedRef = useForwardRef()
 
