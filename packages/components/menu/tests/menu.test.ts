@@ -1,6 +1,5 @@
-import { afterEach, describe, expect } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { enableAutoUnmount } from '@vue/test-utils'
-import { it } from 'node:test'
 
 enableAutoUnmount(afterEach)
 
