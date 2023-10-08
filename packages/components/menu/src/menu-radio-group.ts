@@ -12,7 +12,6 @@ const menuRadioGroup = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuRadioGroupProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuRadioGroupProps.emits,
@@ -20,9 +19,10 @@ const menuRadioGroup = defineComponent({
     const {
       scopeOkuMenu,
       value,
+      ...otherPropsRef
     } = toRefs(props)
 
-    const _reactive = reactive(menuRadioGroupProps)
+    const _reactive = reactive(otherPropsRef)
     const reactiveMenuRadioGroupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
@@ -33,7 +33,7 @@ const menuRadioGroup = defineComponent({
       {
         scope: scopeOkuMenu.value,
         value,
-        onValueChange: () => handleValueChange,
+        onValueChange: handleValueChange,
       },
     )
 

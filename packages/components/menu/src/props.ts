@@ -551,10 +551,12 @@ export const menuRadioGroupProps = {
     value: {
       type: String,
     },
+    ...menuGroupProps.props,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
     valueChange: (value: string) => true,
+    ...menuGroupProps.emits,
   },
 }
 
@@ -578,12 +580,12 @@ export const menuRadioItemProps = {
     value: {
       type: String,
     },
+    ...menuItemProps.props,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
     openChange: (open: boolean) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    select: (event: Event) => true,
+    ...menuItemProps.emits,
   },
 }
 

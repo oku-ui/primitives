@@ -14,7 +14,6 @@ const menuRadioItem = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuRadioItemProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
   emits: menuRadioItemProps.emits,
@@ -22,9 +21,10 @@ const menuRadioItem = defineComponent({
     const {
       scopeOkuMenu,
       value,
+      ...otherPropsRef
     } = toRefs(props)
 
-    const _reactive = reactive(menuRadioItemProps)
+    const _reactive = reactive(otherPropsRef)
     const reactiveMenuRadioItemProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
