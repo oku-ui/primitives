@@ -14,6 +14,7 @@ const menuSub = defineComponent({
     ...menuSubProps.props,
     ...scopedMenuProps,
   },
+  emits: menuSubProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,

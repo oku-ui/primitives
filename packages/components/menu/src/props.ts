@@ -13,8 +13,7 @@ import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import type { DismissableLayerEmits, DismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import type { FocusScopeEmits, FocusScopeProps } from '@oku-ui/focus-scope'
-import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
-import type { RovingFocusGroupImplEmits } from '../../../core/roving-focus/src/RovingFocusGroupImpl'
+import type { RovingFocusGroupEmits, RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import type { GraceIntent } from './utils'
 
 export type ScopedMenu<P> = P & { scopeOkuMenu?: Scope }
@@ -259,7 +258,7 @@ export type MenuContentImplEmits = {
    */
   closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
 
-  entryFocus: [event: RovingFocusGroupImplEmits['entryFocus'][0]]
+  entryFocus: [event: RovingFocusGroupEmits['entryFocus'][0]]
   escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
   pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
   focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
@@ -289,7 +288,7 @@ export const menuContentImplProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     closeAutoFocus: (event: FocusScopeEmits['unmountAutoFocus'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    entryFocus: (event: RovingFocusGroupImplEmits['entryFocus'][0]) => true,
+    entryFocus: (event: RovingFocusGroupEmits['entryFocus'][0]) => true,
     dismiss: () => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
@@ -438,7 +437,7 @@ export const menuItemImplProps = {
       type: String as PropType<string>,
     },
     disabled: {
-      type: Boolean as PropType<false | undefined>,
+      type: Boolean as PropType<boolean | undefined>,
       default: undefined,
     },
     ...primitiveProps,
