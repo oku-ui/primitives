@@ -52,7 +52,7 @@ export interface IMenuProps {
   display: inline-block;
   box-sizing: border-box;
   min-width: 130px;
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 5px;
@@ -60,7 +60,7 @@ export interface IMenuProps {
   font-family: 'apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif';
   font-size: 13px;
   &:focus-within {
-    border-color: black;
+    border-color: #111;
   }
 }
 
@@ -74,7 +74,7 @@ export interface IMenuProps {
   white-space: nowrap;
   height: 25px;
   padding: 0 10px;
-  color: black;
+  color: #111;
   border-radius: 3px;
 } */
 
@@ -88,7 +88,7 @@ export interface IMenuProps {
   white-space: nowrap;
   height: 25px;
   padding: 0 10px;
-  color: black;
+  color: #111;
   border-radius: 3px;
 
   color: #ccc;
@@ -104,25 +104,25 @@ export interface IMenuProps {
   white-space: nowrap;
   height: 25px;
   padding: 0 10px;
-  color: black;
+  color: #111;
   border-radius: 3px;
 
   outline: 'none';
 
   &[data-highlighted] {
-    background-color: black;
-    color: white;
+    background-color: #111;
+    color: #fff;
   }
 
   &[data-disabled] {
-    color: #ccc,
+    color: #ccc;
   }
 }
 
 .menu-sub-trigger {
   &:not([data-highlighted])[data-state="open"] {
     background-color: #ccc;
-    color: black;
+    color: #111;
   }
 }
 

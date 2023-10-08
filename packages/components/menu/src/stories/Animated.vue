@@ -22,11 +22,11 @@ const checkboxItems = reactive([
   </label>
   <br>
   <br>
-  <MenuWithAnchor class="menu-animated-content content" :open="open">
+  <MenuWithAnchor class="menu-animated-content menu-content" :open="open">
     <OkuMenuCheckboxItem
       v-for="({ label, state, disabled }, index) in checkboxItems"
       :key="label"
-      class="item"
+      class="menu-item"
       :checked="state"
       :disabled="disabled"
       @checked-change="checkboxItems[index].state = state"
@@ -37,7 +37,7 @@ const checkboxItems = reactive([
       </OkuMenuItemIndicator>
     </OkuMenuCheckboxItem>
     <OkuMenuRadioGroup :value="file" @value-change="file">
-      <OkuMenuRadioItem v-for="_file in files" :key="_file" class="item" :value="_file">
+      <OkuMenuRadioItem v-for="_file in files" :key="_file" class="menu-item" :value="_file">
         {{ file }}
         <OkuMenuItemIndicator class="menu-animated-item-indicator">
           <TickIcon />

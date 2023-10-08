@@ -17,7 +17,7 @@ function alert(text: string) {
       </OkuMenuLabel>
 
       <OkuMenuItem
-        v-for="(food) in foodGroups.foods"
+        v-for="food in foodGroup.foods"
         :key="food.value"
         class="menu-item"
         :disabled="food.disabled"

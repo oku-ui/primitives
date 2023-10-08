@@ -16,7 +16,7 @@ function alert(text: string) {
     <OkuMenuItem class="menu-item" @select="alert('redo')">
       Redo
     </OkuMenuItem>
-    <OkuMenuSeparator class="separator" />
+    <OkuMenuSeparator class="menu-separator" />
     <OkuMenuItem class="menu-item" disabled @select="alert('cut')">
       Cut
     </OkuMenuItem>
