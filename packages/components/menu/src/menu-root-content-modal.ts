@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeMount, onMounted, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
@@ -32,12 +32,15 @@ const menuRootContentModel = defineComponent({
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
     const menuRootContentRef = ref<MenuRootContentTypeElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, el => menuRootContentRef.value = (el as MenuRootContentTypeElement))
-
+    const content = ref<MenuRootContentTypeElement | null>(null)
     // Hide everything from ARIA except the `MenuContent`
-    watchEffect(() => {
-      const content = menuRootContentRef.value
-      if (content)
-        return hideOthers(content)
+    onMounted(() => {
+      content.value = menuRootContentRef.value
+    })
+
+    onBeforeMount(() => {
+      if (content.value)
+        return hideOthers(content.value)
     })
 
     return () => h(OkuMenuContentImpl,

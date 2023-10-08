@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeMount, onMounted, ref, toRefs } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
 import { useDirection } from '@oku-ui/direction'
 import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'
@@ -29,22 +29,23 @@ const menu = defineComponent({
     const handleOpenChange = (open: boolean) => emit('openChange', open)
     const direction = useDirection(dir.value)
 
-    watchEffect((onInvalidate) => {
-      // Capture phase ensures we set the boolean before any side effects execute
-      // in response to the key or pointer event as they might depend on this value.
-      const handlePointer = () => (isUsingKeyboardRef.value = false)
-      const handleKeyDown = () => {
-        isUsingKeyboardRef.value = true
-        document.addEventListener('pointerdown', handlePointer, { capture: true, once: true })
-        document.addEventListener('pointermove', handlePointer, { capture: true, once: true })
-      }
-      document.addEventListener('keydown', handleKeyDown, { capture: true })
+    // Capture phase ensures we set the boolean before any side effects execute
+    // in response to the key or pointer event as they might depend on this value.
+    const handlePointer = () => (isUsingKeyboardRef.value = false)
+    const handleKeyDown = () => {
+      isUsingKeyboardRef.value = true
+      document.addEventListener('pointerdown', handlePointer, { capture: true, once: true })
+      document.addEventListener('pointermove', handlePointer, { capture: true, once: true })
+    }
 
-      onInvalidate(() => {
-        document.removeEventListener('keydown', handleKeyDown, { capture: true })
-        document.removeEventListener('pointerdown', handlePointer, { capture: true })
-        document.removeEventListener('pointermove', handlePointer, { capture: true })
-      })
+    onMounted(() => {
+      document.addEventListener('keydown', handleKeyDown, { capture: true })
+    })
+
+    onBeforeMount(() => {
+      document.removeEventListener('keydown', handleKeyDown, { capture: true })
+      document.removeEventListener('pointerdown', handlePointer, { capture: true })
+      document.removeEventListener('pointermove', handlePointer, { capture: true })
     })
 
     menuProvider({
