@@ -1,13 +1,12 @@
-import { Fragment, defineComponent, h, mergeProps, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, reactive, ref, toRefs, watch } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
 import { useFocusGuards } from '@oku-ui/focus-guards'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
 import { OkuPopperContent } from '@oku-ui/popper'
-import { OkuSlot } from '@oku-ui/slot'
 import type { MenuContentElement, MenuContentImplEmits, MenuContentImplNativeElement } from './props'
 import { FIRST_LAST_KEYS, LAST_KEYS, MENU_CONTENT_IMPL_NAME, MENU_CONTENT_NAME, menuContentImplProps, menuContentProvider, scopedMenuProps, useCollection, useMenuInject, useMenuRootInject, usePopperScope, useRovingFocusGroupScope } from './props'
 import type { GraceIntent, Side } from './utils'
@@ -58,10 +57,15 @@ const menuContentImpl = defineComponent({
     const pointerDirRef = ref<Side>('right')
     const lastPointerXRef = ref(0)
 
-    // TODO
-    // const ScrollLockWrapper = disableOutsideScroll.value ? useScrollLock(null, true) : Fragment
-    const ScrollLockWrapper = disableOutsideScroll.value ? Fragment : Fragment
-    const scrollLockWrapperProps = disableOutsideScroll.value ? { as: OkuSlot, allowPinchZoom: true } : undefined
+    const focusScopeRef = ref<HTMLElement | null>(null)
+    const lock = useScrollLock(focusScopeRef)
+
+    watch([disableOutsideScroll, focusScopeRef], () => {
+      if (disableOutsideScroll.value)
+        lock.value = true
+      else
+        lock.value = false
+    })
 
     const handleTypeaheadSearch = (key: string) => {
       const search = searchRef.value + key
@@ -125,128 +129,122 @@ const menuContentImpl = defineComponent({
       },
     })
 
-    return () => h(ScrollLockWrapper,
+    return () => h(OkuFocusScope,
       {
-        ...scrollLockWrapperProps,
+        ref: focusScopeRef,
+        asChild: true,
+        trapped: trapFocus.value,
+        onMountAutoFocus: composeEventHandlers<MenuContentImplEmits['openAutoFocus'][0]>((event) => {
+          emit('openAutoFocus', event)
+        }, (event) => {
+          // when opening, explicitly focus the content area only and leave
+          // `onEntryFocus` in  control of focusing first item
+          event.preventDefault()
+          contentRef.value?.focus()
+        }),
+        onUnmountAutoFocus: event => emit('closeAutoFocus', event),
       },
-      [
-        h(OkuFocusScope,
+      {
+        default: () => h(OkuDismissableLayer,
           {
             asChild: true,
-            trapped: trapFocus.value,
-            onMountAutoFocus: composeEventHandlers<MenuContentImplEmits['openAutoFocus'][0]>((event) => {
-              emit('openAutoFocus', event)
-            }, (event) => {
-              // when opening, explicitly focus the content area only and leave
-              // `onEntryFocus` in  control of focusing first item
-              event.preventDefault()
-              contentRef.value?.focus()
-            }),
-            onUnmountAutoFocus: event => emit('closeAutoFocus', event),
+            disableOutsidePointerEvents: disableOutsidePointerEvents.value,
+            onEscapeKeyDown: event => emit('escapeKeyDown', event),
+            onPointerdownOutside: event => emit('pointerdownOutside', event),
+            onFocusoutSide: event => emit('focusoutSide', event),
+            onInteractOutside: event => emit('interactOutside', event),
+            onDismiss: () => emit('dismiss'),
           },
           {
-            default: () => h(OkuDismissableLayer,
+            default: () => h(OkuRovingFocusGroup,
               {
                 asChild: true,
-                disableOutsidePointerEvents: disableOutsidePointerEvents.value,
-                onEscapeKeyDown: event => emit('escapeKeyDown', event),
-                onPointerdownOutside: event => emit('pointerdownOutside', event),
-                onFocusoutSide: event => emit('focusoutSide', event),
-                onInteractOutside: event => emit('interactOutside', event),
-                onDismiss: () => emit('dismiss'),
+                ...rovingFocusGroupScope,
+                dir: rootInject.dir.value,
+                orientation: 'vertical',
+                loop: loop.value,
+                currentTabStopId: currentItemId.value,
+                onCurrentTabStopIdChange: (tabStopId) => {
+                  currentItemId.value = tabStopId
+                },
+                onEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
+                  emit('entryFocus', event)
+                }, (event) => {
+                  // only focus first item when using keyboard
+                  if (!rootInject.isUsingKeyboardRef.value)
+                    event.preventDefault()
+                }),
               },
               {
-                default: () => h(OkuRovingFocusGroup,
+                default: () => h(OkuPopperContent,
                   {
-                    asChild: true,
-                    ...rovingFocusGroupScope,
-                    dir: rootInject.dir.value,
-                    orientation: 'vertical',
-                    loop: loop.value,
-                    currentTabStopId: currentItemId.value,
-                    onCurrentTabStopIdChange: (tabStopId) => {
-                      currentItemId.value = tabStopId
-                    },
-                    onEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
-                      emit('entryFocus', event)
+                    'role': 'menu',
+                    'aria-orientation': 'vertical',
+                    'data-state': getOpenState(inject.open.value!),
+                    'data-oku-menu-content': '',
+                    'dir': rootInject.dir.value,
+                    ...popperScope,
+                    ...mergeProps(attrs, otherProps),
+                    'ref': composedRefs,
+                    'style': { outline: 'none', ...attrs.style as any },
+                    'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
+                      emit('keydown', event)
                     }, (event) => {
-                      // only focus first item when using keyboard
-                      if (!rootInject.isUsingKeyboardRef.value)
-                        event.preventDefault()
-                    }),
-                  },
-                  {
-                    default: () => h(OkuPopperContent,
-                      {
-                        'role': 'menu',
-                        'aria-orientation': 'vertical',
-                        'data-state': getOpenState(inject.open.value!),
-                        'data-oku-menu-content': '',
-                        'dir': rootInject.dir.value,
-                        ...popperScope,
-                        ...mergeProps(attrs, otherProps),
-                        'ref': composedRefs,
-                        'style': { outline: 'none', ...attrs.style as any },
-                        'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
-                          emit('keydown', event)
-                        }, (event) => {
-                          // submenu key events bubble through portals. We only care about keys in this menu.
-                          const target = event.target as HTMLElement
-                          const isKeyDownInside = target.closest('[data-oku-menu-content]') === event.currentTarget
-                          const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
-                          const isCharacterKey = event.key.length === 1
-                          if (isKeyDownInside) {
-                            // menus should not be navigated using tab key so we prevent it
-                            if (event.key === 'Tab')
-                              event.preventDefault()
-                            if (!isModifierKey && isCharacterKey)
-                              handleTypeaheadSearch(event.key)
-                          }
-                          // focus first/last item based on key pressed
-                          const content = contentRef.value
-                          if (event.target !== content)
-                            return
-                          if (!FIRST_LAST_KEYS.includes(event.key))
-                            return
+                      // submenu key events bubble through portals. We only care about keys in this menu.
+                      const target = event.target as HTMLElement
+                      const isKeyDownInside = target.closest('[data-oku-menu-content]') === event.currentTarget
+                      const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
+                      const isCharacterKey = event.key.length === 1
+                      if (isKeyDownInside) {
+                        // menus should not be navigated using tab key so we prevent it
+                        if (event.key === 'Tab')
                           event.preventDefault()
-                          const items = getItems().filter(item => !item.disabled)
-                          const candidateNodes = items.map(item => item.ref.value!)
-                          if (LAST_KEYS.includes(event.key))
-                            candidateNodes.reverse()
-                          focusFirst(candidateNodes)
-                        }),
-                        'onBlur': composeEventHandlers<MenuContentImplEmits['blur'][0]>((event) => {
-                          emit('blur', event)
-                        }, (event: any) => {
-                          // clear search buffer when leaving the menu
-                          if (!event.valueTarget.contains(event.target)) {
-                            window.clearTimeout(timerRef.value)
-                            searchRef.value = ''
-                          }
-                        }),
-                        'onPointermove': composeEventHandlers<MenuContentImplEmits['pointermove'][0]>((event) => {
-                          emit('pointermove', event)
-                        }, whenMouse((event: any) => {
-                          const target = event.target as HTMLElement
-                          const pointerXHasChanged = lastPointerXRef.value !== event.clientX
+                        if (!isModifierKey && isCharacterKey)
+                          handleTypeaheadSearch(event.key)
+                      }
+                      // focus first/last item based on key pressed
+                      const content = contentRef.value
+                      if (event.target !== content)
+                        return
+                      if (!FIRST_LAST_KEYS.includes(event.key))
+                        return
+                      event.preventDefault()
+                      const items = getItems().filter(item => !item.disabled)
+                      const candidateNodes = items.map(item => item.ref.value!)
+                      if (LAST_KEYS.includes(event.key))
+                        candidateNodes.reverse()
+                      focusFirst(candidateNodes)
+                    }),
+                    'onBlur': composeEventHandlers<MenuContentImplEmits['blur'][0]>((event) => {
+                      emit('blur', event)
+                    }, (event: any) => {
+                      // clear search buffer when leaving the menu
+                      if (!event.valueTarget.contains(event.target)) {
+                        window.clearTimeout(timerRef.value)
+                        searchRef.value = ''
+                      }
+                    }),
+                    'onPointermove': composeEventHandlers<MenuContentImplEmits['pointermove'][0]>((event) => {
+                      emit('pointermove', event)
+                    }, whenMouse((event: any) => {
+                      const target = event.target as HTMLElement
+                      const pointerXHasChanged = lastPointerXRef.value !== event.clientX
 
-                          // We don't use `event.movementX` for this check because Safari will
-                          // always return `0` on a pointer event.
-                          if (event.valueTarget.contains(target) && pointerXHasChanged) {
-                            const newDir = event.clientX > lastPointerXRef.value ? 'right' : 'left'
-                            pointerDirRef.value = newDir
-                            lastPointerXRef.value = event.clientX
-                          }
-                        })),
-                      }, slots,
-                    ),
-                  },
+                      // We don't use `event.movementX` for this check because Safari will
+                      // always return `0` on a pointer event.
+                      if (event.valueTarget.contains(target) && pointerXHasChanged) {
+                        const newDir = event.clientX > lastPointerXRef.value ? 'right' : 'left'
+                        pointerDirRef.value = newDir
+                        lastPointerXRef.value = event.clientX
+                      }
+                    })),
+                  }, slots,
                 ),
               },
             ),
           },
         ),
-      ],
+      },
     )
   },
 })
