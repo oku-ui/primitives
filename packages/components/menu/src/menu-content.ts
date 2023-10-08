@@ -18,6 +18,7 @@ const menuContent = defineComponent({
     ...menuContentProps.props,
     ...scopedMenuProps,
   },
+  emits: menuContentProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu,
@@ -42,7 +43,7 @@ const menuContent = defineComponent({
       },
       {
         default: () => h(OkuPresence,
-          { present: computed(() => forceMount.value || inject.open.value).value },
+          { present: forceMount.value || inject.open.value },
           {
             default: () => h(CollectionSlot,
               {

@@ -217,22 +217,22 @@ const menuContentImpl = defineComponent({
                     }),
                     'onBlur': composeEventHandlers<MenuContentImplEmits['blur'][0]>((event) => {
                       emit('blur', event)
-                    }, (event: any) => {
+                    }, (event) => {
                       // clear search buffer when leaving the menu
-                      if (!event.valueTarget.contains(event.target)) {
+                      if (!(event.currentTarget as HTMLDivElement)?.contains(event.target as HTMLElement)) {
                         window.clearTimeout(timerRef.value)
                         searchRef.value = ''
                       }
                     }),
                     'onPointermove': composeEventHandlers<MenuContentImplEmits['pointermove'][0]>((event) => {
                       emit('pointermove', event)
-                    }, whenMouse((event: any) => {
-                      const target = event.target as HTMLElement
+                    }, whenMouse((event) => {
+                      const target = event.target as HTMLDivElement
                       const pointerXHasChanged = lastPointerXRef.value !== event.clientX
 
                       // We don't use `event.movementX` for this check because Safari will
                       // always return `0` on a pointer event.
-                      if (event.valueTarget.contains(target) && pointerXHasChanged) {
+                      if ((event.currentTarget as HTMLDivElement)?.contains(target) && pointerXHasChanged) {
                         const newDir = event.clientX > lastPointerXRef.value ? 'right' : 'left'
                         pointerDirRef.value = newDir
                         lastPointerXRef.value = event.clientX

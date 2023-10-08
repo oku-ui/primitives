@@ -95,8 +95,8 @@ function isPointerInGraceArea(event: PointerEvent, area?: Polygon) {
   return isPointInPolygon(cursorPos, area)
 }
 
-function whenMouse(handler: any) {
-  return (event: any) => (event.pointerType === 'mouse' ? handler(event) : undefined)
+function whenMouse(event: (e: PointerEvent) => void) {
+  return (e: PointerEvent) => (e.pointerType === 'mouse' ? event(e) : undefined)
 }
 
 export { getOpenState, isIndeterminate, getCheckedState, focusFirst, getNextMatch, isPointerInGraceArea, whenMouse }
