@@ -97,10 +97,10 @@ type MenuRootInjectValue = {
 export const [menuRootProvider, useMenuRootInject] = createMenuProvide<MenuRootInjectValue>(MENU_NAME)
 
 export interface MenuProps {
-  open: Ref<boolean>
+  open: boolean
   onOpenChange?(open: boolean): void
-  dir: Ref<Direction>
-  modal: Ref<boolean>
+  dir: Direction
+  modal: boolean
 }
 
 export const menuProps = {
@@ -567,7 +567,7 @@ export type MenuRadioItemNativeElement = MenuItemNativeElement
 export type MenuRadioItemElement = MenuItemElement
 
 export interface MenuRadioItemProps extends MenuItemProps {
-  value: Ref<string>
+  value: string
 }
 // TODO
 export type MenuRadioItemEmits = {
@@ -602,7 +602,6 @@ export const [itemIndicatorProvider, useItemIndicatorInject] = createMenuProvide
 export type MenuItemIndicatorNativeElement = OkuElement<'span'>
 export type MenuItemIndicatorElement = HTMLSpanElement
 
-// export type PrimitiveSpanProps = Radix.ComponentPropsWithoutRef<typeof Primitive.span>;
 export interface MenuItemIndicatorProps extends PrimitiveProps {
   /**
    * Used to force mounting when more control is needed. Useful when
@@ -669,7 +668,7 @@ type MenuSubInjectValue = {
 export const [menuSubProvider, useMenuSubInject] = createMenuProvide<MenuSubInjectValue>(MENU_SUB_NAME)
 
 export interface MenuSubProps {
-  open?: Ref<boolean>
+  open?: boolean
 }
 
 export type MenuSubEmits = {
