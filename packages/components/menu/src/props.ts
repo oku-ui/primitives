@@ -671,7 +671,11 @@ export const [menuSubProvider, useMenuSubInject] = createMenuProvide<MenuSubInje
 
 export interface MenuSubProps {
   open?: Ref<boolean>
-  onOpenChange?(open: boolean): void
+}
+
+export type MenuSubEmits = {
+  openChange: [open: boolean]
+  triggerChange: [trigger: MenuSubTriggerElement | null]
 }
 
 export const menuSubProps = {

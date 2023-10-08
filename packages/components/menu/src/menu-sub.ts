@@ -12,18 +12,13 @@ const menuSub = defineComponent({
   inheritAttrs: false,
   props: {
     ...menuSubProps.props,
-    // ...primitiveProps,
     ...scopedMenuProps,
   },
-  emits: menuSubProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,
       open,
     } = toRefs(props)
-
-    // const _reactive = reactive(menuSubProps)
-    // const reactiveMenuSubProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const parentMenuInject = useMenuInject(MENU_SUB_NAME, scopeOkuMenu.value)
     const popperScope = usePopperScope(scopeOkuMenu.value)
@@ -42,7 +37,7 @@ const menuSub = defineComponent({
     menuProvider({
       scope: scopeOkuMenu.value,
       open,
-      onOpenChange: () => handleOpenChange,
+      onOpenChange: handleOpenChange,
       content,
       onContentChange: _content => content.value = _content,
     })
@@ -55,7 +50,13 @@ const menuSub = defineComponent({
       onTriggerChange: _trigger => trigger.value = _trigger,
     })
 
-    return () => h(OkuPopper, { ...mergeProps(attrs, popperScope) }, slots)
+    return () => h(OkuPopper,
+      {
+        ...popperScope,
+        ...mergeProps(attrs),
+      },
+      slots,
+    )
   },
 })
 
