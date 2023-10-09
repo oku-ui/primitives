@@ -7,7 +7,7 @@ interface StoryProps extends IMenuProps {
 }
 
 const meta = {
-  title: 'components/Menu',
+  title: 'Utilities/Menu',
   component: OkuMenu,
   args: {
     template: 'Styled',

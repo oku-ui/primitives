@@ -8,7 +8,7 @@ const options = ['Crows', 'Ravens', 'Magpies', 'Jackdaws']
 const selection = ref<string[]>([])
 
 function handleSelectAll() {
-  selection.value = currentSelection => (currentSelection.length === options.length ? [] : options)
+  selection.value = selection.value.length === options.length ? [] : options
 }
 </script>
 
@@ -28,7 +28,7 @@ function handleSelectAll() {
     <OkuMenuSeparator class="menu-separator" />
     <OkuMenuCheckboxItem
       v-for="option in options" :key="option" class="menu-item" :checked="selection.includes(option)"
-      @checked-change="selection = (current) => (current.includes(option) ? current.filter((el) => el !== option) : current.concat(option))"
+      @checked-change="selection = selection.includes(option) ? selection.filter((el) => el !== option) : selection.concat(option)"
     >
       {{ option }}
       <OkuMenuItemIndicator>

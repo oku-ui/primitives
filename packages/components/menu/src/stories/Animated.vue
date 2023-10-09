@@ -36,7 +36,7 @@ const checkboxItems = reactive([
         <TickIcon />
       </OkuMenuItemIndicator>
     </OkuMenuCheckboxItem>
-    <OkuMenuRadioGroup :value="file" @value-change="file">
+    <OkuMenuRadioGroup :value="file" @value-change="() => file">
       <OkuMenuRadioItem v-for="_file in files" :key="_file" class="menu-item" :value="_file">
         {{ file }}
         <OkuMenuItemIndicator class="menu-animated-item-indicator">

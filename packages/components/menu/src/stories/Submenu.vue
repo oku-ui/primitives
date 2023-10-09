@@ -20,7 +20,7 @@ defineProps({
 </script>
 
 <template>
-  <OkuMenuSub :open="open" @open-change="open">
+  <OkuMenuSub :open="open" @open-change="() => open">
     <OkuMenuSubTrigger class="menu-sub-trigger menu-item" :disabled="disabled">
       {{ heading }} →
     </OkuMenuSubTrigger>
