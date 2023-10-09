@@ -56,27 +56,13 @@ export interface IMenuProps {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 5px;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-  font-family: 'apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif';
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
   font-size: 13px;
   &:focus-within {
     border-color: #111;
   }
 }
-
-/* .item-styles {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  line-height: 1px;
-  cursor: default;
-  user-select: none;
-  white-space: nowrap;
-  height: 25px;
-  padding: 0 10px;
-  color: #111;
-  border-radius: 3px;
-} */
 
 .menu-label {
   display: flex;
@@ -87,7 +73,7 @@ export interface IMenuProps {
   user-select: none;
   white-space: nowrap;
   height: 25px;
-  padding: 0 10px;
+  padding: 0px 10px;
   color: #111;
   border-radius: 3px;
 
@@ -103,11 +89,11 @@ export interface IMenuProps {
   user-select: none;
   white-space: nowrap;
   height: 25px;
-  padding: 0 10px;
+  padding: 0px 10px;
   color: #111;
   border-radius: 3px;
 
-  outline: 'none';
+  outline: none;
 
   &[data-highlighted] {
     background-color: #111;

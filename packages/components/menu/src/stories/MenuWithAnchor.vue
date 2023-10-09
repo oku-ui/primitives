@@ -14,7 +14,7 @@ defineProps({
     <!-- inline-block allows anchor to move when rtl changes on document -->
     <OkuMenuAnchor :style="{ display: 'inline-block' }" />
     <OkuMenuPortal>
-      <OkuMenuContent class="menu-content" align="start" @close-auto-focus="event => event.preventDefault()">
+      <OkuMenuContent v-bind="$attrs" class="menu-content" align="start" @close-auto-focus="event => event.preventDefault()">
         <slot />
       </OkuMenuContent>
     </OkuMenuPortal>
