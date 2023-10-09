@@ -56,7 +56,7 @@ const menuItem = defineComponent({
         disabled: disabled.value,
         onClick: composeEventHandlers<MenuItemEmits['click'][0]>((event) => {
           emit('click', event)
-        }, () => handleSelect()),
+        }, handleSelect),
         onPointerdown: composeEventHandlers<MenuItemEmits['pointerdown'][0]>((event) => {
           emit('pointerdown', event)
         }, () => isPointerDownRef.value = true),
