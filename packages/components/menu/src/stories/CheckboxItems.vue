@@ -15,7 +15,7 @@ function handleSelectAll() {
 <template>
   <MenuWithAnchor>
     <OkuMenuCheckboxItem
-      class="menu-item" @checked-change="handleSelectAll" @checked="selection.length === options.length ? true : selection.length ? 'indeterminate' : false"
+      class="menu-item" :checked="selection.length === options.length ? true : selection.length ? 'indeterminate' : false" @checked-change="handleSelectAll"
     >
       Select all
       <OkuMenuItemIndicator>
