@@ -28,13 +28,12 @@ const menuCheckboxItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     itemIndicatorProvider({
       scope: scopeOkuMenu.value,
       checked,
     })
-
-    const emits = useListeners()
 
     return () => h(OkuMenuItem,
       {
@@ -43,9 +42,11 @@ const menuCheckboxItem = defineComponent({
         ...mergeProps(attrs, otherProps, emits),
         'ref': forwardedRef,
         'data-state': getCheckedState(checked.value),
-        'onSelect': composeEventHandlers<MenuCheckboxItemEmits['select'][0]>(() => {
+        'onSelect': composeEventHandlers<MenuCheckboxItemEmits['select'][0]>((e) => {
+          emit('select', e)
+        }, () => {
           emit('checkedChange', isIndeterminate(checked.value) ? true : !checked.value)
-        }, undefined, { checkForDefaultPrevented: false }),
+        }, { checkForDefaultPrevented: false }),
       }, slots,
     )
   },

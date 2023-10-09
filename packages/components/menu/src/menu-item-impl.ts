@@ -30,11 +30,12 @@ const menuItemImpl = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const contentInject = useMenuContentInject(MENU_ITEM_NAME, scopeOkuMenu.value)
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuMenu.value)
     const menuItemRef = ref<HTMLDivElement | null>(null)
-    const composedRefs = useComposedRefs(forwardedRef, el => menuItemRef.value = (el as HTMLDivElement))
+    const composedRefs = useComposedRefs(forwardedRef, menuItemRef)
     const isFocused = ref(false)
 
     // get the item's `.textContent` as default strategy for typeahead `textValue`
@@ -45,8 +46,6 @@ const menuItemImpl = defineComponent({
       if (menuItem)
         textContent.value = (menuItem.textContent ?? '').trim()
     })
-
-    const emits = useListeners()
 
     return () => h(CollectionItemSlot,
       {

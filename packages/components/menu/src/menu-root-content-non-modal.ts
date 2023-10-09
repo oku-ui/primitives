@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { MENU_CONTENT_NAME, MENU_NON_MODAL_NAME, menuRootContentNonModalProps, scopedMenuProps, useMenuInject } from './props'
 import type { MenuPortalNativeElement } from './props'
 import { OkuMenuContentImpl } from './menu-content-impl'
@@ -14,6 +14,7 @@ const menuRootContentNonModal = defineComponent({
     ...menuRootContentNonModalProps.props,
     ...scopedMenuProps,
   },
+  emits: menuRootContentNonModalProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuMenu,
@@ -24,12 +25,13 @@ const menuRootContentNonModal = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
 
     return () => h(OkuMenuContentImpl,
       {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         ref: forwardedRef,
         trapFocus: false,
         disableOutsidePointerEvents: false,

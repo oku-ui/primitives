@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPopperAnchor } from '@oku-ui/popper'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { MENU_ANCHOR_NAME, menuAnchorProps, scopedMenuProps, usePopperScope } from './props'
 import type { MenuAnchorNativeElement } from './props'
 
@@ -14,6 +14,7 @@ const menuAnchor = defineComponent({
     ...menuAnchorProps.props,
     ...scopedMenuProps,
   },
+  emits: menuAnchorProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuMenu, ...otherPropsRef } = toRefs(props)
 
@@ -21,12 +22,13 @@ const menuAnchor = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
 
     return () => h(OkuPopperAnchor,
       {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         ...popperScope,
         ref: forwardedRef,
       },

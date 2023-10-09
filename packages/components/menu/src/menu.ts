@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, onBeforeMount, onMounted, ref, toRefs } from 'vue'
+import { defineComponent, h, onBeforeMount, onMounted, ref, toRefs } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
 import { useDirection } from '@oku-ui/direction'
 import { useListeners } from '@oku-ui/use-composable'
@@ -68,7 +68,6 @@ const menu = defineComponent({
 
     return () => h(OkuPopper,
       {
-        ...mergeProps(attrs, popperScope, emits),
         ...popperScope,
       }, slots,
     )
