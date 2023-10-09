@@ -27,7 +27,7 @@ function alert(text: string) {
     <OkuMenuSeparator class="menu-separator" />
     <OkuMenuRadioGroup :value="file" @value-change="(value: string) => file = value">
       <OkuMenuRadioItem v-for="_file in files" :key="_file" class="menu-item" :value="_file">
-        {{ file }}
+        {{ _file }}
         <OkuMenuItemIndicator>
           <TickIcon />
         </OkuMenuItemIndicator>
