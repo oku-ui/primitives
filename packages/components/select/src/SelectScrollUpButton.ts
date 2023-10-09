@@ -13,6 +13,7 @@ import {
   useComposedRefs,
   useForwardRef,
 } from '@oku-ui/use-composable'
+import type { SelectScrollUpButtonElement } from './props'
 import {
   SCROLL_UP_BUTTON_NAME,
   scopeSelectProps,
@@ -98,3 +99,9 @@ const SelectScrollUpButton = defineComponent({
         : null
   },
 })
+
+export const OkuSelectScrollUpButton
+  = SelectScrollUpButton as typeof SelectScrollUpButton &
+  (new () => {
+    $props: SelectScrollUpButtonElement
+  })

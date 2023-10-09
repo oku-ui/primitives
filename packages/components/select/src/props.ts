@@ -700,11 +700,15 @@ export const selectScrollUpButtonProps = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- * SelectScrollUpButton
+ * SelectScrollDownButton
  * ----------------------------------------------------------------------------------------------- */
 export type SelectScrollDownButtonElement = SelectScrollButtonImplElement
 export interface SelectScrollDownButtonProps
   extends Omit<SelectScrollButtonImplProps, 'autoScroll'> {}
+
+export type SelectScrollDownButtonEmits = SelectScrollUpButtonEmits
+
+export const selectScrollDownButtonProps = selectScrollUpButtonProps
 
 /* -------------------------------------------------------------------------------------------------
  * SelectPortal
