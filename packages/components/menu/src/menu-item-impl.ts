@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } fr
 import { Primitive } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuItemImplEmits, MenuItemImplNativeElement } from './props'
 import { CollectionItemSlot, MENU_ITEM_IMPL_NAME, MENU_ITEM_NAME, menuItemImplProps, scopedMenuProps, useMenuContentInject, useRovingFocusGroupScope } from './props'
 import { whenMouse } from './utils'
@@ -30,7 +30,6 @@ const menuItemImpl = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
 
     const contentInject = useMenuContentInject(MENU_ITEM_NAME, scopeOkuMenu.value)
     const rovingFocusGroupScope = useRovingFocusGroupScope(scopeOkuMenu.value)
@@ -67,7 +66,7 @@ const menuItemImpl = defineComponent({
                 'data-highlighted': isFocused.value ? '' : undefined,
                 'aria-disabled': disabled.value || undefined,
                 'data-disabled': disabled.value ? '' : undefined,
-                ...mergeProps(attrs, otherProps, emits),
+                ...mergeProps(attrs, otherProps),
                 'ref': composedRefs,
                 /**
                 * We focus items on `pointerMove` to achieve the following:
