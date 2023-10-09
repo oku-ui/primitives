@@ -17,7 +17,6 @@ const menuRootContentModel = defineComponent({
     ...scopedMenuProps,
   },
   emits: menuRootContentTypeProps.emits,
-
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,

@@ -31,7 +31,7 @@ const menuRadioItem = defineComponent({
     const emits = useListeners()
 
     const inject = useRadioGroupInject(MENU_RADIO_ITEM_NAME, scopeOkuMenu.value)
-    const checked = computed(() => value.value === inject.value)
+    const checked = computed(() => value.value === inject.value?.value)
 
     itemIndicatorProvider({
       scope: scopeOkuMenu.value,
