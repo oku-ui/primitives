@@ -673,7 +673,6 @@ export interface MenuSubProps {
 
 export type MenuSubEmits = {
   openChange: [open: boolean]
-  triggerChange: [trigger: MenuSubTriggerElement | null]
 }
 
 export const menuSubProps = {
@@ -686,8 +685,6 @@ export const menuSubProps = {
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
     openChange: (open: boolean) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    triggerChange: (trigger: MenuSubTriggerElement | null) => true,
   },
 }
 

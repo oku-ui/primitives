@@ -1,5 +1,5 @@
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { reactiveOmit, useId, useListeners } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
+import { useId } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
 import type { MenuContentElement, MenuSubTriggerElement } from './props'
 import { MENU_SUB_NAME, menuProvider, menuSubProps, menuSubProvider, scopedMenuProps, useMenuInject, usePopperScope } from './props'
@@ -15,23 +15,17 @@ const menuSub = defineComponent({
     ...scopedMenuProps,
   },
   emits: menuSubProps.emits,
-  setup(props, { attrs, emit, slots }) {
+  setup(props, { emit, slots }) {
     const {
       scopeOkuMenu,
       open,
-      ...restProps
     } = toRefs(props)
-
-    const _other = reactive(restProps)
-    const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const parentMenuInject = useMenuInject(MENU_SUB_NAME, scopeOkuMenu.value)
     const popperScope = usePopperScope(scopeOkuMenu.value)
     const trigger = ref<MenuSubTriggerElement | null>(null)
     const content = ref<MenuContentElement | null>(null)
     const handleOpenChange = (open: boolean) => emit('openChange', open)
-
-    const emits = useListeners()
 
     // Prevent the parent menu from reopening with open submenus.
     watchEffect((onInvalidate) => {
@@ -60,7 +54,6 @@ const menuSub = defineComponent({
     return () => h(OkuPopper,
       {
         ...popperScope,
-        ...mergeProps(attrs, otherProps, emits),
       },
       slots,
     )

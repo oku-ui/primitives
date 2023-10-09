@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import type { MenuRadioGroupNativeElement } from './props'
 import { MENU_RADIO_GROUP_NAME, menuRadioGroupProps, radioGroupProvider, scopedMenuProps } from './props'
 import { OkuMenuGroup } from './menu-group'
@@ -14,6 +14,7 @@ const menuRadioGroup = defineComponent({
     ...menuRadioGroupProps.props,
     ...scopedMenuProps,
   },
+  emits: menuRadioGroupProps.emits,
   setup(props, { attrs, emit, slots }) {
     const {
       scopeOkuMenu,
@@ -25,6 +26,7 @@ const menuRadioGroup = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const listeners = useListeners()
 
     const handleValueChange = (value: string) => emit('valueChange', value)
 
@@ -38,7 +40,7 @@ const menuRadioGroup = defineComponent({
 
     return () => h(OkuMenuGroup,
       {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, listeners),
         ref: forwardedRef,
       }, slots,
     )

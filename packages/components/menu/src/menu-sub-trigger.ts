@@ -37,7 +37,6 @@ const menuSubTrigger = defineComponent({
     const subInject = useMenuSubInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
     const contentInject = useMenuContentInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
     const openTimerRef = ref<number | null>(null)
-    const { pointerGraceTimerRef, onPointerGraceIntentChange } = contentInject
     const scope = { scope: scopeOkuMenu.value }
 
     function clearOpenTimer() {
@@ -46,13 +45,13 @@ const menuSubTrigger = defineComponent({
       openTimerRef.value = null
     }
 
-    onMounted(() => clearOpenTimer)
+    onMounted(() => clearOpenTimer())
 
     watchEffect((clean) => {
-      const pointerGraceTimer = pointerGraceTimerRef.value
+      const pointerGraceTimer = contentInject.pointerGraceTimerRef.value
       clean(() => {
         window.clearTimeout(pointerGraceTimer)
-        onPointerGraceIntentChange(null)
+        contentInject.onPointerGraceIntentChange(null)
       })
     })
 
@@ -102,7 +101,7 @@ const menuSubTrigger = defineComponent({
             })),
             'onPointerleave': composeEventHandlers<MenuSubTriggerEmits['pointerleave'][0]>((event) => {
               emit('pointerleave', event)
-            }, whenMouse((event: PointerEvent) => {
+            }, whenMouse(async (event: PointerEvent) => {
               clearOpenTimer()
 
               const contentRect = inject.content.value?.getBoundingClientRect()
@@ -127,8 +126,8 @@ const menuSubTrigger = defineComponent({
                   side,
                 })
 
-                window.clearTimeout(pointerGraceTimerRef.value)
-                pointerGraceTimerRef.value = window.setTimeout(
+                window.clearTimeout(contentInject.pointerGraceTimerRef.value)
+                contentInject.pointerGraceTimerRef.value = window.setTimeout(
                   () => contentInject.onPointerGraceIntentChange(null),
                   300,
                 )
@@ -144,12 +143,13 @@ const menuSubTrigger = defineComponent({
             })),
             'onKeydown': composeEventHandlers<MenuSubTriggerEmits['keydown'][0]>((event) => {
               emit('keydown', event)
-            }, (event) => {
+            }, async (event) => {
               const isTypingAhead = contentInject.searchRef.value !== ''
               if (props.disabled || (isTypingAhead && event.key === ' '))
                 return
               if (SUB_OPEN_KEYS[rootInject.dir.value].includes(event.key)) {
                 inject.onOpenChange(true)
+
                 // The trigger may hold focus if opened via pointer interaction
                 // so we ensure content is given focus again when switching to keyboard.
                 inject.content.value?.focus()
