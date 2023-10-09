@@ -1,5 +1,5 @@
 import type { InjectionKey, PropType } from 'vue'
-import { inject, provide, shallowReactive } from 'vue'
+import { inject, provide } from 'vue'
 
 function createProvide<ProvideValueType extends object | null>(
   rootComponentName: string,
@@ -51,9 +51,10 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
       props: ProvideValueType & { scope: Scope<ProvideValueType> | undefined },
     ) {
       const { scope, ...context } = props
+
       const Provide = scope?.[scopeName][index] || BaseScope
 
-      provide(Provide, shallowReactive(context as any))
+      provide(Provide, context as any)
     }
 
     function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
