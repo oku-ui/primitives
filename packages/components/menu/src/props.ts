@@ -98,7 +98,6 @@ export const [menuRootProvider, useMenuRootInject] = createMenuProvide<MenuRootI
 
 export interface MenuProps {
   open: boolean
-  onOpenChange?(open: boolean): void
   dir: Direction
   modal: boolean
 }
@@ -106,14 +105,14 @@ export interface MenuProps {
 export const menuProps = {
   props: {
     open: {
-      type: Boolean as unknown as PropType<MenuProps['open']>,
+      type: Boolean as PropType<MenuProps['open']>,
       default: false,
     },
     dir: {
-      type: String as PropType<Direction>,
+      type: String as PropType<MenuProps['dir']>,
     },
     modal: {
-      type: Boolean,
+      type: Boolean as PropType<MenuProps['modal']>,
       default: true,
     },
   },
@@ -143,7 +142,7 @@ export const menuAnchorProps = {
 
 /* -------------------------------------------------------------------------------------------------
  * MenuPortal - menu-portal.ts
-* ----------------------------------------------------------------------------------------------- */
+ * ----------------------------------------------------------------------------------------------- */
 
 export type MenuPortalNativeElement = OkuElement<'div'>
 export type MenuPortalElement = HTMLDivElement
@@ -173,10 +172,10 @@ export interface MenuPortalProps {
 export const menuPortalProps = {
   props: {
     container: {
-      type: Object as PropType<PortalProps['container']>,
+      type: Object as PropType<MenuPortalProps['container']>,
     },
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean as PropType<MenuPortalProps['forceMount']>,
       default: undefined,
     },
   },
@@ -189,12 +188,6 @@ export const menuPortalProps = {
 
 export type MenuContentImplNativeElement = PopperContentNaviteElement
 export type MenuContentImplElement = PopperContentElement
-
-// export type FocusScopeProps = FocusScopeElement
-// export type DismissableLayerProps = DismissableLayerElement
-// export type RovingFocusGroupProps = RovingFocusGroupElement
-
-// export type PopperContentProps = PopperContentElement
 
 export type MenuContentImplPrivateProps = {
   disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents']
@@ -214,30 +207,29 @@ export type MenuContentImplPrivateProps = {
 
 export type MenuContentImplPrivateEmits = {
   openAutoFocus: [event: FocusScopeEmits['mountAutoFocus'][0]]
-  dismiss: [event: DismissableLayerEmits['dismiss']]
+  dismiss: []
 }
 
 const menuContentImplPrivateProps = {
   props: {
     disableOutsidePointerEvents: {
-      type: Boolean as PropType<DismissableLayerProps['disableOutsidePointerEvents']>,
+      type: Boolean as PropType<MenuContentImplPrivateProps['disableOutsidePointerEvents']>,
       default: undefined,
     },
     disableOutsideScroll: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean as PropType<MenuContentImplPrivateProps['disableOutsideScroll']>,
       default: false,
     },
     trapFocus: {
-      type: Boolean as PropType<FocusScopeProps['trapped']>,
+      type: Boolean as PropType<MenuContentImplPrivateProps['trapFocus']>,
       default: false,
     },
   },
 
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    openAutoFocus: (event: FocusScopeEmits['mountAutoFocus'][0]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    dismiss: (event: DismissableLayerEmits['dismiss']) => true,
+    openAutoFocus: (event: MenuContentImplPrivateEmits['openAutoFocus'][0]) => true,
+    dismiss: () => true,
   },
   propsKeys: ['disableOutsidePointerEvents', 'disableOutsideScroll', 'trapFocus'] as ['disableOutsidePointerEvents', 'disableOutsideScroll', 'trapFocus'],
   emitsKeys: ['openAutoFocus', 'dismiss'] as ['openAutoFocus', 'dismiss'],
@@ -264,7 +256,6 @@ export type MenuContentImplEmits = {
   focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
   interactOutside: [event: DismissableLayerEmits['interactOutside'][0]]
 
-  // TODO
   mountAutoFocus: [event: FocusEvent]
   keydown: [event: KeyboardEvent]
   blur: [event: FocusEvent]
@@ -277,35 +268,32 @@ export const menuContentImplProps = {
     ...menuContentImplPrivateProps.props,
     ...propsOmit(popperContentProps.props, ['dir']),
     loop: {
-      type: Boolean as PropType<RovingFocusGroupProps['loop']>,
+      type: Boolean as PropType<MenuContentImplProps['loop']>,
       default: false,
     },
   },
   emits: {
     ...propsOmit(popperContentProps.emits, ['placed']),
+    ...menuContentImplPrivateProps.emits,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    openAutoFocus: (event: FocusScopeEmits['mountAutoFocus'][0]) => true,
+    closeAutoFocus: (event: MenuContentImplEmits['closeAutoFocus'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    closeAutoFocus: (event: FocusScopeEmits['unmountAutoFocus'][0]) => true,
+    entryFocus: (event: MenuContentImplEmits['entryFocus'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    entryFocus: (event: RovingFocusGroupEmits['entryFocus'][0]) => true,
-    dismiss: () => true,
+    escapeKeyDown: (event: MenuContentImplEmits['escapeKeyDown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
+    pointerdownOutside: (event: MenuContentImplEmits['pointerdownOutside'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdownOutside: (event: DismissableLayerEmits['pointerdownOutside'][0]) => true,
+    focusoutSide: (event: MenuContentImplEmits['focusoutSide'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    focusoutSide: (event: DismissableLayerEmits['focusoutSide'][0]) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    interactOutside: (event: DismissableLayerEmits['interactOutside'][0]) => true,
+    interactOutside: (event: MenuContentImplEmits['interactOutside'][0]) => true,
 
-    // TODO
     // eslint-disable-next-line unused-imports/no-unused-vars
-    keydown: (event: KeyboardEvent) => true,
+    keydown: (event: MenuContentImplEmits['keydown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    blur: (event: FocusEvent) => true,
+    blur: (event: MenuContentImplEmits['blur'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointermove: (event: PointerEvent) => true,
+    pointermove: (event: MenuContentImplEmits['pointermove'][0]) => true,
   },
 }
 
@@ -343,6 +331,7 @@ type MenuContentInjectValue = {
   pointerGraceTimerRef: Ref<number>
   onPointerGraceIntentChange(intent: GraceIntent | null): void
 }
+
 export const [menuContentProvider, useMenuContentInject] = createMenuProvide<MenuContentInjectValue>(MENU_CONTENT_NAME)
 
 /**
@@ -360,11 +349,11 @@ export interface MenuContentProps extends MenuRootContentTypeProps {
 
 export const menuContentProps = {
   props: {
-    ...menuRootContentTypeProps.props,
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean as PropType<MenuContentProps['forceMount']>,
       default: undefined,
     },
+    ...menuRootContentTypeProps.props,
   },
   emits: {
     ...menuRootContentTypeProps.emits,
@@ -423,7 +412,7 @@ export interface MenuItemImplProps extends PrimitiveProps {
   disabled?: boolean
   textValue?: string
 }
-// TODO
+
 export type MenuItemImplEmits = {
   pointermove: [event: PointerEvent]
   pointerleave: [event: PointerEvent]
@@ -434,23 +423,23 @@ export type MenuItemImplEmits = {
 export const menuItemImplProps = {
   props: {
     textValue: {
-      type: String as PropType<string>,
+      type: String as PropType<MenuItemImplProps['textValue']>,
     },
     disabled: {
-      type: Boolean as PropType<boolean | undefined>,
+      type: Boolean as PropType<MenuItemImplProps['disabled']>,
       default: undefined,
     },
     ...primitiveProps,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointermove: (event: PointerEvent) => true,
+    pointermove: (event: MenuItemImplEmits['pointermove'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerleave: (event: PointerEvent) => true,
+    pointerleave: (event: MenuItemImplEmits['pointerleave'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    focus: (event: FocusEvent) => true,
+    focus: (event: MenuItemImplEmits['focus'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    blur: (event: FocusEvent) => true,
+    blur: (event: MenuItemImplEmits['blur'][0]) => true,
   },
 }
 
@@ -463,17 +452,15 @@ export const ITEM_SELECT = 'menu.itemSelect'
 export type MenuItemNativeElement = MenuItemImplNativeElement
 export type MenuItemElement = MenuItemImplElement
 
-export interface MenuItemProps extends Omit<MenuItemImplProps, 'onSelect'> {
-  onSelect?: (event: Event) => void
-}
+export interface MenuItemProps extends MenuItemImplProps { }
 
-export type MenuItemEmits = Omit<MenuItemImplEmits, 'select'> & {
+export type MenuItemEmits = {
   select: [event: Event]
+  click: [event: MouseEvent]
   pointerdown: [event: PointerEvent]
   pointerup: [event: PointerEvent]
-  click: [event: MouseEvent]
   keydown: [event: KeyboardEvent]
-}
+} & Omit<MenuItemImplEmits, 'select'>
 
 export const menuItemProps = {
   props: {
@@ -482,15 +469,15 @@ export const menuItemProps = {
   emits: {
     ...menuItemImplProps.emits,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    select: (event: Event) => true,
+    select: (event: MenuItemEmits['select'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
+    click: (event: MenuItemEmits['click'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerdown: (event: PointerEvent) => true,
+    pointerdown: (event: MenuItemEmits['pointerdown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    pointerup: (event: PointerEvent) => true,
+    pointerup: (event: MenuItemEmits['pointerup'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    keydown: (event: KeyboardEvent) => true,
+    keydown: (event: MenuItemEmits['keydown'][0]) => true,
   },
 }
 
@@ -504,26 +491,25 @@ export type MenuCheckboxItemElement = MenuItemElement
 export type CheckedState = boolean | 'indeterminate'
 
 export interface MenuCheckboxItemProps extends MenuItemProps {
-  checked?: CheckedState
+  checked: CheckedState
 }
 
 export type MenuCheckboxItemEmits = {
-  select: [event: Event]
   // `onCheckedChange` can never be called with `"indeterminate"` from the inside
   checkedChange: [checked: boolean]
-}
+} & MenuItemEmits
 
 export const menuCheckboxItemProps = {
   props: {
     checked: {
-      type: [Boolean, String] as PropType<CheckedState>,
+      type: [Boolean, String] as PropType<MenuCheckboxItemProps['checked']>,
       default: false,
     },
     ...menuItemProps.props,
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    checkedChange: (checked: boolean) => true,
+    checkedChange: (checked: MenuCheckboxItemEmits['checkedChange'][0]) => true,
     ...menuItemProps.emits,
   },
 }
@@ -532,11 +518,6 @@ export const menuCheckboxItemProps = {
  * MenuRadioGroup - menu-radio-group.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export const [radioGroupProvider, useRadioGroupInject] = createMenuProvide<MenuRadioGroupProps>(
-  MENU_RADIO_GROUP_NAME,
-  { value: undefined, onValueChange: () => {} },
-)
-
 export type MenuRadioGroupNativeElement = MenuGroupNativeElement
 export type MenuRadioGroupElement = MenuGroupElement
 
@@ -544,6 +525,11 @@ export interface MenuRadioGroupProps extends MenuGroupProps {
   value?: Ref<string | undefined>
   onValueChange?: (value: string) => void
 }
+
+export const [radioGroupProvider, useRadioGroupInject] = createMenuProvide<MenuRadioGroupProps>(
+  MENU_RADIO_GROUP_NAME,
+  { value: undefined, onValueChange: () => {} },
+)
 
 export const menuRadioGroupProps = {
   props: {
@@ -569,21 +555,17 @@ export type MenuRadioItemElement = MenuItemElement
 export interface MenuRadioItemProps extends MenuItemProps {
   value: string
 }
-// TODO
-export type MenuRadioItemEmits = {
-  select: [event: Event]
-}
+
+export interface MenuRadioItemEmits extends MenuItemEmits { }
 
 export const menuRadioItemProps = {
   props: {
     value: {
-      type: String,
+      type: String as PropType<MenuRadioItemProps['value']>,
     },
     ...menuItemProps.props,
   },
   emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    openChange: (open: boolean) => true,
     ...menuItemProps.emits,
   },
 }
@@ -592,15 +574,15 @@ export const menuRadioItemProps = {
  * MenuItemIndicator - menu-item-indicator.ts
  * ----------------------------------------------------------------------------------------------- */
 
+export type MenuItemIndicatorNativeElement = OkuElement<'span'>
+export type MenuItemIndicatorElement = HTMLSpanElement
+
 type CheckboxInjectValue = { checked: Ref<CheckedState> }
 
 export const [itemIndicatorProvider, useItemIndicatorInject] = createMenuProvide<CheckboxInjectValue>(
   MENU_ITEM_INDICATOR_NAME,
   { checked: ref(false) },
 )
-
-export type MenuItemIndicatorNativeElement = OkuElement<'span'>
-export type MenuItemIndicatorElement = HTMLSpanElement
 
 export interface MenuItemIndicatorProps extends PrimitiveProps {
   /**
@@ -613,7 +595,7 @@ export interface MenuItemIndicatorProps extends PrimitiveProps {
 export const menuItemIndicatorProps = {
   props: {
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean as PropType<MenuItemIndicatorProps['forceMount']>,
       default: undefined,
     },
     ...primitiveProps,
@@ -643,7 +625,7 @@ export const menuSeparatorProps = {
 
 export type MenuArrowNativeElement = PopperArrowNaviteElement
 export type MenuArrowElement = PopperArrowElement
-export interface MenuArrowProps extends PopperArrowProps {}
+export interface MenuArrowProps extends PopperArrowProps { }
 
 export const menuArrowProps = {
   props: {
@@ -679,15 +661,15 @@ export type MenuSubEmits = {
 export const menuSubProps = {
   props: {
     open: {
-      type: Boolean,
+      type: Boolean as PropType<MenuSubProps['open']>,
       default: false,
     },
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    openChange: (open: boolean) => true,
+    openChange: (open: MenuSubEmits['openChange'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    triggerChange: (trigger: MenuSubTriggerElement | null) => true,
+    triggerChange: (trigger: MenuSubEmits['triggerChange'][0]) => true,
   },
 }
 
@@ -698,18 +680,7 @@ export const menuSubProps = {
 export type MenuSubTriggerNativeElement = MenuItemImplNativeElement
 export type MenuSubTriggerElement = MenuItemImplElement
 
-export interface MenuSubTriggerProps extends MenuItemImplProps {
-  click: [event: MouseEvent]
-  keydown: [event: KeyboardEvent]
-}
-
-// TODO
-// export type MenuSubTriggerEmits = {
-//   click: [event: MouseEvent]
-//   pointermove: [event: PointerEvent]
-//   pointerleave: [event: PointerEvent]
-//   Keydown: [event: KeyboardEvent]
-// }
+export interface MenuSubTriggerProps extends MenuItemImplProps { }
 
 export interface MenuSubTriggerEmits extends MenuItemImplEmits {
   click: [event: MouseEvent]
@@ -722,9 +693,9 @@ export const menuSubTriggerProps = {
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
+    click: (event: MenuSubTriggerEmits['click'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    keydown: (event: KeyboardEvent) => true,
+    keydown: (event: MenuSubTriggerEmits['keydown'][0]) => true,
     ...menuItemImplProps.emits,
   },
 }
@@ -734,9 +705,9 @@ export const menuSubTriggerProps = {
  * ----------------------------------------------------------------------------------------------- */
 
 export type MenuSubContentNativeElement = Omit<MenuContentImplNativeElement, 'side' | 'align'>
-export type MenuSubContentElement = Omit<MenuContentImplElement, 'side' | 'align'>
+export type MenuSubContentElement = MenuContentImplElement
 
-export interface MenuSubContentProps extends Omit<MenuContentImplProps, 'side' | 'align'> {
+export interface MenuSubContentProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps | 'side' | 'align'> {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -744,24 +715,12 @@ export interface MenuSubContentProps extends Omit<MenuContentImplProps, 'side' |
   forceMount?: true
 }
 
-// TODO
-// export type MenuSubContentEmits = {
-//   openAutoFocus: [event: FocusScopeEmits['mountAutoFocus'][0]]
-//   focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
-//   keydown: [event: KeyboardEvent]
-//   escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
-// }
-
-export interface MenuSubContentEmits extends Omit<
-MenuContentImplEmits,
- keyof MenuContentImplPrivateEmits | 'closeAutoFocus' | 'entryFocus'
- > {
-}
+export interface MenuSubContentEmits extends Omit<MenuContentImplEmits, keyof MenuContentImplPrivateEmits | 'closeAutoFocus' | 'entryFocus'> { }
 
 export const menuSubContentProps = {
   props: {
     forceMount: {
-      type: Boolean as PropType<true | undefined>,
+      type: Boolean as PropType<MenuSubContentProps['forceMount']>,
       default: undefined,
     },
     ...propsOmit(menuContentImplProps.props, ['side', 'align']),
