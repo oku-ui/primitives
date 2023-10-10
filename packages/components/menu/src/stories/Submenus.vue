@@ -41,14 +41,14 @@ function alert(text: string) {
       <OkuMenuItem class="menu-item" @select="alert('undo')">
         Undo
       </OkuMenuItem>
-      <Submenu :open="open1" :animated="animated" @open-change="open1 = true">
+      <Submenu :open="open1" :animated="animated" @open-change="open1 = !open1">
         <OkuMenuItem class="menu-item" disabled>
           Disabled
         </OkuMenuItem>
         <OkuMenuItem class="menu-item" @select="alert('one')">
           One
         </OkuMenuItem>
-        <Submenu :open="open2" :animated="animated" @open-change="open2 = true">
+        <Submenu :open="open2" :animated="animated" @open-change="open2 = !open2">
           <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>
@@ -68,7 +68,7 @@ function alert(text: string) {
             Six
           </OkuMenuItem>
         </Submenu>
-        <Submenu heading="Sub Menu" :open="open3" :animated="animated" @open-change="open3 = true">
+        <Submenu heading="Sub Menu" :open="open3" :animated="animated" @open-change="open3 = !open3">
           <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>
@@ -82,7 +82,7 @@ function alert(text: string) {
         <OkuMenuItem class="menu-item" @select="alert('two')">
           Two
         </OkuMenuItem>
-        <Submenu :open="open4" :animated="animated" disabled @open-change="open4 = true">
+        <Submenu :open="open4" :animated="animated" disabled @open-change="open4 = !open4">
           <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>

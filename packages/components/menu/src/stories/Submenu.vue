@@ -17,10 +17,13 @@ defineProps({
     type: Boolean,
   },
 })
+defineEmits<{
+  openChange: [open: boolean]
+}>()
 </script>
 
 <template>
-  <OkuMenuSub :open="open" @open-change="() => open">
+  <OkuMenuSub :open="open" @open-change="$emit('openChange', open)">
     <OkuMenuSubTrigger class="menu-sub-trigger menu-item" :disabled="disabled">
       {{ heading }} →
     </OkuMenuSubTrigger>

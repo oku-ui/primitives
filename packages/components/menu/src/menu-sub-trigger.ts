@@ -37,6 +37,7 @@ const menuSubTrigger = defineComponent({
     const subInject = useMenuSubInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
     const contentInject = useMenuContentInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
     const openTimerRef = ref<number | null>(null)
+    const { pointerGraceTimerRef, onPointerGraceIntentChange } = contentInject
     const scope = { scope: scopeOkuMenu.value }
 
     function clearOpenTimer() {
@@ -47,11 +48,11 @@ const menuSubTrigger = defineComponent({
 
     onMounted(() => clearOpenTimer())
 
-    watchEffect((clean) => {
-      const pointerGraceTimer = contentInject.pointerGraceTimerRef.value
-      clean(() => {
+    watchEffect((onInvalidate) => {
+      const pointerGraceTimer = pointerGraceTimerRef.value
+      onInvalidate(() => {
         window.clearTimeout(pointerGraceTimer)
-        contentInject.onPointerGraceIntentChange(null)
+        onPointerGraceIntentChange(null)
       })
     })
 
@@ -72,7 +73,7 @@ const menuSubTrigger = defineComponent({
             'ref': useComposedRefs(forwardedRef, el => subInject.onTriggerChange(el as MenuItemImplElement)),
             // This is redundant for mouse users but we cannot determine pointer type from
             // click event and we cannot use pointerup event (see git history for reasons why)
-            'onClick': (event: any) => {
+            'onClick': (event: MouseEvent) => {
               emit('click', event)
               if (props.disabled || event.defaultPrevented)
                 return
@@ -81,7 +82,7 @@ const menuSubTrigger = defineComponent({
                * and we rely heavily on `onFocusOutside` for submenus to close when switching
                * between separate submenus.
                */
-              event.currentTarget.focus()
+              (event.currentTarget as HTMLElement).focus()
               if (!inject.open.value)
                 inject.onOpenChange(true)
             },
@@ -126,8 +127,8 @@ const menuSubTrigger = defineComponent({
                   side,
                 })
 
-                window.clearTimeout(contentInject.pointerGraceTimerRef.value)
-                contentInject.pointerGraceTimerRef.value = window.setTimeout(
+                window.clearTimeout(pointerGraceTimerRef.value)
+                pointerGraceTimerRef.value = window.setTimeout(
                   () => contentInject.onPointerGraceIntentChange(null),
                   300,
                 )
