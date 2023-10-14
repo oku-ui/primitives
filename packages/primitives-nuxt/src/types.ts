@@ -46,4 +46,5 @@ export interface ModuleOptions {
    * @default true
   */
   splash?: boolean
+  autoInstall?: boolean
 }
