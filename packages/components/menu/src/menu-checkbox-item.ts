@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getCheckedState, isIndeterminate } from './utils'
 import type { MenuCheckboxItemEmits, MenuCheckboxItemNativeElement } from './props'

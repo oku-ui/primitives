@@ -1,6 +1,6 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getCheckedState } from './utils'
 import { OkuMenuItem } from './menu-item'
 import type { MenuRadioItemEmits, MenuRadioItemNativeElement } from './props'

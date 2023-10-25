@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPopperArrow } from '@oku-ui/popper'
-import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { MenuArrowNativeElement } from './props'
 import { MENU_ARROW_NAME, menuArrowProps, scopedMenuProps, usePopperScope } from './props'
 

@@ -1,4 +1,4 @@
-import { defineComponent, h, onBeforeMount, onMounted, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, onBeforeMount, onMounted, ref, toRefs } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
 import { useDirection } from '@oku-ui/direction'
 import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'

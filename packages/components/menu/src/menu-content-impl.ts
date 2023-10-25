@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, reactive, ref, toRefs, watch } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useComposedRefs, useForwardRef, useListeners, useScrollLock } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
 import { useFocusGuards } from '@oku-ui/focus-guards'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuFocusScope } from '@oku-ui/focus-scope'

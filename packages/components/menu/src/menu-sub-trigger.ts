@@ -1,5 +1,5 @@
-import { computed, defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref, toRefs, watchEffect } from 'vue'
-import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, nextTick, onUnmounted, reactive, ref, toRefs, watchEffect } from 'vue'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { Side } from './utils'
 import { getOpenState, whenMouse } from './utils'

@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
-import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuPresence } from '@oku-ui/presence'
 import type { MenuSubContentElement, MenuSubContentEmits, MenuSubContentNativeElement } from './props'

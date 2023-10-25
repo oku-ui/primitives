@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { onBeforeUnmount, ref, watch, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from './props'
 import { FOCUS_OUTSIDE, INJECT_UPDATE, POINTER_DOWN_OUTSIDE } from './props'

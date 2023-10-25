@@ -1,6 +1,6 @@
 import { reactiveOmit, useComposedRefs, useEscapeKeydown, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRef, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { dispatchUpdate, useFocusOutside, usePointerdownOutside } from './util'
 import type { DismissableLayerElement, DismissableLayerNativeElement, FocusBlurCaptureEvent, FocusCaptureEvent, PointerdownCaptureEvent } from './props'
