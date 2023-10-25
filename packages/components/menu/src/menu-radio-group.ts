@@ -26,7 +26,7 @@ const menuRadioGroup = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const listeners = useListeners()
+    // const listeners = useListeners()
 
     const handleValueChange = (value: string) => emit('valueChange', value)
 
@@ -34,13 +34,13 @@ const menuRadioGroup = defineComponent({
       {
         scope: scopeOkuMenu.value,
         value,
-        onValueChange: handleValueChange,
+        onValueChange: _value => handleValueChange(_value),
       },
     )
 
     return () => h(OkuMenuGroup,
       {
-        ...mergeProps(attrs, otherProps, listeners),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
       }, slots,
     )

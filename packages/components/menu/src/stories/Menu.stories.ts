@@ -94,9 +94,6 @@ export const CheckboxItems: Story = {
       <OkuMenu v-bind="args" />
     `,
   }),
-  parameters: {
-    chromatic: { disable: false },
-  },
 }
 
 export const RadioItems: Story = {

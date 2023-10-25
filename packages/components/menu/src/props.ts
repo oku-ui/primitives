@@ -225,7 +225,6 @@ const menuContentImplPrivateProps = {
       default: false,
     },
   },
-
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
     openAutoFocus: (event: MenuContentImplPrivateEmits['openAutoFocus'][0]) => true,
@@ -251,12 +250,12 @@ export type MenuContentImplEmits = {
   closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
 
   entryFocus: [event: RovingFocusGroupEmits['entryFocus'][0]]
-  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
+  escapeKeydown: [event: DismissableLayerEmits['escapeKeydown'][0]]
   pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
-  focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
+  focusOutside: [event: DismissableLayerEmits['focusOutside'][0]]
   interactOutside: [event: DismissableLayerEmits['interactOutside'][0]]
 
-  mountAutoFocus: [event: FocusEvent]
+  mountAutoFocus: [event: FocusScopeEmits['mountAutoFocus'][0]]
   keydown: [event: KeyboardEvent]
   blur: [event: FocusEvent]
   pointermove: [event: PointerEvent]
@@ -264,7 +263,7 @@ export type MenuContentImplEmits = {
 
 export const menuContentImplProps = {
   props: {
-    ...dismissableLayerProps.props,
+    // ...dismissableLayerProps.props,
     ...menuContentImplPrivateProps.props,
     ...propsOmit(popperContentProps.props, ['dir']),
     loop: {
@@ -273,18 +272,18 @@ export const menuContentImplProps = {
     },
   },
   emits: {
-    ...propsOmit(popperContentProps.emits, ['placed']),
+    // ...propsOmit(popperContentProps.emits, ['placed']),
     ...menuContentImplPrivateProps.emits,
     // eslint-disable-next-line unused-imports/no-unused-vars
     closeAutoFocus: (event: MenuContentImplEmits['closeAutoFocus'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     entryFocus: (event: MenuContentImplEmits['entryFocus'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    escapeKeyDown: (event: MenuContentImplEmits['escapeKeyDown'][0]) => true,
+    escapeKeydown: (event: MenuContentImplEmits['escapeKeydown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     pointerdownOutside: (event: MenuContentImplEmits['pointerdownOutside'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    focusoutSide: (event: MenuContentImplEmits['focusoutSide'][0]) => true,
+    focusOutside: (event: MenuContentImplEmits['focusOutside'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     interactOutside: (event: MenuContentImplEmits['interactOutside'][0]) => true,
 

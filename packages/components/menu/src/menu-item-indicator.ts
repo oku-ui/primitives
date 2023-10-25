@@ -31,9 +31,7 @@ const menuItemIndicator = defineComponent({
     const indicatorInject = useItemIndicatorInject(MENU_ITEM_INDICATOR_NAME, scopeOkuMenu.value)
 
     return () => h(OkuPresence,
-      {
-        present: computed(() => forceMount.value || isIndeterminate(indicatorInject.checked.value) || indicatorInject.checked.value === true).value,
-      },
+      { present: computed(() => forceMount.value || isIndeterminate(indicatorInject.checked.value) || indicatorInject.checked.value === true).value },
       {
         default: () => h(Primitive.span,
           {

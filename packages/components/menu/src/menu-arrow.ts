@@ -19,14 +19,14 @@ const menuArrow = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const listeners = useListeners()
+    // const listeners = useListeners()
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
 
     return () => h(OkuPopperArrow,
       {
         ...popperScope,
-        ...mergeProps(attrs, otherProps, listeners),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
       }, slots,
     )

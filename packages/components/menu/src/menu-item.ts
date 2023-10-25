@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
@@ -28,20 +28,23 @@ const menuItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
+    // const emits = useListeners()
 
     const menuItemRef = ref<HTMLDivElement | null>(null)
     const rootInject = useMenuRootInject(MENU_ITEM_NAME, scopeOkuMenu.value)
     const contentInject = useMenuContentInject(MENU_ITEM_NAME, scopeOkuMenu.value)
-    const composedRefs = useComposedRefs(forwardedRef, el => menuItemRef.value = (el as HTMLDivElement))
+    const composedRefs = useComposedRefs(forwardedRef, menuItemRef)
     const isPointerDownRef = ref(false)
 
-    function handleSelect() {
+    async function handleSelect() {
       const menuItem = menuItemRef.value
       if (!disabled.value && menuItem) {
         const itemSelectEvent = new CustomEvent(ITEM_SELECT, { bubbles: true, cancelable: true })
         menuItem.addEventListener(ITEM_SELECT, event => emit('select', event), { once: true })
         dispatchDiscreteCustomEvent(menuItem, itemSelectEvent)
+
+        await nextTick()
+
         if (itemSelectEvent.defaultPrevented)
           isPointerDownRef.value = false
         else
@@ -51,7 +54,7 @@ const menuItem = defineComponent({
 
     return () => h(OkuMenuItemImpl,
       {
-        ...mergeProps(attrs, otherProps, emits),
+        ...mergeProps(attrs, otherProps),
         ref: composedRefs,
         disabled: disabled.value,
         onClick: composeEventHandlers<MenuItemEmits['click'][0]>((event) => {
@@ -69,9 +72,9 @@ const menuItem = defineComponent({
           if (!isPointerDownRef.value)
             (event.currentTarget as HTMLElement)?.click()
         }),
-        onKeydown: composeEventHandlers<MenuItemEmits['keydown'][0]>((event) => {
-          emit('keydown', event)
-        }, (event) => {
+        onKeydown: composeEventHandlers<MenuItemEmits['keydown'][0]>(async (event) => {
+          await nextTick()
+
           const isTypingAhead = contentInject.searchRef.value !== ''
           if (disabled.value || (isTypingAhead && event.key === ' '))
             return

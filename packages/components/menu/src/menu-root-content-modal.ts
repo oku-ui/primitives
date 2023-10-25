@@ -27,11 +27,11 @@ const menuRootContentModel = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
+    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
     const menuRootContentRef = ref<MenuRootContentTypeElement | null>(null)
-    const composedRefs = useComposedRefs(forwardedRef, el => menuRootContentRef.value = (el as MenuRootContentTypeElement))
+    const composedRefs = useComposedRefs(forwardedRef, menuRootContentRef)
     const content = ref<MenuRootContentTypeElement | null>(null)
     // Hide everything from ARIA except the `MenuContent`
     onMounted(() => {
@@ -45,7 +45,7 @@ const menuRootContentModel = defineComponent({
 
     return () => h(OkuMenuContentImpl,
       {
-        ...mergeProps(attrs, otherProps, emits),
+        ...mergeProps(attrs, otherProps),
         ref: composedRefs,
         // we make sure we're not trapping once it's been closed
         // (closed !== unmounted when animating out)
@@ -53,11 +53,11 @@ const menuRootContentModel = defineComponent({
         // make sure to only disable pointer events when open
         // this avoids blocking interactions while animating out
         disableOutsidePointerEvents: inject.open.value,
-        // disableOutsideScroll,
+        disableOutsideScroll: true,
         // When focus is trapped, a `focusout` event may still happen.
         // We make sure we don't trigger our `onDismiss` in such case.
-        onFocusoutSide: composeEventHandlers<MenuRootContentTypeEmits['focusoutSide'][0]>((event) => {
-          emit('focusoutSide', event)
+        onFocusOutside: composeEventHandlers<MenuRootContentTypeEmits['focusOutside'][0]>((event) => {
+          emit('focusOutside', event)
         }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
         onDismiss: () => inject.onOpenChange(false),
       }, slots,

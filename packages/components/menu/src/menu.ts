@@ -1,4 +1,4 @@
-import { defineComponent, h, onBeforeMount, onMounted, ref, toRefs } from 'vue'
+import { defineComponent, h, onBeforeMount, onMounted, ref, toRefs, watchEffect } from 'vue'
 import { OkuPopper } from '@oku-ui/popper'
 import { useDirection } from '@oku-ui/direction'
 import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'
@@ -48,12 +48,31 @@ const menu = defineComponent({
       document.removeEventListener('pointermove', handlePointer, { capture: true })
     })
 
+    // watchEffect((onInvalidate) => {
+    //   // Capture phase ensures we set the boolean before any side effects execute
+    //   // in response to the key or pointer event as they might depend on this value.
+    //   const handlePointer = () => (isUsingKeyboardRef.value = false)
+
+    //   function handleKeyDown() {
+    //     isUsingKeyboardRef.value = true
+    //     document.addEventListener('pointerdown', handlePointer, { capture: true, once: true })
+    //     document.addEventListener('pointermove', handlePointer, { capture: true, once: true })
+    //   };
+    //   document.addEventListener('keydown', handleKeyDown, { capture: true })
+
+    //   onInvalidate(() => {
+    //     document.removeEventListener('keydown', handleKeyDown, { capture: true })
+    //     document.removeEventListener('pointerdown', handlePointer, { capture: true })
+    //     document.removeEventListener('pointermove', handlePointer, { capture: true })
+    //   })
+    // })
+
     menuProvider({
       scope: scopeOkuMenu.value,
       open,
-      onOpenChange: handleOpenChange,
+      onOpenChange: _open => handleOpenChange(_open),
       content,
-      onContentChange: (_content: MenuContentElement) => content.value = _content,
+      onContentChange: _content => content.value = _content,
     })
 
     menuRootProvider({

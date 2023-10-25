@@ -31,13 +31,13 @@ const menuSubContent = defineComponent({
     const forceMount = computed(() => _forceMount.value || portalInject.forceMount?.value)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
+    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
     const subInject = useMenuSubInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
     const menuSubContentRef = ref<MenuSubContentElement | null>(null)
-    const composedRefs = useComposedRefs(forwardedRef, ref)
+    const composedRefs = useComposedRefs(forwardedRef, menuSubContentRef)
 
     return () => h(CollectionProvider,
       { scope: scopeOkuMenu.value },
@@ -52,7 +52,7 @@ const menuSubContent = defineComponent({
                   {
                     'id': subInject.contentId.value,
                     'aria-labelledby': subInject.triggerId.value,
-                    ...mergeProps(attrs, otherProps, emits),
+                    ...mergeProps(attrs, otherProps),
                     'ref': composedRefs,
                     'align': 'start',
                     'side': rootInject.dir.value === 'rtl' ? 'left' : 'right',
@@ -70,16 +70,16 @@ const menuSubContent = defineComponent({
                     // The menu might close because of focusing another menu item in the parent menu. We
                     // don't want it to refocus the trigger in that case so we handle trigger focus ourselves.
                     'onCloseAutoFocus': event => event.preventDefault(),
-                    'onFocusoutSide': composeEventHandlers<MenuSubContentEmits['focusoutSide'][0]>((event) => {
-                      emit('focusoutSide', event)
+                    'onFocusOutside': composeEventHandlers<MenuSubContentEmits['focusOutside'][0]>((event) => {
+                      emit('focusOutside', event)
                     }, (event) => {
                       // We prevent closing when the trigger is focused to avoid triggering a re-open animation
                       // on pointer interaction.
                       if (event.target !== subInject.trigger.value)
                         inject.onOpenChange(false)
                     }),
-                    'onEscapeKeyDown': composeEventHandlers<MenuSubContentEmits['escapeKeyDown'][0]>((event) => {
-                      emit('escapeKeyDown', event)
+                    'onEscapeKeydown': composeEventHandlers<MenuSubContentEmits['escapeKeydown'][0]>((event) => {
+                      emit('escapeKeydown', event)
                     }, (event) => {
                       rootInject.onClose()
                       // ensure pressing escape in submenu doesn't escape full screen mode
@@ -89,7 +89,7 @@ const menuSubContent = defineComponent({
                       emit('keydown', event)
                     }, (event) => {
                       // Submenu key events bubble through portals. We only care about keys in this menu.
-                      const isKeyDownInside = (event.currentTarget as HTMLElement).contains(event.target as HTMLElement)
+                      const isKeyDownInside = (event.currentTarget as HTMLElement)?.contains(event.target as HTMLElement)
                       const isCloseKey = SUB_CLOSE_KEYS[rootInject.dir.value].includes(event.key)
                       if (isKeyDownInside && isCloseKey) {
                         inject.onOpenChange(false)

@@ -117,8 +117,6 @@ export type {
 
 export type {
   MenuSubProps,
-  // MenuSubElement,
-  // MenuSubNativeElement,
 } from './props'
 
 export type {

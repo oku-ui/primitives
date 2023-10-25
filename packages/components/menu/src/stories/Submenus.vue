@@ -12,10 +12,10 @@ const open4 = ref(false)
 const rtl = ref(false)
 const animated = ref(false)
 
-watchEffect(() => {
+watchEffect((onInvalidate) => {
   if (rtl.value) {
     document.documentElement.setAttribute('dir', 'rtl')
-    return () => document.documentElement.removeAttribute('dir')
+    onInvalidate(() => document.documentElement.removeAttribute('dir'))
   }
 })
 
@@ -41,14 +41,14 @@ function alert(text: string) {
       <OkuMenuItem class="menu-item" @select="alert('undo')">
         Undo
       </OkuMenuItem>
-      <Submenu :open="open1" :animated="animated" @open-change="open1 = !open1">
+      <Submenu :open="open1" :animated="animated" @open-change="open1 = $event">
         <OkuMenuItem class="menu-item" disabled>
           Disabled
         </OkuMenuItem>
         <OkuMenuItem class="menu-item" @select="alert('one')">
           One
         </OkuMenuItem>
-        <Submenu :open="open2" :animated="animated" @open-change="open2 = !open2">
+        <Submenu :open="open2" :animated="animated" @open-change="open2 = $event">
           <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>
@@ -68,7 +68,7 @@ function alert(text: string) {
             Six
           </OkuMenuItem>
         </Submenu>
-        <Submenu heading="Sub Menu" :open="open3" :animated="animated" @open-change="open3 = !open3">
+        <Submenu heading="Sub Menu" :open="open3" :animated="animated" @open-change="open3 = $event">
           <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>
@@ -82,7 +82,7 @@ function alert(text: string) {
         <OkuMenuItem class="menu-item" @select="alert('two')">
           Two
         </OkuMenuItem>
-        <Submenu :open="open4" :animated="animated" disabled @open-change="open4 = !open4">
+        <Submenu :open="open4" :animated="animated" disabled @open-change="open4 = $event">
           <OkuMenuItem class="menu-item" @select="alert('one')">
             One
           </OkuMenuItem>

@@ -22,13 +22,13 @@ const menuAnchor = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
+    // const emits = useLis
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
 
     return () => h(OkuPopperAnchor,
       {
-        ...mergeProps(attrs, otherProps, emits),
+        ...mergeProps(attrs, otherProps),
         ...popperScope,
         ref: forwardedRef,
       },

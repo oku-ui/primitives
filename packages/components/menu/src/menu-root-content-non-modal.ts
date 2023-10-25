@@ -25,13 +25,13 @@ const menuRootContentNonModal = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
+    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
 
     return () => h(OkuMenuContentImpl,
       {
-        ...mergeProps(attrs, otherProps, emits),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
         trapFocus: false,
         disableOutsidePointerEvents: false,

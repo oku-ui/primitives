@@ -23,7 +23,7 @@ defineEmits<{
 </script>
 
 <template>
-  <OkuMenuSub :open="open" @open-change="$emit('openChange', open)">
+  <OkuMenuSub :open="open" @open-change="(open) => $emit('openChange', open)">
     <OkuMenuSubTrigger class="menu-sub-trigger menu-item" :disabled="disabled">
       {{ heading }} →
     </OkuMenuSubTrigger>

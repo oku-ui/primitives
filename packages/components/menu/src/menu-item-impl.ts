@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs, watchEffect } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -81,7 +81,9 @@ const menuItemImpl = defineComponent({
                 */
                 'onPointermove': composeEventHandlers<MenuItemImplEmits['pointermove'][0]>((event) => {
                   emit('pointermove', event)
-                }, whenMouse((event: PointerEvent) => {
+                }, whenMouse(async (event: PointerEvent) => {
+                  await nextTick()
+
                   if (disabled.value) {
                     contentInject.onItemLeave(event)
                   }
@@ -95,7 +97,9 @@ const menuItemImpl = defineComponent({
                 })),
                 'onPointerleave': composeEventHandlers<MenuItemImplEmits['pointerleave'][0]>((event) => {
                   emit('pointerleave', event)
-                }, whenMouse((event: PointerEvent) => {
+                }, whenMouse(async (event: PointerEvent) => {
+                  await nextTick()
+
                   contentInject.onItemLeave(event)
                 })),
                 'onFocus': composeEventHandlers<MenuItemImplEmits['focus'][0]>((event) => {

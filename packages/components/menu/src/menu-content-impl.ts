@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, onBeforeUnmount, reactive, ref, toRefs, watch } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, reactive, ref, toRefs, watch } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef, useListeners, useScrollLock } from '@oku-ui/use-composable'
 import { useFocusGuards } from '@oku-ui/focus-guards'
@@ -41,7 +41,7 @@ const menuContentImpl = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
+    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
@@ -68,7 +68,7 @@ const menuContentImpl = defineComponent({
         lock.value = false
     })
 
-    const handleTypeaheadSearch = (key: string) => {
+    function handleTypeaheadSearch(key: string) {
       const search = searchRef.value + key
       const items = getItems().filter(item => !item.disabled)
       const currentItem = document.activeElement
@@ -102,7 +102,7 @@ const menuContentImpl = defineComponent({
     // the last element in the DOM (beacuse of the `Portal`)
     useFocusGuards()
 
-    const isPointerMovingToSubmenu = (event: PointerEvent) => {
+    function isPointerMovingToSubmenu(event: PointerEvent) {
       const isMovingTowards = pointerDirRef.value === pointerGraceIntentRef.value?.side
       return isMovingTowards && isPointerInGraceArea(event, pointerGraceIntentRef.value?.area)
     }
@@ -150,9 +150,9 @@ const menuContentImpl = defineComponent({
           {
             asChild: true,
             disableOutsidePointerEvents: disableOutsidePointerEvents.value,
-            onEscapeKeyDown: event => emit('escapeKeyDown', event),
+            onEscapeKeydown: event => emit('escapeKeydown', event),
             onPointerdownOutside: event => emit('pointerdownOutside', event),
-            onFocusoutSide: event => emit('focusoutSide', event),
+            onFocusOutside: event => emit('focusOutside', event),
             onInteractOutside: event => emit('interactOutside', event),
             onDismiss: () => emit('dismiss'),
           },
@@ -185,7 +185,7 @@ const menuContentImpl = defineComponent({
                     'data-oku-menu-content': '',
                     'dir': rootInject.dir.value,
                     ...popperScope,
-                    ...mergeProps(attrs, otherProps, emits),
+                    ...mergeProps(attrs, otherProps),
                     'ref': composedRefs,
                     'style': { outline: 'none', ...attrs.style as any },
                     'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
@@ -218,9 +218,11 @@ const menuContentImpl = defineComponent({
                     }),
                     'onBlur': composeEventHandlers<MenuContentImplEmits['blur'][0]>((event) => {
                       emit('blur', event)
-                    }, (event) => {
+                    }, async (event) => {
                       // clear search buffer when leaving the menu
-                      if (!(event.currentTarget as HTMLDivElement)?.contains(event.target as HTMLElement)) {
+                      if (!(event.currentTarget as HTMLElement).contains(event.target as HTMLElement)) {
+                        await nextTick()
+
                         window.clearTimeout(timerRef.value)
                         searchRef.value = ''
                       }
@@ -230,10 +232,9 @@ const menuContentImpl = defineComponent({
                     }, whenMouse((event) => {
                       const target = event.target as HTMLDivElement
                       const pointerXHasChanged = lastPointerXRef.value !== event.clientX
-
                       // We don't use `event.movementX` for this check because Safari will
                       // always return `0` on a pointer event.
-                      if ((event.currentTarget as HTMLDivElement)?.contains(target) && pointerXHasChanged) {
+                      if ((event.currentTarget as HTMLElement).contains(target) && pointerXHasChanged) {
                         const newDir = event.clientX > lastPointerXRef.value ? 'right' : 'left'
                         pointerDirRef.value = newDir
                         lastPointerXRef.value = event.clientX

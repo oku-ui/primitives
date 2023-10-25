@@ -1,9 +1,9 @@
-import { defineComponent, h, mergeProps, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { Side } from './utils'
 import { getOpenState, whenMouse } from './utils'
-import type { MenuItemImplElement, MenuSubTriggerEmits, MenuSubTriggerNativeElement } from './props'
+import type { MenuSubTriggerElement, MenuSubTriggerEmits, MenuSubTriggerNativeElement } from './props'
 import { MENU_SUB_TRIGGER_NAME, SUB_OPEN_KEYS, menuSubTriggerProps, scopedMenuProps, useMenuContentInject, useMenuInject, useMenuRootInject, useMenuSubInject } from './props'
 import { OkuMenuAnchor } from './menu-anchor'
 import { OkuMenuItemImpl } from './menu-item-impl'
@@ -30,7 +30,7 @@ const menuSubTrigger = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const emits = useListeners()
+    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
@@ -45,11 +45,14 @@ const menuSubTrigger = defineComponent({
         window.clearTimeout(openTimerRef.value)
       openTimerRef.value = null
     }
-
-    onMounted(() => clearOpenTimer())
+    // const pointerGraceTimerRef = computed(() => contentInject.pointerGraceTimerRef.value)
+    // onMounted(() => clearOpenTimer())
+    // onBeforeUnmount(() => clearOpenTimer())
+    onUnmounted(() => clearOpenTimer())
 
     watchEffect((onInvalidate) => {
       const pointerGraceTimer = pointerGraceTimerRef.value
+
       onInvalidate(() => {
         window.clearTimeout(pointerGraceTimer)
         onPointerGraceIntentChange(null)
@@ -69,12 +72,11 @@ const menuSubTrigger = defineComponent({
             'aria-expanded': inject.open.value,
             'aria-controls': subInject.contentId.value,
             'data-state': getOpenState(inject.open.value!),
-            ...mergeProps(attrs, otherProps, emits),
-            'ref': useComposedRefs(forwardedRef, el => subInject.onTriggerChange(el as MenuItemImplElement)),
+            ...mergeProps(attrs, otherProps),
+            'ref': useComposedRefs(forwardedRef, el => subInject.onTriggerChange(el as MenuSubTriggerElement)),
             // This is redundant for mouse users but we cannot determine pointer type from
             // click event and we cannot use pointerup event (see git history for reasons why)
             'onClick': (event: MouseEvent) => {
-              emit('click', event)
               if (props.disabled || event.defaultPrevented)
                 return
               /**
@@ -102,7 +104,7 @@ const menuSubTrigger = defineComponent({
             })),
             'onPointerleave': composeEventHandlers<MenuSubTriggerEmits['pointerleave'][0]>((event) => {
               emit('pointerleave', event)
-            }, whenMouse(async (event: PointerEvent) => {
+            }, whenMouse((event: PointerEvent) => {
               clearOpenTimer()
 
               const contentRect = inject.content.value?.getBoundingClientRect()
@@ -145,12 +147,14 @@ const menuSubTrigger = defineComponent({
             'onKeydown': composeEventHandlers<MenuSubTriggerEmits['keydown'][0]>((event) => {
               emit('keydown', event)
             }, async (event) => {
+              await nextTick()
+
               const isTypingAhead = contentInject.searchRef.value !== ''
               if (props.disabled || (isTypingAhead && event.key === ' '))
                 return
+
               if (SUB_OPEN_KEYS[rootInject.dir.value].includes(event.key)) {
                 inject.onOpenChange(true)
-
                 // The trigger may hold focus if opened via pointer interaction
                 // so we ensure content is given focus again when switching to keyboard.
                 inject.content.value?.focus()

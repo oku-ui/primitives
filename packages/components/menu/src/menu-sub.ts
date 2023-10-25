@@ -38,7 +38,7 @@ const menuSub = defineComponent({
     menuProvider({
       scope: scopeOkuMenu.value,
       open,
-      onOpenChange: handleOpenChange,
+      onOpenChange: _open => handleOpenChange(_open),
       content,
       onContentChange: _content => content.value = _content,
     })
