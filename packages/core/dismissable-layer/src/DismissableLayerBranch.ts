@@ -1,26 +1,20 @@
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type {
-  OkuElement,
-  PrimitiveProps,
-} from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { defineComponent, h, ref, watchEffect } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { dismissableLayerContext } from './props'
-
-const BRANCH_NAME = 'OkuDismissableLayerBranch'
-export type DismissableLayerBranchNaviteElement = OkuElement<'div'>
-export type DismissableLayerBranchElement = HTMLDivElement
-
-export interface DismissableLayerBranchProps extends PrimitiveProps {}
+import type { DismissableLayerBranchElement, DismissableLayerBranchNativeElement } from './props'
+import { BRANCH_NAME, dismissableLayerBranchProps, dismissableLayerInject, scopeDismissableLayerProps } from './props'
 
 const DismissableLayerBranch = defineComponent({
   name: BRANCH_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
+    ...dismissableLayerBranchProps.props,
+    ...scopeDismissableLayerProps,
   },
+  emits: dismissableLayerBranchProps.emits,
   setup(props, { attrs, slots }) {
-    const node = ref<HTMLDivElement | null>()
+    const inject = dismissableLayerInject
+    const node = ref<DismissableLayerBranchElement | null>()
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, node)
 
@@ -28,27 +22,23 @@ const DismissableLayerBranch = defineComponent({
       const _node = node.value
 
       if (_node)
-        dismissableLayerContext.branches.add(_node)
+        inject.branches.add(_node)
 
       onInvalidate(() => {
         if (_node)
-          dismissableLayerContext.branches.delete(_node)
+          inject.branches.delete(_node)
       })
     })
 
-    const originalReturn = () =>
-      h(Primitive.div, {
+    return () => h(Primitive.div,
+      {
         ...attrs,
         ref: composedRefs,
-        asChild: props.asChild,
-      }, slots)
-
-    return originalReturn
+        // asChild: props.asChild,
+      }, slots,
+    )
   },
 })
 
-export const OkuDismissableLayerBranch
-= DismissableLayerBranch as typeof DismissableLayerBranch &
-(new () => {
-  $props: DismissableLayerBranchNaviteElement
-})
+export const OkuDismissableLayerBranch = DismissableLayerBranch as typeof DismissableLayerBranch &
+(new () => { $props: DismissableLayerBranchNativeElement })
