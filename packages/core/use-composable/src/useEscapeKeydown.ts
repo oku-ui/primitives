@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { onBeforeUnmount, onMounted, ref, watch, watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 /**
  * Listens for when the escape key is down
