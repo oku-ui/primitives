@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { useFocusoutSide, usePointerdownOutside } from './util'
+import { useFocusOutside, usePointerdownOutside } from './util'
 
 describe('useFocusoutSide', () => {
   it('should call onFocusoutSide when focusin event happens outside', () => {
@@ -9,7 +9,7 @@ describe('useFocusoutSide', () => {
     const wrapper = mount({
       template: '<div v-on="events"></div>',
       setup() {
-        const events = useFocusoutSide(onFocusoutSide)
+        const events = useFocusOutside(onFocusoutSide)
         return { events }
       },
     })
@@ -26,7 +26,7 @@ describe('useFocusoutSide', () => {
     const wrapper = mount({
       template: '<div v-on="events"><button></button></div>',
       setup() {
-        const events = useFocusoutSide(onFocusoutSide)
+        const events = useFocusOutside(onFocusoutSide)
         return { events }
       },
     })
