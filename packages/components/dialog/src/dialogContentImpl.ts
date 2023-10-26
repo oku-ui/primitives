@@ -108,14 +108,14 @@ const dialogContentImpl = defineComponent({
             'onInteractOutside': (event) => {
               emit('interactOutside', event)
             },
-            'onEscapeKeyDown': (event) => {
-              emit('escapeKeyDown', event)
+            'onEscapeKeydown': (event) => {
+              emit('escapeKeydown', event)
             },
             'onPointerdownOutside': (event) => {
               emit('pointerdownOutside', event)
             },
-            'onFocusoutSide': (event) => {
-              emit('focusoutSide', event)
+            'onFocusOutside': (event) => {
+              emit('focusOutside', event)
             },
             'onDismiss': () => {
               inject.onOpenChange(false)

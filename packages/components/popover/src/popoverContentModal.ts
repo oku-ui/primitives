@@ -56,8 +56,8 @@ const popoverContentModal = defineComponent({
         }, { checkForDefaultPrevented: false }),
         // When focus is trapped, a `focusout` event may still happen.
         // We make sure we don't trigger our `onDismiss` in such case.
-        onFocusoutSide: composeEventHandlers<PopoverContentTypeEmits['focusoutSide'][0]>((el) => {
-          emit('focusoutSide', el)
+        onFocusOutside: composeEventHandlers<PopoverContentTypeEmits['focusOutside'][0]>((el) => {
+          emit('focusOutside', el)
         }, event => event.preventDefault(),
         { checkForDefaultPrevented: false }),
       }, {

@@ -37,7 +37,7 @@ export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
+  escapeKeydown: [event: DismissableLayerEmits['escapeKeydown'][0]]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
    * Can be prevented.
@@ -58,7 +58,7 @@ export const tooltipContentImplProps = {
   emits: {
     ...propsOmit(popperContentProps.emits, ['placed']),
     // eslint-disable-next-line unused-imports/no-unused-vars
-    escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
+    escapeKeydown: (event: DismissableLayerEmits['escapeKeydown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     pointerdownOutside: (event: DismissableLayerEmits['pointerdownOutside'][0]) => true,
     close: () => true,
@@ -138,13 +138,13 @@ const tooltipContentImpl = defineComponent({
     return () => h(OkuDismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
-      onEscapeKeyDown(event) {
-        emit('escapeKeyDown', event)
+      onEscapeKeydown(event) {
+        emit('escapeKeydown', event)
       },
       onPointerdownOutside(event: TooltipContentImplEmits['pointerdownOutside'][0]) {
         emit('pointerdownOutside', event)
       },
-      onFocusoutSide(event) {
+      onFocusOutside(event) {
         event.preventDefault()
       },
       onDismiss() {

@@ -57,7 +57,7 @@ export interface ToastImplProps extends ToastImplPrivateProps, PrimitiveProps {
 }
 
 export type ToastImplEmits = {
-  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
+  escapeKeydown: [event: DismissableLayerEmits['escapeKeydown'][0]]
   close: []
   pause: []
   resume: []
@@ -86,7 +86,7 @@ export const toastImplProps = {
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
+    escapeKeydown: (event: DismissableLayerEmits['escapeKeydown'][0]) => true,
     pause: () => true,
     resume: () => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -250,8 +250,8 @@ const toastImpl = defineComponent({
                 default: () => h(OkuDismissableLayer,
                   {
                     asChild: true,
-                    onEscapeKeyDown: composeEventHandlers<ToastImplEmits['escapeKeyDown'][0]>((event) => {
-                      emit('escapeKeyDown', event)
+                    onEscapeKeydown: composeEventHandlers<ToastImplEmits['escapeKeydown'][0]>((event) => {
+                      emit('escapeKeydown', event)
                     }, () => {
                       if (!inject.isFocusedToastEscapeKeyDownRef.value)
                         handleClose()
@@ -280,7 +280,7 @@ const toastImpl = defineComponent({
                         }, (event) => {
                           if (event.key !== 'Escape')
                             return
-                          emit('escapeKeyDown', event)
+                          emit('escapeKeydown', event)
                           if (!event.defaultPrevented) {
                             inject.isFocusedToastEscapeKeyDownRef.value = true
                             handleClose()

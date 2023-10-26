@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { OkuDismissableLayer } from '@oku-ui/dismissable-Layer'
+import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 
 const open = ref(false)
 const openButtonRef = ref<HTMLButtonElement | null>(null)

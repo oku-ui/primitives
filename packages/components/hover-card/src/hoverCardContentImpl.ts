@@ -27,7 +27,7 @@ export type HoverCardContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
+  escapeKeydown: [event: DismissableLayerEmits['escapeKeydown'][0]]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
    * Can be prevented.
@@ -36,7 +36,7 @@ export type HoverCardContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
   /***
    *
    */
-  focusoutSide: [event: DismissableLayerEmits['focusoutSide'][0]]
+  focusoutSide: [event: DismissableLayerEmits['focusOutside'][0]]
   interactOutside: [event: DismissableLayerEmits['interactOutside'][0]]
   pointerdown: [event: PointerEvent]
   close: []
@@ -50,11 +50,11 @@ export const hoverCardContentImplProps = {
   emits: {
     ...propsOmit(popperContentProps.emits, ['placed']),
     // eslint-disable-next-line unused-imports/no-unused-vars
-    escapeKeyDown: (event: DismissableLayerEmits['escapeKeyDown'][0]) => true,
+    escapeKeyDown: (event: DismissableLayerEmits['escapeKeydown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     pointerdownOutside: (event: DismissableLayerEmits['pointerdownOutside'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    focusoutSide: (event: DismissableLayerEmits['focusoutSide'][0]) => true,
+    focusoutSide: (event: DismissableLayerEmits['focusOutside'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     interactOutside: (event: DismissableLayerEmits['interactOutside'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -153,13 +153,13 @@ const hoverCardContentImpl = defineComponent({
       onInteractOutside(event) {
         emit('interactOutside', event)
       },
-      onEscapeKeyDown(event) {
+      onEscapeKeydown(event) {
         emit('escapeKeyDown', event)
       },
       onPointerdownOutside(event) {
         emit('pointerdownOutside', event)
       },
-      onFocusoutSide: composeEventHandlers<HoverCardContentImplEmits['focusoutSide'][0]>((el) => {
+      onFocusOutside: composeEventHandlers<HoverCardContentImplEmits['focusoutSide'][0]>((el) => {
         emit('focusoutSide', el)
       }, (event) => {
         event.preventDefault()
