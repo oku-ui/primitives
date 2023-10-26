@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, nextTick, onUnmounted, reactive, ref, toRefs, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { Side } from './utils'
@@ -45,18 +45,16 @@ const menuSubTrigger = defineComponent({
         window.clearTimeout(openTimerRef.value)
       openTimerRef.value = null
     }
-    // const pointerGraceTimerRef = computed(() => contentInject.pointerGraceTimerRef.value)
-    // onMounted(() => clearOpenTimer())
-    // onBeforeUnmount(() => clearOpenTimer())
-    onUnmounted(() => clearOpenTimer())
 
-    watchEffect((onInvalidate) => {
+    onMounted(() => clearOpenTimer())
+
+    onBeforeUnmount(() => {
       const pointerGraceTimer = pointerGraceTimerRef.value
 
-      onInvalidate(() => {
+      if (pointerGraceTimer)
         window.clearTimeout(pointerGraceTimer)
-        onPointerGraceIntentChange(null)
-      })
+
+      onPointerGraceIntentChange(null)
     })
 
     return () => h(OkuMenuAnchor,

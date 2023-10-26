@@ -13,6 +13,7 @@ const menuGroup = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { scopeOkuMenu: _sc, ...restProps } = toRefs(props)
+
     const _other = reactive(restProps)
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 

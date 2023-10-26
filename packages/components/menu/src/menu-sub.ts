@@ -51,12 +51,7 @@ const menuSub = defineComponent({
       onTriggerChange: _trigger => trigger.value = _trigger,
     })
 
-    return () => h(OkuPopper,
-      {
-        ...popperScope,
-      },
-      slots,
-    )
+    return () => h(OkuPopper, { ...popperScope }, slots)
   },
 })
 

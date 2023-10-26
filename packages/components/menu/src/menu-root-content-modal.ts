@@ -33,6 +33,7 @@ const menuRootContentModel = defineComponent({
     const menuRootContentRef = ref<MenuRootContentTypeElement | null>(null)
     const composedRefs = useComposedRefs(forwardedRef, menuRootContentRef)
     const content = ref<MenuRootContentTypeElement | null>(null)
+
     // Hide everything from ARIA except the `MenuContent`
     onMounted(() => {
       content.value = menuRootContentRef.value
