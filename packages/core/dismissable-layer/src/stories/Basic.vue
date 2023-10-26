@@ -81,7 +81,6 @@ function alert(text: string) {
         marginBottom: '20px',
       }"
       @escape-keydown="(event) => {
-        console.log('onEscapeKeydown')
         if (dismissOnEscape === false)
           event.preventDefault()
       }"

@@ -1,6 +1,6 @@
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useEscapeKeydown, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { dispatchUpdate, useFocusOutside, usePointerdownOutside } from './util'
 import type { DismissableLayerElement, DismissableLayerNativeElement, FocusBlurCaptureEvent, FocusCaptureEvent, PointerdownCaptureEvent } from './props'
@@ -24,7 +24,6 @@ const DismissableLayer = defineComponent({
     const inject = dismissableLayerInject
     const node = ref<DismissableLayerElement | null>(null)
     const ownerDocument = computed(() => node.value?.ownerDocument ?? globalThis?.document)
-    const force = ref({})
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, node)
     const layers = computed(() => Array.from(inject.layers))
@@ -35,7 +34,6 @@ const DismissableLayer = defineComponent({
 
       return highestLayerWithOutsidePointerEventsDisabled
     })
-    // const [highestLayerWithOutsidePointerEventsDisabled] = [...inject.layersWithOutsidePointerEventsDisabled].slice(-1)
     const highestLayerWithOutsidePointerEventsDisabledIndex = computed(() => layers.value.indexOf(highestLayerWithOutsidePointerEventsDisabled.value))
     const index = computed(() => node.value ? layers.value.indexOf(node.value) : -1)
     const isBodyPointerEventsDisabled = computed(() => inject.layersWithOutsidePointerEventsDisabled.size > 0)
@@ -71,9 +69,6 @@ const DismissableLayer = defineComponent({
       const isHighestLayer = index.value === inject.layers.size - 1
       if (!isHighestLayer)
         return
-
-      // eslint-disable-next-line no-console
-      console.log('useEscapeKeydown', event)
 
       emit('escapeKeydown', event)
 
@@ -127,21 +122,14 @@ const DismissableLayer = defineComponent({
       })
     })
 
-    // const handleUpdate = () => force.value = { }
+    const handleUpdate = () => { }
 
-    // onMounted(() => {
-    //   document.addEventListener(INJECT_UPDATE, handleUpdate)
-    // })
-
-    // onBeforeUnmount(() => {
-    //   document.removeEventListener(INJECT_UPDATE, handleUpdate)
-    // })
-
-    watchEffect((onInvalidate) => {
-      const handleUpdate = () => force.value = {}
+    onMounted(() => {
       document.addEventListener(INJECT_UPDATE, handleUpdate)
+    })
 
-      onInvalidate(() => document.removeEventListener(INJECT_UPDATE, handleUpdate))
+    onBeforeUnmount(() => {
+      document.removeEventListener(INJECT_UPDATE, handleUpdate)
     })
 
     return () => h(Primitive.div,
