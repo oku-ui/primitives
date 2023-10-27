@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from './props'
 import { FOCUS_OUTSIDE, INJECT_UPDATE, POINTER_DOWN_OUTSIDE } from './props'
@@ -17,72 +17,74 @@ function usePointerdownOutside(
   const isPointerInsideTreeRef = ref<boolean>(false)
   const handleClickRef = ref(() => {})
 
-  const handlePointerdown = (event: PointerEvent) => {
-    if (event.target && !isPointerInsideTreeRef.value) {
-      const eventDetail = { originalEvent: event }
+  watch([ownerDocument], (_new, _old, clean) => {
+    const handlePointerdown = (event: PointerEvent) => {
+      if (event.target && !isPointerInsideTreeRef.value) {
+        const eventDetail = { originalEvent: event }
 
-      function handleAndDispatchPointerdownOutsideEvent() {
-        handleAndDispatchCustomEvent(
-          POINTER_DOWN_OUTSIDE,
-          handlePointerdownOutside,
-          eventDetail,
-          { discrete: true },
-        )
-      }
-      /**
-       * On touch devices, we need to wait for a click event because browsers implement
-       * a ~350ms delay between the time the user stops touching the display and when the
-       * browser executes events. We need to ensure we don't reactivate pointer-events within
-       * this timeframe otherwise the browser may execute events that should have been prevented.
-       *
-       * Additionally, this also lets us deal automatically with cancellations when a click event
-       * isn't raised because the page was considered scrolled/drag-scrolled, long-pressed, etc.
-       *
-       * This is why we also continuously remove the previous listener, because we cannot be
-       * certain that it was raised, and therefore cleaned-up.
-       */
-      if (event.pointerType === 'touch') {
-        ownerDocument.value.removeEventListener('click', handleClickRef.value)
-        handleClickRef.value = handleAndDispatchPointerdownOutsideEvent
-        ownerDocument.value.addEventListener('click', handleClickRef.value, { once: true })
+        function handleAndDispatchPointerdownOutsideEvent() {
+          handleAndDispatchCustomEvent(
+            POINTER_DOWN_OUTSIDE,
+            handlePointerdownOutside,
+            eventDetail,
+            { discrete: true },
+          )
+        }
+        /**
+         * On touch devices, we need to wait for a click event because browsers implement
+         * a ~350ms delay between the time the user stops touching the display and when the
+         * browser executes events. We need to ensure we don't reactivate pointer-events within
+         * this timeframe otherwise the browser may execute events that should have been prevented.
+         *
+         * Additionally, this also lets us deal automatically with cancellations when a click event
+         * isn't raised because the page was considered scrolled/drag-scrolled, long-pressed, etc.
+         *
+         * This is why we also continuously remove the previous listener, because we cannot be
+         * certain that it was raised, and therefore cleaned-up.
+         */
+        if (event.pointerType === 'touch') {
+          ownerDocument.value.removeEventListener('click', handleClickRef.value)
+          handleClickRef.value = handleAndDispatchPointerdownOutsideEvent
+          ownerDocument.value.addEventListener('click', handleClickRef.value, { once: true })
+        }
+        else {
+          handleAndDispatchPointerdownOutsideEvent()
+        }
       }
       else {
-        handleAndDispatchPointerdownOutsideEvent()
+        // We need to remove the event listener in case the outside click has been canceled.
+        // See: https://github.com/radix-ui/primitives/issues/2171
+        ownerDocument.value.removeEventListener('click', handleClickRef.value)
       }
+      isPointerInsideTreeRef.value = false
     }
-    else {
-      // We need to remove the event listener in case the outside click has been canceled.
-      // See: https://github.com/radix-ui/primitives/issues/2171
-      ownerDocument.value.removeEventListener('click', handleClickRef.value)
-    }
-    isPointerInsideTreeRef.value = false
-  }
 
-  /**
-   * if this hook executes in a component that mounts via a `pointerdown` event, the event
-   * would bubble up to the document and trigger a `pointerDownOutside` event. We avoid
-   * this by delaying the event listener registration on the document.
-   * This is not specific, but rather how the DOM works, ie:
-   * ```
-   * button.addEventListener('pointerdown', () => {
-   *   console.log('I will log');
-   *   document.addEventListener('pointerdown', () => {
-   *     console.log('I will also log');
-   *   })
-   * });
-   */
-  const timerId = ref<number>()
+    /**
+     * if this hook executes in a component that mounts via a `pointerdown` event, the event
+     * would bubble up to the document and trigger a `pointerDownOutside` event. We avoid
+     * this by delaying the event listener registration on the document.
+     * This is not specific, but rather how the DOM works, ie:
+     * ```
+     * button.addEventListener('pointerdown', () => {
+     *   console.log('I will log');
+     *   document.addEventListener('pointerdown', () => {
+     *     console.log('I will also log');
+     *   })
+     * });
+     */
+    const timerId = ref<number>()
 
-  onMounted(() => {
     timerId.value = window.setTimeout(() => {
       ownerDocument.value.addEventListener('pointerdown', handlePointerdown)
     }, 0)
-  })
 
-  onBeforeUnmount(() => {
-    window.clearTimeout(timerId.value)
-    ownerDocument.value.removeEventListener('pointerdown', handlePointerdown)
-    ownerDocument.value.removeEventListener('click', handleClickRef.value)
+    clean(() => {
+      window.clearTimeout(timerId.value)
+      ownerDocument.value.removeEventListener('pointerdown', handlePointerdown)
+      ownerDocument.value.removeEventListener('click', handleClickRef.value)
+    })
+  }, {
+    immediate: true,
   })
 
   return {
@@ -99,30 +101,34 @@ function useFocusOutside(
   onFocusOutside?: (event: FocusOutsideEvent) => void,
   ownerDocument: Ref<Document> = ref(globalThis?.document),
 ) {
-  const handleFocusOutside = onFocusOutside as EventListener
   const isFocusInsideTreeRef = ref<boolean>(false)
 
-  const handleFocus = (event: FocusEvent) => {
-    if (event.target && !isFocusInsideTreeRef.value) {
-      const eventDetail = { originalEvent: event }
+  watch([ownerDocument], (_new, _old, clean) => {
+    const handleFocus = (event: FocusEvent) => {
+      // eslint-disable-next-line no-console
+      console.log('useFocusOutside', isFocusInsideTreeRef.value)
 
-      handleAndDispatchCustomEvent(
-        FOCUS_OUTSIDE,
-        handleFocusOutside,
-        eventDetail,
-        {
-          discrete: false,
-        },
-      )
+      if (event.target && !isFocusInsideTreeRef.value) {
+        const eventDetail = { originalEvent: event }
+
+        handleAndDispatchCustomEvent(
+          FOCUS_OUTSIDE,
+          onFocusOutside,
+          eventDetail,
+          {
+            discrete: false,
+          },
+        )
+      }
     }
-  }
 
-  onMounted(() => {
     ownerDocument.value.addEventListener('focusin', handleFocus)
-  })
 
-  onBeforeUnmount(() => {
-    ownerDocument.value.removeEventListener('focusin', handleFocus)
+    clean(() => {
+      ownerDocument.value.removeEventListener('focusin', handleFocus)
+    })
+  }, {
+    immediate: true,
   })
 
   return {

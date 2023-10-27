@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs, watch, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useEscapeKeydown, useForwardRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -78,7 +78,7 @@ const DismissableLayer = defineComponent({
       }
     }, ownerDocument)
 
-    watchEffect(async (onInvalidate) => {
+    watch([node, ownerDocument, disableOutsidePointerEvents], async (_a, _, onInvalidate) => {
       if (!node.value)
         return
 
@@ -111,7 +111,7 @@ const DismissableLayer = defineComponent({
      * and add it to the end again so the layering order wouldn't be _creation order_.
      * We only want them to be removed from inject stacks when unmounted.
      */
-    watchEffect((onInvalidate) => {
+    watch([node], (a_, _, onInvalidate) => {
       onInvalidate(() => {
         if (!node.value)
           return
@@ -149,6 +149,7 @@ const DismissableLayer = defineComponent({
         }, focusOutside.onFocusCapture),
         onBlurCapture: composeEventHandlers<FocusBlurCaptureEvent>((event) => {
           emit('blurCapture', event)
+          // console.log('blurCapture')
         }, focusOutside.onBlurCapture),
         onPointerdownCapture: composeEventHandlers<PointerdownCaptureEvent>((event) => {
           emit('pointerdownCapture', event)
