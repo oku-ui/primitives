@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'

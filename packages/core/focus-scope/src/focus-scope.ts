@@ -7,7 +7,6 @@ import {
   defineComponent,
   h,
   mergeProps,
-  nextTick,
   reactive,
   ref,
   toRefs,

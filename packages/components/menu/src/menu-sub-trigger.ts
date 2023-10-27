@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import type { Side } from './utils'
