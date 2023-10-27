@@ -46,8 +46,6 @@ const menuSubTrigger = defineComponent({
       openTimerRef.value = null
     }
 
-    onMounted(() => clearOpenTimer())
-
     onBeforeUnmount(() => {
       const pointerGraceTimer = pointerGraceTimerRef.value
 
@@ -56,6 +54,8 @@ const menuSubTrigger = defineComponent({
 
       onPointerGraceIntentChange(null)
     })
+
+    onBeforeUnmount(() => clearOpenTimer())
 
     return () => h(OkuMenuAnchor,
       {

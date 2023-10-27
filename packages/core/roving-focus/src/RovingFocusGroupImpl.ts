@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
@@ -47,13 +47,19 @@ const RovingFocusGroupImpl = defineComponent({
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
-    watchEffect(() => {
+    onMounted(() => {
       const node = buttonRef.value
       if (node) {
         node.addEventListener(ENTRY_FOCUS, (event) => {
           emit('entryFocus', event)
         })
-        return () => node.removeEventListener(ENTRY_FOCUS, (event) => {
+      }
+    })
+
+    onBeforeUnmount(() => {
+      const node = buttonRef.value
+      if (node) {
+        node.removeEventListener(ENTRY_FOCUS, (event) => {
           emit('entryFocus', event)
         })
       }

@@ -24,7 +24,6 @@ const rovingFocusGroup = defineComponent({
     const forwardedRef = useForwardRef()
 
     const emits = useListeners()
-
     return () => {
       return h(CollectionProvider, {
         scope: props.scopeOkuRovingFocusGroup,
