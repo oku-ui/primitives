@@ -15,6 +15,7 @@ const DismissableLayerBranch = defineComponent({
   setup(props, { attrs, slots }) {
     const inject = dismissableLayerInject
     const node = ref<DismissableLayerBranchElement | null>()
+
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, node)
 
@@ -34,7 +35,7 @@ const DismissableLayerBranch = defineComponent({
       {
         ...attrs,
         ref: composedRefs,
-        // asChild: props.asChild,
+        asChild: props.asChild,
       }, slots,
     )
   },
