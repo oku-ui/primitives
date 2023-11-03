@@ -359,8 +359,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       '@types/node':
-        specifier: ^18.18.8
-        version: 18.18.8
+        specifier: ^20.8.10
+        version: 20.8.10
       vue:
         specifier: 3.3.4
         version: 3.3.4
@@ -490,8 +490,8 @@ importers:
         specifier: workspace:^
         version: link:../../core/utils
       '@types/node':
-        specifier: ^18.18.8
-        version: 18.18.8
+        specifier: ^20.8.10
+        version: 20.8.10
       aria-hidden:
         specifier: ^1.2.3
         version: 1.2.3
