@@ -8,5 +8,3 @@ export type {
   ArrowElement,
   ArrowNaviteElement,
 } from './arrow'
-
-export const test = 1

@@ -43,7 +43,7 @@ jobs:
           node-version: '20'
           cache: pnpm
 
-      - name: ESLint Cache
+      - name: Nx Cache
         uses: actions/cache@v3
         with:
           path: ./.nx
@@ -59,7 +59,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-eslintcache-
 
-      - name: ESLint Cache
+      - name: Vitest Cache
         uses: actions/cache@v3
         with:
           path: ./.vitest-cache
