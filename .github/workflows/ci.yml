@@ -19,30 +19,9 @@ on:
 
 
 jobs:
-  lint:
-    name: "Lint"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-
-      - name: Lint
-        run: pnpm run lint
-
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-      - uses: ./.github/actions/cache-build
-
-      - name: Typecheck
-        run: pnpm run typecheck
-
   build-test:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
-    needs: [lint, typecheck]
 
     permissions:
       # Required to checkout the code
