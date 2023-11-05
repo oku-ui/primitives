@@ -45,5 +45,3 @@ export {
   SIDE_OPTIONS,
   ALIGN_OPTIONS,
 } from './utils'
-
-export const test = 1
