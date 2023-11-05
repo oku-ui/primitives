@@ -22,14 +22,14 @@ import Controlled from '../src/stories/Controlled.vue'
 
 enableAutoUnmount(afterEach)
 
-describe('OkuAlertDialog', () => {
-  it('OkuAlertDialog renders correctly', () => {
+describe('okuAlertDialog', () => {
+  it('okuAlertDialog renders correctly', () => {
     const wrapper = mount(OkuAlertDialog)
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('OkuAlertDialogAction renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogAction renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogAction)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -37,8 +37,8 @@ describe('OkuAlertDialog', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
   })
 
-  it('OkuAlertDialogCancel renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogCancel renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogCancel)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -46,8 +46,8 @@ describe('OkuAlertDialog', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuAlertDialog)" not found.')
   })
 
-  it('OkuAlertDialogContent renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogContent renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogContent)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -55,21 +55,21 @@ describe('OkuAlertDialog', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
   })
 
-  it('OkuAlertDialogDescription renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogDescription renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogDescription)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
     expect(spy.mock.calls[0][0]).toContain('Missing required prop: "contentRef"')
   })
 
-  it('OkuAlertDialogDescriptionWarning renders correctly', () => {
+  it('okuAlertDialogDescriptionWarning renders correctly', () => {
     const wrapper = () => mount(OkuAlertDialogDescriptionWarning)
     expect(() => wrapper().html()).toMatchSnapshot()
   })
 
-  it('OkuAlertDialogOverlay renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogOverlay renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogOverlay)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -77,8 +77,8 @@ describe('OkuAlertDialog', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
   })
 
-  it('OkuAlertDialogPortal renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogPortal renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogPortal)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -86,8 +86,8 @@ describe('OkuAlertDialog', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
   })
 
-  it('OkuAlertDialogTitle renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogTitle renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogTitle)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -95,8 +95,8 @@ describe('OkuAlertDialog', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
   })
 
-  it('OkuAlertDialogTrigger renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuAlertDialogTrigger renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuAlertDialogTrigger)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -104,7 +104,7 @@ describe('OkuAlertDialog', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuDialog)" not found.')
   })
 
-  describe('StyledVue', () => {
+  describe('styledVue', () => {
     let wrapper: VueWrapper<InstanceType<typeof StyledVue>>
 
     beforeEach(async () => {
@@ -117,8 +117,8 @@ describe('OkuAlertDialog', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -138,7 +138,7 @@ describe('OkuAlertDialog', () => {
     })
   })
 
-  describe('Controlled', () => {
+  describe('controlled', () => {
     let wrapper: VueWrapper<InstanceType<typeof Controlled>>
 
     beforeEach(async () => {
@@ -152,7 +152,7 @@ describe('OkuAlertDialog', () => {
 
     /**
      * @vitest-environment jsdom
-      */
+     */
 
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()

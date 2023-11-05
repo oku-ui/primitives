@@ -15,9 +15,9 @@ export type SeparatorElement = HTMLDivElement
 
 export interface SeparatorProps extends PrimitiveProps {
   /**
-  * Whether or not the component is purely decorative. When true, accessibility-related attributes
-  * are updated so that that the rendered element is removed from the accessibility tree.
-  */
+   * Whether or not the component is purely decorative. When true, accessibility-related attributes
+   * are updated so that that the rendered element is removed from the accessibility tree.
+   */
   decorative?: boolean
   /**
    * Either `vertical` or `horizontal`. Defaults to `horizontal`.
@@ -28,9 +28,9 @@ export interface SeparatorProps extends PrimitiveProps {
 export const separatorProps = {
   props: {
     /**
-  * Whether or not the component is purely decorative. When true, accessibility-related attributes
-  * are updated so that that the rendered element is removed from the accessibility tree.
-  */
+     * Whether or not the component is purely decorative. When true, accessibility-related attributes
+     * are updated so that that the rendered element is removed from the accessibility tree.
+     */
     decorative: {
       type: Boolean as PropType<boolean | undefined>,
       default: undefined,

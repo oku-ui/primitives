@@ -2,30 +2,30 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "Node",
-    "isolatedModules": true,
-    "strict": true,
     "jsx": "preserve",
     "jsxImportSource": "vue",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "lib": [
       "esnext",
       "dom"
     ],
-    "skipLibCheck": true,
-    "outDir": "dist",
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "types": [
       "vue",
       "vite/client"
-    ]
+    ],
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
   "vueCompilerOptions": {
     "plugins": [

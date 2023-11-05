@@ -43,7 +43,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     needs: [lint, typecheck]
-     
+
     permissions:
       # Required to checkout the code
       contents: read
@@ -53,7 +53,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 20]
+        node_version: [20]
 
     steps:
       - uses: actions/checkout@v4

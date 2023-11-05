@@ -9,7 +9,7 @@ const component = {
   },
 }
 
-describe('OkuSwitch', () => {
+describe('okuSwitch', () => {
   it('should render correctly', async () => {
     const checked = ref(true)
 

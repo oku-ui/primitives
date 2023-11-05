@@ -11,7 +11,7 @@ const component = {
   },
 } as Component
 
-describe('OkuAspectRatio', () => {
+describe('okuAspectRatio', () => {
   enableAutoUnmount(afterEach)
 
   it('renders the component correctly', () => {
@@ -20,15 +20,13 @@ describe('OkuAspectRatio', () => {
   })
 
   /**
-  * @vitest-environment jsdom
-  */
+   * @vitest-environment jsdom
+   */
   it('should have no accessibility violations', async () => {
     const _wrapper = mount(component)
     const results = await axe(_wrapper.element)
     // https:// github.com/capricorn86/happy-dom/issues/978
     // TODO:77 https://github.com/chaance/vitest-axe/issues/7
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     expect(results).toHaveNoViolations()
   })
 

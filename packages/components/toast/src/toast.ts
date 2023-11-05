@@ -99,58 +99,53 @@ const toast = defineComponent({
       initialValue: true,
     })
 
-    return () => h(OkuPresence,
-      { present: computed(() => forceMount.value || state.value).value },
-      {
-        default: () => h(OkuToastImpl,
-          {
-            open: state.value,
-            ...mergeProps(attrs, reactiveReactiveProps),
-            ref: forwardedRef,
-            onClose: () => updateValue(false),
-            onPause: () => emit('pause'),
-            onResume: () => emit('resume'),
-            onSwipeStart: composeEventHandlers<SwipeEvent>((event) => {
-              emit('swipeStart', event)
-            }, (event) => {
-              const targetElement = event.currentTarget as HTMLElement
-              targetElement.setAttribute('data-swipe', 'start')
-            }),
-            onSwipeMove: composeEventHandlers<SwipeEvent>((event) => {
-              emit('swipeMove', event)
-            }, (event) => {
-              const { x, y } = event.detail.delta
-              const targetElement = event.currentTarget as HTMLElement
-              targetElement.setAttribute('data-swipe', 'move')
-              targetElement.style.setProperty('--oku-toast-swipe-move-x', `${x}px`)
-              targetElement.style.setProperty('--oku-toast-swipe-move-y', `${y}px`)
-            }),
-            onSwipeCancel: composeEventHandlers<SwipeEvent>((event) => {
-              emit('swipeCancel', event)
-            }, (event) => {
-              const targetElement = event.currentTarget as HTMLElement
-              targetElement.setAttribute('data-swipe', 'cancel')
-              targetElement.style.removeProperty('--oku-toast-swipe-move-x')
-              targetElement.style.removeProperty('--oku-toast-swipe-move-y')
-              targetElement.style.removeProperty('--oku-toast-swipe-end-x')
-              targetElement.style.removeProperty('--oku-toast-swipe-end-y')
-            }),
-            onSwipeEnd: composeEventHandlers<SwipeEvent>((event) => {
-              emit('swipeEnd', event)
-            }, (event) => {
-              const { x, y } = event.detail.delta
-              const targetElement = event.currentTarget as HTMLElement
-              targetElement.setAttribute('data-swipe', 'end')
-              targetElement.style.removeProperty('--oku-toast-swipe-move-x')
-              targetElement.style.removeProperty('--oku-toast-swipe-move-y')
-              targetElement.style.setProperty('--oku-toast-swipe-end-x', `${x}px`)
-              targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
-              updateValue(false)
-            }),
-          }, slots,
-        ),
-      },
-    )
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || state.value).value }, {
+      default: () => h(OkuToastImpl, {
+        open: state.value,
+        ...mergeProps(attrs, reactiveReactiveProps),
+        ref: forwardedRef,
+        onClose: () => updateValue(false),
+        onPause: () => emit('pause'),
+        onResume: () => emit('resume'),
+        onSwipeStart: composeEventHandlers<SwipeEvent>((event) => {
+          emit('swipeStart', event)
+        }, (event) => {
+          const targetElement = event.currentTarget as HTMLElement
+          targetElement.setAttribute('data-swipe', 'start')
+        }),
+        onSwipeMove: composeEventHandlers<SwipeEvent>((event) => {
+          emit('swipeMove', event)
+        }, (event) => {
+          const { x, y } = event.detail.delta
+          const targetElement = event.currentTarget as HTMLElement
+          targetElement.setAttribute('data-swipe', 'move')
+          targetElement.style.setProperty('--oku-toast-swipe-move-x', `${x}px`)
+          targetElement.style.setProperty('--oku-toast-swipe-move-y', `${y}px`)
+        }),
+        onSwipeCancel: composeEventHandlers<SwipeEvent>((event) => {
+          emit('swipeCancel', event)
+        }, (event) => {
+          const targetElement = event.currentTarget as HTMLElement
+          targetElement.setAttribute('data-swipe', 'cancel')
+          targetElement.style.removeProperty('--oku-toast-swipe-move-x')
+          targetElement.style.removeProperty('--oku-toast-swipe-move-y')
+          targetElement.style.removeProperty('--oku-toast-swipe-end-x')
+          targetElement.style.removeProperty('--oku-toast-swipe-end-y')
+        }),
+        onSwipeEnd: composeEventHandlers<SwipeEvent>((event) => {
+          emit('swipeEnd', event)
+        }, (event) => {
+          const { x, y } = event.detail.delta
+          const targetElement = event.currentTarget as HTMLElement
+          targetElement.setAttribute('data-swipe', 'end')
+          targetElement.style.removeProperty('--oku-toast-swipe-move-x')
+          targetElement.style.removeProperty('--oku-toast-swipe-move-y')
+          targetElement.style.setProperty('--oku-toast-swipe-end-x', `${x}px`)
+          targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
+          updateValue(false)
+        }),
+      }, slots),
+    })
   },
 })
 

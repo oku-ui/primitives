@@ -39,8 +39,7 @@ const dialogTitle = defineComponent({
       id: inject?.titleId.value,
       ...mergeProps(attrs, reactiveTitleProps),
       ref: forwardRef,
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
   },

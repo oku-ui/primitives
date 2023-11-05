@@ -77,22 +77,16 @@ const SliderVertical = defineComponent({
       'onSlideStart': (event: PointerEvent) => {
         const value = getValueFromPointer(event.clientY)
         // bug ts interface: https://github.com/mesqueeb/filter-anything/issues/18
-        // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         emit('slideStart', value)
       },
       'onSlideMove': (event: PointerEvent) => {
         const value = getValueFromPointer(event.clientY)
         // bug ts interface: https://github.com/mesqueeb/filter-anything/issues/18
-        // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         emit('slideStart', value)
       },
       'onSlideEnd': () => {
         rectRef.value = undefined
         // bug ts interface: https://github.com/mesqueeb/filter-anything/issues/18
-        // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         emit('slideEnd')
       },
       'onStepKeyDown': (event: KeyboardEvent) => {
@@ -100,8 +94,6 @@ const SliderVertical = defineComponent({
         const isBackKey = BACK_KEYS[slideDirection].includes(event.key)
 
         // bug ts interface: https://github.com/mesqueeb/filter-anything/issues/18
-        // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         emit('stepKeyDown', { event, direction: isBackKey ? -1 : 1 })
       },
     }, slots)

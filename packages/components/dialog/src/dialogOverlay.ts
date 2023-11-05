@@ -53,8 +53,7 @@ const dialogOverlay = defineComponent({
     return () => inject.modal.value
       ? h(OkuPresence, {
         present: computed(() => forceMountRef.value || inject.open?.value).value,
-      },
-      {
+      }, {
         default: () => h(OkuDialogOverlayImpl, {
           ...mergeProps(attrs, reactiveOverlayProps),
           ref: forwardRef,

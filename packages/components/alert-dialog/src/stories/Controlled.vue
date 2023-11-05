@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import {
-  OkuAlertDialog, OkuAlertDialogAction, OkuAlertDialogCancel, OkuAlertDialogContent, OkuAlertDialogDescription, OkuAlertDialogOverlay, OkuAlertDialogPortal,
-  OkuAlertDialogTitle, OkuAlertDialogTrigger,
+  OkuAlertDialog,
+  OkuAlertDialogAction,
+  OkuAlertDialogCancel,
+  OkuAlertDialogContent,
+  OkuAlertDialogDescription,
+  OkuAlertDialogOverlay,
+  OkuAlertDialogPortal,
+  OkuAlertDialogTitle,
+  OkuAlertDialogTrigger,
 } from '@oku-ui/alert-dialog'
 import { ref } from 'vue'
 

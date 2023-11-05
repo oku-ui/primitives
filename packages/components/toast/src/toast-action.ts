@@ -59,23 +59,17 @@ const toastAction = defineComponent({
       if (!altText.value)
         return null
 
-      return h(OkuToastAnnounceExclude,
-        {
-          altText: altText.value,
-          asChild: true,
-        },
-        {
-          default: () => h(OkuToastClose,
-            {
-              ...mergeProps(attrs, reactiveActionProps),
-              ref: forwardedRef,
-            },
-            {
-              default: () => slots.default?.(),
-            },
-          ),
-        },
-      )
+      return h(OkuToastAnnounceExclude, {
+        altText: altText.value,
+        asChild: true,
+      }, {
+        default: () => h(OkuToastClose, {
+          ...mergeProps(attrs, reactiveActionProps),
+          ref: forwardedRef,
+        }, {
+          default: () => slots.default?.(),
+        }),
+      })
     }
   },
 })

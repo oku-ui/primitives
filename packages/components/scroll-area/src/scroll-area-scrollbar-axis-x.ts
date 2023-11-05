@@ -39,54 +39,52 @@ const scrollAreaScrollbarX = defineComponent({
         computedStyle.value = getComputedStyle(scrollbarAxisRef.value)
     })
 
-    return () => h(OkuScrollAreaScrollbarImpl,
-      {
-        'data-orientation': 'horizontal',
-        ...mergeProps(attrs, reactiveScrollAreaScrollbarAxisProps),
-        'ref': composeRefs,
-        'sizes': sizes.value,
-        'style': {
-          bottom: '0px',
-          left: inject.dir.value === 'rtl' ? 'var(--oku-scroll-area-corner-width)' : '0px',
-          right: inject.dir.value === 'ltr' ? 'var(--oku-scroll-area-corner-width)' : '0px',
-          ['--oku-scroll-area-thumb-width' as any]: `${getThumbSize(sizes.value!)}px`,
-          ...attrs.style as any,
-        },
-        'onThumbPointerDown': (pointerPos: { x: number }) => emit('thumbPointerDown', pointerPos.x),
-        'onDragScroll': (pointerPos: { x: number }) => emit('dragScroll', pointerPos.x),
-        'onWheelScroll': (event: WheelEvent, maxScrollPos: number) => {
-          if (inject.viewport.value) {
-            const scrollPos = inject.viewport.value.scrollLeft + event.deltaX
-            emit('wheelScroll', scrollPos)
-            // prevent window scroll when wheeling on scrollbar
-            if (isScrollingWithinScrollbarBounds(scrollPos, maxScrollPos))
-              event.preventDefault()
-          }
-        },
-        'onThumbPositionChange': () => {
-          emit('thumbPositionChange')
-        },
-        'onThumbPointerUp': () => {
-          emit('thumbPointerUp')
-        },
-        'onThumbChange': (thumb: ScrollAreaScrollbarAxisPrivateEmits['thumbChange'][0]) => {
-          emit('thumbChange', thumb)
-        },
-        'onResize': () => {
-          if (scrollbarAxisRef.value && inject.viewport.value && computedStyle.value) {
-            emit('sizesChange', {
-              content: inject.viewport.value.scrollWidth,
-              viewport: inject.viewport.value.offsetWidth,
-              scrollbar: {
-                size: scrollbarAxisRef.value.clientWidth,
-                paddingStart: toInt(computedStyle.value.paddingLeft),
-                paddingEnd: toInt(computedStyle.value.paddingRight),
-              },
-            })
-          }
-        },
-      }, slots,
-    )
+    return () => h(OkuScrollAreaScrollbarImpl, {
+      'data-orientation': 'horizontal',
+      ...mergeProps(attrs, reactiveScrollAreaScrollbarAxisProps),
+      'ref': composeRefs,
+      'sizes': sizes.value,
+      'style': {
+        bottom: '0px',
+        left: inject.dir.value === 'rtl' ? 'var(--oku-scroll-area-corner-width)' : '0px',
+        right: inject.dir.value === 'ltr' ? 'var(--oku-scroll-area-corner-width)' : '0px',
+        ['--oku-scroll-area-thumb-width' as any]: `${getThumbSize(sizes.value!)}px`,
+        ...attrs.style as any,
+      },
+      'onThumbPointerDown': (pointerPos: { x: number }) => emit('thumbPointerDown', pointerPos.x),
+      'onDragScroll': (pointerPos: { x: number }) => emit('dragScroll', pointerPos.x),
+      'onWheelScroll': (event: WheelEvent, maxScrollPos: number) => {
+        if (inject.viewport.value) {
+          const scrollPos = inject.viewport.value.scrollLeft + event.deltaX
+          emit('wheelScroll', scrollPos)
+          // prevent window scroll when wheeling on scrollbar
+          if (isScrollingWithinScrollbarBounds(scrollPos, maxScrollPos))
+            event.preventDefault()
+        }
+      },
+      'onThumbPositionChange': () => {
+        emit('thumbPositionChange')
+      },
+      'onThumbPointerUp': () => {
+        emit('thumbPointerUp')
+      },
+      'onThumbChange': (thumb: ScrollAreaScrollbarAxisPrivateEmits['thumbChange'][0]) => {
+        emit('thumbChange', thumb)
+      },
+      'onResize': () => {
+        if (scrollbarAxisRef.value && inject.viewport.value && computedStyle.value) {
+          emit('sizesChange', {
+            content: inject.viewport.value.scrollWidth,
+            viewport: inject.viewport.value.offsetWidth,
+            scrollbar: {
+              size: scrollbarAxisRef.value.clientWidth,
+              paddingStart: toInt(computedStyle.value.paddingLeft),
+              paddingEnd: toInt(computedStyle.value.paddingRight),
+            },
+          })
+        }
+      },
+    }, slots)
   },
 })
 

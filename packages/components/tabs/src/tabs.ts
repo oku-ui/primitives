@@ -19,7 +19,7 @@ type Direction = 'ltr' | 'rtl'
 /**
  * Whether a tab is activated automatically or manually.
  * @defaultValue automatic
- * */
+ */
 type ActivationMode = 'automatic' | 'manual'
 
 export interface TabsProps extends PrimitiveProps {
@@ -42,7 +42,7 @@ export interface TabsProps extends PrimitiveProps {
   /**
    * Whether a tab is activated automatically or manually.
    * @defaultValue automatic
-   * */
+   */
   activationMode?: ActivationMode
 }
 
@@ -162,7 +162,8 @@ const tabs = defineComponent({
           'data-orientation': orientation.value,
           ...mergeProps(attrs, reactiveTabsProps),
           'ref': forwardedRef,
-        }, slots,
+        },
+        slots,
       )
   },
 })

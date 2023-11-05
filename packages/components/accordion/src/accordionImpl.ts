@@ -16,7 +16,11 @@ const accordionImpl = defineComponent({
   emits: accordionImplProps.emits,
   setup(props, { slots, emit, attrs }) {
     const {
-      scopeOkuAccordion, disabled, dir, orientation, ...accordionProps
+      scopeOkuAccordion,
+      disabled,
+      dir,
+      orientation,
+      ...accordionProps
     } = toRefs(props)
     const accordionRef = ref<HTMLDivElement | null>(null)
 
@@ -98,7 +102,8 @@ const accordionImpl = defineComponent({
 
         const clampedIndex = nextIndex % triggerCount
         triggerCollection[clampedIndex].ref.value?.focus()
-      })
+      },
+    )
 
     const _reactive = reactive(accordionProps)
     const _accordionProps = reactiveOmit(_reactive, (key, _value) => key === undefined)

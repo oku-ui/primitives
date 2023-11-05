@@ -35,9 +35,9 @@ export interface ToggleGroupImplProps extends PrimitiveProps {
 export const toggleGroupImplProps = {
   props: {
     /**
-    * Whether the group is disabled from user interaction.
-    * @defaultValue false
-    */
+     * Whether the group is disabled from user interaction.
+     * @defaultValue false
+     */
     disabled: {
       type: [Boolean] as PropType<boolean>,
       default: false,

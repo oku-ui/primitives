@@ -86,7 +86,8 @@ export const [AccordionImplProvider, useAccordionInject] = createAccordionProvid
   ACCORDION_NAME,
 )
 type AccordionItemContextValue =
-{ open?: Ref<boolean>
+{
+  open?: Ref<boolean>
   disabled?: Ref<boolean | undefined>
   triggerId: Ref<string>
 }
@@ -129,9 +130,9 @@ export const accordionProps = {
       default: undefined,
     },
     /**
-   * Whether an accordion item can be collapsed after it has been opened.
-   * @default false
-   */
+     * Whether an accordion item can be collapsed after it has been opened.
+     * @default false
+     */
     collapsible: {
       type: [Boolean, undefined] as PropType<boolean | undefined>,
       default: undefined,
@@ -139,8 +140,8 @@ export const accordionProps = {
   },
   emits: {
     /**
-   * The callback that fires when the state of the accordion changes.
-   */
+     * The callback that fires when the state of the accordion changes.
+     */
     // eslint-disable-next-line unused-imports/no-unused-vars
     valueChange: (value: string | string[]) => true,
   },
@@ -224,8 +225,8 @@ export const accordionImplProps = {
   },
   emits: {
     /**
-   * The callback that fires when the state of the accordion changes.
-   */
+     * The callback that fires when the state of the accordion changes.
+     */
     // eslint-disable-next-line unused-imports/no-unused-vars
     valueChange: (value: string | string[]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -275,8 +276,8 @@ export const accordionImplMultipleProps = {
   emits: {
     ...accordionImplProps.emits,
     /**
-   * The callback that fires when the state of the accordion changes.
-   */
+     * The callback that fires when the state of the accordion changes.
+     */
     // eslint-disable-next-line unused-imports/no-unused-vars
     'valueChange': (value: string[]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -337,8 +338,8 @@ export const accordionImplSingleProps = {
   emits: {
     ...accordionImplProps.emits,
     /**
-   * The callback that fires when the state of the accordion changes.
-   */
+     * The callback that fires when the state of the accordion changes.
+     */
     // eslint-disable-next-line unused-imports/no-unused-vars
     'valueChange': (value: string) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars

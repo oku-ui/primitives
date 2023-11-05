@@ -1,5 +1,6 @@
 import type {
-  OkuElement, PrimitiveProps,
+  OkuElement,
+  PrimitiveProps,
 } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'

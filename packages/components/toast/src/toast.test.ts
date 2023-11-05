@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-describe('OkuToast', () => {
+describe('okuToast', () => {
   it('should be ok', () => {
     expect(1).toBe(1)
   })

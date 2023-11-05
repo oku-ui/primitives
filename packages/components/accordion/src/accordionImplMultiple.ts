@@ -1,7 +1,11 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel } from 'vue'
 import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import {
-  ACCORDION_IMPL_MULTIPLE_NAME, AccordionCollapsibleProvider, type AccordionImplMultipleNativeElement, AccordionValueProvider, accordionImplMultipleProps,
+  ACCORDION_IMPL_MULTIPLE_NAME,
+  AccordionCollapsibleProvider,
+  type AccordionImplMultipleNativeElement,
+  AccordionValueProvider,
+  accordionImplMultipleProps,
   scopeAccordionProps,
 } from './props'
 import { OkuAccordionImpl } from './accordionImpl'

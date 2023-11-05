@@ -55,8 +55,7 @@ const dialogContent = defineComponent({
 
     const originalReturn = () => h(OkuPresence, {
       present: computed(() => forceMount.value || inject.open.value).value,
-    },
-    {
+    }, {
       default: () => inject.modal.value
         ? h(OkuDialogContentModal, {
           ...mergeProps(attrs, reactiveDialogProps),

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { OkuDismissableLayer } from './DismissableLayer'
 
 // skipping this test for now. There's an error "TypeError: Cannot read properties of undefined (reading 'devtoolsRawSetupState')"
-describe.skip('DismissableLayer', () => {
+describe.skip('dismissableLayer', () => {
   it('renders the component correctly', () => {
     const wrapper = mount(OkuDismissableLayer)
 

@@ -15,13 +15,13 @@ import WithMultipleOpenAndCloseAnimations from '../src/stories/WithMultipleOpenA
 import WithOpenAndCloseAnimation from '../src/stories/WithOpenAndCloseAnimation.vue'
 import WithUnmountAnimation from '../src/stories/WithUnmountAnimation.vue'
 
-describe('OkuPresence', async () => {
+describe('okuPresence', async () => {
   it('renders correctly', async () => {
     const wrapper = mount(OkuPresence)
     expect(wrapper.html()).matchSnapshot()
   })
 
-  describe('Basic', async () => {
+  describe('basic', async () => {
     let wrapper: VueWrapper<InstanceType<typeof Basic>>
 
     beforeEach(async () => {
@@ -31,8 +31,8 @@ describe('OkuPresence', async () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -49,7 +49,7 @@ describe('OkuPresence', async () => {
     })
   })
 
-  describe('WithDeferredMountAnimation', async () => {
+  describe('withDeferredMountAnimation', async () => {
     let wrapper: VueWrapper<InstanceType<typeof WithDeferredMountAnimation>>
 
     beforeEach(async () => {
@@ -59,8 +59,8 @@ describe('OkuPresence', async () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -103,7 +103,7 @@ describe('OkuPresence', async () => {
     })
   })
 
-  describe('WithOpenAndCloseAnimation', async () => {
+  describe('withOpenAndCloseAnimation', async () => {
     let wrapper: VueWrapper<InstanceType<typeof WithOpenAndCloseAnimation>>
 
     beforeEach(async () => {
@@ -113,8 +113,8 @@ describe('OkuPresence', async () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -157,7 +157,7 @@ describe('OkuPresence', async () => {
     })
   })
 
-  describe('WithMountAnimation', async () => {
+  describe('withMountAnimation', async () => {
     let wrapper: VueWrapper<InstanceType<typeof WithMountAnimation>>
 
     beforeEach(async () => {
@@ -167,8 +167,8 @@ describe('OkuPresence', async () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -211,7 +211,7 @@ describe('OkuPresence', async () => {
     })
   })
 
-  describe('WithUnmountAnimation', async () => {
+  describe('withUnmountAnimation', async () => {
     let wrapper: VueWrapper<InstanceType<typeof WithUnmountAnimation>>
 
     beforeEach(async () => {
@@ -221,8 +221,8 @@ describe('OkuPresence', async () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -265,7 +265,7 @@ describe('OkuPresence', async () => {
     })
   })
 
-  describe('WithMultipleMountAnimations', async () => {
+  describe('withMultipleMountAnimations', async () => {
     let wrapper: VueWrapper<InstanceType<typeof WithMultipleMountAnimations>>
 
     beforeEach(async () => {
@@ -275,8 +275,8 @@ describe('OkuPresence', async () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -319,7 +319,7 @@ describe('OkuPresence', async () => {
     })
   })
 
-  describe('WithMultipleOpenAndCloseAnimations', async () => {
+  describe('withMultipleOpenAndCloseAnimations', async () => {
     let wrapper: VueWrapper<InstanceType<typeof WithMultipleOpenAndCloseAnimations>>
 
     beforeEach(async () => {
@@ -329,8 +329,8 @@ describe('OkuPresence', async () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })

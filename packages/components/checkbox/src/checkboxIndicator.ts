@@ -54,8 +54,7 @@ const checkboxIndicator = defineComponent({
         'data-disabled': context.disabled?.value ? '' : undefined,
         ...mergeProps(attrs, reactiveIndicatorProps),
         'style': { pointerEvents: 'none', ...attrs.style as any },
-      },
-      {
+      }, {
         default: () => slots.default?.(),
       }),
     })

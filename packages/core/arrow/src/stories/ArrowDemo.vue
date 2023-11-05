@@ -13,7 +13,7 @@ withDefaults(defineProps<OkuArrowProps>(), {
 
 const arrowRef = ref()
 onMounted(() => {
-  console.log(arrowRef.value)
+  console.warn(arrowRef.value)
 })
 </script>
 

@@ -17,9 +17,9 @@ export interface DialogPortalProps {
    */
   container?: PortalProps['container']
   /**
-     * Used to force mounting when more control is needed. Useful when
-     * controlling animation with React animation libraries.
-     */
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
   forceMount?: true
 }
 
@@ -59,8 +59,7 @@ const dialogPortal = defineComponent({
       slots.default?.().map((child) => {
         return h(OkuPresence, {
           present: computed(() => forceMount?.value || inject.open?.value).value,
-        },
-        {
+        }, {
           default: () => h(OkuPortal, {
             asChild: true,
             container: container.value,

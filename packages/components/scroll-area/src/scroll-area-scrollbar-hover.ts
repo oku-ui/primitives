@@ -53,18 +53,13 @@ const scrollAreaScrollbarHover = defineComponent({
       }
     })
 
-    return () => h(OkuPresence,
-      { present: computed(() => forceMount.value || visible.value).value },
-      {
-        default: () => h(OkuScrollAreaScrollbarAuto,
-          {
-            'data-state': visible.value ? 'visible' : 'hidden',
-            ...mergeProps(attrs, reactiveScrollAreaScrollbarHoverProps),
-            'ref': forwardedRef,
-          }, slots,
-        ),
-      },
-    )
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || visible.value).value }, {
+      default: () => h(OkuScrollAreaScrollbarAuto, {
+        'data-state': visible.value ? 'visible' : 'hidden',
+        ...mergeProps(attrs, reactiveScrollAreaScrollbarHoverProps),
+        'ref': forwardedRef,
+      }, slots),
+    })
   },
 })
 

@@ -36,7 +36,7 @@ const componentOpen = {
   },
 } as Component
 
-describe('OkuCheckbox', () => {
+describe('okuCheckbox', () => {
   it('renders the component correctly', () => {
     const wrapper = mount(component)
     expect(wrapper.exists()).toBe(true)
@@ -108,8 +108,8 @@ describe('OkuCheckbox', () => {
     wrapper.unmount()
   })
 
-  it('OkuCollapsibleTrigger error mount', async () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuCollapsibleTrigger error mount', async () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuCollapsibleTrigger)
 
@@ -119,8 +119,8 @@ describe('OkuCheckbox', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuCollapsible)" not found.')
   })
 
-  it('OkuCollapsibleContent error mount', async () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuCollapsibleContent error mount', async () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuCollapsibleContent)
 
@@ -131,8 +131,8 @@ describe('OkuCheckbox', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuCollapsible)" not found.')
   })
 
-  it('OkuCollapsibleContentImpl error mount', async () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuCollapsibleContentImpl error mount', async () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuCollapsibleContentImpl)
 

@@ -46,7 +46,7 @@ function mountOkuFocusScope(template: string, handleLastFocusableElementBlur?: S
  * @vitest-environment jsdom
  */
 
-describe('FocusScope', () => {
+describe('focusScope', () => {
   let wrapper: VueWrapper
 
   let tabbableFirst: HTMLInputElement

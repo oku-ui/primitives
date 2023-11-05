@@ -16,9 +16,8 @@ export function useStateMachine<M>(
   const state = ref(initialState)
 
   const reducer = (event: MachineEvent<M>) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const nextState = machine[state.value][event]
+    // TODO: fix any
+    const nextState = (machine as any)[state.value][event]
 
     return nextState ?? state.value
   }
