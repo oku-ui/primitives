@@ -9,7 +9,6 @@ describe('okuMenu', () => {
   })
 })
 
-
 describe('okuScrollArea', () => {
   it('should render OkuScrollArea correctly', () => {
     const wrapper = shallowMount(OkuScrollArea)
