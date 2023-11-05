@@ -1,13 +1,12 @@
 import './style.css'
-import { themes } from '@storybook/theming';
+import { themes } from '@storybook/theming'
 import type { Preview } from '@storybook/vue3'
 import { dark, light } from './themes'
-import { DocsContainer } from './DocsContainer';
-
+import { DocsContainer } from './DocsContainer'
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     darkMode: {
       current: 'light',
       dark: {
@@ -21,9 +20,9 @@ const preview: Preview = {
       stylePreview: true,
     },
     docs: {
-      container: DocsContainer
+      container: DocsContainer,
     },
   },
-};
+}
 
-export default preview;
+export default preview

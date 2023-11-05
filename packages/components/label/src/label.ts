@@ -33,8 +33,7 @@ const label = defineComponent({
         if (!event.defaultPrevented && event.detail > 1)
           event.preventDefault()
       },
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
     return originalReturn

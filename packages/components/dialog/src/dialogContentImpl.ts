@@ -84,57 +84,54 @@ const dialogContentImpl = defineComponent({
 
     useFocusGuards()
 
-    return () => h(Fragment,
-      [
-        h(OkuFocusScope, {
-          asChild: true,
-          loop: true,
-          trapped: trapFocus.value,
-          onMountAutoFocus: (event) => {
-            emit('openAutoFocus', event)
+    return () => h(Fragment, [
+      h(OkuFocusScope, {
+        asChild: true,
+        loop: true,
+        trapped: trapFocus.value,
+        onMountAutoFocus: (event) => {
+          emit('openAutoFocus', event)
+        },
+        onUnmountAutoFocus: (event) => {
+          emit('closeAutoFocus', event)
+        },
+      }, {
+        default: () => h(OkuDismissableLayer, {
+          'role': 'dialog',
+          'id': inject.contentId.value,
+          'aria-describedby': inject.descriptionId?.value,
+          'aria-labelledby': inject.titleId?.value,
+          'data-state': getState(inject.open.value),
+          ...mergeProps(attrs, reactiveDialogProps),
+          'ref': composedRefs,
+          'onInteractOutside': (event) => {
+            emit('interactOutside', event)
           },
-          onUnmountAutoFocus: (event) => {
-            emit('closeAutoFocus', event)
+          'onEscapeKeyDown': (event) => {
+            emit('escapeKeyDown', event)
           },
-        }, {
-          default: () => h(OkuDismissableLayer, {
-            'role': 'dialog',
-            'id': inject.contentId.value,
-            'aria-describedby': inject.descriptionId?.value,
-            'aria-labelledby': inject.titleId?.value,
-            'data-state': getState(inject.open.value),
-            ...mergeProps(attrs, reactiveDialogProps),
-            'ref': composedRefs,
-            'onInteractOutside': (event) => {
-              emit('interactOutside', event)
-            },
-            'onEscapeKeyDown': (event) => {
-              emit('escapeKeyDown', event)
-            },
-            'onPointerdownOutside': (event) => {
-              emit('pointerdownOutside', event)
-            },
-            'onFocusoutSide': (event) => {
-              emit('focusoutSide', event)
-            },
-            'onDismiss': () => {
-              inject.onOpenChange(false)
-            },
-          }, slots),
-        }),
-        process.env.NODE_ENV !== 'production'
-        && h(Fragment,
-          [
-            h(OkuDialogTitleWarning, {
-              titleId: inject.titleId.value,
-            }),
-            h(OkuDialogDescriptionWarning, {
-              contentRef: contentRef.value,
-              descriptionId: inject.descriptionId.value,
-            }),
-          ]),
-      ],
-    )
+          'onPointerdownOutside': (event) => {
+            emit('pointerdownOutside', event)
+          },
+          'onFocusoutSide': (event) => {
+            emit('focusoutSide', event)
+          },
+          'onDismiss': () => {
+            inject.onOpenChange(false)
+          },
+        }, slots),
+      }),
+      process.env.NODE_ENV !== 'production'
+        && h(Fragment, [
+          h(OkuDialogTitleWarning, {
+            titleId: inject.titleId.value,
+          }),
+          h(OkuDialogDescriptionWarning, {
+            contentRef: contentRef.value,
+            descriptionId: inject.descriptionId.value,
+          }),
+        ]),
+    ])
   },
 })
 

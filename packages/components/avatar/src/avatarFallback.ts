@@ -66,7 +66,8 @@ const avatarFallback = defineComponent({
     const originalReturn = () => {
       return (canRender.value && (provide.imageLoadingStatus.value !== 'loaded'))
         ? h(
-          Primitive.span, {
+          Primitive.span,
+          {
             ...attrs,
             ref: forwardedRef,
             asChild: false,

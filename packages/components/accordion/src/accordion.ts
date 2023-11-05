@@ -14,7 +14,8 @@ const accordion = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const {
-      type, ...accordionPropsRefs
+      type,
+      ...accordionPropsRefs
     } = toRefs(props)
     const forwardRef = useForwardRef
 
@@ -43,8 +44,7 @@ const accordion = defineComponent({
 
       return h(CollectionProvider, {
         scope: props.scopeOkuAccordion,
-      },
-      {
+      }, {
         default: () => type.value === 'multiple'
           ? h(OkuAccordionImplMultiple, {
             ...mergeProps(attrs, reactiveProps),
@@ -54,8 +54,7 @@ const accordion = defineComponent({
             ...mergeProps(attrs, reactiveProps),
             ref: forwardRef,
           }, slots),
-      },
-      )
+      })
     }
   },
 })

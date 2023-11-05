@@ -59,8 +59,7 @@ const sliderRange = defineComponent({
         [orientation.startEdge.value]: `${offsetStart.value}%`,
         [orientation.endEdge.value]: `${offsetEnd.value}%`,
       },
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
     return originalReturn

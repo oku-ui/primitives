@@ -1,6 +1,6 @@
-import type { Component, DefineComponent } from 'vue'
+import type { Component } from 'vue'
 import { h, onMounted, ref } from 'vue'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { useComposedRefs } from '../src/useComposedRefs'
 
@@ -26,18 +26,15 @@ const DivComponent: Component = {
   },
 }
 
-describe('Provide', () => {
-  test('createContext', async () => {
+describe('provide', () => {
+  it('createContext', async () => {
     const component = mount(DivComponent)
     const deneme = component.html()
     expect(deneme).toBe('<div>test</div>')
   })
 
-  test('defineComponents', async () => {
-    // TODO: Fix this ts-ignore
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const _components: DefineComponent = {
+  it('defineComponents', async () => {
+    const _components: Component = {
       name: 'Refs',
       setup() {
         const ref1 = ref()

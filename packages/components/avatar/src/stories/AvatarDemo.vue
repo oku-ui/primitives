@@ -14,7 +14,7 @@ withDefaults(defineProps<IAvatarPropsProps>(), {
 const src = 'https://picsum.photos/id/1005/400/400'
 const srcBroken = 'https://broken.link.com/broken-pic.jpg'
 
-const consoleLog = (event: any) => console.log(event, 'log')
+const consoleLog = (event: any) => console.warn(event, 'log')
 
 const srcDynamic = ref()
 

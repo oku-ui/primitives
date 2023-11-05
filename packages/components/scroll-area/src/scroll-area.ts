@@ -63,23 +63,20 @@ const scrollArea = defineComponent({
       onCornerHeightChange: (_heigh: number) => cornerHeight.value = _heigh,
     })
 
-    return () => h(Primitive.div,
-      {
-        dir: direction.value,
-        ...mergeProps(attrs, reactiveReactiveProps),
-        ref: composedRefs,
-        style: {
-          position: 'relative',
-          // Pass corner sizes as CSS vars to reduce re-renders of context consumers
-          ['--oku-scroll-area-corner-width' as any]: `${cornerWidth.value}px`,
-          ['--oku-scroll-area-corner-height' as any]: `${cornerHeight.value}px`,
-          ...attrs.style as any,
-        },
+    return () => h(Primitive.div, {
+      dir: direction.value,
+      ...mergeProps(attrs, reactiveReactiveProps),
+      ref: composedRefs,
+      style: {
+        position: 'relative',
+        // Pass corner sizes as CSS vars to reduce re-renders of context consumers
+        ['--oku-scroll-area-corner-width' as any]: `${cornerWidth.value}px`,
+        ['--oku-scroll-area-corner-height' as any]: `${cornerHeight.value}px`,
+        ...attrs.style as any,
       },
-      {
-        default: () => slots.default?.(),
-      },
-    )
+    }, {
+      default: () => slots.default?.(),
+    })
   },
 })
 

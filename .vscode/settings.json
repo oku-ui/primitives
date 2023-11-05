@@ -1,4 +1,5 @@
 {
+  "eslint.experimental.useFlatConfig": true,
   // icons -> https://primer.style/octicons/
   "commands.commands": [
     {

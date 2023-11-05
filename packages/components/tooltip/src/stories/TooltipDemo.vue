@@ -16,7 +16,7 @@ withDefaults(defineProps<OkuTooltipProps>(), {
 
 const TooltipRef = ref()
 onMounted(() => {
-  console.log(TooltipRef.value)
+  console.warn(TooltipRef.value)
 })
 </script>
 

@@ -51,14 +51,13 @@ const alertDialogContent = defineComponent({
       }),
       onInteractOutside: event => event.preventDefault(),
       onPointerdownOutside: event => event.preventDefault(),
-    },
-    {
+    }, {
       /**
-               * We have to use `Slottable` here as we cannot wrap the `AlertDialogContentProvider`
-               * around everything, otherwise the `DescriptionWarning` would be rendered straight away.
-               * This is because we want the accessibility checks to run only once the content is actually
-               * open and that behaviour is already encapsulated in `DialogContent`.
-               */
+       * We have to use `Slottable` here as we cannot wrap the `AlertDialogContentProvider`
+       * around everything, otherwise the `DescriptionWarning` would be rendered straight away.
+       * This is because we want the accessibility checks to run only once the content is actually
+       * open and that behaviour is already encapsulated in `DialogContent`.
+       */
       default: () => [
         h(OkuSlottable, {}, {
           default: () => slots.default?.(),

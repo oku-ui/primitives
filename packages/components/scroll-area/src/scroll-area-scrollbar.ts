@@ -44,36 +44,28 @@ const scrollAreaScrollbar = defineComponent({
     })
 
     return () => inject.type.value === 'hover'
-      ? h(OkuScrollAreaScrollbarHover,
-        {
+      ? h(OkuScrollAreaScrollbarHover, {
+        ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
+        ref: forwardedRef,
+        forceMount: forceMount.value,
+      }, slots)
+      : inject.type.value === 'scroll'
+        ? h(OkuScrollAreaScrollbarScroll, {
           ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
           ref: forwardedRef,
           forceMount: forceMount.value,
-        }, slots,
-      )
-      : inject.type.value === 'scroll'
-        ? h(OkuScrollAreaScrollbarScroll,
-          {
+        }, slots)
+        : inject.type.value === 'auto'
+          ? h(OkuScrollAreaScrollbarAuto, {
             ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
             ref: forwardedRef,
             forceMount: forceMount.value,
-          }, slots,
-        )
-        : inject.type.value === 'auto'
-          ? h(OkuScrollAreaScrollbarAuto,
-            {
+          }, slots)
+          : inject.type.value === 'always'
+            ? h(OkuScrollAreaScrollbarVisible, {
               ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
               ref: forwardedRef,
-              forceMount: forceMount.value,
-            }, slots,
-          )
-          : inject.type.value === 'always'
-            ? h(OkuScrollAreaScrollbarVisible,
-              {
-                ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
-                ref: forwardedRef,
-              }, slots,
-            )
+            }, slots)
             : null
   },
 })

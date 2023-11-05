@@ -4,7 +4,7 @@ import {
   type PrimitiveProps,
   primitiveProps,
 } from '@oku-ui/primitive'
-import { type Scope } from '@oku-ui/provide'
+import type { Scope } from '@oku-ui/provide'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { getProgressState, scopeProgressProps } from './utils'
 import { useProgressInject } from './progress'

@@ -2,8 +2,10 @@ import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useMod
 import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { OkuAccordionImpl } from './accordionImpl'
 import {
-  ACCORDION_IMPL_SINGLE_NAME, AccordionCollapsibleProvider,
-  AccordionValueProvider, accordionImplSingleProps,
+  ACCORDION_IMPL_SINGLE_NAME,
+  AccordionCollapsibleProvider,
+  AccordionValueProvider,
+  accordionImplSingleProps,
   scopeAccordionProps,
 } from './props'
 import type { AccordionImplSingleNativeElement } from './props'

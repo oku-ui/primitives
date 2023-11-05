@@ -228,72 +228,68 @@ const slider = defineComponent({
       const SliderOrientation = isHorizontal ? OkuSliderHorizontal : OkuSliderVertical
 
       return [
-        h(CollectionProvider,
-          {
+        h(CollectionProvider, {
+          scope: props.scopeOkuSlider,
+        }, {
+          default: () => h(CollectionSlot, {
             scope: props.scopeOkuSlider,
-          },
-          {
-            default: () => h(CollectionSlot, {
-              scope: props.scopeOkuSlider,
-            },
-            {
-              default: () => h(SliderOrientation, {
-                'aria-disabled': disabled.value,
-                'data-disabled': disabled.value ? '' : undefined,
-                ...mergeProps(attrs, reactiveSliderProps),
-                'ref': composedRefs,
-                'min': min.value,
-                'max': max.value,
-                'inverted': inverted.value,
-                'onPointerdown': () => {
-                  if (!disabled.value)
-                    valuesBeforeSlideStartRef.value = state.value || []
-                },
-                'onSlideStart': (event) => {
-                  if (disabled.value)
-                    emit('slideStart')
+          }, {
+            default: () => h(SliderOrientation, {
+              'aria-disabled': disabled.value,
+              'data-disabled': disabled.value ? '' : undefined,
+              ...mergeProps(attrs, reactiveSliderProps),
+              'ref': composedRefs,
+              'min': min.value,
+              'max': max.value,
+              'inverted': inverted.value,
+              'onPointerdown': () => {
+                if (!disabled.value)
+                  valuesBeforeSlideStartRef.value = state.value || []
+              },
+              'onSlideStart': (event) => {
+                if (disabled.value)
+                  emit('slideStart')
 
-                  else if (event)
-                    handleSlideStart(event)
-                },
-                'onSlideMove': (event) => {
-                  if (disabled.value)
-                    emit('slideMove')
+                else if (event)
+                  handleSlideStart(event)
+              },
+              'onSlideMove': (event) => {
+                if (disabled.value)
+                  emit('slideMove')
 
-                  else if (event)
-                    handleSlideMove(event)
-                },
-                'onSlideEnd': () => {
-                  if (disabled.value)
-                    emit('slideEnd')
+                else if (event)
+                  handleSlideMove(event)
+              },
+              'onSlideEnd': () => {
+                if (disabled.value)
+                  emit('slideEnd')
 
-                  else
-                    handleSlideEnd()
-                },
-                'onHomeKeyDown': () => !disabled.value && updateValues(min.value, 0, { commit: true }),
-                'onEndKeyDown': () =>
-                  !disabled.value && updateValues(max.value, (state.value?.length || 0) - 1, { commit: true }),
-                'onStepKeyDown': ({ direction: stepDirection, event }) => {
-                  if (!disabled.value) {
-                    const isPageKey = PAGE_KEYS.includes(event.key)
-                    const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
-                    const multiplier = isSkipKey ? 10 : 1
-                    const atIndex = valueIndexToChangeRef.value
-                    const value = state.value?.[atIndex]
-                    const stepInDirection = step.value * multiplier * stepDirection
-                    updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
-                  }
-                },
-              }, slots),
-            }),
+                else
+                  handleSlideEnd()
+              },
+              'onHomeKeyDown': () => !disabled.value && updateValues(min.value, 0, { commit: true }),
+              'onEndKeyDown': () =>
+                !disabled.value && updateValues(max.value, (state.value?.length || 0) - 1, { commit: true }),
+              'onStepKeyDown': ({ direction: stepDirection, event }) => {
+                if (!disabled.value) {
+                  const isPageKey = PAGE_KEYS.includes(event.key)
+                  const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
+                  const multiplier = isSkipKey ? 10 : 1
+                  const atIndex = valueIndexToChangeRef.value
+                  const value = state.value?.[atIndex]
+                  const stepInDirection = step.value * multiplier * stepDirection
+                  updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
+                }
+              },
+            }, slots),
           }),
-        isFormControl.value && state.value?.map((_value, index) =>
-          h(OkuBubbleInput, {
-            key: index,
-            name: name.value ? name.value + ((state.value || []).length > 1 ? '[]' : '') : undefined,
-            // TODO: value type error
-            value: _value as any,
-          }),
+        }),
+        isFormControl.value && state.value?.map((_value, index) => h(OkuBubbleInput, {
+          key: index,
+          name: name.value ? name.value + ((state.value || []).length > 1 ? '[]' : '') : undefined,
+          // TODO: value type error
+          value: _value as any,
+        }),
         ),
       ]
     }

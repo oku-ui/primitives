@@ -29,15 +29,15 @@ export const [tooltipProvide, useTooltipInject]
 export interface TooltipProps {
   open?: boolean
   /**
- * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.
- * @defaultValue false
- */
+   * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.
+   * @defaultValue false
+   */
   defaultOpen?: boolean
   /**
- * The duration from when the pointer enters the trigger until the tooltip gets opened. This will
- * override the prop with the same name passed to Provider.
- * @defaultValue 700
- */
+   * The duration from when the pointer enters the trigger until the tooltip gets opened. This will
+   * override the prop with the same name passed to Provider.
+   * @defaultValue 700
+   */
   delayDuration?: number
   /**
    * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.

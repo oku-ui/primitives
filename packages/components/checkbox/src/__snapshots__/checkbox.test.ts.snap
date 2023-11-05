@@ -135,3 +135,139 @@ exports[`OkuCheckbox > renders the component correctly with a label 1`] = `
   
 </div>
 `;
+
+exports[`okuCheckbox > can be checked 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <button
+    aria-checked="false"
+    data-state="unchecked"
+    role="checkbox"
+    type="button"
+  >
+    <!---->
+  </button>
+  <!---->
+  
+</div>
+`;
+
+exports[`okuCheckbox > can be checked 2`] = `
+<div
+  data-v-app=""
+>
+  
+  <button
+    aria-checked="true"
+    data-state="checked"
+    role="checkbox"
+    type="button"
+  >
+    <span
+      data-state="checked"
+      style="pointer-events: none;"
+    >
+      <!---->
+    </span>
+  </button>
+  <!---->
+  
+</div>
+`;
+
+exports[`okuCheckbox > can be checked 3`] = `
+<div
+  data-v-app=""
+>
+  
+  <button
+    aria-checked="false"
+    data-state="unchecked"
+    role="checkbox"
+    type="button"
+  >
+    <!---->
+  </button>
+  <!---->
+  
+</div>
+`;
+
+exports[`okuCheckbox > can be checked with checked prop 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <button
+    aria-checked="false"
+    data-state="unchecked"
+    role="checkbox"
+    type="button"
+  >
+    <!---->
+  </button>
+  <!---->
+  
+</div>
+`;
+
+exports[`okuCheckbox > can be checked with checked prop 2`] = `
+<div
+  data-v-app=""
+>
+  
+  <button
+    aria-checked="true"
+    data-state="checked"
+    role="checkbox"
+    type="button"
+  >
+    <span
+      data-state="checked"
+      style="pointer-events: none;"
+    >
+      <!---->
+    </span>
+  </button>
+  <!---->
+  
+</div>
+`;
+
+exports[`okuCheckbox > can be checked with checked prop 3`] = `
+<div
+  data-v-app=""
+>
+  
+  <button
+    aria-checked="false"
+    data-state="unchecked"
+    role="checkbox"
+    type="button"
+  >
+    <!---->
+  </button>
+  <!---->
+  
+</div>
+`;
+
+exports[`okuCheckbox > renders the component correctly with a label 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <button
+    aria-checked="false"
+    data-state="unchecked"
+    role="checkbox"
+    type="button"
+  >
+    Label
+  </button>
+  <!---->
+  
+</div>
+`;

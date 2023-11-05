@@ -58,24 +58,16 @@ const toastAnnounce = defineComponent({
 
     return () => isAnnounced.value
       ? null
-      : h(OkuPortal,
-        { asChild: true },
-        {
-          default: () => h(OkuVisuallyHidden,
-            {
-              ...mergeProps(attrs, reactiveAnnounceProps),
-            },
-            {
-              default: () => renderAnnounceText.value && h(Fragment,
-                [
-                  inject.label.value,
-                  slots.default?.(),
-                ],
-              ),
-            },
-          ),
-        },
-      )
+      : h(OkuPortal, { asChild: true }, {
+        default: () => h(OkuVisuallyHidden, {
+          ...mergeProps(attrs, reactiveAnnounceProps),
+        }, {
+          default: () => renderAnnounceText.value && h(Fragment, [
+            inject.label.value,
+            slots.default?.(),
+          ]),
+        }),
+      })
   },
 })
 

@@ -10,7 +10,7 @@ const component = {
   },
 } as Component
 
-describe('OkuToggle', () => {
+describe('okuToggle', () => {
   const wrapper = mount(component)
 
   it('renders correctly', () => {
@@ -19,7 +19,7 @@ describe('OkuToggle', () => {
 </button>`)
   })
 
-  it('Active state', () => {
+  it('active state', () => {
     const wrapper = mount(component, {
       propsData: {
         defaultPressed: true,
@@ -28,7 +28,7 @@ describe('OkuToggle', () => {
     expect(wrapper.attributes('aria-pressed')).toBe('true')
   })
 
-  it('Inactive state', () => {
+  it('inactive state', () => {
     const wrapper = mount(component, {
       propsData: {
         defaultPressed: false,
@@ -37,7 +37,7 @@ describe('OkuToggle', () => {
     expect(wrapper.attributes('aria-pressed')).toBe('false')
   })
 
-  it('Toggle state', async () => {
+  it('toggle state', async () => {
     const wrapper = mount(component, {
     })
     await wrapper.trigger('click')

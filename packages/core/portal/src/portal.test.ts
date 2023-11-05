@@ -10,7 +10,7 @@ const component = {
   },
 } as Component
 
-describe('OkuPortal', () => {
+describe('okuPortal', () => {
   it('teleports content to the specified container', async () => {
     const container = document.createElement('div')
     document.body.appendChild(container)

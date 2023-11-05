@@ -4,7 +4,7 @@ import { clamp } from '@oku-ui/utils'
 import { createCollection } from '@oku-ui/collection'
 import { type Ref, ref } from 'vue'
 import type { useSize } from '@oku-ui/use-composable'
-import { type SliderProps } from './slider'
+import type { SliderProps } from './slider'
 import type { SliderThumbElement } from './sliderThumb'
 
 export const SLIDER_NAME = 'OkuSlider'
@@ -19,11 +19,9 @@ export const scopeSliderProps = {
 
 export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<SliderThumbElement>(SLIDER_NAME)
 
-export const [createSliderProvider, createSliderScope] = createProvideScope(SLIDER_NAME,
-  [
-    createCollectionScope,
-  ],
-)
+export const [createSliderProvider, createSliderScope] = createProvideScope(SLIDER_NAME, [
+  createCollectionScope,
+])
 
 type SliderProvideValue = {
   disabled?: Ref<boolean | undefined>

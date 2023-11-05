@@ -12,3 +12,16 @@ exports[`OkuAspectRatio > component render 1`] = `
   </div>
 </div>
 `;
+
+exports[`okuAspectRatio > component render 1`] = `
+<div
+  data-oku-aspect-ratio-wrapper=""
+  style="position: relative; width: 100%; padding-bottom: 100%;"
+>
+  <div
+    style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"
+  >
+    <!---->
+  </div>
+</div>
+`;

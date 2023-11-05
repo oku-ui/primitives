@@ -80,8 +80,7 @@ const sliderThumbImpl = defineComponent({
         position: 'absolute',
         [orientation.startEdge.value]: `calc(${percent.value}% + ${thumbInBoundsOffset.value}px)`,
       },
-    },
-    [
+    }, [
       h(CollectionItemSlot, {
         scope: scopeOkuSlider.value,
       }, {
@@ -98,11 +97,11 @@ const sliderThumbImpl = defineComponent({
           ...mergeProps(attrs, reactiveThumbProps),
           'ref': composedRefs,
           /**
-          * There will be no value on initial render while we work out the index so we hide thumbs
-          * without a value, otherwise SSR will render them in the wrong position before they
-          * snap into the correct position during hydration which would be visually jarring for
-          * slower connections.
-          */
+           * There will be no value on initial render while we work out the index so we hide thumbs
+           * without a value, otherwise SSR will render them in the wrong position before they
+           * snap into the correct position during hydration which would be visually jarring for
+           * slower connections.
+           */
           'style': computed(() => value.value === undefined
             ? {
                 display: 'none',
@@ -117,8 +116,7 @@ const sliderThumbImpl = defineComponent({
           }),
         }, slots),
       }),
-    ],
-    )
+    ])
   },
 })
 

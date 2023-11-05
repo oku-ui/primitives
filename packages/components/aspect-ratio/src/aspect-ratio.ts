@@ -35,7 +35,8 @@ const aspectRatio = defineComponent({
 
     const forwardedRef = useForwardRef()
     const originalReturn = () => h(
-      'div', {
+      'div',
+      {
         'style': {
           position: 'relative',
           width: '100%',

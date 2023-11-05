@@ -35,7 +35,7 @@ const component = {
   },
 } as Component
 
-describe('OkuRadioGroup', () => {
+describe('okuRadioGroup', () => {
   it('renders the component correctly', () => {
     const wrapper = mount(component)
     expect(wrapper.exists()).toBe(true)

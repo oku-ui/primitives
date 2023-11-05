@@ -34,13 +34,11 @@ const RadioGroupIndicator = defineComponent({
     const radioScope = useRadioScope(scopeOkuRadioGroup.value)
     const forwardedRef = useForwardRef()
 
-    return () => h(OkuRadioIndicator,
-      {
-        ...radioScope,
-        ...mergeProps(attrs, reactiveIndicatorProps),
-        ref: forwardedRef,
-      },
-    )
+    return () => h(OkuRadioIndicator, {
+      ...radioScope,
+      ...mergeProps(attrs, reactiveIndicatorProps),
+      ref: forwardedRef,
+    })
   },
 })
 

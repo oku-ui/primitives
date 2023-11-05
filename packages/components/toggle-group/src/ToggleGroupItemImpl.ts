@@ -26,8 +26,8 @@ export type ToggleGroupItemImplEmits = Omit<ToggleEmits, 'update:modelValue' | '
 export const toggleGroupItemImplProps = {
   props: {
     /**
-    * A string value for the toggle group item. All items within a toggle group should use a unique value.
-   */
+     * A string value for the toggle group item. All items within a toggle group should use a unique value.
+     */
     value: {
       type: [String] as PropType<string>,
       required: true,

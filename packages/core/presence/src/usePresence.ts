@@ -73,10 +73,10 @@ export function usePresence(present: Ref<boolean>) {
   })
 
   /**
-     * Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
-     * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
-     * make sure we only trigger ANIMATION_END for the currently active animation.
-     */
+   * Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
+   * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
+   * make sure we only trigger ANIMATION_END for the currently active animation.
+   */
   const handleAnimationEnd = async (event: AnimationEvent) => {
     const currentAnimationName = getAnimationName(stylesRef.value)
     const isCurrentAnimation = currentAnimationName.includes(

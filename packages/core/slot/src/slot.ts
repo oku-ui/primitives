@@ -15,10 +15,8 @@ const OkuSlot = defineComponent({
       const defaultSlot = slots.default?.()
       const slottable = defaultSlot?.find(isSlottable)
       if (slottable && defaultSlot?.length) {
-        // TODO: default TS type problem
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        const newParentElement = slottable.children?.default?.()[0]
+        // TODO: fix any
+        const newParentElement = (slottable.children as any)?.default?.()[0]
 
         const newChildren = defaultSlot.map((child) => {
           if (child === slottable)
@@ -28,7 +26,8 @@ const OkuSlot = defineComponent({
         })
 
         return createVNode(newParentElement.type, {
-          ...mergeProps(attrs, props, newParentElement.props), ref: composedRefs,
+          ...mergeProps(attrs, props, newParentElement.props),
+          ref: composedRefs,
         }, {
           default: () => newChildren,
         })

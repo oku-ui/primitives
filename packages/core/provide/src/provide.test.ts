@@ -1,12 +1,12 @@
 import type { Component } from 'vue'
 import { defineComponent, h } from 'vue'
-import { describe, expect, test, vitest } from 'vitest'
+import { describe, expect, it, vitest } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { ScopePropObject, createProvide, createProvideScope } from '.'
 
-describe('Provide', () => {
-  test('createProvide consumerName emty test', async () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+describe('provide', () => {
+  it('createProvide consumerName emty test', async () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const [_AvatarProvider, useAvatarInject] = createProvide('Avatar')
 
@@ -25,8 +25,8 @@ describe('Provide', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(Avatar)" not found.')
   })
 
-  test('createProvide consumerName emty test', async () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('avatar test', async () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const [_AvatarProvider, useAvatarInject] = createProvide('Avatar')
 
@@ -45,8 +45,8 @@ describe('Provide', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(Avatar)" not found.')
   })
 
-  test('createProvide get inject data', async () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('createProvide get inject data', async () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const [_avatarProvider, useAvatarInject] = createProvide<{
       test: string
@@ -67,7 +67,7 @@ describe('Provide', () => {
     expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(Avatar)" not found.')
   })
 
-  test('createProvide provider', async () => {
+  it('createProvide provider', async () => {
     const [avatarProvider, useAvatarInject] = createProvide<{
       testValue: string
     }>('Avatar')
@@ -99,8 +99,7 @@ describe('Provide', () => {
         Avatar,
       },
       setup(props, { attrs }) {
-        return () => h(Avatar, { ...attrs }, [h(AvatarFallback)],
-        )
+        return () => h(Avatar, { ...attrs }, [h(AvatarFallback)])
       },
     })
 
@@ -108,7 +107,7 @@ describe('Provide', () => {
     expect(component.html()).toContain('<div>Merhaba</div>')
   })
 
-  test('createProvide defaultProvide', async () => {
+  it('createProvide defaultProvide', async () => {
     const [_avatarProvider, useAvatarInject] = createProvide<{
       testValue: string
     }>('Avatar', {
@@ -138,8 +137,7 @@ describe('Provide', () => {
         Avatar,
       },
       setup(props, { attrs }) {
-        return () => h(Avatar, { ...attrs }, [h(AvatarFallback)],
-        )
+        return () => h(Avatar, { ...attrs }, [h(AvatarFallback)])
       },
     })
 
@@ -147,7 +145,7 @@ describe('Provide', () => {
     expect(component.html()).toContain('<div>Merhaba asdasda</div>')
   })
 
-  test('createProvideScope', async () => {
+  it('createProvideScope', async () => {
     const AVATAR_NAME = 'OkuAvatar'
     const [createAvatarProvide, _createAvatarScope] = createProvideScope(AVATAR_NAME)
 
@@ -194,8 +192,7 @@ describe('Provide', () => {
         Avatar,
       },
       setup(props, { attrs }) {
-        return () => h(Avatar, { ...attrs }, [h(AvatarFallback)],
-        )
+        return () => h(Avatar, { ...attrs }, [h(AvatarFallback)])
       },
     })
 
@@ -203,17 +200,15 @@ describe('Provide', () => {
     expect(component.html()).toContain('<div>loading</div>')
   })
 
-  test('createProvideScope createScope empty', async () => {
+  it('createProvideScope createScope empty', async () => {
     const [_createCollectionProvide, createCollectionScope] = createProvideScope('TestCollectionProvider')
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    expect(createCollectionScope()()).toEqual({
+    expect(createCollectionScope()({})).toEqual({
       scopeTestCollectionProvider: { TestCollectionProvider: [] },
     })
   })
 
-  test('createProvideScope createScope component', async () => {
+  it('createProvideScope createScope component', async () => {
     // Collection
     const PROVIDER_NAME = 'TestCollectionProvider'
 
@@ -226,8 +221,7 @@ describe('Provide', () => {
     )
 
     const useRovingFocusGroupScope = createCollectionScope()
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    expect(useRovingFocusGroupScope().scopeTestCollectionProvider.TestCollectionProvider).toBeDefined()
+
+    expect(useRovingFocusGroupScope({}).scopeTestCollectionProvider?.TestCollectionProvider).toBeDefined()
   })
 })

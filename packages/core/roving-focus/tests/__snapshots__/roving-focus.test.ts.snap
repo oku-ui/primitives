@@ -35,3 +35,39 @@ exports[`OkuRovingFocusGroup > OkuRovingFocusGroupItem aschild > one button 1`] 
   
 </div>
 `;
+
+exports[`okuRovingFocusGroup > okuRovingFocusGroupItem aschild > empty 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <div
+    style="outline-color: none; outline-style: none; outline-width: initial;"
+    tabindex="-1"
+  >
+    <!---->
+    <!---->
+  </div>
+  
+</div>
+`;
+
+exports[`okuRovingFocusGroup > okuRovingFocusGroupItem aschild > one button 1`] = `
+<div
+  data-v-app=""
+>
+  
+  <div
+    style="outline-color: none; outline-style: none; outline-width: initial;"
+    tabindex="-1"
+  >
+    <button
+      data-oku-collection-item=""
+      tabindex="-1"
+    >
+      button
+    </button>
+  </div>
+  
+</div>
+`;

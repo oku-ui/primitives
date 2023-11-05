@@ -10,7 +10,7 @@ const component = {
   },
 } as Component
 
-describe('OkuSeparator', () => {
+describe('okuSeparator', () => {
   const wrapper = mount(component)
 
   it('renders correctly', async () => {

@@ -38,7 +38,7 @@ function toggleOpen() {
 }
 
 function onEscapeKeyDown(event: Event): void {
-  console.log(event, 'aa')
+  console.warn(event, 'aa')
   if (dismissOnEscape.value === false)
     event.preventDefault()
 }

@@ -6,7 +6,7 @@ defineProps({
   disabled: Boolean,
 })
 const attrs: any = useAttrs()
-console.log('attrs', attrs)
+console.warn('attrs', attrs)
 </script>
 
 <template>
