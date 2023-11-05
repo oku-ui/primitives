@@ -43,20 +43,29 @@ jobs:
           node-version: '20'
           cache: pnpm
 
-      - uses: actions/cache@v3
+      - name: ESLint Cache
+        uses: actions/cache@v3
         with:
-          path: .nx
+          path: ./.nx
           key: ${{ runner.os }}-nx-
+          restore-keys: |
+            ${{ runner.os }}-nx-
 
-      - uses: actions/cache@v3
+      - name: ESLint Cache
+        uses: actions/cache@v3
         with:
-          path: .eslintcache
-          key: ${{ runner.os }}-eslint-
+          path: ./.eslintcache
+          key: ${{ runner.os }}-eslintcache-
+          restore-keys: |
+            ${{ runner.os }}-eslintcache-
 
-      - uses: actions/cache@v3
+      - name: ESLint Cache
+        uses: actions/cache@v3
         with:
-          path: .vitest-cache
-          key: ${{ runner.os }}-vitest-
+          path: ./.vitest-cache
+          key: ${{ runner.os }}-vitest-cache-
+          restore-keys: |
+            ${{ runner.os }}-vitest-cache-
 
 
       - name: 📦 Install dependencies
