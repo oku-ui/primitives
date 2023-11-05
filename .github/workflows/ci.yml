@@ -45,7 +45,9 @@ jobs:
 
       - uses: actions/cache@v3
         with:
-          path: .nx
+          path: |
+            .nx
+            .eslintcache
           key: ${{ runner.os }}-nx-${{ hashFiles('.nx/cache/lockfile.hash') }}
 
 

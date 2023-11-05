@@ -20,7 +20,7 @@
     "p:build": "tsup",
     "oku": "pnpm jiti ./scripts/index.ts",
     "story": "pnpm storybook dev -p 6006 --no-open",
-    "lint": "eslint . --cache ",
+    "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache",
     "play:vue": "pnpm clean:dts && pnpm --filter=vue3 p:dev",
     "play:nuxt": "pnpm clean:dts && pnpm --filter=nuxt3 p:dev",
