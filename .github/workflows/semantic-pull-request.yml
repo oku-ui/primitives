@@ -35,7 +35,6 @@ jobs:
             ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DENEME: 'aa'
 
       - uses: marocchino/sticky-pull-request-comment@v2
         # When the previous steps fails, the workflow would stop. By adding this

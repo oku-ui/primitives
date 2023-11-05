@@ -57,11 +57,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-      - uses: ./.github/actions/cache-build
 
-      # - name: 🧪 Test
-      #   run: pnpm test
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 👀 Lint
+        run: pnpm lint
+
+      - name: 👀 Typecheck
+        run: pnpm typecheck
+
+      - name: 🚀 Build
+        run: pnpm build
 
       - name: 🧪 Test with coverage
         run: pnpm coverage
