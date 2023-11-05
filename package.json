@@ -97,7 +97,6 @@
     "chokidar": "^3.5.3",
     "chromatic": "^7.6.0",
     "eslint": "^8.53.0",
-    "eslint-config-custom": "workspace:*",
     "eslint-plugin-storybook": "^0.6.15",
     "esno": "^0.17.0",
     "globby": "^13.2.2",
