@@ -158,17 +158,19 @@ export interface ItemData extends CollectionPropsType {
 export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<
   HTMLSpanElement,
   ItemData
->(GROUP_NAME, {
-  id: {
-    type: String,
+>(GROUP_NAME,
+  {
+    id: {
+      type: String,
+    },
+    focusable: {
+      type: Boolean,
+    },
+    active: {
+      type: Boolean,
+    },
   },
-  focusable: {
-    type: Boolean,
-  },
-  active: {
-    type: Boolean,
-  },
-})
+)
 
 export const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createProvideScope(
   GROUP_NAME,
@@ -178,9 +180,9 @@ export const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = crea
 // RovingFocusGroupOptions extends
 type RovingProvideValue = {
   /**
- * The orientation of the group.
- * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
- */
+   * The orientation of the group.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   */
   orientation?: Ref<Orientation | undefined>
   /**
    * The direction of navigation between items.

@@ -23,13 +23,11 @@ const menuArrow = defineComponent({
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
 
-    return () => h(OkuPopperArrow,
-      {
-        ...popperScope,
-        ...mergeProps(attrs, otherProps),
-        ref: forwardedRef,
-      }, slots,
-    )
+    return () => h(OkuPopperArrow, {
+      ...popperScope,
+      ...mergeProps(attrs, otherProps),
+      ref: forwardedRef,
+    }, slots)
   },
 })
 

@@ -44,25 +44,23 @@ const menuRootContentModel = defineComponent({
         return hideOthers(content.value)
     })
 
-    return () => h(OkuMenuContentImpl,
-      {
-        ...mergeProps(attrs, otherProps),
-        ref: composedRefs,
-        // we make sure we're not trapping once it's been closed
-        // (closed !== unmounted when animating out)
-        trapFocus: inject.open.value,
-        // make sure to only disable pointer events when open
-        // this avoids blocking interactions while animating out
-        disableOutsidePointerEvents: inject.open.value,
-        disableOutsideScroll: true,
-        // When focus is trapped, a `focusout` event may still happen.
-        // We make sure we don't trigger our `onDismiss` in such case.
-        onFocusOutside: composeEventHandlers<MenuRootContentTypeEmits['focusOutside'][0]>((event) => {
-          emit('focusOutside', event)
-        }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
-        onDismiss: () => inject.onOpenChange(false),
-      }, slots,
-    )
+    return () => h(OkuMenuContentImpl, {
+      ...mergeProps(attrs, otherProps),
+      ref: composedRefs,
+      // we make sure we're not trapping once it's been closed
+      // (closed !== unmounted when animating out)
+      trapFocus: inject.open.value,
+      // make sure to only disable pointer events when open
+      // this avoids blocking interactions while animating out
+      disableOutsidePointerEvents: inject.open.value,
+      disableOutsideScroll: true,
+      // When focus is trapped, a `focusout` event may still happen.
+      // We make sure we don't trigger our `onDismiss` in such case.
+      onFocusOutside: composeEventHandlers<MenuRootContentTypeEmits['focusOutside'][0]>((event) => {
+        emit('focusOutside', event)
+      }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
+      onDismiss: () => inject.onOpenChange(false),
+    }, slots)
   },
 })
 

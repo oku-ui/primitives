@@ -58,8 +58,7 @@ const popoverContentModal = defineComponent({
         // We make sure we don't trigger our `onDismiss` in such case.
         onFocusOutside: composeEventHandlers<PopoverContentTypeEmits['focusOutside'][0]>((el) => {
           emit('focusOutside', el)
-        }, event => event.preventDefault(),
-        { checkForDefaultPrevented: false }),
+        }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
       }, {
         default: () => slots.default?.(),
       }),

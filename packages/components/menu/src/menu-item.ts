@@ -52,45 +52,43 @@ const menuItem = defineComponent({
       }
     }
 
-    return () => h(OkuMenuItemImpl,
-      {
-        ...mergeProps(attrs, otherProps),
-        ref: composedRefs,
-        disabled: disabled.value,
-        onClick: composeEventHandlers<MenuItemEmits['click'][0]>((event) => {
-          emit('click', event)
-        }, handleSelect),
-        onPointerdown: composeEventHandlers<MenuItemEmits['pointerdown'][0]>((event) => {
-          emit('pointerdown', event)
-        }, () => isPointerDownRef.value = true),
-        onPointerup: composeEventHandlers<MenuItemEmits['pointerup'][0]>((event) => {
-          emit('pointerup', event)
-        }, (event) => {
-          // Pointer down can move to a different menu item which should activate it on pointer up.
-          // We dispatch a click for selection to allow composition with click based triggers and to
-          // prevent Firefox from getting stuck in text selection mode when the menu closes.
-          if (!isPointerDownRef.value)
-            (event.currentTarget as HTMLElement)?.click()
-        }),
-        onKeydown: composeEventHandlers<MenuItemEmits['keydown'][0]>(async (event) => {
-          await nextTick()
+    return () => h(OkuMenuItemImpl, {
+      ...mergeProps(attrs, otherProps),
+      ref: composedRefs,
+      disabled: disabled.value,
+      onClick: composeEventHandlers<MenuItemEmits['click'][0]>((event) => {
+        emit('click', event)
+      }, handleSelect),
+      onPointerdown: composeEventHandlers<MenuItemEmits['pointerdown'][0]>((event) => {
+        emit('pointerdown', event)
+      }, () => isPointerDownRef.value = true),
+      onPointerup: composeEventHandlers<MenuItemEmits['pointerup'][0]>((event) => {
+        emit('pointerup', event)
+      }, (event) => {
+        // Pointer down can move to a different menu item which should activate it on pointer up.
+        // We dispatch a click for selection to allow composition with click based triggers and to
+        // prevent Firefox from getting stuck in text selection mode when the menu closes.
+        if (!isPointerDownRef.value)
+          (event.currentTarget as HTMLElement)?.click()
+      }),
+      onKeydown: composeEventHandlers<MenuItemEmits['keydown'][0]>(async (event) => {
+        await nextTick()
 
-          const isTypingAhead = contentInject.searchRef.value !== ''
-          if (disabled.value || (isTypingAhead && event.key === ' '))
-            return
-          if (SELECTION_KEYS.includes(event.key)) {
-            (event.currentTarget as HTMLElement)?.click()
-            /**
-             * We prevent default browser behaviour for selection keys as they should trigger
-             * a selection only:
-             * - prevents space from scrolling the page.
-             * - if keydown causes focus to move, prevents keydown from firing on the new target.
-             */
-            event.preventDefault()
-          }
-        }),
-      }, slots,
-    )
+        const isTypingAhead = contentInject.searchRef.value !== ''
+        if (disabled.value || (isTypingAhead && event.key === ' '))
+          return
+        if (SELECTION_KEYS.includes(event.key)) {
+          (event.currentTarget as HTMLElement)?.click()
+          /**
+           * We prevent default browser behaviour for selection keys as they should trigger
+           * a selection only:
+           * - prevents space from scrolling the page.
+           * - if keydown causes focus to move, prevents keydown from firing on the new target.
+           */
+          event.preventDefault()
+        }
+      }),
+    }, slots)
   },
 })
 

@@ -19,13 +19,11 @@ const menuGroup = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    return () => h(Primitive.div,
-      {
-        ...mergeProps(attrs, otherProps),
-        role: 'group',
-        ref: forwardedRef,
-      }, slots,
-    )
+    return () => h(Primitive.div, {
+      ...mergeProps(attrs, otherProps),
+      role: 'group',
+      ref: forwardedRef,
+    }, slots)
   },
 })
 

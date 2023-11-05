@@ -38,18 +38,16 @@ const menuRadioItem = defineComponent({
       checked,
     })
 
-    return () => h(OkuMenuItem,
-      {
-        'role': 'menuitemradio',
-        'aria-checked': checked.value,
-        ...mergeProps(attrs, otherProps),
-        'ref': forwardedRef,
-        'data-state': getCheckedState(checked.value),
-        'onSelect': composeEventHandlers<MenuRadioItemEmits['select'][0]>((event) => {
-          emit('select', event)
-        }, () => inject.onValueChange?.(value.value!), { checkForDefaultPrevented: false }),
-      }, slots,
-    )
+    return () => h(OkuMenuItem, {
+      'role': 'menuitemradio',
+      'aria-checked': checked.value,
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+      'data-state': getCheckedState(checked.value),
+      'onSelect': composeEventHandlers<MenuRadioItemEmits['select'][0]>((event) => {
+        emit('select', event)
+      }, () => inject.onValueChange?.(value.value!), { checkForDefaultPrevented: false }),
+    }, slots)
   },
 })
 

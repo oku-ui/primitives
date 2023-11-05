@@ -22,14 +22,12 @@ const menuSeparator = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    return () => h(Primitive.div,
-      {
-        'role': 'separator',
-        'aria-orientation': 'horizontal',
-        ...mergeProps(attrs, otherProps),
-        'ref': forwardedRef,
-      }, slots,
-    )
+    return () => h(Primitive.div, {
+      'role': 'separator',
+      'aria-orientation': 'horizontal',
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+    }, slots)
   },
 })
 

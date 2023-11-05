@@ -38,12 +38,10 @@ const menuRadioGroup = defineComponent({
       },
     )
 
-    return () => h(OkuMenuGroup,
-      {
-        ...mergeProps(attrs, otherProps),
-        ref: forwardedRef,
-      }, slots,
-    )
+    return () => h(OkuMenuGroup, {
+      ...mergeProps(attrs, otherProps),
+      ref: forwardedRef,
+    }, slots)
   },
 })
 

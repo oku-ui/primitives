@@ -66,13 +66,11 @@ type ItemData = { disabled: boolean; textValue: string }
 
 export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<MenuItemElement, ItemData>(MENU_NAME)
 
-export const [createMenuProvide, createMenuScope] = createProvideScope(MENU_NAME,
-  [
-    createCollectionScope,
-    createPopperScope,
-    createRovingFocusGroupScope,
-  ],
-)
+export const [createMenuProvide, createMenuScope] = createProvideScope(MENU_NAME, [
+  createCollectionScope,
+  createPopperScope,
+  createRovingFocusGroupScope,
+])
 
 export const usePopperScope = createPopperScope()
 export const useRovingFocusGroupScope = createRovingFocusGroupScope()
@@ -150,11 +148,9 @@ type PortalInjectValue = {
   forceMount?: Ref<true | undefined>
 }
 
-export const [portalProvider, usePortalInject] = createMenuProvide<PortalInjectValue>(MENU_PORTAL_NAME,
-  {
-    forceMount: ref<true | undefined>(undefined),
-  },
-)
+export const [portalProvider, usePortalInject] = createMenuProvide<PortalInjectValue>(MENU_PORTAL_NAME, {
+  forceMount: ref<true | undefined>(undefined),
+})
 
 export interface MenuPortalProps {
   /**

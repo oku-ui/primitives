@@ -132,30 +132,28 @@ const DismissableLayer = defineComponent({
       document.removeEventListener(INJECT_UPDATE, handleUpdate)
     })
 
-    return () => h(Primitive.div,
-      {
-        ...mergeProps(attrs, reactiveLayerProps),
-        ref: composedRefs,
-        style: {
-          pointerEvents: isBodyPointerEventsDisabled.value
-            ? isPointerEventsEnabled.value
-              ? 'auto'
-              : 'none'
-            : undefined,
-          ...(attrs.style as any),
-        },
-        onFocusCapture: composeEventHandlers<FocusCaptureEvent>((event) => {
-          emit('focusCapture', event)
-        }, focusOutside.onFocusCapture),
-        onBlurCapture: composeEventHandlers<FocusBlurCaptureEvent>((event) => {
-          emit('blurCapture', event)
-          // console.log('blurCapture')
-        }, focusOutside.onBlurCapture),
-        onPointerdownCapture: composeEventHandlers<PointerdownCaptureEvent>((event) => {
-          emit('pointerdownCapture', event)
-        }, pointerdownOutside.onPointerdownCapture),
-      }, slots,
-    )
+    return () => h(Primitive.div, {
+      ...mergeProps(attrs, reactiveLayerProps),
+      ref: composedRefs,
+      style: {
+        pointerEvents: isBodyPointerEventsDisabled.value
+          ? isPointerEventsEnabled.value
+            ? 'auto'
+            : 'none'
+          : undefined,
+        ...(attrs.style as any),
+      },
+      onFocusCapture: composeEventHandlers<FocusCaptureEvent>((event) => {
+        emit('focusCapture', event)
+      }, focusOutside.onFocusCapture),
+      onBlurCapture: composeEventHandlers<FocusBlurCaptureEvent>((event) => {
+        emit('blurCapture', event)
+        // console.log('blurCapture')
+      }, focusOutside.onBlurCapture),
+      onPointerdownCapture: composeEventHandlers<PointerdownCaptureEvent>((event) => {
+        emit('pointerdownCapture', event)
+      }, pointerdownOutside.onPointerdownCapture),
+    }, slots)
   },
 })
 

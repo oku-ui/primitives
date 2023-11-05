@@ -31,13 +31,11 @@ const DismissableLayerBranch = defineComponent({
       })
     })
 
-    return () => h(Primitive.div,
-      {
-        ...attrs,
-        ref: composedRefs,
-        asChild: props.asChild,
-      }, slots,
-    )
+    return () => h(Primitive.div, {
+      ...attrs,
+      ref: composedRefs,
+      asChild: props.asChild,
+    }, slots)
   },
 })
 

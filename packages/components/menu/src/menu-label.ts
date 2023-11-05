@@ -22,12 +22,10 @@ const menuLabel = defineComponent({
 
     const forwardedRef = useForwardRef()
 
-    return () => h(Primitive.div,
-      {
-        ...mergeProps(attrs, otherProps),
-        ref: forwardedRef,
-      }, slots,
-    )
+    return () => h(Primitive.div, {
+      ...mergeProps(attrs, otherProps),
+      ref: forwardedRef,
+    }, slots)
   },
 })
 

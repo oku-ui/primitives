@@ -15,7 +15,7 @@ function shallowMountTem(template: string, event: any) {
   })
 }
 
-describe('OkuDismissableLayer util', () => {
+describe('okuDismissableLayer util', () => {
   let wrapper: VueWrapper
   let onFocusOutside: (event: FocusOutsideEvent) => void
   let onPointerdownOutside: (event: FocusOutsideEvent) => void

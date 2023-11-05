@@ -25,16 +25,13 @@ const menuAnchor = defineComponent({
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
 
-    return () => h(OkuPopperAnchor,
-      {
-        ...mergeProps(attrs, otherProps),
-        ...popperScope,
-        ref: forwardedRef,
-      },
-      {
-        default: () => slots.default?.(),
-      },
-    )
+    return () => h(OkuPopperAnchor, {
+      ...mergeProps(attrs, otherProps),
+      ...popperScope,
+      ref: forwardedRef,
+    }, {
+      default: () => slots.default?.(),
+    })
   },
 })
 

@@ -29,17 +29,12 @@ const menuPortal = defineComponent({
       forceMount,
     })
 
-    return () => h(OkuPresence,
-      { present: forceMount.value || inject.open.value },
-      {
-        default: () => h(OkuPortal,
-          {
-            asChild: true,
-            container: container.value,
-          }, slots,
-        ),
-      },
-    )
+    return () => h(OkuPresence, { present: forceMount.value || inject.open.value }, {
+      default: () => h(OkuPortal, {
+        asChild: true,
+        container: container.value,
+      }, slots),
+    })
   },
 })
 

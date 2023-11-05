@@ -29,16 +29,14 @@ const menuRootContentNonModal = defineComponent({
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
 
-    return () => h(OkuMenuContentImpl,
-      {
-        ...mergeProps(attrs, otherProps),
-        ref: forwardedRef,
-        trapFocus: false,
-        disableOutsidePointerEvents: false,
-        disableOutsideScroll: false,
-        onDismiss: () => inject.onOpenChange(false),
-      }, slots,
-    )
+    return () => h(OkuMenuContentImpl, {
+      ...mergeProps(attrs, otherProps),
+      ref: forwardedRef,
+      trapFocus: false,
+      disableOutsidePointerEvents: false,
+      disableOutsideScroll: false,
+      onDismiss: () => inject.onOpenChange(false),
+    }, slots)
   },
 })
 

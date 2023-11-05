@@ -35,20 +35,18 @@ const menuCheckboxItem = defineComponent({
       checked,
     })
 
-    return () => h(OkuMenuItem,
-      {
-        'role': 'menuitemcheckbox',
-        'aria-checked': isIndeterminate(checked.value) ? 'mixed' : checked.value,
-        ...mergeProps(attrs, otherProps),
-        'ref': forwardedRef,
-        'data-state': getCheckedState(checked.value),
-        'onSelect': composeEventHandlers<MenuCheckboxItemEmits['select'][0]>((event) => {
-          emit('select', event)
-        }, () => {
-          emit('checkedChange', isIndeterminate(checked.value) ? true : !checked.value)
-        }, { checkForDefaultPrevented: false }),
-      }, slots,
-    )
+    return () => h(OkuMenuItem, {
+      'role': 'menuitemcheckbox',
+      'aria-checked': isIndeterminate(checked.value) ? 'mixed' : checked.value,
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+      'data-state': getCheckedState(checked.value),
+      'onSelect': composeEventHandlers<MenuCheckboxItemEmits['select'][0]>((event) => {
+        emit('select', event)
+      }, () => {
+        emit('checkedChange', isIndeterminate(checked.value) ? true : !checked.value)
+      }, { checkForDefaultPrevented: false }),
+    }, slots)
   },
 })
 

@@ -3,7 +3,7 @@ import { enableAutoUnmount } from '@vue/test-utils'
 
 enableAutoUnmount(afterEach)
 
-describe('OkuMenu', () => {
+describe('okuMenu', () => {
   it('should be OkuMenu', () => {
     expect(true).toBe(true)
   })
