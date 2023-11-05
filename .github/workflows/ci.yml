@@ -48,6 +48,7 @@ jobs:
           path: |
             .nx
             .eslintcache
+            .vitest-cache
           key: ${{ runner.os }}-nx-${{ hashFiles('.nx/cache/lockfile.hash') }}
 
 

@@ -2,10 +2,10 @@
   "name": "primitives",
   "type": "module",
   "version": "0.5.0",
-  "packageManager": "pnpm@8.7.4",
+  "packageManager": "pnpm@8.10.2",
   "repository": "oku-ui/primitives",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "workspaces": [
     "playground/*",
