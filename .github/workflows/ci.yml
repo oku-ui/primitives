@@ -43,6 +43,12 @@ jobs:
           node-version: '20'
           cache: pnpm
 
+      - uses: actions/cache@v3
+        with:
+          path: .nx
+          key: ${{ runner.os }}-nx-${{ hashFiles('.nx/cache/lockfile.hash') }}
+
+
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
