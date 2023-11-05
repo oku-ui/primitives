@@ -4,7 +4,7 @@ inputs:
   node_version:
     required: false
     description: Node version for cache-node
-    default: 18.x
+    default: 20.x
 runs:
   using: "composite"
   steps:

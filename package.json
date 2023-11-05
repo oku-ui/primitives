@@ -164,9 +164,9 @@
       "@oku-ui/use-composable": "workspace:^",
       "@oku-ui/utils": "workspace:^",
       "@oku-ui/visually-hidden": "workspace:^",
-      "@vue/runtime-core": "3.3.4",
-      "vite": "4.3.5",
-      "vue": "3.3.4"
+      "@vue/runtime-core": "3.3.7",
+      "vite": "4.5.0",
+      "vue": "3.3.7"
     }
   },
   "simple-git-hooks": {
