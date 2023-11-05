@@ -45,11 +45,18 @@ jobs:
 
       - uses: actions/cache@v3
         with:
-          path: |
-            ./.nx
-            ./.eslintcache
-            ./.vitest-cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('.nx/cache/lockfile.hash') }}
+          path: .nx
+          key: ${{ runner.os }}-nx-
+
+      - uses: actions/cache@v3
+        with:
+          path: .eslintcache
+          key: ${{ runner.os }}-eslint-
+
+      - uses: actions/cache@v3
+        with:
+          path: .vitest-cache
+          key: ${{ runner.os }}-vitest-
 
 
       - name: 📦 Install dependencies
