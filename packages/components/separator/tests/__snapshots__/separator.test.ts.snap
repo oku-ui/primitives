@@ -8,3 +8,12 @@ exports[`OkuSeparator > renders correctly 1`] = `
   <!---->
 </div>
 `;
+
+exports[`okuSeparator > renders correctly 1`] = `
+<div
+  data-orientation="horizontal"
+  role="separator"
+>
+  <!---->
+</div>
+`;
