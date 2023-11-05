@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/components/menu"
+    "directory": "packages/core/menu"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"

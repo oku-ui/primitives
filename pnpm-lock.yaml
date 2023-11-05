@@ -111,7 +111,7 @@ importers:
         version: link:packages/components/label
       '@oku-ui/menu':
         specifier: workspace:^
-        version: link:packages/components/menu
+        version: link:packages/core/menu
       '@oku-ui/popover':
         specifier: workspace:^
         version: link:packages/components/popover
@@ -572,7 +572,7 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/components/menu:
+  packages/core/menu:
     dependencies:
       '@floating-ui/vue':
         specifier: ^1.0.2
@@ -1545,7 +1545,7 @@ importers:
         version: link:../../packages/components/label
       '@oku-ui/menu':
         specifier: workspace:^
-        version: link:../../packages/components/menu
+        version: link:../../packages/core/menu
       '@oku-ui/popover':
         specifier: workspace:^
         version: link:../../packages/components/popover
@@ -1630,7 +1630,7 @@ importers:
         version: link:../../packages/components/label
       '@oku-ui/menu':
         specifier: workspace:^
-        version: link:../../packages/components/menu
+        version: link:../../packages/core/menu
       '@oku-ui/primitives':
         specifier: workspace:^
         version: link:../../packages/components/primitives
