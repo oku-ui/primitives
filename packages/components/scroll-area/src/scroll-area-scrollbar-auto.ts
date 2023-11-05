@@ -44,18 +44,13 @@ const scrollAreaScrollbarAuto = defineComponent({
     useResizeObserver(inject.viewport.value, handleResize)
     useResizeObserver(inject.content.value, handleResize)
 
-    return () => h(OkuPresence,
-      { present: computed(() => forceMount.value || visible.value).value },
-      {
-        default: () => h(OkuScrollAreaScrollbarVisible,
-          {
-            'data-state': visible.value ? 'visible' : 'hidden',
-            ...mergeProps(attrs, reactiveScrollAreaScrollbarAutoProps),
-            'ref': forwardedRef,
-          }, slots,
-        ),
-      },
-    )
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || visible.value).value }, {
+      default: () => h(OkuScrollAreaScrollbarVisible, {
+        'data-state': visible.value ? 'visible' : 'hidden',
+        ...mergeProps(attrs, reactiveScrollAreaScrollbarAutoProps),
+        'ref': forwardedRef,
+      }, slots),
+    })
   },
 })
 

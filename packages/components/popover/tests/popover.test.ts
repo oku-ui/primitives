@@ -25,14 +25,14 @@ import WithSlottedTrigger from '../src/stories/WithSlottedTrigger.vue'
 
 enableAutoUnmount(afterEach)
 
-describe('OkuPopper', () => {
-  it('OkuPopover renders correctly', () => {
+describe('okuPopper', () => {
+  it('okuPopover renders correctly', () => {
     const wrapper = mount(OkuPopover)
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('OkuPopoverAnchor renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuPopoverAnchor renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuPopoverAnchor)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -40,8 +40,8 @@ describe('OkuPopper', () => {
     expect(spy.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  it('OkuPopoverArrow renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuPopoverArrow renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuPopoverArrow)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -50,8 +50,8 @@ describe('OkuPopper', () => {
     expect(spy.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  it('OkuPopoverClose renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuPopoverClose renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuPopoverClose)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -60,8 +60,8 @@ describe('OkuPopper', () => {
     expect(spy.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  it('OkuPopoverContent renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuPopoverContent renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuPopoverContent)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -70,8 +70,8 @@ describe('OkuPopper', () => {
     expect(spy.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  it('OkuPopoverPortal renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuPopoverPortal renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuPopoverPortal)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -80,8 +80,8 @@ describe('OkuPopper', () => {
     expect(spy.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  it('OkuPopoverTrigger renders correctly', () => {
-    const spy = vitest.spyOn(global.console, 'warn').mockImplementation(() => { })
+  it('okuPopoverTrigger renders correctly', () => {
+    const spy = vitest.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
 
     const wrapper = () => mount(OkuPopoverTrigger)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -90,7 +90,7 @@ describe('OkuPopper', () => {
     expect(spy.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  describe('Animated', () => {
+  describe('animated', () => {
     let wrapper: VueWrapper<InstanceType<typeof Animated>>
 
     beforeEach(async () => {
@@ -103,8 +103,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -121,7 +121,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('Boundary', () => {
+  describe('boundary', () => {
     let wrapper: VueWrapper<InstanceType<typeof Boundary>>
 
     beforeEach(async () => {
@@ -134,8 +134,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -152,7 +152,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('Controlled', () => {
+  describe('controlled', () => {
     let wrapper: VueWrapper<InstanceType<typeof Controlled>>
 
     beforeEach(async () => {
@@ -165,8 +165,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -183,7 +183,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('CustomAnchor', () => {
+  describe('customAnchor', () => {
     let wrapper: VueWrapper<InstanceType<typeof CustomAnchor>>
 
     beforeEach(async () => {
@@ -196,8 +196,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -214,7 +214,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('ForcedMount', () => {
+  describe('forcedMount', () => {
     let wrapper: VueWrapper<InstanceType<typeof ForcedMount>>
 
     beforeEach(async () => {
@@ -227,8 +227,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -245,7 +245,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('Modality', () => {
+  describe('modality', () => {
     let wrapper: VueWrapper<InstanceType<typeof Modality>>
 
     beforeEach(async () => {
@@ -269,7 +269,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('Nested', () => {
+  describe('nested', () => {
     let wrapper: VueWrapper<InstanceType<typeof Nested>>
 
     beforeEach(async () => {
@@ -282,8 +282,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -300,7 +300,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('VControlled', () => {
+  describe('vControlled', () => {
     let wrapper: VueWrapper<InstanceType<typeof VControlled>>
 
     beforeEach(async () => {
@@ -313,8 +313,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -331,7 +331,7 @@ describe('OkuPopper', () => {
     })
   })
 
-  describe('WithSlottedTrigger', () => {
+  describe('withSlottedTrigger', () => {
     let wrapper: VueWrapper<InstanceType<typeof WithSlottedTrigger>>
 
     beforeEach(async () => {
@@ -344,8 +344,8 @@ describe('OkuPopper', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('axe accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })

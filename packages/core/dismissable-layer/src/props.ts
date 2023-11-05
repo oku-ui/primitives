@@ -44,14 +44,14 @@ export interface DismissableLayerProps extends PrimitiveProps {
 
 export type DismissableLayerEmits = {
   /**
-  * Event handler called when the escape key is down.
-  * Can be prevented.
-  */
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
   escapeKeyDown: [event: KeyboardEvent]
   /**
-  * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
-  * Can be prevented.
-  */
+   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   pointerdownOutside: [event: PointerdownOutsideEvent]
   /**
    * Event handler called when the focus moves outside of the `DismissableLayer`.
@@ -59,14 +59,14 @@ export type DismissableLayerEmits = {
    */
   focusoutSide: [event: FocusoutSideEvent]
   /**
-  * Event handler called when an interaction happens outside the `DismissableLayer`.
-  * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
-  * Can be prevented.
-  */
+   * Event handler called when an interaction happens outside the `DismissableLayer`.
+   * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
+   * Can be prevented.
+   */
   interactOutside: [event: PointerdownOutsideEvent | FocusoutSideEvent]
   /**
-  * Handler called when the `DismissableLayer` should be dismissed
-  */
+   * Handler called when the `DismissableLayer` should be dismissed
+   */
   dismiss: []
   focusCapture: [event: FocusCaptureEvent]
   blurCapture: [event: FocusBlurCaptureEvent]

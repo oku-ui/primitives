@@ -62,7 +62,8 @@ const avatarImage = defineComponent({
 
     const originalReturn = () => imageLoadingStatus.value === 'loaded'
       ? h(
-        Primitive.img, {
+        Primitive.img,
+        {
           asChild: props.asChild,
           ...attrs,
           src: src.value,

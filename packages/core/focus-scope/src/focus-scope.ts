@@ -53,14 +53,14 @@ export interface FocusScopeProps extends PrimitiveProps {
 
 export type FocusScopeEmits = {
   /**
-  * Event handler called when auto-focusing on mount.
-  * Can be prevented.
-  */
+   * Event handler called when auto-focusing on mount.
+   * Can be prevented.
+   */
   mountAutoFocus: [event: Event]
   /**
-  * Event handler called when auto-focusing on unmount.
-  * Can be prevented.
-  */
+   * Event handler called when auto-focusing on unmount.
+   * Can be prevented.
+   */
   unmountAutoFocus: [event: Event]
 }
 

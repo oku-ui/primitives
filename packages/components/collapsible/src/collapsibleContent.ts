@@ -17,18 +17,18 @@ export type CollapsibleContentElement = HTMLDivElement
 
 export interface CollapsibleContentProps extends PrimitiveProps {
   /**
- * Used to force mounting when more control is needed. Useful when
- * controlling animation with React animation libraries.
- */
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with React animation libraries.
+   */
   forceMount?: true
 }
 
 export const collapsibleContentProps = {
   props: {
     /**
-    * Used to force mounting when more control is needed. Useful when
-    * controlling animation with React animation libraries.
-    */
+     * Used to force mounting when more control is needed. Useful when
+     * controlling animation with React animation libraries.
+     */
     forceMount: {
       type: Boolean as PropType<true | undefined>,
       default: undefined,
@@ -69,7 +69,8 @@ const collapsibleContent = defineComponent({
             ...mergeProps(attrs, reactiveContentProps),
             ref: forwardedRef,
             present: isPresent.value,
-          }, slots,
+          },
+          slots,
         ),
       },
     )

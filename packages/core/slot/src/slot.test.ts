@@ -70,8 +70,7 @@ describe('given a Button with Slottable', () => {
         setup() {
           return () => h(ButtonTest, {
             asChild: true,
-          },
-          {
+          }, {
             iconLeft: () => h('span', {}, 'left'),
             iconRight: () => h('span', {}, 'right'),
             default: () => h('a', {

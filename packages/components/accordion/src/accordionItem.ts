@@ -3,7 +3,12 @@ import { reactiveOmit, useForwardRef, useId } from '@oku-ui/use-composable'
 import { OkuCollapsible } from '@oku-ui/collapsible'
 import type { AccordionItemNativeElement } from './props'
 import {
-  AccordionItemProvider, ITEM_NAME, accordionItemProps, scopeAccordionProps, useAccordionInject, useAccordionValueInject,
+  AccordionItemProvider,
+  ITEM_NAME,
+  accordionItemProps,
+  scopeAccordionProps,
+  useAccordionInject,
+  useAccordionValueInject,
   useCollapsibleScope,
 } from './props'
 import { getState } from './utils'
@@ -20,7 +25,9 @@ const accordionItem = defineComponent({
   },
   setup(props, { slots, attrs }) {
     const {
-      scopeOkuAccordion, value: valueProp, ...accordionItemProps
+      scopeOkuAccordion,
+      value: valueProp,
+      ...accordionItemProps
     } = toRefs(props)
 
     const forwardRef = useForwardRef()

@@ -6,16 +6,17 @@ const open = ref(false)
 
 const firstNameRef = ref<HTMLInputElement | null>(null)
 const searchFieldRef = ref<HTMLInputElement | null>
-(null)
+(null,
+)
 
 function onOpenAutoFocus(event: any) {
-  console.log('onOpenAutoFocus')
+  console.warn('onOpenAutoFocus')
   event.preventDefault()
 
   firstNameRef.value?.focus()
 }
 function onCloseAutoFocus(event: any) {
-  console.log('onCloseAutoFocus')
+  console.warn('onCloseAutoFocus')
   event.preventDefault()
   searchFieldRef.value?.focus()
 }

@@ -16,7 +16,7 @@ withDefaults(defineProps<IAspectRatioProps>(), {
 
 const root = ref()
 onMounted(() => {
-  console.log(root.value)
+  console.warn(root.value)
 })
 </script>
 

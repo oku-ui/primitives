@@ -48,22 +48,20 @@ const toastFocusProxy = defineComponent({
 
     const inject = useToastProviderInject(FOCUS_PROXY_NAME, scopeOkuToast.value)
 
-    return () => h(OkuVisuallyHidden,
-      {
-        'aria-hidden': true,
-        'tabIndex': 0,
-        ...mergeProps(attrs, reactiveProxyProps),
-        'ref': forwardedRef,
-        // Avoid page scrolling when focus is on the focus proxy
-        'style': { position: 'fixed' },
-        'onFocus': (event: FocusEvent) => {
-          const prevFocusedElement = event.relatedTarget as HTMLElement | null
-          const isFocusFromOutsideViewport = !inject.viewport.value?.contains(prevFocusedElement)
-          if (isFocusFromOutsideViewport)
-            emit('focusFromOutsideViewport')
-        },
-      }, slots,
-    )
+    return () => h(OkuVisuallyHidden, {
+      'aria-hidden': true,
+      'tabIndex': 0,
+      ...mergeProps(attrs, reactiveProxyProps),
+      'ref': forwardedRef,
+      // Avoid page scrolling when focus is on the focus proxy
+      'style': { position: 'fixed' },
+      'onFocus': (event: FocusEvent) => {
+        const prevFocusedElement = event.relatedTarget as HTMLElement | null
+        const isFocusFromOutsideViewport = !inject.viewport.value?.contains(prevFocusedElement)
+        if (isFocusFromOutsideViewport)
+          emit('focusFromOutsideViewport')
+      },
+    }, slots)
   },
 })
 

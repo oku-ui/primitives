@@ -50,8 +50,7 @@ const dialogClose = defineComponent({
       onClick: composeEventHandlers((e: DialogCloseEmits['click'][0]) => {
         emit('click', e)
       }, () => inject.onOpenChange(false)),
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
   },

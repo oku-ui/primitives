@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { h } from 'vue'
 import { OkuVisuallyHidden } from '.'
 
-describe('OkuVisuallyHidden', () => {
+describe('okuVisuallyHidden', () => {
   it('renders correctly with default props', () => {
     const wrapper = mount({
       setup() {

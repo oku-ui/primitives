@@ -35,14 +35,13 @@ describe('given an Avatar with fallback and no image', () => {
   })
 
   /**
-  * @vitest-environment jsdom
-  */
+   * @vitest-environment jsdom
+   */
 
   it('should have no accessibility violations', async () => {
     // https://github.com/capricorn86/happy-dom/issues/978
     // TODO:77 https://github.com/chaance/vitest-axe/issues/7
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 })
@@ -62,10 +61,6 @@ describe('given an Avatar with fallback and a working image', () => {
         return this
       }
     }
-  })
-
-  afterAll(() => {
-    window.Image = originalGlobalImage
   })
 
   beforeEach(() => {
@@ -89,6 +84,10 @@ describe('given an Avatar with fallback and a working image', () => {
         </OkuAvatar>
       `,
     })
+  })
+
+  afterAll(() => {
+    window.Image = originalGlobalImage
   })
 
   it('should render the fallback initially', () => {

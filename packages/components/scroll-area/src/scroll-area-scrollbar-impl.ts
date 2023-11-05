@@ -84,45 +84,43 @@ const scrollAreaScrollbarImpl = defineComponent({
       onThumbPointerDown: pointerPos => emit('thumbPointerDown', pointerPos),
     })
 
-    return () => h(Primitive.div,
-      {
-        ...mergeProps(attrs, reactiveScrollAreaScrollbarImplProps),
-        ref: composeRefs,
-        style: { position: 'absolute', ...attrs.style as any },
-        onPointerdown: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointerdown'][0]>((event) => {
-          emit('pointerdown', event)
-        }, (event) => {
-          const mainPointer = 0
-          if (event.button === mainPointer) {
-            const element = event.target as HTMLElement
-            element.setPointerCapture(event.pointerId)
-            rectRef.value = scrollbar.value!.getBoundingClientRect()
-            // pointer capture doesn't prevent text selection in Safari
-            // so we remove text selection manually when scrolling
-            prevWebkitUserSelectRef.value = document.body.style.webkitUserSelect
-            document.body.style.webkitUserSelect = 'none'
-            if (inject.viewport.value)
-              inject.viewport.value.style.scrollBehavior = 'auto'
-            handleDragScroll(event)
-          }
-        }),
-        onPointermove: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointermove'][0]>((event) => {
-          emit('pointermove', event)
-        }, handleDragScroll),
-        onPointerup: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointerup'][0]>((event) => {
-          emit('pointerup', event)
-        }, (event) => {
+    return () => h(Primitive.div, {
+      ...mergeProps(attrs, reactiveScrollAreaScrollbarImplProps),
+      ref: composeRefs,
+      style: { position: 'absolute', ...attrs.style as any },
+      onPointerdown: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointerdown'][0]>((event) => {
+        emit('pointerdown', event)
+      }, (event) => {
+        const mainPointer = 0
+        if (event.button === mainPointer) {
           const element = event.target as HTMLElement
-          if (element.hasPointerCapture(event.pointerId))
-            element.releasePointerCapture(event.pointerId)
-
-          document.body.style.webkitUserSelect = prevWebkitUserSelectRef.value
+          element.setPointerCapture(event.pointerId)
+          rectRef.value = scrollbar.value!.getBoundingClientRect()
+          // pointer capture doesn't prevent text selection in Safari
+          // so we remove text selection manually when scrolling
+          prevWebkitUserSelectRef.value = document.body.style.webkitUserSelect
+          document.body.style.webkitUserSelect = 'none'
           if (inject.viewport.value)
-            inject.viewport.value.style.scrollBehavior = ''
-          rectRef.value = null
-        }),
-      }, slots,
-    )
+            inject.viewport.value.style.scrollBehavior = 'auto'
+          handleDragScroll(event)
+        }
+      }),
+      onPointermove: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointermove'][0]>((event) => {
+        emit('pointermove', event)
+      }, handleDragScroll),
+      onPointerup: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointerup'][0]>((event) => {
+        emit('pointerup', event)
+      }, (event) => {
+        const element = event.target as HTMLElement
+        if (element.hasPointerCapture(event.pointerId))
+          element.releasePointerCapture(event.pointerId)
+
+        document.body.style.webkitUserSelect = prevWebkitUserSelectRef.value
+        if (inject.viewport.value)
+          inject.viewport.value.style.scrollBehavior = ''
+        rectRef.value = null
+      }),
+    }, slots)
   },
 })
 

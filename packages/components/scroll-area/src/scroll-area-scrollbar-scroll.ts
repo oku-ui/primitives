@@ -82,24 +82,19 @@ const scrollAreaScrollbarScroll = defineComponent({
       }
     })
 
-    return () => h(OkuPresence,
-      { present: computed(() => forceMount.value || state.value !== 'hidden').value },
-      {
-        default: () => h(OkuScrollAreaScrollbarVisible,
-          {
-            'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
-            ...mergeProps(attrs, reactiveScrollAreaScrollbarScrollProps),
-            'ref': forwardedRef,
-            'onPointerenter': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
-              emit('pointerenter', event)
-            }, () => send('POINTER_ENTER')),
-            'onPointerleave': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
-              emit('pointerleave', event)
-            }, () => send('POINTER_LEAVE')),
-          }, slots,
-        ),
-      },
-    )
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || state.value !== 'hidden').value }, {
+      default: () => h(OkuScrollAreaScrollbarVisible, {
+        'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
+        ...mergeProps(attrs, reactiveScrollAreaScrollbarScrollProps),
+        'ref': forwardedRef,
+        'onPointerenter': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
+          emit('pointerenter', event)
+        }, () => send('POINTER_ENTER')),
+        'onPointerleave': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
+          emit('pointerleave', event)
+        }, () => send('POINTER_LEAVE')),
+      }, slots),
+    })
   },
 })
 

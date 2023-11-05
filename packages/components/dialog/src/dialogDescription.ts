@@ -41,8 +41,7 @@ const dialogDescription = defineComponent({
       id: inject?.descriptionId.value,
       ...mergeProps(attrs, reactiveDescriptionProps),
       ref: forwardRef,
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
   },

@@ -2,8 +2,8 @@
   "extends": "tsconfig/node18.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist",
-    "types": ["node"]
+    "types": ["node"],
+    "outDir": "dist"
   },
   "include": [
     "src"

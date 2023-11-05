@@ -40,17 +40,17 @@ function usePointerdownOutside(
         )
       }
       /**
-         * On touch devices, we need to wait for a click event because browsers implement
-         * a ~350ms delay between the time the user stops touching the display and when the
-         * browser executes events. We need to ensure we don't reactivate pointer-events within
-         * this timeframe otherwise the browser may execute events that should have been prevented.
-         *
-         * Additionally, this also lets us deal automatically with cancellations when a click event
-         * isn't raised because the page was considered scrolled/drag-scrolled, long-pressed, etc.
-         *
-         * This is why we also continuously remove the previous listener, because we cannot be
-         * certain that it was raised, and therefore cleaned-up.
-         */
+       * On touch devices, we need to wait for a click event because browsers implement
+       * a ~350ms delay between the time the user stops touching the display and when the
+       * browser executes events. We need to ensure we don't reactivate pointer-events within
+       * this timeframe otherwise the browser may execute events that should have been prevented.
+       *
+       * Additionally, this also lets us deal automatically with cancellations when a click event
+       * isn't raised because the page was considered scrolled/drag-scrolled, long-pressed, etc.
+       *
+       * This is why we also continuously remove the previous listener, because we cannot be
+       * certain that it was raised, and therefore cleaned-up.
+       */
       if (event.pointerType === 'touch') {
         ownerDocument.value.removeEventListener('click', handleClickRef.value)
         handleClickRef.value = handleAndDispatchPointerdownOutsideEvent
@@ -148,7 +148,8 @@ function dispatchUpdate() {
 }
 
 function handleAndDispatchCustomEvent<
-  E extends CustomEvent, OriginalEvent extends Event,
+  E extends CustomEvent,
+OriginalEvent extends Event,
 >(
   name: string,
   handler: ((event: E) => void) | undefined,

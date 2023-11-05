@@ -197,7 +197,8 @@ const DismissableLayer = defineComponent({
             },
             pointerdownOutside.onPointerdownCapture,
           ),
-        }, slots,
+        },
+        slots,
       )
 
     return originalReturn
