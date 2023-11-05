@@ -1,163 +1,201 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { enableAutoUnmount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
+import { axe } from 'vitest-axe'
+
+import {
+  OkuMenu,
+  OkuMenuAnchor,
+  OkuMenuArrow,
+  OkuMenuCheckboxItem,
+  OkuMenuContent,
+  OkuMenuContentImpl,
+  OkuMenuGroup,
+  OkuMenuItem,
+  OkuMenuItemImpl,
+  OkuMenuItemIndicator,
+  OkuMenuLabel,
+  OkuMenuPortal,
+  OkuMenuRadioGroup,
+  OkuMenuRadioItem,
+  OkuMenuRootContentModal,
+  OkuMenuRootContentNonModal,
+  OkuMenuSeparator,
+  OkuMenuSub,
+  OkuMenuSubContent,
+  OkuMenuSubTrigger,
+} from '../src'
+
+import Styled from '../src/stories/Styled.vue'
+import Submenus from '../src/stories/Submenus.vue'
+import WithLabels from '../src/stories/WithLabels.vue'
+import Typeahead from '../src/stories/Typeahead.vue'
+import CheckboxItems from '../src/stories/CheckboxItems.vue'
+import RadioItems from '../src/stories/RadioItems.vue'
+import Animated from '../src/stories/Animated.vue'
 
 enableAutoUnmount(afterEach)
 
 describe('okuMenu', () => {
-  it('should be OkuMenu', () => {
-    expect(true).toBe(true)
-  })
-})
-
-describe('okuScrollArea', () => {
-  it('should render OkuScrollArea correctly', () => {
-    const wrapper = shallowMount(OkuScrollArea)
+  it('should render OkuMenu correctly', () => {
+    const wrapper = shallowMount(OkuMenu)
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaCorner correctly', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaCorner)
-
-    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
-
-    expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+  it('should render OkuMenuAnchor correctly', () => {
+    const wrapper = shallowMount(OkuMenuAnchor)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaCornerImpl correctly', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaCornerImpl)
-    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
-    expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+  it('should render OkuMenuArrow correctly', () => {
+    const wrapper = shallowMount(OkuMenuArrow)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaScrollbar correctly', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbar)
-
-    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
-    expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+  it('should render OkuMenuCheckboxItem correctly', () => {
+    const wrapper = shallowMount(OkuMenuCheckboxItem)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaScrollbarAuto correctly', () => {
+  it('should render OkuMenuContent correctly', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbarAuto)
+    const wrapper = () => shallowMount(OkuMenuContent)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
 
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenuPortal)" not found.')
+    expect(spy.mock.calls[1][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
   })
 
-  it('should render OkuScrollAreaScrollbarHover correctly', () => {
+  it('should render OkuMenuContentImpl correctly', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbarHover)
+    const wrapper = () => shallowMount(OkuMenuContentImpl)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
 
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
   })
 
-  it('should render OkuScrollAreaScrollbarImpl correctly', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbarImpl)
-
-    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
-    expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: Missing required prop: "hasThumb"')
-    expect(spy.mock.calls[1][0]).toContain('[Vue warn]: Missing required prop: "sizes"')
-    expect(spy.mock.calls[2][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+  it('should render OkuMenuGroup correctly', () => {
+    const wrapper = shallowMount(OkuMenuGroup)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaScrollbarScroll correctly', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbarScroll)
-
-    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
-    expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+  it('should render OkuMenuItemIndicator correctly', () => {
+    const wrapper = shallowMount(OkuMenuItemIndicator)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaScrollbarVisible correctly', () => {
+  it('should render OkuMenuItem correctly', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbarVisible)
+    const wrapper = () => shallowMount(OkuMenuItem)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
 
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
   })
 
-  it('should render OkuScrollAreaScrollbarX correctly', () => {
+  it('should render OkuMenuItemImpl correctly', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbarX)
+    const wrapper = () => shallowMount(OkuMenuItemImpl)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
 
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: Missing required prop: "hasThumb"')
-    expect(spy.mock.calls[1][0]).toContain('[Vue warn]: Missing required prop: "sizes"')
-    expect(spy.mock.calls[2][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenuContent)" not found.')
   })
 
-  it('should render OkuScrollAreaScrollbarY correctly', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaScrollbarY)
-
-    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
-    expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: Missing required prop: "hasThumb"')
-    expect(spy.mock.calls[1][0]).toContain('[Vue warn]: Missing required prop: "sizes"')
-    expect(spy.mock.calls[2][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+  it('should render OkuMenuLabel correctly', () => {
+    const wrapper = shallowMount(OkuMenuLabel)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaThumb correctly', () => {
+  it('should render OkuMenuPortal correctly', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaThumb)
+    const wrapper = () => shallowMount(OkuMenuPortal)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
 
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollAreaScrollbar)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
   })
 
-  it('should render OkuScrollAreaThumbImpl correctly', () => {
-    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaThumbImpl)
-
-    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
-    expect(spy).toHaveBeenCalled()
-
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+  it('should render OkuMenuRadioGroup correctly', () => {
+    const wrapper = shallowMount(OkuMenuRadioGroup)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render OkuScrollAreaViewport correctly', () => {
+  it('should render OkuMenuRadioItem correctly', () => {
+    const wrapper = shallowMount(OkuMenuRadioItem)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('should render OkuMenuRootContentModal correctly', () => {
     const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
-    const wrapper = () => mount(OkuScrollAreaViewport)
+    const wrapper = () => shallowMount(OkuMenuRootContentModal)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
 
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuScrollArea)" not found.')
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
+  })
+
+  it('should render OkuMenuRootContentNonModal correctly', () => {
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
+    const wrapper = () => shallowMount(OkuMenuRootContentNonModal)
+
+    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
+    expect(spy).toHaveBeenCalled()
+
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
+  })
+
+  it('should render OkuMenuSeparator correctly', () => {
+    const wrapper = shallowMount(OkuMenuSeparator)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  it('should render OkuMenuSub correctly', () => {
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
+    const wrapper = () => shallowMount(OkuMenuSub)
+
+    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
+    expect(spy).toHaveBeenCalled()
+
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
+  })
+
+  it('should render OkuMenuSubContent correctly', () => {
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
+    const wrapper = () => shallowMount(OkuMenuSubContent)
+
+    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
+    expect(spy).toHaveBeenCalled()
+
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenuPortal)" not found.')
+    expect(spy.mock.calls[1][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
+  })
+
+  it('should render OkuMenuSubTrigger correctly', () => {
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
+    const wrapper = () => shallowMount(OkuMenuSubTrigger)
+
+    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
+    expect(spy).toHaveBeenCalled()
+
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuMenu)" not found.')
   })
 })
 
-describe('okuScrollArea Stories', () => {
-  describe('basic', () => {
-    let wrapper: VueWrapper<InstanceType<typeof Basic>>
+describe('okuMenu Stories', () => {
+  describe('styled', () => {
+    let wrapper: VueWrapper<InstanceType<typeof Styled>>
 
     beforeEach(async () => {
-      wrapper = mount(Basic, {
+      wrapper = shallowMount(Styled, {
         attachTo: document.body,
       })
     })
@@ -171,47 +209,14 @@ describe('okuScrollArea Stories', () => {
 
     it('should render correctly', () => {
       expect(wrapper.html()).toMatchSnapshot()
-    })
-
-    it('should updates props when form changes', async () => {
-      await wrapper.find('select[name="type"]').setValue('scroll')
-      await wrapper.find('select[name="dir"]').setValue('rtl')
-      await wrapper.find('input[name="scrollHideDelay"]').setValue(1000)
-
-      await wrapper.find('form').trigger('change')
-
-      expect((wrapper.vm as unknown as { props: any }).props).toMatchObject({ type: 'scroll', dir: 'rtl', scrollHideDelay: 1000 })
-    })
-
-    it('should converts scroll delay to number', async () => {
-      await wrapper.find('input[name="scrollHideDelay"]').setValue('1000')
-      await wrapper.find('form').trigger('change')
-
-      await nextTick()
-
-      expect((wrapper.vm as unknown as { props: any }).props.scrollHideDelay).toBe(1000)
-    })
-
-    it('passes props to ScrollAreaStory', async () => {
-      await wrapper.find('select[name="type"]').setValue('scroll')
-      await wrapper.find('input[name="scrollHideDelay"]').setValue(500)
-
-      await wrapper.find('form').trigger('change')
-
-      await nextTick()
-
-      // const scrollAreaStory = wrapper.findComponent(ScrollAreaStory)
-
-      // expect(scrollAreaStory.props()).toMatchObject((wrapper.vm as unknown as { props: any }).props)
-      expect(document.body.innerHTML).toMatchSnapshot()
     })
   })
 
-  describe('resizable', () => {
-    let wrapper: VueWrapper<InstanceType<typeof Resizable>>
+  describe('submenus', () => {
+    let wrapper: VueWrapper<InstanceType<typeof Submenus>>
 
     beforeEach(async () => {
-      wrapper = mount(Resizable, {
+      wrapper = shallowMount(Submenus, {
         attachTo: document.body,
       })
     })
@@ -225,26 +230,14 @@ describe('okuScrollArea Stories', () => {
 
     it('should render correctly', () => {
       expect(wrapper.html()).toMatchSnapshot()
-    })
-
-    it('can be resized', async () => {
-      const resizableElement = wrapper.find('[style*="resize: both"]').element as HTMLDivElement
-
-      vi.spyOn(resizableElement, 'offsetWidth', 'get').mockReturnValue(200)
-      vi.spyOn(resizableElement, 'offsetHeight', 'get').mockReturnValue(200)
-
-      await nextTick()
-
-      expect(resizableElement.offsetWidth).toBe(200)
-      expect(resizableElement.offsetHeight).toBe(200)
     })
   })
 
-  describe('contentChange', () => {
-    let wrapper: VueWrapper<InstanceType<typeof ContentChange>>
+  describe('withLabels', () => {
+    let wrapper: VueWrapper<InstanceType<typeof WithLabels>>
 
     beforeEach(async () => {
-      wrapper = mount(ContentChange, {
+      wrapper = shallowMount(WithLabels, {
         attachTo: document.body,
       })
     })
@@ -259,77 +252,74 @@ describe('okuScrollArea Stories', () => {
     it('should render correctly', () => {
       expect(wrapper.html()).toMatchSnapshot()
     })
+  })
 
-    it('should change thumb size', async () => {
-      // const scrollbarXElement = wrapper.find('.scrollbar[data-orientation="vertical"]').element as HTMLDivElement
-      // const scrollbarYElement = wrapper.find('.scrollbar[data-orientation="horizontal"]').element as HTMLDivElement
+  describe('typeahead', () => {
+    let wrapper: VueWrapper<InstanceType<typeof Typeahead>>
 
-      // const initialThumbHeight = Number.parseFloat(window.getComputedStyle(scrollbarXElement).getPropertyValue('--oku-scroll-area-thumb-height'))
-      // const initialThumbWidth = Number.parseFloat(window.getComputedStyle(scrollbarYElement).getPropertyValue('--oku-scroll-area-thumb-width'))
+    beforeEach(async () => {
+      wrapper = shallowMount(Typeahead, {
+        attachTo: document.body,
+      })
+    })
 
-      for (let i = 0; i < 10; i++) {
-        await wrapper.findAll('button').filter((button: { text: () => string }) => button.text() === 'Add vertical content').at(0)?.trigger('click')
-        await wrapper.findAll('button').filter((button: { text: () => string }) => button.text() === 'Increase horizontal size').at(0)?.trigger('click')
-      }
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should pass accessibility tests', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
 
-      await nextTick()
+    it('should render correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
 
-      // const finalThumbHeight = Number.parseFloat(window.getComputedStyle(scrollbarXElement).getPropertyValue('--oku-scroll-area-thumb-height'))
-      // const finalThumbWidth = Number.parseFloat(window.getComputedStyle(scrollbarYElement).getPropertyValue('--oku-scroll-area-thumb-width'))
+  describe('checkboxItems', () => {
+    let wrapper: VueWrapper<InstanceType<typeof CheckboxItems>>
 
-      // expect(initialThumbHeight).toBeGreaterThan(finalThumbHeight)
-      // expect(initialThumbWidth).toBeGreaterThan(finalThumbWidth)
+    beforeEach(async () => {
+      wrapper = shallowMount(CheckboxItems, {
+        attachTo: document.body,
+      })
+    })
 
-      expect(document.body.innerHTML).toMatchSnapshot()
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should pass accessibility tests', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+
+    it('should render correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
+
+  describe('radioItems', () => {
+    let wrapper: VueWrapper<InstanceType<typeof RadioItems>>
+    beforeEach(async () => {
+      wrapper = shallowMount(RadioItems, {
+        attachTo: document.body,
+      })
+    })
+
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should pass accessibility tests', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+
+    it('should render correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot()
     })
   })
 
   describe('animated', () => {
     let wrapper: VueWrapper<InstanceType<typeof Animated>>
-
     beforeEach(async () => {
-      wrapper = mount(Animated, {
-        attachTo: document.body,
-      })
-    })
-
-    /**
-     * @vitest-environment jsdom
-     */
-    it('should pass accessibility tests', async () => {
-      expect(await axe(wrapper.element)).toHaveNoViolations()
-    })
-
-    it('should render correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
-    })
-  })
-
-  describe('chromatic', () => {
-    let wrapper: VueWrapper<InstanceType<typeof Chromatic>>
-
-    beforeEach(async () => {
-      wrapper = mount(Chromatic, {
-        attachTo: document.body,
-      })
-    })
-
-    /**
-     * @vitest-environment jsdom
-     */
-    it('should pass accessibility tests', async () => {
-      expect(await axe(wrapper.element)).toHaveNoViolations()
-    })
-
-    it('should render correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
-    })
-  })
-
-  describe('chromaticDynamicContent', () => {
-    let wrapper: VueWrapper<InstanceType<typeof ChromaticDynamicContent>>
-    beforeEach(async () => {
-      wrapper = mount(ChromaticDynamicContent, {
+      wrapper = shallowMount(Animated, {
         attachTo: document.body,
       })
     })

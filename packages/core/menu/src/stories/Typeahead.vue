@@ -24,7 +24,7 @@ const suits = [
           <br>
           try the closed select below
         </p>
-        <select>
+        <select aria-label="food group">
           <template v-for="(foodGroup, index) in foodGroups" :key="index">
             <option v-for="food in foodGroup.foods" :key="food.value" :value="food.value" :disabled="food.disabled">
               {{ food.label }}
