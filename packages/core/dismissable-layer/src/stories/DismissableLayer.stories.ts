@@ -7,13 +7,9 @@ interface StoryProps extends IDismissableLayerProps {}
 const meta = {
   title: 'Utilities/DismissableLayer',
   component: OkuDismissableLayerComponent,
+
   args: {
-    template: '#1',
-  },
-  argTypes: {
-    template: {
-      control: 'text',
-    },
+    template: 'Basic',
   },
 
 } satisfies Meta<typeof OkuDismissableLayerComponent> & {
@@ -27,10 +23,8 @@ type Story = StoryObj<typeof meta> & {
 
 export const Basic: Story = {
   args: {
-    template: '#1',
-    // allshow: true,
+    template: 'Basic',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -44,9 +38,8 @@ export const Basic: Story = {
 
 export const Nested: Story = {
   args: {
-    template: '#2',
+    template: 'Nested',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -60,9 +53,8 @@ export const Nested: Story = {
 
 export const WithFocusScope: Story = {
   args: {
-    template: '#3',
+    template: 'WithFocusScope',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -76,9 +68,8 @@ export const WithFocusScope: Story = {
 
 export const DialogExample: Story = {
   args: {
-    template: '#4',
+    template: 'DialogExample',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -92,7 +83,7 @@ export const DialogExample: Story = {
 
 export const PopoverFullyModal: Story = {
   args: {
-    template: '#5',
+    template: 'PopoverFullyModal',
   },
 
   render: (args: any) => ({
@@ -108,9 +99,8 @@ export const PopoverFullyModal: Story = {
 
 export const PopoverSemiModal: Story = {
   args: {
-    template: '#6',
+    template: 'PopoverSemiModal',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -124,9 +114,8 @@ export const PopoverSemiModal: Story = {
 
 export const PopoverNonModal: Story = {
   args: {
-    template: '#7',
+    template: 'PopoverNonModal',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -140,9 +129,8 @@ export const PopoverNonModal: Story = {
 
 export const PopoverInDialog: Story = {
   args: {
-    template: '#8',
+    template: 'PopoverInDialog',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -156,9 +144,8 @@ export const PopoverInDialog: Story = {
 
 export const PopoverNested: Story = {
   args: {
-    template: '#9',
+    template: 'PopoverNested',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {
@@ -172,9 +159,8 @@ export const PopoverNested: Story = {
 
 export const InPopupWindow: Story = {
   args: {
-    template: '#10',
+    template: 'InPopupWindow',
   },
-
   render: (args: any) => ({
     components: { OkuDismissableLayerComponent },
     setup() {

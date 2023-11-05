@@ -4,26 +4,21 @@ import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
-import { OkuSlot } from '@oku-ui/slot'
+import { useScrollLock } from '@oku-ui/use-composable'
 
 withDefaults(defineProps<{ openLabel?: string; closeLabel?: string }>(), {
   openLabel: 'Open',
   closeLabel: 'Close',
 })
 
+const dismissableLayerRef = ref<HTMLElement | null>(null)
+useScrollLock(dismissableLayerRef, true)
+
 const open = ref(false)
-
-function toggleOpen() {
-  open.value = !open.value
-}
-
-function closeLayer() {
-  open.value = false
-}
 </script>
 
 <template>
-  <button type="button" @click="toggleOpen">
+  <button type="button" @click="open = !open">
     {{ openLabel }}
   </button>
 
@@ -31,54 +26,54 @@ function closeLayer() {
     <OkuPortal as-child>
       <div
         :style="{
-          'position': 'fixed',
-          'top': 0,
-          'right': 0,
-          'bottom': 0,
-          'left': 0,
-          'pointer-events': 'none',
-          'background': 'black',
-          'opacity': 0.2,
+          position: 'fixed',
+          top: '0px',
+          right: '0px',
+          bottom: '0px',
+          left: '0px',
+          pointerEvents: 'none',
+          backgroundColor: 'black',
+          opacity: 0.2,
         }"
       />
     </OkuPortal>
 
     <OkuPortal as-child>
-      <OkuSlot>
-        <OkuDismissableLayer
-          as-child
-          disable-outside-pointer-events
-          @dismiss="closeLayer"
+      <OkuDismissableLayer
+        ref="dismissableLayerRef"
+        as-child
+        disable-outside-pointer-events
+        @dismiss="open = false"
+      >
+        <OkuFocusScope
+          trapped
+          :style="{
+            boxSizing: 'border-box',
+            display: 'flex',
+            alignItems: 'start',
+            gap: '10px',
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'white',
+            minWidth: '300px',
+            minHeight: '200px',
+            padding: '40px',
+            borderRadius: '10px',
+            backgroundColor: 'white',
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.12)',
+          }"
         >
-          <OkuFocusScope
-            trapped
-            :style="{
-              'box-sizing': 'border-box',
-              'display': 'flex',
-              'align-items': 'start',
-              'gap': '10px',
-              'position': 'fixed',
-              'top': '50%',
-              'left': '50%',
-              'transform': 'translate(-50%, -50%)',
-              'min-width': '300px',
-              'min-height': '200px',
-              'padding': '40px',
-              'border-radius': '10px',
-              'background': 'white',
-              'box-shadow': '0 2px 10px rgba(0, 0, 0, 0.12)',
-            }"
-          >
-            <slot />
+          <slot />
 
-            <button type="button" @click="closeLayer">
-              {{ closeLabel }}
-            </button>
+          <button type="button" @click="open = false">
+            {{ closeLabel }}
+          </button>
 
-            <input type="text" defaultValue="hello world" class="border">
-          </OkuFocusScope>
-        </OkuDismissableLayer>
-      </OkuSlot>
+          <input type="text" defaultValue="hello world" class="border">
+        </OkuFocusScope>
+      </OkuDismissableLayer>
     </OkuPortal>
   </OkuFocusGuards>
 </template>

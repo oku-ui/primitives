@@ -129,18 +129,20 @@ export function usePresence(present: Ref<boolean>) {
 
   return {
     isPresent,
-    ref: (node: any) => {
-      // if (!isValidVNodeElement(node))
-      //   return
-      // node is ComponentPublicInstance
-      if (node && node.$el) {
-        // stylesRef.value = getComputedStyle(node.$el)
-        // el.value = node.$el as HTMLElement
-      }
-      else if (node) {
+    ref: (node) => {
+      if (node instanceof HTMLElement) {
         stylesRef.value = getComputedStyle(node)
-        el.value = node as HTMLElement
+        el.value = node
+      }
+      else if (node && node.$el instanceof HTMLElement) {
+        stylesRef.value = getComputedStyle(node.$el)
+        el.value = node.$el
+      }
+      else {
+        stylesRef.value = {} as any
+        el.value = undefined
       }
     },
+
   }
 }

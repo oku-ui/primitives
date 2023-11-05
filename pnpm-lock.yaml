@@ -20,6 +20,7 @@ overrides:
   '@oku-ui/focus-scope': workspace:^
   '@oku-ui/hover-card': workspace:^
   '@oku-ui/label': workspace:^
+  '@oku-ui/menu': workspace:^
   '@oku-ui/popover': workspace:^
   '@oku-ui/popper': workspace:^
   '@oku-ui/portal': workspace:^
@@ -108,6 +109,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:packages/components/label
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:packages/core/menu
       '@oku-ui/popover':
         specifier: workspace:^
         version: link:packages/components/popover
@@ -568,6 +572,64 @@ importers:
         specifier: workspace:^
         version: link:../../tsconfig
 
+  packages/core/menu:
+    dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.7)
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:../../core/collection
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../../core/direction
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../../core/dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: workspace:^
+        version: link:../../core/focus-guards
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:../../core/focus-scope
+      '@oku-ui/popper':
+        specifier: workspace:^
+        version: link:../../core/popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../../core/portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../../core/presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../../core/roving-focus
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../../core/slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      aria-hidden:
+        specifier: ^1.2.3
+        version: 1.2.3
+      vue:
+        specifier: 3.3.7
+        version: 3.3.7(typescript@5.2.2)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
   packages/components/popover:
     dependencies:
       '@floating-ui/vue':
@@ -646,6 +708,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../label
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:../menu
       '@oku-ui/popover':
         specifier: workspace:^
         version: link:../popover
@@ -1478,6 +1543,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:../../packages/core/menu
       '@oku-ui/popover':
         specifier: workspace:^
         version: link:../../packages/components/popover
@@ -1560,6 +1628,9 @@ importers:
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:../../packages/core/menu
       '@oku-ui/primitives':
         specifier: workspace:^
         version: link:../../packages/components/primitives

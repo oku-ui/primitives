@@ -1,56 +1,57 @@
-import { describe, expect, it, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { useFocusoutSide, usePointerdownOutside } from './util'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import { useFocusOutside, usePointerdownOutside } from './util'
+import type { FocusOutsideEvent } from './props'
 
-describe('useFocusoutSide', () => {
-  it('should call onFocusoutSide when focusin event happens outside', () => {
-    const onFocusoutSide = vi.fn()
+enableAutoUnmount(afterEach)
 
-    const wrapper = mount({
-      template: '<div v-on="events"></div>',
-      setup() {
-        const events = useFocusoutSide(onFocusoutSide)
-        return { events }
-      },
-    })
+function shallowMountTem(template: string, event: any) {
+  return shallowMount({
+    setup() {
+      return { event }
+    },
+    template,
+  })
+}
 
-    wrapper.trigger('focusin')
+describe('okuDismissableLayer util', () => {
+  let wrapper: VueWrapper
+  let onFocusOutside: (event: FocusOutsideEvent) => void
+  let onPointerdownOutside: (event: FocusOutsideEvent) => void
 
-    document.dispatchEvent(new FocusEvent('focusin'))
-
-    expect(onFocusoutSide).not.toHaveBeenCalled()
+  beforeEach(() => {
+    onFocusOutside = vi.fn()
+    onPointerdownOutside = vi.fn()
   })
 
-  it('should not call onFocusoutSide when focusin event happens inside', () => {
-    const onFocusoutSide = vi.fn()
-    const wrapper = mount({
-      template: '<div v-on="events"><button></button></div>',
-      setup() {
-        const events = useFocusoutSide(onFocusoutSide)
-        return { events }
-      },
-    })
-    // Simulate focusin event inside the component
-    wrapper.find('button').trigger('focusin')
+  describe('useFocusOutside', () => {
+    it('should call onFocusOutside when focusin event happens outside', async () => {
+      wrapper = shallowMountTem('<div v-on="events"></div>', useFocusOutside(onFocusOutside))
 
-    expect(onFocusoutSide).not.toHaveBeenCalled()
+      await wrapper.trigger('focusin')
+
+      document.dispatchEvent(new FocusEvent('focusin'))
+
+      expect(onFocusOutside).toHaveBeenCalled()
+    })
+
+    it('should not call onFocusOutside when focusin event happens inside', async () => {
+      wrapper = shallowMountTem('<div v-on="events"><button></button></div>', useFocusOutside(onFocusOutside))
+
+      await wrapper.find('button').trigger('focusin')
+
+      expect(onFocusOutside).not.toHaveBeenCalled()
+    })
   })
-})
 
-describe('usePointerDownOutside', () => {
-  it('should not call onPointerDownOutside when pointerdown event happens inside', () => {
-    const onPointerDownOutside = vi.fn()
-    const wrapper = mount({
-      template: '<div v-on="events"><button></button></div>',
-      setup() {
-        const events = usePointerdownOutside(onPointerDownOutside)
-        return { events }
-      },
+  describe('usePointerdownOutside', () => {
+    it('should not call onPointerdownOutside when pointerdown event happens inside', async () => {
+      wrapper = shallowMountTem('<div v-on="events"><button></button></div>', usePointerdownOutside(onPointerdownOutside))
+
+      await wrapper.find('button').trigger('pointerdown')
+
+      expect(onPointerdownOutside).not.toHaveBeenCalled()
     })
-
-    // Simulate pointerdown event inside the component
-    wrapper.find('button').trigger('pointerdown')
-
-    expect(onPointerDownOutside).not.toHaveBeenCalled()
   })
 })
