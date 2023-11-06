@@ -14,6 +14,7 @@
     "@oku-ui/aspect-ratio": "workspace:^",
     "@oku-ui/avatar": "workspace:^",
     "@oku-ui/checkbox": "workspace:^",
+    "@oku-ui/context-menu": "workspace:^",
     "@oku-ui/label": "workspace:^",
     "@oku-ui/menu": "workspace:^",
     "@oku-ui/primitives": "workspace:^",

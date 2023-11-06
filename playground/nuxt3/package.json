@@ -20,6 +20,7 @@
     "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/collapsible": "workspace:^",
     "@oku-ui/collection": "workspace:^",
+    "@oku-ui/context-menu": "workspace:^",
     "@oku-ui/dialog": "workspace:^",
     "@oku-ui/dismissable-layer": "workspace:^",
     "@oku-ui/focus-scope": "workspace:^",

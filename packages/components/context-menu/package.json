@@ -1,0 +1,54 @@
+{
+  "name": "@oku-ui/context-menu",
+  "type": "module",
+  "version": "0.5.0",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/components/context-menu"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@floating-ui/vue": "^1.0.2",
+    "@oku-ui/direction": "latest",
+    "@oku-ui/menu": "latest",
+    "@oku-ui/presence": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
