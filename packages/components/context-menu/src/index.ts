@@ -1,6 +1,5 @@
 import type { } from '@floating-ui/vue'
 
-export { OkuContextMenu } from './context-menu'
 export { OkuContextMenuArrow } from './context-menu-arrow'
 export { OkuContextMenuCheckboxItem } from './context-menu-checkbox-item'
 export { OkuContextMenuContent } from './context-menu-content'
@@ -12,13 +11,11 @@ export { OkuContextMenuPortal } from './context-menu-portal'
 export { OkuContextMenuRadioGroup } from './context-menu-radio-group'
 export { OkuContextMenuRadioItem } from './context-menu-radio-item'
 export { OkuContextMenuSeparator } from './context-menu-separator'
-export { OkuContextMenuSub } from './context-menu-sub'
 export { OkuContextMenuSubContent } from './context-menu-sub-content'
 export { OkuContextMenuSubTrigger } from './context-menu-sub-trigger'
-
-export type {
-  ContextMenuProps,
-} from './props'
+export { OkuContextMenuSub } from './context-menu-sub'
+export { OkuContextMenuTrigger } from './context-menu-trigger'
+export { OkuContextMenu } from './context-menu'
 
 export type {
   ContextMenuArrowProps,
@@ -85,10 +82,6 @@ export type {
 } from './props'
 
 export type {
-  ContextMenuSubProps,
-} from './props'
-
-export type {
   ContextMenuSubContentProps,
   ContextMenuSubContentElement,
   ContextMenuSubContentNativeElement,
@@ -98,4 +91,18 @@ export type {
   ContextMenuSubTriggerProps,
   ContextMenuSubTriggerElement,
   ContextMenuSubTriggerNativeElement,
+} from './props'
+
+export type {
+  ContextMenuSubProps,
+} from './props'
+
+export type {
+  ContextMenuTriggerProps,
+  ContextMenuTriggerElement,
+  ContextMenuTriggerNativeElement,
+} from './props'
+
+export type {
+  ContextMenuProps,
 } from './props'
