@@ -78,7 +78,7 @@ import { OkuContextMenu, OkuContextMenuArrow, OkuContextMenuContent, OkuContextM
       </div>
       <div :style="{ display: 'inline-flex', alignItems: 'center', flexDirection: 'column' }">
         <h1>Non modal</h1>
-        <OkuContextMenu modal="false">
+        <OkuContextMenu :modal="false">
           <OkuContextMenuTrigger class="context-menu-trigger" />
           <OkuContextMenuPortal>
             <OkuContextMenuContent class="context-menu-content" :align-offset="-5">

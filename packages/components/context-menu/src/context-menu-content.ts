@@ -47,7 +47,7 @@ const contextMenuContent = defineComponent({
       onInteractOutside: (event) => {
         emit('interactOutside', event)
 
-        if (!event.defaultPrevented && !inject.modal)
+        if (!event.defaultPrevented && !inject.modal.value)
           hasInteractedOutsideRef.value = true
       },
       style: {
