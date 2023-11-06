@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OkuContextMenu, OkuContextMenuContent, OkuContextMenuGroup, OkuContextMenuItem, OkuContextMenuLabel, OkuContextMenuPortal, OkuContextMenuSeparator, OkuContextMenuSub, OkuContextMenuSubContent, OkuContextMenuSubTrigger, OkuContextMenuTrigger } from '@oku-ui/context-menu'
+import { OkuContextMenu, OkuContextMenuContent, OkuContextMenuGroup, OkuContextMenuItem, OkuContextMenuLabel, OkuContextMenuPortal, OkuContextMenuSeparator, OkuContextMenuTrigger } from '@oku-ui/context-menu'
 import { foodGroups } from './foods'
 </script>
 

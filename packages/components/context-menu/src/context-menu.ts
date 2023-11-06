@@ -1,4 +1,4 @@
-import { defineComponent, h, onMounted, ref, toRefs } from 'vue'
+import { defineComponent, h, ref, toRefs } from 'vue'
 import { OkuMenu } from '@oku-ui/menu'
 import { CONTEXT_MENU_NAME, ContextMenuProvider, contextMenuProps, scopedContextMenuProps, useMenuScope } from './props'
 
