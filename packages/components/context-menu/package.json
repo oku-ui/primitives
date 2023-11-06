@@ -40,10 +40,10 @@
     "@floating-ui/vue": "^1.0.2",
     "@oku-ui/direction": "latest",
     "@oku-ui/menu": "latest",
-    "@oku-ui/presence": "latest",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
-    "@oku-ui/use-composable": "latest"
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
