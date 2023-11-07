@@ -17,23 +17,22 @@ on:
     branches:
       - main
   workflow_run:
-      workflows: ["autofix.ci"]
+      workflows:
+        - autofix.ci
       types:
         - completed
-  workflow_dispatch:
 
 
 
 jobs:
   on-success:
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
-
     strategy:
       matrix:
         os: [ubuntu-latest]
         node_version: [20]
 
     runs-on: ${{ matrix.os }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
 
     permissions:
