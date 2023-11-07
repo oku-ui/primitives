@@ -17,6 +17,9 @@ export default defineConfig({
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],
     globals: true,
+    cache: {
+      dir: '.vitest-cache',
+    },
     alias: {
       '@oku-ui/scroll-area': 'packages/components/scroll-area/src',
       '@oku-ui/checkbox': 'packages/components/checkbox/src',

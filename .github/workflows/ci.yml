@@ -19,30 +19,9 @@ on:
 
 
 jobs:
-  lint:
-    name: "Lint"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-
-      - name: Lint
-        run: pnpm run lint
-
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-      - uses: ./.github/actions/cache-build
-
-      - name: Typecheck
-        run: pnpm run typecheck
-
   build-test:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
-    needs: [lint, typecheck]
 
     permissions:
       # Required to checkout the code
@@ -57,11 +36,49 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-      - uses: ./.github/actions/cache-build
 
-      # - name: 🧪 Test
-      #   run: pnpm test
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Nx Cache
+        uses: actions/cache@v3
+        with:
+          path: ./.nx
+          key: ${{ runner.os }}-nx-
+          restore-keys: |
+            ${{ runner.os }}-nx-
+
+      - name: ESLint Cache
+        uses: actions/cache@v3
+        with:
+          path: ./.eslintcache
+          key: ${{ runner.os }}-eslintcache-
+          restore-keys: |
+            ${{ runner.os }}-eslintcache-
+
+      - name: Vitest Cache
+        uses: actions/cache@v3
+        with:
+          path: ./.vitest-cache
+          key: ${{ runner.os }}-vitest-cache-
+          restore-keys: |
+            ${{ runner.os }}-vitest-cache-
+
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 👀 Lint
+        run: pnpm lint
+
+      - name: 👀 Typecheck
+        run: pnpm typecheck
+
+      - name: 🚀 Build
+        run: pnpm build
 
       - name: 🧪 Test with coverage
         run: pnpm coverage
