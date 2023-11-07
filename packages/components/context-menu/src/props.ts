@@ -45,14 +45,14 @@ export const [createMenuContextProvide, createContextMenuScop] = createProvideSc
 
 export const useMenuScope = createMenuScope()
 
-export type ContextMenuProvideValue = {
+export type ContextMenuInjectValue = {
   open: Ref<boolean>
   onOpenChange(open: boolean): void
   modal: Ref<boolean>
 }
 
-export const [ContextMenuProvider, useContextMenuInject]
-  = createMenuContextProvide<ContextMenuProvideValue>(CONTEXT_MENU_NAME)
+export const [contextMenuProvider, useContextMenuInject]
+  = createMenuContextProvide<ContextMenuInjectValue>(CONTEXT_MENU_NAME)
 
 export interface ContextMenuProps {
   dir?: Direction
@@ -87,7 +87,7 @@ export interface ContextMenuTriggerProps extends PrimitiveProps {
 }
 
 export type ContextMenuTriggerEmits = {
-  contextMenu: [event: Event]
+  contextmenu: [event: MouseEvent]
   pointerdown: [event: PointerEvent]
   pointermove: [event: PointerEvent]
   pointercancel: [event: PointerEvent]
@@ -104,7 +104,7 @@ export const contextMenuTriggerProps = {
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    contextMenu: (event: ContextMenuTriggerEmits['contextMenu'][0]) => true,
+    contextmenu: (event: ContextMenuTriggerEmits['contextmenu'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
     pointerdown: (event: ContextMenuTriggerEmits['pointerdown'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars

@@ -64,10 +64,10 @@ const contextMenuTrigger = defineComponent({
         // prevent iOS context menu from appearing
         'style': { WebkitTouchCallout: 'none', ...attrs.style as any },
         // if trigger is disabled, enable the native Context Menu
-        'onContextMenu': composeEventHandlers<ContextMenuTriggerEmits['contextMenu'][0]>((event) => {
+        'onContextmenu': composeEventHandlers<ContextMenuTriggerEmits['contextmenu'][0]>((event) => {
           if (disabled.value)
-            emit('contextMenu', event)
-        }, (event: any) => {
+            emit('contextmenu', event)
+        }, (event) => {
           // clearing the long press here because some platforms already support
           // long press to trigger a `contextmenu` event
           clearLongPress()
@@ -77,11 +77,11 @@ const contextMenuTrigger = defineComponent({
         'onPointerdown': composeEventHandlers<ContextMenuTriggerEmits['pointerdown'][0]>((event) => {
           if (disabled.value)
             emit('pointerdown', event)
-        }, (event) => {
+        }, whenTouchOrPen((event) => {
           // clear the long press here in case there's multiple touch points
           clearLongPress()
           longPressTimerRef.value = window.setTimeout(() => handleOpen(event), 700)
-        }),
+        })),
         'onPointermove': composeEventHandlers<ContextMenuTriggerEmits['pointermove'][0]>((event) => {
           if (disabled.value)
             emit('pointermove', event)

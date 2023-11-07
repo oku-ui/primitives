@@ -1,6 +1,6 @@
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { OkuMenu } from '@oku-ui/menu'
-import { CONTEXT_MENU_NAME, ContextMenuProvider, contextMenuProps, scopedContextMenuProps, useMenuScope } from './props'
+import { CONTEXT_MENU_NAME, contextMenuProps, contextMenuProvider, scopedContextMenuProps, useMenuScope } from './props'
 
 const contextMenu = defineComponent({
   name: CONTEXT_MENU_NAME,
@@ -29,10 +29,10 @@ const contextMenu = defineComponent({
       handleOpenChangeProp(_open)
     }
 
-    ContextMenuProvider({
+    contextMenuProvider({
       scope: scopeOkuContextMenu.value,
       open,
-      onOpenChange: open => handleOpenChange(open),
+      onOpenChange: _open => handleOpenChange(_open),
       modal,
     })
 
@@ -41,7 +41,7 @@ const contextMenu = defineComponent({
       ...menuScope,
       dir: dir.value,
       open: open.value,
-      onOpenChange: open => handleOpenChange(open),
+      onOpenChange: _open => handleOpenChange(_open),
     }, slots)
   },
 })
