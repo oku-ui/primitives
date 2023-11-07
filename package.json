@@ -2,10 +2,10 @@
   "name": "primitives",
   "type": "module",
   "version": "0.5.0",
-  "packageManager": "pnpm@8.7.4",
+  "packageManager": "pnpm@8.10.2",
   "repository": "oku-ui/primitives",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "workspaces": [
     "playground/*",
@@ -20,7 +20,7 @@
     "p:build": "tsup",
     "oku": "pnpm jiti ./scripts/index.ts",
     "story": "pnpm storybook dev -p 6006 --no-open",
-    "lint": "eslint . --cache ",
+    "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache",
     "play:vue": "pnpm clean:dts && pnpm --filter=vue3 p:dev",
     "play:nuxt": "pnpm clean:dts && pnpm --filter=nuxt3 p:dev",
@@ -98,7 +98,6 @@
     "chokidar": "^3.5.3",
     "chromatic": "^7.6.0",
     "eslint": "^8.53.0",
-    "eslint-config-custom": "workspace:*",
     "eslint-plugin-storybook": "^0.6.15",
     "esno": "^0.17.0",
     "globby": "^13.2.2",

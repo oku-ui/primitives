@@ -14,6 +14,7 @@ export default antfu(
       '*.md',
       '*.d.ts',
       '.nx',
+      '.vitest-cache',
     ],
   },
   {
