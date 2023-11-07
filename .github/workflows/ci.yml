@@ -21,7 +21,6 @@ on:
 jobs:
   build-test:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
 
     permissions:
       # Required to checkout the code
