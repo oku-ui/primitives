@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
 import { OkuContextMenu, OkuContextMenuCheckboxItem, OkuContextMenuContent, OkuContextMenuItem, OkuContextMenuItemIndicator, OkuContextMenuPortal, OkuContextMenuSeparator, OkuContextMenuTrigger } from '@oku-ui/context-menu'
-
 import TickIcon from './TickIcon.vue'
 
 const checkboxItems = ['Bold', 'Italic', 'Underline']

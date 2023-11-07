@@ -10,17 +10,17 @@ const fadedIndexes = ref<number[]>([])
 <template>
   <div
     :style="{ display: 'flex', flexWrap: 'wrap', gap: '10px' }"
-    @context-menu="(event: any) => event.preventDefault()"
+    @context-menu="(event: MouseEvent) => event.preventDefault()"
   >
     <OkuContextMenu v-for="i in 100" :key="i">
       <OkuContextMenuPortal>
-        <OkuContextMenuContent class="context-menu-animated-content" align-offset="-5">
+        <OkuContextMenuContent class="context-menu-animated-content context-menu-content" :align-offset="-5">
           <OkuContextMenuLabel class="context-menu-label">
             Color
           </OkuContextMenuLabel>
           <OkuContextMenuRadioGroup
             :value="customColors[i]"
-            @value-change="(color: string) => customColors = { ...customColors, [i]: color }"
+            @value-change="color => customColors = { ...customColors, [i]: color }"
           >
             <OkuContextMenuRadioItem class="context-menu-item" value="royalblue">
               Blue
@@ -39,7 +39,7 @@ const fadedIndexes = ref<number[]>([])
           <OkuContextMenuCheckboxItem
             class="context-menu-item"
             :checked="fadedIndexes.includes(i)"
-            @checked-change="(faded: number) => faded ? (fadedIndexes = [...fadedIndexes, i]) : (fadedIndexes = fadedIndexes.filter(index => index !== i))"
+            @checked-change="faded => faded ? (fadedIndexes = [...fadedIndexes, i]) : (fadedIndexes = fadedIndexes.filter(index => index !== i))"
           >
             Fade
             <OkuContextMenuItemIndicator>

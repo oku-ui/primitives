@@ -89,7 +89,7 @@ export interface IContextMenuProps {
 
   color: #ccc;
 }
-/*
+
 .context-menu-item {
   display: flex;
   align-items: center;
@@ -113,14 +113,14 @@ export interface IContextMenuProps {
   &[data-disabled] {
     color: #ccc;
   }
-} */
+}
 
-/* .context-menu-sub-trigger {
+.context-menu-sub-trigger {
   &:not([data-highlighted])[data-state="open"] {
     background-color: #ccc;
     color: #111;
   }
-} */
+}
 
 .context-menu-separator {
   height: 1px;
@@ -128,57 +128,13 @@ export interface IContextMenuProps {
   background-color: #ccc;
 }
 
-/* @keyframes context-menu-animate-in {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-} */
-
-/* @keyframes context-menu-animate-out {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-} */
-
-/* .context-menu-animated-content {
-  &[data-state="open"] {
-    animation: context-menu-animate-in 300ms ease;
-  }
-
-  &[data-state="closed"] {
-    animation: context-menu-animate-out 300ms ease;
-  }
-} */
-
-/* .context-menu-animated-item-indicator {
-  &[data-state="checked"] {
-    animation: context-menu-animate-in 300ms ease;
-  }
-
-  &[data-state="unchecked"] {
-    animation: context-menu-animate-out 300ms ease;
-  }
-} */
-
 .context-menu-trigger {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 200px;
   height: 100px;
-  border: 2px dashed 111;
+  border: 2px dashed #111;
   border-radius: 6px;
   background-color: rgba(0, 0, 0, 0.1);
 
@@ -188,7 +144,7 @@ export interface IContextMenuProps {
   }
 
   &[data-state="open"] {
-    background-color: lightblue,
+    background-color: lightblue;
   }
 }
 
@@ -207,20 +163,6 @@ export interface IContextMenuProps {
 }
 
 .context-menu-animated-content {
-  display: inline-block;
-  box-sizing: border-box;
-  min-width: 130px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 5px;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
-  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
-  font-size: 13px;
-  &:focus-within {
-    border-color: #111;
-  }
-
   transform-origin: var(--oku-context-menu-content-transform-origin);
   &[data-state="open"] {
     animation: context-menu-scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1)

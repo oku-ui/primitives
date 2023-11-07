@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { OkuContextMenu, OkuContextMenuArrow, OkuContextMenuContent, OkuContextMenuItem, OkuContextMenuPortal, OkuContextMenuSeparator, OkuContextMenuSub, OkuContextMenuSubContent, OkuContextMenuSubTrigger, OkuContextMenuTrigger } from '@oku-ui/context-menu'
 import { ref } from 'vue'
+import { OkuContextMenu, OkuContextMenuArrow, OkuContextMenuContent, OkuContextMenuItem, OkuContextMenuPortal, OkuContextMenuSeparator, OkuContextMenuSub, OkuContextMenuSubContent, OkuContextMenuSubTrigger, OkuContextMenuTrigger } from '@oku-ui/context-menu'
 
 const rtl = ref(false)
 </script>
@@ -38,7 +38,7 @@ const rtl = ref(false)
             </OkuContextMenuItem>
             <OkuContextMenuSeparator class="context-menu-separator" />
             <OkuContextMenuSub>
-              <OkuContextMenuSubTrigger class="context-menu-subTrigger">
+              <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item">
                 Bookmarks →
               </OkuContextMenuSubTrigger>
               <OkuContextMenuPortal>
@@ -58,7 +58,7 @@ const rtl = ref(false)
                   </OkuContextMenuItem>
                   <OkuContextMenuSeparator class="context-menu-separator" />
                   <OkuContextMenuSub>
-                    <OkuContextMenuSubTrigger class="context-menu-subTrigger">
+                    <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item">
                       WorkOS →
                     </OkuContextMenuSubTrigger>
                     <OkuContextMenuPortal>
@@ -101,7 +101,7 @@ const rtl = ref(false)
               </OkuContextMenuPortal>
             </OkuContextMenuSub>
             <OkuContextMenuSub>
-              <OkuContextMenuSubTrigger class="context-menu-subTrigger" disabled>
+              <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item" disabled>
                 History →
               </OkuContextMenuSubTrigger>
               <OkuContextMenuPortal>
@@ -133,7 +133,7 @@ const rtl = ref(false)
               </OkuContextMenuPortal>
             </OkuContextMenuSub>
             <OkuContextMenuSub>
-              <OkuContextMenuSubTrigger class="context-menu-subTrigger">
+              <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item">
                 Tools →
               </OkuContextMenuSubTrigger>
               <OkuContextMenuPortal>

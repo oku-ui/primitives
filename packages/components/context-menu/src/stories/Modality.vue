@@ -19,7 +19,7 @@ import { OkuContextMenu, OkuContextMenuArrow, OkuContextMenuContent, OkuContextM
               </OkuContextMenuItem>
               <OkuContextMenuSeparator class="context-menu-separator" />
               <OkuContextMenuSub>
-                <OkuContextMenuSubTrigger class="context-menu-subTrigger">
+                <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item">
                   Submenu →
                 </OkuContextMenuSubTrigger>
                 <OkuContextMenuPortal>
@@ -32,7 +32,7 @@ import { OkuContextMenu, OkuContextMenuArrow, OkuContextMenuContent, OkuContextM
                     </OkuContextMenuItem>
                     <OkuContextMenuSeparator class="context-menu-separator" />
                     <OkuContextMenuSub>
-                      <OkuContextMenuSubTrigger class="context-menu-subTrigger">
+                      <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item">
                         Submenu →
                       </OkuContextMenuSubTrigger>
                       <OkuContextMenuPortal>
@@ -90,7 +90,7 @@ import { OkuContextMenu, OkuContextMenuArrow, OkuContextMenuContent, OkuContextM
               </OkuContextMenuItem>
               <OkuContextMenuSeparator class="context-menu-separator" />
               <OkuContextMenuSub>
-                <OkuContextMenuSubTrigger class="context-menu-subTrigger">
+                <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item">
                   Submenu →
                 </OkuContextMenuSubTrigger>
                 <OkuContextMenuPortal>
@@ -103,7 +103,7 @@ import { OkuContextMenu, OkuContextMenuArrow, OkuContextMenuContent, OkuContextM
                     </OkuContextMenuItem>
                     <OkuContextMenuSeparator class="context-menu-separator" />
                     <OkuContextMenuSub>
-                      <OkuContextMenuSubTrigger class="context-menu-subTrigger">
+                      <OkuContextMenuSubTrigger class="context-menu-sub-trigger context-menu-item">
                         Submenu →
                       </OkuContextMenuSubTrigger>
                       <OkuContextMenuPortal>
