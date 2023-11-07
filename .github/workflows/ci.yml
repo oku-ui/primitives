@@ -24,7 +24,12 @@ on:
 
 
 jobs:
-  build-test:
+  on-success:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [20]
+
     runs-on: ${{ matrix.os }}
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
@@ -33,11 +38,6 @@ jobs:
       contents: read
       # Required to put a comment into the pull-request
       pull-requests: write
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node_version: [20]
 
     steps:
       - uses: actions/checkout@v4
@@ -91,3 +91,9 @@ jobs:
       - name: 📝 Upload coverage
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
