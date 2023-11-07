@@ -12,7 +12,7 @@ const fadedIndexes = ref<number[]>([])
     :style="{ display: 'flex', flexWrap: 'wrap', gap: '10px' }"
     @context-menu="(event: MouseEvent) => event.preventDefault()"
   >
-    <OkuContextMenu v-for="i in 100" :key="i">
+    <OkuContextMenu v-for="(_, i) in 100" :key="i">
       <OkuContextMenuPortal>
         <OkuContextMenuContent class="context-menu-animated-content context-menu-content" :align-offset="-5">
           <OkuContextMenuLabel class="context-menu-label">
