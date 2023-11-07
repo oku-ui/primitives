@@ -16,31 +16,22 @@ on:
   pull_request:
     branches:
       - main
-  workflow_run:
-      workflows:
-        - "autofix.ci"
-      types:
-        - completed
-
 
 
 jobs:
-  on-success:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node_version: [20]
-
+  build-test:
     runs-on: ${{ matrix.os }}
-
 
     permissions:
       # Required to checkout the code
       contents: read
       # Required to put a comment into the pull-request
       pull-requests: write
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [20]
 
     steps:
       - uses: actions/checkout@v4
@@ -94,9 +85,3 @@ jobs:
       - name: 📝 Upload coverage
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
-
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo 'The triggering workflow failed'
