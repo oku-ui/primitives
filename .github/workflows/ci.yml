@@ -18,7 +18,7 @@ on:
       - main
   workflow_run:
       workflows:
-        - autofix.ci
+        - "autofix.ci"
       types:
         - completed
 
