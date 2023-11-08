@@ -52,7 +52,8 @@ const avatar = defineComponent({
     })
 
     const originalReturn = () => h(
-      Primitive.span, {
+      Primitive.span,
+      {
         ...attrs,
         ref: forwardedRef,
         asChild: props.asChild,

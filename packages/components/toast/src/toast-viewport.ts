@@ -221,59 +221,47 @@ const toastViewport = defineComponent({
       }
     })
 
-    return () => h(OkuDismissableLayerBranch,
-      {
-        'ref': wrapperRef,
-        'role': 'region',
-        'aria-label': label.value.replace('{hotkey}', hotkeyLabel),
-        // Ensure virtual cursor from landmarks menus triggers focus/blur for pause/resume
-        'tabindex': -1,
-        // incase list has size when empty (e.g. padding), we remove pointer events so
-        // it doesn't prevent interactions with page elements that it overlays
-        'style': { pointerEvents: hasToasts.value ? undefined : 'none' },
-      },
-      {
-        default: () => [
-          hasToasts.value && h(OkuToastFocusProxy,
-            {
-              ref: headFocusProxyRef,
-              onFocusFromOutsideViewport: () => {
-                const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'forwards' })
-                focusFirst(tabbableCandidates)
-              },
-            },
-          ),
-          /**
-           * tabindex on the the list so that it can be focused when items are removed. we focus
-           * the list instead of the viewport so it announces number of items remaining.
-           */
-          h(CollectionSlot,
-            { scope: props.scopeOkuToast },
-            {
-              default: () => h(Primitive.ol,
-                {
-                  tabindex: -1,
-                  ...mergeProps(attrs, reactiveViewPortProps),
-                  ref: composedRefs,
-                }, slots,
-              ),
-            },
-          ),
+    return () => h(OkuDismissableLayerBranch, {
+      'ref': wrapperRef,
+      'role': 'region',
+      'aria-label': label.value.replace('{hotkey}', hotkeyLabel),
+      // Ensure virtual cursor from landmarks menus triggers focus/blur for pause/resume
+      'tabindex': -1,
+      // incase list has size when empty (e.g. padding), we remove pointer events so
+      // it doesn't prevent interactions with page elements that it overlays
+      'style': { pointerEvents: hasToasts.value ? undefined : 'none' },
+    }, {
+      default: () => [
+        hasToasts.value && h(OkuToastFocusProxy, {
+          ref: headFocusProxyRef,
+          onFocusFromOutsideViewport: () => {
+            const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'forwards' })
+            focusFirst(tabbableCandidates)
+          },
+        }),
+        /**
+         * tabindex on the the list so that it can be focused when items are removed. we focus
+         * the list instead of the viewport so it announces number of items remaining.
+         */
+        h(CollectionSlot, { scope: props.scopeOkuToast }, {
+          default: () => h(Primitive.ol, {
+            tabindex: -1,
+            ...mergeProps(attrs, reactiveViewPortProps),
+            ref: composedRefs,
+          }, slots),
+        }),
 
-          hasToasts.value && h(OkuToastFocusProxy,
-            {
-              ref: tailFocusProxyRef,
-              onFocusFromOutsideViewport: () => {
-                const tabbableCandidates = getSortedTabbableCandidates({
-                  tabbingDirection: 'backwards',
-                })
-                focusFirst(tabbableCandidates)
-              },
-            },
-          ),
-        ],
-      },
-    )
+        hasToasts.value && h(OkuToastFocusProxy, {
+          ref: tailFocusProxyRef,
+          onFocusFromOutsideViewport: () => {
+            const tabbableCandidates = getSortedTabbableCandidates({
+              tabbingDirection: 'backwards',
+            })
+            focusFirst(tabbableCandidates)
+          },
+        }),
+      ],
+    })
   },
 })
 

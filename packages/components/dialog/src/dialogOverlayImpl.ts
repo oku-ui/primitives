@@ -41,8 +41,7 @@ const dialogOverlayImpl = defineComponent({
         pointerEvents: 'auto',
         ...attrs.style as any,
       },
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
   },

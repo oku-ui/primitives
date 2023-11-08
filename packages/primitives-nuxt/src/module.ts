@@ -17,6 +17,7 @@ export default defineNuxtModule<ModuleOptions>({
       checkbox: true,
     },
     splash: true,
+    autoInstall: true,
   },
   async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
@@ -24,14 +25,19 @@ export default defineNuxtModule<ModuleOptions>({
 
     let isInstall = false
 
-    const data = await getMainPackageJSON(nuxt)
-    if (data) {
-      const { isInstall: install } = await installPackage({
-        packageJson: data,
-        rootDir,
-        installComponents: options.installComponents,
-      })
-      isInstall = install
+    if (options.autoInstall) {
+      const data = await getMainPackageJSON(nuxt)
+      if (data) {
+        const { isInstall: install } = await installPackage({
+          packageJson: data,
+          rootDir,
+          installComponents: options.installComponents,
+        })
+        isInstall = install
+      }
+    }
+    else {
+      isInstall = true
     }
 
     if (isInstall) {
@@ -56,7 +62,7 @@ export default defineNuxtModule<ModuleOptions>({
             addComponent({
               name: component,
               export: component,
-              filePath: `@oku-ui/${key}`,
+              filePath: '@oku-ui/primitives',
             })
           })
         })

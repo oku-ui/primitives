@@ -123,7 +123,9 @@ const PopperContent = defineComponent({
           return cleanup
         },
         middleware: computedMiddleware,
-      })
+        transform: true,
+      },
+    )
 
     const placedSide = computed(
       () => getSideAndAlignFromPlacement(placement.value)[0],
@@ -160,43 +162,38 @@ const PopperContent = defineComponent({
     })
 
     return () =>
-      h('div',
-        {
-          'ref': refElement,
-          'data-oku-popper-content-wrapper': '',
-          'style': {
-            ...floatingStyles.value,
-            transform: isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
-            minWidth: 'max-content',
-            zIndex: contentZIndex.value ?? undefined,
-            ['--oku-popper-transform-origin' as any]: [
-              middlewareData.value.transformOrigin?.x,
-              middlewareData.value.transformOrigin?.y,
-            ].join(' '),
-          } as CSSStyleDeclaration,
-          'dir': props.dir,
-        },
-        {
-          default: () => [
-            h(Primitive.div,
-              {
-                'data-side': placedSide.value,
-                'data-align': placedAlign.value,
-                ...mergeProps(attrs, reactiveContentProps),
-                'ref': composedRefs,
-                'style': {
-                  ...attrs.style as any,
-                  // if the PopperContent hasn't been placed yet (not all measurements done)
-                  // we prevent animations so that users's animation don't kick in too early referring wrong sides
-                  animation: !isPositioned.value ? 'none' : undefined,
-                  // hide the content if using the hide middleware and should be hidden
-                  opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
-                },
-              }, slots,
-            ),
-          ],
-        },
-      )
+      h('div', {
+        'ref': refElement,
+        'data-oku-popper-content-wrapper': '',
+        'style': {
+          ...floatingStyles.value,
+          transform: isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
+          minWidth: 'max-content',
+          zIndex: contentZIndex.value ?? undefined,
+          ['--oku-popper-transform-origin' as any]: [
+            middlewareData.value.transformOrigin?.x,
+            middlewareData.value.transformOrigin?.y,
+          ].join(' '),
+        } as CSSStyleDeclaration,
+        'dir': props.dir,
+      }, {
+        default: () => [
+          h(Primitive.div, {
+            'data-side': placedSide.value,
+            'data-align': placedAlign.value,
+            ...mergeProps(attrs, reactiveContentProps),
+            'ref': composedRefs,
+            'style': {
+              ...attrs.style as any,
+              // if the PopperContent hasn't been placed yet (not all measurements done)
+              // we prevent animations so that users's animation don't kick in too early referring wrong sides
+              animation: !isPositioned.value ? 'none' : undefined,
+              // hide the content if using the hide middleware and should be hidden
+              opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
+            },
+          }, slots),
+        ],
+      })
   },
 })
 

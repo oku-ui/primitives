@@ -73,10 +73,10 @@ export function usePresence(present: Ref<boolean>) {
   })
 
   /**
-     * Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
-     * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
-     * make sure we only trigger ANIMATION_END for the currently active animation.
-     */
+   * Triggering an ANIMATION_OUT during an ANIMATION_IN will fire an `animationcancel`
+   * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
+   * make sure we only trigger ANIMATION_END for the currently active animation.
+   */
   const handleAnimationEnd = async (event: AnimationEvent) => {
     const currentAnimationName = getAnimationName(stylesRef.value)
     const isCurrentAnimation = currentAnimationName.includes(
@@ -129,18 +129,20 @@ export function usePresence(present: Ref<boolean>) {
 
   return {
     isPresent,
-    ref: (node: any) => {
-      // if (!isValidVNodeElement(node))
-      //   return
-      // node is ComponentPublicInstance
-      if (node && node.$el) {
-        // stylesRef.value = getComputedStyle(node.$el)
-        // el.value = node.$el as HTMLElement
-      }
-      else if (node) {
+    ref: (node) => {
+      if (node instanceof HTMLElement) {
         stylesRef.value = getComputedStyle(node)
-        el.value = node as HTMLElement
+        el.value = node
+      }
+      else if (node && node.$el instanceof HTMLElement) {
+        stylesRef.value = getComputedStyle(node.$el)
+        el.value = node.$el
+      }
+      else {
+        stylesRef.value = {} as any
+        el.value = undefined
       }
     },
+
   }
 }

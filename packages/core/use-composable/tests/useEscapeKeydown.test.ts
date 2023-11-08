@@ -1,64 +1,74 @@
-import { beforeEach, describe, it, vi } from 'vitest'
+import { ref } from 'vue'
+import type { Ref } from 'vue'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { SpyInstance } from 'vitest'
+import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import { useEscapeKeydown } from '../src'
 
-// TODO: Since the document ref has changed, the tests should be written accordingly.
+enableAutoUnmount(afterEach)
+
 describe('useEscapeKeydown', () => {
+  let wrapper: VueWrapper
   let onEscapeKeyDown: any
-  let ownerDocument: Document
+  let ownerDocument: Ref<Document>
   let addSpy: SpyInstance
   let removeSpy: SpyInstance
 
   beforeEach(() => {
     onEscapeKeyDown = vi.fn()
-    ownerDocument = globalThis.document
-    addSpy = vi.spyOn(ownerDocument, 'addEventListener')
-    removeSpy = vi.spyOn(ownerDocument, 'removeEventListener')
+    ownerDocument = ref(globalThis.document)
+    addSpy = vi.spyOn(ownerDocument.value, 'addEventListener')
+    removeSpy = vi.spyOn(ownerDocument.value, 'removeEventListener')
+    wrapper = shallowMount({
+      template: '<div></div>',
+      setup() {
+        useEscapeKeydown(onEscapeKeyDown, ownerDocument)
+      },
+    })
   })
 
-  it('should add event listener when the component mounts', () => {
+  it('should add event listener when the component mounts', async () => {
+    expect(removeSpy).not.toHaveBeenCalled()
+
+    await wrapper.trigger('keydown', { key: 'Escape' })
+
+    expect(addSpy).toHaveBeenCalledTimes(1)
   })
-  // it('should call onEscapeKeyDown when the escape key is pressed', () => {
-  //   useEscapeKeydown(onEscapeKeyDown, ownerDocument)
 
-  //   expect(removeSpy).not.toHaveBeenCalled()
+  it('should call onEscapeKeyDown when the escape key is pressed', () => {
+    expect(removeSpy).not.toHaveBeenCalled()
 
-  //   const escapeKeyEvent = new KeyboardEvent('keydown', { key: 'Escape' })
-  //   ownerDocument.dispatchEvent(escapeKeyEvent)
+    const escapeKeyEvent = new KeyboardEvent('keydown', { key: 'Escape' })
+    ownerDocument.value.dispatchEvent(escapeKeyEvent)
 
-  //   expect(addSpy).toHaveBeenCalledTimes(1)
-  //   expect(onEscapeKeyDown).toHaveBeenCalledTimes(1)
-  //   expect(onEscapeKeyDown).toHaveBeenCalledWith(escapeKeyEvent)
-  // })
+    expect(addSpy).toHaveBeenCalledTimes(1)
 
-  // it('should not call onEscapeKeyDown for other key presses', () => {
-  //   useEscapeKeydown(onEscapeKeyDown, ownerDocument)
+    expect(onEscapeKeyDown).toHaveBeenCalledTimes(1)
+    expect(onEscapeKeyDown).toHaveBeenCalledWith(escapeKeyEvent)
+  })
 
-  //   expect(removeSpy).not.toHaveBeenCalled()
+  it('should not call onEscapeKeyDown for other key presses', () => {
+    expect(removeSpy).not.toHaveBeenCalled()
 
-  //   const otherKeyEvent = new KeyboardEvent('keydown', { key: 'Enter' })
-  //   ownerDocument.dispatchEvent(otherKeyEvent)
+    const otherKeyEvent = new KeyboardEvent('keydown', { key: 'Enter' })
+    ownerDocument.value.dispatchEvent(otherKeyEvent)
 
-  //   expect(addSpy).toHaveBeenCalledTimes(1)
-  //   expect(onEscapeKeyDown).not.toHaveBeenCalled()
-  //   expect(onEscapeKeyDown).not.toHaveBeenCalledWith(otherKeyEvent)
-  // })
+    expect(addSpy).toHaveBeenCalledTimes(1)
 
-  // it('should remove event listener when the component unmounts', () => {
-  //   const wrapper = mount({
-  //     template: '<div></div>',
-  //     setup() {
-  //       useEscapeKeydown(onEscapeKeyDown, ownerDocument)
-  //     },
-  //   })
+    expect(onEscapeKeyDown).not.toHaveBeenCalled()
+    expect(onEscapeKeyDown).not.toHaveBeenCalledWith(otherKeyEvent)
+  })
 
-  //   expect(removeSpy).not.toHaveBeenCalled()
+  it('should remove event listener when the component unmounts', async () => {
+    expect(removeSpy).not.toHaveBeenCalled()
 
-  //   wrapper.trigger('keydown', { key: 'Escape' })
+    await wrapper.trigger('keydown', { key: 'Escape' })
 
-  //   expect(addSpy).toBeCalledTimes(1)
+    expect(addSpy).toHaveBeenCalledTimes(1)
 
-  //   wrapper.unmount()
+    wrapper.unmount()
 
-  //   expect(removeSpy).toHaveBeenCalledTimes(1)
-  // })
+    expect(removeSpy).toHaveBeenCalledTimes(1)
+  })
 })

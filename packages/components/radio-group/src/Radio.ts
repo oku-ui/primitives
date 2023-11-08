@@ -116,8 +116,7 @@ const radio = defineComponent({
         'ref': composedRefs,
         'onClick': composeEventHandlers((e: MouseEvent) => {
           emit('click', e)
-        },
-        (event: MouseEvent) => {
+        }, (event: MouseEvent) => {
           // radios cannot be unchecked so we only communicate a checked state
           if (!checked.value)
             emit('check')

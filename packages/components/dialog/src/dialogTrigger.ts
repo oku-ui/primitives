@@ -52,8 +52,7 @@ const dialogTrigger = defineComponent({
       'onClick': composeEventHandlers((e: DialogTriggerEmits['click'][0]) => {
         emit('click', e)
       }, inject.onOpenToggle),
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
     return originalReturn

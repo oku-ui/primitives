@@ -43,8 +43,7 @@ const sliderTrack = defineComponent({
       'data-orientation': inject.orientation.value,
       ...mergeProps(attrs, reactiveTrackProps),
       'ref': forwardedRef,
-    },
-    {
+    }, {
       default: () => slots.default?.(),
     })
     return originalReturn

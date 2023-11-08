@@ -195,11 +195,9 @@ const Checkbox = defineComponent({
               event.stopPropagation()
           }
         }),
-      },
-      {
+      }, {
         default: () => slots.default?.(),
-      }),
-      isFormControl.value && h(
+      }), isFormControl.value && h(
         OkuBubbleInput,
         {
           bubbles: computed(() => !hasConsumerStoppedPropagationRef.value).value,
@@ -214,8 +212,7 @@ const Checkbox = defineComponent({
           // of the button.
           style: { transform: 'translateX(-100%)' },
         },
-      ),
-      ]
+      )]
 
     return originalReturn
   },

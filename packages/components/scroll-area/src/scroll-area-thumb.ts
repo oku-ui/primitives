@@ -31,17 +31,12 @@ const scrollAreaThumb = defineComponent({
 
     const scrollbarInject = useScrollbarInject(SCROLL_AREA_THUMB_NAME, props.scopeOkuScrollArea)
 
-    return () => h(OkuPresence,
-      { present: computed(() => forceMount.value || scrollbarInject.hasThumb.value).value },
-      {
-        default: () => h(OkuScrollAreaThumbImpl,
-          {
-            ref: forwardedRef,
-            ...mergeProps(attrs, reactiveScrollAreaThumbProps),
-          }, slots,
-        ),
-      },
-    )
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || scrollbarInject.hasThumb.value).value }, {
+      default: () => h(OkuScrollAreaThumbImpl, {
+        ref: forwardedRef,
+        ...mergeProps(attrs, reactiveScrollAreaThumbProps),
+      }, slots),
+    })
   },
 })
 

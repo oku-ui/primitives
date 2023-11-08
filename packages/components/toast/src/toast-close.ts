@@ -49,26 +49,20 @@ const toastClose = defineComponent({
 
     const interactiveContext = useToastInteractiveInject(CLOSE_NAME, scopeOkuToast.value)
 
-    return () => h(OkuToastAnnounceExclude,
-      { asChild: true },
-      {
-        default: () => h(Primitive.button,
-          {
-            type: 'button',
-            ...mergeProps(attrs, reactiveCloseProps),
-            ref: forwardedRef,
-            onClick: composeEventHandlers<MouseEvent>((event) => {
-              emit('click', event)
-            }, () => {
-              interactiveContext.onClose()
-            }),
-          },
-          {
-            default: () => slots.default?.(),
-          },
-        ),
-      },
-    )
+    return () => h(OkuToastAnnounceExclude, { asChild: true }, {
+      default: () => h(Primitive.button, {
+        type: 'button',
+        ...mergeProps(attrs, reactiveCloseProps),
+        ref: forwardedRef,
+        onClick: composeEventHandlers<MouseEvent>((event) => {
+          emit('click', event)
+        }, () => {
+          interactiveContext.onClose()
+        }),
+      }, {
+        default: () => slots.default?.(),
+      }),
+    })
   },
 })
 

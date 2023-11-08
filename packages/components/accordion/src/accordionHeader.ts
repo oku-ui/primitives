@@ -19,7 +19,8 @@ const accordionHeader = defineComponent({
   emits: accordionHeaderProps.emits,
   setup(props, { slots, attrs }) {
     const {
-      scopeOkuAccordion, ...headerProps
+      scopeOkuAccordion,
+      ...headerProps
     } = toRefs(props)
 
     const accordionInject = useAccordionInject(ACCORDION_NAME, scopeOkuAccordion.value)

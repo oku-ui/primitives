@@ -38,7 +38,7 @@ const componentChecked = {
   },
 } as Component
 
-describe('OkuCheckbox', () => {
+describe('okuCheckbox', () => {
   it('renders the component correctly', () => {
     const wrapper = mount(component)
     expect(wrapper.exists()).toBe(true)

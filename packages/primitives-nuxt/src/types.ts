@@ -44,6 +44,7 @@ export interface ModuleOptions {
   /**
    * Show splash message
    * @default true
-  */
+   */
   splash?: boolean
+  autoInstall?: boolean
 }

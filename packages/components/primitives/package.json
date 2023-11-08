@@ -46,6 +46,7 @@
     "@oku-ui/dialog": "latest",
     "@oku-ui/hover-card": "latest",
     "@oku-ui/label": "latest",
+    "@oku-ui/menu": "latest",
     "@oku-ui/popover": "latest",
     "@oku-ui/progress": "latest",
     "@oku-ui/radio-group": "latest",

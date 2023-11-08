@@ -17,6 +17,9 @@ export default defineConfig({
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],
     globals: true,
+    cache: {
+      dir: '.vitest-cache',
+    },
     alias: {
       '@oku-ui/scroll-area': 'packages/components/scroll-area/src',
       '@oku-ui/checkbox': 'packages/components/checkbox/src',
@@ -42,6 +45,7 @@ export default defineConfig({
       '@oku-ui/primitives': 'packages/components/primitives/src',
       '@oku-ui/accordion': 'packages/components/accordion/src',
 
+      '@oku-ui/menu': 'packages/core/menu/src',
       '@oku-ui/dismissable-layer': 'packages/core/dismissable-layer/src',
       '@oku-ui/roving-focus': 'packages/core/roving-focus/src',
       '@oku-ui/focus-scope': 'packages/core/focus-scope/src',

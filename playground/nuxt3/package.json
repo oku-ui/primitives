@@ -25,6 +25,7 @@
     "@oku-ui/focus-scope": "workspace:^",
     "@oku-ui/hover-card": "workspace:^",
     "@oku-ui/label": "workspace:^",
+    "@oku-ui/menu": "workspace:^",
     "@oku-ui/popover": "workspace:^",
     "@oku-ui/popper": "workspace:^",
     "@oku-ui/portal": "workspace:^",
@@ -47,7 +48,7 @@
     "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^20.7.0",
-    "nuxt": "^3.7.4"
+    "@types/node": "^20.8.10",
+    "nuxt": "^3.8.0"
   }
 }

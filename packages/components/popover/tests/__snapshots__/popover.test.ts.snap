@@ -1,0 +1,3399 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OkuPopper > Animated > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-1"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+         open 
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-animatedContent"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-1"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > Animated > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-2"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         open 
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > Boundary > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="border: 3px dashed red; width: 200px; height: 200px;"
+    >
+      
+      <button
+        aria-controls="oku-4"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        data-state="open"
+        type="button"
+      >
+        open
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-4"
+      role="dialog"
+      style="box-sizing: border-box; border-radius: 8px; padding: 8px; color: white; background-color: black; --oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+       out of bound out of bound out of bound out of bound out of bound out of bound out of bound out of bound out of bound 
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > Boundary > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="border: 3px dashed red; width: 200px; height: 200px;"
+    >
+      
+      <button
+        aria-controls="oku-5"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        data-state="closed"
+        type="button"
+      >
+        open
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > Controlled > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-7"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+        close
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-7"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > Controlled > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-8"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+        open
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > CustomAnchor > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; width: 250px; padding: 20px; margin: 100px; background-color: rgb(238, 238, 238);"
+    >
+       Item 
+      <button
+        aria-controls="oku-10"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+         open 
+      </button>
+    </div>
+    <!--teleport start-->
+    <!--teleport end-->
+    
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="start"
+      data-side="right"
+      data-state="open"
+      id="oku-10"
+      role="dialog"
+      style="border-radius: 0px; width: 200px; height: 100px; --oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > CustomAnchor > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; width: 250px; padding: 20px; margin: 100px; background-color: rgb(238, 238, 238);"
+    >
+       Item 
+      <button
+        aria-controls="oku-11"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         open 
+      </button>
+    </div>
+    <!---->
+    
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > ForcedMount > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-13"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+         open 
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-13"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > ForcedMount > should be able to close 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-14"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         open 
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="closed"
+      id="oku-14"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > Modality > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 110vh;"
+    >
+      <div
+        style="display: grid; gap: 50;"
+      >
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Non modal (default)
+          </h1>
+          
+          <button
+            aria-controls="oku-15"
+            aria-expanded="true"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="open"
+            type="button"
+          >
+             open 
+          </button>
+          <!--teleport start-->
+          <!--teleport end-->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Modal
+          </h1>
+          
+          <button
+            aria-controls="oku-16"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="closed"
+            type="button"
+          >
+             open 
+          </button>
+          <!---->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-15"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          offset="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > Modality > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 110vh;"
+    >
+      <div
+        style="display: grid; gap: 50;"
+      >
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Non modal (default)
+          </h1>
+          
+          <button
+            aria-controls="oku-17"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="closed"
+            type="button"
+          >
+             open 
+          </button>
+          <!---->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Modal
+          </h1>
+          
+          <button
+            aria-controls="oku-18"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="closed"
+            type="button"
+          >
+             open 
+          </button>
+          <!---->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > Nested > renders correctly 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 300vh; width: 300vw;"
+    >
+      <button
+        style="position: fixed; top: 10px; left: 10px;"
+        type="button"
+      >
+         Focus popover button 
+      </button>
+      
+      <button
+        aria-controls="oku-20"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         Open popover 
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > Nested > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 300vh; width: 300vw;"
+    >
+      <button
+        style="position: fixed; top: 10px; left: 10px;"
+        type="button"
+      >
+         Focus popover button 
+      </button>
+      
+      <button
+        aria-controls="oku-21"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         Open popover 
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > OkuPopover renders correctly 1`] = `""`;
+
+exports[`OkuPopper > OkuPopoverAnchor renders correctly 1`] = `"\`OkuPopoverAnchor\` must be used within \`OkuPopover\`"`;
+
+exports[`OkuPopper > OkuPopoverAnchor renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`OkuPopper > OkuPopoverArrow renders correctly 1`] = `"\`OkuPopperArrow\` must be used within \`OkuPopperContent\`"`;
+
+exports[`OkuPopper > OkuPopoverArrow renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopperContent)\\" not found."`;
+
+exports[`OkuPopper > OkuPopoverClose renders correctly 1`] = `"\`OkuPopoverClose\` must be used within \`OkuPopover\`"`;
+
+exports[`OkuPopper > OkuPopoverClose renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`OkuPopper > OkuPopoverContent renders correctly 1`] = `"\`OkuPopoverContent\` must be used within \`OkuPopover\`"`;
+
+exports[`OkuPopper > OkuPopoverContent renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopoverPortal)\\" not found."`;
+
+exports[`OkuPopper > OkuPopoverPortal renders correctly 1`] = `"\`OkuPopoverPortal\` must be used within \`OkuPopover\`"`;
+
+exports[`OkuPopper > OkuPopoverPortal renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`OkuPopper > OkuPopoverTrigger renders correctly 1`] = `"\`OkuPopoverTrigger\` must be used within \`OkuPopover\`"`;
+
+exports[`OkuPopper > OkuPopoverTrigger renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`OkuPopper > VControlled > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-23"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+        close
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-23"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > VControlled > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-24"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+        open
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`OkuPopper > WithSlottedTrigger > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <button
+      aria-controls="oku-26"
+      aria-expanded="true"
+      aria-haspopup="dialog"
+      class="popover-trigger"
+      data-state="open"
+      type="button"
+    >
+       open 
+    </button>
+    <!--teleport start-->
+    <!--teleport end-->
+    
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-26"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          offset="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`OkuPopper > WithSlottedTrigger > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <button
+      aria-controls="oku-27"
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      class="popover-trigger"
+      data-state="closed"
+      type="button"
+    >
+       open 
+    </button>
+    <!---->
+    
+  </div>
+</body>
+`;
+
+exports[`okuPopper > animated > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-1"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+         open 
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-animatedContent"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-1"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > animated > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-2"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         open 
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`okuPopper > boundary > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="border: 3px dashed red; width: 200px; height: 200px;"
+    >
+      
+      <button
+        aria-controls="oku-4"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        data-state="open"
+        type="button"
+      >
+        open
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-4"
+      role="dialog"
+      style="box-sizing: border-box; border-radius: 8px; padding: 8px; color: white; background-color: black; --oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+       out of bound out of bound out of bound out of bound out of bound out of bound out of bound out of bound out of bound 
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > boundary > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="border: 3px dashed red; width: 200px; height: 200px;"
+    >
+      
+      <button
+        aria-controls="oku-5"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        data-state="closed"
+        type="button"
+      >
+        open
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`okuPopper > controlled > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-7"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+        close
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-7"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > controlled > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-8"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+        open
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`okuPopper > customAnchor > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; width: 250px; padding: 20px; margin: 100px; background-color: rgb(238, 238, 238);"
+    >
+       Item 
+      <button
+        aria-controls="oku-10"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+         open 
+      </button>
+    </div>
+    <!--teleport start-->
+    <!--teleport end-->
+    
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="start"
+      data-side="right"
+      data-state="open"
+      id="oku-10"
+      role="dialog"
+      style="border-radius: 0px; width: 200px; height: 100px; --oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > customAnchor > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; width: 250px; padding: 20px; margin: 100px; background-color: rgb(238, 238, 238);"
+    >
+       Item 
+      <button
+        aria-controls="oku-11"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         open 
+      </button>
+    </div>
+    <!---->
+    
+  </div>
+</body>
+`;
+
+exports[`okuPopper > forcedMount > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-13"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+         open 
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-13"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > forcedMount > should be able to close 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 200vh;"
+    >
+      
+      <button
+        aria-controls="oku-14"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         open 
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="closed"
+      id="oku-14"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > modality > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 110vh;"
+    >
+      <div
+        style="display: grid; gap: 50;"
+      >
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Non modal (default)
+          </h1>
+          
+          <button
+            aria-controls="oku-15"
+            aria-expanded="true"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="open"
+            type="button"
+          >
+             open 
+          </button>
+          <!--teleport start-->
+          <!--teleport end-->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Modal
+          </h1>
+          
+          <button
+            aria-controls="oku-16"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="closed"
+            type="button"
+          >
+             open 
+          </button>
+          <!---->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-15"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          offset="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > modality > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 110vh;"
+    >
+      <div
+        style="display: grid; gap: 50;"
+      >
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Non modal (default)
+          </h1>
+          
+          <button
+            aria-controls="oku-17"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="closed"
+            type="button"
+          >
+             open 
+          </button>
+          <!---->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+        <div
+          style="display: inline-flex; align-items: center; flex-direction: column;"
+        >
+          <h1>
+            Modal
+          </h1>
+          
+          <button
+            aria-controls="oku-18"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            class="popover-trigger"
+            data-state="closed"
+            type="button"
+          >
+             open 
+          </button>
+          <!---->
+          
+          <textarea
+            style="width: 500px; height: 100px; margin-top: 10px;"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`okuPopper > nested > renders correctly 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 300vh; width: 300vw;"
+    >
+      <button
+        style="position: fixed; top: 10px; left: 10px;"
+        type="button"
+      >
+         Focus popover button 
+      </button>
+      
+      <button
+        aria-controls="oku-20"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         Open popover 
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`okuPopper > nested > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 300vh; width: 300vw;"
+    >
+      <button
+        style="position: fixed; top: 10px; left: 10px;"
+        type="button"
+      >
+         Focus popover button 
+      </button>
+      
+      <button
+        aria-controls="oku-21"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+         Open popover 
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`okuPopper > okuPopover renders correctly 1`] = `""`;
+
+exports[`okuPopper > okuPopoverAnchor renders correctly 1`] = `"\`OkuPopoverAnchor\` must be used within \`OkuPopover\`"`;
+
+exports[`okuPopper > okuPopoverAnchor renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`okuPopper > okuPopoverArrow renders correctly 1`] = `"\`OkuPopperArrow\` must be used within \`OkuPopperContent\`"`;
+
+exports[`okuPopper > okuPopoverArrow renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopperContent)\\" not found."`;
+
+exports[`okuPopper > okuPopoverClose renders correctly 1`] = `"\`OkuPopoverClose\` must be used within \`OkuPopover\`"`;
+
+exports[`okuPopper > okuPopoverClose renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`okuPopper > okuPopoverContent renders correctly 1`] = `"\`OkuPopoverContent\` must be used within \`OkuPopover\`"`;
+
+exports[`okuPopper > okuPopoverContent renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopoverPortal)\\" not found."`;
+
+exports[`okuPopper > okuPopoverPortal renders correctly 1`] = `"\`OkuPopoverPortal\` must be used within \`OkuPopover\`"`;
+
+exports[`okuPopper > okuPopoverPortal renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`okuPopper > okuPopoverTrigger renders correctly 1`] = `"\`OkuPopoverTrigger\` must be used within \`OkuPopover\`"`;
+
+exports[`okuPopper > okuPopoverTrigger renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+
+exports[`okuPopper > vControlled > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-23"
+        aria-expanded="true"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="open"
+        type="button"
+      >
+        close
+      </button>
+      <!--teleport start-->
+      <!--teleport end-->
+      
+    </div>
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-23"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > vControlled > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    <div
+      style="display: flex; align-items: center; justify-content: center; height: 50vh;"
+    >
+      
+      <button
+        aria-controls="oku-24"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="popover-trigger"
+        data-state="closed"
+        type="button"
+      >
+        open
+      </button>
+      <!---->
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`okuPopper > withSlottedTrigger > renders correctly 1`] = `
+<body>
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <button
+      aria-controls="oku-26"
+      aria-expanded="true"
+      aria-haspopup="dialog"
+      class="popover-trigger"
+      data-state="open"
+      type="button"
+    >
+       open 
+    </button>
+    <!--teleport start-->
+    <!--teleport end-->
+    
+  </div>
+  <div
+    data-oku-popper-content-wrapper=""
+    style="position: fixed; left: 0px; top: 0px; transform: translate(0, -200%); min-width: max-content; --oku-popper-transform-origin:  ;"
+  >
+    <div
+      class="popover-content"
+      data-align="center"
+      data-side="bottom"
+      data-state="open"
+      id="oku-26"
+      role="dialog"
+      style="--oku-popover-content-transform-origin: var(--oku-popper-transform-origin); --oku-popover-content-available-width: var(--oku-popper-available-width); --oku-popover-content-available-height: var(--oku-popper-available-height); --oku-popover-trigger-width: var(--oku-popper-anchor-width); --oku-popover-trigger-height: var(--oku-popper-anchor-height); animation: none;"
+      tabindex="-1"
+    >
+      <button
+        class="popover-close"
+        type="button"
+      >
+         close 
+      </button>
+      <span
+        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
+      >
+        <svg
+          class="popover-arrow"
+          height="10"
+          offset="10"
+          preserveAspectRatio="none"
+          style="display: block;"
+          viewBox="0 0 30 10"
+          width="20"
+        >
+          <polygon
+            points="0,0 30,0 15,10"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  
+  <span
+    data-oku-focus-guard=""
+    style="outline: none; opacity: 0; position: fixed; pointer-events: none;"
+    tabindex="0"
+  />
+</body>
+`;
+
+exports[`okuPopper > withSlottedTrigger > should be able to close 1`] = `
+<body>
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  />
+  <div
+    data-v-app=""
+  >
+    
+    <button
+      aria-controls="oku-27"
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      class="popover-trigger"
+      data-state="closed"
+      type="button"
+    >
+       open 
+    </button>
+    <!---->
+    
+  </div>
+</body>
+`;

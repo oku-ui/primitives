@@ -15,9 +15,9 @@ withDefaults(defineProps<OkuLabelProps>(), {
 
 const labelRef = ref()
 onMounted(() => {
-  console.log(labelRef.value)
+  console.warn(labelRef.value)
 })
-const alert = () => console.log('alert')
+const alert = () => console.warn('alert')
 
 const value = ref()
 </script>

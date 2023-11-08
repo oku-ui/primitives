@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, test } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import type { Component } from 'vue'
 import { h } from 'vue'
@@ -11,7 +11,7 @@ const component = {
   },
 } as Component
 
-describe('Focus Guards', () => {
+describe('focus Guards', () => {
   it('correctly adds and removes focus guards', () => {
     const wrapper = mount(component, {
       slots: {
@@ -41,12 +41,12 @@ describe('Focus Guards', () => {
   })
 })
 
-describe('OkuFocusGuards', () => {
+describe('okuFocusGuards', () => {
   beforeEach(() => {
     document.body.innerHTML = ''
   })
 
-  test('adds focus guards when used', async () => {
+  it('adds focus guards when used', async () => {
     const wrapper = mount(OkuFocusGuards)
 
     await wrapper.vm.$nextTick()
@@ -66,7 +66,7 @@ describe('OkuFocusGuards', () => {
     wrapper.unmount()
   })
 
-  test('removes focus guards on unmount if count is 1', async () => {
+  it('removes focus guards on unmount if count is 1', async () => {
     const mockGuard = document.createElement('span')
     mockGuard.setAttribute('data-oku-focus-guard', '')
     document.body.appendChild(mockGuard)
@@ -83,7 +83,7 @@ describe('OkuFocusGuards', () => {
     expect(edgeGuards.length).toBe(0)
   })
 
-  test('does not remove focus guards on unmount if count is greater than 1', async () => {
+  it('does not remove focus guards on unmount if count is greater than 1', async () => {
     const mockGuard = document.createElement('span')
     mockGuard.setAttribute('data-oku-focus-guard', '')
     document.body.appendChild(mockGuard)
@@ -104,7 +104,7 @@ describe('OkuFocusGuards', () => {
     wrapper2.unmount()
   })
 
-  test('adds and removes focus guards in the correct order', async () => {
+  it('adds and removes focus guards in the correct order', async () => {
     const wrapper = mount(OkuFocusGuards)
 
     await wrapper.vm.$nextTick()

@@ -3,9 +3,15 @@ import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { AccordionTriggerNativeElement } from './props'
 import {
-  ACCORDION_NAME, CollectionItemSlot, TRIGGER_NAME, accordionTriggerProps,
-  scopeAccordionProps, useAccordionCollapsibleInject,
-  useAccordionInject, useAccordionItemInject, useCollapsibleScope,
+  ACCORDION_NAME,
+  CollectionItemSlot,
+  TRIGGER_NAME,
+  accordionTriggerProps,
+  scopeAccordionProps,
+  useAccordionCollapsibleInject,
+  useAccordionInject,
+  useAccordionItemInject,
+  useCollapsibleScope,
 
 } from './props'
 

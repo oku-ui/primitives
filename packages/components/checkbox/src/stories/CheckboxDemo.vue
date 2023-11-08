@@ -15,7 +15,7 @@ withDefaults(defineProps<ICheckBoxProps>(), {
 const refdd = ref()
 
 onMounted(() => {
-  console.log(refdd.value, 'tt')
+  console.warn(refdd.value, 'tt')
 })
 
 const data = ref<string | boolean | 'indeterminate'>('indeterminate')
@@ -25,7 +25,7 @@ function click() {
 }
 
 function updated(res: any) {
-  console.log('updated', res)
+  console.warn('updated', res)
   data.value = res
 }
 </script>

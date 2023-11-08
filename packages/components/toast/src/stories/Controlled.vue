@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import {
-  OkuToast, OkuToastAction,
-  OkuToastDescription, OkuToastProvider, OkuToastViewport,
+  OkuToast,
+  OkuToastAction,
+  OkuToastDescription,
+  OkuToastProvider,
+  OkuToastViewport,
 } from '@oku-ui/toast'
 import { ref, watchEffect } from 'vue'
 import { isClient } from '@oku-ui/use-composable'

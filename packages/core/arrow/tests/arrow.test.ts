@@ -39,14 +39,12 @@ describe('label', () => {
   })
 
   /**
- * @vitest-environment jsdom
- */
+   * @vitest-environment jsdom
+   */
   it('shold have no accessibility violations', async () => {
     // https://github.com/capricorn86/happy-dom/issues/978
     const results = await axe(_wrapper.element)
     // TODO:77 https://github.com/chaance/vitest-axe/issues/7
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     expect(results).toHaveNoViolations()
   })
 

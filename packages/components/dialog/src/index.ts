@@ -1,39 +1,61 @@
 export {
-  OkuDialog, dialogProps, type DialogProps, type DialogEmits,
+  OkuDialog,
+  dialogProps,
+  type DialogProps,
+  type DialogEmits,
 } from './dialog'
 export {
-  OkuDialogTrigger, dialogTriggerProps, type DialogTriggerProps,
+  OkuDialogTrigger,
+  dialogTriggerProps,
+  type DialogTriggerProps,
 } from './dialogTrigger'
 export {
-  OkuDialogPortal, dialogPortalProps, type DialogPortalProps,
+  OkuDialogPortal,
+  dialogPortalProps,
+  type DialogPortalProps,
 } from './dialogPortal'
 export {
-  OkuDialogOverlay, dialogOverlayProps, type DialogOverlayProps,
+  OkuDialogOverlay,
+  dialogOverlayProps,
+  type DialogOverlayProps,
 } from './dialogOverlay'
 export {
-  OkuDialogContent, dialogContentProps, type DialogContentProps,
+  OkuDialogContent,
+  dialogContentProps,
+  type DialogContentProps,
 } from './dialogContent'
 export {
-  OkuDialogContentModal, type DialogContentModalEmits,
+  OkuDialogContentModal,
+  type DialogContentModalEmits,
 } from './dialogContentModal'
 export {
-  OkuDialogTitle, dialogTitleProps, type DialogTitleProps,
+  OkuDialogTitle,
+  dialogTitleProps,
+  type DialogTitleProps,
 } from './dialogTitle'
 export {
-  OkuDialogDescription, dialogDescriptionProps, type DialogDescriptionProps,
+  OkuDialogDescription,
+  dialogDescriptionProps,
+  type DialogDescriptionProps,
 } from './dialogDescription'
 export {
-  OkuDialogClose, dialogCloseProps, type DialogCloseProps,
+  OkuDialogClose,
+  dialogCloseProps,
+  type DialogCloseProps,
 } from './dialogClose'
 
 export {
-  OkuDialogTitleWarning, dialogTitleWarningProps,
+  OkuDialogTitleWarning,
+  dialogTitleWarningProps,
 } from './dialogTitleWarning'
 
 export {
-  OkuDialogDescriptionWarning, dialogDescriptionWarningProps,
+  OkuDialogDescriptionWarning,
+  dialogDescriptionWarningProps,
 } from './dialogDescriptionWarning'
 
 export {
-  WarningProvider, useWarningInject, createDialogScope,
+  WarningProvider,
+  useWarningInject,
+  createDialogScope,
 } from './utils'

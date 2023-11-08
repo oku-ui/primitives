@@ -47,72 +47,68 @@ const scrollAreaScrollbarVisible = defineComponent({
 
     return () => {
       if (orientation.value === 'horizontal') {
-        return h(OkuScrollAreaScrollbarX,
-          {
-            ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
-            sizes,
-            onSizesChange: (_sizes: Sizes) => {
-              sizes.content = _sizes.content
-              sizes.viewport = _sizes.viewport
-              sizes.scrollbar = _sizes.scrollbar
-            },
-            hasThumb: computed(() => Boolean(thumbRatio.value > 0 && thumbRatio.value < 1)).value,
-            onThumbChange: thumb => (thumbRef.value = thumb),
-            onThumbPointerUp: () => (pointerOffsetRef.value = 0),
-            onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
+        return h(OkuScrollAreaScrollbarX, {
+          ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
+          sizes,
+          onSizesChange: (_sizes: Sizes) => {
+            sizes.content = _sizes.content
+            sizes.viewport = _sizes.viewport
+            sizes.scrollbar = _sizes.scrollbar
+          },
+          hasThumb: computed(() => Boolean(thumbRatio.value > 0 && thumbRatio.value < 1)).value,
+          onThumbChange: thumb => (thumbRef.value = thumb),
+          onThumbPointerUp: () => (pointerOffsetRef.value = 0),
+          onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
 
-            ref: forwardedRef,
-            onThumbPositionChange: () => {
-              if (inject.viewport.value && thumbRef.value) {
-                const scrollPos = inject.viewport.value.scrollLeft
-                const offset = getThumbOffsetFromScroll(scrollPos, sizes, inject.dir.value)
-                thumbRef.value.style.transform = `translate3d(${offset}px, 0, 0)`
-              }
-            },
-            onWheelScroll: (scrollPos: number) => {
-              if (inject.viewport.value)
-                inject.viewport.value.scrollLeft = scrollPos
-            },
-            onDragScroll: (pointerPos: number) => {
-              if (inject.viewport.value)
-                inject.viewport.value.scrollLeft = getScrollPosition(pointerPos, inject.dir.value)
-            },
-          }, slots,
-        )
+          ref: forwardedRef,
+          onThumbPositionChange: () => {
+            if (inject.viewport.value && thumbRef.value) {
+              const scrollPos = inject.viewport.value.scrollLeft
+              const offset = getThumbOffsetFromScroll(scrollPos, sizes, inject.dir.value)
+              thumbRef.value.style.transform = `translate3d(${offset}px, 0, 0)`
+            }
+          },
+          onWheelScroll: (scrollPos: number) => {
+            if (inject.viewport.value)
+              inject.viewport.value.scrollLeft = scrollPos
+          },
+          onDragScroll: (pointerPos: number) => {
+            if (inject.viewport.value)
+              inject.viewport.value.scrollLeft = getScrollPosition(pointerPos, inject.dir.value)
+          },
+        }, slots)
       }
 
       if (orientation.value === 'vertical') {
-        return h(OkuScrollAreaScrollbarY,
-          {
-            ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
-            sizes,
-            onSizesChange: (_sizes: Sizes) => {
-              sizes.content = _sizes.content
-              sizes.viewport = _sizes.viewport
-              sizes.scrollbar = _sizes.scrollbar
-            },
-            hasThumb: computed(() => Boolean(thumbRatio.value > 0 && thumbRatio.value < 1)).value,
-            onThumbChange: thumb => (thumbRef.value = thumb),
-            onThumbPointerUp: () => (pointerOffsetRef.value = 0),
-            onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
-            ref: forwardedRef,
-            onThumbPositionChange: () => {
-              if (inject.viewport.value && thumbRef.value) {
-                const scrollPos = inject.viewport.value.scrollTop
-                const offset = getThumbOffsetFromScroll(scrollPos, sizes)
-                thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`
-              }
-            },
-            onWheelScroll: (scrollPos: number) => {
-              if (inject.viewport.value)
-                inject.viewport.value.scrollTop = scrollPos
-            },
-            onDragScroll: (pointerPos: number) => {
-              if (inject.viewport.value)
-                inject.viewport.value.scrollTop = getScrollPosition(pointerPos)
-            },
-          }, slots,
-        )
+        return h(OkuScrollAreaScrollbarY, {
+          ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
+          sizes,
+          onSizesChange: (_sizes: Sizes) => {
+            sizes.content = _sizes.content
+            sizes.viewport = _sizes.viewport
+            sizes.scrollbar = _sizes.scrollbar
+          },
+          hasThumb: computed(() => Boolean(thumbRatio.value > 0 && thumbRatio.value < 1)).value,
+          onThumbChange: thumb => (thumbRef.value = thumb),
+          onThumbPointerUp: () => (pointerOffsetRef.value = 0),
+          onThumbPointerDown: (pointerPos: number) => (pointerOffsetRef.value = pointerPos),
+          ref: forwardedRef,
+          onThumbPositionChange: () => {
+            if (inject.viewport.value && thumbRef.value) {
+              const scrollPos = inject.viewport.value.scrollTop
+              const offset = getThumbOffsetFromScroll(scrollPos, sizes)
+              thumbRef.value.style.transform = `translate3d(0, ${offset}px, 0)`
+            }
+          },
+          onWheelScroll: (scrollPos: number) => {
+            if (inject.viewport.value)
+              inject.viewport.value.scrollTop = scrollPos
+          },
+          onDragScroll: (pointerPos: number) => {
+            if (inject.viewport.value)
+              inject.viewport.value.scrollTop = getScrollPosition(pointerPos)
+          },
+        }, slots)
       }
     }
   },

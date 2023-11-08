@@ -1,4 +1,4 @@
-import { describe, expect, it, test, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
 import type { Component } from 'vue'
@@ -36,8 +36,8 @@ const componentA = {
   },
 } as Component
 
-describe('Primitive', () => {
-  test('asChild with button', async () => {
+describe('primitive', () => {
+  it('asChild with button', async () => {
     const example = {
       components: {
         Primitive,
@@ -58,7 +58,7 @@ describe('Primitive', () => {
     expect(wrapper.html()).toBe('<button>Click me New</button>')
   })
 
-  test('asChild with button', async () => {
+  it('button with button', async () => {
     const example = {
       components: {
         Primitive,
@@ -324,7 +324,7 @@ describe('Primitive', () => {
     expect(wrapper.emitted()).toBeTruthy()
   })
 
-  test('asChild prop', () => {
+  it('asChild prop', () => {
     const wrapper = mount(componentDiv, {
       props: {
         asChild: true,
@@ -336,7 +336,7 @@ describe('Primitive', () => {
     expect(wrapper.html()).toBe('Hello')
   })
 
-  test('asChild with attr', () => {
+  it('asChild with attr', () => {
     const wrapper = mount(componentDiv, {
       props: {
         asChild: true,
@@ -354,7 +354,7 @@ describe('Primitive', () => {
     )
   })
 
-  test('asChild with props', () => {
+  it('asChild with props', () => {
     const wrapper = mount(componentDiv, {
       props: {
         asChild: true,

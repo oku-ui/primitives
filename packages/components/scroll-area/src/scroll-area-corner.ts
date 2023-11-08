@@ -22,12 +22,10 @@ const scrollAreaCorner = defineComponent({
     const hasCorner = computed(() => inject.type.value !== 'scroll' && hasBothScrollbarsVisible.value)
 
     return () => hasCorner.value
-      ? h(OkuScrollAreaCornerImpl,
-        {
-          ...mergeProps(attrs, props),
-          ref: forwardedRef,
-        }, slots,
-      )
+      ? h(OkuScrollAreaCornerImpl, {
+        ...mergeProps(attrs, props),
+        ref: forwardedRef,
+      }, slots)
       : null
   },
 })

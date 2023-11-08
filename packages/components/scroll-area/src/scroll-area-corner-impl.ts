@@ -42,21 +42,19 @@ const scrollAreaCornerImpl = defineComponent({
     })
 
     return () => hasSize.value
-      ? h(Primitive.div,
-        {
-          ...mergeProps(attrs, reactiveScrollAreaCornerImplProps),
-          ref: forwardedRef,
-          style: {
-            width: width.value,
-            height: height.value,
-            position: 'absolute',
-            right: inject.dir.value === 'ltr' ? '0px' : undefined,
-            left: inject.dir.value === 'rtl' ? '0px' : undefined,
-            bottom: '0px',
-            ...attrs.style as any,
-          },
-        }, slots,
-      )
+      ? h(Primitive.div, {
+        ...mergeProps(attrs, reactiveScrollAreaCornerImplProps),
+        ref: forwardedRef,
+        style: {
+          width: width.value,
+          height: height.value,
+          position: 'absolute',
+          right: inject.dir.value === 'ltr' ? '0px' : undefined,
+          left: inject.dir.value === 'rtl' ? '0px' : undefined,
+          bottom: '0px',
+          ...attrs.style as any,
+        },
+      }, slots)
       : null
   },
 })

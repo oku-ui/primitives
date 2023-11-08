@@ -17,7 +17,7 @@ export const light = create({
 
   // Typography
   fontBase:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
+    '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Noto Sans\', Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\'',
   // fontCode: 'monospace',
 
   // Text colors
@@ -35,7 +35,7 @@ export const light = create({
   inputTextColor: '#666',
   inputBorderRadius: 6,
 
-//   brandTitle: 'Oku',
+  //   brandTitle: 'Oku',
   // brandUrl: 'http://localhost:3000',
   // brandTarget: '_self',
   brandImage: 'https://raw.githubusercontent.com/oku-ui/static/main/logo/logo-dark.svg',
@@ -55,7 +55,7 @@ export const dark = create({
 
   // Typography
   fontBase:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
+    '-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Noto Sans\', Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\'',
   // fontCode: 'monospace',
 
   // Text colors

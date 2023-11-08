@@ -23,8 +23,6 @@ export interface OkuHoverCardProps {
 withDefaults(defineProps<OkuHoverCardProps>(), {
   template: 'Basic',
 })
-
-const template = 'flex flex-col justify-center'
 </script>
 
 <template>

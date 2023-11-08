@@ -30,14 +30,14 @@ import ChromaticDynamicContent from '../src/story/ChromaticDynamicContent.vue'
 
 enableAutoUnmount(afterEach)
 
-describe('OkuScrollArea', () => {
+describe('okuScrollArea', () => {
   it('should render OkuScrollArea correctly', () => {
     const wrapper = shallowMount(OkuScrollArea)
     expect(wrapper.html()).toMatchSnapshot()
   })
 
   it('should render OkuScrollAreaCorner correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaCorner)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -48,7 +48,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaCornerImpl correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaCornerImpl)
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
     expect(spy).toHaveBeenCalled()
@@ -57,7 +57,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbar correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbar)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -67,7 +67,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbarAuto correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarAuto)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -77,7 +77,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbarHover correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarHover)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -87,7 +87,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbarImpl correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarImpl)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -99,7 +99,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbarScroll correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarScroll)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -109,7 +109,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbarVisible correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarVisible)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -119,7 +119,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbarX correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarX)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -131,7 +131,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaScrollbarY correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaScrollbarY)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -143,7 +143,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaThumb correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaThumb)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -153,7 +153,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaThumbImpl correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaThumbImpl)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -163,7 +163,7 @@ describe('OkuScrollArea', () => {
   })
 
   it('should render OkuScrollAreaViewport correctly', () => {
-    const spy = vi.spyOn(global.console, 'warn').mockImplementation(() => { })
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
     const wrapper = () => mount(OkuScrollAreaViewport)
 
     expect(() => wrapper()).toThrowErrorMatchingSnapshot()
@@ -173,8 +173,8 @@ describe('OkuScrollArea', () => {
   })
 })
 
-describe('OkuScrollArea Stories', () => {
-  describe('Basic', () => {
+describe('okuScrollArea Stories', () => {
+  describe('basic', () => {
     let wrapper: VueWrapper<InstanceType<typeof Basic>>
 
     beforeEach(async () => {
@@ -184,8 +184,8 @@ describe('OkuScrollArea Stories', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('should pass accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -228,7 +228,7 @@ describe('OkuScrollArea Stories', () => {
     })
   })
 
-  describe('Resizable', () => {
+  describe('resizable', () => {
     let wrapper: VueWrapper<InstanceType<typeof Resizable>>
 
     beforeEach(async () => {
@@ -238,8 +238,8 @@ describe('OkuScrollArea Stories', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('should pass accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -261,7 +261,7 @@ describe('OkuScrollArea Stories', () => {
     })
   })
 
-  describe('ContentChange', () => {
+  describe('contentChange', () => {
     let wrapper: VueWrapper<InstanceType<typeof ContentChange>>
 
     beforeEach(async () => {
@@ -271,8 +271,8 @@ describe('OkuScrollArea Stories', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('should pass accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -305,7 +305,7 @@ describe('OkuScrollArea Stories', () => {
     })
   })
 
-  describe('Animated', () => {
+  describe('animated', () => {
     let wrapper: VueWrapper<InstanceType<typeof Animated>>
 
     beforeEach(async () => {
@@ -315,8 +315,8 @@ describe('OkuScrollArea Stories', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('should pass accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -326,7 +326,7 @@ describe('OkuScrollArea Stories', () => {
     })
   })
 
-  describe('Chromatic', () => {
+  describe('chromatic', () => {
     let wrapper: VueWrapper<InstanceType<typeof Chromatic>>
 
     beforeEach(async () => {
@@ -336,8 +336,8 @@ describe('OkuScrollArea Stories', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('should pass accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
@@ -347,7 +347,7 @@ describe('OkuScrollArea Stories', () => {
     })
   })
 
-  describe('ChromaticDynamicContent', () => {
+  describe('chromaticDynamicContent', () => {
     let wrapper: VueWrapper<InstanceType<typeof ChromaticDynamicContent>>
     beforeEach(async () => {
       wrapper = mount(ChromaticDynamicContent, {
@@ -356,8 +356,8 @@ describe('OkuScrollArea Stories', () => {
     })
 
     /**
-    * @vitest-environment jsdom
-    */
+     * @vitest-environment jsdom
+     */
     it('should pass accessibility tests', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })

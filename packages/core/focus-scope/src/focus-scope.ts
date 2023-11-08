@@ -7,7 +7,6 @@ import {
   defineComponent,
   h,
   mergeProps,
-  nextTick,
   reactive,
   ref,
   toRefs,
@@ -53,14 +52,14 @@ export interface FocusScopeProps extends PrimitiveProps {
 
 export type FocusScopeEmits = {
   /**
-  * Event handler called when auto-focusing on mount.
-  * Can be prevented.
-  */
+   * Event handler called when auto-focusing on mount.
+   * Can be prevented.
+   */
   mountAutoFocus: [event: Event]
   /**
-  * Event handler called when auto-focusing on unmount.
-  * Can be prevented.
-  */
+   * Event handler called when auto-focusing on unmount.
+   * Can be prevented.
+   */
   unmountAutoFocus: [event: Event]
 }
 
@@ -115,8 +114,6 @@ const focusScope = defineComponent({
 
     // Takes care of trapping focus if focus is moved outside programmatically for example
     watchEffect(async (onInvalidate) => {
-      await nextTick()
-
       if (trapped.value) {
         const handleFocusIn = (event: FocusEvent) => {
           if (focusScope.paused || !container.value)
@@ -176,8 +173,6 @@ const focusScope = defineComponent({
           })
         }
 
-        await nextTick()
-
         onInvalidate(() => {
           document.removeEventListener('focusin', handleFocusIn)
           document.removeEventListener('focusout', handleFocusOut)
@@ -189,7 +184,6 @@ const focusScope = defineComponent({
     watchEffect(async (onInvalidate) => {
       if (container.value) {
         focusScopesStack.add(focusScope)
-        await nextTick()
 
         const previouslyFocusedElement
           = document.activeElement as HTMLElement | null
@@ -244,8 +238,6 @@ const focusScope = defineComponent({
 
             focusScopesStack.remove(focusScope)
           }, 0)
-
-          await nextTick()
         })
       }
     })

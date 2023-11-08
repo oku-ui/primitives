@@ -11,8 +11,8 @@ const component = {
   },
 } as Component
 
-describe('OkuRovingFocusGroup', () => {
-  describe('OkuRovingFocusGroupItem aschild', () => {
+describe('okuRovingFocusGroup', () => {
+  describe('okuRovingFocusGroupItem aschild', () => {
     it('empty', () => {
       const com = mount(component, {
         slots: {

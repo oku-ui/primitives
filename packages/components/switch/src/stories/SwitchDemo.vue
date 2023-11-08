@@ -22,16 +22,16 @@ function setData(event: any) {
     [input.name]: input.value,
   }
 
-  console.log(data.value)
+  console.warn(data.value)
 }
 function sendForm(event: any) {
-  console.log(event, 'sendForm')
+  console.warn(event, 'sendForm')
   data.value = {
     ...data.value,
     [event.target.name]: event.target.value,
   }
 
-  console.log(data.value)
+  console.warn(data.value)
 }
 </script>
 

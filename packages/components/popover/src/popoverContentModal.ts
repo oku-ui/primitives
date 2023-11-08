@@ -1,40 +1,17 @@
 import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
 import { hideOthers } from 'aria-hidden'
 import { OkuSlot } from '@oku-ui/slot'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuPopoverContentImpl, popoverContentImplProps } from './popoverContentImpl'
-import type { PopoverContentImplElement, PopoverContentImplEmits, PopoverContentImplNaviteElement, PopoverContentImplProps } from './popoverContentImpl'
-import { scopePopoverProps } from './utils'
-import { usePopoverInject } from './popover'
-import { CONTENT_NAME } from './popoverContent'
-
-export type PopoverContentTypeNaviteElement = PopoverContentImplNaviteElement
-export type PopoverContentTypeElement = PopoverContentImplElement
-
-export interface PopoverContentTypeProps
-  extends Omit<PopoverContentImplProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
-
-export interface PopoverContentTypeEmits extends PopoverContentImplEmits { }
-
-export const popoverContentTypeProps = {
-  props: {
-    ...propsOmit(popoverContentImplProps.props, ['trapFocus', 'disableOutsidePointerEvents']),
-  },
-  emits: {
-    ...popoverContentImplProps.emits,
-  },
-}
-
-const NAME = 'OkuPopoverContentModal'
+import { OkuPopoverContentImpl } from './popoverContentImpl'
+import type { PopoverContentTypeEmits, PopoverContentTypeNaviteElement } from './props'
+import { CONTENT_MODAL_NAME, CONTENT_NAME, popoverContentTypeProps, scopePopoverProps, usePopoverInject } from './props'
 
 const popoverContentModal = defineComponent({
-  name: NAME,
+  name: CONTENT_MODAL_NAME,
   inheritAttrs: false,
   props: {
     ...popoverContentTypeProps.props,
-    ...primitiveProps,
     ...scopePopoverProps,
   },
   emits: popoverContentTypeProps.emits,
@@ -54,12 +31,13 @@ const popoverContentModal = defineComponent({
     })
 
     useScrollLock(contentRef, true)
+
     return () => h(OkuSlot, {}, {
       default: () => h(OkuPopoverContentImpl, {
         ...mergeProps(attrs, props),
         ref: composedRefs,
         trapFocus: inject.open.value,
-        disableOutsidePointerEvents: inject.open.value,
+        disableOutsidePointerEvents: true,
         onCloseAutoFocus: composeEventHandlers<PopoverContentTypeEmits['closeAutoFocus'][0]>((el) => {
           emit('closeAutoFocus', el)
         }, (event) => {
@@ -78,10 +56,9 @@ const popoverContentModal = defineComponent({
         }, { checkForDefaultPrevented: false }),
         // When focus is trapped, a `focusout` event may still happen.
         // We make sure we don't trigger our `onDismiss` in such case.
-        onFocusoutSide: composeEventHandlers<PopoverContentTypeEmits['focusoutSide'][0]>((el) => {
-          emit('focusoutSide', el)
-        }, event => event.preventDefault(),
-        { checkForDefaultPrevented: false }),
+        onFocusOutside: composeEventHandlers<PopoverContentTypeEmits['focusOutside'][0]>((el) => {
+          emit('focusOutside', el)
+        }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
       }, {
         default: () => slots.default?.(),
       }),

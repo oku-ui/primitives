@@ -27,15 +27,12 @@ const toastDescription = defineComponent({
     const reactiveDescriptionProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
     const forwardedRef = useForwardRef()
 
-    return () => h(Primitive.div,
-      {
-        ...mergeProps(attrs, reactiveDescriptionProps),
-        ref: forwardedRef,
-      },
-      {
-        default: () => slots.default?.(),
-      },
-    )
+    return () => h(Primitive.div, {
+      ...mergeProps(attrs, reactiveDescriptionProps),
+      ref: forwardedRef,
+    }, {
+      default: () => slots.default?.(),
+    })
   },
 })
 

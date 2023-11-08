@@ -39,7 +39,16 @@ export {
 } from './alert-dialog-trigger'
 
 export type {
-  AlertDialogProps, AlertDialogActionProps, AlertDialogCancelProps, AlertDialogContentProps, AlertDialogDescriptionProps, AlertDialogOverlayProps, AlertDialogPortalProps, AlertDialogTitleProps, AlertDialogTriggerProps, DescriptionWarningProps,
+  AlertDialogProps,
+  AlertDialogActionProps,
+  AlertDialogCancelProps,
+  AlertDialogContentProps,
+  AlertDialogDescriptionProps,
+  AlertDialogOverlayProps,
+  AlertDialogPortalProps,
+  AlertDialogTitleProps,
+  AlertDialogTriggerProps,
+  DescriptionWarningProps,
 } from './props'
 
 export {

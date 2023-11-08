@@ -1,54 +1,11 @@
-import type { ComputedRef, PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
 import { reactiveOmit, useComposedRefs, useControllable, useForwardRef } from '@oku-ui/use-composable'
-
-import type { OkuElement } from '@oku-ui/primitive'
 
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { RovingFocusGroupOptions } from './utils'
-import { focusFirst, rovingFocusGroupOptionsProps } from './utils'
-import { rovingFocusProvider, useCollection } from './RovingFocusGroup'
-import { scopedProps } from './types'
-
-const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
-const EVENT_OPTIONS = { bubbles: false, cancelable: true }
-
-export type RovingFocusGroupImplNaviteElement = OkuElement<'div'>
-export type RovingFocusGroupImplElement = HTMLDivElement
-
-export interface RovingFocusGroupImplProps extends RovingFocusGroupOptions {
-  currentTabStopId?: string | null
-  defaultCurrentTabStopId?: string
-}
-
-export type RovingFocusGroupImplEmits = {
-  currentTabStopIdChange: [tabStopId: string | null]
-  entryFocus: [event: Event]
-  mousedown: [event: MouseEvent]
-  focus: [event: FocusEvent]
-  blur: [event: FocusEvent]
-}
-
-export const rovingFocusGroupImplProps = {
-  props: {
-    currentTabStopId: String as unknown as PropType<ComputedRef<string | null>>,
-    defaultCurrentTabStopId: String,
-    ...rovingFocusGroupOptionsProps.props,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    entryFocus: (event: Event) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    currentTabStopIdChange: (tabStopId: string | null) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    mousedown: (event: MouseEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    focus: (event: FocusEvent) => true,
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    blur: (event: FocusEvent) => true,
-  },
-}
+import { focusFirst } from './utils'
+import type { RovingFocusGroupImplNaviteElement } from './props'
+import { ENTRY_FOCUS, EVENT_OPTIONS, rovingFocusGroupImplProps, rovingFocusProvider, scopedProps, useCollection } from './props'
 
 const RovingFocusGroupImpl = defineComponent({
   name: 'OkuRovingFocusGroupImpl',
@@ -90,13 +47,19 @@ const RovingFocusGroupImpl = defineComponent({
     const isClickFocusRef = ref(false)
     const focusableItemsCount = ref(0)
 
-    watchEffect(() => {
+    onMounted(() => {
       const node = buttonRef.value
       if (node) {
         node.addEventListener(ENTRY_FOCUS, (event) => {
           emit('entryFocus', event)
         })
-        return () => node.removeEventListener(ENTRY_FOCUS, (event) => {
+      }
+    })
+
+    onBeforeUnmount(() => {
+      const node = buttonRef.value
+      if (node) {
+        node.removeEventListener(ENTRY_FOCUS, (event) => {
           emit('entryFocus', event)
         })
       }
@@ -107,7 +70,7 @@ const RovingFocusGroupImpl = defineComponent({
       orientation,
       dir,
       loop,
-      currentTabStopId,
+      currentTabStopId: computed(() => currentTabStopId.value || null),
       onItemFocus: (tabStopId: string) => {
         updateCurrentTabStopId(tabStopId)
       },

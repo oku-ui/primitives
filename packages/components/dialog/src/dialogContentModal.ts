@@ -82,11 +82,11 @@ const dialogContentModal = defineComponent({
       onInteractOutside: (event) => {
         emit('interactOutside', event)
       },
-      onEscapeKeyDown: (event) => {
-        emit('escapeKeyDown', event)
+      onEscapeKeydown: (event) => {
+        emit('escapeKeydown', event)
       },
-      onFocusoutSide: (event) => {
-        emit('focusoutSide', event)
+      onFocusOutside: (event) => {
+        emit('focusOutside', event)
       },
       onDismiss: () => {
         inject.onOpenChange(false)
