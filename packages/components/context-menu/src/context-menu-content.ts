@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuMenuContent } from '@oku-ui/menu'
 import { CONTEXT_MENU_CONTENT_NAME, contextMenuContentProps, scopedContextMenuProps, useContextMenuInject, useMenuScope } from './props'
 
@@ -24,6 +24,7 @@ const contextMenuContent = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const inject = useContextMenuInject(CONTEXT_MENU_CONTENT_NAME, scopeOkuContextMenu.value)
     const menuScope = useMenuScope(scopeOkuContextMenu.value)
@@ -31,7 +32,7 @@ const contextMenuContent = defineComponent({
 
     return () => h(OkuMenuContent, {
       ...menuScope,
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
       side: 'right',
       sideOffset: 2,

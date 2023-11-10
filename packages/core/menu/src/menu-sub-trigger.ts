@@ -30,7 +30,6 @@ const menuSubTrigger = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_SUB_TRIGGER_NAME, scopeOkuMenu.value)

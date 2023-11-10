@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuMenuSubContent } from '@oku-ui/menu'
 import { CONTEXT_MENU_SUB_CONTENT_NAME, contextMenuSubContentProps, scopedContextMenuProps, useMenuScope } from './props'
 import type { ContextMenuSubContentNativeElement } from './props'
@@ -25,12 +25,13 @@ const contextMenuSubContent = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const menuScope = useMenuScope(scopeOkuContextMenu.value)
 
     return () => h(OkuMenuSubContent, {
       ...menuScope,
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
       style: {
         ...attrs.style as any,

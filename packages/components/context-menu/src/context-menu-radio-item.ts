@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuMenuRadioItem } from '@oku-ui/menu'
 import { CONTEXT_MENU_RADIO_ITEM_NAME, contextMenuRadioItemProps, scopedContextMenuProps, useMenuScope } from './props'
 import type { ContextMenuRadioItemNativeElement } from './props'
@@ -25,12 +25,13 @@ const contextMenuRadioItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const menuScope = useMenuScope(scopeOkuContextMenu.value)
 
     return () => h(OkuMenuRadioItem, {
       ...menuScope,
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
     }, slots)
   },

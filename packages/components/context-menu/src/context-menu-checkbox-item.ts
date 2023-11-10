@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuMenuCheckboxItem } from '@oku-ui/menu'
 import { CONTEXT_MENU_CHECKBOX_ITEM_NAME, contextMenuCheckboxItemProps, scopedContextMenuProps, useMenuScope } from './props'
 import type { ContextMenuCheckboxItemNativeElement } from './props'
@@ -25,12 +25,13 @@ const contextMenuCheckboxItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const menuScope = useMenuScope(scopeOkuContextMenu.value)
 
     return () => h(OkuMenuCheckboxItem, {
       ...menuScope,
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
     }, slots)
   },

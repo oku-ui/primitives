@@ -41,7 +41,6 @@ const menuContentImpl = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_CONTENT_NAME, scopeOkuMenu.value)

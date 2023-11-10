@@ -1,6 +1,6 @@
-import { Fragment, defineComponent, h, mergeProps, onMounted, reactive, ref, toRefs } from 'vue'
+import { Fragment, defineComponent, h, mergeProps, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { OkuMenuAnchor } from '@oku-ui/menu'
 import { CONTEXT_MENU_TRIGGER_NAME, contextMenuTriggerProps, scopedContextMenuProps, useContextMenuInject, useMenuScope } from './props'
@@ -29,6 +29,7 @@ const contextMenuTrigger = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const inject = useContextMenuInject(CONTEXT_MENU_TRIGGER_NAME, scopeOkuContextMenu.value)
     const menuScope = useMenuScope(scopeOkuContextMenu.value)
@@ -41,25 +42,23 @@ const contextMenuTrigger = defineComponent({
       inject.onOpenChange(true)
     }
 
-    onMounted(() => clearLongPress())
+    onBeforeUnmount(() => clearLongPress())
 
-    onMounted(() => {
+    onBeforeUnmount(() => {
       if (disabled.value)
         clearLongPress()
     })
 
     return () => h(Fragment, [
       h(OkuMenuAnchor, {
-        // ...attrs,
         ...menuScope,
-        // ...mergeProps(attrs, otherProps),
         virtualRef: virtualRef.value,
       }),
 
       h(Primitive.span, {
         'data-state': inject.open.value ? 'open' : 'closed',
         'data-disabled': disabled.value ? '' : undefined,
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         'ref': forwardedRef,
         // prevent iOS context menu from appearing
         'style': { WebkitTouchCallout: 'none', ...attrs.style as any },

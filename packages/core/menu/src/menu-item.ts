@@ -28,7 +28,6 @@ const menuItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    // const emits = useListeners()
 
     const menuItemRef = ref<HTMLDivElement | null>(null)
     const rootInject = useMenuRootInject(MENU_ITEM_NAME, scopeOkuMenu.value)
