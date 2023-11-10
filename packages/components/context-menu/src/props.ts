@@ -320,31 +320,34 @@ export const contextMenuArrowProps = {
 export interface ContextMenuSubProps {
   open?: boolean
   defaultOpen?: boolean
+  modelValue?: boolean
 }
 
 export type ContextMenuSubEmits = {
-  'update:modelValue': [value: boolean]
   openChange: [open: boolean]
+  'update:modelValue': [open: boolean]
 }
 
 export const contextMenuSubProps = {
   props: {
-    modelValue: {
-      type: Boolean as PropType<boolean>,
-      default: undefined,
-    },
     open: {
       type: Boolean as PropType<ContextMenuSubProps['open']>,
+      default: undefined,
     },
     defaultOpen: {
       type: Boolean as PropType<ContextMenuSubProps['defaultOpen']>,
+      default: undefined,
+    },
+    modelValue: {
+      type: Boolean as PropType<ContextMenuSubProps['modelValue']>,
+      default: undefined,
     },
   },
   emits: {
     // eslint-disable-next-line unused-imports/no-unused-vars
-    'update:modelValue': (value: boolean) => true,
+    'openChange': (open: ContextMenuSubEmits['openChange'][0]) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    'openChange': (value: boolean) => true,
+    'update:modelValue': (open: ContextMenuSubEmits['update:modelValue'][0]) => true,
   },
 }
 

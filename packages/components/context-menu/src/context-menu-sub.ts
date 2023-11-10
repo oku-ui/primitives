@@ -36,15 +36,15 @@ const contextMenuSub = defineComponent({
       onChange: (result: any) => {
         modelValue.value = result
         emit('openChange', result)
+        emit('update:modelValue', result)
       },
-      // initialValue: true,
     })
 
     return () => h(OkuMenuSub, {
       ...attrs,
       ...menuScope,
       open: state.value,
-      onOpenChange: open => updateValue(open),
+      onOpenChange: _open => updateValue(_open),
     }, slots)
   },
 })
