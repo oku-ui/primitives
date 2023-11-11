@@ -21,6 +21,7 @@ overrides:
   '@oku-ui/hover-card': workspace:^
   '@oku-ui/label': workspace:^
   '@oku-ui/menu': workspace:^
+  '@oku-ui/dropdown-menu': workspace:^
   '@oku-ui/popover': workspace:^
   '@oku-ui/popper': workspace:^
   '@oku-ui/portal': workspace:^
@@ -97,6 +98,9 @@ importers:
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
         version: link:packages/core/dismissable-layer
+      '@oku-ui/dropdown-menu':
+        specifier: workspace:^
+        version: link:packages/components/dropdown-menu
       '@oku-ui/focus-guards':
         specifier: workspace:^
         version: link:packages/core/focus-guards
@@ -499,6 +503,43 @@ importers:
       aria-hidden:
         specifier: ^1.2.3
         version: 1.2.3
+      vue:
+        specifier: 3.3.7
+        version: 3.3.7(typescript@5.2.2)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/dropdown-menu:
+    dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.7)
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../../core/direction
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../../core/dismissable-layer
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:../../core/focus-scope
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:../../core/menu
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
       vue:
         specifier: 3.3.7
         version: 3.3.7(typescript@5.2.2)
@@ -1525,6 +1566,9 @@ importers:
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
         version: link:../../packages/core/dismissable-layer
+      '@oku-ui/dropdown-menu':
+        specifier: workspace:^
+        version: link:../../packages/components/dropdown-menu
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:../../packages/core/focus-scope
@@ -1616,6 +1660,9 @@ importers:
       '@oku-ui/checkbox':
         specifier: workspace:^
         version: link:../../packages/components/checkbox
+      '@oku-ui/dropdown-menu':
+        specifier: workspace:^
+        version: link:../../packages/components/dropdown-menu
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
