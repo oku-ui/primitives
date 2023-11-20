@@ -72,7 +72,7 @@ const dropdownTriggerRef2 = ref<HTMLButtonElement | null>(null)
       </OkuDialogContent>
     </OkuDialog>
 
-    <h1>N@modal</h1>
+    <h1>Non-modal</h1>
     <OkuDialog
       :modal="false"
       @open-change="(open) => {

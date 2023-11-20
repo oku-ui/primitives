@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h } from 'vue'
+import { createApp, h } from 'vue'
 import { OkuDropdownMenu, OkuDropdownMenuContent, OkuDropdownMenuItem, OkuDropdownMenuPortal, OkuDropdownMenuTrigger } from '@oku-ui/dropdown-menu'
 
 function handlePopupClick() {
@@ -12,24 +12,37 @@ function handlePopupClick() {
   const containerNode = popupWindow.document.createElement('div')
   popupWindow.document.body.append(containerNode)
 
-  return () => h(OkuDropdownMenu, [
-    h(OkuDropdownMenuTrigger, 'Open'),
-    h(OkuDropdownMenuPortal, {
-      container: containerNode,
-    }, h(OkuDropdownMenuContent, [
-      h(OkuDropdownMenuItem, {
-        class: 'dropdown-menu-item',
-        // eslint-disable-next-line no-console
-        onSelect: () => console.log('undo'),
-      }, 'Undo'),
-      h(OkuDropdownMenuItem, {
-        class: 'dropdown-menu-item',
-        // eslint-disable-next-line no-console
-        onSelect: () => console.log('redo'),
-      }, 'Redo'),
-    ])),
-    h(containerNode),
-  ])
+  const app = createApp({
+    render: () => h(OkuDropdownMenu, {}, {
+      default: () => [
+        h(OkuDropdownMenuTrigger, {}, {
+          default: () => 'Open',
+        }),
+        h(OkuDropdownMenuPortal, { container: containerNode }, {
+          default: () => h(OkuDropdownMenuContent, {}, {
+            default: () => [
+              h(OkuDropdownMenuItem, {
+                class: 'dropdown-menu-item',
+                // eslint-disable-next-line no-console
+                onSelect: () => console.log('undo'),
+              }, {
+                default: () => 'Undo',
+              }),
+              h(OkuDropdownMenuItem, {
+                class: 'dropdown-menu-item',
+                // eslint-disable-next-line no-console
+                onSelect: () => console.log('redo'),
+              }, {
+                default: () => 'Redo',
+              }),
+            ],
+          }),
+        }),
+      ],
+    }),
+  })
+
+  app.mount(containerNode)
 }
 </script>
 

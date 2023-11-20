@@ -7,7 +7,7 @@ interface StoryProps extends IDropdownMenuProps {
 }
 
 const meta = {
-  title: 'Component/DropdownMenu',
+  title: 'Components/DropdownMenu',
   component: OkuDropdownMenu,
   args: {
     template: 'Styled',
@@ -24,6 +24,21 @@ type Story = StoryObj<typeof meta> & {
 export const Styled: Story = {
   args: {
     template: 'Styled',
+  },
+  render: (args: any) => ({
+    components: { OkuDropdownMenu },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuDropdownMenu v-bind="args" />
+    `,
+  }),
+}
+
+export const Modality: Story = {
+  args: {
+    template: 'Modality',
   },
   render: (args: any) => ({
     components: { OkuDropdownMenu },

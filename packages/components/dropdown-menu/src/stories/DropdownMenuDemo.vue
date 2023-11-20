@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Styled from './Styled.vue'
+import Modality from './Modality.vue'
 import Submenus from './Submenus.vue'
 import WithLabels from './WithLabels.vue'
 import NestedComposition from './NestedComposition.vue'
@@ -15,7 +16,7 @@ import Chromatic from './Chromatic.vue'
 withDefaults(defineProps<IDropdownMenuProps>(), {})
 
 export interface IDropdownMenuProps {
-  template?: 'Styled' | 'Submenus' | 'WithLabels' | 'NestedComposition' | 'SingleItemAsDialogTrigger' | 'MultipleItemsAsDialogTriggers' | 'CheckboxItems' | 'RadioItems' | 'PreventClosing' | 'WithTooltip' | 'InPopupWindow' | 'Chromatic'
+  template?: 'Styled' | 'Modality' | 'Submenus' | 'WithLabels' | 'NestedComposition' | 'SingleItemAsDialogTrigger' | 'MultipleItemsAsDialogTriggers' | 'CheckboxItems' | 'RadioItems' | 'PreventClosing' | 'WithTooltip' | 'InPopupWindow' | 'Chromatic'
   allshow?: boolean
 }
 </script>
@@ -28,6 +29,10 @@ export interface IDropdownMenuProps {
 
     <template v-if="template === 'Submenus' || allshow">
       <Submenus />
+    </template>
+
+    <template v-if="template === 'Modality' || allshow">
+      <Modality />
     </template>
 
     <template v-if="template === 'WithLabels' || allshow">
@@ -205,9 +210,9 @@ export interface IDropdownMenuProps {
   border: 2px solid blue;
   padding: 10px;
 
-  [data-disabled] { border-style: dashed };
+  [data-disabled] { border-style: dashed; }
 
-  &[data-state="closed"] { border-color: red };
-  &[data-state="open"] { border-color: green };
+  &[data-state="closed"] { border-color: red; }
+  &[data-state="open"] { border-color: green; }
 }
 </style>

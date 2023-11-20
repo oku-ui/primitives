@@ -34,16 +34,16 @@ function handleNonModalDialogClose(event: Event) {
     <h1>Modal</h1>
     <OkuDialog>
       <OkuDropdownMenu>
-        <OkuDropdownMenuTrigger ref="dropdownTriggerRef" class="drop-menu-trigger">
+        <OkuDropdownMenuTrigger ref="dropdownTriggerRef" class="dropdown-menu-trigger">
           Open
         </OkuDropdownMenuTrigger>
 
         <OkuDropdownMenuPortal>
-          <OkuDropdownMenuContent class="drop-menu-content" :side-offset="5">
-            <OkuDialogTrigger class="drop-menu-item" as-child>
+          <OkuDropdownMenuContent class="dropdown-menu-content" :side-offset="5">
+            <OkuDialogTrigger class="dropdown-menu-item" as-child>
               <OkuDropdownMenuItem>Delete</OkuDropdownMenuItem>
             </OkuDialogTrigger>
-            <OkuDropdownMenuItem class="drop-menu-item">
+            <OkuDropdownMenuItem class="dropdown-menu-item">
               Test
             </OkuDropdownMenuItem>
             <OkuDropdownMenuArrow />
@@ -51,7 +51,7 @@ function handleNonModalDialogClose(event: Event) {
         </OkuDropdownMenuPortal>
       </OkuDropdownMenu>
 
-      <OkuDialogContent class="drop-menu-dialog" @close-auto-focus="handleModalDialogClose">
+      <OkuDialogContent class="dropdown-menu-dialog" @close-auto-focus="handleModalDialogClose">
         <OkuDialogTitle>Are you sure?</OkuDialogTitle>
         <OkuDialogClose>Close</OkuDialogClose>
       </OkuDialogContent>
@@ -60,13 +60,13 @@ function handleNonModalDialogClose(event: Event) {
     <h1>Non-modal</h1>
     <OkuDialog :modal="false">
       <OkuDropdownMenu :modal="false">
-        <OkuDropdownMenuTrigger ref="dropdownTriggerRef2" class="drop-menu-trigger">
+        <OkuDropdownMenuTrigger ref="dropdownTriggerRef2" class="dropdown-menu-trigger">
           Open
         </OkuDropdownMenuTrigger>
 
         <OkuDropdownMenuPortal>
           <OkuDropdownMenuContent
-            class="drop-menu-content"
+            class="dropdown-menu-content"
             :side-offset="5"
             @close-auto-focus="(event) => {
               // prevent focusing dropdown trigger when it closes from a dialog trigger
@@ -74,12 +74,12 @@ function handleNonModalDialogClose(event: Event) {
                 event.preventDefault()
             }"
           >
-            <OkuDialogTrigger class="drop-menu-item" as-child>
+            <OkuDialogTrigger class="dropdown-menu-item" as-child>
               <OkuDropdownMenuItem @select="isDialogOpenRef = true">
                 Delete
               </OkuDropdownMenuItem>
             </OkuDialogTrigger>
-            <OkuDropdownMenuItem class="drop-menu-item">
+            <OkuDropdownMenuItem class="dropdown-menu-item">
               Test
             </OkuDropdownMenuItem>
             <OkuDropdownMenuArrow />
@@ -87,7 +87,7 @@ function handleNonModalDialogClose(event: Event) {
         </OkuDropdownMenuPortal>
       </OkuDropdownMenu>
 
-      <OkuDialogContent class="drop-menu-dialog" @close-auto-focus="handleNonModalDialogClose">
+      <OkuDialogContent class="dropdown-menu-dialog" @close-auto-focus="handleNonModalDialogClose">
         <OkuDialogTitle>Are you sure?</OkuDialogTitle>
         <OkuDialogClose>Close</OkuDialogClose>`
       </OkuDialogContent>
