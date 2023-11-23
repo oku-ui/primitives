@@ -46,25 +46,25 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./.nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: ESLint Cache
         uses: actions/cache@v3
         with:
           path: ./.eslintcache
-          key: ${{ runner.os }}-eslintcache-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-eslintcache-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-eslintcache-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-eslintcache-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Vitest Cache
         uses: actions/cache@v3
         with:
           path: ./.vitest-cache
-          key: ${{ runner.os }}-vitestcache-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-vitestcache-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-vitestcache-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-vitestcache-${{ hashFiles('**/pnpm-lock.yaml') }}
 
 
       - name: 📦 Install dependencies
