@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { ASPECT_RATIO_NAME, aspectRatioProps } from './props'
 import type { AspectRatioNativeElement } from './props'
@@ -23,6 +23,7 @@ const aspectRatio = defineComponent({
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     return () => h('div', {
       'style': {
@@ -34,7 +35,7 @@ const aspectRatio = defineComponent({
       'data-oku-aspect-ratio-wrapper': '',
     }, [
       h(Primitive.div, {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         ref: forwardedRef,
         style: {
           ...attrs.style as any,
