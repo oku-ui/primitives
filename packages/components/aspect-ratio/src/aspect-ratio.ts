@@ -1,78 +1,56 @@
-import type { PropType } from 'vue'
-import { defineComponent, h, toRef } from 'vue'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-
-export type AspectRatioNaviteElement = OkuElement<'div'>
-export type AspectRatioElement = HTMLDivElement
-
-const NAME = 'OkuAspectRatio'
-
-export interface AspectRatioProps extends PrimitiveProps {
-  ratio?: number
-}
-
-export const aspectRatioProps = {
-  props: {
-    ratio: {
-      type: Number as PropType<number>,
-      default: 1 / 1,
-    },
-  },
-  emits: {},
-}
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { Primitive } from '@oku-ui/primitive'
+import { ASPECT_RATIO_NAME, aspectRatioProps } from './props'
+import type { AspectRatioNativeElement } from './props'
 
 const aspectRatio = defineComponent({
-  name: NAME,
+  name: ASPECT_RATIO_NAME,
   inheritAttrs: false,
   props: {
     ...aspectRatioProps.props,
-    ...primitiveProps,
+  },
+  emit: {
+    ...aspectRatioProps.emits,
   },
   setup(props, { attrs, slots }) {
-    const ratio = toRef(props, 'ratio')
+    const {
+      ratio,
+      ...aspectRatioProps
+    } = toRefs(props)
+
+    const _reactive = reactive(aspectRatioProps)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const originalReturn = () => h(
-      'div',
-      {
-        'style': {
-          position: 'relative',
-          width: '100%',
-          paddingBottom: `${100 / ratio.value}%`,
-        },
-        'data-oku-aspect-ratio-wrapper': '',
-      },
-      [
-        h(
-          Primitive.div,
-          {
-            asChild: props.asChild,
-            ...attrs,
-            ref: forwardedRef,
-            style: {
-              ...attrs.style as any,
-              position: 'absolute',
-              top: '0px',
-              right: '0px',
-              left: '0px',
-              bottom: '0px',
-            },
-          },
-          {
-            default: () => slots.default?.(),
-          },
-        ),
-      ],
-    )
+    const emits = useListeners()
 
-    return originalReturn
+    return () => h('div', {
+      'style': {
+        // ensures inner element is contained
+        position: 'relative',
+        // ensures padding bottom trick maths works
+        paddingBottom: `${100 / ratio.value}%`,
+      },
+      'data-oku-aspect-ratio-wrapper': '',
+    }, [
+      h(Primitive.div, {
+        ...mergeProps(attrs, otherProps, emits),
+        ref: forwardedRef,
+        style: {
+          ...attrs.style as any,
+          // ensures children expand in ratio
+          position: 'absolute',
+          top: '0px',
+          right: '0px',
+          left: '0px',
+          bottom: '0px',
+        },
+      }, slots),
+    ])
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAspectRatio = aspectRatio as typeof aspectRatio &
-(new () => {
-  $props: AspectRatioNaviteElement
-})
+(new () => { $props: AspectRatioNativeElement })
