@@ -40,12 +40,12 @@ const avatarFallback = defineComponent({
 
     onBeforeUnmount(() => window.clearTimeout(timerId))
 
-    return () => [canRender.value && inject.imageLoadingStatus.value !== 'loaded'
+    return () => canRender.value && inject.imageLoadingStatus.value !== 'loaded'
       ? h(Primitive.span, {
         ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
       }, slots)
-      : null]
+      : null
   },
 })
 
