@@ -4,7 +4,7 @@ import { OkuAspectRatio } from '@oku-ui/aspect-ratio'
 
 <template>
   <div :style="{ width: '500px' }">
-    <OkuAspectRatio class="aspect-ratio-root">
+    <OkuAspectRatio class="aspect-ratio">
       <h1>Default ratio (1/1)</h1>
     </OkuAspectRatio>
   </div>

@@ -38,9 +38,10 @@ describe('okuAspectRatio', () => {
     })
   })
 
-  it('should render okuAspectRatio correctly', () => {
-    const wrapper = shallowMount(OkuAspectRatio)
+  it('should render OkuAspectRatio correctly', () => {
     expect(wrapper.html()).toMatchSnapshot()
+
+    expect(shallowMount(OkuAspectRatio).html()).toMatchSnapshot()
   })
 
   /**
