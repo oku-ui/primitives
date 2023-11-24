@@ -39,8 +39,7 @@
   "dependencies": {
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
-    "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest"
+    "@oku-ui/use-composable": "latest"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

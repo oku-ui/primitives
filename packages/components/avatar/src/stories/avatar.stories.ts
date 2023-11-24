@@ -1,18 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { IAvatarPropsProps } from './AvatarDemo.vue'
-import AvatarDemoComponent from './AvatarDemo.vue'
+import type { IAvatarProps } from './AvatarDemo.vue'
+import OkuAvatar from './AvatarDemo.vue'
 
-interface StoryProps extends IAvatarPropsProps {
-}
+interface StoryProps extends IAvatarProps { }
 
 const meta = {
   title: 'Components/Avatar',
-
+  component: OkuAvatar,
   args: {
-    template: '#1',
+    template: 'Styled',
   },
-} satisfies Meta<typeof AvatarDemoComponent> & {
+} satisfies Meta<typeof OkuAvatar> & {
   args: StoryProps
 }
 
@@ -23,31 +22,33 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    template: '#1',
-    allshow: true,
+    template: 'Styled',
   },
   render: (args: any) => ({
-    components: { AvatarDemoComponent },
+    components: { OkuAvatar },
     setup() {
       return { args }
     },
     template: `
-      <AvatarDemoComponent v-bind="args" />
+      <OkuAvatar v-bind="args" />
     `,
   }),
 }
 
-export const Template1: Story = {
+export const Chromatic: Story = {
   args: {
-    template: '#3',
+    template: 'Chromatic',
   },
   render: (args: any) => ({
-    components: { AvatarDemoComponent },
+    components: { OkuAvatar },
     setup() {
       return { args }
     },
     template: `
-      <AvatarDemoComponent v-bind="args" />
+      <OkuAvatar v-bind="args" />
     `,
   }),
+  parameters: {
+    chromatic: { disable: false, delay: 1000 },
+  },
 }

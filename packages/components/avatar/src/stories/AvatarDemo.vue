@@ -1,98 +1,62 @@
 <script setup lang="ts">
-import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from '@oku-ui/avatar'
-import { onMounted, ref } from 'vue'
+import Styled from './Styled.vue'
+import Chromatic from './Chromatic.vue'
 
-export interface IAvatarPropsProps {
-  template?: '#1' | '#2' | '#3'
+withDefaults(defineProps<IAvatarProps>(), {})
+
+export interface IAvatarProps {
+  template?: 'Styled' | 'Chromatic'
   allshow?: boolean
 }
-
-withDefaults(defineProps<IAvatarPropsProps>(), {
-
-})
-
-const src = 'https://picsum.photos/id/1005/400/400'
-const srcBroken = 'https://broken.link.com/broken-pic.jpg'
-
-const consoleLog = (event: any) => console.warn(event, 'log')
-
-const srcDynamic = ref()
-
-function dynamicSrc() {
-  const images = [
-    'https://picsum.photos/id/1005/400/400',
-    'https://picsum.photos/id/1011/400/400',
-    'https://picsum.photos/id/1015/400/400',
-    'https://picsum.photos/id/1020/400/400',
-  ]
-
-  setInterval(() => {
-    srcDynamic.value = images[Math.floor(Math.random() * images.length)]
-  }, 3000)
-}
-
-onMounted(() => {
-  dynamicSrc()
-})
 </script>
 
 <template>
   <div>
-    {{ srcDynamic }}
-    <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <h1>Without image & with fallback</h1>
-      <div class="max-w-xl mx-auto h-full items-center justify-center">
-        <OkuAvatar class="w-40 h-40 bg-gray-400 items-center inline-block overflow-hidden rounded-full">
-          <OkuAvatarFallback
-            class="flex items-center text-white font-medium text-2xl h-full w-full justify-center"
-            :delayms="100"
-          >
-            CT
-          </OkuAvatarFallback>
-        </OkuAvatar>
-      </div>
-    </div>
-    <div v-if="template === '#2' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <h1>With image & with fallback</h1>
-      <div class="max-w-xl mx-auto h-full items-center justify-center">
-        <OkuAvatar class="w-40 h-40 bg-gray-400 items-center inline-block overflow-hidden rounded-full">
-          <OkuAvatarImage
-            class="w-full h-full object-cover"
-            :src="src"
-          />
-          <OkuAvatarFallback
-            class="flex items-center text-white font-medium text-2xl h-full w-full justify-center"
-            :delayms="100"
-          >
-            CT
-          </OkuAvatarFallback>
-        </OkuAvatar>
-      </div>
-      <OkuAvatar class="w-40 h-40 bg-gray-400 items-center inline-block overflow-hidden rounded-full">
-        <OkuAvatarImage
-          class="w-full h-full object-cover"
-          :src="srcDynamic"
-        />
-        <OkuAvatarFallback
-          class="flex items-center text-white font-medium text-2xl h-full w-full justify-center"
-          :delayms="100"
-        >
-          CT
-        </OkuAvatarFallback>
-      </OkuAvatar>
-    </div>
+    <template v-if="template === 'Styled' || allshow">
+      <Styled />
+    </template>
 
-    <div v-if="template === '#3' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <h1>With image & with fallback (but broken src)</h1>
-      <div class="max-w-xl mx-auto h-full items-center justify-center">
-        <OkuAvatar class="w-40 h-40 bg-gray-400 items-center inline-block overflow-hidden rounded-full">
-          <OkuAvatarImage
-            class="w-full h-full object-cover"
-            :src="srcBroken"
-            :on-loading-status-change="consoleLog"
-          />
-        </OkuAvatar>
-      </div>
-    </div>
+    <template v-if="template === 'Chromatic' || allshow">
+      <Chromatic />
+    </template>
   </div>
 </template>
+
+<style>
+.avatar {
+  /* RECOMMENDED_CSS__AVATAR */
+  /* ensures image/fallback is centered */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  /* ensures image doesn't bleed out */
+  overflow: hidden;
+  /* ensures no selection is possible */
+  user-select: none;
+
+  border-radius: 9999px;
+  width: 48px;
+  height: 48px;
+}
+
+.avatar-image {
+  /* RECOMMENDED_CSS_AVATAR_IMAGE */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-fallback {
+  /* RECOMMENDED_CSS_AVATAR_FALLBACK */
+  /* ensures content inside the fallback is centered */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #111;
+  color: #fff;
+}
+</style>
