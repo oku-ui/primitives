@@ -24,7 +24,7 @@ export interface IAvatarProps {
 
 <style>
 .avatar {
-  /* RECOMMENDED_CSS__AVATAR */
+  /* RECOMMENDED_CSS_AVATAR */
   /* ensures image/fallback is centered */
   display: inline-flex;
   align-items: center;
