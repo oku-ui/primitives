@@ -1,28 +1,17 @@
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject } from '@oku-ui/provide'
-import { isClient } from '@oku-ui/use-composable'
-import type { Ref } from 'vue'
 import { onBeforeUnmount, ref, watchEffect } from 'vue'
+import { isClient } from '@oku-ui/use-composable'
+import type { ImageLoadingStatus } from './props'
 
-export type ScopeAvatar<T> = T & { scopeOkuAvatar?: Scope }
-
-export const scopeAvatarProps = {
-  scopeOkuAvatar: {
-    ...ScopePropObject,
-  },
-}
-
-export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
-
-export function useImageLoadingStatus(src: Ref<string | undefined>) {
-  const mounted = ref(true)
+export function useImageLoadingStatus(src?: string) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
+
+  const isMounted = ref(true)
 
   watchEffect(() => {
     if (!isClient)
       return
 
-    if (!src.value) {
+    if (!src) {
       loadingStatus.value = 'error'
       return
     }
@@ -30,20 +19,19 @@ export function useImageLoadingStatus(src: Ref<string | undefined>) {
     const image = new window.Image()
 
     const updateStatus = (status: ImageLoadingStatus) => () => {
-      if (!mounted.value)
+      if (!isMounted.value)
         return
+
       loadingStatus.value = status
     }
 
     loadingStatus.value = 'loading'
     image.onload = updateStatus('loaded')
     image.onerror = updateStatus('error')
-    image.src = src.value
+    image.src = src
   })
 
-  onBeforeUnmount(() => {
-    mounted.value = false
-  })
+  onBeforeUnmount(() => isMounted.value = false)
 
   return loadingStatus
 }

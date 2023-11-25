@@ -28,7 +28,7 @@ export interface IAspectRatioProps {
 </template>
 
 <style>
-.aspect-ratio-root {
+.aspect-ratio {
   display: flex;
   align-items: center;
   justify-content: center;
