@@ -1,9 +1,30 @@
 import type { PropType } from 'vue'
-import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import {
+  Fragment,
+  defineComponent,
+  h,
+  mergeProps,
+  reactive,
+  ref,
+  toRefs,
+} from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
-import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
+import {
+  reactiveOmit,
+  useComposedRefs,
+  useForwardRef,
+} from '@oku-ui/use-composable'
+import {
+  type DismissableLayerEmits,
+  OkuDismissableLayer,
+  type DismissableLayerProps as OkuDismissableLayerProps,
+  dismissableLayerProps,
+} from '@oku-ui/dismissable-layer'
+import {
+  type FocusScopeEmits,
+  type FocusScopeProps,
+  OkuFocusScope,
+} from '@oku-ui/focus-scope'
 import { useFocusGuards } from '@oku-ui/focus-guards'
 
 import { primitiveProps } from '@oku-ui/primitive'
@@ -37,7 +58,6 @@ export type DialogContentImplEmits = {
   closeAutoFocus: [event: FocusScopeEmits['unmountAutoFocus'][0]]
 
   // pointerdownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
-
 } & Omit<DismissableLayerEmits, 'dismiss'>
 
 export const dialogContentImplProps = {
@@ -67,14 +87,13 @@ const dialogContentImpl = defineComponent({
   },
   emits: dialogContentImplProps.emits,
   setup(props, { emit, attrs, slots }) {
-    const {
-      scopeOkuDialog,
-      trapFocus,
-      ...contentProps
-    } = toRefs(props)
+    const { scopeOkuDialog, trapFocus, ...contentProps } = toRefs(props)
 
     const _reactive = reactive(contentProps)
-    const reactiveDialogProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const reactiveDialogProps = reactiveOmit(
+      _reactive,
+      (key, _value) => key === undefined,
+    )
 
     const inject = useDialogInject(CONTENT_NAME, scopeOkuDialog.value)
 
@@ -136,7 +155,8 @@ const dialogContentImpl = defineComponent({
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuDialogContentImpl = dialogContentImpl as typeof dialogContentImpl &
-(new () => {
-  $props: DialogContentImplNaviteElement
-})
+export const OkuDialogContentImpl
+  = dialogContentImpl as typeof dialogContentImpl &
+  (new () => {
+    $props: DialogContentImplNaviteElement
+  })

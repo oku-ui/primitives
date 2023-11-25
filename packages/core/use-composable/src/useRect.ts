@@ -7,9 +7,12 @@ function useRect() {
   const rect = ref<DOMRectReadOnly | null>(null)
   onMounted(() => {
     if (measurableElement.value) {
-      const unobserve = observeElementRect(measurableElement.value, (newRect) => {
-        rect.value = newRect
-      })
+      const unobserve = observeElementRect(
+        measurableElement.value,
+        (newRect) => {
+          rect.value = newRect
+        },
+      )
 
       onBeforeUnmount(() => {
         rect.value = null
@@ -24,6 +27,4 @@ function useRect() {
   }
 }
 
-export {
-  useRect,
-}
+export { useRect }

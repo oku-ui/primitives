@@ -31,6 +31,7 @@ overrides:
   '@oku-ui/radio-group': workspace:^
   '@oku-ui/roving-focus': workspace:^
   '@oku-ui/scroll-area': workspace:^
+  '@oku-ui/select': workspace:^
   '@oku-ui/separator': workspace:^
   '@oku-ui/slider': workspace:^
   '@oku-ui/slot': workspace:^
@@ -142,6 +143,9 @@ importers:
       '@oku-ui/scroll-area':
         specifier: workspace:^
         version: link:packages/components/scroll-area
+      '@oku-ui/select':
+        specifier: workspace:^
+        version: link:packages/components/select
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/components/separator
@@ -770,6 +774,55 @@ importers:
       vue:
         specifier: 3.3.7
         version: 3.3.7(typescript@5.2.2)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/select:
+    dependencies:
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:../../core/collection
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../../core/direction
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../../core/dismissable-layer
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:../../core/focus-scope
+      '@oku-ui/popper':
+        specifier: workspace:^
+        version: link:../../core/popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../../core/portal
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../../core/slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../../core/visually-hidden
+      aria-hidden:
+        specifier: ^1.2
+        version: 1.2.3
+      vue:
+        specifier: 3.3.4
+        version: 3.3.4
     devDependencies:
       tsconfig:
         specifier: workspace:^

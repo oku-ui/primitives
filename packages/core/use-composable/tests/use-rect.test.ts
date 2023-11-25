@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { useRect } from '../src/use-rect'
+import { useRect } from '../src/useRect'
 
 describe('useRect', () => {
   it('props', () => {
