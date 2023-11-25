@@ -42,10 +42,15 @@ const portal = defineComponent({
     const forwardedRef = useForwardRef()
 
     return () => container.value
-      ? h(Teleport, { to: container.value, disabled: !container.value }, h(Primitive.div, {
-        ...mergeProps(attrs, reactivePortalProps),
-        ref: forwardedRef,
-      }, slots))
+      ? h(Teleport, {
+        to: container.value,
+        disabled: !container.value,
+      }, [
+        h(Primitive.div, {
+          ...mergeProps(attrs, reactivePortalProps),
+          ref: forwardedRef,
+        }, slots.default?.()),
+      ])
       : null
   },
 })

@@ -23,7 +23,7 @@ const menuGroup = defineComponent({
       ...mergeProps(attrs, otherProps),
       role: 'group',
       ref: forwardedRef,
-    }, slots)
+    }, slots.default?.())
   },
 })
 

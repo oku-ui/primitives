@@ -29,9 +29,7 @@ const menuAnchor = defineComponent({
       ...mergeProps(attrs, otherProps),
       ...popperScope,
       ref: forwardedRef,
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, slots)
   },
 })
 

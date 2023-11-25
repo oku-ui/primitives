@@ -49,7 +49,7 @@ const visuallyHidden = defineComponent({
           wordWrap: 'normal',
           ...attrs.style as any,
         },
-      }, slots)
+      }, slots.default?.())
 
     return originalReturn
   },

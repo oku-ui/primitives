@@ -117,9 +117,7 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
         })
       })
 
-      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, {
-        default: () => slots.default?.(),
-      })
+      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
     },
   })
 

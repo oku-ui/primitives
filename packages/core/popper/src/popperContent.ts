@@ -176,24 +176,22 @@ const PopperContent = defineComponent({
           ].join(' '),
         } as CSSStyleDeclaration,
         'dir': props.dir,
-      }, {
-        default: () => [
-          h(Primitive.div, {
-            'data-side': placedSide.value,
-            'data-align': placedAlign.value,
-            ...mergeProps(attrs, reactiveContentProps),
-            'ref': composedRefs,
-            'style': {
-              ...attrs.style as any,
-              // if the PopperContent hasn't been placed yet (not all measurements done)
-              // we prevent animations so that users's animation don't kick in too early referring wrong sides
-              animation: !isPositioned.value ? 'none' : undefined,
-              // hide the content if using the hide middleware and should be hidden
-              opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
-            },
-          }, slots),
-        ],
-      })
+      }, [
+        h(Primitive.div, {
+          'data-side': placedSide.value,
+          'data-align': placedAlign.value,
+          ...mergeProps(attrs, reactiveContentProps),
+          'ref': composedRefs,
+          'style': {
+            ...attrs.style as any,
+            // if the PopperContent hasn't been placed yet (not all measurements done)
+            // we prevent animations so that users's animation don't kick in too early referring wrong sides
+            animation: !isPositioned.value ? 'none' : undefined,
+            // hide the content if using the hide middleware and should be hidden
+            opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
+          },
+        }, slots.default?.()),
+      ])
   },
 })
 
