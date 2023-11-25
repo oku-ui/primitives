@@ -39,6 +39,7 @@ export type {
 
 export type {
   MenuCheckboxItemProps,
+  MenuCheckboxItemEmits,
   MenuCheckboxItemElement,
   MenuCheckboxItemNativeElement,
 } from './props'
@@ -51,12 +52,14 @@ export type {
 
 export type {
   MenuContentImplProps,
+  MenuContentImplEmits,
   MenuContentImplElement,
   MenuContentImplNativeElement,
 } from './props'
 
 export type {
   MenuRootContentTypeProps,
+  MenuRootContentTypeEmits,
   MenuRootContentTypeElement,
   MenuRootContentTypeNativeElement,
 } from './props'
@@ -75,12 +78,14 @@ export type {
 
 export type {
   MenuItemProps,
+  MenuItemEmits,
   MenuItemElement,
   MenuItemNativeElement,
 } from './props'
 
 export type {
   MenuItemImplProps,
+  MenuItemImplEmits,
   MenuItemImplElement,
   MenuItemImplNativeElement,
 } from './props'
@@ -105,6 +110,7 @@ export type {
 
 export type {
   MenuRadioItemProps,
+  MenuRadioItemEmits,
   MenuRadioItemElement,
   MenuRadioItemNativeElement,
 } from './props'
@@ -117,16 +123,36 @@ export type {
 
 export type {
   MenuSubProps,
+  MenuSubEmits,
 } from './props'
 
 export type {
   MenuSubContentProps,
+  MenuSubContentEmits,
   MenuSubContentElement,
   MenuSubContentNativeElement,
 } from './props'
 
 export type {
   MenuSubTriggerProps,
+  MenuSubTriggerEmits,
   MenuSubTriggerElement,
   MenuSubTriggerNativeElement,
+} from './props'
+
+export {
+  createMenuScope,
+  menuPortalProps,
+  menuContentProps,
+  menuGroupProps,
+  menuLabelProps,
+  menuItemProps,
+  menuCheckboxItemProps,
+  menuRadioGroupProps,
+  menuRadioItemProps,
+  menuItemIndicatorProps,
+  menuSeparatorProps,
+  menuArrowProps,
+  menuSubTriggerProps,
+  menuSubContentProps,
 } from './props'

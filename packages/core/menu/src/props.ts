@@ -178,7 +178,7 @@ export const menuPortalProps = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- *  MenuContentImpl - menu-content-impl
+ * MenuContentImpl - menu-content-impl
  * ----------------------------------------------------------------------------------------------- */
 
 export type MenuContentImplNativeElement = PopperContentNaviteElement
@@ -292,7 +292,7 @@ export const menuContentImplProps = {
 }
 
 /* -------------------------------------------------------------------------------------------------
- *  MenuRootContentModal - menu-root-content-modal.ts
+ * MenuRootContentModal - menu-root-content-modal.ts
  * ----------------------------------------------------------------------------------------------- */
 
 export type MenuRootContentTypeNativeElement = MenuContentImplNativeElement
@@ -301,6 +301,7 @@ export type MenuRootContentTypeElement = MenuContentImplElement
 export interface MenuRootContentTypeProps extends Omit<MenuContentImplProps, keyof MenuContentImplPrivateProps> { }
 
 export type MenuRootContentTypeEmits = Omit<MenuContentImplEmits, keyof MenuContentImplPrivateEmits>
+
 export const menuRootContentTypeProps = {
   props: {
     ...propsOmit(menuContentImplProps.props, menuContentImplPrivateProps.propsKeys),
@@ -444,6 +445,7 @@ export const menuItemImplProps = {
 export const ITEM_SELECT = 'menu.itemSelect'
 
 export type MenuItemNativeElement = MenuItemImplNativeElement
+
 export type MenuItemElement = MenuItemImplElement
 
 export interface MenuItemProps extends MenuItemImplProps { }
@@ -619,6 +621,7 @@ export const menuSeparatorProps = {
 
 export type MenuArrowNativeElement = PopperArrowNaviteElement
 export type MenuArrowElement = PopperArrowElement
+
 export interface MenuArrowProps extends PopperArrowProps { }
 
 export const menuArrowProps = {
