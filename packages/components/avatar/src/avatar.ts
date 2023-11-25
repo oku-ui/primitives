@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { AVATAR_NAME, avatarProps, avatarProvider, scopeAvatarProps } from './props'
 import type { AvatarNativeElement, ImageLoadingStatus } from './props'
@@ -24,6 +24,7 @@ const avatar = defineComponent({
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const listeners = useListeners()
 
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
@@ -34,7 +35,7 @@ const avatar = defineComponent({
     })
 
     return () => h(Primitive.span, {
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, listeners),
       ref: forwardedRef,
     }, slots)
   },

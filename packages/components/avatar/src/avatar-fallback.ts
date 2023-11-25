@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { AVATAR_FALLBACK_NAME, avatarFallbackProps, scopeAvatarProps, useAvatarInject } from './props'
 import type { AvatarFallbackNativeElement } from './props'
@@ -28,6 +28,7 @@ const avatarFallback = defineComponent({
     const canRender = ref(delayMs.value === undefined)
 
     const forwardedRef = useForwardRef()
+    const listeners = useListeners()
 
     let timerId: number
 
@@ -42,7 +43,7 @@ const avatarFallback = defineComponent({
 
     return () => canRender.value && inject.imageLoadingStatus.value !== 'loaded'
       ? h(Primitive.span, {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, listeners),
         ref: forwardedRef,
       }, slots)
       : null
