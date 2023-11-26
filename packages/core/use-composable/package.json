@@ -35,11 +35,11 @@
   },
   "dependencies": {
     "@oku-ui/utils": "latest",
-    "@vue/shared": "^3.3.7",
-    "@vueuse/core": "^10.5.0"
+    "@vue/shared": "^3.3.9",
+    "@vueuse/core": "^10.6.1"
   },
   "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.9",
+    "@types/resize-observer-browser": "^0.1.11",
     "tsconfig": "workspace:^"
   },
   "publishConfig": {

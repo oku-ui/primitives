@@ -31,7 +31,7 @@
     "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "dependencies": {
-    "vue": "3.3.7"
+    "vue": "3.3.9"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

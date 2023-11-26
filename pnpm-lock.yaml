@@ -1347,17 +1347,17 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@vue/shared':
-        specifier: ^3.3.7
+        specifier: ^3.3.9
         version: 3.3.9
       '@vueuse/core':
-        specifier: ^10.5.0
+        specifier: ^10.6.1
         version: 10.6.1(vue@3.3.9)
       vue:
         specifier: 3.3.9
         version: 3.3.9(typescript@5.3.2)
     devDependencies:
       '@types/resize-observer-browser':
-        specifier: ^0.1.9
+        specifier: ^0.1.11
         version: 0.1.11
       tsconfig:
         specifier: workspace:^
@@ -4523,6 +4523,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: true
     bundledDependencies:
       - napi-wasm
@@ -11989,6 +11990,10 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
+    dev: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
     dev: true
 
   /natural-compare-lite@1.4.0:
