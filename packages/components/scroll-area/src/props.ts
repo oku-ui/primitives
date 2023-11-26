@@ -208,7 +208,7 @@ export type ScrollbarProvideValue = {
   scrollbar: Ref<ScrollAreaScrollbarElement | null>
   onThumbChange(thumb: ScrollAreaThumbElement | null): void
   onThumbPointerUp(): void
-  onThumbPointerDown(pointerPos: { x: number; y: number }): void
+  onThumbPointerDown(pointerPos: { x: number, y: number }): void
   onThumbPositionChange(): void
 }
 
@@ -225,7 +225,7 @@ export type ScrollAreaScrollbarImplPrivateEmits = {
   thumbPointerDown: [pointerPos: Parameters<ScrollbarProvideValue['onThumbPointerDown']>[0]]
   thumbPositionChange: []
   wheelScroll: [event: WheelEvent, maxScrollPos: number]
-  dragScroll: [pointerPos: { x: number; y: number }]
+  dragScroll: [pointerPos: { x: number, y: number }]
   resize: []
   pointerdown: [event: PointerEvent]
   pointermove: [event: PointerEvent]

@@ -53,4 +53,4 @@ const aspectRatio = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAspectRatio = aspectRatio as typeof aspectRatio &
-(new () => { $props: AspectRatioNativeElement })
+  (new () => { $props: AspectRatioNativeElement })

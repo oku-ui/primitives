@@ -94,4 +94,4 @@ const menuItem = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuItem = menuItem as typeof menuItem &
-(new () => { $props: MenuItemNativeElement })
+  (new () => { $props: MenuItemNativeElement })

@@ -59,6 +59,6 @@ const toolbarButton = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarButton = toolbarButton as typeof toolbarButton &
-(new () => {
-  $props: ToolbarButtonNaviteElement
-})
+  (new () => {
+    $props: ToolbarButtonNaviteElement
+  })

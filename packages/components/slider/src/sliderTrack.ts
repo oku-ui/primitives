@@ -52,6 +52,6 @@ const sliderTrack = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderTrack = sliderTrack as typeof sliderTrack &
-(new () => {
-  $props: SliderTrackNaviteElement
-})
+  (new () => {
+    $props: SliderTrackNaviteElement
+  })

@@ -47,6 +47,6 @@ const toolbarSeparator = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarSeparator = toolbarSeparator as typeof toolbarSeparator &
-(new () => {
-  $props: ToolbarSeparatorNaviteElement
-})
+  (new () => {
+    $props: ToolbarSeparatorNaviteElement
+  })

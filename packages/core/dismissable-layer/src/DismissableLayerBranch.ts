@@ -40,4 +40,4 @@ const DismissableLayerBranch = defineComponent({
 })
 
 export const OkuDismissableLayerBranch = DismissableLayerBranch as typeof DismissableLayerBranch &
-(new () => { $props: DismissableLayerBranchNativeElement })
+  (new () => { $props: DismissableLayerBranchNativeElement })

@@ -266,6 +266,6 @@ const toastViewport = defineComponent({
 })
 
 export const OkuToastViewport = toastViewport as typeof toastViewport &
-(new () => { $props: ToastViewportNaviteElement })
+  (new () => { $props: ToastViewportNaviteElement })
 
 export type { ToastViewportProps }

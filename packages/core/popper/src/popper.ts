@@ -26,4 +26,4 @@ const popper = defineComponent({
 })
 
 export const OkuPopper = popper as typeof popper &
-(new () => { $props: PopperProps })
+  (new () => { $props: PopperProps })

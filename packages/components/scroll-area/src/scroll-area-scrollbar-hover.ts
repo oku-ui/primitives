@@ -64,4 +64,4 @@ const scrollAreaScrollbarHover = defineComponent({
 })
 
 export const OkuScrollAreaScrollbarHover = scrollAreaScrollbarHover as typeof scrollAreaScrollbarHover &
-(new () => { $props: ScrollAreaScrollbarHoverNaviteElement })
+  (new () => { $props: ScrollAreaScrollbarHoverNaviteElement })

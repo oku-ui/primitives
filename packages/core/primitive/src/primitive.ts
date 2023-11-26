@@ -37,9 +37,9 @@ const Primitive = NODES.reduce((primitive, node) => {
   })
 
   const NodeProps = selectNode as typeof selectNode
-  & (new () => {
-    $props: OkuElement<typeof node, true>
-  })
+    & (new () => {
+      $props: OkuElement<typeof node, true>
+    })
 
   return { ...primitive, [node]: NodeProps }
 }, {} as Primitives)

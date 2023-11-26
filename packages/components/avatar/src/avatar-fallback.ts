@@ -52,4 +52,4 @@ const avatarFallback = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatarFallback = avatarFallback as typeof avatarFallback &
-(new () => { $props: AvatarFallbackNativeElement })
+  (new () => { $props: AvatarFallbackNativeElement })

@@ -68,6 +68,6 @@ const popoverContentModal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverContentModal = popoverContentModal as typeof popoverContentModal &
-(new () => {
-  $props: PopoverContentTypeNaviteElement
-})
+  (new () => {
+    $props: PopoverContentTypeNaviteElement
+  })

@@ -42,4 +42,4 @@ const menuRootContentNonModal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuRootContentNonModal = menuRootContentNonModal as typeof menuRootContentNonModal &
-(new () => { $props: MenuPortalNativeElement })
+  (new () => { $props: MenuPortalNativeElement })

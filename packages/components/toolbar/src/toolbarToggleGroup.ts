@@ -53,6 +53,6 @@ const toolbarToggleGroup = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarToggleGroup = toolbarToggleGroup as typeof toolbarToggleGroup &
-(new () => {
-  $props: ToolbarToggleGroupProps
-})
+  (new () => {
+    $props: ToolbarToggleGroupProps
+  })

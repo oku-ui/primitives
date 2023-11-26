@@ -74,6 +74,6 @@ const dialogPortal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogPortal = dialogPortal as typeof dialogPortal &
-(new () => {
-  $props: DialogPortalNaviteElement
-})
+  (new () => {
+    $props: DialogPortalNaviteElement
+  })

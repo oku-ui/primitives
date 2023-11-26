@@ -141,6 +141,6 @@ const sliderImpl = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderImpl = sliderImpl as typeof sliderImpl &
-(new () => {
-  $props: SliderImplNaviteElement
-})
+  (new () => {
+    $props: SliderImplNaviteElement
+  })

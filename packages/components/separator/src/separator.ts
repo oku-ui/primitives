@@ -101,6 +101,6 @@ function isValidOrientation(orientation: any): orientation is Orientation {
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSeparator = separator as typeof separator &
-(new () => {
-  $props: SeparatorNaviteElement
-})
+  (new () => {
+    $props: SeparatorNaviteElement
+  })

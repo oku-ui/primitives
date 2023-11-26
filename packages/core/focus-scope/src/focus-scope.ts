@@ -298,6 +298,6 @@ const focusScope = defineComponent({
 })
 
 export const OkuFocusScope = focusScope as typeof focusScope &
-(new () => {
-  $props: FocusScopeNativeElement
-})
+  (new () => {
+    $props: FocusScopeNativeElement
+  })

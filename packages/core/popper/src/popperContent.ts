@@ -197,6 +197,6 @@ const PopperContent = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopperContent = PopperContent as typeof PopperContent
-& (new () => {
-  $props: PopperContentNaviteElement
-})
+  & (new () => {
+    $props: PopperContentNaviteElement
+  })

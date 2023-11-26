@@ -88,6 +88,6 @@ const hoverCardTrigger = defineComponent({
 })
 
 export const OkuHoverCardTrigger = hoverCardTrigger as typeof hoverCardTrigger &
-(new () => {
-  $props: HoverCardTriggerNativeElement
-})
+  (new () => {
+    $props: HoverCardTriggerNativeElement
+  })

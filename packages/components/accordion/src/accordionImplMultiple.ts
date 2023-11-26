@@ -74,6 +74,6 @@ const accordionImplMultiple = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAccordionImplMultiple = accordionImplMultiple as typeof accordionImplMultiple
 &
-(new () => {
-  $props: AccordionImplMultipleNativeElement
-})
+  (new () => {
+    $props: AccordionImplMultipleNativeElement
+  })

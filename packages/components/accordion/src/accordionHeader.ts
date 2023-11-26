@@ -46,6 +46,6 @@ const accordionHeader = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAccordionHeader = accordionHeader as typeof accordionHeader
 &
-(new () => {
-  $props: AccordionHeaderNativeElement
-})
+  (new () => {
+    $props: AccordionHeaderNativeElement
+  })
