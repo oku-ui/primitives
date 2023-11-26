@@ -72,6 +72,6 @@ const toastAnnounce = defineComponent({
 })
 
 export const OkuToastAnnounce = toastAnnounce as typeof toastAnnounce &
-(new () => { $props: ToastAnnounceNaviteElement })
+  (new () => { $props: ToastAnnounceNaviteElement })
 
 export type { ToastAnnounceProps }

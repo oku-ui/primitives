@@ -31,6 +31,6 @@ const alertDialogAction = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAlertDialogAction = alertDialogAction as typeof alertDialogAction &
-(new () => {
-  $props: AlertDialogActionNaviteElement
-})
+  (new () => {
+    $props: AlertDialogActionNaviteElement
+  })

@@ -69,4 +69,4 @@ const scrollAreaViewport = defineComponent({
 })
 
 export const OkuScrollAreaViewport = scrollAreaViewport as typeof scrollAreaViewport &
-(new () => { $props: ScrollAreaViewportNaviteElement })
+  (new () => { $props: ScrollAreaViewportNaviteElement })

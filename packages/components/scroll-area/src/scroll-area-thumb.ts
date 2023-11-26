@@ -41,4 +41,4 @@ const scrollAreaThumb = defineComponent({
 })
 
 export const OkuScrollAreaThumb = scrollAreaThumb as typeof scrollAreaThumb &
-(new () => { $props: ScrollAreaThumbNaviteElement })
+  (new () => { $props: ScrollAreaThumbNaviteElement })

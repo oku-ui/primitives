@@ -56,4 +56,4 @@ const portal = defineComponent({
 })
 
 export const OkuPortal = portal as typeof portal &
-(new () => { $props: PortalElementNaviteElement })
+  (new () => { $props: PortalElementNaviteElement })

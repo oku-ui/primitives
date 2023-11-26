@@ -1,26 +1,26 @@
 export type SelectPackage =
-'aspect-ratio' |
-'avatar' |
-'checkbox' |
-'collapsible' |
-'dialog' |
-'hover-card' |
-'label' |
-'popover' |
-'progress' |
-'radio-group' |
-'separator' |
-'slider' |
-'switch' |
-'tabs' |
-'toast' |
-'toggle' |
-'toggle-group' |
-'toolbar' |
-'tooltip' |
-'accordion' |
-'alert-dialog' |
-'scroll-area'
+  'aspect-ratio' |
+  'avatar' |
+  'checkbox' |
+  'collapsible' |
+  'dialog' |
+  'hover-card' |
+  'label' |
+  'popover' |
+  'progress' |
+  'radio-group' |
+  'separator' |
+  'slider' |
+  'switch' |
+  'tabs' |
+  'toast' |
+  'toggle' |
+  'toggle-group' |
+  'toolbar' |
+  'tooltip' |
+  'accordion' |
+  'alert-dialog' |
+  'scroll-area'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {

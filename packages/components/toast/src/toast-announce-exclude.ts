@@ -52,4 +52,4 @@ const toastAnnounceExclude = defineComponent({
 })
 
 export const OkuToastAnnounceExclude = toastAnnounceExclude as typeof toastAnnounceExclude &
-(new () => { $props: ToastAnnounceExcludeNaviteElement })
+  (new () => { $props: ToastAnnounceExcludeNaviteElement })

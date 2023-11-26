@@ -69,6 +69,6 @@ const arrow = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuArrow = arrow as typeof arrow
-& (new () => {
-  $props: ArrowNaviteElement
-})
+  & (new () => {
+    $props: ArrowNaviteElement
+  })

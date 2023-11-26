@@ -50,7 +50,7 @@ function handleAndDispatchCustomEvent<E extends CustomEvent, OriginalEvent exten
     currentTarget.dispatchEvent(event)
 }
 
-function isDeltaInDirection(delta: { x: number; y: number }, direction: SwipeDirection, threshold = 0) {
+function isDeltaInDirection(delta: { x: number, y: number }, direction: SwipeDirection, threshold = 0) {
   const deltaX = Math.abs(delta.x)
   const deltaY = Math.abs(delta.y)
   const isDeltaX = deltaX > deltaY

@@ -58,6 +58,6 @@ const dialogClose = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogClose = dialogClose as typeof dialogClose &
-(new () => {
-  $props: DialogCloseNaviteElement
-})
+  (new () => {
+    $props: DialogCloseNaviteElement
+  })

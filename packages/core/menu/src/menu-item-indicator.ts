@@ -42,4 +42,4 @@ const menuItemIndicator = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuItemIndicator = menuItemIndicator as typeof menuItemIndicator &
-(new () => { $props: MenuItemIndicatorNativeElement })
+  (new () => { $props: MenuItemIndicatorNativeElement })

@@ -66,4 +66,4 @@ const toastFocusProxy = defineComponent({
 })
 
 export const OkuToastFocusProxy = toastFocusProxy as typeof toastFocusProxy &
-(new () => { $props: FocusProxyNativeElement })
+  (new () => { $props: FocusProxyNativeElement })

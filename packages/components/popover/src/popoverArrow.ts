@@ -32,6 +32,6 @@ const popoverArrow = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverArrow = popoverArrow as typeof popoverArrow &
-(new () => {
-  $props: PopoverArrowNaviteElement
-})
+  (new () => {
+    $props: PopoverArrowNaviteElement
+  })

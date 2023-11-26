@@ -24,7 +24,7 @@ export type SliderOrientationPrivateEmits = {
   'slideEnd'?: []
   'homeKeyDown': [event: KeyboardEvent]
   'endKeyDown': [event: KeyboardEvent]
-  'stepKeyDown': [step: { event: KeyboardEvent; direction: number }]
+  'stepKeyDown': [step: { event: KeyboardEvent, direction: number }]
 }
 
 export const sliderOrientationPrivateProps = {
@@ -51,7 +51,7 @@ export const sliderOrientationPrivateProps = {
     // eslint-disable-next-line unused-imports/no-unused-vars
     endKeyDown: (event: KeyboardEvent) => true,
     // eslint-disable-next-line unused-imports/no-unused-vars
-    stepKeyDown: (step: { event: KeyboardEvent; direction: number }) => true,
+    stepKeyDown: (step: { event: KeyboardEvent, direction: number }) => true,
   },
 }
 
@@ -176,6 +176,6 @@ const sliderHorizontal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSliderHorizontal = sliderHorizontal as typeof sliderHorizontal &
-(new () => {
-  $props: SliderHorizontalNaviteElement
-})
+  (new () => {
+    $props: SliderHorizontalNaviteElement
+  })

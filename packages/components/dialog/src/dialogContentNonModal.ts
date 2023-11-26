@@ -86,6 +86,6 @@ const dialogContentNonModal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogContentNonModal = dialogContentNonModal as typeof dialogContentNonModal &
-(new () => {
-  $props: DialogContentNonModalNaviteElement
-})
+  (new () => {
+    $props: DialogContentNonModalNaviteElement
+  })

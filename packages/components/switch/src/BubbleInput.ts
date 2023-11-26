@@ -98,6 +98,6 @@ export const BubbleInput = defineComponent({
 })
 
 export const OkuBubbleInput = BubbleInput as typeof BubbleInput &
-(new () => {
-  $props: BubbleInputNaviteElement
-})
+  (new () => {
+    $props: BubbleInputNaviteElement
+  })

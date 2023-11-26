@@ -121,6 +121,6 @@ const rovingFocusGroupItem = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuRovingFocusGroupItem = rovingFocusGroupItem as typeof rovingFocusGroupItem &
-(new () => {
-  $props: RovingFocusGroupItemNaviteElement
-})
+  (new () => {
+    $props: RovingFocusGroupItemNaviteElement
+  })

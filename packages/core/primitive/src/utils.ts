@@ -10,8 +10,8 @@ export function isValidVNodeElement(input: any): boolean {
   return (
     input
     && (typeof input.type === 'string'
-      || typeof input.type === 'object'
-      || typeof input.type === 'function')
+    || typeof input.type === 'object'
+    || typeof input.type === 'function')
   )
 }
 

@@ -107,4 +107,4 @@ const toastProvider = defineComponent({
 })
 
 export const OkuToastProvider = toastProvider as typeof toastProvider &
-(new () => { $props: ToastNativeElement })
+  (new () => { $props: ToastNativeElement })

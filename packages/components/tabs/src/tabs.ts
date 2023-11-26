@@ -169,6 +169,6 @@ const tabs = defineComponent({
 })
 
 export const OkuTabs = tabs as typeof tabs &
-(new () => {
-  $props: TabsNaviteElement
-})
+  (new () => {
+    $props: TabsNaviteElement
+  })

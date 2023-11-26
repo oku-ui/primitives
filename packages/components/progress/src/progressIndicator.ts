@@ -63,6 +63,6 @@ const progressIndicator = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuProgressIndicator = progressIndicator as typeof progressIndicator &
-(new () => {
-  $props: ProgressIndicatorNaviteElement
-})
+  (new () => {
+    $props: ProgressIndicatorNaviteElement
+  })
