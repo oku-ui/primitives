@@ -31,7 +31,7 @@ const Primitive = NODES.reduce((primitive, node) => {
 
       return () => {
         const mergedProps = mergeProps(attrs, primitiveProps)
-        return createVNode(Tag, { ...mergedProps, ref: composedRefs }, slots)
+        return createVNode(Tag, { ...mergedProps, ref: composedRefs }, slots.default?.())
       }
     },
   })

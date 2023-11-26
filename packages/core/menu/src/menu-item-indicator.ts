@@ -35,7 +35,7 @@ const menuItemIndicator = defineComponent({
         ...mergeProps(attrs, otherProps),
         'ref': forwardedRef,
         'data-state': getCheckedState(indicatorInject.checked.value),
-      }, slots),
+      }, slots.default?.()),
     })
   },
 })

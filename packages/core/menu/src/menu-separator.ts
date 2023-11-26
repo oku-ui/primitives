@@ -27,7 +27,7 @@ const menuSeparator = defineComponent({
       'aria-orientation': 'horizontal',
       ...mergeProps(attrs, otherProps),
       'ref': forwardedRef,
-    }, slots)
+    }, slots.default?.())
   },
 })
 

@@ -57,13 +57,13 @@ const arrow = defineComponent({
       height: height.value,
       viewBox: '0 0 30 10',
       preserveAspectRatio: 'none',
-    }, {
-      default: () => props.asChild
+    }, [
+      props.asChild
         ? slots.default?.()
         : h('polygon', {
           points: '0,0 30,0 15,10',
         }),
-    })
+    ])
   },
 })
 

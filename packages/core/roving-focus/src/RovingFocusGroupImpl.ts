@@ -85,54 +85,52 @@ const RovingFocusGroupImpl = defineComponent({
       },
     })
 
-    return () => {
-      return h(Primitive.div, {
-        'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
-        'data-orientation': orientation?.value,
-        ...mergeProps(attrs, reactiveProupProps),
-        'ref': composedRefs,
-        'style': {
-          outline: 'none',
-          ...attrs.style as any,
-        },
-        'onMousedown': composeEventHandlers<MouseEvent>((e) => {
-          emit('mousedown', e)
-        }, () => {
-          isClickFocusRef.value = true
-        }),
-        'onFocus': composeEventHandlers<FocusEvent>((e) => {
-          emit('focus', e)
-        }, (event: FocusEvent) => {
-          // We normally wouldn't need this check, because we already check
-          // that the focus is on the current target and not bubbling to it.
-          // We do this because Safari doesn't focus buttons when clicked, and
-          // instead, the wrapper will get focused and not through a bubbling event.
-          const isKeyboardFocus = !isClickFocusRef.value
+    return () => h(Primitive.div, {
+      'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
+      'data-orientation': orientation?.value,
+      ...mergeProps(attrs, reactiveProupProps),
+      'ref': composedRefs,
+      'style': {
+        outline: 'none',
+        ...attrs.style as any,
+      },
+      'onMousedown': composeEventHandlers<MouseEvent>((e) => {
+        emit('mousedown', e)
+      }, () => {
+        isClickFocusRef.value = true
+      }),
+      'onFocus': composeEventHandlers<FocusEvent>((e) => {
+        emit('focus', e)
+      }, (event: FocusEvent) => {
+        // We normally wouldn't need this check, because we already check
+        // that the focus is on the current target and not bubbling to it.
+        // We do this because Safari doesn't focus buttons when clicked, and
+        // instead, the wrapper will get focused and not through a bubbling event.
+        const isKeyboardFocus = !isClickFocusRef.value
 
-          if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
-            const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
-            event.currentTarget?.dispatchEvent(entryFocusEvent)
-            if (!entryFocusEvent.defaultPrevented) {
-              const items = getItems().filter(item => item.focusable)
-              const activeItem = items.find(item => item.active)
-              const currentItem = items.find(item => item.id === currentTabStopId.value)
-              const candidateItems = [activeItem, currentItem, ...items].filter(
-                Boolean,
-              ) as typeof items
-              const candidateNodes = candidateItems.map(item => item.ref.value)
-              focusFirst(candidateNodes)
-            }
+        if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
+          const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
+          event.currentTarget?.dispatchEvent(entryFocusEvent)
+          if (!entryFocusEvent.defaultPrevented) {
+            const items = getItems().filter(item => item.focusable)
+            const activeItem = items.find(item => item.active)
+            const currentItem = items.find(item => item.id === currentTabStopId.value)
+            const candidateItems = [activeItem, currentItem, ...items].filter(
+              Boolean,
+            ) as typeof items
+            const candidateNodes = candidateItems.map(item => item.ref.value)
+            focusFirst(candidateNodes)
           }
+        }
 
-          isClickFocusRef.value = false
-        }),
-        'onBlur': composeEventHandlers<FocusEvent>((e) => {
-          emit('blur', e)
-        }, () => {
-          isTabbingBackOut.value = false
-        }),
-      }, slots)
-    }
+        isClickFocusRef.value = false
+      }),
+      'onBlur': composeEventHandlers<FocusEvent>((e) => {
+        emit('blur', e)
+      }, () => {
+        isTabbingBackOut.value = false
+      }),
+    }, slots.default?.())
   },
 })
 

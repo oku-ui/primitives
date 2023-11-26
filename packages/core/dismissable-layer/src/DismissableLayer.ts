@@ -153,7 +153,7 @@ const DismissableLayer = defineComponent({
       onPointerdownCapture: composeEventHandlers<PointerdownCaptureEvent>((event) => {
         emit('pointerdownCapture', event)
       }, pointerdownOutside.onPointerdownCapture),
-    }, slots)
+    }, slots.default?.())
   },
 })
 

@@ -34,7 +34,7 @@ const rovingFocusGroup = defineComponent({
           default: () => h(OkuRovingFocusGroupImpl, {
             ...mergeProps(attrs, props, emits),
             ref: forwardedRef,
-          }, slots),
+          }, slots.default?.()),
         }),
       })
     }

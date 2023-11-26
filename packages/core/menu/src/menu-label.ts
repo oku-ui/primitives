@@ -25,7 +25,7 @@ const menuLabel = defineComponent({
     return () => h(Primitive.div, {
       ...mergeProps(attrs, otherProps),
       ref: forwardedRef,
-    }, slots)
+    }, slots.default?.())
   },
 })
 
