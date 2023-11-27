@@ -40,7 +40,7 @@ const Checkbox = defineComponent({
     const composedRefs = useComposedRefs(forwardedRef, buttonRef)
     const hasConsumerStoppedPropagationRef = ref(false)
     // We set this to true by default so that events bubble to forms without JS (SSR)
-    const isFormControl = computed(() => buttonRef.value ? Boolean(buttonRef.value?.closest('form')) : true)
+    const isFormControl = computed(() => buttonRef.value instanceof HTMLElement ? Boolean(buttonRef.value.closest('form')) : false)
 
     const modelValue = useModel(props, 'modelValue')
     const proxyChecked = computed({
