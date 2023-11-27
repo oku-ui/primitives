@@ -138,6 +138,6 @@ const toggle = defineComponent({
 })
 
 export const OkuToggle = toggle as typeof toggle &
-(new () => {
-  $props: ToggleElementNaviteElement
-})
+  (new () => {
+    $props: ToggleElementNaviteElement
+  })

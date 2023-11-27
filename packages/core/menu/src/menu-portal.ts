@@ -40,4 +40,4 @@ const menuPortal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuPortal = menuPortal as typeof menuPortal &
-(new () => { $props: MenuPortalNativeElement })
+  (new () => { $props: MenuPortalNativeElement })

@@ -137,6 +137,6 @@ const dialogContentImpl = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogContentImpl = dialogContentImpl as typeof dialogContentImpl &
-(new () => {
-  $props: DialogContentImplNaviteElement
-})
+  (new () => {
+    $props: DialogContentImplNaviteElement
+  })

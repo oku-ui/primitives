@@ -221,8 +221,8 @@ const Switch = defineComponent({
 })
 
 export const OkuSwitch = Switch as typeof Switch &
-(new () => {
-  $props: SwitchNaviteElement
-})
+  (new () => {
+    $props: SwitchNaviteElement
+  })
 
 export { useSwitchInject, createSwitchScope }

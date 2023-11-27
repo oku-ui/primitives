@@ -101,4 +101,4 @@ const menuSubContent = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuSubContent = menuSubContent as typeof menuSubContent &
-(new () => { $props: MenuSubContentNativeElement })
+  (new () => { $props: MenuSubContentNativeElement })

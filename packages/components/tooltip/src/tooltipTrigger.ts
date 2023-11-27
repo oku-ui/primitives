@@ -130,6 +130,6 @@ const tooltipTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipTrigger = tooltipTrigger as typeof tooltipTrigger &
-(new () => {
-  $props: TooltipTriggerNaviteElement
-})
+  (new () => {
+    $props: TooltipTriggerNaviteElement
+  })

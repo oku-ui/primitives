@@ -47,6 +47,6 @@ const dialogTitle = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogTitle = dialogTitle as typeof dialogTitle &
-(new () => {
-  $props: DialogTitleNaviteElement
-})
+  (new () => {
+    $props: DialogTitleNaviteElement
+  })

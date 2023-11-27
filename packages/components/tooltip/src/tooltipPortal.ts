@@ -80,6 +80,6 @@ const tooltipPortal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipPortal = tooltipPortal as typeof tooltipPortal &
-(new () => {
-  $props: TooltipPortalNaviteElement
-})
+  (new () => {
+    $props: TooltipPortalNaviteElement
+  })

@@ -44,6 +44,6 @@ const popperAnchor = defineComponent({
 })
 
 export const OkuPopperAnchor = popperAnchor as typeof popperAnchor &
-(new () => {
-  $props: PopperAnchorNaviteElement
-})
+  (new () => {
+    $props: PopperAnchorNaviteElement
+  })

@@ -60,4 +60,4 @@ const scrollAreaCornerImpl = defineComponent({
 })
 
 export const OkuScrollAreaCornerImpl = scrollAreaCornerImpl as typeof scrollAreaCornerImpl &
-(new () => { $props: ScrollAreaCornerImplNaviteElement })
+  (new () => { $props: ScrollAreaCornerImplNaviteElement })

@@ -29,4 +29,4 @@ const menuGroup = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuGroup = menuGroup as typeof menuGroup &
-(new () => { $props: MenuGroupNativeElement })
+  (new () => { $props: MenuGroupNativeElement })

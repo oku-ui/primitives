@@ -158,4 +158,4 @@ const DismissableLayer = defineComponent({
 })
 
 export const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer &
-(new () => { $props: DismissableLayerNativeElement })
+  (new () => { $props: DismissableLayerNativeElement })

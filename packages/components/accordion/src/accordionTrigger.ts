@@ -59,6 +59,6 @@ const accordionTrigger = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAccordionTrigger = accordionTrigger as typeof accordionTrigger
 &
-(new () => {
-  $props: AccordionTriggerNativeElement
-})
+  (new () => {
+    $props: AccordionTriggerNativeElement
+  })

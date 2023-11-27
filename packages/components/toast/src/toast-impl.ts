@@ -18,7 +18,7 @@ const TOAST_SWIPE_CANCEL = 'toast.swipeCancel'
 const TOAST_SWIPE_END = 'toast.swipeEnd'
 
 export type SwipeEvent = { currentTarget: EventTarget & ToastImplElement } & Omit<
-  CustomEvent<{ originalEvent: PointerEvent; delta: { x: number; y: number } }>,
+  CustomEvent<{ originalEvent: PointerEvent, delta: { x: number, y: number } }>,
   'currentTarget'
 >
 
@@ -138,8 +138,8 @@ const toastImpl = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, node)
 
-    const pointerStartRef = ref<{ x: number; y: number } | null>(null)
-    const swipeDeltaRef = ref<{ x: number; y: number } | null>(null)
+    const pointerStartRef = ref<{ x: number, y: number } | null>(null)
+    const swipeDeltaRef = ref<{ x: number, y: number } | null>(null)
     const duration = computed(() => durationProp.value || inject.duration.value)
     const closeTimerStartTimeRef = ref(0)
     const closeTimerRemainingTimeRef = ref(duration.value)
@@ -366,4 +366,4 @@ const toastImpl = defineComponent({
 })
 
 export const OkuToastImpl = toastImpl as typeof toastImpl &
-(new () => { $props: ToastImplNaviteElement })
+  (new () => { $props: ToastImplNaviteElement })

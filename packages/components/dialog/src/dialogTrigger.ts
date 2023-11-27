@@ -61,6 +61,6 @@ const dialogTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogTrigger = dialogTrigger as typeof dialogTrigger &
-(new () => {
-  $props: DialogTriggerNaviteElement
-})
+  (new () => {
+    $props: DialogTriggerNaviteElement
+  })

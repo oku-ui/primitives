@@ -57,6 +57,6 @@ const visuallyHidden = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuVisuallyHidden = visuallyHidden as typeof visuallyHidden &
-(new () => {
-  $props: VisuallyHiddenNaviteElement
-})
+  (new () => {
+    $props: VisuallyHiddenNaviteElement
+  })

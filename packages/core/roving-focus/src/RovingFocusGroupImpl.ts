@@ -136,6 +136,6 @@ const RovingFocusGroupImpl = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocusGroupImpl &
-(new () => {
-  $props: RovingFocusGroupImplNaviteElement
-})
+  (new () => {
+    $props: RovingFocusGroupImplNaviteElement
+  })

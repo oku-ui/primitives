@@ -60,6 +60,6 @@ const popoverTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopoverTrigger = popoverTrigger as typeof popoverTrigger &
-(new () => {
-  $props: PopoverTriggerNaviteElement
-})
+  (new () => {
+    $props: PopoverTriggerNaviteElement
+  })

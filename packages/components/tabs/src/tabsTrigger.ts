@@ -126,6 +126,6 @@ const tabsTrigger = defineComponent({
 })
 
 export const OkuTabsTrigger = tabsTrigger as typeof tabsTrigger &
-(new () => {
-  $props: TabsTriggerElementNaviteElement
-})
+  (new () => {
+    $props: TabsTriggerElementNaviteElement
+  })

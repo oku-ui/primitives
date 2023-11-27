@@ -115,4 +115,4 @@ const scrollAreaScrollbarVisible = defineComponent({
 })
 
 export const OkuScrollAreaScrollbarVisible = scrollAreaScrollbarVisible as typeof scrollAreaScrollbarVisible &
-(new () => { $props: ScrollAreaScrollbarVisibleNaviteElement })
+  (new () => { $props: ScrollAreaScrollbarVisibleNaviteElement })

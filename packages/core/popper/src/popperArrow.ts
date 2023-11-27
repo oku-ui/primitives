@@ -71,6 +71,6 @@ const popperArrow = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuPopperArrow = popperArrow as typeof popperArrow
-& (new () => {
-  $props: PopperArrowNaviteElement
-})
+  & (new () => {
+    $props: PopperArrowNaviteElement
+  })

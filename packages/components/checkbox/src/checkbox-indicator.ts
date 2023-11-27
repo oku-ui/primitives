@@ -44,4 +44,4 @@ const checkboxIndicator = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCheckboxIndicator = checkboxIndicator as typeof checkboxIndicator &
-(new () => { $props: CheckboxIndicatorNativeElement })
+  (new () => { $props: CheckboxIndicatorNativeElement })

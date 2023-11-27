@@ -66,4 +66,4 @@ const menuRootContentModel = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuMenuRootContentModal = menuRootContentModel as typeof menuRootContentModel &
-(new () => { $props: MenuRootContentTypeNativeElement })
+  (new () => { $props: MenuRootContentTypeNativeElement })

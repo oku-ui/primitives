@@ -56,6 +56,6 @@ const SwitchThumb = defineComponent({
 })
 
 export const OkuSwitchThumb = SwitchThumb as typeof SwitchThumb &
-(new () =>
-{ $props: SwitchThumbNaviteElement
-})
+  (new () =>
+  { $props: SwitchThumbNaviteElement
+  })

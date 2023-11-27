@@ -43,4 +43,4 @@ const avatar = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAvatar = avatar as typeof avatar &
-(new () => { $props: AvatarNativeElement })
+  (new () => { $props: AvatarNativeElement })

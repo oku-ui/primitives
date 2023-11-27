@@ -69,6 +69,6 @@ const toolbarLink = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuToolbarLink = toolbarLink as typeof toolbarLink &
-(new () => {
-  $props: ToolbarLinkNaviteElement
-})
+  (new () => {
+    $props: ToolbarLinkNaviteElement
+  })
