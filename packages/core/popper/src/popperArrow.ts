@@ -62,9 +62,7 @@ const popperArrow = defineComponent({
               // ensures the element can be measured correctly (mostly for if SVG)
               display: 'block',
             },
-          }, {
-            default: () => slots.default?.(),
-          }),
+          }, slots),
         ],
       )
     return originalReturn

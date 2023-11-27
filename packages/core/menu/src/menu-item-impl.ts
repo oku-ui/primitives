@@ -103,7 +103,7 @@ const menuItemImpl = defineComponent({
           'onBlur': composeEventHandlers<MenuItemImplEmits['blur'][0]>((event) => {
             emit('blur', event)
           }, () => isFocused.value = false),
-        }, slots),
+        }, slots.default?.()),
       }),
     })
   },

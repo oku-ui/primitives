@@ -112,7 +112,7 @@ const rovingFocusGroupItem = defineComponent({
               setTimeout(() => focusFirst(candidateNodes))
             }
           }),
-        }, slots)
+        }, slots.default?.())
       },
     })
   },

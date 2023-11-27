@@ -35,7 +35,7 @@ const DismissableLayerBranch = defineComponent({
       ...attrs,
       ref: composedRefs,
       asChild: props.asChild,
-    }, slots)
+    }, slots.default?.())
   },
 })
 

@@ -229,15 +229,15 @@ const toastImpl = defineComponent({
 
       return h(Fragment, [
         announceTextContent.value
-          && h(OkuToastAnnounce, {
-            'scope': props.scopeOkuToast,
-            // Toasts are always role=status to avoid stuttering issues with role=alert in SRs.
-            'role': 'status',
-            'aria-live': computed(() => type.value === 'foreground' ? 'assertive' : 'polite').value,
-            'aria-atomic': true,
-          }, {
-            default: () => announceTextContent.value,
-          }),
+        && h(OkuToastAnnounce, {
+          'scope': props.scopeOkuToast,
+          // Toasts are always role=status to avoid stuttering issues with role=alert in SRs.
+          'role': 'status',
+          'aria-live': computed(() => type.value === 'foreground' ? 'assertive' : 'polite').value,
+          'aria-atomic': true,
+        }, {
+          default: () => announceTextContent.value,
+        }),
 
         h(Teleport, { to: inject.viewport.value }, h(CollectionItemSlot, { scope: props.scopeOkuToast }, {
           default: () => h(OkuDismissableLayer, {

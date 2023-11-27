@@ -38,7 +38,7 @@ const popperAnchor = defineComponent({
             ...mergeProps(reactiveAnchorProps, attrs),
             ref: composedRefs,
           },
-          slots,
+          slots.default?.(),
         )
   },
 })

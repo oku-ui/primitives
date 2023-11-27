@@ -290,9 +290,7 @@ const focusScope = defineComponent({
           onKeydown: handleKeydown,
           ref: composedRefs,
         },
-        {
-          default: () => slots.default?.(),
-        },
+        slots.default?.(),
       )
 
     return originalReturn
