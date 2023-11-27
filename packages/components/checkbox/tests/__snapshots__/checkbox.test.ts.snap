@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuCheckbox > should render OkuCheckbox correctly 1`] = `
+"<div><button type=\\"button\\" role=\\"checkbox\\" aria-checked=\\"false\\" aria-required=\\"false\\" data-state=\\"unchecked\\" aria-label=\\"basic checkbox\\" value=\\"on\\">
+    <!---->
+  </button>
+  <!---->
+</div>"
+`;
+
+exports[`okuCheckbox > should render OkuCheckbox correctly 2`] = `"<primitivebutton-stub aschild=\\"false\\" type=\\"button\\" role=\\"checkbox\\" aria-checked=\\"false\\" aria-required=\\"false\\" data-state=\\"unchecked\\" disabled=\\"false\\" value=\\"on\\"></primitivebutton-stub>"`;
