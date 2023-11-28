@@ -28,7 +28,7 @@ const OkuSlot = defineComponent({
         return createVNode(newParentElement.type, {
           ...mergeProps(attrs, props, newParentElement.props),
           ref: composedRefs,
-        }, () => newChildren)
+        }, newChildren)
       }
       else if (defaultSlot) {
         if (defaultSlot.length > 1)
