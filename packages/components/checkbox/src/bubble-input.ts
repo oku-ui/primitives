@@ -1,11 +1,11 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useListeners, usePrevious, useSize } from '@oku-ui/use-composable'
 import { isIndeterminate } from './utils'
-import { bubbleInputProps } from './props'
+import { CHECKBOX_BUBBLE_INPUT_NAME, bubbleInputProps } from './props'
 import type { BubbleInputNativeElement } from './props'
 
 const bubbleInput = defineComponent({
-  name: 'OkuBubbleInput',
+  name: CHECKBOX_BUBBLE_INPUT_NAME,
   inheritAttrs: false,
   props: {
     ...bubbleInputProps.props,
