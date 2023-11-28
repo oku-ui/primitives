@@ -28,7 +28,7 @@ const OkuSlot = defineComponent({
         return createVNode(newParentElement.type, {
           ...mergeProps(attrs, props, newParentElement.props),
           ref: composedRefs,
-        }, newChildren)
+        }, () => newChildren)
       }
       else if (defaultSlot) {
         if (defaultSlot.length > 1)
@@ -50,7 +50,7 @@ const OkuSlottable = defineComponent({
   name: 'OkuSlottable',
   inheritAttrs: false,
   setup(_, { slots }) {
-    return slots.default ? () => slots.default?.() : null
+    return () => slots.default ? slots.default?.() : null
   },
 })
 
