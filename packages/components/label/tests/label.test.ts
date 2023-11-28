@@ -7,7 +7,6 @@ import { OkuLabel } from '../src'
 
 import Styled from '../src/stories/Styled.vue'
 import WithControl from '../src/stories/WithControl.vue'
-import Control from '../src/stories/Control.vue'
 
 enableAutoUnmount(afterEach)
 
@@ -59,27 +58,6 @@ describe('okuLabel Stories', () => {
 
     beforeEach(async () => {
       wrapper = shallowMount(WithControl, {
-        attachTo: document.body,
-      })
-    })
-
-    /**
-     * @vitest-environment jsdom
-     */
-    it('should have no accessibility violations', async () => {
-      expect(await axe(wrapper.element)).toHaveNoViolations()
-    })
-
-    it('should render correctly', () => {
-      expect(wrapper.html()).toMatchSnapshot()
-    })
-  })
-
-  describe('control', () => {
-    let wrapper: VueWrapper<InstanceType<typeof Control>>
-
-    beforeEach(async () => {
-      wrapper = shallowMount(Control, {
         attachTo: document.body,
       })
     })

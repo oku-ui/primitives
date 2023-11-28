@@ -6,7 +6,7 @@ import Control from './Control.vue'
 withDefaults(defineProps<ILabelProps>(), {})
 
 export interface ILabelProps {
-  template?: 'Styled' | 'WithControl' | 'Control'
+  template?: 'Styled' | 'WithControl'
   allshow?: boolean
 }
 </script>
@@ -19,10 +19,6 @@ export interface ILabelProps {
 
     <template v-if="template === 'WithControl' || allshow">
       <WithControl />
-    </template>
-
-    <template v-if="template === 'Control' || allshow">
-      <Control />
     </template>
   </div>
 </template>

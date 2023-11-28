@@ -1,7 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`okuLabel Stories > control > should render correctly 1`] = `"<button class=\\"label-control\\"> Control </button>"`;
-
 exports[`okuLabel Stories > styled > should render correctly 1`] = `"<oku-label-stub aschild=\\"false\\" class=\\"label\\"></oku-label-stub>"`;
 
 exports[`okuLabel Stories > withControl > should render correctly 1`] = `

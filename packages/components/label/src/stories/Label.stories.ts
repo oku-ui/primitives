@@ -49,18 +49,3 @@ export const WithControl: Story = {
     `,
   }),
 }
-
-export const Control: Story = {
-  args: {
-    template: 'Control',
-  },
-  render: (args: any) => ({
-    components: { OkuLabel },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuLabel v-bind="args" />
-    `,
-  }),
-}
