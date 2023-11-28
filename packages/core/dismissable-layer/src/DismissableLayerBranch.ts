@@ -35,9 +35,8 @@ const DismissableLayerBranch = defineComponent({
       ...attrs,
       ref: composedRefs,
       asChild: props.asChild,
-    }, slots.default?.())
+    }, () => slots.default?.())
   },
 })
 
-export const OkuDismissableLayerBranch = DismissableLayerBranch as typeof DismissableLayerBranch &
-  (new () => { $props: DismissableLayerBranchNativeElement })
+export const OkuDismissableLayerBranch = DismissableLayerBranch as typeof DismissableLayerBranch & (new () => { $props: DismissableLayerBranchNativeElement })
