@@ -31,32 +31,26 @@ const visuallyHidden = defineComponent({
   setup(props, { attrs, slots }) {
     const forwardedRef = useForwardRef()
 
-    const originalReturn = () =>
-      h(Primitive.span, {
-        ref: forwardedRef,
-        asChild: props.asChild,
-        ...attrs,
-        style: {
-          position: 'absolute',
-          border: '0px',
-          width: '1px',
-          height: '1px',
-          padding: '0px',
-          margin: '-1px',
-          overflow: 'hidden',
-          clip: 'rect(0px, 0px, 0px, 0px)',
-          whiteSpace: 'nowrap',
-          wordWrap: 'normal',
-          ...attrs.style as any,
-        },
-      }, slots.default?.())
-
-    return originalReturn
+    return () => h(Primitive.span, {
+      ref: forwardedRef,
+      asChild: props.asChild,
+      ...attrs,
+      style: {
+        position: 'absolute',
+        border: '0px',
+        width: '1px',
+        height: '1px',
+        padding: '0px',
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0px, 0px, 0px, 0px)',
+        whiteSpace: 'nowrap',
+        wordWrap: 'normal',
+        ...attrs.style as any,
+      },
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuVisuallyHidden = visuallyHidden as typeof visuallyHidden &
-  (new () => {
-    $props: VisuallyHiddenNaviteElement
-  })
+export const OkuVisuallyHidden = visuallyHidden as typeof visuallyHidden & (new () => { $props: VisuallyHiddenNaviteElement })
