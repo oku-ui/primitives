@@ -25,10 +25,9 @@ const menuLabel = defineComponent({
     return () => h(Primitive.div, {
       ...mergeProps(attrs, otherProps),
       ref: forwardedRef,
-    }, slots.default?.())
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuLabel = menuLabel as typeof menuLabel &
-  (new () => { $props: MenuLabelNativeElement })
+export const OkuMenuLabel = menuLabel as typeof menuLabel & (new () => { $props: MenuLabelNativeElement })

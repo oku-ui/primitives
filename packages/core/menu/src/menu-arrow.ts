@@ -19,7 +19,7 @@ const menuArrow = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    // const listeners = useListeners()
+    // const emits = useListeners()
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
 
@@ -27,10 +27,9 @@ const menuArrow = defineComponent({
       ...popperScope,
       ...mergeProps(attrs, otherProps),
       ref: forwardedRef,
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuArrow = menuArrow as typeof menuArrow &
-  (new () => { $props: MenuArrowNativeElement })
+export const OkuMenuArrow = menuArrow as typeof menuArrow & (new () => { $props: MenuArrowNativeElement })
