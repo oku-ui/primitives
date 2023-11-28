@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Styled from './Styled.vue'
 import WithControl from './WithControl.vue'
-import Control from './Control.vue'
 
 withDefaults(defineProps<ILabelProps>(), {})
 
