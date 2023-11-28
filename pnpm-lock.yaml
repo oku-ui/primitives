@@ -555,9 +555,6 @@ importers:
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
       vue:
         specifier: 3.3.9
         version: 3.3.9(typescript@5.3.2)
