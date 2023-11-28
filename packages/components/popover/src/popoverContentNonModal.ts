@@ -16,10 +16,10 @@ const popoverContentNonModal = defineComponent({
   setup(props, { attrs, slots, emit }) {
     const inject = usePopoverInject(CONTENT_NAME, props.scopeOkuPopover)
 
+    const forwardedRef = useForwardRef()
+
     const hasInteractedOutsideRef = ref(false)
     const hasPointerDownOutsideRef = ref(false)
-
-    const forwardedRef = useForwardRef()
 
     return () => h(OkuPopoverContentImpl, {
       ...mergeProps(attrs, props),
@@ -63,12 +63,9 @@ const popoverContentNonModal = defineComponent({
         if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef.value)
           event.preventDefault()
       }),
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopoverContentNonModal = popoverContentNonModal as typeof popoverContentNonModal &
-  (new () => {
-    $props: PopoverContentTypeNaviteElement
-  })
+export const OkuPopoverContentNonModal = popoverContentNonModal as typeof popoverContentNonModal & (new () => { $props: PopoverContentTypeNaviteElement })

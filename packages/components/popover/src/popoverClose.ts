@@ -14,27 +14,24 @@ const popoverClose = defineComponent({
   },
   setup(props, { attrs, slots, emit }) {
     const { scopeOkuPopover, ...closeProps } = toRefs(props)
+
     const _reactive = reactive(closeProps)
-    const reactiveCloseProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+
     const inject = usePopoverInject(CLOSE_NAME, scopeOkuPopover?.value)
 
     return () => h(Primitive.button, {
       type: 'button',
-      ...mergeProps(attrs, reactiveCloseProps),
+      ...mergeProps(attrs, otherProps),
       ref: forwardedRef,
       onClick: composeEventHandlers<PopoverCloseEmits['click'][0]>((event) => {
         emit('click', event)
       }, () => inject.onOpenChange(false)),
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopoverClose = popoverClose as typeof popoverClose &
-  (new () => {
-    $props: PopoverCloseNaviteElement
-  })
+export const OkuPopoverClose = popoverClose as typeof popoverClose & (new () => { $props: PopoverCloseNaviteElement })
