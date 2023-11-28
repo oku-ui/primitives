@@ -14,6 +14,7 @@ export const scopeCheckboxProps = {
 
 export const CHECKBOX_NAME = 'OkuCheckbox'
 export const CHECKBOX_INDICATOR_NAME = 'OkuCheckboxIndicator'
+export const CHECKBOX_BUBBLE_INPUT_NAME = 'OkuBubbleInput'
 
 /* -------------------------------------------------------------------------------------------------
  * Checkbox - checkbox.ts
