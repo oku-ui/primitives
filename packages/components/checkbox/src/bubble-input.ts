@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { reactiveOmit, usePrevious, useSize } from '@oku-ui/use-composable'
+import { reactiveOmit, useListeners, usePrevious, useSize } from '@oku-ui/use-composable'
 import { isIndeterminate } from './utils'
 import { bubbleInputProps } from './props'
 import type { BubbleInputNativeElement } from './props'
@@ -24,6 +24,8 @@ const bubbleInput = defineComponent({
     const _reactive = reactive(inputProps)
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
+    const emits = useListeners()
+
     const inputRef = ref<HTMLInputElement | null>(null)
     const prevChecked = usePrevious(checked)
     const controlSize = computed(() => useSize(control))
@@ -47,7 +49,7 @@ const bubbleInput = defineComponent({
       'type': 'checkbox',
       'aria-hidden': true,
       'defaultChecked': isIndeterminate(checked.value) ? false : checked.value,
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       'tabIndex': -1,
       'ref': inputRef,
       'style': {
@@ -62,5 +64,4 @@ const bubbleInput = defineComponent({
   },
 })
 
-export const OkuBubbleInput = bubbleInput as typeof bubbleInput &
-(new () => { $props: BubbleInputNativeElement })
+export const OkuBubbleInput = bubbleInput as typeof bubbleInput & (new () => { $props: BubbleInputNativeElement })
