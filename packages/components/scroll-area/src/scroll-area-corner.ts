@@ -21,14 +21,14 @@ const scrollAreaCorner = defineComponent({
     const hasBothScrollbarsVisible = computed(() => Boolean(inject.scrollbarX.value && inject.scrollbarY.value))
     const hasCorner = computed(() => inject.type.value !== 'scroll' && hasBothScrollbarsVisible.value)
 
-    return () => hasCorner.value
+    return () => [hasCorner.value
       ? h(OkuScrollAreaCornerImpl, {
         ...mergeProps(attrs, props),
         ref: forwardedRef,
-      }, slots)
-      : null
+      }, () => slots.default?.())
+      : null,
+    ]
   },
 })
 
-export const OkuScrollAreaCorner = scrollAreaCorner as typeof scrollAreaCorner &
-  (new () => { $props: ScrollAreaCornerNaviteElement })
+export const OkuScrollAreaCorner = scrollAreaCorner as typeof scrollAreaCorner & (new () => { $props: ScrollAreaCornerNaviteElement })

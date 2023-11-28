@@ -25,20 +25,17 @@ const scrollAreaThumb = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaThumbProps)
-    const reactiveScrollAreaThumbProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
     const scrollbarInject = useScrollbarInject(SCROLL_AREA_THUMB_NAME, props.scopeOkuScrollArea)
 
-    return () => h(OkuPresence, { present: computed(() => forceMount.value || scrollbarInject.hasThumb.value).value }, {
-      default: () => h(OkuScrollAreaThumbImpl, {
-        ref: forwardedRef,
-        ...mergeProps(attrs, reactiveScrollAreaThumbProps),
-      }, slots),
-    })
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || scrollbarInject.hasThumb.value).value }, () => h(OkuScrollAreaThumbImpl, {
+      ref: forwardedRef,
+      ...mergeProps(attrs, otherProps),
+    }, () => slots.default?.()))
   },
 })
 
-export const OkuScrollAreaThumb = scrollAreaThumb as typeof scrollAreaThumb &
-  (new () => { $props: ScrollAreaThumbNaviteElement })
+export const OkuScrollAreaThumb = scrollAreaThumb as typeof scrollAreaThumb & (new () => { $props: ScrollAreaThumbNaviteElement })

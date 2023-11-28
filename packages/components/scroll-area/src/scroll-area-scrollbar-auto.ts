@@ -26,7 +26,7 @@ const scrollAreaScrollbarAuto = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaScrollbarAutoProps)
-    const reactiveScrollAreaScrollbarAutoProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -44,15 +44,12 @@ const scrollAreaScrollbarAuto = defineComponent({
     useResizeObserver(inject.viewport.value, handleResize)
     useResizeObserver(inject.content.value, handleResize)
 
-    return () => h(OkuPresence, { present: computed(() => forceMount.value || visible.value).value }, {
-      default: () => h(OkuScrollAreaScrollbarVisible, {
-        'data-state': visible.value ? 'visible' : 'hidden',
-        ...mergeProps(attrs, reactiveScrollAreaScrollbarAutoProps),
-        'ref': forwardedRef,
-      }, slots),
-    })
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || visible.value).value }, () => h(OkuScrollAreaScrollbarVisible, {
+      'data-state': visible.value ? 'visible' : 'hidden',
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+    }, () => slots.default?.()))
   },
 })
 
-export const OkuScrollAreaScrollbarAuto = scrollAreaScrollbarAuto as typeof scrollAreaScrollbarAuto &
-  (new () => { $props: ScrollAreaScrollbarAutoNaviteElement })
+export const OkuScrollAreaScrollbarAuto = scrollAreaScrollbarAuto as typeof scrollAreaScrollbarAuto & (new () => { $props: ScrollAreaScrollbarAutoNaviteElement })

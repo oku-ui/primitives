@@ -20,7 +20,7 @@ const scrollAreaCornerImpl = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaCornerImplProps)
-    const reactiveScrollAreaCornerImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -41,9 +41,9 @@ const scrollAreaCornerImpl = defineComponent({
       width.value = _width
     })
 
-    return () => hasSize.value
+    return () => [hasSize.value
       ? h(Primitive.div, {
-        ...mergeProps(attrs, reactiveScrollAreaCornerImplProps),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
         style: {
           width: width.value,
@@ -54,10 +54,10 @@ const scrollAreaCornerImpl = defineComponent({
           bottom: '0px',
           ...attrs.style as any,
         },
-      }, slots)
-      : null
+      }, () => slots.default?.())
+      : null,
+    ]
   },
 })
 
-export const OkuScrollAreaCornerImpl = scrollAreaCornerImpl as typeof scrollAreaCornerImpl &
-  (new () => { $props: ScrollAreaCornerImplNaviteElement })
+export const OkuScrollAreaCornerImpl = scrollAreaCornerImpl as typeof scrollAreaCornerImpl & (new () => { $props: ScrollAreaCornerImplNaviteElement })
