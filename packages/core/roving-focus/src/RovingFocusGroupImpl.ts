@@ -26,11 +26,13 @@ const RovingFocusGroupImpl = defineComponent({
       defaultCurrentTabStopId,
       ...groupProps
     } = toRefs(props)
+
     const _reactive = reactive(groupProps)
-    const reactiveProupProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     const buttonRef = ref<HTMLDivElement | null>(null)
-    const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
     const { state: currentTabStopId, updateValue: updateCurrentTabStopId } = useControllable({
@@ -88,7 +90,7 @@ const RovingFocusGroupImpl = defineComponent({
     return () => h(Primitive.div, {
       'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
       'data-orientation': orientation?.value,
-      ...mergeProps(attrs, reactiveProupProps),
+      ...mergeProps(attrs, otherProps),
       'ref': composedRefs,
       'style': {
         outline: 'none',
@@ -130,12 +132,9 @@ const RovingFocusGroupImpl = defineComponent({
       }, () => {
         isTabbingBackOut.value = false
       }),
-    }, slots.default?.())
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocusGroupImpl &
-  (new () => {
-    $props: RovingFocusGroupImplNaviteElement
-  })
+export const OkuRovingFocusGroupImpl = RovingFocusGroupImpl as typeof RovingFocusGroupImpl & (new () => { $props: RovingFocusGroupImplNaviteElement })

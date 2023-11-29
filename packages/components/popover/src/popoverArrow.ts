@@ -14,24 +14,21 @@ const popoverArrow = defineComponent({
   emits: popoverArrowProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuPopover, ...arrowProps } = toRefs(props)
+
     const _reactive = reactive(arrowProps)
-    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+
     const popperScope = usePopperScope(scopeOkuPopover.value)
 
     return () => h(OkuPopperArrow, {
       ...popperScope,
-      ...mergeProps(attrs, reactiveArrowProps),
+      ...mergeProps(attrs, otherProps),
       ref: forwardedRef,
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopoverArrow = popoverArrow as typeof popoverArrow &
-  (new () => {
-    $props: PopoverArrowNaviteElement
-  })
+export const OkuPopoverArrow = popoverArrow as typeof popoverArrow & (new () => { $props: PopoverArrowNaviteElement })

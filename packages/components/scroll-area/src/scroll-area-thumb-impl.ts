@@ -21,7 +21,7 @@ const scrollAreaThumbImpl = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaThumbImplProps)
-    const reactiveScrollAreaThumbImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -65,7 +65,7 @@ const scrollAreaThumbImpl = defineComponent({
 
     return () => h(Primitive.div, {
       'data-state': scrollbarInject.hasThumb.value ? 'visible' : 'hidden',
-      ...mergeProps(attrs, reactiveScrollAreaThumbImplProps),
+      ...mergeProps(attrs, otherProps),
       'ref': composedRef,
       'style': {
         width: 'var(--oku-scroll-area-thumb-width)',
@@ -84,9 +84,8 @@ const scrollAreaThumbImpl = defineComponent({
       'onPointerup': composeEventHandlers<scrollAreaThumbImplEmits['pointerup'][0]>((event) => {
         emit('pointerup', event)
       }, () => scrollbarInject.onThumbPointerUp()),
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
-export const OkuScrollAreaThumbImpl = scrollAreaThumbImpl as typeof scrollAreaThumbImpl &
-  (new () => { $props: ScrollAreaThumbImplNaviteElement })
+export const OkuScrollAreaThumbImpl = scrollAreaThumbImpl as typeof scrollAreaThumbImpl & (new () => { $props: ScrollAreaThumbImplNaviteElement })

@@ -30,16 +30,13 @@ const menuItemIndicator = defineComponent({
 
     const indicatorInject = useItemIndicatorInject(MENU_ITEM_INDICATOR_NAME, scopeOkuMenu.value)
 
-    return () => h(OkuPresence, { present: computed(() => forceMount.value || isIndeterminate(indicatorInject.checked.value) || indicatorInject.checked.value === true).value }, {
-      default: () => h(Primitive.span, {
-        ...mergeProps(attrs, otherProps),
-        'ref': forwardedRef,
-        'data-state': getCheckedState(indicatorInject.checked.value),
-      }, slots.default?.()),
-    })
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || isIndeterminate(indicatorInject.checked.value) || indicatorInject.checked.value === true).value }, () => h(Primitive.span, {
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+      'data-state': getCheckedState(indicatorInject.checked.value),
+    }, () => slots.default?.()))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuItemIndicator = menuItemIndicator as typeof menuItemIndicator &
-  (new () => { $props: MenuItemIndicatorNativeElement })
+export const OkuMenuItemIndicator = menuItemIndicator as typeof menuItemIndicator & (new () => { $props: MenuItemIndicatorNativeElement })

@@ -38,8 +38,9 @@ const PopperContent = defineComponent({
       layoutShift,
       ...contentProps
     } = toRefs(props)
+
     const _reactive = reactive(contentProps)
-    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = usePopperInject(CONTENT_NAME, scopeOkuPopper.value)
 
@@ -48,7 +49,6 @@ const PopperContent = defineComponent({
 
     const arrow = ref<HTMLSpanElement | null>(null)
     const arrowSize = useSize(arrow)
-
     const arrowWidth = computed(() => arrowSize.value?.width ?? 0)
     const arrowHeight = computed(() => arrowSize.value?.height ?? 0)
 
@@ -112,7 +112,7 @@ const PopperContent = defineComponent({
       inject.anchor,
       refElement,
       {
-      // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
+        // default to `fixed` strategy so users don't have to pick and we also avoid focus scroll issues
         strategy: 'fixed',
         placement: desiredPlacement,
         whileElementsMounted: (...args) => {
@@ -161,42 +161,36 @@ const PopperContent = defineComponent({
       shouldHideArrow: cannotCenterArrow,
     })
 
-    return () =>
-      h('div', {
-        'ref': refElement,
-        'data-oku-popper-content-wrapper': '',
-        'style': {
-          ...floatingStyles.value,
-          transform: isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
-          minWidth: 'max-content',
-          zIndex: contentZIndex.value ?? undefined,
-          ['--oku-popper-transform-origin' as any]: [
-            middlewareData.value.transformOrigin?.x,
-            middlewareData.value.transformOrigin?.y,
-          ].join(' '),
-        } as CSSStyleDeclaration,
-        'dir': props.dir,
-      }, [
-        h(Primitive.div, {
-          'data-side': placedSide.value,
-          'data-align': placedAlign.value,
-          ...mergeProps(attrs, reactiveContentProps),
-          'ref': composedRefs,
-          'style': {
-            ...attrs.style as any,
-            // if the PopperContent hasn't been placed yet (not all measurements done)
-            // we prevent animations so that users's animation don't kick in too early referring wrong sides
-            animation: !isPositioned.value ? 'none' : undefined,
-            // hide the content if using the hide middleware and should be hidden
-            opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
-          },
-        }, slots.default?.()),
-      ])
+    return () => h('div', {
+      'ref': refElement,
+      'data-oku-popper-content-wrapper': '',
+      'style': {
+        ...floatingStyles.value,
+        transform: isPositioned.value ? floatingStyles.value.transform : 'translate(0, -200%)', // keep off the page when measuring
+        minWidth: 'max-content',
+        zIndex: contentZIndex.value ?? undefined,
+        ['--oku-popper-transform-origin' as any]: [
+          middlewareData.value.transformOrigin?.x,
+          middlewareData.value.transformOrigin?.y,
+        ].join(' '),
+      } as CSSStyleDeclaration,
+      'dir': props.dir,
+    }, h(Primitive.div, {
+      'data-side': placedSide.value,
+      'data-align': placedAlign.value,
+      ...mergeProps(attrs, otherProps),
+      'ref': composedRefs,
+      'style': {
+        ...attrs.style as any,
+        // if the PopperContent hasn't been placed yet (not all measurements done)
+        // we prevent animations so that users's animation don't kick in too early referring wrong sides
+        animation: !isPositioned.value ? 'none' : undefined,
+        // hide the content if using the hide middleware and should be hidden
+        opacity: middlewareData.value.hide?.referenceHidden ? 0 : undefined,
+      },
+    }, () => slots.default?.()))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopperContent = PopperContent as typeof PopperContent
-  & (new () => {
-    $props: PopperContentNaviteElement
-  })
+export const OkuPopperContent = PopperContent as typeof PopperContent & (new () => { $props: PopperContentNaviteElement })

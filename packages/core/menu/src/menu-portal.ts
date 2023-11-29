@@ -29,15 +29,12 @@ const menuPortal = defineComponent({
       forceMount,
     })
 
-    return () => h(OkuPresence, { present: forceMount.value || inject.open.value }, {
-      default: () => h(OkuPortal, {
-        asChild: true,
-        container: container.value,
-      }, slots),
-    })
+    return () => h(OkuPresence, { present: forceMount.value || inject.open.value }, () => h(OkuPortal, {
+      asChild: true,
+      container: container.value,
+    }, () => slots.default?.()))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuPortal = menuPortal as typeof menuPortal &
-  (new () => { $props: MenuPortalNativeElement })
+export const OkuMenuPortal = menuPortal as typeof menuPortal & (new () => { $props: MenuPortalNativeElement })

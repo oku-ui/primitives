@@ -88,10 +88,9 @@ const menuItem = defineComponent({
           event.preventDefault()
         }
       }),
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuItem = menuItem as typeof menuItem &
-  (new () => { $props: MenuItemNativeElement })
+export const OkuMenuItem = menuItem as typeof menuItem & (new () => { $props: MenuItemNativeElement })

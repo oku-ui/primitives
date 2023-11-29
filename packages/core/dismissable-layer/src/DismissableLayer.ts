@@ -153,9 +153,8 @@ const DismissableLayer = defineComponent({
       onPointerdownCapture: composeEventHandlers<PointerdownCaptureEvent>((event) => {
         emit('pointerdownCapture', event)
       }, pointerdownOutside.onPointerdownCapture),
-    }, slots.default?.())
+    }, () => slots.default?.())
   },
 })
 
-export const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer &
-  (new () => { $props: DismissableLayerNativeElement })
+export const OkuDismissableLayer = DismissableLayer as typeof DismissableLayer & (new () => { $props: DismissableLayerNativeElement })

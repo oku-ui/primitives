@@ -69,7 +69,7 @@ const popover = defineComponent({
 
     return () => h(OkuPopper, {
       ...popperScope,
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
