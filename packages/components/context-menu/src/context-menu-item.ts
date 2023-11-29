@@ -39,4 +39,4 @@ const contextMenuItem = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuContextMenuItem = contextMenuItem as typeof contextMenuItem &
-(new () => { $props: ContextMenuItemNativeElement })
+  (new () => { $props: ContextMenuItemNativeElement })

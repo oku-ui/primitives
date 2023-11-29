@@ -38,4 +38,4 @@ const contextMenuLabel = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuContextMenuLabel = contextMenuLabel as typeof contextMenuLabel &
-(new () => { $props: ContextMenuLabelNativeElement })
+  (new () => { $props: ContextMenuLabelNativeElement })

@@ -100,4 +100,4 @@ const contextMenuTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuContextMenuTrigger = contextMenuTrigger as typeof contextMenuTrigger &
-(new () => { $props: ContextMenuTriggerNativeElement })
+  (new () => { $props: ContextMenuTriggerNativeElement })

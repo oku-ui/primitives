@@ -38,4 +38,4 @@ const contextMenuSeparator = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuContextMenuSeparator = contextMenuSeparator as typeof contextMenuSeparator &
-(new () => { $props: ContextMenuSeparatorNativeElement })
+  (new () => { $props: ContextMenuSeparatorNativeElement })

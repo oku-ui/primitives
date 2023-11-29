@@ -39,4 +39,4 @@ const contextMenuCheckboxItem = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuContextMenuCheckboxItem = contextMenuCheckboxItem as typeof contextMenuCheckboxItem &
-(new () => { $props: ContextMenuCheckboxItemNativeElement })
+  (new () => { $props: ContextMenuCheckboxItemNativeElement })

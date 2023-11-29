@@ -39,4 +39,4 @@ const contextMenuRadioItem = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuContextMenuRadioItem = contextMenuRadioItem as typeof contextMenuRadioItem &
-(new () => { $props: ContextMenuRadioItemNativeElement })
+  (new () => { $props: ContextMenuRadioItemNativeElement })

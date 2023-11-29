@@ -37,7 +37,7 @@ export const CONTEXT_MENU_SUB_CONTENT_NAME = 'OkuContextMenuSubContent'
  * ContextMenu - Context-menu.ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type Point = { x: number; y: number }
+export type Point = { x: number, y: number }
 
 export const [createMenuContextProvide, createContextMenuScop] = createProvideScope(CONTEXT_MENU_NAME, [
   createMenuScope,
