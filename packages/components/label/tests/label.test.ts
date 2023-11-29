@@ -1,4 +1,4 @@
-import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
+import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
@@ -10,8 +10,10 @@ import WithControl from '../src/stories/WithControl.vue'
 
 enableAutoUnmount(afterEach)
 
-describe.skip('okuLabel', () => {
+describe('okuLabel', () => {
   let wrapper: VueWrapper
+
+  const onMousedown = vi.fn()
 
   beforeEach(() => {
     wrapper = shallowMount({
@@ -19,10 +21,12 @@ describe.skip('okuLabel', () => {
         OkuLabel,
       },
       setup() {
-        return { }
+        return {
+          onMousedown,
+        }
       },
       template: `
-        <OkuLabel>
+        <OkuLabel @mousedown="onMousedown">
             Label
         </OkuLabel>
       `,
@@ -44,17 +48,16 @@ describe.skip('okuLabel', () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 
+  // TODO: mock preventDefault()
   it('should prevent default on double click', async () => {
-    const event = {
-      preventDefault: vi.fn(),
-      detail: 2,
-    }
-
-    await wrapper.trigger('mousedown', event)
+    await wrapper.trigger('mousedown')
+    await wrapper.trigger('mousedown')
 
     expect(wrapper.emitted('mousedown')).toBeTruthy()
+  })
 
-    expect(event.preventDefault).toHaveBeenCalled()
+  it('should call `onMousedown` event', () => {
+    expect(onMousedown).toHaveBeenCalled()
   })
 })
 

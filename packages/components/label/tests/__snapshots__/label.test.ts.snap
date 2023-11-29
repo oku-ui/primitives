@@ -1,5 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`okuLabel > should render OkuLabel correctly 1`] = `"<oku-label-stub aschild=\\"false\\"></oku-label-stub>"`;
+
+exports[`okuLabel > should render OkuLabel correctly 2`] = `"<primitivelabel-stub aschild=\\"false\\"></primitivelabel-stub>"`;
+
 exports[`okuLabel Stories > styled > should render correctly 1`] = `"<oku-label-stub aschild=\\"false\\" class=\\"label\\"></oku-label-stub>"`;
 
 exports[`okuLabel Stories > withControl > should render correctly 1`] = `
