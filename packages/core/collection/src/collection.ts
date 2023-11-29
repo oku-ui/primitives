@@ -21,8 +21,8 @@ export type CollectionElement = HTMLElement
 
 export function createCollection<ItemElement extends HTMLElement, T = object>(name: string, ItemData?: ComponentObjectPropsOptions) {
   /* -----------------------------------------------------------------------------------------------
- * CollectionProvider
- * --------------------------------------------------------------------------------------------- */
+   * CollectionProvider
+   * --------------------------------------------------------------------------------------------- */
 
   const PROVIDER_NAME = `${name}CollectionProvider`
   const [createCollectionProvide, createCollectionScope] = createProvideScope(PROVIDER_NAME)
@@ -57,9 +57,10 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
       return () => slots.default?.()
     },
   })
+
   /* -----------------------------------------------------------------------------------------------
- * CollectionSlot
- * --------------------------------------------------------------------------------------------- */
+   * CollectionSlot
+   * --------------------------------------------------------------------------------------------- */
 
   const COLLECTION_SLOT_NAME = `${name}CollectionSlot`
 
@@ -75,9 +76,10 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
     },
     setup(props, { slots }) {
       const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
-      const forwaredRef = useForwardRef()
-      const composedRefs = useComposedRefs(forwaredRef, inject.collectionRef)
-      return () => h(OkuSlot, { ref: composedRefs }, slots)
+      const forwardedRef = useForwardRef()
+      const composedRefs = useComposedRefs(forwardedRef, inject.collectionRef)
+
+      return () => h(OkuSlot, { ref: composedRefs }, () => slots.default?.())
     },
   })
 
@@ -100,14 +102,15 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
     },
     setup(props, { attrs, slots }) {
       const { scope, ...itemData } = toRefs(props)
+
       const _reactive = reactive(itemData)
       const reactiveItemData = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
       const refValue = ref<ItemElement | null>()
-      const forwaredRef = useForwardRef()
+      const forwardedRef = useForwardRef()
 
       const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
-      const composedRefs = useComposedRefs(refValue, forwaredRef)
+      const composedRefs = useComposedRefs(refValue, forwardedRef)
 
       watchEffect((onClean) => {
         inject.itemMap.value.set(markRaw(refValue), { ref: markRaw(refValue), ...(reactiveItemData as any), ...attrs })
@@ -117,15 +120,15 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
         })
       })
 
-      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, slots)
+      return () => h(OkuSlot, { ref: composedRefs, ...{ [ITEM_DATA_ATTR]: '' } }, () => slots.default?.())
     },
   })
 
   const CollectionItemSlot = collectionItemSlot as typeof collectionItemSlot & (new () => { $props: Partial<T> })
 
   /* -----------------------------------------------------------------------------------------------
- * useCollection
- * --------------------------------------------------------------------------------------------- */
+   * useCollection
+   * --------------------------------------------------------------------------------------------- */
 
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)

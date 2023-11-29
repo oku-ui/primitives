@@ -26,7 +26,7 @@ const scrollArea = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaProps)
-    const reactiveReactiveProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const scrollArea = ref<ScrollAreaElement | null>(null)
     const viewport = ref<ScrollAreaViewportElement | null>(null)
@@ -65,7 +65,7 @@ const scrollArea = defineComponent({
 
     return () => h(Primitive.div, {
       dir: direction.value,
-      ...mergeProps(attrs, reactiveReactiveProps),
+      ...mergeProps(attrs, otherProps),
       ref: composedRefs,
       style: {
         position: 'relative',
@@ -74,11 +74,8 @@ const scrollArea = defineComponent({
         ['--oku-scroll-area-corner-height' as any]: `${cornerHeight.value}px`,
         ...attrs.style as any,
       },
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, () => slots.default?.())
   },
 })
 
-export const OkuScrollArea = scrollArea as typeof scrollArea &
-  (new () => { $props: ScrollAreaNaviteElement })
+export const OkuScrollArea = scrollArea as typeof scrollArea & (new () => { $props: ScrollAreaNaviteElement })

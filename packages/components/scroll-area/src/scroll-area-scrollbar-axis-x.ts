@@ -26,7 +26,7 @@ const scrollAreaScrollbarX = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaScrollbarAxisProps)
-    const reactiveScrollAreaScrollbarAxisProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useScrollAreaInject(SCROLL_AREA_SCROLLBAR_NAME, props.scopeOkuScrollArea)
     const computedStyle = ref<CSSStyleDeclaration>()
@@ -41,7 +41,7 @@ const scrollAreaScrollbarX = defineComponent({
 
     return () => h(OkuScrollAreaScrollbarImpl, {
       'data-orientation': 'horizontal',
-      ...mergeProps(attrs, reactiveScrollAreaScrollbarAxisProps),
+      ...mergeProps(attrs, otherProps),
       'ref': composeRefs,
       'sizes': sizes.value,
       'style': {
@@ -84,9 +84,8 @@ const scrollAreaScrollbarX = defineComponent({
           })
         }
       },
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
-export const OkuScrollAreaScrollbarX = scrollAreaScrollbarX as typeof scrollAreaScrollbarX &
-  (new () => { $props: ScrollAreaScrollbarAxisNaviteElement })
+export const OkuScrollAreaScrollbarX = scrollAreaScrollbarX as typeof scrollAreaScrollbarX & (new () => { $props: ScrollAreaScrollbarAxisNaviteElement })

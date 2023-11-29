@@ -12,6 +12,7 @@ const popoverPortal = defineComponent({
   },
   setup(props, { slots }) {
     const { container, forceMount, scopeOkuPopover } = toRefs(props)
+
     const inject = usePopoverInject(PORTAL_NAME, scopeOkuPopover?.value)
 
     portalProvider({
@@ -21,12 +22,10 @@ const popoverPortal = defineComponent({
 
     return () => h(OkuPresence, {
       present: forceMount?.value || inject.open.value,
-    }, {
-      default: () => h(OkuPortal, {
-        asChild: true,
-        container: container?.value,
-      }, slots),
-    })
+    }, () => h(OkuPortal, {
+      asChild: true,
+      container: container?.value,
+    }, () => slots.default?.()))
   },
 })
 

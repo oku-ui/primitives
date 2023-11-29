@@ -24,7 +24,7 @@ const avatar = defineComponent({
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    const listeners = useListeners()
+    const emits = useListeners()
 
     const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
@@ -35,12 +35,11 @@ const avatar = defineComponent({
     })
 
     return () => h(Primitive.span, {
-      ...mergeProps(attrs, otherProps, listeners),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuAvatar = avatar as typeof avatar &
-  (new () => { $props: AvatarNativeElement })
+export const OkuAvatar = avatar as typeof avatar & (new () => { $props: AvatarNativeElement })

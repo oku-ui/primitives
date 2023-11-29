@@ -47,7 +47,7 @@ describe('okuAspectRatio', () => {
   /**
    * @vitest-environment jsdom
    */
-  it('should pass accessibility tests', async () => {
+  it('should have no accessibility violations', async () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 })
@@ -65,7 +65,7 @@ describe('okuAspectRatio Stories', () => {
     /**
      * @vitest-environment jsdom
      */
-    it('should pass accessibility tests', async () => {
+    it('should have no accessibility violations', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
 
@@ -86,7 +86,7 @@ describe('okuAspectRatio Stories', () => {
     /**
      * @vitest-environment jsdom
      */
-    it('should pass accessibility tests', async () => {
+    it('should have no accessibility violations', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
 
@@ -107,7 +107,7 @@ describe('okuAspectRatio Stories', () => {
     /**
      * @vitest-environment jsdom
      */
-    it('should pass accessibility tests', async () => {
+    it('should have no accessibility violations', async () => {
       expect(await axe(wrapper.element)).toHaveNoViolations()
     })
 

@@ -38,16 +38,16 @@ const avatarImage = defineComponent({
         handleLoadingStatusChange(imageLoadingStatus.value)
     })
 
-    return () => imageLoadingStatus.value === 'loaded'
+    return () => [imageLoadingStatus.value === 'loaded'
       ? h(Primitive.img, {
         ...mergeProps(attrs, otherProps, emits),
         src: src.value,
         ref: forwardedRef,
-      }, slots)
-      : null
+      }, () => slots.default?.())
+      : null,
+    ]
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuAvatarImage = avatarImage as typeof avatarImage &
-  (new () => { $props: AvatarImageNativeElement })
+export const OkuAvatarImage = avatarImage as typeof avatarImage & (new () => { $props: AvatarImageNativeElement })

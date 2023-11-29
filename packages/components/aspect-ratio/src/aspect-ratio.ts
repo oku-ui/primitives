@@ -33,24 +33,21 @@ const aspectRatio = defineComponent({
         paddingBottom: `${100 / ratio.value}%`,
       },
       'data-oku-aspect-ratio-wrapper': '',
-    }, [
-      h(Primitive.div, {
-        ...mergeProps(attrs, otherProps, emits),
-        ref: forwardedRef,
-        style: {
-          ...attrs.style as any,
-          // ensures children expand in ratio
-          position: 'absolute',
-          top: '0px',
-          right: '0px',
-          left: '0px',
-          bottom: '0px',
-        },
-      }, slots),
-    ])
+    }, h(Primitive.div, {
+      ...mergeProps(attrs, otherProps, emits),
+      ref: forwardedRef,
+      style: {
+        ...attrs.style as any,
+        // ensures children expand in ratio
+        position: 'absolute',
+        top: '0px',
+        right: '0px',
+        left: '0px',
+        bottom: '0px',
+      },
+    }, () => slots.default?.()))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuAspectRatio = aspectRatio as typeof aspectRatio &
-  (new () => { $props: AspectRatioNativeElement })
+export const OkuAspectRatio = aspectRatio as typeof aspectRatio & (new () => { $props: AspectRatioNativeElement })

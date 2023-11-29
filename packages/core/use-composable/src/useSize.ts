@@ -1,7 +1,7 @@
 /// <reference types="resize-observer-browser" />
 
+import { ref, watchEffect } from 'vue'
 import type { Ref } from 'vue'
-import { onBeforeUnmount, ref, watch } from 'vue'
 
 interface Size {
   width: number
@@ -9,14 +9,13 @@ interface Size {
 }
 
 function useSize(element: Ref<HTMLElement | null>) {
-  const size = ref<Size>()
-  const resizeObserver = ref<ResizeObserver>()
+  const size = ref<Size | undefined>(undefined)
 
-  watch(element, () => {
+  watchEffect((onInvalidate) => {
     if (element.value) {
       size.value = { width: element.value.offsetWidth, height: element.value.offsetHeight }
 
-      resizeObserver.value = new ResizeObserver((entries) => {
+      const resizeObserver = new ResizeObserver((entries) => {
         if (!Array.isArray(entries))
           return
 
@@ -46,16 +45,15 @@ function useSize(element: Ref<HTMLElement | null>) {
         size.value = { width, height }
       })
 
-      resizeObserver.value.observe(element.value, { box: 'border-box' })
+      resizeObserver.observe(element.value, { box: 'border-box' })
+
+      onInvalidate(() => resizeObserver.unobserve(element.value!))
     }
     else {
+      // We only want to reset to `undefined` when the element becomes `null`,
+      // not if it changes to another element.
       size.value = undefined
     }
-  })
-
-  onBeforeUnmount(() => {
-    if (element.value)
-      resizeObserver.value?.unobserve(element.value)
   })
 
   return size

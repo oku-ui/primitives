@@ -23,10 +23,9 @@ const menuGroup = defineComponent({
       ...mergeProps(attrs, otherProps),
       role: 'group',
       ref: forwardedRef,
-    }, slots.default?.())
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuGroup = menuGroup as typeof menuGroup &
-  (new () => { $props: MenuGroupNativeElement })
+export const OkuMenuGroup = menuGroup as typeof menuGroup & (new () => { $props: MenuGroupNativeElement })

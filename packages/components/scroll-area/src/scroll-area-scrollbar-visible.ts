@@ -27,7 +27,7 @@ const scrollAreaScrollbarVisible = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaScrollbarVisibleProps)
-    const reactiveScrollAreaScrollbarVisibleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -39,6 +39,7 @@ const scrollAreaScrollbarVisible = defineComponent({
       viewport: 0,
       scrollbar: { size: 0, paddingStart: 0, paddingEnd: 0 },
     })
+
     const thumbRatio = computed(() => getThumbRatio(sizes.viewport, sizes.content))
 
     function getScrollPosition(pointerPos: number, dir?: Direction) {
@@ -48,7 +49,7 @@ const scrollAreaScrollbarVisible = defineComponent({
     return () => {
       if (orientation.value === 'horizontal') {
         return h(OkuScrollAreaScrollbarX, {
-          ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
+          ...mergeProps(attrs, otherProps),
           sizes,
           onSizesChange: (_sizes: Sizes) => {
             sizes.content = _sizes.content
@@ -76,12 +77,12 @@ const scrollAreaScrollbarVisible = defineComponent({
             if (inject.viewport.value)
               inject.viewport.value.scrollLeft = getScrollPosition(pointerPos, inject.dir.value)
           },
-        }, slots)
+        }, () => slots.default?.())
       }
 
       if (orientation.value === 'vertical') {
         return h(OkuScrollAreaScrollbarY, {
-          ...mergeProps(attrs, reactiveScrollAreaScrollbarVisibleProps),
+          ...mergeProps(attrs, otherProps),
           sizes,
           onSizesChange: (_sizes: Sizes) => {
             sizes.content = _sizes.content
@@ -108,11 +109,10 @@ const scrollAreaScrollbarVisible = defineComponent({
             if (inject.viewport.value)
               inject.viewport.value.scrollTop = getScrollPosition(pointerPos)
           },
-        }, slots)
+        }, () => slots.default?.())
       }
     }
   },
 })
 
-export const OkuScrollAreaScrollbarVisible = scrollAreaScrollbarVisible as typeof scrollAreaScrollbarVisible &
-  (new () => { $props: ScrollAreaScrollbarVisibleNaviteElement })
+export const OkuScrollAreaScrollbarVisible = scrollAreaScrollbarVisible as typeof scrollAreaScrollbarVisible & (new () => { $props: ScrollAreaScrollbarVisibleNaviteElement })

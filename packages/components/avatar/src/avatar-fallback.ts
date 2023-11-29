@@ -41,15 +41,15 @@ const avatarFallback = defineComponent({
 
     onBeforeUnmount(() => window.clearTimeout(timerId))
 
-    return () => canRender.value && inject.imageLoadingStatus.value !== 'loaded'
+    return () => [canRender.value && inject.imageLoadingStatus.value !== 'loaded'
       ? h(Primitive.span, {
         ...mergeProps(attrs, otherProps, listeners),
         ref: forwardedRef,
-      }, slots)
-      : null
+      }, () => slots.default?.())
+      : null,
+    ]
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuAvatarFallback = avatarFallback as typeof avatarFallback &
-  (new () => { $props: AvatarFallbackNativeElement })
+export const OkuAvatarFallback = avatarFallback as typeof avatarFallback & (new () => { $props: AvatarFallbackNativeElement })

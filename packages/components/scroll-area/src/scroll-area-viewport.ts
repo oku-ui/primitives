@@ -19,7 +19,7 @@ const scrollAreaViewport = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaViewportProps)
-    const reactiveScrollAreaViewportProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useScrollAreaInject(SCROLL_AREA_VIEWPORT, scopeOkuScrollArea.value)
     const scrollAreaViewportRef = ref<ScrollAreaViewportElement | null>(null)
@@ -31,9 +31,10 @@ const scrollAreaViewport = defineComponent({
       h('style', {
         innerHTML: '[data-oku-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-oku-scroll-area-viewport]::-webkit-scrollbar{display:none}',
       }),
+
       h(Primitive.div, {
         'data-oku-scroll-area-viewport': '',
-        ...mergeProps(attrs, reactiveScrollAreaViewportProps),
+        ...mergeProps(attrs, otherProps),
         'ref': composedRefs,
         'style': {
           /**
@@ -51,7 +52,7 @@ const scrollAreaViewport = defineComponent({
           overflowY: inject.scrollbarYEnabled.value ? 'scroll' : 'hidden',
           ...attrs.style as any,
         },
-      }, {
+      }, () => h('div', {
         /**
          * `display: table` ensures our content div will match the size of its children in both
          * horizontal and vertical axis so we can determine if scroll width/height changed and
@@ -59,14 +60,11 @@ const scrollAreaViewport = defineComponent({
          * widths that change. We'll wait to see what use-cases consumers come up with there
          * before trying to resolve it.
          */
-        default: () => h('div', {
-          ref: el => inject.onContentChange(el as HTMLDivElement),
-          style: { minWidth: '100%', display: 'table' },
-        }, slots),
-      }),
+        ref: el => inject.onContentChange(el as HTMLDivElement),
+        style: { minWidth: '100%', display: 'table' },
+      }, slots.default?.())),
     ])
   },
 })
 
-export const OkuScrollAreaViewport = scrollAreaViewport as typeof scrollAreaViewport &
-  (new () => { $props: ScrollAreaViewportNaviteElement })
+export const OkuScrollAreaViewport = scrollAreaViewport as typeof scrollAreaViewport & (new () => { $props: ScrollAreaViewportNaviteElement })

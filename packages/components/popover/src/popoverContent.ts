@@ -15,27 +15,28 @@ const popoverContent = defineComponent({
   emits: popoverContentProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuPopover, forceMount: asForceMount, ...contentProps } = toRefs(props)
+
     const _reactive = reactive(contentProps)
-    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     const portalInject = usePortalInject(CONTENT_NAME, scopeOkuPopover.value)
     const forceMount = computed(() => asForceMount.value || portalInject.forceMount?.value)
     const inject = usePopoverInject(CONTENT_NAME, scopeOkuPopover.value)
-    const forwardedRef = useForwardRef()
 
     return () => h(OkuPresence, {
       present: forceMount.value || inject.open.value,
-    }, {
-      default: () => inject.modal.value
-        ? h(OkuPopoverContentModal, {
-          ...mergeProps(attrs, reactiveContentProps),
-          ref: forwardedRef,
-        }, slots)
-        : h(OkuPopoverContentNonModal, {
-          ...mergeProps(attrs, reactiveContentProps),
-          ref: forwardedRef,
-        }, slots),
-    })
+    }, () => [inject.modal.value
+      ? h(OkuPopoverContentModal, {
+        ...mergeProps(attrs, otherProps),
+        ref: forwardedRef,
+      }, () => slots.default?.())
+      : h(OkuPopoverContentNonModal, {
+        ...mergeProps(attrs, otherProps),
+        ref: forwardedRef,
+      }, () => slots.default?.()),
+    ])
   },
 })
 
