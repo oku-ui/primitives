@@ -13,13 +13,12 @@ const label = defineComponent({
   emits: {
     ...labelProps.emits,
   },
-  setup(props, { attrs, slots, emit }) {
+  setup(_props, { attrs, slots, emit }) {
     const forwardedRef = useForwardRef()
 
     return () => h(Primitive.label, {
       ...attrs,
       ref: forwardedRef,
-      asChild: props.asChild,
       onMousedown: (event: LabelEmits['mousedown'][0]) => {
         emit('mousedown', event)
         // prevent text selection when double clicking label
