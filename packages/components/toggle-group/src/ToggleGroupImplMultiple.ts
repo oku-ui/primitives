@@ -118,6 +118,6 @@ const toggleGroupImplMultiple = defineComponent({
 })
 
 export const OkuToggleGroupImplMultiple = toggleGroupImplMultiple as typeof toggleGroupImplMultiple &
-(new () => {
-  $props: ToggleGroupVariantNaviteElement
-})
+  (new () => {
+    $props: ToggleGroupVariantNaviteElement
+  })

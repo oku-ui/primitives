@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitest/config'
 import Vue from '@vitejs/plugin-vue'
 
+const resolve = (val: string) => new URL(val, import.meta.url).pathname
+
 export default defineConfig({
   plugins: [Vue()],
   test: {
@@ -20,49 +22,172 @@ export default defineConfig({
     cache: {
       dir: '.vitest-cache',
     },
-    alias: {
-      '@oku-ui/scroll-area': 'packages/components/scroll-area/src',
-      '@oku-ui/checkbox': 'packages/components/checkbox/src',
-      '@oku-ui/alert-dialog': 'packages/components/alert-dialog/src',
-      '@oku-ui/slider': 'packages/components/slider/src',
-      '@oku-ui/label': 'packages/components/label/src',
-      '@oku-ui/separator': 'packages/components/separator/src',
-      '@oku-ui/popover': 'packages/components/popover/src',
-      '@oku-ui/toolbar': 'packages/components/toolbar/src',
-      '@oku-ui/toast': 'packages/components/toast/src',
-      '@oku-ui/toggle': 'packages/components/toggle/src',
-      '@oku-ui/toggle-group': 'packages/components/toggle-group/src',
-      '@oku-ui/switch': 'packages/components/switch/src',
-      '@oku-ui/radio-group': 'packages/components/radio-group/src',
-      '@oku-ui/avatar': 'packages/components/avatar/src',
-      '@oku-ui/hover-card': 'packages/components/hover-card/src',
-      '@oku-ui/collapsible': 'packages/components/collapsible/src',
-      '@oku-ui/progress': 'packages/components/progress/src',
-      '@oku-ui/tooltip': 'packages/components/tooltip/src',
-      '@oku-ui/aspect-ratio': 'packages/components/aspect-ratio/src',
-      '@oku-ui/tabs': 'packages/components/tabs/src',
-      '@oku-ui/dialog': 'packages/components/dialog/src',
-      '@oku-ui/primitives': 'packages/components/primitives/src',
-      '@oku-ui/accordion': 'packages/components/accordion/src',
-      '@oku-ui/context-menu': 'packages/components/context-menu/src',
+  },
+  resolve: {
+    alias: [
+      // Components
+      {
+        find: '@oku-ui/scroll-area',
+        replacement: resolve('./packages/components/scroll-area/src'),
+      },
+      {
+        find: '@oku-ui/checkbox',
+        replacement: resolve('./packages/components/checkbox/src'),
+      },
+      {
+        find: '@oku-ui/alert-dialog',
+        replacement: resolve('./packages/components/alert-dialog/src'),
+      },
+      {
+        find: '@oku-ui/slider',
+        replacement: resolve('./packages/components/slider/src'),
+      },
+      {
+        find: '@oku-ui/label',
+        replacement: resolve('./packages/components/label/src'),
+      },
+      {
+        find: '@oku-ui/separator',
+        replacement: resolve('./packages/components/separator/src'),
+      },
+      {
+        find: '@oku-ui/popover',
+        replacement: resolve('./packages/components/popover/src'),
+      },
+      {
+        find: '@oku-ui/toolbar',
+        replacement: resolve('./packages/components/toolbar/src'),
+      },
+      {
+        find: '@oku-ui/toast',
+        replacement: resolve('./packages/components/toast/src'),
+      },
+      {
+        find: '@oku-ui/toggle',
+        replacement: resolve('./packages/components/toggle/src'),
+      },
+      {
+        find: '@oku-ui/toggle-group',
+        replacement: resolve('./packages/components/toggle-group/src'),
+      },
+      {
+        find: '@oku-ui/switch',
+        replacement: resolve('./packages/components/switch/src'),
+      },
+      {
+        find: '@oku-ui/radio-group',
+        replacement: resolve('./packages/components/radio-group/src'),
+      },
+      {
+        find: '@oku-ui/avatar',
+        replacement: resolve('./packages/components/avatar/src'),
+      },
+      {
+        find: '@oku-ui/hover-card',
+        replacement: resolve('./packages/components/hover-card/src'),
+      },
+      {
+        find: '@oku-ui/collapsible',
+        replacement: resolve('./packages/components/collapsible/src'),
+      },
+      {
+        find: '@oku-ui/progress',
+        replacement: resolve('./packages/components/progress/src'),
+      },
+      {
+        find: '@oku-ui/tooltip',
+        replacement: resolve('./packages/components/tooltip/src'),
+      },
+      {
+        find: '@oku-ui/aspect-ratio',
+        replacement: resolve('./packages/components/aspect-ratio/src'),
+      },
+      {
+        find: '@oku-ui/tabs',
+        replacement: resolve('./packages/components/tabs/src'),
+      },
+      {
+        find: '@oku-ui/dialog',
+        replacement: resolve('./packages/components/dialog/src'),
+      },
+      {
+        find: '@oku-ui/primitives',
+        replacement: resolve('./packages/components/primitives/src'),
+      },
+      {
+        find: '@oku-ui/accordion',
+        replacement: resolve('./packages/components/accordion/src'),
+      },
 
-      '@oku-ui/menu': 'packages/core/menu/src',
-      '@oku-ui/dismissable-layer': 'packages/core/dismissable-layer/src',
-      '@oku-ui/roving-focus': 'packages/core/roving-focus/src',
-      '@oku-ui/focus-scope': 'packages/core/focus-scope/src',
-      '@oku-ui/presence': 'packages/core/presence/src',
-      '@oku-ui/direction': 'packages/core/direction/src',
-      '@oku-ui/arrow': 'packages/core/arrow/src',
-      '@oku-ui/visually-hidden': 'packages/core/visually-hidden/src',
-      '@oku-ui/popper': 'packages/core/popper/src',
-      '@oku-ui/collection': 'packages/core/collection/src',
-      '@oku-ui/slot': 'packages/core/slot/src',
-      '@oku-ui/portal': 'packages/core/portal/src',
-      '@oku-ui/focus-guards': 'packages/core/focus-guards/src',
-      '@oku-ui/use-composable': 'packages/core/use-composable/src',
-      '@oku-ui/provide': 'packages/core/provide/src',
-      '@oku-ui/primitive': 'packages/core/primitive/src',
-      '@oku-ui/utils': 'packages/core/utils/src',
-    },
+      // Core
+      {
+        find: '@oku-ui/menu',
+        replacement: resolve('./packages/core/menu/src'),
+      },
+      {
+        find: '@oku-ui/dismissable-layer',
+        replacement: resolve('./packages/core/dismissable-layer/src'),
+      },
+      {
+        find: '@oku-ui/roving-focus',
+        replacement: resolve('./packages/core/roving-focus/src'),
+      },
+      {
+        find: '@oku-ui/focus-scope',
+        replacement: resolve('./packages/core/focus-scope/src'),
+      },
+      {
+        find: '@oku-ui/presence',
+        replacement: resolve('./packages/core/presence/src'),
+      },
+      {
+        find: '@oku-ui/direction',
+        replacement: resolve('./packages/core/direction/src'),
+      },
+      {
+        find: '@oku-ui/arrow',
+        replacement: resolve('./packages/core/arrow/src'),
+      },
+      {
+        find: '@oku-ui/visually-hidden',
+        replacement: resolve('./packages/core/visually-hidden/src'),
+      },
+      {
+        find: '@oku-ui/popper',
+        replacement: resolve('./packages/core/popper/src'),
+      },
+      {
+        find: '@oku-ui/collection',
+        replacement: resolve('./packages/core/collection/src'),
+      },
+      {
+        find: '@oku-ui/slot',
+        replacement: resolve('./packages/core/slot/src'),
+      },
+      {
+        find: '@oku-ui/portal',
+        replacement: resolve('./packages/core/portal/src'),
+      },
+      {
+        find: '@oku-ui/focus-guards',
+        replacement: resolve('./packages/core/focus-guards/src'),
+      },
+      {
+        find: '@oku-ui/use-composable',
+        replacement: resolve('./packages/core/use-composable/src'),
+      },
+      {
+        find: '@oku-ui/provide',
+        replacement: resolve('./packages/core/provide/src'),
+      },
+      {
+        find: '@oku-ui/primitive',
+        replacement: resolve('./packages/core/primitive/src'),
+      },
+      {
+        find: '@oku-ui/utils',
+        replacement: resolve('./packages/core/utils/src'),
+      },
+    ],
   },
 })

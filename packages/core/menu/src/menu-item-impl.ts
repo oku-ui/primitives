@@ -50,65 +50,60 @@ const menuItemImpl = defineComponent({
       scope: scopeOkuMenu.value,
       disabled: disabled.value,
       textValue: textValue.value ?? textContent.value,
-    }, {
-      default: () => h(OkuRovingFocusGroupItem, {
-        asChild: true,
-        ...rovingFocusGroupScope,
-        focusable: !disabled.value,
-      }, {
-        default: () => h(Primitive.div, {
-          'role': 'menuitem',
-          'data-highlighted': isFocused.value ? '' : undefined,
-          'aria-disabled': disabled.value || undefined,
-          'data-disabled': disabled.value ? '' : undefined,
-          ...mergeProps(attrs, otherProps),
-          'ref': composedRefs,
-          /**
-           * We focus items on `pointerMove` to achieve the following:
-           *
-           * - Mouse over an item (it focuses)
-           * - Leave mouse where it is and use keyboard to focus a different item
-           * - Wiggle mouse without it leaving previously focused item
-           * - Previously focused item should re-focus
-           *
-           * If we used `mouseOver`/`mouseEnter` it would not re-focus when the mouse
-           * wiggles. This is to match native menu implementation.
-           */
-          'onPointermove': composeEventHandlers<MenuItemImplEmits['pointermove'][0]>((event) => {
-            emit('pointermove', event)
-          }, whenMouse(async (event: PointerEvent) => {
-            await nextTick()
+    }, () => h(OkuRovingFocusGroupItem, {
+      asChild: true,
+      ...rovingFocusGroupScope,
+      focusable: !disabled.value,
+    }, () => h(Primitive.div, {
+      'role': 'menuitem',
+      'data-highlighted': isFocused.value ? '' : undefined,
+      'aria-disabled': disabled.value || undefined,
+      'data-disabled': disabled.value ? '' : undefined,
+      ...mergeProps(attrs, otherProps),
+      'ref': composedRefs,
+      /**
+       * We focus items on `pointerMove` to achieve the following:
+       *
+       * - Mouse over an item (it focuses)
+       * - Leave mouse where it is and use keyboard to focus a different item
+       * - Wiggle mouse without it leaving previously focused item
+       * - Previously focused item should re-focus
+       *
+       * If we used `mouseOver`/`mouseEnter` it would not re-focus when the mouse
+       * wiggles. This is to match native menu implementation.
+       */
+      'onPointermove': composeEventHandlers<MenuItemImplEmits['pointermove'][0]>((event) => {
+        emit('pointermove', event)
+      }, whenMouse(async (event: PointerEvent) => {
+        await nextTick()
 
-            if (disabled.value) {
-              contentInject.onItemLeave(event)
-            }
-            else {
-              contentInject.onItemEnter(event)
-              if (!event.defaultPrevented) {
-                const item = event.currentTarget as HTMLElement
-                item.focus()
-              }
-            }
-          })),
-          'onPointerleave': composeEventHandlers<MenuItemImplEmits['pointerleave'][0]>((event) => {
-            emit('pointerleave', event)
-          }, whenMouse(async (event: PointerEvent) => {
-            await nextTick()
+        if (disabled.value) {
+          contentInject.onItemLeave(event)
+        }
+        else {
+          contentInject.onItemEnter(event)
+          if (!event.defaultPrevented) {
+            const item = event.currentTarget as HTMLElement
+            item.focus()
+          }
+        }
+      })),
+      'onPointerleave': composeEventHandlers<MenuItemImplEmits['pointerleave'][0]>((event) => {
+        emit('pointerleave', event)
+      }, whenMouse(async (event: PointerEvent) => {
+        await nextTick()
 
-            contentInject.onItemLeave(event)
-          })),
-          'onFocus': composeEventHandlers<MenuItemImplEmits['focus'][0]>((event) => {
-            emit('focus', event)
-          }, () => isFocused.value = true),
-          'onBlur': composeEventHandlers<MenuItemImplEmits['blur'][0]>((event) => {
-            emit('blur', event)
-          }, () => isFocused.value = false),
-        }, slots),
-      }),
-    })
+        contentInject.onItemLeave(event)
+      })),
+      'onFocus': composeEventHandlers<MenuItemImplEmits['focus'][0]>((event) => {
+        emit('focus', event)
+      }, () => isFocused.value = true),
+      'onBlur': composeEventHandlers<MenuItemImplEmits['blur'][0]>((event) => {
+        emit('blur', event)
+      }, () => isFocused.value = false),
+    }, () => slots.default?.())))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuItemImpl = menuItemImpl as typeof menuItemImpl &
-(new () => { $props: MenuItemImplNativeElement })
+export const OkuMenuItemImpl = menuItemImpl as typeof menuItemImpl & (new () => { $props: MenuItemImplNativeElement })

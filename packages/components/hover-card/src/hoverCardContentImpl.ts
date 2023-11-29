@@ -203,6 +203,6 @@ const hoverCardContentImpl = defineComponent({
 })
 
 export const OkuHoverCardContentImpl = hoverCardContentImpl as typeof hoverCardContentImpl &
-(new () => {
-  $props: HoverCardContentImplNaviteElement
-})
+  (new () => {
+    $props: HoverCardContentImplNaviteElement
+  })

@@ -113,6 +113,6 @@ const groupImplSingle = defineComponent({
 })
 
 export const OkuToggleGroupImplSingle = groupImplSingle as typeof groupImplSingle &
-(new () => {
-  $props: ToggleGroupVariantNaviteElement
-})
+  (new () => {
+    $props: ToggleGroupVariantNaviteElement
+  })

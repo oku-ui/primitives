@@ -15,13 +15,14 @@ const popoverAnchor = defineComponent({
   emits: popoverAnchorProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuPopover, ...anchorProps } = toRefs(props)
+
     const _reactive = reactive(anchorProps)
-    const reactiveAnchorProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     const inject = usePopoverInject(ANCHOR_NAME, scopeOkuPopover?.value)
-
     const popperScope = usePopperScope(scopeOkuPopover?.value)
-    const forwardedRef = useForwardRef()
 
     watchEffect((onClean) => {
       inject.onCustomAnchorAdd()
@@ -32,16 +33,11 @@ const popoverAnchor = defineComponent({
 
     return () => h(OkuPopperAnchor, {
       ...popperScope,
-      ...mergeProps(attrs, reactiveAnchorProps),
+      ...mergeProps(attrs, otherProps),
       ref: forwardedRef,
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopoverAnchor = popoverAnchor as typeof popoverAnchor &
-(new () => {
-  $props: PopoverAnchorNaviteElement
-})
+export const OkuPopoverAnchor = popoverAnchor as typeof popoverAnchor & (new () => { $props: PopoverAnchorNaviteElement })

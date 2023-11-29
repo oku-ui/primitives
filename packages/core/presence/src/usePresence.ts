@@ -45,7 +45,7 @@ export function usePresence(present: Ref<boolean>) {
         send('MOUNT')
       }
       else if (currentAnimationName === 'none'
-      || styles?.display === 'none'
+        || styles?.display === 'none'
       ) {
         // If there is no exit animation or the element is hidden, animations won't run
         // so we unmount instantly

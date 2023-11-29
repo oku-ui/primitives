@@ -43,32 +43,28 @@ const arrow = defineComponent({
     ...arrowProps.props,
   },
   setup(props, { attrs, slots }) {
-    const forwardedRef = useForwardRef()
-
     const { width, height, ...arrowProps } = toRefs(props)
 
     const _reactive = reactive(arrowProps)
-    const reactiveProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     return () => h(Primitive.svg, {
-      ...mergeProps(reactiveProps, attrs),
+      ...mergeProps(attrs, otherProps),
       ref: forwardedRef,
       width: width.value,
       height: height.value,
       viewBox: '0 0 30 10',
       preserveAspectRatio: 'none',
-    }, {
-      default: () => props.asChild
-        ? slots.default?.()
-        : h('polygon', {
-          points: '0,0 30,0 15,10',
-        }),
-    })
+    }, () => [props.asChild
+      ? slots.default?.()
+      : h('polygon', {
+        points: '0,0 30,0 15,10',
+      }),
+    ])
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuArrow = arrow as typeof arrow
-& (new () => {
-  $props: ArrowNaviteElement
-})
+export const OkuArrow = arrow as typeof arrow & (new () => { $props: ArrowNaviteElement })

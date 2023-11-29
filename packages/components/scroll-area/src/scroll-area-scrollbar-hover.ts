@@ -24,7 +24,7 @@ const scrollAreaScrollbarHover = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaScrollbarHoverProps)
-    const reactiveScrollAreaScrollbarHoverProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -34,14 +34,17 @@ const scrollAreaScrollbarHover = defineComponent({
     watchEffect((onInvalidate) => {
       const scrollArea = inject.scrollArea.value
       let hideTimer = 0
+
       if (scrollArea) {
         const handlePointerEnter = () => {
           window.clearTimeout(hideTimer)
           visible.value = true
         }
+
         const handlePointerLeave = () => {
           hideTimer = window.setTimeout(() => visible.value = false, inject.scrollHideDelay.value)
         }
+
         scrollArea.addEventListener('pointerenter', handlePointerEnter)
         scrollArea.addEventListener('pointerleave', handlePointerLeave)
 
@@ -53,15 +56,12 @@ const scrollAreaScrollbarHover = defineComponent({
       }
     })
 
-    return () => h(OkuPresence, { present: computed(() => forceMount.value || visible.value).value }, {
-      default: () => h(OkuScrollAreaScrollbarAuto, {
-        'data-state': visible.value ? 'visible' : 'hidden',
-        ...mergeProps(attrs, reactiveScrollAreaScrollbarHoverProps),
-        'ref': forwardedRef,
-      }, slots),
-    })
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || visible.value).value }, () => h(OkuScrollAreaScrollbarAuto, {
+      'data-state': visible.value ? 'visible' : 'hidden',
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+    }, () => slots.default?.()))
   },
 })
 
-export const OkuScrollAreaScrollbarHover = scrollAreaScrollbarHover as typeof scrollAreaScrollbarHover &
-(new () => { $props: ScrollAreaScrollbarHoverNaviteElement })
+export const OkuScrollAreaScrollbarHover = scrollAreaScrollbarHover as typeof scrollAreaScrollbarHover & (new () => { $props: ScrollAreaScrollbarHoverNaviteElement })

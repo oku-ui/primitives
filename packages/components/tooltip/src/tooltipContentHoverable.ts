@@ -130,6 +130,6 @@ const tooltipContentHoverable = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipContentHoverable = tooltipContentHoverable as typeof tooltipContentHoverable &
-(new () => {
-  $props: TooltipContentHoverableElementNaviteElement
-})
+  (new () => {
+    $props: TooltipContentHoverableElementNaviteElement
+  })

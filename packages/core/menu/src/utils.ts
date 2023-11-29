@@ -63,10 +63,10 @@ function getNextMatch(values: string[], search: string, currentMatch?: string) {
   return nextMatch !== currentMatch ? nextMatch : undefined
 }
 
-export type Point = { x: number; y: number }
+export type Point = { x: number, y: number }
 export type Polygon = Point[]
 export type Side = 'left' | 'right'
-export type GraceIntent = { area: Polygon; side: Side }
+export type GraceIntent = { area: Polygon, side: Side }
 
 // Determine if a point is inside of a polygon.
 // Based on https://github.com/substack/point-in-polygon

@@ -25,5 +25,4 @@ const popper = defineComponent({
   },
 })
 
-export const OkuPopper = popper as typeof popper &
-(new () => { $props: PopperProps })
+export const OkuPopper = popper as typeof popper & (new () => { $props: PopperProps })

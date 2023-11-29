@@ -37,18 +37,21 @@ const portal = defineComponent({
     const { container, ...restProps } = toRefs(props)
 
     const _reactive = reactive(restProps)
-    const reactivePortalProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    return () => container.value
-      ? h(Teleport, { to: container.value, disabled: !container.value }, h(Primitive.div, {
-        ...mergeProps(attrs, reactivePortalProps),
+    return () => [container.value
+      ? h(Teleport, {
+        to: container.value,
+        disabled: !container.value,
+      }, h(Primitive.div, {
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
-      }, slots))
-      : null
+      }, () => slots.default?.()))
+      : null,
+    ]
   },
 })
 
-export const OkuPortal = portal as typeof portal &
-(new () => { $props: PortalElementNaviteElement })
+export const OkuPortal = portal as typeof portal & (new () => { $props: PortalElementNaviteElement })

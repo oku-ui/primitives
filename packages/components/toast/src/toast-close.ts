@@ -67,4 +67,4 @@ const toastClose = defineComponent({
 })
 
 export const OkuToastClose = toastClose as typeof toastClose &
-(new () => { $props: ToastCloseNaviteElement })
+  (new () => { $props: ToastCloseNaviteElement })

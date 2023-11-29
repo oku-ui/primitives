@@ -142,103 +142,96 @@ const menuContentImpl = defineComponent({
         contentRef.value?.focus()
       }),
       onUnmountAutoFocus: event => emit('closeAutoFocus', event),
-    }, {
-      default: () => h(OkuDismissableLayer, {
-        asChild: true,
-        disableOutsidePointerEvents: disableOutsidePointerEvents.value,
-        onEscapeKeydown: event => emit('escapeKeydown', event),
-        onPointerdownOutside: event => emit('pointerdownOutside', event),
-        onFocusOutside: event => emit('focusOutside', event),
-        onInteractOutside: event => emit('interactOutside', event),
-        onDismiss: () => emit('dismiss'),
-      }, {
-        default: () => h(OkuRovingFocusGroup, {
-          asChild: true,
-          ...rovingFocusGroupScope,
-          dir: rootInject.dir.value,
-          orientation: 'vertical',
-          loop: loop.value,
-          currentTabStopId: currentItemId.value,
-          onCurrentTabStopIdChange: (tabStopId) => {
-            currentItemId.value = tabStopId
-          },
-          onEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
-            emit('entryFocus', event)
-          }, (event) => {
-            // only focus first item when using keyboard
-            if (!rootInject.isUsingKeyboardRef.value)
-              event.preventDefault()
-          }),
-        }, {
-          default: () => h(OkuPopperContent, {
-            'role': 'menu',
-            'aria-orientation': 'vertical',
-            'data-state': getOpenState(inject.open.value!),
-            'data-oku-menu-content': '',
-            'dir': rootInject.dir.value,
-            ...popperScope,
-            ...mergeProps(attrs, otherProps),
-            'ref': composedRefs,
-            'style': { outline: 'none', ...attrs.style as any },
-            'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
-              emit('keydown', event)
-            }, (event) => {
-              // submenu key events bubble through portals. We only care about keys in this menu.
-              const target = event.target as HTMLElement
-              const isKeyDownInside = target.closest('[data-oku-menu-content]') === event.currentTarget
-              const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
-              const isCharacterKey = event.key.length === 1
-              if (isKeyDownInside) {
-                // menus should not be navigated using tab key so we prevent it
-                if (event.key === 'Tab')
-                  event.preventDefault()
-                if (!isModifierKey && isCharacterKey)
-                  handleTypeaheadSearch(event.key)
-              }
-              // focus first/last item based on key pressed
-              const content = contentRef.value
-              if (event.target !== content)
-                return
-              if (!FIRST_LAST_KEYS.includes(event.key))
-                return
-              event.preventDefault()
-              const items = getItems().filter(item => !item.disabled)
-              const candidateNodes = items.map(item => item.ref.value!)
-              if (LAST_KEYS.includes(event.key))
-                candidateNodes.reverse()
-              focusFirst(candidateNodes)
-            }),
-            'onBlur': composeEventHandlers<MenuContentImplEmits['blur'][0]>((event) => {
-              emit('blur', event)
-            }, async (event) => {
-              // clear search buffer when leaving the menu
-              if (!(event.currentTarget as HTMLElement).contains(event.target as HTMLElement)) {
-                await nextTick()
-
-                window.clearTimeout(timerRef.value)
-                searchRef.value = ''
-              }
-            }),
-            'onPointermove': composeEventHandlers<MenuContentImplEmits['pointermove'][0]>((event) => {
-              emit('pointermove', event)
-            }, whenMouse((event) => {
-              const target = event.target as HTMLDivElement
-              const pointerXHasChanged = lastPointerXRef.value !== event.clientX
-              // We don't use `event.movementX` for this check because Safari will
-              // always return `0` on a pointer event.
-              if ((event.currentTarget as HTMLElement).contains(target) && pointerXHasChanged) {
-                const newDir = event.clientX > lastPointerXRef.value ? 'right' : 'left'
-                pointerDirRef.value = newDir
-                lastPointerXRef.value = event.clientX
-              }
-            })),
-          }, slots),
-        }),
+    }, () => h(OkuDismissableLayer, {
+      asChild: true,
+      disableOutsidePointerEvents: disableOutsidePointerEvents.value,
+      onEscapeKeydown: event => emit('escapeKeydown', event),
+      onPointerdownOutside: event => emit('pointerdownOutside', event),
+      onFocusOutside: event => emit('focusOutside', event),
+      onInteractOutside: event => emit('interactOutside', event),
+      onDismiss: () => emit('dismiss'),
+    }, () => h(OkuRovingFocusGroup, {
+      asChild: true,
+      ...rovingFocusGroupScope,
+      dir: rootInject.dir.value,
+      orientation: 'vertical',
+      loop: loop.value,
+      currentTabStopId: currentItemId.value,
+      onCurrentTabStopIdChange: (tabStopId) => {
+        currentItemId.value = tabStopId
+      },
+      onEntryFocus: composeEventHandlers<MenuContentImplEmits['entryFocus'][0]>((event) => {
+        emit('entryFocus', event)
+      }, (event) => {
+        // only focus first item when using keyboard
+        if (!rootInject.isUsingKeyboardRef.value)
+          event.preventDefault()
       }),
-    })
+    }, () => h(OkuPopperContent, {
+      'role': 'menu',
+      'aria-orientation': 'vertical',
+      'data-state': getOpenState(inject.open.value!),
+      'data-oku-menu-content': '',
+      'dir': rootInject.dir.value,
+      ...popperScope,
+      ...mergeProps(attrs, otherProps),
+      'ref': composedRefs,
+      'style': { outline: 'none', ...attrs.style as any },
+      'onKeydown': composeEventHandlers<MenuContentImplEmits['keydown'][0]>((event) => {
+        emit('keydown', event)
+      }, (event) => {
+        // submenu key events bubble through portals. We only care about keys in this menu.
+        const target = event.target as HTMLElement
+        const isKeyDownInside = target.closest('[data-oku-menu-content]') === event.currentTarget
+        const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
+        const isCharacterKey = event.key.length === 1
+        if (isKeyDownInside) {
+          // menus should not be navigated using tab key so we prevent it
+          if (event.key === 'Tab')
+            event.preventDefault()
+          if (!isModifierKey && isCharacterKey)
+            handleTypeaheadSearch(event.key)
+        }
+        // focus first/last item based on key pressed
+        const content = contentRef.value
+        if (event.target !== content)
+          return
+        if (!FIRST_LAST_KEYS.includes(event.key))
+          return
+        event.preventDefault()
+        const items = getItems().filter(item => !item.disabled)
+        const candidateNodes = items.map(item => item.ref.value!)
+        if (LAST_KEYS.includes(event.key))
+          candidateNodes.reverse()
+        focusFirst(candidateNodes)
+      }),
+      'onBlur': composeEventHandlers<MenuContentImplEmits['blur'][0]>((event) => {
+        emit('blur', event)
+      }, async (event) => {
+        // clear search buffer when leaving the menu
+        if (!(event.currentTarget as HTMLElement).contains(event.target as HTMLElement)) {
+          await nextTick()
+
+          window.clearTimeout(timerRef.value)
+          searchRef.value = ''
+        }
+      }),
+      'onPointermove': composeEventHandlers<MenuContentImplEmits['pointermove'][0]>((event) => {
+        emit('pointermove', event)
+      }, whenMouse((event) => {
+        const target = event.target as HTMLDivElement
+        const pointerXHasChanged = lastPointerXRef.value !== event.clientX
+        // We don't use `event.movementX` for this check because Safari will
+        // always return `0` on a pointer event.
+        if ((event.currentTarget as HTMLElement).contains(target) && pointerXHasChanged) {
+          const newDir = event.clientX > lastPointerXRef.value ? 'right' : 'left'
+          pointerDirRef.value = newDir
+          lastPointerXRef.value = event.clientX
+        }
+      })),
+    }, () => slots.default?.()))))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuContentImpl = menuContentImpl as typeof menuContentImpl &
-(new () => { $props: MenuContentImplNativeElement })
+export const OkuMenuContentImpl = menuContentImpl as typeof menuContentImpl & (new () => { $props: MenuContentImplNativeElement })

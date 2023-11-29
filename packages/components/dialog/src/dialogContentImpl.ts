@@ -122,21 +122,21 @@ const dialogContentImpl = defineComponent({
         }, slots),
       }),
       process.env.NODE_ENV !== 'production'
-        && h(Fragment, [
-          h(OkuDialogTitleWarning, {
-            titleId: inject.titleId.value,
-          }),
-          h(OkuDialogDescriptionWarning, {
-            contentRef: contentRef.value,
-            descriptionId: inject.descriptionId.value,
-          }),
-        ]),
+      && h(Fragment, [
+        h(OkuDialogTitleWarning, {
+          titleId: inject.titleId.value,
+        }),
+        h(OkuDialogDescriptionWarning, {
+          contentRef: contentRef.value,
+          descriptionId: inject.descriptionId.value,
+        }),
+      ]),
     ])
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogContentImpl = dialogContentImpl as typeof dialogContentImpl &
-(new () => {
-  $props: DialogContentImplNaviteElement
-})
+  (new () => {
+    $props: DialogContentImplNaviteElement
+  })

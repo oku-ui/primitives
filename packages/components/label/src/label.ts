@@ -42,6 +42,6 @@ const label = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuLabel = label as typeof label &
-(new () => {
-  $props: LabelNaviteElement
-})
+  (new () => {
+    $props: LabelNaviteElement
+  })

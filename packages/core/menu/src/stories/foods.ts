@@ -1,6 +1,6 @@
 export const foodGroups: Array<{
   label?: string
-  foods: Array<{ value: string; label: string; disabled?: boolean }>
+  foods: Array<{ value: string, label: string, disabled?: boolean }>
 }> = [
   {
     label: 'Fruits',

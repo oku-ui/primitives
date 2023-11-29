@@ -75,6 +75,6 @@ const toastAction = defineComponent({
 })
 
 export const OkuToastAction = toastAction as typeof toastAction &
-(new () => { $props: ToastActionNaviteElement })
+  (new () => { $props: ToastActionNaviteElement })
 
 export type { ToastActionProps }

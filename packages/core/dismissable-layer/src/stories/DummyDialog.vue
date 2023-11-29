@@ -6,7 +6,7 @@ import { OkuFocusScope } from '@oku-ui/focus-scope'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { useScrollLock } from '@oku-ui/use-composable'
 
-withDefaults(defineProps<{ openLabel?: string; closeLabel?: string }>(), {
+withDefaults(defineProps<{ openLabel?: string, closeLabel?: string }>(), {
   openLabel: 'Open',
   closeLabel: 'Close',
 })

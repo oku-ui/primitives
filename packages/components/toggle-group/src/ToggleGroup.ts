@@ -140,6 +140,6 @@ const toggleGroup = defineComponent({
 })
 
 export const OkuToggleGroup = toggleGroup as typeof toggleGroup &
-(new () => {
-  $props: ToggleGroupNaviteElement
-})
+  (new () => {
+    $props: ToggleGroupNaviteElement
+  })

@@ -27,10 +27,9 @@ const menuSeparator = defineComponent({
       'aria-orientation': 'horizontal',
       ...mergeProps(attrs, otherProps),
       'ref': forwardedRef,
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuSeparator = menuSeparator as typeof menuSeparator &
-(new () => { $props: MenuSeparatorNativeElement })
+export const OkuMenuSeparator = menuSeparator as typeof menuSeparator & (new () => { $props: MenuSeparatorNativeElement })

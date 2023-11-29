@@ -27,7 +27,7 @@ const scrollAreaScrollbarScroll = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaScrollbarScrollProps)
-    const reactiveScrollAreaScrollbarScrollProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -51,6 +51,7 @@ const scrollAreaScrollbarScroll = defineComponent({
         POINTER_ENTER: 'interacting',
       },
     })
+
     const debounceScrollEnd = useDebounceCallback(() => send('SCROLL_END'), 100)
 
     watchEffect((onInvalidate) => {
@@ -67,36 +68,36 @@ const scrollAreaScrollbarScroll = defineComponent({
 
       if (viewport) {
         let prevScrollPos = viewport[scrollDirection]
+
         const handleScroll = () => {
           const scrollPos = viewport[scrollDirection]
           const hasScrollInDirectionChanged = prevScrollPos !== scrollPos
+
           if (hasScrollInDirectionChanged) {
             send('SCROLL')
             debounceScrollEnd()
           }
           prevScrollPos = scrollPos
         }
+
         viewport.addEventListener('scroll', handleScroll)
 
         onInvalidate(() => viewport.removeEventListener('scroll', handleScroll))
       }
     })
 
-    return () => h(OkuPresence, { present: computed(() => forceMount.value || state.value !== 'hidden').value }, {
-      default: () => h(OkuScrollAreaScrollbarVisible, {
-        'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
-        ...mergeProps(attrs, reactiveScrollAreaScrollbarScrollProps),
-        'ref': forwardedRef,
-        'onPointerenter': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
-          emit('pointerenter', event)
-        }, () => send('POINTER_ENTER')),
-        'onPointerleave': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
-          emit('pointerleave', event)
-        }, () => send('POINTER_LEAVE')),
-      }, slots),
-    })
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || state.value !== 'hidden').value }, () => h(OkuScrollAreaScrollbarVisible, {
+      'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+      'onPointerenter': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerenter'][0]>((event) => {
+        emit('pointerenter', event)
+      }, () => send('POINTER_ENTER')),
+      'onPointerleave': composeEventHandlers<ScrollAreaScrollbarScrollEmits['pointerleave'][0]>((event) => {
+        emit('pointerleave', event)
+      }, () => send('POINTER_LEAVE')),
+    }, () => slots.default?.()))
   },
 })
 
-export const OkuScrollAreaScrollbarScroll = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll &
-(new () => { $props: ScrollAreaScrollbarScrollNaviteElement })
+export const OkuScrollAreaScrollbarScroll = scrollAreaScrollbarScroll as typeof scrollAreaScrollbarScroll & (new () => { $props: ScrollAreaScrollbarScrollNaviteElement })

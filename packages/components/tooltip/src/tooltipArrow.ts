@@ -57,6 +57,6 @@ const tooltipArrow = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipArrow = tooltipArrow as typeof tooltipArrow &
-(new () => {
-  $props: TooltipArrowNaviteElement
-})
+  (new () => {
+    $props: TooltipArrowNaviteElement
+  })
