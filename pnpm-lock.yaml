@@ -1454,7 +1454,7 @@ importers:
         specifier: ^20.10.1
         version: 20.10.1
       '@types/pacote':
-        specifier: ^11.1.7
+        specifier: ^11.1.8
         version: 11.1.8
       changelogen:
         specifier: ^0.5.5
