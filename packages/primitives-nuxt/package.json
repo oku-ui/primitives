@@ -66,7 +66,7 @@
     "@types/node": "^20.8.10",
     "@types/pacote": "^11.1.7",
     "changelogen": "^0.5.5",
-    "eslint": "^8.48.0",
+    "eslint": "^8.54.0",
     "nuxt": "^3.8.0",
     "vitest": "^0.34.6"
   }
