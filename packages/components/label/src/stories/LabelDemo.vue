@@ -1,55 +1,51 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { OkuLabel } from '@oku-ui/label'
+import Styled from './Styled.vue'
+import WithControl from './WithControl.vue'
 
-export interface OkuLabelProps {
-  label: string
-  template: '#1' | '#2'
+withDefaults(defineProps<ILabelProps>(), {})
+
+export interface ILabelProps {
+  template?: 'Styled' | 'WithControl'
   allshow?: boolean
 }
-
-withDefaults(defineProps<OkuLabelProps>(), {
-  label: 'First Name',
-  template: '#1',
-})
-
-const labelRef = ref()
-onMounted(() => {
-  console.warn(labelRef.value)
-})
-const alert = () => console.warn('alert')
-
-const value = ref()
 </script>
 
 <template>
-  <div class="cursor-default inline-block">
-    <div v-if="template === '#1' || allshow" class="flex flex-col">
-      <OkuLabel ref="labelRef" :value="value" class="text-black text-2xl border-2 border-gray-500 mb-4" for="firstName">
-        {{ label }}
-      </OkuLabel>
-      <input id="firstName" class="mt-4 bg-gray-200 p-2 border-2 border-gray-500" type="text" defaultValue="Pedro Duarte">
-    </div>
-    <div v-if="template === '#2' || allshow" class="flex flex-col">
-      <div>
-        <h1>Wrapping control</h1>
-        <OkuLabel>
-          <button class="flex-inline p-4 border bg-gray-400 hover:bg-red-500" @click="alert">
-            Control
-          </button>
-          {{ label }}
-        </OkuLabel>
-      </div>
+  <div>
+    <template v-if="template === 'Styled' || allshow">
+      <Styled />
+    </template>
 
-      <div>
-        <h1>Referencing control</h1>
-        <button id="control" class="flex-inline p-4 border bg-gray-400 hover:bg-red-500" @click="alert">
-          Control
-        </button>
-        <OkuLabel for="control">
-          {{ label }}
-        </OkuLabel>
-      </div>
-    </div>
+    <template v-if="template === 'WithControl' || allshow">
+      <WithControl />
+    </template>
   </div>
 </template>
+
+<style>
+.label {
+  /* RECOMMENDED_CSS_LABEL */
+  /* ensures it can receive vertical margins */
+  display: inline-block;
+  /* better default alignment */
+  vertical-align: middle;
+  /* mimics default `label` tag (as we render a `span`) */
+  cursor: default;
+
+  display: inline-block;
+  border: 1px solid gainsboro;
+  padding: 10px;
+}
+
+.label-control {
+  display: inline-flex;
+  border: 1px solid gainsboro;
+  padding: 10px;
+  vertical-align: middle;
+  margin: 0px 10px;
+
+  &:hover {
+    background-color: red;
+  }
+}
+</style>

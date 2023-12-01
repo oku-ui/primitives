@@ -1,47 +1,35 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
-
-export type LabelNaviteElement = OkuElement<'label'>
-export type LabelElement = HTMLLabelElement
-
-export interface LabelProps extends PrimitiveProps {}
-
-const NAME = 'OkuLabel'
+import { useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { Primitive } from '@oku-ui/primitive'
+import { LABEL_NAME, labelProps } from './props'
+import type { LabelEmits, LabelNativeElement } from './props'
 
 const label = defineComponent({
-  name: NAME,
+  name: LABEL_NAME,
   inheritAttrs: false,
   props: {
-    ...primitiveProps,
+    ...labelProps.props,
   },
   emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    mousedown: (event: MouseEvent) => true,
+    ...labelProps.emits,
   },
   setup(props, { attrs, slots, emit }) {
     const forwardedRef = useForwardRef()
+    const emits = useListeners(['onMousedown'])
 
-    const originalReturn = () => h(Primitive.label, {
-      ...mergeProps(attrs, props),
-      ref: forwardedRef,
+    return () => h(Primitive.label, {
+      ...mergeProps(attrs, emits),
       asChild: props.asChild,
-      onMousedown: (event: MouseEvent) => {
+      ref: forwardedRef,
+      onMousedown: (event: LabelEmits['mousedown'][0]) => {
         emit('mousedown', event)
         // prevent text selection when double clicking label
         if (!event.defaultPrevented && event.detail > 1)
           event.preventDefault()
       },
-    }, {
-      default: () => slots.default?.(),
-    })
-    return originalReturn
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuLabel = label as typeof label &
-  (new () => {
-    $props: LabelNaviteElement
-  })
+export const OkuLabel = label as typeof label & (new () => { $props: LabelNativeElement })
