@@ -64,7 +64,7 @@
     "@nuxt/schema": "^3.8.0",
     "@nuxt/test-utils": "^3.8.0",
     "@types/node": "^20.10.1",
-    "@types/pacote": "^11.1.7",
+    "@types/pacote": "^11.1.8",
     "changelogen": "^0.5.5",
     "eslint": "^8.48.0",
     "nuxt": "^3.8.0",
