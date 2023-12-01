@@ -3,7 +3,7 @@ import { OkuLabel } from '@oku-ui/label'
 </script>
 
 <template>
-  <OkuLabel class="label">
+  <OkuLabel class="label" @click="console.log">
     Label
   </OkuLabel>
 </template>

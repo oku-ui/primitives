@@ -1,5 +1,5 @@
-import { defineComponent, h } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps } from 'vue'
+import { useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { LABEL_NAME, labelProps } from './props'
 import type { LabelEmits, LabelNativeElement } from './props'
@@ -13,11 +13,13 @@ const label = defineComponent({
   emits: {
     ...labelProps.emits,
   },
-  setup(_props, { attrs, slots, emit }) {
+  setup(props, { attrs, slots, emit }) {
     const forwardedRef = useForwardRef()
+    const emits = useListeners(['onMousedown'])
 
     return () => h(Primitive.label, {
-      ...attrs,
+      ...mergeProps(attrs, emits),
+      asChild: props.asChild,
       ref: forwardedRef,
       onMousedown: (event: LabelEmits['mousedown'][0]) => {
         emit('mousedown', event)
