@@ -24,16 +24,16 @@
     "@oku-ui/slot": "workspace:^",
     "@oku-ui/switch": "workspace:^",
     "@oku-ui/tabs": "workspace:^",
-    "vite-plugin-pages": "^0.31.0",
+    "vite-plugin-pages": "^0.32.0",
     "vue": "3.3.9",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.0",
+    "@vitejs/plugin-vue": "^4.5.1",
     "typescript": "^5.3.2",
     "unplugin-auto-import": "^0.17.1",
     "unplugin-vue-components": "^0.25.2",
-    "vite": "5.0.2",
-    "vue-tsc": "^1.8.22"
+    "vite": "5.0.4",
+    "vue-tsc": "^1.8.24"
   }
 }
