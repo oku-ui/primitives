@@ -1460,7 +1460,7 @@ importers:
         specifier: ^0.5.5
         version: 0.5.5
       eslint:
-        specifier: ^8.48.0
+        specifier: ^8.54.0
         version: 8.54.0
       nuxt:
         specifier: ^3.8.0
@@ -10277,7 +10277,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -14135,7 +14135,7 @@ packages:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
     dependencies:
-      glob: 7.1.4
+      glob: 7.2.3
     dev: true
 
   /rimraf@5.0.5:
