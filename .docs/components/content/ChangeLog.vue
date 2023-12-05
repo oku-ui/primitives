@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .release {
   @apply relative flex overflow-hidden flex-1 p-4 overflow-y-auto;
 
