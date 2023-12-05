@@ -35,11 +35,8 @@
     @apply relative pt-4 flex items-start justify-between gap-4 pb-4;
 
     a {
-      @apply text-2xl font-bold text-primary-500 mt-8;
+      @apply text-2xl font-bold text-primary-500 mt-8 dark:text-primary-400;
 
-      @dark {
-        @apply text-primary-400;
-      }
     }
   }
 
