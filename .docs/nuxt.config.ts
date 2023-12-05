@@ -9,6 +9,7 @@ const devConfig = {
     'nuxt-og-image',
     '@vueuse/nuxt',
     '@pinia/nuxt',
+    '@oku-ui/primitives-nuxt',
   ],
   extends: [
     '@nuxt/ui-pro',
@@ -17,6 +18,11 @@ const devConfig = {
 
   routeRules: {
     '/': { redirect: '/primitives' },
+  },
+
+  primitives: {
+    // All components install
+    installComponents: true,
   },
 } as NuxtConfig
 
@@ -28,5 +34,9 @@ export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
         '/primitives/getting-started',
       ],
     },
+  },
+  primitives: {
+    // All components install
+    installComponents: true,
   },
 } as NuxtConfig))
