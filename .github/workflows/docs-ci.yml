@@ -1,0 +1,61 @@
+name: Docs
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".docs/**"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".docs/**"
+
+
+jobs:
+  build-test:
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: .docs
+
+    permissions:
+      # Required to checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [20]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # - name: 👀 Lint
+      #   run: pnpm lint
+
+      - name: 🚀 Build
+        run: pnpm build
+        env:
+          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
