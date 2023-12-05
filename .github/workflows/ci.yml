@@ -13,13 +13,13 @@ on:
     branches:
       - main
     paths-ignore:
-      - .docs/**
+      - ".docs/**"
 
   pull_request:
     branches:
       - main
     paths-ignore:
-      - .docs/**
+      - ".docs/**"
 
 
 jobs:

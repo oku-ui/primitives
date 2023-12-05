@@ -19,7 +19,7 @@ on:
     branches:
       - main
     paths:
-      - .docs/**
+      - ".docs/**"
 
 
 jobs:
@@ -57,3 +57,5 @@ jobs:
 
       - name: 🚀 Build
         run: pnpm build
+        env:
+          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
