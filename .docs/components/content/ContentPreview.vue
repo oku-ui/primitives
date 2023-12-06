@@ -24,12 +24,12 @@ onMounted(async () => {
   try {
     if (props.design === 'radix') {
       dynamicComponent.value = defineAsyncComponent(() => {
-        return import(`./../primitives/${props.componentSrc}/radix.vue`)
+        return import(`../primitives/${props.componentSrc}/radix.vue`)
       })
     }
     else {
       dynamicComponent.value = defineAsyncComponent(() => {
-        return import(`./../primitives/${props.componentSrc}/index.vue`)
+        return import(`../primitives/${props.componentSrc}/index.vue`)
       })
     }
   }

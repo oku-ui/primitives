@@ -26,7 +26,7 @@ const dynamicComponent = shallowRef<Component | undefined>(() =>
 onMounted(async () => {
   try {
     dynamicComponent.value = defineAsyncComponent(() => {
-      return import(`./../primitives/${props.data.componentName}/index.vue`)
+      return import(`../primitives/${props.data.componentName}/index.vue`)
     })
   }
   catch (error) {
