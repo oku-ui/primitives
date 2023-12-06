@@ -84,7 +84,7 @@ export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
         path: resolve('components/primitives'),
         pattern: '**/*.vue',
         isAsync: true,
-      // global: true,
+        global: true,
       },
       {
         path: resolve('components'),
