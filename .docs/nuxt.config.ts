@@ -13,7 +13,6 @@ const devConfig = {
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@oku-ui/primitives-nuxt',
-    'nuxt-component-meta',
   ],
   extends: [
     '@nuxt/ui-pro',
@@ -36,40 +35,16 @@ const devConfig = {
       isAsync: true,
     }],
   },
-  componentMeta: {
-    components: [
-      {
-        dirs: [{
-          path: '~/components/primitives',
-          pattern: '**/*.vue',
-        }],
-      },
-    ],
-    exclude: [
-      '@nuxt/content',
-      '@nuxt/ui-templates',
-      '@nuxtjs/color-mode',
-      '@nuxtjs/mdc',
-      'nuxt/dist',
-      'nuxt-og-image',
-      'nuxt-site-config',
-      '@nuxtjs/mdc',
-      'node_modules/**/@oku-ui/**',
-      '@nuxt/ui',
-      '@nuxt/ui-pro',
-      '@oku-ui/primitives',
-    ],
-    metaFields: {
-      props: false,
-      slots: false,
-      events: false,
-      exposed: false,
-      type: false,
-    },
-  },
 } as NuxtConfig
 
 export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
+  nitro: {
+    prerender: {
+      ignore: [
+        '/primitives',
+      ],
+    },
+  },
   components: {
     dirs: [
       {
