@@ -79,12 +79,17 @@ export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
     },
   },
   components: {
-    dirs: [{
-      path: resolve('components/primitives'),
-      pattern: '**/*.vue',
-      isAsync: true,
+    dirs: [
+      {
+        path: resolve('components/primitives'),
+        pattern: '**/*.vue',
+        isAsync: true,
       // global: true,
-    }],
+      },
+      {
+        path: resolve('components'),
+      },
+    ],
   },
   runtimeConfig: {
     nitro: {
