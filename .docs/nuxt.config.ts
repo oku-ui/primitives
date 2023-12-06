@@ -70,14 +70,6 @@ const devConfig = {
 } as NuxtConfig
 
 export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
-  nitro: {
-    prerender: {
-      routes: [
-        '/primitives',
-        '/primitives/getting-started',
-      ],
-    },
-  },
   components: {
     dirs: [
       {
