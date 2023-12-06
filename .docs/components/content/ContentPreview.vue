@@ -9,34 +9,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   off: '',
 })
-
-const dynamicComponent = shallowRef<Component | undefined>(() =>
-  h(
-    'div',
-    {
-      class: 'content-preview-loader',
-    },
-    h('div', {}, 'Loading...'),
-  ),
-)
-
-onMounted(async () => {
-  try {
-    if (props.design === 'radix') {
-      dynamicComponent.value = defineAsyncComponent(() => {
-        return import(`./../primitives/${props.componentSrc}/radix.vue`)
-      })
-    }
-    else {
-      dynamicComponent.value = defineAsyncComponent(() => {
-        return import(`./../primitives/${props.componentSrc}/index.vue`)
-      })
-    }
-  }
-  catch (error) {
-    dynamicComponent.value = () => h('div', {}, 'Not found')
-  }
-})
 </script>
 
 <template>
@@ -46,7 +18,7 @@ onMounted(async () => {
       :class="props.design === 'radix' ? 'HeroCodeBlock' : 'componentBackground'"
     >
       <div class="w-full max-w-xl flex flex-col items-center justify-center px-4 py-20">
-        <component :is="dynamicComponent" />
+        <component :is="props.design === 'radix' ? `${props.componentSrc}Radix` : props.componentSrc" />
       </div>
     </div>
   </div>

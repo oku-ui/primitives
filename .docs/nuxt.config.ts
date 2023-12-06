@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defu } from 'defu'
 import type { NuxtConfig } from 'nuxt/config'
+import { createResolver } from '@nuxt/kit'
+
+const { resolve } = createResolver(import.meta.url)
 
 const devConfig = {
   modules: [
@@ -24,15 +27,40 @@ const devConfig = {
     // All components install
     installComponents: true,
   },
+  components: {
+    dirs: [{
+      path: '~/components/primitives',
+      pattern: '**/*.vue',
+      global: true,
+      isAsync: true,
+    }],
+  },
 } as NuxtConfig
 
 export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
   nitro: {
     prerender: {
-      routes: [
+      ignore: [
         '/primitives',
-        '/primitives/getting-started',
       ],
+    },
+  },
+  components: {
+    dirs: [
+      {
+        path: resolve('components/primitives'),
+        pattern: '**/*.vue',
+        isAsync: true,
+        global: true,
+      },
+      {
+        path: resolve('components'),
+      },
+    ],
+  },
+  runtimeConfig: {
+    nitro: {
+      root: resolve('./'),
     },
   },
   primitives: {
