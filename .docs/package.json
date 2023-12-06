@@ -30,6 +30,7 @@
     "@nuxt/devtools": "^1.0.4",
     "@vueuse/nuxt": "^10.6.1",
     "nuxt": "^3.8.2",
+    "nuxt-component-meta": "^0.6.0",
     "nuxt-og-image": "3.0.0-beta.37",
     "typescript": "^5.3.2"
   }
