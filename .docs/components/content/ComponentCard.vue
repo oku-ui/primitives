@@ -40,12 +40,12 @@ onMounted(async () => {
     <div
       class="w-full p-4 rounded-2xl flex-col gap-2 backdrop-blur-sm bg-[#575757]/10 border border-[#DEDEDE] dark:border-[#303030] inline-flex min-h-[138px] sm:min-h-[146px]"
     >
-      <div class="relative w-full">
+      <div class="relative w-full flex items-center justify-center mt-4">
         <component :is="dynamicComponent" v-if="!radix" class="py-10" />
-        <component :is="`${data.componentName}Radix`" v-else class="py-10" />
+        <component :is="`${data.componentName}Radix`" v-else class="py-10 mx-auto" />
       </div>
       <div>
-        <span class="text-xs px-2 py-1 border border-[#DEDEDE] dark:border-[#222] rounded-full text-[#676767] inline">{{ data.version }}</span>
+        <span v-if="data.version" class="text-xs px-2 py-1 border border-[#DEDEDE] dark:border-[#222] rounded-full text-[#676767] inline">{{ data.version }}</span>
       </div>
       <NuxtLink :to="data._path" class="text-[#111] group-hover:text-oku-500 dark:text-white font-medium">
         {{ data.title }}
