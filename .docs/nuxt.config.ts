@@ -5,11 +5,16 @@ import { createResolver } from '@nuxt/kit'
 
 const { resolve } = createResolver(import.meta.url)
 
+const routeRules = {
+  '/primitives/getting-started': { redirect: '/primitives/getting-started/introduction', prerender: false },
+  '/primitives/community': { redirect: '/primitives/community/getting-help', prerender: false },
+}
+
 const devConfig = {
   modules: [
     '@nuxt/content',
     '@nuxt/ui',
-    'nuxt-og-image',
+    // 'nuxt-og-image',
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@oku-ui/primitives-nuxt',
@@ -17,10 +22,11 @@ const devConfig = {
   extends: [
     '@nuxt/ui-pro',
   ],
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   routeRules: {
     '/': { redirect: '/primitives' },
+    ...routeRules,
   },
 
   primitives: {
@@ -40,10 +46,11 @@ const devConfig = {
 export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
   nitro: {
     prerender: {
-      ignore: [
-        '/primitives',
-      ],
+      crawlLinks: true,
     },
+  },
+  routeRules: {
+    ...routeRules,
   },
   components: {
     dirs: [
