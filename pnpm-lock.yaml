@@ -13,6 +13,7 @@ overrides:
   '@oku-ui/checkbox': workspace:^
   '@oku-ui/collapsible': workspace:^
   '@oku-ui/collection': workspace:^
+  '@oku-ui/context-menu': workspace:^
   '@oku-ui/dialog': workspace:^
   '@oku-ui/direction': workspace:^
   '@oku-ui/dismissable-layer': workspace:^
@@ -88,6 +89,9 @@ importers:
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:packages/core/collection
+      '@oku-ui/context-menu':
+        specifier: workspace:^
+        version: link:packages/components/context-menu
       '@oku-ui/dialog':
         specifier: workspace:^
         version: link:packages/components/dialog
@@ -438,6 +442,37 @@ importers:
       '@oku-ui/presence':
         specifier: workspace:^
         version: link:../../core/presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../core/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../core/provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../core/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../core/utils
+      vue:
+        specifier: 3.3.9
+        version: 3.3.9(typescript@5.3.2)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/components/context-menu:
+    dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.3.9)
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../../core/direction
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:../../core/menu
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
@@ -1513,6 +1548,9 @@ importers:
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:../../packages/core/collection
+      '@oku-ui/context-menu':
+        specifier: workspace:^
+        version: link:../../packages/components/context-menu
       '@oku-ui/dialog':
         specifier: workspace:^
         version: link:../../packages/components/dialog
@@ -1610,6 +1648,9 @@ importers:
       '@oku-ui/checkbox':
         specifier: workspace:^
         version: link:../../packages/components/checkbox
+      '@oku-ui/context-menu':
+        specifier: workspace:^
+        version: link:../../packages/components/context-menu
       '@oku-ui/label':
         specifier: workspace:^
         version: link:../../packages/components/label
@@ -16472,6 +16513,10 @@ packages:
     resolution: {integrity: sha512-oYATTQyh8XVkUWe2kaKxhxKVuuzK2Qcehe+yr3bGiaQAhK3ry2kYE4FWOfL+KO3hVFwCdLmzDQTzYhTi9C+R2A==}
     dependencies:
       ufo: 1.3.2
+    dev: true
+
+  /vue-component-type-helpers@1.8.24:
+    resolution: {integrity: sha512-lqWs/7fdRXoSBAlbouHBX+LNuaY6gI9xWW34m/ZIz9zVPYHEyw0b2/zaCBwlKx0NtKTeF/6pOpvrxVkh7nhIYg==}
     dev: true
 
   /vue-component-type-helpers@1.8.24:

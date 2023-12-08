@@ -28,7 +28,6 @@ const menuRadioItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    // const emits = useListeners()
 
     const inject = useRadioGroupInject(MENU_RADIO_ITEM_NAME, scopeOkuMenu.value)
     const checked = computed(() => value.value === inject.value?.value)

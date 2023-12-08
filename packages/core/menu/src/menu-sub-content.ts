@@ -31,7 +31,6 @@ const menuSubContent = defineComponent({
     const forceMount = computed(() => _forceMount.value || portalInject.forceMount?.value)
 
     const forwardedRef = useForwardRef()
-    // const emits = useListeners()
 
     const inject = useMenuInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_SUB_CONTENT_NAME, scopeOkuMenu.value)

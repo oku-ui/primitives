@@ -28,7 +28,6 @@ const menuCheckboxItem = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    // const emits = useListeners()
 
     itemIndicatorProvider({
       scope: scopeOkuMenu.value,
