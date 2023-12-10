@@ -1,13 +1,13 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { SeparatorElement, SeparatorNaviteElement, SeparatorProps } from '@oku-ui/separator'
+import type { SeparatorElement, SeparatorNativeElement, SeparatorProps } from '@oku-ui/separator'
 import { OkuSeparator, separatorProps } from '@oku-ui/separator'
 import { scopeToolbarProps } from './utils'
 import { useToolbarInject } from './toolbar'
 
 const SEPARATOR_NAME = 'OkuToolbarSeparator'
 
-export type ToolbarSeparatorNaviteElement = SeparatorNaviteElement
+export type ToolbarSeparatorNaviteElement = SeparatorNativeElement
 export type ToolbarSeparatorElement = SeparatorElement
 
 export interface ToolbarSeparatorProps extends SeparatorProps {}
