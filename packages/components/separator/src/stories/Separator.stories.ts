@@ -1,19 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import OkuSeparatorComponent from './SeparatorDemo.vue'
+import OkuSeparator from './SeparatorDemo.vue'
 import type { ISeparatorProps } from './SeparatorDemo.vue'
 
-interface StoryProps extends ISeparatorProps {
-}
+interface StoryProps extends ISeparatorProps { }
 
 const meta = {
   title: 'Components/Separator',
-  component: OkuSeparatorComponent,
+  component: OkuSeparator,
   args: {
-    template: '#1',
+    template: 'Styled',
   },
-
-} satisfies Meta<typeof OkuSeparatorComponent> & {
+} satisfies Meta<typeof OkuSeparator> & {
   args: StoryProps
 }
 
@@ -22,16 +20,17 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Primary: Story = {
+export const Styled: Story = {
   args: {
+    template: 'Styled',
   },
   render: (args: any) => ({
-    components: { OkuSeparatorComponent },
+    components: { OkuSeparator },
     setup() {
       return { args }
     },
     template: `
-      <OkuSeparatorComponent v-bind="args" />
+      <OkuSeparator v-bind="args" />
     `,
   }),
 }

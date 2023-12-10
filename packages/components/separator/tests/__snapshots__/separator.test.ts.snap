@@ -1,19 +1,20 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`OkuSeparator > renders correctly 1`] = `
-<div
-  data-orientation="horizontal"
-  role="separator"
->
-  <!---->
-</div>
-`;
+exports[`okuSeparator > should render OkuSeparator correctly 1`] = `"<primitivediv-stub aschild=\\"false\\" data-orientation=\\"horizontal\\" role=\\"separator\\"></primitivediv-stub>"`;
 
-exports[`okuSeparator > renders correctly 1`] = `
-<div
-  data-orientation="horizontal"
-  role="separator"
->
-  <!---->
-</div>
+exports[`okuSeparator > should render OkuSeparator correctly 2`] = `"<primitivediv-stub aschild=\\"false\\" data-orientation=\\"horizontal\\" role=\\"separator\\"></primitivediv-stub>"`;
+
+exports[`okuSeparator Stories > styled > should render correctly 1`] = `
+"<h1>Horizontal</h1>
+<p>The following separator is horizontal and has semantic meaning.</p>
+<oku-separator-stub orientation=\\"horizontal\\" decorative=\\"false\\" aschild=\\"false\\" class=\\"separator\\"></oku-separator-stub>
+<p> The following separator is horizontal and is purely decorative. Assistive technology will ignore this element. </p>
+<oku-separator-stub orientation=\\"horizontal\\" decorative=\\"true\\" aschild=\\"false\\" class=\\"separator\\"></oku-separator-stub>
+<h1>Vertical</h1>
+<div style=\\"display: flex; align-items: center;\\">
+  <p>The following separator is vertical and has semantic meaning.</p>
+  <oku-separator-stub orientation=\\"vertical\\" decorative=\\"false\\" aschild=\\"false\\" class=\\"separator\\"></oku-separator-stub>
+  <p> The following separator is vertical and is purely decorative. Assistive technology will ignore this element. </p>
+  <oku-separator-stub orientation=\\"vertical\\" decorative=\\"true\\" aschild=\\"false\\" class=\\"separator\\"></oku-separator-stub>
+</div>"
 `;
