@@ -1,4 +1,4 @@
-import { defineComponent, nextTick } from 'vue'
+import { defineComponent } from 'vue'
 import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
