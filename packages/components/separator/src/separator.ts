@@ -1,6 +1,6 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { isValidOrientation } from './utils'
 import { DEFAULT_ORIENTATION, SEPARATOR_NAME, separatorProps } from './props'
 import type { SeparatorNativeElement } from './props'
@@ -23,6 +23,7 @@ const separator = defineComponent({
 
     const _reactive = reactive(domProps)
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const emits = useListeners()
 
     const forwardedRef = useForwardRef()
 
@@ -36,7 +37,7 @@ const separator = defineComponent({
     return () => h(Primitive.div, {
       'data-orientation': orientation.value,
       ...semanticProps.value,
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       'ref': forwardedRef,
     }, () => slots.default?.())
   },
