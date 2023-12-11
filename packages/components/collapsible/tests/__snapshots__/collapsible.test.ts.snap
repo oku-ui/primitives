@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuCollapsible Stories > animated > should render correctly 1`] = `
+"<h1>Closed by default</h1>
+<oku-collapsible-stub disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>
+<h1>Open by default</h1>
+<oku-collapsible-stub defaultopen=\\"true\\" disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>"
+`;
+
+exports[`okuCollapsible Stories > animatedHorizontal > should render correctly 1`] = `"<oku-collapsible-stub disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>"`;
+
+exports[`okuCollapsible Stories > chromatic > should render correctly 1`] = `
+"<h1>Uncontrolled</h1>
+<h2>Closed</h2>
+<oku-collapsible-stub disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>
+<h2>Open</h2>
+<oku-collapsible-stub defaultopen=\\"true\\" disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>
+<h1>Controlled</h1>
+<h2>Closed</h2>
+<oku-collapsible-stub open=\\"false\\" disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>
+<h2>Open</h2>
+<oku-collapsible-stub open=\\"true\\" disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>
+<h1>Disabled</h1>
+<oku-collapsible-stub disabled=\\"true\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>
+<h1>State attributes</h1>
+<h2>Closed</h2>
+<oku-collapsible-stub disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible-attr-styles\\"></oku-collapsible-stub>
+<h2>Open</h2>
+<oku-collapsible-stub defaultopen=\\"true\\" disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible-attr-styles\\"></oku-collapsible-stub>
+<h2>Disabled</h2>
+<oku-collapsible-stub defaultopen=\\"true\\" disabled=\\"true\\" aschild=\\"false\\" class=\\"collapsible-attr-styles\\"></oku-collapsible-stub>"
+`;
+
+exports[`okuCollapsible Stories > controlled > should render correctly 1`] = `"<oku-collapsible-stub open=\\"false\\" disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>"`;
+
+exports[`okuCollapsible Stories > styled > should render correctly 1`] = `"<oku-collapsible-stub disabled=\\"false\\" aschild=\\"false\\" class=\\"collapsible\\"></oku-collapsible-stub>"`;

@@ -1,22 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { ICollapsibleProps } from './CollapsibleDemo.vue'
+import OkuCollapsible from './CollapsibleDemo.vue'
 
-import OkuCollapsibleDemo from './CollapsibleDemo.vue'
-import OkuCollapsibleLive from './CollapsibleLive.vue'
-
-interface StoryProps extends ICollapsibleProps {
-
-}
+interface StoryProps extends ICollapsibleProps { }
 
 const meta = {
   title: 'Components/Collapsible',
+  component: OkuCollapsible,
   args: {
-    template: '#1',
+    template: 'Styled',
   },
-  component: OkuCollapsibleDemo,
-
-} satisfies Meta<typeof OkuCollapsibleDemo> & {
+} satisfies Meta<typeof OkuCollapsible> & {
   args: StoryProps
 }
 
@@ -27,51 +22,78 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    template: '#1',
-    allshow: false,
+    template: 'Styled',
   },
-
   render: (args: any) => ({
-    components: { OkuCollapsibleDemo },
+    components: { OkuCollapsible },
     setup() {
       return { args }
     },
     template: `
-      <OkuCollapsibleDemo v-bind="args" />
+      <OkuCollapsible v-bind="args" />
+    `,
+  }),
+}
+
+export const Controlled: Story = {
+  args: {
+    template: 'Controlled',
+  },
+  render: (args: any) => ({
+    components: { OkuCollapsible },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollapsible v-bind="args" />
+    `,
+  }),
+}
+
+export const Animated: Story = {
+  args: {
+    template: 'Animated',
+  },
+  render: (args: any) => ({
+    components: { OkuCollapsible },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollapsible v-bind="args" />
+    `,
+  }),
+}
+
+export const AnimatedHorizontal: Story = {
+  args: {
+    template: 'AnimatedHorizontal',
+  },
+  render: (args: any) => ({
+    components: { OkuCollapsible },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuCollapsible v-bind="args" />
     `,
   }),
 }
 
 export const Chromatic: Story = {
   args: {
-    template: '#2',
-    allshow: false,
+    template: 'Chromatic',
   },
-
   render: (args: any) => ({
-    components: { OkuCollapsibleDemo },
+    components: { OkuCollapsible },
     setup() {
       return { args }
     },
     template: `
-      <OkuCollapsibleDemo v-bind="args" />
+      <OkuCollapsible v-bind="args" />
     `,
   }),
-}
-
-export const Demo: Story = {
-  args: {
-    template: '#1',
-    allshow: false,
+  parameters: {
+    chromatic: { disable: false },
   },
-
-  render: (args: any) => ({
-    components: { OkuCollapsibleLive },
-    setup() {
-      return { args }
-    },
-    template: `
-      <OkuCollapsibleLive v-bind="args" />
-    `,
-  }),
 }
