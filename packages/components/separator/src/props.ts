@@ -6,7 +6,7 @@ import { getInvalidOrientationError, isValidOrientation } from './utils'
 export const SEPARATOR_NAME = 'OkuSeparator'
 
 /* -------------------------------------------------------------------------------------------------
- *  Separator
+ *  Separator - separator.ts
  * ----------------------------------------------------------------------------------------------- */
 
 export type SeparatorNativeElement = OkuElement<'div'>
