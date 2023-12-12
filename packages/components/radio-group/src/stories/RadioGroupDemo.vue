@@ -1,149 +1,114 @@
 <script setup lang="ts">
-import {
-  OkuRadioGroup,
-  OkuRadioGroupIndicator,
-  OkuRadioGroupItem,
-} from '@oku-ui/radio-group'
-import {
-  OkuLabel,
-} from '@oku-ui/label'
+import Styled from './Styled.vue'
+import Controlled from './Controlled.vue'
+import Unset from './Unset.vue'
+import WithinForm from './WithinForm.vue'
+import Animated from './Animated.vue'
+import Chromatic from './Chromatic.vue'
 
-export interface ITabsProps {
-  template?: '#1' | '#2' | '#3'
+withDefaults(defineProps<IRadioGroupProps>(), {})
+
+export interface IRadioGroupProps {
+  template?: 'Styled' | 'Controlled' | 'Unset' | 'WithinForm' | 'Animated' | 'Chromatic'
   allshow?: boolean
 }
-
-defineProps<ITabsProps>()
 </script>
 
 <template>
-  <div v-if="template === '#1' || allshow">
-    <h1>Horizontal (automatic activation)</h1>
-    <OkuLabel>
-      Favourite pet
-      <OkuRadioGroup default-value="1" class="radio-group-root">
-        <OkuLabel>
-          <OkuRadioGroupItem value="1" class="radio-group-item">
-            <OkuRadioGroupIndicator class="radio-group-indicator" />
-          </OkuRadioGroupItem>
-          Cat
-        </OkuLabel>
-        <OkuLabel>
-          <OkuRadioGroupItem value="2" class="radio-group-item">
-            <OkuRadioGroupIndicator class="radio-group-indicator" />
-          </OkuRadioGroupItem>
-          Dog
-        </OkuLabel>
-        <OkuLabel>
-          <OkuRadioGroupItem value="3" class="radio-group-item">
-            <OkuRadioGroupIndicator class="radio-group-indicator" />
-          </OkuRadioGroupItem>
-          Rabbit
-        </OkuLabel>
-      </OkuRadioGroup>
-    </OkuLabel>
+  <div>
+    <template v-if="template === 'Styled' || allshow">
+      <Styled />
+    </template>
+
+    <template v-if="template === 'Controlled' || allshow">
+      <Controlled />
+    </template>
+
+    <template v-if="template === 'Unset' || allshow">
+      <Unset />
+    </template>
+
+    <template v-if="template === 'WithinForm' || allshow">
+      <WithinForm />
+    </template>
+
+    <template v-if="template === 'Animated' || allshow">
+      <Animated />
+    </template>
+
+    <template v-if="template === 'Chromatic' || allshow">
+      <Chromatic />
+    </template>
   </div>
 </template>
 
 <style>
-/* Variables */
-:root {
-  --gray300: #ccc;
-  --red: #ff0000;
-  --colors-red: #ff5555;
-}
+/* .radio-group {} */
 
-/* Root  */
-.radio-group-root {
-  display: inline-block;
-  vertical-align: middle;
-  cursor: default;
-}
-
-/* Radio Group Item */
 .radio-group-item {
+  /* RECOMMENDED_CSS_RADIO_GROUP_ITEM */
+  /* better default alignment */
   vertical-align: middle;
+
   width: 30px;
   height: 30px;
   display: inline-grid;
-  padding: 0;
+  padding: 0px;
   place-items: center;
-  border: 1px solid var(--gray300);
+  border: 1px solid #aaa;
   border-radius: 9999px;
 
   &:focus {
     outline: none;
-    border-color: var(--red);
-    box-shadow: 0 0 0 1px var(--colors-red);
+    border-color: crimson;
+    box-shadow: 0 0 0 1px crimson;
   }
 
   &[data-disabled] {
-    opacity: 0.5;
+    opacity: 0.5,
   }
 }
 
-/* Indicator */
 .radio-group-indicator {
   width: 18px;
   height: 18px;
-  background-color: var(--red);
+  background-color: crimson;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: inherit;
+}
 
+@keyframes radio-group-fade-in {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes radio-group-fade-out {
+  from { opacity: 1 }
+  to { opacity: 0 }
+}
+
+.radio-group-animated-indicator {
   &[data-state="checked"] {
-    animation: radio-group-fadeIn 300ms ease-out;
+    animation: radio-group-fade-in 300ms ease-out;
   }
-
   &[data-state="unchecked"] {
-    animation: radio-group-fadeOut 300ms ease-in;
+    animation: radio-group-fade-out 300ms ease-in;
   }
 }
 
-/* Animations */
-@keyframes radio-group-fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes radio-group-fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* Styles */
-.radio-group-styles {
+.radio-group-attr-styles  {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
 
-  &[tabindex="0"] {
-    box-shadow: inset 0 0 0 2px yellow;
-  }
+  &[tabindex="0"] { box-shadow: inset 0 0 0 2px yellow }
 
-  &:disabled {
-    opacity: 0.5;
-  }
+  &:disabled { opacity: 0.5 }
+  &[data-disabled] { border-style: dashed }
 
-  &[data-disabled] {
-    border-style: dashed;
-  }
-
-  &[data-state="unchecked"] {
-    border-color: red;
-  }
-
-  &[data-state="checked"] {
-    border-color: green;
-  }
+  &[data-state="unchecked"] { border-color: red }
+  &[data-state="checked"] { border-color: green }
 }
 </style>

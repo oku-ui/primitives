@@ -1,44 +1,23 @@
-export {
-  OkuRadioGroup,
-  createRadioGroupScope,
-  radioGroupProps,
-} from './RadioGroup'
+export { OkuRadioGroup } from './radio-group'
+export { OkuRadioGroupItem } from './radio-group-item'
+export { OkuRadioGroupIndicator } from './radio-group-indicator'
 
 export type {
-  RadioElement,
-  RadioGroupNaviteElement,
   RadioGroupProps,
   RadioGroupEmits,
-} from './RadioGroup'
-
-export {
-  OkuRadioGroupItem,
-  radioGroupItemProps,
-} from './RadioGroupItem'
+  RadioGroupElement,
+  RadioGroupNativeElement,
+} from './props'
 
 export type {
   RadioGroupItemProps,
-  RadioGroupItemElement,
   RadioGroupItemEmits,
-} from './RadioGroupItem'
-
-export {
-  OkuRadioGroupIndicator,
-  radioGroupIndicatorProps,
-} from './RadioGroupIndicator'
+  RadioGroupItemElement,
+  RadioGroupItemNativeElement,
+} from './props'
 
 export type {
-  RadioGroupIndicatorElement,
   RadioGroupIndicatorProps,
-  RadioGroupIndicatorNaviteElement,
-} from './RadioGroupIndicator'
-
-export {
-  scopeRadioGroupProps,
-  scopeRadioProps,
-} from './utils'
-
-export type {
-  ScopeRadio,
-  ScopeRadioGroup,
-} from './utils'
+  RadioGroupIndicatorElement,
+  RadioGroupIndicatorNativeElement,
+} from './props'
