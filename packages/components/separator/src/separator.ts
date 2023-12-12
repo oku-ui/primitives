@@ -11,9 +11,7 @@ const separator = defineComponent({
   props: {
     ...separatorProps.props,
   },
-  emits: {
-    ...separatorProps.emits,
-  },
+  emits: separatorProps.emits,
   setup(props, { attrs, slots }) {
     const {
       decorative,
@@ -23,9 +21,9 @@ const separator = defineComponent({
 
     const _reactive = reactive(domProps)
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
-    const emits = useListeners()
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const orientation = computed(() => isValidOrientation(orientationProp.value) ? orientationProp.value : DEFAULT_ORIENTATION)
     // `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
