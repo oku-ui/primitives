@@ -1,11 +1,12 @@
-export {
-  OkuToggle,
-  toggleProps,
-} from './toggle'
+export { OkuToggle } from './toggle'
 
 export type {
   ToggleProps,
-  ToggleElement,
-  ToggleElementNaviteElement,
   ToggleEmits,
-} from './toggle'
+  ToggleElement,
+  ToggleElementNativeElement,
+} from './props'
+
+export {
+  toggleProps,
+} from './props'
