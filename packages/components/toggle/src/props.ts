@@ -5,7 +5,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 export const TOGGLE_NAME = 'OkuToggle'
 
 /* -------------------------------------------------------------------------------------------------
- * Toggle
+ * Toggle - toggle-ts
  * ----------------------------------------------------------------------------------------------- */
 
 export type ToggleElementNativeElement = Omit<OkuElement<'button'>, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
