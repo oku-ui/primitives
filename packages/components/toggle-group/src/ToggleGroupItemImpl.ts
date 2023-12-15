@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuToggle, toggleProps } from '@oku-ui/toggle'
-import type { ToggleElement, ToggleElementNaviteElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
+import type { ToggleElement, ToggleElementNativeElement, ToggleEmits, ToggleProps } from '@oku-ui/toggle'
 
 import { scopeToggleGroupProps } from './utils'
 import { useToggleGroupValueInject } from './ToggleGroup'
@@ -11,7 +11,7 @@ import { TOGGLE_ITEM_NAME } from './ToggleGroupItem'
 
 const TOGGLE_GROUP_NAME = 'OkuToggleGroupItemImpl'
 
-export type ToggleGroupItemImplNaviteElement = ToggleElementNaviteElement
+export type ToggleGroupItemImplNaviteElement = ToggleElementNativeElement
 export type ToggleGroupItemImplElement = ToggleElement
 
 interface ToggleGroupItemImplProps extends Omit<ToggleProps, 'defaultPressed' | 'onPressedChange'> {
@@ -58,7 +58,7 @@ const toggleGroupItemImpl = defineComponent({
 
     const valueInject = useToggleGroupValueInject(TOGGLE_ITEM_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => {
-      return { 'role': 'radio', 'ariaChecked': itemProps.pressed.value, 'aria-pressed': undefined } as ToggleElementNaviteElement
+      return { 'role': 'radio', 'ariaChecked': itemProps.pressed.value, 'aria-pressed': undefined } as ToggleElementNativeElement
     })
     const typeProps = computed(() => valueInject.type === 'single' ? singleProps.value : undefined)
 
