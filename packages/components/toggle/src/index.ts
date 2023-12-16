@@ -4,7 +4,7 @@ export type {
   ToggleProps,
   ToggleEmits,
   ToggleElement,
-  ToggleElementNativeElement,
+  ToggleNativeElement,
 } from './props'
 
 export {

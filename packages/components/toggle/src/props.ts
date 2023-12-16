@@ -8,7 +8,7 @@ export const TOGGLE_NAME = 'OkuToggle'
  * Toggle - toggle-ts
  * ----------------------------------------------------------------------------------------------- */
 
-export type ToggleElementNativeElement = Omit<OkuElement<'button'>, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
+export type ToggleNativeElement = Omit<OkuElement<'button'>, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
 export type ToggleElement = Omit<HTMLButtonElement, 'aria-checked' | 'aria-pressed' | 'ariaChecked'>
 
 export interface ToggleProps extends PrimitiveProps {
