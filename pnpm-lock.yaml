@@ -930,9 +930,6 @@ importers:
       '@oku-ui/direction':
         specifier: workspace:^
         version: link:../../core/direction
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
       '@oku-ui/primitive':
         specifier: workspace:^
         version: link:../../core/primitive
@@ -948,9 +945,6 @@ importers:
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
       vue:
         specifier: 3.3.9
         version: 3.3.9(typescript@5.3.2)
