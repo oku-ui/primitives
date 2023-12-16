@@ -106,7 +106,7 @@ export interface ICheckBoxProps {
   }
 }
 
-.checkbox-attr-styles, .checkbox-indicator-attr-styles {
+.checkbox-attr-styles {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;

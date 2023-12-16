@@ -3,9 +3,6 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import type { IToggleProps } from './ToggleDemo.vue'
 import OkuToggle from './ToggleDemo.vue'
 
-interface StoryProps extends IToggleProps {
-}
-
 interface StoryProps extends IToggleProps { }
 
 const meta = {
