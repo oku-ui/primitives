@@ -1,55 +1,39 @@
 <script setup lang="ts">
-import {
-  OkuToggleGroup,
-  OkuToggleGroupItem,
-} from '@oku-ui/toggle-group'
-import { ref } from 'vue'
+import Single from './Single.vue'
+import Vertical from './Vertical.vue'
+import Multiple from './Multiple.vue'
+import Chromatic from './Chromatic.vue'
 
-export interface ITabsProps {
-  template?: '#1' | '#2' | '#3'
+withDefaults(defineProps<IToggleGroupProps>(), {})
+
+export interface IToggleGroupProps {
+  template?: 'Single' | 'Vertical' | 'Multiple' | 'Chromatic'
   allshow?: boolean
 }
-
-defineProps<ITabsProps>()
-
-const testValue = ref()
-const arrayValue = ref()
 </script>
 
 <template>
-  <div v-if="template === '#1' || allshow">
-    {{ testValue }}
-    <h1>Uncontrolled</h1>
-    <OkuToggleGroup v-model="testValue" type="single" class="toggle-group-root" aria-label="Options" @value-change="console.log">
-      <OkuToggleGroupItem value="1" class="toggle-group-item">
-        Option 1
-      </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="2" class="toggle-group-item">
-        Option 2
-      </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="3" class="toggle-group-item">
-        Option 3
-      </OkuToggleGroupItem>
-    </OkuToggleGroup>
+  <div>
+    <template v-if="template === 'Single' || allshow">
+      <Single />
+    </template>
 
-    {{ arrayValue }}
-    <h1>Group</h1>
-    <OkuToggleGroup v-model="arrayValue" type="multiple" class="toggle-group-root" aria-label="Options">
-      <OkuToggleGroupItem value="1" class="toggle-group-item">
-        Option 1
-      </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="2" class="toggle-group-item">
-        Option 2
-      </OkuToggleGroupItem>
-      <OkuToggleGroupItem value="3" class="toggle-group-item">
-        Option 3
-      </OkuToggleGroupItem>
-    </OkuToggleGroup>
+    <template v-if="template === 'Vertical' || allshow">
+      <Vertical />
+    </template>
+
+    <template v-if="template === 'Multiple' || allshow">
+      <Multiple />
+    </template>
+
+    <template v-if="template === 'Chromatic' || allshow">
+      <Chromatic />
+    </template>
   </div>
 </template>
 
-<style lang="postcss">
-.toggle-group-root {
+<style>
+.toggle-group {
   display: inline-flex;
   gap: 5px;
   padding: 5px;
@@ -59,12 +43,12 @@ const arrayValue = ref()
 }
 
 .toggle-group-item {
-  border: 1px solid black;
+  border: 1px solid #111;
   border-radius: 6px;
   padding: 5px 10px;
   font-size: 13px;
-  background-color: white;
-  color: black;
+  background-color: #fff;
+  color: #111;
 
   &:focus {
     outline: none;
@@ -76,27 +60,19 @@ const arrayValue = ref()
   }
 
   &[data-state="on"] {
-    background-color: black;
-    color: white;
+    background-color: #111;
+    color: #fff;
   }
 }
 
-.toggle-group-item-attr {
+.toggle-group-attr-styles {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
 
-  &[data-state="off"] {
-    border-color: red;
-  }
-  &[data-state="on"] {
-    border-color: green;
-  }
-  &[data-disabled] {
-    border-style: dashed;
-  }
-  &:disabled {
-    opacity: 0.5;
-  }
+  &[data-state="off"] { border-color: red }
+  &[data-state="on"] { border-color: green }
+  &[data-disabled] { border-style: dashed }
+  &:disabled { opacity: 0.5 }
 }
 </style>

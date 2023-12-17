@@ -43,26 +43,26 @@ import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
   <h1>State attributes</h1>
   <h2>Unchecked</h2>
   <OkuCheckbox class="checkbox-attr-styles">
-    <OkuCheckboxIndicator class="checkbox-indicator-attr-styles" />
+    <OkuCheckboxIndicator class="checkbox-attr-styles" />
   </OkuCheckbox>
 
   <h2>Checked</h2>
   <OkuCheckbox class="checkbox-attr-styles" default-checked>
-    <OkuCheckboxIndicator class="checkbox-indicator-attr-styles" />
+    <OkuCheckboxIndicator class="checkbox-attr-styles" />
   </OkuCheckbox>
 
   <h2>Indeterminate</h2>
   <OkuCheckbox class="checkbox-attr-styles" checked="indeterminate">
-    <OkuCheckboxIndicator class="checkbox-indicator-attr-styles" />
+    <OkuCheckboxIndicator class="checkbox-attr-styles" />
   </OkuCheckbox>
 
   <h2>Disabled</h2>
   <OkuCheckbox class="checkbox-attr-styles" default-checked disabled>
-    <OkuCheckboxIndicator class="checkbox-indicator-attr-styles" />
+    <OkuCheckboxIndicator class="checkbox-attr-styles" />
   </OkuCheckbox>
 
   <h2>Force mounted indicator</h2>
   <OkuCheckbox class="checkbox-attr-styles">
-    <OkuCheckboxIndicator class="checkbox-indicator-attr-styles" force-mount :style="{ height: '20px' }" />
+    <OkuCheckboxIndicator class="checkbox-attr-styles" force-mount :style="{ height: '20px' }" />
   </OkuCheckbox>
 </template>

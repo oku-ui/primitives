@@ -3,9 +3,6 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import type { ICheckBoxProps } from './CheckboxDemo.vue'
 import OkuCheckbox from './CheckboxDemo.vue'
 
-interface StoryProps extends ICheckBoxProps {
-}
-
 interface StoryProps extends ICheckBoxProps { }
 
 const meta = {

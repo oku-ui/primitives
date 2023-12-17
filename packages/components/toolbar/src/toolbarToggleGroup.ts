@@ -1,22 +1,22 @@
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { ToggleGroupVariantProps } from '@oku-ui/toggle-group'
-import { OkuToggleGroup, toggleGroupVariantProps } from '@oku-ui/toggle-group'
+import type { ToggleGroupMultipleProps, ToggleGroupSingleProps } from '@oku-ui/toggle-group'
+import { OkuToggleGroup, toggleGroupProps } from '@oku-ui/toggle-group'
 import { scopeToolbarProps } from './utils'
 import { useToggleGroupScope, useToolbarInject } from './toolbar'
 
 const TOGGLE_GROUP_NAME = 'OkuToolbarToggleGroup'
 
-export type ToolbarToggleGroupProps = ToggleGroupVariantProps
+export type ToolbarToggleGroupProps = ToggleGroupSingleProps | ToggleGroupMultipleProps
 
 export const toolbarToggleGroupProps = {
   props: {
     ...primitiveProps,
-    ...toggleGroupVariantProps.props,
+    ...toggleGroupProps.props,
   },
   emits: {
-    ...toggleGroupVariantProps.emits,
+    ...toggleGroupProps.emits,
   },
 }
 

@@ -1,25 +1,22 @@
+export { OkuToggleGroup } from './toggle-group'
+export { OkuToggleGroupItem } from './toggle-group-item'
+
+export type {
+  ToggleGroupSingleProps,
+  ToggleGroupMultipleProps,
+  ToggleGroupElement,
+  ToggleGroupNativeElement,
+} from './props'
+
+export type {
+  ToggleGroupItemProps,
+  ToggleGroupItemEmits,
+  ToggleGroupItemElement,
+  ToggleGroupItemNativeElement,
+} from './props'
+
 export {
-  OkuToggleGroup,
   createToggleGroupScope,
   toggleGroupProps,
-  toggleGroupVariantProps,
-} from './ToggleGroup'
-
-export type {
-  ToggleGroupProps,
-  ToggleGroupNaviteElement,
-  ToggleGroupElement,
-  ToggleGroupVariantEmits,
-  ToggleGroupVariantProps,
-} from './ToggleGroup'
-
-export {
-  OkuToggleGroupItem,
   toggleGroupItemProps,
-} from './ToggleGroupItem'
-
-export type {
-  ToggleGroupItemElement,
-  ToggleGroupItemNaviteElement,
-  ToggleGroupItemProps,
-} from './ToggleGroupItem'
+} from './props'

@@ -3,7 +3,7 @@ import { reactiveOmit, useControllable, useForwardRef, useListeners } from '@oku
 import { composeEventHandlers } from '@oku-ui/utils'
 import { Primitive } from '@oku-ui/primitive'
 import { TOGGLE_NAME, toggleProps } from './props'
-import type { ToggleElementNativeElement, ToggleEmits } from './props'
+import type { ToggleEmits, ToggleNativeElement } from './props'
 
 const toggle = defineComponent({
   name: TOGGLE_NAME,
@@ -57,4 +57,4 @@ const toggle = defineComponent({
   },
 })
 
-export const OkuToggle = toggle as typeof toggle & (new () => { $props: ToggleElementNativeElement })
+export const OkuToggle = toggle as typeof toggle & (new () => { $props: ToggleNativeElement })
