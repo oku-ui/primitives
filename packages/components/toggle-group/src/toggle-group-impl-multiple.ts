@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
-import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuToggleGroupImpl } from './toggle-group-impl'
 import { TOGGLE_GROUP_IMPL_MULTIPLE_NAME, scopeToggleGroupProps, toggleGroupImplMultipleProps, toggleGroupValueProvider } from './props'
 import type { ToggleGroupImplMultipleNativeElement } from './props'
@@ -26,6 +26,7 @@ const toggleGroupImplMultiple = defineComponent({
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const modelValue = useModel(props, 'modelValue')
     const proxyValue = computed({
@@ -59,7 +60,7 @@ const toggleGroupImplMultiple = defineComponent({
     })
 
     return () => h(OkuToggleGroupImpl, {
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
     }, () => slots.default?.())
   },

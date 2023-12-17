@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuToggle } from '@oku-ui/toggle'
 import { TOGGLE_GROUP_ITEM_IMPL_NAME, scopeToggleGroupProps, toggleGroupItemImplProps, useToggleGroupValueInject } from './props'
 import type { ToggleGroupItemImplNativeElement } from './props'
@@ -22,6 +22,7 @@ const toggleGroupItemImpl = defineComponent({
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const valueInject = useToggleGroupValueInject(TOGGLE_GROUP_ITEM_IMPL_NAME, scopeOkuToggleGroup.value)
     const singleProps = computed(() => ({ 'role': 'radio', 'aria-checked': props.pressed, 'aria-pressed': undefined }))
@@ -29,7 +30,7 @@ const toggleGroupItemImpl = defineComponent({
 
     return () => h(OkuToggle, {
       ...typeProps.value,
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
       onPressedChange: (pressed) => {
         if (pressed)

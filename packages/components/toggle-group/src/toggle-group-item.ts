@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { OkuToggleGroupItemImpl } from './toggle-group-item-impl'
 import { TOGGLE_GROUP_ITEM_NAME, scopeToggleGroupProps, toggleGroupItemProps, useRovingFocusGroupScope, useToggleGroupInject, useToggleGroupValueInject } from './props'
@@ -29,6 +29,7 @@ const toggleGroupItem = defineComponent({
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const toggleGroupItemRef = ref<HTMLDivElement | null>(null)
 
@@ -40,11 +41,11 @@ const toggleGroupItem = defineComponent({
         active: pressed.value,
         ref: toggleGroupItemRef,
       }, () => h(OkuToggleGroupItemImpl, {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         ref: forwardedRef,
       }, () => slots.default?.()))
       : h(OkuToggleGroupItemImpl, {
-        ...mergeProps(attrs, otherProps),
+        ...mergeProps(attrs, otherProps, emits),
         ref: forwardedRef,
       }, () => slots.default?.()),
     ]

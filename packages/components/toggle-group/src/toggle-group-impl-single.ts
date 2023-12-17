@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
-import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, useControllable, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { OkuToggleGroupImpl } from './toggle-group-impl'
 import { TOGGLE_GROUP_IMPL_SINGLE_NAME, scopeToggleGroupProps, toggleGroupImplSingleProps, toggleGroupValueProvider } from './props'
 import type { ToggleGroupImplSingleNativeElement } from './props'
@@ -26,6 +26,7 @@ const toggleGroupImplSingle = defineComponent({
     const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
     const modelValue = useModel(props, 'modelValue')
     const proxyValue = computed({
@@ -52,7 +53,7 @@ const toggleGroupImplSingle = defineComponent({
     })
 
     return () => h(OkuToggleGroupImpl, {
-      ...mergeProps(attrs, otherProps),
+      ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
     }, () => slots.default?.())
   },
