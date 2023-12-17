@@ -20,16 +20,16 @@ const ToggleGroupTest = defineComponent({
     OkuToggleGroup,
     OkuToggleGroupItem,
   },
-  // props: {
-  //   type: String,
-  // },
+  props: {
+    type: String,
+  },
   setup() {
     return {
       onValueChange,
     }
   },
   template: `
-    <OkuToggleGroup v-bind="$attrs" @value-change="onValueChange">
+    <OkuToggleGroup :type="type" @value-change="onValueChange">
       <OkuToggleGroupItem value="One">One</OkuToggleGroupItem>
       <OkuToggleGroupItem value="Two">Two</OkuToggleGroupItem>
       <OkuToggleGroupItem value="Three">Three</OkuToggleGroupItem>
@@ -68,6 +68,16 @@ describe('okuToggleGroup', () => {
    */
   it('should have no accessibility violations', async () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  it('should log a warning when the type prop is not provided', () => {
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => { })
+
+    wrapper = shallowMount(OkuToggleGroup)
+
+    expect(spy).toHaveBeenCalled()
+
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: Missing required prop: "type"')
   })
 
   describe('given a single ToggleGroup', () => {

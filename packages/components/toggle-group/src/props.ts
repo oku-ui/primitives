@@ -48,12 +48,7 @@ export const toggleGroupProps = {
   props: {
     type: {
       type: String as PropType<ToggleGroupSingleProps['type'] | ToggleGroupMultipleProps['type']>,
-      validator: (value: string): boolean => {
-        if (!value)
-          console.error(`Missing prop \`type\` expected on \`${TOGGLE_GROUP_NAME}\``)
-
-        return true
-      },
+      required: true,
     },
   },
   emits: { },
