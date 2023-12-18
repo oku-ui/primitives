@@ -105,7 +105,7 @@ export interface IToolbarProps {
   }
 }
 
-.toolbar-toggleItem {
+.toolbar-toggle-item {
   &[data-state="on"] {
     background: black;
     color: white;
