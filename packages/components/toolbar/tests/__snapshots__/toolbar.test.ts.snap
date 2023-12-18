@@ -3,8 +3,8 @@
 exports[`okuToolbar > should log a warning when the type prop is not provided 1`] = `"\`OkuToolbarToggleGroup\` must be used within \`OkuToolbar\`"`;
 
 exports[`okuToolbar > should render OkuToolbar correctly 1`] = `
-"<div role=\\"toolbar\\" ariaorientation=\\"horizontal\\" dir=\\"ltr\\" tabindex=\\"-1\\" data-orientation=\\"horizontal\\" style=\\"outline: none;\\">
-  <div dataorientation=\\"horizontal\\" role=\\"group\\" dir=\\"ltr\\" tabindex=\\"0\\" style=\\"outline: none;\\"><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Left </button></div>
+"<div role=\\"toolbar\\" aria-orientation=\\"horizontal\\" dir=\\"ltr\\" tabindex=\\"0\\" data-orientation=\\"horizontal\\" style=\\"outline: none;\\">
+  <div data-orientation=\\"horizontal\\" role=\\"group\\" dir=\\"ltr\\"><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" tabindex=\\"-1\\" data-orientation=\\"horizontal\\" data-oku-collection-item=\\"\\"> Left </button></div>
 </div>"
 `;
 
