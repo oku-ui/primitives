@@ -26,11 +26,11 @@ export type CheckboxElement = HTMLButtonElement
 export const [createCheckboxProvider, createCheckboxScope] = createProvideScope(CHECKBOX_NAME)
 
 export const [checkboxProvider, useCheckboxInject]
-  = createCheckboxProvider<CheckboxInjectValue>(CHECKBOX_NAME)
+  = createCheckboxProvider<CheckboxProvideValue>(CHECKBOX_NAME)
 
 export type CheckedState = boolean | 'indeterminate'
 
-export type CheckboxInjectValue = {
+type CheckboxProvideValue = {
   state: Ref<CheckedState>
   disabled?: Ref<boolean | undefined>
 }

@@ -24,7 +24,7 @@ export const [createAvatarProvide, createAvatarScope] = createProvideScope(AVATA
 
 export type ImageLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
-export type AvatarProvideValue = {
+type AvatarProvideValue = {
   imageLoadingStatus: Ref<ImageLoadingStatus>
   onImageLoadingStatusChange(status: ImageLoadingStatus): void
 }
