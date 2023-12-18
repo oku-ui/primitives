@@ -43,7 +43,7 @@ const toggleGroupImpl = defineComponent({
       disabled,
     })
 
-    return () => [rovingFocus
+    return () => [rovingFocus.value
       ? h(OkuRovingFocusGroup, {
         asChild: true,
         ...rovingFocusGroupScope,

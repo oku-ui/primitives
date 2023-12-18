@@ -32,8 +32,8 @@ const toggleGroupItemImpl = defineComponent({
       ...typeProps.value,
       ...mergeProps(attrs, otherProps, emits),
       ref: forwardedRef,
-      onPressedChange: (pressed) => {
-        if (pressed)
+      onPressedChange: (_pressed) => {
+        if (_pressed)
           valueInject.onItemActivate(value.value!)
         else
           valueInject.onItemDeactivate(value.value!)

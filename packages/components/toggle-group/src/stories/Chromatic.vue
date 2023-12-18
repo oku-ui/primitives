@@ -147,7 +147,7 @@ import { OkuDirectionProvider } from '@oku-ui/direction'
   <OkuToggleGroup
     type="multiple"
     class="toggle-group"
-    default-value="['1', '2']"
+    :default-value="['1', '2']"
     :disabled="false"
   >
     <OkuToggleGroupItem value="1" class="toggle-group-attr-styles">
@@ -168,7 +168,7 @@ import { OkuDirectionProvider } from '@oku-ui/direction'
   <OkuToggleGroup
     type="multiple"
     class="toggle-group"
-    default-value="['1', '2']"
+    :default-value="['1', '2']"
     :disabled="true"
   >
     <OkuToggleGroupItem value="1" class="toggle-group-attr-styles">
