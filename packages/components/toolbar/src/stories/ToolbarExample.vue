@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type {
-  ToolbarProps,
-} from '@oku-ui/toolbar'
+import type { PropType } from 'vue'
+import type { ToolbarProps } from '@oku-ui/toolbar'
 import {
   OkuToolbar,
   OkuToolbarButton,
@@ -12,23 +11,28 @@ import {
 } from '@oku-ui/toolbar'
 import { OkuToggle } from '@oku-ui/toggle'
 
-const props = defineProps<{
-  orientation?: ToolbarProps['orientation']
-  loop?: ToolbarProps['loop']
-  title?: string
-  dir?: ToolbarProps['dir']
-}>()
+defineProps({
+  title: {
+    type: String,
+  },
+  dir: {
+    type: String as PropType<ToolbarProps['dir']>,
+  },
+  orientation: {
+    type: String as PropType<ToolbarProps['orientation']>,
+  },
+})
 </script>
 
 <template>
-  <div>
-    <h1>{{ props.title }}</h1>
+  <div :style="{ padding: '1px', margin: '-1px' }">
+    <h1>{{ title }}</h1>
     <OkuToolbar
-      class="toolbar-root"
-      :orientation="props.orientation"
-      :loop="props.loop"
-      :aria-label="`Toolbar ${props.title}`"
-      :dir="props.dir"
+      class="toolbar"
+      :orientation="orientation"
+      :loop="true"
+      :aria-label="`${title} toolbar`"
+      :dir="dir"
     >
       <OkuToolbarButton class="toolbar-item">
         Button
@@ -38,44 +42,45 @@ const props = defineProps<{
       </OkuToolbarButton>
       <OkuToolbarSeparator class="toolbar-separator" />
       <OkuToolbarLink
-        class="toolbar-link"
+        class="toolbar-link toolbar-item"
         href="https://www.w3.org/TR/2019/WD-wai-aria-practices-1.2-20191218/examples/toolbar/toolbar.html"
         target="-blank"
       >
         Link
       </OkuToolbarLink>
       <OkuToolbarSeparator class="toolbar-separator" />
-      <OkuToolbarButton class="toolbar-toggleButton" as-child>
-        <OkuToggle>Toggle</OkuToggle>a
+      <OkuToolbarButton class="toolbar-toggle-button toolbar-item" as-child>
+        <OkuToggle>Toggle</OkuToggle>
       </OkuToolbarButton>
       <OkuToolbarSeparator class="toolbar-separator" />
-      <OkuToolbarToggleGroup type="single" class="toolbar-toggleGroup">
-        <OkuToolbarToggleItem value="left" class="toolbar-toggleItem">
+      <OkuToolbarToggleGroup type="single" class="toolbar-toggle-group">
+        <OkuToolbarToggleItem value="left" class="toolbar-toggle-item toolbar-item">
           Left
         </OkuToolbarToggleItem>
-        <OkuToolbarToggleItem value="center" class="toolbar-toggleItem">
+        <OkuToolbarToggleItem value="center" class="toolbar-toggle-item toolbar-item">
           Center
         </OkuToolbarToggleItem>
-        <OkuToolbarToggleItem value="right" class="toolbar-toggleItem">
+        <OkuToolbarToggleItem value="right" class="toolbar-toggle-item toolbar-item">
           Right
         </OkuToolbarToggleItem>
       </OkuToolbarToggleGroup>
       <OkuToolbarSeparator class="toolbar-separator" />
-      <!-- TODO: DropdownMenu issua: https://github.com/oku-ui/primitives/issues/10 -->
-      <!-- <DropdownMenu.Root>
+      <!-- TODO: DropdownMenu issue: https://github.com/oku-ui/primitives/issues/10 -->
+      <!-- <OkuDropdownMenu>
         <OkuToolbarButton class="toolbar-item" as-child>
-          <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>
+          <OkuDropdownMenuTrigger>Menu</OkuDropdownMenuTrigger>
         </OkuToolbarButton>
-        <DropdownMenu.Content class="dropdownMenuContent" side-offset="5}">
-          <DropdownMenu.Item class="dropdownMenuItem">
+        <OkuDropdownMenuContent class="toolbar-dropdown-menu-content" :side-offset="5}">
+          <OkuDropdownMenuItem class="toolbar-dropdown-menu-item">
             Undo
-          </DropdownMenu.Item>
-          <DropdownMenu.Item class="dropdownMenuItem">
+          </OkuDropdownMenuItem>
+          <OkuDropdownMenuItem class="toolbar-dropdown-menu-item">
             Redo
-          </DropdownMenu.Item>
-          <DropdownMenu.Arrow />
-        </DropdownMenu.Content>
-      </DropdownMenu.Root> -->
+          </OkuDropdownMenuItem>
+          <OkuDropdownMenuArrow />
+        </OkuDropdownMenuContent>
+      </OkuDropdownMenu>
+    </OkuToolbar> -->
     </OkuToolbar>
   </div>
 </template>

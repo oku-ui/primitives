@@ -1,24 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import type { OkuToolbarProps } from './ToolbarDemo.vue'
-import ToolbarDemo from './ToolbarDemo.vue'
+import type { IToolbarProps } from './ToolbarDemo.vue'
+import OkuToolbar from './ToolbarDemo.vue'
 
-interface StoryProps extends OkuToolbarProps {
-}
+interface StoryProps extends IToolbarProps { }
 
 const meta = {
   title: 'Components/Toolbar',
-  component: ToolbarDemo,
+  component: OkuToolbar,
   args: {
     template: 'Styled',
   },
-  argTypes: {
-    template: {
-      control: 'text',
-    },
-  },
-
-} satisfies Meta<typeof ToolbarDemo> & {
+} satisfies Meta<typeof OkuToolbar> & {
   args: StoryProps
 }
 
@@ -32,12 +25,12 @@ export const Styled: Story = {
     template: 'Styled',
   },
   render: (args: any) => ({
-    components: { ToolbarDemo },
+    components: { OkuToolbar },
     setup() {
       return { args }
     },
     template: `
-      <ToolbarDemo v-bind="args" />
+      <OkuToolbar v-bind="args" />
     `,
   }),
 }
@@ -47,12 +40,15 @@ export const Chromatic: Story = {
     template: 'Chromatic',
   },
   render: (args: any) => ({
-    components: { ToolbarDemo },
+    components: { OkuToolbar },
     setup() {
       return { args }
     },
     template: `
-      <ToolbarDemo v-bind="args" />
+      <OkuToolbar v-bind="args" />
     `,
   }),
+  parameters: {
+    chromatic: { disable: false },
+  },
 }

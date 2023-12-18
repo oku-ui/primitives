@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuToolbar > should log a warning when the type prop is not provided 1`] = `"\`OkuToolbarToggleGroup\` must be used within \`OkuToolbar\`"`;
+
+exports[`okuToolbar > should render OkuToolbar correctly 1`] = `
+"<div role=\\"toolbar\\" ariaorientation=\\"horizontal\\" dir=\\"ltr\\" tabindex=\\"-1\\" data-orientation=\\"horizontal\\" style=\\"outline: none;\\">
+  <div dataorientation=\\"horizontal\\" role=\\"group\\" dir=\\"ltr\\" tabindex=\\"0\\" style=\\"outline: none;\\"><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Left </button></div>
+</div>"
+`;
+
+exports[`okuToolbar > should render OkuToolbar correctly 2`] = `"<oku-roving-focus-group-stub scopeokurovingfocusgroup=\\"[object Object]\\" orientation=\\"horizontal\\" dir=\\"ltr\\" loop=\\"true\\" aschild=\\"true\\"></oku-roving-focus-group-stub>"`;
+
+exports[`okuToolbar > should render OkuToolbarButton correctly 1`] = `"<oku-roving-focus-group-item-stub scopeokurovingfocusgroup=\\"[object Object]\\" focusable=\\"true\\" active=\\"false\\" aschild=\\"true\\"></oku-roving-focus-group-item-stub>"`;
+
+exports[`okuToolbar > should render OkuToolbarLink correctly 1`] = `"<oku-roving-focus-group-item-stub scopeokurovingfocusgroup=\\"[object Object]\\" focusable=\\"true\\" active=\\"false\\" aschild=\\"true\\"></oku-roving-focus-group-item-stub>"`;
+
+exports[`okuToolbar > should render OkuToolbarSeparator correctly 1`] = `"\`OkuToolbarSeparator\` must be used within \`OkuToolbar\`"`;
+
+exports[`okuToolbar > should render OkuToolbarToggleItem correctly 1`] = `"<oku-toolbar-button-stub disabled=\\"false\\" aschild=\\"true\\"></oku-toolbar-button-stub>"`;
+
+exports[`okuToolbar Stories > chromatic > should render correctly 1`] = `
+"<div style=\\"padding: 50px;\\">
+  <h1>Example</h1>
+  <toolbar-example-stub></toolbar-example-stub>
+  <toolbar-example-stub orientation=\\"vertical\\"></toolbar-example-stub>
+  <h1>Direction</h1>
+  <h2>Prop</h2>
+  <toolbar-example-stub dir=\\"rtl\\"></toolbar-example-stub>
+  <h2>Inherited</h2>
+  <direction-provider-stub dir=\\"rtl\\"></direction-provider-stub>
+</div>"
+`;
+
+exports[`okuToolbar Stories > styled > should render correctly 1`] = `
+"<toolbar-example-stub title=\\"Horizontal\\"></toolbar-example-stub>
+<toolbar-example-stub title=\\"Vertical\\" orientation=\\"vertical\\"></toolbar-example-stub>"
+`;
