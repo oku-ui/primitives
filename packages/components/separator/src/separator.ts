@@ -12,7 +12,7 @@ const separator = defineComponent({
     ...separatorProps.props,
   },
   emits: separatorProps.emits,
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs }) {
     const {
       decorative,
       orientation: orientationProp,
@@ -37,7 +37,7 @@ const separator = defineComponent({
       ...semanticProps.value,
       ...mergeProps(attrs, otherProps, emits),
       'ref': forwardedRef,
-    }, () => slots.default?.())
+    })
   },
 })
 
