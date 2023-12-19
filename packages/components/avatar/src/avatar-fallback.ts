@@ -11,9 +11,7 @@ const avatarFallback = defineComponent({
     ...avatarFallbackProps.props,
     ...scopeAvatarProps,
   },
-  emit: {
-    ...avatarFallbackProps.emits,
-  },
+  emit: avatarFallbackProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuAvatar,

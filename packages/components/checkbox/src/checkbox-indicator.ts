@@ -12,9 +12,7 @@ const checkboxIndicator = defineComponent({
     ...checkboxIndicatorProps.props,
     ...scopeCheckboxProps,
   },
-  emits: {
-    ...checkboxIndicatorProps.emits,
-  },
+  emits: checkboxIndicatorProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuCheckbox,
