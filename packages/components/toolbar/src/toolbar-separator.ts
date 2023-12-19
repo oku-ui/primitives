@@ -26,8 +26,8 @@ const toolbarSeparator = defineComponent({
     const inject = useToolbarInject(TOOLBAR_SEPARATOR_NAME, scopeOkuToolbar.value)
 
     return () => h(OkuSeparator, {
-      orientation: computed(() => inject.orientation.value === 'horizontal' ? 'vertical' : 'horizontal').value,
       ...mergeProps(attrs, otherProps),
+      orientation: computed(() => inject.orientation.value === 'horizontal' ? 'vertical' : 'horizontal').value,
       ref: forwardedRef,
     })
   },
