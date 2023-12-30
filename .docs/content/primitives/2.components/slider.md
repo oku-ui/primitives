@@ -35,8 +35,6 @@ links:
 - Supports Right to Left direction.
 - Full keyboard navigation.
 
-
-
 ## Installation
 
 Install the component from your command line.
@@ -85,7 +83,6 @@ import {
 
 ### OkuSlider
 Contains all the parts of a slider. It will render an `input` for each thumb when used within a `form` to ensure events propagate correctly.
-
 
 ::OkuTable
 ---
@@ -192,7 +189,6 @@ data:
 
 The track that contains the `Slider.Range`.
 
-
 ::OkuTable
 ---
 data:
@@ -249,7 +245,6 @@ data:
 ---
 ::
 
-
 ### OkuSliderThumb
 
 A draggable thumb. You can render multiple thumbs.
@@ -279,8 +274,6 @@ data:
     values: ['vertical', 'horizontal']
 ---
 ::
-
-
 
 ## Accessibility
 

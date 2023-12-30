@@ -30,8 +30,6 @@ links:
 ## Features
 - Full keyboard navigation.
 
-
-
 ## Installation
 
 Install the component from your command line.
@@ -119,7 +117,6 @@ data:
     values: ['vertical', 'horizontal']
 ---
 ::
-
 
 ### OkuToolbarButton
 A button item.
@@ -217,7 +214,6 @@ data:
 ---
 ::
 
-
 ### OkuToolbarToggleItem
 An item in the group.
 
@@ -251,10 +247,8 @@ data:
 ---
 ::
 
-
 ### OkuToolbarSeparator
 Used to visually separate items in the toolbar.
-
 
 ::OkuTable
 ---
@@ -274,8 +268,6 @@ data:
     values: ['vertical', 'horizontal']
 ---
 ::
-
-
 
 ## Accessibility
 

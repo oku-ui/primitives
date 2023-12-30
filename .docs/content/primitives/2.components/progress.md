@@ -50,7 +50,6 @@ npm install @oku-ui/progress
 
 ::
 
-
 ## Anatomy
 
 Import the component.
@@ -108,7 +107,6 @@ data:
 ---
 ::
 
-
 ### OkuProgressIndicator
 Used to show the progress visually. It also makes progress accessible to assistive technologies.
 
@@ -135,7 +133,5 @@ data:
 ---
 ::
 
-
 ## Accessibility
 Adheres to the `progressbar` [role requirements.](https://www.w3.org/WAI/ARIA/apg/patterns/meter/)
-

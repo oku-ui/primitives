@@ -33,8 +33,6 @@ links:
 - Closes when the trigger is activated or when pressing escape.
 - Supports custom timings.
 
-
-
 ## Installation
 
 Install the component from your command line.
@@ -54,8 +52,6 @@ npm install @oku-ui/toolip
 ```
 
 ::
-
-
 
 ## Anatomy
 
@@ -142,7 +138,6 @@ data:
 ### OkuTooltipTrigger
 The button that toggles the tooltip. By default, the `Tooltip.Content` will position itself against the trigger.
 
-
 ::OkuTable
 ---
 data:
@@ -177,7 +172,6 @@ data:
     description: 'Specify a container element to portal the content into.'
 ---
 ::
-
 
 ### OkuTooltipContent
 The component that pops out when the tooltip is open.
@@ -280,9 +274,6 @@ data:
 ---
 ::
 
-
-
-
 ### OkuTooltipArrow
 An optional arrow element to render alongside the tooltip. This can be used to help visually link the trigger with the `Tooltip.Content`. Must be rendered inside `Tooltip.Content`.
 
@@ -304,8 +295,6 @@ data:
     description: 'The height of the arrow in pixels.'
 ---
 ::
-
-
 
 ## Accessibility
 ### Keyboard Interactions

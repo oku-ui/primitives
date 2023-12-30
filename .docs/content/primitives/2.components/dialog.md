@@ -54,8 +54,6 @@ npm install @oku-ui/dialog
 
 ::
 
-
-
 ## Anatomy
 
 Import the component.
@@ -149,8 +147,6 @@ data:
 ---
 ::
 
-
-
 ### OkuDialogPortal
 When used, portals your overlay and content parts into the `body`.
 
@@ -171,7 +167,6 @@ data:
       Specify a container element to portal the content into.
 ---
 ::
-
 
 ### OkuDialogOverlay
 
@@ -269,7 +264,6 @@ data:
 ---
 ::
 
-
 ### OkuDialogClose
 The button that closes the dialog.
 
@@ -288,7 +282,6 @@ data:
       Read our [Composition](../guides/composition) guide for more details.
 ---
 ::
-
 
 ### OkuDialogTitle
 An accessible title to be announced when the dialog is opened.
@@ -311,7 +304,6 @@ data:
 ---
 ::
 
-
 ### OkuDialogDescription
 An optional accessible description to be announced when the dialog is opened.
 
@@ -332,7 +324,6 @@ data:
       Read our [Composition](../guides/composition) guide for more details.
 ---
 ::
-
 
 ## Accessibility
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).

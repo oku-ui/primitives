@@ -31,7 +31,6 @@ links:
 - Full keyboard navigation.
 - Can be controlled or uncontrolled.
 
-
 ## Installation
 
 Install the component from your command line.
@@ -113,10 +112,8 @@ data:
 ---
 ::
 
-
 ## OkuCollapsibleTrigger
 The button that toggles the collapsible.
-
 
 ::OkuTable
 ---
@@ -141,10 +138,8 @@ data:
 ---
 ::
 
-
 ## OkuCollapsibleContent
 The component that contains the collapsible content.
-
 
 ::OkuTable
 ---
@@ -182,11 +177,9 @@ data:
 ---
 ::
 
-
 ## Accessibility
 
 Adheres to the [Disclosure WAI-ARIA design pattern.](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
-
 
 ::OkuKeyboardTable
 ---

@@ -30,7 +30,6 @@ links:
 ## Features
 - Supports horizontal and vertical orientations.
 
-
 ## Installation
 
 Install the component from your command line.

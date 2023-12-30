@@ -3,7 +3,6 @@ title: Components
 description: A collection of components that can be used to build your own design system.
 ---
 
-
 ::custom-link
 ---
 items:
