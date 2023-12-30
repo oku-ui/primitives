@@ -1387,7 +1387,7 @@ importers:
   packages/primitives-nuxt:
     dependencies:
       '@antfu/ni':
-        specifier: ^0.21.8
+        specifier: ^0.21.12
         version: 0.21.12
       '@nuxt/kit':
         specifier: ^3.9.0
@@ -7636,7 +7636,7 @@ packages:
       vite: 5.0.4
       vue: 3.3.9
     dependencies:
-      vite: 5.0.4(@types/node@20.10.1)
+      vite: 5.0.4(@types/node@20.10.6)
       vue: 3.3.9(typescript@5.3.3)
     dev: true
 
