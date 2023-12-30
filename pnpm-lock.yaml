@@ -1424,8 +1424,8 @@ importers:
         specifier: latest
         version: 1.0.4(nuxt@3.9.0)(rollup@3.29.4)(vite@5.0.4)
       '@nuxt/module-builder':
-        specifier: ^0.5.4
-        version: 0.5.4(@nuxt/kit@3.9.0)(nuxi@3.10.0)(typescript@5.3.3)
+        specifier: ^0.5.5
+        version: 0.5.5(@nuxt/kit@3.9.0)(nuxi@3.10.0)(typescript@5.3.3)
       '@nuxt/schema':
         specifier: ^3.9.0
         version: 3.9.0(rollup@3.29.4)
@@ -4520,12 +4520,12 @@ packages:
       - rollup
       - supports-color
 
-  /@nuxt/module-builder@0.5.4(@nuxt/kit@3.9.0)(nuxi@3.10.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-lCPh8s8LSfYqHgIMMsctDhz+AX1z6TnATkUes/GXc/No4kApC0zmJkQWrbtDRjmsWjElwl1kE7l7OzYdYc3d4w==}
+  /@nuxt/module-builder@0.5.5(@nuxt/kit@3.9.0)(nuxi@3.10.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-ifFfwA1rbSXSae25RmqA2kAbV3xoShZNrq1yK8VXB/EnIcDn4WiaYR1PytaSxIt5zsvWPn92BJXiIUBiMQZ0hw==}
     hasBin: true
     peerDependencies:
-      '@nuxt/kit': ^3.8.1
-      nuxi: ^3.9.1
+      '@nuxt/kit': ^3.8.2
+      nuxi: ^3.10.0
     dependencies:
       '@nuxt/kit': 3.9.0(rollup@3.29.4)
       citty: 0.1.5
@@ -7636,7 +7636,7 @@ packages:
       vite: 5.0.4
       vue: 3.3.9
     dependencies:
-      vite: 5.0.4(@types/node@20.10.1)
+      vite: 5.0.4(@types/node@20.10.6)
       vue: 3.3.9(typescript@5.3.3)
     dev: true
 
