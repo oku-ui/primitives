@@ -30,7 +30,9 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --watch"
+    "dev": "unbuild --stub",
+    "release": "pnpm build && pnpm bumpp --commit='version(tooltip): release %s' --no-tag && pnpm publish",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
     "vue": "^3.3.0"

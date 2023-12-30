@@ -93,6 +93,7 @@
     "@vitest/coverage-v8": "^1.1.0",
     "@vue/test-utils": "^2.4.3",
     "autoprefixer": "^10.4.16",
+    "bumpp": "^9.2.1",
     "changelogen": "^0.5.5",
     "chokidar": "^3.5.3",
     "chromatic": "^10.2.0",
