@@ -8,32 +8,32 @@
     "prepare": "DEV=true nuxi prepare"
   },
   "dependencies": {
-    "@nuxt/content": "^2.9.0",
-    "@nuxt/ui": "^2.11.0",
-    "@nuxt/ui-pro": "^0.5.0",
+    "@nuxt/content": "^2.10.0",
+    "@nuxt/ui": "^2.11.1",
+    "@nuxt/ui-pro": "^0.6.1",
     "@oku-ui/primitives": "^0.5.0",
     "@oku-ui/primitives-nuxt": "^0.2.2",
     "@pinia/nuxt": "^0.5.1",
     "@radix-ui/colors": "3.0.0",
     "nuxt-component-meta": "^0.6.0",
-    "nuxt-og-image": "3.0.0-beta.37",
+    "nuxt-og-image": "3.0.0-rc.13",
     "pinia": "^2.1.7",
-    "vue": "^3.3.11"
+    "vue": "^3.4.1"
   },
   "devDependencies": {
-    "@egoist/tailwindcss-icons": "^1.4.0",
-    "@iconify-json/fa-brands": "^1.1.5",
-    "@iconify-json/heroicons": "^1.1.13",
-    "@iconify-json/ic": "^1.1.14",
-    "@iconify-json/logos": "^1.1.38",
+    "@egoist/tailwindcss-icons": "^1.7.1",
+    "@iconify-json/fa-brands": "^1.1.8",
+    "@iconify-json/heroicons": "^1.1.19",
+    "@iconify-json/ic": "^1.1.17",
+    "@iconify-json/logos": "^1.1.42",
     "@iconify-json/ph": "latest",
-    "@iconify-json/simple-icons": "^1.1.79",
-    "@iconify-json/solar": "^1.1.6",
+    "@iconify-json/simple-icons": "^1.1.86",
+    "@iconify-json/solar": "^1.1.9",
     "@iconify-json/twemoji": "latest",
-    "@nuxt/devtools": "^1.0.4",
-    "@vueuse/nuxt": "^10.6.1",
-    "nuxt": "^3.8.2",
-    "typescript": "^5.3.2"
+    "@nuxt/devtools": "^1.0.6",
+    "@vueuse/nuxt": "^10.7.1",
+    "nuxt": "^3.9.0",
+    "typescript": "^5.3.3"
   },
   "pnpm": {
     "overrides": {
