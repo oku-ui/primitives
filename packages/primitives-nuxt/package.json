@@ -39,7 +39,7 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "release": "pnpm build && pnpm bumpp --commit='version(primitives-nuxt): release %s' --no-tag && pnpm publish",
+    "release": "pnpm prepack && pnpm bumpp --commit='version(primitives-nuxt): release %s' --no-tag && pnpm publish",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
