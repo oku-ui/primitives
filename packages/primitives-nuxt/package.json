@@ -39,7 +39,7 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "release": "npm run lint && npm run prepack && pnpm publish --access public --no-git-checks",
+    "release": "pnpm prepack && pnpm bumpp --commit='version(primitives-nuxt): release %s' --no-tag && pnpm publish",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
@@ -65,5 +65,8 @@
     "@types/node": "^20.10.6",
     "@types/pacote": "^11.1.8",
     "nuxt": "^3.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

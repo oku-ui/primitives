@@ -31,6 +31,7 @@
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
+    "release": "pnpm build && pnpm bumpp --commit='version(avatar): release %s' --no-tag && pnpm publish",
     "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
