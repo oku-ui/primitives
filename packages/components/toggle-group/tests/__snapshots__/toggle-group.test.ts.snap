@@ -4,51 +4,51 @@ exports[`okuToggleGroup > should render OkuToggleGroup correctly 1`] = `"<oku-to
 
 exports[`okuToggleGroup > should render OkuToggleGroup correctly 2`] = `""`;
 
-exports[`okuToggleGroup > should render OkuToggleGroupItem correctly 1`] = `"\`OkuToggleGroupItem\` must be used within \`OkuToggleGroup\`"`;
+exports[`okuToggleGroup > should render OkuToggleGroupItem correctly 1`] = `[Error: \`OkuToggleGroupItem\` must be used within \`OkuToggleGroup\`]`;
 
 exports[`okuToggleGroup Stories > chromatic > should render correctly 1`] = `
 "<h1>Single</h1>
 <h2>Off</h2>
-<oku-toggle-group-stub type=\\"single\\" class=\\"toggle-group\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="single" class="toggle-group"></oku-toggle-group-stub>
 <h2>On</h2>
-<oku-toggle-group-stub type=\\"single\\" class=\\"toggle-group\\" default-value=\\"1\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="single" class="toggle-group" default-value="1"></oku-toggle-group-stub>
 <h2>Disabled</h2>
-<oku-toggle-group-stub type=\\"single\\" class=\\"toggle-group\\" disabled=\\"\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="single" class="toggle-group" disabled=""></oku-toggle-group-stub>
 <h1>Multiple</h1>
 <h2>Off</h2>
-<oku-toggle-group-stub type=\\"multiple\\" class=\\"toggle-group\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="multiple" class="toggle-group"></oku-toggle-group-stub>
 <h2>One on</h2>
-<oku-toggle-group-stub type=\\"multiple\\" class=\\"toggle-group\\" default-value=\\"1\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="multiple" class="toggle-group" default-value="1"></oku-toggle-group-stub>
 <h2>One and two on</h2>
-<oku-toggle-group-stub type=\\"multiple\\" class=\\"toggle-group\\" default-value=\\"1,2\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="multiple" class="toggle-group" default-value="1,2"></oku-toggle-group-stub>
 <h2>Disabled</h2>
-<oku-toggle-group-stub type=\\"multiple\\" class=\\"toggle-group\\" disabled=\\"\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="multiple" class="toggle-group" disabled=""></oku-toggle-group-stub>
 <h1>Direction</h1>
 <h2>Prop</h2>
-<oku-toggle-group-stub type=\\"single\\" class=\\"toggle-group\\" default-value=\\"1\\" dir=\\"rtl\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="single" class="toggle-group" default-value="1" dir="rtl"></oku-toggle-group-stub>
 <h2>Inherited</h2>
-<direction-provider-stub dir=\\"rtl\\"></direction-provider-stub>
+<direction-provider-stub dir="rtl"></direction-provider-stub>
 <h1>State attributes</h1>
 <h2>Group disabled</h2>
-<oku-toggle-group-stub type=\\"multiple\\" class=\\"toggle-group\\" default-value=\\"1,2\\" disabled=\\"\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="multiple" class="toggle-group" default-value="1,2" disabled=""></oku-toggle-group-stub>
 <h2>Group enabled with button override</h2>
-<oku-toggle-group-stub type=\\"multiple\\" class=\\"toggle-group\\" default-value=\\"['1', '2']\\" disabled=\\"false\\"></oku-toggle-group-stub>
+<oku-toggle-group-stub type="multiple" class="toggle-group" default-value="['1', '2']" disabled="false"></oku-toggle-group-stub>
 <h2>Group disabled with button override</h2>
-<oku-toggle-group-stub type=\\"multiple\\" class=\\"toggle-group\\" default-value=\\"['1', '2']\\" disabled=\\"true\\"></oku-toggle-group-stub>"
+<oku-toggle-group-stub type="multiple" class="toggle-group" default-value="['1', '2']" disabled="true"></oku-toggle-group-stub>"
 `;
 
 exports[`okuToggleGroup Stories > multiple > should render correctly 1`] = `
 "<h1>Uncontrolled</h1>
-<div class=\\"toggle-group\\" aria-label=\\"Options\\" role=\\"group\\" dir=\\"ltr\\" tabindex=\\"0\\" style=\\"outline: none;\\"><button type=\\"button\\" aria-pressed=\\"true\\" data-state=\\"on\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 1 </button><button type=\\"button\\" aria-pressed=\\"false\\" data-state=\\"off\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 2 </button><button type=\\"button\\" aria-pressed=\\"false\\" data-state=\\"off\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 3 </button></div>
+<div class="toggle-group" aria-label="Options" role="group" dir="ltr" tabindex="0" style="outline: none;"><button type="button" aria-pressed="true" data-state="on" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 1 </button><button type="button" aria-pressed="false" data-state="off" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 2 </button><button type="button" aria-pressed="false" data-state="off" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 3 </button></div>
 <h1>Controlled</h1>
-<div class=\\"toggle-group\\" aria-label=\\"Options\\" role=\\"group\\" dir=\\"ltr\\" tabindex=\\"0\\" style=\\"outline: none;\\"><button type=\\"button\\" aria-pressed=\\"false\\" data-state=\\"off\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 1 </button><button type=\\"button\\" aria-pressed=\\"false\\" data-state=\\"off\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 2 </button><button type=\\"button\\" aria-pressed=\\"false\\" data-state=\\"off\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 3 </button></div>"
+<div class="toggle-group" aria-label="Options" role="group" dir="ltr" tabindex="0" style="outline: none;"><button type="button" aria-pressed="false" data-state="off" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 1 </button><button type="button" aria-pressed="false" data-state="off" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 2 </button><button type="button" aria-pressed="false" data-state="off" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 3 </button></div>"
 `;
 
 exports[`okuToggleGroup Stories > single > should render correctly 1`] = `
 "<h1>Uncontrolled</h1>
-<div class=\\"toggle-group\\" aria-label=\\"Options\\" role=\\"group\\" dir=\\"ltr\\" tabindex=\\"0\\" style=\\"outline: none;\\"><button type=\\"button\\" data-state=\\"on\\" role=\\"radio\\" aria-checked=\\"true\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 1 </button><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 2 </button><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 3 </button></div>
+<div class="toggle-group" aria-label="Options" role="group" dir="ltr" tabindex="0" style="outline: none;"><button type="button" data-state="on" role="radio" aria-checked="true" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 1 </button><button type="button" data-state="off" role="radio" aria-checked="false" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 2 </button><button type="button" data-state="off" role="radio" aria-checked="false" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 3 </button></div>
 <h1>Controlled</h1>
-<div class=\\"toggle-group\\" aria-label=\\"Options\\" role=\\"group\\" dir=\\"ltr\\" tabindex=\\"0\\" style=\\"outline: none;\\"><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 1 </button><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 2 </button><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-oku-collection-item=\\"\\"> Option 3 </button></div>"
+<div class="toggle-group" aria-label="Options" role="group" dir="ltr" tabindex="0" style="outline: none;"><button type="button" data-state="off" role="radio" aria-checked="false" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 1 </button><button type="button" data-state="off" role="radio" aria-checked="false" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 2 </button><button type="button" data-state="off" role="radio" aria-checked="false" class="toggle-group-item" tabindex="-1" data-oku-collection-item=""> Option 3 </button></div>"
 `;
 
-exports[`okuToggleGroup Stories > vertical > should render correctly 1`] = `"<div class=\\"toggle-group\\" aria-label=\\"Options\\" role=\\"group\\" dir=\\"ltr\\" tabindex=\\"0\\" data-orientation=\\"vertical\\" style=\\"outline: none;\\"><button type=\\"button\\" data-state=\\"on\\" role=\\"radio\\" aria-checked=\\"true\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-orientation=\\"vertical\\" data-oku-collection-item=\\"\\"> Option 1 </button><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-orientation=\\"vertical\\" data-oku-collection-item=\\"\\"> Option 2 </button><button type=\\"button\\" data-state=\\"off\\" role=\\"radio\\" aria-checked=\\"false\\" class=\\"toggle-group-item\\" tabindex=\\"-1\\" data-orientation=\\"vertical\\" data-oku-collection-item=\\"\\"> Option 3 </button></div>"`;
+exports[`okuToggleGroup Stories > vertical > should render correctly 1`] = `"<div class="toggle-group" aria-label="Options" role="group" dir="ltr" tabindex="0" data-orientation="vertical" style="outline: none;"><button type="button" data-state="on" role="radio" aria-checked="true" class="toggle-group-item" tabindex="-1" data-orientation="vertical" data-oku-collection-item=""> Option 1 </button><button type="button" data-state="off" role="radio" aria-checked="false" class="toggle-group-item" tabindex="-1" data-orientation="vertical" data-oku-collection-item=""> Option 2 </button><button type="button" data-state="off" role="radio" aria-checked="false" class="toggle-group-item" tabindex="-1" data-orientation="vertical" data-oku-collection-item=""> Option 3 </button></div>"`;

@@ -2,7 +2,7 @@
 
 exports[`okuAlertDialog > controlled > renders correctly 1`] = `
 "<div>
-  <div><img src=\\"https://images.unsplash.com/photo-1682686580224-cd46ea1a6950?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80\\" alt=\\"a large white house with a red roof\\"></div><button type=\\"button\\" aria-haspopup=\\"dialog\\" aria-expanded=\\"true\\" aria-controls=\\"oku-15\\" data-state=\\"open\\" class=\\"alert-dialog-trigger\\">Buy this house</button>
+  <div><img src="https://images.unsplash.com/photo-1682686580224-cd46ea1a6950?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="a large white house with a red roof"></div><button type="button" aria-haspopup="dialog" aria-expanded="true" aria-controls="oku-15" data-state="open" class="alert-dialog-trigger">Buy this house</button>
   <!--teleport start-->
   <!--teleport end-->
   <!--teleport start-->
@@ -222,26 +222,26 @@ exports[`okuAlertDialog > controlled > should be able to open 1`] = `
 
 exports[`okuAlertDialog > okuAlertDialog renders correctly 1`] = `""`;
 
-exports[`okuAlertDialog > okuAlertDialogAction renders correctly 1`] = `"\`OkuDialogClose\` must be used within \`OkuDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogAction renders correctly 1`] = `[Error: \`OkuDialogClose\` must be used within \`OkuDialog\`]`;
 
-exports[`okuAlertDialog > okuAlertDialogCancel renders correctly 1`] = `"\`OkuAlertDialogCancel\` must be used within \`OkuAlertDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogCancel renders correctly 1`] = `[Error: \`OkuAlertDialogCancel\` must be used within \`OkuAlertDialog\`]`;
 
-exports[`okuAlertDialog > okuAlertDialogContent renders correctly 1`] = `"\`OkuDialogContent\` must be used within \`OkuDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogContent renders correctly 1`] = `[Error: \`OkuDialogContent\` must be used within \`OkuDialog\`]`;
 
-exports[`okuAlertDialog > okuAlertDialogDescription renders correctly 1`] = `"\`OkuDialogDescription\` must be used within \`OkuDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogDescription renders correctly 1`] = `[Error: \`OkuDialogDescription\` must be used within \`OkuDialog\`]`;
 
 exports[`okuAlertDialog > okuAlertDialogDescriptionWarning renders correctly 1`] = `[Function]`;
 
-exports[`okuAlertDialog > okuAlertDialogOverlay renders correctly 1`] = `"\`OkuDialogOverlay\` must be used within \`OkuDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogOverlay renders correctly 1`] = `[Error: \`OkuDialogOverlay\` must be used within \`OkuDialog\`]`;
 
-exports[`okuAlertDialog > okuAlertDialogPortal renders correctly 1`] = `"\`OkuDialogPortal\` must be used within \`OkuDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogPortal renders correctly 1`] = `[Error: \`OkuDialogPortal\` must be used within \`OkuDialog\`]`;
 
-exports[`okuAlertDialog > okuAlertDialogTitle renders correctly 1`] = `"\`OkuDialogTitle\` must be used within \`OkuDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogTitle renders correctly 1`] = `[Error: \`OkuDialogTitle\` must be used within \`OkuDialog\`]`;
 
-exports[`okuAlertDialog > okuAlertDialogTrigger renders correctly 1`] = `"\`OkuDialogTrigger\` must be used within \`OkuDialog\`"`;
+exports[`okuAlertDialog > okuAlertDialogTrigger renders correctly 1`] = `[Error: \`OkuDialogTrigger\` must be used within \`OkuDialog\`]`;
 
 exports[`okuAlertDialog > styledVue > renders correctly 1`] = `
-"<div><button type=\\"button\\" aria-haspopup=\\"dialog\\" aria-expanded=\\"true\\" aria-controls=\\"oku-3\\" data-state=\\"open\\" class=\\"alert-dialog-trigger\\"> delete everything </button>
+"<div><button type="button" aria-haspopup="dialog" aria-expanded="true" aria-controls="oku-3" data-state="open" class="alert-dialog-trigger"> delete everything </button>
   <!--teleport start-->
   <!--teleport end-->
   <!--teleport start-->
