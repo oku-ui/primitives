@@ -1387,7 +1387,7 @@ importers:
   packages/primitives-nuxt:
     dependencies:
       '@antfu/ni':
-        specifier: ^0.21.8
+        specifier: ^0.21.12
         version: 0.21.12
       '@nuxt/kit':
         specifier: ^3.9.0
