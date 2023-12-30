@@ -29,7 +29,6 @@ navigation:
 ::
 ::
 
-
 ## Features
 
 - Full keyboard navigation.
@@ -56,7 +55,6 @@ npm install @oku-ui/alert-dialog
 ```
 
 ::
-
 
 ## Anatomy
 
@@ -101,7 +99,6 @@ import {
 ### OkuAlertDialog
 Contains all the parts of an alert dialog.
 
-
 ::OkuTable
 ---
 data:
@@ -140,7 +137,6 @@ data:
       Read our [Composition](../guides/composition) guide for more details.
 ---
 ::
-
 
 ::OkuAttributesTable
 ---
@@ -195,7 +191,6 @@ data:
 ---
 ::
 
-
 ::OkuAttributesTable
 ---
 data:
@@ -247,7 +242,6 @@ data:
       by calling `event.preventDefault`.
 ---
 ::
-
 
 ::OkuAttributesTable
 ---

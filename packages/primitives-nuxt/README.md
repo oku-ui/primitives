@@ -13,7 +13,6 @@ $ pnpm add @oku-ui/primitives-nuxt
 
 [Documentation](https://oku-ui.com/primitives/introduction/nuxt)
 
-
 ## Credits
 - [Nuxt Devtools](https://github.com/nuxt/devtools)
 - [Nuxt SEO Kit](https://github.com/harlan-zw/nuxt-seo-kit)

@@ -31,12 +31,9 @@ links:
 - Full keyboard navigation.
 - Can be controlled or uncontrolled.
 
-
-
 ## Installation
 
 Install the component from your command line.
-
 
 ::code-group
 
@@ -53,7 +50,6 @@ npm install @oku-ui/toggle
 ```
 
 ::
-
 
 ## Anatomy
 
@@ -110,8 +106,6 @@ data:
     values: 'Present when disabled'
 ---
 ::
-
-
 
 ## Accessibility
 ### Keyboard Interactions

@@ -51,8 +51,6 @@ npm install @oku-ui/aspect-ratio
 
 ::
 
-
-
 ## Anatomy
 
 Import the component.
@@ -74,7 +72,6 @@ import { OkuAspectRatio } from '@oku-ui/aspect-ratio'
 
 ### OkuAspectRatio
 Contains the content you want to constrain to a given ratio.
-
 
 ::OkuTable
 ---

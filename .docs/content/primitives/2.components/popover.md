@@ -27,8 +27,6 @@ links:
 ::
 ::
 
-
-
 ## Features
 - Can be controlled or uncontrolled.
 - Customize side, alignment, offsets, collision handling.
@@ -36,8 +34,6 @@ links:
 - Focus is fully managed and customizable.
 - Supports modal and non-modal modes.
 - Dismissing and layering behavior is highly customizable.
-
-
 
 ## Installation
 
@@ -148,7 +144,6 @@ data:
 
 An optional element to position the `Popover.Content` against. If this part is not used, the content will position alongside the <Code>Popover.Trigger</Code>.
 
-
 ::OkuTable
 ---
 data:
@@ -180,7 +175,6 @@ data:
 ### OkuPopoverContent
 
 The component that pops out when the popover is open.
-
 
 ::OkuTable
 ---
@@ -302,8 +296,6 @@ data:
 ---
 ::
 
-
-
 ### OkuPopoverArrow
 
 An optional arrow element to render alongside the popover. This can be used to help visually link the anchor with the `Popover.Content`. Must be rendered inside `Popover.Content`.
@@ -345,7 +337,6 @@ data:
 ## Accessibility
 
 Adheres to the [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal).
-
 
 ::OkuKeyboardTable
 ---

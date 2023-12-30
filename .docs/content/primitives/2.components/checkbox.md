@@ -27,15 +27,11 @@ links:
 ::
 ::
 
-
-
 ## Features
 
 - Supports indeterminate state.
 - Full keyboard navigation.
 - Can be controlled or uncontrolled.
-
-
 
 ## Installation
 
@@ -56,7 +52,6 @@ npm install @oku-ui/checkbox
 ```
 
 ::
-
 
 ## Anatomy
 
@@ -80,7 +75,6 @@ import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
 
 ### OkuCheckbox
 Contains all the parts of a checkbox. An input will also render when used within a form to ensure events propagate correctly.
-
 
 ::OkuTable
 ---
@@ -119,7 +113,6 @@ data:
 ---
 ::
 
-
 ::OkuAttributesTable
 ---
 data:
@@ -132,8 +125,6 @@ data:
     values: 'Present when disabled'
 ---
 ::
-
-
 
 ### OkuCheckboxIndicator
 Renders when the checkbox is in a checked or indeterminate state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
@@ -164,7 +155,6 @@ data:
     values: 'Present when disabled'
 ---
 ::
-
 
 ## Accessibility
 

@@ -27,9 +27,6 @@ links:
 ::
 ::
 
-
-
-
 ## Features
 - Can be controlled or uncontrolled.
 - Customize side, alignment, offsets, collision handling.
@@ -37,7 +34,6 @@ links:
 - Supports custom open and close delays.
 - Opens on hover only.
 - Ignored by screen readers.
-
 
 ## Installation
 
@@ -127,7 +123,6 @@ data:
 ---
 ::
 
-
 ### OkuHoverCardTrigger
 The link that opens the hover card when hovered.
 
@@ -174,7 +169,6 @@ data:
       Specify a container element to portal the content into.
 ---
 ::
-
 
 ### OkuHoverCardContent
 The component that pops out when the hover card is open.
@@ -280,7 +274,6 @@ data:
 ---
 ::
 
-
 ::OkuCssVariablesTable
 ---
 data:
@@ -304,7 +297,6 @@ data:
 
 ### OkuHoverCardArrow
 An optional arrow element to render alongside the hover card. This can be used to help visually link the trigger with the `HoverCard.Content`. Must be rendered inside `HoverCard.Content`.
-
 
 ::OkuTable
 ---
@@ -331,8 +323,6 @@ data:
       The height of the arrow in pixels.
 ---
 ::
-
-
 
 ## Accessibility
 

@@ -27,7 +27,6 @@ links:
 ::
 ::
 
-
 ## Features
 
 - Automatic and manual control over when the image renders.
@@ -87,7 +86,6 @@ data:
 ---
 ::
 
-
 ### OkuAvatarImage
 The image to render. By default it will only render when it has loaded. You can use the `onLoadingStatusChange` handler if you need more control.
 
@@ -105,7 +103,6 @@ data:
     description: 'A callback providing information about the loading status of the image. This is useful in case you want to control more precisely what to render as the image is loading.'
 ---
 ::
-
 
 ### OkuAvatarFallback
 

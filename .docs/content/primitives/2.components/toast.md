@@ -114,7 +114,6 @@ data:
 ---
 ::
 
-
 ### OkuToastViewport
 The fixed area where toasts appear. Users can jump to the viewport by pressing a hotkey. It is up to you to ensure the discoverability of the hotkey for keyboard users.
 
@@ -253,7 +252,6 @@ data:
 ---
 ::
 
-
 ### OkuToastTitle
 An optional title for the toast.
 
@@ -297,7 +295,6 @@ An action that is safe to ignore to ensure users are not expected to complete ta
 
 When obtaining a user response is necessary, portal an [`AlertDialog`](/primitives/docs/components/alert-dialog) styled as a toast into the viewport instead.
 
-
 ::OkuTable
 ---
 data:
@@ -319,7 +316,6 @@ data:
 ---
 ::
 
-
 ### OkuToastClose
 A button that allows users to dismiss the toast before its duration has elapsed.
 
@@ -338,8 +334,6 @@ data:
       Read our [Composition](../guides/composition) guide for more details.
 ---
 ::
-
-
 
 ### Keyboard Interactions
 
