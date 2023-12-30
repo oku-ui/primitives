@@ -29,7 +29,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.6.1",
+    "@vitejs/plugin-vue": "^5.0.1",
     "typescript": "^5.3.3",
     "unplugin-auto-import": "^0.17.3",
     "unplugin-vue-components": "^0.26.0",
