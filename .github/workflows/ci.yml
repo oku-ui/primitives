@@ -41,34 +41,21 @@ jobs:
       - uses: actions/checkout@v4
 
       - run: corepack enable
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: pnpm
 
-      - name: Nx Cache
+      - name: Cache .
         uses: actions/cache@v3
         with:
-          path: ./.nx
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ./.nx
+            ./.eslintcache
+            ./.vitest-cache
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/pnpm-lock.yaml') }}
-
-      - name: ESLint Cache
-        uses: actions/cache@v3
-        with:
-          path: ./.eslintcache
-          key: ${{ runner.os }}-eslintcache-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-eslintcache-${{ hashFiles('**/pnpm-lock.yaml') }}
-
-      - name: Vitest Cache
-        uses: actions/cache@v3
-        with:
-          path: ./.vitest-cache
-          key: ${{ runner.os }}-vitestcache-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-vitestcache-${{ hashFiles('**/pnpm-lock.yaml') }}
+            ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
 
 
       - name: 📦 Install dependencies
