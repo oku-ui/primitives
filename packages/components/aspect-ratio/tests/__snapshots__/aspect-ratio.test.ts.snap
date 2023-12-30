@@ -1,54 +1,54 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`okuAspectRatio > should render OkuAspectRatio correctly 1`] = `
-"<div style=\\"width: 500px;\\">
-  <oku-aspect-ratio-stub ratio=\\"0.5\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+"<div style="width: 500px;">
+  <oku-aspect-ratio-stub ratio="0.5" aschild="false"></oku-aspect-ratio-stub>
 </div>"
 `;
 
-exports[`okuAspectRatio > should render OkuAspectRatio correctly 2`] = `"<primitivediv-stub aschild=\\"false\\" style=\\"position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;\\"></primitivediv-stub>"`;
+exports[`okuAspectRatio > should render OkuAspectRatio correctly 2`] = `"<primitivediv-stub aschild="false" style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"></primitivediv-stub>"`;
 
 exports[`okuAspectRatio Stories > chromatic > should render correctly 1`] = `
 "<h1>Default ratio</h1>
-<div style=\\"width: 300px;\\">
-  <oku-aspect-ratio-stub ratio=\\"1\\" aschild=\\"false\\" class=\\"aspect-ratio\\"></oku-aspect-ratio-stub>
+<div style="width: 300px;">
+  <oku-aspect-ratio-stub ratio="1" aschild="false" class="aspect-ratio"></oku-aspect-ratio-stub>
 </div>
 <h1>Custom ratios</h1>
-<div style=\\"display: flex; gap: 20px;\\">
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"0.5\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+<div style="display: flex; gap: 20px;">
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="0.5" aschild="false"></oku-aspect-ratio-stub>
   </div>
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"1\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="1" aschild="false"></oku-aspect-ratio-stub>
   </div>
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"1.7777777777777777\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="1.7777777777777777" aschild="false"></oku-aspect-ratio-stub>
   </div>
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"2\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="2" aschild="false"></oku-aspect-ratio-stub>
   </div>
 </div>"
 `;
 
 exports[`okuAspectRatio Stories > customRatios > should render correctly 1`] = `
-"<div style=\\"display: flex; gap: 20px;\\">
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"0.5\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+"<div style="display: flex; gap: 20px;">
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="0.5" aschild="false"></oku-aspect-ratio-stub>
   </div>
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"1\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="1" aschild="false"></oku-aspect-ratio-stub>
   </div>
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"1.7777777777777777\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="1.7777777777777777" aschild="false"></oku-aspect-ratio-stub>
   </div>
-  <div style=\\"width: 200px;\\">
-    <oku-aspect-ratio-stub ratio=\\"2\\" aschild=\\"false\\"></oku-aspect-ratio-stub>
+  <div style="width: 200px;">
+    <oku-aspect-ratio-stub ratio="2" aschild="false"></oku-aspect-ratio-stub>
   </div>
 </div>"
 `;
 
 exports[`okuAspectRatio Stories > styled > should render correctly 1`] = `
-"<div style=\\"width: 500px;\\">
-  <oku-aspect-ratio-stub ratio=\\"1\\" aschild=\\"false\\" class=\\"aspect-ratio\\"></oku-aspect-ratio-stub>
+"<div style="width: 500px;">
+  <oku-aspect-ratio-stub ratio="1" aschild="false" class="aspect-ratio"></oku-aspect-ratio-stub>
 </div>"
 `;

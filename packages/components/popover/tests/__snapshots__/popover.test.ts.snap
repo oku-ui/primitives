@@ -1280,29 +1280,29 @@ exports[`okuPopper > nested > should be able to close 1`] = `
 
 exports[`okuPopper > okuPopover renders correctly 1`] = `""`;
 
-exports[`okuPopper > okuPopoverAnchor renders correctly 1`] = `"\`OkuPopoverAnchor\` must be used within \`OkuPopover\`"`;
+exports[`okuPopper > okuPopoverAnchor renders correctly 1`] = `[Error: \`OkuPopoverAnchor\` must be used within \`OkuPopover\`]`;
 
-exports[`okuPopper > okuPopoverAnchor renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+exports[`okuPopper > okuPopoverAnchor renders correctly 2`] = `"[Vue warn]: injection "Symbol(OkuPopover)" not found."`;
 
-exports[`okuPopper > okuPopoverArrow renders correctly 1`] = `"\`OkuPopperArrow\` must be used within \`OkuPopperContent\`"`;
+exports[`okuPopper > okuPopoverArrow renders correctly 1`] = `[Error: \`OkuPopperArrow\` must be used within \`OkuPopperContent\`]`;
 
-exports[`okuPopper > okuPopoverArrow renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopperContent)\\" not found."`;
+exports[`okuPopper > okuPopoverArrow renders correctly 2`] = `"[Vue warn]: injection "Symbol(OkuPopperContent)" not found."`;
 
-exports[`okuPopper > okuPopoverClose renders correctly 1`] = `"\`OkuPopoverClose\` must be used within \`OkuPopover\`"`;
+exports[`okuPopper > okuPopoverClose renders correctly 1`] = `[Error: \`OkuPopoverClose\` must be used within \`OkuPopover\`]`;
 
-exports[`okuPopper > okuPopoverClose renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+exports[`okuPopper > okuPopoverClose renders correctly 2`] = `"[Vue warn]: injection "Symbol(OkuPopover)" not found."`;
 
-exports[`okuPopper > okuPopoverContent renders correctly 1`] = `"\`OkuPopoverContent\` must be used within \`OkuPopover\`"`;
+exports[`okuPopper > okuPopoverContent renders correctly 1`] = `[Error: \`OkuPopoverContent\` must be used within \`OkuPopover\`]`;
 
-exports[`okuPopper > okuPopoverContent renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopoverPortal)\\" not found."`;
+exports[`okuPopper > okuPopoverContent renders correctly 2`] = `"[Vue warn]: injection "Symbol(OkuPopoverPortal)" not found."`;
 
-exports[`okuPopper > okuPopoverPortal renders correctly 1`] = `"\`OkuPopoverPortal\` must be used within \`OkuPopover\`"`;
+exports[`okuPopper > okuPopoverPortal renders correctly 1`] = `[Error: \`OkuPopoverPortal\` must be used within \`OkuPopover\`]`;
 
-exports[`okuPopper > okuPopoverPortal renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+exports[`okuPopper > okuPopoverPortal renders correctly 2`] = `"[Vue warn]: injection "Symbol(OkuPopover)" not found."`;
 
-exports[`okuPopper > okuPopoverTrigger renders correctly 1`] = `"\`OkuPopoverTrigger\` must be used within \`OkuPopover\`"`;
+exports[`okuPopper > okuPopoverTrigger renders correctly 1`] = `[Error: \`OkuPopoverTrigger\` must be used within \`OkuPopover\`]`;
 
-exports[`okuPopper > okuPopoverTrigger renders correctly 2`] = `"[Vue warn]: injection \\"Symbol(OkuPopover)\\" not found."`;
+exports[`okuPopper > okuPopoverTrigger renders correctly 2`] = `"[Vue warn]: injection "Symbol(OkuPopover)" not found."`;
 
 exports[`okuPopper > vControlled > renders correctly 1`] = `
 <body>
