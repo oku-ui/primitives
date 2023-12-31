@@ -1351,7 +1351,7 @@ importers:
   packages/core/utils:
     dependencies:
       vue:
-        specifier: 3.4.1
+        specifier: ^3.3.0
         version: 3.4.1(typescript@5.3.3)
     devDependencies:
       tsconfig:
