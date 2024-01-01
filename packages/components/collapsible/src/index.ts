@@ -1,46 +1,37 @@
+export { OkuCollapsible } from './collapsible'
+export { OkuCollapsibleTrigger } from './collapsible-trigger'
+export { OkuCollapsibleContent } from './collapsible-content'
+export { OkuCollapsibleContentImpl } from './collapsible-content-impl'
+
 export type {
-  CollapsibleElement,
   CollapsibleProps,
-  CollapsibleNaviteElement,
   CollapsibleEmits,
-} from './collapsible'
-
-export {
-  OkuCollapsible,
-  createCollapsibleScope,
-  collapsibleProps,
-} from './collapsible'
-
-export {
-  OkuCollapsibleContent,
-  collapsibleContentProps,
-} from './collapsibleContent'
+  CollapsibleElement,
+  CollapsibleNativeElement,
+} from './props'
 
 export type {
-  CollapsibleContentElement,
   CollapsibleContentProps,
-  CollapsibleContentNaviteElement,
-} from './collapsibleContent'
-
-export {
-  OkuCollapsibleContentImpl,
-  collapsibleContentImplProps,
-} from './collapsibleContentImpl'
+  CollapsibleContentElement,
+  CollapsibleContentNativeElement,
+} from './props'
 
 export type {
-  CollapsibleContentImplElement,
   CollapsibleContentImplProps,
-  CollapsibleContentImplNaviteElement,
-} from './collapsibleContentImpl'
-
-export {
-  OkuCollapsibleTrigger,
-  collapsibleTriggerProps,
-} from './collapsibleTrigger'
+  CollapsibleContentImplElement,
+  CollapsibleContentImplNativeElement,
+} from './props'
 
 export type {
-  CollapsibleTriggerElement,
   CollapsibleTriggerProps,
-  CollapsibleTriggerNaviteElement,
   CollapsibleTriggerEmits,
-} from './collapsibleTrigger'
+  CollapsibleTriggerElement,
+  CollapsibleTriggerNativeElement,
+} from './props'
+
+export {
+  collapsibleContentProps,
+  collapsibleProps,
+  collapsibleTriggerProps,
+  createCollapsibleScope,
+} from './props'
