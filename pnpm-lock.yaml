@@ -1332,8 +1332,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@vue/shared':
-        specifier: ^3.4.1
-        version: 3.4.1
+        specifier: ^3.4.3
+        version: 3.4.3
       '@vueuse/core':
         specifier: ^10.7.1
         version: 10.7.1(vue@3.4.1)
@@ -7087,7 +7087,7 @@ packages:
       '@volar/language-core': 1.11.1
       '@volar/source-map': 1.11.1
       '@vue/compiler-dom': 3.4.1
-      '@vue/shared': 3.4.1
+      '@vue/shared': 3.4.3
       computeds: 0.0.1
       minimatch: 9.0.3
       muggle-string: 0.3.1
