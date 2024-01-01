@@ -61,6 +61,6 @@ const RadioIndicator = defineComponent({
 })
 
 export const OkuRadioIndicator = RadioIndicator as typeof RadioIndicator &
-(new () => {
-  $props: RadioIndicatorNaviteElement
-})
+  (new () => {
+    $props: RadioIndicatorNaviteElement
+  })

@@ -38,25 +38,18 @@ const menuContent = defineComponent({
     const inject = useMenuInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
     const rootInject = useMenuRootInject(MENU_CONTENT_NAME, scopeOkuMenu.value)
 
-    return () => h(CollectionProvider, { scope: scopeOkuMenu.value }, {
-      default: () => h(OkuPresence, { present: forceMount.value || inject.open.value }, {
-        default: () => h(CollectionSlot, { scope: scopeOkuMenu.value }, {
-          default: () => rootInject.modal.value
-            ? h(OkuMenuRootContentModal, {
-              ...mergeProps(attrs, otherProps),
-              ref: forwardedRef,
-            }, slots)
-            : h(OkuMenuRootContentNonModal, {
-              ...mergeProps(attrs, otherProps),
-              ref: forwardedRef,
-            }, slots),
-        }),
-      }),
-    })
+    return () => [h(CollectionProvider, { scope: scopeOkuMenu.value }, () => h(OkuPresence, { present: forceMount.value || inject.open.value }, () => h(CollectionSlot, { scope: scopeOkuMenu.value }, () => rootInject.modal.value
+      ? h(OkuMenuRootContentModal, {
+        ...mergeProps(attrs, otherProps),
+        ref: forwardedRef,
+      }, slots)
+      : h(OkuMenuRootContentNonModal, {
+        ...mergeProps(attrs, otherProps),
+        ref: forwardedRef,
+      }, () => slots.default?.())))),
+    ]
   },
-
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuContent = menuContent as typeof menuContent &
-(new () => { $props: MenuContentNativeElement })
+export const OkuMenuContent = menuContent as typeof menuContent & (new () => { $props: MenuContentNativeElement })

@@ -298,6 +298,6 @@ const slider = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuSlider = slider as typeof slider &
-(new () => {
-  $props: SliderNaviteElement
-})
+  (new () => {
+    $props: SliderNaviteElement
+  })

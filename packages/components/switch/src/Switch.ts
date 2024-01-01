@@ -146,7 +146,7 @@ const Switch = defineComponent({
     onMounted(() => {
       isFormControl.value = buttonRef.value
         ? typeof buttonRef.value.closest === 'function'
-          && Boolean(buttonRef.value.closest('form'))
+        && Boolean(buttonRef.value.closest('form'))
         : true
     })
 
@@ -204,16 +204,16 @@ const Switch = defineComponent({
         },
       ),
       isFormControl.value
-        && h(BubbleInput, {
-          control: buttonRef.value,
-          bubbles: !hasConsumerStoppedPropagationRef.value,
-          name: name.value,
-          value: switchValue.value,
-          checked: state.value,
-          required: required.value,
-          disabled: disabled.value,
-          style: { transform: 'translateX(-100%)' },
-        }),
+      && h(BubbleInput, {
+        control: buttonRef.value,
+        bubbles: !hasConsumerStoppedPropagationRef.value,
+        name: name.value,
+        value: switchValue.value,
+        checked: state.value,
+        required: required.value,
+        disabled: disabled.value,
+        style: { transform: 'translateX(-100%)' },
+      }),
     ]
 
     return originalReturn
@@ -221,8 +221,8 @@ const Switch = defineComponent({
 })
 
 export const OkuSwitch = Switch as typeof Switch &
-(new () => {
-  $props: SwitchNaviteElement
-})
+  (new () => {
+    $props: SwitchNaviteElement
+  })
 
 export { useSwitchInject, createSwitchScope }

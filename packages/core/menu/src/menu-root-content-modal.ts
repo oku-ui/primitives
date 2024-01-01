@@ -60,10 +60,9 @@ const menuRootContentModel = defineComponent({
         emit('focusOutside', event)
       }, event => event.preventDefault(), { checkForDefaultPrevented: false }),
       onDismiss: () => inject.onOpenChange(false),
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuRootContentModal = menuRootContentModel as typeof menuRootContentModel &
-(new () => { $props: MenuRootContentTypeNativeElement })
+export const OkuMenuRootContentModal = menuRootContentModel as typeof menuRootContentModel & (new () => { $props: MenuRootContentTypeNativeElement })

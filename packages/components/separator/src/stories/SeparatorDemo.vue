@@ -1,40 +1,37 @@
 <script setup lang="ts">
-import { OkuSeparator } from '@oku-ui/separator'
+import Styled from './Styled.vue'
+
+withDefaults(defineProps<ISeparatorProps>(), {})
 
 export interface ISeparatorProps {
-  template?: '#1' | '#2' | '#3'
+  template?: 'Styled'
   allshow?: boolean
 }
-
-withDefaults(defineProps<ISeparatorProps>(), {
-
-})
 </script>
 
 <template>
   <div>
-    <div v-if="template === '#1' || allshow" class="w-[300px] rounded-sm overflow-hidden">
-      <OkuSeparator class="my-4 h-[1px] bg-slate-500" />
-      <h1>Horizontal</h1>
-      <p>The following separator is horizontal and has semantic meaning.</p>
-
-      <OkuSeparator class="border-0 bg-gray-300 my-4 h-[1px]" orientation="horizontal" />
-      <p>
-        The following separator is horizontal and is purely decorative. Assistive technology will
-        ignore this element.
-      </p>
-
-      <OkuSeparator class="border-0 my-4 bg-gray-500 w-full h-[1px]" decorative />
-      <h1>Vertical</h1>
-      <div class="flex items-center h-full">
-        <p>The following separator is vertical and has semantic meaning.</p>
-        <OkuSeparator class="w-[1px] mx-4 bg-slate-500 h-12" orientation="vertical" />
-        <p>
-          The following separator is vertical and is purely decorative. Assistive technology will
-          ignore this element.
-        </p>
-        <OkuSeparator class="w-[1px] mr-4 bg-slate-400 h-12" orientation="vertical" decorative />
-      </div>
-    </div>
+    <template v-if="template === 'Styled' || allshow">
+      <Styled />
+    </template>
   </div>
 </template>
+
+<style>
+.separator {
+  border: none;
+  background-color: crimson;
+
+  &[data-orientation="horizontal"] {
+    height: 1px;
+    width: 100%;
+    margin: 20px 0px;
+  }
+
+  &[data-orientation="vertical"] {
+    height: 100px;
+    width: 1px;
+    margin: 0px 20px;
+  }
+}
+</style>

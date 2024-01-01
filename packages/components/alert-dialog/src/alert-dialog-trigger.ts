@@ -30,6 +30,6 @@ const alertDialogTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAlertDialogTrigger = alertDialogTrigger as typeof alertDialogTrigger &
-(new () => {
-  $props: AlertDialogTriggerNaviteElement
-})
+  (new () => {
+    $props: AlertDialogTriggerNaviteElement
+  })

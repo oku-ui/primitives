@@ -5,8 +5,8 @@ export function isValidVNodeElement(input: any): boolean {
   return (
     input
     && (typeof input.type === 'string'
-      || typeof input.type === 'object'
-      || typeof input.type === 'function')
+    || typeof input.type === 'object'
+    || typeof input.type === 'function')
   )
 }
 
@@ -21,8 +21,8 @@ export function isEmptyElement(c: any) {
   return (
     c
     && (c.type === Comment
-      || (c.type === Fragment && c.children.length === 0)
-      || (c.type === Text && c.children.trim() === ''))
+    || (c.type === Fragment && c.children.length === 0)
+    || (c.type === Text && c.children.trim() === ''))
   )
 }
 

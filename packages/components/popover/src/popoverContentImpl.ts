@@ -23,13 +23,14 @@ const popoverContentImpl = defineComponent({
       scopeOkuPopover,
       ...contentProps
     } = toRefs(props)
+
     const _reactive = reactive(contentProps)
-    const reactiveContentProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     const inject = usePopoverInject(CONTENT_IMPL_NAME, scopeOkuPopover.value)
     const popperScope = usePopperScope(scopeOkuPopover.value)
-
-    const forwardedRef = useForwardRef()
 
     useFocusGuards()
 
@@ -43,54 +44,45 @@ const popoverContentImpl = defineComponent({
       onUnmountAutoFocus: (event) => {
         emit('closeAutoFocus', event)
       },
-    }, {
-      default: () => h(OkuDismissableLayer, {
-        asChild: true,
-        disableOutsidePointerEvents: disableOutsidePointerEvents.value,
-        onInteractOutside: (event) => {
-          emit('interactOutside', event)
+    }, () => h(OkuDismissableLayer, {
+      asChild: true,
+      disableOutsidePointerEvents: disableOutsidePointerEvents.value,
+      onInteractOutside: (event) => {
+        emit('interactOutside', event)
+      },
+      onEscapeKeydown: (event) => {
+        emit('escapeKeydown', event)
+      },
+      onPointerdownOutside: (event) => {
+        emit('pointerdownOutside', event)
+      },
+      onFocusOutside: (event) => {
+        emit('focusOutside', event)
+      },
+      onDismiss: () => {
+        inject.onOpenChange(false)
+      },
+    }, () => h(OkuPopperContent, {
+      'data-state': getState(inject.open.value!),
+      'role': 'dialog',
+      'id': inject.contentId.value,
+      ...popperScope,
+      ...mergeProps(attrs, otherProps),
+      'ref': forwardedRef,
+      'style': {
+        ...attrs.style as any,
+        // re-namespace exposed content custom properties
+        ...{
+          '--oku-popover-content-transform-origin': 'var(--oku-popper-transform-origin)',
+          '--oku-popover-content-available-width': 'var(--oku-popper-available-width)',
+          '--oku-popover-content-available-height': 'var(--oku-popper-available-height)',
+          '--oku-popover-trigger-width': 'var(--oku-popper-anchor-width)',
+          '--oku-popover-trigger-height': 'var(--oku-popper-anchor-height)',
         },
-        onEscapeKeydown: (event) => {
-          emit('escapeKeydown', event)
-        },
-        onPointerdownOutside: (event) => {
-          emit('pointerdownOutside', event)
-        },
-        onFocusOutside: (event) => {
-          emit('focusOutside', event)
-        },
-        onDismiss: () => {
-          inject.onOpenChange(false)
-        },
-      }, {
-        default: () => h(OkuPopperContent, {
-          'data-state': getState(inject.open.value!),
-          'role': 'dialog',
-          'id': inject.contentId.value,
-          ...popperScope,
-          ...mergeProps(attrs, reactiveContentProps),
-          'ref': forwardedRef,
-          'style': {
-            ...attrs.style as any,
-            // re-namespace exposed content custom properties
-            ...{
-              '--oku-popover-content-transform-origin': 'var(--oku-popper-transform-origin)',
-              '--oku-popover-content-available-width': 'var(--oku-popper-available-width)',
-              '--oku-popover-content-available-height': 'var(--oku-popper-available-height)',
-              '--oku-popover-trigger-width': 'var(--oku-popper-anchor-width)',
-              '--oku-popover-trigger-height': 'var(--oku-popper-anchor-height)',
-            },
-          },
-        }, {
-          default: () => slots.default?.(),
-        }),
-      }),
-    })
+      },
+    }, () => slots.default?.())))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopoverContentImpl = popoverContentImpl as typeof popoverContentImpl &
-(new () => {
-  $props: PopoverContentImplNaviteElement
-})
+export const OkuPopoverContentImpl = popoverContentImpl as typeof popoverContentImpl & (new () => { $props: PopoverContentImplNaviteElement })

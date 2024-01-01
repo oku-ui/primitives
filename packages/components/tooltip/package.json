@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/tooltip",
   "type": "module",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -30,7 +30,9 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --watch"
+    "dev": "unbuild --stub",
+    "release": "pnpm build && pnpm bumpp --commit='version(tooltip): release %s' --no-tag && pnpm publish",
+    "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
     "vue": "^3.3.0"

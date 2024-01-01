@@ -50,6 +50,6 @@ const hoverCardArrow = defineComponent({
 })
 
 export const OkuHoverCardArrow = hoverCardArrow as typeof hoverCardArrow &
-(new () => {
-  $props: HoverCardArrowNaviteElement
-})
+  (new () => {
+    $props: HoverCardArrowNaviteElement
+  })

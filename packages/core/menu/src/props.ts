@@ -62,7 +62,7 @@ export const SUB_CLOSE_KEYS: Record<Direction, string[]> = {
   rtl: ['ArrowRight'],
 }
 
-type ItemData = { disabled: boolean; textValue: string }
+type ItemData = { disabled: boolean, textValue: string }
 
 export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<MenuItemElement, ItemData>(MENU_NAME)
 

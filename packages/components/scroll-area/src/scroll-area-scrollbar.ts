@@ -27,7 +27,7 @@ const scrollAreaScrollbar = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaScrollbarProps)
-    const reactiveScrollAreaScrollbarProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -43,32 +43,35 @@ const scrollAreaScrollbar = defineComponent({
       })
     })
 
-    return () => inject.type.value === 'hover'
+    return () => [inject.type.value === 'hover'
       ? h(OkuScrollAreaScrollbarHover, {
-        ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
+        ...mergeProps(attrs, otherProps),
         ref: forwardedRef,
         forceMount: forceMount.value,
-      }, slots)
+      }, () => slots.default?.())
+
       : inject.type.value === 'scroll'
         ? h(OkuScrollAreaScrollbarScroll, {
-          ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
+          ...mergeProps(attrs, otherProps),
           ref: forwardedRef,
           forceMount: forceMount.value,
-        }, slots)
+        }, () => slots.default?.())
+
         : inject.type.value === 'auto'
           ? h(OkuScrollAreaScrollbarAuto, {
-            ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
+            ...mergeProps(attrs, otherProps),
             ref: forwardedRef,
             forceMount: forceMount.value,
-          }, slots)
+          }, () => slots.default?.())
+
           : inject.type.value === 'always'
             ? h(OkuScrollAreaScrollbarVisible, {
-              ...mergeProps(attrs, reactiveScrollAreaScrollbarProps),
+              ...mergeProps(attrs, otherProps),
               ref: forwardedRef,
-            }, slots)
-            : null
+            }, () => slots.default?.())
+            : null,
+    ]
   },
 })
 
-export const OkuScrollAreaScrollbar = scrollAreaScrollbar as typeof scrollAreaScrollbar &
-(new () => { $props: ScrollAreaScrollbarNaviteElement })
+export const OkuScrollAreaScrollbar = scrollAreaScrollbar as typeof scrollAreaScrollbar & (new () => { $props: ScrollAreaScrollbarNaviteElement })

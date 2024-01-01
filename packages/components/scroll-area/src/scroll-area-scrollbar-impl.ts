@@ -24,7 +24,7 @@ const scrollAreaScrollbarImpl = defineComponent({
     } = toRefs(props)
 
     const _reactive = reactive(scrollAreaScrollbarImplProps)
-    const reactiveScrollAreaScrollbarImplProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
@@ -85,7 +85,7 @@ const scrollAreaScrollbarImpl = defineComponent({
     })
 
     return () => h(Primitive.div, {
-      ...mergeProps(attrs, reactiveScrollAreaScrollbarImplProps),
+      ...mergeProps(attrs, otherProps),
       ref: composeRefs,
       style: { position: 'absolute', ...attrs.style as any },
       onPointerdown: composeEventHandlers<ScrollAreaScrollbarImplEmits['pointerdown'][0]>((event) => {
@@ -120,9 +120,8 @@ const scrollAreaScrollbarImpl = defineComponent({
           inject.viewport.value.style.scrollBehavior = ''
         rectRef.value = null
       }),
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
-export const OkuScrollAreaScrollbarImpl = scrollAreaScrollbarImpl as typeof scrollAreaScrollbarImpl &
-(new () => { $props: ScrollAreaScrollbarImplNaviteElement })
+export const OkuScrollAreaScrollbarImpl = scrollAreaScrollbarImpl as typeof scrollAreaScrollbarImpl & (new () => { $props: ScrollAreaScrollbarImplNaviteElement })

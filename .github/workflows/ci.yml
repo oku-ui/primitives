@@ -12,37 +12,19 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - ".docs/**"
 
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - ".docs/**"
 
 
 jobs:
-  lint:
-    name: "Lint"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-
-      - name: Lint
-        run: pnpm run lint
-
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-      - uses: ./.github/actions/cache-build
-
-      - name: Typecheck
-        run: pnpm run typecheck
-
   build-test:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
-    needs: [lint, typecheck]
 
     permissions:
       # Required to checkout the code
@@ -57,11 +39,36 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-and-cache
-      - uses: ./.github/actions/cache-build
 
-      # - name: 🧪 Test
-      #   run: pnpm test
+      - run: corepack enable
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Cache .
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./.nx
+            ./.eslintcache
+            ./.vitest-cache
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 👀 Lint
+        run: pnpm lint
+
+      - name: 👀 Typecheck
+        run: pnpm typecheck
+
+      - name: 🚀 Build
+        run: pnpm build
 
       - name: 🧪 Test with coverage
         run: pnpm coverage

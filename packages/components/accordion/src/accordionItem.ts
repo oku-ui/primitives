@@ -71,6 +71,6 @@ const accordionItem = defineComponent({
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuAccordionItem = accordionItem as typeof accordionItem
 &
-(new () => {
-  $props: AccordionItemNativeElement
-})
+  (new () => {
+    $props: AccordionItemNativeElement
+  })

@@ -21,7 +21,7 @@ const menuAnchor = defineComponent({
     const otherProps = reactiveOmit(_other, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
-    // const emits = useLis
+    // const emits = useListeners()
 
     const popperScope = usePopperScope(scopeOkuMenu.value)
 
@@ -29,12 +29,9 @@ const menuAnchor = defineComponent({
       ...mergeProps(attrs, otherProps),
       ...popperScope,
       ref: forwardedRef,
-    }, {
-      default: () => slots.default?.(),
-    })
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuAnchor = menuAnchor as typeof menuAnchor &
-(new () => { $props: MenuAnchorNativeElement })
+export const OkuMenuAnchor = menuAnchor as typeof menuAnchor & (new () => { $props: MenuAnchorNativeElement })

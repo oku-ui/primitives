@@ -48,7 +48,7 @@
     "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^20.8.10",
-    "nuxt": "^3.8.0"
+    "@types/node": "^20.10.6",
+    "nuxt": "^3.9.0"
   }
 }

@@ -13,66 +13,54 @@ const popperArrow = defineComponent({
   },
   setup(props, { attrs, slots }) {
     const { scopeOkuPopper, ...arrowProps } = toRefs(props)
+
     const _reactive = reactive(arrowProps)
-    const reactiveArrowProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
+    const forwardedRef = useForwardRef()
 
     const contentInject = usePopperContentInject(ARROW_NAME, scopeOkuPopper.value)
     const baseSide = computed(() => {
       return contentInject?.placedSide.value ? OPPOSITE_SIDE[contentInject.placedSide.value] : ''
     })
 
-    const forwardedRef = useForwardRef()
-
-    const originalReturn = () =>
-      h(
-        'span',
-        {
-          ref: (el: any) => {
-            contentInject.onArrowChange(el)
-            return undefined
-          },
-          style: {
-            position: 'absolute',
-            left: contentInject.arrowX?.value ? `${contentInject.arrowX?.value}px` : undefined,
-            top: contentInject.arrowY?.value ? `${contentInject.arrowY?.value}px` : undefined,
-            [baseSide.value]: '0px',
-            transformOrigin: {
-              top: '',
-              right: '0 0',
-              bottom: 'center 0',
-              left: '100% 0',
-            }[contentInject.placedSide.value!],
-            transform: {
-              top: 'translateY(100%)',
-              right: 'translateY(50%) rotate(90deg) translateX(-50%)',
-              bottom: 'rotate(180deg)',
-              left: 'translateY(50%) rotate(-90deg) translateX(50%)',
-            }[contentInject.placedSide.value!],
-            visibility: contentInject.shouldHideArrow.value
-              ? 'hidden'
-              : undefined,
-          },
-        },
-        [
-          h(OkuArrow, {
-            ...mergeProps(reactiveArrowProps, attrs),
-            ref: forwardedRef,
-            style: {
-              ...attrs.style as any,
-              // ensures the element can be measured correctly (mostly for if SVG)
-              display: 'block',
-            },
-          }, {
-            default: () => slots.default?.(),
-          }),
-        ],
-      )
-    return originalReturn
+    return () => h('span', {
+      ref: (el: any) => {
+        contentInject.onArrowChange(el)
+        return undefined
+      },
+      style: {
+        position: 'absolute',
+        left: contentInject.arrowX?.value ? `${contentInject.arrowX?.value}px` : undefined,
+        top: contentInject.arrowY?.value ? `${contentInject.arrowY?.value}px` : undefined,
+        [baseSide.value]: '0px',
+        transformOrigin: {
+          top: '',
+          right: '0 0',
+          bottom: 'center 0',
+          left: '100% 0',
+        }[contentInject.placedSide.value!],
+        transform: {
+          top: 'translateY(100%)',
+          right: 'translateY(50%) rotate(90deg) translateX(-50%)',
+          bottom: 'rotate(180deg)',
+          left: 'translateY(50%) rotate(-90deg) translateX(50%)',
+        }[contentInject.placedSide.value!],
+        visibility: contentInject.shouldHideArrow.value
+          ? 'hidden'
+          : undefined,
+      },
+    }, h(OkuArrow, {
+      ...mergeProps(attrs, otherProps),
+      ref: forwardedRef,
+      style: {
+        ...attrs.style as any,
+        // ensures the element can be measured correctly (mostly for if SVG)
+        display: 'block',
+      },
+    }, () => slots.default?.()))
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuPopperArrow = popperArrow as typeof popperArrow
-& (new () => {
-  $props: PopperArrowNaviteElement
-})
+export const OkuPopperArrow = popperArrow as typeof popperArrow & (new () => { $props: PopperArrowNaviteElement })

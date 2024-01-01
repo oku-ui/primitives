@@ -76,6 +76,6 @@ const hoverCardPortal = defineComponent({
 })
 
 export const OkuHoverCardPortal = hoverCardPortal as typeof hoverCardPortal &
-(new () => {
-  $props: HoverCardPortalNaviteElement
-})
+  (new () => {
+    $props: HoverCardPortalNaviteElement
+  })

@@ -46,10 +46,9 @@ const menuCheckboxItem = defineComponent({
       }, () => {
         emit('checkedChange', isIndeterminate(checked.value) ? true : !checked.value)
       }, { checkForDefaultPrevented: false }),
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuCheckboxItem = menuCheckboxItem as typeof menuCheckboxItem &
-(new () => { $props: MenuCheckboxItemNativeElement })
+export const OkuMenuCheckboxItem = menuCheckboxItem as typeof menuCheckboxItem & (new () => { $props: MenuCheckboxItemNativeElement })

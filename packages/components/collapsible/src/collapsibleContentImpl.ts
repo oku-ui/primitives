@@ -116,6 +116,6 @@ const collapsibleContentImpl = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCollapsibleContentImpl = collapsibleContentImpl as typeof collapsibleContentImpl &
-(new () => {
-  $props: CollapsibleContentImplNaviteElement
-})
+  (new () => {
+    $props: CollapsibleContentImplNaviteElement
+  })

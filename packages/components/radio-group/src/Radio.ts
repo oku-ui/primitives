@@ -153,6 +153,6 @@ const radio = defineComponent({
 })
 
 export const OkuRadio = radio as typeof radio &
-(new () => {
-  $props: RadioIntrinsicNaviteElement
-})
+  (new () => {
+    $props: RadioIntrinsicNaviteElement
+  })

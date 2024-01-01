@@ -1,95 +1,66 @@
 <script setup lang="ts">
-import { OkuToggle } from '@oku-ui/toggle'
+import Styled from './Styled.vue'
+import Controlled from './Controlled.vue'
+import Chromatic from './Chromatic.vue'
 
-import { ref } from 'vue'
+withDefaults(defineProps<IToggleProps>(), {})
 
 export interface IToggleProps {
-  template?: '#1' | '#2' | '#3'
+  template?: 'Styled' | 'Controlled' | 'Chromatic'
   allshow?: boolean
-}
-
-withDefaults(defineProps<IToggleProps>(), {
-
-})
-
-const pressed = ref(true)
-const _setPressed = ref(false)
-function setPressed(value: boolean) {
-  _setPressed.value = value
 }
 </script>
 
 <template>
   <div>
-    {{ _setPressed }}
-    {{ pressed }}
-    <div v-if="template === '#1' || allshow" class="w-[300px]">
-      <div>
-        <h1>Oku Default toggle</h1>
-        <div class="max-w-xl mx-auto h-full items-center justify-center">
-          <OkuToggle
-            id="toggle"
-            aria-label="Toggle italic"
-            class="w-10 h-10 border-2 rounded text-black flex items-center justify-center data-[state=on]:border-green-500 data-[state=off]:border-gray-900 hover:bg-gray-400"
-          >
-            I
-          </OkuToggle>
-        </div>
-      </div>
-      <div>
-        <h1>Oku toggle controlled (active)</h1>
-        <div class="max-w-xl mx-auto h-full items-center justify-center">
-          <OkuToggle
-            id="toggle"
-            v-model="pressed"
-            aria-label="Toggle italic"
-            class="w-10 h-10 border-2 rounded text-black flex items-center justify-center data-[state=on]:border-green-500 data-[state=off]:border-gray-900 hover:bg-gray-400"
-            @on-pressed-change="setPressed"
-          >
-            {{ pressed ? 'on' : 'off' }}
-          </OkuToggle>
-        </div>
-      </div>
-      <div>
-        <h1>Oku toggle controlled active true</h1>
-        <div class="max-w-xl mx-auto h-full items-center justify-center">
-          <OkuToggle
-            id="toggle"
-            :pressed="true"
-            aria-label="Toggle italic"
-            class="w-10 h-10 border-2 rounded text-black flex items-center justify-center data-[state=on]:border-green-500 data-[state=off]:border-gray-900 hover:bg-gray-400"
-          >
-            t
-          </OkuToggle>
-        </div>
-      </div>
-      <div>
-        <h1>Oku toggle controlled active false</h1>
-        <div class="max-w-xl mx-auto h-full items-center justify-center">
-          <OkuToggle
-            id="toggle"
-            :pressed="false"
-            aria-label="Toggle italic"
-            class="w-10 h-10 border-2 rounded text-black flex items-center justify-center data-[state=on]:border-green-500 data-[state=off]:border-gray-900 hover:bg-gray-400"
-          >
-            f
-          </OkuToggle>
-        </div>
-      </div>
-      <div>
-        <h1>Oku toggle controlled disabled</h1>
-        <div class="max-w-xl mx-auto h-full items-center justify-center">
-          <OkuToggle
-            id="toggle"
-            :disabled="true"
-            :pressed="false"
-            aria-label="Toggle italic"
-            class="w-10 h-10 border-2 rounded flex items-center justify-center data-[state=on]:border-green-500 hover:bg-gray-400 data-[disabled]:border-gray-100"
-          >
-            f
-          </OkuToggle>
-        </div>
-      </div>
-    </div>
+    <template v-if="template === 'Styled' || allshow">
+      <Styled />
+    </template>
+
+    <template v-if="template === 'Controlled' || allshow">
+      <Controlled />
+    </template>
+
+    <template v-if="template === 'Chromatic' || allshow">
+      <Chromatic />
+    </template>
   </div>
 </template>
+
+<style>
+.toggle {
+  padding: 6px;
+  line-height: 1;
+  border: none;
+  font-family: 'sans-serif';
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #111;
+  }
+
+  &[data-disabled] {
+    opacity: 0.5
+  }
+
+  &[data-state="off"] {
+    background-color: crimson;
+    color: #fff;
+  }
+
+  &[data-state="on"] {
+    background-color: green;
+    color: #fff;
+  }
+}
+
+.toggle-attr-styles {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &:disabled { opacity: 0.5 }
+  &[data-disabled] { border-style: dashed }
+}
+</style>

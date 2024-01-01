@@ -69,6 +69,6 @@ const collapsibleTrigger = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuCollapsibleTrigger = collapsibleTrigger as typeof collapsibleTrigger &
-(new () => {
-  $props: CollapsibleTriggerNaviteElement
-})
+  (new () => {
+    $props: CollapsibleTriggerNaviteElement
+  })

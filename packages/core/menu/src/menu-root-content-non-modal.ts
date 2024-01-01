@@ -36,10 +36,9 @@ const menuRootContentNonModal = defineComponent({
       disableOutsidePointerEvents: false,
       disableOutsideScroll: false,
       onDismiss: () => inject.onOpenChange(false),
-    }, slots)
+    }, () => slots.default?.())
   },
 })
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
-export const OkuMenuRootContentNonModal = menuRootContentNonModal as typeof menuRootContentNonModal &
-(new () => { $props: MenuPortalNativeElement })
+export const OkuMenuRootContentNonModal = menuRootContentNonModal as typeof menuRootContentNonModal & (new () => { $props: MenuPortalNativeElement })

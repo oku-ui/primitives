@@ -187,6 +187,6 @@ const tooltipContentImpl = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuTooltipContentImpl = tooltipContentImpl as typeof tooltipContentImpl &
-(new () => {
-  $props: TooltipContentImplNaviteElement
-})
+  (new () => {
+    $props: TooltipContentImplNaviteElement
+  })

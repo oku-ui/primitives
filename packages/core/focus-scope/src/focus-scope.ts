@@ -94,11 +94,13 @@ const focusScope = defineComponent({
   emits: focusScopeProps.emits,
   setup(props, { slots, attrs, emit }) {
     const { loop, trapped, ...scopeProps } = toRefs(props)
+
     const _reactive = reactive(scopeProps)
-    const reactiveScopeProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const container = ref<HTMLElement | null>(null)
     const lastFocusedElementRef = ref<HTMLElement | null>(null)
+
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(forwardedRef, container)
 
@@ -281,25 +283,13 @@ const focusScope = defineComponent({
       }
     }
 
-    const originalReturn = () =>
-      h(
-        Primitive.div,
-        {
-          tabIndex: -1,
-          ...mergeProps(attrs, reactiveScopeProps),
-          onKeydown: handleKeydown,
-          ref: composedRefs,
-        },
-        {
-          default: () => slots.default?.(),
-        },
-      )
-
-    return originalReturn
+    return () => h(Primitive.div, {
+      tabIndex: -1,
+      ...mergeProps(attrs, otherProps),
+      onKeydown: handleKeydown,
+      ref: composedRefs,
+    }, () => slots.default?.())
   },
 })
 
-export const OkuFocusScope = focusScope as typeof focusScope &
-(new () => {
-  $props: FocusScopeNativeElement
-})
+export const OkuFocusScope = focusScope as typeof focusScope & (new () => { $props: FocusScopeNativeElement })

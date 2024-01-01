@@ -99,6 +99,6 @@ const dialogContentModal = defineComponent({
 
 // TODO: https://github.com/vuejs/core/pull/7444 after delete
 export const OkuDialogContentModal = dialogContentModal as typeof dialogContentModal &
-(new () => {
-  $props: DialogContentModalElement
-})
+  (new () => {
+    $props: DialogContentModalElement
+  })

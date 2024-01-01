@@ -4,6 +4,7 @@ import type {
   Events,
   FunctionalComponent,
   IntrinsicElementAttributes,
+  NativeElements,
   ReservedProps,
   StyleValue,
 } from 'vue'
@@ -46,17 +47,21 @@ export interface NodeElementTagNameMap {
   ul: HTMLUListElement
 }
 
+interface IntrinsicElements extends NativeElements {
+  [name: string]: any
+}
+
 export type ElementConstructor<P> =
   | (new () => { $props: P })
   | ((props: P, ...args: any) => FunctionalComponent<any, any>)
 
 //  extends keyof JSX.NaviteElements | ElementConstructor<any>
 export type ComponentProps<
-  T extends keyof JSX.IntrinsicElements | ElementConstructor<any>,
+  T extends keyof IntrinsicElements | ElementConstructor<any>,
 > = T extends ElementConstructor<infer P>
   ? P
-  : T extends keyof JSX.IntrinsicElements
-    ? JSX.IntrinsicElements[T]
+  : T extends keyof IntrinsicElements
+    ? IntrinsicElements[T]
     : Record<string, never>
 
 export type RefElement<T extends abstract new (...args: any) => any> = Omit<

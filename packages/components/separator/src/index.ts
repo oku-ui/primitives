@@ -1,10 +1,11 @@
+export { OkuSeparator } from './separator'
+
 export {
-  OkuSeparator,
   separatorProps,
-} from './separator'
+} from './props'
 
 export type {
   SeparatorProps,
   SeparatorElement,
-  SeparatorNaviteElement,
-} from './separator'
+  SeparatorNativeElement,
+} from './props'

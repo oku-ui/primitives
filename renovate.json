@@ -38,6 +38,21 @@
       ]
     },
     {
+      "groupName": "docs",
+      "commitMessageTopic": "docs",
+      "matchPaths": [
+        ".docs/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
       "groupName": "core",
       "commitMessageTopic": "core",
       "matchPaths": [
@@ -77,7 +92,8 @@
       "ignorePaths": [
         "**/packages/**",
         "**/packages/**",
-        "**/playground/**"
+        "**/playground/**",
+        "**/.docs/**"
       ],
       "matchDatasources": [
         "npm",

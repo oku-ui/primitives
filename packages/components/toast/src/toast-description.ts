@@ -37,4 +37,4 @@ const toastDescription = defineComponent({
 })
 
 export const OkuToastDescription = toastDescription as typeof toastDescription &
-(new () => { $props: ToastDescriptionNaviteElement })
+  (new () => { $props: ToastDescriptionNaviteElement })

@@ -4,13 +4,14 @@
   "_version": "18.2.0",
   "compilerOptions": {
     "lib": [
-      "ES2023",
+      "ESNext",
       "DOM"
     ],
     "module": "ESNext",
-    "target": "ES2022",
+    "target": "ESNext",
     "strict": true,
     "esModuleInterop": true,
+    "jsxImportSource": "vue",
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,

@@ -182,6 +182,6 @@ const radioGroup = defineComponent({
 })
 
 export const OkuRadioGroup = radioGroup as typeof radioGroup &
-(new () => {
-  $props: RadioGroupNaviteElement
-})
+  (new () => {
+    $props: RadioGroupNaviteElement
+  })
