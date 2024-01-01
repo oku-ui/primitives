@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@oku-ui/utils": "latest",
-    "@vue/shared": "^3.4.1",
+    "@vue/shared": "^3.4.3",
     "@vueuse/core": "^10.7.1"
   },
   "devDependencies": {
