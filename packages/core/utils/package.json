@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/utils",
   "type": "module",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -31,8 +31,8 @@
     "release": "pnpm build && pnpm bumpp --commit='version(utils): release %s' --no-tag && pnpm publish",
     "clean": "rimraf ./dist && rimraf ./node_modules"
   },
-  "dependencies": {
-    "vue": "3.4.1"
+  "peerDependencies": {
+    "vue": "^3.3.0"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/use-composable",
   "type": "module",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "license": "MIT",
   "source": "src/index.ts",
   "funding": "https://github.com/sponsors/productdevbook",
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@oku-ui/utils": "latest",
-    "@vue/shared": "^3.4.1",
+    "@vue/shared": "^3.4.3",
     "@vueuse/core": "^10.7.1"
   },
   "devDependencies": {
