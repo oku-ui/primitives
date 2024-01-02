@@ -1,7 +1,7 @@
 import { h } from 'vue'
 import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 
 import { OkuVisuallyHidden } from '../src'
