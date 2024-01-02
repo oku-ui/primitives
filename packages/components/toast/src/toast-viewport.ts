@@ -1,90 +1,43 @@
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { isClient, reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
+import { isClient, reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { Primitive } from '@oku-ui/primitive'
 import { OkuDismissableLayerBranch } from '@oku-ui/dismissable-layer'
-import { CollectionSlot, useCollection, useToastProviderInject } from './share'
 import { focusFirst, getTabbableCandidates } from './utils'
-import { scopedToastProps } from './types'
 import { OkuToastFocusProxy } from './toast-focus-proxy'
-import type { FocusProxyElement } from './toast-focus-proxy'
-
-/* -------------------------------------------------------------------------------------------------
- * ToastViewport
- * ----------------------------------------------------------------------------------------------- */
-
-const VIEWPORT_NAME = 'OkuToastViewport'
-
-export const VIEWPORT_DEFAULT_HOTKEY = ['F8']
-export const VIEWPORT_PAUSE = 'toast.viewportPause'
-export const VIEWPORT_RESUME = 'toast.viewportResume'
-
-export type ToastViewportNaviteElement = OkuElement<'ol'>
-export type ToastViewportElement = HTMLOListElement
-
-export type PrimitiveOrderedListNaviteElement = OkuElement<'ol'>
-export type PrimitiveOrderedElement = HTMLOListElement
-
-interface ToastViewportProps extends PrimitiveProps {
-  /**
-   * The keys to use as the keyboard shortcut that will move focus to the toast viewport.
-   * @defaultValue ['F8']
-   */
-  hotkey?: string[]
-  /**
-   * An author-localized label for the toast viewport to provide inject for screen reader users
-   * when navigating page landmarks. The available `{hotkey}` placeholder will be replaced for you.
-   * @defaultValue 'Notifications ({hotkey})'
-   */
-  label?: string
-}
-
-const toastViewportProps = {
-  props: {
-    hotkey: {
-      type: Array as PropType<string[]>,
-      default: VIEWPORT_DEFAULT_HOTKEY,
-    },
-    label: {
-      type: String,
-      default: 'Notifications ({hotkey})',
-    },
-  },
-}
+import { CollectionSlot, TOAST_VIEWPORT_NAME, VIEWPORT_PAUSE, VIEWPORT_RESUME, scopeToastProps, toastViewportProps, useCollection, useToastProviderInject } from './props'
+import type { FocusProxyElement, ToastViewportElement, ToastViewportNativeElement } from './props'
 
 const toastViewport = defineComponent({
-  name: VIEWPORT_NAME,
+  name: TOAST_VIEWPORT_NAME,
   components: {
     OkuDismissableLayerBranch,
   },
   inheritAttrs: false,
   props: {
-    ...scopedToastProps,
-    ...primitiveProps,
     ...toastViewportProps.props,
+    ...scopeToastProps,
   },
+  emits: toastViewportProps.emits,
   setup(props, { attrs, slots }) {
     const {
+      scopeOkuToast,
       hotkey,
       label,
       ...viewportProps
     } = toRefs(props)
+
     const _reactive = reactive(viewportProps)
-    const reactiveViewPortProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
 
-    const inject = useToastProviderInject(VIEWPORT_NAME, props.scopeOkuToast)
-    const getItems = useCollection(props.scopeOkuToast)
+    const inject = useToastProviderInject(TOAST_VIEWPORT_NAME, scopeOkuToast.value)
+    const getItems = useCollection(scopeOkuToast.value)
     const wrapperRef = ref<HTMLDivElement | null>(null)
     const headFocusProxyRef = ref<FocusProxyElement | null>(null)
     const tailFocusProxyRef = ref<FocusProxyElement | null>(null)
     const viewportRef = ref<ToastViewportElement | null>(null)
-    const composedRefs = useComposedRefs(forwardedRef, viewportRef, (el) => {
-      inject.onViewportChange(el as HTMLOListElement)
-    })
-
+    const composedRefs = useComposedRefs(forwardedRef, viewportRef, el => inject.onViewportChange(el as ToastViewportElement))
     const hotkeyLabel = hotkey.value.join('+').replace(/Key/g, '').replace(/Digit/g, '')
     const hasToasts = computed(() => inject.toastCount.value > 0)
 
@@ -100,9 +53,8 @@ const toastViewport = defineComponent({
           viewportRef.value?.focus()
       }
       document.addEventListener('keydown', handleKeyDown)
-      onInvalidate(() => {
-        document.removeEventListener('keydown', handleKeyDown)
-      })
+
+      onInvalidate(() => document.removeEventListener('keydown', handleKeyDown))
     })
 
     watchEffect((onInvalidate) => {
@@ -200,7 +152,7 @@ const toastViewport = defineComponent({
 
             const tabbingDirection = isTabbingBackwards ? 'backwards' : 'forwards'
             const sortedCandidates = getSortedTabbableCandidates({ tabbingDirection })
-            const index = sortedCandidates.findIndex((candidate: Element | null) => candidate === focusedElement)
+            const index = sortedCandidates.findIndex(candidate => candidate === focusedElement)
             if (focusFirst(sortedCandidates.slice(index + 1))) {
               event.preventDefault()
             }
@@ -217,7 +169,8 @@ const toastViewport = defineComponent({
 
         // Toasts are not in the viewport React tree so we need to bind DOM events
         viewport?.addEventListener('keydown', handleKeyDown)
-        onInvalidate(() => viewport?.removeEventListener('keydown', handleKeyDown))
+
+        onInvalidate(() => viewport.removeEventListener('keydown', handleKeyDown))
       }
     })
 
@@ -226,46 +179,41 @@ const toastViewport = defineComponent({
       'role': 'region',
       'aria-label': label.value.replace('{hotkey}', hotkeyLabel),
       // Ensure virtual cursor from landmarks menus triggers focus/blur for pause/resume
-      'tabindex': -1,
+      'tabIndex': -1,
       // incase list has size when empty (e.g. padding), we remove pointer events so
       // it doesn't prevent interactions with page elements that it overlays
       'style': { pointerEvents: hasToasts.value ? undefined : 'none' },
-    }, {
-      default: () => [
-        hasToasts.value && h(OkuToastFocusProxy, {
-          ref: headFocusProxyRef,
-          onFocusFromOutsideViewport: () => {
-            const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'forwards' })
-            focusFirst(tabbableCandidates)
-          },
-        }),
-        /**
-         * tabindex on the the list so that it can be focused when items are removed. we focus
-         * the list instead of the viewport so it announces number of items remaining.
-         */
-        h(CollectionSlot, { scope: props.scopeOkuToast }, {
-          default: () => h(Primitive.ol, {
-            tabindex: -1,
-            ...mergeProps(attrs, reactiveViewPortProps),
-            ref: composedRefs,
-          }, slots),
-        }),
+    }, () => [
+      hasToasts.value && h(OkuToastFocusProxy, {
+        ref: headFocusProxyRef,
+        onFocusFromOutsideViewport: () => {
+          const tabbableCandidates = getSortedTabbableCandidates({ tabbingDirection: 'forwards' })
+          focusFirst(tabbableCandidates)
+        },
+      }),
+      /**
+       * tabindex on the the list so that it can be focused when items are removed. we focus
+       * the list instead of the viewport so it announces number of items remaining.
+       */
+      h(CollectionSlot, {
+        scope: scopeOkuToast.value,
+      }, () => h(Primitive.ol, {
+        tabIndex: -1,
+        ...mergeProps(attrs, otherProps),
+        ref: composedRefs,
+      }, () => slots.default?.())),
 
-        hasToasts.value && h(OkuToastFocusProxy, {
-          ref: tailFocusProxyRef,
-          onFocusFromOutsideViewport: () => {
-            const tabbableCandidates = getSortedTabbableCandidates({
-              tabbingDirection: 'backwards',
-            })
-            focusFirst(tabbableCandidates)
-          },
-        }),
-      ],
-    })
+      hasToasts.value && h(OkuToastFocusProxy, {
+        ref: tailFocusProxyRef,
+        onFocusFromOutsideViewport: () => {
+          const tabbableCandidates = getSortedTabbableCandidates({
+            tabbingDirection: 'backwards',
+          })
+          focusFirst(tabbableCandidates)
+        },
+      }),
+    ])
   },
 })
 
-export const OkuToastViewport = toastViewport as typeof toastViewport &
-  (new () => { $props: ToastViewportNaviteElement })
-
-export type { ToastViewportProps }
+export const OkuToastViewport = toastViewport as typeof toastViewport & (new () => { $props: ToastViewportNativeElement })

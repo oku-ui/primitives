@@ -1,28 +1,12 @@
 import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
-import { OkuPortal } from '@oku-ui/portal'
-import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
 import { isClient, reactiveOmit } from '@oku-ui/use-composable'
-import { TOAST_NAME, useToastProviderInject } from './share'
+import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
+import { OkuPortal } from '@oku-ui/portal'
 import { useNextFrame } from './utils'
-import { scopedToastProps } from './types'
-
-export type ToastAnnounceNaviteElement = OkuElement<'div'>
-export type ToastAnnounceElement = HTMLDivElement
-
-interface ToastAnnounceProps extends PrimitiveProps {}
-
-const ANNOUNCE_NAME = 'OkuToastAnnounce'
-
-const toastAnnounceProps = {
-  props: {
-    ...primitiveProps,
-  },
-}
+import { TOAST_ANNOUNCE_NAME, TOAST_NAME, scopeToastProps, toastAnnounceProps, useToastProviderInject } from './props'
 
 const toastAnnounce = defineComponent({
-  name: ANNOUNCE_NAME,
+  name: TOAST_ANNOUNCE_NAME,
   components: {
     OkuPortal,
     OkuVisuallyHidden,
@@ -30,15 +14,17 @@ const toastAnnounce = defineComponent({
   inheritAttrs: false,
   props: {
     ...toastAnnounceProps.props,
-    ...scopedToastProps,
+    ...scopeToastProps,
   },
+  emits: toastAnnounceProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuToast,
       ...announceProps
     } = toRefs(props)
+
     const _reactive = reactive(announceProps)
-    const reactiveAnnounceProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const inject = useToastProviderInject(TOAST_NAME, scopeOkuToast.value)
     const renderAnnounceText = ref<boolean>(false)
@@ -56,22 +42,19 @@ const toastAnnounce = defineComponent({
       onInvalidate(() => window.clearTimeout(timer))
     })
 
-    return () => isAnnounced.value
+    return () => [isAnnounced.value
       ? null
-      : h(OkuPortal, { asChild: true }, {
-        default: () => h(OkuVisuallyHidden, {
-          ...mergeProps(attrs, reactiveAnnounceProps),
-        }, {
-          default: () => renderAnnounceText.value && h(Fragment, [
-            inject.label.value,
-            slots.default?.(),
-          ]),
-        }),
-      })
+      : h(OkuPortal, {
+        asChild: true,
+      }, () => h(OkuVisuallyHidden, {
+        ...mergeProps(attrs, otherProps),
+      }, () => renderAnnounceText.value && h(Fragment, [
+        inject.label.value,
+        slots.default?.(),
+      ]))),
+    ]
   },
 })
 
-export const OkuToastAnnounce = toastAnnounce as typeof toastAnnounce &
-  (new () => { $props: ToastAnnounceNaviteElement })
-
-export type { ToastAnnounceProps }
+// export const OkuToastAnnounce = toastAnnounce as typeof toastAnnounce & (new () => { $props: ToastAnnounceNaviteElement })
+export const OkuToastAnnounce = toastAnnounce

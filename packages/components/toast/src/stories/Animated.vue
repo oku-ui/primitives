@@ -1,18 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { OkuToast, OkuToastClose, OkuToastDescription, OkuToastProvider, OkuToastViewport } from '@oku-ui/toast'
 import type { ToastProviderProps } from '@oku-ui/toast'
-import { ref } from 'vue'
 
 type Direction = ToastProviderProps['swipeDirection']
 
+const open = ref(false)
 const swipeDirection = ref<Direction>('right')
 const timerRef = ref(0)
-const open = ref(false)
 
 function handelAnimatedOpen() {
   open.value = false
   window.clearTimeout(timerRef.value)
   timerRef.value = window.setTimeout(() => open.value = true, 150)
+  // eslint-disable-next-line no-console
+  console.log(open.value)
 }
 </script>
 
@@ -21,11 +23,7 @@ function handelAnimatedOpen() {
     :swipe-direction="swipeDirection"
     :swipe-threshold="(['up', 'down'] as Direction[]).includes(swipeDirection) ? 25 : undefined"
   >
-    <button
-      type="button"
-      class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md"
-      @click="handelAnimatedOpen"
-    >
+    <button @click="handelAnimatedOpen">
       Open
     </button>
 
@@ -46,9 +44,10 @@ function handelAnimatedOpen() {
         Slide down
       </option>
     </select>
-    <OkuToast v-model="open" class="animatedRoot">
+    <!-- <OkuToast v-model="open" class="toast-animated toast"> -->
+    <OkuToast :open="open" class="toast-animated toast" @open-change="open = $event">
       <OkuToastDescription>Swipe me {{ swipeDirection }}</OkuToastDescription>
-      <OkuToastClose class="button">
+      <OkuToastClose class="toast-button">
         Dismiss
       </OkuToastClose>
     </OkuToast>

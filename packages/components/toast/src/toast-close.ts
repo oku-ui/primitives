@@ -1,70 +1,44 @@
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useToastInteractiveInject } from './share'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
-import { scopedToastProps } from './types'
-
-const CLOSE_NAME = 'OkuToastClose'
-
-export type ToastCloseNaviteElement = OkuElement<'button'>
-export type ToastCloseElement = HTMLButtonElement
-
-export interface ToastCloseProps extends PrimitiveProps {}
-
-export type ToastCloseEmits = {
-  click: [event: MouseEvent]
-}
-
-export const toastCloseProps = {
-  props: {
-    ...primitiveProps,
-  },
-  emits: {
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    click: (event: MouseEvent) => true,
-  },
-}
+import { TOAST_CLOSE_NAME, scopeToastProps, toastCloseProps, useToastInteractiveInject } from './props'
+import type { ToastCloseEmits, ToastCloseNativeElement } from './props'
 
 const toastClose = defineComponent({
-  name: CLOSE_NAME,
+  name: TOAST_CLOSE_NAME,
   components: {
     OkuToastAnnounceExclude,
   },
   inheritAttrs: false,
   props: {
-    ...scopedToastProps,
     ...toastCloseProps.props,
+    ...scopeToastProps,
   },
   emits: toastCloseProps.emits,
   setup(props, { attrs, emit, slots }) {
     const { scopeOkuToast, ...closeProps } = toRefs(props)
 
     const _reactive = reactive(closeProps)
-    const reactiveCloseProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
     const forwardedRef = useForwardRef()
+    const emits = useListeners()
 
-    const interactiveContext = useToastInteractiveInject(CLOSE_NAME, scopeOkuToast.value)
+    const interactiveInject = useToastInteractiveInject(TOAST_CLOSE_NAME, scopeOkuToast.value)
 
-    return () => h(OkuToastAnnounceExclude, { asChild: true }, {
-      default: () => h(Primitive.button, {
-        type: 'button',
-        ...mergeProps(attrs, reactiveCloseProps),
-        ref: forwardedRef,
-        onClick: composeEventHandlers<MouseEvent>((event) => {
-          emit('click', event)
-        }, () => {
-          interactiveContext.onClose()
-        }),
-      }, {
-        default: () => slots.default?.(),
-      }),
-    })
+    return () => h(OkuToastAnnounceExclude, {
+      asChild: true,
+    }, () => h(Primitive.button, {
+      type: 'button',
+      ...mergeProps(attrs, otherProps, emits),
+      ref: forwardedRef,
+      onClick: composeEventHandlers<ToastCloseEmits['click'][0]>((event) => {
+        emit('click', event)
+      }, () => interactiveInject.onClose()),
+    }, () => slots.default?.()))
   },
 })
 
-export const OkuToastClose = toastClose as typeof toastClose &
-  (new () => { $props: ToastCloseNaviteElement })
+export const OkuToastClose = toastClose as typeof toastClose & (new () => { $props: ToastCloseNativeElement })

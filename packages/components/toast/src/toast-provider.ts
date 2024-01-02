@@ -1,64 +1,14 @@
 import { defineComponent, h, ref, toRefs } from 'vue'
-import type { PropType } from 'vue'
-
-import type { ToastViewportElement } from './toast-viewport'
-import { scopedToastProps } from './types'
-import { CollectionProvider, PROVIDER_NAME, toastProviderProvider } from './share'
-import type { SwipeDirection, ToastNativeElement } from './share'
-
-export interface ToastProviderProps {
-  /**
-   * An author-localized label for each toast. Used to help screen reader users
-   * associate the interruption with a toast.
-   * @defaultValue 'Notification'
-   */
-  label?: string
-  /**
-   * Time in milliseconds that each toast should remain visible for.
-   * @defaultValue 5000
-   */
-  duration?: number
-  /**
-   * Direction of pointer swipe that should close the toast.
-   * @defaultValue 'right'
-   */
-  swipeDirection?: SwipeDirection
-  /**
-   * Distance in pixels that the swipe must pass before a close is triggered.
-   * @defaultValue 50
-   */
-  swipeThreshold?: number
-}
-
-const toastProviderProps = {
-  props: {
-    label: {
-      type: String as PropType<string>,
-      default: 'Notification',
-    },
-    duration: {
-      type: Number as PropType<number>,
-      default: 5000,
-    },
-    swipeDirection: {
-      type: String as PropType<SwipeDirection>,
-      default: 'right',
-    },
-    swipeThreshold: {
-      type: Number as PropType<number>,
-      default: 50,
-    },
-  },
-}
+import { CollectionProvider, TOAST_PROVIDER_NAME, scopeToastProps, toastProviderProps, toastProviderProvider } from './props'
+import type { ToastViewportElement } from './props'
 
 const toastProvider = defineComponent({
-  name: PROVIDER_NAME,
-  components: {
-  },
+  name: TOAST_PROVIDER_NAME,
+  components: { },
   inheritAttrs: false,
   props: {
     ...toastProviderProps.props,
-    ...scopedToastProps,
+    ...scopeToastProps,
   },
   setup(props, { slots }) {
     const {
@@ -82,29 +32,21 @@ const toastProvider = defineComponent({
       swipeThreshold,
       toastCount,
       viewport,
-      onViewportChange(_viewport: ToastViewportElement) {
-        viewport.value = _viewport
-      },
-      onToastAdd: () => {
-        toastCount.value++
-      },
-      onToastRemove: () => {
-        toastCount.value--
-      },
+      onViewportChange: _viewport => viewport.value = _viewport,
+      onToastAdd: () => toastCount.value++,
+      onToastRemove: () => toastCount.value--,
       isFocusedToastEscapeKeyDownRef,
       isClosePausedRef,
     })
 
-    return () => {
-      if (label.value && typeof label.value === 'string' && !label.value.trim())
-        throw new Error(`Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`)
+    // if (label.value && typeof label.value === 'string' && !label.value.trim())
+    //   throw new Error(`Invalid prop \`label\` supplied to \`${PROVIDER_NAME}\`. Expected non-empty \`string\`.`)
 
-      return h(CollectionProvider, {
-        scope: scopeOkuToast.value,
-      }, slots)
-    }
+    return () => h(CollectionProvider, {
+      scope: scopeOkuToast.value,
+    }, () => slots.default?.())
   },
 })
 
-export const OkuToastProvider = toastProvider as typeof toastProvider &
-  (new () => { $props: ToastNativeElement })
+// export const OkuToastProvider = toastProvider as typeof toastProvider & (new () => { $props: ToastNativeElement })
+export const OkuToastProvider = toastProvider

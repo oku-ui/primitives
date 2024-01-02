@@ -1,20 +1,22 @@
 <script setup lang="ts">
+import Styled from './Styled.vue'
 import Controlled from './Controlled.vue'
+import FromDialog from './FromDialog.vue'
 import Promise from './Promise.vue'
 import KeyChange from './KeyChange.vue'
 import PauseResumeProps from './PauseResumeProps.vue'
 import Animated from './Animated.vue'
 import Cypress from './Cypress.vue'
 import Chromatic from './Chromatic.vue'
-import Styled from './Styled.vue'
-import FromDialog from './FromDialog.vue'
 
 withDefaults(defineProps<IToastProps>(), {})
-const VIEWPORT_PADDING = '20px'
+
 export interface IToastProps {
   template?: 'Styled' | 'Controlled' | 'FromDialog' | 'Promise' | 'KeyChange' | 'PauseResumeProps' | 'Animated' | 'Cypress' | 'Chromatic'
   allshow?: boolean
 }
+
+const VIEWPORT_PADDING = '10px'
 </script>
 
 <template>
@@ -72,7 +74,7 @@ export interface IToastProps {
   list-style: none;
 }
 
-.toast-toast {
+.toast {
   position: relative;
   overflow: hidden;
   list-style: none;
@@ -95,148 +97,133 @@ export interface IToastProps {
   align-items: center;
 }
 
+.toast-success-header {
+  background: green;
+}
+
 .toast-title {
   font-size: inherit;
   font-weight: normal;
 }
 
 .toast-description {
-  margin: 0;
+  margin: 0px;
 }
 
-.button {
+.toast-button {
   border: 1px solid black;
   border-radius: 4px;
   background: gainsboro;
   font-family: inherit;
   padding: 2px 5px;
-
-  &:hover,
-  &:focus {
+  &:hover, &:focus {
     background: royalblue;
     border-color: darkblue;
     color: white;
   }
-
 }
 
-.close {
+.toast-close {
   position: absolute;
   top: 50%;
   right: 5px;
   transform: translateY(-50%);
   width: 18px;
   height: 18px;
-  padding: 0;
+  padding: 0px;
 }
 
-@keyframes toast-fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+@keyframes toast-fade-in {
+  from { opacity: 0 }
+  to { opacity: 1 }
 }
 
-@keyframes toast-fadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
+@keyframes toast-fade-out {
+  from { opacity: 1 }
+  to { opacity: 0 }
 }
 
-@keyframes toast-slideRight {
-  from {
-    transform: translateX(var(--oku-toast-swipe-end-x));
-  }
-
-  to {
-    transform: translateX(calc(100% + v-bind(VIEWPORT_PADDING)));
-  }
+@keyframes toast-slide-right {
+  from { transform: translateX(var(--oku-toast-swipe-end-x)) }
+  to { transform: translateX(calc(100% + v-bind(VIEWPORT_PADDING))) }
 }
 
-@keyframes toast-slideLeft {
-  from {
-    transform: translateX(var(--oku-toast-swipe-end-x));
-  }
-
-  to {
-    transform: translateX(calc(-100% - v-bind(VIEWPORT_PADDING)));
-  }
+@keyframes toast-slide-left {
+  from { transform: translateX(var(--oku-toast-swipe-end-x)) }
+  to { transform: translateX(calc(-100% - v-bind(VIEWPORT_PADDING))) }
 }
 
-@keyframes toast-slideUp {
-  from {
-    transform: translateY(var(--oku-toast-swipe-end-y));
-  }
-
-  to {
-    transform: translateY(calc(-100% - v-bind(VIEWPORT_PADDING)));
-  }
+@keyframes toast-slide-up {
+  from { transform: translateY(var(--oku-toast-swipe-end-y)) }
+  to { transform: translateY(calc(-100% - v-bind(VIEWPORT_PADDING))) }
 }
 
-@keyframes toast-slideDown {
-  from {
-    transform: translateY(var(--oku-toast-swipe-end-y));
-  }
-
-  to {
-    transform: translateY(calc(100% + v-bind(VIEWPORT_PADDING)));
-  }
+@keyframes toast-slide-down {
+  from { transform: translateY(var(--oku-toast-swipe-end-y)) }
+  to { transform: translateY(calc(100% + v-bind(VIEWPORT_PADDING))) }
 }
 
-.toast-errorToast {
+.toast-error {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.animatedRoot {
+.toast-animated {
   &[data-state="open"] {
-    animation: toast-fadeIn 200ms ease-out;
+    animation: toast-fade-in 200ms ease-out;
   }
-
   &[data-state="closed"] {
-    animation: toast-fadeOut 200ms ease-out;
+    animation: toast-fade-out 200ms ease-out;
   }
-
   &[data-swipe="move"] {
     transform: translate(var(--oku-toast-swipe-move-x), var(--oku-toast-swipe-move-y));
   }
-
   &[data-swipe="cancel"] {
     transform: translate(0, 0);
     transition: transform 200ms ease-out;
   }
-
   &[data-swipe="end"] {
     animation-duration: 300ms;
     animation-timing-function: ease-out;
-
     &[data-swipe-direction="right"] {
-      animation-name: toast-slideRight;
+      animation-name: toast-slide-right;
     }
-
     &[data-swipe-direction="left"] {
-      animation-name: toast-slideLeft;
+      animation-name: toast-slide-left;
     }
-
     &[data-swipe-direction="up"] {
-      animation-name: toast-slideUp;
+      animation-name: toast-slide-up;
     }
-
     &[data-swipe-direction="down"] {
-      animation-name: toast-slideDown;
+      animation-name: toast-slide-down;
     }
   }
 }
 
-.toast-chromatic-toast-viewport {
+@keyframes toast-loading {
+  from { transform: translateX(-100%) }
+  to { transform: translateX(0%) }
+}
+
+.toast-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  overflow: hidden;
+  background-color: #ccc;
+}
+
+.toast-progress-bar-inner {
+  height: 100%;
+  background-color: green;
+  animation-name: toast-loading;
+  animation-timing-function: linear;
+}
+
+.toast-chromatic-viewport {
   display: inline-flex;
   border: 5px solid royalblue;
   flex-direction: column;

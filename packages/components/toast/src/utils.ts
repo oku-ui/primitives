@@ -1,6 +1,6 @@
-import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import { nextTick, watchEffect } from 'vue'
-import type { SwipeDirection } from './share'
+import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
+import type { SwipeDirection } from './props'
 
 function getAnnounceTextContent(container: HTMLElement) {
   const textContent: string[] = []
