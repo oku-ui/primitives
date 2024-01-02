@@ -1,44 +1,28 @@
-import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { scopedToastProps } from './types'
-
-/* -------------------------------------------------------------------------------------------------
- * ToastTitle
- * ----------------------------------------------------------------------------------------------- */
-
-const TITLE_NAME = 'OkuToastTitle'
-
-export type ToastTitleNaviteElement = OkuElement<'div'>
-export type ToastTitleElement = HTMLDivElement
-
-export interface ToastTitleProps extends PrimitiveProps { }
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { Primitive } from '@oku-ui/primitive'
+import { TOAST_TITLE_NAME, scopeToastProps, toastTitleProps } from './props'
+import type { ToastTitleNativeElement } from './props'
 
 const toastTitle = defineComponent({
-  name: TITLE_NAME,
-  components: {
-  },
+  name: TOAST_TITLE_NAME,
+  components: { },
   inheritAttrs: false,
   props: {
-    ...scopedToastProps,
-    ...primitiveProps,
+    ...toastTitleProps.props,
+    ...scopeToastProps,
   },
+  emits: toastTitleProps.emits,
   setup(props, { attrs, slots }) {
     const { scopeOkuToast: _scopeOkuToast, ...titleProps } = toRefs(props)
 
     const _reactive = reactive(titleProps)
-    const reactiveTitleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+    const otherProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
+
     const forwardedRef = useForwardRef()
 
-    return () => h(Primitive.div, {
-      ...mergeProps(attrs, reactiveTitleProps),
-      ref: forwardedRef,
-    }, {
-      default: () => slots.default?.(),
-    })
+    return () => h(Primitive.div, { ...mergeProps(attrs, otherProps), ref: forwardedRef }, () => slots.default?.())
   },
 })
 
-export const OkuToastTitle = toastTitle as typeof toastTitle &
-  (new () => { $props: ToastTitleNaviteElement })
+export const OkuToastTitle = toastTitle as typeof toastTitle & (new () => { $props: ToastTitleNativeElement })

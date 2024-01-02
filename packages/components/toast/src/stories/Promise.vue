@@ -1,23 +1,38 @@
 <script setup lang="ts">
+import { ref, watchEffect } from 'vue'
+import { isClient } from '@oku-ui/use-composable'
 import { OkuToast, OkuToastDescription, OkuToastProvider, OkuToastViewport } from '@oku-ui/toast'
-import { ref } from 'vue'
 
-const open = ref(false)
 const saving = ref(false)
+const open = ref(false)
+
+watchEffect((onInvalidate) => {
+  if (!isClient)
+    return
+  if (!saving.value) {
+    const timer = window.setTimeout(() => saving.value = false, 2000)
+
+    onInvalidate(() => window.clearTimeout(timer))
+  }
+})
 </script>
 
 <template>
   <OkuToastProvider>
     <form
-      @submit.prevent="() => {
-        saving = true;
-        open = true;
+      @submit="(event) => {
+        saving = true
+        open = true
+        event.preventDefault()
       }"
     >
-      <button type="submit" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium rounded-md">
-        Save
-      </button>
-      <OkuToast v-model="open" class="toast-toast" :duration="saving ? Infinity : 2000">
+      <button>Save</button>
+      <OkuToast
+        class="toast"
+        :duration="saving ? Infinity : 2000"
+        :open="open"
+        @open-change="open = $event"
+      >
         <OkuToastDescription v-if="saving">
           Saving&hellip;
         </OkuToastDescription>

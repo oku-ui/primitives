@@ -1,18 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import type { IToastProps } from './ToastDemo.vue'
-import OkuToastComponent from './ToastDemo.vue'
+import OkuToast from './ToastDemo.vue'
 
 interface StoryProps extends IToastProps { }
 
 const meta = {
   title: 'Components/Toast',
-  component: OkuToastComponent,
-
+  component: OkuToast,
   args: {
     template: 'Styled',
   },
-} satisfies Meta<typeof OkuToastComponent> & {
+} satisfies Meta<typeof OkuToast> & {
   args: StoryProps
 }
 
@@ -25,13 +24,13 @@ export const Styled: Story = {
   args: {
     template: 'Styled',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -40,13 +39,13 @@ export const Controlled: Story = {
   args: {
     template: 'Controlled',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -55,13 +54,13 @@ export const FromDialog: Story = {
   args: {
     template: 'FromDialog',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -70,13 +69,13 @@ export const Promise: Story = {
   args: {
     template: 'Promise',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -85,13 +84,13 @@ export const KeyChange: Story = {
   args: {
     template: 'KeyChange',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -100,13 +99,13 @@ export const PauseResumeProps: Story = {
   args: {
     template: 'PauseResumeProps',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -115,13 +114,13 @@ export const Animated: Story = {
   args: {
     template: 'Animated',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -130,13 +129,13 @@ export const Cypress: Story = {
   args: {
     template: 'Cypress',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
@@ -145,13 +144,13 @@ export const Chromatic: Story = {
   args: {
     template: 'Chromatic',
   },
-  render: (args: any) => ({
-    components: { OkuToastComponent },
+  render: args => ({
+    components: { OkuToast },
     setup() {
       return { args }
     },
     template: `
-      <OkuToastComponent v-bind="args" />
+      <OkuToast v-bind="args" />
     `,
   }),
 }
