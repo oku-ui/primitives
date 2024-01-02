@@ -1,22 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import type { IVisuallyHiddenProps } from './VisuallyHiddenDemo.vue'
-import OkuVisuallyHiddenComponent from './VisuallyHiddenDemo.vue'
 
-interface StoryProps extends IVisuallyHiddenProps {}
+import type { IVisuallyHiddenProps } from './VisuallyHiddenDemo.vue'
+import OkuVisuallyHidden from './VisuallyHiddenDemo.vue'
+
+interface StoryProps extends IVisuallyHiddenProps { }
 
 const meta = {
-  title: 'Utilities/VisuallyHidden',
-  component: OkuVisuallyHiddenComponent,
+  title: 'utilities/visuallyHidden',
+  component: OkuVisuallyHidden,
   args: {
-    template: '#1',
+    template: 'Basic',
   },
-  argTypes: {
-    template: {
-      control: 'text',
-    },
-  },
-
-} satisfies Meta<typeof OkuVisuallyHiddenComponent> & {
+} satisfies Meta<typeof OkuVisuallyHidden> & {
   args: StoryProps
 }
 
@@ -25,19 +20,17 @@ type Story = StoryObj<typeof meta> & {
   args: StoryProps
 }
 
-export const Styled: Story = {
+export const Basic: Story = {
   args: {
-    template: '#1',
-    // allshow: true,
+    template: 'Basic',
   },
-
-  render: (args: any) => ({
-    components: { OkuVisuallyHiddenComponent },
+  render: args => ({
+    components: { OkuVisuallyHidden },
     setup() {
       return { args }
     },
     template: `
-      <OkuVisuallyHiddenComponent v-bind="args" />
+      <OkuVisuallyHidden v-bind="args" />
     `,
   }),
 }
