@@ -1,173 +1,93 @@
 <script setup lang="ts">
-import { OkuLabel } from '@oku-ui/label'
-import { OkuSwitch, OkuSwitchThumb } from '@oku-ui/switch'
-import { ref } from 'vue'
+import Styled from './Styled.vue'
+import Controlled from './Controlled.vue'
+import WithinForm from './WithinForm.vue'
+import Chromatic from './Chromatic.vue'
+
+withDefaults(defineProps<ISwitchProps>(), {})
 
 export interface ISwitchProps {
-  template?: '#1' | '#2' | '#3'
+  template?: 'Styled' | 'Controlled' | 'WithinForm' | 'Chromatic'
   allshow?: boolean
 }
 
-defineProps<ISwitchProps>()
-
-const checked = ref<boolean>(false)
-const checkedActive = ref(true)
-
-const data = ref()
-
-function setData(event: any) {
-  const input = event.target as HTMLInputElement
-  data.value = {
-    ...data.value,
-    [input.name]: input.value,
-  }
-
-  console.warn(data.value)
-}
-function sendForm(event: any) {
-  console.warn(event, 'sendForm')
-  data.value = {
-    ...data.value,
-    [event.target.name]: event.target.value,
-  }
-
-  console.warn(data.value)
-}
+const WIDTH = '50px'
+const THUMB_WIDTH = '20px'
+const GAP = '4px'
 </script>
 
 <template>
   <div>
-    <div>
-      <h1>Oku Default Switch</h1>
-      <div v-if="template === '#1' || allshow" class="flex flex-col">
-        <OkuSwitch id="switch" class="switchStyle">
-          <OkuSwitchThumb class="thumbStyle" />
-        </OkuSwitch>
-      </div>
+    <template v-if="template === 'Styled' || allshow">
+      <Styled />
+    </template>
 
-      <div v-if="template === '#2' || allshow">
-        <h1 class="text-3xl">
-          Uncontrolled
-        </h1>
-        <h2 class="text-xl mt-3 mb-2">
-          Off
-        </h2>
-        <OkuSwitch id="switch" v-model="checked" class="switchStyle">
-          <OkuSwitchThumb class="thumbStyle" />
-        </OkuSwitch>
+    <template v-if="template === 'Controlled' || allshow">
+      <Controlled />
+    </template>
 
-        <h2 class="text-xl mt-3 mb-2">
-          On
-        </h2>
-        <OkuSwitch id="switch" v-model="checkedActive" class="switchStyle">
-          <OkuSwitchThumb class="thumbStyle" />
-        </OkuSwitch>
+    <template v-if="template === 'WithinForm' || allshow">
+      <WithinForm />
+    </template>
 
-        <h2 class="text-xl mt-3 mb-2">
-          Disabled
-        </h2>
-        <OkuSwitch
-          id="switch"
-          v-model="checked"
-          :disabled="true"
-          class="switchStyle"
-        >
-          <OkuSwitchThumb class="thumbStyle" />
-        </OkuSwitch>
-
-        <h1 class="text-3xl mt-3">
-          Controlled
-        </h1>
-        <h2 class="text-xl mt-3 mb-2">
-          On
-        </h2>
-        <OkuSwitch id="switch" :checked="true" class="switchStyle">
-          <OkuSwitchThumb class="thumbStyle" />
-        </OkuSwitch>
-
-        <h2 class="text-xl mt-3 mb-2">
-          Off
-        </h2>
-        <OkuSwitch id="switch" :checked="false" class="switchStyle">
-          <OkuSwitchThumb class="thumbStyle" />
-        </OkuSwitch>
-
-        <h2 class="text-xl mt-3 mb-2">
-          Disabled
-        </h2>
-        <OkuSwitch
-          id="switch"
-          :checked="true"
-          :disabled="true"
-          class="switchStyle"
-        >
-          <OkuSwitchThumb class="thumbStyle" />
-        </OkuSwitch>
-      </div>
-
-      <!-- With Form -->
-      <div v-if="template === '#3' || allshow">
-        <h1 class="text-3xl">
-          With Form
-        </h1>
-        <form
-          class="grid grid-cols-1 gap-5"
-          @submit.prevent="sendForm"
-          @change="setData"
-        >
-          <OkuLabel>
-            <OkuSwitch id="switch" v-model="checked" class="switchStyle">
-              <OkuSwitchThumb class="thumbStyle" />
-            </OkuSwitch>
-            asdas
-          </OkuLabel>
-
-          <legend>required checked</legend>
-
-          <OkuSwitch id="switch" class="switchStyle" name="requid" required>
-            <OkuSwitchThumb class="thumbStyle" />
-          </OkuSwitch>
-          <div>
-            <button type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <template v-if="template === 'Chromatic' || allshow">
+      <Chromatic />
+    </template>
   </div>
 </template>
 
-<style lang="postcss">
-.switchStyle {
-  font-size: 0px;
-  display: inline-block;
+<style>
+.switch {
+  /* RECOMMENDED_CSS_SWITCH: */
   vertical-align: middle;
   text-align: left;
+
   outline: none;
   border: none;
-  width: 50px;
-  padding: 4px;
+  width: v-bind(WIDTH);
+  padding: v-bind(GAP);
   border-radius: 9999px;
-  background-color: grey;
-  -webkit-transition: 0.4s;
+  background-color: #aaa;
   transition: background-color 166ms ease-out;
 
-  &[data-disabled] {
-    opacity: 0.5;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #111;
   }
+
+  &[data-state="checked"] {
+    background-color: crimson;
+    border-color: crimson;
+  }
+
+  &[data-disabled] { opacity: 0.5 }
 }
 
-.thumbStyle {
+.switch-thumb {
+  /* RECOMMENDED_CSS_SWITCH_THUMB */
+  /* ensures thumb is sizeable/can receive vertical margins */
   display: inline-block;
+  /* ensures thumb is vertically centered */
   vertical-align: middle;
+
   width: 20px;
   height: 20px;
   background-color: white;
   border-radius: 9999px;
-  transition: transform 166ms ease-out 0s;
+  transition: transform 166ms ease-out;
   &[data-state="checked"] {
-    transform: translateX(22px);
+    transform: translateX(calc(v-bind(WIDTH) - v-bind(GAP) * 2 - v-bind(THUMB_WIDTH)));
   }
+}
+.switch-attr-styles {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="unchecked"] { border-color: red }
+  &[data-state="checked"] { border-color: green }
+  &[data-state="indeterminate"] { border-color: purple }
+  &[data-disabled] { border-style: dashed }
+  &:disabled { opacity: 0.5 }
 }
 </style>

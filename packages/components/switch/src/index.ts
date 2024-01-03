@@ -1,22 +1,19 @@
-export {
-  OkuSwitch,
-  createSwitchScope,
-  switchProps,
-} from './Switch'
+export { OkuSwitch } from './switch'
+export { OkuSwitchThumb } from './switch-thumb'
 
 export type {
   SwitchProps,
-  SwitchNaviteElement,
+  SwitchEmits,
   SwitchElement,
-} from './Switch'
-
-export {
-  OkuSwitchThumb,
-  switchThumbProps,
-} from './SwitchThumb'
+  SwitchNativeElement,
+} from './props'
 
 export type {
   SwitchThumbProps,
   SwitchThumbElement,
-  SwitchThumbNaviteElement,
-} from './SwitchThumb'
+  SwitchThumbNativeElement,
+} from './props'
+
+export {
+  createSwitchScope,
+} from './props'
