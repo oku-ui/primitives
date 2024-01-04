@@ -47,9 +47,9 @@ export interface CheckboxProps extends PrimitiveProps {
 
 export type CheckboxEmits = {
   'update:modelValue': [checked: CheckedState]
-  'checkedChange': [checked: CheckedState]
-  'keydown': [event: KeyboardEvent]
-  'click': [event: MouseEvent]
+  checkedChange: [checked: CheckedState]
+  keydown: [event: KeyboardEvent]
+  click: [event: MouseEvent]
 }
 
 export const checkboxProps = {
@@ -73,7 +73,7 @@ export const checkboxProps = {
       type: String as PropType<CheckboxProps['name']>,
     },
     disabled: {
-      type: [Boolean, String] as PropType<CheckboxProps['disabled']>,
+      type: Boolean as PropType<CheckboxProps['disabled']>,
     },
     value: {
       type: String as PropType<CheckboxProps['value']>,
