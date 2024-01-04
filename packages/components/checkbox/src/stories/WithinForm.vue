@@ -10,6 +10,7 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
   <form
     @submit="(event) => event.preventDefault()"
     @change="(event) => {
+      // TODO: this does not work since the `bubble-input` does not bubble checked change to parents, so we used v-model instated.
       const input = event.target as HTMLInputElement
       data = { ...data, [input.name]: input.checked }
     }"
@@ -18,6 +19,7 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
       <legend>optional checked: {{ String(data.optional) }}</legend>
       <label>
         <OkuCheckbox
+          v-model="data.optional"
           class="checkbox"
           name="optional"
           :checked="checked"
@@ -43,7 +45,7 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
 
     <fieldset>
       <legend>required checked: {{ String(data.required) }}</legend>
-      <OkuCheckbox class="checkbox" name="required" required>
+      <OkuCheckbox v-model="data.required" class="checkbox" name="required" required>
         <OkuCheckboxIndicator class="checkbox-indicator" />
       </OkuCheckbox>
     </fieldset>
@@ -54,6 +56,7 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
     <fieldset>
       <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
       <OkuCheckbox
+        v-model="data.stopprop"
         class="checkbox"
         name="stopprop"
         @click="(event) => event.stopPropagation()"

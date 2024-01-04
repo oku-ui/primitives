@@ -44,8 +44,7 @@ exports[`okuSwitch Stories > withinForm > should render correctly 1`] = `
 "<form>
   <fieldset>
     <legend>optional checked: false</legend><label>
-      <!-- v-model="data.optional" -->
-      <oku-switch-stub name="optional" checked="false" required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub> with label
+      <oku-switch-stub name="optional" modelvalue="false" checked="false" required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub> with label
     </label>
   </fieldset><br><br>
   <fieldset>

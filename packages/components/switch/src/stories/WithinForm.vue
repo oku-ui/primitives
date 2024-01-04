@@ -10,6 +10,7 @@ const checked = ref<boolean>(false)
   <form
     @submit="(event) => event.preventDefault()"
     @change="(event) => {
+      // TODO: this does not work since the `bubble-input` does not bubble checked change to parents, so we used v-model instated.
       const input = event.target as HTMLInputElement
       data = { ...data, [input.name]: input.checked }
     }"
@@ -18,6 +19,7 @@ const checked = ref<boolean>(false)
       <legend>optional checked: {{ String(data.optional) }}</legend>
       <label>
         <OkuSwitch
+          v-model="data.optional"
           class="switch"
           name="optional"
           :checked="checked"
@@ -34,7 +36,7 @@ const checked = ref<boolean>(false)
 
     <fieldset>
       <legend>required checked: {{ String(data.required) }}</legend>
-      <OkuSwitch class="switch" name="required" required>
+      <OkuSwitch v-model="data.required" class="switch" name="required" required>
         <OkuSwitchThumb class="switch-thumb" />
       </OkuSwitch>
     </fieldset>
@@ -45,6 +47,7 @@ const checked = ref<boolean>(false)
     <fieldset>
       <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
       <OkuSwitch
+        v-model="data.stopprop"
         class="switch"
         name="stopprop"
         @click="(event) => event.stopPropagation()"
