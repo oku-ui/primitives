@@ -47,7 +47,7 @@ const bubbleInput = defineComponent({
     return () => h('input', {
       'type': 'checkbox',
       'aria-hidden': true,
-      'defaultChecked': checked.value ? false : checked.value,
+      'defaultChecked': checked.value,
       ...mergeProps(attrs, otherProps, emits),
       'tabIndex': -1,
       'ref': inputRef,
