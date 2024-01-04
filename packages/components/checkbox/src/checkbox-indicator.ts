@@ -15,7 +15,7 @@ const checkboxIndicator = defineComponent({
   emits: {
     ...checkboxIndicatorProps.emits,
   },
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs }) {
     const {
       scopeOkuCheckbox,
       forceMount,
@@ -38,7 +38,7 @@ const checkboxIndicator = defineComponent({
       ...mergeProps(attrs, otherProps, emits),
       'ref': forwardedRef,
       'style': { pointerEvents: 'none', ...attrs.style as any },
-    }, () => slots.default?.()))
+    }))
   },
 })
 
