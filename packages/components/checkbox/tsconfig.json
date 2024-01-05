@@ -4,5 +4,5 @@
     "src/**/*",
     "tests/**/*",
     "node_modules/tsconfig"
-  ]
+, "stories"  ]
 }

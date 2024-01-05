@@ -6,12 +6,12 @@ import { axe } from 'vitest-axe'
 
 import { OkuCheckbox, OkuCheckboxIndicator } from '../src'
 
-import Styled from '../src/stories/Styled.vue'
-import Controlled from '../src/stories/Controlled.vue'
-import Indeterminate from '../src/stories/Indeterminate.vue'
-import WithinForm from '../src/stories/WithinForm.vue'
-import Animated from '../src/stories/Animated.vue'
-import Chromatic from '../src/stories/Chromatic.vue'
+import Styled from '../stories/Styled.vue'
+import Controlled from '../stories/Controlled.vue'
+import Indeterminate from '../stories/Indeterminate.vue'
+import WithinForm from '../stories/WithinForm.vue'
+import Animated from '../stories/Animated.vue'
+import Chromatic from '../stories/Chromatic.vue'
 
 enableAutoUnmount(afterEach)
 
