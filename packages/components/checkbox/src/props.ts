@@ -135,7 +135,7 @@ export const bubbleInputProps = {
       required: true,
     },
     control: {
-      type: [HTMLElement, null] as PropType<BubbleInputProps['control']>,
+      type: Object as PropType<BubbleInputProps['control']>,
       default: null,
       required: true,
     },
