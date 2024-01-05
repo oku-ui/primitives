@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, useModel, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, onMounted, reactive, ref, toRefs, useModel, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useControllable, useForwardRef, useListeners } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { Primitive } from '@oku-ui/primitive'
@@ -40,7 +40,13 @@ const Checkbox = defineComponent({
     const composedRefs = useComposedRefs(forwardedRef, buttonRef)
     const hasConsumerStoppedPropagationRef = ref(false)
     // We set this to true by default so that events bubble to forms without JS (SSR)
-    const isFormControl = computed(() => buttonRef.value instanceof HTMLElement ? Boolean(buttonRef.value.closest('form')) : false)
+    const isFormControl = ref<boolean>(false)
+    onMounted(() => {
+      isFormControl.value = buttonRef.value
+        ? typeof buttonRef.value.closest === 'function'
+        && Boolean(buttonRef.value.closest('form'))
+        : true
+    })
 
     const modelValue = useModel(props, 'modelValue')
     const proxyChecked = computed({
