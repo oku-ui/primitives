@@ -90,16 +90,16 @@ exports[`okuCheckbox Stories > withinForm > should render correctly 1`] = `
 "<form>
   <fieldset>
     <legend>optional checked: false</legend><label>
-      <oku-checkbox-stub name="optional" checked="indeterminate" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub> with label
+      <oku-checkbox-stub name="optional" modelvalue="false" checked="indeterminate" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub> with label
     </label><br><br><button type="button"> Toggle indeterminate </button>
   </fieldset><br><br>
   <fieldset>
     <legend>required checked: false</legend>
-    <oku-checkbox-stub name="required" required="true" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+    <oku-checkbox-stub name="required" modelvalue="false" required="true" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
   </fieldset><br><br>
   <fieldset>
     <legend>stop propagation checked: false</legend>
-    <oku-checkbox-stub name="stopprop" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+    <oku-checkbox-stub name="stopprop" modelvalue="false" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
   </fieldset><br><br><button type="reset"> Reset </button><button>Submit</button>
 </form>"
 `;

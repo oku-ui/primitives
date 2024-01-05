@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import type { ISwitchProps } from './SwitchDemo.vue'
-import OkuSwitchComponent from './SwitchDemo.vue'
 
-interface StoryProps extends ISwitchProps {}
+import type { ISwitchProps } from './SwitchDemo.vue'
+import OkuSwitch from './SwitchDemo.vue'
+
+interface StoryProps extends ISwitchProps { }
 
 const meta = {
   title: 'Components/Switch',
+  component: OkuSwitch,
   args: {
-    template: '#1',
+    template: 'Styled',
   },
-  component: OkuSwitchComponent,
-
-} satisfies Meta<typeof OkuSwitchComponent> & {
+} satisfies Meta<typeof OkuSwitch> & {
   args: StoryProps
 }
 
@@ -22,50 +22,63 @@ type Story = StoryObj<typeof meta> & {
 
 export const Styled: Story = {
   args: {
-    template: '#1',
-    // allshow: true,
+    template: 'Styled',
   },
-
-  render: (args: any) => ({
-    components: { OkuSwitchComponent },
+  render: args => ({
+    components: { OkuSwitch },
     setup() {
       return { args }
     },
     template: `
-      <OkuSwitchComponent v-bind="args" />
+      <OkuSwitch v-bind="args" />
     `,
   }),
 }
 
-export const Form: Story = {
+export const Controlled: Story = {
   args: {
-    template: '#3',
-    // allshow: true,
+    template: 'Controlled',
   },
-
-  render: (args: any) => ({
-    components: { OkuSwitchComponent },
+  render: args => ({
+    components: { OkuSwitch },
     setup() {
       return { args }
     },
     template: `
-      <OkuSwitchComponent v-bind="args" />
+      <OkuSwitch v-bind="args" />
+    `,
+  }),
+}
+
+export const WithinForm: Story = {
+  args: {
+    template: 'WithinForm',
+  },
+  render: args => ({
+    components: { OkuSwitch },
+    setup() {
+      return { args }
+    },
+    template: `
+      <OkuSwitch v-bind="args" />
     `,
   }),
 }
 
 export const Chromatic: Story = {
   args: {
-    template: '#2',
-    allshow: false,
+    template: 'Chromatic',
   },
-  render: (args: any) => ({
-    components: { OkuSwitchComponent },
+  render: args => ({
+    components: { OkuSwitch },
     setup() {
       return { args }
     },
     template: `
-      <OkuSwitchComponent v-bind="args" />
+      <OkuSwitch v-bind="args" />
     `,
   }),
+  parameters: {
+    chromatic: { disable: false },
+  },
 }

@@ -1,11 +1,11 @@
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useListeners, usePrevious, useSize } from '@oku-ui/use-composable'
-import { isIndeterminate } from './utils'
-import { CHECKBOX_BUBBLE_INPUT_NAME, bubbleInputProps } from './props'
+import { SWITCH_BUBBLE_INPUT_NAME, bubbleInputProps } from './props'
 import type { BubbleInputNativeElement } from './props'
 
 const bubbleInput = defineComponent({
-  name: CHECKBOX_BUBBLE_INPUT_NAME,
+  name: SWITCH_BUBBLE_INPUT_NAME,
+  components: { },
   inheritAttrs: false,
   props: {
     ...bubbleInputProps.props,
@@ -39,8 +39,7 @@ const bubbleInput = defineComponent({
 
       if (prevChecked.value !== checked.value && setChecked) {
         const event = new Event('click', { bubbles: bubbles.value })
-        input.indeterminate = isIndeterminate(checked.value)
-        setChecked.call(input, isIndeterminate(checked.value) ? false : checked)
+        setChecked.call(input, checked.value)
         input.dispatchEvent(event)
       }
     })
@@ -48,7 +47,7 @@ const bubbleInput = defineComponent({
     return () => h('input', {
       'type': 'checkbox',
       'aria-hidden': true,
-      'defaultChecked': isIndeterminate(checked.value),
+      'defaultChecked': checked.value,
       ...mergeProps(attrs, otherProps, emits),
       'tabIndex': -1,
       'ref': inputRef,

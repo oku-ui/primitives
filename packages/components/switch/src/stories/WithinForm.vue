@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
+import { OkuSwitch, OkuSwitchThumb } from '@oku-ui/switch'
 
 const data = ref({ optional: false, required: false, stopprop: false })
-const checked = ref<boolean | 'indeterminate'>('indeterminate')
+const checked = ref<boolean>(false)
 </script>
 
 <template>
@@ -18,26 +18,17 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
     <fieldset>
       <legend>optional checked: {{ String(data.optional) }}</legend>
       <label>
-        <OkuCheckbox
+        <OkuSwitch
           v-model="data.optional"
-          class="checkbox"
+          class="switch"
           name="optional"
           :checked="checked"
           @checked-change="checked = $event"
         >
-          <OkuCheckboxIndicator class="checkbox-indicator" />
-        </OkuCheckbox>{{ ' ' }}
+          <OkuSwitchThumb class="switch-thumb" />
+        </OkuSwitch>{{ ' ' }}
         with label
       </label>
-      <br>
-      <br>
-
-      <button
-        type="button"
-        @click="checked = checked === 'indeterminate' ? false : 'indeterminate'"
-      >
-        Toggle indeterminate
-      </button>
     </fieldset>
 
     <br>
@@ -45,9 +36,9 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
 
     <fieldset>
       <legend>required checked: {{ String(data.required) }}</legend>
-      <OkuCheckbox v-model="data.required" class="checkbox" name="required" required>
-        <OkuCheckboxIndicator class="checkbox-indicator" />
-      </OkuCheckbox>
+      <OkuSwitch v-model="data.required" class="switch" name="required" required>
+        <OkuSwitchThumb class="switch-thumb" />
+      </OkuSwitch>
     </fieldset>
 
     <br>
@@ -55,22 +46,19 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
 
     <fieldset>
       <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
-      <OkuCheckbox
+      <OkuSwitch
         v-model="data.stopprop"
-        class="checkbox"
+        class="switch"
         name="stopprop"
         @click="(event) => event.stopPropagation()"
       >
-        <OkuCheckboxIndicator class="checkbox-indicator" />
-      </OkuCheckbox>
+        <OkuSwitchThumb class="switch-thumb" />
+      </OkuSwitch>
     </fieldset>
 
     <br>
     <br>
 
-    <button type="reset">
-      Reset
-    </button>
     <button>Submit</button>
   </form>
 </template>
