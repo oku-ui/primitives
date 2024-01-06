@@ -32,6 +32,8 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "release": "pnpm build && pnpm bumpp --commit='version(focus-guards): release %s' --no-tag && pnpm publish",
+    "release:beta": "pnpm release --tag beta",
+    "release:alpha": "pnpm release --tag alpha",
     "clean": "rimraf ./dist && rimraf ./node_modules"
   },
   "peerDependencies": {
