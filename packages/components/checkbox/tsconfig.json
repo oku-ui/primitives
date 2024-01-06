@@ -3,6 +3,6 @@
   "include": [
     "src/**/*",
     "tests/**/*",
-    "node_modules/tsconfig"
-, "stories"  ]
+    "node_modules/tsconfig",
+    "stories"]
 }
