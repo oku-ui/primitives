@@ -17,8 +17,8 @@ import {
 
 } from '../src'
 
-import StyledVue from '../src/stories/Styled.vue'
-import Controlled from '../src/stories/Controlled.vue'
+import StyledVue from '../stories/Styled.vue'
+import Controlled from '../stories/Controlled.vue'
 
 enableAutoUnmount(afterEach)
 

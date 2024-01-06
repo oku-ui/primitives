@@ -7,13 +7,13 @@ import {
   OkuPresence,
 } from '../src'
 
-import Basic from '../src/stories/Basic.vue'
-import WithDeferredMountAnimation from '../src/stories/WithDeferredMountAnimation.vue'
-import WithMountAnimation from '../src/stories/WithMountAnimation.vue'
-import WithMultipleMountAnimations from '../src/stories/WithMultipleMountAnimations.vue'
-import WithMultipleOpenAndCloseAnimations from '../src/stories/WithMultipleOpenAndCloseAnimations.vue'
-import WithOpenAndCloseAnimation from '../src/stories/WithOpenAndCloseAnimation.vue'
-import WithUnmountAnimation from '../src/stories/WithUnmountAnimation.vue'
+import Basic from '../stories/Basic.vue'
+import WithDeferredMountAnimation from '../stories/WithDeferredMountAnimation.vue'
+import WithMountAnimation from '../stories/WithMountAnimation.vue'
+import WithMultipleMountAnimations from '../stories/WithMultipleMountAnimations.vue'
+import WithMultipleOpenAndCloseAnimations from '../stories/WithMultipleOpenAndCloseAnimations.vue'
+import WithOpenAndCloseAnimation from '../stories/WithOpenAndCloseAnimation.vue'
+import WithUnmountAnimation from '../stories/WithUnmountAnimation.vue'
 
 describe('okuPresence', async () => {
   it('renders correctly', async () => {

@@ -3,11 +3,11 @@ import type { VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import { OkuToggle } from '../src'
+import { OkuToggle } from '@oku-ui/toggle'
 
-import Styled from '../src/stories/Styled.vue'
-import Controlled from '../src/stories/Controlled.vue'
-import Chromatic from '../src/stories/Chromatic.vue'
+import Styled from '../stories/Styled.vue'
+import Controlled from '../stories/Controlled.vue'
+import Chromatic from '../stories/Chromatic.vue'
 
 enableAutoUnmount(afterEach)
 

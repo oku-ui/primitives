@@ -5,7 +5,7 @@ import { axe } from 'vitest-axe'
 
 import { OkuSeparator } from '../src'
 
-import Styled from '../src/stories/Styled.vue'
+import Styled from '../stories/Styled.vue'
 
 enableAutoUnmount(afterEach)
 

@@ -26,13 +26,13 @@ import {
   OkuMenuSubTrigger,
 } from '../src'
 
-import Styled from '../src/stories/Styled.vue'
-import Submenus from '../src/stories/Submenus.vue'
-import WithLabels from '../src/stories/WithLabels.vue'
-import Typeahead from '../src/stories/Typeahead.vue'
-import CheckboxItems from '../src/stories/CheckboxItems.vue'
-import RadioItems from '../src/stories/RadioItems.vue'
-import Animated from '../src/stories/Animated.vue'
+import Styled from '../stories/Styled.vue'
+import Submenus from '../stories/Submenus.vue'
+import WithLabels from '../stories/WithLabels.vue'
+import Typeahead from '../stories/Typeahead.vue'
+import CheckboxItems from '../stories/CheckboxItems.vue'
+import RadioItems from '../stories/RadioItems.vue'
+import Animated from '../stories/Animated.vue'
 
 enableAutoUnmount(afterEach)
 

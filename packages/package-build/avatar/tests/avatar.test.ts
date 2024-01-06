@@ -5,8 +5,8 @@ import { axe } from 'vitest-axe'
 
 import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from '../src'
 
-import Styled from '../src/stories/Styled.vue'
-import Chromatic from '../src/stories/Chromatic.vue'
+import Styled from '../stories/Styled.vue'
+import Chromatic from '../stories/Chromatic.vue'
 
 enableAutoUnmount(afterEach)
 

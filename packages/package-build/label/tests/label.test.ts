@@ -5,8 +5,8 @@ import { axe } from 'vitest-axe'
 
 import { OkuLabel } from '../src'
 
-import Styled from '../src/stories/Styled.vue'
-import WithControl from '../src/stories/WithControl.vue'
+import Styled from '../stories/Styled.vue'
+import WithControl from '../stories/WithControl.vue'
 
 enableAutoUnmount(afterEach)
 

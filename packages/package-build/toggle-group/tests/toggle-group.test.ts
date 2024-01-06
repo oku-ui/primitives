@@ -4,12 +4,12 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import { OkuToggleGroup, OkuToggleGroupItem } from '../src'
+import { OkuToggleGroup, OkuToggleGroupItem } from '@oku-ui/toggle-group'
 
-import Single from '../src/stories/Single.vue'
-import Vertical from '../src/stories/Vertical.vue'
-import Multiple from '../src/stories/Multiple.vue'
-import Chromatic from '../src/stories/Chromatic.vue'
+import Single from '../stories/Single.vue'
+import Vertical from '../stories/Vertical.vue'
+import Multiple from '../stories/Multiple.vue'
+import Chromatic from '../stories/Chromatic.vue'
 
 enableAutoUnmount(afterEach)
 

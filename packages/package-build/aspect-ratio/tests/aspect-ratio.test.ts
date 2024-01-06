@@ -5,9 +5,9 @@ import { axe } from 'vitest-axe'
 
 import { OkuAspectRatio } from '../src'
 
-import Styled from '../src/stories/Styled.vue'
-import CustomRatios from '../src/stories/CustomRatios.vue'
-import Chromatic from '../src/stories/Chromatic.vue'
+import Styled from '../stories/Styled.vue'
+import CustomRatios from '../stories/CustomRatios.vue'
+import Chromatic from '../stories/Chromatic.vue'
 
 enableAutoUnmount(afterEach)
 

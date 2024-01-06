@@ -10,12 +10,12 @@ import {
   OkuPopperContent,
 } from '../src'
 
-import StyledVue from '../src/stories/Styled.vue'
-import Animated from '../src/stories/Animated.vue'
-import OneScroll from '../src/stories/OneScroll.vue'
-import Transition from '../src/stories/Transition.vue'
-import WithCustomArrow from '../src/stories/WithCustomArrow.vue'
-import WithPortal from '../src/stories/WithPortal.vue'
+import StyledVue from '../stories/Styled.vue'
+import Animated from '../stories/Animated.vue'
+import OneScroll from '../stories/OneScroll.vue'
+import Transition from '../stories/Transition.vue'
+import WithCustomArrow from '../stories/WithCustomArrow.vue'
+import WithPortal from '../stories/WithPortal.vue'
 
 enableAutoUnmount(afterEach)
 

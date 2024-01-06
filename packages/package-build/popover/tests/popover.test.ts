@@ -13,15 +13,15 @@ import {
   OkuPopoverTrigger,
 } from '../src'
 
-import Animated from '../src/stories/Animated.vue'
-import Boundary from '../src/stories/Boundary.vue'
-import Controlled from '../src/stories/Controlled.vue'
-import CustomAnchor from '../src/stories/CustomAnchor.vue'
-import ForcedMount from '../src/stories/ForcedMount.vue'
-import Modality from '../src/stories/Modality.vue'
-import Nested from '../src/stories/Nested.vue'
-import VControlled from '../src/stories/VControlled.vue'
-import WithSlottedTrigger from '../src/stories/WithSlottedTrigger.vue'
+import Animated from '../stories/Animated.vue'
+import Boundary from '../stories/Boundary.vue'
+import Controlled from '../stories/Controlled.vue'
+import CustomAnchor from '../stories/CustomAnchor.vue'
+import ForcedMount from '../stories/ForcedMount.vue'
+import Modality from '../stories/Modality.vue'
+import Nested from '../stories/Nested.vue'
+import VControlled from '../stories/VControlled.vue'
+import WithSlottedTrigger from '../stories/WithSlottedTrigger.vue'
 
 enableAutoUnmount(afterEach)
 
