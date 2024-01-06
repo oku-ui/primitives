@@ -37,7 +37,8 @@
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
     "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
     "update:version": "esno scripts/update-version.ts",
-    "prepare": "npx simple-git-hooks"
+    "prepare": "npx simple-git-hooks",
+    "release": "bumpp --commit --push --tag"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.1",
