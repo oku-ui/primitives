@@ -4,9 +4,9 @@ import { OkuPopper, OkuPopperAnchor, OkuPopperArrow, OkuPopperContent } from '@o
 import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
 import { useScrollLock } from '@oku-ui/use-composable'
-import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
-import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
+import type { DismissableLayerEmits } from '..'
+import { OkuDismissableLayer } from '..'
 
 const props = withDefaults(
   defineProps<{

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OkuMenuItem } from '@oku-ui/menu'
+import { OkuMenuItem } from '..'
 import MenuWithAnchor from './MenuWithAnchor.vue'
 import WithLabels from './WithLabels.vue'
 import { foodGroups } from './foods'
