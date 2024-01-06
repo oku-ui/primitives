@@ -68,6 +68,36 @@
       ]
     },
     {
+      "groupName": "nuxt-module",
+      "commitMessageTopic": "nuxt-module",
+      "matchPaths": [
+        "packages/nuxt-module/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "primitives",
+      "commitMessageTopic": "primitives",
+      "matchPaths": [
+        "packages/primitives/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
       "groupName": "playground",
       "commitMessageTopic": "playground",
       "matchPaths": [
