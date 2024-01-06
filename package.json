@@ -10,8 +10,7 @@
   "workspaces": [
     "playground/*",
     "packages/*",
-    "packages/components/*",
-    "packages/core/*"
+    "packages/package-build/*"
   ],
   "scripts": {
     "dev": "esno scripts/dev.ts",
