@@ -19,6 +19,15 @@
       ],
       "@oku-ui/slot": [
         "src/packages/slot"
+      ],
+      "@oku-ui/use-composable": [
+        "src/packages/use-composable"
+      ],
+      "@oku-ui/use-primitive": [
+        "src/packages/use-primitive"
+      ],
+      "@oku-ui/use-utils": [
+        "src/packages/use-utils"
       ]
     },
     "resolveJsonModule": true,
