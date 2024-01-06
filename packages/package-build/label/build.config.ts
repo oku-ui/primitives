@@ -1,7 +1,12 @@
 import { defineBuildConfig } from 'unbuild'
 
-const isClean = (process.env.CLEAN || 'false') === 'true'
 export default defineBuildConfig({
+  entries: [
+    { builder: 'mkdist', input: '../../vue/src/packages/label', pattern: ['**/*.css'], loaders: ['sass'] },
+    { builder: 'mkdist', input: '../../vue/src/packages/label', pattern: ['**/*.vue'], loaders: ['vue'] },
+    { builder: 'mkdist', input: '../../vue/src/packages/label', pattern: ['**/*.ts'], format: 'esm', loaders: ['js'] },
+  ],
+  clean: true,
   declaration: true,
-  clean: isClean,
+  externals: ['vue'],
 })
