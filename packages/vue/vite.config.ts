@@ -1,28 +1,14 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import Components from 'unplugin-vue-components/vite'
-import { globbySync } from 'globby'
+import Pages from 'vite-plugin-pages'
 
-const components = globbySync('../components', {
-  onlyDirectories: true,
-  deep: 1,
-  ignore: ['**/node_modules'],
-  absolute: true,
-})
+const resolve = (val: string) => new URL(val, import.meta.url).pathname
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    Components({
-      dirs: [
-        ...components.map(component => `${component}/src`),
-      ],
-      extensions: ['vue', 'ts'],
-      include: [/\.vue$/, /\.vue\?vue/, /\.ts$/],
-      deep: true,
-      exclude: [/node_modules/, /\.git/],
-    }),
+    Pages(),
   ],
   server: {
     fs: {
@@ -34,5 +20,14 @@ export default defineConfig({
     watch: {
       include: ['../components/**'],
     },
+  },
+  resolve: {
+    alias: [
+      // Components
+      {
+        find: '@oku-ui/slot',
+        replacement: resolve('./src/packages/slot'),
+      },
+    ],
   },
 })
