@@ -5,7 +5,7 @@ import { axe } from 'vitest-axe'
 
 import {
   OkuPresence,
-} from '@oku-ui/presence'
+} from '../'
 
 import Basic from '../stories/Basic.vue'
 import WithDeferredMountAnimation from '../stories/WithDeferredMountAnimation.vue'

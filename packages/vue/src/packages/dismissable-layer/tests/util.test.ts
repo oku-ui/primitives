@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
-import { useFocusOutside, usePointerdownOutside } from '@oku-ui/dismissable-layer'
-import type { FocusOutsideEvent } from '@oku-ui/dismissable-layer'
+import type { FocusOutsideEvent } from '../props'
+import { useFocusOutside, usePointerdownOutside } from '../util'
 
 enableAutoUnmount(afterEach)
 

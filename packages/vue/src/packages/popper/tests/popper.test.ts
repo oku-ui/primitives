@@ -8,7 +8,7 @@ import {
   OkuPopperAnchor,
   OkuPopperArrow,
   OkuPopperContent,
-} from '@oku-ui/popper'
+} from '../'
 
 import StyledVue from '../stories/Styled.vue'
 import Animated from '../stories/Animated.vue'
