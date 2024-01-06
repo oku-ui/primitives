@@ -14,7 +14,10 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
-      'packages/primitives-nuxt/**',
+      'packages/nuxt-module/**',
+      'packages/example-package/**',
+      'packages/primitives/**',
+      'packages/tsconfig/**',
     ],
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],
@@ -28,165 +31,165 @@ export default defineConfig({
       // Components
       {
         find: '@oku-ui/scroll-area',
-        replacement: resolve('./packages/components/scroll-area/src'),
+        replacement: resolve('./packages/vue/src/scroll-area'),
       },
       {
         find: '@oku-ui/checkbox',
-        replacement: resolve('./packages/components/checkbox/src'),
+        replacement: resolve('./packages/vue/src/checkbox'),
       },
       {
         find: '@oku-ui/alert-dialog',
-        replacement: resolve('./packages/components/alert-dialog/src'),
+        replacement: resolve('./packages/vue/src/alert-dialog'),
       },
       {
         find: '@oku-ui/slider',
-        replacement: resolve('./packages/components/slider/src'),
+        replacement: resolve('./packages/vue/src/slider'),
       },
       {
         find: '@oku-ui/label',
-        replacement: resolve('./packages/components/label/src'),
+        replacement: resolve('./packages/vue/src/label'),
       },
       {
         find: '@oku-ui/separator',
-        replacement: resolve('./packages/components/separator/src'),
+        replacement: resolve('./packages/vue/src/separator'),
       },
       {
         find: '@oku-ui/popover',
-        replacement: resolve('./packages/components/popover/src'),
+        replacement: resolve('./packages/vue/src/popover'),
       },
       {
         find: '@oku-ui/toolbar',
-        replacement: resolve('./packages/components/toolbar/src'),
+        replacement: resolve('./packages/vue/src/toolbar'),
       },
       {
         find: '@oku-ui/toast',
-        replacement: resolve('./packages/components/toast/src'),
+        replacement: resolve('./packages/vue/src/toast'),
       },
       {
         find: '@oku-ui/toggle',
-        replacement: resolve('./packages/components/toggle/src'),
+        replacement: resolve('./packages/vue/src/toggle'),
       },
       {
         find: '@oku-ui/toggle-group',
-        replacement: resolve('./packages/components/toggle-group/src'),
+        replacement: resolve('./packages/vue/src/toggle-group'),
       },
       {
         find: '@oku-ui/switch',
-        replacement: resolve('./packages/components/switch/src'),
+        replacement: resolve('./packages/vue/src/switch'),
       },
       {
         find: '@oku-ui/radio-group',
-        replacement: resolve('./packages/components/radio-group/src'),
+        replacement: resolve('./packages/vue/src/radio-group'),
       },
       {
         find: '@oku-ui/avatar',
-        replacement: resolve('./packages/components/avatar/src'),
+        replacement: resolve('./packages/vue/src/avatar'),
       },
       {
         find: '@oku-ui/hover-card',
-        replacement: resolve('./packages/components/hover-card/src'),
+        replacement: resolve('./packages/vue/src/hover-card'),
       },
       {
         find: '@oku-ui/collapsible',
-        replacement: resolve('./packages/components/collapsible/src'),
+        replacement: resolve('./packages/vue/src/collapsible'),
       },
       {
         find: '@oku-ui/progress',
-        replacement: resolve('./packages/components/progress/src'),
+        replacement: resolve('./packages/vue/src/progress'),
       },
       {
         find: '@oku-ui/tooltip',
-        replacement: resolve('./packages/components/tooltip/src'),
+        replacement: resolve('./packages/vue/src/tooltip'),
       },
       {
         find: '@oku-ui/aspect-ratio',
-        replacement: resolve('./packages/components/aspect-ratio/src'),
+        replacement: resolve('./packages/vue/src/aspect-ratio'),
       },
       {
         find: '@oku-ui/tabs',
-        replacement: resolve('./packages/components/tabs/src'),
+        replacement: resolve('./packages/vue/src/tabs'),
       },
       {
         find: '@oku-ui/dialog',
-        replacement: resolve('./packages/components/dialog/src'),
+        replacement: resolve('./packages/vue/src/dialog'),
       },
       {
         find: '@oku-ui/primitives',
-        replacement: resolve('./packages/components/primitives/src'),
+        replacement: resolve('./packages/vue/src/primitives'),
       },
       {
         find: '@oku-ui/accordion',
-        replacement: resolve('./packages/components/accordion/src'),
+        replacement: resolve('./packages/vue/src/accordion'),
       },
 
       // Core
       {
         find: '@oku-ui/menu',
-        replacement: resolve('./packages/core/menu/src'),
+        replacement: resolve('./packages/vue/src/menu'),
       },
       {
         find: '@oku-ui/dismissable-layer',
-        replacement: resolve('./packages/core/dismissable-layer/src'),
+        replacement: resolve('./packages/vue/src/dismissable-layer'),
       },
       {
         find: '@oku-ui/roving-focus',
-        replacement: resolve('./packages/core/roving-focus/src'),
+        replacement: resolve('./packages/vue/src/roving-focus'),
       },
       {
         find: '@oku-ui/focus-scope',
-        replacement: resolve('./packages/core/focus-scope/src'),
+        replacement: resolve('./packages/vue/src/focus-scope'),
       },
       {
         find: '@oku-ui/presence',
-        replacement: resolve('./packages/core/presence/src'),
+        replacement: resolve('./packages/vue/src/presence'),
       },
       {
         find: '@oku-ui/direction',
-        replacement: resolve('./packages/core/direction/src'),
+        replacement: resolve('./packages/vue/src/direction'),
       },
       {
         find: '@oku-ui/arrow',
-        replacement: resolve('./packages/core/arrow/src'),
+        replacement: resolve('./packages/vue/src/arrow'),
       },
       {
         find: '@oku-ui/visually-hidden',
-        replacement: resolve('./packages/core/visually-hidden/src'),
+        replacement: resolve('./packages/vue/src/visually-hidden'),
       },
       {
         find: '@oku-ui/popper',
-        replacement: resolve('./packages/core/popper/src'),
+        replacement: resolve('./packages/vue/src/popper'),
       },
       {
         find: '@oku-ui/collection',
-        replacement: resolve('./packages/core/collection/src'),
+        replacement: resolve('./packages/vue/src/collection'),
       },
       {
         find: '@oku-ui/slot',
-        replacement: resolve('./packages/core/slot/src'),
+        replacement: resolve('./packages/vue/src/slot'),
       },
       {
         find: '@oku-ui/portal',
-        replacement: resolve('./packages/core/portal/src'),
+        replacement: resolve('./packages/vue/src/portal'),
       },
       {
         find: '@oku-ui/focus-guards',
-        replacement: resolve('./packages/core/focus-guards/src'),
+        replacement: resolve('./packages/vue/src/focus-guards'),
       },
       {
         find: '@oku-ui/use-composable',
-        replacement: resolve('./packages/core/use-composable/src'),
+        replacement: resolve('./packages/vue/src/use-composable'),
       },
       {
         find: '@oku-ui/provide',
-        replacement: resolve('./packages/core/provide/src'),
+        replacement: resolve('./packages/vue/src/provide'),
       },
       {
         find: '@oku-ui/primitive',
-        replacement: resolve('./packages/core/primitive/src'),
+        replacement: resolve('./packages/vue/src/primitive'),
       },
       {
         find: '@oku-ui/utils',
-        replacement: resolve('./packages/core/utils/src'),
+        replacement: resolve('./packages/vue/src/utils'),
       },
     ],
   },

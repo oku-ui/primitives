@@ -23,10 +23,10 @@
       ]
     },
     {
-      "groupName": "components",
-      "commitMessageTopic": "components",
+      "groupName": "vue",
+      "commitMessageTopic": "vue",
       "matchPaths": [
-        "packages/components/**"
+        "packages/vue/**"
       ],
       "matchUpdateTypes": [
         "major",
@@ -53,10 +53,40 @@
       ]
     },
     {
-      "groupName": "core",
-      "commitMessageTopic": "core",
+      "groupName": "package-build",
+      "commitMessageTopic": "package-build",
       "matchPaths": [
-        "packages/core/**"
+        "packages/package-build/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "nuxt-module",
+      "commitMessageTopic": "nuxt-module",
+      "matchPaths": [
+        "packages/nuxt-module/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "primitives",
+      "commitMessageTopic": "primitives",
+      "matchPaths": [
+        "packages/primitives/**"
       ],
       "matchUpdateTypes": [
         "major",
@@ -90,7 +120,6 @@
         "major"
       ],
       "ignorePaths": [
-        "**/packages/**",
         "**/packages/**",
         "**/playground/**",
         "**/.docs/**"
