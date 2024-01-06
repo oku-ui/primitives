@@ -28,165 +28,165 @@ export default defineConfig({
       // Components
       {
         find: '@oku-ui/scroll-area',
-        replacement: resolve('./packages/components/scroll-area/src'),
+        replacement: resolve('./packages/package-build/scroll-area/tests'),
       },
       {
         find: '@oku-ui/checkbox',
-        replacement: resolve('./packages/components/checkbox/src'),
+        replacement: resolve('./packages/package-build/checkbox/tests'),
       },
       {
         find: '@oku-ui/alert-dialog',
-        replacement: resolve('./packages/components/alert-dialog/src'),
+        replacement: resolve('./packages/package-build/alert-dialog/tests'),
       },
       {
         find: '@oku-ui/slider',
-        replacement: resolve('./packages/components/slider/src'),
+        replacement: resolve('./packages/package-build/slider/tests'),
       },
       {
         find: '@oku-ui/label',
-        replacement: resolve('./packages/components/label/src'),
+        replacement: resolve('./packages/package-build/label/tests'),
       },
       {
         find: '@oku-ui/separator',
-        replacement: resolve('./packages/components/separator/src'),
+        replacement: resolve('./packages/package-build/separator/tests'),
       },
       {
         find: '@oku-ui/popover',
-        replacement: resolve('./packages/components/popover/src'),
+        replacement: resolve('./packages/package-build/popover/tests'),
       },
       {
         find: '@oku-ui/toolbar',
-        replacement: resolve('./packages/components/toolbar/src'),
+        replacement: resolve('./packages/package-build/toolbar/tests'),
       },
       {
         find: '@oku-ui/toast',
-        replacement: resolve('./packages/components/toast/src'),
+        replacement: resolve('./packages/package-build/toast/tests'),
       },
       {
         find: '@oku-ui/toggle',
-        replacement: resolve('./packages/components/toggle/src'),
+        replacement: resolve('./packages/package-build/toggle/tests'),
       },
       {
         find: '@oku-ui/toggle-group',
-        replacement: resolve('./packages/components/toggle-group/src'),
+        replacement: resolve('./packages/package-build/toggle-group/tests'),
       },
       {
         find: '@oku-ui/switch',
-        replacement: resolve('./packages/components/switch/src'),
+        replacement: resolve('./packages/package-build/switch/tests'),
       },
       {
         find: '@oku-ui/radio-group',
-        replacement: resolve('./packages/components/radio-group/src'),
+        replacement: resolve('./packages/package-build/radio-group/tests'),
       },
       {
         find: '@oku-ui/avatar',
-        replacement: resolve('./packages/components/avatar/src'),
+        replacement: resolve('./packages/package-build/avatar/tests'),
       },
       {
         find: '@oku-ui/hover-card',
-        replacement: resolve('./packages/components/hover-card/src'),
+        replacement: resolve('./packages/package-build/hover-card/tests'),
       },
       {
         find: '@oku-ui/collapsible',
-        replacement: resolve('./packages/components/collapsible/src'),
+        replacement: resolve('./packages/package-build/collapsible/tests'),
       },
       {
         find: '@oku-ui/progress',
-        replacement: resolve('./packages/components/progress/src'),
+        replacement: resolve('./packages/package-build/progress/tests'),
       },
       {
         find: '@oku-ui/tooltip',
-        replacement: resolve('./packages/components/tooltip/src'),
+        replacement: resolve('./packages/package-build/tooltip/tests'),
       },
       {
         find: '@oku-ui/aspect-ratio',
-        replacement: resolve('./packages/components/aspect-ratio/src'),
+        replacement: resolve('./packages/package-build/aspect-ratio/tests'),
       },
       {
         find: '@oku-ui/tabs',
-        replacement: resolve('./packages/components/tabs/src'),
+        replacement: resolve('./packages/package-build/tabs/tests'),
       },
       {
         find: '@oku-ui/dialog',
-        replacement: resolve('./packages/components/dialog/src'),
+        replacement: resolve('./packages/package-build/dialog/tests'),
       },
       {
         find: '@oku-ui/primitives',
-        replacement: resolve('./packages/components/primitives/src'),
+        replacement: resolve('./packages/package-build/primitives/tests'),
       },
       {
         find: '@oku-ui/accordion',
-        replacement: resolve('./packages/components/accordion/src'),
+        replacement: resolve('./packages/package-build/accordion/tests'),
       },
 
       // Core
       {
         find: '@oku-ui/menu',
-        replacement: resolve('./packages/core/menu/src'),
+        replacement: resolve('./packages/package-build/menu/tests'),
       },
       {
         find: '@oku-ui/dismissable-layer',
-        replacement: resolve('./packages/core/dismissable-layer/src'),
+        replacement: resolve('./packages/package-build/dismissable-layer/tests'),
       },
       {
         find: '@oku-ui/roving-focus',
-        replacement: resolve('./packages/core/roving-focus/src'),
+        replacement: resolve('./packages/package-build/roving-focus/tests'),
       },
       {
         find: '@oku-ui/focus-scope',
-        replacement: resolve('./packages/core/focus-scope/src'),
+        replacement: resolve('./packages/package-build/focus-scope/tests'),
       },
       {
         find: '@oku-ui/presence',
-        replacement: resolve('./packages/core/presence/src'),
+        replacement: resolve('./packages/package-build/presence/tests'),
       },
       {
         find: '@oku-ui/direction',
-        replacement: resolve('./packages/core/direction/src'),
+        replacement: resolve('./packages/package-build/direction/tests'),
       },
       {
         find: '@oku-ui/arrow',
-        replacement: resolve('./packages/core/arrow/src'),
+        replacement: resolve('./packages/package-build/arrow/tests'),
       },
       {
         find: '@oku-ui/visually-hidden',
-        replacement: resolve('./packages/core/visually-hidden/src'),
+        replacement: resolve('./packages/package-build/visually-hidden/tests'),
       },
       {
         find: '@oku-ui/popper',
-        replacement: resolve('./packages/core/popper/src'),
+        replacement: resolve('./packages/package-build/popper/tests'),
       },
       {
         find: '@oku-ui/collection',
-        replacement: resolve('./packages/core/collection/src'),
+        replacement: resolve('./packages/package-build/collection/tests'),
       },
       {
         find: '@oku-ui/slot',
-        replacement: resolve('./packages/core/slot/src'),
+        replacement: resolve('./packages/package-build/slot/tests'),
       },
       {
         find: '@oku-ui/portal',
-        replacement: resolve('./packages/core/portal/src'),
+        replacement: resolve('./packages/package-build/portal/tests'),
       },
       {
         find: '@oku-ui/focus-guards',
-        replacement: resolve('./packages/core/focus-guards/src'),
+        replacement: resolve('./packages/package-build/focus-guards/tests'),
       },
       {
         find: '@oku-ui/use-composable',
-        replacement: resolve('./packages/core/use-composable/src'),
+        replacement: resolve('./packages/package-build/use-composable/tests'),
       },
       {
         find: '@oku-ui/provide',
-        replacement: resolve('./packages/core/provide/src'),
+        replacement: resolve('./packages/package-build/provide/tests'),
       },
       {
         find: '@oku-ui/primitive',
-        replacement: resolve('./packages/core/primitive/src'),
+        replacement: resolve('./packages/package-build/primitive/tests'),
       },
       {
         find: '@oku-ui/utils',
-        replacement: resolve('./packages/core/utils/src'),
+        replacement: resolve('./packages/package-build/utils/tests'),
       },
     ],
   },
