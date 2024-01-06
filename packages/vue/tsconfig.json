@@ -149,11 +149,9 @@
     }
   ],
   "include": [
-    "../../vitest-setup.ts",
-    "../../vitest.config.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "components.d.ts"
+    "*.d.ts"
   ]
 }
