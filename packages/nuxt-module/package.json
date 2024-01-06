@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@antfu/ni": "^0.21.12",
-    "@nuxt/kit": "^3.9.0",
+    "@nuxt/kit": "^3.9.1",
     "chalk": "^5.3.0",
     "consola": "^3.2.3",
     "install": "^0.13.0",
@@ -60,11 +60,11 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/module-builder": "^0.5.5",
-    "@nuxt/schema": "^3.9.0",
+    "@nuxt/schema": "^3.9.1",
     "@nuxt/test-utils": "^3.9.0",
     "@types/node": "^20.10.6",
     "@types/pacote": "^11.1.8",
-    "nuxt": "^3.9.0"
+    "nuxt": "^3.9.1"
   },
   "publishConfig": {
     "access": "public"
