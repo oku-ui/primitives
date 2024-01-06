@@ -37,6 +37,14 @@ async function main() {
 
   const releaseNotes = [
     currentPR?.body.replace(/## 👉 Changelog[\s\S]*$/, '') || `> ${newVersion} is the next ${bumpType} release.\n>\n> **Timetable**: to be announced.`,
+    `## Sponsors 🙏
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/productdevbook/static/sponsors.svg">
+    <img alt="sponsors" src='https://cdn.jsdelivr.net/gh/productdevbook/static/sponsors.svg'/>
+  </a>
+</p>
+`,
     '## 👉 Changelog',
     changelog.replace(/^## v.*?\n/, '').replace('...main', `...v${newVersion}`),
   ].join('\n')
