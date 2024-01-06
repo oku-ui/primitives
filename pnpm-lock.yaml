@@ -693,8 +693,8 @@ importers:
   packages/package-build/hover-card:
     dependencies:
       '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.5)
+        specifier: ^1.0.3
+        version: 1.0.3(react@18.2.0)(vue@3.4.5)
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
         version: link:../dismissable-layer
@@ -752,8 +752,8 @@ importers:
   packages/package-build/menu:
     dependencies:
       '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.5)
+        specifier: ^1.0.3
+        version: 1.0.3(react@18.2.0)(vue@3.4.5)
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:../collection
@@ -810,8 +810,8 @@ importers:
   packages/package-build/popover:
     dependencies:
       '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.5)
+        specifier: ^1.0.3
+        version: 1.0.3(react@18.2.0)(vue@3.4.5)
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
         version: link:../dismissable-layer
@@ -859,8 +859,8 @@ importers:
   packages/package-build/popper:
     dependencies:
       '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.5)
+        specifier: ^1.0.3
+        version: 1.0.3(react@18.2.0)(vue@3.4.5)
       '@oku-ui/arrow':
         specifier: workspace:^
         version: link:../arrow
@@ -1294,8 +1294,8 @@ importers:
   packages/package-build/tooltip:
     dependencies:
       '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.5)
+        specifier: ^1.0.3
+        version: 1.0.3(react@18.2.0)(vue@3.4.5)
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
         version: link:../dismissable-layer
@@ -3578,12 +3578,31 @@ packages:
     resolution: {integrity: sha512-Ii3MrfY/GAIN3OhXNzpCKaLxHQfJF9qvwq/kEJYdqDxeIHa01K8sldugal6TmeeXl+WMvhv9cnVzUTaFFJF09A==}
     dependencies:
       '@floating-ui/utils': 0.1.6
+    dev: true
+
+  /@floating-ui/core@1.5.3(react@18.2.0):
+    resolution: {integrity: sha512-O0WKDOo0yhJuugCx6trZQj5jVJ9yR0ystG2JaNAemYUWce+pmM6WUEFIibnWyEJKdrDxhm75NoSRME35FNaM/Q==}
+    dependencies:
+      '@floating-ui/utils': 0.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - react
+    dev: false
 
   /@floating-ui/dom@1.5.3:
     resolution: {integrity: sha512-ClAbQnEqJAKCJOEbbLo5IUlZHkNszqhuxS4fHAVxRPXPya6Ysf2G8KypnYcOTpx6I8xcgF9bbHb6g/2KpbV8qA==}
     dependencies:
       '@floating-ui/core': 1.5.2
       '@floating-ui/utils': 0.1.6
+    dev: true
+
+  /@floating-ui/dom@1.5.4(react@18.2.0):
+    resolution: {integrity: sha512-jByEsHIY+eEdCjnTVu+E3ephzTOzkQ8hgUfGwos+bg7NlH33Zc5uO+QHz1mrQUOgIKKDD1RtS201P9NvAfq3XQ==}
+    dependencies:
+      '@floating-ui/core': 1.5.3(react@18.2.0)
+      '@floating-ui/utils': 0.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - react
+    dev: false
 
   /@floating-ui/react-dom@2.0.4(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-CF8k2rgKeh/49UrnIBs4BdxPUV6vize/Db1d/YbCLyp9GiVZ0BEwf5AiDSxJRCr6yOkGqTFHtmrULxkEfYZ7dQ==}
@@ -3598,14 +3617,25 @@ packages:
 
   /@floating-ui/utils@0.1.6:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
+    dev: true
 
-  /@floating-ui/vue@1.0.2(vue@3.4.5):
-    resolution: {integrity: sha512-sImlAl9mAoCKZLNlwWz2P2ZMJIDlOEDXrRD6aD2sIHAka1LPC+nWtB+D3lPe7IE7FGWSbwBPTnlSdlABa3Fr0A==}
+  /@floating-ui/utils@0.2.0(react@18.2.0):
+    resolution: {integrity: sha512-T4jNeM6dMzXONGkSjk7+O+eFQTVbw7KHi5OYuvFaBer3Wcrmpwi6fHKcT/FdSf7boWC7H9eXTyYTFZOQdJ1AMA==}
+    peerDependencies:
+      react: '>=16.8.0'
     dependencies:
-      '@floating-ui/dom': 1.5.3
+      react: 18.2.0
+    dev: false
+
+  /@floating-ui/vue@1.0.3(react@18.2.0)(vue@3.4.5):
+    resolution: {integrity: sha512-XCXiEoRDN1oT4z+wWUvQAuUg8qjJFDQByq/7wkT/d1FoXvoOK/vLD0wa/QcvwjjaT7C2dgXZ10AnLptM3s0u8w==}
+    dependencies:
+      '@floating-ui/dom': 1.5.4(react@18.2.0)
+      '@floating-ui/utils': 0.2.0(react@18.2.0)
       vue-demi: 0.14.6(vue@3.4.5)
     transitivePeerDependencies:
       - '@vue/composition-api'
+      - react
       - vue
     dev: false
 
@@ -11339,7 +11369,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: true
 
   /loupe@2.3.7:
     resolution: {integrity: sha512-zSMINGVYkdpYSOBmLi0D1Uo7JU9nVdQKrHxC8eYlV+9YKK9WePqAlL7lSlorG/U2Fw1w0hTBmaa/jrQ3UbPHtA==}
@@ -13418,7 +13447,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: true
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
