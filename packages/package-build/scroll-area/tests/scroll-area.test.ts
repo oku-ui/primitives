@@ -19,14 +19,14 @@ import {
   OkuScrollAreaThumb,
   OkuScrollAreaThumbImpl,
   OkuScrollAreaViewport,
-} from '../src'
+} from '@oku-ui/scroll-area'
 
-import Basic from '../src/story/Basic.vue'
-import Resizable from '../src/story/Resizable.vue'
-import ContentChange from '../src/story/ContentChange.vue'
-import Animated from '../src/story/Animated.vue'
-import Chromatic from '../src/story/Chromatic.vue'
-import ChromaticDynamicContent from '../src/story/ChromaticDynamicContent.vue'
+import Basic from '../story/Basic.vue'
+import Resizable from '../story/Resizable.vue'
+import ContentChange from '../story/ContentChange.vue'
+import Animated from '../story/Animated.vue'
+import Chromatic from '../story/Chromatic.vue'
+import ChromaticDynamicContent from '../story/ChromaticDynamicContent.vue'
 
 enableAutoUnmount(afterEach)
 

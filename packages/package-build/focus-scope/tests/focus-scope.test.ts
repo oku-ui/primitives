@@ -3,7 +3,7 @@ import type { SpyInstance } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { enableAutoUnmount, mount } from '@vue/test-utils'
 import userEvent from '@testing-library/user-event'
-import { OkuFocusScope } from './focus-scope'
+import { OkuFocusScope } from '@oku-ui/focus-scope'
 
 const INNER_NAME_INPUT_LABEL = 'Name'
 const INNER_EMAIL_INPUT_LABEL = 'Email'

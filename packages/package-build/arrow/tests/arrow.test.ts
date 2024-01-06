@@ -5,7 +5,7 @@ import type { VueNode } from '@vue/test-utils/dist/types'
 import type { Component } from 'vue'
 import { h } from 'vue'
 import { axe } from 'vitest-axe'
-import { OkuArrow } from '../src'
+import { OkuArrow } from '@oku-ui/arrow'
 
 const component = {
   setup(props, { attrs, slots }) {

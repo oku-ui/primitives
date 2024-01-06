@@ -24,7 +24,7 @@ import {
   OkuMenuSub,
   OkuMenuSubContent,
   OkuMenuSubTrigger,
-} from '../src'
+} from '@oku-ui/menu'
 
 import Styled from '../stories/Styled.vue'
 import Submenus from '../stories/Submenus.vue'

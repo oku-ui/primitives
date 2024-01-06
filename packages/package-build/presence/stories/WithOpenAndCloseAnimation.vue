@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { VNodeRef } from 'vue'
 import { ref } from 'vue'
-import { OkuPresence } from '../presence'
+import { OkuPresence } from '@oku-ui/presence'
 import Toggles from './Toggles.vue'
 
 const open = ref(false)

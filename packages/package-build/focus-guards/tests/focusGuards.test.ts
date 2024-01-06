@@ -2,8 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import type { Component } from 'vue'
 import { h } from 'vue'
-import { createFocusGuard } from './utils'
-import { OkuFocusGuards } from './'
+import { OkuFocusGuards, createFocusGuard } from '@oku-ui/focus-guards'
 
 const component = {
   setup(props, { attrs, slots }) {

@@ -12,3 +12,4 @@ export { useEscapeKeydown } from './useEscapeKeydown'
 export type { MaybeComputedElementRef } from './unrefElement'
 export { useListeners } from './useListeners'
 export { computedEager, syncRef, computedAsync, syncRefs, useScrollLock, isClient, reactiveOmit, reactivePick }
+export { useRect } from './use-rect'

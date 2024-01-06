@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import type { Component } from 'vue'
 import { h } from 'vue'
-import { OkuPortal } from './Portal'
+import { OkuPortal } from '@oku-ui/portal'
 
 const component = {
   setup(props, { attrs, slots }) {

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
 import type { Component } from 'vue'
-import { Primitive, dispatchDiscreteCustomEvent } from './index'
+import { Primitive, dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 
 const componentDiv = {
   setup(props, { slots }) {

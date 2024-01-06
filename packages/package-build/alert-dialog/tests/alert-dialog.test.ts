@@ -15,7 +15,7 @@ import {
   OkuAlertDialogTitle,
   OkuAlertDialogTrigger,
 
-} from '../src'
+} from '@oku-ui/alert-dialog'
 
 import StyledVue from '../stories/Styled.vue'
 import Controlled from '../stories/Controlled.vue'

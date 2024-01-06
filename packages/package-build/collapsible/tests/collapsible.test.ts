@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, it, vitest } from 'vitest'
 import type { Component } from 'vue'
 import { h, ref } from 'vue'
-import { OkuCollapsible, OkuCollapsibleContent, OkuCollapsibleContentImpl, OkuCollapsibleTrigger } from '.'
+import { OkuCollapsible, OkuCollapsibleContent, OkuCollapsibleContentImpl, OkuCollapsibleTrigger } from '@oku-ui/collapsible'
 
 const component = {
   setup(props, { attrs, slots }) {
