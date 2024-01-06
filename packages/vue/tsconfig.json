@@ -18,118 +18,118 @@
         "src/*"
       ],
       "@oku-ui/accordion": [
-        "src/packages/accordion"
+        "src/accordion"
       ],
       "@oku-ui/alert-dialog": [
-        "src/packages/alert-dialog"
+        "src/alert-dialog"
       ],
       "@oku-ui/arrow": [
-        "src/packages/arrow"
+        "src/arrow"
       ],
       "@oku-ui/aspect-ratio": [
-        "src/packages/aspect-ratio"
+        "src/aspect-ratio"
       ],
       "@oku-ui/avatar": [
-        "src/packages/avatar"
+        "src/avatar"
       ],
       "@oku-ui/collection": [
-        "src/packages/collection"
+        "src/collection"
       ],
       "@oku-ui/collapsible": [
-        "src/packages/collapsible"
+        "src/collapsible"
       ],
       "@oku-ui/checkbox": [
-        "src/packages/checkbox"
+        "src/checkbox"
       ],
       "@oku-ui/dialog": [
-        "src/packages/dialog"
+        "src/dialog"
       ],
       "@oku-ui/direction": [
-        "src/packages/direction"
+        "src/direction"
       ],
       "@oku-ui/dismissable-layer": [
-        "src/packages/dismissable-layer"
+        "src/dismissable-layer"
       ],
       "@oku-ui/focus-guards": [
-        "src/packages/focus-guards"
+        "src/focus-guards"
       ],
       "@oku-ui/focus-scope": [
-        "src/packages/focus-scope"
+        "src/focus-scope"
       ],
       "@oku-ui/hover-card": [
-        "src/packages/hover-card"
+        "src/hover-card"
       ],
       "@oku-ui/label": [
-        "src/packages/label"
+        "src/label"
       ],
       "@oku-ui/menu": [
-        "src/packages/menu"
+        "src/menu"
       ],
       "@oku-ui/popover": [
-        "src/packages/popover"
+        "src/popover"
       ],
       "@oku-ui/popper": [
-        "src/packages/popper"
+        "src/popper"
       ],
       "@oku-ui/portal": [
-        "src/packages/portal"
+        "src/portal"
       ],
       "@oku-ui/primitive": [
-        "src/packages/primitive"
+        "src/primitive"
       ],
       "@oku-ui/progress": [
-        "src/packages/progress"
+        "src/progress"
       ],
       "@oku-ui/provide": [
-        "src/packages/provide"
+        "src/provide"
       ],
       "@oku-ui/radio-group": [
-        "src/packages/radio-group"
+        "src/radio-group"
       ],
       "@oku-ui/roving-focus": [
-        "src/packages/roving-focus"
+        "src/roving-focus"
       ],
       "@oku-ui/scroll-area": [
-        "src/packages/scroll-area"
+        "src/scroll-area"
       ],
       "@oku-ui/separator": [
-        "src/packages/separator"
+        "src/separator"
       ],
       "@oku-ui/slider": [
-        "src/packages/slider"
+        "src/slider"
       ],
       "@oku-ui/slot": [
-        "src/packages/slot"
+        "src/slot"
       ],
       "@oku-ui/switch": [
-        "src/packages/switch"
+        "src/switch"
       ],
       "@oku-ui/tabs": [
-        "src/packages/tabs"
+        "src/tabs"
       ],
       "@oku-ui/toggle": [
-        "src/packages/toggle"
+        "src/toggle"
       ],
       "@oku-ui/toggle-group": [
-        "src/packages/toggle-group"
+        "src/toggle-group"
       ],
       "@oku-ui/toast": [
-        "src/packages/toast"
+        "src/toast"
       ],
       "@oku-ui/toolbar": [
-        "src/packages/toolbar"
+        "src/toolbar"
       ],
       "@oku-ui/tooltip": [
-        "src/packages/tooltip"
+        "src/tooltip"
       ],
       "@oku-ui/use-composable": [
-        "src/packages/use-composable"
+        "src/use-composable"
       ],
       "@oku-ui/utils": [
-        "src/packages/utils"
+        "src/utils"
       ],
       "@oku-ui/visually-hidden": [
-        "src/packages/visually-hidden"
+        "src/visually-hidden"
       ]
     },
     "resolveJsonModule": true,
