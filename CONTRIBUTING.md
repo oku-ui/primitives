@@ -32,10 +32,8 @@ Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/prim
 2. Install the project dependencies  
    `pnpm install`
 3. Build the project  
-   `pnpm story`
-4. If new package vue, go to `packages/example-package` example `packages/components` or `packages/core` copy. You can copy 
-this file and build your new build on it.
-5. Vue components or utils package, go to `packages/vue/src/packages` change. Storybook live reload support.
+   `pnpm build`
+4. `pnpm story` Vue components or utils package, go to `packages/vue/src/packages` change. Storybook live reload support.
 
 Note: If only working on the core package 
 
@@ -54,7 +52,7 @@ pnpm dev
 pnpm build # Build all packages with cache (packages/components)
 pnpm build:skip # Build without cache (packages/components)
 
-pnpm story # Run Storybook
+pnpm story # Run Storybook and live reload support (packages/vue/src/packages)
 pnpm build:storybook # Build Storybook
 
 pnpm lint # Run ESLint
@@ -85,6 +83,8 @@ pnpm oku # Run Oku CLI (packages/cli) // pnpm oku publish (publish packages)
    `pnpm test:watch`
 4. To run a specific test file name  
    `pnpm test testfilename`
+5. Watch mode for a specific test file name  
+   `pnpm test:watch testfilename`
 
 ## ESLint
 1. To run the linter  
