@@ -14,7 +14,10 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
-      'packages/primitives-nuxt/**',
+      'packages/nuxt-module/**',
+      'packages/example-package/**',
+      'packages/primitives/**',
+      'packages/tsconfig/**',
     ],
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],

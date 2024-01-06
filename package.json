@@ -28,6 +28,7 @@
     "play:gencomponents": "pnpm jiti ./scripts/playground-generator.ts",
     "test": "vitest run",
     "test:watch": "vitest --watch",
+    "test:nuxt": "vitest -c vitest.nuxt.config.ts --coverage",
     "coverage": "vitest run --coverage",
     "build:storybook": "pnpm storybook build",
     "typecheck": "tsc --noEmit",
