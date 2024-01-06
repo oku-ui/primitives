@@ -33,7 +33,7 @@ Note: What is Terminals Maganger and Commands  -> https://github.com/oku-ui/prim
    `pnpm install`
 3. Build the project  
    `pnpm build`
-4. `pnpm story` Vue components or utils package, go to `packages/vue/src/packages` change. Storybook live reload support.
+4. `pnpm story` Vue components or utils package, go to `packages/vue/src` change. Storybook live reload support.
 
 Note: If only working on the core package 
 
@@ -52,7 +52,7 @@ pnpm dev
 pnpm build # Build all packages with cache (packages/components)
 pnpm build:skip # Build without cache (packages/components)
 
-pnpm story # Run Storybook and live reload support (packages/vue/src/packages)
+pnpm story # Run Storybook and live reload support (packages/vue/src)
 pnpm build:storybook # Build Storybook
 
 pnpm lint # Run ESLint
