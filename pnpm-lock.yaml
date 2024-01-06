@@ -63,121 +63,121 @@ importers:
         version: 1.1.9
       '@oku-ui/accordion':
         specifier: workspace:^
-        version: link:packages/components/accordion
+        version: link:packages/package-build/accordion
       '@oku-ui/alert-dialog':
         specifier: workspace:^
-        version: link:packages/components/alert-dialog
+        version: link:packages/package-build/alert-dialog
       '@oku-ui/arrow':
         specifier: workspace:^
-        version: link:packages/core/arrow
+        version: link:packages/package-build/arrow
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
-        version: link:packages/components/aspect-ratio
+        version: link:packages/package-build/aspect-ratio
       '@oku-ui/avatar':
         specifier: workspace:^
-        version: link:packages/components/avatar
+        version: link:packages/package-build/avatar
       '@oku-ui/checkbox':
         specifier: workspace:^
-        version: link:packages/components/checkbox
+        version: link:packages/package-build/checkbox
       '@oku-ui/collapsible':
         specifier: workspace:^
-        version: link:packages/components/collapsible
+        version: link:packages/package-build/collapsible
       '@oku-ui/collection':
         specifier: workspace:^
-        version: link:packages/core/collection
+        version: link:packages/package-build/collection
       '@oku-ui/dialog':
         specifier: workspace:^
-        version: link:packages/components/dialog
+        version: link:packages/package-build/dialog
       '@oku-ui/direction':
         specifier: workspace:^
-        version: link:packages/core/direction
+        version: link:packages/package-build/direction
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
-        version: link:packages/core/dismissable-layer
+        version: link:packages/package-build/dismissable-layer
       '@oku-ui/focus-guards':
         specifier: workspace:^
-        version: link:packages/core/focus-guards
+        version: link:packages/package-build/focus-guards
       '@oku-ui/focus-scope':
         specifier: workspace:^
-        version: link:packages/core/focus-scope
+        version: link:packages/package-build/focus-scope
       '@oku-ui/hover-card':
         specifier: workspace:^
-        version: link:packages/components/hover-card
+        version: link:packages/package-build/hover-card
       '@oku-ui/label':
         specifier: workspace:^
-        version: link:packages/components/label
+        version: link:packages/package-build/label
       '@oku-ui/menu':
         specifier: workspace:^
-        version: link:packages/core/menu
+        version: link:packages/package-build/menu
       '@oku-ui/popover':
         specifier: workspace:^
-        version: link:packages/components/popover
+        version: link:packages/package-build/popover
       '@oku-ui/popper':
         specifier: workspace:^
-        version: link:packages/core/popper
+        version: link:packages/package-build/popper
       '@oku-ui/portal':
         specifier: workspace:^
-        version: link:packages/core/portal
+        version: link:packages/package-build/portal
       '@oku-ui/presence':
         specifier: workspace:^
-        version: link:packages/core/presence
+        version: link:packages/package-build/presence
       '@oku-ui/primitive':
         specifier: workspace:^
-        version: link:packages/core/primitive
+        version: link:packages/package-build/primitive
       '@oku-ui/progress':
         specifier: workspace:^
-        version: link:packages/components/progress
+        version: link:packages/package-build/progress
       '@oku-ui/provide':
         specifier: workspace:^
-        version: link:packages/core/provide
+        version: link:packages/package-build/provide
       '@oku-ui/radio-group':
         specifier: workspace:^
-        version: link:packages/components/radio-group
+        version: link:packages/package-build/radio-group
       '@oku-ui/roving-focus':
         specifier: workspace:^
-        version: link:packages/core/roving-focus
+        version: link:packages/package-build/roving-focus
       '@oku-ui/scroll-area':
         specifier: workspace:^
-        version: link:packages/components/scroll-area
+        version: link:packages/package-build/scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
-        version: link:packages/components/separator
+        version: link:packages/package-build/separator
       '@oku-ui/slider':
         specifier: workspace:^
-        version: link:packages/components/slider
+        version: link:packages/package-build/slider
       '@oku-ui/slot':
         specifier: workspace:^
-        version: link:packages/core/slot
+        version: link:packages/package-build/slot
       '@oku-ui/switch':
         specifier: workspace:^
-        version: link:packages/components/switch
+        version: link:packages/package-build/switch
       '@oku-ui/tabs':
         specifier: workspace:^
-        version: link:packages/components/tabs
+        version: link:packages/package-build/tabs
       '@oku-ui/toast':
         specifier: workspace:^
-        version: link:packages/components/toast
+        version: link:packages/package-build/toast
       '@oku-ui/toggle':
         specifier: workspace:^
-        version: link:packages/components/toggle
+        version: link:packages/package-build/toggle
       '@oku-ui/toggle-group':
         specifier: workspace:^
-        version: link:packages/components/toggle-group
+        version: link:packages/package-build/toggle-group
       '@oku-ui/toolbar':
         specifier: workspace:^
-        version: link:packages/components/toolbar
+        version: link:packages/package-build/toolbar
       '@oku-ui/tooltip':
         specifier: workspace:^
-        version: link:packages/components/tooltip
+        version: link:packages/package-build/tooltip
       '@oku-ui/use-composable':
         specifier: workspace:^
-        version: link:packages/core/use-composable
+        version: link:packages/package-build/use-composable
       '@oku-ui/utils':
         specifier: workspace:^
-        version: link:packages/core/utils
+        version: link:packages/package-build/utils
       '@oku-ui/visually-hidden':
         specifier: workspace:^
-        version: link:packages/core/visually-hidden
+        version: link:packages/package-build/visually-hidden
       '@storybook/addon-essentials':
         specifier: ^7.6.6
         version: 7.6.6(react-dom@18.2.0)(react@18.2.0)
@@ -308,729 +308,82 @@ importers:
         specifier: 3.4.1
         version: 3.4.1(typescript@5.3.3)
 
-  packages/components/accordion:
+  packages/example-package:
+    dependencies:
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.1(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../tsconfig
+
+  packages/package-build/accordion:
     dependencies:
       '@oku-ui/collapsible':
         specifier: workspace:^
         version: link:../collapsible
       '@oku-ui/collection':
         specifier: workspace:^
-        version: link:../../core/collection
+        version: link:../collection
       '@oku-ui/direction':
         specifier: workspace:^
-        version: link:../../core/direction
+        version: link:../direction
       '@oku-ui/primitive':
         specifier: workspace:^
-        version: link:../../core/primitive
+        version: link:../primitive
       '@oku-ui/provide':
         specifier: workspace:^
-        version: link:../../core/provide
+        version: link:../provide
       '@oku-ui/roving-focus':
         specifier: workspace:^
-        version: link:../../core/roving-focus
+        version: link:../roving-focus
       '@oku-ui/use-composable':
         specifier: workspace:^
-        version: link:../../core/use-composable
+        version: link:../use-composable
       '@oku-ui/utils':
         specifier: workspace:^
-        version: link:../../core/utils
+        version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/components/alert-dialog:
+  packages/package-build/alert-dialog:
     dependencies:
       '@oku-ui/dialog':
         specifier: workspace:^
         version: link:../dialog
       '@oku-ui/primitive':
         specifier: workspace:^
-        version: link:../../core/primitive
+        version: link:../primitive
       '@oku-ui/provide':
         specifier: workspace:^
-        version: link:../../core/provide
+        version: link:../provide
       '@oku-ui/slot':
         specifier: workspace:^
-        version: link:../../core/slot
+        version: link:../slot
       '@oku-ui/use-composable':
         specifier: workspace:^
-        version: link:../../core/use-composable
+        version: link:../use-composable
       '@oku-ui/utils':
         specifier: workspace:^
-        version: link:../../core/utils
+        version: link:../utils
       '@types/node':
         specifier: ^20.10.6
         version: 20.10.6
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/components/aspect-ratio:
-    dependencies:
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/avatar:
-    dependencies:
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/checkbox:
-    dependencies:
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/collapsible:
-    dependencies:
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/dialog:
-    dependencies:
-      '@oku-ui/dismissable-layer':
-        specifier: workspace:^
-        version: link:../../core/dismissable-layer
-      '@oku-ui/focus-guards':
-        specifier: workspace:^
-        version: link:../../core/focus-guards
-      '@oku-ui/focus-scope':
-        specifier: workspace:^
-        version: link:../../core/focus-scope
-      '@oku-ui/portal':
-        specifier: workspace:^
-        version: link:../../core/portal
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/slot':
-        specifier: workspace:^
-        version: link:../../core/slot
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      '@types/node':
-        specifier: ^20.10.6
-        version: 20.10.6
-      aria-hidden:
-        specifier: ^1.2.3
-        version: 1.2.3
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/hover-card:
-    dependencies:
-      '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.1)
-      '@oku-ui/dismissable-layer':
-        specifier: workspace:^
-        version: link:../../core/dismissable-layer
-      '@oku-ui/popper':
-        specifier: workspace:^
-        version: link:../../core/popper
-      '@oku-ui/portal':
-        specifier: workspace:^
-        version: link:../../core/portal
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/slot':
-        specifier: workspace:^
-        version: link:../../core/slot
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      '@oku-ui/visually-hidden':
-        specifier: workspace:^
-        version: link:../../core/visually-hidden
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/label:
-    dependencies:
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/popover:
-    dependencies:
-      '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.1)
-      '@oku-ui/dismissable-layer':
-        specifier: workspace:^
-        version: link:../../core/dismissable-layer
-      '@oku-ui/focus-guards':
-        specifier: workspace:^
-        version: link:../../core/focus-guards
-      '@oku-ui/focus-scope':
-        specifier: workspace:^
-        version: link:../../core/focus-scope
-      '@oku-ui/popper':
-        specifier: workspace:^
-        version: link:../../core/popper
-      '@oku-ui/portal':
-        specifier: workspace:^
-        version: link:../../core/portal
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/slot':
-        specifier: workspace:^
-        version: link:../../core/slot
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      aria-hidden:
-        specifier: ^1.2.3
-        version: 1.2.3
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/primitives:
-    dependencies:
-      '@oku-ui/accordion':
-        specifier: workspace:^
-        version: link:../accordion
-      '@oku-ui/alert-dialog':
-        specifier: workspace:^
-        version: link:../alert-dialog
-      '@oku-ui/aspect-ratio':
-        specifier: workspace:^
-        version: link:../aspect-ratio
-      '@oku-ui/avatar':
-        specifier: workspace:^
-        version: link:../avatar
-      '@oku-ui/checkbox':
-        specifier: workspace:^
-        version: link:../checkbox
-      '@oku-ui/collapsible':
-        specifier: workspace:^
-        version: link:../collapsible
-      '@oku-ui/dialog':
-        specifier: workspace:^
-        version: link:../dialog
-      '@oku-ui/hover-card':
-        specifier: workspace:^
-        version: link:../hover-card
-      '@oku-ui/label':
-        specifier: workspace:^
-        version: link:../label
-      '@oku-ui/menu':
-        specifier: workspace:^
-        version: link:../../core/menu
-      '@oku-ui/popover':
-        specifier: workspace:^
-        version: link:../popover
-      '@oku-ui/progress':
-        specifier: workspace:^
-        version: link:../progress
-      '@oku-ui/radio-group':
-        specifier: workspace:^
-        version: link:../radio-group
-      '@oku-ui/scroll-area':
-        specifier: workspace:^
-        version: link:../scroll-area
-      '@oku-ui/separator':
-        specifier: workspace:^
-        version: link:../separator
-      '@oku-ui/slider':
-        specifier: workspace:^
-        version: link:../slider
-      '@oku-ui/switch':
-        specifier: workspace:^
-        version: link:../switch
-      '@oku-ui/tabs':
-        specifier: workspace:^
-        version: link:../tabs
-      '@oku-ui/toast':
-        specifier: workspace:^
-        version: link:../toast
-      '@oku-ui/toggle':
-        specifier: workspace:^
-        version: link:../toggle
-      '@oku-ui/toggle-group':
-        specifier: workspace:^
-        version: link:../toggle-group
-      '@oku-ui/toolbar':
-        specifier: workspace:^
-        version: link:../toolbar
-      '@oku-ui/tooltip':
-        specifier: workspace:^
-        version: link:../tooltip
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/progress:
-    dependencies:
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/radio-group:
-    dependencies:
-      '@oku-ui/direction':
-        specifier: workspace:^
-        version: link:../../core/direction
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/roving-focus':
-        specifier: workspace:^
-        version: link:../../core/roving-focus
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/scroll-area:
-    dependencies:
-      '@oku-ui/direction':
-        specifier: workspace:^
-        version: link:../../core/direction
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/separator:
-    dependencies:
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/slider:
-    dependencies:
-      '@oku-ui/collection':
-        specifier: workspace:^
-        version: link:../../core/collection
-      '@oku-ui/direction':
-        specifier: workspace:^
-        version: link:../../core/direction
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/switch:
-    dependencies:
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/tabs:
-    dependencies:
-      '@oku-ui/direction':
-        specifier: workspace:^
-        version: link:../../core/direction
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/roving-focus':
-        specifier: workspace:^
-        version: link:../../core/roving-focus
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/toast:
-    dependencies:
-      '@oku-ui/collection':
-        specifier: workspace:^
-        version: link:../../core/collection
-      '@oku-ui/dismissable-layer':
-        specifier: workspace:^
-        version: link:../../core/dismissable-layer
-      '@oku-ui/portal':
-        specifier: workspace:^
-        version: link:../../core/portal
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      '@oku-ui/visually-hidden':
-        specifier: workspace:^
-        version: link:../../core/visually-hidden
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/toggle:
-    dependencies:
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/toggle-group:
-    dependencies:
-      '@oku-ui/direction':
-        specifier: workspace:^
-        version: link:../../core/direction
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/roving-focus':
-        specifier: workspace:^
-        version: link:../../core/roving-focus
-      '@oku-ui/toggle':
-        specifier: workspace:^
-        version: link:../toggle
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/toolbar:
-    dependencies:
-      '@oku-ui/direction':
-        specifier: workspace:^
-        version: link:../../core/direction
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/roving-focus':
-        specifier: workspace:^
-        version: link:../../core/roving-focus
-      '@oku-ui/separator':
-        specifier: workspace:^
-        version: link:../separator
-      '@oku-ui/toggle-group':
-        specifier: workspace:^
-        version: link:../toggle-group
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/components/tooltip:
-    dependencies:
-      '@floating-ui/vue':
-        specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.1)
-      '@oku-ui/dismissable-layer':
-        specifier: workspace:^
-        version: link:../../core/dismissable-layer
-      '@oku-ui/popper':
-        specifier: workspace:^
-        version: link:../../core/popper
-      '@oku-ui/portal':
-        specifier: workspace:^
-        version: link:../../core/portal
-      '@oku-ui/presence':
-        specifier: workspace:^
-        version: link:../../core/presence
-      '@oku-ui/primitive':
-        specifier: workspace:^
-        version: link:../../core/primitive
-      '@oku-ui/provide':
-        specifier: workspace:^
-        version: link:../../core/provide
-      '@oku-ui/slot':
-        specifier: workspace:^
-        version: link:../../core/slot
-      '@oku-ui/use-composable':
-        specifier: workspace:^
-        version: link:../../core/use-composable
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../../core/utils
-      '@oku-ui/visually-hidden':
-        specifier: workspace:^
-        version: link:../../core/visually-hidden
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/core/arrow:
+  packages/package-build/arrow:
     dependencies:
       '@oku-ui/primitive':
         specifier: workspace:^
@@ -1040,13 +393,98 @@ importers:
         version: link:../use-composable
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/collection:
+  packages/package-build/aspect-ratio:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/avatar:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/checkbox:
+    dependencies:
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/collapsible:
+    dependencies:
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/collection:
     dependencies:
       '@oku-ui/primitive':
         specifier: workspace:^
@@ -1065,23 +503,69 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/direction:
+  packages/package-build/dialog:
+    dependencies:
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: workspace:^
+        version: link:../focus-guards
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:../focus-scope
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@types/node':
+        specifier: ^20.10.6
+        version: 20.10.6
+      aria-hidden:
+        specifier: ^1.2.3
+        version: 1.2.3
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/direction:
     dependencies:
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/dismissable-layer:
+  packages/package-build/dismissable-layer:
     dependencies:
       '@oku-ui/primitive':
         specifier: workspace:^
@@ -1097,23 +581,23 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/focus-guards:
+  packages/package-build/focus-guards:
     dependencies:
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/focus-scope:
+  packages/package-build/focus-scope:
     dependencies:
       '@oku-ui/primitive':
         specifier: workspace:^
@@ -1123,17 +607,76 @@ importers:
         version: link:../use-composable
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/menu:
+  packages/package-build/hover-card:
     dependencies:
       '@floating-ui/vue':
         specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.1)
+        version: 1.0.2(vue@3.4.3)
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../dismissable-layer
+      '@oku-ui/popper':
+        specifier: workspace:^
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../visually-hidden
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/label:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/menu:
+    dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.4.3)
       '@oku-ui/collection':
         specifier: workspace:^
         version: link:../collection
@@ -1181,17 +724,66 @@ importers:
         version: 1.2.3
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/popper:
+  packages/package-build/popover:
     dependencies:
       '@floating-ui/vue':
         specifier: ^1.0.2
-        version: 1.0.2(vue@3.4.1)
+        version: 1.0.2(vue@3.4.3)
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: workspace:^
+        version: link:../focus-guards
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:../focus-scope
+      '@oku-ui/popper':
+        specifier: workspace:^
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      aria-hidden:
+        specifier: ^1.2.3
+        version: 1.2.3
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/popper:
+    dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.4.3)
       '@oku-ui/arrow':
         specifier: workspace:^
         version: link:../arrow
@@ -1209,13 +801,13 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/portal:
+  packages/package-build/portal:
     dependencies:
       '@oku-ui/primitive':
         specifier: workspace:^
@@ -1231,13 +823,13 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/presence:
+  packages/package-build/presence:
     dependencies:
       '@oku-ui/use-composable':
         specifier: workspace:^
@@ -1247,13 +839,13 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/primitive:
+  packages/package-build/primitive:
     dependencies:
       '@oku-ui/slot':
         specifier: workspace:^
@@ -1266,23 +858,76 @@ importers:
         version: 3.0.7
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/provide:
+  packages/package-build/progress:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/provide:
     dependencies:
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/roving-focus:
+  packages/package-build/radio-group:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../direction
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../roving-focus
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/roving-focus:
     dependencies:
       '@oku-ui/collection':
         specifier: workspace:^
@@ -1304,14 +949,26 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/slot:
+  packages/package-build/scroll-area:
     dependencies:
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../direction
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
       '@oku-ui/use-composable':
         specifier: workspace:^
         version: link:../use-composable
@@ -1320,45 +977,13 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/core/use-composable:
-    dependencies:
-      '@oku-ui/utils':
-        specifier: workspace:^
-        version: link:../utils
-      '@vue/shared':
-        specifier: ^3.4.3
-        version: 3.4.3
-      '@vueuse/core':
-        specifier: ^10.7.1
-        version: 10.7.1(vue@3.4.1)
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      '@types/resize-observer-browser':
-        specifier: ^0.1.11
-        version: 0.1.11
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/core/utils:
-    dependencies:
-      vue:
-        specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
-
-  packages/core/visually-hidden:
+  packages/package-build/separator:
     dependencies:
       '@oku-ui/primitive':
         specifier: workspace:^
@@ -1368,17 +993,392 @@ importers:
         version: link:../use-composable
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../tsconfig
 
-  packages/example-package:
+  packages/package-build/slider:
+    dependencies:
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:../collection
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../direction
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/slot:
+    dependencies:
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/switch:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/tabs:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../direction
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../roving-focus
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/toast:
+    dependencies:
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:../collection
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../dismissable-layer
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../visually-hidden
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/toggle:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/toggle-group:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../direction
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../roving-focus
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:../toggle
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/toolbar:
+    dependencies:
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../direction
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../roving-focus
+      '@oku-ui/separator':
+        specifier: workspace:^
+        version: link:../separator
+      '@oku-ui/toggle-group':
+        specifier: workspace:^
+        version: link:../toggle-group
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/tooltip:
+    dependencies:
+      '@floating-ui/vue':
+        specifier: ^1.0.2
+        version: 1.0.2(vue@3.4.3)
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../dismissable-layer
+      '@oku-ui/popper':
+        specifier: workspace:^
+        version: link:../popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../provide
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../slot
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../visually-hidden
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/use-composable:
+    dependencies:
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@vue/shared':
+        specifier: ^3.4.3
+        version: 3.4.5
+      '@vueuse/core':
+        specifier: ^10.7.1
+        version: 10.7.1(vue@3.4.3)
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      '@types/resize-observer-browser':
+        specifier: ^0.1.11
+        version: 0.1.11
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/utils:
     dependencies:
       vue:
         specifier: ^3.3.0
-        version: 3.4.1(typescript@5.3.3)
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/package-build/visually-hidden:
+    dependencies:
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../primitive
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../tsconfig
+
+  packages/primitives:
+    dependencies:
+      '@oku-ui/accordion':
+        specifier: workspace:^
+        version: link:../package-build/accordion
+      '@oku-ui/alert-dialog':
+        specifier: workspace:^
+        version: link:../package-build/alert-dialog
+      '@oku-ui/aspect-ratio':
+        specifier: workspace:^
+        version: link:../package-build/aspect-ratio
+      '@oku-ui/avatar':
+        specifier: workspace:^
+        version: link:../package-build/avatar
+      '@oku-ui/checkbox':
+        specifier: workspace:^
+        version: link:../package-build/checkbox
+      '@oku-ui/collapsible':
+        specifier: workspace:^
+        version: link:../package-build/collapsible
+      '@oku-ui/dialog':
+        specifier: workspace:^
+        version: link:../package-build/dialog
+      '@oku-ui/hover-card':
+        specifier: workspace:^
+        version: link:../package-build/hover-card
+      '@oku-ui/label':
+        specifier: workspace:^
+        version: link:../package-build/label
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:../package-build/menu
+      '@oku-ui/popover':
+        specifier: workspace:^
+        version: link:../package-build/popover
+      '@oku-ui/progress':
+        specifier: workspace:^
+        version: link:../package-build/progress
+      '@oku-ui/radio-group':
+        specifier: workspace:^
+        version: link:../package-build/radio-group
+      '@oku-ui/scroll-area':
+        specifier: workspace:^
+        version: link:../package-build/scroll-area
+      '@oku-ui/separator':
+        specifier: workspace:^
+        version: link:../package-build/separator
+      '@oku-ui/slider':
+        specifier: workspace:^
+        version: link:../package-build/slider
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:../package-build/switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../package-build/tabs
+      '@oku-ui/toast':
+        specifier: workspace:^
+        version: link:../package-build/toast
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:../package-build/toggle
+      '@oku-ui/toggle-group':
+        specifier: workspace:^
+        version: link:../package-build/toggle-group
+      '@oku-ui/toolbar':
+        specifier: workspace:^
+        version: link:../package-build/toolbar
+      '@oku-ui/tooltip':
+        specifier: workspace:^
+        version: link:../package-build/tooltip
+      vue:
+        specifier: ^3.3.0
+        version: 3.4.3(typescript@5.3.3)
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -1446,16 +1446,16 @@ importers:
     dependencies:
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
-        version: link:../../components/aspect-ratio
+        version: link:../../package-build/aspect-ratio
       '@oku-ui/avatar':
         specifier: workspace:^
-        version: link:../../components/avatar
+        version: link:../../package-build/avatar
       '@oku-ui/checkbox':
         specifier: workspace:^
-        version: link:../../components/checkbox
+        version: link:../../package-build/checkbox
       '@oku-ui/primitives':
         specifier: workspace:^
-        version: link:../../components/primitives
+        version: link:../../primitives
     devDependencies:
       nuxt:
         specifier: latest
@@ -1498,106 +1498,106 @@ importers:
     dependencies:
       '@oku-ui/accordion':
         specifier: workspace:^
-        version: link:../../packages/components/accordion
+        version: link:../../packages/package-build/accordion
       '@oku-ui/alert-dialog':
         specifier: workspace:^
-        version: link:../../packages/components/alert-dialog
+        version: link:../../packages/package-build/alert-dialog
       '@oku-ui/arrow':
         specifier: workspace:^
-        version: link:../../packages/core/arrow
+        version: link:../../packages/package-build/arrow
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
-        version: link:../../packages/components/aspect-ratio
+        version: link:../../packages/package-build/aspect-ratio
       '@oku-ui/avatar':
         specifier: workspace:^
-        version: link:../../packages/components/avatar
+        version: link:../../packages/package-build/avatar
       '@oku-ui/checkbox':
         specifier: workspace:^
-        version: link:../../packages/components/checkbox
+        version: link:../../packages/package-build/checkbox
       '@oku-ui/collapsible':
         specifier: workspace:^
-        version: link:../../packages/components/collapsible
+        version: link:../../packages/package-build/collapsible
       '@oku-ui/collection':
         specifier: workspace:^
-        version: link:../../packages/core/collection
+        version: link:../../packages/package-build/collection
       '@oku-ui/dialog':
         specifier: workspace:^
-        version: link:../../packages/components/dialog
+        version: link:../../packages/package-build/dialog
       '@oku-ui/dismissable-layer':
         specifier: workspace:^
-        version: link:../../packages/core/dismissable-layer
+        version: link:../../packages/package-build/dismissable-layer
       '@oku-ui/focus-scope':
         specifier: workspace:^
-        version: link:../../packages/core/focus-scope
+        version: link:../../packages/package-build/focus-scope
       '@oku-ui/hover-card':
         specifier: workspace:^
-        version: link:../../packages/components/hover-card
+        version: link:../../packages/package-build/hover-card
       '@oku-ui/label':
         specifier: workspace:^
-        version: link:../../packages/components/label
+        version: link:../../packages/package-build/label
       '@oku-ui/menu':
         specifier: workspace:^
-        version: link:../../packages/core/menu
+        version: link:../../packages/package-build/menu
       '@oku-ui/popover':
         specifier: workspace:^
-        version: link:../../packages/components/popover
+        version: link:../../packages/package-build/popover
       '@oku-ui/popper':
         specifier: workspace:^
-        version: link:../../packages/core/popper
+        version: link:../../packages/package-build/popper
       '@oku-ui/portal':
         specifier: workspace:^
-        version: link:../../packages/core/portal
+        version: link:../../packages/package-build/portal
       '@oku-ui/presence':
         specifier: workspace:^
-        version: link:../../packages/core/presence
+        version: link:../../packages/package-build/presence
       '@oku-ui/primitives':
         specifier: workspace:^
-        version: link:../../packages/components/primitives
+        version: link:../../packages/primitives
       '@oku-ui/progress':
         specifier: workspace:^
-        version: link:../../packages/components/progress
+        version: link:../../packages/package-build/progress
       '@oku-ui/radio-group':
         specifier: workspace:^
-        version: link:../../packages/components/radio-group
+        version: link:../../packages/package-build/radio-group
       '@oku-ui/roving-focus':
         specifier: workspace:^
-        version: link:../../packages/core/roving-focus
+        version: link:../../packages/package-build/roving-focus
       '@oku-ui/scroll-area':
         specifier: workspace:^
-        version: link:../../packages/components/scroll-area
+        version: link:../../packages/package-build/scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
-        version: link:../../packages/components/separator
+        version: link:../../packages/package-build/separator
       '@oku-ui/slider':
         specifier: workspace:^
-        version: link:../../packages/components/slider
+        version: link:../../packages/package-build/slider
       '@oku-ui/slot':
         specifier: workspace:^
-        version: link:../../packages/core/slot
+        version: link:../../packages/package-build/slot
       '@oku-ui/switch':
         specifier: workspace:^
-        version: link:../../packages/components/switch
+        version: link:../../packages/package-build/switch
       '@oku-ui/tabs':
         specifier: workspace:^
-        version: link:../../packages/components/tabs
+        version: link:../../packages/package-build/tabs
       '@oku-ui/toast':
         specifier: workspace:^
-        version: link:../../packages/components/toast
+        version: link:../../packages/package-build/toast
       '@oku-ui/toggle':
         specifier: workspace:^
-        version: link:../../packages/components/toggle
+        version: link:../../packages/package-build/toggle
       '@oku-ui/toggle-group':
         specifier: workspace:^
-        version: link:../../packages/components/toggle-group
+        version: link:../../packages/package-build/toggle-group
       '@oku-ui/toolbar':
         specifier: workspace:^
-        version: link:../../packages/components/toolbar
+        version: link:../../packages/package-build/toolbar
       '@oku-ui/tooltip':
         specifier: workspace:^
-        version: link:../../packages/components/tooltip
+        version: link:../../packages/package-build/tooltip
       '@oku-ui/visually-hidden':
         specifier: workspace:^
-        version: link:../../packages/core/visually-hidden
+        version: link:../../packages/package-build/visually-hidden
     devDependencies:
       '@types/node':
         specifier: ^20.10.6
@@ -1610,43 +1610,43 @@ importers:
     dependencies:
       '@oku-ui/aspect-ratio':
         specifier: workspace:^
-        version: link:../../packages/components/aspect-ratio
+        version: link:../../packages/package-build/aspect-ratio
       '@oku-ui/avatar':
         specifier: workspace:^
-        version: link:../../packages/components/avatar
+        version: link:../../packages/package-build/avatar
       '@oku-ui/checkbox':
         specifier: workspace:^
-        version: link:../../packages/components/checkbox
+        version: link:../../packages/package-build/checkbox
       '@oku-ui/label':
         specifier: workspace:^
-        version: link:../../packages/components/label
+        version: link:../../packages/package-build/label
       '@oku-ui/menu':
         specifier: workspace:^
-        version: link:../../packages/core/menu
+        version: link:../../packages/package-build/menu
       '@oku-ui/primitives':
         specifier: workspace:^
-        version: link:../../packages/components/primitives
+        version: link:../../packages/primitives
       '@oku-ui/progress':
         specifier: workspace:^
-        version: link:../../packages/components/progress
+        version: link:../../packages/package-build/progress
       '@oku-ui/roving-focus':
         specifier: workspace:^
-        version: link:../../packages/core/roving-focus
+        version: link:../../packages/package-build/roving-focus
       '@oku-ui/scroll-area':
         specifier: workspace:^
-        version: link:../../packages/components/scroll-area
+        version: link:../../packages/package-build/scroll-area
       '@oku-ui/separator':
         specifier: workspace:^
-        version: link:../../packages/components/separator
+        version: link:../../packages/package-build/separator
       '@oku-ui/slot':
         specifier: workspace:^
-        version: link:../../packages/core/slot
+        version: link:../../packages/package-build/slot
       '@oku-ui/switch':
         specifier: workspace:^
-        version: link:../../packages/components/switch
+        version: link:../../packages/package-build/switch
       '@oku-ui/tabs':
         specifier: workspace:^
-        version: link:../../packages/components/tabs
+        version: link:../../packages/package-build/tabs
       vite-plugin-pages:
         specifier: ^0.32.0
         version: 0.32.0(@vue/compiler-sfc@3.4.5)(vite@5.0.10)
@@ -3602,11 +3602,11 @@ packages:
   /@floating-ui/utils@0.1.6:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
 
-  /@floating-ui/vue@1.0.2(vue@3.4.1):
+  /@floating-ui/vue@1.0.2(vue@3.4.3):
     resolution: {integrity: sha512-sImlAl9mAoCKZLNlwWz2P2ZMJIDlOEDXrRD6aD2sIHAka1LPC+nWtB+D3lPe7IE7FGWSbwBPTnlSdlABa3Fr0A==}
     dependencies:
       '@floating-ui/dom': 1.5.3
-      vue-demi: 0.14.6(vue@3.4.1)
+      vue-demi: 0.14.6(vue@3.4.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -4258,7 +4258,7 @@ packages:
   /@nuxt/ui-templates@1.3.1:
     resolution: {integrity: sha512-5gc02Pu1HycOVUWJ8aYsWeeXcSTPe8iX8+KIrhyEtEoOSkY0eMBuo0ssljB8wALuEmepv31DlYe5gpiRwkjESA==}
 
-  /@nuxt/vite-builder@3.9.0(@types/node@20.10.6)(eslint@8.56.0)(rollup@3.29.4)(typescript@5.3.3)(vue@3.4.1):
+  /@nuxt/vite-builder@3.9.0(@types/node@20.10.6)(eslint@8.56.0)(rollup@3.29.4)(typescript@5.3.3)(vue@3.4.3):
     resolution: {integrity: sha512-aJmFv79iuEF0tw79kLgS0LEPgc4WSqIANncNmAu3IIf2zbDQ6iY06eXHVeXShmckbWGlKGaM8L/e8oQNdQdv6g==}
     engines: {node: ^14.18.0 || >=16.10.0}
     peerDependencies:
@@ -4266,8 +4266,8 @@ packages:
     dependencies:
       '@nuxt/kit': 3.9.0(rollup@3.29.4)
       '@rollup/plugin-replace': 5.0.5(rollup@3.29.4)
-      '@vitejs/plugin-vue': 5.0.2(vite@5.0.10)(vue@3.4.1)
-      '@vitejs/plugin-vue-jsx': 3.1.0(vite@5.0.10)(vue@3.4.1)
+      '@vitejs/plugin-vue': 5.0.2(vite@5.0.10)(vue@3.4.3)
+      '@vitejs/plugin-vue-jsx': 3.1.0(vite@5.0.10)(vue@3.4.3)
       autoprefixer: 10.4.16(postcss@8.4.32)
       clear: 0.1.0
       consola: 3.2.3
@@ -4296,7 +4296,7 @@ packages:
       vite: 5.0.10(@types/node@20.10.6)
       vite-node: 1.1.0(@types/node@20.10.6)
       vite-plugin-checker: 0.6.2(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.10)
-      vue: 3.4.1(typescript@5.3.3)
+      vue: 3.4.3(typescript@5.3.3)
       vue-bundle-renderer: 2.0.0
     transitivePeerDependencies:
       - '@types/node'
@@ -6816,7 +6816,7 @@ packages:
       '@unhead/shared': 1.8.9
     dev: true
 
-  /@unhead/vue@1.8.9(vue@3.4.1):
+  /@unhead/vue@1.8.9(vue@3.4.3):
     resolution: {integrity: sha512-sL1d2IRBZd5rjzhgTYni2DiociSpt+Cfz3iVWKb0EZwQHgg0GzV8Hkoj5TjZYZow6EjDSPRfVPXDwOwxkVOgug==}
     peerDependencies:
       vue: '>=2.7 || >=3'
@@ -6825,7 +6825,7 @@ packages:
       '@unhead/shared': 1.8.9
       hookable: 5.5.3
       unhead: 1.8.9
-      vue: 3.4.1(typescript@5.3.3)
+      vue: 3.4.3(typescript@5.3.3)
     dev: true
 
   /@vercel/nft@0.24.4:
@@ -6849,7 +6849,7 @@ packages:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue-jsx@3.1.0(vite@5.0.10)(vue@3.4.1):
+  /@vitejs/plugin-vue-jsx@3.1.0(vite@5.0.10)(vue@3.4.3):
     resolution: {integrity: sha512-w9M6F3LSEU5kszVb9An2/MmXNxocAnUb3WhRr8bHlimhDrXNt6n6D2nJQR3UXpGlZHh/EsgouOHCsM8V3Ln+WA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -6860,7 +6860,7 @@ packages:
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.23.7)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.23.7)
       vite: 5.0.10(@types/node@20.10.6)
-      vue: 3.4.1(typescript@5.3.3)
+      vue: 3.4.3(typescript@5.3.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6878,17 +6878,6 @@ packages:
 
   /@vitejs/plugin-vue@5.0.1(vite@5.0.10)(vue@3.4.1):
     resolution: {integrity: sha512-lwvZX5tDhJpRJEKsjoUSWgaD26Lk9X4aDYGAPpr/Q6cLTT3PC8LPu2dsnYEweAZiNgHsbyKL2Svc/CDrFOsbtw==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    peerDependencies:
-      vite: ^5.0.0
-      vue: ^3.2.25
-    dependencies:
-      vite: 5.0.10(@types/node@20.10.6)
-      vue: 3.4.1(typescript@5.3.3)
-    dev: true
-
-  /@vitejs/plugin-vue@5.0.2(vite@5.0.10)(vue@3.4.1):
-    resolution: {integrity: sha512-kEjJHrLb5ePBvjD0SPZwJlw1QTRcjjCA9sB5VyfonoXVBxTS7TMnqL6EkLt1Eu61RDeiuZ/WN9Hf6PxXhPI2uA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
@@ -6989,7 +6978,7 @@ packages:
       path-browserify: 1.0.1
     dev: true
 
-  /@vue-macros/common@1.10.0(rollup@3.29.4)(vue@3.4.1):
+  /@vue-macros/common@1.10.0(rollup@3.29.4)(vue@3.4.3):
     resolution: {integrity: sha512-4DZsPeQA/nBQDw2RkYAmH7KrFjJVrMdAhJhO1JCl1bbbFXCGeoGjXfkg9wHPppj47s2HpAB3GrqNwqVGbi12NQ==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
@@ -7000,11 +6989,11 @@ packages:
     dependencies:
       '@babel/types': 7.23.6
       '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
-      '@vue/compiler-sfc': 3.4.3
+      '@vue/compiler-sfc': 3.4.5
       ast-kit: 0.11.3(rollup@3.29.4)
       local-pkg: 0.5.0
       magic-string-ast: 0.3.0
-      vue: 3.4.1(typescript@5.3.3)
+      vue: 3.4.3(typescript@5.3.3)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -7147,8 +7136,8 @@ packages:
     dependencies:
       '@volar/language-core': 1.11.1
       '@volar/source-map': 1.11.1
-      '@vue/compiler-dom': 3.4.3
-      '@vue/shared': 3.4.3
+      '@vue/compiler-dom': 3.4.5
+      '@vue/shared': 3.4.5
       computeds: 0.0.1
       minimatch: 9.0.3
       muggle-string: 0.3.1
@@ -7234,18 +7223,6 @@ packages:
       vue-component-type-helpers: 1.8.27
     dev: true
 
-  /@vueuse/core@10.7.1(vue@3.4.1):
-    resolution: {integrity: sha512-74mWHlaesJSWGp1ihg76vAnfVq9NTv1YT0SYhAQ6zwFNdBkkP+CKKJmVOEHcdSnLXCXYiL5e7MaewblfiYLP7g==}
-    dependencies:
-      '@types/web-bluetooth': 0.0.20
-      '@vueuse/metadata': 10.7.1
-      '@vueuse/shared': 10.7.1(vue@3.4.1)
-      vue-demi: 0.14.6(vue@3.4.1)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-    dev: false
-
   /@vueuse/core@10.7.1(vue@3.4.3):
     resolution: {integrity: sha512-74mWHlaesJSWGp1ihg76vAnfVq9NTv1YT0SYhAQ6zwFNdBkkP+CKKJmVOEHcdSnLXCXYiL5e7MaewblfiYLP7g==}
     dependencies:
@@ -7256,19 +7233,9 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
 
   /@vueuse/metadata@10.7.1:
     resolution: {integrity: sha512-jX8MbX5UX067DYVsbtrmKn6eG6KMcXxLRLlurGkZku5ZYT3vxgBjui2zajvUZ18QLIjrgBkFRsu7CqTAg18QFw==}
-
-  /@vueuse/shared@10.7.1(vue@3.4.1):
-    resolution: {integrity: sha512-v0jbRR31LSgRY/C5i5X279A/WQjD6/JsMzGa+eqt658oJ75IvQXAeONmwvEMrvJQKnRElq/frzBR7fhmWY5uLw==}
-    dependencies:
-      vue-demi: 0.14.6(vue@3.4.1)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-    dev: false
 
   /@vueuse/shared@10.7.1(vue@3.4.3):
     resolution: {integrity: sha512-v0jbRR31LSgRY/C5i5X279A/WQjD6/JsMzGa+eqt658oJ75IvQXAeONmwvEMrvJQKnRElq/frzBR7fhmWY5uLw==}
@@ -7277,7 +7244,6 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
 
   /@yarnpkg/esbuild-plugin-pnp@3.0.0-rc.15(esbuild@0.18.20):
     resolution: {integrity: sha512-kYzDJO5CA9sy+on/s2aIW0411AklfCi8Ck/4QDivOqsMKpStZA2SsR+X27VTggGwpStWaLrjJcDcdDMowtG8MA==}
@@ -12241,12 +12207,12 @@ packages:
       '@nuxt/schema': 3.9.0(rollup@3.29.4)
       '@nuxt/telemetry': 2.5.3(rollup@3.29.4)
       '@nuxt/ui-templates': 1.3.1
-      '@nuxt/vite-builder': 3.9.0(@types/node@20.10.6)(eslint@8.56.0)(rollup@3.29.4)(typescript@5.3.3)(vue@3.4.1)
+      '@nuxt/vite-builder': 3.9.0(@types/node@20.10.6)(eslint@8.56.0)(rollup@3.29.4)(typescript@5.3.3)(vue@3.4.3)
       '@types/node': 20.10.6
       '@unhead/dom': 1.8.9
       '@unhead/ssr': 1.8.9
-      '@unhead/vue': 1.8.9(vue@3.4.1)
-      '@vue/shared': 3.4.1
+      '@unhead/vue': 1.8.9(vue@3.4.3)
+      '@vue/shared': 3.4.5
       acorn: 8.11.2
       c12: 1.6.1
       chokidar: 3.5.3
@@ -12285,12 +12251,12 @@ packages:
       unenv: 1.8.0
       unimport: 3.7.1(rollup@3.29.4)
       unplugin: 1.6.0
-      unplugin-vue-router: 0.7.0(rollup@3.29.4)(vue-router@4.2.5)(vue@3.4.1)
+      unplugin-vue-router: 0.7.0(rollup@3.29.4)(vue-router@4.2.5)(vue@3.4.3)
       untyped: 1.4.0
-      vue: 3.4.1(typescript@5.3.3)
+      vue: 3.4.3(typescript@5.3.3)
       vue-bundle-renderer: 2.0.0
       vue-devtools-stub: 0.1.0
-      vue-router: 4.2.5(vue@3.4.1)
+      vue-router: 4.2.5(vue@3.4.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -15227,7 +15193,7 @@ packages:
       - supports-color
     dev: true
 
-  /unplugin-vue-router@0.7.0(rollup@3.29.4)(vue-router@4.2.5)(vue@3.4.1):
+  /unplugin-vue-router@0.7.0(rollup@3.29.4)(vue-router@4.2.5)(vue@3.4.3):
     resolution: {integrity: sha512-ddRreGq0t5vlSB7OMy4e4cfU1w2AwBQCwmvW3oP/0IHQiokzbx4hd3TpwBu3eIAFVuhX2cwNQwp1U32UybTVCw==}
     peerDependencies:
       vue-router: ^4.1.0
@@ -15237,7 +15203,7 @@ packages:
     dependencies:
       '@babel/types': 7.23.6
       '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
-      '@vue-macros/common': 1.10.0(rollup@3.29.4)(vue@3.4.1)
+      '@vue-macros/common': 1.10.0(rollup@3.29.4)(vue@3.4.3)
       ast-walker-scope: 0.5.0(rollup@3.29.4)
       chokidar: 3.5.3
       fast-glob: 3.3.2
@@ -15247,7 +15213,7 @@ packages:
       pathe: 1.1.1
       scule: 1.1.1
       unplugin: 1.6.0
-      vue-router: 4.2.5(vue@3.4.1)
+      vue-router: 4.2.5(vue@3.4.3)
       yaml: 2.3.4
     transitivePeerDependencies:
       - rollup
@@ -15629,7 +15595,7 @@ packages:
       '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.23.7)
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.23.7)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.23.7)
-      '@vue/compiler-dom': 3.4.3
+      '@vue/compiler-dom': 3.4.5
       kolorist: 1.8.0
       magic-string: 0.30.5
       vite: 5.0.10(@types/node@20.10.6)
@@ -15854,21 +15820,6 @@ packages:
     resolution: {integrity: sha512-0vOfAtI67UjeO1G6UiX5Kd76CqaQ67wrRZiOe7UAb9Jm6GzlUr/fC7CV90XfwapJRjpCMaZFhv1V0ajWRmE9Dg==}
     dev: true
 
-  /vue-demi@0.14.6(vue@3.4.1):
-    resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-    dependencies:
-      vue: 3.4.1(typescript@5.3.3)
-    dev: false
-
   /vue-demi@0.14.6(vue@3.4.3):
     resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
     engines: {node: '>=12'}
@@ -15882,7 +15833,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.4.3(typescript@5.3.3)
-    dev: true
 
   /vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
@@ -15895,8 +15845,8 @@ packages:
     dependencies:
       '@babel/parser': 7.23.6
       '@babel/types': 7.23.6
-      '@vue/compiler-dom': 3.4.3
-      '@vue/compiler-sfc': 3.4.3
+      '@vue/compiler-dom': 3.4.5
+      '@vue/compiler-sfc': 3.4.5
       ast-types: 0.16.1
       hash-sum: 2.0.0
       lru-cache: 8.0.5
@@ -15930,15 +15880,6 @@ packages:
     peerDependencies:
       vue: '>=2'
     dependencies:
-      vue: 3.4.1(typescript@5.3.3)
-    dev: true
-
-  /vue-router@4.2.5(vue@3.4.1):
-    resolution: {integrity: sha512-DIUpKcyg4+PTQKfFPX88UWhlagBEBEfJ5A8XDXRJLUnZOvcpMF8o/dnL90vpVkGaPbjvXazV/rC1qBKrZlFugw==}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      '@vue/devtools-api': 6.5.1
       vue: 3.4.1(typescript@5.3.3)
     dev: true
 
