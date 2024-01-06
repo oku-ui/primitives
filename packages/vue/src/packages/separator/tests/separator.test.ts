@@ -3,7 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import { OkuSeparator } from '@oku-ui/separator'
+import { OkuSeparator } from '../'
 
 import Styled from '../stories/Styled.vue'
 

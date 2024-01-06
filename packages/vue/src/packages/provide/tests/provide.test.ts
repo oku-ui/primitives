@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 import { defineComponent, h } from 'vue'
 import { describe, expect, it, vitest } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ScopePropObject, createProvide, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createProvide, createProvideScope } from '../'
 
 describe('provide', () => {
   it('createProvide consumerName emty test', async () => {

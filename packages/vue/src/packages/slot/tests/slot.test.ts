@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, ref } from 'vue'
 import type { Component } from 'vue'
-import { OkuSlot, OkuSlottable } from '@oku-ui/slot'
+import { OkuSlot, OkuSlottable } from '../'
 
 const ButtonTest: Component = {
   components: {

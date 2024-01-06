@@ -4,7 +4,7 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
+import { OkuCheckbox, OkuCheckboxIndicator } from '../'
 
 import Styled from '../stories/Styled.vue'
 import Controlled from '../stories/Controlled.vue'

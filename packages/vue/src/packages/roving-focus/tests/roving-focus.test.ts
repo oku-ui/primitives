@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 
 import type { Component } from 'vue'
 import { h } from 'vue'
-import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from '../'
 
 const component = {
   setup(props, { slots, attrs }) {

@@ -4,7 +4,7 @@ import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import { OkuToggleGroup, OkuToggleGroupItem } from '@oku-ui/toggle-group'
+import { OkuToggleGroup, OkuToggleGroupItem } from '../'
 
 import Single from '../stories/Single.vue'
 import Vertical from '../stories/Vertical.vue'

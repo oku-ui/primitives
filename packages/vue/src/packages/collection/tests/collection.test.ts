@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { h, ref, watchEffect } from 'vue'
-import { createCollection } from '@oku-ui/collection'
+import { createCollection } from '../'
 
 describe('collection', () => {
   it('renders the component correctly', () => {

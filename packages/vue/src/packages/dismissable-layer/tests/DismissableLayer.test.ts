@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
+import { OkuDismissableLayer } from '../'
 
 // skipping this test for now. There's an error "TypeError: Cannot read properties of undefined (reading 'devtoolsRawSetupState')"
 describe.skip('dismissableLayer', () => {

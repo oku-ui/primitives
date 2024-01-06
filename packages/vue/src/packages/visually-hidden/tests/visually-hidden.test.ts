@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { h } from 'vue'
-import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
+import { OkuVisuallyHidden } from '../'
 
 describe('okuVisuallyHidden', () => {
   it('renders correctly with default props', () => {

@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 import { h, onMounted, ref } from 'vue'
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { useComposedRefs } from '@oku-ui/use-composable'
+import { useComposedRefs } from '../'
 
 const DivComponent: Component = {
   name: 'Refs',

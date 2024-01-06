@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { SpyInstance } from 'vitest'
 import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
-import { useEscapeKeydown } from '@oku-ui/use-composable'
+import { useEscapeKeydown } from '../'
 
 enableAutoUnmount(afterEach)
 

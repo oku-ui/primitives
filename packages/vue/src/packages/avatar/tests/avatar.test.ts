@@ -3,7 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from '@oku-ui/avatar'
+import { OkuAvatar, OkuAvatarFallback, OkuAvatarImage } from '../'
 
 import Styled from '../stories/Styled.vue'
 import Chromatic from '../stories/Chromatic.vue'

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, ref } from 'vue'
-import { OkuSwitch } from '@oku-ui/switch'
+import { OkuSwitch } from '../'
 
 const component = {
   setup() {

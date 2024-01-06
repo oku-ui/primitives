@@ -3,7 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 
-import { OkuAspectRatio } from '@oku-ui/aspect-ratio'
+import { OkuAspectRatio } from '../'
 
 import Styled from '../stories/Styled.vue'
 import CustomRatios from '../stories/CustomRatios.vue'

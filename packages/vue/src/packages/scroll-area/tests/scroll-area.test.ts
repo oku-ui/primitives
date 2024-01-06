@@ -19,7 +19,7 @@ import {
   OkuScrollAreaThumb,
   OkuScrollAreaThumbImpl,
   OkuScrollAreaViewport,
-} from '@oku-ui/scroll-area'
+} from '../'
 
 import Basic from '../story/Basic.vue'
 import Resizable from '../story/Resizable.vue'

@@ -11,7 +11,7 @@ import {
   OkuPopoverContent,
   OkuPopoverPortal,
   OkuPopoverTrigger,
-} from '@oku-ui/popover'
+} from '../'
 
 import Animated from '../stories/Animated.vue'
 import Boundary from '../stories/Boundary.vue'
