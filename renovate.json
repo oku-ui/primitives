@@ -23,10 +23,10 @@
       ]
     },
     {
-      "groupName": "components",
-      "commitMessageTopic": "components",
+      "groupName": "vue",
+      "commitMessageTopic": "vue",
       "matchPaths": [
-        "packages/components/**"
+        "packages/vue/**"
       ],
       "matchUpdateTypes": [
         "major",
@@ -53,10 +53,10 @@
       ]
     },
     {
-      "groupName": "core",
-      "commitMessageTopic": "core",
+      "groupName": "package-build",
+      "commitMessageTopic": "package-build",
       "matchPaths": [
-        "packages/core/**"
+        "packages/package-build/**"
       ],
       "matchUpdateTypes": [
         "major",
@@ -90,7 +90,6 @@
         "major"
       ],
       "ignorePaths": [
-        "**/packages/**",
         "**/packages/**",
         "**/playground/**",
         "**/.docs/**"
