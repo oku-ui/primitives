@@ -16,10 +16,8 @@ export default defineCommand({
     version: '0.0.1',
   },
   async run() {
-    const corePath = 'packages/core'
-    const componentsPath = 'packages/components'
-    const corePackages = globbySync(`${corePath}/*`, { onlyDirectories: true, cwd: process.cwd() })
-    const components = globbySync(`${componentsPath}/*`, { onlyDirectories: true, cwd: process.cwd() })
+    const packages = 'packages/package-build'
+    const corePackages = globbySync(`${packages}/*`, { onlyDirectories: true, cwd: process.cwd() })
 
     console.clear()
 
@@ -27,37 +25,14 @@ export default defineCommand({
 
     intro(`${color.bgCyan(color.black(' create-app '))}`)
 
-    const type = await select({
-      message: 'Pick a folder',
-      initialValue: 'ts',
-      maxItems: 5,
-      options: [
-        { value: 'component', name: 'Components Package' },
-        { value: 'core', name: 'Core Package' },
-      ],
-    })
-
-    if (isCancel(type)) {
-      outro('Commit cancelled')
-      return
-    }
-
     let _packages: string[] = []
     let _tags: 'alpha' | 'beta' | 'rc' | 'latest' = 'latest'
 
-    if (type === 'component') {
-      const { selectPackages, selectedTags } = await commandsPackages(components)
-      console.log(selectPackages)
-      _packages = selectPackages
-      _tags = selectedTags
-    }
+    const { selectPackages, selectedTags } = await commandsPackages(corePackages)
+    console.log(selectPackages)
+    _packages = selectPackages
+    _tags = selectedTags
 
-    if (type === 'core') {
-      const { selectPackages, selectedTags } = await commandsPackages(corePackages)
-      console.log(selectPackages)
-      _packages = selectPackages
-      _tags = selectedTags
-    }
     const wherePublish = await select({
       message: 'Publish package?',
       initialValue: 'ts',
