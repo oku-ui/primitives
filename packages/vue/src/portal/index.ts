@@ -1,10 +1,5 @@
 export {
-  OkuPortal,
-  portalProps,
-} from './Portal'
+  default as OkuPortal,
+} from './Portal.vue'
 
-export type {
-  PortalProps,
-  PortalElement,
-  PortalElementNaviteElement,
-} from './Portal'
+export type * from './Portal.vue'
