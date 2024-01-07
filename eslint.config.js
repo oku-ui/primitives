@@ -29,6 +29,7 @@ export default antfu(
     ],
     rules: {
       'import/first': 'off',
+      'import/order': 'off',
     },
   },
 )

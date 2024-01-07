@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
-import { ref, watch } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
+import { isClient } from '@oku-ui/use-composable'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from './props'
 import { FOCUS_OUTSIDE, INJECT_UPDATE, POINTER_DOWN_OUTSIDE } from './props'
 
@@ -11,13 +12,16 @@ import { FOCUS_OUTSIDE, INJECT_UPDATE, POINTER_DOWN_OUTSIDE } from './props'
  */
 function usePointerdownOutside(
   onPointerdownOutside?: (event: PointerdownOutsideEvent) => void,
-  ownerDocument: Ref<Document> = ref(globalThis?.document),
+  ownerDocument: Document = globalThis?.document,
 ) {
   const handlePointerdownOutside = onPointerdownOutside as EventListener
   const isPointerInsideTreeRef = ref<boolean>(false)
   const handleClickRef = ref(() => {})
 
-  watch([ownerDocument], (_new, _old, clean) => {
+  watchEffect((onCleanup) => {
+    if (!isClient)
+      return
+
     const handlePointerdown = (event: PointerEvent) => {
       if (event.target && !isPointerInsideTreeRef.value) {
         const eventDetail = { originalEvent: event }
@@ -43,9 +47,9 @@ function usePointerdownOutside(
          * certain that it was raised, and therefore cleaned-up.
          */
         if (event.pointerType === 'touch') {
-          ownerDocument.value.removeEventListener('click', handleClickRef.value)
+          ownerDocument.removeEventListener('click', handleClickRef.value)
           handleClickRef.value = handleAndDispatchPointerdownOutsideEvent
-          ownerDocument.value.addEventListener('click', handleClickRef.value, { once: true })
+          ownerDocument.addEventListener('click', handleClickRef.value, { once: true })
         }
         else {
           handleAndDispatchPointerdownOutsideEvent()
@@ -54,7 +58,7 @@ function usePointerdownOutside(
       else {
         // We need to remove the event listener in case the outside click has been canceled.
         // See: https://github.com/radix-ui/primitives/issues/2171
-        ownerDocument.value.removeEventListener('click', handleClickRef.value)
+        ownerDocument.removeEventListener('click', handleClickRef.value)
       }
       isPointerInsideTreeRef.value = false
     }
@@ -75,16 +79,14 @@ function usePointerdownOutside(
     const timerId = ref<number>()
 
     timerId.value = window.setTimeout(() => {
-      ownerDocument.value.addEventListener('pointerdown', handlePointerdown)
+      ownerDocument.addEventListener('pointerdown', handlePointerdown)
     }, 0)
 
-    clean(() => {
+    onCleanup(() => {
       window.clearTimeout(timerId.value)
-      ownerDocument.value.removeEventListener('pointerdown', handlePointerdown)
-      ownerDocument.value.removeEventListener('click', handleClickRef.value)
+      ownerDocument.removeEventListener('pointerdown', handlePointerdown)
+      ownerDocument.removeEventListener('click', handleClickRef.value)
     })
-  }, {
-    immediate: true,
   })
 
   return {
@@ -99,11 +101,13 @@ function usePointerdownOutside(
  */
 function useFocusOutside(
   onFocusOutside?: (event: FocusOutsideEvent) => void,
-  ownerDocument: Ref<Document> = ref(globalThis?.document),
+  ownerDocument: Document = globalThis?.document,
 ) {
   const isFocusInsideTreeRef = ref<boolean>(false)
 
-  watch([ownerDocument], (_new, _old, clean) => {
+  watchEffect((onCleanup) => {
+    if (!isClient)
+      return
     const handleFocus = (event: FocusEvent) => {
       // eslint-disable-next-line no-console
       console.log('useFocusOutside', isFocusInsideTreeRef.value)
@@ -122,13 +126,11 @@ function useFocusOutside(
       }
     }
 
-    ownerDocument.value.addEventListener('focusin', handleFocus)
+    ownerDocument.addEventListener('focusin', handleFocus)
 
-    clean(() => {
-      ownerDocument.value.removeEventListener('focusin', handleFocus)
+    onCleanup(() => {
+      ownerDocument.removeEventListener('focusin', handleFocus)
     })
-  }, {
-    immediate: true,
   })
 
   return {
