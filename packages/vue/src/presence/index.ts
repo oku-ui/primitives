@@ -1,8 +1,5 @@
 export {
-  OkuPresence,
-} from './presence'
+  default as OkuPresence,
+} from './Presence.vue'
 
-export type {
-  PresenceProps,
-  isPresent,
-} from './presence'
+export type * from './Presence.vue'

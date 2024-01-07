@@ -6,7 +6,7 @@ import { Fragment, nextTick } from 'vue'
 /**
  * Checks whether a given VNode is a render-vialble element.
  */
-export function isValidVNodeElement(input: any): boolean {
+export function isValidElement(input: any): boolean {
   return (
     input
     && (typeof input.type === 'string'

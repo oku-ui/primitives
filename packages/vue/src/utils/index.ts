@@ -1,6 +1,6 @@
 export { clamp } from './number'
 export { composeEventHandlers } from './composeEventHandlers'
-export { isValidVNodeElement } from './isValidVNodeElement'
+export { isValidElement } from './isValidElement'
 export { observeElementRect } from './observeElementRect'
 export type { Measurable } from './observeElementRect'
 

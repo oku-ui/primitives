@@ -9,7 +9,7 @@ export { useId } from './useId'
 export { useComposedRefs } from './useComposedRefs'
 export { useForwardRef } from './useForwardRef'
 export { useEscapeKeydown } from './useEscapeKeydown'
-export type { MaybeComputedElementRef } from './unrefElement'
+export * from './unrefElement'
 export { useListeners } from './useListeners'
 export { computedEager, syncRef, computedAsync, syncRefs, useScrollLock, isClient, reactiveOmit, reactivePick }
 export { useRect } from './use-rect'

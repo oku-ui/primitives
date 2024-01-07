@@ -2,7 +2,8 @@
 import type { Component, VNode } from 'vue'
 import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, useAttrs, useSlots } from 'vue'
 import { useForwardRef } from '@oku-ui/use-composable'
-import { isSlottable, isValidElement } from './utils'
+import { isValidElement } from '@oku-ui/utils'
+import { isSlottable } from './utils'
 
 defineOptions({
   name: 'OkuSlot',
