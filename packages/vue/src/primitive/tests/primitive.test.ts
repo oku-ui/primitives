@@ -6,15 +6,17 @@ import { Primitive, dispatchDiscreteCustomEvent } from '../'
 
 const componentDiv = {
   setup(props, { slots }) {
-    return () => h(Primitive.div, {}, {
-      default: () => slots.default?.(),
-    })
+    return () => h(Primitive, {
+      is: 'div',
+    }, slots)
   },
 } as Component
 
 const componentButton = {
   setup(props, { slots }) {
-    return () => h(Primitive.button, {}, {
+    return () => h(Primitive, {
+      is: 'button',
+    }, {
       default: () => slots.default?.(),
     })
   },
@@ -22,7 +24,9 @@ const componentButton = {
 
 const componentInput = {
   setup(props, { slots }) {
-    return () => h(Primitive.input, {}, {
+    return () => h(Primitive, {
+      is: 'input',
+    }, {
       default: () => slots.default?.(),
     })
   },
@@ -30,7 +34,9 @@ const componentInput = {
 
 const componentA = {
   setup(props, { slots }) {
-    return () => h(Primitive.a, {}, {
+    return () => h(Primitive, {
+      is: 'a',
+    }, {
       default: () => slots.default?.(),
     })
   },
@@ -47,7 +53,11 @@ describe('primitive', () => {
           expect(true).toBe(true)
         }
 
-        return () => h(Primitive.button, { asChild: true, onClick: handleClick }, {
+        return () => h(Primitive, {
+          is: 'button',
+          asChild: true,
+          onClick: handleClick,
+        }, {
           default: () => h('button', 'Click me New'),
         })
       },
@@ -68,7 +78,10 @@ describe('primitive', () => {
           expect(true).toBe(true)
         }
 
-        return () => h(Primitive.button, { onClick: handleClick }, {
+        return () => h(Primitive, {
+          is: 'button',
+          onClick: handleClick,
+        }, {
           default: () => 'Click me',
         })
       },

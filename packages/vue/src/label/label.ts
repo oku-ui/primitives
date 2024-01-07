@@ -17,7 +17,8 @@ const label = defineComponent({
     const forwardedRef = useForwardRef()
     const emits = useListeners(['onMousedown'])
 
-    return () => h(Primitive.label, {
+    return () => h(Primitive, {
+      is: 'label',
       ...mergeProps(attrs, emits),
       asChild: props.asChild,
       ref: forwardedRef,

@@ -1,19 +1,24 @@
-import { Fragment, type VNode } from 'vue'
-import { OkuSlottable } from './slot'
+import { Fragment, isVNode } from 'vue'
+import type { Component, VNode } from 'vue'
 
-export function isValidVNodeElement(input: any): boolean {
-  return (
-    input
-    && (typeof input.type === 'string'
-    || typeof input.type === 'object'
-    || typeof input.type === 'function')
-  )
+// @credit: headlessui
+export function isValidElement(input: VNode): boolean {
+  if (input == null)
+    return false // No children
+  if (typeof input.type === 'string')
+    return true // 'div', 'span', ...
+  if (typeof input.type === 'object')
+    return true // Other components
+  if (typeof input.type === 'function')
+    return true // Built-ins like Transition
+
+  return false // Comments, strings, ...
 }
 
 export function isSlottable(child: VNode): child is VNode {
   return (
-    isValidVNodeElement(child)
-    && (child.type === OkuSlottable)
+    isVNode(child)
+    && ((child.type as Component).name === 'OkuSlottable')
   )
 }
 

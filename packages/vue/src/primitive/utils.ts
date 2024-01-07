@@ -35,6 +35,9 @@ export function isValidVNodeElement(input: any): boolean {
  * to the first actual element VNode.
  */
 export function renderSlotFragments(children: VNode[]): VNode[] {
+  if (!children.length)
+    return []
+
   return children.flatMap((child) => {
     if (child.type === Fragment)
       return renderSlotFragments(child.children as VNode[])
