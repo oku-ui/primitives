@@ -32,7 +32,7 @@ onUnmounted(() => {
 
 <template>
   <Primitive
-    ref="composedRefs"
+    :ref="composedRefs"
     v-bind="props"
   >
     <slot />

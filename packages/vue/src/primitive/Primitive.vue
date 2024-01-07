@@ -39,7 +39,7 @@ const attrs = useAttrs()
   <component
     v-bind="mergeProps(primitiveProps, attrs)"
     :is="asChild ? OkuSlot : is"
-    ref="composedRefs"
+    :ref="composedRefs"
   >
     <slot />
   </component>

@@ -1,1 +1,2 @@
-export * from './focus-scope'
+export type * from './FocusScope.vue'
+export { default as OkuFocusScope } from './FocusScope.vue'
