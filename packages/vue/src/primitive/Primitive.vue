@@ -15,7 +15,14 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<PrimitiveProps>()
+const props = withDefaults(
+  defineProps<PrimitiveProps>(),
+  {
+    is: 'div',
+    asChild: false,
+  },
+)
+
 const forwarded = useForwardRef()
 const composedRefs = useComposedRefs(forwarded)
 

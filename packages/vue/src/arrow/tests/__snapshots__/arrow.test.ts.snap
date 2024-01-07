@@ -8,8 +8,10 @@ exports[`label > tag 1`] = `
   viewBox="0 0 30 10"
   width="40"
 >
+  
   <polygon
     points="0,0 30,0 15,10"
   />
+  
 </svg>
 `;
