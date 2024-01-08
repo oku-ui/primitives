@@ -14,7 +14,7 @@ const open = ref(false)
 <template>
   <Scrollable>
     <OkuPopper>
-      <OkuPopperAnchor class="popper-anchor" @click="open = true">
+      <OkuPopperAnchor class="popper-anchor" @click="open = !open">
         open
       </OkuPopperAnchor>
 

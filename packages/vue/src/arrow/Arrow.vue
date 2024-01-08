@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { mergeProps, toRefs, useAttrs } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
@@ -9,7 +8,7 @@ export interface ArrowProps extends PrimitiveProps {
   height?: number
 }
 
-const props = withDefaults(
+withDefaults(
   defineProps<ArrowProps>(),
   {
     width: 30,
@@ -17,17 +16,15 @@ const props = withDefaults(
   },
 )
 
-const { width, height, ...arrowProps } = toRefs(props)
-const attrs = useAttrs()
 const forwardedRef = useForwardRef()
 </script>
 
 <template>
   <Primitive
-    v-bind="mergeProps(arrowProps, attrs)"
     is="svg"
     ref="forwardedRef"
     viewBox="0 0 30 10"
+    :as-child="asChild"
     :width="width"
     :height="height"
     :preserveAspectRatio="asChild ? undefined : 'none'"

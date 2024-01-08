@@ -72,12 +72,12 @@ withDefaults(defineProps<Props>(), {
 <style>
 .popper-content {
   transform-origin: var(--oku-popper-transform-origin);
-  background-color: #f9fafb;
+  background-color: #2f93f7;
   padding: 10px;
   border-radius: 10px;
   width: 300px;
   height: 150px;
-  background-color: #f9fafb;
+  background-color: #589fe5;
   padding: 10px;
   border-radius: 10px;
 
@@ -119,7 +119,7 @@ withDefaults(defineProps<Props>(), {
 }
 
 .popper-arrow {
-  fill: #f9fafb;
+  fill: #000000;
 }
 
 @keyframes popper-rotateIn {

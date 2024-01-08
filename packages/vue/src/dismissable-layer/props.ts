@@ -1,14 +1,3 @@
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject } from '@oku-ui/provide'
-
-export type ScopeDismissableLayer<T> = T & { scopeOkuDismissableLayer?: Scope }
-
-export const scopeDismissableLayerProps = {
-  scopeOkuDismissableLayer: {
-    ...ScopePropObject,
-  },
-}
-
 export const DISMISSABLE_NAME = 'OkuDismissableLayer'
 export const BRANCH_NAME = 'OkuDismissableLayerBranch'
 
