@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Teleport, mergeProps, toRefs, useAttrs } from 'vue'
+import { mergeProps, toRefs, useAttrs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
