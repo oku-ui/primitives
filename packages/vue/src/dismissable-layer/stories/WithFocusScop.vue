@@ -16,7 +16,11 @@ function alert(text: string) {
   <div :style="{ fontFamily: 'sans-serif', textAlign: 'center' }">
     <h1>DismissableLayer + FocusScope</h1>
     <div :style="{ marginBottom: '20px' }">
-      <button ref="openButtonRef" type="button" @click="open = !open">
+      <button
+        ref="openButtonRef" type="button" @click="() => {
+          open = !open
+        }"
+      >
         {{ open ? 'Close' : 'Open' }} layer
       </button>
     </div>
@@ -26,6 +30,7 @@ function alert(text: string) {
       as-child
       disable-outside-pointer-events
       @pointerdown-outside="(event) => {
+        console.log(event.target, openButtonRef)
         if (event.target === openButtonRef)
           event.preventDefault()
       }"

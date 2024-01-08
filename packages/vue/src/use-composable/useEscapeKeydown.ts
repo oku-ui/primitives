@@ -6,7 +6,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
  */
 function useEscapeKeydown(
   onEscapeKeydownProp?: (event: KeyboardEvent) => void,
-  ownerDocument: Document = globalThis?.document,
+  ownerDocument: Ref<Document> = ref(globalThis?.document),
 ) {
   const handleKeydown = (event: KeyboardEvent) => {
     if (event.key === 'Escape')
@@ -14,11 +14,11 @@ function useEscapeKeydown(
   }
 
   onMounted(() => {
-    ownerDocument.addEventListener('keydown', handleKeydown)
+    ownerDocument.value.addEventListener('keydown', handleKeydown)
   })
 
   onBeforeUnmount(() => {
-    ownerDocument.removeEventListener('keydown', handleKeydown)
+    ownerDocument.value.removeEventListener('keydown', handleKeydown)
   })
 }
 

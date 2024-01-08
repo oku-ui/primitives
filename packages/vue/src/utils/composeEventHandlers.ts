@@ -1,4 +1,4 @@
-function composeEventHandlers<E>(
+export function composeEventHandlers<E>(
   originalEventHandler?: (event: E) => void,
   ourEventHandler?: (event: E) => void,
   { checkForDefaultPrevented = true } = {},
@@ -10,5 +10,3 @@ function composeEventHandlers<E>(
       return ourEventHandler?.(event)
   }
 }
-
-export { composeEventHandlers }

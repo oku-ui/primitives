@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, useAttrs, watchEffect } from 'vue'
+import { computed, nextTick, reactive, ref, useAttrs, watchEffect } from 'vue'
 import type { DismissableLayerBranchElement, DismissableLayerElement, FocusBlurCaptureEvent, FocusCaptureEvent, FocusOutsideEvent, PointerdownCaptureEvent, PointerdownOutsideEvent } from './props'
 
 export const context = reactive({
@@ -14,9 +14,7 @@ import { useComposedRefs, useEscapeKeydown, useForwardRef } from '@oku-ui/use-co
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { dispatchUpdate, useFocusOutside, usePointerdownOutside } from './util'
-
-import { INJECT_UPDATE } from './props'
+import { useFocusOutside, usePointerdownOutside } from './util'
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
@@ -70,7 +68,7 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 const emit = defineEmits<DismissableLayerEmits>()
 
 const node = ref<DismissableLayerElement | null>(null)
-const ownerDocument = computed(() => node.value?.ownerDocument ?? document)
+const ownerDocument = computed(() => node.value?.ownerDocument ?? globalThis?.document)
 
 const forwardedRef = useForwardRef()
 const composedRefs = useComposedRefs(node, forwardedRef)
@@ -102,9 +100,9 @@ const pointerdownOutside = usePointerdownOutside(async (event) => {
 
   if (!event.defaultPrevented)
     emit('dismiss')
-}, ownerDocument.value)
+}, ownerDocument)
 
-const focusOutside = useFocusOutside((event) => {
+const focusOutside = useFocusOutside(async (event) => {
   const target = event.target as HTMLElement
   const isFocusInBranch = [...context.branches].some(branch => branch.contains(target))
   if (isFocusInBranch)
@@ -112,10 +110,11 @@ const focusOutside = useFocusOutside((event) => {
 
   emit('focusOutside', event)
   emit('interactOutside', event)
+  await nextTick()
 
   if (!event.defaultPrevented)
     emit('dismiss')
-}, ownerDocument.value)
+}, ownerDocument)
 
 useEscapeKeydown((event) => {
   const isHighestLayer = index.value === context.layers.size - 1
@@ -128,11 +127,11 @@ useEscapeKeydown((event) => {
     event.preventDefault()
     emit('dismiss')
   }
-}, ownerDocument.value)
+}, ownerDocument)
 
 let originalBodyPointerEvents: string
 
-watchEffect((onCleanup) => {
+watchEffect(async (onCleanup) => {
   if (!node.value)
     return
 
@@ -141,12 +140,11 @@ watchEffect((onCleanup) => {
       originalBodyPointerEvents = ownerDocument.value.body.style.pointerEvents
       ownerDocument.value.body.style.pointerEvents = 'none'
     }
+
     context.layersWithOutsidePointerEventsDisabled.add(node.value)
   }
 
   context.layers.add(node.value)
-
-  dispatchUpdate()
 
   onCleanup(() => {
     if (
@@ -172,18 +170,7 @@ watchEffect((onCleanup) => {
 
     context.layers.delete(node.value)
     context.layersWithOutsidePointerEventsDisabled.delete(node.value)
-    dispatchUpdate()
   })
-})
-
-function handleUpdate() { }
-
-onMounted(() => {
-  document.addEventListener(INJECT_UPDATE, handleUpdate)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener(INJECT_UPDATE, handleUpdate)
 })
 
 const attrs = useAttrs()
@@ -204,13 +191,13 @@ const attrs = useAttrs()
     }"
     @focus.capture="composeEventHandlers<FocusCaptureEvent>((event) => {
       emit('focusCapture', event)
-    }, focusOutside.onFocusCapture)"
+    }, focusOutside.onFocusCapture)($event)"
     @blur.capture="composeEventHandlers<FocusBlurCaptureEvent>((event) => {
       emit('blurCapture', event)
-    }, focusOutside.onBlurCapture)"
+    }, focusOutside.onBlurCapture)($event)"
     @pointerdown.capture="composeEventHandlers<PointerdownCaptureEvent>((event) => {
       emit('pointerdownCapture', event)
-    }, pointerdownOutside.onPointerdownCapture)"
+    }, pointerdownOutside.onPointerdownCapture)($event)"
   >
     <slot />
   </Primitive>

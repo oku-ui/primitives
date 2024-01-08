@@ -9,15 +9,9 @@ export const scopeDismissableLayerProps = {
   },
 }
 
-// NAMES
 export const DISMISSABLE_NAME = 'OkuDismissableLayer'
 export const BRANCH_NAME = 'OkuDismissableLayerBranch'
 
-/* -------------------------------------------------------------------------------------------------
-* DismissableLayer - DismissableLayer.ts
-* ----------------------------------------------------------------------------------------------- */
-
-export const INJECT_UPDATE = 'dismissableLayer.update'
 export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerdownOutside'
 export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
 
