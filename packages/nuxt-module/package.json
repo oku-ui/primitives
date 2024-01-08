@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives-nuxt",
   "type": "module",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Oku Primitives for Nuxt Module",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
