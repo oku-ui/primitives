@@ -59,7 +59,6 @@ npm install @oku-ui/accordion
 
 ::
 
-
 ## Anatomy
 
 Import the component.
@@ -94,7 +93,6 @@ import {
 
 ### OkuAccordion
 Contains all the parts of an accordion.
-
 
 ::OkuTable
 ---
@@ -157,7 +155,6 @@ data:
 ---
 ::
 
-
 ::OkuAttributesTable
 ---
 data:
@@ -169,7 +166,6 @@ data:
     values: 'Present when disabled'
 ---
 ::
-
 
 ### OkuAccordionItem
 Contains all the parts of a collapsible section.
@@ -199,7 +195,6 @@ data:
     description: 'A unique value for the item.'
 ---
 ::
-
 
 ::OkuAttributesTable
 ---
@@ -236,7 +231,6 @@ data:
 ---
 ::
 
-
 ::OkuAttributesTable
 ---
 data:
@@ -272,7 +266,6 @@ data:
 ---
 ::
 
-
 ::OkuAttributesTable
 ---
 data:
@@ -291,7 +284,6 @@ data:
 
 ### OkuAccordionContent
 Contains the collapsible content for an item.
-
 
 ::OkuTable
 ---
@@ -314,7 +306,6 @@ data:
 ---
 ::
 
-
 ::OkuAttributesTable
 ---
 data:
@@ -330,7 +321,6 @@ data:
       - 'horizontal'
 ---
 ::
-
 
 ::CssVariablesTable
 ---

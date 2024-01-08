@@ -92,7 +92,6 @@ import {
 ### OkuScrollArea
 Contains all the parts of a scroll area.
 
-
 ::OkuTable
 ---
 data:
@@ -143,8 +142,6 @@ data:
       globally from `DirectionProvider` or assumes LTR (left-to-right) reading mode.
 ---
 ::
-
-
 
 ### OkuScrollAreaViewport
 The viewport area of the scroll area.
@@ -211,7 +208,6 @@ data:
 
 ### OkuScrollAreaThumb
 The thumb to be used in `ScrollArea.Scrollbar`.
-
 
 ::OkuTable
 ---

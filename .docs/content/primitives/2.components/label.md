@@ -27,8 +27,6 @@ links:
 ::
 ::
 
-
-
 ## Installation
 
 Install the component from your command line.

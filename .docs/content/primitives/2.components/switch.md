@@ -31,8 +31,6 @@ links:
 - Full keyboard navigation.
 - Can be controlled or uncontrolled.
 
-
-
 ## Installation
 
 Install the component from your command line.
@@ -138,11 +136,9 @@ data:
 ---
 ::
 
-
 ### OkuSwitchThumb
 
 The thumb that is used to visually indicate whether the switch is on or off.
-
 
 ::OkuTable
 ---
@@ -170,13 +166,11 @@ data:
 ---
 ::
 
-
 ## Accessibility
 
 Adheres to the [`switch` role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/switch).
 
 ### Keyboard Interactions
-
 
 ::OkuKeyboardTable
 ---

@@ -10,7 +10,6 @@ links:
     title: OkuTabs
 ---
 
-
 ::ContentDesignTabs
 #oku
 ::ContentTabs
@@ -33,8 +32,6 @@ links:
 - Supports horizontal/vertical orientation.
 - Supports automatic/manual activation.
 - Full keyboard navigation.
-
-
 
 ## Installation
 
@@ -148,7 +145,6 @@ data:
 ---
 ::
 
-
 ### OkuTabsList
 Contains the triggers that are aligned along the edge of the active content.
 
@@ -181,7 +177,6 @@ data:
     values: ['vertical', 'horizontal']
 ---
 ::
-
 
 ### OkuTabsTrigger
 The button that activates its associated content.
@@ -224,7 +219,6 @@ data:
 ---
 ::
 
-
 ### OkuTabsContent
 
 Contains the content associated with each trigger.
@@ -262,8 +256,6 @@ data:
     values: ['vertical', 'horizontal']
 ---
 ::
-
-
 
 ## Accessibility
 Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel).

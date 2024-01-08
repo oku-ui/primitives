@@ -27,13 +27,10 @@ links:
 ::
 ::
 
-
 ## Features
 - Full keyboard navigation.
 - Supports horizontal/vertical orientation.
 - Can be controlled or uncontrolled.
-
-
 
 ## Installation
 
@@ -139,7 +136,6 @@ data:
 ---
 ::
 
-
 ### OkuRadioGroupItem
 An item in the group that can be checked. An `input` will also render when used within a `form` to ensure events propagate correctly.
 
@@ -173,7 +169,6 @@ data:
 ---
 ::
 
-
 ### OkuRadioGroupIndicator
 Renders when the radio item is in a checked state. You can style this element directly, or you can use it as a wrapper to put an icon into, or both.
 
@@ -200,8 +195,6 @@ data:
     values: 'Present when disabled'
 ---
 ::
-
-
 
 ## Accessibility
 

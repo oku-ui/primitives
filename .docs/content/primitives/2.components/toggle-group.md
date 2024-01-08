@@ -33,12 +33,9 @@ links:
 - Support single and multiple pressed buttons.
 - Can be controlled or uncontrolled.
 
-
-
 ## Installation
 
 Install the component from your command line.
-
 
 ::code-group
 
@@ -55,7 +52,6 @@ npm install @oku-ui/toggle-group
 ```
 
 ::
-
 
 ## Anatomy
 
@@ -175,7 +171,6 @@ data:
 ---
 ::
 
-
 ### OkuToggleGroupItem
 An item in the group.
 
@@ -208,8 +203,6 @@ data:
     values: ['vertical', 'horizontal']
 ---
 ::
-
-
 
 ## Accessibility
 Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/radio/radio.html) to manage focus movement among items.

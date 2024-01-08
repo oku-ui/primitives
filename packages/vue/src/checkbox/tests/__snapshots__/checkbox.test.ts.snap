@@ -1,0 +1,105 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuCheckbox > should render OkuCheckbox correctly 1`] = `
+"<div><button type="button" role="checkbox" aria-checked="false" aria-required="false" data-state="unchecked" aria-label="basic checkbox" value="on">
+    <!---->
+  </button>
+  <!---->
+</div>"
+`;
+
+exports[`okuCheckbox > should render OkuCheckbox correctly 2`] = `"<primitivebutton-stub aschild="false" type="button" role="checkbox" aria-checked="false" aria-required="false" data-state="unchecked" disabled="false" value="on"></primitivebutton-stub>"`;
+
+exports[`okuCheckbox > should render OkuCheckboxIndicator correctly 1`] = `[Error: \`OkuCheckboxIndicator\` must be used within \`OkuCheckbox\`]`;
+
+exports[`okuCheckbox Stories > animated > should render correctly 1`] = `
+"<p>
+  <oku-checkbox-stub checked="indeterminate" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+</p>
+<button type="button"> Toggle indeterminate </button>"
+`;
+
+exports[`okuCheckbox Stories > chromatic > should render correctly 1`] = `
+"<h1>Uncontrolled</h1>
+<h2>Unchecked</h2>
+<oku-checkbox-stub required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+<h2>Checked</h2>
+<oku-checkbox-stub defaultchecked="true" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+<h1>Controlled</h1>
+<h2>Unchecked</h2>
+<oku-checkbox-stub checked="false" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+<h2>Checked</h2>
+<oku-checkbox-stub checked="true" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+<h1>Indeterminate</h1>
+<oku-checkbox-stub checked="indeterminate" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+<h1>Disabled</h1>
+<oku-checkbox-stub defaultchecked="true" required="false" disabled="true" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+<h1>Force mounted indicator</h1>
+<oku-checkbox-stub required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+<h1>State attributes</h1>
+<h2>Unchecked</h2>
+<oku-checkbox-stub required="false" disabled="false" aschild="false" class="checkbox-attr-styles" value="on"></oku-checkbox-stub>
+<h2>Checked</h2>
+<oku-checkbox-stub defaultchecked="true" required="false" disabled="false" aschild="false" class="checkbox-attr-styles" value="on"></oku-checkbox-stub>
+<h2>Indeterminate</h2>
+<oku-checkbox-stub checked="indeterminate" required="false" disabled="false" aschild="false" class="checkbox-attr-styles" value="on"></oku-checkbox-stub>
+<h2>Disabled</h2>
+<oku-checkbox-stub defaultchecked="true" required="false" disabled="true" aschild="false" class="checkbox-attr-styles" value="on"></oku-checkbox-stub>
+<h2>Force mounted indicator</h2>
+<oku-checkbox-stub required="false" disabled="false" aschild="false" class="checkbox-attr-styles" value="on"></oku-checkbox-stub>"
+`;
+
+exports[`okuCheckbox Stories > controlled > should render correctly 1`] = `
+"<p>This checkbox is placed adjacent to its label. The state is controlled.</p>
+<label-stub for="randBox"></label-stub>
+
+<oku-checkbox-stub checked="true" required="false" disabled="false" aschild="false" id="randBox" class="checkbox" value="on"></oku-checkbox-stub>"
+`;
+
+exports[`okuCheckbox Stories > indeterminate > should render correctly 1`] = `
+"<p>
+  <oku-checkbox-stub checked="indeterminate" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+</p>
+<button type="button"> Toggle indeterminate </button>"
+`;
+
+exports[`okuCheckbox Stories > styled > should render correctly 1`] = `
+"<p>This checkbox is nested inside a label. The state is uncontrolled.</p>
+<h1>Custom label</h1>
+<label-stub></label-stub>
+<br>
+<br>
+<h1>Native label</h1>
+<label> Label <oku-checkbox-stub required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub></label>
+<h1>Native label + native checkbox</h1>
+<label> Label <input type="checkbox"></label>
+<h1>Custom label + htmlFor</h1>
+<label-stub for="one"></label-stub>
+<oku-checkbox-stub required="false" disabled="false" aschild="false" id="one" class="checkbox" value="on"></oku-checkbox-stub>
+<br>
+<br>
+<h1>Native label + htmlFor</h1>
+<label for="two">Label</label>
+<oku-checkbox-stub required="false" disabled="false" aschild="false" id="two" class="checkbox" value="on"></oku-checkbox-stub>
+<h1>Native label + native checkbox</h1>
+<label for="three">Label</label>
+<input id="three" type="checkbox">"
+`;
+
+exports[`okuCheckbox Stories > withinForm > should render correctly 1`] = `
+"<form>
+  <fieldset>
+    <legend>optional checked: false</legend><label>
+      <oku-checkbox-stub name="optional" checked="indeterminate" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub> with label
+    </label><br><br><button type="button"> Toggle indeterminate </button>
+  </fieldset><br><br>
+  <fieldset>
+    <legend>required checked: false</legend>
+    <oku-checkbox-stub name="required" required="true" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+  </fieldset><br><br>
+  <fieldset>
+    <legend>stop propagation checked: false</legend>
+    <oku-checkbox-stub name="stopprop" required="false" disabled="false" aschild="false" class="checkbox" value="on"></oku-checkbox-stub>
+  </fieldset><br><br><button type="reset"> Reset </button><button>Submit</button>
+</form>"
+`;
