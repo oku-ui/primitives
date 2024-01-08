@@ -1,56 +1,61 @@
-import type { ComputedRef } from 'vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
+import type { ComputedRef, UnwrapRef, WritableComputedRef } from 'vue'
 
-type UseControllableStateParams<T> = {
-  prop: ComputedRef<T | undefined>
-  onChange?: (value: T) => void
+type useControllableParamsState<T> = {
+  prop?: ComputedRef<T | undefined>
   defaultProp?: ComputedRef<T | undefined>
-  initialValue?: T
+  onChange?: (state: T) => void
 }
 
-function useControllable<T>({
-  prop,
-  onChange,
-  defaultProp,
-  initialValue,
-}: UseControllableStateParams<T>) {
-  const uncontrolledProp = useUncontrolledState({
-    defaultProp,
-    onChange,
-  })
-  const isControlled = computed(() => prop.value !== undefined)
-  const value = computed(() => isControlled.value ? prop.value : uncontrolledProp.value === undefined && initialValue !== undefined ? initialValue : uncontrolledProp.value) as ComputedRef<T>
+type SetStateFn<T> = (prevState?: T) => T
 
-  function updateValue(nextValue: T | undefined) {
+function useControllableState<T>({
+  prop,
+  defaultProp,
+  onChange = () => { },
+}: useControllableParamsState<T>) {
+  const uncontrolledProp = useUncontrolledState({ defaultProp, onChange })
+  const isControlled = computed(() => prop?.value !== undefined)
+  const value = computed({
+    get: () => isControlled.value ? prop?.value : uncontrolledProp.value,
+    set: (newValue) => {
+      return newValue
+    },
+  }) as WritableComputedRef<T>
+
+  const handleChange = (_value: T) => onChange(_value)
+
+  const setValue = (nextValue: T | SetStateFn<T>) => {
     if (isControlled.value) {
-      const setter = nextValue as T
-      const value = typeof setter === 'function' ? setter(prop.value as T) : nextValue
-      if (value !== prop.value)
-        onChange?.(value as T)
+      const setter = nextValue as SetStateFn<T>
+      const value = computed(() => typeof nextValue === 'function' ? setter(prop?.value) : nextValue)
+      if (value.value !== prop?.value)
+        handleChange(value.value)
     }
     else {
-      uncontrolledProp.value = nextValue as any
+      uncontrolledProp.value = nextValue as UnwrapRef<T>
     }
   }
-  return {
-    state: value,
-    updateValue,
-  }
+  return [value, setValue] as const
 }
 
 function useUncontrolledState<T>({
   defaultProp,
   onChange,
-}: Omit<UseControllableStateParams<T>, 'prop'>) {
+}: Omit<useControllableParamsState<T>, 'prop'>) {
   const uncontrolledState = ref<T | undefined>(defaultProp?.value)
-  const prevValueRef = ref(defaultProp)
+  const value = uncontrolledState
+  const prevValueRef = ref(value)
+  const handleChange = (_value: T) => onChange?.(_value)
 
-  watch(uncontrolledState, () => {
-    if (prevValueRef.value !== uncontrolledState.value)
-      onChange?.(uncontrolledState.value as T)
+  watchEffect(() => {
+    if (prevValueRef.value !== value.value) {
+      handleChange(value as T)
+      prevValueRef.value = value.value
+    }
   })
 
   return uncontrolledState
 }
 
-export { useControllable }
+export { useControllableState as useControllable }
