@@ -7,12 +7,8 @@ import type { AspectRatioNativeElement } from './props'
 const aspectRatio = defineComponent({
   name: ASPECT_RATIO_NAME,
   inheritAttrs: false,
-  props: {
-    ...aspectRatioProps.props,
-  },
-  emit: {
-    ...aspectRatioProps.emits,
-  },
+  props: aspectRatioProps.props,
+  emit: aspectRatioProps.emits,
   setup(props, { attrs, slots }) {
     const {
       ratio,

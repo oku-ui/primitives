@@ -7,15 +7,11 @@ import type { LabelEmits, LabelNativeElement } from './props'
 const label = defineComponent({
   name: LABEL_NAME,
   inheritAttrs: false,
-  props: {
-    ...labelProps.props,
-  },
-  emits: {
-    ...labelProps.emits,
-  },
+  props: labelProps.props,
+  emits: labelProps.emits,
   setup(props, { attrs, slots, emit }) {
     const forwardedRef = useForwardRef()
-    const emits = useListeners(['onMousedown'])
+    const emits = useListeners()
 
     return () => h(Primitive.label, {
       ...mergeProps(attrs, emits),

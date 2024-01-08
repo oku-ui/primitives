@@ -3,8 +3,6 @@ import ToolbarExample from './ToolbarExample.vue'
 </script>
 
 <template>
-  <div>
-    <ToolbarExample title="Horizontal" />
-    <ToolbarExample title="Vertical" orientation="vertical" />
-  </div>
+  <ToolbarExample title="Horizontal" />
+  <ToolbarExample title="Vertical" orientation="vertical" />
 </template>

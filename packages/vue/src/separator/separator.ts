@@ -8,11 +8,9 @@ import type { SeparatorNativeElement } from './props'
 const separator = defineComponent({
   name: SEPARATOR_NAME,
   inheritAttrs: false,
-  props: {
-    ...separatorProps.props,
-  },
+  props: separatorProps.props,
   emits: separatorProps.emits,
-  setup(props, { attrs, slots }) {
+  setup(props, { attrs }) {
     const {
       decorative,
       orientation: orientationProp,
@@ -37,7 +35,7 @@ const separator = defineComponent({
       ...semanticProps.value,
       ...mergeProps(attrs, otherProps, emits),
       'ref': forwardedRef,
-    }, () => slots.default?.())
+    })
   },
 })
 

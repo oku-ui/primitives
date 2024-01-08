@@ -7,12 +7,8 @@ import type { BubbleInputNativeElement } from './props'
 const bubbleInput = defineComponent({
   name: CHECKBOX_BUBBLE_INPUT_NAME,
   inheritAttrs: false,
-  props: {
-    ...bubbleInputProps.props,
-  },
-  emits: {
-    ...bubbleInputProps.emits,
-  },
+  props: bubbleInputProps.props,
+  emits: bubbleInputProps.emits,
   setup(props, { attrs }) {
     const {
       checked,

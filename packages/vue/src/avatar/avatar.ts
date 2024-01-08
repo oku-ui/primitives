@@ -11,9 +11,7 @@ const avatar = defineComponent({
     ...avatarProps.props,
     ...scopeAvatarProps,
   },
-  emit: {
-    ...avatarProps.emits,
-  },
+  emit: avatarProps.emits,
   setup(props, { attrs, slots }) {
     const {
       scopeOkuAvatar,
