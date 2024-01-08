@@ -1,31 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineEmits, defineProps, ref, withDefaults } from 'vue'
 import { OkuPopper, OkuPopperAnchor, OkuPopperArrow, OkuPopperContent } from '@oku-ui/popper'
 import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
 import { useScrollLock } from '@oku-ui/use-composable'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
-import type { DismissableLayerEmits } from '..'
-import { OkuDismissableLayer } from '..'
+import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
+import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 
-const props = withDefaults(
-  defineProps<{
-    openLabel?: string
-    closeLabel?: string
-    color?: string
-    trapped?: boolean
-    disableOutsidePointerEvents?: boolean
-    preventScroll?: boolean
-  }>(),
-  {
-    openLabel: 'Open',
-    closeLabel: 'Close',
-    color: '#333',
-    trapped: true,
-    disableOutsidePointerEvents: false,
-    preventScroll: false,
-  },
-)
+interface Props {
+  openLabel?: string
+  closeLabel?: string
+  color?: string
+  trapped?: boolean
+  disableOutsidePointerEvents?: boolean
+  preventScroll?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  openLabel: 'Open',
+  closeLabel: 'Close',
+  color: '#333',
+  trapped: true,
+  disableOutsidePointerEvents: false,
+  preventScroll: false,
+})
 
 defineEmits<DismissableLayerEmits>()
 
