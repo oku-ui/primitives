@@ -5,11 +5,10 @@ import WithFocusScop from './WithFocusScop.vue'
 import DialogExample from './DialogExample.vue'
 import PopoverFullyModal from './PopoverFullyModal.vue'
 import PopoverSemiModal from './PopoverSemiModal.vue'
-
-// import PopoverNonModal from './PopoverNonModal.vue'
-// import PopoverInDialog from './PopoverInDialog.vue'
-// import PopoverNested from './PopoverNested.vue'
-// import InPopupWindow from './InPopupWindow.vue'
+import PopoverNonModal from './PopoverNonModal.vue'
+import PopoverInDialog from './PopoverInDialog.vue'
+import PopoverNested from './PopoverNested.vue'
+import InPopupWindow from './InPopupWindow.vue'
 
 withDefaults(defineProps<IDismissableLayerProps>(), {})
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Component, SetupContext, VNode } from 'vue'
-import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, ref, useAttrs, useSlots } from 'vue'
+import type { Component, VNode } from 'vue'
+import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, ref, useSlots } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { isComment, isElement, isElementRoot, isValidElement } from '@oku-ui/utils'
+import { isComment, isElement, isValidElement } from '@oku-ui/utils'
 import { isSlottable } from './utils'
 
 defineOptions({
@@ -26,10 +26,8 @@ function renderSlotFragments(children: VNode[]): VNode[] {
     return [child]
   })
 }
-const attrs = useAttrs()
 
-function Comp(props: any, context: SetupContext<any>,
-) {
+function Comp(props: any) {
   const defaultSlot = (slots.default?.() || [])
   const slottable = defaultSlot?.find(isSlottable)
 
@@ -55,12 +53,10 @@ function Comp(props: any, context: SetupContext<any>,
 
     if (isValidElement(first)) {
       const n = createElementBlock(first.type, {
-        ...mergeProps(attrs, first.props, {
-          ref: forwarded,
-        }),
+        ...mergeProps(props),
       })
 
-      return createVNode(n, null, newChildren)
+      return createVNode(n, { ...props }, newChildren)
     }
     else {
       return null
@@ -73,19 +69,18 @@ function Comp(props: any, context: SetupContext<any>,
 
     const first = Array.isArray(children) ? children[0] : children
 
-    if (isValidElement(first) && isElementRoot(first)) {
-      if (!first.props)
-        first.props = {}
-
+    if (isValidElement(first)) {
       const clone = cloneVNode(first, {
         ref: element,
-        ...mergeProps(attrs, props, context.attrs),
-      }, true)
-
+        ...mergeProps(props),
+      }, false)
       return clone
     }
     else {
-      return first
+      return cloneVNode(first, {
+        ref: element,
+        ...mergeProps(props),
+      }, false)
     }
   }
 }
