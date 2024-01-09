@@ -30,7 +30,6 @@ function alert(text: string) {
       as-child
       disable-outside-pointer-events
       @pointerdown-outside="(event) => {
-        console.log(event.target, openButtonRef)
         if (event.target === openButtonRef)
           event.preventDefault()
       }"

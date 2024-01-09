@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
   preventScroll: false,
 })
 
-defineEmits<DismissableLayerEmits>()
+const emit = defineEmits<DismissableLayerEmits>()
 
 const skipUnmountAutoFocus = ref(false)
 const open = ref(false)
@@ -56,7 +56,7 @@ useScrollLock(portalRef, props.preventScroll)
               if (event.target === openButtonRef)
                 event.preventDefault()
               else
-                $emit('pointerdownOutside', event)
+                emit('pointerdownOutside', event)
             }"
             @focus-outside="(event) => $emit('focusOutside', event)"
             @interact-outside="(event) => $emit('interactOutside', event)"

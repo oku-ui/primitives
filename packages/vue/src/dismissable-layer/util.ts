@@ -156,10 +156,9 @@ export function handleAndDispatchCustomEvent<E extends CustomEvent, OriginalEven
   { discrete }: { discrete: boolean },
 ) {
   const target = detail.originalEvent.target
-  const event = new CustomEvent(name, { bubbles: true, cancelable: true, detail })
-
+  const event = new CustomEvent(name, { bubbles: false, cancelable: true, detail })
   if (handler)
-    handler(event as E)
+    target.addEventListener(name, handler as EventListener, { once: true })
 
   if (discrete)
     dispatchDiscreteCustomEvent(target, event)
