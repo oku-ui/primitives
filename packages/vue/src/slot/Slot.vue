@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import type { Component, VNode } from 'vue'
-import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, useAttrs, useSlots } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { isValidElement } from '@oku-ui/utils'
+import type { Component, SetupContext, VNode } from 'vue'
+import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, ref, useAttrs, useSlots } from 'vue'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { isComment, isElement, isElementRoot, isValidElement } from '@oku-ui/utils'
 import { isSlottable } from './utils'
 
 defineOptions({
   name: 'OkuSlot',
-  inheritAttrs: false,
 })
 
 const slots = useSlots()
 
 const forwarded = useForwardRef()
+const element = ref()
+const composedRefs = useComposedRefs(forwarded, element)
 
 function renderSlotFragments(children: VNode[]): VNode[] {
   if (!children.length)
@@ -27,7 +28,8 @@ function renderSlotFragments(children: VNode[]): VNode[] {
 }
 const attrs = useAttrs()
 
-function Comp() {
+function Comp(props: any, context: SetupContext<any>,
+) {
   const defaultSlot = (slots.default?.() || [])
   const slottable = defaultSlot?.find(isSlottable)
 
@@ -71,14 +73,14 @@ function Comp() {
 
     const first = Array.isArray(children) ? children[0] : children
 
-    if (isValidElement(first)) {
+    if (isValidElement(first) && isElementRoot(first)) {
       if (!first.props)
         first.props = {}
 
       const clone = cloneVNode(first, {
-        ref: forwarded,
-        ...mergeProps(attrs, first.props),
-      })
+        ref: element,
+        ...mergeProps(attrs, props, context.attrs),
+      }, true)
 
       return clone
     }
@@ -90,5 +92,13 @@ function Comp() {
 </script>
 
 <template>
-  <Comp />
+  <Comp
+    :ref="(el: Element) => {
+      if (isElement(el) && !isComment(el)){
+        composedRefs(el)
+      }
+    }"
+  >
+    <slot />
+  </Comp>
 </template>

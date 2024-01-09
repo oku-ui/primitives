@@ -1,7 +1,7 @@
 // same inspiration and resource https://github.com/chakra-ui/ark/blob/main/packages/vue/src/factory.tsx
 
 import type { VNode } from 'vue'
-import { Fragment } from 'vue'
+import { Fragment, nextTick } from 'vue'
 
 /**
  * Checks whether a given VNode is a render-vialble element.
@@ -46,13 +46,14 @@ export function renderSlotFragments(children: VNode[]): VNode[] {
   })
 }
 
-export function dispatchDiscreteCustomEvent(target: Node, event: CustomEvent) {
-  const path = event.composedPath()
-  for (let i = 0; i < path.length; i++) {
-    const node = path[i]
-    if (node === target)
-      break;
-    (node as EventTarget).dispatchEvent(event)
+export function dispatchDiscreteCustomEvent<E extends CustomEvent>(
+  target: E['target'],
+  event: E,
+) {
+  if (target) {
+    nextTick(() => {
+      target.dispatchEvent(event)
+    })
   }
 }
 

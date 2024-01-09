@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { mergeProps, toRefs, useAttrs } from 'vue'
+import { mergeProps, useAttrs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 export interface PortalProps extends PrimitiveProps {
   /**
@@ -16,22 +16,21 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<PortalProps>(), {
+withDefaults(defineProps<PortalProps>(), {
   container: globalThis?.document?.body ?? null,
 })
 
-const { container, ...restProps } = toRefs(props)
-
 const forwardedRef = useForwardRef()
+const composedRefs = useComposedRefs(forwardedRef)
 const attrs = useAttrs()
 </script>
 
 <template>
   <Teleport v-if="container" :to="container" :disabled="!container">
     <Primitive
-      v-bind="mergeProps(attrs, restProps)"
+      v-bind="mergeProps(attrs)"
       is="div"
-      ref="forwardedRef"
+      :ref="composedRefs"
       :as-child="asChild"
     >
       <slot />

@@ -6,16 +6,15 @@ export interface PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { mergeProps, onMounted, toRefs, useAttrs } from 'vue'
+import { useForwardRef } from '@oku-ui/use-composable'
+import { mergeProps, onMounted, useAttrs } from 'vue'
 import { OkuSlot } from '@oku-ui/slot'
 
 defineOptions({
   name: 'OkuPrimitive',
-  inheritAttrs: false,
 })
 
-const props = withDefaults(
+withDefaults(
   defineProps<PrimitiveProps>(),
   {
     is: 'div',
@@ -24,9 +23,6 @@ const props = withDefaults(
 )
 
 const forwarded = useForwardRef()
-const composedRefs = useComposedRefs(forwarded)
-
-const { asChild, is, ...primitiveProps } = toRefs(props)
 
 onMounted(() => {
   (window as any)[Symbol.for('oku-ui')] = true
@@ -37,9 +33,9 @@ const attrs = useAttrs()
 
 <template>
   <component
-    v-bind="mergeProps(primitiveProps, attrs)"
     :is="asChild ? OkuSlot : is"
-    :ref="composedRefs"
+    :ref="forwarded"
+    v-bind="mergeProps(attrs)"
   >
     <slot />
   </component>

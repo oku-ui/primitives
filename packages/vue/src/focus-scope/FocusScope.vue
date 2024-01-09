@@ -5,6 +5,7 @@ import type { PrimitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 
 import {
+  nextTick,
   reactive,
   ref,
   watchEffect,
@@ -81,6 +82,8 @@ const focusScope = reactive({
 
 // Takes care of trapping focus if focus is moved outside programmatically for example
 watchEffect(async (onInvalidate) => {
+  await nextTick()
+
   if (props.trapped) {
     const handleFocusIn = (event: FocusEvent) => {
       if (focusScope.paused || !container.value)
@@ -149,6 +152,7 @@ watchEffect(async (onInvalidate) => {
 })
 
 watchEffect(async (onInvalidate) => {
+  await nextTick()
   if (container.value) {
     focusScopesStack.add(focusScope)
 
