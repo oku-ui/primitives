@@ -135,20 +135,29 @@ const tabs = defineComponent({
 
     const modelValue = useModel(props, 'modelValue')
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => modelValue.value ?? valueProp.value),
+    const valueProxy = computed(() => {
+      if (valueProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (valueProp.value !== undefined)
+        return valueProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
+    })
+
+    const [value, setValue] = useControllable({
+      prop: computed(() => valueProxy.value),
       defaultProp: computed(() => defaultValue.value),
-      onChange: (result: any) => {
-        modelValue.value = result
+      onChange: (result) => {
         emit('valueChange', result)
+        emit('update:modelValue', result)
       },
     })
 
     tabsProvider({
-      onValueChange: (value: string) => updateValue(value),
+      onValueChange: (value: string) => setValue(value),
       orientation,
       dir: direction,
-      value: state,
+      value,
       activationMode,
       baseId: computed(() => useId()),
       scope: scopeOkuTabs.value,

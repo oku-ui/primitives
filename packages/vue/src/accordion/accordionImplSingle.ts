@@ -27,14 +27,22 @@ const accordionImplSingle = defineComponent({
     } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed(() => valueProp.value !== undefined ? valueProp.value : modelValue.value !== undefined ? modelValue.value : undefined)
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const valueProxy = computed(() => {
+      if (valueProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (valueProp.value !== undefined)
+        return valueProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
+    })
+
+    const [value, setValue] = useControllable({
+      prop: computed(() => valueProxy.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result) => {
         emit('valueChange', result)
-        modelValue.value = result
+        emit('update:modelValue', result)
       },
     })
 
@@ -45,13 +53,13 @@ const accordionImplSingle = defineComponent({
 
     AccordionValueProvider({
       scope: props.scopeOkuAccordion,
-      value: computed(() => state.value ? [state.value] : []),
+      value: computed(() => value.value ? [value.value] : []),
       onItemOpen: (e) => {
-        updateValue(e)
+        setValue(e)
       },
       onItemClose: () => {
         if (collapsible.value)
-          updateValue('')
+          setValue('')
       },
     })
 

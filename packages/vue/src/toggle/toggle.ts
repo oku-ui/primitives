@@ -24,16 +24,20 @@ const toggle = defineComponent({
     const emits = useListeners()
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : pressedProp.value !== undefined ? pressedProp.value : undefined,
-      set: () => { },
+
+    const pressedProxy = computed(() => {
+      if (pressedProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (pressedProp.value !== undefined)
+        return pressedProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const [pressed, setPressed] = useControllable({
+      prop: computed(() => pressedProxy.value),
       defaultProp: computed(() => defaultPressed.value),
-      onChange: (result: any) => {
-        modelValue.value = result
+      onChange: (result) => {
         emit('pressedChange', result)
         emit('update:modelValue', result)
       },
@@ -42,8 +46,8 @@ const toggle = defineComponent({
 
     return () => h(Primitive.button, {
       'type': 'button',
-      'aria-pressed': state.value,
-      'data-state': state.value ? 'on' : 'off',
+      'aria-pressed': pressed.value,
+      'data-state': pressed.value ? 'on' : 'off',
       'data-disabled': props.disabled ? '' : undefined,
       ...mergeProps(attrs, otherProps, emits),
       'ref': forwardedRef,
@@ -51,7 +55,7 @@ const toggle = defineComponent({
         emit('click', event)
       }, () => {
         if (!props.disabled)
-          updateValue(!state.value)
+          setPressed(!pressed.value)
       }),
     }, () => slots.default?.())
   },

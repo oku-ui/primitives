@@ -118,7 +118,7 @@ export interface AccordionMultipleEmits extends AccordionImplMultipleEmits {
 export const accordionProps = {
   props: {
     value: {
-      type: [String, Array, undefined] as PropType<string | string[] | undefined>,
+      type: [String, Array] as PropType<string | string[] | undefined>,
       default: undefined,
     },
     type: {
@@ -126,7 +126,7 @@ export const accordionProps = {
       default: 'single',
     },
     defaultValue: {
-      type: [String, Array, undefined] as PropType<string | string[] | undefined>,
+      type: [String, Array] as PropType<string | string[] | undefined>,
       default: undefined,
     },
     /**
@@ -134,7 +134,7 @@ export const accordionProps = {
      * @default false
      */
     collapsible: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      type: [Boolean] as PropType<boolean | undefined>,
       default: undefined,
     },
   },
@@ -211,7 +211,7 @@ export interface AccordionImplEmits {
 export const accordionImplProps = {
   props: {
     disabled: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      type: [Boolean] as PropType<boolean | undefined>,
       default: undefined,
     },
     orientation: {
@@ -261,15 +261,15 @@ export const accordionImplMultipleProps = {
   props: {
     ...accordionImplProps.props,
     modelValue: {
-      type: [Array, undefined] as PropType<string[] | undefined>,
+      type: [Array] as PropType<string[] | undefined>,
       default: undefined,
     },
     value: {
-      type: [Array, undefined] as PropType<string[] | undefined>,
+      type: [Array] as PropType<string[] | undefined>,
       default: undefined,
     },
     defaultValue: {
-      type: [Array, undefined] as PropType<string[] | undefined>,
+      type: [Array] as PropType<string[] | undefined>,
       default: undefined,
     },
   },
@@ -319,19 +319,19 @@ export const accordionImplSingleProps = {
   props: {
     ...accordionImplProps.props,
     modelValue: {
-      type: [String, undefined] as PropType<string | undefined>,
+      type: [String] as PropType<string | undefined>,
       default: undefined,
     },
     value: {
-      type: [String, undefined] as PropType<string | undefined>,
+      type: [String] as PropType<string | undefined>,
       default: undefined,
     },
     defaultValue: {
-      type: [String, undefined] as PropType<string | undefined>,
+      type: [String] as PropType<string | undefined>,
       default: undefined,
     },
     collapsible: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      type: Boolean as PropType<boolean>,
       default: false,
     },
   },
@@ -372,7 +372,7 @@ export const accordionItemProps = {
   props: {
     ...propsOmit(collapsibleProps.props, ['open', 'defaultOpen']),
     disabled: {
-      type: [Boolean, undefined] as PropType<boolean | undefined>,
+      type: [Boolean] as PropType<boolean | undefined>,
     },
     value: {
       type: String as PropType<string>,

@@ -35,10 +35,10 @@ const RovingFocusGroupImpl = defineComponent({
     const buttonRef = ref<HTMLDivElement | null>(null)
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
-    const { state: currentTabStopId, updateValue: updateCurrentTabStopId } = useControllable({
+    const [currentTabStopId, setCurrentTabStopId] = useControllable({
       prop: computed(() => currentTabStopIdProp.value),
       defaultProp: computed(() => defaultCurrentTabStopId.value),
-      onChange: (result: any) => {
+      onChange: (result) => {
         emit('currentTabStopIdChange', result)
       },
       initialValue: null,
@@ -72,9 +72,9 @@ const RovingFocusGroupImpl = defineComponent({
       orientation,
       dir,
       loop,
-      currentTabStopId: computed(() => currentTabStopId.value || null),
+      currentTabStopId,
       onItemFocus: (tabStopId: string) => {
-        updateCurrentTabStopId(tabStopId)
+        setCurrentTabStopId(tabStopId)
       },
       onItemShiftTab: () => {
         isTabbingBackOut.value = true

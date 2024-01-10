@@ -26,15 +26,24 @@ const accordionImplMultiple = defineComponent({
     } = toRefs(props)
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed(() => valueProp.value !== undefined ? valueProp.value : modelValue.value !== undefined ? modelValue.value : undefined)
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const valueProxy = computed(() => {
+      if (valueProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (valueProp.value !== undefined)
+        return valueProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
+    })
+
+    const [value, setValue] = useControllable({
+      prop: computed(() => valueProxy.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result) => {
         emit('valueChange', result)
-        modelValue.value = result
+        emit('update:modelValue', result)
       },
+      initialValue: [],
     })
 
     const forwardRef = useForwardRef()
@@ -44,18 +53,18 @@ const accordionImplMultiple = defineComponent({
 
     AccordionValueProvider({
       scope: props.scopeOkuAccordion,
-      value: computed(() => state.value),
+      value,
       onItemOpen: (e) => {
-        if (!state.value)
-          updateValue([])
+        if (!value.value)
+          setValue([])
 
-        state.value.push(e)
-        updateValue(state.value)
+        value.value.push(e)
+        setValue(value.value)
       },
       onItemClose: (e) => {
-        const index = state.value.indexOf(e)
-        state.value.splice(index, 1)
-        updateValue(state.value)
+        const index = value.value.indexOf(e)
+        value.value.splice(index, 1)
+        setValue(value.value)
       },
     })
 

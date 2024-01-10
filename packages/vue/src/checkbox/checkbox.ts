@@ -49,29 +49,32 @@ const Checkbox = defineComponent({
     })
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : checkedProp.value !== undefined ? checkedProp.value : undefined,
-      set: () => {
-      },
+
+    const checkedProxy = computed(() => {
+      if (checkedProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (checkedProp.value !== undefined)
+        return checkedProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const [checked, setChecked] = useControllable({
+      prop: computed(() => checkedProxy.value),
       defaultProp: computed(() => defaultChecked.value),
-      onChange: (result: any) => {
-        modelValue.value = result
+      onChange: (result) => {
         emit('checkedChange', result)
         emit('update:modelValue', result)
       },
       initialValue: false,
     })
 
-    const initialCheckedStateRef = ref(state.value)
+    const initialCheckedStateRef = ref(checked.value)
 
     watchEffect((onInvalidate) => {
       const form = buttonRef.value?.form
       if (form) {
-        const reset = () => updateValue(initialCheckedStateRef.value)
+        const reset = () => setChecked(initialCheckedStateRef.value)
         form.addEventListener('reset', reset)
 
         onInvalidate(() => form.removeEventListener('reset', reset))
@@ -80,7 +83,7 @@ const Checkbox = defineComponent({
 
     checkboxProvider({
       scope: scopeOkuCheckbox.value,
-      state,
+      state: checked,
       disabled,
     })
 
@@ -88,9 +91,9 @@ const Checkbox = defineComponent({
       h(Primitive.button, {
         'type': 'button',
         'role': 'checkbox',
-        'aria-checked': computed(() => isIndeterminate(state.value) ? 'mixed' : state.value).value,
+        'aria-checked': computed(() => isIndeterminate(checked.value) ? 'mixed' : checked.value).value,
         'aria-required': required.value,
-        'data-state': computed(() => getState(state.value)).value,
+        'data-state': computed(() => getState(checked.value)).value,
         'data-disabled': disabled.value ? '' : undefined,
         'disabled': disabled.value,
         'value': value.value,
@@ -106,7 +109,7 @@ const Checkbox = defineComponent({
         'onClick': composeEventHandlers<CheckboxEmits['click'][0]>((event) => {
           emit('click', event)
         }, (event) => {
-          updateValue(isIndeterminate(state.value) ? true : !state.value)
+          setChecked(isIndeterminate(checked.value) ? true : !checked.value)
 
           if (isFormControl.value) {
             // TODO: isPropagationStopped() is not supported in vue
@@ -126,7 +129,7 @@ const Checkbox = defineComponent({
         bubbles: computed(() => !hasConsumerStoppedPropagationRef.value).value,
         name: name.value,
         value: value.value,
-        checked: state.value,
+        checked: checked.value,
         required: required.value,
         disabled: disabled.value,
         // We transform because the input is absolutely positioned but we have

@@ -154,28 +154,33 @@ const slider = defineComponent({
     const isFormControl = computed(() => {
       return false
     })
+
     const modelValue = useModel(props, 'modelValue')
-    const proxyValue = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : value.value !== undefined ? value.value : undefined,
-      set: () => {
-      },
+
+    const valueProxy = computed(() => {
+      if (value.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (value.value !== undefined)
+        return value.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyValue.value),
+    const [values, setValues] = useControllable({
+      prop: computed(() => valueProxy.value),
       defaultProp: computed(() => defaultValue.value),
-      onChange: (result: any) => {
+      onChange: (result) => {
         const thumbs = [...thumbRefs.value]
         thumbs[valueIndexToChangeRef.value]?.focus()
-        modelValue.value = result
         emit('valueChange', result)
+        emit('update:modelValue', result)
       },
       initialValue: [],
     })
 
-    const valuesBeforeSlideStartRef = ref<number[]>(state.value as number[])
+    const valuesBeforeSlideStartRef = ref<number[]>(values.value as number[])
     function handleSlideStart(value: number) {
-      const closestIndex = getClosestValueIndex(state.value || [], value)
+      const closestIndex = getClosestValueIndex(values.value || [], value)
       updateValues(value, closestIndex)
     }
 
@@ -185,10 +190,10 @@ const slider = defineComponent({
 
     function handleSlideEnd() {
       const prevValue = valuesBeforeSlideStartRef.value[valueIndexToChangeRef.value]
-      const nextValue = state.value?.[valueIndexToChangeRef.value]
+      const nextValue = values.value?.[valueIndexToChangeRef.value]
       const hasChanged = nextValue !== prevValue
       if (hasChanged)
-        emit('valueCommit', state.value || [])
+        emit('valueCommit', values.value || [])
     }
 
     function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
@@ -196,7 +201,7 @@ const slider = defineComponent({
       const snapToStep = roundValue(Math.round((value - min.value) / step.value) * step.value + min.value, decimalCount)
       const nextValue = clamp(snapToStep, [min.value, max.value])
 
-      const prevValues = state.value
+      const prevValues = values.value
       const newData = () => {
         const nextValues = getNextSortedValues(prevValues, nextValue, atIndex)
         if (hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs.value * step.value)) {
@@ -210,7 +215,7 @@ const slider = defineComponent({
           return prevValues
         }
       }
-      updateValue(newData())
+      setValues(newData())
     }
 
     sliderProvider({
@@ -220,7 +225,7 @@ const slider = defineComponent({
       max,
       valueIndexToChangeRef,
       thumbs: thumbRefs,
-      values: state,
+      values,
       orientation,
     })
 
@@ -244,7 +249,7 @@ const slider = defineComponent({
               'inverted': inverted.value,
               'onPointerdown': () => {
                 if (!disabled.value)
-                  valuesBeforeSlideStartRef.value = state.value || []
+                  valuesBeforeSlideStartRef.value = values.value || []
               },
               'onSlideStart': (event) => {
                 if (disabled.value)
@@ -269,14 +274,14 @@ const slider = defineComponent({
               },
               'onHomeKeyDown': () => !disabled.value && updateValues(min.value, 0, { commit: true }),
               'onEndKeyDown': () =>
-                !disabled.value && updateValues(max.value, (state.value?.length || 0) - 1, { commit: true }),
+                !disabled.value && updateValues(max.value, (values.value?.length || 0) - 1, { commit: true }),
               'onStepKeyDown': ({ direction: stepDirection, event }) => {
                 if (!disabled.value) {
                   const isPageKey = PAGE_KEYS.includes(event.key)
                   const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
                   const multiplier = isSkipKey ? 10 : 1
                   const atIndex = valueIndexToChangeRef.value
-                  const value = state.value?.[atIndex]
+                  const value = values.value?.[atIndex]
                   const stepInDirection = step.value * multiplier * stepDirection
                   updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
                 }
@@ -284,9 +289,9 @@ const slider = defineComponent({
             }, slots),
           }),
         }),
-        isFormControl.value && state.value?.map((_value, index) => h(OkuBubbleInput, {
+        isFormControl.value && values.value?.map((_value, index) => h(OkuBubbleInput, {
           key: index,
-          name: name.value ? name.value + ((state.value || []).length > 1 ? '[]' : '') : undefined,
+          name: name.value ? name.value + ((values.value || []).length > 1 ? '[]' : '') : undefined,
           // TODO: value type error
           value: _value as any,
         }),

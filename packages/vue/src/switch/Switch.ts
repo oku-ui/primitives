@@ -128,17 +128,6 @@ const Switch = defineComponent({
     const forwardedRef = useForwardRef()
     const composedRefs = useComposedRefs(buttonRef, forwardedRef)
 
-    const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () =>
-        modelValue.value !== undefined
-          ? modelValue.value
-          : checkedProp.value !== undefined
-            ? checkedProp.value
-            : undefined,
-      set: () => {},
-    })
-
     const isFormControl = ref<boolean>(false)
 
     const hasConsumerStoppedPropagationRef = ref<boolean>(false)
@@ -150,12 +139,23 @@ const Switch = defineComponent({
         : true
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const modelValue = useModel(props, 'modelValue')
+
+    const checkedProxy = computed(() => {
+      if (checkedProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (checkedProp.value !== undefined)
+        return checkedProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
+    })
+
+    const [checked, setChecked] = useControllable({
+      prop: computed(() => checkedProxy.value),
       defaultProp: computed(() => defaultChecked.value),
-      onChange: (value) => {
-        modelValue.value = value
-        emit('checkedChange', value as boolean)
+      onChange: (result) => {
+        emit('checkedChange', result)
+        emit('update:modelValue', result)
       },
       initialValue: false,
     })
@@ -163,7 +163,7 @@ const Switch = defineComponent({
     switchProvider({
       disabled,
       scope: scopeOkuSwitch.value,
-      checked: computed(() => state.value || false),
+      checked,
     })
 
     const originalReturn = () => [
@@ -172,12 +172,12 @@ const Switch = defineComponent({
         {
           'type': 'button',
           'role': 'switch',
-          'aria-checked': toValue(state.value),
+          'aria-checked': toValue(checked.value),
           'aria-required': required.value,
           'data-disabled': disabled.value ? '' : undefined,
           'disabled': disabled.value,
           'value': switchValue.value,
-          'data-state': getState(state.value),
+          'data-state': getState(checked.value),
           'ref': composedRefs,
           ...mergeProps(attrs, reactiveSwitchProps),
           'onClick': composeEventHandlers<MouseEvent>(
@@ -185,7 +185,7 @@ const Switch = defineComponent({
               emit('click', e)
             },
             (event) => {
-              updateValue(!state.value)
+              setChecked(!checked.value)
 
               if (isFormControl.value) {
                 // hasConsumerStoppedPropagationRef.value
@@ -209,7 +209,7 @@ const Switch = defineComponent({
         bubbles: !hasConsumerStoppedPropagationRef.value,
         name: name.value,
         value: switchValue.value,
-        checked: state.value,
+        checked: checked.value,
         required: required.value,
         disabled: disabled.value,
         style: { transform: 'translateX(-100%)' },

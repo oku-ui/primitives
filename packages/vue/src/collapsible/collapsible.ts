@@ -86,24 +86,25 @@ const collapsible = defineComponent({
     const _reactive = reactive(collapsibleProps)
     const reactiveCollapsibleProps = reactiveOmit(_reactive, (key, _value) => key === undefined)
 
-    const modelValue = useModel(props, 'modelValue')
-
     const forwardedRef = useForwardRef()
 
-    const proxyOpen = computed({
-      get: () => modelValue.value !== undefined
-        ? modelValue.value
-        : openProp.value !== undefined ? openProp.value : undefined,
-      set: () => {
-      },
+    const modelValue = useModel(props, 'modelValue')
+
+    const openProxy = computed(() => {
+      if (openProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (openProp.value !== undefined)
+        return openProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyOpen.value),
+    const [open, setOpen] = useControllable({
+      prop: computed(() => openProxy.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (open) => {
-        emit('openChange', open as boolean)
-        modelValue.value = open
+      onChange: (result) => {
+        emit('openChange', result)
+        emit('update:modelValue', result)
       },
       initialValue: false,
     })
@@ -112,16 +113,16 @@ const collapsible = defineComponent({
       contentId: computed(() => useId()),
       disabled,
       onOpenToggle() {
-        updateValue(!state.value)
+        setOpen(!open.value)
       },
       scope: scopeOkuCollapsible.value,
-      open: state,
+      open,
     })
 
     const originalReturn = () => h(
       Primitive.div,
       {
-        'data-state': getState(state.value),
+        'data-state': getState(open.value),
         'data-disabled': disabled.value ? '' : undefined,
         ...mergeProps(attrs, reactiveCollapsibleProps),
         'ref': forwardedRef,

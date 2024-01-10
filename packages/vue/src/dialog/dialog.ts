@@ -59,16 +59,22 @@ const dialog = defineComponent({
     } = toRefs(props)
     const triggerRef = ref<HTMLButtonElement | null>(null)
     const contentRef = ref<HTMLDivElement | null>(null)
+
     const modelValue = useModel(props, 'modelValue')
-    const proxyValue = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined,
-      set: () => {
-      },
+
+    const openProxy = computed(() => {
+      if (openProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (openProp.value !== undefined)
+        return openProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyValue.value),
+
+    const [open, setOpen] = useControllable({
+      prop: computed(() => openProxy.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (result: any) => {
+      onChange: (result) => {
         emit('openChange', result)
         emit('update:modelValue', result)
       },
@@ -82,11 +88,11 @@ const dialog = defineComponent({
       contentId: computed(() => useId()),
       titleId: computed(() => useId()),
       descriptionId: computed(() => useId()),
-      open: computed(() => state.value || false),
+      open,
       modal: computed(() => modal.value || true),
-      onOpenChange: (open: boolean) => updateValue(open),
+      onOpenChange: (open: boolean) => setOpen(open),
       onOpenToggle: () => {
-        updateValue(!state.value)
+        setOpen(!open.value)
       },
     })
 

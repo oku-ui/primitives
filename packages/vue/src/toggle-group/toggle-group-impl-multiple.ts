@@ -29,16 +29,20 @@ const toggleGroupImplMultiple = defineComponent({
     const emits = useListeners()
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyValue = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : valueProp.value !== undefined ? valueProp.value : undefined,
-      set: () => { },
+
+    const valueProxy = computed(() => {
+      if (valueProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (valueProp.value !== undefined)
+        return valueProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyValue.value),
+    const [value, setValue] = useControllable({
+      prop: computed(() => valueProxy.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result) => {
-        modelValue.value = result
         emit('valueChange', result)
         emit('update:modelValue', result)
       },
@@ -46,15 +50,15 @@ const toggleGroupImplMultiple = defineComponent({
     })
 
     const handleButtonActivate = (itemValue: string) =>
-      updateValue([...state.value, itemValue])
+      setValue([...value.value, itemValue])
 
     const handleButtonDeactivate = (itemValue: string) =>
-      updateValue(state.value.filter(value => value !== itemValue))
+      setValue(value.value.filter(_value => _value !== itemValue))
 
     toggleGroupValueProvider({
       scope: props.scopeOkuToggleGroup,
       type: 'multiple',
-      value: state,
+      value,
       onItemActivate: handleButtonActivate,
       onItemDeactivate: handleButtonDeactivate,
     })

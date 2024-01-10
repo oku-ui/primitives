@@ -129,21 +129,24 @@ const radioGroup = defineComponent({
     const direction = useDirection(dir)
 
     const forwardedRef = useForwardRef()
+
     const modelValue = useModel(props, 'modelValue')
-    const proxyValue = computed(() => {
-      if (modelValue.value !== undefined)
-        return modelValue.value
+
+    const valueProxy = computed(() => {
+      if (valueProp.value === undefined && modelValue.value === undefined)
+        return undefined
       if (valueProp.value !== undefined)
         return valueProp.value
-      return undefined
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyValue.value),
+    const [value, setValue] = useControllable({
+      prop: computed(() => valueProxy.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result) => {
         emit('valueChange', result)
-        modelValue.value = result
+        emit('update:modelValue', result)
       },
     })
 
@@ -152,9 +155,9 @@ const radioGroup = defineComponent({
       name,
       required,
       disabled,
-      value: state,
+      value,
       onValueChange(value: string) {
-        updateValue(value)
+        setValue(value)
       },
     })
 

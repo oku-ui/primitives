@@ -109,16 +109,20 @@ const tooltip = defineComponent({
     const wasOpenDelayedRef = ref(false)
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined,
-      set: () => {
-      },
+
+    const openProxy = computed(() => {
+      if (openProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (openProp.value !== undefined)
+        return openProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const [open = ref(false), setOpen] = useControllable({
+      prop: computed(() => openProxy.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (result: boolean) => {
+      onChange: (result) => {
         if (result) {
           provideInject.onOpen()
           document.dispatchEvent(new CustomEvent(TOOLTIP_OPEN))
@@ -126,33 +130,31 @@ const tooltip = defineComponent({
         else {
           provideInject.onClose()
         }
-
-        modelValue.value = result
         emit('openChange', result)
+        emit('update:modelValue', result)
       },
-      initialValue: false,
     })
 
     const stateAttribute = computed(() => {
-      return state.value ? (wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open') : 'closed'
+      return open.value ? (wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open') : 'closed'
     })
 
     const handleOpen = () => {
       window.clearTimeout(openTimerRef.value)
       wasOpenDelayedRef.value = false
-      updateValue(true)
+      setOpen(true)
     }
 
     const handleClose = () => {
       window.clearTimeout(openTimerRef.value)
-      updateValue(false)
+      setOpen(false)
     }
 
     const handleDelayedOpen = () => {
       window.clearTimeout(openTimerRef.value)
       openTimerRef.value = window.setTimeout(() => {
         wasOpenDelayedRef.value = true
-        updateValue(true)
+        setOpen(true)
       }, delayDuration.value)
     }
 
@@ -163,7 +165,7 @@ const tooltip = defineComponent({
     tooltipProvide({
       scope: props.scopeOkuTooltip,
       contentId: computed(() => contentId),
-      open: state,
+      open,
       stateAttribute,
       trigger,
       onTriggerChange: (value: HTMLButtonElement) => {

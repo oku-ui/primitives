@@ -94,18 +94,22 @@ const hoverCard = defineComponent({
     const isPointerDownOnContentRef = ref(false)
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined,
-      set: () => {
-      },
+
+    const openProxy = computed(() => {
+      if (openProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (openProp.value !== undefined)
+        return openProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const [open, setOpen] = useControllable({
+      prop: computed(() => openProxy.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (value) => {
-        emit('openChange', value)
-        modelValue.value = value
+      onChange: (result) => {
+        emit('openChange', result)
+        emit('update:modelValue', result)
       },
       initialValue: false,
     })
@@ -113,7 +117,7 @@ const hoverCard = defineComponent({
     const handleOpen = () => {
       clearTimeout(closeTimerRef.value)
       openTimerRef.value = window.setTimeout(() => {
-        updateValue(true)
+        setOpen(true)
       }, openDelayProp.value)
     }
 
@@ -121,13 +125,13 @@ const hoverCard = defineComponent({
       clearTimeout(openTimerRef.value)
       if (!hasSelectionRef.value && !isPointerDownOnContentRef.value) {
         closeTimerRef.value = window.setTimeout(() => {
-          updateValue(false)
+          setOpen(false)
         }, closeDelayProp.value)
       }
     }
 
     const handleDismiss = () => {
-      updateValue(false)
+      setOpen(false)
     }
 
     onBeforeUnmount(() => {
@@ -137,8 +141,8 @@ const hoverCard = defineComponent({
 
     hoverCardProvide({
       scope: scopeOkuHoverCard.value,
-      open: computed(() => state.value || false),
-      onOpenChange: open => updateValue(open),
+      open: computed(() => open.value || false),
+      onOpenChange: open => setOpen(open),
       onOpen: () => handleOpen(),
       onClose: () => handleClose(),
       onDismiss: () => handleDismiss(),
