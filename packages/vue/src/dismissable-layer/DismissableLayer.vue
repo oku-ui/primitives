@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, nextTick, reactive, useAttrs, watchEffect } from 'vue'
+import { computed, defineOptions, nextTick, reactive, useAttrs, watchEffect } from 'vue'
 import type { DismissableLayerBranchElement, DismissableLayerElement, FocusBlurCaptureEvent, FocusCaptureEvent, FocusOutsideEvent, PointerdownCaptureEvent, PointerdownOutsideEvent } from './props'
 
 export const context = reactive({
@@ -15,7 +15,6 @@ import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { useFocusOutside, usePointerdownOutside } from './util'
-
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
    * When `true`, hover/focus/click interactions will be disabled on elements outside

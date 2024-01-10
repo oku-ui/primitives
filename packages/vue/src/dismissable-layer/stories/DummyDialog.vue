@@ -19,7 +19,7 @@ const open = ref(false)
 </script>
 
 <template>
-  <button type="button" @click="open = !open">
+  <button type="button" @click="open = true">
     {{ openLabel }}
   </button>
 

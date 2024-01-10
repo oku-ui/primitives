@@ -29,7 +29,7 @@ withDefaults(defineProps<Props>(), {
 const emit = defineEmits<DismissableLayerEmits>()
 
 const skipUnmountAutoFocus = ref(false)
-const open = ref(false)
+const open = ref(true)
 const openButtonRef = ref(null)
 
 const { componentRef, currentElement } = useComponentRef<HTMLElement | null>()
@@ -38,9 +38,10 @@ useScrollLock(currentElement, true)
 </script>
 
 <template>
+  {{ open }}
   <OkuPopper>
     <OkuPopperAnchor as-child>
-      <button ref="openButtonRef" type="button" @click="open = !open">
+      <button ref="openButtonRef" type="button" @click="open = true">
         {{ openLabel }}
       </button>
     </OkuPopperAnchor>

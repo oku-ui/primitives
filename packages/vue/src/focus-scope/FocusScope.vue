@@ -1,15 +1,9 @@
 <script lang="ts">
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import { defineOptions, nextTick, reactive, ref, watchEffect } from 'vue'
 
 import { useComponentRef } from '@oku-ui/use-composable'
-
-import {
-  nextTick,
-  reactive,
-  ref,
-  watchEffect,
-} from 'vue'
 
 import {
   focus,

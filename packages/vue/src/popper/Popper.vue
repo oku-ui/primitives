@@ -1,5 +1,6 @@
 <script lang="ts">
 import { createProvideScope } from '@oku-ui/provide'
+import { defineOptions, ref } from 'vue'
 
 export interface ScopePopper {
   scopeOkuPopper?: any
@@ -20,7 +21,6 @@ export const { useProvider, useInject: usePopperInject }
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { ref } from 'vue'
 
 import type { Measurable } from '@oku-ui/utils'
 

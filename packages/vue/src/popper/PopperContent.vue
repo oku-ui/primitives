@@ -77,7 +77,7 @@ export const { useInject: usePopperContentInject, useProvider: usePopperContentP
 
 <script lang="ts" setup>
 import type { Ref } from 'vue'
-import { computed, defineEmits, defineExpose, defineProps, ref, watch, watchEffect, withDefaults } from 'vue'
+import { computed, defineEmits, defineExpose, defineOptions, defineProps, ref, watch, watchEffect, withDefaults } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef, useSize } from '@oku-ui/use-composable'
@@ -241,7 +241,7 @@ defineExpose({
 <template>
   <div
     ref="refElement"
-    data-oku-popper-content-wrapper
+    data-oku-popper-content-wrapper=""
     :style="{
       ...floatingStyles,
       transform: isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
@@ -257,6 +257,7 @@ defineExpose({
     <Primitive
       is="div"
       ref="componentRef"
+      v-bind="$attrs"
       :data-side="placedSide"
       :data-align="placedAlign"
       :dir="dir"
@@ -269,7 +270,6 @@ defineExpose({
         // hide the content if using the hide middleware and should be hidden
         opacity: middlewareData.hide?.referenceHidden ? 0 : undefined,
       }"
-      v-bind="$attrs"
     >
       <slot />
     </Primitive>

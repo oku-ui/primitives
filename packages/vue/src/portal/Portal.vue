@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeProps, useAttrs } from 'vue'
+import { defineOptions, mergeProps, useAttrs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { useComponentRef } from '@oku-ui/use-composable'
@@ -8,7 +8,7 @@ export interface PortalProps extends PrimitiveProps {
   /**
    * An optional container where the portaled content should be appended.
    */
-  container?: HTMLElement | null
+  container?: any | null
 }
 
 defineOptions({
@@ -16,7 +16,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-withDefaults(defineProps<PortalProps>(), {
+const props = withDefaults(defineProps<PortalProps>(), {
   container: globalThis?.document?.body ?? null,
 })
 
@@ -29,7 +29,7 @@ const attrs = useAttrs()
 </script>
 
 <template>
-  <Teleport v-if="container" :to="container" :disabled="!container">
+  <Teleport v-if="props.container" :to="props.container" :disabled="!props.container">
     <Primitive
       v-bind="mergeProps(attrs)"
       is="div"

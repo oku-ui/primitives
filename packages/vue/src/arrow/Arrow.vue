@@ -8,7 +8,7 @@ export interface ArrowProps extends PrimitiveProps {
   height?: number
 }
 
-withDefaults(
+const props = withDefaults(
   defineProps<ArrowProps>(),
   {
     width: 30,
@@ -21,6 +21,7 @@ const { componentRef } = useComponentRef<HTMLDivElement | null>()
 
 <template>
   <Primitive
+    v-bind="props"
     is="svg"
     ref="componentRef"
     viewBox="0 0 30 10"

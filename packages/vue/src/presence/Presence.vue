@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, toRefs, useSlots } from 'vue'
+import { defineOptions, h, toRefs, useSlots } from 'vue'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { usePresence } from './usePresence'
 

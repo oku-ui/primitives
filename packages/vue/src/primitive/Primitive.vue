@@ -7,7 +7,7 @@ export interface PrimitiveProps {
 
 <script setup lang="ts">
 import { useComponentRef } from '@oku-ui/use-composable'
-import { defineExpose, mergeProps, onMounted, useAttrs } from 'vue'
+import { defineExpose, defineOptions, onMounted } from 'vue'
 import { OkuSlot } from '@oku-ui/slot'
 
 defineOptions({
@@ -29,8 +29,6 @@ onMounted(() => {
 
 const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
-const attrs = useAttrs()
-
 defineExpose({
   $el: currentElement,
 })
@@ -38,9 +36,9 @@ defineExpose({
 
 <template>
   <component
+    v-bind="$attrs"
     :is="asChild ? OkuSlot : is"
     ref="componentRef"
-    v-bind="mergeProps(attrs)"
   >
     <slot />
   </component>

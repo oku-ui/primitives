@@ -1,5 +1,4 @@
 <script lang="ts">
-// import type { ScopePopper } from './Popper.vue'
 import type { ArrowProps } from '@oku-ui/arrow'
 import type { Side } from './utils'
 
@@ -51,7 +50,7 @@ const baseSide = computed(() => {
       position: 'absolute',
       left: contentInject.arrowX?.value ? `${contentInject.arrowX?.value}px` : undefined,
       top: contentInject.arrowY?.value ? `${contentInject.arrowY?.value}px` : undefined,
-      [baseSide]: '0px',
+      [baseSide]: '0',
       transformOrigin: {
         top: '',
         right: '0 0',
@@ -68,9 +67,9 @@ const baseSide = computed(() => {
         ? 'hidden'
         : undefined,
     }"
-    v-bind="$attrs"
   >
     <OkuArrow
+      v-bind="$attrs"
       :is="is"
       ref="componentRef"
       :as-child="asChild"

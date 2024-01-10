@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Component, VNode } from 'vue'
-import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, useSlots } from 'vue'
+import { Fragment, cloneVNode, createElementBlock, createVNode, defineOptions, mergeProps, useSlots } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { isValidElement } from '@oku-ui/utils'
 import { isSlottable } from './utils'
