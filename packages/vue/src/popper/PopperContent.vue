@@ -77,10 +77,10 @@ export const { useInject: usePopperContentInject, useProvider: usePopperContentP
 
 <script lang="ts" setup>
 import type { Ref } from 'vue'
-import { computed, defineEmits, defineProps, ref, watch, watchEffect, withDefaults } from 'vue'
+import { computed, defineEmits, defineExpose, defineProps, ref, watch, watchEffect, withDefaults } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef, useSize } from '@oku-ui/use-composable'
+import { useComponentRef, useSize } from '@oku-ui/use-composable'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
@@ -114,8 +114,10 @@ const emit = defineEmits<PopperContentEmits>()
 
 const inject = usePopperInject('OkuPopper', props.scopeOkuPopper)
 
-const content = ref<HTMLDivElement | null>(null)
-const composedRefs = useComposedRefs(useForwardRef, content)
+// const content = ref<HTMLDivElement | null>(null)
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
+
+// const composedRefs = useComposedRefs(useForwardRef, componentRef)
 
 const arrow = ref<HTMLSpanElement | null>(null)
 const arrowSize = useSize(arrow)
@@ -215,9 +217,9 @@ const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffse
 
 const contentZIndex = ref()
 
-watch(content, () => {
-  if (content.value)
-    contentZIndex.value = window.getComputedStyle(content.value).zIndex
+watch(currentElement, () => {
+  if (currentElement.value)
+    contentZIndex.value = window.getComputedStyle(currentElement.value).zIndex
 })
 
 usePopperContentProvider({
@@ -229,6 +231,10 @@ usePopperContentProvider({
   arrowX,
   arrowY,
   shouldHideArrow: cannotCenterArrow,
+})
+
+defineExpose({
+  $el: currentElement,
 })
 </script>
 
@@ -250,7 +256,7 @@ usePopperContentProvider({
   >
     <Primitive
       is="div"
-      :ref="composedRefs"
+      ref="componentRef"
       :data-side="placedSide"
       :data-align="placedAlign"
       :dir="dir"

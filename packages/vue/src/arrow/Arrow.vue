@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 
 export interface ArrowProps extends PrimitiveProps {
   width?: number
@@ -16,13 +16,14 @@ withDefaults(
   },
 )
 
-const forwardedRef = useForwardRef()
+// const forwardedRef = useForwardRef()
+const { componentRef } = useComponentRef<HTMLDivElement | null>()
 </script>
 
 <template>
   <Primitive
     is="svg"
-    ref="forwardedRef"
+    ref="componentRef"
     viewBox="0 0 30 10"
     :as-child="asChild"
     :width="width"

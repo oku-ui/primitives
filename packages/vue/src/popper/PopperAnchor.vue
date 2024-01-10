@@ -8,10 +8,10 @@ interface PopperAnchorProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { defineOptions, ref, watchEffect, withDefaults } from 'vue'
+import { defineExpose, defineOptions, watchEffect, withDefaults } from 'vue'
 import { usePopperInject } from './Popper.vue'
 import { Primitive } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 
 defineOptions({
   name: 'OkuPopperAnchor',
@@ -25,23 +25,24 @@ const props = withDefaults(
 )
 
 const inject = usePopperInject('OkuPopper', props.scopeOkuPopper)
-const anchorRef = ref<HTMLDivElement | null>(null)
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
-const forwardedRef = useForwardRef()
-const composedRefs = useComposedRefs(forwardedRef, anchorRef)
+defineExpose({
+  $el: currentElement,
+})
 
 watchEffect(() => {
   // Consumer can anchor the popper to something that isn't
   // a DOM node e.g. pointer position, so we override the
   // `anchorRef` with their virtual ref in this case.
-  inject.onAnchorChange(props.virtualRef ?? anchorRef.value)
+  inject.onAnchorChange(props.virtualRef ?? currentElement.value)
 })
 </script>
 
 <template>
   <Primitive
     :is="is"
-    :ref="composedRefs"
+    ref="componentRef"
     :as-child="asChild"
   >
     <slot />

@@ -16,8 +16,8 @@ export const OPPOSITE_SIDE: Record<Side, Side> = {
 </script>
 
 <script setup lang="ts">
-import { computed, defineOptions, defineProps } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineExpose, defineOptions, defineProps } from 'vue'
+import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuArrow } from '@oku-ui/arrow'
 
 import { usePopperContentInject } from './PopperContent.vue'
@@ -29,7 +29,11 @@ defineOptions({
 
 const props = defineProps<PopperArrowProps>()
 
-const forwardedRef = useForwardRef()
+const { componentRef, currentElement } = useComponentRef()
+
+defineExpose({
+  $el: currentElement,
+})
 
 const contentInject = usePopperContentInject('OkuPopperContent', props.scopeOkuPopper)
 const baseSide = computed(() => {
@@ -68,7 +72,7 @@ const baseSide = computed(() => {
   >
     <OkuArrow
       :is="is"
-      :ref="forwardedRef"
+      ref="componentRef"
       :as-child="asChild"
       :style="{
         ...$attrs.style as any,

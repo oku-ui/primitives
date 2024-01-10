@@ -13,3 +13,4 @@ export * from './unrefElement'
 export { useListeners } from './useListeners'
 export { computedEager, syncRef, computedAsync, syncRefs, useScrollLock, isClient, reactiveOmit, reactivePick }
 export { useRect } from './use-rect'
+export * from './useComponentRef'

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Component, VNode } from 'vue'
-import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, ref, useSlots } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { isComment, isElement, isValidElement } from '@oku-ui/utils'
+import { Fragment, cloneVNode, createElementBlock, createVNode, mergeProps, useSlots } from 'vue'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { isValidElement } from '@oku-ui/utils'
 import { isSlottable } from './utils'
 
 defineOptions({
@@ -11,9 +11,11 @@ defineOptions({
 
 const slots = useSlots()
 
-const forwarded = useForwardRef()
-const element = ref()
-const composedRefs = useComposedRefs(forwarded, element)
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
+
+defineExpose({
+  $el: currentElement,
+})
 
 function renderSlotFragments(children: VNode[]): VNode[] {
   if (!children.length)
@@ -71,14 +73,12 @@ function Comp(props: any) {
 
     if (isValidElement(first)) {
       const clone = cloneVNode(first, {
-        ref: element,
         ...mergeProps(props),
       }, false)
       return clone
     }
     else {
       return cloneVNode(first, {
-        ref: element,
         ...mergeProps(props),
       }, false)
     }
@@ -88,11 +88,7 @@ function Comp(props: any) {
 
 <template>
   <Comp
-    :ref="(el: Element) => {
-      if (isElement(el) && !isComment(el)){
-        composedRefs(el)
-      }
-    }"
+    ref="componentRef"
   >
     <slot />
   </Comp>
