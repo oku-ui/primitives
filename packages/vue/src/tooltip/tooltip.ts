@@ -119,7 +119,7 @@ const tooltip = defineComponent({
         return modelValue.value
     })
 
-    const [open = ref(false), setOpen] = useControllable({
+    const [open, setOpen] = useControllable({
       prop: computed(() => openProxy.value),
       defaultProp: computed(() => defaultOpen.value),
       onChange: (result) => {
@@ -133,6 +133,7 @@ const tooltip = defineComponent({
         emit('openChange', result)
         emit('update:modelValue', result)
       },
+      initialValue: false,
     })
 
     const stateAttribute = computed(() => {

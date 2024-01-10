@@ -134,7 +134,7 @@ export const accordionProps = {
      * @default false
      */
     collapsible: {
-      type: [Boolean] as PropType<boolean | undefined>,
+      type: Boolean as PropType<boolean | undefined>,
       default: undefined,
     },
   },
@@ -211,7 +211,7 @@ export interface AccordionImplEmits {
 export const accordionImplProps = {
   props: {
     disabled: {
-      type: [Boolean] as PropType<boolean | undefined>,
+      type: Boolean as PropType<boolean | undefined>,
       default: undefined,
     },
     orientation: {
@@ -261,15 +261,15 @@ export const accordionImplMultipleProps = {
   props: {
     ...accordionImplProps.props,
     modelValue: {
-      type: [Array] as PropType<string[] | undefined>,
+      type: Array as PropType<string[] | undefined>,
       default: undefined,
     },
     value: {
-      type: [Array] as PropType<string[] | undefined>,
+      type: Array as PropType<string[] | undefined>,
       default: undefined,
     },
     defaultValue: {
-      type: [Array] as PropType<string[] | undefined>,
+      type: Array as PropType<string[] | undefined>,
       default: undefined,
     },
   },
@@ -319,15 +319,15 @@ export const accordionImplSingleProps = {
   props: {
     ...accordionImplProps.props,
     modelValue: {
-      type: [String] as PropType<string | undefined>,
+      type: String as PropType<string | undefined>,
       default: undefined,
     },
     value: {
-      type: [String] as PropType<string | undefined>,
+      type: String as PropType<string | undefined>,
       default: undefined,
     },
     defaultValue: {
-      type: [String] as PropType<string | undefined>,
+      type: String as PropType<string | undefined>,
       default: undefined,
     },
     collapsible: {
@@ -372,7 +372,7 @@ export const accordionItemProps = {
   props: {
     ...propsOmit(collapsibleProps.props, ['open', 'defaultOpen']),
     disabled: {
-      type: [Boolean] as PropType<boolean | undefined>,
+      type: Boolean as PropType<boolean | undefined>,
     },
     value: {
       type: String as PropType<string>,
