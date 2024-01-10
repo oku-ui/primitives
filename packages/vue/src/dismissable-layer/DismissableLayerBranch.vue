@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import { defineOptions, onMounted, onUnmounted } from 'vue'
+import { defineExpose, defineOptions, defineProps, onMounted, onUnmounted } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import type { DismissableLayerBranchElement } from './props'
 import { context } from './DismissableLayer.vue'

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mergeProps, useAttrs } from 'vue'
+import { defineExpose, mergeProps, useAttrs } from 'vue'
 import { useComponentRef, useListeners } from '@oku-ui/use-composable'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'

@@ -29,12 +29,12 @@ withDefaults(defineProps<Props>(), {
 const emit = defineEmits<DismissableLayerEmits>()
 
 const skipUnmountAutoFocus = ref(false)
-const open = ref(true)
+const open = ref(false)
 const openButtonRef = ref(null)
 
-const { componentRef, currentElement } = useComponentRef<HTMLElement | null>()
+const { componentRef } = useComponentRef<HTMLElement | null>()
 
-useScrollLock(currentElement, true)
+// useScrollLock(currentElement, true)
 </script>
 
 <template>
