@@ -3,7 +3,7 @@ import { defineEmits, defineProps, ref, withDefaults } from 'vue'
 import { OkuPopper, OkuPopperAnchor, OkuPopperArrow, OkuPopperContent } from '@oku-ui/popper'
 import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
-import { useScrollLock } from '@oku-ui/use-composable'
+import { useComponentRef, useScrollLock } from '@oku-ui/use-composable'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
@@ -17,7 +17,7 @@ interface Props {
   preventScroll?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   openLabel: 'Open',
   closeLabel: 'Close',
   color: '#333',
@@ -32,8 +32,9 @@ const skipUnmountAutoFocus = ref(false)
 const open = ref(false)
 const openButtonRef = ref(null)
 
-const portalRef = ref<HTMLElement | null>(null)
-useScrollLock(portalRef, props.preventScroll)
+const { componentRef, currentElement } = useComponentRef<HTMLElement | null>()
+
+useScrollLock(currentElement, true)
 </script>
 
 <template>
@@ -46,7 +47,7 @@ useScrollLock(portalRef, props.preventScroll)
 
     <template v-if="open">
       <OkuFocusGuards>
-        <OkuPortal ref="portalRef" as-child>
+        <OkuPortal ref="componentRef" as-child>
           <OkuDismissableLayer
             as-child
             :disable-outside-pointer-events="disableOutsidePointerEvents"
