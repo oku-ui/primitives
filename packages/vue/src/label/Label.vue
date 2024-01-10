@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { mergeProps, useAttrs } from 'vue'
-import { useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { useComponentRef, useListeners } from '@oku-ui/use-composable'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
@@ -17,14 +17,19 @@ const emit = defineEmits<LabelEmits>()
 
 const attrs = useAttrs()
 
-const forwardedRef = useForwardRef()
+const { componentRef, currentElement } = useComponentRef<HTMLLabelElement | null>()
+
+defineExpose({
+  $el: currentElement,
+})
+
 const emits = useListeners(['onMousedown'])
 </script>
 
 <template>
   <Primitive
     is="label"
-    ref="forwardedRef"
+    ref="componentRef"
     v-bind="mergeProps(props, attrs, emits)"
     @mousedown="(event: LabelEmits['mousedown'][0]) => {
       emit('mousedown', event)

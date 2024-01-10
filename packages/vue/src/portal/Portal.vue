@@ -2,7 +2,7 @@
 import { mergeProps, useAttrs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 
 export interface PortalProps extends PrimitiveProps {
   /**
@@ -20,8 +20,11 @@ withDefaults(defineProps<PortalProps>(), {
   container: globalThis?.document?.body ?? null,
 })
 
-const forwardedRef = useForwardRef()
-const composedRefs = useComposedRefs(forwardedRef)
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
+
+defineExpose({
+  $el: currentElement,
+})
 const attrs = useAttrs()
 </script>
 
@@ -30,7 +33,7 @@ const attrs = useAttrs()
     <Primitive
       v-bind="mergeProps(attrs)"
       is="div"
-      :ref="composedRefs"
+      ref="componentRef"
       :as-child="asChild"
     >
       <slot />

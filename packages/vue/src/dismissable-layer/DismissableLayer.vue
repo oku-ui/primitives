@@ -10,7 +10,7 @@ export const context = reactive({
 </script>
 
 <script setup lang="ts">
-import { useComposedRefs, useEscapeKeydown, useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef, useEscapeKeydown } from '@oku-ui/use-composable'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -70,8 +70,11 @@ const emit = defineEmits<DismissableLayerEmits>()
 const node = ref<DismissableLayerElement | null>(null)
 const ownerDocument = computed(() => node.value?.ownerDocument ?? globalThis?.document)
 
-const forwardedRef = useForwardRef()
-const composedRefs = useComposedRefs(node, forwardedRef)
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
+
+defineExpose({
+  $el: currentElement,
+})
 
 const layers = computed(() => Array.from(context.layers))
 
@@ -179,7 +182,7 @@ const attrs = useAttrs()
 <template>
   <Primitive
     :is="is"
-    :ref="composedRefs"
+    ref="componentRef"
     :as-child="asChild"
     :style="{
       pointerEvents: isBodyPointerEventsDisabled

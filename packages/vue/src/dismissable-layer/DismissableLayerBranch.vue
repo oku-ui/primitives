@@ -2,7 +2,7 @@
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { onMounted, onUnmounted, ref } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 import type { DismissableLayerBranchElement } from './props'
 import { context } from './DismissableLayer.vue'
 
@@ -16,8 +16,7 @@ const props = defineProps<DismissableLayerBranchProps>()
 
 const node = ref<DismissableLayerBranchElement>()
 
-const forwardedRef = useForwardRef()
-const composedRefs = useComposedRefs(forwardedRef, node)
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
 onMounted(() => {
   if (node.value)
@@ -28,11 +27,15 @@ onUnmounted(() => {
   if (node.value)
     context.branches.delete(node.value)
 })
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
   <Primitive
-    :ref="composedRefs"
+    ref="componentRef"
     v-bind="props"
   >
     <slot />

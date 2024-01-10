@@ -16,7 +16,6 @@ withDefaults(
   },
 )
 
-// const forwardedRef = useForwardRef()
 const { componentRef } = useComponentRef<HTMLDivElement | null>()
 </script>
 

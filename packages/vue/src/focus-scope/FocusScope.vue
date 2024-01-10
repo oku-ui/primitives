@@ -2,7 +2,7 @@
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 
 import {
   nextTick,
@@ -67,8 +67,7 @@ const emit = defineEmits<FocusScopeEmits>()
 const container = ref<HTMLElement | null>(null)
 const lastFocusedElementRef = ref<HTMLElement | null>(null)
 
-const forwardedRef = useForwardRef()
-const composedRefs = useComposedRefs(forwardedRef, container)
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
 const focusScope = reactive({
   paused: false,
@@ -251,12 +250,16 @@ function handleKeydown(event: KeyboardEvent) {
     }
   }
 }
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
   <Primitive
     is="div"
-    :ref="composedRefs"
+    ref="componentRef"
     :tabindex="-1"
     :as-child="asChild"
     @keydown="handleKeydown"
