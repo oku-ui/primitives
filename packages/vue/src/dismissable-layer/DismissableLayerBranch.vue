@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import type { DismissableLayerBranchElement } from './props'
 import { context } from './DismissableLayer.vue'
@@ -14,18 +14,16 @@ defineOptions({
 
 const props = defineProps<DismissableLayerBranchProps>()
 
-const node = ref<DismissableLayerBranchElement>()
-
-const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
+const { componentRef, currentElement } = useComponentRef<DismissableLayerBranchElement>()
 
 onMounted(() => {
-  if (node.value)
-    context.branches.add(node.value)
+  if (currentElement.value)
+    context.branches.add(currentElement.value)
 })
 
 onUnmounted(() => {
-  if (node.value)
-    context.branches.delete(node.value)
+  if (currentElement.value)
+    context.branches.delete(currentElement.value)
 })
 
 defineExpose({

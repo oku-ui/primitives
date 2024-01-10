@@ -64,10 +64,8 @@ const props = withDefaults(defineProps<FocusScopeProps>(), {
 })
 const emit = defineEmits<FocusScopeEmits>()
 
-const container = ref<HTMLElement | null>(null)
+const { componentRef, currentElement } = useComponentRef<HTMLElement | null>()
 const lastFocusedElementRef = ref<HTMLElement | null>(null)
-
-const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
 const focusScope = reactive({
   paused: false,
@@ -85,16 +83,16 @@ watchEffect(async (onInvalidate) => {
 
   if (props.trapped) {
     const handleFocusIn = (event: FocusEvent) => {
-      if (focusScope.paused || !container.value)
+      if (focusScope.paused || !currentElement.value)
         return
       const target = event.target as HTMLElement | null
-      if (container.value?.contains(target))
+      if (currentElement.value?.contains(target))
         lastFocusedElementRef.value = target
       else focus(lastFocusedElementRef.value, { select: true })
     }
 
     const handleFocusOut = (event: FocusEvent) => {
-      if (focusScope.paused || !container.value)
+      if (focusScope.paused || !currentElement.value)
         return
       const relatedTarget = event.relatedTarget as HTMLElement | null
 
@@ -113,7 +111,7 @@ watchEffect(async (onInvalidate) => {
 
       // If the focus has moved to an actual legitimate element (`relatedTarget !== null`)
       // that is outside the container, we move focus to the last valid focused element inside.
-      if (!container.value?.contains(relatedTarget))
+      if (!currentElement.value?.contains(relatedTarget))
         focus(lastFocusedElementRef.value, { select: true })
     }
 
@@ -126,7 +124,7 @@ watchEffect(async (onInvalidate) => {
         return
       for (const mutation of mutations) {
         if (mutation.removedNodes.length > 0)
-          focus(container.value)
+          focus(currentElement.value)
       }
     }
 
@@ -135,8 +133,8 @@ watchEffect(async (onInvalidate) => {
     const mutationObserver: MutationObserver = new MutationObserver(
       handleMutations,
     )
-    if (container.value) {
-      mutationObserver.observe(container.value, {
+    if (currentElement.value) {
+      mutationObserver.observe(currentElement.value, {
         childList: true,
         subtree: true,
       })
@@ -152,32 +150,32 @@ watchEffect(async (onInvalidate) => {
 
 watchEffect(async (onInvalidate) => {
   await nextTick()
-  if (container.value) {
+  if (currentElement.value) {
     focusScopesStack.add(focusScope)
 
     const previouslyFocusedElement
             = document.activeElement as HTMLElement | null
-    const hasFocusedCandidate = container.value?.contains(
+    const hasFocusedCandidate = currentElement.value?.contains(
       previouslyFocusedElement,
     )
 
     if (!hasFocusedCandidate) {
       const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS)
-      container.value?.addEventListener(AUTOFOCUS_ON_MOUNT, (event) => {
+      currentElement.value?.addEventListener(AUTOFOCUS_ON_MOUNT, (event) => {
         emit('mountAutoFocus', event)
       })
 
-      container.value?.dispatchEvent(mountEvent)
+      currentElement.value?.dispatchEvent(mountEvent)
       if (!mountEvent.defaultPrevented) {
-        focusFirst(removeLinks(getTabbableCandidates(container.value)), {
+        focusFirst(removeLinks(getTabbableCandidates(currentElement.value)), {
           select: true,
         })
         if (document.activeElement === previouslyFocusedElement)
-          focus(container.value)
+          focus(currentElement.value)
       }
     }
     onInvalidate(async () => {
-      container.value?.removeEventListener(AUTOFOCUS_ON_MOUNT, (event) => {
+      currentElement.value?.removeEventListener(AUTOFOCUS_ON_MOUNT, (event) => {
         emit('mountAutoFocus', event)
       })
 
@@ -189,17 +187,17 @@ watchEffect(async (onInvalidate) => {
           AUTOFOCUS_ON_UNMOUNT,
           EVENT_OPTIONS,
         )
-        container.value?.addEventListener(AUTOFOCUS_ON_UNMOUNT, (event) => {
+        currentElement.value?.addEventListener(AUTOFOCUS_ON_UNMOUNT, (event) => {
           emit('unmountAutoFocus', event)
         })
-        container.value?.dispatchEvent(unmountEvent)
+        currentElement.value?.dispatchEvent(unmountEvent)
         if (!unmountEvent.defaultPrevented) {
           focus(previouslyFocusedElement ?? document.body, {
             select: true,
           })
         }
         // we need to remove the listener after we `dispatchEvent`
-        container.value?.removeEventListener(
+        currentElement.value?.removeEventListener(
           AUTOFOCUS_ON_UNMOUNT,
           (event) => {
             emit('unmountAutoFocus', event)

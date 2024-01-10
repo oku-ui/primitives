@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, nextTick, reactive, ref, useAttrs, watchEffect } from 'vue'
+import { computed, nextTick, reactive, useAttrs, watchEffect } from 'vue'
 import type { DismissableLayerBranchElement, DismissableLayerElement, FocusBlurCaptureEvent, FocusCaptureEvent, FocusOutsideEvent, PointerdownCaptureEvent, PointerdownOutsideEvent } from './props'
 
 export const context = reactive({
@@ -67,18 +67,12 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 
 const emit = defineEmits<DismissableLayerEmits>()
 
-const node = ref<DismissableLayerElement | null>(null)
-const ownerDocument = computed(() => node.value?.ownerDocument ?? globalThis?.document)
-
-const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
-
-defineExpose({
-  $el: currentElement,
-})
+const { componentRef, currentElement } = useComponentRef<DismissableLayerElement | null>()
+const ownerDocument = computed(() => currentElement.value?.ownerDocument ?? globalThis?.document)
 
 const layers = computed(() => Array.from(context.layers))
 
-const index = computed(() => node.value ? layers.value.indexOf(node.value) : -1)
+const index = computed(() => currentElement.value ? layers.value.indexOf(currentElement.value) : -1)
 const isBodyPointerEventsDisabled = computed(() => context.layersWithOutsidePointerEventsDisabled.size > 0)
 const isPointerEventsEnabled = computed(() => {
   const [highestLayerWithOutsidePointerEventsDisabled] = [
@@ -135,7 +129,7 @@ useEscapeKeydown((event) => {
 let originalBodyPointerEvents: string
 
 watchEffect(async (onCleanup) => {
-  if (!node.value)
+  if (!currentElement.value)
     return
 
   if (props.disableOutsidePointerEvents) {
@@ -144,10 +138,10 @@ watchEffect(async (onCleanup) => {
       ownerDocument.value.body.style.pointerEvents = 'none'
     }
 
-    context.layersWithOutsidePointerEventsDisabled.add(node.value)
+    context.layersWithOutsidePointerEventsDisabled.add(currentElement.value)
   }
 
-  context.layers.add(node.value)
+  context.layers.add(currentElement.value)
 
   onCleanup(() => {
     if (
@@ -168,15 +162,19 @@ watchEffect(async (onCleanup) => {
  */
 watchEffect((onCleanup) => {
   onCleanup(() => {
-    if (!node.value)
+    if (!currentElement.value)
       return
 
-    context.layers.delete(node.value)
-    context.layersWithOutsidePointerEventsDisabled.delete(node.value)
+    context.layers.delete(currentElement.value)
+    context.layersWithOutsidePointerEventsDisabled.delete(currentElement.value)
   })
 })
 
 const attrs = useAttrs()
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
