@@ -66,7 +66,7 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 
 const emit = defineEmits<DismissableLayerEmits>()
 
-const { componentRef, currentElement } = useComponentRef<DismissableLayerElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 const ownerDocument = computed(() => currentElement.value?.ownerDocument ?? globalThis?.document)
 
 const layers = computed(() => Array.from(context.layers))
@@ -91,9 +91,7 @@ const pointerdownOutside = usePointerdownOutside(async (event) => {
 
   emit('pointerdownOutside', event)
   emit('interactOutside', event)
-
   await nextTick()
-
   if (!event.defaultPrevented)
     emit('dismiss')
 }, ownerDocument)
@@ -107,7 +105,6 @@ const focusOutside = useFocusOutside(async (event) => {
   emit('focusOutside', event)
   emit('interactOutside', event)
   await nextTick()
-
   if (!event.defaultPrevented)
     emit('dismiss')
 }, ownerDocument)
@@ -181,6 +178,7 @@ defineExpose({
     :is="is"
     ref="componentRef"
     :as-child="asChild"
+    data-dismissable-layer=""
     :style="{
       pointerEvents: isBodyPointerEventsDisabled
         ? isPointerEventsEnabled
