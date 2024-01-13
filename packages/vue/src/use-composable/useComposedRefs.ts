@@ -5,7 +5,7 @@ import type { ComponentPublicInstance, Ref } from 'vue'
 import {
   isFunction,
 } from '@vue/shared'
-import { isValidVNodeElement } from '@oku-ui/utils'
+import { isValidElement } from '@oku-ui/utils'
 
 export type RefSetter = (
   el: Element | ComponentPublicInstance | undefined
@@ -16,7 +16,7 @@ export function useComposedRefs(...refs: (Ref<HTMLElement | undefined | null | C
     if (!el)
       return
 
-    if (isValidVNodeElement(el)) {
+    if (isValidElement(el as any)) {
       if ((el as ComponentPublicInstance)?.$el)
         return
     }

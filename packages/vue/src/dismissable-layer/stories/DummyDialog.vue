@@ -4,21 +4,22 @@ import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
-import { useScrollLock } from '@oku-ui/use-composable'
+import { useComponentRef, useScrollLock } from '@oku-ui/use-composable'
 
 withDefaults(defineProps<{ openLabel?: string, closeLabel?: string }>(), {
   openLabel: 'Open',
   closeLabel: 'Close',
 })
 
-const dismissableLayerRef = ref<HTMLElement | null>(null)
-useScrollLock(dismissableLayerRef, true)
+const { componentRef, currentElement } = useComponentRef<HTMLElement | null>()
+
+useScrollLock(currentElement, true)
 
 const open = ref(false)
 </script>
 
 <template>
-  <button type="button" @click="open = !open">
+  <button type="button" @click="open = true">
     {{ openLabel }}
   </button>
 
@@ -40,7 +41,7 @@ const open = ref(false)
 
     <OkuPortal as-child>
       <OkuDismissableLayer
-        ref="dismissableLayerRef"
+        ref="componentRef"
         as-child
         disable-outside-pointer-events
         @dismiss="open = false"

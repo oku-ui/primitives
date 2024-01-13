@@ -31,14 +31,14 @@ interface CreateScope {
   (): ScopeHook
 }
 
-function createProvideScope(scopeName: string, createProvideScopeDeps: CreateScope[] = []) {
+function createProvideScope<T extends string>(scopeName: T, createProvideScopeDeps: CreateScope[] = []) {
   let defaultProviders: any[] = []
   /* -----------------------------------------------------------------------------------------------
    * createProvide
    * --------------------------------------------------------------------------------------------- */
 
   function createProvide<ProvideValueType extends object | null>(
-    rootComponentName: string,
+    rootComponentName: T,
     defaultValue?: ProvideValueType,
   ) {
     const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
@@ -47,7 +47,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
     const index = defaultProviders.length
     defaultProviders = [...defaultProviders, BaseProvideKey]
 
-    function Provider(
+    function useProvider(
       props: ProvideValueType & { scope: Scope<ProvideValueType> | undefined },
     ) {
       const { scope, ...context } = props
@@ -57,7 +57,7 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
       provide(Provide, context as any)
     }
 
-    function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
+    function useInject(consumerName: T, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
       const provide = inject(Provide)
       if (provide)
@@ -69,7 +69,11 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
       throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``)
     }
 
-    return [Provider, useInject] as const
+    // return [Provider, useInject] as const
+    return {
+      useProvider,
+      useInject,
+    }
   }
 
   /* -----------------------------------------------------------------------------------------------
@@ -93,10 +97,15 @@ function createProvideScope(scopeName: string, createProvideScopeDeps: CreateSco
   }
 
   createScope.scopeName = scopeName
-  return [createProvide, composeProvderScopes(createScope, ...createProvideScopeDeps)] as const
+  // return [createProvide, composeProvderScopes(createScope, ...createProvideScopeDeps)] as const
+
+  return {
+    createProvide,
+    composeProviderScopes: composeProviderScopes(createScope, ...createProvideScopeDeps),
+  }
 }
 
-function composeProvderScopes(...scopes: CreateScope[]) {
+function composeProviderScopes(...scopes: CreateScope[]) {
   const baseScope = scopes[0]
   if (scopes.length === 1)
     return baseScope

@@ -1,6 +1,5 @@
-export {
-  OkuFocusGuards,
-} from './focusGuards'
+export { default as OkuFocusGuards } from './FocusGuards.vue'
+export type * from './FocusGuards.vue'
 
 export {
   useFocusGuards,

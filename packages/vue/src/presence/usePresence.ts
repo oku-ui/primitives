@@ -1,4 +1,6 @@
-import { type Ref, computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import type { Ref } from 'vue'
+import { unrefElement } from '@oku-ui/use-composable'
 import { useStateMachine } from './useStateMachine'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
@@ -10,9 +12,9 @@ export function usePresence(present: Ref<boolean>) {
   const stylesRef = ref<CSSStyleDeclaration>({} as any)
   const prevPresentRef = ref(present.value)
   const prevAnimationNameRef = ref<string>('none')
-  const initialState = computed(() => (present.value ? 'mounted' : 'unmounted'))
+  const initialState = present.value ? 'mounted' : 'unmounted'
 
-  const { state, dispatch: send } = useStateMachine(initialState.value, {
+  const { state, dispatch: send } = useStateMachine(initialState, {
     mounted: {
       UNMOUNT: 'unmounted',
       ANIMATION_OUT: 'unmountSuspended',
@@ -129,19 +131,31 @@ export function usePresence(present: Ref<boolean>) {
 
   return {
     isPresent,
-    ref: (node) => {
-      if (node instanceof HTMLElement) {
-        stylesRef.value = getComputedStyle(node)
-        el.value = node
-      }
-      else if (node && node.$el instanceof HTMLElement) {
-        stylesRef.value = getComputedStyle(node.$el)
-        el.value = node.$el
+    ref: (node: any) => {
+      const element = unrefElement(node)
+      if (element instanceof HTMLElement) {
+        stylesRef.value = getComputedStyle(element)
+        el.value = element
+        return element
       }
       else {
         stylesRef.value = {} as any
         el.value = undefined
+        return undefined
       }
+
+      // if (node instanceof HTMLElement) {
+      //   stylesRef.value = getComputedStyle(node)
+      //   el.value = node
+      // }
+      // else if (node && node.$el instanceof HTMLElement) {
+      //   stylesRef.value = getComputedStyle(node.$el)
+      //   el.value = node.$el
+      // }
+      // else {
+      //   stylesRef.value = {} as any
+      //   el.value = undefined
+      // }
     },
 
   }

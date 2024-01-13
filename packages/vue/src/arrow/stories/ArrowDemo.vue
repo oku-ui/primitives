@@ -20,13 +20,13 @@ onMounted(() => {
 <template>
   <div>
     <template v-if="template === '#1'">
-      <div class="grid grid-cols-4 gap-4">
+      <div>
         <OkuArrow ref="arrowRef" :width="20" :height="10" class="align-middle fill-blue-500" />
       </div>
     </template>
 
     <template v-if="template === '#2'">
-      <div class="grid grid-cols-4 gap-4">
+      <div>
         <OkuArrow :width="40" :height="10" class="align-middle" />
 
         <OkuArrow :width="40" :height="10" class="align-middle" />
@@ -53,3 +53,13 @@ onMounted(() => {
     </template>
   </div>
 </template>
+
+<style>
+.align-middle {
+  align-self: center;
+}
+
+.fill-blue-500 {
+  fill: #3b82f6;
+}
+</style>

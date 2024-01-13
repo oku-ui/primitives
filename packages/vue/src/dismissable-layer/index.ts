@@ -1,14 +1,11 @@
-export * from './DismissableLayerBranch'
+export {
+  default as OkuDismissableLayer,
+} from './DismissableLayer.vue'
+
+export type * from './DismissableLayer.vue'
 
 export {
-  OkuDismissableLayer,
-} from './DismissableLayer'
+  default as OkuDismissableLayerBranch,
+} from './DismissableLayerBranch.vue'
 
-export type {
-  DismissableLayerProps,
-  DismissableLayerEmits,
-} from './props'
-
-export {
-  dismissableLayerProps,
-} from './props'
+export type * from './DismissableLayerBranch.vue'

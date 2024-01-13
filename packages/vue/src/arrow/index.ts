@@ -1,10 +1,4 @@
 export {
-  OkuArrow,
-  arrowProps,
-} from './arrow'
-
-export type {
-  ArrowProps,
-  ArrowElement,
-  ArrowNaviteElement,
-} from './arrow'
+  default as OkuArrow,
+} from './Arrow.vue'
+export type * from './Arrow.vue'

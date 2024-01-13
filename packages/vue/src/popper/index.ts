@@ -1,45 +1,14 @@
 import type { } from '@floating-ui/vue'
 
-export {
-  OkuPopper,
+export { default as OkuPopper } from './Popper.vue'
+export { default as OkuPopperAnchor } from './PopperAnchor.vue'
+export { default as OkuPopperContent } from './PopperContent.vue'
+export { default as OkuPopperArrow } from './PopperArrow.vue'
 
-} from './popper'
-
-export {
-  OkuPopperAnchor,
-} from './popperAnchor'
-
-export {
-  OkuPopperContent,
-} from './popperContent'
-
-export {
-  OkuPopperArrow,
-} from './popperArrow'
-
-export type {
-  PopperArrowProps,
-  PopperArrowElement,
-  PopperArrowNaviteElement,
-
-  PopperContentProps,
-  PopperContentElement,
-  PopperContentNaviteElement,
-  PopperContentEmits,
-
-  PopperAnchorProps,
-  PopperAnchorElement,
-  PopperAnchorNaviteElement,
-
-  PopperProps,
-} from './props'
-
-export {
-  popperContentProps,
-  popperArrowProps,
-  popperAnchorProps,
-  createPopperScope,
-} from './props'
+export type * from './Popper.vue'
+export type * from './PopperAnchor.vue'
+export type * from './PopperContent.vue'
+export type * from './PopperArrow.vue'
 
 export {
   SIDE_OPTIONS,

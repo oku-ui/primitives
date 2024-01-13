@@ -23,4 +23,13 @@ export default antfu(
       'ts/consistent-type-definitions': 'off',
     },
   },
+  {
+    files: [
+      '**/*.vue',
+    ],
+    rules: {
+      'import/first': 'off',
+      'import/order': 'off',
+    },
+  },
 )

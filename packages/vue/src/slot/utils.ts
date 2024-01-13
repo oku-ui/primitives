@@ -1,19 +1,10 @@
-import { Fragment, type VNode } from 'vue'
-import { OkuSlottable } from './slot'
-
-export function isValidVNodeElement(input: any): boolean {
-  return (
-    input
-    && (typeof input.type === 'string'
-    || typeof input.type === 'object'
-    || typeof input.type === 'function')
-  )
-}
+import { Fragment, isVNode } from 'vue'
+import type { Component, VNode } from 'vue'
 
 export function isSlottable(child: VNode): child is VNode {
   return (
-    isValidVNodeElement(child)
-    && (child.type === OkuSlottable)
+    isVNode(child)
+    && ((child.type as Component).name === 'OkuSlottable')
   )
 }
 

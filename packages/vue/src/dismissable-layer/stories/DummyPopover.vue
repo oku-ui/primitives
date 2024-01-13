@@ -1,53 +1,54 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineEmits, defineProps, ref, withDefaults } from 'vue'
 import { OkuPopper, OkuPopperAnchor, OkuPopperArrow, OkuPopperContent } from '@oku-ui/popper'
 import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'
-import { useScrollLock } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
-import type { DismissableLayerEmits } from '..'
-import { OkuDismissableLayer } from '..'
+import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
+import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 
-const props = withDefaults(
-  defineProps<{
-    openLabel?: string
-    closeLabel?: string
-    color?: string
-    trapped?: boolean
-    disableOutsidePointerEvents?: boolean
-    preventScroll?: boolean
-  }>(),
-  {
-    openLabel: 'Open',
-    closeLabel: 'Close',
-    color: '#333',
-    trapped: true,
-    disableOutsidePointerEvents: false,
-    preventScroll: false,
-  },
-)
+interface Props {
+  openLabel?: string
+  closeLabel?: string
+  color?: string
+  trapped?: boolean
+  disableOutsidePointerEvents?: boolean
+  preventScroll?: boolean
+}
 
-defineEmits<DismissableLayerEmits>()
+withDefaults(defineProps<Props>(), {
+  openLabel: 'Open',
+  closeLabel: 'Close',
+  color: '#333',
+  trapped: true,
+  disableOutsidePointerEvents: false,
+  preventScroll: false,
+})
+
+const emit = defineEmits<DismissableLayerEmits>()
 
 const skipUnmountAutoFocus = ref(false)
 const open = ref(false)
 const openButtonRef = ref(null)
 
-const portalRef = ref<HTMLElement | null>(null)
-useScrollLock(portalRef, props.preventScroll)
+const { componentRef } = useComponentRef<HTMLElement | null>()
+
+// useScrollLock(currentElement, true)
 </script>
 
 <template>
+  {{ open }}
   <OkuPopper>
     <OkuPopperAnchor as-child>
-      <button ref="openButtonRef" type="button" @click="open = !open">
+      <button ref="openButtonRef" type="button" @click="open = true">
         {{ openLabel }}
       </button>
     </OkuPopperAnchor>
 
     <template v-if="open">
       <OkuFocusGuards>
-        <OkuPortal ref="portalRef" as-child>
+        <OkuPortal ref="componentRef" as-child>
           <OkuDismissableLayer
             as-child
             :disable-outside-pointer-events="disableOutsidePointerEvents"
@@ -57,7 +58,7 @@ useScrollLock(portalRef, props.preventScroll)
               if (event.target === openButtonRef)
                 event.preventDefault()
               else
-                $emit('pointerdownOutside', event)
+                emit('pointerdownOutside', event)
             }"
             @focus-outside="(event) => $emit('focusOutside', event)"
             @interact-outside="(event) => $emit('interactOutside', event)"

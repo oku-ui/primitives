@@ -1,8 +1,2 @@
-export { OkuLabel } from './label'
-
-export type {
-  LabelProps,
-  LabelEmits,
-  LabelElement,
-  LabelNativeElement,
-} from './props'
+export { default as OkuLabel } from './Label.vue'
+export type * from './Label.vue'
