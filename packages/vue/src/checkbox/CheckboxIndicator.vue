@@ -25,6 +25,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
   is: 'span',
+  forceMount: undefined,
 })
 
 const { componentRef } = useComponentRef<HTMLInputElement | null>()
