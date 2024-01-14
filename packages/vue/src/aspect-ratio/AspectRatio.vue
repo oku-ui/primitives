@@ -13,6 +13,7 @@ import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({
   name: 'OkuAspectRatio',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<AspectRatioProps>(), {
