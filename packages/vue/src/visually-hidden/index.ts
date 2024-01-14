@@ -1,1 +1,1 @@
-export * from './VisuallyHidden'
+export { default as OkuVisuallyHidden } from './VisuallyHidden.vue'

@@ -1,7 +1,9 @@
 # Visually Hidden
-Visually hidden component for hiding elements from the visual display, but still available to screen readers.
+Hides content from the screen in an accessible way.
 
-<span><a href="https://www.npmjs.com/package/@oku-ui/visually-hidden "><img src="https://img.shields.io/npm/v/@oku-ui/visually-hidden?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/visually-hidden"> <img src="https://img.shields.io/npm/dm/@oku-ui/visually-hidden?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/visually-hidden"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span>
+![@oku-ui/visually-hidden](./../../../.github/assets/og/oku-visually-hidden.jpg)
+
+[![Version](https://img.shields.io/npm/v/@oku-ui/visually-hidden?style=flat&colorA=18181B&colorB=28CF8D)](https://www.npmjs.com/package/@oku-ui/visually-hidden) [![Downloads](https://img.shields.io/npm/dm/@oku-ui/visually-hidden?style=flat&colorA=18181B&colorB=28CF8D)](https://www.npmjs.com/package/@oku-ui/visually-hidden)
 
 ## Installation
 
@@ -9,6 +11,4 @@ Visually hidden component for hiding elements from the visual display, but still
 $ pnpm add @oku-ui/visually-hidden
 ```
 
-## Usage
-
-soon docs
+[Documentation](https://oku-ui.com/primitives/components/visually-hidden)
