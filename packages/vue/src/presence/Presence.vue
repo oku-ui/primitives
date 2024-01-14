@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineOptions, h, toRefs, useSlots } from 'vue'
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 import { usePresence } from './usePresence'
 
 export interface PresenceProps {
@@ -18,9 +18,8 @@ const props = withDefaults(defineProps<PresenceProps>(), {
 
 const { present } = toRefs(props)
 
-const forwardedRef = useForwardRef()
-const { isPresent, ref: presenceRef } = usePresence(present)
-const composedRefs = useComposedRefs(presenceRef, forwardedRef)
+const { componentRef, currentElement } = useComponentRef<HTMLElement | undefined>()
+const { isPresent } = usePresence(present, currentElement)
 
 const slots = useSlots()
 
@@ -36,7 +35,7 @@ function Comp() {
 
   return isPresent.value
     ? h(child, {
-      ref: composedRefs,
+      ref: componentRef,
     })
     : null
 }
