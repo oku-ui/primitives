@@ -6,25 +6,24 @@ export interface VisuallyHiddenProps extends PrimitiveProps { }
 
 <script setup lang="ts">
 import { defineOptions } from 'vue'
-import { useForwardRef } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({
   name: 'OkuVisuallyHidden',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<VisuallyHiddenProps>(), {
   is: 'span',
 })
 
-const forwardedRef = useForwardRef()
+const { componentRef } = useComponentRef<HTMLSpanElement | null>()
 </script>
 
 <template>
   <Primitive
     v-bind="props"
-    ref="forwardedRef"
+    ref="componentRef"
     :style="{
       // See: https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
       position: 'absolute',
