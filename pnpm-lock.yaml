@@ -1599,6 +1599,24 @@ importers:
         specifier: workspace:^
         version: link:../../packages/package-build/visually-hidden
     devDependencies:
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../../packages/package-build/direction
+      '@oku-ui/focus-guards':
+        specifier: workspace:^
+        version: link:../../packages/package-build/focus-guards
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../packages/package-build/primitive
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../packages/package-build/provide
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../packages/package-build/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../packages/package-build/utils
       '@types/node':
         specifier: ^20.10.6
         version: 20.10.6
@@ -1608,45 +1626,6 @@ importers:
 
   playground/vue3:
     dependencies:
-      '@oku-ui/aspect-ratio':
-        specifier: workspace:^
-        version: link:../../packages/package-build/aspect-ratio
-      '@oku-ui/avatar':
-        specifier: workspace:^
-        version: link:../../packages/package-build/avatar
-      '@oku-ui/checkbox':
-        specifier: workspace:^
-        version: link:../../packages/package-build/checkbox
-      '@oku-ui/label':
-        specifier: workspace:^
-        version: link:../../packages/package-build/label
-      '@oku-ui/menu':
-        specifier: workspace:^
-        version: link:../../packages/package-build/menu
-      '@oku-ui/primitives':
-        specifier: workspace:^
-        version: link:../../packages/primitives
-      '@oku-ui/progress':
-        specifier: workspace:^
-        version: link:../../packages/package-build/progress
-      '@oku-ui/roving-focus':
-        specifier: workspace:^
-        version: link:../../packages/package-build/roving-focus
-      '@oku-ui/scroll-area':
-        specifier: workspace:^
-        version: link:../../packages/package-build/scroll-area
-      '@oku-ui/separator':
-        specifier: workspace:^
-        version: link:../../packages/package-build/separator
-      '@oku-ui/slot':
-        specifier: workspace:^
-        version: link:../../packages/package-build/slot
-      '@oku-ui/switch':
-        specifier: workspace:^
-        version: link:../../packages/package-build/switch
-      '@oku-ui/tabs':
-        specifier: workspace:^
-        version: link:../../packages/package-build/tabs
       vite-plugin-pages:
         specifier: ^0.32.0
         version: 0.32.0(@vue/compiler-sfc@3.4.5)(vite@5.0.11)
@@ -1657,6 +1636,123 @@ importers:
         specifier: ^4.2.5
         version: 4.2.5(vue@3.4.5)
     devDependencies:
+      '@oku-ui/accordion':
+        specifier: workspace:^
+        version: link:../../packages/package-build/accordion
+      '@oku-ui/alert-dialog':
+        specifier: workspace:^
+        version: link:../../packages/package-build/alert-dialog
+      '@oku-ui/arrow':
+        specifier: workspace:^
+        version: link:../../packages/package-build/arrow
+      '@oku-ui/aspect-ratio':
+        specifier: workspace:^
+        version: link:../../packages/package-build/aspect-ratio
+      '@oku-ui/avatar':
+        specifier: workspace:^
+        version: link:../../packages/package-build/avatar
+      '@oku-ui/checkbox':
+        specifier: workspace:^
+        version: link:../../packages/package-build/checkbox
+      '@oku-ui/collapsible':
+        specifier: workspace:^
+        version: link:../../packages/package-build/collapsible
+      '@oku-ui/collection':
+        specifier: workspace:^
+        version: link:../../packages/package-build/collection
+      '@oku-ui/dialog':
+        specifier: workspace:^
+        version: link:../../packages/package-build/dialog
+      '@oku-ui/direction':
+        specifier: workspace:^
+        version: link:../../packages/package-build/direction
+      '@oku-ui/dismissable-layer':
+        specifier: workspace:^
+        version: link:../../packages/package-build/dismissable-layer
+      '@oku-ui/focus-guards':
+        specifier: workspace:^
+        version: link:../../packages/package-build/focus-guards
+      '@oku-ui/focus-scope':
+        specifier: workspace:^
+        version: link:../../packages/package-build/focus-scope
+      '@oku-ui/hover-card':
+        specifier: workspace:^
+        version: link:../../packages/package-build/hover-card
+      '@oku-ui/label':
+        specifier: workspace:^
+        version: link:../../packages/package-build/label
+      '@oku-ui/menu':
+        specifier: workspace:^
+        version: link:../../packages/package-build/menu
+      '@oku-ui/popover':
+        specifier: workspace:^
+        version: link:../../packages/package-build/popover
+      '@oku-ui/popper':
+        specifier: workspace:^
+        version: link:../../packages/package-build/popper
+      '@oku-ui/portal':
+        specifier: workspace:^
+        version: link:../../packages/package-build/portal
+      '@oku-ui/presence':
+        specifier: workspace:^
+        version: link:../../packages/package-build/presence
+      '@oku-ui/primitive':
+        specifier: workspace:^
+        version: link:../../packages/package-build/primitive
+      '@oku-ui/progress':
+        specifier: workspace:^
+        version: link:../../packages/package-build/progress
+      '@oku-ui/provide':
+        specifier: workspace:^
+        version: link:../../packages/package-build/provide
+      '@oku-ui/radio-group':
+        specifier: workspace:^
+        version: link:../../packages/package-build/radio-group
+      '@oku-ui/roving-focus':
+        specifier: workspace:^
+        version: link:../../packages/package-build/roving-focus
+      '@oku-ui/scroll-area':
+        specifier: workspace:^
+        version: link:../../packages/package-build/scroll-area
+      '@oku-ui/separator':
+        specifier: workspace:^
+        version: link:../../packages/package-build/separator
+      '@oku-ui/slider':
+        specifier: workspace:^
+        version: link:../../packages/package-build/slider
+      '@oku-ui/slot':
+        specifier: workspace:^
+        version: link:../../packages/package-build/slot
+      '@oku-ui/switch':
+        specifier: workspace:^
+        version: link:../../packages/package-build/switch
+      '@oku-ui/tabs':
+        specifier: workspace:^
+        version: link:../../packages/package-build/tabs
+      '@oku-ui/toast':
+        specifier: workspace:^
+        version: link:../../packages/package-build/toast
+      '@oku-ui/toggle':
+        specifier: workspace:^
+        version: link:../../packages/package-build/toggle
+      '@oku-ui/toggle-group':
+        specifier: workspace:^
+        version: link:../../packages/package-build/toggle-group
+      '@oku-ui/toolbar':
+        specifier: workspace:^
+        version: link:../../packages/package-build/toolbar
+      '@oku-ui/tooltip':
+        specifier: workspace:^
+        version: link:../../packages/package-build/tooltip
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../../packages/package-build/use-composable
+      '@oku-ui/utils':
+        specifier: workspace:^
+        version: link:../../packages/package-build/utils
+      '@oku-ui/visually-hidden':
+        specifier: workspace:^
+        version: link:../../packages/package-build/visually-hidden
       '@vitejs/plugin-vue':
         specifier: ^5.0.2
         version: 5.0.2(vite@5.0.11)(vue@3.4.5)
