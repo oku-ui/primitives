@@ -33,7 +33,6 @@ import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({
   name: 'OkuToggle',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ToggleProps>(), {
@@ -61,8 +60,8 @@ const [pressed, setPressed] = useControllable({
 
 <template>
   <Primitive
+    v-bind="props"
     is="button"
-    v-bind="$attrs"
     ref="componentRef"
     type="button"
     :aria-pressed="pressed"
