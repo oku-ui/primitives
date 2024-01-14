@@ -1,5 +1,5 @@
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import { unrefElement } from '@oku-ui/use-composable'
 import { useStateMachine } from './useStateMachine'
 
@@ -7,8 +7,10 @@ function getAnimationName(styles?: CSSStyleDeclaration) {
   return styles?.animationName || 'none'
 }
 
-export function usePresence(present: Ref<boolean>) {
-  const el = ref<HTMLElement | undefined>(undefined)
+export function usePresence(
+  present: Ref<boolean>,
+  el: ComputedRef<HTMLElement | undefined>,
+) {
   const stylesRef = ref<CSSStyleDeclaration>({} as any)
   const prevPresentRef = ref(present.value)
   const prevAnimationNameRef = ref<string>('none')
