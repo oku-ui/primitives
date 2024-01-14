@@ -29,7 +29,6 @@ const config: StorybookConfig = {
         alias: [
           ...primitivesPackagesAlias('../packages/vue/src', resolve),
         ],
-        // Components
       },
     })
   },
