@@ -1,4 +1,4 @@
-import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
@@ -17,15 +17,17 @@ describe('okuToggle', () => {
   let wrapper: VueWrapper
 
   beforeEach(() => {
-    wrapper = shallowMount({
+    wrapper = mount({
       components: {
         OkuToggle,
       },
       setup() {
-        return { }
+        return {
+          TEXT_CHILD,
+        }
       },
       template: `
-        <OkuToggle></OkuToggle>
+        <OkuToggle>{{ TEXT_CHILD }}</OkuToggle>
       `,
     }, {
       attachTo: document.body,
@@ -34,8 +36,6 @@ describe('okuToggle', () => {
 
   it('should render OkuToggle correctly', () => {
     expect(wrapper.html()).toMatchSnapshot()
-
-    expect(shallowMount(OkuToggle).html()).toMatchSnapshot()
   })
 
   /**
@@ -201,9 +201,8 @@ describe('okuToggle', () => {
 
       // The attributes do not change, they keep the same
       // because it's a controlled component.
-      // TODO: why does this fail?
-      // expect(button.attributes('aria-pressed')).toBe('true')
-      // expect(button.attributes('data-state')).toBe('on')
+      expect(button.attributes('aria-pressed')).toBe('true')
+      expect(button.attributes('data-state')).toBe('on')
     })
   })
 })
@@ -213,7 +212,7 @@ describe('okuToggle Stories', () => {
     let wrapper: VueWrapper<InstanceType<typeof Styled>>
 
     beforeEach(async () => {
-      wrapper = shallowMount(Styled, {
+      wrapper = mount(Styled, {
         attachTo: document.body,
       })
     })
@@ -234,7 +233,7 @@ describe('okuToggle Stories', () => {
     let wrapper: VueWrapper<InstanceType<typeof Controlled>>
 
     beforeEach(async () => {
-      wrapper = shallowMount(Controlled, {
+      wrapper = mount(Controlled, {
         attachTo: document.body,
       })
     })
@@ -255,7 +254,7 @@ describe('okuToggle Stories', () => {
     let wrapper: VueWrapper<InstanceType<typeof Chromatic>>
 
     beforeEach(async () => {
-      wrapper = shallowMount(Chromatic, {
+      wrapper = mount(Chromatic, {
         attachTo: document.body,
       })
     })

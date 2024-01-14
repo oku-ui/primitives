@@ -1,27 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`okuToggle > should render OkuToggle correctly 1`] = `"<oku-toggle-stub defaultpressed="false" disabled="false" aschild="false"></oku-toggle-stub>"`;
-
-exports[`okuToggle > should render OkuToggle correctly 2`] = `"<primitivebutton-stub aschild="false" type="button" aria-pressed="false" data-state="off" disabled="false"></primitivebutton-stub>"`;
+exports[`okuToggle > should render OkuToggle correctly 1`] = `"<button type="button" aria-pressed="false" data-state="off">Like</button>"`;
 
 exports[`okuToggle Stories > chromatic > should render correctly 1`] = `
 "<h1>Uncontrolled</h1>
 <h2>Off</h2>
-<oku-toggle-stub defaultpressed="false" disabled="false" aschild="false" class="toggle"></oku-toggle-stub>
+<button class="toggle" type="button" aria-pressed="false" data-state="off"> Toggle </button>
 <h2>On</h2>
-<oku-toggle-stub defaultpressed="true" disabled="false" aschild="false" class="toggle"></oku-toggle-stub>
+<button class="toggle" type="button" aria-pressed="true" data-state="on"> Toggle </button>
 <h1>Controlled</h1>
 <h2>Off</h2>
-<oku-toggle-stub pressed="false" defaultpressed="false" disabled="false" aschild="false" class="toggle"></oku-toggle-stub>
+<button class="toggle" type="button" aria-pressed="false" data-state="off"> Toggle </button>
 <h2>On</h2>
-<oku-toggle-stub pressed="true" defaultpressed="false" disabled="false" aschild="false" class="toggle"></oku-toggle-stub>
+<button class="toggle" type="button" aria-pressed="true" data-state="on"> Toggle </button>
 <h1>Disabled</h1>
-<oku-toggle-stub defaultpressed="false" disabled="true" aschild="false" class="toggle"></oku-toggle-stub>
+<button class="toggle" type="button" aria-pressed="false" data-state="off" data-disabled=""> Toggle </button>
 <h1>State attributes</h1>
-<oku-toggle-stub defaultpressed="false" disabled="false" aschild="false" class="toggle-attr-styles"></oku-toggle-stub>
-<oku-toggle-stub defaultpressed="false" disabled="true" aschild="false" class="toggle-attr-styles"></oku-toggle-stub>"
+<button class="toggle-attr-styles" type="button" aria-pressed="false" data-state="off"> Toggle </button>
+<button class="toggle-attr-styles" type="button" aria-pressed="false" data-state="off" data-disabled=""> Toggle </button>"
 `;
 
-exports[`okuToggle Stories > controlled > should render correctly 1`] = `"<oku-toggle-stub pressed="true" defaultpressed="false" disabled="false" aschild="false" class="toggle"></oku-toggle-stub>"`;
+exports[`okuToggle Stories > controlled > should render correctly 1`] = `"<button class="toggle" type="button" aria-pressed="true" data-state="on">On</button>"`;
 
-exports[`okuToggle Stories > styled > should render correctly 1`] = `"<oku-toggle-stub defaultpressed="false" disabled="false" aschild="false" class="toggle"></oku-toggle-stub>"`;
+exports[`okuToggle Stories > styled > should render correctly 1`] = `"<button class="toggle" type="button" aria-pressed="false" data-state="off"> Toggle </button>"`;
