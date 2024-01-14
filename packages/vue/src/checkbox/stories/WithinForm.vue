@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
 
-const data = ref({ optional: false, required: false, stopprop: false })
+const data = reactive({ optional: false, required: false, stopprop: false })
 const checked = ref<boolean | 'indeterminate'>('indeterminate')
 </script>
 
@@ -10,7 +10,9 @@ const checked = ref<boolean | 'indeterminate'>('indeterminate')
   <form
     @submit="(event) => event.preventDefault()"
     @change="(event) => {
+      console.log('hello')
       const input = event.target as HTMLInputElement
+      console.log(input.name, input.checked)
       data = { ...data, [input.name]: input.checked }
     }"
   >

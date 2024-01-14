@@ -1,4 +1,4 @@
-import type { CheckedState } from './props'
+import type { CheckedState } from './Checkbox.vue'
 
 function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
   return checked === 'indeterminate'

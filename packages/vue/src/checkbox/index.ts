@@ -1,15 +1,9 @@
-export { OkuCheckbox } from './checkbox'
-export { OkuCheckboxIndicator } from './checkbox-indicator'
-
-export type {
-  CheckboxProps,
-  CheckboxEmits,
-  CheckboxElement,
-  CheckboxNativeElement,
-} from './props'
-
-export type {
-  CheckboxIndicatorProps,
-  CheckboxIndicatorElement,
-  CheckboxIndicatorNativeElement,
-} from './props'
+export {
+  default as OkuCheckbox,
+  type CheckboxProps,
+  type CheckboxEmits,
+} from './Checkbox.vue'
+export {
+  default as OkuCheckboxIndicator,
+  type CheckboxIndicatorProps,
+} from './CheckboxIndicator.vue'

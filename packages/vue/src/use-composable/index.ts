@@ -1,4 +1,4 @@
-import { computedAsync, computedEager, isClient, reactiveOmit, reactivePick, syncRef, syncRefs, useScrollLock } from '@vueuse/core'
+export { computedAsync, computedEager, isClient, reactiveOmit, reactivePick, syncRef, syncRefs, useScrollLock, useVModel } from '@vueuse/core'
 
 export { useControllable } from './useControllable'
 export { useCallbackRef } from './useCallbackRef'
@@ -11,6 +11,5 @@ export { useForwardRef } from './useForwardRef'
 export { useEscapeKeydown } from './useEscapeKeydown'
 export * from './unrefElement'
 export { useListeners } from './useListeners'
-export { computedEager, syncRef, computedAsync, syncRefs, useScrollLock, isClient, reactiveOmit, reactivePick }
 export { useRect } from './use-rect'
 export * from './useComponentRef'
