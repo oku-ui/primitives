@@ -24,7 +24,7 @@ export const Styled: Story = {
   args: {
     template: 'Styled',
   },
-  render: (args: any) => ({
+  render: args => ({
     components: { OkuAspectRatio },
     setup() {
       return { args }
@@ -39,7 +39,7 @@ export const CustomRatios: Story = {
   args: {
     template: 'CustomRatios',
   },
-  render: (args: any) => ({
+  render: args => ({
     components: { OkuAspectRatio },
     setup() {
       return { args }
@@ -54,7 +54,7 @@ export const Chromatic: Story = {
   args: {
     template: 'Chromatic',
   },
-  render: (args: any) => ({
+  render: args => ({
     components: { OkuAspectRatio },
     setup() {
       return { args }
