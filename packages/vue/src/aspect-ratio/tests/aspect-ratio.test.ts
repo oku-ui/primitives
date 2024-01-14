@@ -1,4 +1,4 @@
-import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
@@ -17,7 +17,7 @@ describe('okuAspectRatio', () => {
   let wrapper: VueWrapper
 
   beforeEach(() => {
-    wrapper = shallowMount({
+    wrapper = mount({
       components: {
         OkuAspectRatio,
       },
@@ -40,8 +40,6 @@ describe('okuAspectRatio', () => {
 
   it('should render OkuAspectRatio correctly', () => {
     expect(wrapper.html()).toMatchSnapshot()
-
-    expect(shallowMount(OkuAspectRatio).html()).toMatchSnapshot()
   })
 
   /**
@@ -57,7 +55,7 @@ describe('okuAspectRatio Stories', () => {
     let wrapper: VueWrapper<InstanceType<typeof Styled>>
 
     beforeEach(async () => {
-      wrapper = shallowMount(Styled, {
+      wrapper = mount(Styled, {
         attachTo: document.body,
       })
     })
@@ -78,7 +76,7 @@ describe('okuAspectRatio Stories', () => {
     let wrapper: VueWrapper<InstanceType<typeof CustomRatios>>
 
     beforeEach(async () => {
-      wrapper = shallowMount(CustomRatios, {
+      wrapper = mount(CustomRatios, {
         attachTo: document.body,
       })
     })
@@ -99,7 +97,7 @@ describe('okuAspectRatio Stories', () => {
     let wrapper: VueWrapper<InstanceType<typeof Chromatic>>
 
     beforeEach(async () => {
-      wrapper = shallowMount(Chromatic, {
+      wrapper = mount(Chromatic, {
         attachTo: document.body,
       })
     })

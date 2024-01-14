@@ -12,19 +12,11 @@ export interface IAspectRatioProps {
 </script>
 
 <template>
-  <div>
-    <template v-if="template === 'Styled' || allshow">
-      <Styled />
-    </template>
+  <Styled v-if="template === 'Styled' || allshow" />
 
-    <template v-if="template === 'CustomRatios' || allshow">
-      <CustomRatios />
-    </template>
+  <CustomRatios v-if="template === 'CustomRatios' || allshow" />
 
-    <template v-if="template === 'Chromatic' || allshow">
-      <Chromatic />
-    </template>
-  </div>
+  <Chromatic v-if="template === 'Chromatic' || allshow" />
 </template>
 
 <style>
