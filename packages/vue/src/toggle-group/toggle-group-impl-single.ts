@@ -29,16 +29,20 @@ const toggleGroupImplSingle = defineComponent({
     const emits = useListeners()
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyValue = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : valueProp.value !== undefined ? valueProp.value : undefined,
-      set: () => { },
+
+    const valueProxy = computed(() => {
+      if (valueProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (valueProp.value !== undefined)
+        return valueProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyValue.value),
+    const [value, setValue] = useControllable({
+      prop: computed(() => valueProxy.value),
       defaultProp: computed(() => defaultValue.value),
       onChange: (result) => {
-        modelValue.value = result
         emit('valueChange', result)
         emit('update:modelValue', result)
       },
@@ -47,9 +51,9 @@ const toggleGroupImplSingle = defineComponent({
     toggleGroupValueProvider({
       scope: props.scopeOkuToggleGroup,
       type: 'single',
-      value: computed(() => state.value ? [state.value] : []),
-      onItemActivate: _value => updateValue(_value),
-      onItemDeactivate: () => updateValue(''),
+      value: computed(() => value.value ? [value.value] : []),
+      onItemActivate: _value => setValue(_value),
+      onItemDeactivate: () => setValue(''),
     })
 
     return () => h(OkuToggleGroupImpl, {

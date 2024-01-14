@@ -83,28 +83,32 @@ const toast = defineComponent({
     const forwardedRef = useForwardRef()
 
     const modelValue = useModel(props, 'modelValue')
-    const proxyChecked = computed({
-      get: () => modelValue.value !== undefined ? modelValue.value : openProp.value !== undefined ? openProp.value : undefined,
-      set: () => {
-      },
+
+    const openProxy = computed(() => {
+      if (openProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (openProp.value !== undefined)
+        return openProp.value
+      if (modelValue.value !== undefined)
+        return modelValue.value
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    const [open, setOpen] = useControllable({
+      prop: computed(() => openProxy.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (result: any) => {
-        modelValue.value = result
+      onChange: (result) => {
         emit('openChange', result)
+        emit('update:modelValue', result)
       },
       initialValue: true,
     })
 
-    return () => h(OkuPresence, { present: computed(() => forceMount.value || state.value).value }, {
+    return () => h(OkuPresence, { present: computed(() => forceMount.value || open.value).value }, {
       default: () => h(OkuToastImpl, {
-        open: state.value,
+        open: open.value,
         ...mergeProps(attrs, reactiveReactiveProps),
         ref: forwardedRef,
-        onClose: () => updateValue(false),
+        onClose: () => setOpen(false),
         onPause: () => emit('pause'),
         onResume: () => emit('resume'),
         onSwipeStart: composeEventHandlers<SwipeEvent>((event) => {
@@ -142,7 +146,7 @@ const toast = defineComponent({
           targetElement.style.removeProperty('--oku-toast-swipe-move-y')
           targetElement.style.setProperty('--oku-toast-swipe-end-x', `${x}px`)
           targetElement.style.setProperty('--oku-toast-swipe-end-y', `${y}px`)
-          updateValue(false)
+          setOpen(false)
         }),
       }, slots),
     })

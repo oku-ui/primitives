@@ -27,23 +27,22 @@ const popover = defineComponent({
 
     const modelValue = useModel(props, 'modelValue')
 
-    const proxyChecked = computed(() => {
+    const openProxy = computed(() => {
+      if (openProp.value === undefined && modelValue.value === undefined)
+        return undefined
+      if (openProp.value !== undefined)
+        return openProp.value
       if (modelValue.value !== undefined)
         return modelValue.value
-
-      else if (openProp.value !== undefined)
-        return openProp.value
-
-      else
-        return undefined
     })
 
-    const { state, updateValue } = useControllable({
-      prop: computed(() => proxyChecked.value),
+    // const [open = ref(false), setOpen] = useControllable({
+    const [open, setOpen] = useControllable({
+      prop: computed(() => openProxy.value),
       defaultProp: computed(() => defaultOpen.value),
-      onChange: (result: any) => {
-        modelValue.value = result
+      onChange: (result) => {
         emit('openChange', result)
+        emit('update:modelValue', result)
       },
       initialValue: false,
     })
@@ -52,10 +51,10 @@ const popover = defineComponent({
       scope: scopeOkuPopover.value,
       contentId: computed(() => useId()),
       triggerRef,
-      open: state,
-      onOpenChange: updateValue,
+      open,
+      onOpenChange: setOpen,
       onOpenToggle: () => {
-        updateValue(!state.value)
+        setOpen(!open.value)
       },
       hasCustomAnchor,
       onCustomAnchorAdd: () => {
