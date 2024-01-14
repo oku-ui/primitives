@@ -16,7 +16,6 @@
     "dev": "esno scripts/dev.ts",
     "build": "pnpm nx run-many -t build",
     "build:skip": "pnpm nx run-many -t build --skip-nx-cache",
-    "p:build": "tsup",
     "oku": "pnpm jiti ./scripts/index.ts",
     "story": "pnpm storybook dev -p 6006 --no-open",
     "lint": "eslint . --cache",
@@ -37,7 +36,8 @@
     "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
     "update:version": "esno scripts/update-version.ts",
     "prepare": "npx simple-git-hooks",
-    "release": "bumpp --commit --push --tag"
+    "release": "bumpp --commit --push --tag",
+    "scripts:genpackage": "esno scripts/generateAliasCode.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.1",
