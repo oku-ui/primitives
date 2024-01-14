@@ -1,22 +1,5 @@
-export { OkuAvatar } from './avatar'
-export { OkuAvatarImage } from './avatar-image'
-export { OkuAvatarFallback } from './avatar-fallback'
+export { default as OkuAvatar } from './Avatar.vue'
+export { default as OkuAvatarImage } from './AvatarImage.vue'
+export { default as OkuAvatarFallback } from './AvatarFallback.vue'
 
-export type {
-  AvatarProps,
-  AvatarElement,
-  AvatarNativeElement,
-} from './props'
-
-export type {
-  AvatarImageProps,
-  AvatarImageEmits,
-  AvatarImageElement,
-  AvatarImageNativeElement,
-} from './props'
-
-export type {
-  AvatarFallbackProps,
-  AvatarFallbackElement,
-  AvatarFallbackNativeElement,
-} from './props'
+export type * from './types'

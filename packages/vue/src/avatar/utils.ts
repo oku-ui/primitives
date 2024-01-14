@@ -1,6 +1,6 @@
 import { onBeforeUnmount, ref, watchEffect } from 'vue'
 import { isClient } from '@oku-ui/use-composable'
-import type { ImageLoadingStatus } from './props'
+import type { ImageLoadingStatus } from './types'
 
 export function useImageLoadingStatus(src?: string) {
   const loadingStatus = ref<ImageLoadingStatus>('idle')
