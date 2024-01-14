@@ -22,7 +22,6 @@ export interface CheckboxProps extends PrimitiveProps {
   name?: string
   disabled?: boolean
   value?: string
-  modelValue?: CheckedState
 }
 
 export type CheckboxEmits = {
@@ -57,7 +56,6 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   is: 'button',
   value: 'on',
   checked: undefined,
-  modelValue: undefined,
   defaultChecked: undefined,
 })
 const emits = defineEmits<CheckboxEmits>()
