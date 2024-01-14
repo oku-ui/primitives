@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 
 import { primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
