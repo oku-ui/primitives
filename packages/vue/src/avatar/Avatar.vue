@@ -16,7 +16,7 @@ export type AvatarProvide = {
 export const { composeProviderScopes, createProvide }
     = createProvideScope<AvatarProvide['_names']>('OkuAvatar')
 
-export const { useProvider, useInject: usePopperInject }
+export const { useProvider, useInject: useAvatarInject }
     = createProvide<Omit<AvatarProvide, '_names'>>('OkuAvatar')
 
 export interface AvatarProps extends PrimitiveProps {
@@ -25,10 +25,14 @@ export interface AvatarProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineOptions, ref } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
-import type { ImageLoadingStatus } from './props'
+import type { ImageLoadingStatus } from './types'
+
+defineOptions({
+  name: 'OkuAvatar',
+})
 
 const props = withDefaults(defineProps<AvatarProps>(), {
   is: 'span',
