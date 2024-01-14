@@ -1,1 +1,4 @@
-export { default as OkuVisuallyHidden } from './VisuallyHidden.vue'
+export {
+  default as OkuVisuallyHidden,
+  type VisuallyHiddenProps,
+} from './VisuallyHidden.vue'
