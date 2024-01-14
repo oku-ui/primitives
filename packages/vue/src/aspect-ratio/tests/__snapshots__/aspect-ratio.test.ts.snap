@@ -8,16 +8,10 @@ exports[`okuAspectRatio > should render OkuAspectRatio correctly 1`] = `
 </div>"
 `;
 
-exports[`okuAspectRatio > should render OkuAspectRatio correctly 2`] = `
-"<div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="">
-  <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"></div>
-</div>"
-`;
-
 exports[`okuAspectRatio Stories > chromatic > should render correctly 1`] = `
 "<h1>Default ratio</h1>
 <div style="width: 300px;">
-  <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="" class="aspect-ratio">
+  <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="">
     <div class="aspect-ratio" style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;">
       <p>Default ratio (1/1)</p>
     </div>
@@ -75,7 +69,7 @@ exports[`okuAspectRatio Stories > customRatios > should render correctly 1`] = `
 
 exports[`okuAspectRatio Stories > styled > should render correctly 1`] = `
 "<div style="width: 500px;">
-  <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="" class="aspect-ratio">
+  <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="">
     <div class="aspect-ratio" style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;">
       <h1>Default ratio (1/1)</h1>
     </div>
