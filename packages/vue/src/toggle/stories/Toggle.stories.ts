@@ -24,7 +24,7 @@ export const Styled: Story = {
   args: {
     template: 'Styled',
   },
-  render: (args: any) => ({
+  render: args => ({
     components: { OkuToggle },
     setup() {
       return { args }
@@ -39,7 +39,7 @@ export const Controlled: Story = {
   args: {
     template: 'Controlled',
   },
-  render: (args: any) => ({
+  render: args => ({
     components: { OkuToggle },
     setup() {
       return { args }
@@ -54,7 +54,7 @@ export const Chromatic: Story = {
   args: {
     template: 'Chromatic',
   },
-  render: (args: any) => ({
+  render: args => ({
     components: { OkuToggle },
     setup() {
       return { args }

@@ -12,19 +12,11 @@ export interface IToggleProps {
 </script>
 
 <template>
-  <div>
-    <template v-if="template === 'Styled' || allshow">
-      <Styled />
-    </template>
+  <Styled v-if="template === 'Styled' || allshow" />
 
-    <template v-if="template === 'Controlled' || allshow">
-      <Controlled />
-    </template>
+  <Controlled v-if="template === 'Controlled' || allshow" />
 
-    <template v-if="template === 'Chromatic' || allshow">
-      <Chromatic />
-    </template>
-  </div>
+  <Chromatic v-if="template === 'Chromatic' || allshow" />
 </template>
 
 <style>
