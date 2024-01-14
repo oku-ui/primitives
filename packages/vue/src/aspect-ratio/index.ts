@@ -1,4 +1,4 @@
 export {
-  default as OkuVisuallyHidden,
+  default as OkuAspectRatio,
   type AspectRatioProps,
 } from './AspectRatio.vue'
