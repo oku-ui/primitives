@@ -23,6 +23,7 @@ export type ToggleEmits = {
   pressedChange: [pressed: boolean]
   click: [event: MouseEvent]
 }
+
 </script>
 
 <script setup lang="ts">
@@ -43,7 +44,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 
 const emits = defineEmits<ToggleEmits>()
 
-const { componentRef } = useComponentRef<HTMLButtonElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
 
 const modelValue = useVModel(props, 'pressed', emits)
 
@@ -55,6 +56,10 @@ const [pressed, setPressed] = useControllable({
     emits('update:modelValue', result)
   },
   initialValue: false,
+})
+
+defineExpose({
+  $el: currentElement,
 })
 </script>
 

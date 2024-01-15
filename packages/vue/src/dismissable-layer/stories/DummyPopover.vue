@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, withDefaults } from 'vue'
+import { defineProps, ref, withDefaults } from 'vue'
 import { OkuPopper, OkuPopperAnchor, OkuPopperArrow, OkuPopperContent } from '@oku-ui/popper'
 import { OkuFocusGuards } from '@oku-ui/focus-guards'
 import { OkuPortal } from '@oku-ui/portal'

@@ -40,7 +40,7 @@ export const { useInject, useProvider }
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, defineOptions, defineProps, onMounted, ref, toRef, watchEffect, withDefaults } from 'vue'
+import { computed, defineOptions, onMounted, ref, toRef, watchEffect, withDefaults } from 'vue'
 import { useComponentRef, useControllable, useVModel } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -106,6 +106,9 @@ useProvider({
   disabled: toRef(props, 'disabled'),
 })
 
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
