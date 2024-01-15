@@ -15,7 +15,7 @@ export type AvatarImageEmits = {
 </script>
 
 <script setup lang="ts">
-import { defineEmits, defineOptions, defineProps, watchEffect, withDefaults } from 'vue'
+import { defineOptions, watchEffect, withDefaults } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { useAvatarInject } from './Avatar.vue'
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<AvatarImageProps>(), {
 
 const emits = defineEmits<AvatarImageEmits>()
 
-const { componentRef } = useComponentRef<HTMLLabelElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLLabelElement | null>()
 
 const inject = useAvatarInject('OkuAvatar', props.scopeOkuAvatar)
 
@@ -44,6 +44,10 @@ function handleLoadingStatusChange(status: ImageLoadingStatus) {
 watchEffect(() => {
   if (imageLoadingStatus.value !== 'idle')
     handleLoadingStatusChange(imageLoadingStatus.value)
+})
+
+defineExpose({
+  $el: currentElement,
 })
 </script>
 

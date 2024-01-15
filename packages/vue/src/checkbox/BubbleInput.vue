@@ -10,7 +10,7 @@ export interface BubbleInputProps {
 </script>
 
 <script setup lang="ts">
-import { computed, defineOptions, defineProps, toRefs, watchEffect, withDefaults } from 'vue'
+import { computed, defineOptions, toRefs, watchEffect, withDefaults } from 'vue'
 import { useComponentRef, usePrevious, useSize } from '@oku-ui/use-composable'
 
 import { isIndeterminate } from './utils'
@@ -44,6 +44,9 @@ watchEffect(() => {
   }
 })
 
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>

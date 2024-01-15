@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineExpose, defineOptions, mergeProps, useAttrs } from 'vue'
+import { defineOptions, mergeProps, useAttrs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { useComponentRef } from '@oku-ui/use-composable'
@@ -20,12 +20,13 @@ const props = withDefaults(defineProps<PortalProps>(), {
   container: globalThis?.document?.body ?? null,
 })
 
+const attrs = useAttrs()
+
 const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
 defineExpose({
   $el: currentElement,
 })
-const attrs = useAttrs()
 </script>
 
 <template>

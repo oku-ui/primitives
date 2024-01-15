@@ -17,7 +17,12 @@ const props = withDefaults(defineProps<VisuallyHiddenProps>(), {
   is: 'span',
 })
 
-const { componentRef } = useComponentRef<HTMLSpanElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLSpanElement | null>()
+
+defineExpose({
+  $el: currentElement,
+})
+
 </script>
 
 <template>

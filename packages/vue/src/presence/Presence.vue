@@ -39,6 +39,10 @@ function Comp() {
     })
     : null
 }
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
