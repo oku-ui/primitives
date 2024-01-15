@@ -15,7 +15,7 @@ export type AvatarImageEmits = {
 </script>
 
 <script setup lang="ts">
-import { defineOptions, defineProps, watchEffect, withDefaults } from 'vue'
+import { defineOptions, watchEffect, withDefaults } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { useAvatarInject } from './Avatar.vue'
