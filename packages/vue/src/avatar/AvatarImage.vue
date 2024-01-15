@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<AvatarImageProps>(), {
 
 const emits = defineEmits<AvatarImageEmits>()
 
-const { componentRef } = useComponentRef<HTMLLabelElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLLabelElement | null>()
 
 const inject = useAvatarInject('OkuAvatar', props.scopeOkuAvatar)
 
@@ -44,6 +44,10 @@ function handleLoadingStatusChange(status: ImageLoadingStatus) {
 watchEffect(() => {
   if (imageLoadingStatus.value !== 'idle')
     handleLoadingStatusChange(imageLoadingStatus.value)
+})
+
+defineExpose({
+  $el: currentElement,
 })
 </script>
 

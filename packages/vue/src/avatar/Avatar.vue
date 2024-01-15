@@ -40,13 +40,18 @@ const props = withDefaults(defineProps<AvatarProps>(), {
 
 const imageLoadingStatus = ref<ImageLoadingStatus>('idle')
 
-const { componentRef } = useComponentRef<HTMLLabelElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLLabelElement | null>()
 
 useProvider({
   scope: props.scopeOkuAvatar,
   imageLoadingStatus,
   onImageLoadingStatusChange: (status: ImageLoadingStatus) => imageLoadingStatus.value = status,
 })
+
+defineExpose({
+  $el: currentElement,
+})
+
 </script>
 
 <template>

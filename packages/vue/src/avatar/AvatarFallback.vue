@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<AvatarFallbackProps>(), {
   is: 'span',
 })
 
-const { componentRef } = useComponentRef<HTMLLabelElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLLabelElement | null>()
 
 let timerId: number
 
@@ -36,6 +36,10 @@ function setupTimer() {
 onMounted(() => setupTimer())
 
 onBeforeUnmount(() => window.clearTimeout(timerId))
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>

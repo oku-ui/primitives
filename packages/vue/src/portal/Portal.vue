@@ -20,12 +20,13 @@ const props = withDefaults(defineProps<PortalProps>(), {
   container: globalThis?.document?.body ?? null,
 })
 
+const attrs = useAttrs()
+
 const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
 defineExpose({
   $el: currentElement,
 })
-const attrs = useAttrs()
 </script>
 
 <template>
