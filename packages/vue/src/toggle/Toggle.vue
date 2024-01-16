@@ -19,7 +19,7 @@ export type ToggleEmits = {
   /**
    * The callback that fires when the state of the toggle changes.
    */
-  'update:modelValue': [pressed: boolean]
+  'update:pressed': [pressed: boolean]
   pressedChange: [pressed: boolean]
   click: [event: MouseEvent]
 }
@@ -27,8 +27,8 @@ export type ToggleEmits = {
 </script>
 
 <script setup lang="ts">
-import { computed, defineOptions } from 'vue'
-import { useComponentRef, useControllable, useVModel } from '@oku-ui/use-composable'
+import { defineOptions } from 'vue'
+import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { Primitive } from '@oku-ui/primitive'
 
@@ -40,22 +40,20 @@ const props = withDefaults(defineProps<ToggleProps>(), {
   pressed: undefined,
   defaultPressed: false,
   disabled: false,
+  is: 'button',
 })
 
 const emits = defineEmits<ToggleEmits>()
 
 const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
 
-const modelValue = useVModel(props, 'pressed', emits)
-
-const [pressed, setPressed] = useControllable({
-  prop: computed(() => modelValue.value),
-  defaultProp: computed(() => props.defaultPressed),
-  onChange: (result) => {
-    emits('pressedChange', result)
-    emits('update:modelValue', result)
+const pressed = useVModel(props, 'pressed', emits, {
+  defaultValue: props.defaultPressed,
+  passive: (props.pressed === undefined) as false,
+  shouldEmit(v: any) {
+    emits('pressedChange', v)
+    return true
   },
-  initialValue: false,
 })
 
 defineExpose({
@@ -65,9 +63,10 @@ defineExpose({
 
 <template>
   <Primitive
-    v-bind="props"
-    is="button"
+    :is="props.is"
     ref="componentRef"
+    :as-child="props.asChild"
+    :disabled="props.disabled"
     type="button"
     :aria-pressed="pressed"
     :data-state="pressed ? 'on' : 'off'"
@@ -76,7 +75,7 @@ defineExpose({
       emits('click', event)
     }, () => {
       if (!props.disabled)
-        setPressed(!pressed)
+        pressed = !pressed
     })($event)"
   >
     <slot />
