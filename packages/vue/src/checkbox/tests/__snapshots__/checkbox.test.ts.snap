@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`okuCheckbox > should render OkuCheckbox correctly 1`] = `
-"<div><button aria-label="basic checkbox" type="button" role="checkbox" aria-checked="false" aria-required="false" data-state="unchecked" value="on">
+"<div><button aria-label="basic checkbox" type="button" role="checkbox" aria-required="false" data-state="unchecked" value="on">
     <!---->
   </button>
   <!--v-if-->
@@ -9,7 +9,7 @@ exports[`okuCheckbox > should render OkuCheckbox correctly 1`] = `
 `;
 
 exports[`okuCheckbox > should render OkuCheckbox correctly 2`] = `
-"<oku-primitive-stub is="button" aschild="false" type="button" role="checkbox" aria-checked="false" aria-required="false" data-state="unchecked" disabled="false" value="on"></oku-primitive-stub>
+"<oku-primitive-stub is="button" aschild="false" type="button" role="checkbox" aria-required="false" data-state="unchecked" disabled="false" value="on"></oku-primitive-stub>
 <!--v-if-->"
 `;
 
