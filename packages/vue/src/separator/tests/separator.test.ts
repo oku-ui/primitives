@@ -44,7 +44,7 @@ describe('okuSeparator', () => {
   })
 
   it('should log an error when the orientation prop is invalid', () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => { })
+    const spy = vi.spyOn(console, 'error').mockImplementation(vi.fn() as any)
 
     wrapper = shallowMount(OkuSeparator, {
       props: {
@@ -52,13 +52,7 @@ describe('okuSeparator', () => {
       },
     })
 
-    expect(spy).toHaveBeenCalledWith(
-      'Invalid prop `orientation` of value `invalid-orientation` supplied to `OkuSeparator`, expected one of:\n'
-      + '  - horizontal\n'
-      + '  - vertical\n'
-      + '\n'
-      + 'Defaulting to `horizontal`.',
-    )
+    expect(spy).toMatchSnapshot()
   })
 
   describe('given a horizontal Separator', () => {
