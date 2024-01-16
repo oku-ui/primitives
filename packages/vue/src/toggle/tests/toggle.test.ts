@@ -205,6 +205,37 @@ describe('okuToggle', () => {
       expect(button.attributes('data-state')).toBe('on')
     })
   })
+
+  it('pressed should be updated', async () => {
+    const wrapper = mount(OkuToggle, {
+
+      props: {
+        'onUpdate:pressed': (e: boolean) => wrapper.setProps({ pressed: e }),
+      },
+    })
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('pressed')).toBe(true)
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('pressed')).toBe(false)
+  })
+
+  it('pressed init true should be updated', async () => {
+    const wrapper = mount(OkuToggle, {
+
+      props: {
+        'pressed': true,
+        'onUpdate:pressed': (e: boolean) => wrapper.setProps({ pressed: e }),
+      },
+    })
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('pressed')).toBe(false)
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('pressed')).toBe(true)
+  })
 })
 
 describe('okuToggle Stories', () => {
