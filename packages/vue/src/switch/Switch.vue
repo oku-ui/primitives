@@ -94,7 +94,7 @@ defineExpose({
     ref="componentRef"
     type="button"
     role="switch"
-    :aria-checked="checked"
+    :aria-checked="!!checked"
     :aria-required="props.required"
     :data-state="getState(checked)"
     :data-disabled="props.disabled ? '' : undefined"
