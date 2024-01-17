@@ -29,6 +29,6 @@ const { componentRef } = useComponentRef<HTMLInputElement | null>()
     v-bind="$attrs"
     ref="componentRef"
     :data-state="getState(inject.checked.value)"
-    :data-disabled="inject.disabled ? '' : undefined"
+    :data-disabled="inject.disabled?.value ? '' : undefined"
   />
 </template>
