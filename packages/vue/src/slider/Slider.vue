@@ -3,7 +3,7 @@ import type { AriaAttributes, Ref } from 'vue'
 import { computed, ref, toRefs } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { useComponentRef, useVModel } from '@oku-ui/use-composable'
-import { clamp } from '@oku-ui/utils'
+import { clamp, composeEventHandlers } from '@oku-ui/utils'
 import { ARROW_KEYS, CollectionProvider, CollectionSlot, PAGE_KEYS, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, sliderProvider } from './utils'
 import type { Direction } from './utils'
 import type { SliderThumbElement } from './SliderThumb.vue'
@@ -75,7 +75,7 @@ const thumbRefs = ref(initialThumbSet)
 const valueIndexToChangeRef = ref<number>(0)
 const isHorizontal = props.orientation === 'horizontal'
 
-const state = useVModel(props, 'value', emits, {
+const values = useVModel(props, 'value', emits, {
   defaultValue: props.defaultValue,
   passive: (props.value === undefined) as false,
   shouldEmit(v: any) {
@@ -89,10 +89,10 @@ const isFormControl = computed(() => {
   return false
 })
 
-const valuesBeforeSlideStartRef = ref<number[]>(state.value as number[])
+const valuesBeforeSlideStartRef = ref<number[]>(values.value as number[])
 
 function handleSlideStart(value: number) {
-  const closestIndex = getClosestValueIndex(state.value || [], value)
+  const closestIndex = getClosestValueIndex(values.value || [], value)
   updateValues(value, closestIndex)
 }
 
@@ -102,10 +102,10 @@ function handleSlideMove(value: number) {
 
 function handleSlideEnd() {
   const prevValue = valuesBeforeSlideStartRef.value[valueIndexToChangeRef.value]
-  const nextValue = state.value?.[valueIndexToChangeRef.value]
+  const nextValue = values.value?.[valueIndexToChangeRef.value]
   const hasChanged = nextValue !== prevValue
   if (hasChanged)
-    emits('valueCommit', state.value || [])
+    emits('valueCommit', values.value || [])
 }
 
 function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
@@ -113,7 +113,7 @@ function updateValues(value: number, atIndex: number, { commit } = { commit: fal
   const snapToStep = roundValue(Math.round((value - props.min) / props.step) * props.step + props.min, decimalCount)
   const nextValue = clamp(snapToStep, [props.min, props.max])
 
-  const prevValues = state.value
+  const prevValues = values.value
   const newData = () => {
     const nextValues = getNextSortedValues(prevValues, nextValue, atIndex)
     if (hasMinStepsBetweenValues(nextValues, props.minStepsBetweenThumbs * props.step)) {
@@ -127,7 +127,7 @@ function updateValues(value: number, atIndex: number, { commit } = { commit: fal
       return prevValues
     }
   }
-  state.value = newData()
+  values.value = newData()
 }
 
 sliderProvider({
@@ -137,7 +137,7 @@ sliderProvider({
   max: propsRef.max,
   valueIndexToChangeRef,
   thumbs: thumbRefs,
-  values: state,
+  values,
   orientation: propsRef.orientation,
 })
 
@@ -161,42 +161,25 @@ defineExpose({
         :max="props.max"
         :inverted="inverted"
         v-bind="$attrs"
-        @pointerdown="() => {
-          if (!disabled)
-            valuesBeforeSlideStartRef = state || []
-        }"
-        @slide-start="(event) => {
-          if (disabled)
-            emits('slideStart', event)
-
-          else if (event)
-            handleSlideStart(event)
-        }"
-        @slide-move="(event) => {
-          if (disabled)
-            emits('slideMove', event)
-
-          else if (event)
-            handleSlideMove(event)
-        }"
-        @slide-end="() => {
-          if (disabled)
-            emits('slideEnd')
-
-          else
-            handleSlideEnd()
-        }"
-        @home-key-down="() => !disabled && updateValues(min, 0, { commit: true })"
+        @pointerdown="composeEventHandlers((event: any) => {
+          emits('pointerdown', event)
+        }, () => {
+          if (!disabled) valuesBeforeSlideStartRef = values;
+        })($event)"
+        @slide-start="props.disabled ? undefined : handleSlideStart($event)"
+        @slide-move="props.disabled ? undefined : handleSlideMove($event)"
+        @slide-end="props.disabled ? undefined : handleSlideEnd()"
+        @home-key-down="() => !props.disabled && updateValues(min, 0, { commit: true })"
         @end-key-down="() =>
-          !disabled && updateValues(max, (state?.length || 0) - 1, { commit: true })"
+          !props.disabled && updateValues(max, (values?.length || 0) - 1, { commit: true })"
         @step-key-down="({ direction: stepDirection, event }) => {
-          if (!disabled) {
+          if (!props.disabled) {
             const isPageKey = PAGE_KEYS.includes(event.key)
             const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
             const multiplier = isSkipKey ? 10 : 1
             const atIndex = valueIndexToChangeRef
-            const value = state?.[atIndex]
-            const stepInDirection = step * multiplier * stepDirection
+            const value = values?.[atIndex]
+            const stepInDirection = props.step * multiplier * stepDirection
             updateValues((value || 0) + stepInDirection, atIndex, { commit: true })
           }
         }"
@@ -206,10 +189,10 @@ defineExpose({
     </CollectionSlot>
     <template v-if="isFormControl">
       <OkuSliderBubbleInput
-        v-for="(value, index) in state"
+        v-for="(value, index) in values"
         :key="index"
         :value="value"
-        :name="props.name ? props.name + ((state || []).length > 1 ? '[]' : '') : undefined"
+        :name="props.name ? props.name + ((values || []).length > 1 ? '[]' : '') : undefined"
       />
     </template>
   </CollectionProvider>
