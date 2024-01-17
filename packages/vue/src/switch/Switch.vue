@@ -81,6 +81,10 @@ useProvider({
   checked,
   disabled: toRef(props, 'disabled'),
 })
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
