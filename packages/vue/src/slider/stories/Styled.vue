@@ -5,10 +5,10 @@ import { OkuSlider } from '@oku-ui/slider'
 <template>
   <div>
     <OkuSlider class="slider-rootSlider">
-      <!-- <OkuSliderTrack class="slider-track">
+      <OkuSliderTrack class="slider-track">
         <OkuSliderRange class="slider-range" />
       </OkuSliderTrack>
-      <OkuSliderThumb class="slider-thumb" /> -->
+      <OkuSliderThumb class="slider-thumb" />
     </OkuSlider>
   </div>
 </template>
