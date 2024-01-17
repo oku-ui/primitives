@@ -1,7 +1,7 @@
 import type { ComponentObjectPropsOptions, Ref, ShallowRef } from 'vue'
 import { defineComponent, h, markRaw, reactive, ref, shallowRef, toRefs, watchEffect } from 'vue'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 
 export const collectionProps = {
@@ -25,7 +25,7 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
    * --------------------------------------------------------------------------------------------- */
 
   const PROVIDER_NAME = `${name}CollectionProvider`
-  const [createCollectionProvide, createCollectionScope] = createProvideScope(PROVIDER_NAME)
+  const [createCollectionProvide, createCollectionScope] = createScope(PROVIDER_NAME)
 
   type ContextValue = {
     collectionRef: Ref<ItemElement | undefined>

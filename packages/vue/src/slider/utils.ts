@@ -1,51 +1,47 @@
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { clamp } from '@oku-ui/utils'
 import { createCollection } from '@oku-ui/collection'
 import { type Ref, ref } from 'vue'
 import type { useSize } from '@oku-ui/use-composable'
-import type { SliderProps } from './slider'
-import type { SliderThumbElement } from './sliderThumb'
 
-export const SLIDER_NAME = 'OkuSlider'
-
-export type ScopeSlider<T> = T & { scopeOkuSlider?: Scope }
-
-export const scopeSliderProps = {
-  scopeOkuSlider: {
-    ...ScopePropObject,
-  },
+export type SliderOrientationPrivateEmits = {
+  'slideStart': [value: number]
+  'slideMove': [value: number]
+  'slideEnd': []
+  'stepKeyDown': [step: { event: KeyboardEvent, direction: number }]
 }
 
-export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<SliderThumbElement>(SLIDER_NAME)
+export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<HTMLSpanElement>('OkuSlider')
 
-export const [createSliderProvider, createSliderScope] = createProvideScope(SLIDER_NAME, [
+export const [createSliderProvider, createSliderScope] = createScope<
+'OkuSlider' | 'OkuSliderOrientation'
+>('OkuSlider', [
   createCollectionScope,
 ])
 
-type SliderProvideValue = {
+type SliderProvideContext = {
   disabled?: Ref<boolean | undefined>
   min: Ref<number>
   max: Ref<number>
   values: Ref<number[] | undefined>
   valueIndexToChangeRef: Ref<number>
-  thumbs: Ref<Set<SliderThumbElement>>
-  orientation: Ref<SliderProps['orientation']>
+  thumbs: Ref<Set<HTMLSpanElement>>
+  orientation: Ref<any>
 }
 
 export const [sliderProvider, useSliderInject]
-  = createSliderProvider<SliderProvideValue>(SLIDER_NAME)
+  = createSliderProvider<SliderProvideContext>('OkuSlider')
 
 type Side = 'top' | 'right' | 'bottom' | 'left'
 
-interface SliderHorizontalProvide {
+interface SliderHorizontalContext {
   startEdge: Ref<Side>
   endEdge: Ref<Side>
   size: Ref<keyof NonNullable<ReturnType<typeof useSize>['value']>>
   direction: Ref<number>
 }
 
-export const [sliderOrientationProvider, useSliderOrientationInject] = createSliderProvider<SliderHorizontalProvide>(SLIDER_NAME, {
+export const [sliderOrientationProvider, useSliderOrientationInject] = createSliderProvider<SliderHorizontalContext>('OkuSliderOrientation', {
   startEdge: ref('left'),
   endEdge: ref('right'),
   size: ref('width'),
