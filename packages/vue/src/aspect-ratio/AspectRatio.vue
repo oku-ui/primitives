@@ -20,7 +20,11 @@ const props = withDefaults(defineProps<AspectRatioProps>(), {
   ratio: 1 / 1,
 })
 
-const { componentRef } = useComponentRef<HTMLDivElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>

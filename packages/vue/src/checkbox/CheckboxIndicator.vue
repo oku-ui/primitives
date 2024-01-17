@@ -12,7 +12,7 @@ export interface CheckboxIndicatorProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { defineOptions, defineProps, withDefaults } from 'vue'
+import { defineOptions, withDefaults } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { getState, isIndeterminate } from './utils'
 import { OkuPresence } from '@oku-ui/presence'
@@ -28,10 +28,13 @@ const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
   forceMount: undefined,
 })
 
-const { componentRef } = useComponentRef<HTMLInputElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLInputElement | null>()
 
 const inject = useInject('OkuCheckbox', props.scopeOkuCheckbox)
 
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>

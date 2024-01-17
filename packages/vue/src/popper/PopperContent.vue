@@ -77,7 +77,7 @@ export const { useInject: usePopperContentInject, useProvider: usePopperContentP
 
 <script lang="ts" setup>
 import type { Ref } from 'vue'
-import { computed, defineEmits, defineExpose, defineOptions, defineProps, ref, watch, watchEffect, withDefaults } from 'vue'
+import { computed, defineOptions, ref, watch, watchEffect, withDefaults } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef, useSize } from '@oku-ui/use-composable'

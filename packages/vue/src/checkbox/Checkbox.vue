@@ -25,7 +25,7 @@ export interface CheckboxProps extends PrimitiveProps {
 }
 
 export type CheckboxEmits = {
-  'update:modelValue': [checked: CheckedState]
+  'update:checked': [checked: CheckedState]
   'checkedChange': [checked: CheckedState]
   'keydown': [event: KeyboardEvent]
   'click': [event: MouseEvent]
@@ -40,8 +40,8 @@ export const { useInject, useProvider }
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, defineOptions, defineProps, onMounted, ref, toRef, watchEffect, withDefaults } from 'vue'
-import { useComponentRef, useControllable, useVModel } from '@oku-ui/use-composable'
+import { defineOptions, onMounted, ref, toRef, watchEffect, withDefaults } from 'vue'
+import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import OkuBubbleInput from './BubbleInput.vue'
@@ -63,6 +63,7 @@ const emits = defineEmits<CheckboxEmits>()
 const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
 
 const hasConsumerStoppedPropagationRef = ref(false)
+
 // We set this to true by default so that events bubble to forms without JS (SSR)
 const isFormControl = ref<boolean>(false)
 
@@ -73,27 +74,23 @@ onMounted(() => {
     : true
 })
 
-const modelValue = useVModel(props, 'checked', emits, {
+const checked = useVModel(props, 'checked', emits, {
   defaultValue: props.defaultChecked,
   passive: (props.checked === undefined) as false,
-})
-
-const [checked, setChecked] = useControllable({
-  prop: computed(() => modelValue.value),
-  defaultProp: computed(() => props.defaultChecked),
-  onChange: (result: any) => {
-    emits('checkedChange', result)
-    emits('update:modelValue', result)
+  shouldEmit(v: any) {
+    emits('checkedChange', v)
+    return true
   },
-  initialValue: false,
-})
+}) as Ref<CheckedState>
 
 const initialCheckedStateRef = ref(checked.value)
 
 watchEffect((onInvalidate) => {
   const form = currentElement.value?.form
   if (form) {
-    const reset = () => setChecked(initialCheckedStateRef.value)
+    const reset = () => {
+      checked.value = initialCheckedStateRef.value
+    }
     form.addEventListener('reset', reset)
 
     onInvalidate(() => form.removeEventListener('reset', reset))
@@ -106,6 +103,9 @@ useProvider({
   disabled: toRef(props, 'disabled'),
 })
 
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
@@ -133,7 +133,7 @@ useProvider({
       (event) => {
         emits('click', event)
       }, (event) => {
-        setChecked(isIndeterminate(checked) ? true : !checked)
+        checked = isIndeterminate(checked) ? true : !checked
         if (isFormControl) {
           // TODO: isPropagationStopped() is not supported in vue
           // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()

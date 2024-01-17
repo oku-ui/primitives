@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineExpose, defineOptions, nextTick, reactive, useAttrs, watchEffect } from 'vue'
+import { computed, defineOptions, nextTick, reactive, useAttrs, watchEffect } from 'vue'
 import type { DismissableLayerBranchElement, DismissableLayerElement, FocusBlurCaptureEvent, FocusCaptureEvent, FocusOutsideEvent, PointerdownCaptureEvent, PointerdownOutsideEvent } from './props'
 
 export const context = reactive({

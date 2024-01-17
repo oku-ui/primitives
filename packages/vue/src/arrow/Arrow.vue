@@ -16,7 +16,11 @@ const props = withDefaults(
   },
 )
 
-const { componentRef } = useComponentRef<HTMLDivElement | null>()
+const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
