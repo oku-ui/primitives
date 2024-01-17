@@ -1,0 +1,137 @@
+<script lang="ts">
+import { createProvideScope } from '@oku-ui/provide'
+import type { PrimitiveProps } from '@oku-ui/primitive'
+
+export interface ScopeSwitch {
+  scopeOkuSwitch?: any
+}
+
+export type SwitchProvide = {
+  _names: 'OkuSwitch'
+  checked: Ref<boolean>
+  disabled?: Ref<boolean | undefined>
+}
+
+export interface SwitchProps extends PrimitiveProps {
+  scopeOkuSwitch?: any
+  checked?: boolean
+  defaultChecked?: boolean
+  value?: string
+  required?: boolean
+  name?: string
+  disabled?: boolean
+}
+
+export type SwitchEmits = {
+  'update:modelValue': [checked: boolean]
+  checkedChange: [checked: boolean]
+  click: [event: MouseEvent]
+}
+
+export const { composeProviderScopes, createProvide } = createProvideScope('OkuSwitch')
+
+export const { useInject, useProvider } = createProvide<Omit<SwitchProvide, '_names'>>('OkuSwitch')
+</script>
+
+<script setup lang="ts">
+import type { Ref } from 'vue'
+import { computed, onMounted, ref, toRef } from 'vue'
+import { useComponentRef, useControllable, useVModel } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { Primitive } from '@oku-ui/primitive'
+import { getState } from './utils.ts'
+import OkuBubbleInput from './BubbleInput.vue'
+
+defineOptions({
+  name: 'OkuSwitch',
+})
+
+const props = withDefaults(defineProps<SwitchProps>(), {
+  checked: undefined,
+  defaultChecked: undefined,
+  value: 'on',
+})
+
+const emits = defineEmits<SwitchEmits>()
+
+const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
+
+const hasConsumerStoppedPropagationRef = ref<boolean>(false)
+
+// We set this to true by default so that events bubble to forms without JS (SSR)
+const isFormControl = ref<boolean>(false)
+onMounted(() => {
+  isFormControl.value = currentElement.value
+    ? typeof currentElement.value.closest === 'function'
+    && Boolean(currentElement.value.closest('form'))
+    : true
+})
+
+const modelValue = useVModel(props, 'checked', emits)
+
+const [checked, setChecked] = useControllable({
+  prop: computed(() => modelValue.value),
+  defaultProp: computed(() => props.defaultChecked),
+  onChange: (result) => {
+    emits('checkedChange', result)
+    emits('update:modelValue', result)
+  },
+  initialValue: false,
+})
+
+useProvider({
+  scope: props.scopeOkuSwitch,
+  checked,
+  disabled: toRef(props, 'disabled'),
+})
+</script>
+
+<template>
+  <Primitive
+    is="button"
+    v-bind="$attrs"
+    ref="componentRef"
+    type="button"
+    role="switch"
+    :aria-checked="checked"
+    :aria-required="props.required"
+    :data-state="getState(checked)"
+    :data-disabled="props.disabled ? '' : undefined"
+    :disabled="props.disabled"
+    :value="props.value"
+    @click="composeEventHandlers<SwitchEmits['click'][0]>((event) => {
+      emits('click', event)
+    }, (event) => {
+      setChecked(!checked)
+      if (isFormControl) {
+        // TODO: isPropagationStopped() is not supported in vue
+        // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
+
+        // if switch is in a form, stop propagation from the button so that we only propagate
+        // one click event (from the input). We propagate changes from an input so that native
+        // form validation works and form events reflect switch updates.
+        if (!hasConsumerStoppedPropagationRef)
+          event.stopPropagation()
+      }
+    })($event)"
+  >
+    <slot />
+  </Primitive>
+
+  <OkuBubbleInput
+    v-if="isFormControl"
+    :control="currentElement"
+    :bubbles="!hasConsumerStoppedPropagationRef"
+    :name="props.name"
+    :value="props.value"
+    :checked="!!checked"
+    :required="props.required"
+    :disabled="props.disabled"
+    :style="{
+      // We transform because the input is absolutely positioned but we have
+      // rendered it **after** the button. This pulls it back to sit on top
+      // of the button.
+      transform: 'translateX(-100%)',
+    }"
+  />
+</template>

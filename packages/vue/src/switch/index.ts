@@ -1,22 +1,10 @@
 export {
-  OkuSwitch,
-  createSwitchScope,
-  switchProps,
-} from './Switch'
-
-export type {
-  SwitchProps,
-  SwitchNaviteElement,
-  SwitchElement,
-} from './Switch'
+  default as OkuSwitch,
+  type SwitchProps,
+  type SwitchEmits,
+} from './Switch.vue'
 
 export {
-  OkuSwitchThumb,
-  switchThumbProps,
-} from './SwitchThumb'
-
-export type {
-  SwitchThumbProps,
-  SwitchThumbElement,
-  SwitchThumbNaviteElement,
-} from './SwitchThumb'
+  default as OkuSwitchThumb,
+  type SwitchThumbProps,
+} from './SwitchThumb.vue'

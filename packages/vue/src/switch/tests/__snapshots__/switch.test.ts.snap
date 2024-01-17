@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuSwitch > should render OkuSwitch correctly 1`] = `
+"<button aria-label="basic switch" type="button" role="switch" aria-checked="false" aria-required="false" data-state="unchecked" value="on"><span data-testid="switch-indicator" data-state="unchecked" data-disabled=""></span></button>
+<!--v-if-->"
+`;
+
+exports[`okuSwitch > should render OkuSwitchThumb correctly 1`] = `[TypeError: Cannot read properties of undefined (reading 'checked')]`;
+
+exports[`okuSwitch Stories > chromatic > should render correctly 1`] = `
+"<h1>Uncontrolled</h1>
+<h2>Off</h2>
+<oku-switch-stub required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub>
+<h2>On</h2>
+<oku-switch-stub defaultchecked="true" required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub>
+<h1>Controlled</h1>
+<h2>Off</h2>
+<oku-switch-stub checked="false" required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub>
+<h2>On</h2>
+<oku-switch-stub checked="true" required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub>
+<h1>Disabled</h1>
+<oku-switch-stub required="false" disabled="true" aschild="false" class="switch" value="on"></oku-switch-stub>
+<h1>State attributes</h1>
+<h2>Unchecked</h2>
+<oku-switch-stub required="false" disabled="false" aschild="false" class="switch-attr-styles" value="on"></oku-switch-stub>
+<h2>Checked</h2>
+<oku-switch-stub defaultchecked="true" required="false" disabled="false" aschild="false" class="switch-attr-styles" value="on"></oku-switch-stub>
+<h2>Disabled</h2>
+<oku-switch-stub defaultchecked="true" required="false" disabled="true" aschild="false" class="switch-attr-styles" value="on"></oku-switch-stub>"
+`;
+
+exports[`okuSwitch Stories > controlled > should render correctly 1`] = `
+"<p>This switch is placed adjacent to its label. The state is controlled.</p>
+<label-stub for="randBox"></label-stub>
+
+<oku-switch-stub checked="true" required="false" disabled="false" aschild="false" id="randBox" class="switch" value="on"></oku-switch-stub>"
+`;
+
+exports[`okuSwitch Stories > styled > should render correctly 1`] = `
+"<p>This switch is nested inside a label. The state is uncontrolled.</p>
+<label-stub></label-stub>"
+`;
+
+exports[`okuSwitch Stories > withinForm > should render correctly 1`] = `
+"<form>
+  <fieldset>
+    <legend>optional checked: false</legend><label>
+      <oku-switch-stub name="optional" checked="false" required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub> with label
+    </label>
+  </fieldset><br><br>
+  <fieldset>
+    <legend>required checked: false</legend>
+    <oku-switch-stub name="required" required="true" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub>
+  </fieldset><br><br>
+  <fieldset>
+    <legend>stop propagation checked: false</legend>
+    <oku-switch-stub name="stopprop" required="false" disabled="false" aschild="false" class="switch" value="on"></oku-switch-stub>
+  </fieldset><br><br><button>Submit</button>
+</form>"
+`;
