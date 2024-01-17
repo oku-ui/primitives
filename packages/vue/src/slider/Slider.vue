@@ -93,7 +93,7 @@ const isFormControl = computed(() => {
 const valuesBeforeSlideStartRef = ref<number[]>(values.value as number[])
 
 function handleSlideStart(value: number) {
-  const closestIndex = getClosestValueIndex(values.value || [], value)
+  const closestIndex = getClosestValueIndex(values.value, value)
   updateValues(value, closestIndex)
 }
 
@@ -106,7 +106,7 @@ function handleSlideEnd() {
   const nextValue = values.value?.[valueIndexToChangeRef.value]
   const hasChanged = nextValue !== prevValue
   if (hasChanged)
-    emits('valueCommit', values.value || [])
+    emits('valueCommit', values.value)
 }
 
 function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
@@ -193,7 +193,7 @@ defineExpose({
         v-for="(value, index) in values"
         :key="index"
         :value="value"
-        :name="props.name ? props.name + ((values || []).length > 1 ? '[]' : '') : undefined"
+        :name="props.name ? props.name + (values?.length > 1 ? '[]' : '') : undefined"
       />
     </template>
   </CollectionProvider>

@@ -1,6 +1,6 @@
 import type { ComponentObjectPropsOptions, Ref, ShallowRef } from 'vue'
 import { defineComponent, h, markRaw, reactive, ref, shallowRef, toRefs, watchEffect } from 'vue'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { reactiveOmit, unrefElement, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { createScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
 
@@ -132,13 +132,13 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
 
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
-
     const getItems = () => {
-      const collectionNode = inject.collectionRef.value
+      const collectionNode = unrefElement(inject.collectionRef.value)
       if (!collectionNode)
         return []
 
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
+
       const items = Array.from(inject.itemMap.value.values())
       const orderedItems = items.sort(
         (a, b) => {

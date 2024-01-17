@@ -81,7 +81,9 @@ defineExpose({
       [orientation.startEdge.value]: `calc(${percent}% + ${thumbInBoundsOffset}px)`,
     }"
   >
-    <CollectionItemSlot :scope="props.scopeOkuSlider">
+    <CollectionItemSlot
+      :scope="props.scopeOkuSlider"
+    >
       <Primitive
         :is="props.is"
         ref="componentRef"

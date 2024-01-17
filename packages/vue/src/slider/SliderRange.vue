@@ -53,8 +53,8 @@ defineExpose({
     :is="props.is"
     ref="componentRef"
     :as-child="props.asChild"
-    :data-disabled="inject.disabled ? '' : undefined"
-    :data-orientation="inject.orientation"
+    :data-disabled="inject.disabled?.value ? '' : undefined"
+    :data-orientation="inject.orientation.value"
     :style="{
       ...$attrs.style as any,
       [orientation.startEdge.value]: `${offsetStart}%`,

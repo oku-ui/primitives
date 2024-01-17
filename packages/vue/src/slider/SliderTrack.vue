@@ -24,6 +24,10 @@ import { Primitive } from '@oku-ui/primitive'
 
 import { useComponentRef } from '@oku-ui/use-composable'
 
+defineOptions({
+  name: 'OkuSliderTrack',
+})
+
 const props = withDefaults(defineProps<SliderTrackProps>(), {
   is: 'span',
 })
@@ -40,11 +44,11 @@ defineExpose({
 
 <template>
   <Primitive
-    :is="props.is"
+    :is="is"
     ref="componentRef"
-    :as-child="props.asChild"
-    :data-disabled="inject.disabled ? '' : undefined"
-    :data-orientation="inject.orientation"
+    :as-child="asChild"
+    :data-disabled="inject.disabled?.value ? '' : undefined"
+    :data-orientation="inject.orientation.value"
   >
     <slot />
   </Primitive>

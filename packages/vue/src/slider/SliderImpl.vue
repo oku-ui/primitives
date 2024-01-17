@@ -71,7 +71,7 @@ defineExpose({
         // Prevent scrolling for directional key presses
         event.preventDefault()
       }
-    })"
+    })($event)"
     @pointerdown="composeEventHandlers<SliderImplPrivateEmits['pointerdown'][0]>((event) => {
       emits('pointerdown', event)
     }, (event) => {
@@ -85,14 +85,14 @@ defineExpose({
         target.focus()
       else
         emits('slideStart', event)
-    })"
+    })($event)"
     @pointermove="composeEventHandlers<SliderImplPrivateEmits['pointermove'][0]>((event) => {
       emits('pointermove', event)
     }, (event) => {
       const target = event.target as HTMLElement
       if (target.hasPointerCapture(event.pointerId))
         emits('slideMove', event)
-    })"
+    })($event)"
     @pointerup="composeEventHandlers<SliderImplPrivateEmits['pointerup'][0]>((event) => {
       emits('pointerup', event)
     }, (event) => {
@@ -101,7 +101,7 @@ defineExpose({
         target.releasePointerCapture(event.pointerId)
         emits('slideEnd', event)
       }
-    })"
+    })($event)"
   >
     <slot />
   </Primitive>
