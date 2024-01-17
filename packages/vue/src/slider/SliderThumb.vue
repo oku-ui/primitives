@@ -9,6 +9,7 @@ export interface SliderThumbProps extends PrimitiveProps {
 }
 
 export type SliderThumbElement = SliderThumbImplElement
+
 </script>
 
 <script setup lang="ts">

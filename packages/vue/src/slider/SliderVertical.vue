@@ -1,7 +1,6 @@
 <script lang="ts">
+import type { SliderOrientationPrivateEmits } from './utils'
 import { BACK_KEYS, linearScale, sliderOrientationProvider } from './utils'
-import type { SliderOrientationPrivateEmits } from './SliderHorizontal.vue'
-import type { Scope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export type SliderVerticalElement = SliderImplElement
@@ -10,8 +9,7 @@ export interface SliderVerticalProps extends PrimitiveProps {
   min: number
   max: number
   inverted: boolean
-
-  scopeOkuSlider?: Scope
+  scopeOkuSlider?: any
 }
 
 </script>
@@ -56,6 +54,9 @@ sliderOrientationProvider({
     :is="props.is"
     ref="componentRef"
     :as-child="props.asChild"
+    :min="props.min"
+    :max="props.max"
+    :inverted="props.inverted"
     :style="{
       ...$attrs.style as any,
       ['--oku-slider-thumb-transform' as any]: 'translateY(50%)',

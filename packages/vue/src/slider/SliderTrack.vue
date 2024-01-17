@@ -35,6 +35,7 @@ const inject = useSliderInject('OkuSlider', props.scopeOkuSlider)
 defineExpose({
   $el: currentElement,
 })
+
 </script>
 
 <template>

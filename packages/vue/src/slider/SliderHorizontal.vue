@@ -1,30 +1,22 @@
 <script lang="ts">
 import { useComponentRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
-import type { Direction } from './utils'
+import type { Direction, SliderOrientationPrivateEmits } from './utils'
 import { BACK_KEYS, linearScale, sliderOrientationProvider } from './utils'
 import type { Scope } from '@oku-ui/provide'
 import type { SliderImplElement } from './SliderImpl.vue'
+import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export type SliderHorizontalElement = SliderImplElement
 
 export interface SliderOrientationPrivateProps {
+
+}
+
+export interface SliderHorizontalProps extends PrimitiveProps {
   min: number
   max: number
   inverted: boolean
-}
-
-export type SliderOrientationPrivateEmits = {
-  'slideStart': [value: number]
-  'slideMove': [value: number]
-  'slideEnd': []
-  'stepKeyDown': [step: { event: KeyboardEvent, direction: number }]
-}
-
-export interface SliderHorizontalProps extends SliderOrientationPrivateProps {
-  is?: string | object
-  asChild?: boolean
-
   scopeOkuSlider?: Scope
   dir?: Direction
 }
@@ -82,6 +74,9 @@ defineExpose({
     :is="props.is"
     ref="componentRef"
     :as-child="props.asChild"
+    :min="props.min"
+    :max="props.max"
+    :inverted="props.inverted"
     :style="{
       ...$attrs.style as any,
       ['--oku-slider-thumb-transform' as any]: 'translateX(-50%)',
