@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OkuSlider } from '@oku-ui/slider'
+import { OkuSlider, OkuSliderRange, OkuSliderThumb, OkuSliderTrack } from '@oku-ui/slider'
 </script>
 
 <template>

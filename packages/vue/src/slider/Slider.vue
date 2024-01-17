@@ -203,14 +203,14 @@ defineExpose({
       >
         <slot />
       </component>
-      <template v-if="isFormControl">
-        <OkuSliderBubbleInput
-          v-for="(value, index) in state"
-          :key="index"
-          :value="value"
-          :name="props.name ? props.name + ((state || []).length > 1 ? '[]' : '') : undefined"
-        />
-      </template>
     </CollectionSlot>
+    <template v-if="isFormControl">
+      <OkuSliderBubbleInput
+        v-for="(value, index) in state"
+        :key="index"
+        :value="value"
+        :name="props.name ? props.name + ((state || []).length > 1 ? '[]' : '') : undefined"
+      />
+    </template>
   </CollectionProvider>
 </template>
