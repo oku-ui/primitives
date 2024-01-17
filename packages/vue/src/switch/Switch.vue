@@ -23,7 +23,7 @@ export interface SwitchProps extends PrimitiveProps {
 }
 
 export type SwitchEmits = {
-  'update:modelValue': [checked: boolean]
+  'update:checked': [checked: boolean]
   checkedChange: [checked: boolean]
   click: [event: MouseEvent]
 }
@@ -35,8 +35,8 @@ export const { useInject, useProvider } = createProvide<Omit<SwitchProvide, '_na
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, onMounted, ref, toRef } from 'vue'
-import { useComponentRef, useControllable, useVModel } from '@oku-ui/use-composable'
+import { onMounted, ref, toRef } from 'vue'
+import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { Primitive } from '@oku-ui/primitive'
 import { getState } from './utils.ts'
@@ -67,17 +67,14 @@ onMounted(() => {
     : true
 })
 
-const modelValue = useVModel(props, 'checked', emits)
-
-const [checked, setChecked] = useControllable({
-  prop: computed(() => modelValue.value),
-  defaultProp: computed(() => props.defaultChecked),
-  onChange: (result) => {
-    emits('checkedChange', result)
-    emits('update:modelValue', result)
+const checked = useVModel(props, 'checked', emits, {
+  defaultValue: props.defaultChecked,
+  passive: (props.checked === undefined) as false,
+  shouldEmit(v: any) {
+    emits('checkedChange', v)
+    return true
   },
-  initialValue: false,
-})
+}) as Ref<boolean>
 
 useProvider({
   scope: props.scopeOkuSwitch,
@@ -102,7 +99,7 @@ useProvider({
     @click="composeEventHandlers<SwitchEmits['click'][0]>((event) => {
       emits('click', event)
     }, (event) => {
-      setChecked(!checked)
+      checked = !checked
       if (isFormControl) {
         // TODO: isPropagationStopped() is not supported in vue
         // hasConsumerStoppedPropagationRef.value = event.isPropagationStopped()
