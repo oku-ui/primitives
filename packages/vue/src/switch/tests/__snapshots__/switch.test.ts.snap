@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`okuSwitch > should render OkuSwitch correctly 1`] = `
-"<button aria-label="basic switch" type="button" role="switch" aria-checked="false" aria-required="false" data-state="unchecked" value="on"><span data-testid="switch-indicator" data-state="unchecked" data-disabled=""></span></button>
+"<button aria-label="basic switch" type="button" role="switch" aria-checked="false" aria-required="false" data-state="unchecked" value="on"><span data-testid="switch-indicator" data-state="unchecked"></span></button>
 <!--v-if-->"
 `;
 
