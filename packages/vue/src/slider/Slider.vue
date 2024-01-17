@@ -53,14 +53,15 @@ defineOptions({
 
 const props = withDefaults(defineProps<SliderProps>(), {
   disabled: false,
+  name: undefined,
   orientation: 'horizontal',
-  dir: 'ltr',
+  dir: undefined,
   min: 0,
   max: 100,
   step: 1,
   minStepsBetweenThumbs: 0,
   value: undefined,
-  defaultValue: undefined,
+  defaultValue: () => [100],
   inverted: false,
 })
 

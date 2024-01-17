@@ -34,7 +34,7 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
     } & T>>
   }
 
-  const [CollectionProviderImpl, useCollectionInject] = createCollectionProvide<ContextValue>(
+  const [useCollectionProvide, useCollectionInject] = createCollectionProvide<ContextValue>(
     PROVIDER_NAME,
     { collectionRef: ref(undefined), itemMap: shallowRef(new Map()) },
   )
@@ -48,7 +48,7 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
     setup(props, { slots }) {
       const collectionRef = ref<ItemElement>()
       const itemMap = shallowRef(new Map())
-      CollectionProviderImpl({
+      useCollectionProvide({
         collectionRef,
         itemMap,
         scope: props.scope,
@@ -132,6 +132,7 @@ export function createCollection<ItemElement extends HTMLElement, T = object>(na
 
   function useCollection(scope: any) {
     const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
+
     const getItems = () => {
       const collectionNode = inject.collectionRef.value
       if (!collectionNode)
