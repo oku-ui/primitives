@@ -69,7 +69,9 @@ function createScope<T extends string>(scopeName: T, createScopeDeps: CreateScop
       throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``)
     }
 
-    // return [Provider, useInject] as const
+    /**
+     * [useNameProvide, useNameInject]
+     */
     return [
       useProvider,
       useInject,
@@ -99,6 +101,9 @@ function createScope<T extends string>(scopeName: T, createScopeDeps: CreateScop
   createScope.scopeName = scopeName
   // return [createProvide, composeProvderScopes(createScope, ...createScopeDeps)] as const
 
+  /**
+   * [createNameProvide, createNameScope]
+   */
   return [
     createProvide,
     composeScopes(createScope, ...createScopeDeps),
