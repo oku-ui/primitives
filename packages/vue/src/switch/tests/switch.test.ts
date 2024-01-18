@@ -1,176 +1,342 @@
-import { describe, expect, it, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { h, ref } from 'vue'
-import { OkuSwitch } from '../'
+import { defineComponent } from 'vue'
+import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
+import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { axe } from 'vitest-axe'
 
-const component = {
-  setup() {
-    return () => h(OkuSwitch)
+import { OkuSwitch, OkuSwitchThumb } from '../'
+
+import Styled from '..//stories/Styled.vue'
+import Controlled from '../stories/Controlled.vue'
+import WithinForm from '../stories/WithinForm.vue'
+import Chromatic from '../stories/Chromatic.vue'
+
+enableAutoUnmount(afterEach)
+
+const SWITCH_ROLE = 'switch'
+const THUMB_TEST_ID = 'switch-indicator'
+
+const onCheckedChange = vi.fn()
+
+const SwitchTest = defineComponent({
+  components: {
+    OkuSwitch,
+    OkuSwitchThumb,
   },
-}
+  props: {
+    defaultChecked: Boolean,
+    checked: Boolean,
+    disabled: Boolean,
+  },
+  setup() {
+    return {
+      THUMB_TEST_ID,
+      onCheckedChange,
+    }
+  },
+  template: `
+    <OkuSwitch aria-label="basic switch" v-bind="$attrs" @checked-change="onCheckedChange">
+      <OkuSwitchThumb :data-testid="THUMB_TEST_ID" />
+    </OkuSwitch>
+  `,
+})
 
 describe('okuSwitch', () => {
-  it('should render correctly', async () => {
-    const checked = ref(true)
+  let wrapper: VueWrapper
+  let switcher: DOMWrapper<Element>
+  let thumb: DOMWrapper<Element>
 
-    const wrapper = mount(component, {
-      props: {
-        modelValue: checked.value,
-        name: 'switchInput',
-        onCheckedChange: vi.fn(),
-      },
+  beforeEach(() => {
+    wrapper = mount(SwitchTest, {
+      attachTo: document.body,
     })
 
-    // Find the button element
-    const button = wrapper.find('[role="switch"]')
-
-    expect(button.attributes('aria-checked')).toBe('true')
-    expect(button.attributes('data-state')).toBe('checked')
-
-    // await wrapper.setProps({ modelValue: false })
-    // await wrapper.trigger('click')
-
-    // // Expect the button to have updated its aria-checked attribute
-    // expect(button.attributes('aria-checked')).toBe('false')
-    // expect(button.attributes('data-state')).toBe('unchecked')
+    switcher = wrapper.find(`[role="${SWITCH_ROLE}"]`)
+    thumb = wrapper.find(`[data-testid="${THUMB_TEST_ID}"]`)
   })
 
-  it('should call the onCheckedChange prop when the switch is clicked', async () => {
-    const checked = ref(false)
-    const onCheckedChange = vi.fn()
+  it('should render OkuSwitch correctly', () => {
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 
-    const wrapper = mount(component, {
-      props: {
-        modelValue: checked.value,
-        name: 'switchInput',
-        onCheckedChange,
-      },
+  it('should render OkuSwitchThumb correctly', () => {
+    const spy = vi.spyOn(globalThis.console, 'warn').mockImplementation(() => { })
+    const wrapper = () => mount(OkuSwitchThumb)
+
+    expect(() => wrapper()).toThrowErrorMatchingSnapshot()
+
+    expect(spy).toHaveBeenCalled()
+
+    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuSwitch)" not found.')
+  })
+
+  /**
+   * @vitest-environment jsdom
+   */
+  it('should have no accessibility violations', async () => {
+    expect(await axe(wrapper.element)).toHaveNoViolations()
+  })
+
+  describe('when clicking the switch', () => {
+    beforeEach(async () => {
+      switcher.trigger('click')
     })
 
-    // Find the button element
-    const button = wrapper.find('[role="switch"]')
-
-    // Simulate a click event
-    await button.trigger('click')
-
-    // Expect the onCheckedChange prop to be called with the opposite value (true)
-    expect(onCheckedChange).toHaveBeenCalledWith(true)
-  })
-
-  it('should disable the switch when the disabled prop is true', async () => {
-    const checked = ref(false)
-
-    const wrapper = mount(component, {
-      props: {
-        modelValue: checked.value,
-        name: 'switchInput',
-        disabled: true,
-      },
+    it('should render OkuSwitch correctly with the correct attributes', () => {
+      expect(switcher.exists()).toBe(true)
+      expect(switcher.element.tagName).toBe('BUTTON')
+      expect(switcher.attributes('type')).toBe('button')
+      expect(switcher.attributes('role')).toBe('switch')
+      expect(switcher.attributes('aria-checked')).toBe('true')
+      expect(switcher.attributes('data-state')).toBe('checked')
+      expect(switcher.attributes('value')).toBe('on')
     })
 
-    // Find the button element
-    const button = wrapper.find('[role="switch"]')
-
-    // Assertions
-    expect(button.attributes('aria-checked')).toBe('false')
-    expect(button.attributes('disabled')).toBe('')
-
-    // Simulate a click event (should not trigger any changes)
-    await button.trigger('click')
-
-    // Expect the switch state to remain the same (unchecked)
-    expect(checked.value).toBe(false)
-  })
-
-  it('should render with the specified value attribute', () => {
-    const wrapper = mount(component, {
-      props: {
-        modelValue: ref(false).value,
-        name: 'switchInput',
-        value: 'off',
-      },
+    it('should render OkuSwitchThumb correctly with the correct attributes', () => {
+      expect(thumb.exists()).toBe(true)
+      expect(thumb.element.tagName).toBe('SPAN')
+      expect(thumb.attributes('data-state')).toBe('checked')
     })
 
-    const button = wrapper.find('[role="switch"]')
-
-    expect(button.attributes('value')).toBe('off')
-  })
-
-  it('should render with the required attribute when required prop is true', async () => {
-    const wrapper = mount(component, {
-      props: {
-        modelValue: false,
-        name: 'switchInput',
-        required: true,
-      },
+    it('should call `onCheckedChange` event', () => {
+      expect(onCheckedChange).toHaveBeenCalled()
     })
 
-    const button = wrapper.find('[role="switch"]')
+    describe('and clicking the switch again', () => {
+      beforeEach(async () => {
+        switcher.trigger('click')
+      })
 
-    expect(button.attributes('aria-required')).toBe('true')
+      it('should render OkuSwitch correctly with the correct attributes', () => {
+        expect(switcher.exists()).toBe(true)
+        expect(switcher.element.tagName).toBe('BUTTON')
+        expect(switcher.attributes('type')).toBe('button')
+        expect(switcher.attributes('role')).toBe('switch')
+        expect(switcher.attributes('aria-checked')).toBe('false')
+        expect(switcher.attributes('data-state')).toBe('unchecked')
+        expect(switcher.attributes('value')).toBe('on')
+      })
 
-    // await button.trigger('click')
-
-    // expect(wrapper.props().modelValue).toBe(false)
-  })
-
-  it.skip('should default to false when no modelValue or defaultChecked prop is provided', async () => {
-    const wrapper = mount(component, {
-      props: {
-        name: 'switchInput',
-      },
+      it('should render OkuSwitchThumb correctly with the correct attributes', () => {
+        expect(thumb.exists()).toBe(true)
+        expect(thumb.element.tagName).toBe('SPAN')
+        expect(thumb.attributes('data-state')).toBe('unchecked')
+      })
     })
-
-    // Find the button element
-    const button = wrapper.find('[role="switch"]')
-
-    // Expect the default value to be false
-    expect(wrapper.props().modelValue).toBe(false)
-    expect(button.attributes('aria-checked')).toBe('false')
-
-    // Simulate a click event to toggle the switch
-    await button.trigger('click')
-    expect(wrapper.props().modelValue).toBe(true)
-    expect(button.attributes('aria-checked')).toBe('true')
-
-    // Click again to toggle back to false
-    await button.trigger('click')
-    expect(wrapper.props().modelValue).toBe(false)
-    expect(button.attributes('aria-checked')).toBe('false')
   })
 
-  it('should propagate the click event only once when inside a form', async () => {
-    const checked = ref(false)
-    const formHtml
-      = '<form><OkuSwitch v-model="checked" name="switchInput" /></form>'
-    const wrapper = mount(
-      {
-        components: { OkuSwitch },
-        template: formHtml,
-        setup() {
-          return { checked }
+  describe('given a disabled Switch', () => {
+    let wrapper: VueWrapper
+
+    beforeEach(() => {
+      wrapper = mount(SwitchTest, {
+        props: {
+          disabled: false,
         },
+        attachTo: document.body,
+      })
+    })
+
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should have no accessibility violations', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+  })
+
+  describe('given an uncontrolled `checked` Switch', () => {
+    let wrapper: VueWrapper
+    let switcher: DOMWrapper<Element>
+    let thumb: DOMWrapper<Element>
+
+    beforeEach(() => {
+      wrapper = mount(SwitchTest, {
+        props: {
+          defaultChecked: true,
+        },
+        attachTo: document.body,
+      })
+
+      switcher = wrapper.find(`[role="${SWITCH_ROLE}"]`)
+      thumb = wrapper.find(`[data-testid="${THUMB_TEST_ID}"]`)
+    })
+
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should have no accessibility violations', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+
+    describe('when clicking the switch', () => {
+      beforeEach(async () => {
+        switcher.trigger('click')
+      })
+
+      it('should render OkuSwitch correctly with the correct attributes', () => {
+        expect(switcher.exists()).toBe(true)
+        expect(switcher.element.tagName).toBe('BUTTON')
+        expect(switcher.attributes('type')).toBe('button')
+        expect(switcher.attributes('role')).toBe('switch')
+        expect(switcher.attributes('aria-checked')).toBe('true')
+        expect(switcher.attributes('data-state')).toBe('checked')
+        expect(switcher.attributes('value')).toBe('on')
+      })
+
+      it('should render OkuSwitchThumb correctly with the correct attributes', () => {
+        expect(thumb.exists()).toBe(true)
+        expect(thumb.element.tagName).toBe('SPAN')
+        expect(thumb.attributes('data-state')).toBe('checked')
+      })
+
+      it('should call `onCheckedChange` event', () => {
+        expect(onCheckedChange).toHaveBeenCalled()
+      })
+    })
+
+    describe('given a controlled `checked` Switch', () => {
+      let wrapper: VueWrapper
+      let switcher: DOMWrapper<Element>
+
+      beforeEach(() => {
+        wrapper = mount(SwitchTest, {
+          props: {
+            checked: true,
+          },
+          attachTo: document.body,
+        })
+
+        switcher = wrapper.find(`[role="${SWITCH_ROLE}"]`)
+      })
+
+      describe('when clicking the switch', () => {
+        beforeEach(() => {
+          switcher.trigger('click')
+        })
+
+        it('should call `onCheckedChange` event', () => {
+          expect(onCheckedChange).toHaveBeenCalled()
+        })
+      })
+    })
+  })
+})
+
+describe('switch v-model tests', () => {
+  it('checked', async () => {
+    const wrapper = mount(OkuSwitch, {
+      props: {
+        'onUpdate:checked': (e: boolean) => wrapper.setProps({ checked: e }),
       },
-      { attachTo: document.body }, // Mount inside the DOM to interact with form elements
-    )
+    })
 
-    const button = wrapper.find('[role="switch"]')
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(true)
 
-    await button.trigger('click')
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(false)
+  })
 
-    expect(checked.value).toBe(true)
+  it('checked init true should be updated', async () => {
+    const wrapper = mount(OkuSwitch, {
 
-    // Listen for the 'submit' event on the form element
-    const formElement = wrapper.find('form').element as HTMLFormElement
-    const submitEventSpy = vi.spyOn(formElement, 'dispatchEvent')
+      props: {
+        'checked': true,
+        'onUpdate:checked': (e: boolean) => wrapper.setProps({ checked: e }),
+      },
+    })
 
-    // Trigger the form submission
-    formElement.dispatchEvent(new Event('submit'))
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(false)
 
-    // Expect the form submission to be triggered once
-    expect(submitEventSpy).toHaveBeenCalledTimes(2)
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(true)
+  })
+})
 
-    // Expect the form event to be received by the form element itself
-    expect(submitEventSpy).toHaveBeenCalledWith(expect.any(Event))
+describe('okuSwitch Stories', () => {
+  describe('styled', () => {
+    let wrapper: VueWrapper<InstanceType<typeof Styled>>
+
+    beforeEach(async () => {
+      wrapper = shallowMount(Styled, {
+        attachTo: document.body,
+      })
+    })
+
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should have no accessibility violations', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+
+    it('should render correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
+
+  describe('controlled', () => {
+    let wrapper: VueWrapper<InstanceType<typeof Controlled>>
+
+    beforeEach(async () => {
+      wrapper = shallowMount(Controlled, {
+        attachTo: document.body,
+      })
+    })
+
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should have no accessibility violations', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+
+    it('should render correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
+
+  describe('withinForm', () => {
+    let wrapper: VueWrapper<InstanceType<typeof WithinForm>>
+
+    beforeEach(async () => {
+      wrapper = shallowMount(WithinForm, {
+        attachTo: document.body,
+      })
+    })
+
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should have no accessibility violations', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+
+    it('should render correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot()
+    })
+  })
+
+  describe('chromatic', () => {
+    let wrapper: VueWrapper<InstanceType<typeof Chromatic>>
+
+    beforeEach(async () => {
+      wrapper = shallowMount(Chromatic, {
+        attachTo: document.body,
+      })
+    })
+
+    /**
+     * @vitest-environment jsdom
+     */
+    it('should have no accessibility violations', async () => {
+      expect(await axe(wrapper.element)).toHaveNoViolations()
+    })
+
+    it('should render correctly', () => {
+      expect(wrapper.html()).toMatchSnapshot()
+    })
   })
 })
