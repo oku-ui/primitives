@@ -118,7 +118,7 @@ const focus = composeEventHandlers<FocusEvent>((e) => {
       focusFirst(candidateNodes)
     }
   }
-
+  console.log('focus')
   isClickFocusRef.value = false
 })
 
@@ -135,6 +135,9 @@ defineExpose({
     :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"
     :data-orientation="props.orientation"
     :as-child="props.asChild"
+    :style="{
+      outline: 'none',
+    }"
     @mousedown="composeEventHandlers<MouseEvent>((e) => {
       emits('mousedown', e)
     }, () => {
@@ -145,7 +148,6 @@ defineExpose({
     @blur="composeEventHandlers<FocusEvent>((e) => {
       emits('blur', e)
     }, () => {
-      console.log('asdasdasdasd')
       isTabbingBackOut = false
     })"
   >
