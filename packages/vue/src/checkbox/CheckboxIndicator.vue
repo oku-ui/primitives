@@ -1,8 +1,6 @@
 <script lang="ts">
-// import type { CheckedState, ScopeCheckbox } from './Checkbox.vue'
 import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { useInject } from './Checkbox.vue'
 
 export interface CheckboxIndicatorProps extends PrimitiveProps {
   scopeOkuCheckbox?: any
@@ -14,7 +12,7 @@ export interface CheckboxIndicatorProps extends PrimitiveProps {
 <script setup lang="ts">
 import { defineOptions, withDefaults } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
-import { getState, isIndeterminate } from './utils'
+import { getState, isIndeterminate, useCheckboxInject } from './utils'
 import { OkuPresence } from '@oku-ui/presence'
 
 defineOptions({
@@ -30,7 +28,7 @@ const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
 
 const { componentRef, currentElement } = useComponentRef<HTMLInputElement | null>()
 
-const inject = useInject('OkuCheckbox', props.scopeOkuCheckbox)
+const inject = useCheckboxInject('OkuCheckbox', props.scopeOkuCheckbox)
 
 defineExpose({
   $el: currentElement,

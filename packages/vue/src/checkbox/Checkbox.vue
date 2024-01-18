@@ -1,5 +1,4 @@
 <script lang="ts">
-import { createScope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export interface ScopeCheckbox {
@@ -7,12 +6,6 @@ export interface ScopeCheckbox {
 }
 
 export type CheckedState = boolean | 'indeterminate'
-
-export type CheckboxProvide = {
-  _names: 'OkuCheckbox'
-  state: Ref<CheckedState>
-  disabled?: Ref<boolean | undefined>
-}
 
 export interface CheckboxProps extends PrimitiveProps {
   scopeOkuCheckbox?: any
@@ -31,11 +24,6 @@ export type CheckboxEmits = {
   'click': [event: MouseEvent]
 }
 
-export const { composeProviderScopes, createProvide } = createScope<CheckboxProvide['_names']>('OkuCheckbox')
-
-export const { useInject, useProvider }
-    = createProvide<Omit<CheckboxProvide, '_names'>>('OkuCheckbox')
-
 </script>
 
 <script setup lang="ts">
@@ -45,7 +33,7 @@ import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import OkuBubbleInput from './BubbleInput.vue'
-import { getState, isIndeterminate } from './utils'
+import { getState, isIndeterminate, useCheckboxProvide } from './utils'
 
 defineOptions({
   name: 'OkuCheckbox',
@@ -97,7 +85,7 @@ watchEffect((onInvalidate) => {
   }
 })
 
-useProvider({
+useCheckboxProvide({
   scope: props.scopeOkuCheckbox,
   state: checked,
   disabled: toRef(props, 'disabled'),
