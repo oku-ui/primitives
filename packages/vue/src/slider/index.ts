@@ -1,43 +1,17 @@
 export {
-  OkuSlider,
-  sliderProps,
-} from './slider'
-
-export type {
-  SliderNaviteElement,
-  SliderPropsEmits,
-  SliderProps,
-} from './slider'
-
+  default as OkuSlider,
+  type SliderProps,
+  type SliderEmits,
+} from './Slider.vue'
 export {
-  OkuSliderTrack,
-  sliderTrackProps,
-} from './sliderTrack'
-
-export type {
-  SliderTrackElement,
-  SliderTrackNaviteElement,
-  SliderTrackProps,
-} from './sliderTrack'
-
+  default as OkuSliderThumb,
+  type SliderThumbProps,
+} from './SliderThumb.vue'
 export {
-  OkuSliderRange,
-  sliderRangeProps,
-} from './sliderRange'
-
-export type {
-  SliderRangeElement,
-  SliderRangeNaviteElement,
-  SliderRangeProps,
-} from './sliderRange'
-
+  default as OkuSliderTrack,
+  type SliderTrackProps,
+} from './SliderTrack.vue'
 export {
-  OkuSliderThumb,
-  sliderThumbProps,
-} from './sliderThumb'
-
-export type {
-  SliderThumbElement,
-  SliderThumbNaviteElement,
-  SliderThumbProps,
-} from './sliderThumb'
+  default as OkuSliderRange,
+  type SliderRangeProps,
+} from './SliderRange.vue'
