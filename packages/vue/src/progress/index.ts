@@ -1,20 +1,14 @@
 export {
-  OkuProgress,
-  createProgressScope,
-  progressProps,
-} from './progress'
-
-export type {
-  ProgressProps,
-  ProgressElement,
-} from './progress'
+  default as OkuProgress,
+  type ProgressProps,
+  type ProgressEmits,
+} from './Progress.vue'
 
 export {
-  OkuProgressIndicator,
-  progressIndicatorProps,
-} from './progressIndicator'
+  default as OkuProgressIndicator,
+  type ProgressIndicatorProps,
+} from './ProgressIndicator.vue'
 
-export type {
-  ProgressIndicatorElement,
-  ProgressIndicatorProps,
-} from './progressIndicator'
+export {
+  createProgressScope,
+} from './utils'
