@@ -11,7 +11,7 @@ export interface AvatarFallbackProps extends PrimitiveProps {
 import { defineOptions, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
-import { useAvatarInject } from './Avatar.vue'
+import { useAvatarInject } from './utils'
 
 defineOptions({
   name: 'OkuAvatarFallback',

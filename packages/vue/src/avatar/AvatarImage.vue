@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { ImageLoadingStatus } from './types'
-import { useImageLoadingStatus } from './utils'
+import { useAvatarInject, useImageLoadingStatus } from './utils'
 
 export interface AvatarImageProps extends PrimitiveProps {
   scopeOkuAvatar?: any
@@ -18,7 +18,6 @@ export type AvatarImageEmits = {
 import { defineOptions, watchEffect, withDefaults } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
-import { useAvatarInject } from './Avatar.vue'
 
 defineOptions({
   name: 'OkuAvatarImage',
