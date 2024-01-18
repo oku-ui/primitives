@@ -1,6 +1,6 @@
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement } from '@oku-ui/primitive'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import type { PropType, Ref } from 'vue'
@@ -10,7 +10,7 @@ import { OkuBubbleInput } from './BubbleInput'
 
 const RADIO_NAME = 'OkuRadio'
 
-export const [createRadioProvide, createRadioScope] = createProvideScope(RADIO_NAME)
+export const [createRadioProvide, createRadioScope] = createScope(RADIO_NAME)
 
 type RadioProvideValue = {
   checked: Ref<boolean>

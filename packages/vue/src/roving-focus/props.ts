@@ -1,4 +1,4 @@
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
 import { createCollection } from '@oku-ui/collection'
 import type { ComputedRef, PropType, Ref } from 'vue'
@@ -170,7 +170,7 @@ export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollec
   },
 })
 
-export const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createProvideScope(
+export const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createScope(
   GROUP_NAME,
   [createCollectionScope],
 )

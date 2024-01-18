@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export interface ScopeCheckbox {
@@ -31,7 +31,7 @@ export type CheckboxEmits = {
   'click': [event: MouseEvent]
 }
 
-export const { composeProviderScopes, createProvide } = createProvideScope<CheckboxProvide['_names']>('OkuCheckbox')
+export const { composeProviderScopes, createProvide } = createScope<CheckboxProvide['_names']>('OkuCheckbox')
 
 export const { useInject, useProvider }
     = createProvide<Omit<CheckboxProvide, '_names'>>('OkuCheckbox')

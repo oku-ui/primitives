@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { defineOptions, ref } from 'vue'
 
 export interface ScopePopper {
@@ -7,7 +7,7 @@ export interface ScopePopper {
 }
 
 export const { composeProviderScopes, createProvide }
-    = createProvideScope<PopperProvide['_names']>('OkuPopper')
+    = createScope<PopperProvide['_names']>('OkuPopper')
 
 export type PopperProvide = {
   _names: 'OkuPopper' | 'OkuPopperContent'

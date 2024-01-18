@@ -3,7 +3,7 @@ import type { OkuElement } from '@oku-ui/primitive'
 import { propsOmit } from '@oku-ui/primitive'
 import { createDialogScope, dialogCloseProps, dialogContentProps, dialogDescriptionProps, dialogOverlayProps, dialogProps, dialogTitleProps, dialogTriggerProps } from '@oku-ui/dialog'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
 
 export const ROOT_NAME = 'OkuAlertDialog'
@@ -29,7 +29,7 @@ export const scopeAlertDialogProps = {
 /*                         AlertDialog - alert-dialog.ts                      */
 /* -------------------------------------------------------------------------- */
 
-export const [createAlertDialogProvider, createAlertDialogScope] = createProvideScope(ROOT_NAME, [createDialogScope])
+export const [createAlertDialogProvider, createAlertDialogScope] = createScope(ROOT_NAME, [createDialogScope])
 export const useAlertDialogScope = createDialogScope()
 
 type AlertDialogContentContextValue = {

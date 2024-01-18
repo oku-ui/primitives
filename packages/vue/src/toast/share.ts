@@ -1,4 +1,4 @@
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { createCollection } from '@oku-ui/collection'
 import type { Ref } from 'vue'
 import type { ToastImplElement, ToastImplNaviteElement } from './toast-impl'
@@ -26,7 +26,7 @@ type ToastProviderProvideValue = {
   isClosePausedRef: Ref<boolean>
 }
 
-export const [createToastProvide, createToastScope] = createProvideScope('Toast', [createCollectionScope])
+export const [createToastProvide, createToastScope] = createScope('Toast', [createCollectionScope])
 
 export const [toastProviderProvider, useToastProviderInject] = createToastProvide<ToastProviderProvideValue>(PROVIDER_NAME)
 

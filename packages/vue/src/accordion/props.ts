@@ -2,7 +2,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { ref } from 'vue'
 import type { PropType, Ref } from 'vue'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
 import { createCollection } from '@oku-ui/collection'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { collapsibleContentProps, collapsibleProps, collapsibleTriggerProps, createCollapsibleScope } from '@oku-ui/collapsible'
@@ -57,7 +57,7 @@ export const scopeAccordionProps = {
   },
 }
 
-export const [createAccordionProvider, createAccordionScope] = createProvideScope(ACCORDION_NAME, [
+export const [createAccordionProvider, createAccordionScope] = createScope(ACCORDION_NAME, [
   createCollectionScope,
   createCollapsibleScope,
 ])

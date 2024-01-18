@@ -19,7 +19,7 @@ import {
 } from '@oku-ui/use-composable'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState, scopeSwitchProps } from './util'
 import { BubbleInput } from './BubbleInput'
@@ -92,7 +92,7 @@ export const switchProps = {
 }
 
 const [createSwitchProvide, createSwitchScope]
-  = createProvideScope(SWITCH_NAME)
+  = createScope(SWITCH_NAME)
 
 const [switchProvider, useSwitchInject]
   = createSwitchProvide<SwitchProvideValue>(SWITCH_NAME)

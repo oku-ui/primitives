@@ -1,5 +1,5 @@
 import type { PropType, Ref } from 'vue'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
 import type { Scope } from '@oku-ui/provide'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
@@ -30,7 +30,7 @@ export const TOGGLE_GROUP_ITEM_NAME = 'OkuToggleGroupItem'
 export type ToggleGroupNativeElement = ToggleGroupImplSingleNativeElement | ToggleGroupImplMultipleNativeElement
 export type ToggleGroupElement = ToggleGroupImplSingleElement | ToggleGroupImplMultipleElement
 
-export const [createToggleGroupProvider, createToggleGroupScope] = createProvideScope(TOGGLE_GROUP_NAME, [
+export const [createToggleGroupProvider, createToggleGroupScope] = createScope(TOGGLE_GROUP_NAME, [
   createRovingFocusGroupScope,
 ])
 

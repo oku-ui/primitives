@@ -1,5 +1,5 @@
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvide, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createProvide, createScope } from '@oku-ui/provide'
 import { type Ref, ref } from 'vue'
 
 export const CONTENT_NAME = 'OkuDialogContent'
@@ -16,7 +16,7 @@ export const scopeDialogProps = {
   },
 }
 
-export const [createDialogProvider, createDialogScope] = createProvideScope(DIALOG_NAME)
+export const [createDialogProvider, createDialogScope] = createScope(DIALOG_NAME)
 
 type DialogProvideValue = {
   triggerRef: Ref<HTMLButtonElement | null>

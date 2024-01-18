@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { createToggleGroupScope } from '@oku-ui/toggle-group'
@@ -12,7 +12,7 @@ import { scopeToolbarProps } from './utils'
 
 const TOOLBAR_NAME = 'OkuToolbar'
 
-const [createToolbarProvider, createToolbarScope] = createProvideScope(TOOLBAR_NAME, [
+const [createToolbarProvider, createToolbarScope] = createScope(TOOLBAR_NAME, [
   createRovingFocusGroupScope,
   createToggleGroupScope,
 ])

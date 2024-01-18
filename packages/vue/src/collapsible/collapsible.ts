@@ -1,7 +1,7 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 
 import { reactiveOmit, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
@@ -59,7 +59,7 @@ export const collapsibleProps = {
 
 const COLLAPSIBLE_NAME = 'OkuCollapsible'
 
-export const [createCollapsibleProvide, createCollapsibleScope] = createProvideScope(COLLAPSIBLE_NAME)
+export const [createCollapsibleProvide, createCollapsibleScope] = createScope(COLLAPSIBLE_NAME)
 
 export const [collapsibleProvider, useCollapsibleInject]
   = createCollapsibleProvide<CollapsibleProvideValue>(COLLAPSIBLE_NAME)

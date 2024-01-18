@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 import { defineComponent, h } from 'vue'
 import { describe, expect, it, vitest } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ScopePropObject, createProvide, createProvideScope } from '../'
+import { ScopePropObject, createProvide, createScope } from '../'
 
 describe('provide', () => {
   it('createProvide consumerName emty test', async () => {
@@ -145,9 +145,9 @@ describe('provide', () => {
     expect(component.html()).toContain('<div>Merhaba asdasda</div>')
   })
 
-  it('createProvideScope', async () => {
+  it('createScope', async () => {
     const AVATAR_NAME = 'OkuAvatar'
-    const [createAvatarProvide, _createAvatarScope] = createProvideScope(AVATAR_NAME)
+    const [createAvatarProvide, _createAvatarScope] = createScope(AVATAR_NAME)
 
     type AvatarProvideValue = {
       imageLoadingStatus: 'loading' | 'loaded' | 'error'
@@ -200,19 +200,19 @@ describe('provide', () => {
     expect(component.html()).toContain('<div>loading</div>')
   })
 
-  it('createProvideScope createScope empty', async () => {
-    const [_createCollectionProvide, createCollectionScope] = createProvideScope('TestCollectionProvider')
+  it('createScope createScope empty', async () => {
+    const [_createCollectionProvide, createCollectionScope] = createScope('TestCollectionProvider')
 
     expect(createCollectionScope()({})).toEqual({
       scopeTestCollectionProvider: { TestCollectionProvider: [] },
     })
   })
 
-  it('createProvideScope createScope component', async () => {
+  it('createScope createScope component', async () => {
     // Collection
     const PROVIDER_NAME = 'TestCollectionProvider'
 
-    const [createCollectionProvide, createCollectionScope] = createProvideScope(PROVIDER_NAME)
+    const [createCollectionProvide, createCollectionScope] = createScope(PROVIDER_NAME)
 
     const [_collectionProvide, _useCollectionInject] = createCollectionProvide<{
       collectionRef: 'test'
