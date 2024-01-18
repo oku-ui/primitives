@@ -1,4 +1,7 @@
 import type { Middleware, Placement } from '@floating-ui/vue'
+import { createScope } from '@oku-ui/provide'
+import type { Ref } from 'vue'
+import type { Measurable } from '@oku-ui/utils'
 
 export const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 export const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
@@ -60,3 +63,25 @@ export function getSideAndAlignFromPlacement(placement: Placement) {
   const [side, align = 'center'] = placement.split('-')
   return [side as Side, align as Align] as const
 }
+
+export type PopperContext = {
+  anchor: Ref<Measurable | null>
+  onAnchorChange(anchor: Measurable | null): void
+}
+
+export type PopperContentContext = {
+  placedSide: Ref<Side | undefined>
+  onArrowChange(arrow: HTMLSpanElement | null): void
+  arrowX?: Ref<number | undefined>
+  arrowY?: Ref<number | undefined>
+  shouldHideArrow: Ref<boolean | undefined>
+}
+
+export const [createPopperProvide, createPopperScope]
+  = createScope<'OkuPopper' | 'OkuPopperContent'>('OkuPopper')
+
+export const [usePopperProvide, usePopperInject]
+  = createPopperProvide<PopperContext>('OkuPopper')
+
+export const [usePopperContentProvide, usePopperContentInject]
+  = createPopperProvide<PopperContentContext>('OkuPopper')

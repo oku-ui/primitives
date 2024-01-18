@@ -1,8 +1,8 @@
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { createPopperScope } from '@oku-ui/popper'
 import type { Point, Polygon, Side } from './types'
 
-export const [createTooltipProvide, createTooltipScope] = createProvideScope('Tooltip', [
+export const [createTooltipProvide, createTooltipScope] = createScope('Tooltip', [
   createPopperScope,
 ])
 

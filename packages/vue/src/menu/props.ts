@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
 import { createPopperScope, popperAnchorProps, popperArrowProps, popperContentProps } from '@oku-ui/popper'
 import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps, PopperArrowElement, PopperArrowNaviteElement, PopperArrowProps, PopperContentElement, PopperContentNaviteElement, PopperContentProps } from '@oku-ui/popper'
 import type { Direction } from '@oku-ui/direction'
@@ -66,7 +66,7 @@ type ItemData = { disabled: boolean, textValue: string }
 
 export const { CollectionProvider, CollectionSlot, CollectionItemSlot, useCollection, createCollectionScope } = createCollection<MenuItemElement, ItemData>(MENU_NAME)
 
-export const [createMenuProvide, createMenuScope] = createProvideScope(MENU_NAME, [
+export const [createMenuProvide, createMenuScope] = createScope(MENU_NAME, [
   createCollectionScope,
   createPopperScope,
   createRovingFocusGroupScope,

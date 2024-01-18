@@ -2,7 +2,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import type { PropType, Ref } from 'vue'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { reactiveOmit, useControllable, useForwardRef, useId } from '@oku-ui/use-composable'
@@ -98,7 +98,7 @@ interface TabsProvideValue {
   activationMode?: Ref<TabsProps['activationMode']>
 }
 
-export const [createTabsProvider, _createTabsScope] = createProvideScope(TAB_NAME, [
+export const [createTabsProvider, _createTabsScope] = createScope(TAB_NAME, [
   createRovingFocusGroupScope,
 ])
 

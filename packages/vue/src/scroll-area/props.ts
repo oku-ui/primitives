@@ -1,5 +1,5 @@
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
 import type { Direction } from '@oku-ui/direction'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
@@ -85,7 +85,7 @@ export const scrollAreaProps = {
   },
   emits: {},
 }
-export const [createScrollAreaProvide, createScrollAreaScope] = createProvideScope(SCROLL_AREA_NAME)
+export const [createScrollAreaProvide, createScrollAreaScope] = createScope(SCROLL_AREA_NAME)
 
 export const [scrollAreaProvider, useScrollAreaInject] = createScrollAreaProvide<ScrollAreaProvideValue>(SCROLL_AREA_NAME)
 
@@ -201,7 +201,7 @@ export type ScrollAreaScrollbarImplElement = HTMLDivElement
 export interface ScrollAreaScrollbarImplProps extends Omit<PrimitiveProps, keyof ScrollAreaScrollbarImplPrivateProps>,
   ScrollAreaScrollbarImplPrivateProps { }
 
-export const [createScrollProvide, createScrollScope] = createProvideScope(SCROLL_AREA_SCROLLBAR_NAME)
+export const [createScrollProvide, createScrollScope] = createScope(SCROLL_AREA_SCROLLBAR_NAME)
 
 export type ScrollbarProvideValue = {
   hasThumb: Ref<boolean>

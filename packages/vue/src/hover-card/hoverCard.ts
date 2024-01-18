@@ -2,13 +2,13 @@ import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onBeforeUnmount, ref, toRefs, useModel } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useControllable } from '@oku-ui/use-composable'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { OkuPopper, createPopperScope } from '@oku-ui/popper'
 import { scopeHoverCardProps } from './utils'
 
 export const HOVERCARD_NAME = 'OkuHoverCard'
 
-const [createHoverCardProvider, createHoverCardScope] = createProvideScope(HOVERCARD_NAME, [
+const [createHoverCardProvider, createHoverCardScope] = createScope(HOVERCARD_NAME, [
   createPopperScope,
 ])
 

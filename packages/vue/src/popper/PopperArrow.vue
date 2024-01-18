@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { ArrowProps } from '@oku-ui/arrow'
-import type { Side } from './utils'
+import { type Side, usePopperContentInject } from './utils'
 
 export interface PopperArrowProps extends ArrowProps {
   scopeOkuPopper?: any
@@ -18,8 +18,6 @@ export const OPPOSITE_SIDE: Record<Side, Side> = {
 import { computed, defineOptions } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuArrow } from '@oku-ui/arrow'
-
-import { usePopperContentInject } from './PopperContent.vue'
 
 defineOptions({
   name: 'OkuPopperArrow',

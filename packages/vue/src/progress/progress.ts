@@ -1,7 +1,7 @@
 import type { OkuElement } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
@@ -58,7 +58,7 @@ export const progressProps = {
 }
 
 export const [createProgressContext, createProgressScope]
-  = createProvideScope(PROGRESS_NAME)
+  = createScope(PROGRESS_NAME)
 
 export const [progressProvider, useProgressInject]
   = createProgressContext<ProgressInjectValue>(PROGRESS_NAME)

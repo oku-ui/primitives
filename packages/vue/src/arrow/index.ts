@@ -1,4 +1,4 @@
 export {
   default as OkuArrow,
+  type ArrowProps,
 } from './Arrow.vue'
-export type * from './Arrow.vue'

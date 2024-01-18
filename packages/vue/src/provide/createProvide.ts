@@ -31,7 +31,7 @@ interface CreateScope {
   (): ScopeHook
 }
 
-function createProvideScope<T extends string>(scopeName: T, createProvideScopeDeps: CreateScope[] = []) {
+function createScope<T extends string>(scopeName: T, createScopeDeps: CreateScope[] = []) {
   let defaultProviders: any[] = []
   /* -----------------------------------------------------------------------------------------------
    * createProvide
@@ -70,10 +70,10 @@ function createProvideScope<T extends string>(scopeName: T, createProvideScopeDe
     }
 
     // return [Provider, useInject] as const
-    return {
+    return [
       useProvider,
       useInject,
-    }
+    ] as const
   }
 
   /* -----------------------------------------------------------------------------------------------
@@ -97,15 +97,15 @@ function createProvideScope<T extends string>(scopeName: T, createProvideScopeDe
   }
 
   createScope.scopeName = scopeName
-  // return [createProvide, composeProvderScopes(createScope, ...createProvideScopeDeps)] as const
+  // return [createProvide, composeProvderScopes(createScope, ...createScopeDeps)] as const
 
-  return {
+  return [
     createProvide,
-    composeProviderScopes: composeProviderScopes(createScope, ...createProvideScopeDeps),
-  }
+    composeScopes(createScope, ...createScopeDeps),
+  ] as const
 }
 
-function composeProviderScopes(...scopes: CreateScope[]) {
+function composeScopes(...scopes: CreateScope[]) {
   const baseScope = scopes[0]
   if (scopes.length === 1)
     return baseScope
@@ -140,5 +140,5 @@ export const ScopePropObject = {
   required: false,
 }
 
-export { createProvide, createProvideScope }
+export { createProvide, createScope }
 export type { CreateScope, Scope }

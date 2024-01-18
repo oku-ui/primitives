@@ -2,7 +2,7 @@ import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
 import type { PropType, Ref } from 'vue'
-import { createProvideScope } from '@oku-ui/provide'
+import { createScope } from '@oku-ui/provide'
 import { OkuRovingFocusGroup, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { reactiveOmit, useControllable, useForwardRef } from '@oku-ui/use-composable'
 import { useDirection } from '@oku-ui/direction'
@@ -13,7 +13,7 @@ import { scopeRadioGroupProps } from './utils'
 
 const RADIO_GROUP_NAME = 'OkuRadioGroup'
 
-export const [createRadioGroupProvider, createRadioGroupScope] = createProvideScope(RADIO_GROUP_NAME, [
+export const [createRadioGroupProvider, createRadioGroupScope] = createScope(RADIO_GROUP_NAME, [
   createRovingFocusGroupScope,
   createRadioScope,
 ])

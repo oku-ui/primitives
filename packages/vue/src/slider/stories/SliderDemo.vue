@@ -14,13 +14,13 @@ withDefaults(defineProps<OkuSliderProps>(), {
 </script>
 
 <template>
-  <div v-if="template === 'Styled' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Styled' || allshow">
     <Styled />
   </div>
-  <div v-if="template === 'OnValueCommit' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'OnValueCommit' || allshow">
     <OnValueCommit />
   </div>
-  <div v-if="template === 'Vertical' || allshow" class="flex flex-col w-full">
+  <div v-if="template === 'Vertical' || allshow">
     <Vertical />
   </div>
 </template>

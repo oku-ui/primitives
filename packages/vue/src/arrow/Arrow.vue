@@ -13,6 +13,7 @@ const props = withDefaults(
   {
     width: 30,
     height: 10,
+    is: 'svg',
   },
 )
 
@@ -25,16 +26,15 @@ defineExpose({
 
 <template>
   <Primitive
-    v-bind="props"
-    is="svg"
+    :is="props.is"
     ref="componentRef"
     viewBox="0 0 30 10"
-    :as-child="asChild"
-    :width="width"
-    :height="height"
-    :preserveAspectRatio="asChild ? undefined : 'none'"
+    :as-child="props.asChild"
+    :width="props.width"
+    :height="props.height"
+    :preserveAspectRatio="props.asChild ? undefined : 'none'"
   >
-    <slot v-if="asChild" />
+    <slot v-if="props.asChild" />
     <polygon
       v-else
       points="0,0 30,0 15,10"

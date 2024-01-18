@@ -7,7 +7,7 @@ import type { PortalProps } from '@oku-ui/portal'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvideScope } from '@oku-ui/provide'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
 import { type PropType, type Ref, ref } from 'vue'
 
 export type ScopePopover<T> = T & { scopeOkuPopover?: Scope }
@@ -33,7 +33,7 @@ export const PORTAL_NAME = 'OkuPopoverPortal'
 /*                           OkuPopover - popover.ts                          */
 /* -------------------------------------------------------------------------- */
 
-export const [createPopoverProvide, createPopoverScope] = createProvideScope(POPOVER_NAME, [
+export const [createPopoverProvide, createPopoverScope] = createScope(POPOVER_NAME, [
   createPopperScope,
 ])
 
