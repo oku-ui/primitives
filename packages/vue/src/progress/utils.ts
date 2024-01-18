@@ -1,8 +1,8 @@
-import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject } from '@oku-ui/provide'
-import { DEFAULT_MAX, PROGRESS_NAME } from './constants'
+import { ScopePropObject, createScope } from '@oku-ui/provide'
+import type { Ref } from 'vue'
 
-export type ScopeProgress<T> = T & { scopeOkuProgress?: Scope }
+export const DEFAULT_MAX = 100
+const PROGRESS_NAME = 'OkuProgress'
 
 export const scopeProgressProps = {
   scopeOkuProgress: {
@@ -10,27 +10,27 @@ export const scopeProgressProps = {
   },
 }
 
-function defaultGetValueLabel(value: number, max: number) {
+export function defaultGetValueLabel(value: number, max: number) {
   return `${Math.round((value / max) * 100)}%`
 }
 
-function isNumber(value: any): value is number {
+export function isNumber(value: any): value is number {
   return typeof value === 'number'
 }
 
-function isValidMaxNumber(max: any): max is number {
+export function isValidMaxNumber(max: any): max is number {
   return isNumber(max) && !Number.isNaN(max) && max > 0
 }
 
-function isValidValueNumber(value: any, max: number): value is number {
+export function isValidValueNumber(value: any, max: number): value is number {
   return isNumber(value) && !Number.isNaN(value) && value <= max && value >= 0
 }
 
-function getInvalidMaxError(propValue: string) {
+export function getInvalidMaxError(propValue: string) {
   return `Invalid prop \`max\` of value \`${propValue}\` supplied to \`${PROGRESS_NAME}\`. Only numbers greater than 0 are valid max values. Defaulting to \`${DEFAULT_MAX}\`.`
 }
 
-function getInvalidValueError(propValue: string) {
+export function getInvalidValueError(propValue: string) {
   return `Invalid prop \`value\` of value \`${propValue}\` supplied to \`${PROGRESS_NAME}\`. The \`value\` prop must be:
   - a positive number
   - less than the value passed to \`max\` (or ${DEFAULT_MAX} if no \`max\` prop is set)
@@ -39,7 +39,7 @@ function getInvalidValueError(propValue: string) {
 Defaulting to \`null\`.`
 }
 
-function getProgressState(
+export function getProgressState(
   maxValue: number,
   value?: number | null,
 ): 'indeterminate' | 'complete' | 'loading' {
@@ -50,12 +50,13 @@ function getProgressState(
       : 'loading'
 }
 
-export {
-  getProgressState,
-  getInvalidValueError,
-  getInvalidMaxError,
-  isValidMaxNumber,
-  isValidValueNumber,
-  defaultGetValueLabel,
-  isNumber,
+interface ProgressContext {
+  value: Ref<number | null | undefined>
+  max: Ref<number>
 }
+
+export const [createProgressProvider, createProgressScope]
+  = createScope<'OkuProgress'>(PROGRESS_NAME)
+
+export const [useProgressProvide, useProgressInject]
+  = createProgressProvider<ProgressContext>(PROGRESS_NAME)
