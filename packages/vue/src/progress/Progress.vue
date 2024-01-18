@@ -22,16 +22,15 @@ export type ProgressElement = HTMLDivElement
 
 export interface ProgressProps extends PrimitiveProps {
   scopeOkuProgress?: Scope
-  value?: number | null | undefined
+  modelValue?: number | null | undefined
   max?: number
   getValueLabel?(value: number, max: number): string
   scopeProgress?: Scope
-  defaultValue?: number | null | undefined
   valueChange?(value: number | null | undefined): void
 }
 
 export type ProgressEmits = {
-  'update:value': [value: number | null | undefined]
+  'update:modelValue': [value: number | null | undefined]
   'valueChange': [value: number | null | undefined]
 }
 
@@ -52,9 +51,8 @@ const emits = defineEmits<ProgressEmits>()
 
 const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
 
-const value = useVModel(props, 'value', emits, {
-  defaultValue: props.defaultValue,
-  passive: (props.value === undefined) as false,
+const value = useVModel(props, 'modelValue', emits, {
+  passive: (props.modelValue === undefined) as false,
   shouldEmit(v: any) {
     emits('valueChange', v)
     return true
