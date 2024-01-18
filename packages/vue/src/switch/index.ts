@@ -8,3 +8,7 @@ export {
   default as OkuSwitchThumb,
   type SwitchThumbProps,
 } from './SwitchThumb.vue'
+
+export {
+  createSwitchScope,
+} from './utils'

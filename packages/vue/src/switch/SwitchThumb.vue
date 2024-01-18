@@ -9,25 +9,27 @@ export interface SwitchThumbProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { useComponentRef } from '@oku-ui/use-composable'
-import { useInject } from './Switch.vue'
-import { getState } from './utils.ts'
+import { getState, useSwitchInject } from './utils.ts'
 
 defineOptions({
   name: 'OkuSwitchThumb',
 })
 
-const props = defineProps<SwitchThumbProps>()
+const props = withDefaults(defineProps<SwitchThumbProps>(), {
+  is: 'span',
+})
 
-const inject = useInject('OkuSwitch', props.scopeOkuSwitch)
+const inject = useSwitchInject('OkuSwitch', props.scopeOkuSwitch)
 
 const { componentRef } = useComponentRef<HTMLInputElement | null>()
 </script>
 
 <template>
   <Primitive
-    is="span"
+    :is="props.is"
     v-bind="$attrs"
     ref="componentRef"
+    :as-child="props.asChild"
     :data-state="getState(inject.checked.value)"
     :data-disabled="inject.disabled?.value ? '' : undefined"
   />

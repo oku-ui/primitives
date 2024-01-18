@@ -1,15 +1,8 @@
 <script lang="ts">
-import { createProvideScope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export interface ScopeSwitch {
   scopeOkuSwitch?: any
-}
-
-export type SwitchProvide = {
-  _names: 'OkuSwitch'
-  checked: Ref<boolean>
-  disabled?: Ref<boolean | undefined>
 }
 
 export interface SwitchProps extends PrimitiveProps {
@@ -28,9 +21,6 @@ export type SwitchEmits = {
   click: [event: MouseEvent]
 }
 
-export const { composeProviderScopes, createProvide } = createProvideScope('OkuSwitch')
-
-export const { useInject, useProvider } = createProvide<Omit<SwitchProvide, '_names'>>('OkuSwitch')
 </script>
 
 <script setup lang="ts">
@@ -39,7 +29,7 @@ import { onMounted, ref, toRef } from 'vue'
 import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { Primitive } from '@oku-ui/primitive'
-import { getState } from './utils.ts'
+import { getState, useSwitchProvide } from './utils'
 import OkuBubbleInput from './BubbleInput.vue'
 
 defineOptions({
@@ -50,6 +40,7 @@ const props = withDefaults(defineProps<SwitchProps>(), {
   checked: undefined,
   defaultChecked: undefined,
   value: 'on',
+  is: 'button',
 })
 
 const emits = defineEmits<SwitchEmits>()
@@ -76,7 +67,7 @@ const checked = useVModel(props, 'checked', emits, {
   },
 }) as Ref<boolean>
 
-useProvider({
+useSwitchProvide({
   scope: props.scopeOkuSwitch,
   checked,
   disabled: toRef(props, 'disabled'),
@@ -89,9 +80,10 @@ defineExpose({
 
 <template>
   <Primitive
-    is="button"
+    :is="props.is"
     v-bind="$attrs"
     ref="componentRef"
+    :as-child="props.asChild"
     type="button"
     role="switch"
     :aria-checked="!!checked"

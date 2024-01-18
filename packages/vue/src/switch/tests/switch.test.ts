@@ -223,6 +223,38 @@ describe('okuSwitch', () => {
   })
 })
 
+describe('switch v-model tests', () => {
+  it('checked', async () => {
+    const wrapper = mount(OkuSwitch, {
+      props: {
+        'onUpdate:checked': (e: boolean) => wrapper.setProps({ checked: e }),
+      },
+    })
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(true)
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(false)
+  })
+
+  it('checked init true should be updated', async () => {
+    const wrapper = mount(OkuSwitch, {
+
+      props: {
+        'checked': true,
+        'onUpdate:checked': (e: boolean) => wrapper.setProps({ checked: e }),
+      },
+    })
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(false)
+
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.props('checked')).toBe(true)
+  })
+})
+
 describe('okuSwitch Stories', () => {
   describe('styled', () => {
     let wrapper: VueWrapper<InstanceType<typeof Styled>>
