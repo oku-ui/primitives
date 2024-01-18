@@ -1,6 +1,4 @@
 <script lang="ts">
-import { createProvide, usePopperInject } from './Popper.vue'
-
 type Boundary = Element | null | Array<Element | null>
 
 export interface PopperContentProps extends PrimitiveProps {
@@ -62,21 +60,10 @@ export interface PopperContentProps extends PrimitiveProps {
 export type PopperContentEmits = {
   placed: [void]
 }
-export type PopperContentContext = {
-  _names: 'OkuPopperContent'
-  placedSide: Ref<Side | undefined>
-  onArrowChange(arrow: HTMLSpanElement | null): void
-  arrowX?: Ref<number | undefined>
-  arrowY?: Ref<number | undefined>
-  shouldHideArrow: Ref<boolean | undefined>
-}
 
-export const { useInject: usePopperContentInject, useProvider: usePopperContentProvider }
- = createProvide<Omit<PopperContentContext, '_names'>>('OkuPopper')
 </script>
 
 <script lang="ts" setup>
-import type { Ref } from 'vue'
 import { computed, defineOptions, ref, watch, watchEffect, withDefaults } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
@@ -89,7 +76,7 @@ import type {
   Placement,
 } from '@floating-ui/vue'
 import type { Align, Side } from './utils'
-import { getSideAndAlignFromPlacement, isNotNull, transformOrigin } from './utils'
+import { getSideAndAlignFromPlacement, isNotNull, transformOrigin, usePopperContentProvide, usePopperInject } from './utils'
 
 defineOptions({
   name: 'OkuPopperContent',
@@ -109,6 +96,7 @@ const props = withDefaults(defineProps<PopperContentProps>(), {
   hideWhenDetached: false,
   updatePositionStrategy: 'optimized',
   layoutShift: true,
+  is: 'div',
 })
 const emit = defineEmits<PopperContentEmits>()
 
@@ -222,7 +210,7 @@ watch(currentElement, () => {
     contentZIndex.value = window.getComputedStyle(currentElement.value).zIndex
 })
 
-usePopperContentProvider({
+usePopperContentProvide({
   scope: props.scopeOkuPopper,
   placedSide,
   onArrowChange(anchor: HTMLElement | null) {
@@ -255,15 +243,14 @@ defineExpose({
     :dir="dir"
   >
     <Primitive
-      is="div"
+      :is="props.is"
       ref="componentRef"
       v-bind="$attrs"
       :data-side="placedSide"
       :data-align="placedAlign"
-      :dir="dir"
-      :as-child="asChild"
+      :dir="props.dir"
+      :as-child="props.asChild"
       :style="{
-        ...$attrs.style as any,
         // if the PopperContent hasn't been placed yet (not all measurements done)
         // we prevent animations so that users's animation don't kick in too early referring wrong sides
         animation: !isPositioned ? 'none' : undefined,

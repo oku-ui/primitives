@@ -18,6 +18,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<AspectRatioProps>(), {
   ratio: 1 / 1,
+  is: 'div',
 })
 
 const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
@@ -39,9 +40,10 @@ defineExpose({
     data-oku-aspect-ratio-wrapper=""
   >
     <Primitive
-      is="div"
+      :is="props.is"
       v-bind="$attrs"
       ref="componentRef"
+      :as-child="props.asChild"
       :style="{
         ...$attrs.style as any,
         // ensures children expand in ratio

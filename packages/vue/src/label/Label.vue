@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { mergeProps, useAttrs } from 'vue'
-import { useComponentRef, useListeners } from '@oku-ui/use-composable'
+import { useComponentRef } from '@oku-ui/use-composable'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 
@@ -12,10 +11,14 @@ export type LabelEmits = {
   mousedown: [event: MouseEvent]
 }
 
-const props = defineProps<LabelProps>()
-const emit = defineEmits<LabelEmits>()
+const props = withDefaults(
+  defineProps<LabelProps>(),
+  {
+    is: 'label',
+  },
+)
 
-const attrs = useAttrs()
+const emit = defineEmits<LabelEmits>()
 
 const { componentRef, currentElement } = useComponentRef<HTMLLabelElement | null>()
 
@@ -23,14 +26,12 @@ defineExpose({
   $el: currentElement,
 })
 
-const emits = useListeners(['onMousedown'])
 </script>
 
 <template>
   <Primitive
-    is="label"
+    v-bind="props"
     ref="componentRef"
-    v-bind="mergeProps(props, attrs, emits)"
     @mousedown="(event: LabelEmits['mousedown'][0]) => {
       emit('mousedown', event)
       // prevent text selection when double clicking label

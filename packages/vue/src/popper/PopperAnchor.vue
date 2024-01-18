@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import { usePopperInject } from './utils'
 
 interface PopperAnchorProps extends PrimitiveProps {
   virtualRef?: any
@@ -9,7 +10,6 @@ interface PopperAnchorProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { defineOptions, watchEffect, withDefaults } from 'vue'
-import { usePopperInject } from './Popper.vue'
 import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef } from '@oku-ui/use-composable'
 
@@ -21,15 +21,12 @@ const props = withDefaults(
   defineProps<PopperAnchorProps>(),
   {
     virtualRef: undefined,
+    is: 'div',
   },
 )
 
 const inject = usePopperInject('OkuPopper', props.scopeOkuPopper)
 const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
-
-defineExpose({
-  $el: currentElement,
-})
 
 watchEffect(() => {
   // Consumer can anchor the popper to something that isn't
@@ -37,13 +34,17 @@ watchEffect(() => {
   // `anchorRef` with their virtual ref in this case.
   inject.onAnchorChange(props.virtualRef ?? currentElement.value)
 })
+
+defineExpose({
+  $el: currentElement,
+})
 </script>
 
 <template>
   <Primitive
-    :is="is"
+    :is="props.is"
     ref="componentRef"
-    :as-child="asChild"
+    :as-child="props.asChild"
   >
     <slot />
   </Primitive>

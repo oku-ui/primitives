@@ -45,6 +45,7 @@ export type FocusScopeEmits = {
    */
   unmountAutoFocus: [event: Event]
 }
+
 </script>
 
 <script setup lang="ts">
@@ -55,7 +56,9 @@ defineOptions({
 const props = withDefaults(defineProps<FocusScopeProps>(), {
   loop: false,
   trapped: false,
+  is: 'div',
 })
+
 const emit = defineEmits<FocusScopeEmits>()
 
 const { componentRef, currentElement } = useComponentRef<HTMLElement | null>()
@@ -250,10 +253,10 @@ defineExpose({
 
 <template>
   <Primitive
-    is="div"
+    :is="props.is"
     ref="componentRef"
+    :as-child="props.asChild"
     :tabindex="-1"
-    :as-child="asChild"
     @keydown="handleKeydown"
   >
     <slot />
