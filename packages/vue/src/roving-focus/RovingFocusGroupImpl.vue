@@ -118,8 +118,19 @@ const focus = composeEventHandlers<FocusEvent>((e) => {
       focusFirst(candidateNodes)
     }
   }
-  console.log('focus')
   isClickFocusRef.value = false
+})
+
+const mousedown = composeEventHandlers<MouseEvent>((e) => {
+  emits('mousedown', e)
+}, () => {
+  isClickFocusRef.value = true
+})
+
+const blur = composeEventHandlers<FocusEvent>((e) => {
+  emits('blur', e)
+}, () => {
+  isTabbingBackOut.value = false
 })
 
 defineExpose({
@@ -138,18 +149,9 @@ defineExpose({
     :style="{
       outline: 'none',
     }"
-    @mousedown="composeEventHandlers<MouseEvent>((e) => {
-      emits('mousedown', e)
-    }, () => {
-      console.log('asdasdasd')
-      isClickFocusRef = true
-    })"
+    @mousedown="mousedown"
     @focus="focus"
-    @blur="composeEventHandlers<FocusEvent>((e) => {
-      emits('blur', e)
-    }, () => {
-      isTabbingBackOut = false
-    })"
+    @blur="blur"
   >
     <slot />
   </Primitive>
