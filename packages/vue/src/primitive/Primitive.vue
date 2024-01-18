@@ -12,7 +12,6 @@ import { OkuSlot } from '@oku-ui/slot'
 
 defineOptions({
   name: 'OkuPrimitive',
-  inheritAttrs: false,
 })
 
 withDefaults(
