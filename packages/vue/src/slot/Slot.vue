@@ -70,17 +70,18 @@ function Comp(props: any) {
       throw new Error('OkuSlot can only contain a single child')
 
     const first = Array.isArray(children) ? children[0] : children
+    const _props = mergeProps(props, first.props ?? {})
 
     if (isValidElement(first)) {
       const clone = cloneVNode(first, {
-        ...mergeProps(props),
-      }, false)
+        ..._props,
+      })
       return clone
     }
     else {
       return cloneVNode(first, {
-        ...mergeProps(props),
-      }, false)
+        ..._props,
+      })
     }
   }
 }

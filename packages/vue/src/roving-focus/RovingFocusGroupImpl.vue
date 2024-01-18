@@ -95,34 +95,32 @@ rovingFocusProvider({
   },
 })
 
-function focus(event: FocusEvent) {
-  return composeEventHandlers<FocusEvent>((e) => {
-    emits('focus', e)
-  }, (event: FocusEvent) => {
+const focus = composeEventHandlers<FocusEvent>((e) => {
+  emits('focus', e)
+}, (event: FocusEvent) => {
   // We normally wouldn't need this check, because we already check
   // that the focus is on the current target and not bubbling to it.
   // We do this because Safari doesn't focus buttons when clicked, and
   // instead, the wrapper will get focused and not through a bubbling event.
-    const isKeyboardFocus = !isClickFocusRef.value
+  const isKeyboardFocus = !isClickFocusRef.value
 
-    if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
-      const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
-      event.currentTarget?.dispatchEvent(entryFocusEvent)
-      if (!entryFocusEvent.defaultPrevented) {
-        const items = getItems().filter(item => item.focusable)
-        const activeItem = items.find(item => item.active)
-        const currentItem = items.find(item => item.id === props.currentTabStopId)
-        const candidateItems = [activeItem, currentItem, ...items].filter(
-          Boolean,
-        ) as typeof items
-        const candidateNodes = candidateItems.map(item => item.ref.value.$el)
-        focusFirst(candidateNodes)
-      }
+  if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
+    const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
+    event.currentTarget?.dispatchEvent(entryFocusEvent)
+    if (!entryFocusEvent.defaultPrevented) {
+      const items = getItems().filter(item => item.focusable)
+      const activeItem = items.find(item => item.active)
+      const currentItem = items.find(item => item.id === props.currentTabStopId)
+      const candidateItems = [activeItem, currentItem, ...items].filter(
+        Boolean,
+      ) as typeof items
+      const candidateNodes = candidateItems.map(item => item.ref.value.$el)
+      focusFirst(candidateNodes)
     }
+  }
 
-    isClickFocusRef.value = false
-  })(event)
-}
+  isClickFocusRef.value = false
+})
 
 defineExpose({
   $el: currentElement,
@@ -134,6 +132,8 @@ defineExpose({
   <Primitive
     :is="props.is"
     ref="componentRef"
+    :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"
+    :data-orientation="props.orientation"
     :as-child="props.asChild"
     @mousedown="composeEventHandlers<MouseEvent>((e) => {
       emits('mousedown', e)
