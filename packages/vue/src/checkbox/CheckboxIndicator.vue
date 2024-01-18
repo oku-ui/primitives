@@ -44,7 +44,7 @@ defineExpose({
       ref="componentRef"
       :as-child="props.asChild"
       :data-state="getState(inject.state.value)"
-      :data-disabled="inject.disabled"
+      :data-disabled="inject.disabled?.value"
       :style="{
         pointerEvents: 'none', ...$attrs.style as any,
       }"
