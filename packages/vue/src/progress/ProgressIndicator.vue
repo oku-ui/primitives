@@ -1,4 +1,5 @@
 <script lang="ts">
+import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 
@@ -11,6 +12,10 @@ export interface ProgressIndicatorProps extends PrimitiveProps {
 import { useComponentRef } from '@oku-ui/use-composable'
 import { getProgressState, useProgressInject } from './utils'
 
+defineOptions({
+  name: 'OkuProgressIndicator',
+})
+
 const props = defineProps<ProgressIndicatorProps>()
 
 const { componentRef } = useComponentRef<HTMLButtonElement | null>()
@@ -22,8 +27,10 @@ defineExpose({
 </script>
 
 <template>
-  <div
+  <Primitive
+    :is="props.is"
     ref="componentRef"
+    :as-child="props.asChild"
     :data-state="getProgressState(
       inject.max.value,
       inject.value.value,
@@ -32,5 +39,5 @@ defineExpose({
     :data-max="inject.max.value"
   >
     <slot />
-  </div>
+  </Primitive>
 </template>
