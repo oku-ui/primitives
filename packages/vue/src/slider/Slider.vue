@@ -37,6 +37,7 @@ export type SliderEmits = {
   'pointerdown': [event: PointerEvent]
   'pointermove': [event: PointerEvent]
   'pointerup': [event: PointerEvent]
+  'update:value': [value: number[]]
 }
 
 </script>

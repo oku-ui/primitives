@@ -11,7 +11,9 @@ export type SliderOrientationPrivateEmits = {
   'stepKeyDown': [step: { event: KeyboardEvent, direction: number }]
 }
 
-export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<HTMLSpanElement>('OkuSlider')
+export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<{
+  $el: HTMLSpanElement
+}>('OkuSlider')
 
 export const [createSliderProvider, createSliderScope] = createScope<
 'OkuSlider' | 'OkuSliderOrientation'

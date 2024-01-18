@@ -30,7 +30,7 @@ const test = ref()
     </OkuSlider>
 
     <OkuSlider
-      v-model="test"
+      v-model:value="test"
       :default-value="[10, 50]"
       class="slider-rootSlider"
       orientation="vertical"

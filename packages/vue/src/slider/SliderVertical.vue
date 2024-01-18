@@ -20,6 +20,10 @@ import OkuSliderImpl from './SliderImpl.vue'
 import { computed, ref } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 
+defineOptions({
+  name: 'OkuSliderVertical',
+})
+
 const props = defineProps<SliderVerticalProps>()
 
 const emits = defineEmits<SliderOrientationPrivateEmits>()
@@ -47,6 +51,11 @@ sliderOrientationProvider({
   direction: computed(() => isSlidingFromBottom.value ? 1 : -1),
   size: ref('height'),
 })
+
+defineExpose({
+  $el: currentElement,
+})
+
 </script>
 
 <template>
@@ -58,7 +67,6 @@ sliderOrientationProvider({
     :max="props.max"
     :inverted="props.inverted"
     :style="{
-      ...$attrs.style as any,
       ['--oku-slider-thumb-transform' as any]: 'translateY(50%)',
     }"
     @slide-start="(event: PointerEvent) => {

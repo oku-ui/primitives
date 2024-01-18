@@ -85,8 +85,10 @@ defineExpose({
       :scope="props.scopeOkuSlider"
     >
       <Primitive
+        v-bind="$attrs"
         :is="props.is"
         ref="componentRef"
+        hello="asdasdasd"
         :as-child="props.asChild"
         role="slider"
         :aria-label="$attrs ? $attrs['aria-label'] || (label ? label : undefined) : undefined"
@@ -99,8 +101,7 @@ defineExpose({
         :tabindex="inject.disabled?.value ? undefined : 0"
         :style="value === undefined
           ? { display: 'none' }
-          : { ...$attrs.style as any }"
-        v-bind="$attrs"
+          : { ...$attrs as any }"
         @focus="composeEventHandlers<SliderThumbImplEmits['focus'][0]>((event) => {
           emits('focus', event)
         }, () => {
