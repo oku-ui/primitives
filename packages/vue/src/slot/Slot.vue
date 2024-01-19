@@ -54,11 +54,11 @@ function Comp(props: any) {
       })
 
     if (isValidElement(first)) {
-      const n = createElementBlock(first.type, {
-        ...mergeProps(props),
-      })
+      const _props = mergeProps(props, first.props ?? {})
 
-      return createVNode(n, { ...props }, newChildren)
+      const n = createElementBlock(first.type)
+
+      return createVNode(n, _props, newChildren)
     }
     else {
       return null
@@ -70,17 +70,14 @@ function Comp(props: any) {
       throw new Error('OkuSlot can only contain a single child')
 
     const first = Array.isArray(children) ? children[0] : children
+    const _props = mergeProps(props, first.props ?? {})
 
     if (isValidElement(first)) {
-      const clone = cloneVNode(first, {
-        ...mergeProps(props),
-      }, false)
+      const clone = cloneVNode(first, _props, false)
       return clone
     }
     else {
-      return cloneVNode(first, {
-        ...mergeProps(props),
-      }, false)
+      return cloneVNode(first, _props, false)
     }
   }
 }

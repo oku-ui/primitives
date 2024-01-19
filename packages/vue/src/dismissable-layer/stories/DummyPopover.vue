@@ -91,7 +91,7 @@ const { componentRef } = useComponentRef<HTMLElement | null>()
               >
                 <slot />
 
-                <button type="button" @click="open = false">
+                <button type="button" @click="open = !open">
                   {{ closeLabel }}
                 </button>
 

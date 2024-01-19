@@ -1,12 +1,33 @@
 <script lang="ts">
-import { computed, defineOptions, nextTick, reactive, useAttrs, watchEffect } from 'vue'
-import type { DismissableLayerBranchElement, DismissableLayerElement, FocusBlurCaptureEvent, FocusCaptureEvent, FocusOutsideEvent, PointerdownCaptureEvent, PointerdownOutsideEvent } from './props'
+import {
+  computed,
+  defineOptions,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
+  useAttrs,
+  watch,
+  watchEffect,
+} from 'vue'
+import type {
+  DismissableLayerBranchElement,
+  DismissableLayerElement,
+  FocusBlurCaptureEvent,
+  FocusCaptureEvent,
+  FocusOutsideEvent,
+  PointerdownCaptureEvent,
+  PointerdownOutsideEvent,
+} from './props'
+import { CONTEXT_UPDATE } from './props'
 
 export const context = reactive({
   layers: new Set<DismissableLayerElement>(),
   layersWithOutsidePointerEventsDisabled: new Set<DismissableLayerElement>(),
   branches: new Set<DismissableLayerBranchElement>(),
 })
+
+let originalBodyPointerEvents: string
 </script>
 
 <script setup lang="ts">
@@ -14,7 +35,7 @@ import { useComponentRef, useEscapeKeydown } from '@oku-ui/use-composable'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useFocusOutside, usePointerdownOutside } from './util'
+import { dispatchUpdate, useFocusOutside, usePointerdownOutside } from './util'
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
    * When `true`, hover/focus/click interactions will be disabled on elements outside
@@ -83,28 +104,29 @@ const isPointerEventsEnabled = computed(() => {
   return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex
 })
 
-const pointerdownOutside = usePointerdownOutside(async (event) => {
-  const target = event.target as HTMLElement
-  const isPointerdownOnBranch = [...context.branches].some(branch => branch.contains(target))
-  if (!isPointerEventsEnabled.value || isPointerdownOnBranch)
-    return
-
-  emit('pointerdownOutside', event)
-  emit('interactOutside', event)
-  await nextTick()
-  if (!event.defaultPrevented)
-    emit('dismiss')
-}, ownerDocument)
-
 const focusOutside = useFocusOutside(async (event) => {
   const target = event.target as HTMLElement
+
   const isFocusInBranch = [...context.branches].some(branch => branch.contains(target))
   if (isFocusInBranch)
     return
 
   emit('focusOutside', event)
   emit('interactOutside', event)
-  await nextTick()
+  if (!event.defaultPrevented)
+    emit('dismiss')
+}, ownerDocument)
+
+const pointerdownOutside = usePointerdownOutside(async (event) => {
+  const target = event.target as HTMLElement
+
+  const isPointerdownOnBranch = [...context.branches].some(branch => branch.contains(target))
+  if (!isPointerEventsEnabled.value || isPointerdownOnBranch)
+    return
+
+  emit('pointerdownOutside', event)
+  emit('interactOutside', event)
+
   if (!event.defaultPrevented)
     emit('dismiss')
 }, ownerDocument)
@@ -122,9 +144,7 @@ useEscapeKeydown((event) => {
   }
 }, ownerDocument)
 
-let originalBodyPointerEvents: string
-
-watchEffect(async (onCleanup) => {
+watch([componentRef, context], (_newValue, _oldValue, onCleanup) => {
   if (!currentElement.value)
     return
 
@@ -138,6 +158,7 @@ watchEffect(async (onCleanup) => {
   }
 
   context.layers.add(currentElement.value)
+  dispatchUpdate()
 
   onCleanup(() => {
     if (
@@ -163,7 +184,22 @@ watchEffect((onCleanup) => {
 
     context.layers.delete(currentElement.value)
     context.layersWithOutsidePointerEventsDisabled.delete(currentElement.value)
+    dispatchUpdate()
   })
+})
+
+const force = ref({})
+
+function handleUpdate() {
+  force.value = {}
+}
+
+onMounted(() => {
+  document.addEventListener(CONTEXT_UPDATE, handleUpdate)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener(CONTEXT_UPDATE, handleUpdate)
 })
 
 const attrs = useAttrs()
@@ -177,8 +213,7 @@ defineExpose({
   <Primitive
     :is="is"
     ref="componentRef"
-    :as-child="asChild"
-    data-dismissable-layer=""
+    :as-child="props.asChild"
     :style="{
       pointerEvents: isBodyPointerEventsDisabled
         ? isPointerEventsEnabled
