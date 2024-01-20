@@ -3,6 +3,7 @@ export const BRANCH_NAME = 'OkuDismissableLayerBranch'
 
 export const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerdownOutside'
 export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
+export const CONTEXT_UPDATE = 'dismissableLayer.contextUpdate'
 
 export const DismissableLayerProvideKey = Symbol('DismissableLayerProvide')
 

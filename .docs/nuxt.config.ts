@@ -11,6 +11,7 @@ const routeRules = {
 }
 
 const devConfig = {
+  ssr: false,
   modules: [
     '@nuxt/content',
     '@nuxt/ui',
@@ -44,6 +45,7 @@ const devConfig = {
 } as NuxtConfig
 
 export default defineNuxtConfig(defu({}, process.env.DEV && devConfig, {
+  ssr: false,
   nitro: {
     prerender: {
       crawlLinks: true,

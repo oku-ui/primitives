@@ -54,11 +54,11 @@ function Comp(props: any) {
       })
 
     if (isValidElement(first)) {
-      const n = createElementBlock(first.type, {
-        ...mergeProps(props),
-      })
+      const _props = mergeProps(props, first.props ?? {})
 
-      return createVNode(n, { ...props }, newChildren)
+      const n = createElementBlock(first.type)
+
+      return createVNode(n, _props, newChildren)
     }
     else {
       return null
@@ -73,15 +73,11 @@ function Comp(props: any) {
     const _props = mergeProps(props, first.props ?? {})
 
     if (isValidElement(first)) {
-      const clone = cloneVNode(first, {
-        ..._props,
-      })
+      const clone = cloneVNode(first, _props, false)
       return clone
     }
     else {
-      return cloneVNode(first, {
-        ..._props,
-      })
+      return cloneVNode(first, _props, false)
     }
   }
 }
