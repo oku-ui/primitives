@@ -11,7 +11,10 @@ defineOptions({
 const props = defineProps<{
   value: string
   disabled?: boolean
-  onFocus?: (e: any) => void
+}>()
+
+const emits = defineEmits<{
+  focus: [event: FocusEvent]
 }>()
 const data = inject<Ref<string>>('value')
 
@@ -25,7 +28,9 @@ const isSelected = computed(() => {
   return dd
 })
 
-const onFocus = composeEventHandlers(props.onFocus, (event: any) => {
+const onFocus = composeEventHandlers((event) => {
+  emits('focus', event)
+}, (event: any) => {
   if (data && data.value !== undefined)
     event.target.click()
 })

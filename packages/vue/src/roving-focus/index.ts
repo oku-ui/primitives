@@ -1,25 +1,13 @@
 export {
-  OkuRovingFocusGroup,
-} from './RovingFocusGroup'
+  default as OkuRovingFocusGroup,
+} from './RovingFocusGroup.vue'
 
 export {
-  OkuRovingFocusGroupItem,
-} from './RovingFocusGroupItem'
-
-export type {
-  RovingFocusGroupItemElement,
-  RovingFocusGroupItemEmits,
-  RovingFocusGroupItemNaviteElement,
-  RovingFocusItemProps,
-} from './props'
-
-export type {
-  RovingFocusGroupProps,
-  RovingFocusGroupEmits,
-} from './props'
+  default as OkuRovingFocusGroupItem,
+  type RovingFocusItemProps,
+} from './RovingFocusGroupItem.vue'
 
 export {
   createRovingFocusGroupScope,
-  rovingFocusGroupProps,
-  rovingFocusItemProps,
+  type RovingFocusGroupProps,
 } from './props'

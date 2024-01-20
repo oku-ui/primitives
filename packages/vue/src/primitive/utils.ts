@@ -1,7 +1,7 @@
 // same inspiration and resource https://github.com/chakra-ui/ark/blob/main/packages/vue/src/factory.tsx
 
 import type { VNode } from 'vue'
-import { Fragment, nextTick, watch, watchSyncEffect } from 'vue'
+import { Fragment } from 'vue'
 
 /**
  * Checks whether a given VNode is a render-vialble element.
