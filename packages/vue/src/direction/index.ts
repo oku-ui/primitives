@@ -1,8 +1,8 @@
 export {
-  useDirection,
-  OkuDirectionProvider,
-} from './Direction'
+  default as OkuDirectionProvider,
+  type DirectionProps,
+} from './Direction.vue'
 
 export type {
-  Direction,
-} from './Direction'
+  useDirection,
+} from './utils'
