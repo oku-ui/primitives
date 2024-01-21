@@ -1,10 +1,10 @@
 import { createScope } from '@oku-ui/provide'
 import { createPopperScope } from '@oku-ui/popper'
+import type { Ref } from 'vue'
+import { ref } from 'vue'
 import type { Point, Polygon, Side } from './types'
 
-export const [createTooltipProvide, createTooltipScope] = createScope('Tooltip', [
-  createPopperScope,
-])
+export type TooltipTriggerElement = HTMLButtonElement
 
 export const DEFAULT_DELAY_DURATION = 700
 export const TOOLTIP_OPEN = 'tooltip.open'
@@ -154,3 +154,50 @@ export function getHullPresorted<P extends Point>(points: Readonly<Array<P>>): A
   else
     return upperHull.concat(lowerHull)
 }
+
+type TooltipContext = {
+  contentId: Ref<string>
+  open: Ref<boolean | undefined>
+  stateAttribute: Ref<'closed' | 'delayed-open' | 'instant-open'>
+  trigger: Ref<TooltipTriggerElement | null>
+  onTriggerChange(trigger: TooltipTriggerElement | null): void
+  onTriggerEnter(): void
+  onTriggerLeave(): void
+  onOpen(): void
+  onClose(): void
+  disableHoverableContent: Ref<boolean>
+}
+
+export const [createTooltipProvide, createTooltipScope]
+= createScope<
+'Tooltip' | 'TooltipProvider' | 'TooltipPortal'
+>('Tooltip', [
+  createPopperScope,
+])
+
+export const [useTooltipProvide, useTooltipInject]
+  = createTooltipProvide<TooltipContext>('Tooltip')
+
+type TooltipProvideContext = {
+  isOpenDelayed: Ref<boolean>
+  delayDuration: Ref<number>
+  onOpen(): void
+  onClose(): void
+  onPointerInTransitChange(inTransit: boolean): void
+  isPointerInTransitRef: Ref<boolean>
+  disableHoverableContent: Ref<boolean>
+}
+
+export const [useTooltipProviderProvide, useTooltipProviderInject]
+  = createTooltipProvide<TooltipProvideContext>('TooltipProvider')
+
+type PortalContext = {
+  forceMount?: Ref<true | undefined>
+}
+
+export const [useTooltipPortalProvider, useTooltipPortalInject] = createTooltipProvide<PortalContext>('TooltipPortal', {
+  forceMount: undefined,
+})
+
+export const [visuallyHiddenContentProvider, useVisuallyHiddenContentInject]
+  = createTooltipProvide('Tooltip', { isInside: ref(false) })

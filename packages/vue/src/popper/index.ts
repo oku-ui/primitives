@@ -16,6 +16,7 @@ export {
 export {
   default as OkuPopperArrow,
   type PopperArrowProps,
+  type PopperArrowElement,
 } from './PopperArrow.vue'
 
 export {

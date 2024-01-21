@@ -1,64 +1,37 @@
 import type { } from '@floating-ui/vue'
 
 export {
-  OkuTooltip,
-  tooltipProps,
-} from './tooltip'
-
-export type {
-  TooltipEmits,
-  TooltipProps,
-} from './tooltip'
+  default as OkuTooltip,
+  type TooltipProps,
+  type TooltipEmits,
+} from './Tooltip.vue'
 
 export {
-  OkuTooltipProvider,
-  tooltipProviderProps,
-} from './tooltipProvider'
-
-export type {
-  TooltipProviderProps,
-} from './tooltipProvider'
+  default as OkuTooltipContent,
+  type TooltipContentProps,
+  type TooltipContentEmits,
+} from './TooltipContent.vue'
 
 export {
-  OkuTooltipTrigger,
-  tooltipTriggerProps,
-} from './tooltipTrigger'
-
-export type {
-  TooltipTriggerElement,
-  TooltipTriggerNaviteElement,
-  TooltipTriggerProps,
-} from './tooltipTrigger'
+  default as OkuTooltipTrigger,
+  type TooltipTriggerProps,
+} from './TooltipTrigger.vue'
 
 export {
-  OkuTooltipPortal,
-  tooltipPortalProps,
-} from './tooltipPortal'
-
-export type {
-  TooltipPortalProps,
-  TooltipPortalElement,
-} from './tooltipPortal'
+  default as OkuTooltipProvider,
+  type TooltipProviderProps,
+} from './TooltipProvider.vue'
 
 export {
-  OkuTooltipContent,
-  tooltipContentProps,
-} from './tooltipContent'
-
-export type {
-  TooltipContentElement,
-  TooltipContentNaviteElement,
-  TooltipContentProps,
-  TooltipContentEmits,
-} from './tooltipContent'
+  default as OkuTooltipArrow,
+  type TooltipArrowProps,
+} from './TooltipArrow.vue'
 
 export {
-  OkuTooltipArrow,
-  tooltipArrowProps,
-} from './tooltipArrow'
+  default as OkuTooltipPortal,
+  type TooltipPortalProps,
+} from './TooltipPortal.vue'
 
-export type {
-  TooltipArrowElement,
-  TooltipArrowNaviteElement,
-  TooltipArrowProps,
-} from './tooltipArrow'
+export {
+  createTooltipScope,
+} from './utils'

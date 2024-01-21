@@ -2,8 +2,9 @@
 import { onMounted, ref } from 'vue'
 
 import Styled from './Styled.vue'
-import Controlled from './Controlled.vue'
-import CustomDurations from './CustomDurations.vue'
+
+// import Controlled from './Controlled.vue'
+// import CustomDurations from './CustomDurations.vue'
 
 export interface OkuTooltipProps {
   template?: 'Styled' | 'Controlled' | 'CustomDurations'
