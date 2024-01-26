@@ -1,8 +1,4 @@
 <script lang="ts">
-import { OkuPortal } from '@oku-ui/portal'
-import type { PortalProps } from '@oku-ui/portal'
-import { OkuPresence } from '@oku-ui/presence'
-import { useTooltipInject, useTooltipPortalProvider } from './utils'
 import type { Scope } from '@oku-ui/provide'
 
 export interface TooltipPortalProps {
@@ -22,6 +18,10 @@ export interface TooltipPortalProps {
 </script>
 
 <script setup lang="ts">
+import { OkuPortal } from '@oku-ui/portal'
+import type { PortalProps } from '@oku-ui/portal'
+import { OkuPresence } from '@oku-ui/presence'
+import { useTooltipInject, useTooltipPortalProvider } from './utils'
 import { toRef, withDefaults } from 'vue'
 
 defineOptions({

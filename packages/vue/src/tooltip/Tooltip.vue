@@ -1,9 +1,4 @@
 <script lang="ts">
-import type { Ref } from 'vue'
-import { computed, onBeforeUnmount, ref, withDefaults } from 'vue'
-import { useId, useVModel } from '@oku-ui/use-composable'
-import { OkuPopper } from '@oku-ui/popper'
-import { usePopperScope, useTooltipProvide, useTooltipProviderInject } from './utils'
 import type { Scope } from '@oku-ui/provide'
 
 export interface TooltipProps {
@@ -36,6 +31,11 @@ export type TooltipEmits = {
 </script>
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
+import { computed, onBeforeUnmount, ref, withDefaults } from 'vue'
+import { useId, useVModel } from '@oku-ui/use-composable'
+import { OkuPopper } from '@oku-ui/popper'
+import { usePopperScope, useTooltipProvide, useTooltipProviderInject } from './utils'
 
 const props = withDefaults(
   defineProps<TooltipProps>(),

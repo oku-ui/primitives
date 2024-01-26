@@ -1,13 +1,5 @@
 <script lang="ts">
-import { ref, watch, watchEffect } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import { useComponentRef } from '@oku-ui/use-composable'
-import { OkuPopperAnchor } from '@oku-ui/popper'
-import { composeEventHandlers } from '@oku-ui/utils'
-import type { TooltipTriggerElement } from './utils'
-import { usePopperScope, useTooltipInject, useTooltipProviderInject } from './utils'
-import type { Scope } from '@oku-ui/provide'
 
 export interface TooltipTriggerProps extends PrimitiveProps {
   scopeOkuTooltip?: Scope
@@ -25,6 +17,14 @@ export type TooltipTriggerEmits = {
 </script>
 
 <script setup lang="ts">
+import { ref, watch, watchEffect } from 'vue'
+import { Primitive } from '@oku-ui/primitive'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { OkuPopperAnchor } from '@oku-ui/popper'
+import { composeEventHandlers } from '@oku-ui/utils'
+import type { TooltipTriggerElement } from './utils'
+import { usePopperScope, useTooltipInject, useTooltipProviderInject } from './utils'
+import type { Scope } from '@oku-ui/provide'
 
 defineOptions({
   name: 'OkuTooltipTrigger',

@@ -2,6 +2,13 @@
 import type { TooltipContentImplProps } from './TooltipContentImpl.vue'
 
 import type { Polygon } from './types'
+
+export interface TooltipContentHoverableProps extends TooltipContentImplProps {
+}
+
+</script>
+
+<script setup lang="ts">
 import {
   getExitSideFromRect,
   getHull,
@@ -11,13 +18,6 @@ import {
   useTooltipInject,
   useTooltipProviderInject,
 } from './utils'
-
-export interface TooltipContentHoverableProps extends TooltipContentImplProps {
-}
-
-</script>
-
-<script setup lang="ts">
 import { ref, watchEffect, withDefaults } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import OkuTooltipContentImpl from './TooltipContentImpl.vue'
