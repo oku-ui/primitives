@@ -2,7 +2,15 @@
 import type { TooltipContentImplProps } from './TooltipContentImpl.vue'
 
 import type { Polygon } from './types'
-import { getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon, useTooltipInject, useTooltipProviderInject } from './utils'
+import {
+  getExitSideFromRect,
+  getHull,
+  getPaddedExitPoints,
+  getPointsFromRect,
+  isPointInPolygon,
+  useTooltipInject,
+  useTooltipProviderInject,
+} from './utils'
 
 export interface TooltipContentHoverableProps extends TooltipContentImplProps {
 }

@@ -23,8 +23,17 @@ export interface TooltipProviderProps {
 </script>
 
 <script setup lang="ts">
-import { defineOptions, onBeforeUnmount, onMounted, ref, toRefs, withDefaults } from 'vue'
-import { useTooltipProviderProvide } from './utils'
+import {
+  defineOptions,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  toRefs,
+  withDefaults,
+} from 'vue'
+import {
+  useTooltipProviderProvide,
+} from './utils'
 
 defineOptions({
   name: 'OkuTooltipProvider',

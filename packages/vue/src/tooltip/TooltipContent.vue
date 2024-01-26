@@ -1,8 +1,7 @@
 <script lang="ts">
-import { useComponentRef, useMergePropsEmits } from '@oku-ui/use-composable'
-import { OkuPresence } from '@oku-ui/presence'
 import type { TooltipContentImplEmits, TooltipContentImplProps } from './TooltipContentImpl.vue'
-import { useTooltipInject, useTooltipPortalInject } from './utils'
+
+export type TooltipContentEmits = TooltipContentImplEmits
 
 export interface TooltipContentProps extends TooltipContentImplProps {
   /**
@@ -12,11 +11,12 @@ export interface TooltipContentProps extends TooltipContentImplProps {
   forceMount?: true
 }
 
-export type TooltipContentEmits = TooltipContentImplEmits
-
 </script>
 
 <script setup lang="ts">
+import { OkuPresence } from '@oku-ui/presence'
+import { useComponentRef, useMergePropsEmits } from '@oku-ui/use-composable'
+import { useTooltipInject, useTooltipPortalInject } from './utils'
 import { computed, withDefaults } from 'vue'
 import OkuTooltipContentHoverable from './TooltipContentHoverable.vue'
 import OkuTooltipContentImpl from './TooltipContentImpl.vue'
