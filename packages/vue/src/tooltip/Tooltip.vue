@@ -67,7 +67,7 @@ const openValue = useVModel(props, 'open', emits, {
     emits('openChange', v)
     return true
   },
-}) as Ref<boolean>
+}) as unknown as Ref<boolean>
 
 const stateAttribute = computed(() => {
   return openValue.value ? (wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open') : 'closed'
@@ -101,7 +101,7 @@ useTooltipProvide({
   contentId: computed(() => contentId),
   open: openValue,
   stateAttribute,
-  trigger,
+  trigger: trigger as Ref<HTMLButtonElement | null>,
   onTriggerChange: (value: HTMLButtonElement) => {
     trigger.value = value
   },
