@@ -46,7 +46,7 @@
     "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
-    "@types/node": "^20.10.6"
+    "@types/node": "^20.11.16"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

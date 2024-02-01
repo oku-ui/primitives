@@ -40,7 +40,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.0.3",
+    "@floating-ui/vue": "^1.0.6",
     "@oku-ui/collection": "latest",
     "@oku-ui/direction": "latest",
     "@oku-ui/dismissable-layer": "latest",

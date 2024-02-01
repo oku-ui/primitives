@@ -39,7 +39,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.0.3",
+    "@floating-ui/vue": "^1.0.6",
     "@oku-ui/arrow": "latest",
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
