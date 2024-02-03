@@ -16,10 +16,10 @@ export const usePopperScope = createPopperScope()
 
 type HoverCardProvideValue = {
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
-  onOpen(): void
-  onClose(): void
-  onDismiss(): void
+  onOpenChange: (open: boolean) => void
+  onOpen: () => void
+  onClose: () => void
+  onDismiss: () => void
   hasSelectionRef: Ref<boolean>
   isPointerDownOnContentRef: Ref<boolean>
 }

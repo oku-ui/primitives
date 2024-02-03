@@ -14,7 +14,7 @@ export type CollapsibleProvideValue = {
   contentId: Ref<string>
   disabled?: Ref<boolean | undefined>
   open: Ref<boolean>
-  onOpenToggle(): void
+  onOpenToggle: () => void
 }
 
 export interface CollapsibleProps extends PrimitiveProps {

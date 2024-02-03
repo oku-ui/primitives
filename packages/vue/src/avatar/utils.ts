@@ -9,7 +9,7 @@ export const [createAvatarProvide, createAvatarScope]
 
 export type AvatarProvide = {
   imageLoadingStatus: Ref<ImageLoadingStatus>
-  onImageLoadingStatusChange(status: ImageLoadingStatus): void
+  onImageLoadingStatusChange: (status: ImageLoadingStatus) => void
 }
 
 export const [useAvatarProvider, useAvatarInject]

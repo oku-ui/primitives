@@ -15,11 +15,11 @@ type TooltipInjectValue = {
   open: Ref<boolean | undefined>
   stateAttribute: Ref<'closed' | 'delayed-open' | 'instant-open'>
   trigger: Ref<TooltipTriggerElement | null>
-  onTriggerChange(trigger: TooltipTriggerElement | null): void
-  onTriggerEnter(): void
-  onTriggerLeave(): void
-  onOpen(): void
-  onClose(): void
+  onTriggerChange: (trigger: TooltipTriggerElement | null) => void
+  onTriggerEnter: () => void
+  onTriggerLeave: () => void
+  onOpen: () => void
+  onClose: () => void
   disableHoverableContent: Ref<boolean>
 }
 

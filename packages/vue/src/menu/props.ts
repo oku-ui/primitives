@@ -77,15 +77,15 @@ export const useRovingFocusGroupScope = createRovingFocusGroupScope()
 
 type MenuInjectValue = {
   open: Ref<boolean | undefined>
-  onOpenChange(open: boolean): void
+  onOpenChange: (open: boolean) => void
   content: Ref<MenuContentElement | null>
-  onContentChange(content: MenuContentElement | null): void
+  onContentChange: (content: MenuContentElement | null) => void
 }
 
 export const [menuProvider, useMenuInject] = createMenuProvide<MenuInjectValue>(MENU_NAME)
 
 type MenuRootInjectValue = {
-  onClose(): void
+  onClose: () => void
   isUsingKeyboardRef: Ref<boolean>
   dir: Ref<Direction>
   modal: Ref<boolean>
@@ -318,12 +318,12 @@ export type MenuContentNativeElement = MenuRootContentTypeNativeElement
 export type MenuContentElement = MenuRootContentTypeElement
 
 type MenuContentInjectValue = {
-  onItemEnter(event: PointerEvent): void
-  onItemLeave(event: PointerEvent): void
-  onTriggerLeave(event: PointerEvent): void
+  onItemEnter: (event: PointerEvent) => void
+  onItemLeave: (event: PointerEvent) => void
+  onTriggerLeave: (event: PointerEvent) => void
   searchRef: Ref<string>
   pointerGraceTimerRef: Ref<number>
-  onPointerGraceIntentChange(intent: GraceIntent | null): void
+  onPointerGraceIntentChange: (intent: GraceIntent | null) => void
 }
 
 export const [menuContentProvider, useMenuContentInject] = createMenuProvide<MenuContentInjectValue>(MENU_CONTENT_NAME)
@@ -638,7 +638,7 @@ type MenuSubInjectValue = {
   contentId: Ref<string>
   triggerId: Ref<string>
   trigger: Ref<MenuSubTriggerElement | null>
-  onTriggerChange(trigger: MenuSubTriggerElement | null): void
+  onTriggerChange: (trigger: MenuSubTriggerElement | null) => void
 }
 
 export const [menuSubProvider, useMenuSubInject] = createMenuProvide<MenuSubInjectValue>(MENU_SUB_NAME)

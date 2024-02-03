@@ -66,12 +66,12 @@ export function getSideAndAlignFromPlacement(placement: Placement) {
 
 export type PopperContext = {
   anchor: Ref<Measurable | null>
-  onAnchorChange(anchor: Measurable | null): void
+  onAnchorChange: (anchor: Measurable | null) => void
 }
 
 export type PopperContentContext = {
   placedSide: Ref<Side | undefined>
-  onArrowChange(arrow: HTMLSpanElement | null): void
+  onArrowChange: (arrow: HTMLSpanElement | null) => void
   arrowX?: Ref<number | undefined>
   arrowY?: Ref<number | undefined>
   shouldHideArrow: Ref<boolean | undefined>

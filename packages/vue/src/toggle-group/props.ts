@@ -120,8 +120,8 @@ export type ToggleGroupImplSingleElement = ToggleGroupImplElement
 type ToggleGroupValueProviderValue = {
   type: 'single' | 'multiple'
   value: Ref<string[]>
-  onItemActivate(value: string): void
-  onItemDeactivate(value: string): void
+  onItemActivate: (value: string) => void
+  onItemDeactivate: (value: string) => void
 }
 
 export const [toggleGroupValueProvider, useToggleGroupValueInject]
