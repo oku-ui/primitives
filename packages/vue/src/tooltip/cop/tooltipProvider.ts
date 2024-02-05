@@ -8,9 +8,9 @@ const PROVIDER_NAME = 'TooltipProvider'
 type TooltipProviderProvideValue = {
   isOpenDelayed: Ref<boolean>
   delayDuration: Ref<number>
-  onOpen(): void
-  onClose(): void
-  onPointerInTransitChange(inTransit: boolean): void
+  onOpen: () => void
+  onClose: () => void
+  onPointerInTransitChange: (inTransit: boolean) => void
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
 }

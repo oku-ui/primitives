@@ -1,4 +1,4 @@
-type Measurable = { getBoundingClientRect(): DOMRect }
+type Measurable = { getBoundingClientRect: () => DOMRect }
 
 type CallbackFn = (rect: DOMRect) => void
 

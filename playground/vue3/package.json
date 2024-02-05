@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "vite-plugin-pages": "^0.32.0",
-    "vue": "^3.4.15",
+    "vue": "3.4.15",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {

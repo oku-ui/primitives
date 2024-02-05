@@ -26,8 +26,8 @@ type DialogProvideValue = {
   descriptionId: Ref<string>
   open: Ref<boolean>
   modal: Ref<boolean>
-  onOpenToggle(): void
-  onOpenChange(open: boolean): void
+  onOpenToggle: () => void
+  onOpenChange: (open: boolean) => void
 }
 
 export const [DialogProvider, useDialogInject]

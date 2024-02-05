@@ -74,10 +74,10 @@ type RovingContext = {
   loop?: Ref<boolean | undefined>
 
   currentTabStopId: Ref<string | null>
-  onItemFocus(tabStopId: string): void
-  onItemShiftTab(): void
-  onFocusableItemAdd(): void
-  onFocusableItemRemove(): void
+  onItemFocus: (tabStopId: string) => void
+  onItemShiftTab: () => void
+  onFocusableItemAdd: () => void
+  onFocusableItemRemove: () => void
 }
 
 export const [rovingFocusProvider, useRovingFocusInject]

@@ -48,19 +48,19 @@ export type ScrollAreaProvideValue = {
   scrollHideDelay: Ref<number>
   scrollArea: Ref<ScrollAreaElement | null>
   viewport: Ref<ScrollAreaViewportElement | null>
-  onViewportChange(viewport: ScrollAreaViewportElement | null): void
+  onViewportChange: (viewport: ScrollAreaViewportElement | null) => void
   content: Ref<HTMLDivElement | null>
-  onContentChange(content: HTMLDivElement): void
+  onContentChange: (content: HTMLDivElement) => void
   scrollbarX: Ref<ScrollAreaScrollbarElement | null>
-  onScrollbarXChange(scrollbar: ScrollAreaScrollbarElement | null): void
+  onScrollbarXChange: (scrollbar: ScrollAreaScrollbarElement | null) => void
   scrollbarXEnabled: Ref<boolean>
-  onScrollbarXEnabledChange(rendered: boolean): void
+  onScrollbarXEnabledChange: (rendered: boolean) => void
   scrollbarY: Ref<ScrollAreaScrollbarElement | null>
-  onScrollbarYChange(scrollbar: ScrollAreaScrollbarElement | null): void
+  onScrollbarYChange: (scrollbar: ScrollAreaScrollbarElement | null) => void
   scrollbarYEnabled: Ref<boolean>
-  onScrollbarYEnabledChange(rendered: boolean): void
-  onCornerWidthChange(width: number): void
-  onCornerHeightChange(height: number): void
+  onScrollbarYEnabledChange: (rendered: boolean) => void
+  onCornerWidthChange: (width: number) => void
+  onCornerHeightChange: (height: number) => void
 }
 
 export interface ScrollAreaProps extends PrimitiveProps {
@@ -206,10 +206,10 @@ export const [createScrollProvide, createScrollScope] = createScope(SCROLL_AREA_
 export type ScrollbarProvideValue = {
   hasThumb: Ref<boolean>
   scrollbar: Ref<ScrollAreaScrollbarElement | null>
-  onThumbChange(thumb: ScrollAreaThumbElement | null): void
-  onThumbPointerUp(): void
-  onThumbPointerDown(pointerPos: { x: number, y: number }): void
-  onThumbPositionChange(): void
+  onThumbChange: (thumb: ScrollAreaThumbElement | null) => void
+  onThumbPointerUp: () => void
+  onThumbPointerDown: (pointerPos: { x: number, y: number }) => void
+  onThumbPositionChange: () => void
 }
 
 export const [scrollbarProvider, useScrollbarInject] = createScrollProvide<ScrollbarProvideValue>(SCROLL_AREA_SCROLLBAR_NAME)

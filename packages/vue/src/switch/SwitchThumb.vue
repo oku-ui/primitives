@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import { getState, useSwitchInject } from './utils'
 
 export interface SwitchThumbProps extends PrimitiveProps {
   scopeOkuSwitch?: any
@@ -9,7 +10,6 @@ export interface SwitchThumbProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { useComponentRef } from '@oku-ui/use-composable'
-import { getState, useSwitchInject } from './utils.ts'
 
 defineOptions({
   name: 'OkuSwitchThumb',

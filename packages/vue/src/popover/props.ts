@@ -43,11 +43,11 @@ export type PopoverProvideValue = {
   triggerRef: Ref<HTMLButtonElement | null>
   contentId: Ref<string>
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
-  onOpenToggle(): void
+  onOpenChange: (open: boolean) => void
+  onOpenToggle: () => void
   hasCustomAnchor: Ref<boolean>
-  onCustomAnchorAdd(): void
-  onCustomAnchorRemove(): void
+  onCustomAnchorAdd: () => void
+  onCustomAnchorRemove: () => void
   modal: Ref<boolean>
 }
 

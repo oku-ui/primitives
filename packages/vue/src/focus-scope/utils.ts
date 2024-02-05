@@ -1,4 +1,4 @@
-type FocusableTarget = HTMLElement | { focus(): void }
+type FocusableTarget = HTMLElement | { focus: () => void }
 
 /* -------------------------------------------------------------------------------------------------
  * Utils
