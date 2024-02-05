@@ -66,8 +66,8 @@ export const useCollapsibleScope = createCollapsibleScope()
 
 type AccordionValueProviderValue = {
   value: Ref<string[]>
-  onItemOpen(value: string): void
-  onItemClose(value: string): void
+  onItemOpen: (value: string) => void
+  onItemClose: (value: string) => void
 }
 
 export const [AccordionValueProvider, useAccordionValueInject]

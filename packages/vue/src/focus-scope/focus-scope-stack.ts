@@ -2,7 +2,7 @@
  * FocusScope stack
  * ----------------------------------------------------------------------------------------------- */
 
-type FocusScopeAPI = { paused: boolean, pause(): void, resume(): void }
+type FocusScopeAPI = { paused: boolean, pause: () => void, resume: () => void }
 const focusScopesStack = createFocusScopesStack()
 
 function createFocusScopesStack() {

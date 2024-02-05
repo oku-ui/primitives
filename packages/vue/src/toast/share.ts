@@ -19,9 +19,9 @@ type ToastProviderProvideValue = {
   swipeThreshold: Ref<number>
   toastCount: Ref<number>
   viewport: Ref<ToastViewportElement | null>
-  onViewportChange(viewport: ToastViewportElement): void
-  onToastAdd(): void
-  onToastRemove(): void
+  onViewportChange: (viewport: ToastViewportElement) => void
+  onToastAdd: () => void
+  onToastRemove: () => void
   isFocusedToastEscapeKeyDownRef: Ref<boolean>
   isClosePausedRef: Ref<boolean>
 }

@@ -24,9 +24,9 @@ export interface ProgressProps extends PrimitiveProps {
   scopeOkuProgress?: Scope
   value?: number | null | undefined
   max?: number
-  getValueLabel?(value: number, max: number): string
+  getValueLabel?: (value: number, max: number) => string
   scopeProgress?: Scope
-  valueChange?(value: number | null | undefined): void
+  valueChange?: (value: number | null | undefined) => void
 }
 
 export type ProgressEmits = {
