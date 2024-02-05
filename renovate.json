@@ -1,141 +1,67 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ],
-  "rebaseWhen": "conflicted",
-  "schedule": [
-    "before 6am on the first day of the month"
+    "config:base",
+    ":widenPeerDependencies"
   ],
   "baseBranches": [
     "main"
   ],
-  "rangeStrategy": "bump",
   "ignoreDeps": [
     "node",
     "pnpm"
   ],
   "packageRules": [
     {
-      "enabled": false,
-      "matchDepTypes": [
-        "peerDependencies"
+      "groupName": "all digest updates",
+      "groupSlug": "all-digest",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "automerge": true,
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "schedule": [
+        "every 1 month"
       ]
     },
     {
-      "groupName": "vue",
-      "commitMessageTopic": "vue",
-      "matchPaths": [
-        "packages/vue/**"
+      "groupName": "all minor updates",
+      "groupSlug": "all-minor",
+      "matchPackagePatterns": [
+        "*"
       ],
       "matchUpdateTypes": [
-        "major",
-        "minor",
+        "minor"
+      ],
+      "automerge": true,
+      "schedule": [
+        "every 1 month"
+      ]
+    },
+    {
+      "groupName": "all patch updates",
+      "groupSlug": "all-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
         "patch"
       ],
-      "matchDatasources": [
-        "npm"
+      "automerge": true,
+      "schedule": [
+        "every 1 month"
       ]
     },
     {
-      "groupName": "docs",
-      "commitMessageTopic": "docs",
-      "matchPaths": [
-        ".docs/**"
+      "groupName": "all major updates",
+      "groupSlug": "all-major",
+      "matchPackagePatterns": [
+        "*"
       ],
       "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "matchDatasources": [
-        "npm"
-      ]
-    },
-    {
-      "groupName": "package-build",
-      "commitMessageTopic": "package-build",
-      "matchPaths": [
-        "packages/package-build/**"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "matchDatasources": [
-        "npm"
-      ]
-    },
-    {
-      "groupName": "nuxt-module",
-      "commitMessageTopic": "nuxt-module",
-      "matchPaths": [
-        "packages/nuxt-module/**"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "matchDatasources": [
-        "npm"
-      ]
-    },
-    {
-      "groupName": "primitives",
-      "commitMessageTopic": "primitives",
-      "matchPaths": [
-        "packages/primitives/**"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "matchDatasources": [
-        "npm"
-      ]
-    },
-    {
-      "groupName": "playground",
-      "commitMessageTopic": "playground",
-      "matchPaths": [
-        "playground/**"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "matchDatasources": [
-        "npm"
-      ]
-    },
-    {
-      "groupName": "root",
-      "matchUpdateTypes": [
-        "patch",
-        "minor",
         "major"
-      ],
-      "ignorePaths": [
-        "**/packages/**",
-        "**/playground/**",
-        "**/.docs/**"
-      ],
-      "matchDatasources": [
-        "npm",
-        "github-actions"
-      ],
-      "labels": [
-        "dependencies"
-      ],
-      "addLabels": [
-        "dependencies"
-      ],
-      "matchFiles": [
-        "package.json"
       ]
     }
   ]
