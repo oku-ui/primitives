@@ -1,31 +1,7 @@
 <script lang="ts">
-import { type DismissableLayerEmits, OkuDismissableLayer } from '@oku-ui/dismissable-layer'
-import type { PopperContentEmits, PopperContentProps } from '@oku-ui/popper'
-
-import type { Scope } from '@oku-ui/provide'
-
-export interface TooltipContentImplProps extends PopperContentProps {
-  scopeOkuTooltip?: Scope
-  /**
-   * A more descriptive label for accessibility purpose
-   */
-  'ariaLabel'?: string
-}
-
-export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
-  /**
-   * Event handler called when the escape key is down.
-   * Can be prevented.
-   */
-  'escapeKeydown': [event: DismissableLayerEmits['escapeKeydown'][0]]
-  /**
-   * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
-   * Can be prevented.
-   */
-  'pointerdownOutside': [event: DismissableLayerEmits['pointerdownOutside'][0]]
-  'close': []
-}
-
+import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
+import { TOOLTIP_OPEN, usePopperScope, useTooltipInject } from './utils'
+import type { TooltipContentImplEmits, TooltipContentImplProps } from './utils'
 </script>
 
 <script setup lang="ts">
@@ -33,7 +9,6 @@ import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuPopperContent } from '@oku-ui/popper'
 import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
-import { TOOLTIP_OPEN, usePopperScope, useTooltipInject } from './utils'
 import { mergeProps, watchEffect } from 'vue'
 import VisuallyHiddenContentProvider from './VisuallyHiddenContentProvider.vue'
 
@@ -111,6 +86,7 @@ defineExpose({
       }"
     >
       <OkuSlottable>
+        <slot />
         <VisuallyHiddenContentProvider
           :scope="props.scopeOkuTooltip"
           :is-inside="true"

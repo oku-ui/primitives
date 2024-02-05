@@ -1,6 +1,7 @@
 <script lang="ts">
-import type { TooltipContentImplProps } from './TooltipContentImpl.vue'
-
+import type {
+  TooltipContentImplProps,
+} from './utils'
 import type { Polygon } from './types'
 
 export interface TooltipContentHoverableProps extends TooltipContentImplProps {
@@ -9,6 +10,7 @@ export interface TooltipContentHoverableProps extends TooltipContentImplProps {
 </script>
 
 <script setup lang="ts">
+
 import {
   getExitSideFromRect,
   getHull,

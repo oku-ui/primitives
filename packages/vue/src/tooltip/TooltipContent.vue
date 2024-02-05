@@ -1,7 +1,5 @@
 <script lang="ts">
-import type { TooltipContentImplEmits, TooltipContentImplProps } from './TooltipContentImpl.vue'
-
-export type TooltipContentEmits = TooltipContentImplEmits
+import type { TooltipContentImplEmits, TooltipContentImplProps } from './utils'
 
 export interface TooltipContentProps extends TooltipContentImplProps {
   /**
@@ -30,8 +28,7 @@ const props = withDefaults(defineProps<TooltipContentProps>(), {
   forceMount: undefined,
   side: 'top',
 })
-
-const emits = defineEmits<TooltipContentEmits>()
+const emits = defineEmits<TooltipContentImplEmits>()
 
 const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
 

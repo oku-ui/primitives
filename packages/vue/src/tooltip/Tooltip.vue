@@ -24,8 +24,8 @@ export interface TooltipProps {
 }
 
 export type TooltipEmits = {
-  'update:modelValue': [open: boolean]
   'openChange': [open: boolean]
+  'update:open': [open: boolean]
 }
 
 </script>
@@ -40,7 +40,6 @@ import { usePopperScope, useTooltipProvide, useTooltipProviderInject } from './u
 const props = withDefaults(
   defineProps<TooltipProps>(),
   {
-    modelValue: undefined,
     open: undefined,
     defaultOpen: false,
     delayDuration: 700,

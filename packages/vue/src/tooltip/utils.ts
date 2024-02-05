@@ -2,6 +2,9 @@ import { createScope } from '@oku-ui/provide'
 import { createPopperScope } from '@oku-ui/popper'
 import type { Ref } from 'vue'
 import { ref } from 'vue'
+import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
+import type { PopperContentEmits, PopperContentProps } from '@oku-ui/popper'
+import type { Scope } from '@oku-ui/provide'
 import type { Point, Polygon, Side } from './types'
 
 export type TooltipTriggerElement = HTMLButtonElement
@@ -201,3 +204,25 @@ export const [useTooltipPortalProvider, useTooltipPortalInject] = createTooltipP
 
 export const [visuallyHiddenContentProvider, useVisuallyHiddenContentInject]
   = createTooltipProvide('Tooltip', { isInside: ref(false) })
+
+export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
+  'escapeKeydown': [event: DismissableLayerEmits['escapeKeydown'][0]]
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
+   * Can be prevented.
+   */
+  'pointerdownOutside': [event: DismissableLayerEmits['pointerdownOutside'][0]]
+  'close': []
+}
+
+export interface TooltipContentImplProps extends PopperContentProps {
+  scopeOkuTooltip?: Scope
+  /**
+   * A more descriptive label for accessibility purpose
+   */
+  'ariaLabel'?: string
+}

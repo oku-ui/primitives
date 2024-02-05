@@ -14,7 +14,7 @@ const open = ref(true)
 
 <template>
   <OkuTooltipProvider>
-    <OkuTooltip v-model="open">
+    <OkuTooltip v-model:open="open">
       <OkuTooltipTrigger class="tooltip-trigger">
         I'm controlled, look I'm {{ open ? 'open' : 'closed' }}
       </OkuTooltipTrigger>
@@ -26,4 +26,8 @@ const open = ref(true)
       </OkuTooltipPortal>
     </OkuTooltip>
   </OkuTooltipProvider>
+
+  <button @click="open = !open">
+    Toggle
+  </button>
 </template>
