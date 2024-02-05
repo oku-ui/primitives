@@ -16,7 +16,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@radix-ui/colors": "3.0.0",
     "nuxt-component-meta": "^0.6.3",
-    "nuxt-og-image": "3.0.0-rc.37",
+    "nuxt-og-image": "3.0.0-rc.38",
     "pinia": "^2.1.7",
     "vue": "^3.4.15"
   },
