@@ -160,11 +160,11 @@ type TooltipContext = {
   open: Ref<boolean | undefined>
   stateAttribute: Ref<'closed' | 'delayed-open' | 'instant-open'>
   trigger: Ref<TooltipTriggerElement | null>
-  onTriggerChange(trigger: TooltipTriggerElement | null): void
-  onTriggerEnter(): void
-  onTriggerLeave(): void
-  onOpen(): void
-  onClose(): void
+  onTriggerChange: (trigger: TooltipTriggerElement | null) => void
+  onTriggerEnter: () => void
+  onTriggerLeave: () => void
+  onOpen: () => void
+  onClose: () => void
   disableHoverableContent: Ref<boolean>
 }
 
@@ -181,9 +181,9 @@ export const [useTooltipProvide, useTooltipInject]
 type TooltipProvideContext = {
   isOpenDelayed: Ref<boolean>
   delayDuration: Ref<number>
-  onOpen(): void
-  onClose(): void
-  onPointerInTransitChange(inTransit: boolean): void
+  onOpen: () => void
+  onClose: () => void
+  onPointerInTransitChange: (inTransit: boolean) => void
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
 }
