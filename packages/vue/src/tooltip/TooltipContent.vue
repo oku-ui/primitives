@@ -49,7 +49,10 @@ defineExpose({
     :present="forceMount || inject.open.value"
   >
     <component
-      :is="inject.disableHoverableContent.value ? OkuTooltipContentImpl : OkuTooltipContentHoverable"
+      :is="inject.disableHoverableContent.value
+        ? OkuTooltipContentImpl
+        : OkuTooltipContentHoverable
+      "
       v-bind="merge"
       ref="componentRef"
     >

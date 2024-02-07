@@ -101,7 +101,7 @@ useTooltipProvide({
   open: openValue,
   stateAttribute,
   trigger: trigger as Ref<HTMLButtonElement | null>,
-  onTriggerChange: (value: HTMLButtonElement) => {
+  onTriggerChange: (value) => {
     trigger.value = value
   },
   onTriggerEnter: () => {

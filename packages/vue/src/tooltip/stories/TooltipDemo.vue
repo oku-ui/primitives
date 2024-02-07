@@ -16,10 +16,10 @@ withDefaults(defineProps<OkuTooltipProps>(), {
 
 <template>
   <div class="cursor-default inline-block">
-    <div v-if="template === 'Styled' || allshow" class="flex flex-col">
+    <div v-if="template === 'Styled' || allshow">
       <Styled />
     </div>
-    <div v-if="template === 'Controlled' || allshow" class="flex flex-col">
+    <div v-if="template === 'Controlled' || allshow">
       <Controlled />
     </div>
 
