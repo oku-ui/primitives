@@ -34,7 +34,7 @@ defineOptions({
 const props = defineProps<TooltipArrowProps>()
 const popperScope = usePopperScope(props.scopeOkuTooltip)
 
-const visuallyHiddenContentInject = useVisuallyHiddenContentInject('Tooltip', props.scopeOkuTooltip)
+const visuallyHiddenContentInject = useVisuallyHiddenContentInject('TooltipVisuallyHiddenContent', props.scopeOkuTooltip)
 const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
 
 // if the arrow is inside the `VisuallyHidden`, we don't want to render it all to
@@ -46,7 +46,7 @@ defineExpose({
 
 <template>
   <OkuPopperArrow
-    v-if="!visuallyHiddenContentInject.isInside.value"
+    v-if="visuallyHiddenContentInject.isInside.value"
     ref="componentRef"
     :scope-oku-popper="popperScope"
   >

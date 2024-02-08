@@ -51,6 +51,7 @@ watchEffect((onClean) => {
 defineExpose({
   $el: currentElement,
 })
+
 </script>
 
 <template>
@@ -86,17 +87,16 @@ defineExpose({
       }"
     >
       <OkuSlottable>
-        <slot />
         <VisuallyHiddenContentProvider
           :scope="props.scopeOkuTooltip"
           :is-inside="true"
         >
+          <slot />
           <OkuVisuallyHidden
             :id="inject.contentId.value"
             role="tooltip"
           >
             {{ ariaLabel }}
-            <slot v-if="!ariaLabel" />
           </OkuVisuallyHidden>
         </VisuallyHiddenContentProvider>
       </OkuSlottable>

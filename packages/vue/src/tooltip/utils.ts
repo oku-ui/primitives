@@ -173,7 +173,7 @@ type TooltipContext = {
 
 export const [createTooltipProvide, createTooltipScope]
 = createScope<
-'Tooltip' | 'TooltipProvider' | 'TooltipPortal'
+    'Tooltip' | 'TooltipProvider' | 'TooltipPortal' | 'TooltipVisuallyHiddenContent'
 >('Tooltip', [
   createPopperScope,
 ])
@@ -203,7 +203,7 @@ export const [useTooltipPortalProvider, useTooltipPortalInject] = createTooltipP
 })
 
 export const [visuallyHiddenContentProvider, useVisuallyHiddenContentInject]
-  = createTooltipProvide('Tooltip', { isInside: ref(false) })
+  = createTooltipProvide('TooltipVisuallyHiddenContent', { isInside: ref(false) })
 
 export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
   /**
