@@ -32,8 +32,8 @@ export type TooltipEmits = {
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, onBeforeUnmount, ref, withDefaults } from 'vue'
-import { useId, useVModel } from '@oku-ui/use-composable'
+import { computed, ref, withDefaults } from 'vue'
+import { useId, useTimeoutFn, useVModel } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
 import { usePopperScope, useTooltipProvide, useTooltipProviderInject } from './utils'
 
@@ -54,7 +54,6 @@ const provideInject = useTooltipProviderInject('TooltipProvider', props.scopeOku
 const popperScope = usePopperScope(props.scopeOkuTooltip)
 
 const contentId = useId()
-const openTimerRef = ref(0)
 const disableHoverableContent = computed(() => props.disableHoverableContent ?? provideInject.disableHoverableContent.value)
 const delayDuration = computed(() => props.delayDuration ?? provideInject.delayDuration.value)
 const wasOpenDelayedRef = ref(false)
@@ -68,32 +67,29 @@ const openValue = useVModel(props, 'open', emits, {
   },
 }) as unknown as Ref<boolean>
 
+const { start: startTimer, stop: stopTimer } = useTimeoutFn(() => {
+  wasOpenDelayedRef.value = true
+  openValue.value = true
+}, delayDuration, { immediate: false })
+
 const stateAttribute = computed(() => {
   return openValue.value ? (wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open') : 'closed'
 })
 
 function handleOpen() {
-  window.clearTimeout(openTimerRef.value)
+  stopTimer()
   wasOpenDelayedRef.value = false
   openValue.value = true
 }
 
 function handleClose() {
-  window.clearTimeout(openTimerRef.value)
+  stopTimer()
   openValue.value = false
 }
 
 function handleDelayedOpen() {
-  window.clearTimeout(openTimerRef.value)
-  openTimerRef.value = window.setTimeout(() => {
-    wasOpenDelayedRef.value = true
-    openValue.value = true
-  }, delayDuration.value)
+  startTimer()
 }
-
-onBeforeUnmount(() => {
-  window.clearTimeout(openTimerRef.value)
-})
 
 useTooltipProvide({
   scope: props.scopeOkuTooltip,
@@ -116,11 +112,11 @@ useTooltipProvide({
     }
     else {
       // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
-      window.clearTimeout(openTimerRef.value)
+      stopTimer()
     }
   },
-  onOpen: () => handleOpen(),
-  onClose: () => handleClose(),
+  onOpen: handleOpen,
+  onClose: handleClose,
   disableHoverableContent,
 })
 </script>

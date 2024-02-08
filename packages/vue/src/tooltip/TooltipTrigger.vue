@@ -63,7 +63,7 @@ watchEffect((onCleanup) => {
   })
 })
 
-function pointerdown(event: PointerEvent) {
+function handlePointerdown(event: PointerEvent) {
   emits('pointerdown', event)
   isPointerDownRef.value = true
   document.addEventListener('pointerup', handlePointerUp, { once: true })
@@ -104,7 +104,7 @@ defineExpose({
         inject.onTriggerLeave()
         hasPointerMoveOpenedRef = false
       })($event)"
-      @pointerdown="pointerdown"
+      @pointerdown="handlePointerdown"
       @focus="composeEventHandlers<FocusEvent>((el) => {
         emits('focus', el)
       }, () => {

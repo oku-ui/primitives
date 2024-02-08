@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Scope } from '@oku-ui/provide'
+import { useTimeoutFn } from '@oku-ui/use-composable'
 
 export interface TooltipProviderProps {
   scopeOkuTooltip?: Scope
@@ -25,8 +26,6 @@ export interface TooltipProviderProps {
 <script setup lang="ts">
 import {
   defineOptions,
-  onBeforeUnmount,
-  onMounted,
   ref,
   toRefs,
   withDefaults,
@@ -50,16 +49,6 @@ const props = withDefaults(
 
 const isOpenDelayed = ref(true)
 const isPointerInTransitRef = ref(false)
-const skipDelayTimerRef = ref(0)
-const skipDelayTimer = ref()
-
-onMounted(() => {
-  skipDelayTimer.value = skipDelayTimerRef.value
-})
-
-onBeforeUnmount(() => {
-  window.clearTimeout(skipDelayTimer.value)
-})
 
 const {
   delayDuration,
@@ -68,23 +57,23 @@ const {
   skipDelayDuration,
 } = toRefs(props)
 
+const { start: startTimer, stop: stopTimer } = useTimeoutFn(() => {
+  isOpenDelayed.value = true
+}, skipDelayDuration, { immediate: false })
+
 useTooltipProviderProvide({
   scope: scopeOkuTooltip.value,
   isOpenDelayed,
   delayDuration,
-  onOpen() {
-    window.clearTimeout(skipDelayTimerRef.value)
+  onOpen: () => {
+    stopTimer()
     isOpenDelayed.value = false
   },
-  onClose() {
-    window.clearTimeout(skipDelayTimerRef.value)
-    skipDelayTimerRef.value = window.setTimeout(
-      () => isOpenDelayed.value = false,
-      skipDelayDuration.value,
-    )
+  onClose: () => {
+    startTimer()
   },
   isPointerInTransitRef,
-  onPointerInTransitChange(inTransit: boolean) {
+  onPointerInTransitChange: (inTransit) => {
     isPointerInTransitRef.value = inTransit
   },
   disableHoverableContent,

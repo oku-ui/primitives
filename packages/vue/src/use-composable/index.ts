@@ -1,4 +1,4 @@
-export { computedAsync, computedEager, isClient, reactiveOmit, reactivePick, syncRef, syncRefs, useScrollLock, useVModel } from '@vueuse/core'
+export { computedAsync, computedEager, isClient, reactiveOmit, reactivePick, syncRef, syncRefs, useScrollLock, useVModel, useTimeoutFn } from '@vueuse/core'
 
 export { useControllable } from './useControllable'
 export { useCallbackRef } from './useCallbackRef'

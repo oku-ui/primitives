@@ -9,7 +9,7 @@ import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuPopperContent } from '@oku-ui/popper'
 import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
-import { mergeProps, watchEffect } from 'vue'
+import { computed, watchEffect } from 'vue'
 import VisuallyHiddenContentProvider from './VisuallyHiddenContentProvider.vue'
 
 defineOptions({
@@ -52,6 +52,11 @@ defineExpose({
   $el: currentElement,
 })
 
+const popperContentProps = computed(() => {
+  const { ariaLabel: _, ...propsAttr } = props
+  return propsAttr
+})
+
 </script>
 
 <template>
@@ -72,7 +77,11 @@ defineExpose({
     }"
   >
     <OkuPopperContent
-      v-bind="mergeProps($attrs, popperScope)"
+      v-bind="{
+        ...$attrs,
+        ...popperScope,
+        ...popperContentProps,
+      }"
       ref="componentRef"
       :data-state="inject.stateAttribute.value"
       :style="{
