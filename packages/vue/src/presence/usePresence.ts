@@ -1,6 +1,5 @@
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import type { ComputedRef, Ref } from 'vue'
-import { unrefElement } from '@oku-ui/use-composable'
+import type { Ref } from 'vue'
 import { useStateMachine } from './useStateMachine'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
@@ -9,9 +8,9 @@ function getAnimationName(styles?: CSSStyleDeclaration) {
 
 export function usePresence(
   present: Ref<boolean>,
-  el: ComputedRef<HTMLElement | undefined>,
+  el: Ref<HTMLElement | undefined>,
 ) {
-  const stylesRef = ref<CSSStyleDeclaration>({} as any)
+  const stylesRef = ref({} as any)
   const prevPresentRef = ref(present.value)
   const prevAnimationNameRef = ref<string>('none')
   const initialState = present.value ? 'mounted' : 'unmounted'
@@ -102,6 +101,8 @@ export function usePresence(
 
   const elWatch = watch(el, async (newEl, oldEl) => {
     await nextTick()
+    if (newEl)
+      stylesRef.value = getComputedStyle(newEl)
 
     if (el.value) {
       el.value.addEventListener('animationstart', handleAnimationStart)
@@ -133,32 +134,5 @@ export function usePresence(
 
   return {
     isPresent,
-    ref: (node: any) => {
-      const element = unrefElement(node)
-      if (element instanceof HTMLElement) {
-        stylesRef.value = getComputedStyle(element)
-        el.value = element
-        return element
-      }
-      else {
-        stylesRef.value = {} as any
-        el.value = undefined
-        return undefined
-      }
-
-      // if (node instanceof HTMLElement) {
-      //   stylesRef.value = getComputedStyle(node)
-      //   el.value = node
-      // }
-      // else if (node && node.$el instanceof HTMLElement) {
-      //   stylesRef.value = getComputedStyle(node.$el)
-      //   el.value = node.$el
-      // }
-      // else {
-      //   stylesRef.value = {} as any
-      //   el.value = undefined
-      // }
-    },
-
   }
 }

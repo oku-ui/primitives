@@ -50,12 +50,12 @@ export type DismissableLayerEmits = {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  escapeKeydown: [event: KeyboardEvent]
+  escapeKeyDown: [event: KeyboardEvent]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
    * Can be prevented.
    */
-  pointerdownOutside: [event: PointerdownOutsideEvent]
+  pointerDownOutside: [event: PointerdownOutsideEvent]
   /**
    * Event handler called when the focus moves outside of the `DismissableLayer`.
    * Can be prevented.
@@ -127,7 +127,7 @@ const pointerdownOutside = usePointerdownOutside(async (event) => {
   if (!isPointerEventsEnabled.value || isPointerdownOnBranch)
     return
 
-  emit('pointerdownOutside', event)
+  emit('pointerDownOutside', event)
   emit('interactOutside', event)
 
   if (!event.defaultPrevented)
@@ -139,7 +139,7 @@ useEscapeKeydown((event) => {
   if (!isHighestLayer)
     return
 
-  emit('escapeKeydown', event)
+  emit('escapeKeyDown', event)
 
   if (!event.defaultPrevented) {
     event.preventDefault()

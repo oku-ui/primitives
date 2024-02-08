@@ -48,7 +48,7 @@ defineExpose({
   <OkuPopperArrow
     v-if="!visuallyHiddenContentInject.isInside.value"
     ref="componentRef"
-    v-bind="popperScope"
+    :scope-oku-popper="popperScope"
   >
     <slot />
   </OkuPopperArrow>

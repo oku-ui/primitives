@@ -57,11 +57,11 @@ defineExpose({
   <OkuDismissableLayer
     :as-child="true"
     :disable-outside-pointer-events="false"
-    @escape-keydown="(event) => {
-      emits('escapeKeydown', event)
+    @escape-key-down="(event) => {
+      emits('escapeKeyDown', event)
     }"
-    @pointerdown-outside="(event: TooltipContentImplEmits['pointerdownOutside'][0]) => {
-      emits('pointerdownOutside', event)
+    @pointer-down-outside="(event: TooltipContentImplEmits['pointerDownOutside'][0]) => {
+      emits('pointerDownOutside', event)
     }"
     @focus-outside="(event) => {
       event.preventDefault()

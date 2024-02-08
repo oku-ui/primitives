@@ -31,7 +31,13 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<TooltipTriggerProps>()
+const props = withDefaults(
+  defineProps<TooltipTriggerProps>(),
+  {
+    is: 'button',
+    asChild: false,
+  },
+)
 const emits = defineEmits<TooltipTriggerEmits>()
 
 const inject = useTooltipInject('Tooltip', props.scopeOkuTooltip)
@@ -91,26 +97,26 @@ defineExpose({
           inject.onTriggerEnter()
           hasPointerMoveOpenedRef = true
         }
-      })"
+      })($event)"
       @pointerleave="composeEventHandlers<PointerEvent>((el) => {
         emits('pointerleave', el)
       }, () => {
         inject.onTriggerLeave()
         hasPointerMoveOpenedRef = false
-      })"
+      })($event)"
       @pointerdown="pointerdown"
       @focus="composeEventHandlers<FocusEvent>((el) => {
         emits('focus', el)
       }, () => {
         if (!isPointerDownRef)
           inject.onOpen()
-      })"
+      })($event)"
       @blur="composeEventHandlers<FocusEvent>((el) => {
         emits('blur', el)
-      }, inject.onClose)"
+      }, inject.onClose)($event)"
       @click="composeEventHandlers<MouseEvent>((el) => {
         emits('click', el)
-      }, inject.onClose)"
+      }, inject.onClose)($event)"
     >
       <slot />
     </Primitive>

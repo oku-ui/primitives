@@ -26,8 +26,4 @@ const open = ref(true)
       </OkuTooltipPortal>
     </OkuTooltip>
   </OkuTooltipProvider>
-
-  <button @click="open = !open">
-    Toggle
-  </button>
 </template>
