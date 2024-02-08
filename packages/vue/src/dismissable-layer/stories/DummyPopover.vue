@@ -38,7 +38,6 @@ const { componentRef } = useComponentRef<HTMLElement | null>()
 </script>
 
 <template>
-  {{ open }}
   <OkuPopper>
     <OkuPopperAnchor as-child>
       <button ref="openButtonRef" type="button" @click="open = true">
@@ -52,7 +51,7 @@ const { componentRef } = useComponentRef<HTMLElement | null>()
           <OkuDismissableLayer
             as-child
             :disable-outside-pointer-events="disableOutsidePointerEvents"
-            @escape-keydown="(event) => $emit('escapeKeydown', event)"
+            @escape-keydown="(event) => emit('escapeKeydown', event)"
             @pointerdown-outside="(event) => {
               skipUnmountAutoFocus = !disableOutsidePointerEvents
               if (event.target === openButtonRef)
@@ -60,8 +59,8 @@ const { componentRef } = useComponentRef<HTMLElement | null>()
               else
                 emit('pointerdownOutside', event)
             }"
-            @focus-outside="(event) => $emit('focusOutside', event)"
-            @interact-outside="(event) => $emit('interactOutside', event)"
+            @focus-outside="(event) => emit('focusOutside', event)"
+            @interact-outside="(event) => emit('interactOutside', event)"
             @dismiss="open = false"
           >
             <OkuFocusScope

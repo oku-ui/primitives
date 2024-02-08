@@ -34,7 +34,7 @@ function alert(text: string) {
 
     <div :style="{ display: 'flex', gap: '10px' }">
       <DummyPopover
-        disable-outside-pointer-event
+        disable-outside-pointer-events
         @interact-outside="console.log('interact outside black')"
       >
         <DummyPopover
