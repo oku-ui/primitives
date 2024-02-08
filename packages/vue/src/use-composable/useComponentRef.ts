@@ -2,7 +2,8 @@
 
 import type { ComponentPublicInstance } from 'vue'
 import { computed, ref } from 'vue'
-import { unrefElement, useForwardRef } from '.'
+import { unwrapEl } from './unwrapEl'
+import { useForwardRef } from '.'
 
 export function useComponentRef<T = HTMLElement>(forwordEl = false) {
   const componentRef = ref<ComponentPublicInstance>()
@@ -10,18 +11,18 @@ export function useComponentRef<T = HTMLElement>(forwordEl = false) {
   const forword = useForwardRef()
   const currentElement = computed<T>(() => {
     const el = ['#comment', '#text'].includes(componentRef.value?.$el?.nodeName)
-      ? componentRef.value?.$el
-      : unrefElement(componentRef)
+      ? unwrapEl(componentRef.value)
+      : unwrapEl(componentRef)
 
     if (el && forwordEl && el instanceof HTMLElement) {
       forword(el)
-      return el
+      return el as T
     }
-    else {
-      return undefined
-    }
+
     // console.log('componentRef.value?.$el.nodeName', test)
     // console.log(componentRef.value?.$el?.nodeName)
+
+    return el as T
   })
 
   return {

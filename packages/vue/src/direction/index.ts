@@ -3,6 +3,6 @@ export {
   type DirectionProps,
 } from './Direction.vue'
 
-export type {
+export {
   useDirection,
 } from './utils'
