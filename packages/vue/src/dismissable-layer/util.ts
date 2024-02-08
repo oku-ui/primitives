@@ -1,8 +1,24 @@
 import type { Ref } from 'vue'
-import { ref, watch } from 'vue'
+import { nextTick, ref, watchEffect } from 'vue'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
+import { isClient } from '@oku-ui/use-composable'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from './props'
 import { CONTEXT_UPDATE, FOCUS_OUTSIDE, POINTER_DOWN_OUTSIDE } from './props'
+
+function isElementDescendantOf(layerElement: HTMLElement, targetElement: HTMLElement) {
+  const findDismissableLayer = (element: HTMLElement) => element.closest('[data-dismissable-layer]')
+
+  const findLayers = (element: HTMLElement) => {
+    const layers = Array.from(element.ownerDocument.querySelectorAll('[data-dismissable-layer]'))
+    const mainLayer = element.querySelector('[data-dismissable-layer]')
+    return { layers, mainLayer }
+  }
+
+  const { layers, mainLayer } = findLayers(layerElement) as { layers: HTMLElement[], mainLayer: HTMLElement }
+  const targetLayer = findDismissableLayer(targetElement) as HTMLElement
+
+  return (targetLayer && mainLayer === targetLayer) || layers.indexOf(mainLayer) < layers.indexOf(targetLayer)
+}
 
 /**
  * Listens for `pointerdown` outside a subtree. We use `pointerdown` rather than `pointerup`
@@ -12,13 +28,26 @@ import { CONTEXT_UPDATE, FOCUS_OUTSIDE, POINTER_DOWN_OUTSIDE } from './props'
 
 export function usePointerdownOutside(
   onPointerDownOutside?: (event: PointerdownOutsideEvent) => void,
-  ownerDocument: Ref<Document> = ref(globalThis?.document),
+  element?: Ref<HTMLDivElement | null>,
 ) {
+  const ownerDocument = element?.value?.ownerDocument ?? globalThis?.document
   const isPointerInsideReactTreeRef = ref(false)
   const handleClickRef = ref(() => { })
 
-  watch(ownerDocument, (newValue, _old, onClean) => {
-    const handlePointerDown = (event: PointerEvent) => {
+  watchEffect((onClean) => {
+    if (!isClient)
+      return
+
+    const handlePointerDown = async (event: PointerEvent) => {
+      if (!element?.value)
+        return
+
+      await nextTick()
+      if (isElementDescendantOf(element.value, event.target as HTMLElement)) {
+        isPointerInsideReactTreeRef.value = false
+        return
+      }
+
       if (event.target && !isPointerInsideReactTreeRef.value) {
         const eventDetail = { originalEvent: event }
 
@@ -44,9 +73,9 @@ export function usePointerdownOutside(
          * certain that it was raised, and therefore cleaned-up.
          */
         if (event.pointerType === 'touch') {
-          newValue.removeEventListener('click', handleClickRef.value)
+          ownerDocument.removeEventListener('click', handleClickRef.value)
           handleClickRef.value = handleAndDispatchPointerDownOutsideEvent
-          newValue.addEventListener('click', handleClickRef.value, { once: true })
+          ownerDocument.addEventListener('click', handleClickRef.value, { once: true })
         }
         else {
           handleAndDispatchPointerDownOutsideEvent()
@@ -55,7 +84,7 @@ export function usePointerdownOutside(
       else {
         // We need to remove the event listener in case the outside click has been canceled.
         // See: https://github.com/radix-ui/primitives/issues/2171
-        newValue.removeEventListener('click', handleClickRef.value)
+        ownerDocument.removeEventListener('click', handleClickRef.value)
       }
       isPointerInsideReactTreeRef.value = false
     }
@@ -73,16 +102,14 @@ export function usePointerdownOutside(
      * });
      */
     const timerId = window.setTimeout(() => {
-      newValue.addEventListener('pointerdown', handlePointerDown)
+      ownerDocument.addEventListener('pointerdown', handlePointerDown)
     }, 0)
 
     onClean(() => {
       window.clearTimeout(timerId)
-      newValue.removeEventListener('pointerdown', handlePointerDown)
-      newValue.removeEventListener('click', handleClickRef.value)
+      ownerDocument.removeEventListener('pointerdown', handlePointerDown)
+      ownerDocument.removeEventListener('click', handleClickRef.value)
     })
-  }, {
-    immediate: true,
   })
 
   return {
@@ -96,12 +123,23 @@ export function usePointerdownOutside(
  */
 export function useFocusOutside(
   onFocusOutside?: (event: FocusOutsideEvent) => void,
-  ownerDocument: Ref<Document | null> = ref(globalThis?.document),
+  element?: Ref<HTMLDivElement | null>,
 ) {
+  const ownerDocument = element?.value?.ownerDocument ?? globalThis?.document
   const isFocusInsideReactTree = ref(false)
 
-  watch(ownerDocument, (newValue, _old, onClean) => {
-    const handleFocus = (event: FocusEvent) => {
+  watchEffect((onClean) => {
+    if (!isClient)
+      return
+
+    const handleFocus = async (event: FocusEvent) => {
+      if (!element?.value)
+        return
+
+      await nextTick()
+      if (isElementDescendantOf(element.value, event.target as HTMLElement))
+        return
+
       if (event.target && !isFocusInsideReactTree.value) {
         const eventDetail = { originalEvent: event }
         handleAndDispatchCustomEvent(FOCUS_OUTSIDE, onFocusOutside, eventDetail, {
@@ -110,15 +148,12 @@ export function useFocusOutside(
       }
     }
 
-    if (newValue)
-      newValue.addEventListener('focusin', handleFocus)
+    ownerDocument.addEventListener('focusin', handleFocus)
 
     onClean(() => {
-      if (newValue)
-        newValue.removeEventListener('focusin', handleFocus)
+      if (ownerDocument)
+        ownerDocument.removeEventListener('focusin', handleFocus)
     })
-  }, {
-    immediate: true,
   })
 
   return {

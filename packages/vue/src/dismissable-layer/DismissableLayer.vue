@@ -90,16 +90,19 @@ const emit = defineEmits<DismissableLayerEmits>()
 const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 const ownerDocument = computed(() => currentElement.value?.ownerDocument ?? globalThis?.document)
 
-const layers = computed(() => Array.from(context.layers))
+const layers = computed(() => context.layers)
 
-const index = computed(() => currentElement.value ? layers.value.indexOf(currentElement.value) : -1)
+const index = computed(() => currentElement.value
+  ? Array.from(layers.value).indexOf(currentElement.value)
+  : -1)
+
 const isBodyPointerEventsDisabled = computed(() => context.layersWithOutsidePointerEventsDisabled.size > 0)
 const isPointerEventsEnabled = computed(() => {
   const [highestLayerWithOutsidePointerEventsDisabled] = [
     ...context.layersWithOutsidePointerEventsDisabled,
   ].slice(-1)
 
-  const highestLayerWithOutsidePointerEventsDisabledIndex = layers.value.indexOf(highestLayerWithOutsidePointerEventsDisabled)
+  const highestLayerWithOutsidePointerEventsDisabledIndex = Array.from(layers.value).indexOf(highestLayerWithOutsidePointerEventsDisabled)
 
   return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex
 })
@@ -115,7 +118,7 @@ const focusOutside = useFocusOutside(async (event) => {
   emit('interactOutside', event)
   if (!event.defaultPrevented)
     emit('dismiss')
-}, ownerDocument)
+}, currentElement)
 
 const pointerdownOutside = usePointerdownOutside(async (event) => {
   const target = event.target as HTMLElement
@@ -129,10 +132,10 @@ const pointerdownOutside = usePointerdownOutside(async (event) => {
 
   if (!event.defaultPrevented)
     emit('dismiss')
-}, ownerDocument)
+}, currentElement)
 
 useEscapeKeydown((event) => {
-  const isHighestLayer = index.value === context.layers.size - 1
+  const isHighestLayer = index.value === layers.value.size - 1
   if (!isHighestLayer)
     return
 
@@ -222,6 +225,7 @@ defineExpose({
         : undefined,
       ...(attrs.style as any),
     }"
+    data-dismissable-layer
     @focus.capture="composeEventHandlers<FocusCaptureEvent>((event) => {
       emit('focusCapture', event)
     }, focusOutside.onFocusCapture)($event)"
