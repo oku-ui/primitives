@@ -6,6 +6,8 @@ export interface PopperArrowProps extends ArrowProps {
   scopeOkuPopper?: any
 }
 
+export type PopperArrowElement = SVGSVGElement
+
 export const OPPOSITE_SIDE: Record<Side, Side> = {
   top: 'bottom',
   right: 'left',
@@ -26,7 +28,7 @@ defineOptions({
 
 const props = defineProps<PopperArrowProps>()
 
-const { componentRef, currentElement } = useComponentRef()
+const { componentRef, currentElement } = useComponentRef<PopperArrowElement>()
 
 const contentInject = usePopperContentInject('OkuPopperContent', props.scopeOkuPopper)
 const baseSide = computed(() => {

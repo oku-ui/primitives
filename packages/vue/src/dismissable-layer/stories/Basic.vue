@@ -80,11 +80,11 @@ function alert(text: string) {
         borderRadius: '10px',
         marginBottom: '20px',
       }"
-      @escape-keydown="(event) => {
+      @escape-key-down="(event) => {
         if (dismissOnEscape === false)
           event.preventDefault()
       }"
-      @pointerdown-outside="(event) => {
+      @pointer-down-outside="(event) => {
         if (dismissOnPointerdownOutside === false || event.target === openButtonRef)
           event.preventDefault()
       }"

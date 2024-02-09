@@ -51,13 +51,13 @@ const { componentRef } = useComponentRef<HTMLElement | null>()
           <OkuDismissableLayer
             as-child
             :disable-outside-pointer-events="disableOutsidePointerEvents"
-            @escape-keydown="(event) => emit('escapeKeydown', event)"
-            @pointerdown-outside="(event) => {
+            @escape-key-down="(event) => emit('escapeKeyDown', event)"
+            @pointer-down-outside="(event) => {
               skipUnmountAutoFocus = !disableOutsidePointerEvents
               if (event.target === openButtonRef)
                 event.preventDefault()
               else
-                emit('pointerdownOutside', event)
+                emit('pointerDownOutside', event)
             }"
             @focus-outside="(event) => emit('focusOutside', event)"
             @interact-outside="(event) => emit('interactOutside', event)"

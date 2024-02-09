@@ -27,8 +27,9 @@ defineExpose({
 
 <template>
   <Primitive
-    v-bind="props"
     ref="componentRef"
+    :as="props.is"
+    :as-child="props.asChild"
     :style="{
       // See: https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
       position: 'absolute',
@@ -41,8 +42,8 @@ defineExpose({
       clip: 'rect(0px, 0px, 0px, 0px)',
       whiteSpace: 'nowrap',
       wordWrap: 'normal',
-      ...$attrs.style as any,
     }"
+    v-bind="$attrs"
   >
     <slot />
   </Primitive>

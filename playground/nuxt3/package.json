@@ -87,7 +87,7 @@
     "@oku-ui/use-composable": "latest",
     "@oku-ui/utils": "latest",
     "@oku-ui/visually-hidden": "latest",
-    "@types/node": "^20.10.6",
-    "nuxt": "^3.9.1"
+    "@types/node": "^20.11.7",
+    "nuxt": "^3.9.3"
   }
 }

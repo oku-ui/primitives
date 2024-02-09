@@ -65,7 +65,7 @@ const checked = useVModel(props, 'checked', emits, {
     emits('checkedChange', v)
     return true
   },
-}) as Ref<boolean>
+}) as unknown as Ref<boolean>
 
 useSwitchProvide({
   scope: props.scopeOkuSwitch,

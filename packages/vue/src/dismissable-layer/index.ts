@@ -1,5 +1,6 @@
 export {
   default as OkuDismissableLayer,
+  type DismissableLayerEmits,
 } from './DismissableLayer.vue'
 
 export type * from './DismissableLayer.vue'

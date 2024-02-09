@@ -40,12 +40,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.0.3",
+    "@floating-ui/vue": "^1.0.5",
     "@oku-ui/collection": "latest",
     "@oku-ui/direction": "latest",
     "@oku-ui/dismissable-layer": "latest",
     "@oku-ui/focus-guards": "latest",
-    "@oku-ui/focus-scope": "workspace:^",
+    "@oku-ui/focus-scope": "latest",
     "@oku-ui/popper": "latest",
     "@oku-ui/portal": "latest",
     "@oku-ui/presence": "latest",

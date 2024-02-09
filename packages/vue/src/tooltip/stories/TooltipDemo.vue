@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
 import Styled from './Styled.vue'
 import Controlled from './Controlled.vue'
 import CustomDurations from './CustomDurations.vue'
@@ -14,18 +12,14 @@ withDefaults(defineProps<OkuTooltipProps>(), {
   template: 'Styled',
 })
 
-const TooltipRef = ref()
-onMounted(() => {
-  console.warn(TooltipRef.value)
-})
 </script>
 
 <template>
-  <div class="cursor-default inline-block">
-    <div v-if="template === 'Styled' || allshow" class="flex flex-col">
+  <div>
+    <div v-if="template === 'Styled' || allshow">
       <Styled />
     </div>
-    <div v-if="template === 'Controlled' || allshow" class="flex flex-col">
+    <div v-if="template === 'Controlled' || allshow">
       <Controlled />
     </div>
 

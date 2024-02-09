@@ -205,9 +205,9 @@ const cannotCenterArrow = computed(() => middlewareData.value.arrow?.centerOffse
 
 const contentZIndex = ref()
 
-watch(currentElement, () => {
-  if (currentElement.value)
-    contentZIndex.value = window.getComputedStyle(currentElement.value).zIndex
+watch(currentElement, (newValue) => {
+  if (newValue)
+    contentZIndex.value = window.getComputedStyle(newValue).zIndex
 })
 
 usePopperContentProvide({
