@@ -73,7 +73,9 @@ const { start: startTimer, stop: stopTimer } = useTimeoutFn(() => {
 }, delayDuration, { immediate: false })
 
 const stateAttribute = computed(() => {
-  return openValue.value ? (wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open') : 'closed'
+  return openValue.value
+    ? (wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open')
+    : 'closed'
 })
 
 function handleOpen() {
@@ -123,7 +125,7 @@ useTooltipProvide({
 
 <template>
   <OkuPopper
-    v-bind="popperScope"
+    v-bind="{ ...popperScope }"
   >
     <slot />
   </OkuPopper>

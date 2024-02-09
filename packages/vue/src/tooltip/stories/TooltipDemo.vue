@@ -15,7 +15,7 @@ withDefaults(defineProps<OkuTooltipProps>(), {
 </script>
 
 <template>
-  <div class="cursor-default inline-block">
+  <div>
     <div v-if="template === 'Styled' || allshow">
       <Styled />
     </div>

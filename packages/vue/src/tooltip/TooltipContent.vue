@@ -26,7 +26,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<TooltipContentProps>(), {
   forceMount: undefined,
-  side: 'bottom',
+  side: 'top',
 })
 const emits = defineEmits<TooltipContentImplEmits>()
 

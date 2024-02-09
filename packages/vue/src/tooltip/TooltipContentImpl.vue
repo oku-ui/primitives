@@ -9,7 +9,7 @@ import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuPopperContent } from '@oku-ui/popper'
 import { OkuSlottable } from '@oku-ui/slot'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
-import { computed, watchEffect } from 'vue'
+import { computed, onMounted, onUnmounted, watch } from 'vue'
 import VisuallyHiddenContentProvider from './VisuallyHiddenContentProvider.vue'
 
 defineOptions({
@@ -22,23 +22,26 @@ const props = withDefaults(defineProps<TooltipContentImplProps>(), {
 const emits = defineEmits<TooltipContentImplEmits>()
 
 const popperScope = usePopperScope(props.scopeOkuTooltip)
-
 const { componentRef, currentElement } = useComponentRef<HTMLButtonElement | null>()
-
 const inject = useTooltipInject('Tooltip', props.scopeOkuTooltip)
-
-watchEffect((onClean) => {
-  document.addEventListener(TOOLTIP_OPEN, inject.onClose)
-  onClean(() => {
-    document.removeEventListener(TOOLTIP_OPEN, inject.onClose)
-  })
+const popperContentProps = computed(() => {
+  const { ariaLabel: _, ...propsAttr } = props
+  return propsAttr
 })
 
-watchEffect((onClean) => {
-  if (inject.trigger.value) {
+onMounted(() => {
+  document.addEventListener(TOOLTIP_OPEN, inject.onClose)
+})
+
+onUnmounted(() => {
+  document.removeEventListener(TOOLTIP_OPEN, inject.onClose)
+})
+
+watch(inject.trigger, (newValue, _oldValue, onClean) => {
+  if (newValue) {
     const handleScroll = (event: Event) => {
       const target = event.target as HTMLElement
-      if (target?.contains(inject.trigger.value))
+      if (target?.contains(newValue))
         inject.onClose()
     }
     window.addEventListener('scroll', handleScroll, { capture: true })
@@ -50,11 +53,6 @@ watchEffect((onClean) => {
 
 defineExpose({
   $el: currentElement,
-})
-
-const popperContentProps = computed(() => {
-  const { ariaLabel: _, ...propsAttr } = props
-  return propsAttr
 })
 
 </script>
@@ -79,8 +77,8 @@ const popperContentProps = computed(() => {
     <OkuPopperContent
       v-bind="{
         ...$attrs,
-        ...popperScope,
         ...popperContentProps,
+        ...popperScope,
       }"
       ref="componentRef"
       :data-state="inject.stateAttribute.value"
