@@ -25,7 +25,7 @@ useSeoMeta({
         <span class="text-primary-400">1:1 </span> Radix UI / Primitives components for Vue
       </template>
       <template #description>
-        Unstyled, accessible components for building high‑quality design systems and web apps in React.Unstyled, accessible components for building high‑quality design systems and web apps in Vue.
+        Unstyled, accessible components for building high‑quality design systems and web apps in Vue.
       </template>
       <template #links>
         <UButton to="/primitives/getting-started" icon="i-ph-rocket-launch-duotone" size="xl">
