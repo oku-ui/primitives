@@ -72,10 +72,10 @@ const menuContentImpl = defineComponent({
       const search = searchRef.value + key
       const items = getItems().filter(item => !item.disabled)
       const currentItem = document.activeElement
-      const currentMatch = items.find(item => item.ref.value === currentItem)?.textValue
+      const currentMatch = items.find(item => item.ref === currentItem)?.textValue
       const values = items.map(item => item.textValue)
       const nextMatch = getNextMatch(values, search, currentMatch)
-      const newItem = items.find(item => item.textValue === nextMatch)?.ref.value;
+      const newItem = items.find(item => item.textValue === nextMatch)?.ref;
 
       // Reset `searchRef` 1 second after it was last updated
       (function updateSearch(value: string) {
@@ -201,7 +201,7 @@ const menuContentImpl = defineComponent({
           return
         event.preventDefault()
         const items = getItems().filter(item => !item.disabled)
-        const candidateNodes = items.map(item => item.ref.value!)
+        const candidateNodes = items.map(item => item.ref!)
         if (LAST_KEYS.includes(event.key))
           candidateNodes.reverse()
         focusFirst(candidateNodes)

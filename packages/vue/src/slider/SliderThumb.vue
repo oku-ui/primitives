@@ -30,7 +30,7 @@ const { componentRef, currentElement: thumb } = useComponentRef<SliderThumbImplE
 
 // TODO: item.ref.value -react
 const index = computed(() => (thumb.value
-  ? getItems().findIndex(item => item.ref.value.$el === thumb.value)
+  ? getItems().findIndex(item => item.ref === thumb.value)
   : -1))
 
 defineExpose({

@@ -1,5 +1,5 @@
-import type { ComponentObjectPropsOptions, Ref } from 'vue'
-import { defineComponent, h, markRaw, ref, toRefs, watch, watchEffect } from 'vue'
+import type { ShallowReactive, ShallowRef } from 'vue'
+import { defineComponent, h, markRaw, ref, shallowReactive, shallowRef, unref, watch, watchEffect } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
 import { createScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
@@ -19,10 +19,7 @@ export type CollectionElement = HTMLElement
 // This is because we encountered issues with generic types that cannot be statically analysed
 // due to creating them dynamically via createCollection.
 
-export function createCollection<ItemElement extends {
-  $el: CollectionElement
-  [key: string]: any
-}, T = object>(name: string, ItemData?: ComponentObjectPropsOptions) {
+export function createCollection<ItemElement extends HTMLElement, ItemData = object>(name: string) {
   /* -----------------------------------------------------------------------------------------------
    * CollectionProvider
    * --------------------------------------------------------------------------------------------- */
@@ -31,15 +28,16 @@ export function createCollection<ItemElement extends {
   const [createCollectionProvide, createCollectionScope] = createScope(PROVIDER_NAME)
 
   type ContextValue = {
-    collectionRef: Ref<ItemElement | undefined>
-    itemMap: Ref<Map<ItemElement, {
-      ref: Ref<ItemElement>
-    } & T>>
+    collectionRef: ShallowRef<ItemElement | null | undefined>
+    itemMap: ShallowReactive<Map<ItemElement, { ref: ItemElement } & ItemData>>
   }
 
   const [useCollectionProvide, useCollectionInject] = createCollectionProvide<ContextValue>(
     PROVIDER_NAME,
-    { collectionRef: ref(undefined), itemMap: ref(new Map()) },
+    {
+      collectionRef: ref(undefined),
+      itemMap: shallowReactive(new Map()),
+    },
   )
 
   const CollectionProvider = defineComponent({
@@ -49,8 +47,9 @@ export function createCollection<ItemElement extends {
       ...collectionProps,
     },
     setup(props, { slots }) {
-      const collectionRef = ref<ItemElement>()
-      const itemMap = ref(new Map())
+      const collectionRef = shallowRef<ItemElement>()
+      const itemMap = shallowReactive(new Map())
+
       useCollectionProvide({
         collectionRef,
         itemMap,
@@ -75,15 +74,14 @@ export function createCollection<ItemElement extends {
     inheritAttrs: false,
     props: {
       ...collectionProps,
-      ...ItemData,
     },
     setup(props, { slots }) {
-      const inject = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
+      const context = useCollectionInject(COLLECTION_SLOT_NAME, props.scope)
 
-      const { componentRef } = useComponentRef<ItemElement | null>()
+      const { componentRef, currentElement } = useComponentRef<ItemElement | null | undefined>()
 
-      watch(componentRef, () => {
-        inject.collectionRef.value = componentRef.value as any
+      watch(currentElement, () => {
+        context.collectionRef.value = currentElement.value
       })
 
       return () => h(OkuSlot, { ref: componentRef }, slots)
@@ -105,27 +103,25 @@ export function createCollection<ItemElement extends {
     inheritAttrs: false,
     props: {
       ...collectionProps,
-      ...ItemData,
     },
     setup(props, { attrs, slots }) {
-      const { scope, ...itemData } = toRefs(props)
+      const { componentRef, currentElement } = useComponentRef<ItemElement | null | undefined>()
 
-      const { componentRef, currentElement } = useComponentRef<ItemElement | null>()
-
-      const inject = useCollectionInject(ITEM_SLOT_NAME, scope.value)
+      const context = useCollectionInject(ITEM_SLOT_NAME, props.scope)
 
       watchEffect((onClean) => {
-        if (currentElement.value && currentElement) {
-          inject.itemMap.value.set(markRaw(currentElement.value), {
-            ref: {
-              value: markRaw(componentRef),
-            },
-            ...(itemData as any),
-            ...attrs,
+        const unrefElement = unref(currentElement)
+
+        if (unrefElement) {
+          const key = markRaw(unrefElement)
+
+          context.itemMap.set(key, {
+            ref: unrefElement,
+            ...attrs as unknown as ItemData,
           })
 
           onClean(() => {
-            inject.itemMap.value.delete(currentElement.value!)
+            context.itemMap.delete(key)
           })
         }
       })
@@ -134,31 +130,33 @@ export function createCollection<ItemElement extends {
     },
   })
 
-  const CollectionItemSlot = collectionItemSlot as typeof collectionItemSlot & (new () => { $props: Partial<T> })
+  const CollectionItemSlot = collectionItemSlot as typeof collectionItemSlot & (new () => { $props: Partial<ItemData> })
 
   /* -----------------------------------------------------------------------------------------------
    * useCollection
    * --------------------------------------------------------------------------------------------- */
 
   function useCollection(scope: any) {
-    const inject = useCollectionInject(`${name}CollectionConsumer`, scope)
+    const context = useCollectionInject(`${name}CollectionConsumer`, scope)
+
     const getItems = () => {
-      const collectionNode = inject.collectionRef.value
+      const collectionNode = context.collectionRef.value
       if (!collectionNode)
         return []
 
-      const orderedNodes = Array.from(collectionNode.$el.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
+      const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
 
-      const items = Array.from(inject.itemMap.value.values())
+      const items = Array.from(context.itemMap.values())
 
       const orderedItems = items.sort(
         (a, b) => {
-          return orderedNodes.indexOf(a.ref.value.$el) - orderedNodes.indexOf(b.ref.value.$el)
+          return orderedNodes.indexOf(a.ref) - orderedNodes.indexOf(b.ref)
         },
       )
 
       return orderedItems
     }
+
     return getItems
   }
 

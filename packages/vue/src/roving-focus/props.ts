@@ -35,22 +35,7 @@ export interface ItemData extends CollectionPropsType {
   active: boolean
 }
 
-export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<
-  {
-    $el: HTMLSpanElement
-  },
-  ItemData
-  >('OkuRovingFocusGroup', {
-    id: {
-      type: String,
-    },
-    focusable: {
-      type: Boolean,
-    },
-    active: {
-      type: Boolean,
-    },
-  })
+export const { CollectionItemSlot, CollectionProvider, CollectionSlot, useCollection, createCollectionScope } = createCollection<HTMLSpanElement, ItemData>('OkuRovingFocusGroup')
 
 export const [createRovingFocusGroupProvide, createRovingFocusGroupScope] = createScope<'OkuRovingFocusGroup'>(
   'OkuRovingFocusGroup',
