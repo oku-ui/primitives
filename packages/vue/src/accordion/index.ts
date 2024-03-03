@@ -1,4 +1,4 @@
-export type { AccordionProps } from './Accordion.js'
+export type { AccordionProps, AccordionEmits } from './Accordion.js'
 export { default as OkuAccordion } from './Accordion.vue'
 
 export type { AccordionMultipleEmits, AccordionMultipleProps } from './AccordionMultiple.js'
