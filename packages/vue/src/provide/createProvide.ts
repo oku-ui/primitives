@@ -38,7 +38,7 @@ function createScope<T extends string>(scopeName: T, createScopeDeps: CreateScop
    * --------------------------------------------------------------------------------------------- */
 
   function createProvide<ProvideValueType extends object | null>(
-    rootComponentName: T,
+    rootComponentName: string,
     defaultValue?: ProvideValueType,
   ) {
     const BaseProvideKey: InjectionKey<ProvideValueType | null> = Symbol(rootComponentName)
@@ -57,7 +57,7 @@ function createScope<T extends string>(scopeName: T, createScopeDeps: CreateScop
       provide(Provide, context as any)
     }
 
-    function useInject(consumerName: T, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
+    function useInject(consumerName: string, scope: Scope<ProvideValueType | undefined> | undefined): ProvideValueType {
       const Provide = scope?.[scopeName]?.[index] || BaseScope
       const provide = inject(Provide)
       if (provide)

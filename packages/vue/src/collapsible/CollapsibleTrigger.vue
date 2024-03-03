@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useForwardRef } from '@oku-ui/use-composable'
-import { COLLAPSIBLE_NAME, useCollapsibleInject } from './Collapsible.js'
-import { TRIGGER_NAME } from './CollapsibleTrigger.ts'
+import { useCollapsibleInject } from './Collapsible.js'
+import { TRIGGER_NAME } from './constants.ts'
 import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
@@ -15,7 +15,7 @@ const props = defineProps<CollapsibleTriggerProps>()
 const emit = defineEmits<CollapsibleTriggerEmits>()
 
 const forwardedRef = useForwardRef()
-const context = useCollapsibleInject(COLLAPSIBLE_NAME, props.scopeOkuCollapsible)
+const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
 
 const handleClick = composeEventHandlers<MouseEvent>((e) => {
   emit('click', e)

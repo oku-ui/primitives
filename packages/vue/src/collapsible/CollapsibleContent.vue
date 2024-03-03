@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { useForwardRef } from '@oku-ui/use-composable'
-import { COLLAPSIBLE_NAME, useCollapsibleInject } from './Collapsible.js'
-import { TRIGGER_NAME } from './CollapsibleTrigger.ts'
+import { useCollapsibleInject } from './Collapsible.js'
 import type { CollapsibleContentProps } from './CollapsibleContent.ts'
 import { OkuPresence } from '@oku-ui/presence'
 import CollapsibleContentImpl from './CollapsibleContentImpl.vue'
+import { CONTENT_NAME } from './constants.js'
 
 defineOptions({
-  name: TRIGGER_NAME,
+  name: CONTENT_NAME,
 })
 
 const props = defineProps<CollapsibleContentProps>()
 
 const forwardedRef = useForwardRef()
-const context = useCollapsibleInject(COLLAPSIBLE_NAME, props.scopeOkuCollapsible)
+const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
 </script>
 
 <template>

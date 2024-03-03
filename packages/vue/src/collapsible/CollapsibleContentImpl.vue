@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { COLLAPSIBLE_NAME, useCollapsibleInject } from './Collapsible.js'
+import { useCollapsibleInject } from './Collapsible.js'
 import type { CollapsibleContentImplProps } from './CollapsibleContentImpl.ts'
-import { COLLAPSIBLE_CONTENT_IMPL_NAME } from './CollapsibleContentImpl.js'
+import { CONTENT_IMPL_NAME } from './constants.js'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
 import { getState } from './utils'
 
 defineOptions({
-  name: COLLAPSIBLE_CONTENT_IMPL_NAME,
+  name: CONTENT_IMPL_NAME,
 })
 
 const props = defineProps<CollapsibleContentImplProps>()
 
-const context = useCollapsibleInject(COLLAPSIBLE_NAME, props.scopeOkuCollapsible)
+const context = useCollapsibleInject(CONTENT_IMPL_NAME, props.scopeOkuCollapsible)
 
 const elRef = ref<HTMLElement>()
 

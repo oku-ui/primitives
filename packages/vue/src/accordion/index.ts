@@ -1,55 +1,23 @@
-export { OkuAccordion } from './accordion'
+export type { AccordionProps } from './Accordion.js'
+export { default as OkuAccordion } from './Accordion.vue'
 
-export {
-  type AccordionMultipleEmits,
-  accordionProps,
-  type AccordionMultipleProps,
-  type AccordionSingleEmits,
-  type AccordionSingleProps,
-  accordionContentProps,
-  type AccordionContentProps,
-  accordionHeaderProps,
-  type AccordionHeaderProps,
-  accordionImplProps,
-  type AccordionImplProps,
-  type AccordionImplEmits,
-  accordionImplSingleProps,
-  type AccordionImplSingleProps,
-  type AccordionImplSingleEmits,
-  accordionImplMultipleProps,
-  type AccordionImplMultipleProps,
-  type AccordionImplMultipleEmits,
-  accordionItemProps,
-  type AccordionItemProps,
-  type AccordionItemEmits,
-  accordionTriggerProps,
-  type AccordionTriggerProps,
-  type AccordionTriggerEmits,
-} from './props'
-export {
-  OkuAccordionContent,
-} from './accordionContent'
+export type { AccordionMultipleEmits, AccordionMultipleProps } from './AccordionMultiple.js'
+export { default as OkuAccordionMultiple } from './AccordionMultiple.vue'
 
-export {
-  OkuAccordionHeader,
-} from './accordionHeader'
+export type { AccordionSingleEmits, AccordionSingleProps } from './AccordionSingle.js'
+export { default as OkuAccordionSingle } from './AccordionSingle.vue'
 
-export {
-  OkuAccordionImpl,
-} from './accordionImpl'
+export type { AccordionContentProps } from './AccordionContent.js'
+export { default as OkuAccordionContent } from './AccordionContent.vue'
 
-export {
-  OkuAccordionImplSingle,
-} from './accordionImplSingle'
+export type { AccordionHeaderProps } from './AccordionHeader.js'
+export { default as OkuAccordionHeader } from './AccordionHeader.vue'
 
-export {
-  OkuAccordionImplMultiple,
-} from './accordionImplMultiple'
+export type { AccordionImplProps, AccordionImplEmits } from './AccordionImpl.js'
+export { default as OkuAccordionImpl } from './AccordionImpl.vue'
 
-export {
-  OkuAccordionItem,
-} from './accordionItem'
+export type { AccordionItemProps } from './AccordionItem.js'
+export { default as OkuAccordionItem } from './AccordionItem.vue'
 
-export {
-  OkuAccordionTrigger,
-} from './accordionTrigger'
+export type { AccordionTriggerProps, AccordionTriggerEmits } from './AccordionTrigger.js'
+export { default as OkuAccordionTrigger } from './AccordionTrigger.vue'
