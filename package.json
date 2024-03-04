@@ -101,7 +101,7 @@
     "chokidar": "^3.5.3",
     "chromatic": "^10.6.0",
     "eslint": "^8.56.0",
-    "eslint-plugin-storybook": "^0.6.15",
+    "eslint-plugin-storybook": "^0.8.0",
     "esno": "^4.0.0",
     "globby": "^14.0.0",
     "happy-dom": "^13.0.0",
