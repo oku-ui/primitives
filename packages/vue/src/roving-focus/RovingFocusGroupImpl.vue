@@ -15,12 +15,12 @@ export interface RovingFocusGroupImplProps extends RovingFocusGroupProps {
 }
 
 export type RovingFocusGroupImplEmits = {
-  currentTabStopIdChange: [tabStopId: string | null]
+  'currentTabStopIdChange': [tabStopId: string | null]
   'update:currentTabStopId': [tabStopId: string | null]
-  entryFocus: [event: Event]
-  mousedown: [event: MouseEvent]
-  focus: [event: FocusEvent]
-  blur: [event: FocusEvent]
+  'entryFocus': [event: Event]
+  'mousedown': [event: MouseEvent]
+  'focus': [event: FocusEvent]
+  'blur': [event: FocusEvent]
 }
 
 </script>

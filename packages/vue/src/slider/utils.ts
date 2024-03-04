@@ -5,10 +5,10 @@ import { type Ref, ref } from 'vue'
 import type { useSize } from '@oku-ui/use-composable'
 
 export type SliderOrientationPrivateEmits = {
-  'slideStart': [value: number]
-  'slideMove': [value: number]
-  'slideEnd': []
-  'stepKeyDown': [step: { event: KeyboardEvent, direction: number }]
+  slideStart: [value: number]
+  slideMove: [value: number]
+  slideEnd: []
+  stepKeyDown: [step: { event: KeyboardEvent, direction: number }]
 }
 
 export const { CollectionProvider, CollectionItemSlot, CollectionSlot, useCollection, createCollectionScope } = createCollection<{

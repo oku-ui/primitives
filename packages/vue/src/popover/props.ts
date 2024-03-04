@@ -61,7 +61,7 @@ export interface PopoverProps {
 }
 
 export interface PopoverEmits {
-  'openChange': [open: boolean]
+  openChange: [open: boolean]
 }
 
 export const popoverProps = {

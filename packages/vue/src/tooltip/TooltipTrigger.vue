@@ -6,12 +6,12 @@ export interface TooltipTriggerProps extends PrimitiveProps {
 }
 
 export type TooltipTriggerEmits = {
-  'pointerleave': [event: PointerEvent]
-  'pointerdown': [event: PointerEvent]
-  'pointermove': [event: PointerEvent]
-  'click': [event: MouseEvent]
-  'focus': [event: FocusEvent]
-  'blur': [event: FocusEvent]
+  pointerleave: [event: PointerEvent]
+  pointerdown: [event: PointerEvent]
+  pointermove: [event: PointerEvent]
+  click: [event: MouseEvent]
+  focus: [event: FocusEvent]
+  blur: [event: FocusEvent]
 }
 
 </script>

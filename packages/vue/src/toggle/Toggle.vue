@@ -20,8 +20,8 @@ export type ToggleEmits = {
    * The callback that fires when the state of the toggle changes.
    */
   'update:pressed': [pressed: boolean]
-  pressedChange: [pressed: boolean]
-  click: [event: MouseEvent]
+  'pressedChange': [pressed: boolean]
+  'click': [event: MouseEvent]
 }
 
 </script>

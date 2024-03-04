@@ -36,7 +36,7 @@ export interface RadioGroupProvideValue {
 
 export type RadioGroupEmits = {
   'update:modelValue': [value: string | undefined]
-  valueChange: [value: string | undefined]
+  'valueChange': [value: string | undefined]
 }
 
 export interface RadioGroupProps extends PrimitiveProps {

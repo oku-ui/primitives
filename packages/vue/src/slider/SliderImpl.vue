@@ -6,16 +6,16 @@ import type { Scope } from '@oku-ui/provide'
 export type SliderImplElement = HTMLSpanElement
 
 export type SliderImplPrivateEmits = {
-  'slideStart': [event: PointerEvent]
-  'slideMove': [event: PointerEvent]
-  'slideEnd': [event: PointerEvent]
-  'homeKeyDown': [event: KeyboardEvent]
-  'endKeyDown': [event: KeyboardEvent]
-  'stepKeyDown': [event: KeyboardEvent]
-  'keydown': [event: KeyboardEvent]
-  'pointerdown': [event: PointerEvent]
-  'pointermove': [event: PointerEvent]
-  'pointerup': [event: PointerEvent]
+  slideStart: [event: PointerEvent]
+  slideMove: [event: PointerEvent]
+  slideEnd: [event: PointerEvent]
+  homeKeyDown: [event: KeyboardEvent]
+  endKeyDown: [event: KeyboardEvent]
+  stepKeyDown: [event: KeyboardEvent]
+  keydown: [event: KeyboardEvent]
+  pointerdown: [event: PointerEvent]
+  pointermove: [event: PointerEvent]
+  pointerup: [event: PointerEvent]
 }
 
 export interface SliderImplProps extends PrimitiveProps {
