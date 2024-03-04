@@ -26,7 +26,7 @@ export const toolbarLinkProps = {
 }
 
 export type ToolbarLinkEmits = {
-  'keydown': [event: KeyboardEvent]
+  keydown: [event: KeyboardEvent]
 }
 
 const toolbarLink = defineComponent({

@@ -17,8 +17,8 @@ export interface SwitchProps extends PrimitiveProps {
 
 export type SwitchEmits = {
   'update:checked': [checked: boolean]
-  checkedChange: [checked: boolean]
-  click: [event: MouseEvent]
+  'checkedChange': [checked: boolean]
+  'click': [event: MouseEvent]
 }
 
 </script>

@@ -210,13 +210,13 @@ export type TooltipContentImplEmits = Omit<PopperContentEmits, 'placed'> & {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  'escapeKeyDown': [event: DismissableLayerEmits['escapeKeyDown'][0]]
+  escapeKeyDown: [event: DismissableLayerEmits['escapeKeyDown'][0]]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `Tooltip`.
    * Can be prevented.
    */
-  'pointerDownOutside': [event: DismissableLayerEmits['pointerdownOutside'][0]]
-  'close': []
+  pointerDownOutside: [event: DismissableLayerEmits['pointerdownOutside'][0]]
+  close: []
 }
 
 export interface TooltipContentImplProps extends PopperContentProps {
@@ -224,5 +224,5 @@ export interface TooltipContentImplProps extends PopperContentProps {
   /**
    * A more descriptive label for accessibility purpose
    */
-  'ariaLabel'?: string
+  ariaLabel?: string
 }

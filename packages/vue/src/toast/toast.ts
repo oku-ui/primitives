@@ -24,7 +24,7 @@ export interface ToastProps extends Omit<ToastImplProps, keyof ToastImplPrivateP
 
 export type ToastPropsEmits = {
   'update:modelValue': [value: boolean]
-  openChange: [open: boolean]
+  'openChange': [open: boolean]
 } & Omit<ToastImplEmits, keyof ToastImplPrivateEmits>
 
 const toastProps = {

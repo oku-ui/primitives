@@ -19,9 +19,9 @@ export interface TabsTriggerProps extends PrimitiveProps {
 }
 
 export type TabsTriggerEmits = {
-  'mousedown': [event: MouseEvent]
-  'keydown': [event: KeyboardEvent]
-  'focus': [event: FocusEvent]
+  mousedown: [event: MouseEvent]
+  keydown: [event: KeyboardEvent]
+  focus: [event: FocusEvent]
 }
 
 export const tabsTriggerProps = {
