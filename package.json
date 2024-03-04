@@ -122,11 +122,11 @@
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "unbuild": "^2.0.0",
-    "vite": "5.1.0",
+    "vite": "5.1.4",
     "vite-plugin-dts": "^3.7.0",
     "vitest": "^1.1.3",
     "vitest-axe": "^1.0.0-pre.3",
-    "vue": "3.4.18"
+    "vue": "3.4.21"
   },
   "pnpm": {
     "overrides": {
