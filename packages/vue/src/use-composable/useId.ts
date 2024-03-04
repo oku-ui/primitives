@@ -1,17 +1,12 @@
 import { ref } from 'vue'
-import { createGlobalState } from '@vueuse/core'
 
-const useGlobalState = createGlobalState(() => {
-  const count = ref(0)
-  return { count }
-})
+let count = 0
 
 export function useId(deterministicId?: string): string {
   const id = ref<string | undefined>()
-  const { count } = useGlobalState()
 
   if (!deterministicId)
-    id.value = id.value ?? String(count.value++)
+    id.value = id.value ?? String(count++)
 
   return deterministicId || (id.value ? `oku-${id.value}` : '')
 }
