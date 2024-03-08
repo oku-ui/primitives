@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useForwardRef } from '@oku-ui/use-composable'
-import { useCollapsibleInject } from './Collapsible.js'
+import { useCollapsibleInject } from './Collapsible.ts'
 import { TRIGGER_NAME } from './constants.ts'
 import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
 import { Primitive } from '@oku-ui/primitive'
@@ -14,7 +13,6 @@ defineOptions({
 const props = defineProps<CollapsibleTriggerProps>()
 const emit = defineEmits<CollapsibleTriggerEmits>()
 
-const forwardedRef = useForwardRef()
 const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
 
 const handleClick = composeEventHandlers<MouseEvent>((e) => {
@@ -25,7 +23,6 @@ const handleClick = composeEventHandlers<MouseEvent>((e) => {
 <template>
   <Primitive
     :is="is"
-    :ref="forwardedRef"
     :type="is === 'button' ? 'button' : undefined"
     :as-child="asChild"
     :aria-controls="context.contentId"

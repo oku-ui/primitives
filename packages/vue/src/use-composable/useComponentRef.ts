@@ -2,21 +2,16 @@
 
 import type { ComponentPublicInstance } from 'vue'
 import { computed, ref } from 'vue'
-import { unrefElement, useForwardRef } from '.'
+import { unwrapEl } from './unwrapEl'
 
-export function useComponentRef<T = HTMLElement>(forwardEl = false) {
+export function useComponentRef<T = HTMLElement>() {
   const componentRef = ref<ComponentPublicInstance>()
-
-  const forward = useForwardRef()
 
   const currentElement = computed<T>(() => {
     // $el could be text/comment for non-single root normal or text root, thus we retrieve the nextElementSibling
-    const el = ['#text', '#comment'].includes(componentRef.value?.$el.nodeName) ? componentRef.value?.$el.nextElementSibling : unrefElement(componentRef)
-
-    if (el && forwardEl && el instanceof HTMLElement) {
-      forward(el)
-      return el as T
-    }
+    const el = ['#text', '#comment'].includes(componentRef.value?.$el?.nodeName)
+      ? unwrapEl(componentRef.value)
+      : unwrapEl(componentRef)
 
     return el as T
   })

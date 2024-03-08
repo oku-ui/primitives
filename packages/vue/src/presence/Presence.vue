@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { defineOptions, h, ref, toRef } from 'vue'
+import { defineOptions, h, shallowRef, toRef } from 'vue'
 import { unrefElement } from '@oku-ui/use-composable'
-import { usePresence } from './usePresence.js'
-import type { PresenceProps } from './Presence.js'
-import { PRESENCE_NAME } from './Presence.js'
+import { usePresence } from './usePresence.ts'
+import type { PresenceProps } from './Presence.ts'
+import { PRESENCE_NAME } from './Presence.ts'
 
 defineOptions({
   name: PRESENCE_NAME,
@@ -19,7 +19,7 @@ const slots = defineSlots<{
 
 const present = toRef(props, 'present')
 
-const nodeElement = ref<HTMLElement | undefined>()
+const nodeElement = shallowRef<HTMLElement | undefined>()
 const { isPresent } = usePresence(present, nodeElement)
 
 function Child() {
@@ -45,10 +45,6 @@ function Child() {
     })
     : null
 }
-
-defineExpose({
-  $el: nodeElement,
-})
 </script>
 
 <template>

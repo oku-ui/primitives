@@ -30,21 +30,55 @@ const open = ref(true)
       <h1 class="text-2xl">
         Uncontrolled
       </h1>
+
       <h2 class="text-lg">
         Closed
       </h2>
-      <OkuCollapsible v-model="close" class="collapsible-root">
+
+      <OkuCollapsible class="collapsible-root">
         <OkuCollapsibleTrigger class="collapsible-trigger">
-          {{ close ? 'close' : 'open' }}
+          trigger
         </OkuCollapsibleTrigger>
         <OkuCollapsibleContent class="content">
           <article>Content 1</article>
         </OkuCollapsibleContent>
       </OkuCollapsible>
+
       <h2 class="text-lg">
         open
       </h2>
-      <OkuCollapsible v-model="open" class="collapsible-root">
+
+      <OkuCollapsible :default-open="true" class="collapsible-root">
+        <OkuCollapsibleTrigger class="collapsible-trigger">
+          trigger
+        </OkuCollapsibleTrigger>
+        <OkuCollapsibleContent class="content">
+          <article>Content 1</article>
+        </OkuCollapsibleContent>
+      </OkuCollapsible>
+
+      <h1 class="text-2xl">
+        Controlled (v-model:open)
+      </h1>
+
+      <h2 class="text-lg">
+        Closed
+      </h2>
+
+      <OkuCollapsible v-model:open="close" class="collapsible-root">
+        <OkuCollapsibleTrigger class="collapsible-trigger">
+          {{ !close ? 'close' : 'open' }}
+        </OkuCollapsibleTrigger>
+        <OkuCollapsibleContent class="content">
+          <article>Content 1</article>
+        </OkuCollapsibleContent>
+      </OkuCollapsible>
+
+      <h2 class="text-lg">
+        open
+      </h2>
+
+      <OkuCollapsible v-model:open="open" class="collapsible-root">
         <OkuCollapsibleTrigger class="collapsible-trigger">
           {{ open ? 'close' : 'open' }}
         </OkuCollapsibleTrigger>
@@ -52,34 +86,11 @@ const open = ref(true)
           <article>Content 1</article>
         </OkuCollapsibleContent>
       </OkuCollapsible>
-      <h1 class="text-2xl">
-        Controlled
-      </h1>
-      <h2 class="text-lg">
-        Closed
-      </h2>
-      <OkuCollapsible class="collapsible-root" :open="false">
-        <OkuCollapsibleTrigger class="collapsible-trigger">
-          close
-        </OkuCollapsibleTrigger>
-        <OkuCollapsibleContent class="content">
-          <article>Content 1</article>
-        </OkuCollapsibleContent>
-      </OkuCollapsible>
-      <h2 class="text-lg">
-        open
-      </h2>
-      <OkuCollapsible class="collapsible-root" :open="true">
-        <OkuCollapsibleTrigger class="collapsible-trigger">
-          open
-        </OkuCollapsibleTrigger>
-        <OkuCollapsibleContent class="content">
-          <article>Content 1</article>
-        </OkuCollapsibleContent>
-      </OkuCollapsible>
+
       <h1 class="text-2xl">
         disabled
       </h1>
+
       <OkuCollapsible class="collapsible-root" :open="false" disabled>
         <OkuCollapsibleTrigger class="collapsible-trigger">
           close
@@ -91,6 +102,10 @@ const open = ref(true)
     </div>
 
     <div v-if="template === '#3' || allshow">
+      <h1 class="text-2xl">
+        #3
+      </h1>
+
       <OkuCollapsible v-model="open" class="collapsible-root">
         <OkuCollapsibleTrigger class="collapsible-trigger">
           {{ open ? 'close' : 'open' }}

@@ -2,13 +2,11 @@ import type { Scope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Ref } from 'vue'
 import { createScope } from '@oku-ui/provide'
-import { COLLAPSIBLE_NAME } from './constants.js'
+import { COLLAPSIBLE_NAME } from './constants.ts'
 
 // Props
 
 export interface CollapsibleProps extends PrimitiveProps {
-  modelValue?: boolean
-
   /**
    * The open state of the collapsible when it is initially rendered. <br> Use when you do not need to control its open state.
    */
@@ -30,7 +28,7 @@ export interface CollapsibleProps extends PrimitiveProps {
 // Emits
 
 export type CollapsibleEmits = {
-  'update:modelValue': [open: boolean]
+  'update:open': [open: boolean]
   openChange: [open: boolean]
 }
 

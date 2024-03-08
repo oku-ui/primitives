@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useForwardRef } from '@oku-ui/use-composable'
-import { useCollapsibleInject } from './Collapsible.js'
-import type { CollapsibleContentProps } from './CollapsibleContent.ts'
+import { useCurrentElement } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
+import { useCollapsibleInject } from './Collapsible.ts'
+import type { CollapsibleContentProps } from './CollapsibleContent.ts'
 import CollapsibleContentImpl from './CollapsibleContentImpl.vue'
-import { CONTENT_NAME } from './constants.js'
+import { CONTENT_NAME } from './constants.ts'
 
 defineOptions({
   name: CONTENT_NAME,
@@ -12,14 +12,27 @@ defineOptions({
 
 const props = defineProps<CollapsibleContentProps>()
 
-const forwardedRef = useForwardRef()
+const [$el, set$el] = useCurrentElement()
+
 const context = useCollapsibleInject(CONTENT_NAME, props.scopeOkuCollapsible)
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>
   <OkuPresence :present="forceMount || context.open.value">
     <template #default="scope">
-      <CollapsibleContentImpl v-bind="$attrs" :ref="forwardedRef" :present="scope.isPresent" />
+      <CollapsibleContentImpl
+        :is="is"
+        :ref="set$el"
+        :as-child="asChild"
+        :present="scope.isPresent"
+        v-bind="$attrs"
+      >
+        <slot />
+      </CollapsibleContentImpl>
     </template>
   </OkuPresence>
 </template>

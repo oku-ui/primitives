@@ -7,25 +7,25 @@ import {
 } from '@vue/shared'
 import { isValidElement } from '@oku-ui/utils'
 
-export type RefSetter = (
-  el: Element | ComponentPublicInstance | undefined
-) => void
+type TemplateRef = Element | ComponentPublicInstance | null | undefined
 
-export function useComposedRefs(...refs: (Ref<HTMLElement | undefined | null | ComponentPublicInstance> | RefSetter)[]) {
-  return (el: Element | ComponentPublicInstance | null) => {
+export type RefSetter = (ref: TemplateRef) => void
+
+export function useComposedRefs(...refs: Array<Ref<TemplateRef> | RefSetter>) {
+  return (el: Element | ComponentPublicInstance | null | undefined) => {
     if (!el)
       return
 
     if (isValidElement(el as any)) {
-      if ((el as ComponentPublicInstance)?.$el)
+      if ((el as unknown as ComponentPublicInstance)?.$el)
         return
     }
 
-    refs.forEach((ref) => {
+    for (const ref of refs) {
       if (isFunction(ref))
-        ref(el as Element | ComponentPublicInstance)
+        ref(el as any)
       else
-        ref.value = el as HTMLElement | undefined
-    })
+        ref.value = el
+    }
   }
 }

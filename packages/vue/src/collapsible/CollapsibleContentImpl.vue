@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { useCollapsibleInject } from './Collapsible.js'
+import { useCurrentElement } from '@oku-ui/use-composable'
+import { Primitive } from '@oku-ui/primitive'
+import { useCollapsibleInject } from './Collapsible.ts'
 import type { CollapsibleContentImplProps } from './CollapsibleContentImpl.ts'
-import { CONTENT_IMPL_NAME } from './constants.js'
+import { CONTENT_IMPL_NAME } from './constants.ts'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
-import { getState } from './utils'
+import { getState } from './utils.ts'
 
 defineOptions({
   name: CONTENT_IMPL_NAME,
@@ -14,31 +15,28 @@ const props = defineProps<CollapsibleContentImplProps>()
 
 const context = useCollapsibleInject(CONTENT_IMPL_NAME, props.scopeOkuCollapsible)
 
-const elRef = ref<HTMLElement>()
+const [contentRef, setContentRef] = useCurrentElement<HTMLElement>()
 
-const forwardedRef = useForwardRef()
-const composedRefs = useComposedRefs(elRef, forwardedRef)
-
-const height = ref<number>(0)
-const width = ref<number>(0)
+const height = ref(0)
+const width = ref(0)
 
 const isPresent = ref(props.present)
 const isOpen = computed(() => context.open.value || isPresent.value)
 const isMountAnimationPreventedRef = ref(isOpen.value)
-const originalStylesRef = ref<Record<string, string>>()
+const originalStylesRef = ref<Record<string, string>>({})
 
-const rAf = ref()
+const rAf = ref<number>()
 
 onMounted(() => {
   rAf.value = requestAnimationFrame(() => (isMountAnimationPreventedRef.value = false))
 })
 
 onBeforeUnmount(() => {
-  cancelAnimationFrame(rAf.value)
+  cancelAnimationFrame(rAf.value!)
 })
 
 watchEffect(async () => {
-  const node = elRef.value
+  const node = contentRef.value
 
   if (node) {
     originalStylesRef.value = originalStylesRef.value || {
@@ -65,18 +63,15 @@ watchEffect(async () => {
     isPresent.value = props.present
   }
 })
-
 </script>
 
 <template>
   <Primitive
     :is="is"
     :id="context.contentId"
-    :ref="composedRefs"
+    :ref="setContentRef"
     :as-child="asChild"
-    :data-state="getState(context.open.value)"
-    :data-disabled="context.disabled?.value ? '' : undefined"
-    :hidden="!isOpen"
+    :data-state="getState(context.open.value)" :data-disabled="context.disabled?.value ? '' : undefined" :hidden="!isOpen"
     :style="{
       [`--oku-collapsible-content-height`]: `${height}px`,
       [`--oku-collapsible-content-width`]: `${width}px`,

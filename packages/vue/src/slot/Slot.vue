@@ -84,9 +84,7 @@ function Comp(props: any) {
 </script>
 
 <template>
-  <Comp
-    ref="componentRef"
-  >
+  <Comp ref="componentRef">
     <slot />
   </Comp>
 </template>
