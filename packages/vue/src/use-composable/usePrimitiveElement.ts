@@ -1,12 +1,17 @@
 import { shallowRef } from 'vue'
 import type { MaybeElement, MaybeElementRef } from './unrefElement'
-import { unrefElement } from './unrefElement'
 
-export function useCurrentElement<T extends MaybeElement = MaybeElement>() {
+export function usePrimitiveElement<T extends MaybeElement = MaybeElement>() {
   const currentElement = shallowRef<T>()
 
   function setCurrentElement(el: MaybeElementRef<any>) {
-    currentElement.value = unrefElement(el) as T
+    if (!el || !el.$el)
+      return
+
+    if (el.$el === currentElement.value)
+      return
+
+    currentElement.value = el.$el
   }
 
   return [currentElement, setCurrentElement] as const

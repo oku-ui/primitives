@@ -7,13 +7,13 @@ import { unwrapEl } from './unwrapEl'
 export function useComponentRef<T = HTMLElement>() {
   const componentRef = ref<ComponentPublicInstance>()
 
-  const currentElement = computed<T>(() => {
+  const currentElement = computed(() => {
     // $el could be text/comment for non-single root normal or text root, thus we retrieve the nextElementSibling
     const el = ['#text', '#comment'].includes(componentRef.value?.$el?.nodeName)
       ? unwrapEl(componentRef.value)
       : unwrapEl(componentRef)
 
-    return el as T
+    return el as T | undefined
   })
 
   return {

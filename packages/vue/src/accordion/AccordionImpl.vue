@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCurrentElement } from '@oku-ui/use-composable'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { accordionImplProvider } from './AccordionImpl.ts'
 import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl.ts'
 import { computed, toRef } from 'vue'
@@ -17,7 +17,7 @@ defineOptions({
 const props = defineProps<AccordionImplProps>()
 const emit = defineEmits<AccordionImplEmits>()
 
-const [$el, set$el] = useCurrentElement<HTMLElement>()
+const [$el, set$el] = usePrimitiveElement<HTMLElement>()
 
 const getItems = useCollection(props.scopeOkuAccordion)
 const direction = useDirection(toRef(props, 'dir'))

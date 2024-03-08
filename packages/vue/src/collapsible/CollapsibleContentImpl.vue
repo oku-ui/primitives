@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCurrentElement } from '@oku-ui/use-composable'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { useCollapsibleInject } from './Collapsible.ts'
 import type { CollapsibleContentImplProps } from './CollapsibleContentImpl.ts'
@@ -15,7 +15,7 @@ const props = defineProps<CollapsibleContentImplProps>()
 
 const context = useCollapsibleInject(CONTENT_IMPL_NAME, props.scopeOkuCollapsible)
 
-const [contentRef, setContentRef] = useCurrentElement<HTMLElement>()
+const [contentRef, setContentRef] = usePrimitiveElement<HTMLElement>()
 
 const height = ref(0)
 const width = ref(0)

@@ -8,6 +8,7 @@ export interface PrimitiveProps {
 <script setup lang="ts">
 import { defineOptions, onMounted } from 'vue'
 import { OkuSlot } from '@oku-ui/slot'
+import { useComponentRef } from '@oku-ui/use-composable'
 
 defineOptions({
   name: 'OkuPrimitive',
@@ -21,13 +22,19 @@ withDefaults(
   },
 )
 
+const { componentRef, currentElement } = useComponentRef()
+
 onMounted(() => {
   (window as any)[Symbol.for('oku-ui')] = true
+})
+
+defineExpose({
+  $el: currentElement,
 })
 </script>
 
 <template>
-  <component :is="asChild ? OkuSlot : is">
+  <component :is="asChild ? OkuSlot : is" ref="componentRef">
     <slot />
   </component>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCurrentElement, useId, useVModel } from '@oku-ui/use-composable'
+import { useId, usePrimitiveElement, useVModel } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
 import { collapsibleProvider } from './Collapsible.ts'
 import type { CollapsibleEmits, CollapsibleProps } from './Collapsible.ts'
@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<CollapsibleProps>(), {
 })
 const emit = defineEmits<CollapsibleEmits>()
 
-const [$el, set$el] = useCurrentElement()
+const [$el, set$el] = usePrimitiveElement()
 
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,

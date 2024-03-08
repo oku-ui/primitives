@@ -5,7 +5,7 @@ import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './Collaps
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './utils'
-import { useCurrentElement } from '@oku-ui/use-composable'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
 
 defineOptions({
   name: TRIGGER_NAME,
@@ -14,7 +14,7 @@ defineOptions({
 const props = defineProps<CollapsibleTriggerProps>()
 const emit = defineEmits<CollapsibleTriggerEmits>()
 
-const [$el, set$el] = useCurrentElement()
+const [$el, set$el] = usePrimitiveElement()
 const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
 
 const handleClick = composeEventHandlers<MouseEvent>((e) => {

@@ -4,7 +4,7 @@ import { ACCORDION_NAME } from './constants.ts'
 import type { AccordionEmits, AccordionProps } from './Accordion.ts'
 import AccordionMultiple from './AccordionMultiple.vue'
 import AccordionSingle from './AccordionSingle.vue'
-import { useCurrentElement } from '@oku-ui/use-composable'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
 
 defineOptions({
   name: ACCORDION_NAME,
@@ -14,7 +14,7 @@ defineOptions({
 const props = defineProps<AccordionProps>()
 const emit = defineEmits<AccordionEmits>()
 
-const [$el, set$el] = useCurrentElement<HTMLElement>()
+const [$el, set$el] = usePrimitiveElement<HTMLElement>()
 
 defineExpose({
   $el,

@@ -14,4 +14,4 @@ export { useListeners, useEmitsToProps, useMergePropsEmits } from './useListener
 export { useRect } from './use-rect'
 export * from './useComponentRef'
 export { unwrapEl } from './unwrapEl'
-export { useCurrentElement } from './useCurrentElement'
+export { usePrimitiveElement } from './usePrimitiveElement'

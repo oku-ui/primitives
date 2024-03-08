@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAccordionItemInject } from './AccordionItem.ts'
-import { useCurrentElement } from '@oku-ui/use-composable'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { useAccordionCollapsibleInject, useCollapsibleScope } from './Accordion.ts'
 import { useAccordionInject } from './AccordionImpl.ts'
 import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.ts'
@@ -17,7 +17,7 @@ defineOptions({
 const props = defineProps<AccordionTriggerProps>()
 const emit = defineEmits<AccordionTriggerEmits>()
 
-const [$el, set$el] = useCurrentElement()
+const [$el, set$el] = usePrimitiveElement()
 const accordionInject = useAccordionInject(ACCORDION_NAME, props.scopeOkuAccordion)
 const itemContext = useAccordionItemInject(TRIGGER_NAME, props.scopeOkuAccordion)
 const collapsibleInject = useAccordionCollapsibleInject(TRIGGER_NAME, props.scopeOkuAccordion)
