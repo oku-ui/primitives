@@ -63,6 +63,10 @@ watchEffect(async () => {
     isPresent.value = props.present
   }
 })
+
+defineExpose({
+  $el: contentRef,
+})
 </script>
 
 <template>

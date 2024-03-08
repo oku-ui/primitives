@@ -5,6 +5,7 @@ import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './Collaps
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './utils'
+import { useCurrentElement } from '@oku-ui/use-composable'
 
 defineOptions({
   name: TRIGGER_NAME,
@@ -13,16 +14,22 @@ defineOptions({
 const props = defineProps<CollapsibleTriggerProps>()
 const emit = defineEmits<CollapsibleTriggerEmits>()
 
+const [$el, set$el] = useCurrentElement()
 const context = useCollapsibleInject(TRIGGER_NAME, props.scopeOkuCollapsible)
 
 const handleClick = composeEventHandlers<MouseEvent>((e) => {
   emit('click', e)
 }, context.onOpenToggle)
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>
   <Primitive
     :is="is"
+    :ref="set$el"
     :type="is === 'button' ? 'button' : undefined"
     :as-child="asChild"
     :aria-controls="context.contentId"
