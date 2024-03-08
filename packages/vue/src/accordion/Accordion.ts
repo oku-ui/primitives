@@ -1,11 +1,11 @@
 import { createScope } from '@oku-ui/provide'
 import { createCollapsibleScope } from '@oku-ui/collapsible'
 import { type Ref, ref } from 'vue'
-import type { AccordionSingleProps } from './AccordionSingle.ts'
-import type { AccordionMultipleProps } from './AccordionMultiple.ts'
-import { ACCORDION_NAME } from './constants.ts'
-import { createCollectionScope } from './AccordionCollections.ts'
-import type { AccordionImplEmits } from './AccordionImpl.ts'
+import type { AccordionSingleProps } from './AccordionSingle'
+import type { AccordionMultipleProps } from './AccordionMultiple'
+import { ACCORDION_NAME } from './constants'
+import { createCollectionScope } from './AccordionCollections'
+import type { AccordionImplEmits } from './AccordionImpl'
 
 // Props
 

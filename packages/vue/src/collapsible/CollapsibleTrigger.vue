@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useCollapsibleInject } from './Collapsible.ts'
-import { TRIGGER_NAME } from './constants.ts'
-import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
+import { useCollapsibleInject } from './Collapsible'
+import { TRIGGER_NAME } from './constants'
+import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './CollapsibleTrigger'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { getState } from './utils'

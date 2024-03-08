@@ -2,7 +2,7 @@ import type { Scope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Ref } from 'vue'
 import { createScope } from '@oku-ui/provide'
-import { COLLAPSIBLE_NAME } from './constants.ts'
+import { COLLAPSIBLE_NAME } from './constants'
 
 // Props
 

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
-import { useCollapsibleInject } from './Collapsible.ts'
-import type { CollapsibleContentImplProps } from './CollapsibleContentImpl.ts'
-import { CONTENT_IMPL_NAME } from './constants.ts'
+import { useCollapsibleInject } from './Collapsible'
+import type { CollapsibleContentImplProps } from './CollapsibleContentImpl'
+import { CONTENT_IMPL_NAME } from './constants'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
-import { getState } from './utils.ts'
+import { getState } from './utils'
 
 defineOptions({
   name: CONTENT_IMPL_NAME,

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { usePrimitiveElement } from '@oku-ui/use-composable'
-import { accordionImplProvider } from './AccordionImpl.ts'
-import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl.ts'
+import { accordionImplProvider } from './AccordionImpl'
+import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl'
 import { computed, toRef } from 'vue'
 import { useDirection } from '@oku-ui/direction'
-import { CollectionSlot, useCollection } from './AccordionCollections.ts'
+import { CollectionSlot, useCollection } from './AccordionCollections'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { ACCORDION_IMPL_NAME, ACCORDION_KEYS } from './constants.ts'
+import { ACCORDION_IMPL_NAME, ACCORDION_KEYS } from './constants'
 import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({

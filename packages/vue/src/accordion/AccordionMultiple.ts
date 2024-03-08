@@ -1,4 +1,4 @@
-import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl.ts'
+import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl'
 
 // Props
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { AccordionHeaderProps } from './AccordionHeader.ts'
-import { useAccordionInject } from './AccordionImpl.ts'
-import { useAccordionItemInject } from './AccordionItem.ts'
-import { ACCORDION_NAME, HEADER_NAME } from './constants.ts'
+import type { AccordionHeaderProps } from './AccordionHeader'
+import { useAccordionInject } from './AccordionImpl'
+import { useAccordionItemInject } from './AccordionItem'
+import { ACCORDION_NAME, HEADER_NAME } from './constants'
 import { Primitive } from '@oku-ui/primitive'
-import { getState } from './utils.ts'
+import { getState } from './utils'
 
 defineOptions({
   name: HEADER_NAME,

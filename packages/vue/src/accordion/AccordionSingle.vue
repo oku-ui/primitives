@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import { computed, ref } from 'vue'
-import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion.ts'
-import type { AccordionSingleEmits, AccordionSingleProps } from './AccordionSingle.ts'
+import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion'
+import type { AccordionSingleEmits, AccordionSingleProps } from './AccordionSingle'
 import { useVModel } from '@oku-ui/use-composable'
 import AccordionImpl from './AccordionImpl.vue'
-import { ACCORDION_SIMPLE_NAME } from './constants.ts'
+import { ACCORDION_SIMPLE_NAME } from './constants'
 
 defineOptions({
   name: ACCORDION_SIMPLE_NAME,

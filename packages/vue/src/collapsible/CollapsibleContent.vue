@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import { useCollapsibleInject } from './Collapsible.ts'
-import type { CollapsibleContentProps } from './CollapsibleContent.ts'
+import { useCollapsibleInject } from './Collapsible'
+import type { CollapsibleContentProps } from './CollapsibleContent'
 import CollapsibleContentImpl from './CollapsibleContentImpl.vue'
-import { CONTENT_NAME } from './constants.ts'
+import { CONTENT_NAME } from './constants'
 
 defineOptions({
   name: CONTENT_NAME,
