@@ -1,4 +1,4 @@
-import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl.js'
+import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl.ts'
 
 // Props
 
@@ -6,7 +6,7 @@ export interface AccordionMultipleProps extends AccordionImplProps {
   /**
    * The controlled stateful value of the accordion item whose content is expanded.
    */
-  modelValue?: string[]
+  value?: string[]
 
   /**
    * The value of the item whose content is expanded when the accordion is initially rendered. Use
@@ -18,5 +18,5 @@ export interface AccordionMultipleProps extends AccordionImplProps {
 // Emits
 
 export type AccordionMultipleEmits = AccordionImplEmits & {
-  'update:modelValue': [value: string[]]
+  'update:value': [value: string[]]
 }

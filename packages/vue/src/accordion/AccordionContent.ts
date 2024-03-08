@@ -17,5 +17,5 @@ export interface AccordionContentProps extends PrimitiveProps {
    */
   defaultValue?: string[]
 
-  scopeOkuAccordion: Scope
+  scopeOkuAccordion?: Scope
 }

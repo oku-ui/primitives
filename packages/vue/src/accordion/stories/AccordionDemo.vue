@@ -19,29 +19,38 @@ withDefaults(defineProps<OkuAccordionProps>(), {
 </script>
 
 <template>
-  <div v-if="template === 'Single' || allshow">
-    <Single />
-  </div>
-  <div v-if="template === 'Multiple' || allshow">
-    <Multiple />
-  </div>
-  <div v-if="template === 'Animated' || allshow">
-    <Animated />
-  </div>
-  <div v-if="template === 'Animated2D' || allshow">
-    <Animated2D />
-  </div>
-  <div v-if="template === 'AnimatedControlled' || allshow">
-    <AnimatedControlled />
-  </div>
-  <div v-if="template === 'OutsideViewport' || allshow">
-    <OutsideViewport />
-  </div>
-  <div v-if="template === 'Horizontal' || allshow">
-    <Horizontal />
-  </div>
-  <div v-if="template === 'Chromatic' || allshow">
-    <Chromatic />
+  <div>
+    <div v-if="template === 'Single' || allshow">
+      <Single />
+    </div>
+
+    <div v-if="template === 'Multiple' || allshow">
+      <Multiple />
+    </div>
+
+    <div v-if="template === 'Animated' || allshow">
+      <Animated />
+    </div>
+
+    <div v-if="template === 'Animated2D' || allshow">
+      <Animated2D />
+    </div>
+
+    <div v-if="template === 'AnimatedControlled' || allshow">
+      <AnimatedControlled />
+    </div>
+
+    <div v-if="template === 'OutsideViewport' || allshow">
+      <OutsideViewport />
+    </div>
+
+    <div v-if="template === 'Horizontal' || allshow">
+      <Horizontal />
+    </div>
+
+    <div v-if="template === 'Chromatic' || allshow">
+      <Chromatic />
+    </div>
   </div>
 </template>
 
@@ -131,9 +140,11 @@ withDefaults(defineProps<OkuAccordionProps>(), {
   &[data-orientation="horizontal"] {
     height: 100%;
   }
+
   &[data-orientation="vertical"] {
     width: 100%;
   }
+
   text-align: inherit;
 
   box-sizing: border-box;

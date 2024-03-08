@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useForwardRef } from '@oku-ui/use-composable'
-import type { AccordionHeaderProps } from './AccordionHeader.js'
-import { useAccordionInject } from './AccordionImpl.js'
-import { useAccordionItemInject } from './AccordionItem.js'
-import { ACCORDION_NAME, HEADER_NAME } from './constants.js'
+import type { AccordionHeaderProps } from './AccordionHeader.ts'
+import { useAccordionInject } from './AccordionImpl.ts'
+import { useAccordionItemInject } from './AccordionItem.ts'
+import { ACCORDION_NAME, HEADER_NAME } from './constants.ts'
 import { Primitive } from '@oku-ui/primitive'
-import { getState } from './utils.js'
+import { getState } from './utils.ts'
 
 defineOptions({
   name: HEADER_NAME,
@@ -17,14 +16,11 @@ const props = withDefaults(defineProps<AccordionHeaderProps>(), {
 
 const accordionContext = useAccordionInject(ACCORDION_NAME, props.scopeOkuAccordion)
 const itemContext = useAccordionItemInject(HEADER_NAME, props.scopeOkuAccordion)
-
-const forwardRef = useForwardRef()
 </script>
 
 <template>
   <Primitive
     :is="is"
-    :ref="forwardRef"
     :as-child="asChild"
     :data-orientation="accordionContext.orientation.value"
     :data-state="getState(itemContext.open?.value)"

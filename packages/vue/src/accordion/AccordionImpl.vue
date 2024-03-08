@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { accordionImplProvider } from './AccordionImpl.js'
-import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl.js'
-import { computed, ref, toRef } from 'vue'
+import { useCurrentElement } from '@oku-ui/use-composable'
+import { accordionImplProvider } from './AccordionImpl.ts'
+import type { AccordionImplEmits, AccordionImplProps } from './AccordionImpl.ts'
+import { computed, toRef } from 'vue'
 import { useDirection } from '@oku-ui/direction'
-import { CollectionSlot, useCollection } from './AccordionCollections.js'
+import { CollectionSlot, useCollection } from './AccordionCollections.ts'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { ACCORDION_IMPL_NAME, ACCORDION_KEYS } from './constants.js'
+import { ACCORDION_IMPL_NAME, ACCORDION_KEYS } from './constants.ts'
 import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({
@@ -17,10 +17,7 @@ defineOptions({
 const props = defineProps<AccordionImplProps>()
 const emit = defineEmits<AccordionImplEmits>()
 
-const accordionRef = ref<HTMLDivElement>()
-
-const forwardRef = useForwardRef()
-const composedRefs = useComposedRefs(accordionRef, forwardRef)
+const [$el, set$el] = useCurrentElement<HTMLElement>()
 
 const getItems = useCollection(props.scopeOkuAccordion)
 const direction = useDirection(toRef(props, 'dir'))
@@ -106,6 +103,10 @@ accordionImplProvider({
   direction: toRef(props, 'dir'),
   orientation: toRef(props, 'orientation'),
 })
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>
@@ -113,7 +114,7 @@ accordionImplProvider({
     <Primitive
       v-bind="$attrs"
       :is="is"
-      :ref="composedRefs"
+      :ref="set$el"
       :as-child="asChild"
       :data-orientation="orientation"
       @keydown="disabled ? undefined : handleKeyDown"

@@ -1,12 +1,12 @@
 import type { Scope } from '@oku-ui/provide'
 import type { CollapsibleProps } from '@oku-ui/collapsible'
 import type { Ref } from 'vue'
-import { createAccordionProvider } from './Accordion.js'
-import { ITEM_NAME } from './constants.js'
+import { createAccordionProvider } from './Accordion.ts'
+import { ITEM_NAME } from './constants.ts'
 
 // Props
 
-export interface AccordionItemProps extends Omit<CollapsibleProps, 'open' | 'defaultOpen' | 'modelValue' | 'scopeOkuCollapsible'> {
+export interface AccordionItemProps extends Omit<CollapsibleProps, 'open' | 'defaultOpen' | 'scopeOkuCollapsible'> {
   /**
    * Whether or not an accordion item is disabled from user interaction.
    * When `true`, prevents the user from interacting with the item.

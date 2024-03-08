@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<CollapsibleProps>(), {
 const emit = defineEmits<CollapsibleEmits>()
 
 const [$el, set$el] = useCurrentElement()
+
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,

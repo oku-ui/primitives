@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { CollectionProvider } from './AccordionCollections.js'
-import { ACCORDION_NAME } from './constants.js'
-import type { AccordionEmits, AccordionProps } from './Accordion.js'
+import { CollectionProvider } from './AccordionCollections.ts'
+import { ACCORDION_NAME } from './constants.ts'
+import type { AccordionEmits, AccordionProps } from './Accordion.ts'
 import AccordionMultiple from './AccordionMultiple.vue'
 import AccordionSingle from './AccordionSingle.vue'
+import { useCurrentElement } from '@oku-ui/use-composable'
 
 defineOptions({
   name: ACCORDION_NAME,
@@ -13,24 +14,11 @@ defineOptions({
 const props = defineProps<AccordionProps>()
 const emit = defineEmits<AccordionEmits>()
 
-if (props.type) {
-  const value = props.modelValue || props.defaultValue
-  if (props.type && !['single', 'multiple'].includes(props.type)) {
-    throw new Error(
-      'Invalid prop `type` supplied to `Accordion`. Expected one of `single | multiple`.',
-    )
-  }
-  if (props.type === 'multiple' && typeof value === 'string') {
-    throw new Error(
-      'Invalid prop `type` supplied to `Accordion`. Expected `single` when `defaultValue` or `value` is type `string`.',
-    )
-  }
-  if (props.type === 'single' && Array.isArray(value)) {
-    throw new Error(
-      'Invalid prop `type` supplied to `Accordion`. Expected `multiple` when `defaultValue` or `value` is type `string[]`.',
-    )
-  }
-}
+const [$el, set$el] = useCurrentElement<HTMLElement>()
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>
@@ -39,14 +27,15 @@ if (props.type) {
       v-bind="$attrs"
       :is="is"
       v-if="props.type === 'single'"
+      :ref="set$el"
       :as-child="asChild"
-      :model-value="modelValue as string"
+      :value="value as string"
       :default-value="defaultValue as string"
       :collapsible="collapsible"
       :disabled="disabled"
       :orientation="orientation"
       :dir="dir"
-      @update:model-value="(payload) => emit('update:modelValue', payload)"
+      @update:value="(payload) => emit('update:value', payload)"
       @keydown="(payload) => emit('keydown', payload)"
     >
       <slot />
@@ -56,13 +45,14 @@ if (props.type) {
       v-bind="$attrs"
       :is="is"
       v-else
+      :ref="set$el"
       :as-child="asChild"
-      :model-value="modelValue as string[]"
+      :value="value as string[]"
       :default-value="defaultValue as string[]"
       :disabled="disabled"
       :orientation="orientation"
       :dir="dir"
-      @update:model-value="(payload) => emit('update:modelValue', payload)"
+      @update:value="(payload) => emit('update:value', payload)"
       @keydown="(payload) => emit('keydown', payload)"
     >
       <slot />

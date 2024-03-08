@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useAccordionItemInject } from './AccordionItem.js'
-import { useForwardRef } from '@oku-ui/use-composable'
-import { useAccordionCollapsibleInject, useCollapsibleScope } from './Accordion.js'
-import { useAccordionInject } from './AccordionImpl.js'
-import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.js'
+import { useAccordionItemInject } from './AccordionItem.ts'
+import { useCurrentElement } from '@oku-ui/use-composable'
+import { useAccordionCollapsibleInject, useCollapsibleScope } from './Accordion.ts'
+import { useAccordionInject } from './AccordionImpl.ts'
+import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.ts'
 import { computed } from 'vue'
 import { OkuCollapsibleTrigger } from '@oku-ui/collapsible'
 import { CollectionItemSlot } from './AccordionCollections'
@@ -17,14 +17,17 @@ defineOptions({
 const props = defineProps<AccordionTriggerProps>()
 const emit = defineEmits<AccordionTriggerEmits>()
 
+const [$el, set$el] = useCurrentElement()
 const accordionInject = useAccordionInject(ACCORDION_NAME, props.scopeOkuAccordion)
 const itemContext = useAccordionItemInject(TRIGGER_NAME, props.scopeOkuAccordion)
 const collapsibleInject = useAccordionCollapsibleInject(TRIGGER_NAME, props.scopeOkuAccordion)
 const collapsibleScope = useCollapsibleScope(props.scopeOkuAccordion)
 
-const forwardRef = useForwardRef()
-
 const disabled = computed(() => (itemContext.open?.value && !collapsibleInject.collapsible.value) || undefined)
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>
@@ -33,7 +36,7 @@ const disabled = computed(() => (itemContext.open?.value && !collapsibleInject.c
       :is="is"
       v-bind="{ ...$attrs, ...collapsibleScope }"
       :id="itemContext.triggerId"
-      :ref="forwardRef"
+      :ref="set$el"
       :as-child="asChild"
       :aria-disabled="disabled"
       :data-orientation="accordionInject.orientation"

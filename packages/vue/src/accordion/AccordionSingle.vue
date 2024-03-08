@@ -1,39 +1,35 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import { computed, ref } from 'vue'
-import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion.js'
-import type { AccordionSingleEmits, AccordionSingleProps } from './AccordionSingle.js'
-import { useControllable, useForwardRef } from '@oku-ui/use-composable'
+import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion.ts'
+import type { AccordionSingleEmits, AccordionSingleProps } from './AccordionSingle.ts'
+import { useVModel } from '@oku-ui/use-composable'
 import AccordionImpl from './AccordionImpl.vue'
-import { ACCORDION_SIMPLE_NAME } from './constants.js'
+import { ACCORDION_SIMPLE_NAME } from './constants.ts'
 
 defineOptions({
   name: ACCORDION_SIMPLE_NAME,
 })
 
-const props = defineProps<AccordionSingleProps>()
+const props = withDefaults(defineProps<AccordionSingleProps>(), {
+  defaultValue: '',
+})
 const emit = defineEmits<AccordionSingleEmits>()
 
-const computedOpen = computed(() => props.modelValue !== undefined ? props.modelValue : undefined)
-
-const [state, updateValue] = useControllable({
-  prop: computedOpen,
-  defaultProp: computed(() => props.defaultValue),
-  onChange: (result) => {
-    emit('update:modelValue', result)
-  },
-})
-
-const forwardRef = useForwardRef()
+const value = useVModel(props, 'value', emit, {
+  defaultValue: props.defaultValue,
+  passive: (props.value === undefined) as false,
+}) as Ref<typeof props.defaultValue>
 
 accordionValueProvider({
   scope: props.scopeOkuAccordion,
-  value: computed(() => state.value ? [state.value] : []),
-  onItemOpen: (e) => {
-    updateValue(e)
+  value: computed(() => value.value ? [value.value] : []),
+  onItemOpen(payload) {
+    value.value = payload
   },
-  onItemClose: () => {
+  onItemClose() {
     if (props.collapsible)
-      updateValue('')
+      value.value = ''
   },
 })
 
@@ -46,9 +42,8 @@ accordionCollapsibleProvider({
 <template>
   <AccordionImpl
     :is="is"
-    :ref="forwardRef"
     :as-child="asChild"
-    :model-value="modelValue"
+    :value="value"
     :default-value="defaultValue"
     :collapsible="collapsible"
     :disabled="disabled"

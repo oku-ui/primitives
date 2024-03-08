@@ -1,38 +1,34 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion.js'
-import type { AccordionMultipleEmits, AccordionMultipleProps } from './AccordionMultiple.js'
-import { useControllable, useForwardRef } from '@oku-ui/use-composable'
+import type { Ref } from 'vue'
+import { ref } from 'vue'
+import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion.ts'
+import type { AccordionMultipleEmits, AccordionMultipleProps } from './AccordionMultiple.ts'
+import { useVModel } from '@oku-ui/use-composable'
 import AccordionImpl from './AccordionImpl.vue'
-import { ACCORDION_MULTIPLE_NAME } from './constants.js'
+import { ACCORDION_MULTIPLE_NAME } from './constants.ts'
 
 defineOptions({
   name: ACCORDION_MULTIPLE_NAME,
 })
 
-const props = defineProps<AccordionMultipleProps>()
+const props = withDefaults(defineProps<AccordionMultipleProps>(), {
+  defaultValue: () => [],
+})
 const emit = defineEmits<AccordionMultipleEmits>()
 
-const computedOpen = computed(() => props.modelValue !== undefined ? props.modelValue : undefined)
-
-const [state, updateValue] = useControllable({
-  prop: computedOpen,
-  defaultProp: computed(() => props.defaultValue),
-  onChange: (result) => {
-    emit('update:modelValue', result)
-  },
-})
-
-const forwardRef = useForwardRef()
+const value = useVModel(props, 'value', emit, {
+  defaultValue: props.defaultValue,
+  passive: (props.value === undefined) as false,
+}) as Ref<typeof props.defaultValue>
 
 accordionValueProvider({
   scope: props.scopeOkuAccordion,
-  value: state,
-  onItemOpen: (itemValue: string) => {
-    updateValue([...state.value, itemValue])
+  value,
+  onItemOpen(itemValue: string) {
+    value.value = [...value.value, itemValue]
   },
-  onItemClose: (itemValue: string) => {
-    updateValue([...state.value].filter(value => value !== itemValue))
+  onItemClose(itemValue: string) {
+    value.value = [...value.value].filter(value => value !== itemValue)
   },
 })
 
@@ -40,14 +36,14 @@ accordionCollapsibleProvider({
   scope: props.scopeOkuAccordion,
   collapsible: ref(true),
 })
+
 </script>
 
 <template>
   <AccordionImpl
     :is="is"
-    :ref="forwardRef"
     :as-child="asChild"
-    :model-value="modelValue"
+    :value="value"
     :default-value="defaultValue"
     :disabled="disabled"
     :orientation="orientation"
