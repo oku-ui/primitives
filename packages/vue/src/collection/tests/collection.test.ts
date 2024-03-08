@@ -7,12 +7,7 @@ describe('collection', () => {
   it('renders the component correctly', () => {
     type ItemData = { disabled?: boolean }
 
-    const { CollectionSlot, CollectionItemSlot, CollectionProvider, useCollection } = createCollection<HTMLLIElement, ItemData>('List', {
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-    })
+    const { CollectionSlot, CollectionItemSlot, CollectionProvider, useCollection } = createCollection<HTMLLIElement, ItemData>('List')
     const TestComponent = {
       components: {
         CollectionSlot,

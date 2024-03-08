@@ -6,9 +6,9 @@ export interface PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { useComponentRef } from '@oku-ui/use-composable'
-import { defineExpose, defineOptions, onMounted } from 'vue'
+import { defineOptions, onMounted } from 'vue'
 import { OkuSlot } from '@oku-ui/slot'
+import { useComponentRef } from '@oku-ui/use-composable'
 
 defineOptions({
   name: 'OkuPrimitive',
@@ -22,11 +22,11 @@ withDefaults(
   },
 )
 
+const { componentRef, currentElement } = useComponentRef()
+
 onMounted(() => {
   (window as any)[Symbol.for('oku-ui')] = true
 })
-
-const { componentRef, currentElement } = useComponentRef<HTMLDivElement | null>()
 
 defineExpose({
   $el: currentElement,
@@ -34,11 +34,7 @@ defineExpose({
 </script>
 
 <template>
-  <component
-    v-bind="$attrs"
-    :is="asChild ? OkuSlot : is"
-    ref="componentRef"
-  >
+  <component :is="asChild ? OkuSlot : is" ref="componentRef">
     <slot />
   </component>
 </template>

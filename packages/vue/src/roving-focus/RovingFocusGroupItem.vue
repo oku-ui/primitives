@@ -77,7 +77,7 @@ const keydownFunction = composeEventHandlers<KeyboardEvent>((e) => {
     event.preventDefault()
 
     const items = getItems().filter(item => item.focusable)
-    let candidateNodes = items.map(item => item.ref.value.$el)
+    let candidateNodes = items.map(item => item.ref)
     if (focusIntent === 'last') {
       candidateNodes.reverse()
     }

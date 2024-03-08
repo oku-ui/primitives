@@ -9,6 +9,7 @@ const values = ref(['One', 'Two', 'Three', 'Four'])
   <div>
     <h1>Uncontrolled</h1>
     <h2>Single closed</h2>
+
     <OkuAccordion type="single" class="accordion-root">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">
@@ -23,7 +24,9 @@ const values = ref(['One', 'Two', 'Three', 'Four'])
         </OkuAccordionContent>
       </OkuAccordionItem>
     </OkuAccordion>
+
     <h2>Single open</h2>
+
     <OkuAccordion type="single" class="accordion-root" default-value="Two">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">
@@ -38,7 +41,9 @@ const values = ref(['One', 'Two', 'Three', 'Four'])
         </OkuAccordionContent>
       </OkuAccordionItem>
     </OkuAccordion>
+
     <h2>Multiple closed</h2>
+
     <OkuAccordion type="multiple" class="accordion-root">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">
@@ -53,7 +58,9 @@ const values = ref(['One', 'Two', 'Three', 'Four'])
         </OkuAccordionContent>
       </OkuAccordionItem>
     </OkuAccordion>
+
     <h2>Multiple open</h2>
+
     <OkuAccordion type="multiple" class="accordion-root" :default-value="['One', 'Two']">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">
@@ -68,8 +75,10 @@ const values = ref(['One', 'Two', 'Three', 'Four'])
         </OkuAccordionContent>
       </OkuAccordionItem>
     </OkuAccordion>
+
     <h1>Controlled</h1>
     <h2>Single open</h2>
+
     <OkuAccordion type="single" class="accordion-root" value="Three">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">
@@ -84,7 +93,9 @@ const values = ref(['One', 'Two', 'Three', 'Four'])
         </OkuAccordionContent>
       </OkuAccordionItem>
     </OkuAccordion>
+
     <h2>Multiple open</h2>
+
     <OkuAccordion type="multiple" class="accordion-root" :value="['Two', 'Three']">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">

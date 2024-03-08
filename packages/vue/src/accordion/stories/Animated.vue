@@ -35,6 +35,7 @@ watchEffect(() => {
       Dynamic content
     </label>
     <h1>Closed by default</h1>
+
     <OkuAccordion type="single" class="accordion-root">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">
@@ -51,7 +52,9 @@ watchEffect(() => {
         </OkuAccordionContent>
       </OkuAccordionItem>
     </OkuAccordion>
+
     <h1>Open by default</h1>
+
     <OkuAccordion type="single" class="accordion-root" default-value="One">
       <OkuAccordionItem v-for="item in values" :key="item" class="accordion-item" :value="item">
         <OkuAccordionHeader class="accordion-header">

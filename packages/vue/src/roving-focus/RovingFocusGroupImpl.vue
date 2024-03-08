@@ -114,7 +114,7 @@ const focus = composeEventHandlers<FocusEvent>((e) => {
       const candidateItems = [activeItem, currentItem, ...items].filter(
         Boolean,
       ) as typeof items
-      const candidateNodes = candidateItems.map(item => item.ref.value.$el)
+      const candidateNodes = candidateItems.map(item => item.ref)
       focusFirst(candidateNodes)
     }
   }
