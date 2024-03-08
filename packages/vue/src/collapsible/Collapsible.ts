@@ -29,7 +29,6 @@ export interface CollapsibleProps extends PrimitiveProps {
 
 export type CollapsibleEmits = {
   'update:open': [open: boolean]
-  openChange: [open: boolean]
 }
 
 // Context

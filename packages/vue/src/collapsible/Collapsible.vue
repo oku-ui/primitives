@@ -19,10 +19,6 @@ const emit = defineEmits<CollapsibleEmits>()
 const open = useVModel(props, 'open', emit, {
   defaultValue: props.defaultOpen,
   passive: (props.open === undefined) as false,
-  shouldEmit(v: any) {
-    emit('openChange', v)
-    return true
-  },
 }) as Ref<boolean>
 
 collapsibleProvider({
