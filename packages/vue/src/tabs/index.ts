@@ -1,45 +1,11 @@
-export {
-  OkuTabs,
-  createTabsProvider,
-  tabsProps,
-} from './tabs'
+export { type TabsProps, createTabsScope } from './Tabs'
+export { default as OkuTabs } from './Tabs.vue'
 
-export {
-  OkuTabsList,
-  tabsListProps,
-} from './tabsList'
+export type { TabsListProps } from './TabsList'
+export { default as OkuTabsList } from './TabsList.vue'
 
-export {
-  OkuTabsTrigger,
-  tabsTriggerProps,
-} from './tabsTrigger'
+export type { TabsTriggerProps } from './TabsTrigger'
+export { default as OkuTabsTrigger } from './TabsTrigger.vue'
 
-export {
-  OkuTabsContent,
-  tabsContentProps,
-} from './tabsContent'
-
-export type {
-  TabsProps,
-  TabsElement,
-  TabsNaviteElement,
-} from './tabs'
-
-export type {
-  TabsListProps,
-  TabsListElement,
-  TabsListElementNaviteElement,
-} from './tabsList'
-
-export type {
-  TabsTriggerProps,
-  TabsTriggerElement,
-  TabsTriggerElementNaviteElement,
-  TabsTriggerEmits,
-} from './tabsTrigger'
-
-export type {
-  TabsContentProps,
-  TabsContentElement,
-  TabsContentNaviteElement,
-} from './tabsContent'
+export type { TabsContentProps } from './TabsContent'
+export { default as OkuTabsContent } from './TabsContent.vue'
