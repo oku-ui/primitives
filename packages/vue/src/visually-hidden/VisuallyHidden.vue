@@ -27,8 +27,8 @@ defineExpose({
 
 <template>
   <Primitive
+    :is="props.is"
     ref="componentRef"
-    :as="props.is"
     :as-child="props.asChild"
     :style="{
       // See: https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
