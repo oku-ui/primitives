@@ -31,19 +31,19 @@ export interface ScrollAreaContext {
   scrollHideDelay: Ref<number>
   scrollArea: Ref<ScrollAreaElement | undefined>
   viewport: Ref<ScrollAreaViewportElement | undefined>
-  onViewportChange(viewport: ScrollAreaViewportElement | undefined): void
+  onViewportChange: (viewport: ScrollAreaViewportElement | undefined) => void
   content: Ref<HTMLElement | undefined>
-  onContentChange(content: HTMLDivElement): void
+  onContentChange: (content: HTMLDivElement) => void
   scrollbarX: Ref<ScrollAreaScrollbarElement | undefined>
-  onScrollbarXChange(scrollbar: ScrollAreaScrollbarElement | undefined): void
+  onScrollbarXChange: (scrollbar: ScrollAreaScrollbarElement | undefined) => void
   scrollbarXEnabled: Ref<boolean>
-  onScrollbarXEnabledChange(rendered: boolean): void
+  onScrollbarXEnabledChange: (rendered: boolean) => void
   scrollbarY: Ref<ScrollAreaScrollbarElement | undefined>
-  onScrollbarYChange(scrollbar: ScrollAreaScrollbarElement | undefined): void
+  onScrollbarYChange: (scrollbar: ScrollAreaScrollbarElement | undefined) => void
   scrollbarYEnabled: Ref<boolean>
-  onScrollbarYEnabledChange(rendered: boolean): void
-  onCornerWidthChange(width: number): void
-  onCornerHeightChange(height: number): void
+  onScrollbarYEnabledChange: (rendered: boolean) => void
+  onCornerWidthChange: (width: number) => void
+  onCornerHeightChange: (height: number) => void
 }
 
 export const [createScrollAreaContext, createScrollAreaScope] = createScope(SCROLL_AREA_NAME)
