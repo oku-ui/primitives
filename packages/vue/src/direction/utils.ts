@@ -1,10 +1,10 @@
-import { computed, inject, unref } from 'vue'
-import type { InjectionKey, MaybeRef, Ref } from 'vue'
+import { computed, inject, toValue } from 'vue'
+import type { InjectionKey, MaybeRefOrGetter, Ref } from 'vue'
 
 export type Direction = 'ltr' | 'rtl'
 export const DirectionContextSymbol = Symbol('OkuDirectionProvider') as InjectionKey<Ref<Direction>>
 
-export function useDirection(localDir?: MaybeRef<Direction | undefined>) {
+export function useDirection(localDir?: MaybeRefOrGetter<Direction | undefined>) {
   const globalDir = inject(DirectionContextSymbol, null)
-  return computed(() => unref(localDir) ?? globalDir?.value ?? 'ltr')
+  return computed(() => toValue(localDir) ?? globalDir?.value ?? 'ltr')
 }

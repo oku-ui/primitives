@@ -4,5 +4,6 @@ export {
 } from './Direction.vue'
 
 export {
+  type Direction,
   useDirection,
 } from './utils'

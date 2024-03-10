@@ -1,27 +1,17 @@
 import { nextTick, onMounted, ref, watchEffect } from 'vue'
 import { clamp } from '@oku-ui/utils'
+import type { Direction, Sizes } from './types'
 
-export type Direction = 'ltr' | 'rtl'
-export type Sizes = {
-  content: number
-  viewport: number
-  scrollbar: {
-    size: number
-    paddingStart: number
-    paddingEnd: number
-  }
-}
-
-function toInt(value?: string) {
+export function toInt(value?: string) {
   return value ? Number.parseInt(value, 10) : 0
 }
 
-function getThumbRatio(viewportSize: number, contentSize: number) {
+export function getThumbRatio(viewportSize: number, contentSize: number) {
   const ratio = viewportSize / contentSize
   return Number.isNaN(ratio) ? 0 : ratio
 }
 
-function getThumbSize(sizes: Sizes) {
+export function getThumbSize(sizes: Sizes) {
   const ratio = getThumbRatio(sizes.viewport, sizes.content)
   const scrollbarPadding = sizes.scrollbar.paddingStart + sizes.scrollbar.paddingEnd
   const thumbSize = (sizes.scrollbar.size - scrollbarPadding) * ratio
@@ -29,7 +19,7 @@ function getThumbSize(sizes: Sizes) {
   return Math.max(thumbSize, 18)
 }
 
-function getScrollPositionFromPointer(
+export function getScrollPositionFromPointer(
   pointerPos: number,
   pointerOffset: number,
   sizes: Sizes,
@@ -47,7 +37,7 @@ function getScrollPositionFromPointer(
   return interpolate(pointerPos)
 }
 
-function getThumbOffsetFromScroll(scrollPos: number, sizes: Sizes, dir: Direction = 'ltr') {
+export function getThumbOffsetFromScroll(scrollPos: number, sizes: Sizes, dir: Direction = 'ltr') {
   const thumbSizePx = getThumbSize(sizes)
   const scrollbarPadding = sizes.scrollbar.paddingStart + sizes.scrollbar.paddingEnd
   const scrollbar = sizes.scrollbar.size - scrollbarPadding
@@ -69,13 +59,13 @@ function linearScale(input: readonly [number, number], output: readonly [number,
   }
 }
 
-function isScrollingWithinScrollbarBounds(scrollPos: number, maxScrollPos: number) {
+export function isScrollingWithinScrollbarBounds(scrollPos: number, maxScrollPos: number) {
   return scrollPos > 0 && scrollPos < maxScrollPos
 }
 
 // Custom scroll handler to avoid scroll-linked effects
 // https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Scroll-linked_effects
-function addUnlinkedScrollListener(node: HTMLElement, handler = () => {}) {
+export function addUnlinkedScrollListener(node: HTMLElement, handler = () => { }) {
   let prevPosition = { left: node.scrollLeft, top: node.scrollTop }
   let rAF = 0;
   (function loop() {
@@ -90,7 +80,7 @@ function addUnlinkedScrollListener(node: HTMLElement, handler = () => {}) {
   return () => window.cancelAnimationFrame(rAF)
 }
 
-function useDebounceCallback(callback: () => void, delay: number) {
+export function useDebounceCallback(callback: () => void, delay: number) {
   const handleCallback = callback
   const debounceTimerRef = ref<number>(0)
 
@@ -104,9 +94,10 @@ function useDebounceCallback(callback: () => void, delay: number) {
   }
 }
 
-function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
+export function useResizeObserver(element: HTMLElement | undefined | null, onResize: () => void) {
   const handleResize = onResize
-  watchEffect(async (onInvalidate) => {
+
+  watchEffect(async (onCleanup) => {
     await nextTick()
 
     let rAF = 0
@@ -124,12 +115,10 @@ function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
       })
       resizeObserver.observe(element)
 
-      onInvalidate(() => {
+      onCleanup(() => {
         window.cancelAnimationFrame(rAF)
         resizeObserver.unobserve(element)
       })
     }
   })
 }
-
-export { getThumbRatio, toInt, getThumbSize, getScrollPositionFromPointer, getThumbOffsetFromScroll, isScrollingWithinScrollbarBounds, addUnlinkedScrollListener, useDebounceCallback, useResizeObserver }
