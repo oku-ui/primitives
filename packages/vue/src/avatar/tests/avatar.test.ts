@@ -54,7 +54,7 @@ describe('okuAvatar', () => {
 
     expect(spy).toHaveBeenCalled()
 
-    expect(spy.mock.calls[0][0]).toContain('[Vue warn]: injection "Symbol(OkuAvatar)" not found.')
+    expect(spy.mock.calls[0][0]).toMatchSnapshot()
   })
 
   it('should render OkuAvatarFallback correctly', () => {

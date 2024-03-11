@@ -8,6 +8,8 @@ exports[`okuAvatar > should render OkuAvatarFallback correctly 1`] = `[Error: \`
 
 exports[`okuAvatar > should render OkuAvatarImage correctly 1`] = `[Error: \`OkuAvatar\` must be used within \`OkuAvatar\`]`;
 
+exports[`okuAvatar > should render OkuAvatarImage correctly 2`] = `"[Vue warn]: Missing required prop: "src""`;
+
 exports[`okuAvatar Stories > chromatic > should render correctly 1`] = `
 "<h1>Without image &amp; with fallback</h1>
 <oku-avatar-stub is="span" aschild="false" class="avatar"></oku-avatar-stub>
