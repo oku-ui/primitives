@@ -7,8 +7,9 @@ import { useScrollAreaContext } from './ScrollArea'
 import type { ScrollAreaScrollbarImplEmits, ScrollAreaScrollbarImplProps } from './ScrollAreaScrollbarImpl'
 import { provideScrollbarContext } from './ScrollAreaScrollbarImpl'
 import type { ScrollAreaScrollbarElement } from './types'
-import { useDebounceCallback, useResizeObserver } from './utils'
+import { useDebounceCallback } from './utils'
 import { SCROLL_AREA_SCROLLBAR_IMPL_NAME, SCROLL_AREA_SCROLLBAR_NAME } from './constants'
+import { useResizeObserver } from '@vueuse/core'
 
 defineOptions({
   name: SCROLL_AREA_SCROLLBAR_IMPL_NAME,
@@ -64,8 +65,8 @@ watchEffect(() => {
   handleThumbPositionChange()
 })
 
-useResizeObserver(scrollbar.value, handleResize)
-useResizeObserver(context.content.value, handleResize)
+useResizeObserver(scrollbar, handleResize)
+useResizeObserver(context.content, handleResize)
 
 provideScrollbarContext({
   scope: props.scopeOkuScrollArea,

@@ -3,8 +3,8 @@ import { computed, ref } from 'vue'
 import { useScrollAreaContext } from './ScrollArea'
 import { SCROLL_AREA_CORNER_IMPL_NAME, SCROLL_AREA_CORNER_NAME } from './constants'
 import type { ScrollAreaCornerImplProps } from './ScrollAreaCornerImpl'
-import { useResizeObserver } from './utils'
 import { Primitive } from '@oku-ui/primitive'
+import { useResizeObserver } from '@vueuse/core'
 
 defineOptions({
   name: SCROLL_AREA_CORNER_IMPL_NAME,
@@ -19,13 +19,13 @@ const height = ref(0)
 
 const hasSize = computed(() => Boolean(width.value && height.value))
 
-useResizeObserver(context.scrollbarX.value, () => {
+useResizeObserver(context.scrollbarX, () => {
   const _height = context.scrollbarX.value?.offsetHeight || 0
   context.onCornerHeightChange(_height)
   height.value = _height
 })
 
-useResizeObserver(context.scrollbarY.value, () => {
+useResizeObserver(context.scrollbarY, () => {
   const _width = context.scrollbarY.value?.offsetWidth || 0
   context.onCornerWidthChange(_width)
   width.value = _width

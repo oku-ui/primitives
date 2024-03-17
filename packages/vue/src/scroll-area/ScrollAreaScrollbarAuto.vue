@@ -5,8 +5,9 @@ import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { useScrollAreaContext } from './ScrollArea'
 import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto'
 import { SCROLL_AREA_SCROLLBAR_AUTO_NAME, SCROLL_AREA_SCROLLBAR_NAME } from './constants'
-import { useDebounceCallback, useResizeObserver } from './utils'
+import { useDebounceCallback } from './utils'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
+import { useResizeObserver } from '@vueuse/core'
 
 defineOptions({
   name: SCROLL_AREA_SCROLLBAR_AUTO_NAME,
@@ -29,8 +30,8 @@ const handleResize = useDebounceCallback(() => {
   }
 }, 10)
 
-useResizeObserver(context.viewport.value, handleResize)
-useResizeObserver(context.content.value, handleResize)
+useResizeObserver(context.viewport, handleResize)
+useResizeObserver(context.content, handleResize)
 
 const [$el, forwardRef] = usePrimitiveElement()
 
