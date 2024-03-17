@@ -1,4 +1,4 @@
-import { nextTick, onMounted, ref, watchEffect } from 'vue'
+import { onMounted, ref } from 'vue'
 import { clamp } from '@oku-ui/utils'
 import type { Direction, Sizes } from './types'
 
