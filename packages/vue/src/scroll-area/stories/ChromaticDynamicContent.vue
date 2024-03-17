@@ -26,7 +26,7 @@ onMounted(() => {
   </ScrollAreaStory>
 
   <h1>Hover</h1>
-  <ScrollAreaStory type="'hover'" :style="{ width: '500px', height: '250px' }">
+  <ScrollAreaStory type="hover" :style="{ width: '500px', height: '250px' }">
     <template v-if="showContent">
       <Copy v-for="(_, index) in 30" :key="index" />
     </template>
@@ -46,7 +46,7 @@ onMounted(() => {
   </ScrollAreaStory>
 
   <h1>Auto</h1>
-  <ScrollAreaStory type="'auto'" :style="{ width: '500px', height: '250px' }">
+  <ScrollAreaStory type="auto" :style="{ width: '500px', height: '250px' }">
     <template v-if="showContent">
       <Copy v-for="(_, index) in 30" :key="index" />
     </template>
