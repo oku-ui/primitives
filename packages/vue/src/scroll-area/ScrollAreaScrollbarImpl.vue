@@ -2,14 +2,13 @@
 import { computed, shallowRef, watchEffect } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { usePrimitiveElement, useResizeObserver } from '@oku-ui/use-composable'
 import { useScrollAreaContext } from './ScrollArea'
 import type { ScrollAreaScrollbarImplEmits, ScrollAreaScrollbarImplProps } from './ScrollAreaScrollbarImpl'
 import { provideScrollbarContext } from './ScrollAreaScrollbarImpl'
 import type { ScrollAreaScrollbarElement } from './types'
 import { useDebounceCallback } from './utils'
 import { SCROLL_AREA_SCROLLBAR_IMPL_NAME, SCROLL_AREA_SCROLLBAR_NAME } from './constants'
-import { useResizeObserver } from '@vueuse/core'
 
 defineOptions({
   name: SCROLL_AREA_SCROLLBAR_IMPL_NAME,

@@ -93,32 +93,3 @@ export function useDebounceCallback(callback: () => void, delay: number) {
     debounceTimerRef.value = window.setTimeout(handleCallback, delay)
   }
 }
-
-export function useResizeObserver(element: HTMLElement | undefined | null, onResize: () => void) {
-  const handleResize = onResize
-
-  watchEffect(async (onCleanup) => {
-    await nextTick()
-
-    let rAF = 0
-    if (element) {
-      /**
-       * Resize Observer will throw an often benign error that says `ResizeObserver loop
-       * completed with undelivered notifications`. This means that ResizeObserver was not
-       * able to deliver all observations within a single animation frame, so we use
-       * `requestAnimationFrame` to ensure we don't deliver unnecessary observations.
-       * Further reading: https://github.com/WICG/resize-observer/issues/38
-       */
-      const resizeObserver = new ResizeObserver(() => {
-        cancelAnimationFrame(rAF)
-        rAF = window.requestAnimationFrame(handleResize)
-      })
-      resizeObserver.observe(element)
-
-      onCleanup(() => {
-        window.cancelAnimationFrame(rAF)
-        resizeObserver.unobserve(element)
-      })
-    }
-  })
-}

@@ -4,7 +4,7 @@ import { useScrollAreaContext } from './ScrollArea'
 import { SCROLL_AREA_CORNER_IMPL_NAME, SCROLL_AREA_CORNER_NAME } from './constants'
 import type { ScrollAreaCornerImplProps } from './ScrollAreaCornerImpl'
 import { Primitive } from '@oku-ui/primitive'
-import { useResizeObserver } from '@vueuse/core'
+import { useResizeObserver } from '@oku-ui/use-composable'
 
 defineOptions({
   name: SCROLL_AREA_CORNER_IMPL_NAME,
