@@ -1,44 +1,14 @@
-export {
-  OkuRadioGroup,
-  createRadioGroupScope,
-  radioGroupProps,
-} from './RadioGroup'
+export { default as OkuRadio } from './Radio.vue'
+export { default as OkuRadioGroup } from './RadioGroup.vue'
+export { default as OkuRadioGroupItem } from './RadioGroupItem.vue'
+export { default as OkuRadioGroupIndicator } from './RadioGroupIndicator.vue'
 
-export type {
-  RadioElement,
-  RadioGroupNaviteElement,
-  RadioGroupProps,
-  RadioGroupEmits,
-} from './RadioGroup'
+export { createRadioGroupScope, type RadioGroupProps, type RadioGroupEmits } from './RadioGroup'
+export type { RadioGroupItemProps, RadioGroupItemEmits } from './RadioGroupItem'
+export type { RadioGroupIndicatorProps } from './RadioGroupIndicator'
 
-export {
-  OkuRadioGroupItem,
-  radioGroupItemProps,
-} from './RadioGroupItem'
+export type { RadioElement } from './types'
 
-export type {
-  RadioGroupItemProps,
-  RadioGroupItemElement,
-  RadioGroupItemEmits,
-} from './RadioGroupItem'
+export { scopeRadioGroupProps, scopeRadioProps } from './utils'
 
-export {
-  OkuRadioGroupIndicator,
-  radioGroupIndicatorProps,
-} from './RadioGroupIndicator'
-
-export type {
-  RadioGroupIndicatorElement,
-  RadioGroupIndicatorProps,
-  RadioGroupIndicatorNaviteElement,
-} from './RadioGroupIndicator'
-
-export {
-  scopeRadioGroupProps,
-  scopeRadioProps,
-} from './utils'
-
-export type {
-  ScopeRadio,
-  ScopeRadioGroup,
-} from './utils'
+export type { ScopeRadio, ScopeRadioGroup } from './utils'
