@@ -10,7 +10,7 @@ export function useComponentRef<T = HTMLElement>() {
   const currentElement = computed(() => {
     // $el could be text/comment for non-single root normal or text root, thus we retrieve the nextElementSibling
     const el = ['#text', '#comment'].includes(componentRef.value?.$el?.nodeName)
-      ? unwrapEl(componentRef.value)
+      ? componentRef.value?.$el.nextElementSibling
       : unwrapEl(componentRef)
 
     return el as T | undefined
