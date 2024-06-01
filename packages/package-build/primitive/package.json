@@ -39,7 +39,7 @@
   "dependencies": {
     "@oku-ui/slot": "latest",
     "@oku-ui/use-composable": "latest",
-    "filter-anything": "^3.0.7"
+    "filter-anything": "^4.0.0"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"
