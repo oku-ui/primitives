@@ -1,0 +1,17 @@
+{
+  "extends": "@teleskop150750/typescript-config/tsconfig.options.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "types": ["node"],
+    "allowArbitraryExtensions": true,
+    "emitDeclarationOnly": true
+  },
+  "include": [
+    "vite.config.*",
+    "vitest.config.*",
+    "cypress.config.*",
+    "nightwatch.conf.*",
+    "playwright.config.*"
+  ]
+}

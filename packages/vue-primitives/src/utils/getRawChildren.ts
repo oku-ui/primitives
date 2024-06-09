@@ -1,0 +1,42 @@
+import { Fragment, type VNode, cloneVNode } from 'vue'
+import { PatchFlags } from '@vue/shared'
+
+// TODO: wip
+export function getRawChildren(
+  children: VNode[],
+  keepComment: boolean = false,
+  parentKey?: VNode['key'],
+): VNode[] {
+  let ret: VNode[] = []
+  let keyedFragmentCount = 0
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i]
+    // #5360 inherit parent key in case of <template v-for>
+    const key
+      = parentKey == null
+        ? child.key
+        : String(parentKey) + String(child.key != null ? child.key : i)
+    // handle fragment children case, e.g. v-for
+    if (child.type === Fragment) {
+      if (child.patchFlag & PatchFlags.KEYED_FRAGMENT)
+        keyedFragmentCount++
+      ret = ret.concat(
+        getRawChildren(child.children as VNode[], keepComment, key),
+      )
+    }
+    // comment placeholders should be skipped, e.g. v-if
+    else if (keepComment || child.type !== Comment) {
+      ret.push(key != null ? cloneVNode(child, { key }) : child)
+    }
+  }
+  // #1126 if a transition children list contains multiple sub fragments, these
+  // fragments will be merged into a flat children array. Since each v-for
+  // fragment may contain different static bindings inside, we need to de-op
+  // these children to force full diffs to ensure correct behavior.
+  if (keyedFragmentCount > 1) {
+    for (let i = 0; i < ret.length; i++) {
+      ret[i].patchFlag = PatchFlags.BAIL
+    }
+  }
+  return ret
+}
