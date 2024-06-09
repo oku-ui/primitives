@@ -23,6 +23,7 @@
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/shared": "^3.4.27",
     "@vue/test-utils": "^2.4.6",
+    "@vueuse/core": "^10.10.0",
     "jsdom": "^24.1.0",
     "npm-run-all2": "^6.2.0",
     "vite": "^5.2.13",
