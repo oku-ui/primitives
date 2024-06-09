@@ -36,9 +36,9 @@ const onClick = composeEventHandlers((e: Event) => {
     type="button"
     :aria-pressed="pressed"
     :data-state="pressed ? 'on' : 'off'"
-    :data-disabled="$attrs.disabled ? '' : undefined"
+    :data-disabled="disabled ? '' : undefined"
     @click="onClick"
   >
-    <slot :pressed="pressed" />
+    <slot />
   </Primitive>
 </template>

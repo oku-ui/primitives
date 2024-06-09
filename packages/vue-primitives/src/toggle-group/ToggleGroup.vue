@@ -2,7 +2,7 @@
 import { Primitive } from '../primitive/index.ts'
 import { useControllableState } from '../utils/useControllableState.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
-import type { ToggleEmits, ToggleProps } from './Toggle.ts'
+import type { ToggleEmits, ToggleProps } from './ToggleGroup.ts'
 
 defineOptions({
   name: 'Toggle',

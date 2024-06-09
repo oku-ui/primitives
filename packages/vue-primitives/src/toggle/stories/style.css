@@ -1,0 +1,40 @@
+.root {
+  padding: 6px;
+  line-height: 1;
+  border: none;
+  font-family: 'sans-serif';
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px black;
+  }
+  
+  &[data-disabled] {
+    opacity: 0.5;
+  }
+  
+  &[data-state="off"] {
+    background-color: red;
+    color: white;
+  }
+
+  &[data-state="on"] {
+    background-color: green;
+    color: white;
+  }
+}
+
+.rootAttr {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+}
