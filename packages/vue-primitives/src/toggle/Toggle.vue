@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 import { Primitive } from '~/primitive/index.ts'
-import { useControllableState } from '~/utils/useControllableState.ts'
+import { useControllableState } from '~/hooks/useControllableState.ts'
 import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
 
 defineOptions({
@@ -15,10 +15,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 
 const emit = defineEmits<ToggleEmits>()
 
-const pressed = useControllableState(props, 'pressed', emit, {
-  defaultValue: props.defaultPressed,
-  passive: (props.pressed === undefined) as false,
-})
+const pressed = useControllableState(props, emit, 'pressed', props.defaultPressed)
 
 const onClick = composeEventHandlers((e: Event) => {
   emit('click', e)
