@@ -34,7 +34,7 @@
     // "types": [],                                      /* Указать имена пакетов типов, которые должны быть включены без ссылки на их исходный файл. */
     // "allowUmdGlobalAccess": true,                     /* Разрешить доступ к глобальным объектам UMD из модулей. */
     // "moduleSuffixes": [],                             /* Список суффиксов имен файлов для поиска при разрешении модуля. */
-    // "allowImportingTsExtensions": true, //-1          /* Разрешить импорт файлов TypeScript с расширениями. Требуется установить '--moduleResolution bundler' и либо '--noEmit', либо '--emitDeclarationOnly'. */
+    "allowImportingTsExtensions": true,                  /* Разрешить импорт файлов TypeScript с расширениями. Требуется установить '--moduleResolution bundler' и либо '--noEmit', либо '--emitDeclarationOnly'. */
     // "resolvePackageJsonExports": true,                /* Использовать поле 'exports' в package.json при разрешении импортов пакетов. */
     // "resolvePackageJsonImports": true,                /* Использовать поле 'imports' в package.json при разрешении импортов. */
     // "customConditions": [],                           /* Условия, устанавливаемые в дополнение к специфичным для разрешателя значениям по умолчанию при разрешении импортов. */

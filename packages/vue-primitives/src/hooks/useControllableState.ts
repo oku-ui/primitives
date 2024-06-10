@@ -1,14 +1,14 @@
 import { isDef } from '@vueuse/core'
-import {  type UnwrapRef, computed, nextTick, shallowRef, watch, type Ref } from 'vue'
-
+import { type Ref, type UnwrapRef, computed, nextTick, shallowRef, watch } from 'vue'
 
 /**
  * Shorthand for v-model binding, props + emit -> ref
  *
  * @see https://vueuse.org/useVModel
  * @param props
- * @param key (default 'value' in Vue 2 and 'modelValue' in Vue 3)
  * @param emit
+ * @param key
+ * @param defaultValue
  */
 export function useControllableState<P extends object, K extends keyof P, Name extends string, V = Exclude<P[K], undefined>>(
   props: P,
@@ -32,7 +32,6 @@ export function useControllableState<P extends object, K extends keyof P, Name e
         emit(event, value)
       },
     })
-
   }
   else {
     const proxy = shallowRef<V>(getValue())
@@ -43,7 +42,7 @@ export function useControllableState<P extends object, K extends keyof P, Name e
       (v) => {
         if (!isUpdating) {
           isUpdating = true
-            ; (proxy as any).value = v as UnwrapRef<P[K]>
+          ; (proxy as any).value = v as UnwrapRef<P[K]>
           nextTick(() => isUpdating = false)
         }
       },

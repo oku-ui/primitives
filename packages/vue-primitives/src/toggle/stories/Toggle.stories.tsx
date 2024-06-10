@@ -1,6 +1,6 @@
-import './style.css'
+// import './style.css'
 import { defineComponent, shallowRef } from 'vue'
-import Toggle from '../Toggle.vue'
+import { Toggle } from '../index.ts'
 
 export default { title: 'Components/Toggle' }
 

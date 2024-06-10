@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowRef, watchEffect } from 'vue'
+import { computed, shallowRef } from 'vue'
 // import Foo from '../src/Foo.vue'
 // import Primitive from './primitive/Primitive.vue'
 import Toggle from './toggle/Toggle.vue'

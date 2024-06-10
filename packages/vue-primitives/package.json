@@ -15,7 +15,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
