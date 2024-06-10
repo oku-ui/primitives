@@ -1,4 +1,4 @@
-import { type ShallowReactive, type ShallowRef, onBeforeUnmount, onBeforeUpdate, onMounted, shallowReactive } from 'vue'
+import { type ShallowReactive, type ShallowRef, shallowReactive, watchEffect } from 'vue'
 import { createContext } from '../hooks/createContext.ts'
 
 export const ITEM_DATA_ATTR = 'data-radix-collection-item'
@@ -23,35 +23,35 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
   function useCollectionItem(currentElement: ShallowRef<ItemElement | undefined>, attrs: Record<string, unknown> = {}) {
     const { itemMap } = useCollectionContext()
 
-    let unrefElement: ItemElement | undefined
+    // let unrefElement: ItemElement | undefined
 
-    onMounted(() => {
-      unrefElement = currentElement.value
-      if (!unrefElement)
-        return
+    // onMounted(() => {
+    //   unrefElement = currentElement.value
+    //   if (!unrefElement)
+    //     return
 
-      itemMap.set(unrefElement, {
-        ref: unrefElement,
-        attrs: attrs as ItemData,
-      })
-    })
+    //   itemMap.set(unrefElement, {
+    //     ref: unrefElement,
+    //     attrs: attrs as ItemData,
+    //   })
+    // })
 
-    onBeforeUpdate(() => {
-      if (!unrefElement)
-        return
+    // onBeforeUpdate(() => {
+    //   if (!unrefElement)
+    //     return
 
-      itemMap.set(unrefElement, {
-        ref: unrefElement,
-        attrs: attrs as ItemData,
-      })
-    })
+    //   itemMap.set(unrefElement, {
+    //     ref: unrefElement,
+    //     attrs: attrs as ItemData,
+    //   })
+    // })
 
-    onBeforeUnmount(() => {
-      if (!unrefElement)
-        return
+    // onBeforeUnmount(() => {
+    //   if (!unrefElement)
+    //     return
 
-      itemMap.delete(unrefElement)
-    })
+    //   itemMap.delete(unrefElement)
+    // })
 
     // TODO: watch attrs -> onBeforeUpdate
     // watch([currentElement, attrs], (_, __, onClean) => {
@@ -68,6 +68,21 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
     //     itemMap.delete(unrefElement)
     //   })
     // })
+
+    watchEffect((onClean) => {
+      const unrefElement = currentElement.value
+      if (!unrefElement)
+        return
+
+      itemMap.set(unrefElement, {
+        ref: unrefElement,
+        attrs: attrs as ItemData,
+      })
+
+      onClean(() => {
+        itemMap.delete(unrefElement)
+      })
+    })
 
     return {
       itemMap,
