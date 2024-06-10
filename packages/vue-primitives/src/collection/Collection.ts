@@ -1,4 +1,4 @@
-import { type ShallowReactive, type ShallowRef, shallowReactive, watchEffect } from 'vue'
+import { type ShallowReactive, type ShallowRef, onBeforeUnmount, onBeforeUpdate, onMounted, shallowReactive } from 'vue'
 import { createContext } from '../hooks/createContext.ts'
 
 export const ITEM_DATA_ATTR = 'data-radix-collection-item'
@@ -23,8 +23,10 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
   function useCollectionItem(currentElement: ShallowRef<ItemElement | undefined>, attrs: Record<string, unknown> = {}) {
     const { itemMap } = useCollectionContext()
 
-    watchEffect((onClean) => {
-      const unrefElement = currentElement.value
+    let unrefElement: ItemElement | undefined
+
+    onMounted(() => {
+      unrefElement = currentElement.value
       if (!unrefElement)
         return
 
@@ -32,11 +34,40 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
         ref: unrefElement,
         attrs: attrs as ItemData,
       })
+    })
 
-      onClean(() => {
-        itemMap.delete(unrefElement)
+    onBeforeUpdate(() => {
+      if (!unrefElement)
+        return
+
+      itemMap.set(unrefElement, {
+        ref: unrefElement,
+        attrs: attrs as ItemData,
       })
     })
+
+    onBeforeUnmount(() => {
+      if (!unrefElement)
+        return
+
+      itemMap.delete(unrefElement)
+    })
+
+    // TODO: watch attrs -> onBeforeUpdate
+    // watch([currentElement, attrs], (_, __, onClean) => {
+    //   const unrefElement = currentElement.value
+    //   if (!unrefElement)
+    //     return
+
+    //   itemMap.set(unrefElement, {
+    //     ref: unrefElement,
+    //     attrs: attrs as ItemData,
+    //   })
+
+    //   onClean(() => {
+    //     itemMap.delete(unrefElement)
+    //   })
+    // })
 
     return {
       itemMap,
