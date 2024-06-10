@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Primitive } from '../primitive/index.ts'
-import { useControllableState } from '../utils/useControllableState.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
+import { Primitive } from '~/primitive/index.ts'
+import { useControllableState } from '~/utils/useControllableState.ts'
+import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
 
 defineOptions({
   name: 'Toggle',

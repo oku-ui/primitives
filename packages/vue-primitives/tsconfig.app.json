@@ -5,6 +5,9 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "rootDir": "src",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
     "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
     "outDir": "dist"

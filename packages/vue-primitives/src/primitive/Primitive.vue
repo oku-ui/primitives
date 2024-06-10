@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type ComponentPublicInstance, shallowRef } from 'vue'
-import { Slot } from '../slot/index.ts'
 import type { PrimitiveProps } from './Primitive.model'
+import { Slot } from '~/slot/index.ts'
 
 defineOptions({
   name: 'Primitive',
