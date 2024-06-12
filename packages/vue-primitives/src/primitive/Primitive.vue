@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type ComponentPublicInstance, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import type { PrimitiveProps } from './Primitive.ts'
 import { Slot } from '~/slot/index.ts'
 
