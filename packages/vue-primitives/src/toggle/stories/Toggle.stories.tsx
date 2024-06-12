@@ -1,4 +1,4 @@
-// import './style.css'
+import './style.css'
 import { defineComponent, shallowRef } from 'vue'
 import { Toggle } from '../index.ts'
 
