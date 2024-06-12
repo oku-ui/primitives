@@ -1,17 +1,14 @@
 {
-  "extends": "@teleskop150750/typescript-config/tsconfig.options.json",
+  "extends": "@teleskop150750/typescript-config/tsconfig.vue.json",
   "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "baseUrl": ".",
     "rootDir": "src",
+    // "noEmit": false,
+    // "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "paths": {
       "~/*": ["./src/*"]
-    },
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true,
-    "outDir": "dist"
+    }
   },
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.jsx"],
-  "exclude": ["src/**/__tests__/*"]
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["src/**/__tests__/*", "src/**/stories/*"]
 }

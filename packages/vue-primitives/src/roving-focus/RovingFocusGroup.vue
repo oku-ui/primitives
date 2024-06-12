@@ -1,0 +1,112 @@
+<script setup lang="ts">
+import { shallowRef, toRef, useAttrs } from 'vue'
+import { Collection, type RovingFocusGroupEmits, type RovingFocusGroupProps, provideRovingFocusContext, useCollection } from './RovingFocusGroup.ts'
+import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils.ts'
+import { useDirection } from '~/direction/index.ts'
+import { useControllableState } from '~/hooks/useControllableState.ts'
+import { Primitive } from '~/primitive/index.ts'
+import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
+
+defineOptions({
+  name: 'RovingFocusGroup',
+  inheritAttrs: false,
+})
+const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
+  loop: false,
+  preventScrollOnEntryFocus: false,
+})
+const emit = defineEmits<RovingFocusGroupEmits>()
+
+const attrs = useAttrs()
+const rootElRef = shallowRef<HTMLElement>()
+
+const dir = useDirection(() => props.dir)
+const currentTabStopId = useControllableState(props, emit, 'currentTabStopId', props.defaultCurrentTabStopId)
+
+const collectionContext = Collection.provideCollectionContext(rootElRef)
+const getItems = useCollection(collectionContext)
+const isTabbingBackOut = shallowRef(false)
+let isClickFocus = false
+const focusableItemsCount = shallowRef(0)
+
+const onMousedown = composeEventHandlers((event) => {
+  (attrs.onMousedown as Function | undefined)?.(event)
+}, () => {
+  console.error('Click')
+  isClickFocus = true
+})
+
+const onFocus = composeEventHandlers((event) => {
+  (attrs.onFocus as Function | undefined)?.(event)
+}, (event) => {
+  console.error('Focus', event.target === event.currentTarget)
+  // We normally wouldn't need this check, because we already check
+  // that the focus is on the current target and not bubbling to it.
+  // We do this because Safari doesn't focus buttons when clicked, and
+  // instead, the wrapper will get focused and not through a bubbling event.
+  const isKeyboardFocus = !isClickFocus
+
+  // TODO: event.target === event.currentTarget всегда равно true
+  if (isKeyboardFocus && !isTabbingBackOut.value) {
+    console.error('Focus')
+    const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
+    event.currentTarget!.dispatchEvent(entryFocusEvent)
+    emit('entryFocus', entryFocusEvent)
+
+    if (!entryFocusEvent.defaultPrevented) {
+      const items = getItems().filter(item => item.attrs.focusable)
+      const activeItem = items.find(item => item.attrs.active)
+      const currentItem = items.find(item => item.attrs.id === currentTabStopId.value)
+      const candidateItems = [activeItem, currentItem, ...items].filter(Boolean) as typeof items
+      const candidateNodes = candidateItems.map(item => item.ref!)
+      focusFirst(candidateNodes, props.preventScrollOnEntryFocus)
+    }
+  }
+
+  isClickFocus = false
+})
+
+const onFocusout = composeEventHandlers((event) => {
+  console.error('Blur')
+  ;(attrs.onFocusout as Function | undefined)?.(event)
+}, () => {
+  isTabbingBackOut.value = false
+})
+
+provideRovingFocusContext({
+  orientation: toRef(props, 'orientation'),
+  dir,
+  loop: toRef(props, 'loop'),
+  currentTabStopId,
+  onItemFocus(tabStopId) {
+    currentTabStopId.value = tabStopId
+  },
+  onItemShiftTab() {
+    isTabbingBackOut.value = true
+  },
+  onFocusableItemAdd() {
+    focusableItemsCount.value += 1
+  },
+  onFocusableItemRemove() {
+    focusableItemsCount.value -= 1
+  },
+})
+</script>
+
+<template>
+  <Primitive
+    :ref="(el: any) => rootElRef = (el?.$el ?? el) || undefined"
+    :as="as"
+    :as-child="asChild"
+    :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"
+    :data-orientation="orientation"
+    v-bind="{
+      ...attrs,
+      onMousedown,
+      onFocus,
+      onFocusout,
+    }"
+  >
+    <slot />
+  </Primitive>
+</template>

@@ -11,8 +11,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix"
+    "root-lint": "eslint .",
+    "root-lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.0",

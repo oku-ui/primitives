@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type ComponentPublicInstance, shallowRef } from 'vue'
-import type { PrimitiveProps } from './Primitive.model'
+import type { PrimitiveProps } from './Primitive.ts'
 import { Slot } from '~/slot/index.ts'
 
 defineOptions({
@@ -15,19 +15,15 @@ withDefaults(
   },
 )
 
-const $el = shallowRef<HTMLElement>()
+const elRef = shallowRef<HTMLElement>()
 
 defineExpose({
-  $el,
+  $el: elRef,
 })
 </script>
 
 <template>
-  <component
-    :is="asChild ? Slot : as" :ref="(el: Element | ComponentPublicInstance | null) => {
-      $el = ((el as ComponentPublicInstance)?.$el ?? el) || undefined
-    }"
-  >
+  <component :is="asChild ? Slot : as" :ref="(el: any) => elRef = (el?.$el ?? el) || undefined">
     <slot />
   </component>
 </template>

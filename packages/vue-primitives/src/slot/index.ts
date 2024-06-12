@@ -14,7 +14,7 @@ export const Slot = defineComponent({
         return
       }
 
-      let child: VNode = children[0]
+      let child: VNode | undefined = children[0]
       if (children.length > 1) {
         let hasFound = false
         // locate first non-comment child

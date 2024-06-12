@@ -12,7 +12,7 @@ export interface ToggleProps extends PrimitiveProps {
    */
   defaultPressed?: boolean
 
-  disabled?: boolean
+  // disabled?: boolean
 }
 
 // eslint-disable-next-line ts/consistent-type-definitions
@@ -22,5 +22,5 @@ export type ToggleEmits = {
    */
   'update:pressed': [value: boolean]
 
-  'click': [value: Event]
+  // 'click': [value: Event]
 }

@@ -10,7 +10,7 @@ export function getRawChildren(
   let ret: VNode[] = []
   let keyedFragmentCount = 0
   for (let i = 0; i < children.length; i++) {
-    const child = children[i]
+    const child = children[i]!
     // #5360 inherit parent key in case of <template v-for>
     const key
       = parentKey == null
@@ -35,7 +35,7 @@ export function getRawChildren(
   // these children to force full diffs to ensure correct behavior.
   if (keyedFragmentCount > 1) {
     for (let i = 0; i < ret.length; i++) {
-      ret[i].patchFlag = PatchFlags.BAIL
+      ret[i]!.patchFlag = PatchFlags.BAIL
     }
   }
   return ret

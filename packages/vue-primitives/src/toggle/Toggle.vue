@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAttrs } from 'vue'
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 import { Primitive } from '~/primitive/index.ts'
 import { useControllableState } from '~/hooks/useControllableState.ts'
@@ -6,6 +7,7 @@ import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
 
 defineOptions({
   name: 'Toggle',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ToggleProps>(), {
@@ -14,15 +16,15 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 })
 
 const emit = defineEmits<ToggleEmits>()
+const attrs = useAttrs()
 
 const pressed = useControllableState(props, emit, 'pressed', props.defaultPressed)
 
-const onClick = composeEventHandlers((e: Event) => {
-  emit('click', e)
+const onClick = composeEventHandlers((event: Event) => {
+  ;(attrs.onClick as Function | undefined)?.(event)
 }, () => {
-  if (!props.disabled) {
+  if (!attrs.disabled)
     pressed.value = !pressed.value
-  }
 })
 </script>
 
@@ -32,10 +34,13 @@ const onClick = composeEventHandlers((e: Event) => {
     :as-child="asChild"
     type="button"
     :aria-pressed="pressed"
+    v-bind="{
+      ...$attrs,
+      onClick,
+    }"
     :data-state="pressed ? 'on' : 'off'"
-    :data-disabled="disabled ? '' : undefined"
-    @click="onClick"
+    :data-disabled="$attrs.disabled ? '' : undefined"
   >
-    <slot />
+    <slot /> {{ pressed }}
   </Primitive>
 </template>

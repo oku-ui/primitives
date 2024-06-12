@@ -3,6 +3,8 @@ import { computed, shallowRef } from 'vue'
 // import Foo from '../src/Foo.vue'
 // import Primitive from './primitive/Primitive.vue'
 import Toggle from './toggle/Toggle.vue'
+import RovingFocusGroup from './roving-focus/RovingFocusGroup.vue'
+import RovingFocusItem from './roving-focus/RovingFocusItem.vue'
 
 const open = shallowRef(true)
 const dis = shallowRef(true)
@@ -36,7 +38,7 @@ function log(event: Event) {
   if (dis.value) {
     event.preventDefault()
   }
-  console.error('click')
+  console.error('LOG')
 }
 </script>
 
@@ -48,6 +50,17 @@ function log(event: Event) {
     <button @click="toggleDis">
       Dis {{ dis }}
     </button>
+
+    <div>
+      <RovingFocusGroup>
+        <RovingFocusItem>
+          1
+        </RovingFocusItem>
+        <RovingFocusItem>
+          2
+        </RovingFocusItem>
+      </RovingFocusGroup>
+    </div>
     <div>
       <!-- <Primitive ref="a1" class="baz" @click="log">
         content

@@ -12,7 +12,7 @@ export function createContext<T>(
 ): readonly [useProvidingState: (state: T) => void, useContext: (consumerName?: string) => T] {
   const key: string | InjectionKey<T> = Symbol(contextName)
 
-  const useProvideContext = (state: T) => {
+  const provideContext = (state: T) => {
     provide(key, state)
   }
 
@@ -26,5 +26,5 @@ export function createContext<T>(
     return state
   }
 
-  return [useProvideContext, useContext]
+  return [provideContext, useContext]
 }

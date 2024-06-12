@@ -39,13 +39,13 @@ export function Chromatic() {
       </Toggle>
 
       <h1>Disabled</h1>
-      <Toggle class="root" disabled>
+      <Toggle class="root" {...{ disabled: true }}>
         Toggle
       </Toggle>
 
       <h1>State attributes</h1>
       <Toggle class="rootAttr">Toggle</Toggle>
-      <Toggle class="rootAttr" disabled>
+      <Toggle class="rootAttr" {...{ disabled: true }}>
         Toggle
       </Toggle>
     </>

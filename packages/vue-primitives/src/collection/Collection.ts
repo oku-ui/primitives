@@ -3,7 +3,7 @@ import { createContext } from '../hooks/createContext.ts'
 
 export const ITEM_DATA_ATTR = 'data-radix-collection-item'
 
-interface ContextValue<ItemElement extends HTMLElement, ItemData = object> {
+export interface ContextValue<ItemElement extends HTMLElement, ItemData = object> {
   collectionRef: ShallowRef<ItemElement | undefined>
   itemMap: ShallowReactive<Map<ItemElement, { ref: ItemElement, attrs: ItemData }>>
 }
@@ -11,16 +11,22 @@ interface ContextValue<ItemElement extends HTMLElement, ItemData = object> {
 export function createCollection<ItemElement extends HTMLElement, ItemData = object>(name: string) {
   const [_provideCollectionContext, useCollectionContext] = createContext<ContextValue<ItemElement, ItemData>>(`${name}CollectionProvider`)
 
-  function provideCollectionContext(collectionRef: ContextValue<ItemElement, ItemData>['collectionRef']) {
+  function provideCollectionContext(collectionRef: ContextValue<ItemElement, ItemData>['collectionRef'], provide = true) {
+    // TODO: array ItemElement & {_attrs: {}}?
     const itemMap = shallowReactive(new Map<ItemElement, { ref: ItemElement, attrs: ItemData }>())
 
-    _provideCollectionContext({
+    const context = {
       collectionRef,
       itemMap,
-    })
+    }
+
+    if (provide)
+      _provideCollectionContext(context)
+
+    return context
   }
 
-  function useCollectionItem(currentElement: ShallowRef<ItemElement | undefined>, attrs: Record<string, unknown> = {}) {
+  function useCollectionItem(currentElement: ShallowRef<ItemElement | undefined>, attrs: ItemData) {
     const { itemMap } = useCollectionContext()
 
     // let unrefElement: ItemElement | undefined
@@ -89,8 +95,8 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
     }
   }
 
-  function useCollection() {
-    const context = useCollectionContext(`${name}CollectionConsumer`)
+  function useCollection(thereContext?: ContextValue<ItemElement, ItemData>) {
+    const context = thereContext || useCollectionContext(`${name}CollectionConsumer`)
 
     const getItems = () => {
       const collectionNode = context.collectionRef.value

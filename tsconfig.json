@@ -1,6 +1,9 @@
 {
-  "extends": "@teleskop150750/typescript-config/tsconfig.options.json",
+  "extends": "@teleskop150750/typescript-config/tsconfig.base.json",
   "references": [
+    {
+      "path": "./packages/vue-primitives"
+    }
   ],
   "files": []
 }
