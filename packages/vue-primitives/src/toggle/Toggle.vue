@@ -41,6 +41,6 @@ const onClick = composeEventHandlers((event: Event) => {
     :data-state="pressed ? 'on' : 'off'"
     :data-disabled="$attrs.disabled ? '' : undefined"
   >
-    <slot /> {{ pressed }}
+    <slot />
   </Primitive>
 </template>
