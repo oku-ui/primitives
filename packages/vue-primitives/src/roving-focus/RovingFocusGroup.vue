@@ -32,14 +32,12 @@ const focusableItemsCount = shallowRef(0)
 const onMousedown = composeEventHandlers((event) => {
   (attrs.onMousedown as Function | undefined)?.(event)
 }, () => {
-  console.error('Click')
   isClickFocus = true
 })
 
 const onFocus = composeEventHandlers((event) => {
   (attrs.onFocus as Function | undefined)?.(event)
 }, (event) => {
-  console.error('Focus', event.target === event.currentTarget)
   // We normally wouldn't need this check, because we already check
   // that the focus is on the current target and not bubbling to it.
   // We do this because Safari doesn't focus buttons when clicked, and
@@ -48,7 +46,6 @@ const onFocus = composeEventHandlers((event) => {
 
   // TODO: event.target === event.currentTarget всегда равно true
   if (isKeyboardFocus && !isTabbingBackOut.value) {
-    console.error('Focus')
     const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
     event.currentTarget!.dispatchEvent(entryFocusEvent)
     emit('entryFocus', entryFocusEvent)
@@ -67,7 +64,6 @@ const onFocus = composeEventHandlers((event) => {
 })
 
 const onFocusout = composeEventHandlers((event) => {
-  console.error('Blur')
   ;(attrs.onFocusout as Function | undefined)?.(event)
 }, () => {
   isTabbingBackOut.value = false

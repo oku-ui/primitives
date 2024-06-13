@@ -71,12 +71,12 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   if (event.target !== event.currentTarget)
     return
 
+  if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
+    return
+
   const focusIntent = getFocusIntent(event, context.orientation.value, context.dir.value)
 
   if (!focusIntent)
-    return
-
-  if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
     return
 
   event.preventDefault()
