@@ -14,7 +14,6 @@ const props = withDefaults(defineProps<ToggleProps>(), {
   pressed: undefined,
   as: 'button',
 })
-
 const emit = defineEmits<ToggleEmits>()
 const attrs = useAttrs()
 

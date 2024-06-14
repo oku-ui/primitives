@@ -16,14 +16,14 @@ const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
   preventScrollOnEntryFocus: false,
 })
 const emit = defineEmits<RovingFocusGroupEmits>()
-
 const attrs = useAttrs()
-const rootElRef = shallowRef<HTMLElement>()
+
+const elRef = shallowRef<HTMLElement>()
 
 const dir = useDirection(() => props.dir)
 const currentTabStopId = useControllableState(props, emit, 'currentTabStopId', props.defaultCurrentTabStopId)
 
-const collectionContext = Collection.provideCollectionContext(rootElRef)
+const collectionContext = Collection.provideCollectionContext(elRef)
 const getItems = useCollection(collectionContext)
 const isTabbingBackOut = shallowRef(false)
 let isClickFocus = false
@@ -91,11 +91,12 @@ provideRovingFocusContext({
 
 <template>
   <Primitive
-    :ref="(el: any) => rootElRef = (el?.$el ?? el) || undefined"
+    :ref="(el: any) => elRef = (el?.$el ?? el) || undefined"
     :as="as"
     :as-child="asChild"
     :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"
     :data-orientation="orientation"
+    style="outline: none;"
     v-bind="{
       ...attrs,
       onMousedown,

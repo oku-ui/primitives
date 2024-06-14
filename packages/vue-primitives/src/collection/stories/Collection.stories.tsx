@@ -24,7 +24,7 @@ const Item = defineComponent({
   // },
   setup(_, { slots, attrs }) {
     const currentElement = shallowRef<HTMLElement>()
-    Collection.useCollectionItem(currentElement, attrs)
+    Collection.useCollectionItem(currentElement, attrs as unknown as ItemData)
 
     return () => (
       <li ref={currentElement} class="item" style={{ opacity: attrs.disabled ? 0.3 : undefined }} {...{ [ITEM_DATA_ATTR]: '' }}>
@@ -109,76 +109,72 @@ export function WithFragment() {
   )
 }
 
-const DynamicInsertionDemo = defineComponent({
-  setup() {
-    const hasTomato = shallowRef(false)
-
-    function setHasTomato(value: boolean) {
-      hasTomato.value = value
-    }
-
-    function log() {
-      console.warn('Items:', Array.from(document.querySelectorAll(`[${ITEM_DATA_ATTR}]`)))
-    }
-
-    return () => (
-      <>
-        <button onClick={() => setHasTomato(!hasTomato.value)}>
-          {hasTomato ? 'Remove' : 'Add'}
-          {' '}
-          Tomato
-        </button>
-        <button onClick={() => log()} style={{ marginLeft: 10 }}>
-          Force Update
-        </button>
-
-        <List>
-          <Item>Red</Item>
-          { hasTomato.value && <Tomato />}
-          <Item {...{ disabled: true }}>
-            Green
-          </Item>
-          <Item>Blue</Item>
-          <LogItems />
-        </List>
-      </>
-    )
-  },
-})
-
 export function DynamicInsertion() {
-  return <DynamicInsertionDemo />
+  return defineComponent({
+    setup() {
+      const hasTomato = shallowRef(false)
+
+      function setHasTomato(value: boolean) {
+        hasTomato.value = value
+      }
+
+      function log() {
+        console.warn('Items:', Array.from(document.querySelectorAll(`[${ITEM_DATA_ATTR}]`)))
+      }
+
+      return () => (
+        <>
+          <button onClick={() => setHasTomato(!hasTomato.value)}>
+            {hasTomato ? 'Remove' : 'Add'}
+            {' '}
+            Tomato
+          </button>
+          <button onClick={() => log()} style={{ marginLeft: 10 }}>
+            Force Update
+          </button>
+
+          <List>
+            <Item>Red</Item>
+            { hasTomato.value && <Tomato />}
+            <Item {...{ disabled: true }}>
+              Green
+            </Item>
+            <Item>Blue</Item>
+            <LogItems />
+          </List>
+        </>
+      )
+    },
+  })
 }
 
-const WithChangingItemDemo = defineComponent({
-  setup() {
-    const isDisabled = shallowRef(false)
-
-    function setIsDisabled(value: boolean) {
-      isDisabled.value = value
-    }
-
-    return () => (
-      <>
-        <button onClick={() => setIsDisabled(!isDisabled.value)}>
-          {isDisabled ? 'Enable' : 'Disable'}
-          {' '}
-          Green
-        </button>
-
-        <List>
-          <Item>Red</Item>
-          <Item {...{ disabled: isDisabled.value }}>Green</Item>
-          <Item>Blue</Item>
-          <LogItems />
-        </List>
-      </>
-    )
-  },
-})
-
 export function WithChangingItem() {
-  return <WithChangingItemDemo />
+  return defineComponent({
+    setup() {
+      const isDisabled = shallowRef(false)
+
+      function setIsDisabled(value: boolean) {
+        isDisabled.value = value
+      }
+
+      return () => (
+        <>
+          <button onClick={() => setIsDisabled(!isDisabled.value)}>
+            {isDisabled ? 'Enable' : 'Disable'}
+            {' '}
+            Green
+          </button>
+
+          <List>
+            <Item>Red</Item>
+            <Item {...{ disabled: isDisabled.value }}>Green</Item>
+            <Item>Blue</Item>
+            <LogItems />
+          </List>
+        </>
+      )
+    },
+  })
 }
 
 export function Nested() {

@@ -120,97 +120,97 @@ const Button = defineComponent({
   },
 })
 
-const BasicDemo = defineComponent({
-  setup() {
-    const dir = shallowRef<'ltr' | 'rtl'>('ltr')
+export function Basic() {
+  return defineComponent({
+    setup() {
+      const dir = shallowRef<'ltr' | 'rtl'>('ltr')
 
-    const setDir = () => {
-      dir.value = (dir.value === 'ltr' ? 'rtl' : 'ltr')
-    }
+      const setDir = () => {
+        dir.value = (dir.value === 'ltr' ? 'rtl' : 'ltr')
+      }
 
-    return () => (
-      <div dir={dir.value}>
-        <h1>
-          Direction:
-          {' '}
-          {dir.value}
-          {' '}
-          <button type="button" onClick={setDir}>
-            Toggle to
+      return () => (
+        <div dir={dir.value}>
+          <h1>
+            Direction:
             {' '}
-            {dir.value === 'ltr' ? 'rtl' : 'ltr'}
-          </button>
-        </h1>
+            {dir.value}
+            {' '}
+            <button type="button" onClick={setDir}>
+              Toggle to
+              {' '}
+              {dir.value === 'ltr' ? 'rtl' : 'ltr'}
+            </button>
+          </h1>
 
-        <h2>no orientation (both) + no looping</h2>
-        <ButtonGroup dir={dir.value} defaultValue="two">
-          <Button value="one">One</Button>
-          <Button value="two">Two</Button>
-          <Button disabled value="three">
-            Three
-          </Button>
-          <Button value="four">Four</Button>
-        </ButtonGroup>
+          <h2>no orientation (both) + no looping</h2>
+          <ButtonGroup dir={dir.value} defaultValue="two">
+            <Button value="one">One</Button>
+            <Button value="two">Two</Button>
+            <Button disabled value="three">
+              Three
+            </Button>
+            <Button value="four">Four</Button>
+          </ButtonGroup>
 
-        <h2>no orientation (both) + looping</h2>
-        <ButtonGroup dir={dir.value} loop>
-          <Button value="hidden" style={{ display: 'none' }}>
-            Hidden
-          </Button>
-          <Button value="one">One</Button>
-          <Button value="two">Two</Button>
-          <Button disabled value="three">
-            Three
-          </Button>
-          <Button value="four">Four</Button>
-        </ButtonGroup>
+          <h2>no orientation (both) + looping</h2>
+          <ButtonGroup dir={dir.value} loop>
+            <Button value="hidden" style={{ display: 'none' }}>
+              Hidden
+            </Button>
+            <Button value="one">One</Button>
+            <Button value="two">Two</Button>
+            <Button disabled value="three">
+              Three
+            </Button>
+            <Button value="four">Four</Button>
+          </ButtonGroup>
 
-        <h2>horizontal orientation + no looping</h2>
-        <ButtonGroup orientation="horizontal" dir={dir.value}>
-          <Button value="one">One</Button>
-          <Button value="two">Two</Button>
-          <Button disabled value="three">
-            Three
-          </Button>
-          <Button value="four">Four</Button>
-        </ButtonGroup>
+          <h2>horizontal orientation + no looping</h2>
+          <ButtonGroup orientation="horizontal" dir={dir.value}>
+            <Button value="one">One</Button>
+            <Button value="two">Two</Button>
+            <Button disabled value="three">
+              Three
+            </Button>
+            <Button value="four">Four</Button>
+          </ButtonGroup>
 
-        <h2>horizontal orientation + looping</h2>
-        <ButtonGroup orientation="horizontal" dir={dir.value} loop>
-          <Button value="one">One</Button>
-          <Button value="two">Two</Button>
-          <Button disabled value="three">
-            Three
-          </Button>
-          <Button value="four">Four</Button>
-        </ButtonGroup>
+          <h2>horizontal orientation + looping</h2>
+          <ButtonGroup orientation="horizontal" dir={dir.value} loop>
+            <Button value="one">One</Button>
+            <Button value="two">Two</Button>
+            <Button disabled value="three">
+              Three
+            </Button>
+            <Button value="four">Four</Button>
+          </ButtonGroup>
 
-        <h2>vertical orientation + no looping</h2>
-        <ButtonGroup orientation="vertical" dir={dir.value}>
-          <Button value="one">One</Button>
-          <Button value="two">Two</Button>
-          <Button disabled value="three">
-            Three
-          </Button>
-          <Button value="four">Four</Button>
-        </ButtonGroup>
+          <h2>vertical orientation + no looping</h2>
+          <ButtonGroup orientation="vertical" dir={dir.value}>
+            <Button value="one">One</Button>
+            <Button value="two">Two</Button>
+            <Button disabled value="three">
+              Three
+            </Button>
+            <Button value="four">Four</Button>
+          </ButtonGroup>
 
-        <h2>vertical orientation + looping</h2>
-        <ButtonGroup orientation="vertical" dir={dir.value} loop>
-          <Button value="one">One</Button>
-          <Button value="two">Two</Button>
-          <Button disabled value="three">
-            Three
-          </Button>
-          <Button value="four">Four</Button>
-        </ButtonGroup>
+          <h2>vertical orientation + looping</h2>
+          <ButtonGroup orientation="vertical" dir={dir.value} loop>
+            <Button value="one">One</Button>
+            <Button value="two">Two</Button>
+            <Button disabled value="three">
+              Three
+            </Button>
+            <Button value="four">Four</Button>
+          </ButtonGroup>
 
-      </div>
-    )
-  },
-})
-
-export const Basic = () => <BasicDemo />
+        </div>
+      )
+    },
+  })
+}
 
 export function Nested() {
   return (
@@ -240,61 +240,61 @@ export function Nested() {
   )
 }
 
-const EdgeCasesDemo = defineComponent({
-  setup() {
-    const extra = shallowRef(false)
-    const disabled = shallowRef(false)
-    const hidden = shallowRef(false)
-    const disabled3To5 = shallowRef(false)
+export function EdgeCases() {
+  return defineComponent({
+    setup() {
+      const extra = shallowRef(false)
+      const disabled = shallowRef(false)
+      const hidden = shallowRef(false)
+      const disabled3To5 = shallowRef(false)
 
-    function setExtra() {
-      extra.value = !extra.value
-    }
+      function setExtra() {
+        extra.value = !extra.value
+      }
 
-    function setDisabled() {
-      disabled.value = !disabled.value
-    }
+      function setDisabled() {
+        disabled.value = !disabled.value
+      }
 
-    function setHidden() {
-      hidden.value = !hidden.value
-    }
+      function setHidden() {
+        hidden.value = !hidden.value
+      }
 
-    function setDisabled3To5() {
-      disabled3To5.value = !disabled3To5.value
-    }
+      function setDisabled3To5() {
+        disabled3To5.value = !disabled3To5.value
+      }
 
-    return () => (
-      <>
-        <button onClick={setExtra}>Add/remove extra</button>
-        <button onClick={setDisabled}>Disable/Enable "One"</button>
-        <button onClick={setHidden}>Hide/show "One"</button>
-        <button onClick={setDisabled3To5}>Disable/Enable "Three" to "Five"</button>
-        <hr />
+      return () => (
+        <>
+          <button onClick={setExtra}>Add/remove extra</button>
+          <button onClick={setDisabled}>Disable/Enable "One"</button>
+          <button onClick={setHidden}>Hide/show "One"</button>
+          <button onClick={setDisabled3To5}>Disable/Enable "Three" to "Five"</button>
+          <hr />
 
-        <ButtonGroup>
-          {extra.value ? <Button value="extra">Extra</Button> : null}
-          <Button value="one" disabled={disabled.value} style={{ display: hidden ? 'none' : undefined }}>
-            One
-          </Button>
-          <Button value="two" disabled>
-            Two
-          </Button>
-          <Button value="three" disabled={disabled3To5.value}>
-            Three
-          </Button>
-          <Button value="four" disabled={disabled3To5.value} style={{ display: 'none' }}>
-            Four
-          </Button>
-          <Button value="five" disabled={disabled3To5.value}>
-            Five
-          </Button>
-        </ButtonGroup>
+          <ButtonGroup>
+            {extra.value ? <Button value="extra">Extra</Button> : null}
+            <Button value="one" disabled={disabled.value} style={{ display: hidden ? 'none' : undefined }}>
+              One
+            </Button>
+            <Button value="two" disabled>
+              Two
+            </Button>
+            <Button value="three" disabled={disabled3To5.value}>
+              Three
+            </Button>
+            <Button value="four" disabled={disabled3To5.value} style={{ display: 'none' }}>
+              Four
+            </Button>
+            <Button value="five" disabled={disabled3To5.value}>
+              Five
+            </Button>
+          </ButtonGroup>
 
-        <hr />
-        <button type="button">Focusable outside of group</button>
-      </>
-    )
-  },
-})
-
-export const EdgeCases = () => <EdgeCasesDemo />
+          <hr />
+          <button type="button">Focusable outside of group</button>
+        </>
+      )
+    },
+  })
+}

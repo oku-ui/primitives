@@ -18,7 +18,6 @@ const props = withDefaults(defineProps<RovingFocusItemProps>(), {
   active: true,
   as: 'span',
 })
-
 const attrs = useAttrs()
 
 const id = computed(() => props.tabStopId || useId())

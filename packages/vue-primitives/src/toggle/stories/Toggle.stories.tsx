@@ -10,7 +10,10 @@ export function Controlled() {
   return defineComponent({
     setup() {
       const pressed = shallowRef(false)
-      return () => <Toggle class="root" v-model={pressed.value}>Toggle</Toggle>
+      function setPressed(newPressed: boolean) {
+        pressed.value = newPressed
+      }
+      return () => <Toggle class="root" pressed={pressed.value} onUpdate:pressed={setPressed}>Toggle</Toggle>
     },
   })
 }

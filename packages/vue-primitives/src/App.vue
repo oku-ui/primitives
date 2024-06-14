@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue'
+import { computed, onMounted, shallowRef, watchSyncEffect } from 'vue'
 // import Foo from '../src/Foo.vue'
 // import Primitive from './primitive/Primitive.vue'
-import Toggle from './toggle/Toggle.vue'
-import RovingFocusGroup from './roving-focus/RovingFocusGroup.vue'
-import RovingFocusItem from './roving-focus/RovingFocusItem.vue'
+import { Toggle } from './toggle/index.ts'
+import { ToggleGroup, ToggleGroupItem } from './toggle-group/index.ts'
 
 const open = shallowRef(true)
 const dis = shallowRef(true)
@@ -25,21 +24,22 @@ const on = computed(() => {
   }
 })
 
-// watchEffect(() => {
-//   console.log('open', on.value)
-// })
-
-// const a1 = shallowRef()
-// const a2 = shallowRef()
-// const a3 = shallowRef()
-// const a4 = shallowRef()
-
 function log(event: Event) {
   if (dis.value) {
     event.preventDefault()
   }
   console.error('LOG')
 }
+
+const a = shallowRef<any>()
+
+watchSyncEffect(() => {
+  console.log('a:', a.value?.$el)
+})
+
+onMounted(() => {
+  // console.log(a.value)
+})
 </script>
 
 <template>
@@ -52,44 +52,20 @@ function log(event: Event) {
     </button>
 
     <div>
-      <RovingFocusGroup>
-        <RovingFocusItem>
+      <ToggleGroup type="single">
+        <ToggleGroupItem value="1">
           1
-        </RovingFocusItem>
-        <RovingFocusItem>
+        </ToggleGroupItem>
+        <ToggleGroupItem value="2">
           2
-        </RovingFocusItem>
-      </RovingFocusGroup>
+        </ToggleGroupItem>
+      </ToggleGroup>
     </div>
-    <div>
-      <!-- <Primitive ref="a1" class="baz" @click="log">
-        content
-      </Primitive> -->
-    </div>
-    <div>
-      <!-- <Primitive ref="a2" as="button" type="button" class="baz" @click="log">
-        content
-      </Primitive> -->
-    </div>
-    <div>
-      <!-- <Primitive ref="a3" as-child class="baz" @click="log">
-        <button type="button">
-          content
-        </button>
-      </Primitive> -->
-    </div>
-    <div>
-      <!-- <Primitive ref="a4" :as="Foo" class="baz" @click="log">
-        content
-      </Primitive> -->
-    </div>
+
     <div>
       <Toggle v-on="on">
         Toggle
       </Toggle>
-      <!-- <button @click="log">
-        Toggle
-      </button> -->
     </div>
     <div>
       <pre>{{ on }}</pre>
