@@ -14,14 +14,14 @@ export function Single() {
       return () => (
         <>
           <h1>Uncontrolled</h1>
-          <ToggleGroup type="single" class="root" aria-label="Options" defaultValue="1">
-            <ToggleGroupItem value="1" class="item">
+          <ToggleGroup type="single" class="toggleGroup_root" aria-label="Options" defaultValue="1">
+            <ToggleGroupItem value="1" class="toggleGroup_item">
               Option 1
             </ToggleGroupItem>
-            <ToggleGroupItem value="2" class="item">
+            <ToggleGroupItem value="2" class="toggleGroup_item">
               Option 2
             </ToggleGroupItem>
-            <ToggleGroupItem value="3" class="item">
+            <ToggleGroupItem value="3" class="toggleGroup_item">
               Option 3
             </ToggleGroupItem>
           </ToggleGroup>
@@ -29,18 +29,18 @@ export function Single() {
           <h1>Controlled</h1>
           <ToggleGroup
             type="single"
-            class="root"
+            class="toggleGroup_root"
             aria-label="Options"
             value={value.value}
             onUpdate:value={setValue}
           >
-            <ToggleGroupItem value="1" class="item">
+            <ToggleGroupItem value="1" class="toggleGroup_item">
               Option 1
             </ToggleGroupItem>
-            <ToggleGroupItem value="2" class="item">
+            <ToggleGroupItem value="2" class="toggleGroup_item">
               Option 2
             </ToggleGroupItem>
-            <ToggleGroupItem value="3" class="item">
+            <ToggleGroupItem value="3" class="toggleGroup_item">
               Option 3
             </ToggleGroupItem>
           </ToggleGroup>
@@ -55,17 +55,17 @@ export function Vertical() {
     <ToggleGroup
       type="single"
       orientation="vertical"
-      class="root"
+      class="toggleGroup_root"
       aria-label="Options"
       defaultValue="1"
     >
-      <ToggleGroupItem value="1" class="item">
+      <ToggleGroupItem value="1" class="toggleGroup_item">
         Option 1
       </ToggleGroupItem>
-      <ToggleGroupItem value="2" class="item">
+      <ToggleGroupItem value="2" class="toggleGroup_item">
         Option 2
       </ToggleGroupItem>
-      <ToggleGroupItem value="3" class="item">
+      <ToggleGroupItem value="3" class="toggleGroup_item">
         Option 3
       </ToggleGroupItem>
     </ToggleGroup>
@@ -84,17 +84,17 @@ export function Multiple() {
           <h1>Uncontrolled</h1>
           <ToggleGroup
             type="multiple"
-            class="root"
+            class="toggleGroup_root"
             aria-label="Options"
             defaultValue={['1']}
           >
-            <ToggleGroupItem value="1" class="item">
+            <ToggleGroupItem value="1" class="toggleGroup_item">
               Option 1
             </ToggleGroupItem>
-            <ToggleGroupItem value="2" class="item">
+            <ToggleGroupItem value="2" class="toggleGroup_item">
               Option 2
             </ToggleGroupItem>
-            <ToggleGroupItem value="3" class="item">
+            <ToggleGroupItem value="3" class="toggleGroup_item">
               Option 3
             </ToggleGroupItem>
           </ToggleGroup>
@@ -102,18 +102,18 @@ export function Multiple() {
           <h1>Controlled</h1>
           <ToggleGroup
             type="multiple"
-            class="root"
+            class="toggleGroup_root"
             aria-label="Options"
             value={value.value}
             onUpdate:value={setValue}
           >
-            <ToggleGroupItem value="1" class="item">
+            <ToggleGroupItem value="1" class="toggleGroup_item">
               Option 1
             </ToggleGroupItem>
-            <ToggleGroupItem value="2" class="item">
+            <ToggleGroupItem value="2" class="toggleGroup_item">
               Option 2
             </ToggleGroupItem>
-            <ToggleGroupItem value="3" class="item">
+            <ToggleGroupItem value="3" class="toggleGroup_item">
               Option 3
             </ToggleGroupItem>
           </ToggleGroup>
@@ -128,121 +128,121 @@ export function Chromatic() {
     <>
       <h1>Single</h1>
       <h2>Off</h2>
-      <ToggleGroup type="single" class="root">
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="single" class="toggleGroup_root">
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item" disabled>
+        <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h2>On</h2>
-      <ToggleGroup type="single" class="root" defaultValue="1">
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="single" class="toggleGroup_root" defaultValue="1">
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item" disabled>
+        <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h2>Disabled</h2>
-      <ToggleGroup type="single" class="root" disabled>
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="single" class="toggleGroup_root" disabled>
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item">
+        <ToggleGroupItem value="3" class="toggleGroup_item">
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h1>Multiple</h1>
       <h2>Off</h2>
-      <ToggleGroup type="multiple" class="root">
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="multiple" class="toggleGroup_root">
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item" disabled>
+        <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h2>One on</h2>
-      <ToggleGroup type="multiple" class="root" defaultValue={['1']}>
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="multiple" class="toggleGroup_root" defaultValue={['1']}>
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item" disabled>
+        <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h2>One and two on</h2>
-      <ToggleGroup type="multiple" class="root" defaultValue={['1', '2']}>
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="multiple" class="toggleGroup_root" defaultValue={['1', '2']}>
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item">
+        <ToggleGroupItem value="3" class="toggleGroup_item">
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h2>Disabled</h2>
-      <ToggleGroup type="multiple" class="root" disabled>
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="multiple" class="toggleGroup_root" disabled>
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item">
+        <ToggleGroupItem value="3" class="toggleGroup_item">
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h1>Direction</h1>
       <h2>Prop</h2>
-      <ToggleGroup type="single" class="root" defaultValue="1" dir="rtl">
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="single" class="toggleGroup_root" defaultValue="1" dir="rtl">
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item" disabled>
+        <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
 
       <h2>Inherited: WIP</h2>
       {/* <DirectionProvider dir="rtl"> */}
-      <ToggleGroup type="single" class="root" defaultValue="1">
-        <ToggleGroupItem value="1" class="item">
+      <ToggleGroup type="single" class="toggleGroup_root" defaultValue="1">
+        <ToggleGroupItem value="1" class="toggleGroup_item">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="item">
+        <ToggleGroupItem value="2" class="toggleGroup_item">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="item" disabled>
+        <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
           Option 3
         </ToggleGroupItem>
       </ToggleGroup>
@@ -250,17 +250,17 @@ export function Chromatic() {
 
       <h1>State attributes</h1>
       <h2>Group disabled</h2>
-      <ToggleGroup type="multiple" class="root" defaultValue={['1', '2']} disabled>
-        <ToggleGroupItem value="1" class="itemAttr">
+      <ToggleGroup type="multiple" class="toggleGroup_root" defaultValue={['1', '2']} disabled>
+        <ToggleGroupItem value="1" class="toggleGroup_itemAttr">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="itemAttr">
+        <ToggleGroupItem value="2" class="toggleGroup_itemAttr">
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="itemAttr">
+        <ToggleGroupItem value="3" class="toggleGroup_itemAttr">
           Option 3
         </ToggleGroupItem>
-        <ToggleGroupItem value="4" class="itemAttr">
+        <ToggleGroupItem value="4" class="toggleGroup_itemAttr">
           Option 4
         </ToggleGroupItem>
       </ToggleGroup>
@@ -268,20 +268,20 @@ export function Chromatic() {
       <h2>Group enabled with button override</h2>
       <ToggleGroup
         type="multiple"
-        class="root"
+        class="toggleGroup_root"
         defaultValue={['1', '2']}
         disabled={false}
       >
-        <ToggleGroupItem value="1" class="itemAttr">
+        <ToggleGroupItem value="1" class="toggleGroup_itemAttr">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="itemAttr" disabled>
+        <ToggleGroupItem value="2" class="toggleGroup_itemAttr" disabled>
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="itemAttr">
+        <ToggleGroupItem value="3" class="toggleGroup_itemAttr">
           Option 3
         </ToggleGroupItem>
-        <ToggleGroupItem value="4" class="itemAttr" disabled>
+        <ToggleGroupItem value="4" class="toggleGroup_itemAttr" disabled>
           Option 4
         </ToggleGroupItem>
       </ToggleGroup>
@@ -289,20 +289,20 @@ export function Chromatic() {
       <h2>Group disabled with button override</h2>
       <ToggleGroup
         type="multiple"
-        class="root"
+        class="toggleGroup_root"
         defaultValue={['1', '2']}
         disabled={true}
       >
-        <ToggleGroupItem value="1" class="itemAttr">
+        <ToggleGroupItem value="1" class="toggleGroup_itemAttr">
           Option 1
         </ToggleGroupItem>
-        <ToggleGroupItem value="2" class="itemAttr" disabled={false}>
+        <ToggleGroupItem value="2" class="toggleGroup_itemAttr" disabled={false}>
           Option 2
         </ToggleGroupItem>
-        <ToggleGroupItem value="3" class="itemAttr">
+        <ToggleGroupItem value="3" class="toggleGroup_itemAttr">
           Option 3
         </ToggleGroupItem>
-        <ToggleGroupItem value="4" class="itemAttr" disabled={false}>
+        <ToggleGroupItem value="4" class="toggleGroup_itemAttr" disabled={false}>
           Option 4
         </ToggleGroupItem>
       </ToggleGroup>
