@@ -51,13 +51,13 @@
   }
 
   to {
-    height: var(--oku-collapsible-content-height);
+    height: var(--radix-collapsible-content-height);
   }
 }
 
 @keyframes collapsible_slideUp {
   from {
-    height: var(--oku-collapsible-content-height);
+    height: var(--radix-collapsible-content-height);
   }
 
   to {
@@ -71,13 +71,13 @@
   }
 
   to {
-    width: var(--oku-collapsible-content-width);
+    width: var(--radix-collapsible-content-width);
   }
 }
 
 @keyframes collapsible_closeRight {
   from {
-    width: var(--oku-collapsible-content-width);
+    width: var(--radix-collapsible-content-width);
   }
 
   to {

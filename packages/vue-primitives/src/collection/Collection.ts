@@ -1,7 +1,7 @@
 import { type ShallowReactive, type ShallowRef, shallowReactive, watchEffect } from 'vue'
 import { createContext } from '../hooks/createContext.ts'
 
-export const ITEM_DATA_ATTR = 'data-oku-collection-item'
+export const ITEM_DATA_ATTR = 'data-radix-collection-item'
 
 export interface ContextValue<ItemElement extends HTMLElement, ItemData = object> {
   collectionRef: ShallowRef<ItemElement | undefined>
