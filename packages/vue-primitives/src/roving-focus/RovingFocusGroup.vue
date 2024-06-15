@@ -91,7 +91,9 @@ provideRovingFocusContext({
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = (el?.$el ?? el) || undefined"
+    :ref="(el: any) => {
+      elRef = (el?.$el ?? el) || undefined
+    }"
     :as="as"
     :as-child="asChild"
     :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"

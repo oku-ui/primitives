@@ -1,10 +1,28 @@
-import { Comment, type VNode, defineComponent, warn } from 'vue'
+import { type VNode, cloneVNode, defineComponent, shallowRef, warn } from 'vue'
+import { usePresence } from './usePresence.ts'
 import { getRawChildren } from '~/utils/getRawChildren.ts'
 
-export const Slot = defineComponent({
-  name: 'Slot',
-  setup(_, { slots }) {
+export interface PresenceProps {
+  present: boolean
+}
+
+export const Presence = defineComponent({
+  name: 'Presence',
+  props: {
+    present: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  setup(props, { slots }) {
+    const elRef = shallowRef<HTMLElement>()
+    // Mount composables once to prevent duplicated eventListener
+    const isPresent = usePresence(elRef, () => props.present)
+
     return () => {
+      if (!isPresent)
+        return null
+
       if (!slots.default)
         return null
 
@@ -23,7 +41,7 @@ export const Slot = defineComponent({
             if (__DEV__ && hasFound) {
               // warn more than one non-comment child
               warn(
-                '<Slot> can only be used on a single element or component.',
+                '<Presence> can only be used on a single element or component.',
               )
               break
             }
@@ -35,7 +53,10 @@ export const Slot = defineComponent({
         }
       }
 
-      return child
+      if (!child)
+        return null
+
+      return cloneVNode(child, { ref: elRef })
     }
   },
 })

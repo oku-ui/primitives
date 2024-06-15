@@ -23,7 +23,12 @@ defineExpose({
 </script>
 
 <template>
-  <component :is="asChild ? Slot : as" :ref="(el: any) => elRef = (el?.$el ?? el) || undefined">
+  <component
+    :is="asChild ? Slot : as"
+    :ref="(el: any) => {
+      elRef = (el?.$el ?? el) || undefined
+    }"
+  >
     <slot />
   </component>
 </template>

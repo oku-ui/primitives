@@ -4,7 +4,7 @@ import type { RovingFocusItemProps } from './RovingFocusItem.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroup.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
 import { Primitive } from '~/primitive/index.ts'
-import { useId } from '~/utils/useId.ts'
+import { useId } from '~/hooks/useId.ts'
 import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
 import { ITEM_DATA_ATTR } from '~/collection/Collection.ts'
 
@@ -105,7 +105,9 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = (el?.$el ?? el) || undefined"
+    :ref="(el: any) => {
+      elRef = (el?.$el ?? el) || undefined
+    }"
     :as="as"
     :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"

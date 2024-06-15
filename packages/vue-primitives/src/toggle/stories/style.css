@@ -9,11 +9,11 @@
     outline: none;
     box-shadow: 0 0 0 2px black;
   }
-  
+
   &[data-disabled] {
     opacity: 0.5;
   }
-  
+
   &[data-state="off"] {
     background-color: red;
     color: white;
