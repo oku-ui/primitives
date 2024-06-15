@@ -78,7 +78,8 @@ watch(
   <Primitive
     :id="context.contentId"
     :ref="(el: any) => {
-      elRef = (el?.$el ?? el) || undefined
+      const node = (el?.$el ?? el)
+      elRef = node?.hasAttribute ? node : undefined
     }"
     :as="as"
     :as-child="asChild"
@@ -86,8 +87,8 @@ watch(
     :data-disabled="context.disabled?.value ? '' : undefined"
     :hidden="!isOpen"
     :style="{
-      [`--oku-collapsible-content-height`]: `${height}px`,
-      [`--oku-collapsible-content-width`]: `${width}px`,
+      [`--radix-collapsible-content-height`]: `${height}px`,
+      [`--radix-collapsible-content-width`]: `${width}px`,
     }"
   >
     <slot v-if="isOpen" />

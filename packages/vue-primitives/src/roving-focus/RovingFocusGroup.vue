@@ -92,7 +92,8 @@ provideRovingFocusContext({
 <template>
   <Primitive
     :ref="(el: any) => {
-      elRef = (el?.$el ?? el) || undefined
+      const node = (el?.$el ?? el)
+      elRef = node?.hasAttribute ? node : undefined
     }"
     :as="as"
     :as-child="asChild"

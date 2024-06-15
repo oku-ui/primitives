@@ -26,7 +26,8 @@ defineExpose({
   <component
     :is="asChild ? Slot : as"
     :ref="(el: any) => {
-      elRef = (el?.$el ?? el) || undefined
+      const node = (el?.$el ?? el)
+      elRef = node?.hasAttribute ? node : undefined
     }"
   >
     <slot />
