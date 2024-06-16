@@ -8,13 +8,63 @@
     "access": "public"
   },
   "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+    "./accordion": {
+      "types": "./dist/accordion/index.d.ts",
+      "import": "./dist/accordion/index.js"
+    },
+    "./aspect-ratio": {
+      "types": "./dist/aspect-ratio/index.d.ts",
+      "import": "./dist/aspect-ratio/index.js"
+    },
+    "./collapsible": {
+      "types": "./dist/collapsible/index.d.ts",
+      "import": "./dist/collapsible/index.js"
+    },
+    "./collection": {
+      "types": "./dist/collection/index.d.ts",
+      "import": "./dist/collection/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.js"
+    },
+    "./direction": {
+      "types": "./dist/direction/index.d.ts",
+      "import": "./dist/direction/index.js"
+    },
+    "./presence": {
+      "types": "./dist/presence/index.d.ts",
+      "import": "./dist/presence/index.js"
+    },
+    "./primitive": {
+      "types": "./dist/primitive/index.d.ts",
+      "import": "./dist/primitive/index.js"
+    },
+    "./roving-focus": {
+      "types": "./dist/roving-focus/index.d.ts",
+      "import": "./dist/roving-focus/index.js"
+    },
+    "./separator": {
+      "types": "./dist/separator/index.d.ts",
+      "import": "./dist/separator/index.js"
+    },
+    "./slot": {
+      "types": "./dist/slot/index.d.ts",
+      "import": "./dist/slot/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "import": "./dist/tabs/index.js"
+    },
+    "./toggle": {
+      "types": "./dist/toggle/index.d.ts",
+      "import": "./dist/toggle/index.js"
+    },
+    "./toggle-group": {
+      "types": "./dist/toggle-group/index.d.ts",
+      "import": "./dist/toggle-group/index.js"
     }
   },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],

@@ -2,8 +2,6 @@
   "extends": "@teleskop150750/typescript-config/tsconfig.vue.json",
   "compilerOptions": {
     "rootDir": "src",
-    // "noEmit": false,
-    // "emitDeclarationOnly": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "paths": {
       "~/*": ["./src/*"]

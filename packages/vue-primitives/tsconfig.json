@@ -12,23 +12,3 @@
   ],
   "files": []
 }
-
-// {
-//   // "compilerOptions": {
-//   //   "composite": true,
-//   //   "strict": true,
-//   //   "forceConsistentCasingInFileNames": true
-//   // },
-//   "references": [
-//     // {
-//     //   "path": "./tsconfig.node.json"
-//     // },
-//     {
-//       "path": "./tsconfig.app.json"
-//     }
-//     // {
-//     //   "path": "./tsconfig.vitest.json"
-//     // }
-//   ],
-//   "files": []
-// }

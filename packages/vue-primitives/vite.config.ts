@@ -1,14 +1,40 @@
 import { URL, fileURLToPath } from 'node:url'
 import process from 'node:process'
 
+import fs from 'node:fs'
+import path from 'node:path'
+// import { externalizeDeps } from 'vite-plugin-externalize-deps'
+
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { externalizeDeps } from 'vite-plugin-externalize-deps'
 import dts from 'vite-plugin-dts'
 
-// const srcDir = 'src'
-// const outDir = 'dist'
+// Функция для рекурсивного поиска всех файлов index.ts в папке src
+function findComponentsEntryPoints(dir: string, baseDir = '') {
+  const entries: Record<string, string> = {}
+  const files = fs.readdirSync(dir)
+
+  files.forEach((file) => {
+    const fullPath = path.join(dir, file)
+    const relativePath = path.join(baseDir, file)
+    const stat = fs.statSync(fullPath)
+
+    if (stat.isDirectory()) {
+      Object.assign(entries, findComponentsEntryPoints(fullPath, relativePath))
+    }
+    else if (file === 'index.ts') {
+      const name = `${path.relative('.', path.dirname(fullPath)).replace('src/', '')}/index`
+      entries[name] = fullPath
+    }
+  })
+
+  return entries
+}
+
+const componentsDir = path.resolve(__dirname, 'src')
+const input = findComponentsEntryPoints(componentsDir)
+console.error(input)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,57 +42,25 @@ export default defineConfig({
     __DEV__: process.env.NODE_ENV !== 'production',
   },
   plugins: [
-    externalizeDeps(),
+    // externalizeDeps(),
     vue(),
     vueJsx(),
     dts({
-      copyDtsFiles: true,
-      outDir: [
-        'dist',
-      ],
-      // exclude: ['**/stories'],
+      exclude: ['./src/main.ts'],
       tsconfigPath: 'tsconfig.app.json',
-      // include: ['src/index.ts'],
-      // exclude: ['src/ignore'],
-      // staticImport: true,
-      rollupTypes: true,
-      // insertTypesEntry: true,
-      compilerOptions: {
-        declarationMap: true,
-      },
     }),
   ],
   build: {
+    copyPublicDir: false,
     minify: false,
     sourcemap: true,
     lib: {
-      // Could also be a dictionary or array of multiple entry points
-      entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
+      name: 'radix',
       formats: ['es'],
-      // the proper extensions will be added
-      // fileName: 'esm/[name]',
-      // fileName: (format) => {
-      //   if (format === 'cjs')
-      //     return 'cjs/[name].cjs'
-      //   return 'esm/[name].js'
-      // },
+      entry: input,
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
       external: ['vue'],
-      output: {
-        // Указываем директорию для вывода, сохраняя структуру модулей
-        dir: 'dist',
-        // Включаем сохранение структуры модулей
-        preserveModules: true,
-        // Опционально, можно настроить формат имен файлов
-        entryFileNames: '[name].js',
-        chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]',
-
-        // preserveModules: true,
-      },
     },
   },
   resolve: {
@@ -75,12 +69,3 @@ export default defineConfig({
     },
   },
 })
-
-// export default mergeConfig(
-//   config,
-//   tanstackBuildConfig({
-//     entry: './src/index.ts',
-//     srcDir: './src',
-//     tsconfigPath: './tsconfig.app.json',
-//   }),
-// )

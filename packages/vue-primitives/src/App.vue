@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, shallowRef, watchSyncEffect } from 'vue'
+import { computed, onMounted, shallowRef } from 'vue'
 // import Foo from '../src/Foo.vue'
 // import Primitive from './primitive/Primitive.vue'
 import { Toggle } from './toggle/index.ts'
@@ -34,12 +34,6 @@ function log(event: Event) {
   console.error('LOG')
 }
 
-// const a = shallowRef<any>()
-
-// watchSyncEffect(() => {
-//   console.log('a:', a.value?.$el)
-// })
-
 onMounted(() => {
   // console.log(a.value)
 })
@@ -72,14 +66,14 @@ onMounted(() => {
       </Accordion>
     </div>
 
-    <!-- <button @click="toggle">
+    <button @click="toggle">
       ON {{ open }}
     </button>
     <button @click="toggleDis">
       Dis {{ dis }}
-    </button> -->
+    </button>
 
-    <!-- <div>
+    <div>
       <ToggleGroup type="single">
         <ToggleGroupItem value="1">
           1
@@ -97,7 +91,7 @@ onMounted(() => {
     </div>
     <div>
       <pre>{{ on }}</pre>
-    </div> -->
+    </div>
   </div>
 </template>
 
