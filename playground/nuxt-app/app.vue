@@ -29,6 +29,9 @@ provideConfigContext({
       <NuxtLink to="/accordion">
         Accordion
       </NuxtLink>
+      <NuxtLink to="/tabs">
+        Tabs
+      </NuxtLink>
     </header>
     <main class="page-main">
       <NuxtPage />
