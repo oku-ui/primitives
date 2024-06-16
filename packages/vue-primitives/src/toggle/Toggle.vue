@@ -3,6 +3,7 @@ import { useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { isNullishOrFalse } from '../utils/is.ts'
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 
 defineOptions({
@@ -22,7 +23,7 @@ const pressed = useControllableState(props, emit, 'pressed', props.defaultPresse
 const onClick = composeEventHandlers((event: Event) => {
   ;(attrs.onClick as Function | undefined)?.(event)
 }, () => {
-  if (!attrs.disabled)
+  if (isNullishOrFalse(attrs.disabled))
     pressed.value = !pressed.value
 })
 </script>
@@ -34,11 +35,11 @@ const onClick = composeEventHandlers((event: Event) => {
     type="button"
     :aria-pressed="pressed"
     v-bind="{
-      ...$attrs,
+      ...attrs,
       onClick,
     }"
     :data-state="pressed ? 'on' : 'off'"
-    :data-disabled="$attrs.disabled ? '' : undefined"
+    :data-disabled="attrs.disabled"
   >
     <slot />
   </Primitive>

@@ -23,6 +23,7 @@ export function useId(deterministicId?: string | null | undefined) {
   const { useId } = useConfigContext() || {}
   if (useId && typeof useId === 'function') {
     const id = `nuxt-${useId()}`
+    // console.error('N', id)
     return id
   }
 

@@ -3,6 +3,7 @@ import { computed, shallowRef, useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { isNullishOrFalse } from '../utils/is.ts'
 import { useTabsContext } from './Tabs.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 import type { TabsTriggerProps } from './TabsTrigger.ts'
@@ -29,7 +30,7 @@ const onMousedown = composeEventHandlers<MouseEvent>((event) => {
 }, (event) => {
   // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
   // but not when the control key is pressed (avoiding MacOS right click)
-  if (!attrs.disabled && event.button === 0 && event.ctrlKey === false) {
+  if (isNullishOrFalse(attrs.disabled) && event.button === 0 && event.ctrlKey === false) {
     context.onValueChange(props.value)
   }
   else {
@@ -51,7 +52,7 @@ const onFocus = composeEventHandlers<FocusEvent>((event) => {
   // handle "automatic" activation if necessary
   // ie. activate tab following focus
   const isAutomaticActivation = context.activationMode !== 'manual'
-  if (!isSelected.value && !attrs.disabled && isAutomaticActivation) {
+  if (!isSelected.value && isNullishOrFalse(attrs.disabled) && isAutomaticActivation) {
     context.onValueChange(props.value)
   }
 })
@@ -62,7 +63,7 @@ defineExpose({
 </script>
 
 <template>
-  <RovingFocusItem as-child :focusable="!attrs.disabled" :active="isSelected">
+  <RovingFocusItem as-child :focusable="isNullishOrFalse(attrs.disabled)" :active="isSelected">
     <Primitive
       :id="triggerId"
       :ref="(el: any) => {
@@ -82,7 +83,7 @@ defineExpose({
       :aria-selected="isSelected"
       :aria-controls="contentId"
       :data-state="isSelected ? 'active' : 'inactive'"
-      :data-disabled="attrs.disabled ? '' : undefined"
+      :data-disabled="attrs.disabled"
       :disabled="attrs.disabled"
     >
       <slot />

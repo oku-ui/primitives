@@ -1,92 +1,42 @@
-<script setup lang="ts">
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../../../packages/vue-primitives/src/accordion';
+<script setup lang="tsx">
+import { Single } from '../../../packages/vue-primitives/src/accordion/stories/Accordion.stories.jsx'
+import Basic from '../../../packages/vue-primitives/src/roving-focus/stories/Basic.vue'
+
+// const Comp = Basic()
 </script>
 
 <template>
   <div>
-    <h1>Uncontrolled</h1>
-    <Accordion type="single" class="accordion_rootClass">
-      <AccordionItem class="accordion_itemClass" value="one">
-        <AccordionHeader class="accordion_headerClass">
-          <AccordionTrigger class="accordion_triggerClass">One</AccordionTrigger>
-        </AccordionHeader>
-        <AccordionContent class="accordion_contentClass">
-          Per erat orci nostra luctus sociosqu mus risus penatibus, duis elit vulputate viverra
-          integer ullamcorper congue curabitur sociis, nisi malesuada scelerisque quam suscipit
-          habitant sed.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem class="accordion_itemClass" value="two">
-        <AccordionHeader class="accordion_headerClass">
-          <AccordionTrigger class="accordion_triggerClass">Two</AccordionTrigger>
-        </AccordionHeader>
-        <AccordionContent class="accordion_contentClass">
-          Cursus sed mattis commodo fermentum conubia ipsum pulvinar sagittis, diam eget bibendum
-          porta nascetur ac dictum, leo tellus dis integer platea ultrices mi.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem class="accordion_itemClass" value="three" disabled>
-        <AccordionHeader class="accordion_headerClass">
-          <AccordionTrigger class="accordion_triggerClass">Three (disabled)</AccordionTrigger>
-        </AccordionHeader>
-        <AccordionContent class="accordion_contentClass">
-          Sociis hac sapien turpis conubia sagittis justo dui, inceptos penatibus feugiat
-          himenaeos euismod magna, nec tempor pulvinar eu etiam mattis.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem class="accordion_itemClass" value="four">
-        <AccordionHeader class="accordion_headerClass">
-          <AccordionTrigger class="accordion_triggerClass">Four</AccordionTrigger>
-        </AccordionHeader>
-        <AccordionContent class="accordion_contentClass">
-          Odio placerat
-          {{' '}}
-          <a href="#">quisque</a>
-          {{ ' ' }}
-          sapien sagittis non sociis ligula penatibus
-          dignissim vitae, enim vulputate nullam semper potenti etiam volutpat libero.
-          <button>Cool</button>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+    <h1>Closed by default</h1>
+    <Basic />
+    <!-- <Collapsible class="collapsible_root">
+      <CollapsibleTrigger class="collapsible_trigger">Trigger</CollapsibleTrigger>
+      <CollapsibleContent class="collapsible_animatedContent">
+        <div :style="{ padding: '10px' }"">Content 1</div>
+      </CollapsibleContent>
+    </Collapsible>
+
+    <h1>Open by default</h1>
+    <Collapsible defaultOpen class="collapsible_root">
+      <CollapsibleTrigger class="collapsible_trigger">Trigger</CollapsibleTrigger>
+      <CollapsibleContent class="collapsible_animatedContent">
+        <div :style="{ padding: '10px' }">Content 1</div>
+      </CollapsibleContent>
+    </Collapsible> -->
   </div>
 </template>
 
 <style>
-.accordion_rootClass {
+.collapsible_root {
+  max-width: 20em;
   font-family: sans-serif;
-
-  &[data-orientation="horizontal"] {
-    display: flex;
-    max-width: 40em;
-    height: 50vh;
-  }
-
-  &[data-orientation="vertical"] {
-    max-width: 20em;
-  }
 }
 
-.accordion_itemClass {
-  &[data-orientation="horizontal"] {
-    display: flex;
-    border-right: 1px solid white;
-  }
+.collapsible_trigger {
+  --shadow-color: crimson;
 
-  &[data-orientation="vertical"] {
-    border-bottom: 1px solid white;
-  }
-}
-
-.accordion_headerClass {
-  margin: 0;
-
-  &[data-orientation="horizontal"] {
-    height: 100%;
-  }
-}
-
-.accordion_triggerClass {
+  width: 100%;
+  text-align: inherit;
   box-sizing: border-box;
   appearance: none;
   border: none;
@@ -95,8 +45,6 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionT
   color: white;
   font-family: inherit;
   font-size: 1.2em;
-  --shadow-color: crimson;
-  text-align: inherit;
 
   &:focus {
     outline: none;
@@ -105,46 +53,39 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionT
   }
 
   &[data-disabled] {
-    color: #ccc;
+    color: #aaa;
   }
 
   &[data-state="open"] {
     background-color: red;
     color: white;
-
-    &:focus {
-      --shadow-color: #111;
-      color: black;
-    }
   }
 
-  &[data-orientation="horizontal"] {
-    height: 100%;
+  &[data-state="open"]:focus {
+    --shadow-color: #111;
+    color: black;
   }
 
-  &[data-orientation="vertical"] {
-    width: 100%;
-  }
 }
 
-.accordion_contentClass {
+.collapsible_content {
   padding: 10px;
   line-height: 1.5;
 }
 
-@keyframes accordion_slideDown {
+@keyframes collapsible_slideDown {
   from {
     height: 0;
   }
 
   to {
-    height: var(--radix-accordion-content-height);
+    height: var(--radix-collapsible-content-height);
   }
 }
 
-@keyframes accordion_slideUp {
+@keyframes collapsible_slideUp {
   from {
-    height: var(--radix-accordion-content-height);
+    height: var(--radix-collapsible-content-height);
   }
 
   to {
@@ -152,59 +93,54 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionT
   }
 }
 
-@keyframes accordion_open2D {
+@keyframes collapsible_openRight {
   from {
     width: 0;
-    height: 0;
   }
 
   to {
-    width: var(--radix-accordion-content-width);
-    height: var(--radix-accordion-content-height);
+    width: var(--radix-collapsible-content-width);
   }
 }
 
-@keyframes accordion_close2D {
+@keyframes collapsible_closeRight {
   from {
-    width: var(--radix-accordion-content-width);
-    height: var(--radix-accordion-content-height);
+    width: var(--radix-collapsible-content-width);
   }
 
   to {
     width: 0;
-    height: 0;
   }
 }
 
-.accordion_animatedContentClass {
+.collapsible_animatedContent {
   overflow: hidden;
 
+  /* animation: collapsible_slideUp 300ms ease-in; */
   &[data-state="open"] {
-    animation: accordion_slideDown 300ms ease-out;
+    animation: collapsible_slideDown 300ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: accordion_slideUp 300ms ease-out;
+    animation: collapsible_slideUp 300ms ease-in;
   }
 }
 
-.accordion_animated2DContentClass {
+.collapsible_animatedWidthContent {
   overflow: hidden;
 
   &[data-state="open"] {
-    animation: accordion_open2D 1000ms ease-out;
+    animation: collapsible_openRight 300ms ease-out;
   }
 
   &[data-state="closed"] {
-    animation: accordion_close2D 1000ms ease-out;
+    animation: collapsible_closeRight 300ms ease-in;
   }
 }
 
-.accordion_rootAttrClass,
-.accordion_itemAttrClass,
-.accordion_headerAttrClass,
-.accordion_triggerAttrClass,
-.accordion_contentAttrClass {
+.collapsible_rootAttr,
+.collapsible_triggerAttr,
+.collapsible_contentAttr {
   background-color: rgba(0, 0, 255, 0.3);
   border: 2px solid blue;
   padding: 10px;
@@ -226,7 +162,31 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionT
   }
 }
 
-.accordion_contentAttrClass {
+/* .collapsible_rootAttr[data-state="closed"],
+.collapsible_triggerAttr[data-state="closed"],
+.collapsible_contentAttr[data-state="closed"] {
+  border-color: red;
+}
+
+.collapsible_rootAttr[data-state="open"],
+.collapsible_triggerAttr[data-state="open"],
+.collapsible_contentAttr[data-state="open"] {
+  border-color: green;
+}
+
+.collapsible_rootAttr[data-disabled],
+.collapsible_triggerAttr[data-disabled],
+.collapsible_contentAttr[data-disabled] {
+  border-style: dashed;
+}
+
+.collapsible_rootAttr:disabled,
+.collapsible_triggerAttr:disabled,
+.collapsible_contentAttr:disabled {
+  opacity: 0.5;
+} */
+
+.collapsible_contentAttr {
   display: block;
 }
 </style>
