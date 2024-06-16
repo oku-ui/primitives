@@ -5,6 +5,7 @@ import { useControllableState } from '../hooks/useControllableState.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { arrayify } from '../utils/array.ts'
+import { useId } from '../hooks/useId.ts'
 import { ACCORDION_KEYS, type AccordionEmits, type AccordionProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './Accordion.ts'
 
 defineOptions({
@@ -110,6 +111,7 @@ const handleKeydown = composeEventHandlers<KeyboardEvent>(() => {
 })
 
 provideAccordionContext({
+  id: useId(),
   collapsible: props.collapsible,
 
   disabled: toRef(props, 'disabled'),

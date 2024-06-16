@@ -26,7 +26,7 @@ function onUpdateOpen(open: boolean) {
 provideAccordionItemContext({
   open,
   disabled,
-  triggerId: useId(),
+  triggerId: `${context.id}-${props.value}`,
 })
 </script>
 

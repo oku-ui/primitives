@@ -76,6 +76,7 @@ export const ACCORDION_KEYS = ['Home', 'End', 'ArrowDown', 'ArrowUp', 'ArrowLeft
 export const [Collection, useCollection] = createCollection<HTMLButtonElement, undefined>('Accordion')
 
 export interface AccordionContext {
+  id: string
   collapsible: boolean
 
   disabled: Ref<boolean>
