@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useId } from '../hooks/useId.ts'
+import { Collapsible } from '../collapsible/index.ts'
 import { type AccordionItemProps, provideAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './Accordion.ts'
 import { getState } from './utils.ts'
-import { useId } from '~/hooks/useId.ts'
-import { Collapsible } from '~/collapsible/index.ts'
 
 defineOptions({
   name: 'AccordionItem',

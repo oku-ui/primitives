@@ -3,10 +3,10 @@ import { computed, shallowRef, useAttrs, watch, watchEffect } from 'vue'
 import type { RovingFocusItemProps } from './RovingFocusItem.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroup.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
-import { Primitive } from '~/primitive/index.ts'
-import { useId } from '~/hooks/useId.ts'
-import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
-import { ITEM_DATA_ATTR } from '~/collection/Collection.ts'
+import { Primitive } from '../primitive/index.ts'
+import { useId } from '../hooks/useId.ts'
+import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
 
 defineOptions({
   name: 'RovingFocusGroup',

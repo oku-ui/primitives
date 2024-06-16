@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
+import { CollapsibleTrigger } from '../collapsible/index.ts'
+import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
 import { Collection, useAccordionContext } from './Accordion.ts'
 import type { AccordionTriggerProps } from './AccordionTrigger.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
-import { CollapsibleTrigger } from '~/collapsible/index.ts'
-import { ITEM_DATA_ATTR } from '~/collection/Collection.ts'
 
 defineOptions({
   name: 'AccordionTrigger',

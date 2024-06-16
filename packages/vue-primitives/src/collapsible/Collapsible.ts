@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import { createContext } from '~/hooks/createContext.ts'
-import type { PrimitiveProps } from '~/primitive'
+import { createContext } from '../hooks/createContext.ts'
+import type { PrimitiveProps } from '../primitive'
 
 export interface CollapsibleProps extends PrimitiveProps {
   defaultOpen?: boolean

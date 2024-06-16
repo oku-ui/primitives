@@ -1,7 +1,7 @@
 // Inspired from https://github.com/tailwindlabs/headlessui/issues/2913
 // as the alternative, and a fallback for Vue version < 3.5
 
-import { useConfigContext } from '~/config/index.ts'
+import { useConfigContext } from '../config/index.ts'
 
 let count = 0
 
@@ -21,8 +21,11 @@ export function useId(deterministicId?: string | null | undefined) {
     return deterministicId
 
   const { useId } = useConfigContext() || {}
-  if (useId && typeof useId === 'function')
-    return `nuxt-${useId()}`
+  if (useId && typeof useId === 'function') {
+    const id = `nuxt-${useId()}`
+    console.error('N::', id)
+    return id
+  }
 
   return `count-${++count}`
 }

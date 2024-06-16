@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import { createContext } from '~/hooks/createContext.ts'
-import type { PrimitiveProps } from '~/primitive/index.ts'
+import { createContext } from '../hooks/createContext.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
 
 export interface AccordionItemProps extends PrimitiveProps {
   /**

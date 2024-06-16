@@ -1,6 +1,6 @@
 import { type InjectionKey, type Ref, inject, provide } from 'vue'
-import type { Direction } from '~/direction'
-// import { createContext } from '~/hooks/createContext.ts'
+import type { Direction } from '../direction'
+// import { createContext } from '../hooks/createContext.ts'
 
 export interface ConfigContext {
   dir?: Ref<Direction>

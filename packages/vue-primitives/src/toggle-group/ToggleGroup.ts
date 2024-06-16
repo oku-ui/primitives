@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '~/primitive/index.ts'
-import type { RovingFocusGroupProps } from '~/roving-focus/index.ts'
-import { createContext } from '~/hooks/createContext.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
+import type { RovingFocusGroupProps } from '../roving-focus/index.ts'
+import { createContext } from '../hooks/createContext.ts'
 
 export type ToggleGroupType = 'single' | 'multiple'
 

@@ -3,8 +3,8 @@ import { computed, nextTick, onBeforeUnmount, onMounted, shallowRef, watch } fro
 import type { CollapsibleContentProps } from './CollapsibleContent.ts'
 import { useCollapsibleContext } from './Collapsible.ts'
 import { getState } from './utils.ts'
-import Primitive from '~/primitive/Primitive.vue'
-import { usePresence } from '~/presence/usePresence.ts'
+import Primitive from '../primitive/Primitive.vue'
+import { usePresence } from '../presence/usePresence.ts'
 
 defineOptions({
   name: 'CollapsibleContent',

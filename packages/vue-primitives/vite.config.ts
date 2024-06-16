@@ -1,4 +1,3 @@
-import { URL, fileURLToPath } from 'node:url'
 import process from 'node:process'
 
 import fs from 'node:fs'
@@ -63,9 +62,9 @@ export default defineConfig({
       external: ['vue'],
     },
   },
-  resolve: {
-    alias: {
-      '~': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
+  // resolve: {
+  //   alias: {
+  //     '~': fileURLToPath(new URL('./src', import.meta.url)),
+  //   },
+  // },
 })

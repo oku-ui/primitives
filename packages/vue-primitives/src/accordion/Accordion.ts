@@ -1,7 +1,7 @@
 import type { AriaAttributes, Ref } from 'vue'
-import { createCollection } from '~/collection/index.ts'
-import { createContext } from '~/hooks/createContext.ts'
-import type { PrimitiveProps } from '~/primitive/index.ts'
+import { createCollection } from '../collection/index.ts'
+import { createContext } from '../hooks/createContext.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
 
 export type AccordionType = 'single' | 'multiple'
 type Direction = 'ltr' | 'rtl'

@@ -1,11 +1,11 @@
 <script setup lang="ts" generic="T extends ToggleGroupType">
 import { computed, toRef, useAttrs } from 'vue'
 import { type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType, provideToggleGroupContext } from './ToggleGroup.ts'
-import { useControllableState } from '~/hooks/useControllableState.ts'
-import { useDirection } from '~/direction/Direction.ts'
-import { RovingFocusGroup } from '~/roving-focus/index.ts'
-import { Primitive } from '~/primitive/index.ts'
-import { arrayify } from '~/utils/array.ts'
+import { useControllableState } from '../hooks/useControllableState.ts'
+import { useDirection } from '../direction/Direction.ts'
+import { RovingFocusGroup } from '../roving-focus/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { arrayify } from '../utils/array.ts'
 
 defineOptions({
   name: 'ToggleGroup',

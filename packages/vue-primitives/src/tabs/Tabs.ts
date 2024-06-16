@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
-import { createContext } from '~/hooks/createContext.ts'
-import type { PrimitiveProps } from '~/primitive/index.ts'
-import type { RovingFocusGroupProps } from '~/roving-focus'
+import { createContext } from '../hooks/createContext.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
+import type { RovingFocusGroupProps } from '../roving-focus'
 
 export interface TabsProps extends PrimitiveProps {
   /** The value for the selected tab, if controlled */

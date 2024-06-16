@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '@teleskop150750/vue-primitives/accordion';
-import { useConfigContext } from '@teleskop150750/vue-primitives/config';
-const context = useConfigContext()
-const id = context?.useId?.()
+import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../../../packages/vue-primitives/src/accordion';
 </script>
 
 <template>
   <div>
     <h1>Uncontrolled</h1>
-    {{ id }}
     <Accordion type="single" class="accordion_rootClass">
       <AccordionItem class="accordion_itemClass" value="one">
         <AccordionHeader class="accordion_headerClass">

@@ -1,4 +1,4 @@
-import type { PrimitiveProps } from '~/primitive/index.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
 
 export interface ToggleProps extends PrimitiveProps {
   /**

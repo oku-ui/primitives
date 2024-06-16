@@ -1,7 +1,7 @@
 import type { AriaAttributes, Ref } from 'vue'
-import { createCollection } from '~/collection/index.ts'
-import { createContext } from '~/hooks/createContext.ts'
-import type { PrimitiveProps } from '~/primitive'
+import { createCollection } from '../collection/index.ts'
+import { createContext } from '../hooks/createContext.ts'
+import type { PrimitiveProps } from '../primitive'
 
 type Orientation = AriaAttributes['aria-orientation']
 type Direction = 'ltr' | 'rtl'

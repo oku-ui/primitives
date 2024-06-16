@@ -2,8 +2,8 @@
 import { shallowRef } from 'vue'
 import type { TabsListProps } from './TabsList.ts'
 import { useTabsContext } from './Tabs.ts'
-import { Primitive } from '~/primitive/index.ts'
-import { RovingFocusGroup } from '~/roving-focus/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { RovingFocusGroup } from '../roving-focus/index.ts'
 
 defineOptions({
   name: 'TabsList',

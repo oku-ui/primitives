@@ -1,3 +1,3 @@
-import type { CollapsibleContentProps } from '~/collapsible/index.ts'
+import type { CollapsibleContentProps } from '../collapsible/index.ts'
 
 export interface AccordionContentProps extends CollapsibleContentProps {}

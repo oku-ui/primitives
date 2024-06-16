@@ -1,11 +1,11 @@
 <script setup lang="ts" generic="T extends AccordionType">
 import { computed, shallowRef, toRef, useAttrs } from 'vue'
+import { useDirection } from '../direction/Direction.ts'
+import { useControllableState } from '../hooks/useControllableState.ts'
+import { Primitive } from '../primitive/index.ts'
+import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { arrayify } from '../utils/array.ts'
 import { ACCORDION_KEYS, type AccordionEmits, type AccordionProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './Accordion.ts'
-import { useDirection } from '~/direction/Direction.ts'
-import { useControllableState } from '~/hooks/useControllableState.ts'
-import { Primitive } from '~/primitive/index.ts'
-import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
-import { arrayify } from '~/utils/array.ts'
 
 defineOptions({
   name: 'Accordion',

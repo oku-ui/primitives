@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { Primitive } from '../primitive/index.ts'
 import { useAccordionContext } from './Accordion.ts'
 import type { AccordionHeaderProps } from './AccordionHeader.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { getState } from './utils.ts'
-import { Primitive } from '~/primitive/index.ts'
 
 defineOptions({
   name: 'AccordionHeader',

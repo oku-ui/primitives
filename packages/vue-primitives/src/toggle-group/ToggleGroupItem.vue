@@ -2,8 +2,8 @@
 import { computed, useAttrs } from 'vue'
 import type { ToggleGroupItemProps } from './ToggleGroupItem.ts'
 import { useToggleGroupContext } from './ToggleGroup.ts'
-import { RovingFocusItem } from '~/roving-focus/index.ts'
-import { Toggle } from '~/toggle/index.ts'
+import { RovingFocusItem } from '../roving-focus/index.ts'
+import { Toggle } from '../toggle/index.ts'
 
 defineOptions({
   name: 'ToggleGroupItem',

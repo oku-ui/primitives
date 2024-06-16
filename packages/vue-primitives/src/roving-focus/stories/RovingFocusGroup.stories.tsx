@@ -1,8 +1,8 @@
 import { type PropType, type Ref, computed, defineComponent, shallowRef } from 'vue'
 import { RovingFocusGroup } from '../index.ts'
 import RovingFocusItem from '../RovingFocusItem.vue'
-import { createContext } from '~/hooks/createContext.ts'
-import { composeEventHandlers } from '~/utils/composeEventHandlers.ts'
+import { createContext } from '../../hooks/createContext.ts'
+import { composeEventHandlers } from '../../utils/composeEventHandlers.ts'
 
 export default { title: 'Utilities/RovingFocusGroup' }
 
