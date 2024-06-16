@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import type { PrimitiveProps } from './Primitive.ts'
 import { Slot } from '../slot/index.ts'
+import type { PrimitiveProps } from './Primitive.ts'
 
 defineOptions({
   name: 'Primitive',

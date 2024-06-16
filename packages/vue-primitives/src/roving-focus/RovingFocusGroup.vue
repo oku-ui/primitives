@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { shallowRef, toRef, useAttrs } from 'vue'
-import { Collection, type RovingFocusGroupEmits, type RovingFocusGroupProps, provideRovingFocusContext, useCollection } from './RovingFocusGroup.ts'
-import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils.ts'
 import { useDirection } from '../direction/index.ts'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils.ts'
+import { Collection, type RovingFocusGroupEmits, type RovingFocusGroupProps, provideRovingFocusContext, useCollection } from './RovingFocusGroup.ts'
 
 defineOptions({
   name: 'RovingFocusGroup',

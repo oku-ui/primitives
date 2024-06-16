@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { CollapsibleContent } from '../collapsible/index.ts'
 import { useAccordionContext } from './Accordion.ts'
 import type { AccordionContentProps } from './AccordionContent.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
-import { CollapsibleContent } from '../collapsible/index.ts'
 
 defineOptions({
   name: 'AccordionContent',

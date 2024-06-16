@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useAttrs } from 'vue'
-import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 
 defineOptions({
   name: 'Toggle',

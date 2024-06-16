@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type TabsEmits, type TabsProps, provideTabsContext } from './Tabs.ts'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { useDirection } from '../direction/Direction.ts'
 import { useId } from '../hooks/useId.ts'
 import { Primitive } from '../primitive/index.ts'
+import { type TabsEmits, type TabsProps, provideTabsContext } from './Tabs.ts'
 
 defineOptions({
   name: 'Tabs',

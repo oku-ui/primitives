@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provideConfigContext } from '@teleskop150750/vue-primitives/config';
+import { provideConfigContext } from '../../packages/vue-primitives/src/config';
 
 const useIdFunction = () => useId()
 

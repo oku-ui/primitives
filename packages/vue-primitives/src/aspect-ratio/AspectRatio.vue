@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import type { AspectRatioProps } from './AspectRatio.ts'
 import { Primitive } from '../primitive/index.ts'
+import type { AspectRatioProps } from './AspectRatio.ts'
 
 defineOptions({
   name: 'AspectRatio',

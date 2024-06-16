@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { SeparatorProps } from './Separator.ts'
 import { Primitive } from '../primitive/index.ts'
+import type { SeparatorProps } from './Separator.ts'
 
 defineOptions({
   name: 'Separator',

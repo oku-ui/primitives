@@ -1,6 +1,6 @@
 import { type VNode, cloneVNode, defineComponent, shallowRef, warn } from 'vue'
-import { usePresence } from './usePresence.ts'
 import { getRawChildren } from '../utils/getRawChildren.ts'
+import { usePresence } from './usePresence.ts'
 
 export interface PresenceProps {
   present: boolean

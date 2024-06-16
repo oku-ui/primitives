@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs } from 'vue'
-import { useTabsContext } from './Tabs.ts'
-import { makeContentId, makeTriggerId } from './utils.ts'
-import type { TabsTriggerProps } from './TabsTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { useTabsContext } from './Tabs.ts'
+import { makeContentId, makeTriggerId } from './utils.ts'
+import type { TabsTriggerProps } from './TabsTrigger.ts'
 
 defineOptions({
   name: 'TabsTrigger',

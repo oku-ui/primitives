@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import { Primitive } from '../primitive/index.ts'
+import { usePresence } from '../presence/usePresence.ts'
 import type { TabsContentProps } from './TabsContent.ts'
 import { useTabsContext } from './Tabs.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
-import { Primitive } from '../primitive/index.ts'
-import { usePresence } from '../presence/usePresence.ts'
 
 defineOptions({
   name: 'TabsContent',
