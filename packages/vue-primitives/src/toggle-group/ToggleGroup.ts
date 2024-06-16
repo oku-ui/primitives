@@ -1,5 +1,4 @@
 import type { Ref } from 'vue'
-// import type { ToggleGroupSingleEmits, ToggleGroupSingleProps } from './ToggleGroupSingle.ts'
 import type { PrimitiveProps } from '~/primitive/index.ts'
 import type { RovingFocusGroupProps } from '~/roving-focus/index.ts'
 import { createContext } from '~/hooks/createContext.ts'
@@ -22,7 +21,7 @@ export type ToggleGroupEmits<T extends ToggleGroupType> = {
   'update:value': [value: T extends 'single' ? NonNullable<ToggleGroupSingleProps['value']> : NonNullable<ToggleGroupMultipleProps['value']>]
 }
 
-export interface ToggleGroupSingleProps extends ToggleGroupImplProps {
+interface ToggleGroupSingleProps {
   /**
    * The controlled stateful value of the item that is pressed.
    */
@@ -34,15 +33,7 @@ export interface ToggleGroupSingleProps extends ToggleGroupImplProps {
   defaultValue?: string
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
-export type ToggleGroupSingleEmits = {
-  /**
-   * The callback that fires when the value of the toggle group changes.
-   */
-  'update:value': [value: string]
-}
-
-export interface ToggleGroupMultipleProps extends ToggleGroupImplProps {
+interface ToggleGroupMultipleProps {
   /**
    * The controlled stateful value of the items that are pressed.
    */
@@ -54,15 +45,7 @@ export interface ToggleGroupMultipleProps extends ToggleGroupImplProps {
   defaultValue?: string[]
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
-export type ToggleGroupMultipleEmits = {
-  /**
-   * The callback that fires when the state of the toggle group changes.
-   */
-  'update:value': [value: string[]]
-}
-
-export interface ToggleGroupImplProps extends PrimitiveProps {
+interface ToggleGroupImplProps extends PrimitiveProps {
   /**
    * Whether the group is disabled from user interaction.
    * @defaultValue false
@@ -78,14 +61,14 @@ export interface ToggleGroupImplProps extends PrimitiveProps {
   dir?: RovingFocusGroupProps['dir']
 }
 
-export interface ToggleGroupContextValue {
+export interface ToggleGroupContext {
+  rovingFocus: Ref<boolean>
+  disabled?: Ref<boolean>
+
   type: Ref<'single' | 'multiple'>
   value: Ref<string[]>
   onItemActivate: (value: string) => void
   onItemDeactivate: (value: string) => void
-  rovingFocus: Ref<boolean>
-  disabled?: Ref<boolean>
 }
 
-export const [provideToggleGroupContext, useToggleGroupContext]
-  = createContext<ToggleGroupContextValue>('ToggleGroup')
+export const [provideToggleGroupContext, useToggleGroupContext] = createContext<ToggleGroupContext>('ToggleGroup')

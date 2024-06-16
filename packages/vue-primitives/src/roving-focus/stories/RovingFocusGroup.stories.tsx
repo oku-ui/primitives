@@ -218,7 +218,7 @@ export function Nested() {
       <Button value="1">1</Button>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Button value="2" style={{ marginBottom: 10 }}>
+        <Button value="2" style={{ marginBottom: '10px' }}>
           2
         </Button>
 

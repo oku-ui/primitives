@@ -4,6 +4,9 @@ import { computed, onMounted, shallowRef, watchSyncEffect } from 'vue'
 // import Primitive from './primitive/Primitive.vue'
 import { Toggle } from './toggle/index.ts'
 import { ToggleGroup, ToggleGroupItem } from './toggle-group/index.ts'
+import Accordion from './accordion/Accordion.vue'
+import AccordionItem from './accordion/AccordionItem.vue'
+import { AccordionContent, AccordionHeader, AccordionTrigger } from './accordion/index.ts'
 
 const open = shallowRef(true)
 const dis = shallowRef(true)
@@ -31,11 +34,11 @@ function log(event: Event) {
   console.error('LOG')
 }
 
-const a = shallowRef<any>()
+// const a = shallowRef<any>()
 
-watchSyncEffect(() => {
-  console.log('a:', a.value?.$el)
-})
+// watchSyncEffect(() => {
+//   console.log('a:', a.value?.$el)
+// })
 
 onMounted(() => {
   // console.log(a.value)
@@ -44,14 +47,39 @@ onMounted(() => {
 
 <template>
   <div>
-    <button @click="toggle">
+    <div>
+      <Accordion type="single">
+        <AccordionItem value="ff">
+          <AccordionHeader>
+            <AccordionTrigger>
+              1
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent>
+            ff
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="ggg">
+          <AccordionHeader>
+            <AccordionTrigger>
+              2
+            </AccordionTrigger>
+          </AccordionHeader>
+          <AccordionContent>
+            gg
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
+
+    <!-- <button @click="toggle">
       ON {{ open }}
     </button>
     <button @click="toggleDis">
       Dis {{ dis }}
-    </button>
+    </button> -->
 
-    <div>
+    <!-- <div>
       <ToggleGroup type="single">
         <ToggleGroupItem value="1">
           1
@@ -69,7 +97,7 @@ onMounted(() => {
     </div>
     <div>
       <pre>{{ on }}</pre>
-    </div>
+    </div> -->
   </div>
 </template>
 

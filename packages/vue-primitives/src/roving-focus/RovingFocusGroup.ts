@@ -41,7 +41,7 @@ export interface ItemData {
 
 export const [Collection, useCollection] = createCollection<HTMLElement, ItemData>('RovingFocusGroup')
 
-export interface RovingContextValue {
+export interface RovingContext {
   /**
    * The orientation of the group.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
@@ -63,4 +63,4 @@ export interface RovingContextValue {
   onFocusableItemRemove: () => void
 }
 
-export const [provideRovingFocusContext, useRovingFocusContext] = createContext<RovingContextValue>('RovingFocusGroupProvider')
+export const [provideRovingFocusContext, useRovingFocusContext] = createContext<RovingContext>('RovingFocusGroup')

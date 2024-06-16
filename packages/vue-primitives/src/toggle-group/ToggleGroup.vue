@@ -5,6 +5,7 @@ import { useControllableState } from '~/hooks/useControllableState.ts'
 import { useDirection } from '~/direction/Direction.ts'
 import { RovingFocusGroup } from '~/roving-focus/index.ts'
 import { Primitive } from '~/primitive/index.ts'
+import { arrayify } from '~/utils/array.ts'
 
 defineOptions({
   name: 'ToggleGroup',
@@ -40,7 +41,7 @@ provideToggleGroupContext({
       value.value = itemValue as Value
     }
     else {
-      value.value = [...(value.value as MultipleValue), itemValue] as Value
+      value.value = [...arrayify<SingleValue>(value.value || []), itemValue] as Value
     }
   },
   onItemDeactivate(itemValue) {
@@ -48,7 +49,7 @@ provideToggleGroupContext({
       value.value = '' as Value
     }
     else {
-      value.value = (value.value as MultipleValue).filter(value => value !== itemValue) as Value
+      value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value
     }
   },
   rovingFocus: toRef(props, 'rovingFocus'),
