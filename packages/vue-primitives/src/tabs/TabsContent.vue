@@ -48,7 +48,7 @@ const isPresent = usePresence(elRef, () => props.forceMount || isSelected.value)
     :hidden="!isPresent"
     tabindex="0"
     :style="{
-      animationDuration: isMountAnimationPrevented ? '0s !important' : undefined,
+      animationDuration: isMountAnimationPrevented ? '0s' : undefined,
     }"
   >
     <slot v-if="isPresent" />
