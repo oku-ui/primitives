@@ -8,7 +8,7 @@ const open = shallowRef(false)
 
 <template>
   <div>
-    <Collapsible v-model="open" class="collapsible_root">
+    <Collapsible v-model:open="open" class="collapsible_root">
       <CollapsibleTrigger class="collapsible_trigger">
         {{ open ? 'close' : 'open' }}
       </CollapsibleTrigger>

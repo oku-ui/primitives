@@ -22,7 +22,7 @@ const value = shallowRef<string>()
 
   <h1>Controlled</h1>
   <ToggleGroup
-    v-model="value"
+    v-model:value="value"
     type="single"
     class="toggleGroup_root"
     aria-label="Options"

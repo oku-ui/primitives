@@ -26,6 +26,9 @@ provideConfigContext({
       <NuxtLink to="/collapsible">
         Collapsible
       </NuxtLink>
+      <NuxtLink to="/accordion">
+        Accordion
+      </NuxtLink>
     </header>
     <main class="page-main">
       <NuxtPage />
