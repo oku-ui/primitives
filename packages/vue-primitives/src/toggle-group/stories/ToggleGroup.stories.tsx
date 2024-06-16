@@ -233,7 +233,7 @@ export function Chromatic() {
         </ToggleGroupItem>
       </ToggleGroup>
 
-      <h2>Inherited: WIP</h2>
+      <h2>Inherited WIP:DirectionProvider</h2>
       {/* <DirectionProvider dir="rtl"> */}
       <ToggleGroup type="single" class="toggleGroup_root" defaultValue="1">
         <ToggleGroupItem value="1" class="toggleGroup_item">
