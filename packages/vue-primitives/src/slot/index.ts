@@ -35,7 +35,11 @@ export const Slot = defineComponent({
         }
       }
 
-      return child
+      if (child && child.type !== Comment) {
+        return child
+      }
+
+      return null
     }
   },
 })

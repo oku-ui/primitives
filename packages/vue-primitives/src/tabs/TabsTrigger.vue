@@ -66,10 +66,7 @@ defineExpose({
   <RovingFocusItem as-child :focusable="isNullishOrFalse(attrs.disabled)" :active="isSelected">
     <Primitive
       :id="triggerId"
-      :ref="(el: any) => {
-        const node = (el?.$el ?? el)
-        elRef = node?.hasAttribute ? node : undefined
-      }"
+      :ref="(el: any) => elRef = el?.$el"
       :as="as"
       :as-child="asChild"
       v-bind="{

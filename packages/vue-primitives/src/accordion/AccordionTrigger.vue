@@ -22,10 +22,7 @@ const itemContext = useAccordionItemContext()
 <template>
   <CollapsibleTrigger
     :id="itemContext.triggerId"
-    :ref="(el: any) => {
-      const node = (el?.$el ?? el)
-      elRef = node?.hasAttribute ? node : undefined
-    }"
+    :ref="(el: any) => elRef = el?.$el"
     :as="as"
     :as-child="asChild"
     :aria-disabled="(itemContext.open.value && !accordionContext.collapsible) || undefined"

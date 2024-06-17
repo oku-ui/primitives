@@ -105,10 +105,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 
 <template>
   <Primitive
-    :ref="(el: any) => {
-      const node = (el?.$el ?? el)
-      elRef = node?.hasAttribute ? node : undefined
-    }"
+    :ref="(el: any) => elRef = el?.$el"
     :as="as"
     :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"
