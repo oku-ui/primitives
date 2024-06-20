@@ -1,5 +1,5 @@
-import type { PrimitiveProps } from "../primitive/index.ts";
+import type { PrimitiveProps } from '../primitive/index.ts'
 
 export interface AvatarFallbackProps extends PrimitiveProps {
-    delayMs?: number;
+  delayMs?: number
 }

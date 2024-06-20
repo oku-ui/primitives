@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue';
+import { shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { provideAvatarContext, type AvatarProps, type ImageLoadingStatus } from './Avatar.ts'
+import { type AvatarProps, type ImageLoadingStatus, provideAvatarContext } from './Avatar.ts'
 
 defineOptions({
   name: 'Avatar',
@@ -17,7 +17,7 @@ provideAvatarContext({
   imageLoadingStatus,
   onImageLoadingStatusChange(newStatus) {
     imageLoadingStatus.value = newStatus
-  }
+  },
 })
 </script>
 
