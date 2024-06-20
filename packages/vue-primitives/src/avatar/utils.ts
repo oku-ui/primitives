@@ -24,8 +24,7 @@ export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() =>
       loadingStatus.value = status
     }
 
-    loadingStatus.value = 'loaded'
-    // TODO: fix onload
+    loadingStatus.value = 'loading'
     image.onload = updateStatus('loaded')
     image.onerror = updateStatus('error')
     image.src = value
