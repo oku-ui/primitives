@@ -24,7 +24,6 @@ function handleLoadingStatusChange(status: ImageLoadingStatus) {
 }
 
 watchEffect(() => {
-  console.error(imageLoadingStatus.value)
   if (imageLoadingStatus.value !== 'idle') {
     handleLoadingStatusChange(imageLoadingStatus.value)
   }
