@@ -16,17 +16,16 @@ const props = withDefaults(defineProps<AvatarFallbackProps>(), {
 const context = useAvatarContext()
 const canRender = shallowRef(props.delayMs === undefined)
 
-watchEffect((onCleanup) => {
-  if (!isClient)
-    return
-
-  if (props.delayMs !== undefined) {
-    const timerId = window.setTimeout(() => canRender.value = true, props.delayMs)
-    onCleanup(() => {
-      window.clearTimeout(timerId)
-    })
-  }
-})
+if (isClient) {
+  watchEffect((onCleanup) => {
+    if (props.delayMs !== undefined) {
+      const timerId = window.setTimeout(() => canRender.value = true, props.delayMs)
+      onCleanup(() => {
+        window.clearTimeout(timerId)
+      })
+    }
+  })
+}
 </script>
 
 <template>

@@ -14,6 +14,15 @@ provideConfigContext({
       <NuxtLink to="/">
         Home
       </NuxtLink>
+      <NuxtLink to="/accordion">
+        Accordion
+      </NuxtLink>
+      <NuxtLink to="/avatar">
+        Avatar
+      </NuxtLink>
+      <NuxtLink to="/tabs">
+        Tabs
+      </NuxtLink>
       <NuxtLink to="/roving-focus-group">
         RovingFocusGroup
       </NuxtLink>
@@ -25,12 +34,6 @@ provideConfigContext({
       </NuxtLink>
       <NuxtLink to="/collapsible">
         Collapsible
-      </NuxtLink>
-      <NuxtLink to="/accordion">
-        Accordion
-      </NuxtLink>
-      <NuxtLink to="/tabs">
-        Tabs
       </NuxtLink>
     </header>
     <main class="page-main">

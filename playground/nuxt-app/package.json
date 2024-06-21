@@ -1,5 +1,5 @@
 {
-  "name": "@teleskop150750/nuxt-app",
+  "name": "nuxt-app",
   "type": "module",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@teleskop150750/vue-primitives": "workspace:*",
     "nuxt": "^3.12.2",
     "vue": "^3.4.29",
+    "vue-primitives": "workspace:*",
     "vue-router": "^4.3.3"
   }
 }

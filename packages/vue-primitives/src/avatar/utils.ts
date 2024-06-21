@@ -1,14 +1,15 @@
-import { type Ref, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
+import { type Ref, shallowRef, toValue, watchEffect } from 'vue'
+import { isClient } from '@vueuse/core'
 import type { ImageLoadingStatus } from './Avatar.ts'
 import type { AvatarImageProps } from './AvatarImage.ts'
 
 export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() => AvatarImageProps['src'])) {
   const loadingStatus = shallowRef<ImageLoadingStatus>('idle')
 
-  let stopWatch: ReturnType<typeof watch> | undefined
+  if (isClient) {
+    watchEffect((onCleanup) => {
+      const value = toValue(src)
 
-  onMounted(() => {
-    stopWatch = watch(src, (value, _, onCleanup) => {
       if (!value) {
         loadingStatus.value = 'error'
         return
@@ -31,14 +32,8 @@ export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() =>
       onCleanup(() => {
         isMounted = false
       })
-    }, {
-      immediate: true,
     })
-  })
-
-  onBeforeUnmount(() => {
-    stopWatch?.()
-  })
+  }
 
   return loadingStatus
 }
