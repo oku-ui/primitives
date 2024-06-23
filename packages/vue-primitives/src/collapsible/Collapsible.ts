@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { createContext } from '../hooks/createContext.ts'
-import type { PrimitiveProps } from '../primitive'
+import type { PrimitiveProps } from '../primitive/index.ts'
 
 export interface CollapsibleProps extends PrimitiveProps {
   defaultOpen?: boolean
@@ -13,11 +13,11 @@ export type CollapsibleEmits = {
   'update:open': [value: boolean]
 }
 
-export interface CollapsibleContextValue {
+export interface CollapsibleContext {
   contentId: string
   disabled?: Ref<boolean>
   open: Ref<boolean>
   onOpenToggle: () => void
 }
 
-export const [provideCollapsibleContext, useCollapsibleContext] = createContext<CollapsibleContextValue>('Collapsible')
+export const [provideCollapsibleContext, useCollapsibleContext] = createContext<CollapsibleContext>('Collapsible')
