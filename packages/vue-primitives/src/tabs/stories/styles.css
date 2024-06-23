@@ -120,7 +120,7 @@
   }
 
   &[data-state="inactive"] {
-    border-color: red;
+    border-color: crimson;
   }
 
   &[data-state="active"] {

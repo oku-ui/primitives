@@ -38,7 +38,7 @@
   padding: 10px;
 
   &[data-state="off"] {
-    border-color: red;
+    border-color: crimson;
   }
 
   &[data-state="on"] {

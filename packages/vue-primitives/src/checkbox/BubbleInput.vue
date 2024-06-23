@@ -1,0 +1,57 @@
+<script setup lang="ts">
+import { shallowRef, watch } from 'vue'
+import { useSize } from '../hooks/useSize.ts'
+import type { BubbleInputProps } from './BubbleInputProps.ts'
+import { isIndeterminate } from './utils.ts'
+
+defineOptions({
+  name: 'BubbleInput',
+})
+
+const props = withDefaults(defineProps<BubbleInputProps>(), {
+  checked: undefined,
+  control: undefined,
+  bubbles: true,
+})
+const elRef = shallowRef<HTMLInputElement>()
+
+const controlSize = useSize(() => props.control)
+const checked = isIndeterminate(props.checked) ? false : props.checked
+
+// Bubble checked change to parents (e.g form change event)
+watch(() => props.checked, (checked, prevChecked) => {
+  const input = elRef.value
+  if (!input)
+    return
+
+  const inputProto = window.HTMLInputElement.prototype
+  const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
+  const setChecked = descriptor.set
+
+  if (prevChecked !== checked && setChecked) {
+    // TODO: Check if this is the correct way to create a change event
+    const event = new Event('change', { bubbles: props.bubbles })
+    input.indeterminate = isIndeterminate(checked)
+    setChecked.call(input, isIndeterminate(checked) ? false : checked)
+    input.dispatchEvent(event)
+  }
+})
+</script>
+
+<template>
+  <input
+    ref="elRef"
+    type="checkbox"
+    aria-hidden
+    tabindex="-1"
+    :checked="checked"
+    :style="{
+      width: `${controlSize?.width || 0}px`,
+      height: `${controlSize?.width || 0}px`,
+      position: 'absolute',
+      pointerEvents: 'none',
+      opacity: 0,
+      margin: 0,
+    }"
+  >
+</template>

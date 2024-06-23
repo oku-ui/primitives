@@ -46,7 +46,7 @@
   &:focus {
     outline: none;
     box-shadow: inset 0 -5px 0 0 var(--shadow-color);
-    color: red;
+    color: crimson;
   }
 
   &[data-disabled] {
@@ -54,7 +54,7 @@
   }
 
   &[data-state="open"] {
-    background-color: red;
+    background-color: crimson;
     color: white;
 
     &:focus {
@@ -155,7 +155,7 @@
   padding: 10px;
 
   &[data-state="closed"] {
-    border-color: red;
+    border-color: crimson;
   }
 
   &[data-state="open"] {

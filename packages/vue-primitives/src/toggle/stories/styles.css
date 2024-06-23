@@ -15,7 +15,7 @@
   }
 
   &[data-state="off"] {
-    background-color: red;
+    background-color: crimson;
     color: white;
   }
 

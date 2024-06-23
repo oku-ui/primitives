@@ -19,6 +19,6 @@
   margin: 0 10px;
 
   &:hover {
-    background-color: red;
+    background-color: crimson;
   }
 }
