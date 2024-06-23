@@ -35,6 +35,12 @@ provideConfigContext({
       <NuxtLink to="/collapsible">
         Collapsible
       </NuxtLink>
+      <NuxtLink to="/label">
+        Label
+      </NuxtLink>
+      <NuxtLink to="/checkbox">
+        Checkbox
+      </NuxtLink>
     </header>
     <main class="page-main">
       <NuxtPage />

@@ -65,7 +65,6 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
 }, (event) => {
   checked.value = isIndeterminate(checked.value) ? true : !checked.value
   if (isFormControl.value) {
-    console.error('event.isPropagationStopped()', event.isPropagationStopped())
     hasConsumerStoppedPropagation.value = event.isPropagationStopped()
     // if checkbox is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
