@@ -1,4 +1,5 @@
-**Note:** This repository is a fork of [OkuUI](https://github.com/oku-ui/primitives) and serves as a staging area for migrating Vue components to Single File Components (SFC). All contributions and changes will be merged back into the original repository upon completion.
+> [!NOTE]
+> This repository is a fork of [OkuUI](https://github.com/oku-ui/primitives) and serves as a staging area for migrating Vue components to Single File Components (SFC). All contributions and changes will be merged back into the original repository upon completion.
 
 ---
 
@@ -31,30 +32,30 @@ Enter the component you want most in the components, leave the emojis and follow
 | Component                                                                                      | Status |
 | ---------------------------------------------------------------------------------------------- | ------ |
 | [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)      | ✓      |
-| Alert Dialog                                                                                   | 🚧     |
+| Alert Dialog                                                                                   | 🚧      |
 | [Aspect Ratio](https://vue-primitives.netlify.app/?path=/story/components-aspectratio--styled) | ✓      |
 | [Avatar](https://vue-primitives.netlify.app/?path=/story/components-avatar--styled)            | ✓      |
 | [Checkbox](https://vue-primitives.netlify.app/?path=/story/components-checkbox--styled)        | ✓      |
 | [Collapsible](https://vue-primitives.netlify.app/?path=/story/components-collapsible--styled)  | ✓      |
-| Dialog                                                                                         | 🚧     |
-| Dropdown Menu                                                                                  | 🚧     |
-| Form                                                                                           | 🚧     |
-| Hover Card                                                                                     | 🚧     |
+| Dialog                                                                                         | 🚧      |
+| Dropdown Menu                                                                                  | 🚧      |
+| Form                                                                                           | 🚧      |
+| Hover Card                                                                                     | 🚧      |
 | [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)              | ✓      |
-| Menubar                                                                                        | 🚧     |
-| Navigation Menu                                                                                | 🚧     |
+| Menubar                                                                                        | 🚧      |
+| Navigation Menu                                                                                | 🚧      |
 | Popover                                                                                        | ✓      |
-| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)        | 🚧     |
-| Radio Group                                                                                    | 🚧     |
-| Scroll                                                                                         | 🚧     |
-| Select                                                                                         | 🚧     |
+| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)        | 🚧      |
+| Radio Group                                                                                    | 🚧      |
+| Scroll                                                                                         | 🚧      |
+| Select                                                                                         | 🚧      |
 | [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)      | ✓      |
-| Switch                                                                                         | 🚧     |
-| Slider                                                                                         | 🚧     |
+| Switch                                                                                         | 🚧      |
+| Slider                                                                                         | 🚧      |
 | [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)                | ✓      |
-| Toast                                                                                          | 🚧     |
+| Toast                                                                                          | 🚧      |
 | [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)            | ✓      |
-| [Toggle Group](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | 🚧     |
-| Toolbar                                                                                        | 🚧     |
-| Tooltip                                                                                        | 🚧     |
+| [Toggle Group](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | 🚧      |
+| Toolbar                                                                                        | 🚧      |
+| Tooltip                                                                                        | 🚧      |
 | Primitives                                                                                     | ✓      |
