@@ -16,6 +16,8 @@ Oku Primitives is a low-level UI component library with a focus on accessibility
 
 Website: [Oku Website](https://oku-ui.com)
 
+Docs: [Nuxt playground](https://vue-primitives-docs.netlify.app/)
+
 Storybook: [Storybook](https://vue-primitives.netlify.app)
 
 ---
