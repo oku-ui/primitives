@@ -16,7 +16,7 @@ Storybook: [Storybook](https://vue-primitives.netlify.app)
 
 ---
 
-# TODO Components - 22/28
+# TODO Components
 
 Enter the component you want most in the components, leave the emojis and follow.
 
