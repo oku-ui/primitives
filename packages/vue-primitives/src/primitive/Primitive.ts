@@ -1,3 +1,5 @@
+export const ELEMENT_NODE = globalThis?.Node?.ELEMENT_NODE ?? -1
+
 export type AsTag =
   | 'a'
   | 'button'

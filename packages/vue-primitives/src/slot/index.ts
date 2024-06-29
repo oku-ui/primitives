@@ -11,7 +11,7 @@ export const Slot = defineComponent({
       const children = slots.default && getRawChildren(slots.default())
 
       if (!children || !children.length)
-        return
+        return null
 
       let child: VNode | undefined = children[0]
 
@@ -35,9 +35,8 @@ export const Slot = defineComponent({
         }
       }
 
-      if (child && child.type !== Comment) {
+      if (child && child.type !== Comment)
         return child
-      }
 
       return null
     }
