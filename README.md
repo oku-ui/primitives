@@ -15,3 +15,40 @@ Website: [Oku Website](https://oku-ui.com)
 Storybook: [Storybook](https://vue-primitives.netlify.app)
 
 ---
+
+# TODO Components - 22/28
+
+Enter the component you want most in the components, leave the emojis and follow.
+
+**Developers can work on unclaimed components**.
+
+| Component                                                                                      | Status |
+| ---------------------------------------------------------------------------------------------- | ------ |
+| [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)      | ✓      |
+| Alert Dialog                                                                                   | 🚧     |
+| [Aspect Ratio](https://vue-primitives.netlify.app/?path=/story/components-aspectratio--styled) | ✓      |
+| [Avatar](https://vue-primitives.netlify.app/?path=/story/components-avatar--styled)            | ✓      |
+| [Checkbox](https://vue-primitives.netlify.app/?path=/story/components-checkbox--styled)        | ✓      |
+| [Collapsible](https://vue-primitives.netlify.app/?path=/story/components-collapsible--styled)  | ✓      |
+| Dialog                                                                                         | 🚧     |
+| Dropdown Menu                                                                                  | 🚧     |
+| Form                                                                                           | 🚧     |
+| Hover Card                                                                                     | 🚧     |
+| [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)              | ✓      |
+| Menubar                                                                                        | 🚧     |
+| Navigation Menu                                                                                | 🚧     |
+| Popover                                                                                        | 🚧     |
+| Progress                                                                                       | 🚧     |
+| Radio Group                                                                                    | 🚧     |
+| Scroll                                                                                         | 🚧     |
+| Select                                                                                         | 🚧     |
+| [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)      | ✓      |
+| Switch                                                                                         | 🚧     |
+| Slider                                                                                         | 🚧     |
+| [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)                | ✓      |
+| Toast                                                                                          | 🚧     |
+| [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)            | ✓      |
+| [Toggle Group](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | 🚧     |
+| Toolbar                                                                                        | 🚧     |
+| Tooltip                                                                                        | 🚧     |
+| Primitives                                                                                     | ✓      |
