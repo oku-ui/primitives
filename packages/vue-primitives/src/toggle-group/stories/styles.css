@@ -9,12 +9,12 @@
 }
 
 .toggleGroup_item {
-  border: 1px solid black;
+  border: 1px solid #111;
   border-radius: 6px;
   padding: 5px 10px;
   font-size: 13px;
   background-color: white;
-  color: black;
+  color: #111;
 
   &:focus {
     outline: none;
@@ -26,7 +26,7 @@
   }
 
   &[data-state="on"] {
-    background-color: black;
+    background-color: #111;
     color: white;
   }
 }

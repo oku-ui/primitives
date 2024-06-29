@@ -39,8 +39,8 @@ const onFocus = composeEventHandlers((event) => {
         borderRadius: '5px',
         ...(isSelected
           ? {
-            borderColor: 'black',
-            backgroundColor: 'black',
+            borderColor: '#111',
+            backgroundColor: '#111',
             color: 'white',
           }
           : {}),

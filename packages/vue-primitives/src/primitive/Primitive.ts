@@ -1,5 +1,3 @@
-export const ELEMENT_NODE = globalThis?.Node?.ELEMENT_NODE ?? -1
-
 export type AsTag =
   | 'a'
   | 'button'
@@ -25,3 +23,5 @@ export interface PrimitiveProps {
   as?: AsTag | object
   asChild?: boolean
 }
+
+export const ELEMENT_NODE = globalThis?.Node?.ELEMENT_NODE ?? -1

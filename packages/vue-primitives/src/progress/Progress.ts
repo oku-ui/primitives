@@ -1,0 +1,49 @@
+import type { Ref } from 'vue'
+import type { PrimitiveProps } from '../primitive/index.ts'
+import { createContext } from '../hooks/createContext.ts'
+
+export interface ProgressProps extends PrimitiveProps {
+  value?: number | null | undefined
+  max?: number
+  getValueLabel?: (value: number, max: number) => string
+}
+
+type ProgressState = 'indeterminate' | 'complete' | 'loading'
+
+interface ProgressContext {
+  value: Ref<number | null>
+  max: Ref<number>
+}
+
+export const [provideProgressContext, useProgressContext] = createContext<ProgressContext>('Progress')
+
+export const DEFAULT_MAX = 100
+
+export function defaultGetValueLabel(value: number, max: number) {
+  return `${Math.round((value / max) * 100)}%`
+}
+
+export function getProgressState(value: number | undefined | null, maxValue: number): ProgressState {
+  return value == null ? 'indeterminate' : value === maxValue ? 'complete' : 'loading'
+}
+
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number'
+}
+
+export function isValidMaxNumber(max: unknown): max is number {
+  return (
+    isNumber(max)
+    && !Number.isNaN(max)
+    && max > 0
+  )
+}
+
+export function isValidValueNumber(value: unknown, max: number): value is number {
+  return (
+    isNumber(value)
+    && !Number.isNaN(value)
+    && value <= max
+    && value >= 0
+  )
+}
