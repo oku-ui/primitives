@@ -21,11 +21,10 @@ defineProps<{
   background: #fff;
   border-radius: 12px;
   box-shadow: var(--shadow-2);
-  max-width: 600px;
-
+  max-width: 1000px;
 }
 
-.demo-box__content > *:first-child {
+.demo-box__content>*:first-child {
   margin-top: 0;
 }
 </style>

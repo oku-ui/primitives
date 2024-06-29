@@ -23,39 +23,57 @@ Storybook: [Storybook](https://vue-primitives.netlify.app)
 
 ---
 
-# TODO Components
+# TODO
+
+## Components
 
 Enter the component you want most in the components, leave the emojis and follow.
 
 **Developers can work on unclaimed components**.
 
-| Component                                                                                      | Status |
-| ---------------------------------------------------------------------------------------------- | ------ |
-| [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)      | ✓      |
-| Alert Dialog                                                                                   | 🚧      |
-| [Aspect Ratio](https://vue-primitives.netlify.app/?path=/story/components-aspectratio--styled) | ✓      |
-| [Avatar](https://vue-primitives.netlify.app/?path=/story/components-avatar--styled)            | ✓      |
-| [Checkbox](https://vue-primitives.netlify.app/?path=/story/components-checkbox--styled)        | ✓      |
-| [Collapsible](https://vue-primitives.netlify.app/?path=/story/components-collapsible--styled)  | ✓      |
-| Dialog                                                                                         | 🚧      |
-| Dropdown Menu                                                                                  | 🚧      |
-| Form                                                                                           | 🚧      |
-| Hover Card                                                                                     | 🚧      |
-| [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)              | ✓      |
-| Menubar                                                                                        | 🚧      |
-| Navigation Menu                                                                                | 🚧      |
-| Popover                                                                                        | ✓      |
-| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)        | 🚧      |
-| Radio Group                                                                                    | 🚧      |
-| Scroll                                                                                         | 🚧      |
-| Select                                                                                         | 🚧      |
-| [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)      | ✓      |
-| Switch                                                                                         | 🚧      |
-| Slider                                                                                         | 🚧      |
-| [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)                | ✓      |
-| Toast                                                                                          | 🚧      |
-| [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)            | ✓      |
-| [Toggle Group](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | 🚧      |
-| Toolbar                                                                                        | 🚧      |
-| Tooltip                                                                                        | 🚧      |
-| Primitives                                                                                     | ✓      |
+| Component                                                                                     | Status |
+| --------------------------------------------------------------------------------------------- | ------ |
+| [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)     | ✓      |
+| AlertDialog                                                                                   | 🚧      |
+| [AspectRatio](https://vue-primitives.netlify.app/?path=/story/components-aspectratio--styled) | ✓      |
+| [Avatar](https://vue-primitives.netlify.app/?path=/story/components-avatar--styled)           | ✓      |
+| [Checkbox](https://vue-primitives.netlify.app/?path=/story/components-checkbox--styled)       | ✓      |
+| [Collapsible](https://vue-primitives.netlify.app/?path=/story/components-collapsible--styled) | ✓      |
+| Dialog                                                                                        | 🚧      |
+| DropdownMenu                                                                                  | 🚧      |
+| Form                                                                                          | 🚧      |
+| HoverCard                                                                                     | 🚧      |
+| [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)             | ✓      |
+| Menubar                                                                                       | 🚧      |
+| NavigationMenu                                                                                | 🚧      |
+| Popover                                                                                       | ✓      |
+| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)       | 🚧      |
+| RadioGroup                                                                                    | 🚧      |
+| ScrollArea                                                                                    | 🚧      |
+| Select                                                                                        | 🚧      |
+| [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)     | ✓      |
+| Switch                                                                                        | 🚧      |
+| Slider                                                                                        | 🚧      |
+| Switch                                                                                        | 🚧      |
+| [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)               | ✓      |
+| Toast                                                                                         | 🚧      |
+| [ToggleGroup](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | 🚧      |
+| [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)           | ✓      |
+| Toolbar                                                                                       | 🚧      |
+| Tooltip                                                                                       | 🚧      |
+
+## Utilites
+
+| Utilites                                                                                              | Status |
+| ----------------------------------------------------------------------------------------------------- | ------ |
+| [Collection](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic)       | ✓      |
+| DismissableLayer                                                                                      | 🚧      |
+| FocusScope                                                                                            | 🚧      |
+| Menu                                                                                                  | 🚧      |
+| Popper                                                                                                | 🚧      |
+| Portal                                                                                                | 🚧      |
+| [Presence](https://vue-primitives.netlify.app/?path=/story/utilities-presence--basic)                 | ✓      |
+| Primitives                                                                                            | ✓      |
+| [RovingFocusGroup](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic) | ✓      |
+| Slot                                                                                                  | ✓      |
+| VisuallyHidden                                                                                        | 🚧      |

@@ -3,7 +3,7 @@ import { useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
-import { isNullishOrFalse } from '../utils/is.ts'
+import { isPropFalsy } from '../utils/is.ts'
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 
 defineOptions({
@@ -23,7 +23,7 @@ const pressed = useControllableState(props, emit, 'pressed', props.defaultPresse
 const onClick = composeEventHandlers((event: Event) => {
   ;(attrs.onClick as Function | undefined)?.(event)
 }, () => {
-  if (isNullishOrFalse(attrs.disabled))
+  if (isPropFalsy(attrs.disabled))
     pressed.value = !pressed.value
 })
 </script>

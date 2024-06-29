@@ -1,7 +1,16 @@
 <script setup lang="ts">
 import { provideConfigContext } from '../../packages/vue-primitives/src/config/index.ts'
 
-const pages = [
+const utils = [
+  'Collection',
+  'Presence',
+  'Roving Focus Group',
+].map(util => ({
+  name: util.replaceAll(' ', ''),
+  to: `/${util.toLowerCase().replaceAll(' ', '-')}`,
+}))
+
+const components = [
   'Accordion',
   'Aspect Ratio',
   'Avatar',
@@ -13,9 +22,9 @@ const pages = [
   'Tabs',
   'Toggle',
   'Toggle Group',
-].map(page => ({
-  name: page,
-  to: `/${page.toLowerCase().replace(' ', '-')}`,
+].map(component => ({
+  name: component.replaceAll(' ', ''),
+  to: `/${component.toLowerCase().replaceAll(' ', '-')}`,
 }))
 
 const useIdFunction = () => useId()
@@ -32,10 +41,27 @@ provideConfigContext({
         OkuUI
       </NuxtLink>
 
-      <NuxtLink v-for="page in pages" :key="page.name" class="link" :to="page.to" :prefetch="false">
-        {{ page.name }}
-      </NuxtLink>
+      <div class="links-list">
+        <div class="links-group">
+          <span class="links-group__title">Utils</span>
+          <div class="links-group__list">
+            <NuxtLink v-for="util in utils" :key="util.name" class="link" :to="util.to" :prefetch="false">
+              {{ util.name }}
+            </NuxtLink>
+          </div>
+        </div>
+
+        <div class="links-group">
+          <span class="links-group__title">Coponents</span>
+          <div class="links-group__list">
+            <NuxtLink v-for="component in components" :key="component.name" class="link" :to="component.to" :prefetch="false">
+              {{ component.name }}
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
     </aside>
+
     <div class="page-content-box">
       <div class="page-header">
         <span>OkuUI</span>
@@ -86,6 +112,31 @@ body {
   color: #1084d6;
 }
 
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.links-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.links-group__title {
+  display: block;
+  font-weight: 500;
+  padding-block: 6px;
+  border-bottom: 1px solid #b4b6b9;
+}
+
+.links-group__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .link {
   font-family: system-ui;
   text-decoration: none;
@@ -98,7 +149,7 @@ body {
 
 .page {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: 160px 1fr;
   gap: 20px;
   padding: 24px;
 }
@@ -106,7 +157,7 @@ body {
 .page-aside {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .page-header {
