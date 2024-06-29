@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { provideConfigContext } from '../../packages/vue-primitives/src/config/index.ts'
 
+const pages = [
+  'Accordion',
+  'Aspect Ratio',
+  'Avatar',
+  'Checkbox',
+  'Collapsible',
+  'Label',
+  'Progress',
+  'Separator',
+  'Tabs',
+  'Toggle',
+  'Toggle Group',
+].map((page) => ({
+  name: page,
+  to: `/${page.toLowerCase().replace(' ', '-')}`,
+}))
+
 const useIdFunction = () => useId()
 
 provideConfigContext({
@@ -10,38 +27,11 @@ provideConfigContext({
 
 <template>
   <div class="page">
-    <header class="page-header">
-      <NuxtLink to="/">
-        Home
+    <aside class="page-header">
+      <NuxtLink v-for="page in pages" :key="page.name" :to="page.to" :prefetch="false">
+        {{ page.name }}
       </NuxtLink>
-      <NuxtLink to="/accordion">
-        Accordion
-      </NuxtLink>
-      <NuxtLink to="/avatar">
-        Avatar
-      </NuxtLink>
-      <NuxtLink to="/tabs">
-        Tabs
-      </NuxtLink>
-      <NuxtLink to="/roving-focus-group">
-        RovingFocusGroup
-      </NuxtLink>
-      <NuxtLink to="/toggle">
-        Toggle
-      </NuxtLink>
-      <NuxtLink to="/toggle-group">
-        ToggleGroup
-      </NuxtLink>
-      <NuxtLink to="/collapsible">
-        Collapsible
-      </NuxtLink>
-      <NuxtLink to="/label">
-        Label
-      </NuxtLink>
-      <NuxtLink to="/checkbox">
-        Checkbox
-      </NuxtLink>
-    </header>
+    </aside>
     <main class="page-main">
       <NuxtPage />
     </main>
@@ -54,14 +44,16 @@ body {
 }
 
 .page {
-  padding: 20px;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+  padding: 16px;
 }
 
 .page-header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .page-main {
@@ -72,7 +64,7 @@ body {
     border: 1px solid #ccc;
   }
 
-  section + section{
+  section+section {
     margin-top: 60px;
   }
 }
