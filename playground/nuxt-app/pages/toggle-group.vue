@@ -6,25 +6,21 @@ import Chromatic from '../../../packages/vue-primitives/src/toggle-group/stories
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Single</h1>
+  <DemoList>
+    <Demo title="Single">
       <Single />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Vertical</h1>
+    <Demo title="Vertical">
       <Vertical />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Multiple</h1>
+    <Demo title="Multiple">
       <Multiple />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Chromatic</h1>
+    <Demo title="Chromatic">
       <Chromatic />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

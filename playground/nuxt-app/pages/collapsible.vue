@@ -7,26 +7,21 @@ import Chromatic from '../../../packages/vue-primitives/src/collapsible/stories/
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Styled</h1>
+  <DemoList>
+    <Demo title="Styled">
       <Styled />
-    </section>
-    <section>
-      <h1>Controlled</h1>
+    </Demo>
+    <Demo title="Controlled">
       <Controlled />
-    </section>
-    <section>
-      <h1>Animated</h1>
+    </Demo>
+    <Demo title="Animated">
       <Animated />
-    </section>
-    <section>
-      <h1>AnimatedHorizontal</h1>
+    </Demo>
+    <Demo title="AnimatedHorizontal">
       <AnimatedHorizontal />
-    </section>
-    <section>
-      <h1>Chromatic</h1>
+    </Demo>
+    <Demo title="Chromatic">
       <Chromatic />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

@@ -3,10 +3,15 @@
 </script>
 
 <template>
-  <div>
-    <h1>Home</h1>
+  <div class="home-page">
+    <div class="home-page_body">
+      <img class="banner" src="/primitives-cover.png" alt="">
+    </div>
   </div>
 </template>
 
-<style>
+<style scoped>
+.banner {
+  max-width: 100%;
+}
 </style>

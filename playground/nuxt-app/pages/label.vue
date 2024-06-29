@@ -5,20 +5,17 @@ import WithInputNumber from '../../../packages/vue-primitives/src/label/stories/
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Styled</h1>
+  <DemoList>
+    <Demo title="Styled">
       <Styled />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>WithControl</h1>
+    <Demo title="WithControl">
       <WithControl />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>WithInputNumber</h1>
+    <Demo title="WithInputNumber">
       <WithInputNumber />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

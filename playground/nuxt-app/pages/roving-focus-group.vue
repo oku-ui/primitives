@@ -5,20 +5,17 @@ import EdgeCases from '../../../packages/vue-primitives/src/roving-focus/stories
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Basic</h1>
+  <DemoList>
+    <Demo title="Basic">
       <Basic />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Nested</h1>
+    <Demo title="Nested">
       <Nested />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Edge Cases</h1>
+    <Demo title="Edge Cases">
       <EdgeCases />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

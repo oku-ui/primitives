@@ -5,20 +5,17 @@ import Chromatic from '../../../packages/vue-primitives/src/toggle/stories/Chrom
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Styled</h1>
+  <DemoList>
+    <Demo title="Styled">
       <Styled />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Controlled</h1>
+    <Demo title="Controlled">
       <Controlled />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Edge Cases</h1>
+    <Demo title="Edge Cases">
       <Chromatic />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

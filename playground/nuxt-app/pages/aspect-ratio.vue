@@ -5,18 +5,15 @@ import Chromatic from '../../../packages/vue-primitives/src/aspect-ratio/stories
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Styled</h1>
+  <DemoList>
+    <Demo title="Styled">
       <Styled />
-    </section>
-    <section>
-      <h1>CustomRatios</h1>
+    </Demo>
+    <Demo title="CustomRatios">
       <CustomRatios />
-    </section>
-    <section>
-      <h1>Chromatic</h1>
+    </Demo>
+    <Demo title="Chromatic">
       <Chromatic />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

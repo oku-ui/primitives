@@ -3,10 +3,9 @@ import Styled from '../../../packages/vue-primitives/src/separator/stories/Style
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Styled</h1>
+  <DemoList>
+    <Demo title="Styled">
       <Styled />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

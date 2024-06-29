@@ -8,35 +8,29 @@ import Chromatic from '../../../packages/vue-primitives/src/checkbox/stories/Chr
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Styled</h1>
+  <DemoList>
+    <Demo title="Styled">
       <Styled />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Controlled</h1>
+    <Demo title="Controlled">
       <Controlled />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Indeterminate</h1>
+    <Demo title="Indeterminate">
       <Indeterminate />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>WithinForm</h1>
+    <Demo title="WithinForm">
       <WithinForm />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Animated</h1>
+    <Demo title="Animated">
       <Animated />
-    </section>
+    </Demo>
 
-    <section>
-      <h1>Chromatic</h1>
+    <Demo title="Chromatic">
       <Chromatic />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>
