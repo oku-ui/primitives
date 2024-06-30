@@ -4,6 +4,7 @@ import { useDirection } from '../direction/index.ts'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { isFunction } from '../utils/is.ts'
 import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils.ts'
 import { Collection, type RovingFocusGroupEmits, type RovingFocusGroupProps, provideRovingFocusContext, useCollection } from './RovingFocusGroup.ts'
 
@@ -21,7 +22,7 @@ const attrs = useAttrs()
 const elRef = shallowRef<HTMLElement>()
 
 const dir = useDirection(() => props.dir)
-const currentTabStopId = useControllableState(props, emit, 'currentTabStopId', props.defaultCurrentTabStopId)
+const currentTabStopId = useControllableState(props, v => emit('update:currentTabStopId', v), 'currentTabStopId', props.defaultCurrentTabStopId)
 
 const collectionContext = Collection.provideCollectionContext(elRef)
 const getItems = useCollection(collectionContext)
@@ -30,13 +31,13 @@ let isClickFocus = false
 const focusableItemsCount = shallowRef(0)
 
 const onMousedown = composeEventHandlers((event) => {
-  (attrs.onMousedown as Function | undefined)?.(event)
+  isFunction(attrs.onMousedown) && attrs.onMousedown(event)
 }, () => {
   isClickFocus = true
 })
 
 const onFocus = composeEventHandlers((event) => {
-  (attrs.onFocus as Function | undefined)?.(event)
+  isFunction(attrs.onFocus) && attrs.onFocus(event)
 }, (event) => {
   // We normally wouldn't need this check, because we already check
   // that the focus is on the current target and not bubbling to it.
@@ -64,7 +65,7 @@ const onFocus = composeEventHandlers((event) => {
 })
 
 const onFocusout = composeEventHandlers((event) => {
-  ;(attrs.onFocusout as Function | undefined)?.(event)
+  isFunction(attrs.onFocusout) && attrs.onFocusout(event)
 }, () => {
   isTabbingBackOut.value = false
 })

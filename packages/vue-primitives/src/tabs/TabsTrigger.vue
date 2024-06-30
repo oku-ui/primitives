@@ -3,7 +3,7 @@ import { computed, shallowRef, useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
-import { isPropFalsy } from '../utils/is.ts'
+import { isFunction, isPropFalsy } from '../utils/is.ts'
 import { useTabsContext } from './Tabs.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 import type { TabsTriggerProps } from './TabsTrigger.ts'
@@ -26,7 +26,7 @@ const contentId = computed(() => makeContentId(context.baseId, props.value))
 const isSelected = computed(() => context.value.value === props.value)
 
 const onMousedown = composeEventHandlers<MouseEvent>((event) => {
-  (attrs.onMousedown as Function | undefined)?.(event)
+  isFunction(attrs.onMousedown) && attrs.onMousedown(event)
 }, (event) => {
   // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
   // but not when the control key is pressed (avoiding MacOS right click)
@@ -40,14 +40,14 @@ const onMousedown = composeEventHandlers<MouseEvent>((event) => {
 })
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  (attrs.onKeydown as Function | undefined)?.(event)
+  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
 }, (event) => {
   if ([' ', 'Enter'].includes(event.key))
     context.onValueChange(props.value)
 })
 
 const onFocus = composeEventHandlers<FocusEvent>((event) => {
-  (attrs.onFocus as Function | undefined)?.(event)
+  isFunction(attrs.onFocus) && attrs.onFocus(event)
 }, () => {
   // handle "automatic" activation if necessary
   // ie. activate tab following focus

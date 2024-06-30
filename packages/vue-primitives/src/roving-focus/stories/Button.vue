@@ -2,6 +2,7 @@
 import { computed, useAttrs } from 'vue'
 import { RovingFocusItem } from '../index.ts'
 import { composeEventHandlers } from '../../utils/composeEventHandlers.ts'
+import { isFunction } from '../../utils/is.ts'
 import { useButtonGroupContext } from './utils.ts'
 
 const props = withDefaults(defineProps<{
@@ -19,7 +20,7 @@ const isSelected = computed(() => context.value.value !== undefined
   && context.value.value === props.value)
 
 const onFocus = composeEventHandlers((event) => {
-  ;(attrs.onFocus as Function | undefined)?.(event)
+  isFunction(attrs.onFocus) && attrs.onFocus(event)
 }, (event) => {
   if (context.value.value !== undefined) {
     (event.target as HTMLElement).click()

@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<CollapsibleProps>(), {
 })
 const emit = defineEmits<CollapsibleEmits>()
 
-const open = useControllableState(props, emit, 'open', props.defaultOpen)
+const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
 
 provideCollapsibleContext({
   contentId: useId(),

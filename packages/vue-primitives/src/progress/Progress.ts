@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { createContext } from '../hooks/createContext.ts'
+import { isNumber } from '../utils/is.ts'
 
 export interface ProgressProps extends PrimitiveProps {
   value?: number | null | undefined
@@ -25,10 +26,6 @@ export function defaultGetValueLabel(value: number, max: number) {
 
 export function getProgressState(value: number | undefined | null, maxValue: number): ProgressState {
   return value == null ? 'indeterminate' : value === maxValue ? 'complete' : 'loading'
-}
-
-export function isNumber(value: unknown): value is number {
-  return typeof value === 'number'
 }
 
 export function isValidMaxNumber(max: unknown): max is number {

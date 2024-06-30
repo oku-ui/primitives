@@ -1,5 +1,6 @@
+import type { Direction } from '../direction/index.ts'
+
 export type Orientation = 'horizontal' | 'vertical'
-export type Direction = 'ltr' | 'rtl'
 
 export const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
 export const EVENT_OPTIONS = { bubbles: false, cancelable: true }

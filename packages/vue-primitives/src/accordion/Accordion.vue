@@ -6,7 +6,12 @@ import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { arrayify } from '../utils/array.ts'
 import { useId } from '../hooks/useId.ts'
+import { isFunction } from '../utils/is.ts'
 import { ACCORDION_KEYS, type AccordionEmits, type AccordionProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './Accordion.ts'
+
+type SingleValue = Exclude<AccordionProps<'single'>['value'], undefined>
+type MultipleValue = Exclude<AccordionProps<'multiple'>['value'], undefined>
+type Value = T extends 'single' ? SingleValue : MultipleValue
 
 defineOptions({
   name: 'Accordion',
@@ -24,17 +29,13 @@ const attrs = useAttrs()
 const elRef = shallowRef<HTMLElement>()
 
 const direction = useDirection(() => props.dir)
-
-const value = useControllableState(props, emit, 'value', props.defaultValue)
+const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
 const TYPE_SINGLE = 'single' as const satisfies AccordionType
-type SingleValue = NonNullable<AccordionProps<'single'>['value']>
-type MultipleValue = NonNullable<AccordionProps<'multiple'>['value']>
-type Value = T extends 'single' ? SingleValue : MultipleValue
 
 const collectionContext = Collection.provideCollectionContext(elRef)
 const getItems = useCollection(collectionContext)
-const handleKeydown = composeEventHandlers<KeyboardEvent>(() => {
-  ;(attrs.onKeydown as Function | undefined)?.()
+const handleKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
 }, (event) => {
   if (!ACCORDION_KEYS.includes(event.key))
     return

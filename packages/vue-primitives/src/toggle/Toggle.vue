@@ -3,7 +3,7 @@ import { useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
-import { isPropFalsy } from '../utils/is.ts'
+import { isFunction, isPropFalsy } from '../utils/is.ts'
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 
 defineOptions({
@@ -18,10 +18,10 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 const emit = defineEmits<ToggleEmits>()
 const attrs = useAttrs()
 
-const pressed = useControllableState(props, emit, 'pressed', props.defaultPressed)
+const pressed = useControllableState(props, v => emit('update:pressed', v), 'pressed', props.defaultPressed)
 
 const onClick = composeEventHandlers((event: Event) => {
-  ;(attrs.onClick as Function | undefined)?.(event)
+  isFunction(attrs.onClick) && attrs.onClick(event)
 }, () => {
   if (isPropFalsy(attrs.disabled))
     pressed.value = !pressed.value

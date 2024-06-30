@@ -7,6 +7,10 @@ import { Primitive } from '../primitive/index.ts'
 import { arrayify } from '../utils/array.ts'
 import { type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType, provideToggleGroupContext } from './ToggleGroup.ts'
 
+type SingleValue = Exclude<ToggleGroupProps<'single'>['value'], undefined>
+type MultipleValue = Exclude<ToggleGroupProps<'multiple'>['value'], undefined>
+type Value = T extends 'single' ? SingleValue : MultipleValue
+
 defineOptions({
   name: 'ToggleGroup',
   inheritAttrs: false,
@@ -20,12 +24,9 @@ const props = withDefaults(defineProps<ToggleGroupProps<T>>(), {
 const emit = defineEmits<ToggleGroupEmits<T>>()
 const attrs = useAttrs()
 
-const value = useControllableState(props, emit, 'value', props.defaultValue)
+const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
 
 const TYPE_SINGLE = 'single' as const satisfies ToggleGroupType
-type SingleValue = NonNullable<ToggleGroupProps<'single'>['value']>
-type MultipleValue = NonNullable<ToggleGroupProps<'multiple'>['value']>
-type Value = T extends 'single' ? SingleValue : MultipleValue
 
 const direction = useDirection(() => props.dir)
 

@@ -2,9 +2,9 @@ import type { AriaAttributes, Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { createContext } from '../hooks/createContext.ts'
 import type { PrimitiveProps } from '../primitive'
+import type { Direction } from '../direction/index.ts'
 
 type Orientation = AriaAttributes['aria-orientation']
-type Direction = 'ltr' | 'rtl'
 
 export interface RovingFocusGroupProps extends PrimitiveProps {
   /**

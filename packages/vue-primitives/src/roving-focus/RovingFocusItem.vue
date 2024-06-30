@@ -4,6 +4,7 @@ import { Primitive } from '../primitive/index.ts'
 import { useId } from '../hooks/useId.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
+import { isFunction } from '../utils/is.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroup.ts'
 import type { RovingFocusItemProps } from './RovingFocusItem.ts'
@@ -45,7 +46,7 @@ watchEffect(() => {
 Collection.useCollectionItem(elRef, itemData)
 
 const onMousedown = composeEventHandlers((event) => {
-  ;(attrs.onMousedown as Function | undefined)?.(event)
+  isFunction(attrs.onMousedown) && attrs.onMousedown(event)
 }, (event) => {
   // We prevent focusing non-focusable items on `mousedown`.
   // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
@@ -56,11 +57,11 @@ const onMousedown = composeEventHandlers((event) => {
 })
 
 const onFocus = composeEventHandlers((event) => {
-  ;(attrs.onFocus as Function | undefined)?.(event)
+  isFunction(attrs.onFocus) && attrs.onFocus(event)
 }, () => context.onItemFocus(id.value))
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  ;(attrs.onKeydown as Function | undefined)?.(event)
+  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
 }, (event) => {
   if (event.key === 'Tab' && event.shiftKey) {
     context.onItemShiftTab()

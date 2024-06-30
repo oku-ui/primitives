@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { type PropType, computed, toRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { DEFAULT_MAX, type ProgressProps, defaultGetValueLabel, getProgressState, isNumber, isValidMaxNumber, isValidValueNumber, provideProgressContext } from './Progress.ts'
+import { isNumber } from '../utils/is.ts'
+import { DEFAULT_MAX, type ProgressProps, defaultGetValueLabel, getProgressState, isValidMaxNumber, isValidValueNumber, provideProgressContext } from './Progress.ts'
 
 defineOptions({
   name: 'OkuProgress',

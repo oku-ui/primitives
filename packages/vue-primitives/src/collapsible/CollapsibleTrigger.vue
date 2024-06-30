@@ -2,6 +2,7 @@
 import { useAttrs } from 'vue'
 import Primitive from '../primitive/Primitive.vue'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { isFunction } from '../utils/is.ts'
 import type { CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
 import { useCollapsibleContext } from './Collapsible.ts'
 import { getState } from './utils.ts'
@@ -18,8 +19,8 @@ const attrs = useAttrs()
 
 const context = useCollapsibleContext()
 
-const onClick = composeEventHandlers((e) => {
-  (attrs.onClick as Function | undefined)?.(e)
+const onClick = composeEventHandlers((event) => {
+  isFunction(attrs.onClick) && attrs.onClick(event)
 }, context.onOpenToggle)
 </script>
 
