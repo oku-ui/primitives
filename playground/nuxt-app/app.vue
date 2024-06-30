@@ -19,6 +19,7 @@ const components = [
   'Label',
   'Progress',
   'Separator',
+  'Slider',
   'Tabs',
   'Toggle',
   'Toggle Group',
@@ -45,7 +46,7 @@ provideConfigContext({
         <div class="links-group">
           <span class="links-group__title">Utils</span>
           <div class="links-group__list">
-            <NuxtLink v-for="util in utils" :key="util.name" class="link" :to="util.to" :prefetch="false">
+            <NuxtLink v-for="util in utils" :key="util.name" class="link" :to="util.to">
               {{ util.name }}
             </NuxtLink>
           </div>
@@ -54,7 +55,7 @@ provideConfigContext({
         <div class="links-group">
           <span class="links-group__title">Coponents</span>
           <div class="links-group__list">
-            <NuxtLink v-for="component in components" :key="component.name" class="link" :to="component.to" :prefetch="false">
+            <NuxtLink v-for="component in components" :key="component.name" class="link" :to="component.to">
               {{ component.name }}
             </NuxtLink>
           </div>

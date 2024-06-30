@@ -53,7 +53,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | Select                                                                                        | 🚧      |
 | [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)     | ✓      |
 | Switch                                                                                        | 🚧      |
-| Slider                                                                                        | 🚧      |
+| [Slider](https://vue-primitives.netlify.app/?path=/story/components-slider--chromatic)        | ✓      |
 | Switch                                                                                        | 🚧      |
 | [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)               | ✓      |
 | Toast                                                                                         | 🚧      |
