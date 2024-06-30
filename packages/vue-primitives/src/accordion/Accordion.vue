@@ -156,7 +156,7 @@ provideAccordionContext({
           handleKeydown(e)
       },
     }"
-    :data-orientation="props.orientation"
+    :data-orientation="orientation"
   >
     <slot />
   </Primitive>
