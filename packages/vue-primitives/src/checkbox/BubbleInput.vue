@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<BubbleInputProps>(), {
 const elRef = shallowRef<HTMLInputElement>()
 
 const controlSize = useSize(() => props.control)
-const checked = isIndeterminate(props.checked) ? false : props.checked
+const initChecked = isIndeterminate(props.checked) ? false : props.checked
 
 // Bubble checked change to parents (e.g form change event)
 watch(() => props.checked, (checked, prevChecked) => {
@@ -44,7 +44,7 @@ watch(() => props.checked, (checked, prevChecked) => {
     type="checkbox"
     aria-hidden
     tabindex="-1"
-    :checked="checked"
+    :checked="initChecked"
     :style="{
       width: `${controlSize?.width || 0}px`,
       height: `${controlSize?.width || 0}px`,
