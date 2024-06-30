@@ -15,12 +15,12 @@
     "root-lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.21.0",
+    "@antfu/eslint-config": "^2.21.2",
     "@teleskop150750/typescript-config": "workspace:*",
-    "@types/node": "^20.12.5",
+    "@types/node": "^20.14.9",
     "eslint": "npm:eslint-ts-patch@9.4.0-0",
     "eslint-ts-patch": "9.4.0-0",
-    "prettier": "^3.3.1",
+    "prettier": "^3.3.2",
     "turbo": "latest",
     "typescript": "^5.4.5"
   }
