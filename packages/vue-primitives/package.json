@@ -80,7 +80,7 @@
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@vue/shared": "^3.4.31"
   },
   "devDependencies": {
