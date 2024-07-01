@@ -52,7 +52,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | ScrollArea                                                                                    | 🚧      |
 | Select                                                                                        | 🚧      |
 | [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)     | ✓      |
-| [Slider](https://vue-primitives.netlify.app/?path=/story/components-slider--chromatic)        | ✓      |
+| [Slider](https://vue-primitives.netlify.app/?path=/story/components-slider--styled)        | ✓      |
 | Switch                                                                                        | 🚧      |
 | [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)               | ✓      |
 | Toast                                                                                         | 🚧      |
