@@ -4,14 +4,16 @@ import { Slider, SliderRange, SliderThumb, SliderTrack } from '../index.ts'
 import './styles.css'
 import serialize from './form-serialize.js'
 
-const data = shallowRef({
+const initData = {
   single: [0],
   multiple: [10, 15, 20, 80],
   price: {
     min: 30,
     max: 70,
   },
-})
+}
+
+const data = shallowRef(initData)
 </script>
 
 <template>
@@ -27,7 +29,7 @@ const data = shallowRef({
   >
     <fieldset>
       <legend>Single value: {{ String(data.single) }}</legend>
-      <Slider name="single" :default-value="data.single" class="slider_rootClass">
+      <Slider name="single" :default-value="initData.single" class="slider_rootClass">
         <SliderTrack class="slider_trackClass">
           <SliderRange class="slider_rangeClass" />
         </SliderTrack>
@@ -40,7 +42,7 @@ const data = shallowRef({
 
     <fieldset>
       <legend>Multiple value: {{ String(data.multiple) }}</legend>
-      <Slider name="multiple" :default-value="data.multiple" class="slider_rootClass">
+      <Slider name="multiple" :default-value="initData.multiple" class="slider_rootClass">
         <SliderTrack class="slider_trackClass">
           <SliderRange class="slider_rangeClass" />
         </SliderTrack>
@@ -56,7 +58,7 @@ const data = shallowRef({
 
     <fieldset>
       <legend>Multiple values (with named thumbs): {{ JSON.stringify(data.price) }}</legend>
-      <Slider :default-value="[data.price.min, data.price.max]" class="slider_rootClass">
+      <Slider :default-value="[initData.price.min, initData.price.max]" class="slider_rootClass">
         <SliderTrack class="slider_trackClass">
           <SliderRange class="slider_rangeClass" />
         </SliderTrack>
