@@ -47,7 +47,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | Menubar                                                                                       | 🚧      |
 | NavigationMenu                                                                                | 🚧      |
 | Popover                                                                                       | ✓      |
-| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)       | 🚧      |
+| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)       | ✓      |
 | RadioGroup                                                                                    | 🚧      |
 | ScrollArea                                                                                    | 🚧      |
 | Select                                                                                        | 🚧      |
@@ -56,7 +56,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | Switch                                                                                        | 🚧      |
 | [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)               | ✓      |
 | Toast                                                                                         | 🚧      |
-| [ToggleGroup](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | 🚧      |
+| [ToggleGroup](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | ✓      |
 | [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)           | ✓      |
 | Toolbar                                                                                       | 🚧      |
 | Tooltip                                                                                       | 🚧      |
