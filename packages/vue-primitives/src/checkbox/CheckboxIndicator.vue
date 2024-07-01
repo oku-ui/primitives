@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import Primitive from '../primitive/Primitive.vue'
+import { Primitive } from '../primitive/index.ts'
 import { useCheckboxContext } from './Checkbox.ts'
 import type { CheckboxIndicatorProps } from './CheckboxIndicator.ts'
 import { getState, isIndeterminate } from './utils.ts'

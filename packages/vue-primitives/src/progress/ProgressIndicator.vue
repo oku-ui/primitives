@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Primitive from '../primitive/Primitive.vue'
+import { Primitive } from '../primitive/index.ts'
 import { getProgressState, useProgressContext } from './Progress.ts'
-import type { ProgressIndicatorProps } from './ProgressIndicator'
+import type { ProgressIndicatorProps } from './ProgressIndicator.ts'
 
 defineOptions({
   name: 'ProgressIndicator',

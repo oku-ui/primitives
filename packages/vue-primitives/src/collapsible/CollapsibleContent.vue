@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
-import Primitive from '../primitive/Primitive.vue'
+import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import type { CollapsibleContentProps } from './CollapsibleContent.ts'
 import { useCollapsibleContext } from './Collapsible.ts'
