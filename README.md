@@ -46,13 +46,13 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)             | ✓      |
 | Menubar                                                                                       | 🚧      |
 | NavigationMenu                                                                                | 🚧      |
-| Popover                                                                                       | ✓      |
+| Popover                                                                                       | 🚧      |
 | [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)       | ✓      |
 | RadioGroup                                                                                    | 🚧      |
 | ScrollArea                                                                                    | 🚧      |
 | Select                                                                                        | 🚧      |
 | [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)     | ✓      |
-| [Slider](https://vue-primitives.netlify.app/?path=/story/components-slider--styled)        | ✓      |
+| [Slider](https://vue-primitives.netlify.app/?path=/story/components-slider--styled)           | ✓      |
 | Switch                                                                                        | 🚧      |
 | [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)               | ✓      |
 | Toast                                                                                         | 🚧      |
