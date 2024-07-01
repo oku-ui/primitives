@@ -51,7 +51,7 @@
     width: 100%;
   }
 
-  background: var(--black);
+  background: #111;
   border-radius: inherit;
 }
 
