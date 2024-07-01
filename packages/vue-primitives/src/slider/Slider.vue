@@ -1,13 +1,15 @@
+<!-- eslint-disable command/command -->
 <script setup lang="ts">
-import { type PropType, shallowRef, toRef, useAttrs } from 'vue'
+import { type PropType, computed, shallowRef, toRef, useAttrs, watchEffect } from 'vue'
 import { useControllableState } from '../hooks/useControllableState.ts'
 import { isFunction, isNumber } from '../utils/is.ts'
 import { clamp, getDecimalCount, roundValue } from '../utils/number.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
-import { ARROW_KEYS, Collection, PAGE_KEYS, type SliderContext, type SliderProps, provideSliderContext } from './Slider.ts'
-import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues } from './utils.ts'
-import SliderHorizontal from './SliderHorizontal.vue'
-import SliderVertical from './SliderVertical.vue'
+import { useDirection } from '../direction/Direction.ts'
+import { Primitive } from '../primitive/index.ts'
+import { ARROW_KEYS, BACK_KEYS, Collection, PAGE_KEYS, type SliderContext, type SliderProps, provideSliderContext } from './Slider.ts'
+import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
+import { provideSliderOrientationContext } from './SliderOrientation.ts'
 
 defineOptions({
   name: 'Slider',
@@ -106,20 +108,20 @@ const values = useControllableState(
 
 let valuesBeforeSlideStartRef = values.value
 
-function handleSlideStart(value: number) {
+function onSliderSlideStart(value: number) {
   if (props.disabled)
     return
   const closestIndex = getClosestValueIndex(values.value, value)
   updateValues(value, closestIndex)
 }
 
-function handleSlideMove(value: number) {
+function onSliderSlideMove(value: number) {
   if (props.disabled)
     return
   updateValues(value, valueIndexToChangeRef.value)
 }
 
-function handleSlideEnd() {
+function onSliderSlideEnd() {
   if (props.disabled)
     return
   const prevValue = valuesBeforeSlideStartRef[valueIndexToChangeRef.value]
@@ -129,7 +131,21 @@ function handleSlideEnd() {
     emit('valueCommit', values.value)
 }
 
-function handleStepKeydown({ event, direction: stepDirection }: { event: KeyboardEvent, direction: number }) {
+function onSliderHomeKeyDown() {
+  if (props.disabled)
+    return
+
+  updateValues(props.min, 0, { commit: true })
+}
+
+function onSliderEndKeyDown() {
+  if (props.disabled)
+    return
+
+  updateValues(props.max, values.value.length - 1, { commit: true })
+}
+
+function onSliderStepKeydown({ event, direction: stepDirection }: { event: KeyboardEvent, direction: number }) {
   if (props.disabled)
     return
   const isPageKey = PAGE_KEYS.includes(event.key)
@@ -157,12 +173,10 @@ function updateValues(value: number, atIndex: number, { commit } = { commit: fal
   }
 }
 
-const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerdown) && attrs.onPointerdown(event)
-}, () => {
+function onSliderPointerdown() {
   if (!props.disabled)
     valuesBeforeSlideStartRef = values.value
-})
+}
 
 Collection.provideCollectionContext(elRef)
 
@@ -176,29 +190,169 @@ provideSliderContext({
   values,
   orientation: toRef(props.orientation),
 })
+
+// SliderOrientation
+
+const isHorisontal = () => props.orientation === 'horizontal'
+
+interface OrientationLocalState {
+  readonly reactSise: 'width' | 'height'
+  readonly rectStartEdge: 'left' | 'top'
+  readonly clientEdge: 'x' | 'y'
+  readonly slideDirectionSte: 'from-left' | 'from-bottom'
+  readonly slideDirectionEts: 'from-right' | 'from-top'
+}
+
+let orientationLocalState: OrientationLocalState
+
+watchEffect(() => {
+  const _isHorisontal = isHorisontal()
+  orientationLocalState = {
+    reactSise: _isHorisontal ? 'width' : 'height',
+    rectStartEdge: _isHorisontal ? 'left' : 'top',
+    clientEdge: _isHorisontal ? 'x' : 'y',
+    slideDirectionSte: _isHorisontal ? 'from-left' : 'from-bottom',
+    slideDirectionEts: _isHorisontal ? 'from-right' : 'from-top',
+  }
+})
+
+let rectRef: DOMRect | undefined
+const direction = useDirection(() => props.dir)
+
+const isSlidingFromStart = computed(() => {
+  if (isHorisontal()) {
+    const isLtr = direction.value === 'ltr'
+    return (isLtr && !props.inverted) || (!isLtr && props.inverted)
+  }
+
+  return !props.inverted
+})
+
+function getValueFromPointer(pointerPosition: number) {
+  const rect = rectRef || elRef.value!.getBoundingClientRect()
+  const input: [number, number] = [0, rect[orientationLocalState.reactSise]]
+  const output: [number, number] = isSlidingFromStart.value === isHorisontal() ? [props.min, props.max] : [props.max, props.min]
+  const value = linearScale(input, output)
+
+  rectRef = rect
+
+  return value(pointerPosition - rect[orientationLocalState.rectStartEdge])
+}
+
+function onOrientationSlideStart(event: PointerEvent) {
+  const value = getValueFromPointer(event[orientationLocalState.clientEdge])
+  onSliderSlideStart(value)
+}
+
+function onOrientationSlideMove(event: PointerEvent) {
+  const value = getValueFromPointer(event[orientationLocalState.clientEdge])
+  onSliderSlideMove(value)
+}
+
+function onOrientationSlideEnd() {
+  rectRef = undefined
+  onSliderSlideEnd()
+}
+
+function onOrientationStepKeydown(event: KeyboardEvent) {
+  const slideDirection = isSlidingFromStart.value ? orientationLocalState.slideDirectionSte : orientationLocalState.slideDirectionEts
+  const isBackKey = BACK_KEYS[slideDirection].includes(event.key)
+  onSliderStepKeydown({ event, direction: isBackKey ? -1 : 1 })
+}
+
+const orientationContext = computed(() => {
+  const _isHorisontal = isHorisontal()
+  const _startEdge = _isHorisontal ? 'left' : 'bottom'
+  const _endEdge = _isHorisontal ? 'right' : 'top'
+
+  const startEdge = isSlidingFromStart.value ? _startEdge : _endEdge
+  const endEdge = isSlidingFromStart.value ? _endEdge : _startEdge
+  const direction = isSlidingFromStart.value ? 1 : -1
+  const size = _isHorisontal ? 'width' : 'height'
+
+  return { startEdge, endEdge, direction, size } as const
+})
+
+provideSliderOrientationContext(orientationContext)
+
+// SliderImpl
+
+const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
+}, (event) => {
+  if (event.key === 'Home') {
+    onSliderHomeKeyDown()
+    // Prevent scrolling to page start
+    event.preventDefault()
+  }
+  else if (event.key === 'End') {
+    onSliderEndKeyDown()
+    // Prevent scrolling to page end
+    event.preventDefault()
+  }
+  else if (PAGE_KEYS.concat(ARROW_KEYS).includes(event.key)) {
+    onOrientationStepKeydown(event)
+    // Prevent scrolling for directional key presses
+    event.preventDefault()
+  }
+})
+
+const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
+  isFunction(attrs.onPointerdown) && attrs.onPointerdown(event)
+}, (event) => {
+  onSliderPointerdown()
+
+  const target = event.target as HTMLElement
+  target.setPointerCapture(event.pointerId)
+  // Prevent browser focus behaviour because we focus a thumb manually when values change.
+  event.preventDefault()
+  // Touch devices have a delay before focusing so won't focus if touch immediately moves
+  // away from target (sliding). We want thumb to focus regardless.
+  if (thumbRefs.has(target)) {
+    target.focus()
+  }
+  else {
+    onOrientationSlideStart(event)
+  }
+})
+
+const onPointermove = composeEventHandlers<PointerEvent>((event) => {
+  isFunction(attrs.onPointermove) && attrs.onPointermove(event)
+}, (event) => {
+  const target = event.target as HTMLElement
+  if (target.hasPointerCapture(event.pointerId))
+    onOrientationSlideMove(event)
+})
+
+const onPointerup = composeEventHandlers<PointerEvent>((event) => {
+  isFunction(attrs.onPointerup) && attrs.onPointerup(event)
+}, (event) => {
+  const target = event.target as HTMLElement
+  if (target.hasPointerCapture(event.pointerId)) {
+    target.releasePointerCapture(event.pointerId)
+    onOrientationSlideEnd()
+  }
+})
 </script>
 
 <template>
-  <component
-    :is="orientation === 'horizontal' ? SliderHorizontal : SliderVertical"
+  <Primitive
     :ref="(el: any) => elRef = el?.$el"
     :as="as"
     :as-child="asChild"
+    :dir="direction"
+    :data-orientation="orientation"
     :aria-disabled="disabled"
     :data-disabled="disabled ? '' : undefined"
-    :dir="dir"
+    :style="orientation === 'horizontal' ? '--radix-slider-thumb-transform: translateX(-50%)' : '--radix-slider-thumb-transform: translateY(50%)'"
     v-bind="{
       ...attrs,
+      onKeydown,
       onPointerdown,
+      onPointermove,
+      onPointerup,
     }"
-    :min="min"
-    :max="max"
-    :inverted="inverted"
-    @slide-start="handleSlideStart"
-    @slide-move="handleSlideMove"
-    @slide-end="handleSlideEnd"
-    @step-keydown="handleStepKeydown"
   >
     <slot />
-  </component>
+  </Primitive>
 </template>
