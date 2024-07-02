@@ -23,12 +23,19 @@ const height = shallowRef(0)
 // when opening we want it to immediately open to retrieve dimensions
 // when closing we delay `present` to retrieve dimensions before closing
 const isOpen = computed(() => context.open.value || isPresent.value)
+// TODO: block any animations/transitions
 let isMountAnimationPrevented = isOpen.value
 let originalStyles: Record<string, string>
 
 let rAf: number
+const initStyles = shallowRef<Record<string, string> | undefined>({
+  transitionDuration: '0s !important',
+  animationDuration: '0s !important',
+  // animationName: 'none !important',
+})
 
 onMounted(() => {
+  initStyles.value = undefined
   rAf = requestAnimationFrame(() => {
     isMountAnimationPrevented = false
   })
@@ -84,8 +91,9 @@ watch(
     :data-disabled="context.disabled?.value ? '' : undefined"
     :hidden="!isOpen"
     :style="{
-      [`--radix-collapsible-content-height`]: `${height}px`,
-      [`--radix-collapsible-content-width`]: `${width}px`,
+      '--radix-collapsible-content-height': `${height}px`,
+      '--radix-collapsible-content-width': `${width}px`,
+      ...initStyles,
     }"
   >
     <slot v-if="isOpen" />

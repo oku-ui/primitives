@@ -88,7 +88,6 @@
 .collapsible_animatedContent {
   overflow: hidden;
 
-  /* animation: collapsible_slideUp 300ms ease-in; */
   &[data-state="open"] {
     animation: collapsible_slideDown 300ms ease-out;
   }
