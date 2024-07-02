@@ -7,6 +7,13 @@ export default defineNuxtConfig({
       },
     },
   },
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: 'append',
+      },
+    },
+  },
   typescript: {
     tsConfig: {
       compilerOptions: {

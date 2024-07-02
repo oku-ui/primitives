@@ -7,7 +7,7 @@ const utils = [
   'Roving Focus Group',
 ].map(util => ({
   name: util.replaceAll(' ', ''),
-  to: `/${util.toLowerCase().replaceAll(' ', '-')}`,
+  to: `/${util.toLowerCase().replaceAll(' ', '-')}/`,
 }))
 
 const components = [
@@ -25,7 +25,7 @@ const components = [
   'Toggle Group',
 ].map(component => ({
   name: component.replaceAll(' ', ''),
-  to: `/${component.toLowerCase().replaceAll(' ', '-')}`,
+  to: `/${component.toLowerCase().replaceAll(' ', '-')}/`,
 }))
 
 const useIdFunction = () => useId()
