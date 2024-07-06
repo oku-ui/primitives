@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
+import { computed, nextTick, onMounted, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import type { CollapsibleContentProps } from './CollapsibleContent.ts'
@@ -15,70 +15,66 @@ const elRef = shallowRef<HTMLElement>()
 
 const context = useCollapsibleContext()
 
-const isPresent = usePresence(elRef, () => props.forceMount || context.open.value)
+let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
 
-const width = shallowRef(0)
-const height = shallowRef(0)
+const isPresent = usePresence(elRef, () => props.forceMount || context.open.value, async () => {
+  const node = elRef.value
+  if (!node)
+    return
+
+  const nodeStyle = node.style
+
+  originalStyles = originalStyles || {
+    transitionDuration: nodeStyle.transitionDuration,
+    animationName: nodeStyle.animationName,
+  }
+
+  // block any animations/transitions so the element renders at its full dimensions
+  nodeStyle.transitionDuration = '0s'
+  nodeStyle.animationName = 'none'
+
+  // get width and height from full dimensions
+  const rect = node.getBoundingClientRect()
+  nodeStyle.setProperty('--radix-collapsible-content-height', `${rect.height}px`)
+  nodeStyle.setProperty('--radix-collapsible-content-width', `${rect.width}px`)
+
+  // kick off any animations/transitions that were originally set up if it isn't the initial mount
+  nodeStyle.transitionDuration = originalStyles.transitionDuration
+  nodeStyle.animationName = originalStyles.animationName
+})
 
 // when opening we want it to immediately open to retrieve dimensions
 // when closing we delay `present` to retrieve dimensions before closing
 const isOpen = computed(() => context.open.value || isPresent.value)
-// TODO: block any animations/transitions
-let isMountAnimationPrevented = isOpen.value
-let originalStyles: Record<string, string>
 
-let rAf: number
-const initStyles = shallowRef<Record<string, string> | undefined>({
-  transitionDuration: '0s !important',
-  animationDuration: '0s !important',
-  // animationName: 'none !important',
-})
-
-onMounted(() => {
-  initStyles.value = undefined
-  rAf = requestAnimationFrame(() => {
-    isMountAnimationPrevented = false
-  })
-})
-
-onBeforeUnmount(() => {
-  cancelAnimationFrame(rAf)
-})
-
-watch(
-  () => [context.open.value, elRef.value],
-  async () => {
-    const node = elRef.value
-
-    if (context.open.value)
-      await nextTick()
-
-    if (!node)
-      return
-
-    const nodeStyle = node.style
-
-    originalStyles = originalStyles || {
-      transitionDuration: nodeStyle.transitionDuration,
-      animationName: nodeStyle.animationName,
+const blockAnimationStyles = shallowRef<Partial<CSSStyleDeclaration>>(isOpen.value
+  ? {
+      transitionDuration: '0s !important',
+      animationName: 'none !important',
     }
+  : {})
 
-    // block any animations/transitions so the element renders at its full dimensions
-    nodeStyle.transitionDuration = '0s'
-    nodeStyle.animationName = 'none'
+onMounted(async () => {
+  if (!isOpen.value)
+    return
 
-    // get width and height from full dimensions
-    const rect = node.getBoundingClientRect()
-    height.value = rect.height
-    width.value = rect.width
+  const node = elRef.value
+  if (!node)
+    return
 
-    // kick off any animations/transitions that were originally set up if it isn't the initial mount
-    if (!isMountAnimationPrevented) {
-      nodeStyle.transitionDuration = originalStyles.transitionDuration!
-      nodeStyle.animationName = originalStyles.animationName!
-    }
-  },
-)
+  blockAnimationStyles.value = {}
+  await nextTick()
+
+  const nodeStyle = node.style
+
+  originalStyles = originalStyles || {
+    transitionDuration: nodeStyle.transitionDuration,
+    animationName: nodeStyle.animationName,
+  }
+
+  nodeStyle.transitionDuration = '0s'
+  nodeStyle.animationName = 'none'
+})
 </script>
 
 <template>
@@ -91,9 +87,9 @@ watch(
     :data-disabled="context.disabled?.value ? '' : undefined"
     :hidden="!isOpen"
     :style="{
-      '--radix-collapsible-content-height': `${height}px`,
-      '--radix-collapsible-content-width': `${width}px`,
-      ...initStyles,
+      '--radix-collapsible-content-height': '0px',
+      '--radix-collapsible-content-width': '0px',
+      ...blockAnimationStyles,
     }"
   >
     <slot v-if="isOpen" />

@@ -1,4 +1,4 @@
-import { type Ref, computed, nextTick, toValue, watch, watchEffect } from 'vue'
+import { type Ref, computed, toValue, watch, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/useStateMachine.ts'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
@@ -8,9 +8,9 @@ function getAnimationName(styles?: CSSStyleDeclaration) {
 export function usePresence(
   elRef: Ref<HTMLElement | undefined>,
   present: Ref<boolean> | (() => boolean),
+  onChange?: ((value: boolean) => void),
 ) {
   let styles: CSSStyleDeclaration = {} as CSSStyleDeclaration
-  let prevPresent = toValue(present)
   let prevAnimationName = 'none'
   const initialState = toValue(present) ? 'mounted' : 'unmounted'
 
@@ -33,14 +33,9 @@ export function usePresence(
     prevAnimationName = state.value === 'mounted' ? currentAnimationName : 'none'
   })
 
-  watch(present, async (present) => {
-    const wasPresent = prevPresent
-    const hasPresentChanged = wasPresent !== present
+  watch(present, async (present, wasPresent) => {
+    onChange?.(present)
 
-    if (!hasPresentChanged)
-      return
-
-    await nextTick()
     const currentAnimationName = getAnimationName(styles)
 
     if (present) {
@@ -67,8 +62,8 @@ export function usePresence(
         send('UNMOUNT')
       }
     }
-
-    prevPresent = present
+  }, {
+    flush: 'post',
   })
 
   /**
