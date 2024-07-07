@@ -15,9 +15,9 @@
     "root-lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.21.2",
+    "@antfu/eslint-config": "^2.21.3",
     "@teleskop150750/typescript-config": "workspace:*",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "eslint": "npm:eslint-ts-patch@9.4.0-0",
     "eslint-ts-patch": "9.4.0-0",
     "prettier": "^3.3.2",
