@@ -17,7 +17,7 @@ const context = useCollapsibleContext()
 
 let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
 
-const isPresent = usePresence(elRef, () => props.forceMount || context.open.value, async () => {
+const isPresent = usePresence(elRef, () => props.forceMount || context.open.value, () => {
   const node = elRef.value
   if (!node)
     return

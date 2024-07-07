@@ -8,7 +8,7 @@ function getAnimationName(styles?: CSSStyleDeclaration) {
 export function usePresence(
   elRef: Ref<HTMLElement | undefined>,
   present: Ref<boolean> | (() => boolean),
-  onChange?: ((value: boolean) => void),
+  onChange?: (value: boolean) => void,
 ) {
   let styles: CSSStyleDeclaration = {} as CSSStyleDeclaration
   let prevAnimationName = 'none'
