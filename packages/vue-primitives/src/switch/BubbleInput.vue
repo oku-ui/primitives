@@ -2,7 +2,6 @@
 import { shallowRef, watch } from 'vue'
 import { useSize } from '../hooks/useSize.ts'
 import type { BubbleInputProps } from './BubbleInput.ts'
-import { isIndeterminate } from './utils.ts'
 
 defineOptions({
   name: 'BubbleInput',
@@ -32,8 +31,7 @@ watch(() => props.checked, (checked, prevChecked) => {
   if (prevChecked !== checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
     const event = new Event('change', { bubbles: props.bubbles })
-    input.indeterminate = isIndeterminate(checked)
-    setChecked.call(input, isIndeterminate(checked) ? false : checked)
+    setChecked.call(input, checked)
     input.dispatchEvent(event)
   }
 })
@@ -45,7 +43,7 @@ watch(() => props.checked, (checked, prevChecked) => {
     type="checkbox"
     aria-hidden
     tabindex="-1"
-    :checked="isIndeterminate(checked) ? false : checked"
+    :checked="checked"
     :style="{
       width: `${controlSize?.width || 0}px`,
       height: `${controlSize?.width || 0}px`,

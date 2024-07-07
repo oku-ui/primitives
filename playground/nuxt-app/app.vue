@@ -20,6 +20,7 @@ const components = [
   'Progress',
   'Separator',
   'Slider',
+  'Switch',
   'Tabs',
   'Toggle',
   'Toggle Group',
@@ -150,15 +151,19 @@ body {
 
 .page {
   display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 20px;
-  padding: 24px;
+  grid-template-columns: 200px 1fr;
 }
 
 .page-aside {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 24px;
+}
+
+.page-content-box {
+  padding: 24px;
+  min-width: 600px;
 }
 
 .page-header {
