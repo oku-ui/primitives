@@ -1,40 +1,28 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs } from 'vue'
-import { useControllableState } from '../hooks/useControllableState.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { isFunction } from '../utils/is.ts'
-import { type SwitchEmits, type SwitchProps, getState, provideSwitchContext } from './Switch.ts'
+import { type RadioEmits, type RadioProps, getState, provideRadioContext } from './Radio.ts'
 import BubbleInput from './BubbleInput.vue'
 
 defineOptions({
-  name: 'OkuSwitch',
+  name: 'Radio',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<SwitchProps>(), {
+const props = withDefaults(defineProps<RadioProps>(), {
   as: 'button',
-  checked: undefined,
-  defaultChecked: false,
   value: 'on',
+  checked: false,
 })
-const emit = defineEmits<SwitchEmits>()
+const emit = defineEmits<RadioEmits>()
 const attrs = useAttrs()
+const elRef = shallowRef<HTMLButtonElement>()
 
-const buttonEl = shallowRef<HTMLButtonElement>()
 const hasConsumerStoppedPropagation = shallowRef(false)
-
 // We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => buttonEl.value ? Boolean(buttonEl.value.closest('form')) : true)
-
-const checked = useControllableState(props, v => emit('update:checked', v), 'checked', props.defaultChecked)
-
-provideSwitchContext({
-  checked,
-  disabled() {
-    return props.disabled
-  },
-})
+const isFormControl = computed(() => elRef.value ? Boolean(elRef.value.closest('form')) : true)
 
 type CliclEvent = Event & { _stopPropagation: Event['stopPropagation'], _isPropagationStopped: boolean, isPropagationStopped: () => boolean }
 const onClick = composeEventHandlers<CliclEvent>((event) => {
@@ -47,34 +35,44 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
   event.isPropagationStopped = function isPropagationStopped() {
     return this._isPropagationStopped
   }
+
   isFunction(attrs.onClick) && attrs.onClick(event)
 }, (event) => {
-  checked.value = !checked.value
-
+  // radios cannot be unchecked so we only communicate a checked state
+  if (!props.checked)
+    emit('update:checked', true)
   if (isFormControl.value) {
     hasConsumerStoppedPropagation.value = event.isPropagationStopped()
-    // if switch is in a form, stop propagation from the button so that we only propagate
+    // if radio is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
-    // form validation works and form events reflect switch updates.
+    // form validation works and form events reflect radio updates.
     if (!hasConsumerStoppedPropagation.value)
       event.stopPropagation()
   }
 })
 
+provideRadioContext({
+  checked() {
+    return props.checked
+  },
+  disabled() {
+    return props.disabled
+  },
+})
+
 defineExpose({
-  $el: buttonEl,
+  $el: elRef,
 })
 </script>
 
 <template>
   <Primitive
-    :ref="(el: any) => buttonEl = el?.$el"
+    :ref="(el: any) => elRef = el?.$el"
     :as="as"
     :as-child="asChild"
     type="button"
-    role="switch"
+    role="radio"
     :aria-checked="checked"
-    :aria-required="required"
     :data-state="getState(checked)"
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
@@ -86,9 +84,10 @@ defineExpose({
   >
     <slot />
   </Primitive>
+
   <BubbleInput
     v-if="isFormControl"
-    :control="buttonEl"
+    :control="elRef"
     :bubbles="!hasConsumerStoppedPropagation"
     :name="name"
     :value="value"
@@ -96,9 +95,6 @@ defineExpose({
     :required="required"
     :disabled="disabled"
     :style="{
-      // We transform because the input is absolutely positioned but we have
-      // rendered it **after** the button. This pulls it back to sit on top
-      // of the button.
       transform: 'translateX(-100%)',
     }"
   />

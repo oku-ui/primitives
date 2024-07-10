@@ -7,6 +7,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   experimental: {
     defaults: {
       nuxtLink: {
@@ -14,6 +15,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   typescript: {
     tsConfig: {
       compilerOptions: {
@@ -27,4 +29,6 @@ export default defineNuxtConfig({
     debug: true,
     devtools: { enabled: true },
   },
+
+  compatibilityDate: '2024-07-10',
 })

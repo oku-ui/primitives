@@ -1,14 +1,29 @@
-import { Comment, type VNode, defineComponent, warn } from 'vue'
+import { Comment, type VNode, defineComponent, shallowRef, warn } from 'vue'
 import { getRawChildren } from '../utils/getRawChildren.ts'
+import { ELEMENT_NODE } from '../primitive/Primitive.ts'
 
 export const Slot = defineComponent({
   name: 'Slot',
-  setup(_, { slots }) {
+  setup(_, { slots, expose }) {
+    const elRef = shallowRef<HTMLElement>()
+
+    function setElRef(el: any) {
+      const node = (el?.$el ?? el)
+      const elNode = node && node.nodeType === ELEMENT_NODE ? node : undefined
+      if (elNode === elRef)
+        return
+      elRef.value = elNode
+    }
+
+    expose({
+      $el: elRef,
+    })
+
     return () => {
       if (!slots.default)
         return null
 
-      const children = slots.default && getRawChildren(slots.default())
+      const children = slots.default && getRawChildren(slots.default(), undefined, undefined, setElRef)
 
       if (!children || !children.length)
         return null

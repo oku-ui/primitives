@@ -6,6 +6,7 @@ export function getRawChildren(
   children: VNode[],
   keepComment: boolean = false,
   parentKey?: VNode['key'],
+  setElRef?: (el: any) => void,
 ): VNode[] {
   let ret: VNode[] = []
   let keyedFragmentCount = 0
@@ -21,12 +22,17 @@ export function getRawChildren(
       if (child.patchFlag & PatchFlags.KEYED_FRAGMENT)
         keyedFragmentCount++
       ret = ret.concat(
-        getRawChildren(child.children as VNode[], keepComment, key),
+        getRawChildren(child.children as VNode[], keepComment, key, setElRef),
       )
     }
     // comment placeholders should be skipped, e.g. v-if
     else if (keepComment || child.type !== Comment) {
-      ret.push(key != null ? cloneVNode(child, { key }) : child)
+      ret.push(key != null
+        ? cloneVNode(child, {
+          key,
+          ref: setElRef,
+        }, true)
+        : child)
     }
   }
   // #1126 if a transition children list contains multiple sub fragments, these

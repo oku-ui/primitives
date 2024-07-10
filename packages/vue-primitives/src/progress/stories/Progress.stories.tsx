@@ -12,3 +12,4 @@ export function Styled() {
 export function Chromatic() {
   return CChromatic
 }
+Chromatic.parameters = { chromatic: { disable: false } }

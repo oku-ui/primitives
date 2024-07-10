@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { RovingFocusItem } from '../roving-focus/index.ts'
+import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { isFunction, isPropFalsy } from '../utils/is.ts'
 import { useTabsContext } from './Tabs.ts'
@@ -63,7 +63,7 @@ defineExpose({
 </script>
 
 <template>
-  <RovingFocusItem as-child :focusable="isPropFalsy(attrs.disabled)" :active="isSelected">
+  <RovingFocusGroupItem as-child :focusable="isPropFalsy(attrs.disabled)" :active="isSelected">
     <Primitive
       :id="triggerId"
       :ref="(el: any) => elRef = el?.$el"
@@ -85,5 +85,5 @@ defineExpose({
     >
       <slot />
     </Primitive>
-  </RovingFocusItem>
+  </RovingFocusGroupItem>
 </template>

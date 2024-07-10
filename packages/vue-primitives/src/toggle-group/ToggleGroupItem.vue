@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
-import { RovingFocusItem } from '../roving-focus/index.ts'
+import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { Toggle } from '../toggle/index.ts'
 import type { ToggleGroupItemProps } from './ToggleGroupItem.ts'
 import { useToggleGroupContext } from './ToggleGroup.ts'
@@ -35,7 +35,7 @@ function onUpdatePressed(pressed?: boolean) {
 </script>
 
 <template>
-  <RovingFocusItem
+  <RovingFocusGroupItem
     v-if="context.rovingFocus.value"
     as-child
     :focusable="!disabled"
@@ -54,7 +54,7 @@ function onUpdatePressed(pressed?: boolean) {
     >
       <slot />
     </Toggle>
-  </RovingFocusItem>
+  </RovingFocusGroupItem>
   <Toggle
     v-else
     :as="as"

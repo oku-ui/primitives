@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
-import { RovingFocusItem } from '../index.ts'
+import { RovingFocusGroupItem } from '../index.ts'
 import { composeEventHandlers } from '../../utils/composeEventHandlers.ts'
 import { isFunction } from '../../utils/is.ts'
 import { useButtonGroupContext } from './utils.ts'
@@ -29,7 +29,7 @@ const onFocus = composeEventHandlers((event) => {
 </script>
 
 <template>
-  <RovingFocusItem as-child :active="isSelected" :focusable="!disabled">
+  <RovingFocusGroupItem as-child :active="isSelected" :focusable="!disabled">
     <button
       :value="value"
       :disabled="disabled"
@@ -59,5 +59,5 @@ const onFocus = composeEventHandlers((event) => {
     >
       <slot />
     </button>
-  </RovingFocusItem>
+  </RovingFocusGroupItem>
 </template>

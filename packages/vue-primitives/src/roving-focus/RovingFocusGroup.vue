@@ -56,7 +56,7 @@ const onFocus = composeEventHandlers((event) => {
       const activeItem = items.find(item => item.attrs.active)
       const currentItem = items.find(item => item.attrs.id === currentTabStopId.value)
       const candidateItems = [activeItem, currentItem, ...items].filter(Boolean) as typeof items
-      const candidateNodes = candidateItems.map(item => item.ref!)
+      const candidateNodes = candidateItems.map(item => item.ref)
       focusFirst(candidateNodes, props.preventScrollOnEntryFocus)
     }
   }

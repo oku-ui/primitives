@@ -7,14 +7,14 @@ import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
 import { isFunction } from '../utils/is.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroup.ts'
-import type { RovingFocusItemProps } from './RovingFocusItem.ts'
+import type { RovingFocusGroupItemProps } from './RovingFocusGroupItem.ts'
 
 defineOptions({
-  name: 'RovingFocusGroup',
+  name: 'RovingFocusGroupItem',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<RovingFocusItemProps>(), {
+const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
   focusable: true,
   active: true,
   as: 'span',
@@ -81,7 +81,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 
   event.preventDefault()
   const items = getItems().filter(item => item.attrs.focusable)
-  let candidateNodes = items.map(item => item.ref!)
+  let candidateNodes = items.map(item => item.ref)
 
   if (focusIntent === 'last') {
     candidateNodes.reverse()
@@ -102,11 +102,17 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
    */
   setTimeout(() => focusFirst(candidateNodes))
 })
+
+defineExpose({
+  $el: elRef,
+})
 </script>
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="(el: any) => {
+      elRef = el?.$el
+    }"
     :as="as"
     :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"

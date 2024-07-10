@@ -40,7 +40,7 @@ const handleKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   if (!ACCORDION_KEYS.includes(event.key))
     return
   const target = event.target as HTMLElement
-  const triggerCollection = getItems().filter(item => !item.ref?.disabled)
+  const triggerCollection = getItems().filter(item => !item.ref.disabled)
   const triggerIndex = triggerCollection.findIndex(item => item.ref === target)
   const triggerCount = triggerCollection.length
 
@@ -108,7 +108,7 @@ const handleKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   }
 
   const clampedIndex = nextIndex % triggerCount
-  triggerCollection[clampedIndex]?.ref?.focus()
+  triggerCollection[clampedIndex]?.ref.focus()
 })
 
 provideAccordionContext({

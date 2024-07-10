@@ -18,6 +18,7 @@ const components = [
   'Collapsible',
   'Label',
   'Progress',
+  'Radio Group',
   'Separator',
   'Slider',
   'Switch',
