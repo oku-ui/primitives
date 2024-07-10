@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { Label } from '../../label/index.ts'
 import { Switch, SwitchThumb } from '../index.ts'
 import './styles.css'
 </script>

@@ -1,4 +1,4 @@
-import { Comment, Fragment, type VNode, cloneVNode } from 'vue'
+import { Comment, Fragment, type VNode } from 'vue'
 import { PatchFlags } from '@vue/shared'
 
 // TODO: wip

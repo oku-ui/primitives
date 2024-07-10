@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onUpdated, shallowRef, useAttrs, watch, watchEffect } from 'vue'
+import { computed, shallowRef, useAttrs, watch, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useId, useTemplateElRef } from '../hooks/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
