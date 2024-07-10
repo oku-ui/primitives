@@ -1,4 +1,4 @@
-import { Comment, type VNode, defineComponent, shallowRef, warn } from 'vue'
+import { Comment, type VNode, cloneVNode, defineComponent, shallowRef, warn } from 'vue'
 import { getRawChildren } from '../utils/getRawChildren.ts'
 import { ELEMENT_NODE } from '../primitive/Primitive.ts'
 
@@ -7,7 +7,7 @@ export const Slot = defineComponent({
   setup(_, { slots, expose }) {
     const elRef = shallowRef<HTMLElement>()
 
-    function setElRef(el: any) {
+    function ref(el: any) {
       const node = (el?.$el ?? el)
       const elNode = node && node.nodeType === ELEMENT_NODE ? node : undefined
       if (elNode === elRef)
@@ -23,7 +23,7 @@ export const Slot = defineComponent({
       if (!slots.default)
         return null
 
-      const children = slots.default && getRawChildren(slots.default(), undefined, undefined, setElRef)
+      const children = slots.default && getRawChildren(slots.default())
 
       if (!children || !children.length)
         return null
@@ -50,8 +50,11 @@ export const Slot = defineComponent({
         }
       }
 
-      if (child && child.type !== Comment)
-        return child
+      if (child && child.type !== Comment) {
+        return cloneVNode(child, {
+          ref,
+        }, true)
+      }
 
       return null
     }
