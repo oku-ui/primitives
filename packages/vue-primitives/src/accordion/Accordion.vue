@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends AccordionType">
-import { computed, shallowRef, toRef, useAttrs } from 'vue'
+import { computed, shallowRef, useAttrs } from 'vue'
 import { useDirection } from '../direction/Direction.ts'
 import { useControllableState, useId, useTemplateElRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
@@ -115,7 +115,9 @@ provideAccordionContext({
   id: useId(),
   collapsible: props.collapsible,
 
-  disabled: toRef(props, 'disabled'),
+  disabled() {
+    return props.disabled
+  },
   direction,
   orientation: props.orientation,
   value: computed(() => {

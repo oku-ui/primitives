@@ -16,9 +16,9 @@ const context = useProgressContext()
   <Primitive
     :as="as"
     :as-child="asChild"
-    :data-state="getProgressState(context.value.value, context.max.value)"
-    :data-value="context.value.value ?? undefined"
-    :data-max="context.max.value"
+    :data-state="getProgressState(context.value(), context.max())"
+    :data-value="context.value() ?? undefined"
+    :data-max="context.max()"
   >
     <slot />
   </Primitive>

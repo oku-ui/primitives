@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useControllableState, useId } from '../hooks/index.ts'
 import { getState } from './utils.ts'
@@ -19,7 +18,9 @@ const open = useControllableState(props, v => emit('update:open', v), 'open', pr
 
 provideCollapsibleContext({
   contentId: useId(),
-  disabled: toRef(props, 'disabled'),
+  disabled() {
+    return props.disabled
+  },
   open,
   onOpenToggle() {
     open.value = !open.value

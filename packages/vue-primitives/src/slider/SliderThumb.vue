@@ -39,7 +39,7 @@ const size = useSize(thumbRef)
 // We cast because index could be `-1` which would return undefined
 const value = computed(() => context.values.value[index.value])
 
-const percent = computed(() => value.value === undefined ? 0 : convertValueToPercentage(value.value, context.min.value, context.max.value))
+const percent = computed(() => value.value === undefined ? 0 : convertValueToPercentage(value.value, context.min(), context.max()))
 const label = computed(() => getLabel(index.value, context.values.value.length))
 
 const thumbInBoundsOffset = computed(() => {
@@ -80,13 +80,13 @@ defineExpose({
       :as-child="asChild"
       role="slider"
       :aria-label="$attrs['aria-label'] || label"
-      :aria-valuemin="context.min.value"
+      :aria-valuemin="context.min()"
       :aria-valuenow="value"
-      :aria-valuemax="context.max.value"
-      :aria-orientation="context.orientation.value"
-      :data-orientation="context.orientation.value"
-      :data-disabled="context.disabled.value ? '' : undefined"
-      :tabindex="context.disabled.value ? undefined : 0"
+      :aria-valuemax="context.max()"
+      :aria-orientation="context.orientation()"
+      :data-orientation="context.orientation()"
+      :data-disabled="context.disabled() ? '' : undefined"
+      :tabindex="context.disabled() ? undefined : 0"
       v-bind="{
         ...attrs,
         onFocus,
@@ -107,7 +107,7 @@ defineExpose({
     <BubbleInput
       v-if="isFormControl"
       :key="index"
-      :name=" name ?? (context.name.value ? context.name.value + (context.values.value.length > 1 ? '[]' : '') : undefined)"
+      :name=" name ?? (context.name() ? context.name() + (context.values.value.length > 1 ? '[]' : '') : undefined)"
       :value="value"
     />
   </span>

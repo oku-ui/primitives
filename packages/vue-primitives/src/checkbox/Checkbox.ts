@@ -20,7 +20,7 @@ export type CheckedState = boolean | 'indeterminate'
 
 export interface CheckboxContext {
   state: Ref<CheckedState>
-  disabled: Ref<boolean>
+  disabled: () => boolean
 }
 
 export const [provideCheckboxContext, useCheckboxContext] = createContext<CheckboxContext>('Checkbox')

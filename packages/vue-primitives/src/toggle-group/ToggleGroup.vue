@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends ToggleGroupType">
-import { computed, toRef, useAttrs } from 'vue'
+import { computed, useAttrs } from 'vue'
 import { useControllableState } from '../hooks/index.ts'
 import { useDirection } from '../direction/Direction.ts'
 import { RovingFocusGroup } from '../roving-focus/index.ts'
@@ -31,7 +31,9 @@ const TYPE_SINGLE = 'single' as const satisfies ToggleGroupType
 const direction = useDirection(() => props.dir)
 
 provideToggleGroupContext({
-  type: toRef(props, 'type'),
+  type() {
+    return props.type
+  },
   value: computed(() => {
     if (props.type === TYPE_SINGLE)
       return typeof value.value === 'string' ? [value.value] : []
@@ -53,8 +55,12 @@ provideToggleGroupContext({
       value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value
     }
   },
-  rovingFocus: toRef(props, 'rovingFocus'),
-  disabled: toRef(props, 'disabled'),
+  rovingFocus() {
+    return props.rovingFocus
+  },
+  disabled() {
+    return props.disabled
+  },
 })
 </script>
 

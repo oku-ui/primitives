@@ -15,7 +15,7 @@ export type CollapsibleEmits = {
 
 export interface CollapsibleContext {
   contentId: string
-  disabled?: Ref<boolean>
+  disabled: () => boolean
   open: Ref<boolean>
   onOpenToggle: () => void
 }

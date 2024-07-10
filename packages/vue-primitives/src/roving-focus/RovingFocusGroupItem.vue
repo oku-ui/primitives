@@ -75,7 +75,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
     return
 
-  const focusIntent = getFocusIntent(event, context.orientation.value, context.dir.value)
+  const focusIntent = getFocusIntent(event, context.orientation(), context.dir.value)
 
   if (!focusIntent)
     return
@@ -91,7 +91,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
     if (focusIntent === 'prev')
       candidateNodes.reverse()
     const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-    candidateNodes = context.loop.value
+    candidateNodes = context.loop()
       ? wrapArray(candidateNodes, currentIndex + 1)
       : candidateNodes.slice(currentIndex + 1)
   }
@@ -115,7 +115,7 @@ defineExpose({
     :as="as"
     :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"
-    :data-orientation="context.orientation.value"
+    :data-orientation="context.orientation()"
     :[ITEM_DATA_ATTR]="true"
     v-bind="{
       ...attrs,

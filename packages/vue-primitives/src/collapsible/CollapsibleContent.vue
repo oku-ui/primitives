@@ -86,7 +86,7 @@ onMounted(async () => {
     :as="as"
     :as-child="asChild"
     :data-state="getState(context.open.value)"
-    :data-disabled="context.disabled?.value ? '' : undefined"
+    :data-disabled="context.disabled() ? '' : undefined"
     :hidden="!isOpen"
     :style="{
       '--radix-collapsible-content-height': '0px',

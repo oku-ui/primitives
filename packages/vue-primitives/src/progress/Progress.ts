@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { createContext } from '../hooks/index.ts'
 import { isNumber } from '../utils/is.ts'
@@ -12,8 +11,8 @@ export interface ProgressProps extends PrimitiveProps {
 type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
 interface ProgressContext {
-  value: Ref<number | null>
-  max: Ref<number>
+  value: () => number | null
+  max: () => number
 }
 
 export const [provideProgressContext, useProgressContext] = createContext<ProgressContext>('Progress')

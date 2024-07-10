@@ -79,9 +79,9 @@ export interface AccordionContext {
   id: string
   collapsible: boolean
 
-  disabled: Ref<boolean>
-  direction: Ref<AccordionImplProps['dir']>
-  orientation: AccordionImplProps['orientation']
+  disabled: () => boolean
+  direction: Ref<Direction>
+  orientation: AriaAttributes['aria-orientation']
 
   value: Ref<string[]>
   onItemOpen: (value: string) => void

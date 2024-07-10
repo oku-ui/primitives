@@ -32,8 +32,8 @@ const onClick = composeEventHandlers((event) => {
     :aria-controls="context.contentId"
     :aria-expanded="context.open.value || false"
     :data-state="getState(context.open.value)"
-    :data-disabled="context.disabled?.value ? '' : undefined"
-    :disabled="context.disabled?.value"
+    :data-disabled="context.disabled() ? '' : undefined"
+    :disabled="context.disabled()"
     v-bind="{
       ...attrs,
       onClick,

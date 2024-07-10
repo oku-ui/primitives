@@ -29,7 +29,7 @@ const isPresent = usePresence(elRef, () => props.forceMount || isIndeterminate(c
     :as="as"
     :as-child="asChild"
     :data-state="getState(context.state.value)"
-    :data-disabled="context.disabled.value ? '' : undefined"
+    :data-disabled="context.disabled() ? '' : undefined"
     :style="{ pointerEvents: 'none' }"
   >
     <slot />

@@ -1,6 +1,6 @@
 <!-- eslint-disable command/command -->
 <script setup lang="ts">
-import { type PropType, computed, shallowRef, toRef, useAttrs, watchEffect } from 'vue'
+import { type PropType, computed, shallowRef, useAttrs, watchEffect } from 'vue'
 import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
 import { isFunction, isNumber } from '../utils/is.ts'
 import { clamp, getDecimalCount, roundValue } from '../utils/number.ts'
@@ -182,14 +182,24 @@ function onSliderPointerdown() {
 Collection.provideCollectionContext(elRef)
 
 provideSliderContext({
-  name: toRef(props, 'name'),
-  disabled: toRef(props, 'disabled'),
-  min: toRef(props.min),
-  max: toRef(props.max),
+  name() {
+    return props.name
+  },
+  disabled() {
+    return props.disabled
+  },
+  min() {
+    return props.min
+  },
+  max() {
+    return props.max
+  },
   valueIndexToChangeRef,
   thumbs: thumbRefs,
   values,
-  orientation: toRef(props.orientation),
+  orientation() {
+    return props.orientation
+  },
 })
 
 // SliderOrientation

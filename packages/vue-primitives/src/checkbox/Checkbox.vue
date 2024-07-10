@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowRef, toRef, useAttrs, watchEffect } from 'vue'
+import { computed, shallowRef, useAttrs, watchEffect } from 'vue'
 import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
@@ -77,7 +77,9 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
 })
 
 provideCheckboxContext({
-  disabled: toRef(props, 'disabled'),
+  disabled() {
+    return props.disabled
+  },
   state: checked,
 })
 

@@ -36,14 +36,14 @@ export type SliderEmits = {
 }
 
 export interface SliderContext {
-  name: Ref<string | undefined>
-  disabled: Ref<boolean>
-  min: Ref<number>
-  max: Ref<number>
+  name: () => string | undefined
+  disabled: () => boolean
+  min: () => number
+  max: () => number
   values: Ref<number[]>
   valueIndexToChangeRef: { value: number }
   thumbs: Set<HTMLElement>
-  orientation: Ref<SliderProps['orientation']>
+  orientation: () => SliderProps['orientation']
 }
 
 export const [provideSliderContext, useSliderContext] = createContext<SliderContext>('Slider')

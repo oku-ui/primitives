@@ -17,7 +17,7 @@ withDefaults(defineProps<SliderRangeProps>(), {
 const context = useSliderContext('SliderRange')
 const orientation = useSliderOrientationContext('SliderRange')
 
-const percentages = computed(() => context.values.value.map(value => convertValueToPercentage(value, context.min.value, context.max.value)))
+const percentages = computed(() => context.values.value.map(value => convertValueToPercentage(value, context.min(), context.max())))
 
 const offsetStart = computed(() => context.values.value.length > 1 ? Math.min(...percentages.value) : 0)
 const offsetEnd = computed(() => 100 - Math.max(...percentages.value))
@@ -27,8 +27,8 @@ const offsetEnd = computed(() => 100 - Math.max(...percentages.value))
   <Primitive
     :as="as"
     :as-child="asChild"
-    :data-disabled="context.disabled.value ? '' : undefined"
-    :data-orientation="context.orientation.value"
+    :data-disabled="context.disabled() ? '' : undefined"
+    :data-orientation="context.orientation()"
     :style="{
       [orientation.startEdge]: `${offsetStart}%`,
       [orientation.endEdge]: `${offsetEnd}%`,

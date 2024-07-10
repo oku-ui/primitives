@@ -13,7 +13,7 @@ const props = defineProps<AccordionItemProps>()
 
 const context = useAccordionContext()
 const open = computed(() => (props.value && context.value.value.includes(props.value)) || false)
-const disabled = computed(() => context.disabled?.value || props.disabled)
+const disabled = computed(() => context.disabled() || props.disabled)
 
 function onUpdateOpen(open: boolean) {
   if (open)

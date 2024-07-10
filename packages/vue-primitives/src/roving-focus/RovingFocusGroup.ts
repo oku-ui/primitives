@@ -46,16 +46,16 @@ export interface RovingContext {
    * The orientation of the group.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
    */
-  orientation: Ref<Orientation | undefined>
+  orientation: () => Orientation
   /**
    * The direction of navigation between items.
    */
-  dir: Ref<Direction | undefined>
+  dir: Ref<Direction>
   /**
    * Whether keyboard navigation should loop around
    * @defaultValue false
    */
-  loop: Ref<boolean | undefined>
+  loop: () => boolean
   currentTabStopId: Ref<string | null>
   onItemFocus: (tabStopId: string) => void
   onItemShiftTab: () => void

@@ -18,8 +18,8 @@ const context = useSliderContext('SliderTrack')
   <Primitive
     :as="as"
     :as-child="asChild"
-    :data-disabled="context.disabled.value ? '' : undefined"
-    :data-orientation="context.orientation.value"
+    :data-disabled="context.disabled() ? '' : undefined"
+    :data-orientation="context.orientation()"
   >
     <slot />
   </Primitive>

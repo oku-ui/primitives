@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, computed, toRef } from 'vue'
+import { type PropType, computed } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { isNumber } from '../utils/is.ts'
 import { DEFAULT_MAX, type ProgressProps, defaultGetValueLabel, getProgressState, isValidMaxNumber, isValidValueNumber, provideProgressContext } from './Progress.ts'
@@ -45,8 +45,12 @@ const props = defineProps({
 const valueLabel = computed(() => isNumber(props.value) ? props.getValueLabel(props.value, props.max) : undefined)
 
 provideProgressContext({
-  value: toRef(props, 'value'),
-  max: toRef(props, 'max'),
+  value() {
+    return props.value
+  },
+  max() {
+    return props.max
+  },
 })
 </script>
 

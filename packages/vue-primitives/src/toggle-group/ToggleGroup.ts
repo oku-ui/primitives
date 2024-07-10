@@ -62,10 +62,10 @@ interface ToggleGroupImplProps extends PrimitiveProps {
 }
 
 export interface ToggleGroupContext {
-  rovingFocus: Ref<boolean>
-  disabled?: Ref<boolean>
+  rovingFocus: () => boolean
+  disabled: () => boolean
 
-  type: Ref<'single' | 'multiple'>
+  type: () => 'single' | 'multiple'
   value: Ref<string[]>
   onItemActivate: (value: string) => void
   onItemDeactivate: (value: string) => void

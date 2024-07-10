@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, toRef, useAttrs } from 'vue'
+import { shallowRef, useAttrs } from 'vue'
 import { useDirection } from '../direction/index.ts'
 import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
@@ -71,9 +71,13 @@ const onFocusout = composeEventHandlers((event) => {
 })
 
 provideRovingFocusContext({
-  orientation: toRef(props, 'orientation'),
+  orientation() {
+    return props.orientation
+  },
   dir,
-  loop: toRef(props, 'loop'),
+  loop() {
+    return props.loop
+  },
   currentTabStopId,
   onItemFocus(tabStopId) {
     currentTabStopId.value = tabStopId
