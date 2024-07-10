@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends ToggleGroupType">
 import { computed, toRef, useAttrs } from 'vue'
-import { useControllableState } from '../hooks/useControllableState.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { useDirection } from '../direction/Direction.ts'
 import { RovingFocusGroup } from '../roving-focus/index.ts'
 import { Primitive } from '../primitive/index.ts'

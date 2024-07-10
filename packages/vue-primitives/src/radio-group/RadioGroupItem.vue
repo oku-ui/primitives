@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, shallowRef, useAttrs } from 'vue'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { isFunction } from '../utils/is.ts'
+import { useTemplateElRef } from '../hooks/index.ts'
 import { useRadioGroupContext } from './RadioGroup.ts'
 import { ARROW_KEYS, type RadioGroupItem } from './RadioGroupItem.ts'
 import Radio from './Radio.vue'
@@ -15,6 +16,7 @@ defineOptions({
 const props = defineProps<RadioGroupItem>()
 const attrs = useAttrs()
 const elRef = shallowRef<HTMLElement>()
+const setRef = useTemplateElRef(elRef)
 
 const context = useRadioGroupContext()
 
@@ -77,7 +79,7 @@ defineExpose({
     :active="checked"
   >
     <Radio
-      :ref="(el: any) => elRef = el?.$el"
+      :ref="setRef"
       :as="as"
       :as-child="asChild"
       :checked="checked"

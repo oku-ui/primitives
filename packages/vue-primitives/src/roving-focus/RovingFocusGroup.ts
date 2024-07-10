@@ -1,6 +1,6 @@
 import type { AriaAttributes, Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive'
 import type { Direction } from '../direction/index.ts'
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, shallowRef, toRef, useAttrs, watchEffect } from 'vue'
-import { useControllableState } from '../hooks/useControllableState.ts'
+import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { isFunction } from '../utils/is.ts'
@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
 const emit = defineEmits<CheckboxEmits>()
 const attrs = useAttrs()
 const elRef = shallowRef<HTMLButtonElement>()
+const setElRef = useTemplateElRef(elRef)
 
 const hasConsumerStoppedPropagation = shallowRef(false)
 // We set this to true by default so that events bubble to forms without JS (SSR)
@@ -87,7 +88,7 @@ defineExpose({
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     type="button"

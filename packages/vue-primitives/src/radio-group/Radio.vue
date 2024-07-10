@@ -3,6 +3,7 @@ import { computed, shallowRef, useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { isFunction } from '../utils/is.ts'
+import { useTemplateElRef } from '../hooks/index.ts'
 import { type RadioEmits, type RadioProps, getState, provideRadioContext } from './Radio.ts'
 import BubbleInput from './BubbleInput.vue'
 
@@ -19,6 +20,7 @@ const props = withDefaults(defineProps<RadioProps>(), {
 const emit = defineEmits<RadioEmits>()
 const attrs = useAttrs()
 const elRef = shallowRef<HTMLButtonElement>()
+const setElRef = useTemplateElRef(elRef)
 
 const hasConsumerStoppedPropagation = shallowRef(false)
 // We set this to true by default so that events bubble to forms without JS (SSR)
@@ -67,7 +69,7 @@ defineExpose({
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     type="button"

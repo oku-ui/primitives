@@ -1,5 +1,5 @@
 import type { HTMLAttributes, Ref } from 'vue'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 import type { Direction } from '../direction/index.ts'
 import type { PrimitiveProps } from '../primitive/Primitive.ts'
 import { createCollection } from '../collection/Collection.ts'

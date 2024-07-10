@@ -25,11 +25,11 @@ defineExpose({
 <template>
   <component
     :is="asChild ? Slot : as"
-    :ref="(el: any) => {
-      const node = (el?.$el ?? el)
-      const elNode = node && node.nodeType === ELEMENT_NODE ? node : undefined
-      if (elNode === elRef) return
-      elRef = elNode
+    :ref="(nodeRef: any) => {
+      const vnode = (nodeRef?.$el ?? nodeRef)
+      const node = vnode && vnode.nodeType === ELEMENT_NODE ? vnode : undefined
+      if (elRef === node) return
+      elRef = node
     }"
   >
     <slot />

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RovingFocusGroupProps } from '../roving-focus/index.ts'
 

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { toRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { useControllableState } from '../hooks/useControllableState.ts'
-import { useId } from '../hooks/useId.ts'
+import { useControllableState, useId } from '../hooks/index.ts'
 import { getState } from './utils.ts'
 import { type CollapsibleEmits, type CollapsibleProps, provideCollapsibleContext } from './Collapsible.ts'
 

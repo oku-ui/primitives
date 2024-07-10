@@ -1,11 +1,10 @@
 <script setup lang="ts" generic="T extends AccordionType">
 import { computed, shallowRef, toRef, useAttrs } from 'vue'
 import { useDirection } from '../direction/Direction.ts'
-import { useControllableState } from '../hooks/useControllableState.ts'
+import { useControllableState, useId, useTemplateElRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { arrayify } from '../utils/array.ts'
-import { useId } from '../hooks/useId.ts'
 import { isFunction } from '../utils/is.ts'
 import { ACCORDION_KEYS, type AccordionEmits, type AccordionProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './Accordion.ts'
 
@@ -27,6 +26,7 @@ const emit = defineEmits<AccordionEmits<T>>()
 const attrs = useAttrs()
 
 const elRef = shallowRef<HTMLElement>()
+const setElRef = useTemplateElRef(elRef)
 
 const direction = useDirection(() => props.dir)
 const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
@@ -146,7 +146,7 @@ provideAccordionContext({
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     v-bind="{

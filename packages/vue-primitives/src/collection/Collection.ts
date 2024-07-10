@@ -1,5 +1,5 @@
 import { type Ref, type ShallowReactive, type ShallowRef, shallowReactive, watchEffect } from 'vue'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 
 export const ITEM_DATA_ATTR = 'data-radix-collection-item'
 

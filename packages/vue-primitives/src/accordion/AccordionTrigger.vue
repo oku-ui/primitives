@@ -2,6 +2,7 @@
 import { shallowRef } from 'vue'
 import { CollapsibleTrigger } from '../collapsible/index.ts'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
+import { useTemplateElRef } from '../hooks/index.ts'
 import { Collection, useAccordionContext } from './Accordion.ts'
 import type { AccordionTriggerProps } from './AccordionTrigger.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
@@ -12,6 +13,7 @@ defineOptions({
 
 defineProps<AccordionTriggerProps>()
 const elRef = shallowRef<HTMLButtonElement>()
+const setElRef = useTemplateElRef(elRef)
 
 Collection.useCollectionItem(elRef, undefined)
 
@@ -22,7 +24,7 @@ const itemContext = useAccordionItemContext()
 <template>
   <CollapsibleTrigger
     :id="itemContext.triggerId"
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     :aria-disabled="(itemContext.open.value && !accordionContext.collapsible) || undefined"

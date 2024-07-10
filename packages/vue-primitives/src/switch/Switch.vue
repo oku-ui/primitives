@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs } from 'vue'
-import { useControllableState } from '../hooks/useControllableState.ts'
+import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { isFunction } from '../utils/is.ts'
@@ -20,8 +20,9 @@ const props = withDefaults(defineProps<SwitchProps>(), {
 })
 const emit = defineEmits<SwitchEmits>()
 const attrs = useAttrs()
-
 const buttonEl = shallowRef<HTMLButtonElement>()
+const setElRef = useTemplateElRef(buttonEl)
+
 const hasConsumerStoppedPropagation = shallowRef(false)
 
 // We set this to true by default so that events bubble to forms without JS (SSR)
@@ -68,7 +69,7 @@ defineExpose({
 
 <template>
   <Primitive
-    :ref="(el: any) => buttonEl = el?.$el"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     type="button"

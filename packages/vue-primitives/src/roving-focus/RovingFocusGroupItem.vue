@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, shallowRef, useAttrs, watch, watchEffect } from 'vue'
+import { computed, onUpdated, shallowRef, useAttrs, watch, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { useId } from '../hooks/useId.ts'
+import { useId, useTemplateElRef } from '../hooks/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
 import { isFunction } from '../utils/is.ts'
@@ -20,6 +20,8 @@ const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
   as: 'span',
 })
 const attrs = useAttrs()
+const elRef = shallowRef<HTMLElement>()
+const setElRef = useTemplateElRef(elRef)
 
 const id = computed(() => props.tabStopId || useId())
 const context = useRovingFocusContext()
@@ -36,7 +38,6 @@ watch(() => props.focusable, (value, _, onCleanup) => {
   }
 }, { immediate: true })
 
-const elRef = shallowRef<HTMLElement>()
 const itemData: ItemData = { id: id.value, focusable: props.focusable, active: props.active }
 watchEffect(() => {
   itemData.active = props.active
@@ -110,9 +111,7 @@ defineExpose({
 
 <template>
   <Primitive
-    :ref="(el: any) => {
-      elRef = el?.$el
-    }"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"

@@ -2,7 +2,7 @@
 import { computed, shallowRef, useAttrs, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
 import { Primitive } from '../primitive/index.ts'
-import { useSize } from '../hooks/useSize.ts'
+import { useSize, useTemplateElRef } from '../hooks/index.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
 import { isFunction } from '../utils/is.ts'
 import type { SliderThumbProps } from './SliderThumb.ts'
@@ -20,8 +20,8 @@ withDefaults(defineProps<SliderThumbProps>(), {
   as: 'span',
 })
 const attrs = useAttrs()
-
 const thumbRef = shallowRef<HTMLSpanElement>()
+const setElRef = useTemplateElRef(thumbRef)
 
 const getItems = useCollection()
 
@@ -75,7 +75,7 @@ defineExpose({
     }"
   >
     <Primitive
-      :ref="(el: any) => thumbRef = el?.$el"
+      :ref="setElRef"
       :as="as"
       :as-child="asChild"
       role="slider"

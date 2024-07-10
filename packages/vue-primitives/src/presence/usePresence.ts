@@ -1,5 +1,5 @@
 import { type Ref, computed, toValue, watch, watchEffect } from 'vue'
-import { useStateMachine } from '../hooks/useStateMachine.ts'
+import { useStateMachine } from '../hooks/index.ts'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
   return styles?.animationName || 'none'

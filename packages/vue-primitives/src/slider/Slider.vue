@@ -1,7 +1,7 @@
 <!-- eslint-disable command/command -->
 <script setup lang="ts">
 import { type PropType, computed, shallowRef, toRef, useAttrs, watchEffect } from 'vue'
-import { useControllableState } from '../hooks/useControllableState.ts'
+import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
 import { isFunction, isNumber } from '../utils/is.ts'
 import { clamp, getDecimalCount, roundValue } from '../utils/number.ts'
 import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
@@ -91,6 +91,7 @@ const emit = defineEmits<{
 }>()
 const attrs = useAttrs()
 const elRef = shallowRef<HTMLSpanElement>()
+const setElRef = useTemplateElRef(elRef)
 
 const thumbRefs: SliderContext['thumbs'] = new Set()
 const valueIndexToChangeRef: SliderContext['valueIndexToChangeRef'] = { value: 0 }
@@ -337,7 +338,7 @@ const onPointerup = composeEventHandlers<PointerEvent>((event) => {
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     :dir="direction"

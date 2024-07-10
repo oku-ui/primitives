@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef, watch } from 'vue'
-import { useSize } from '../hooks/useSize.ts'
+import { useSize } from '../hooks/index.ts'
 import type { BubbleInputProps } from './BubbleInput.ts'
 import { isIndeterminate } from './utils.ts'
 

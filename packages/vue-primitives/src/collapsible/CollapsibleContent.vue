@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
+import { useTemplateElRef } from '../hooks/index.ts'
 import type { CollapsibleContentProps } from './CollapsibleContent.ts'
 import { useCollapsibleContext } from './Collapsible.ts'
 import { getState } from './utils.ts'
@@ -12,6 +13,7 @@ defineOptions({
 
 const props = defineProps<CollapsibleContentProps>()
 const elRef = shallowRef<HTMLElement>()
+const setElRef = useTemplateElRef(elRef)
 
 const context = useCollapsibleContext()
 
@@ -80,7 +82,7 @@ onMounted(async () => {
 <template>
   <Primitive
     :id="context.contentId"
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="setElRef"
     :as="as"
     :as-child="asChild"
     :data-state="getState(context.open.value)"

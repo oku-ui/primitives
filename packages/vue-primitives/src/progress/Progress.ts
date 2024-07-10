@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 import { isNumber } from '../utils/is.ts'
 
 export interface ProgressProps extends PrimitiveProps {

@@ -1,6 +1,5 @@
 import type { Ref, UnwrapRef } from 'vue'
-import { createContext } from '../hooks/createContext.ts'
-import type { useSize } from '../hooks/useSize.ts'
+import { createContext, type useSize } from '../hooks/index.ts'
 
 type Side = 'top' | 'right' | 'bottom' | 'left'
 
