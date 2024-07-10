@@ -14,7 +14,7 @@ export function usePresence(
   let prevAnimationName = 'none'
   const initialState = toValue(present) ? 'mounted' : 'unmounted'
 
-  const { state, dispatch: send } = useStateMachine(initialState, {
+  const [state, send] = useStateMachine(initialState, {
     mounted: {
       UNMOUNT: 'unmounted',
       ANIMATION_OUT: 'unmountSuspended',
