@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs } from 'vue'
-import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { isFunction } from '../utils/is.ts'
 import { type SwitchEmits, type SwitchProps, getState, provideSwitchContext } from './Switch.ts'
 import BubbleInput from './BubbleInput.vue'
@@ -20,13 +20,13 @@ const props = withDefaults(defineProps<SwitchProps>(), {
 })
 const emit = defineEmits<SwitchEmits>()
 const attrs = useAttrs()
-const buttonEl = shallowRef<HTMLButtonElement>()
-const setElRef = useTemplateElRef(buttonEl)
+const $el = shallowRef<HTMLButtonElement>()
+const forwardedRef = forwardRef($el)
 
 const hasConsumerStoppedPropagation = shallowRef(false)
 
 // We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => buttonEl.value ? Boolean(buttonEl.value.closest('form')) : true)
+const isFormControl = computed(() => $el.value ? Boolean($el.value.closest('form')) : true)
 
 const checked = useControllableState(props, v => emit('update:checked', v), 'checked', props.defaultChecked)
 
@@ -63,13 +63,13 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
 })
 
 defineExpose({
-  $el: buttonEl,
+  $el,
 })
 </script>
 
 <template>
   <Primitive
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     type="button"
@@ -89,7 +89,7 @@ defineExpose({
   </Primitive>
   <BubbleInput
     v-if="isFormControl"
-    :control="buttonEl"
+    :control="$el"
     :bubbles="!hasConsumerStoppedPropagation"
     :name="name"
     :value="value"

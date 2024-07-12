@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { shallowRef, useAttrs } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroup } from '../roving-focus/index.ts'
+import { forwardRef } from '../utils/vue.ts'
 import { type RadioGroupEmits, type RadioGroupProps, provideRadioGroupContext } from './RadioGroup.ts'
 
 defineOptions({
@@ -18,8 +19,8 @@ const props = withDefaults(defineProps<RadioGroupProps>(), {
 })
 const emit = defineEmits<RadioGroupEmits>()
 const attrs = useAttrs()
-const elRef = shallowRef<HTMLElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const direction = useDirection(() => props.dir)
 
@@ -42,7 +43,7 @@ provideRadioGroupContext({
 })
 
 defineExpose({
-  $el: elRef,
+  $el,
 })
 </script>
 
@@ -54,7 +55,7 @@ defineExpose({
     :loop="loop"
   >
     <Primitive
-      :ref="setElRef"
+      :ref="forwardedRef"
       :as="as"
       :as-child="asChild"
       role="radiogroup"

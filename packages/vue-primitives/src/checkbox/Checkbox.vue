@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs, watchEffect } from 'vue'
-import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { isFunction } from '../utils/is.ts'
 import { type CheckboxEmits, type CheckboxProps, provideCheckboxContext } from './Checkbox.ts'
 import { getState, isIndeterminate } from './utils.ts'
@@ -20,18 +20,18 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
 })
 const emit = defineEmits<CheckboxEmits>()
 const attrs = useAttrs()
-const elRef = shallowRef<HTMLButtonElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLButtonElement>()
+const forwardedRef = forwardRef($el)
 
 const hasConsumerStoppedPropagation = shallowRef(false)
 // We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => elRef.value ? Boolean(elRef.value.closest('form')) : true)
+const isFormControl = computed(() => $el.value ? Boolean($el.value.closest('form')) : true)
 const checked = useControllableState(props, v => emit('update:checked', v), 'checked', props.defaultChecked)
 
 const initialCheckedStateRef = checked.value
 
 watchEffect((onCleanup) => {
-  const form = elRef.value?.form
+  const form = $el.value?.form
   if (form) {
     const reset = () => {
       checked.value = initialCheckedStateRef
@@ -84,13 +84,13 @@ provideCheckboxContext({
 })
 
 defineExpose({
-  $el: elRef,
+  $el,
 })
 </script>
 
 <template>
   <Primitive
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     type="button"
@@ -112,7 +112,7 @@ defineExpose({
 
   <BubbleInput
     v-if="isFormControl"
-    :control="elRef"
+    :control="$el"
     :bubbles="!hasConsumerStoppedPropagation"
     :name="name"
     :value="value"

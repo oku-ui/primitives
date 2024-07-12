@@ -1,0 +1,64 @@
+<script setup lang="ts">
+import { shallowRef, watchEffect } from 'vue'
+import { usePresence } from '../presence/index.ts'
+import { forwardRef } from '../utils/vue.ts'
+import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
+import type { ScrollAreaScrollbarHoverProps } from './ScrollAreaScrollbarHover.ts'
+import { useScrollAreaContext } from './ScrollArea.ts'
+
+defineOptions({
+  name: 'ScrollAreaScrollbarHover',
+})
+
+const props = withDefaults(defineProps<ScrollAreaScrollbarHoverProps>(), {
+  orientation: 'vertical',
+})
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
+
+const context = useScrollAreaContext('ScrollAreaScrollbarHover')
+const visible = shallowRef(false)
+
+watchEffect((onCleanup) => {
+  const scrollArea = context.scrollArea.value
+  if (!scrollArea)
+    return
+
+  let hideTimer = 0
+
+  const handlePointerEnter = () => {
+    window.clearTimeout(hideTimer)
+    visible.value = true
+  }
+
+  const handlePointerLeave = () => {
+    hideTimer = window.setTimeout(() => {
+      visible.value = false
+    }, context.scrollHideDelay())
+  }
+
+  scrollArea.addEventListener('pointerenter', handlePointerEnter)
+  scrollArea.addEventListener('pointerleave', handlePointerLeave)
+
+  onCleanup(() => {
+    window.clearTimeout(hideTimer)
+    scrollArea.removeEventListener('pointerenter', handlePointerEnter)
+    scrollArea.removeEventListener('pointerleave', handlePointerLeave)
+  })
+})
+
+const isPresent = usePresence($el, () => props.forceMount || visible.value)
+</script>
+
+<template>
+  <ScrollAreaScrollbarAuto
+    v-if="isPresent"
+    :ref="forwardedRef"
+    :as="as"
+    :as-child="asChild"
+    :orientation="orientation"
+    :data-state="visible ? 'visible' : 'hidden'"
+  >
+    <slot />
+  </ScrollAreaScrollbarAuto>
+</template>

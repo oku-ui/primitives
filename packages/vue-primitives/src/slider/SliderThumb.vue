@@ -2,8 +2,8 @@
 import { computed, shallowRef, useAttrs, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
 import { Primitive } from '../primitive/index.ts'
-import { useSize, useTemplateElRef } from '../hooks/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { useSize } from '../hooks/index.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { isFunction } from '../utils/is.ts'
 import type { SliderThumbProps } from './SliderThumb.ts'
 import { Collection, useCollection, useSliderContext } from './Slider.ts'
@@ -20,21 +20,21 @@ withDefaults(defineProps<SliderThumbProps>(), {
   as: 'span',
 })
 const attrs = useAttrs()
-const thumbRef = shallowRef<HTMLSpanElement>()
-const setElRef = useTemplateElRef(thumbRef)
+const $el = shallowRef<HTMLSpanElement>()
+const forwardedRef = forwardRef($el)
 
 const getItems = useCollection()
 
-const index = computed(() => thumbRef.value ? getItems().findIndex(item => item.ref === thumbRef.value) : -1)
+const index = computed(() => $el.value ? getItems().findIndex(item => item.ref === $el.value) : -1)
 
-Collection.useCollectionItem(thumbRef, undefined)
+Collection.useCollectionItem($el, undefined)
 
 const context = useSliderContext('SliderThumbImpl')
 const orientation = useSliderOrientationContext('SliderThumbImpl')
 
 // We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => thumbRef.value ? Boolean(thumbRef.value.closest('form')) : true)
-const size = useSize(thumbRef)
+const isFormControl = computed(() => $el.value ? Boolean($el.value.closest('form')) : true)
+const size = useSize($el)
 
 // We cast because index could be `-1` which would return undefined
 const value = computed(() => context.values.value[index.value])
@@ -48,7 +48,7 @@ const thumbInBoundsOffset = computed(() => {
 })
 
 isClient && watchEffect((onCleanup) => {
-  const thumb = thumbRef.value
+  const thumb = $el.value
   if (thumb) {
     context.thumbs.add(thumb)
     onCleanup(() => context.thumbs.delete(thumb))
@@ -62,7 +62,7 @@ const onFocus = composeEventHandlers((event) => {
 })
 
 defineExpose({
-  $el: thumbRef,
+  $el,
 })
 </script>
 
@@ -75,7 +75,7 @@ defineExpose({
     }"
   >
     <Primitive
-      :ref="setElRef"
+      :ref="forwardedRef"
       :as="as"
       :as-child="asChild"
       role="slider"

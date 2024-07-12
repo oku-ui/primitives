@@ -2,7 +2,7 @@
 import { shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/index.ts'
-import { useTemplateElRef } from '../hooks/index.ts'
+import { forwardRef } from '../utils/vue.ts'
 import { getState, useRadioContext } from './Radio.ts'
 import type { RadioGroupIndicatorProps } from './RadioGroupIndicator.ts'
 
@@ -13,18 +13,18 @@ defineOptions({
 const props = withDefaults(defineProps<RadioGroupIndicatorProps>(), {
   as: 'span',
 })
-const elRef = shallowRef<HTMLSpanElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLSpanElement>()
+const forwardedRef = forwardRef($el)
 
 const context = useRadioContext('RadioGroupIndicator')
 
-const isPresent = usePresence(elRef, () => props.forceMount || context.checked())
+const isPresent = usePresence($el, () => props.forceMount || context.checked())
 </script>
 
 <template>
   <Primitive
     v-if="isPresent"
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :data-state="getState(context.checked())"

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { shallowRef, useAttrs } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { isFunction } from '../utils/is.ts'
 import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils.ts'
 import { Collection, type RovingFocusGroupEmits, type RovingFocusGroupProps, provideRovingFocusContext, useCollection } from './RovingFocusGroup.ts'
@@ -18,13 +18,13 @@ const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
 })
 const emit = defineEmits<RovingFocusGroupEmits>()
 const attrs = useAttrs()
-const elRef = shallowRef<HTMLElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const dir = useDirection(() => props.dir)
 const currentTabStopId = useControllableState(props, v => emit('update:currentTabStopId', v), 'currentTabStopId', props.defaultCurrentTabStopId)
 
-const collectionContext = Collection.provideCollectionContext(elRef)
+const collectionContext = Collection.provideCollectionContext($el)
 const getItems = useCollection(collectionContext)
 const isTabbingBackOut = shallowRef(false)
 let isClickFocus = false
@@ -96,7 +96,7 @@ provideRovingFocusContext({
 
 <template>
   <Primitive
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"

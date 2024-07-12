@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs, watch, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { useId, useTemplateElRef } from '../hooks/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { useId } from '../hooks/index.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
 import { isFunction } from '../utils/is.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
@@ -20,8 +20,8 @@ const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
   as: 'span',
 })
 const attrs = useAttrs()
-const elRef = shallowRef<HTMLElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const id = computed(() => props.tabStopId || useId())
 const context = useRovingFocusContext()
@@ -44,7 +44,7 @@ watchEffect(() => {
   itemData.focusable = props.focusable
   itemData.id = id.value
 })
-Collection.useCollectionItem(elRef, itemData)
+Collection.useCollectionItem($el, itemData)
 
 const onMousedown = composeEventHandlers((event) => {
   isFunction(attrs.onMousedown) && attrs.onMousedown(event)
@@ -105,13 +105,13 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 })
 
 defineExpose({
-  $el: elRef,
+  $el,
 })
 </script>
 
 <template>
   <Primitive
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"

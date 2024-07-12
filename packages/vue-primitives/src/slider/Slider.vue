@@ -1,10 +1,10 @@
 <!-- eslint-disable command/command -->
 <script setup lang="ts">
 import { type PropType, computed, shallowRef, useAttrs, watchEffect } from 'vue'
-import { useControllableState, useTemplateElRef } from '../hooks/index.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { isFunction, isNumber } from '../utils/is.ts'
 import { clamp, getDecimalCount, roundValue } from '../utils/number.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { useDirection } from '../direction/Direction.ts'
 import { Primitive } from '../primitive/index.ts'
 import { ARROW_KEYS, BACK_KEYS, Collection, PAGE_KEYS, type SliderContext, type SliderProps, provideSliderContext } from './Slider.ts'
@@ -90,8 +90,8 @@ const emit = defineEmits<{
   'valueCommit': [value: number[]]
 }>()
 const attrs = useAttrs()
-const elRef = shallowRef<HTMLSpanElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLSpanElement>()
+const forwardedRef = forwardRef($el)
 
 const thumbRefs: SliderContext['thumbs'] = new Set()
 const valueIndexToChangeRef: SliderContext['valueIndexToChangeRef'] = { value: 0 }
@@ -179,7 +179,7 @@ function onSliderPointerdown() {
     valuesBeforeSlideStartRef = values.value
 }
 
-Collection.provideCollectionContext(elRef)
+Collection.provideCollectionContext($el)
 
 provideSliderContext({
   name() {
@@ -240,7 +240,7 @@ const isSlidingFromStart = computed(() => {
 })
 
 function getValueFromPointer(pointerPosition: number) {
-  const rect = rectRef || elRef.value!.getBoundingClientRect()
+  const rect = rectRef || $el.value!.getBoundingClientRect()
   const input: [number, number] = [0, rect[orientationLocalState.reactSise]]
   const output: [number, number] = isSlidingFromStart.value === isHorisontal() ? [props.min, props.max] : [props.max, props.min]
   const value = linearScale(input, output)
@@ -348,7 +348,7 @@ const onPointerup = composeEventHandlers<PointerEvent>((event) => {
 
 <template>
   <Primitive
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :dir="direction"

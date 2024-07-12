@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { isFunction } from '../utils/is.ts'
 import type { CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
 import { useCollapsibleContext } from './Collapsible.ts'

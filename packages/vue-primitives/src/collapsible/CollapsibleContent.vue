@@ -2,7 +2,7 @@
 import { computed, nextTick, onMounted, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import { useTemplateElRef } from '../hooks/index.ts'
+import { forwardRef } from '../utils/vue.ts'
 import type { CollapsibleContentProps } from './CollapsibleContent.ts'
 import { useCollapsibleContext } from './Collapsible.ts'
 import { getState } from './utils.ts'
@@ -12,15 +12,15 @@ defineOptions({
 })
 
 const props = defineProps<CollapsibleContentProps>()
-const elRef = shallowRef<HTMLElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const context = useCollapsibleContext()
 
 let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
 
-const isPresent = usePresence(elRef, () => props.forceMount || context.open.value, () => {
-  const node = elRef.value
+const isPresent = usePresence($el, () => props.forceMount || context.open.value, () => {
+  const node = $el.value
   if (!node)
     return
 
@@ -60,7 +60,7 @@ onMounted(async () => {
   if (!isOpen.value)
     return
 
-  const node = elRef.value
+  const node = $el.value
   if (!node)
     return
 
@@ -82,7 +82,7 @@ onMounted(async () => {
 <template>
   <Primitive
     :id="context.contentId"
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :data-state="getState(context.open.value)"

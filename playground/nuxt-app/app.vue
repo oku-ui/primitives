@@ -19,6 +19,7 @@ const components = [
   'Label',
   'Progress',
   'Radio Group',
+  'Scroll Area',
   'Separator',
   'Slider',
   'Switch',
@@ -98,7 +99,7 @@ provideConfigContext({
 html {
   font-family: system-ui;
   color: #161c26;
-  background: #f0eeee;
+  background: #eeeff0;
 }
 
 body {

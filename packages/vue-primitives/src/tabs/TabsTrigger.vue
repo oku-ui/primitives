@@ -2,9 +2,9 @@
 import { computed, shallowRef, useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { isFunction, isPropFalsy } from '../utils/is.ts'
-import { useTemplateElRef } from '../hooks/index.ts'
+import { forwardRef } from '../utils/vue.ts'
 import { useTabsContext } from './Tabs.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 import type { TabsTriggerProps } from './TabsTrigger.ts'
@@ -18,8 +18,8 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
   as: 'button',
 })
 const attrs = useAttrs()
-const elRef = shallowRef<HTMLElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const context = useTabsContext()
 const triggerId = computed(() => makeTriggerId(context.baseId, props.value))
@@ -59,7 +59,7 @@ const onFocus = composeEventHandlers<FocusEvent>((event) => {
 })
 
 defineExpose({
-  $el: elRef,
+  $el,
 })
 </script>
 
@@ -67,7 +67,7 @@ defineExpose({
   <RovingFocusGroupItem as-child :focusable="isPropFalsy(attrs.disabled)" :active="isSelected">
     <Primitive
       :id="triggerId"
-      :ref="setElRef"
+      :ref="forwardedRef"
       :as="as"
       :as-child="asChild"
       v-bind="{

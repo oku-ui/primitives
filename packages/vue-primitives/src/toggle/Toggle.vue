@@ -2,7 +2,7 @@
 import { useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useControllableState } from '../hooks/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { isFunction, isPropFalsy } from '../utils/is.ts'
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 

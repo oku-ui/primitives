@@ -2,7 +2,7 @@
 import { shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { useTemplateElRef } from '../hooks/index.ts'
+import { forwardRef } from '../utils/vue.ts'
 import { useCheckboxContext } from './Checkbox.ts'
 import type { CheckboxIndicatorProps } from './CheckboxIndicator.ts'
 import { getState, isIndeterminate } from './utils.ts'
@@ -14,18 +14,18 @@ defineOptions({
 const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
   as: 'span',
 })
-const elRef = shallowRef<HTMLElement>()
-const setElRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const context = useCheckboxContext()
 
-const isPresent = usePresence(elRef, () => props.forceMount || isIndeterminate(context.state.value) || context.state.value === true)
+const isPresent = usePresence($el, () => props.forceMount || isIndeterminate(context.state.value) || context.state.value === true)
 </script>
 
 <template>
   <Primitive
     v-if="isPresent"
-    :ref="setElRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :data-state="getState(context.state.value)"

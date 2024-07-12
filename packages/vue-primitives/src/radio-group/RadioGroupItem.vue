@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, shallowRef, useAttrs } from 'vue'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { isFunction } from '../utils/is.ts'
-import { useTemplateElRef } from '../hooks/index.ts'
 import { useRadioGroupContext } from './RadioGroup.ts'
 import { ARROW_KEYS, type RadioGroupItem } from './RadioGroupItem.ts'
 import Radio from './Radio.vue'
@@ -15,8 +14,8 @@ defineOptions({
 
 const props = defineProps<RadioGroupItem>()
 const attrs = useAttrs()
-const elRef = shallowRef<HTMLElement>()
-const setRef = useTemplateElRef(elRef)
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const context = useRadioGroupContext()
 
@@ -64,11 +63,11 @@ const onFocus = composeEventHandlers<FocusEvent>((event) => {
    * of updating `context.value`) so that the radio change event fires.
    */
   if (isArrowKeyPressed)
-    elRef.value?.click()
+    $el.value?.click()
 })
 
 defineExpose({
-  $el: elRef,
+  $el,
 })
 </script>
 
@@ -79,7 +78,7 @@ defineExpose({
     :active="checked"
   >
     <Radio
-      :ref="setRef"
+      :ref="forwardedRef"
       :as="as"
       :as-child="asChild"
       :checked="checked"
