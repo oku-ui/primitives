@@ -9,27 +9,27 @@ import ChromaticDynamicContentBeforeLoaded from '../../../packages/vue-primitive
 
 <template>
   <DemoList>
-    <Demo title="Styled">
+    <Demo title="Basic">
       <Basic />
     </Demo>
 
-    <Demo title="Controlled">
+    <Demo title="Resizable">
       <Resizable />
     </Demo>
 
-    <Demo title="Indeterminate">
+    <Demo title="ContentChange">
       <ContentChange />
     </Demo>
 
-    <Demo title="WithinForm">
+    <Demo title="Animated">
       <Animated />
     </Demo>
 
-    <Demo title="Animated">
+    <Demo title="Chromatic">
       <Chromatic />
     </Demo>
 
-    <Demo title="Chromatic">
+    <Demo title="ChromaticDynamicContentBeforeLoaded">
       <ChromaticDynamicContentBeforeLoaded />
     </Demo>
   </DemoList>
