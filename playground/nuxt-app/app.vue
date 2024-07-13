@@ -25,6 +25,7 @@ const components = [
   'Switch',
   'Tabs',
   'Toggle',
+  'Toolbar',
   'Toggle Group',
 ].map(component => ({
   name: component.replaceAll(' ', ''),

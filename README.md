@@ -58,7 +58,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | Toast                                                                                         | 🚧      |
 | [ToggleGroup](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | ✓      |
 | [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)           | ✓      |
-| Toolbar                                                                                       | 🚧      |
+| [Toolbar](https://vue-primitives.netlify.app/?path=/story/components-toolbar--styled)         | ✓      |
 | Tooltip                                                                                       | 🚧      |
 
 ## Utilites
