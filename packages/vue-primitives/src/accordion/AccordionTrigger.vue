@@ -23,7 +23,7 @@ const itemContext = useAccordionItemContext()
 
 <template>
   <CollapsibleTrigger
-    :id="itemContext.triggerId"
+    :id="itemContext.triggerId()"
     :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
