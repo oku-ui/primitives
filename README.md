@@ -67,7 +67,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | ----------------------------------------------------------------------------------------------------- | ------ |
 | [Collection](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic)       | ✓      |
 | DismissableLayer                                                                                      | 🚧      |
-| FocusScope                                                                                            | 🚧      |
+| [FocusScope](https://vue-primitives.netlify.app/?path=/story/utilities-focusscope--basic)             | ✓      |
 | Menu                                                                                                  | 🚧      |
 | Popper                                                                                                | 🚧      |
 | Portal                                                                                                | 🚧      |
