@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { FocusScope } from '../../focus-scope/index.ts'
+import { FocusScope } from '../index.ts'
 
 const trapped = shallowRef(false)
 const hasDestroyButton = shallowRef(true)

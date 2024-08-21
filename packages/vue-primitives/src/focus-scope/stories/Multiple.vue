@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { FocusScope } from '../../focus-scope/index.ts'
+import { FocusScope } from '../index.ts'
 
 const trapped1 = shallowRef(false)
 const trapped2 = shallowRef(false)
