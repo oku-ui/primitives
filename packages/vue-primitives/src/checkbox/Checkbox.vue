@@ -44,7 +44,8 @@ watchEffect((onCleanup) => {
 })
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
+  if (isFunction(attrs.onKeydown))
+    attrs.onKeydown(event)
 }, (event) => {
   // According to WAI ARIA, Checkboxes don't activate on enter keypress
   if (event.key === 'Enter')
@@ -63,7 +64,8 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
     return this._isPropagationStopped
   }
 
-  isFunction(attrs.onClick) && attrs.onClick(event)
+  if (isFunction(attrs.onClick))
+    attrs.onClick(event)
 }, (event) => {
   checked.value = isIndeterminate(checked.value) ? true : !checked.value
   if (isFormControl.value) {

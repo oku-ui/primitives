@@ -31,13 +31,15 @@ let isClickFocus = false
 const focusableItemsCount = shallowRef(0)
 
 const onMousedown = composeEventHandlers((event) => {
-  isFunction(attrs.onMousedown) && attrs.onMousedown(event)
+  if (isFunction(attrs.onMousedown))
+    attrs.onMousedown(event)
 }, () => {
   isClickFocus = true
 })
 
 const onFocus = composeEventHandlers((event) => {
-  isFunction(attrs.onFocus) && attrs.onFocus(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, (event) => {
   // We normally wouldn't need this check, because we already check
   // that the focus is on the current target and not bubbling to it.
@@ -65,7 +67,8 @@ const onFocus = composeEventHandlers((event) => {
 })
 
 const onFocusout = composeEventHandlers((event) => {
-  isFunction(attrs.onFocusout) && attrs.onFocusout(event)
+  if (isFunction(attrs.onFocusout))
+    attrs.onFocusout(event)
 }, () => {
   isTabbingBackOut.value = false
 })

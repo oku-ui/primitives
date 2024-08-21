@@ -20,7 +20,8 @@ const attrs = useAttrs()
 const context = useCollapsibleContext()
 
 const onClick = composeEventHandlers((event) => {
-  isFunction(attrs.onClick) && attrs.onClick(event)
+  if (isFunction(attrs.onClick))
+    attrs.onClick(event)
 }, context.onOpenToggle)
 </script>
 

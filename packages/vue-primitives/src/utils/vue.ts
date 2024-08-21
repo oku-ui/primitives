@@ -4,9 +4,6 @@ export function forwardRef<T = HTMLElement>(elRef: Ref<T>) {
   function setRef(nodeRef: any) {
     const node = nodeRef?.$el
 
-    if (elRef.value === node)
-      return
-
     elRef.value = node
   }
 

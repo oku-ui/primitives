@@ -21,7 +21,8 @@ const attrs = useAttrs()
 const pressed = useControllableState(props, v => emit('update:pressed', v), 'pressed', props.defaultPressed)
 
 const onClick = composeEventHandlers((event: Event) => {
-  isFunction(attrs.onClick) && attrs.onClick(event)
+  if (isFunction(attrs.onClick))
+    attrs.onClick(event)
 }, () => {
   if (isPropFalsy(attrs.disabled))
     pressed.value = !pressed.value

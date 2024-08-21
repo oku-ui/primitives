@@ -80,7 +80,8 @@ function handleDragScroll(event: PointerEvent) {
 }
 
 const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerdown) && attrs.onPointerdown(event)
+  if (isFunction(attrs.onPointerdown))
+    attrs.onPointerdown(event)
 }, (event) => {
   const mainPointer = 0
   if (event.button !== mainPointer)
@@ -101,13 +102,15 @@ const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
 })
 
 const onPointermove = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointermown) && attrs.onPointermown(event)
+  if (isFunction(attrs.onPointermown))
+    attrs.onPointermown(event)
 }, (event: PointerEvent) => {
   handleDragScroll(event)
 })
 
 const onPointerup = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerup) && attrs.onPointerup(event)
+  if (isFunction(attrs.onPointerup))
+    attrs.onPointerup(event)
 }, (event: PointerEvent) => {
   const element = event.target as HTMLElement
   if (element.hasPointerCapture(event.pointerId))

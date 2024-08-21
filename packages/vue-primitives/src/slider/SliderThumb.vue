@@ -47,16 +47,19 @@ const thumbInBoundsOffset = computed(() => {
   return orientationSize ? getThumbInBoundsOffset(orientationSize, percent.value, orientation.value.direction) : 0
 })
 
-isClient && watchEffect((onCleanup) => {
-  const thumb = $el.value
-  if (thumb) {
-    context.thumbs.add(thumb)
-    onCleanup(() => context.thumbs.delete(thumb))
-  }
-})
+if (isClient) {
+  watchEffect((onCleanup) => {
+    const thumb = $el.value
+    if (thumb) {
+      context.thumbs.add(thumb)
+      onCleanup(() => context.thumbs.delete(thumb))
+    }
+  })
+}
 
 const onFocus = composeEventHandlers((event) => {
-  isFunction(attrs.onFocus) && attrs.onFocus(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, () => {
   context.valueIndexToChangeRef.value = index.value
 })
@@ -107,7 +110,7 @@ defineExpose({
     <BubbleInput
       v-if="isFormControl"
       :key="index"
-      :name=" name ?? (context.name() ? context.name() + (context.values.value.length > 1 ? '[]' : '') : undefined)"
+      :name="name ?? (context.name() ? context.name() + (context.values.value.length > 1 ? '[]' : '') : undefined)"
       :value="value"
     />
   </span>

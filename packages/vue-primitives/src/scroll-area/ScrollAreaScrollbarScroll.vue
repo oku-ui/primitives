@@ -88,13 +88,15 @@ watchEffect((onCleanup) => {
 const isPresent = usePresence($el, () => props.forceMount || state.value !== 'hidden')
 
 const onPointerenter = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerenter) && attrs.onPointerenter(event)
+  if (isFunction(attrs.onPointerenter))
+    attrs.onPointerenter(event)
 }, () => {
   send('POINTER_ENTER')
 })
 
 const onPointerleave = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerleave) && attrs.onPointerleave(event)
+  if (isFunction(attrs.onPointerleave))
+    attrs.onPointerleave(event)
 }, () => {
   send('POINTER_LEAVE')
 })

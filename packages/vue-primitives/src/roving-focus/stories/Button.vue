@@ -20,7 +20,8 @@ const isSelected = computed(() => context.value.value !== undefined
   && context.value.value === props.value)
 
 const onFocus = composeEventHandlers((event) => {
-  isFunction(attrs.onFocus) && attrs.onFocus(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, (event) => {
   if (context.value.value !== undefined) {
     (event.target as HTMLElement).click()

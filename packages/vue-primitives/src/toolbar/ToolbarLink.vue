@@ -17,7 +17,8 @@ withDefaults(defineProps<ToolbarLinkProps>(), {
 const attrs = useAttrs()
 
 const onKeydown = composeEventHandlers((event) => {
-  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
+  if (isFunction(attrs.onKeydown))
+    attrs.onKeydown(event)
 }, (event: KeyboardEvent) => {
   if (event.key === ' ') {
     (event.currentTarget as HTMLElement).click()

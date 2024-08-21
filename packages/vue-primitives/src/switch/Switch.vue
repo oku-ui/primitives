@@ -48,7 +48,9 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
   event.isPropagationStopped = function isPropagationStopped() {
     return this._isPropagationStopped
   }
-  isFunction(attrs.onClick) && attrs.onClick(event)
+
+  if (isFunction(attrs.onClick))
+    attrs.onClick(event)
 }, (event) => {
   checked.value = !checked.value
 

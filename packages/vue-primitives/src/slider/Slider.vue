@@ -289,7 +289,8 @@ provideSliderOrientationContext(orientationContext)
 // SliderImpl
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
+  if (isFunction(attrs.onKeydown))
+    attrs.onKeydown(event)
 }, (event) => {
   if (event.key === 'Home') {
     onSliderHomeKeyDown()
@@ -309,7 +310,8 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 })
 
 const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerdown) && attrs.onPointerdown(event)
+  if (isFunction(attrs.onPointerdown))
+    attrs.onPointerdown(event)
 }, (event) => {
   onSliderPointerdown()
 
@@ -328,7 +330,8 @@ const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
 })
 
 const onPointermove = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointermove) && attrs.onPointermove(event)
+  if (isFunction(attrs.onPointermove))
+    attrs.onPointermove(event)
 }, (event) => {
   const target = event.target as HTMLElement
   if (target.hasPointerCapture(event.pointerId))
@@ -336,7 +339,8 @@ const onPointermove = composeEventHandlers<PointerEvent>((event) => {
 })
 
 const onPointerup = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerup) && attrs.onPointerup(event)
+  if (isFunction(attrs.onPointerup))
+    attrs.onPointerup(event)
 }, (event) => {
   const target = event.target as HTMLElement
   if (target.hasPointerCapture(event.pointerId)) {

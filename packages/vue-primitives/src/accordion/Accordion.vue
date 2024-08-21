@@ -35,7 +35,8 @@ const TYPE_SINGLE = 'single' as const satisfies AccordionType
 const collectionContext = Collection.provideCollectionContext($el)
 const getItems = useCollection(collectionContext)
 const handleKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
+  if (isFunction(attrs.onKeydown))
+    attrs.onKeydown(event)
 }, (event) => {
   if (!ACCORDION_KEYS.includes(event.key))
     return

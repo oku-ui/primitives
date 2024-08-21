@@ -47,7 +47,8 @@ watchEffect(() => {
 Collection.useCollectionItem($el, itemData)
 
 const onMousedown = composeEventHandlers((event) => {
-  isFunction(attrs.onMousedown) && attrs.onMousedown(event)
+  if (isFunction(attrs.onMousedown))
+    attrs.onMousedown(event)
 }, (event) => {
   // We prevent focusing non-focusable items on `mousedown`.
   // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
@@ -58,11 +59,13 @@ const onMousedown = composeEventHandlers((event) => {
 })
 
 const onFocus = composeEventHandlers((event) => {
-  isFunction(attrs.onFocus) && attrs.onFocus(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, () => context.onItemFocus(id.value))
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  isFunction(attrs.onKeydown) && attrs.onKeydown(event)
+  if (isFunction(attrs.onKeydown))
+    attrs.onKeydown(event)
 }, (event) => {
   if (event.key === 'Tab' && event.shiftKey) {
     context.onItemShiftTab()

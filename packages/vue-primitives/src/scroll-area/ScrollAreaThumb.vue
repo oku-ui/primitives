@@ -64,7 +64,8 @@ watchEffect((onCleanup) => {
 })
 
 const onPointerdownCapture = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerdownCapture) && attrs.onPointerdownCapture(event)
+  if (isFunction(attrs.onPointerdownCapture))
+    attrs.onPointerdownCapture(event)
 }, (event) => {
   const thumb = event.target as HTMLElement
   const thumbRect = thumb.getBoundingClientRect()
@@ -74,7 +75,8 @@ const onPointerdownCapture = composeEventHandlers<PointerEvent>((event) => {
 })
 
 const onPointerup = composeEventHandlers<PointerEvent>((event) => {
-  isFunction(attrs.onPointerup) && attrs.onPointerup(event)
+  if (isFunction(attrs.onPointerup))
+    attrs.onPointerup(event)
 }, scrollbarContext.onThumbPointerUp)
 
 const isPresent = usePresence(scrollbarContext.thumb, () => props.forceMount || scrollbarContext.hasThumb.value)

@@ -55,7 +55,8 @@ function onKeyDown(event: KeyboardEvent) {
 }
 
 const onFocus = composeEventHandlers<FocusEvent>((event) => {
-  isFunction(attrs.onFocus) && attrs.onFocus(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, () => {
   /**
    * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys

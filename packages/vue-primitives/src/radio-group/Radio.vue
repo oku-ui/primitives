@@ -37,7 +37,8 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
     return this._isPropagationStopped
   }
 
-  isFunction(attrs.onClick) && attrs.onClick(event)
+  if (isFunction(attrs.onClick))
+    attrs.onClick(event)
 }, (event) => {
   // radios cannot be unchecked so we only communicate a checked state
   if (!props.checked)
