@@ -72,7 +72,7 @@ useEscapeKeydown((event) => {
   if (!isHighestLayer)
     return
 
-  emit('escapeKeyDown', event)
+  emit('escapeKeydown', event)
 
   if (!event.defaultPrevented) {
     event.preventDefault()
@@ -151,9 +151,12 @@ const onPointerdownCapture = composeEventHandlers<FocusEvent>((event) => {
           : 'none'
         : undefined,
     }"
-    @focus.capture="onFocusCapture"
-    @blur.capture="onBlurCapture"
-    @pointerdown.capture="onPointerdownCapture"
+    v-bind="{
+      ...attrs,
+      onFocusCapture,
+      onBlurCapture,
+      onPointerdownCapture,
+    }"
   >
     <slot />
   </Primitive>

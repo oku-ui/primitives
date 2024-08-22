@@ -19,7 +19,7 @@ export type DismissableLayerEmits = {
    * Event handler called when the escape key is down.
    * Can be prevented.
    */
-  escapeKeyDown: [event: KeyboardEvent]
+  escapeKeydown: [event: KeyboardEvent]
   /**
    * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
    * Can be prevented.

@@ -28,7 +28,7 @@ export function usePointerdownOutside(
     onPointerdownCapture: () => (isPointerInsideDOMTree = true),
   }
 
-  if (isClient) {
+  if (!isClient) {
     return ret
   }
 
@@ -44,10 +44,11 @@ export function usePointerdownOutside(
 
       const target = event.target as HTMLElement
 
-      if (isLayerExist(node.value, target)) {
-        isPointerInsideDOMTree = false
-        return
-      }
+      // TODO: wip
+      // if (isLayerExist(node.value, target)) {
+      //   isPointerInsideDOMTree = false
+      //   return
+      // }
 
       if (target && !isPointerInsideDOMTree) {
         const eventDetail = { originalEvent: event }
@@ -131,7 +132,7 @@ export function useFocusOutside(
     onBlurCapture: () => (isFocusInsideDOMTree = false),
   }
 
-  if (isClient) {
+  if (!isClient) {
     return ret
   }
 
@@ -142,10 +143,11 @@ export function useFocusOutside(
     const ownerDocument = nodeVal.ownerDocument
 
     async function handleFocus(event: FocusEvent) {
-      await nextTick()
+      // await nextTick()
 
-      if (!node.value || isLayerExist(node.value, event.target as HTMLElement))
-        return
+      // TODO: wip
+      // if (!node.value || isLayerExist(node.value, event.target as HTMLElement))
+      // return
 
       if (event.target && !isFocusInsideDOMTree) {
         const eventDetail = { originalEvent: event }

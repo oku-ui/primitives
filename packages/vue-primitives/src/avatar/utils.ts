@@ -6,34 +6,35 @@ import type { AvatarImageProps } from './AvatarImage.ts'
 export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() => AvatarImageProps['src'])) {
   const loadingStatus = shallowRef<ImageLoadingStatus>('idle')
 
-  if (isClient) {
-    watchEffect((onCleanup) => {
-      const value = toValue(src)
+  if (!isClient)
+    return loadingStatus
 
-      if (!value) {
-        loadingStatus.value = 'error'
+  watchEffect((onCleanup) => {
+    const value = toValue(src)
+
+    if (!value) {
+      loadingStatus.value = 'error'
+      return
+    }
+
+    let isMounted = true
+    const image = new window.Image()
+
+    const updateStatus = (status: ImageLoadingStatus) => () => {
+      if (!isMounted)
         return
-      }
+      loadingStatus.value = status
+    }
 
-      let isMounted = true
-      const image = new window.Image()
+    loadingStatus.value = 'loading'
+    image.onload = updateStatus('loaded')
+    image.onerror = updateStatus('error')
+    image.src = value
 
-      const updateStatus = (status: ImageLoadingStatus) => () => {
-        if (!isMounted)
-          return
-        loadingStatus.value = status
-      }
-
-      loadingStatus.value = 'loading'
-      image.onload = updateStatus('loaded')
-      image.onerror = updateStatus('error')
-      image.src = value
-
-      onCleanup(() => {
-        isMounted = false
-      })
+    onCleanup(() => {
+      isMounted = false
     })
-  }
+  })
 
   return loadingStatus
 }
