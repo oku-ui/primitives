@@ -1,15 +1,15 @@
 import { type Ref, type ShallowReactive, type ShallowRef, shallowReactive, watchEffect } from 'vue'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 
 export const ITEM_DATA_ATTR = 'data-radix-collection-item'
 
-export interface ContextValue<ItemElement extends HTMLElement, ItemData = object> {
+export interface CollectionContext<ItemElement extends HTMLElement, ItemData = object> {
   collectionRef: ShallowRef<HTMLElement | undefined>
   itemMap: ShallowReactive<Map<ItemElement, { ref: ItemElement, attrs: ItemData }>>
 }
 
 export function createCollection<ItemElement extends HTMLElement, ItemData = object>(name: string) {
-  const [_provideCollectionContext, useCollectionContext] = createContext<ContextValue<ItemElement, ItemData>>(`${name}CollectionProvider`)
+  const [_provideCollectionContext, useCollectionContext] = createContext<CollectionContext<ItemElement, ItemData>>(`${name}CollectionProvider`)
 
   function provideCollectionContext(collectionRef: ShallowRef<HTMLElement | undefined>, provide = true) {
     // TODO: array ItemElement & {_attrs: {}}?
@@ -95,7 +95,7 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
     }
   }
 
-  function useCollection(thereContext?: ContextValue<ItemElement, ItemData>) {
+  function useCollection(thereContext?: CollectionContext<ItemElement, ItemData>) {
     const context = thereContext || useCollectionContext(`${name}CollectionConsumer`)
 
     const getItems = () => {

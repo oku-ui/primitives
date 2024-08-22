@@ -20,12 +20,12 @@ export function useStateMachine<M>(
     return nextState ?? state.value
   }
 
-  const dispatch = (event: MachineEvent<M>) => {
+  const send = (event: MachineEvent<M>) => {
     state.value = reducer(event)
   }
 
-  return {
+  return [
     state,
-    dispatch,
-  }
+    send,
+  ] as const
 }

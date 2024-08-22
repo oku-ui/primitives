@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useAttrs } from 'vue'
-import Primitive from '../primitive/Primitive.vue'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { Primitive } from '../primitive/index.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
+import { isFunction } from '../utils/is.ts'
 import type { CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
 import { useCollapsibleContext } from './Collapsible.ts'
 import { getState } from './utils.ts'
@@ -18,8 +19,9 @@ const attrs = useAttrs()
 
 const context = useCollapsibleContext()
 
-const onClick = composeEventHandlers((e) => {
-  (attrs.onClick as Function | undefined)?.(e)
+const onClick = composeEventHandlers((event) => {
+  if (isFunction(attrs.onClick))
+    attrs.onClick(event)
 }, context.onOpenToggle)
 </script>
 
@@ -31,8 +33,8 @@ const onClick = composeEventHandlers((e) => {
     :aria-controls="context.contentId"
     :aria-expanded="context.open.value || false"
     :data-state="getState(context.open.value)"
-    :data-disabled="context.disabled?.value ? '' : undefined"
-    :disabled="context.disabled?.value"
+    :data-disabled="context.disabled() ? '' : undefined"
+    :disabled="context.disabled()"
     v-bind="{
       ...attrs,
       onClick,

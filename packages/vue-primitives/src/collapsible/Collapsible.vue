@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { useControllableState } from '../hooks/useControllableState.ts'
-import { useId } from '../hooks/useId.ts'
+import { useControllableState, useId } from '../hooks/index.ts'
 import { getState } from './utils.ts'
 import { type CollapsibleEmits, type CollapsibleProps, provideCollapsibleContext } from './Collapsible.ts'
 
@@ -16,11 +14,13 @@ const props = withDefaults(defineProps<CollapsibleProps>(), {
 })
 const emit = defineEmits<CollapsibleEmits>()
 
-const open = useControllableState(props, emit, 'open', props.defaultOpen)
+const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
 
 provideCollapsibleContext({
   contentId: useId(),
-  disabled: toRef(props, 'disabled'),
+  disabled() {
+    return props.disabled
+  },
   open,
   onOpenToggle() {
     open.value = !open.value

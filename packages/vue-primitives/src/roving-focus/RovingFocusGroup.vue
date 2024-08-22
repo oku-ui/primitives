@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { shallowRef, toRef, useAttrs } from 'vue'
+import { shallowRef, useAttrs } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import { useControllableState } from '../hooks/useControllableState.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { isFunction } from '../utils/is.ts'
 import { ENTRY_FOCUS, EVENT_OPTIONS, focusFirst } from './utils.ts'
 import { Collection, type RovingFocusGroupEmits, type RovingFocusGroupProps, provideRovingFocusContext, useCollection } from './RovingFocusGroup.ts'
 
@@ -17,26 +18,28 @@ const props = withDefaults(defineProps<RovingFocusGroupProps>(), {
 })
 const emit = defineEmits<RovingFocusGroupEmits>()
 const attrs = useAttrs()
-
-const elRef = shallowRef<HTMLElement>()
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const dir = useDirection(() => props.dir)
-const currentTabStopId = useControllableState(props, emit, 'currentTabStopId', props.defaultCurrentTabStopId)
+const currentTabStopId = useControllableState(props, v => emit('update:currentTabStopId', v), 'currentTabStopId', props.defaultCurrentTabStopId)
 
-const collectionContext = Collection.provideCollectionContext(elRef)
+const collectionContext = Collection.provideCollectionContext($el)
 const getItems = useCollection(collectionContext)
 const isTabbingBackOut = shallowRef(false)
 let isClickFocus = false
 const focusableItemsCount = shallowRef(0)
 
 const onMousedown = composeEventHandlers((event) => {
-  (attrs.onMousedown as Function | undefined)?.(event)
+  if (isFunction(attrs.onMousedown))
+    attrs.onMousedown(event)
 }, () => {
   isClickFocus = true
 })
 
 const onFocus = composeEventHandlers((event) => {
-  (attrs.onFocus as Function | undefined)?.(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, (event) => {
   // We normally wouldn't need this check, because we already check
   // that the focus is on the current target and not bubbling to it.
@@ -55,7 +58,7 @@ const onFocus = composeEventHandlers((event) => {
       const activeItem = items.find(item => item.attrs.active)
       const currentItem = items.find(item => item.attrs.id === currentTabStopId.value)
       const candidateItems = [activeItem, currentItem, ...items].filter(Boolean) as typeof items
-      const candidateNodes = candidateItems.map(item => item.ref!)
+      const candidateNodes = candidateItems.map(item => item.ref)
       focusFirst(candidateNodes, props.preventScrollOnEntryFocus)
     }
   }
@@ -64,15 +67,20 @@ const onFocus = composeEventHandlers((event) => {
 })
 
 const onFocusout = composeEventHandlers((event) => {
-  ;(attrs.onFocusout as Function | undefined)?.(event)
+  if (isFunction(attrs.onFocusout))
+    attrs.onFocusout(event)
 }, () => {
   isTabbingBackOut.value = false
 })
 
 provideRovingFocusContext({
-  orientation: toRef(props, 'orientation'),
+  orientation() {
+    return props.orientation
+  },
   dir,
-  loop: toRef(props, 'loop'),
+  loop() {
+    return props.loop
+  },
   currentTabStopId,
   onItemFocus(tabStopId) {
     currentTabStopId.value = tabStopId
@@ -91,7 +99,7 @@ provideRovingFocusContext({
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :tabindex="isTabbingBackOut || focusableItemsCount === 0 ? -1 : 0"

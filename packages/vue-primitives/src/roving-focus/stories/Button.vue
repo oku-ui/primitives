@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
-import { RovingFocusItem } from '../index.ts'
-import { composeEventHandlers } from '../../utils/composeEventHandlers.ts'
+import { RovingFocusGroupItem } from '../index.ts'
+import { composeEventHandlers } from '../../utils/vue.ts'
+import { isFunction } from '../../utils/is.ts'
 import { useButtonGroupContext } from './utils.ts'
 
 const props = withDefaults(defineProps<{
@@ -19,7 +20,8 @@ const isSelected = computed(() => context.value.value !== undefined
   && context.value.value === props.value)
 
 const onFocus = composeEventHandlers((event) => {
-  ;(attrs.onFocus as Function | undefined)?.(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, (event) => {
   if (context.value.value !== undefined) {
     (event.target as HTMLElement).click()
@@ -28,7 +30,7 @@ const onFocus = composeEventHandlers((event) => {
 </script>
 
 <template>
-  <RovingFocusItem as-child :active="isSelected" :focusable="!disabled">
+  <RovingFocusGroupItem as-child :active="isSelected" :focusable="!disabled">
     <button
       :value="value"
       :disabled="disabled"
@@ -39,8 +41,8 @@ const onFocus = composeEventHandlers((event) => {
         borderRadius: '5px',
         ...(isSelected
           ? {
-            borderColor: 'black',
-            backgroundColor: 'black',
+            borderColor: '#111',
+            backgroundColor: '#111',
             color: 'white',
           }
           : {}),
@@ -58,5 +60,5 @@ const onFocus = composeEventHandlers((event) => {
     >
       <slot />
     </button>
-  </RovingFocusItem>
+  </RovingFocusGroupItem>
 </template>

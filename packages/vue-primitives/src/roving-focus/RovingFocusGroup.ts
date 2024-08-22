@@ -1,10 +1,10 @@
 import type { AriaAttributes, Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive'
+import type { Direction } from '../direction/index.ts'
 
 type Orientation = AriaAttributes['aria-orientation']
-type Direction = 'ltr' | 'rtl'
 
 export interface RovingFocusGroupProps extends PrimitiveProps {
   /**
@@ -46,16 +46,16 @@ export interface RovingContext {
    * The orientation of the group.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
    */
-  orientation: Ref<Orientation | undefined>
+  orientation: () => Orientation
   /**
    * The direction of navigation between items.
    */
-  dir: Ref<Direction | undefined>
+  dir: Ref<Direction>
   /**
    * Whether keyboard navigation should loop around
    * @defaultValue false
    */
-  loop: Ref<boolean | undefined>
+  loop: () => boolean
   currentTabStopId: Ref<string | null>
   onItemFocus: (tabStopId: string) => void
   onItemShiftTab: () => void

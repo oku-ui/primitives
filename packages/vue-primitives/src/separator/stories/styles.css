@@ -1,6 +1,6 @@
 .separator_root {
     border: none;
-    background-color: red;
+    background-color: crimson;
   
     &[data-orientation="horizontal"] {
       height: 1px;

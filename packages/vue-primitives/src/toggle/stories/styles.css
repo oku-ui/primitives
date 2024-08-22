@@ -7,7 +7,7 @@
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px black;
+    box-shadow: 0 0 0 2px #111;
   }
 
   &[data-disabled] {
@@ -15,7 +15,7 @@
   }
 
   &[data-state="off"] {
-    background-color: red;
+    background-color: crimson;
     color: white;
   }
 

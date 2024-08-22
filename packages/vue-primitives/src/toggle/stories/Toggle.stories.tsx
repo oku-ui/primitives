@@ -15,5 +15,4 @@ export function Controlled() {
 export function Chromatic() {
   return CChromatic
 }
-
 Chromatic.parameters = { chromatic: { disable: false } }

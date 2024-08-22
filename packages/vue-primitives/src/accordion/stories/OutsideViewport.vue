@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
-import { shallowRef } from 'vue'
 import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../index.ts'
+import './styles.css'
 </script>
 
 <template>

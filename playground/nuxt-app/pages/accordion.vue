@@ -10,38 +10,30 @@ import Chromatic from '../../../packages/vue-primitives/src/accordion/stories/Ch
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Single</h1>
+  <DemoList>
+    <Demo title="Single">
       <Single />
-    </section>
-    <section>
-      <h1>Multiple</h1>
+    </Demo>
+    <Demo title="Multiple">
       <Multiple />
-    </section>
-    <section>
-      <h1>Animated</h1>
+    </Demo>
+    <Demo title="Animated">
       <Animated />
-    </section>
-    <section>
-      <h1>Animated2D</h1>
+    </Demo>
+    <Demo title="Animated2D">
       <Animated2D />
-    </section>
-    <section>
-      <h1>AnimatedControlled</h1>
+    </Demo>
+    <Demo title="AnimatedControlled">
       <AnimatedControlled />
-    </section>
-    <section>
-      <h1>OutsideViewport</h1>
+    </Demo>
+    <Demo title="OutsideViewport">
       <OutsideViewport />
-    </section>
-    <section>
-      <h1>Horizontal</h1>
+    </Demo>
+    <Demo title="Horizontal">
       <Horizontal />
-    </section>
-    <section>
-      <h1>Chromatic</h1>
+    </Demo>
+    <Demo title="Chromatic">
       <Chromatic />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>

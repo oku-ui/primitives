@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
-import { RovingFocusItem } from '../roving-focus/index.ts'
+import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { Toggle } from '../toggle/index.ts'
 import type { ToggleGroupItemProps } from './ToggleGroupItem.ts'
 import { useToggleGroupContext } from './ToggleGroup.ts'
@@ -15,10 +15,10 @@ const attrs = useAttrs()
 
 const context = useToggleGroupContext()
 const pressed = computed(() => context.value.value?.includes(props.value))
-const disabled = computed(() => context.disabled?.value || props.disabled)
+const disabled = computed(() => context.disabled() || props.disabled)
 
 const typeProps = computed(() => {
-  if (context.type.value === 'single')
+  if (context.type() === 'single')
     return { 'role': 'radio', 'aria-checked': props.pressed, 'aria-pressed': undefined }
 
   return {}
@@ -35,8 +35,8 @@ function onUpdatePressed(pressed?: boolean) {
 </script>
 
 <template>
-  <RovingFocusItem
-    v-if="context.rovingFocus.value"
+  <RovingFocusGroupItem
+    v-if="context.rovingFocus()"
     as-child
     :focusable="!disabled"
     :active="pressed"
@@ -54,7 +54,7 @@ function onUpdatePressed(pressed?: boolean) {
     >
       <slot />
     </Toggle>
-  </RovingFocusItem>
+  </RovingFocusGroupItem>
   <Toggle
     v-else
     :as="as"

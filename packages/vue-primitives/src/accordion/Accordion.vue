@@ -1,12 +1,16 @@
 <script setup lang="ts" generic="T extends AccordionType">
-import { computed, shallowRef, toRef, useAttrs } from 'vue'
+import { computed, shallowRef, useAttrs } from 'vue'
 import { useDirection } from '../direction/Direction.ts'
-import { useControllableState } from '../hooks/useControllableState.ts'
+import { useControllableState, useId } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { arrayify } from '../utils/array.ts'
-import { useId } from '../hooks/useId.ts'
+import { isFunction } from '../utils/is.ts'
 import { ACCORDION_KEYS, type AccordionEmits, type AccordionProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './Accordion.ts'
+
+type SingleValue = Exclude<AccordionProps<'single'>['value'], undefined>
+type MultipleValue = Exclude<AccordionProps<'multiple'>['value'], undefined>
+type Value = T extends 'single' ? SingleValue : MultipleValue
 
 defineOptions({
   name: 'Accordion',
@@ -21,25 +25,23 @@ const props = withDefaults(defineProps<AccordionProps<T>>(), {
 const emit = defineEmits<AccordionEmits<T>>()
 const attrs = useAttrs()
 
-const elRef = shallowRef<HTMLElement>()
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const direction = useDirection(() => props.dir)
-
-const value = useControllableState(props, emit, 'value', props.defaultValue)
+const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
 const TYPE_SINGLE = 'single' as const satisfies AccordionType
-type SingleValue = NonNullable<AccordionProps<'single'>['value']>
-type MultipleValue = NonNullable<AccordionProps<'multiple'>['value']>
-type Value = T extends 'single' ? SingleValue : MultipleValue
 
-const collectionContext = Collection.provideCollectionContext(elRef)
+const collectionContext = Collection.provideCollectionContext($el)
 const getItems = useCollection(collectionContext)
-const handleKeydown = composeEventHandlers<KeyboardEvent>(() => {
-  ;(attrs.onKeydown as Function | undefined)?.()
+const handleKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  if (isFunction(attrs.onKeydown))
+    attrs.onKeydown(event)
 }, (event) => {
   if (!ACCORDION_KEYS.includes(event.key))
     return
   const target = event.target as HTMLElement
-  const triggerCollection = getItems().filter(item => !item.ref?.disabled)
+  const triggerCollection = getItems().filter(item => !item.ref.disabled)
   const triggerIndex = triggerCollection.findIndex(item => item.ref === target)
   const triggerCount = triggerCollection.length
 
@@ -107,14 +109,16 @@ const handleKeydown = composeEventHandlers<KeyboardEvent>(() => {
   }
 
   const clampedIndex = nextIndex % triggerCount
-  triggerCollection[clampedIndex]?.ref?.focus()
+  triggerCollection[clampedIndex]?.ref.focus()
 })
 
 provideAccordionContext({
   id: useId(),
   collapsible: props.collapsible,
 
-  disabled: toRef(props, 'disabled'),
+  disabled() {
+    return props.disabled
+  },
   direction,
   orientation: props.orientation,
   value: computed(() => {
@@ -145,7 +149,7 @@ provideAccordionContext({
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     v-bind="{
@@ -155,7 +159,7 @@ provideAccordionContext({
           handleKeydown(e)
       },
     }"
-    :data-orientation="props.orientation"
+    :data-orientation="orientation"
   >
     <slot />
   </Primitive>

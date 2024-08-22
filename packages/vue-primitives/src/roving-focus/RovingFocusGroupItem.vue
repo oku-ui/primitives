@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs, watch, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { useId } from '../hooks/useId.ts'
-import { composeEventHandlers } from '../utils/composeEventHandlers.ts'
+import { useId } from '../hooks/index.ts'
+import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
+import { isFunction } from '../utils/is.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroup.ts'
-import type { RovingFocusItemProps } from './RovingFocusItem.ts'
+import type { RovingFocusGroupItemProps } from './RovingFocusGroupItem.ts'
 
 defineOptions({
-  name: 'RovingFocusGroup',
+  name: 'RovingFocusGroupItem',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<RovingFocusItemProps>(), {
+const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
   focusable: true,
   active: true,
   as: 'span',
 })
 const attrs = useAttrs()
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const id = computed(() => props.tabStopId || useId())
 const context = useRovingFocusContext()
@@ -35,17 +38,17 @@ watch(() => props.focusable, (value, _, onCleanup) => {
   }
 }, { immediate: true })
 
-const elRef = shallowRef<HTMLElement>()
 const itemData: ItemData = { id: id.value, focusable: props.focusable, active: props.active }
 watchEffect(() => {
   itemData.active = props.active
   itemData.focusable = props.focusable
   itemData.id = id.value
 })
-Collection.useCollectionItem(elRef, itemData)
+Collection.useCollectionItem($el, itemData)
 
 const onMousedown = composeEventHandlers((event) => {
-  ;(attrs.onMousedown as Function | undefined)?.(event)
+  if (isFunction(attrs.onMousedown))
+    attrs.onMousedown(event)
 }, (event) => {
   // We prevent focusing non-focusable items on `mousedown`.
   // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
@@ -56,11 +59,13 @@ const onMousedown = composeEventHandlers((event) => {
 })
 
 const onFocus = composeEventHandlers((event) => {
-  ;(attrs.onFocus as Function | undefined)?.(event)
+  if (isFunction(attrs.onFocus))
+    attrs.onFocus(event)
 }, () => context.onItemFocus(id.value))
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  ;(attrs.onKeydown as Function | undefined)?.(event)
+  if (isFunction(attrs.onKeydown))
+    attrs.onKeydown(event)
 }, (event) => {
   if (event.key === 'Tab' && event.shiftKey) {
     context.onItemShiftTab()
@@ -73,14 +78,14 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
     return
 
-  const focusIntent = getFocusIntent(event, context.orientation.value, context.dir.value)
+  const focusIntent = getFocusIntent(event, context.orientation(), context.dir.value)
 
   if (!focusIntent)
     return
 
   event.preventDefault()
   const items = getItems().filter(item => item.attrs.focusable)
-  let candidateNodes = items.map(item => item.ref!)
+  let candidateNodes = items.map(item => item.ref)
 
   if (focusIntent === 'last') {
     candidateNodes.reverse()
@@ -89,7 +94,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
     if (focusIntent === 'prev')
       candidateNodes.reverse()
     const currentIndex = candidateNodes.indexOf(event.currentTarget as HTMLElement)
-    candidateNodes = context.loop.value
+    candidateNodes = context.loop()
       ? wrapArray(candidateNodes, currentIndex + 1)
       : candidateNodes.slice(currentIndex + 1)
   }
@@ -101,15 +106,19 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
    */
   setTimeout(() => focusFirst(candidateNodes))
 })
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"
-    :data-orientation="context.orientation.value"
+    :data-orientation="context.orientation()"
     :[ITEM_DATA_ATTR]="true"
     v-bind="{
       ...attrs,

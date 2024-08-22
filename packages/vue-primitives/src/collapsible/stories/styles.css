@@ -12,7 +12,7 @@
   appearance: none;
   border: none;
   padding: 10px;
-  background-color: black;
+  background-color: #111;
   color: white;
   font-family: inherit;
   font-size: 1.2em;
@@ -20,7 +20,7 @@
   &:focus {
     outline: none;
     box-shadow: inset 0 -5px 0 0 var(--shadow-color);
-    color: red;
+    color: crimson;
   }
 
   &[data-disabled] {
@@ -28,13 +28,13 @@
   }
 
   &[data-state="open"] {
-    background-color: red;
+    background-color: crimson;
     color: white;
   }
 
   &[data-state="open"]:focus {
     --shadow-color: #111;
-    color: black;
+    color: #111;
   }
 
 }
@@ -88,7 +88,6 @@
 .collapsible_animatedContent {
   overflow: hidden;
 
-  /* animation: collapsible_slideUp 300ms ease-in; */
   &[data-state="open"] {
     animation: collapsible_slideDown 300ms ease-out;
   }
@@ -118,7 +117,7 @@
   padding: 10px;
 
   &[data-state="closed"] {
-    border-color: red;
+    border-color: crimson;
   }
 
   &[data-state="open"] {
@@ -137,7 +136,7 @@
 /* .collapsible_rootAttr[data-state="closed"],
 .collapsible_triggerAttr[data-state="closed"],
 .collapsible_contentAttr[data-state="closed"] {
-  border-color: red;
+  border-color: crimson;
 }
 
 .collapsible_rootAttr[data-state="open"],

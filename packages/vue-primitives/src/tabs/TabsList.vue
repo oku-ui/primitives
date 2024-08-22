@@ -2,6 +2,7 @@
 import { shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroup } from '../roving-focus/index.ts'
+import { forwardRef } from '../utils/vue.ts'
 import type { TabsListProps } from './TabsList.ts'
 import { useTabsContext } from './Tabs.ts'
 
@@ -13,12 +14,13 @@ defineOptions({
 withDefaults(defineProps<TabsListProps>(), {
   loop: true,
 })
-const elRef = shallowRef<HTMLElement>()
+const $el = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef($el)
 
 const context = useTabsContext()
 
 defineExpose({
-  $el: elRef,
+  $el,
 })
 </script>
 
@@ -30,7 +32,7 @@ defineExpose({
     :loop="loop"
   >
     <Primitive
-      :ref="(el: any) => elRef = el?.$el"
+      :ref="forwardedRef"
       :as="as"
       :as-child="asChild"
       v-bind="$attrs"

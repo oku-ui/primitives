@@ -1,7 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  debug: true,
-  devtools: { enabled: true },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
+    },
+  },
+
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: 'append',
+      },
+    },
+  },
+
   typescript: {
     tsConfig: {
       compilerOptions: {
@@ -10,4 +24,11 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  $development: {
+    debug: true,
+    devtools: { enabled: true },
+  },
+
+  compatibilityDate: '2024-07-10',
 })

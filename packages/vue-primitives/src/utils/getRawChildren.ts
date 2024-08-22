@@ -1,32 +1,30 @@
-import { Comment, Fragment, type VNode, cloneVNode } from 'vue'
+import { Comment, Fragment, type VNode } from 'vue'
 import { PatchFlags } from '@vue/shared'
 
 // TODO: wip
 export function getRawChildren(
   children: VNode[],
-  keepComment: boolean = false,
-  parentKey?: VNode['key'],
 ): VNode[] {
   let ret: VNode[] = []
   let keyedFragmentCount = 0
   for (let i = 0; i < children.length; i++) {
     const child = children[i]!
     // #5360 inherit parent key in case of <template v-for>
-    const key
-      = parentKey == null
-        ? child.key
-        : String(parentKey) + String(child.key != null ? child.key : i)
+    // const key
+    //   = parentKey == null
+    //     ? child.key
+    //     : String(parentKey) + String(child.key != null ? child.key : i)
     // handle fragment children case, e.g. v-for
     if (child.type === Fragment) {
       if (child.patchFlag & PatchFlags.KEYED_FRAGMENT)
         keyedFragmentCount++
       ret = ret.concat(
-        getRawChildren(child.children as VNode[], keepComment, key),
+        getRawChildren(child.children as VNode[]),
       )
     }
     // comment placeholders should be skipped, e.g. v-if
-    else if (keepComment || child.type !== Comment) {
-      ret.push(key != null ? cloneVNode(child, { key }) : child)
+    else if (child.type !== Comment) {
+      ret.push(child)
     }
   }
   // #1126 if a transition children list contains multiple sub fragments, these

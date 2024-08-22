@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RovingFocusGroupProps } from '../roving-focus/index.ts'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 
 export type ToggleGroupType = 'single' | 'multiple'
 
@@ -62,10 +62,10 @@ interface ToggleGroupImplProps extends PrimitiveProps {
 }
 
 export interface ToggleGroupContext {
-  rovingFocus: Ref<boolean>
-  disabled?: Ref<boolean>
+  rovingFocus: () => boolean
+  disabled: () => boolean
 
-  type: Ref<'single' | 'multiple'>
+  type: () => 'single' | 'multiple'
   value: Ref<string[]>
   onItemActivate: (value: string) => void
   onItemDeactivate: (value: string) => void

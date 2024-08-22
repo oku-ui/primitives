@@ -6,19 +6,16 @@ import { type Ref, type UnwrapRef, computed, nextTick, shallowRef, watch } from 
  *
  * @see https://vueuse.org/useVModel
  * @param props
- * @param emit
+ * @param onChange
  * @param key
  * @param defaultValue
  */
-export function useControllableState<P extends object, K extends keyof P, Name extends string, V = Exclude<P[K], undefined>>(
+export function useControllableState<P extends object, K extends keyof P, V = Exclude<P[K], undefined>>(
   props: P,
-  emit: (name: Name, ...args: any[]) => void,
+  onChange: (value: V) => void,
   key: K,
   defaultValue?: V | undefined,
-  eventName?: string,
 ): Ref<V> {
-  const event: Name = (eventName || `update:${key.toString()}`) as Name
-
   const getValue = (): V => (isDef(props[key])
     ? props[key]
     : defaultValue) as V
@@ -29,7 +26,7 @@ export function useControllableState<P extends object, K extends keyof P, Name e
         return getValue()
       },
       set(value) {
-        emit(event, value)
+        onChange(value)
       },
     })
   }
@@ -52,7 +49,7 @@ export function useControllableState<P extends object, K extends keyof P, Name e
       proxy,
       (v) => {
         if (!isUpdating && (v !== props[key!]))
-          emit(event, v)
+          onChange(v)
       },
     )
 

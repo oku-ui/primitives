@@ -59,7 +59,7 @@ export default defineConfig({
       entry: input,
     },
     rollupOptions: {
-      external: ['vue'],
+      external: ['vue', '@vue/shared'],
     },
   },
   // resolve: {

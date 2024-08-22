@@ -1,10 +1,10 @@
 import type { AriaAttributes, Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { createContext } from '../hooks/createContext.ts'
+import { createContext } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
+import type { Direction } from '../direction/Direction.ts'
 
 export type AccordionType = 'single' | 'multiple'
-type Direction = 'ltr' | 'rtl'
 
 export interface AccordionProps<T extends AccordionType> extends AccordionImplProps {
   type: T
@@ -79,9 +79,9 @@ export interface AccordionContext {
   id: string
   collapsible: boolean
 
-  disabled: Ref<boolean>
-  direction: Ref<AccordionImplProps['dir']>
-  orientation: AccordionImplProps['orientation']
+  disabled: () => boolean
+  direction: Ref<Direction>
+  orientation: AriaAttributes['aria-orientation']
 
   value: Ref<string[]>
   onItemOpen: (value: string) => void

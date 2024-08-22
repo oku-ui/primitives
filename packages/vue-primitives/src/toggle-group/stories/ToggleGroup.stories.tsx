@@ -20,5 +20,4 @@ export function Multiple() {
 export function Chromatic() {
   return CChromatic
 }
-
 Chromatic.parameters = { chromatic: { disable: false } }

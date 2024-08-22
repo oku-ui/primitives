@@ -5,18 +5,15 @@ import Chromatic from '../../../packages/vue-primitives/src/tabs/stories/Chromat
 </script>
 
 <template>
-  <div>
-    <section>
-      <h1>Styled</h1>
+  <DemoList>
+    <Demo title="Styled">
       <Styled />
-    </section>
-    <section>
-      <h1>Animated</h1>
+    </Demo>
+    <Demo title="Animated">
       <Animated />
-    </section>
-    <section>
-      <h1>Chromatic</h1>
+    </Demo>
+    <Demo title="Chromatic">
       <Chromatic />
-    </section>
-  </div>
+    </Demo>
+  </DemoList>
 </template>
