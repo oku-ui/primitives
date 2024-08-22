@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 /** Number of components which have requested interest to have focus guards */
 let count = 0
@@ -11,7 +11,7 @@ export function useFocusGuards() {
     count++
   })
 
-  onBeforeUnmount(() => {
+  onUnmounted(() => {
     if (count === 1) {
       document.querySelectorAll('[data-radix-focus-guard]').forEach(node => node.remove())
     }

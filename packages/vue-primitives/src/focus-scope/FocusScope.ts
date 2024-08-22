@@ -77,7 +77,7 @@ export function getTabbableEdges(container: HTMLElement) {
 export function getTabbableCandidates(container: HTMLElement) {
   const nodes: HTMLElement[] = []
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
-    acceptNode: (node: any) => {
+    acceptNode(node: HTMLInputElement) {
       const isHiddenInput = node.tagName === 'INPUT' && node.type === 'hidden'
       if (node.disabled || node.hidden || isHiddenInput)
         return NodeFilter.FILTER_SKIP
@@ -108,14 +108,18 @@ function findVisible(elements: HTMLElement[], container: HTMLElement) {
 function isHidden(node: HTMLElement, { upTo }: { upTo?: HTMLElement }) {
   if (getComputedStyle(node).visibility === 'hidden')
     return true
+
   while (node) {
     // we stop at `upTo` (excluding it)
     if (upTo !== undefined && node === upTo)
       return false
+
     if (getComputedStyle(node).display === 'none')
       return true
+
     node = node.parentElement as HTMLElement
   }
+
   return false
 }
 
@@ -125,14 +129,15 @@ function isSelectableInput(element: any): element is FocusableTarget & { select:
 
 export function focus(element?: FocusableTarget | null, { select = false } = {}) {
   // only focus if that element is focusable
-  if (element && element.focus) {
-    const previouslyFocusedElement = document.activeElement
-    // NOTE: we prevent scrolling on focus, to minimize jarring transitions for users
-    element.focus({ preventScroll: true })
-    // only select if its not the same element, it supports selection and we need to select
-    if (element !== previouslyFocusedElement && isSelectableInput(element) && select)
-      element.select()
-  }
+  if (!element || !element.focus)
+    return
+
+  const previouslyFocusedElement = document.activeElement
+  // NOTE: we prevent scrolling on focus, to minimize jarring transitions for users
+  element.focus({ preventScroll: true })
+  // only select if its not the same element, it supports selection and we need to select
+  if (element !== previouslyFocusedElement && isSelectableInput(element) && select)
+    element.select()
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -150,9 +155,11 @@ function createFocusScopesStack() {
     add(focusScope: FocusScopeAPI) {
       // pause the currently active focus scope (at the top of the stack)
       const activeFocusScope = stack[0]
+
       if (focusScope !== activeFocusScope) {
         activeFocusScope?.pause()
       }
+
       // remove in case it already exists (because we'll re-add it at the top of the stack)
       stack = arrayRemove(stack, focusScope)
       stack.unshift(focusScope)
@@ -168,9 +175,11 @@ function createFocusScopesStack() {
 function arrayRemove<T>(array: T[], item: T) {
   const updatedArray = [...array]
   const index = updatedArray.indexOf(item)
+
   if (index !== -1) {
     updatedArray.splice(index, 1)
   }
+
   return updatedArray
 }
 
