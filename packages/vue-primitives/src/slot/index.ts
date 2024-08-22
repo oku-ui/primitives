@@ -7,12 +7,9 @@ export const Slot = defineComponent({
   setup(_, { slots, expose }) {
     const elRef = shallowRef<HTMLElement>()
 
-    function setElRef(nodeRef: any) {
+    function forwardRef(nodeRef: any) {
       const vnode = (nodeRef?.$el ?? nodeRef)
-      const node = vnode && vnode.nodeType === ELEMENT_NODE ? vnode : undefined
-      if (elRef.value === node)
-        return
-      elRef.value = node
+      elRef.value = vnode && vnode.nodeType === ELEMENT_NODE ? vnode : undefined
     }
 
     expose({
@@ -52,7 +49,7 @@ export const Slot = defineComponent({
 
       if (child && child.type !== Comment) {
         return cloneVNode(child, {
-          ref: setElRef,
+          ref: forwardRef,
         }, true)
       }
 

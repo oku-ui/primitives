@@ -17,21 +17,18 @@ withDefaults(
 
 const elRef = shallowRef<HTMLElement>()
 
+function forwardRef(nodeRef: any) {
+  const vnode = (nodeRef?.$el ?? nodeRef)
+  elRef.value = vnode && vnode.nodeType === ELEMENT_NODE ? vnode : undefined
+}
+
 defineExpose({
   $el: elRef,
 })
 </script>
 
 <template>
-  <component
-    :is="asChild ? Slot : as"
-    :ref="(nodeRef: any) => {
-      const vnode = (nodeRef?.$el ?? nodeRef)
-      const node = vnode && vnode.nodeType === ELEMENT_NODE ? vnode : undefined
-      if (elRef === node) return
-      elRef = node
-    }"
-  >
+  <component :is="asChild ? Slot : as" :ref="forwardRef">
     <slot />
   </component>
 </template>

@@ -16,7 +16,6 @@ export type AsTag =
   | 'svg'
   | 'ul'
   | 'template'
-  // eslint-disable-next-line ts/ban-types
   | ({} & string) // any other string
 
 export interface PrimitiveProps {
