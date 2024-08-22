@@ -17,6 +17,10 @@ import {
   removeLinks,
 } from './FocusScope.ts'
 
+defineOptions({
+  name: 'FocusScope',
+})
+
 const props = defineProps<FocusScopeProps>()
 const emit = defineEmits<FocusScopeEmits>()
 
