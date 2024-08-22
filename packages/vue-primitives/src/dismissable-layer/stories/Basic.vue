@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import DismissableLayer from '../DismissableLayer.vue'
+import { DismissableLayer } from '../index.ts'
 
 const open = shallowRef(false)
 const openButtonRef = shallowRef<HTMLElement>()

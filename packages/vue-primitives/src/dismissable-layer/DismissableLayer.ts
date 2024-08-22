@@ -1,8 +1,8 @@
 import { shallowReactive } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
 
-type PointerdownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>
-type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
+export type PointerdownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>
+export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 
 export interface DismissableLayerProps extends PrimitiveProps {
   /**
