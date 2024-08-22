@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, shallowRef } from 'vue'
+import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
+import { forwardRef } from '../utils/vue.ts'
 import type { DismissableLayerBranchProps } from './DismissableLayerBranch'
 import { context } from './DismissableLayer.ts'
 
@@ -11,19 +12,20 @@ defineOptions({
 defineProps<DismissableLayerBranchProps>()
 
 const elRef = shallowRef<HTMLElement>()
+const forwardedRef = forwardRef(elRef)
 
 onMounted(() => {
   context.branches.add(elRef.value!)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   context.branches.delete(elRef.value!)
 })
 </script>
 
 <template>
   <Primitive
-    :ref="(el: any) => elRef = el?.$el"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
   >

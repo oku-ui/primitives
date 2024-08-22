@@ -2,9 +2,7 @@ import type { Ref } from 'vue'
 
 export function forwardRef<T = HTMLElement>(elRef: Ref<T>) {
   function setRef(nodeRef: any) {
-    const node = nodeRef?.$el
-
-    elRef.value = node
+    elRef.value = nodeRef?.$el
   }
 
   return setRef

@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/core'
-import { type Ref, nextTick, watchEffect } from 'vue'
+import { type Ref, nextTick, watch } from 'vue'
 
 export type PointerDownOutsideEvent = CustomEvent<{
   originalEvent: PointerEvent
@@ -18,97 +18,102 @@ export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
  */
 export function usePointerdownOutside(
   onPointerDownOutside: (event: PointerDownOutsideEvent) => void,
-  layerEl: Ref<HTMLElement | undefined>,
+  node: Ref<HTMLElement | undefined>,
 ) {
   let isPointerInsideDOMTree = false
   let handleClick = () => { }
 
-  if (isClient) {
-    watchEffect((onCleanup) => {
-      if (!layerEl.value)
-        return
-
-      const ownerDocument = layerEl.value.ownerDocument
-
-      const handlePointerDown = async (event: PointerEvent) => {
-        if (!layerEl.value)
-          return
-
-        const target = event.target as HTMLElement
-
-        if (isElementDescendantOf(layerEl.value, target)) {
-          isPointerInsideDOMTree = false
-          return
-        }
-
-        if (target && !isPointerInsideDOMTree) {
-          const eventDetail = { originalEvent: event }
-
-          function handleAndDispatchPointerDownOutsideEvent() {
-            handleAndDispatchCustomEvent(
-              POINTER_DOWN_OUTSIDE,
-              onPointerDownOutside,
-              eventDetail,
-            )
-          }
-
-          /**
-           * On touch devices, we need to wait for a click event because browsers implement
-           * a ~350ms delay between the time the user stops touching the display and when the
-           * browser executes events. We need to ensure we don't reactivate pointer-events within
-           * this timeframe otherwise the browser may execute events that should have been prevented.
-           *
-           * Additionally, this also lets us deal automatically with cancellations when a click event
-           * isn't raised because the page was considered scrolled/drag-scrolled, long-pressed, etc.
-           *
-           * This is why we also continuously remove the previous listener, because we cannot be
-           * certain that it was raised, and therefore cleaned-up.
-           */
-          if (event.pointerType === 'touch') {
-            ownerDocument.removeEventListener('click', handleClick)
-            handleClick = handleAndDispatchPointerDownOutsideEvent
-            ownerDocument.addEventListener('click', handleClick, { once: true })
-          }
-          else {
-            handleAndDispatchPointerDownOutsideEvent()
-          }
-        }
-        else {
-          // We need to remove the event listener in case the outside click has been canceled.
-          // See: https://github.com/radix-ui/primitives/issues/2171
-          ownerDocument.removeEventListener('click', handleClick)
-        }
-        isPointerInsideDOMTree = false
-      }
-      /**
-       * if this hook executes in a component that mounts via a `pointerdown` event, the event
-       * would bubble up to the document and trigger a `pointerDownOutside` event. We avoid
-       * this by delaying the event listener registration on the document.
-       * This is how the DOM works, ie:
-       * ```
-       * button.addEventListener('pointerdown', () => {
-       *   console.log('I will log');
-       *   document.addEventListener('pointerdown', () => {
-       *     console.log('I will also log');
-       *   })
-       * });
-       */
-      const timerId = window.setTimeout(() => {
-        ownerDocument.addEventListener('pointerdown', handlePointerDown)
-      }, 0)
-
-      onCleanup(() => {
-        window.clearTimeout(timerId)
-        ownerDocument.removeEventListener('pointerdown', handlePointerDown)
-        ownerDocument.removeEventListener('click', handleClick)
-      })
-    })
-  }
-
-  return {
+  const ret = {
     // ensures we check React component tree (not just DOM tree)
     onPointerdownCapture: () => (isPointerInsideDOMTree = true),
   }
+
+  if (isClient) {
+    return ret
+  }
+
+  watch(node, (nodeVal, _, onCleanup) => {
+    if (!nodeVal)
+      return
+
+    const ownerDocument = nodeVal.ownerDocument
+
+    async function handlePointerDown(event: PointerEvent) {
+      if (!node.value)
+        return
+
+      const target = event.target as HTMLElement
+
+      if (isLayerExist(node.value, target)) {
+        isPointerInsideDOMTree = false
+        return
+      }
+
+      if (target && !isPointerInsideDOMTree) {
+        const eventDetail = { originalEvent: event }
+
+        function handleAndDispatchPointerDownOutsideEvent() {
+          handleAndDispatchCustomEvent(
+            POINTER_DOWN_OUTSIDE,
+            onPointerDownOutside,
+            eventDetail,
+          )
+        }
+
+        /**
+         * On touch devices, we need to wait for a click event because browsers implement
+         * a ~350ms delay between the time the user stops touching the display and when the
+         * browser executes events. We need to ensure we don't reactivate pointer-events within
+         * this timeframe otherwise the browser may execute events that should have been prevented.
+         *
+         * Additionally, this also lets us deal automatically with cancellations when a click event
+         * isn't raised because the page was considered scrolled/drag-scrolled, long-pressed, etc.
+         *
+         * This is why we also continuously remove the previous listener, because we cannot be
+         * certain that it was raised, and therefore cleaned-up.
+         */
+        if (event.pointerType === 'touch') {
+          ownerDocument.removeEventListener('click', handleClick)
+          handleClick = handleAndDispatchPointerDownOutsideEvent
+          ownerDocument.addEventListener('click', handleClick, { once: true })
+        }
+        else {
+          handleAndDispatchPointerDownOutsideEvent()
+        }
+      }
+      else {
+        // We need to remove the event listener in case the outside click has been canceled.
+        // See: https://github.com/radix-ui/primitives/issues/2171
+        ownerDocument.removeEventListener('click', handleClick)
+      }
+      isPointerInsideDOMTree = false
+    }
+
+    /**
+     * if this hook executes in a component that mounts via a `pointerdown` event, the event
+     * would bubble up to the document and trigger a `pointerDownOutside` event. We avoid
+     * this by delaying the event listener registration on the document.
+     * This is how the DOM works, ie:
+     * ```
+     * button.addEventListener('pointerdown', () => {
+     *   console.log('I will log');
+     *   document.addEventListener('pointerdown', () => {
+     *     console.log('I will also log');
+     *   })
+     * });
+     */
+    const timerId = window.setTimeout(() => {
+      ownerDocument.addEventListener('pointerdown', handlePointerDown)
+    }, 0)
+
+    onCleanup(() => {
+      window.clearTimeout(timerId)
+      ownerDocument.removeEventListener('pointerdown', handlePointerDown)
+      ownerDocument.removeEventListener('click', handleClick)
+    })
+  })
+
+  return ret
 }
 
 /**
@@ -117,73 +122,52 @@ export function usePointerdownOutside(
  */
 export function useFocusOutside(
   onFocusOutside: (event: FocusOutsideEvent) => void,
-  layerEl: Ref<HTMLElement | undefined>,
+  node: Ref<HTMLElement | undefined>,
 ) {
   let isFocusInsideDOMTree = false
 
-  if (isClient) {
-    watchEffect((onCleanup) => {
-      if (!layerEl.value)
-        return
-
-      const ownerDocument = layerEl.value.ownerDocument
-
-      const handleFocus = async (event: FocusEvent) => {
-        await nextTick()
-
-        if (!layerEl.value || isElementDescendantOf(layerEl.value, event.target as HTMLElement))
-          return
-
-        if (event.target && !isFocusInsideDOMTree) {
-          const eventDetail = { originalEvent: event }
-          handleAndDispatchCustomEvent(FOCUS_OUTSIDE, onFocusOutside, eventDetail)
-        }
-      }
-
-      ownerDocument.addEventListener('focusin', handleFocus)
-
-      onCleanup(() => ownerDocument.removeEventListener('focusin', handleFocus))
-    })
-  }
-
-  return {
+  const ret = {
     onFocusCapture: () => (isFocusInsideDOMTree = true),
     onBlurCapture: () => (isFocusInsideDOMTree = false),
   }
-}
 
-export function useEscapeKeydown(
-  onEscapeKeydownProp: (event: KeyboardEvent) => void,
-  layerEl: Ref<HTMLElement | undefined>,
-) {
-  const handleKeydown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape')
-      onEscapeKeydownProp?.(event)
+  if (isClient) {
+    return ret
   }
 
-  watchEffect((onCleanup) => {
-    if (!layerEl.value)
+  watch(node, (nodeVal, _, onCleanup) => {
+    if (!nodeVal)
       return
 
-    const ownerDocument = layerEl.value.ownerDocument
+    const ownerDocument = nodeVal.ownerDocument
 
-    ownerDocument.addEventListener('keydown', handleKeydown)
+    async function handleFocus(event: FocusEvent) {
+      await nextTick()
 
-    onCleanup(() => ownerDocument.removeEventListener('keydown', handleKeydown))
+      if (!node.value || isLayerExist(node.value, event.target as HTMLElement))
+        return
+
+      if (event.target && !isFocusInsideDOMTree) {
+        const eventDetail = { originalEvent: event }
+        handleAndDispatchCustomEvent(FOCUS_OUTSIDE, onFocusOutside, eventDetail)
+      }
+    }
+
+    ownerDocument.addEventListener('focusin', handleFocus)
+
+    onCleanup(() => ownerDocument.removeEventListener('focusin', handleFocus))
   })
+
+  return ret
 }
 
-function isElementDescendantOf(layerElement: HTMLElement, targetElement: HTMLElement) {
+function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
   const targetLayer = targetElement.closest<HTMLElement>('[data-dismissable-layer]')
 
   if (!targetLayer)
     return false
 
-  const mainLayer = layerElement.dataset.dismissableLayer === ''
-    ? layerElement
-    : layerElement.querySelector<HTMLElement>(
-      '[data-dismissable-layer]',
-    )
+  const mainLayer = layerElement.dataset.dismissableLayer === '' ? layerElement : layerElement.querySelector<HTMLElement>('[data-dismissable-layer]')
 
   if (!mainLayer)
     return false

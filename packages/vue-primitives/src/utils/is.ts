@@ -5,6 +5,7 @@ export function isNumber(value: unknown): value is number {
   return typeof value === 'number'
 }
 
+// eslint-disable-next-line ts/no-unsafe-function-type
 export function isFunction(value: unknown): value is Function {
   return typeof value === 'function'
 }

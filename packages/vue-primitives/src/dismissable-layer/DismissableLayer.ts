@@ -42,6 +42,8 @@ export type DismissableLayerEmits = {
   dismiss: []
 }
 
+export type DismissableLayerElement = HTMLDivElement
+
 export const originalBodyPointerEvents: { value: string | undefined } = { value: undefined }
 
 export const context = {
