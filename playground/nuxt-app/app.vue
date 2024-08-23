@@ -7,6 +7,7 @@ const utils = [
   'Popper',
   'Presence',
   'Roving Focus Group',
+  'Visually Hidden',
 ].map(util => ({
   name: util.replaceAll(' ', ''),
   to: `/${util.toLowerCase().replaceAll(' ', '-')}/`,
