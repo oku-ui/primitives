@@ -46,7 +46,7 @@ watch(() => props.checked, (checked, prevChecked) => {
     :checked="checked"
     :style="{
       width: `${controlSize?.width || 0}px`,
-      height: `${controlSize?.width || 0}px`,
+      height: `${controlSize?.height || 0}px`,
       position: 'absolute',
       pointerEvents: 'none',
       opacity: 0,

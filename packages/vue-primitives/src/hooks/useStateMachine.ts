@@ -1,3 +1,4 @@
+import type { ref } from 'vue'
 import { shallowRef } from 'vue'
 
 interface Machine<S> { [k: string]: { [k: string]: S } }
@@ -9,18 +10,18 @@ type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x
   ? R
   : never
 
-export function useStateMachine<M>(
+export function useStateMachine<M extends object>(
   initialState: MachineState<M>,
   machine: M & Machine<MachineState<M>>,
 ) {
-  const state = shallowRef(initialState)
+  const state = (shallowRef as typeof ref)(initialState)
 
-  const reducer = (event: MachineEvent<M>) => {
+  function reducer(event: MachineEvent<M>) {
     const nextState = (machine[state.value] as any)[event]
     return nextState ?? state.value
   }
 
-  const send = (event: MachineEvent<M>) => {
+  function send(event: MachineEvent<M>) {
     state.value = reducer(event)
   }
 
