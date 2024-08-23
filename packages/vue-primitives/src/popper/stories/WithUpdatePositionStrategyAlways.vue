@@ -9,16 +9,18 @@ import Scrollable from './Scrollable.vue'
 const open = shallowRef(false)
 const left = shallowRef(0)
 
-watchEffect((onCleanup) => {
-  const intervalId = setInterval(() => {
-    const prev = left.value
-    left.value = (prev + 50) % 300
-  }, 500)
+if (typeof window !== 'undefined') {
+  watchEffect((onCleanup) => {
+    const intervalId = setInterval(() => {
+      const prev = left.value
+      left.value = (prev + 50) % 300
+    }, 500)
 
-  onCleanup(() => {
-    clearInterval(intervalId)
+    onCleanup(() => {
+      clearInterval(intervalId)
+    })
   })
-})
+}
 
 function openFn() {
   open.value = true

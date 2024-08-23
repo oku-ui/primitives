@@ -69,7 +69,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | DismissableLayer                                                                                      | 🚧      |
 | [FocusScope](https://vue-primitives.netlify.app/?path=/story/utilities-focusscope--basic)             | ✓      |
 | Menu                                                                                                  | 🚧      |
-| Popper                                                                                                | 🚧      |
+| [Popper](https://vue-primitives.netlify.app/?path=/story/utilities-popper--styled)                    | ✓      |
 | Portal                                                                                                | 🚧      |
 | [Presence](https://vue-primitives.netlify.app/?path=/story/utilities-presence--basic)                 | ✓      |
 | Primitives                                                                                            | ✓      |

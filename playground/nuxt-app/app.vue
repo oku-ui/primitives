@@ -4,6 +4,7 @@ import { provideConfigContext } from '../../packages/vue-primitives/src/config/i
 const utils = [
   'Collection',
   'Focus Scope',
+  'Popper',
   'Presence',
   'Roving Focus Group',
 ].map(util => ({
