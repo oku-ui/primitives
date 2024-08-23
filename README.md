@@ -70,9 +70,9 @@ Enter the component you want most in the components, leave the emojis and follow
 | [FocusScope](https://vue-primitives.netlify.app/?path=/story/utilities-focusscope--basic)             | ✓      |
 | Menu                                                                                                  | 🚧      |
 | [Popper](https://vue-primitives.netlify.app/?path=/story/utilities-popper--styled)                    | ✓      |
-| Portal                                                                                                | 🚧      |
+| Portal                                                                                                | ✓      |
 | [Presence](https://vue-primitives.netlify.app/?path=/story/utilities-presence--basic)                 | ✓      |
 | Primitives                                                                                            | ✓      |
 | [RovingFocusGroup](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic) | ✓      |
 | Slot                                                                                                  | ✓      |
-| VisuallyHidden                                                                                        | 🚧      |
+| [VisuallyHidden](https://vue-primitives.netlify.app/?path=/story/utilities-visuallyhidden--basic)     | ✓      |
