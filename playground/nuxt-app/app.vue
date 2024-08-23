@@ -4,8 +4,10 @@ import { provideConfigContext } from '../../packages/vue-primitives/src/config/i
 const utils = [
   'Collection',
   'Focus Scope',
+  'Popper',
   'Presence',
   'Roving Focus Group',
+  'Visually Hidden',
 ].map(util => ({
   name: util.replaceAll(' ', ''),
   to: `/${util.toLowerCase().replaceAll(' ', '-')}/`,

@@ -1,0 +1,53 @@
+.popper_contentClass {
+  transform-origin: var(--radix-popper-transform-origin);
+  background-color: #ccc;
+  padding: 10px;
+  border-radius: 10px;
+
+
+  width: 300px;
+  height: 150px;
+}
+
+.popper_contentClass.small {
+  width: 100px;
+  height: 50px;
+}
+
+.popper_anchorClass {
+  background-color: hotpink;
+
+
+  width: 100px;
+  height: 100px;
+}
+
+.popper_anchorClass.small {
+  width: 50px;
+  height: 50px;
+}
+
+.popper_arrowClass {
+  fill: #ccc;
+}
+
+@keyframes popper_rotateIn {
+  0% {
+    transform: scale(0) rotateZ(calc(var(--direction) * 45deg));
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.popper_animatedContentClass {
+  animation: popper_rotateIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popper_animatedContentClass[data-side="top"] {
+  --direction: 1;
+}
+
+.popper_animatedContentClass[data-side="bottom"] {
+  --direction: -1;
+}
