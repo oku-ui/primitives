@@ -48,6 +48,10 @@ watchEffect((onCleanup) => {
 })
 
 const isPresent = usePresence($el, () => props.forceMount || visible.value)
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>

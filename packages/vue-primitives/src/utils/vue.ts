@@ -1,8 +1,23 @@
 import type { Ref } from 'vue'
 
-export function forwardRef<T = HTMLElement>(elRef: Ref<T>) {
+type SetRef<T> = (el: T | undefined) => void
+
+export function forwardRef<T = HTMLElement>(elRef: Ref<T>, elRefs?: Array<SetRef<T>>) {
+  let rawRef: T | undefined
   function setRef(nodeRef: any) {
-    elRef.value = nodeRef?.$el
+    const node = nodeRef?.$el
+
+    if (node === rawRef)
+      return
+
+    elRef.value = node
+    rawRef = node
+
+    if (elRefs) {
+      for (const set of elRefs) {
+        set(node)
+      }
+    }
   }
 
   return setRef

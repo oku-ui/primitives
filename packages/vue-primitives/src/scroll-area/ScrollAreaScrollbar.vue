@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, watchEffect } from 'vue'
-import { forwardRef } from '../utils/vue.ts'
+import { watchEffect } from 'vue'
 import { useScrollAreaContext } from './ScrollArea.ts'
 import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar.ts'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
@@ -10,15 +9,11 @@ import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
 defineOptions({
   name: 'ScrollAreaScrollbar',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
   orientation: 'vertical',
 })
-const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
-
 const context = useScrollAreaContext('ScrollAreaScrollbar')
 
 watchEffect(() => {
@@ -28,53 +23,24 @@ watchEffect(() => {
     context.onScrollbarYEnabledChange(true)
 })
 
-defineExpose({
-  $el,
-})
+const type = context.type()
+
+const Comp = type === 'hover'
+  ? ScrollAreaScrollbarHover
+  : type === 'scroll'
+    ? ScrollAreaScrollbarScroll
+    : type === 'auto'
+      ? ScrollAreaScrollbarAuto
+      : ScrollAreaScrollbarVisible
 </script>
 
 <template>
-  <ScrollAreaScrollbarHover
-    v-if="context.type() === 'hover'"
-    :ref="forwardedRef"
+  <Comp
     :as="as"
     :as-child="asChild"
     :force-mount="forceMount"
     :orientation="orientation"
-    v-bind="$attrs"
   >
     <slot />
-  </ScrollAreaScrollbarHover>
-  <ScrollAreaScrollbarScroll
-    v-else-if="context.type() === 'scroll'"
-    :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
-    :force-mount="forceMount"
-    :orientation="orientation"
-    v-bind="$attrs"
-  >
-    <slot />
-  </ScrollAreaScrollbarScroll>
-  <ScrollAreaScrollbarAuto
-    v-else-if="context.type() === 'auto'"
-    :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
-    :force-mount="forceMount"
-    :orientation="orientation"
-    v-bind="$attrs"
-  >
-    <slot />
-  </ScrollAreaScrollbarAuto>
-  <ScrollAreaScrollbarVisible
-    v-else
-    :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
-    :orientation="orientation"
-    v-bind="$attrs"
-  >
-    <slot />
-  </ScrollAreaScrollbarVisible>
+  </Comp>
 </template>

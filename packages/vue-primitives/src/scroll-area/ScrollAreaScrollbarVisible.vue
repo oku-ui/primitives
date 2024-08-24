@@ -20,13 +20,12 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarVisibleProps>(), {
 })
 const attrs = useAttrs()
 
-const isHorizontal = () => props.orientation === 'horizontal'
+const isHorizontal = props.orientation === 'horizontal'
 
 // VISIBLE
 const context = useScrollAreaContext('ScrollAreaScrollbarVisible')
 
-const forwardedScllbarXRef = forwardRef(context.scrollbarX)
-const forwardedScllbarYRef = forwardRef(context.scrollbarY)
+const forwardedRef = forwardRef(isHorizontal ? context.scrollbarX : context.scrollbarY)
 
 const thumbRef = shallowRef<ScrollAreaThumbElement>()
 let pointerOffset = 0
@@ -48,7 +47,7 @@ const hasThumb = computed(() => {
 // VISIBLE::END
 
 // IMPLEMENTATION
-const scrollbar = () => isHorizontal() ? context.scrollbarX.value : context.scrollbarY.value
+const scrollbar = isHorizontal ? context.scrollbarX : context.scrollbarY
 let rect: DOMRect | undefined
 let prevWebkitUserSelect = ''
 
@@ -61,7 +60,7 @@ function handleDragScroll(event: PointerEvent) {
   if (!viewport)
     return
 
-  if (isHorizontal()) {
+  if (isHorizontal) {
     viewport.scrollLeft = getScrollPositionFromPointer(
       event.clientX - rect.left,
       pointerOffset,
@@ -89,7 +88,7 @@ const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
 
   const element = event.target as HTMLElement
   element.setPointerCapture(event.pointerId)
-  rect = scrollbar()!.getBoundingClientRect()
+  rect = scrollbar.value!.getBoundingClientRect()
 
   // pointer capture doesn't prevent text selection in Safari
   // so we remove text selection manually when scrolling
@@ -124,7 +123,7 @@ const onPointerup = composeEventHandlers<PointerEvent>((event) => {
 })
 
 function onImplWheelScroll(event: WheelEvent) {
-  const isScrollbarWheel = scrollbar()?.contains(event.target as HTMLElement)
+  const isScrollbarWheel = scrollbar.value?.contains(event.target as HTMLElement)
   if (!isScrollbarWheel)
     return
 
@@ -135,7 +134,7 @@ function onImplWheelScroll(event: WheelEvent) {
 
   const maxScrollPos = sizes.value.content - sizes.value.viewport
 
-  if (isHorizontal()) {
+  if (isHorizontal) {
     const scrollPos = viewport.scrollLeft + event.deltaY
     // VISIBLE
     viewport.scrollLeft = scrollPos
@@ -180,7 +179,7 @@ function onThumbPositionChange() {
   if (!viewport || !thumb)
     return
 
-  if (isHorizontal())
+  if (isHorizontal)
     thumb.style.transform = `translate3d(${getThumbOffsetFromScroll(viewport.scrollLeft, sizes.value, context.dir.value)}px, 0, 0)`
   else
     thumb.style.transform = `translate3d(0, ${getThumbOffsetFromScroll(viewport.scrollTop, sizes.value)}px, 0)`
@@ -189,11 +188,11 @@ function onThumbPositionChange() {
 
 function onResize() {
   const viewportEl = context.viewport.value
-  const scrollbarEl = scrollbar()
+  const scrollbarEl = scrollbar.value
   if (!scrollbarEl || !viewportEl)
     return
 
-  if (isHorizontal()) {
+  if (isHorizontal) {
     sizes.value = {
       content: viewportEl.scrollWidth ?? 0,
       viewport: viewportEl.offsetWidth ?? 0,
@@ -230,19 +229,37 @@ provideScrollbarContext({
   },
   onThumbPositionChange,
   onThumbPointerDown(payload) {
-    if (isHorizontal())
+    if (isHorizontal)
       pointerOffset = payload.x
     else
       pointerOffset = payload.y
   },
 })
 // IMPLEMENTATION::END
+
+function CompStyles() {
+  return isHorizontal
+    ? {
+        'position': 'absolute',
+        'bottom': 0,
+        'left': context.dir.value === 'rtl' ? 'var(--radix-scroll-area-corner-width)' : 0,
+        'right': context.dir.value === 'ltr' ? 'var(--radix-scroll-area-corner-width)' : 0,
+        '--radix-scroll-area-thumb-width': `${getThumbSize(sizes.value)}px`,
+      }
+    : {
+        'position': 'absolute',
+        'top': 0,
+        'right': context.dir.value === 'ltr' ? 0 : undefined,
+        'left': context.dir.value === 'rtl' ? 0 : undefined,
+        'bottom': 'var(--radix-scroll-area-corner-height)',
+        '--radix-scroll-area-thumb-height': `${getThumbSize(sizes.value)}px`,
+      }
+}
 </script>
 
 <template>
   <Primitive
-    v-if="isHorizontal()"
-    :ref="forwardedScllbarXRef"
+    :ref="forwardedRef"
     :as="as"
     :as-child="asChild"
     v-bind="{
@@ -251,43 +268,9 @@ provideScrollbarContext({
       onPointermove,
       onPointerup,
     }"
-    :style="{
-      'position': 'absolute',
-      'bottom': 0,
-      'left': context.dir.value === 'rtl' ? 'var(--radix-scroll-area-corner-width)' : 0,
-      'right': context.dir.value === 'ltr' ? 'var(--radix-scroll-area-corner-width)' : 0,
-      '--radix-scroll-area-thumb-width': `${getThumbSize(sizes)}px`,
-    }"
+    :style="CompStyles()"
     data-scrollbarimpl
-    data-orientation="horizontal"
-    @pointerdown="onPointerdown"
-    @pointermove="onPointermove"
-    @pointerup="onPointerup"
-  >
-    <slot />
-  </Primitive>
-
-  <Primitive
-    v-else
-    :ref="forwardedScllbarYRef"
-    :as="as"
-    :as-child="asChild"
-    v-bind="{
-      ...$attrs,
-      onPointerdown,
-      onPointermove,
-      onPointerup,
-    }"
-    :style="{
-      'position': 'absolute',
-      'top': 0,
-      'right': context.dir.value === 'ltr' ? 0 : undefined,
-      'left': context.dir.value === 'rtl' ? 0 : undefined,
-      'bottom': 'var(--radix-scroll-area-corner-height)',
-      '--radix-scroll-area-thumb-height': `${getThumbSize(sizes)}px`,
-    }"
-    data-scrollbarimpl
-    data-orientation="vertical"
+    :data-orientation="isHorizontal ? 'horizontal' : 'vertical'"
   >
     <slot />
   </Primitive>

@@ -100,6 +100,10 @@ const onPointerleave = composeEventHandlers<PointerEvent>((event) => {
 }, () => {
   send('POINTER_LEAVE')
 })
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>
