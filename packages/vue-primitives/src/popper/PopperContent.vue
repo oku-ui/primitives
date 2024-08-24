@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch, watchEffect } from 'vue'
 import {
-  type Middleware,
   type Placement,
+  type UseFloatingCofnig,
   autoUpdate,
   flip,
   arrow as floatingUIarrow,
@@ -12,7 +12,7 @@ import {
   shift,
   size,
   useFloating,
-} from '@floating-ui/vue'
+} from '../floating/index.ts'
 import { useSize } from '../hooks/useSize.ts'
 import { forwardRef } from '../utils/vue.ts'
 import { Primitive } from '../primitive/index.ts'
@@ -42,16 +42,12 @@ const emit = defineEmits<PopperContentEmits>()
 
 const context = usePopperContext('PopperContent')
 
-const content = shallowRef<HTMLDivElement >()
+const content = shallowRef<HTMLDivElement>()
 const forwardedRef = forwardRef(content)
-
-const floatingRef = shallowRef<HTMLElement>()
 
 const arrow = shallowRef<HTMLSpanElement>()
 
 const arrowSize = useSize(arrow)
-
-const desiredPlacement = computed(() => (props.side + (props.align !== 'center' ? `-${props.align}` : '')) as Placement)
 
 function getDetectOverflowOptions() {
   const collisionPadding = typeof props.collisionPadding === 'number'
@@ -69,21 +65,15 @@ function getDetectOverflowOptions() {
   }
 }
 
-const middleware = computed(() => {
+const floatingConfig = computed<UseFloatingCofnig>(() => {
   const detectOverflowOptions = getDetectOverflowOptions()
+
+  const placement = (props.side + (props.align !== 'center' ? `-${props.align}` : '')) as Placement
   const arrowHeight = arrowSize.value?.height || 0
   const arrowWidth = arrowSize.value?.width || 0
 
-  return [
+  const middleware: UseFloatingCofnig['middleware'] = [
     offset({ mainAxis: props.sideOffset + arrowHeight, alignmentAxis: props.alignOffset }),
-    props.avoidCollisions
-    && shift({
-      mainAxis: true,
-      crossAxis: false,
-      limiter: props.sticky === 'partial' ? limitShift() : undefined,
-      ...detectOverflowOptions,
-    }),
-    props.avoidCollisions && flip({ ...detectOverflowOptions }),
     size({
       ...detectOverflowOptions,
       apply: ({ elements, rects, availableWidth, availableHeight }) => {
@@ -95,26 +85,47 @@ const middleware = computed(() => {
         contentStyle.setProperty('--radix-popper-anchor-height', `${anchorHeight}px`)
       },
     }),
-    arrow.value && floatingUIarrow({ element: arrow, padding: props.arrowPadding }),
     transformOrigin({ arrowWidth, arrowHeight }),
-    props.hideWhenDetached && hide({ strategy: 'referenceHidden', ...detectOverflowOptions }),
-  ] as Middleware[]
+  ]
+
+  if (props.avoidCollisions) {
+    middleware.push(
+      shift({
+        mainAxis: true,
+        crossAxis: false,
+        limiter: props.sticky === 'partial' ? limitShift() : undefined,
+        ...detectOverflowOptions,
+      }),
+      flip(detectOverflowOptions),
+    )
+  }
+
+  if (arrow.value) {
+    middleware.push(floatingUIarrow({ element: arrow, padding: props.arrowPadding }))
+  }
+
+  if (props.hideWhenDetached) {
+    middleware.push(hide({ strategy: 'referenceHidden', ...detectOverflowOptions }))
+  }
+
+  return {
+    strategy: 'fixed',
+    placement,
+    middleware,
+  }
 })
 
-const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
-  context.anchor,
-  floatingRef,
+const { refs, floatingStyles, placement, isPositioned, middlewareData } = useFloating(
   {
-    strategy: 'fixed',
-    placement: desiredPlacement,
+    elements: { reference: context.anchor },
     whileElementsMounted: (...args) => {
       const cleanup = autoUpdate(...args, {
         animationFrame: props.updatePositionStrategy === 'always',
       })
       return cleanup
     },
-    middleware,
   },
+  floatingConfig,
 )
 
 const placedSide = shallowRef<Side>('bottom')
@@ -141,8 +152,8 @@ watch(content, (contentVal) => {
 
 provideContentContext({
   placedSide,
-  onArrowChange(el) {
-    arrow.value = el
+  onArrowChange(newArrow) {
+    arrow.value = newArrow
   },
   arrowX() {
     return middlewareData.value.arrow?.x ?? undefined
@@ -162,14 +173,14 @@ defineExpose({
 
 <template>
   <div
-    ref="floatingRef"
+    :ref="(refs.setFloating as any)"
     data-radix-popper-content-wrapper=""
     :style="{
       ...floatingStyles,
-      transform: isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
-      minWidth: 'max-content',
-      zIndex: contentZIndex,
-      ['--radix-popper-transform-origin' as any]: [
+      'transform': isPositioned ? floatingStyles.transform : 'translate(0, -200%)', // keep off the page when measuring
+      'minWidth': 'max-content',
+      'zIndex': contentZIndex,
+      '--radix-popper-transform-origin': [
         middlewareData.transformOrigin?.x,
         middlewareData.transformOrigin?.y,
       ].join(' '),
@@ -187,7 +198,7 @@ defineExpose({
     <Primitive
       :ref="forwardedRef"
       :as="as"
-      :as-child="props.asChild"
+      :as-child="asChild"
       :data-side="placedSide"
       :data-align="placedAlign"
       v-bind="$attrs"

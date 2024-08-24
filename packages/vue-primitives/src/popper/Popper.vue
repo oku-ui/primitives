@@ -10,8 +10,8 @@ const anchor = shallowRef<Measurable>()
 
 providePopperContext({
   anchor,
-  onAnchorChange(value: Measurable | undefined) {
-    anchor.value = value
+  onAnchorChange(newAnchor: Measurable | undefined) {
+    anchor.value = newAnchor
   },
 })
 </script>

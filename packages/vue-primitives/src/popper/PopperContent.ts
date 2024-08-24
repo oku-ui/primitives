@@ -33,7 +33,7 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export interface PopperContentContextValue {
   placedSide: Ref<Side>
-  onArrowChange: (arrow: HTMLSpanElement | undefined) => void
+  onArrowChange: (newArrow: HTMLSpanElement | undefined) => void
   arrowX: () => number | undefined
   arrowY: () => number | undefined
   shouldHideArrow: () => boolean

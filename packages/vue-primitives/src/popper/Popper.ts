@@ -7,7 +7,7 @@ export interface Measurable {
 
 export interface PopperContextValue {
   anchor: Ref<Measurable | undefined>
-  onAnchorChange: (anchor: Measurable | undefined) => void
+  onAnchorChange: (newAnchor: Measurable | undefined) => void
 }
 
 export const [providePopperContext, usePopperContext] = createContext<PopperContextValue>('Popper')

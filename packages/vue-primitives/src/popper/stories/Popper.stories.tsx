@@ -30,3 +30,5 @@ export function WithUpdatePositionStrategyAlways() {
 export function Chromatic() {
   return CChromatic
 }
+
+Chromatic.parameters = { chromatic: { disable: false } }

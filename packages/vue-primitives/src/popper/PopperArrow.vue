@@ -4,7 +4,7 @@ import { Arrow } from '../arrow/index.ts'
 import { forwardRef } from '../utils/vue.ts'
 import type { PopperArrowProps } from './PopperArrow.ts'
 import { useContentContext } from './PopperContent.ts'
-import { OPPOSITE_SIDE } from './PopperContentArrow.ts'
+import { OPPOSITE_SIDE } from './PopperArrow.ts'
 
 defineOptions({
   name: 'PopperArrow',
@@ -24,10 +24,7 @@ defineExpose({
 
 <template>
   <span
-    :ref="(el: HTMLElement) => {
-      contentContext.onArrowChange(el)
-      return undefined
-    }"
+    :ref="(contentContext.onArrowChange as any)"
     :style="{
       position: 'absolute',
       left: contentContext.arrowX() ? `${contentContext.arrowX()}px` : undefined,
