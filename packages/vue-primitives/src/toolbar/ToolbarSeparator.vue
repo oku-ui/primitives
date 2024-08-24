@@ -18,7 +18,7 @@ const context = useToolbarContext('ToolbarSeparator')
   <Separator
     :as="as"
     :as-child="asChild"
-    :orientation="context.orientation()"
+    :orientation="context.orientation() === 'horizontal' ? 'vertical' : 'horizontal'"
     :decorative="decorative"
   >
     <slot />
