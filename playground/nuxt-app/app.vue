@@ -20,6 +20,7 @@ const components = [
   'Checkbox',
   'Collapsible',
   'Label',
+  'Popover',
   'Progress',
   'Radio Group',
   'Scroll Area',
