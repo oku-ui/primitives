@@ -46,7 +46,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)             | ✓      |
 | Menubar                                                                                       | 🚧      |
 | NavigationMenu                                                                                | 🚧      |
-| [Popover](https://vue-primitives.netlify.app/?path=/story/components-popover--styled)       | ✓      |
+| [Popover](https://vue-primitives.netlify.app/?path=/story/components-popover--styled)         | ✓      |
 | [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)       | ✓      |
 | [RadioGroup](https://vue-primitives.netlify.app/?path=/story/components-radiogroup--styled)   | ✓      |
 | [ScrollArea](https://vue-primitives.netlify.app/?path=/story/components-scrollarea--basic)    | ✓      |
@@ -66,7 +66,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | Utilites                                                                                              | Status |
 | ----------------------------------------------------------------------------------------------------- | ------ |
 | [Collection](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic)       | ✓      |
-| DismissableLayer                                                                                      | 🚧      |
+| [DismissableLayer](https://vue-primitives.netlify.app/?path=/story/utilities-dismissablelayer--basic) | ✓      |
 | [FocusScope](https://vue-primitives.netlify.app/?path=/story/utilities-focusscope--basic)             | ✓      |
 | Menu                                                                                                  | 🚧      |
 | [Popper](https://vue-primitives.netlify.app/?path=/story/utilities-popper--styled)                    | ✓      |
