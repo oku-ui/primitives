@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, shallowRef, watch, watchEffect } from 'vue'
+import { shallowRef, watch, watchEffect } from 'vue'
+import { computedEager } from '@vueuse/core'
 import {
   type Placement,
   type UseFloatingCofnig,
@@ -65,7 +66,7 @@ function getDetectOverflowOptions() {
   }
 }
 
-const floatingConfig = computed<UseFloatingCofnig>(() => {
+const floatingConfig = computedEager<UseFloatingCofnig>(() => {
   const detectOverflowOptions = getDetectOverflowOptions()
 
   const placement = (props.side + (props.align !== 'center' ? `-${props.align}` : '')) as Placement
@@ -74,18 +75,6 @@ const floatingConfig = computed<UseFloatingCofnig>(() => {
 
   const middleware: UseFloatingCofnig['middleware'] = [
     offset({ mainAxis: props.sideOffset + arrowHeight, alignmentAxis: props.alignOffset }),
-    size({
-      ...detectOverflowOptions,
-      apply: ({ elements, rects, availableWidth, availableHeight }) => {
-        const { width: anchorWidth, height: anchorHeight } = rects.reference
-        const contentStyle = elements.floating.style
-        contentStyle.setProperty('--radix-popper-available-width', `${availableWidth}px`)
-        contentStyle.setProperty('--radix-popper-available-height', `${availableHeight}px`)
-        contentStyle.setProperty('--radix-popper-anchor-width', `${anchorWidth}px`)
-        contentStyle.setProperty('--radix-popper-anchor-height', `${anchorHeight}px`)
-      },
-    }),
-    transformOrigin({ arrowWidth, arrowHeight }),
   ]
 
   if (props.avoidCollisions) {
@@ -100,9 +89,23 @@ const floatingConfig = computed<UseFloatingCofnig>(() => {
     )
   }
 
+  middleware.push(size({
+    ...detectOverflowOptions,
+    apply: (state) => {
+      const { width: anchorWidth, height: anchorHeight } = state.rects.reference
+      const contentStyle = state.elements.floating.style
+      contentStyle.setProperty('--radix-popper-available-width', `${state.availableWidth}px`)
+      contentStyle.setProperty('--radix-popper-available-height', `${state.availableHeight}px`)
+      contentStyle.setProperty('--radix-popper-anchor-width', `${anchorWidth}px`)
+      contentStyle.setProperty('--radix-popper-anchor-height', `${anchorHeight}px`)
+    },
+  }))
+
   if (arrow.value) {
     middleware.push(floatingUIarrow({ element: arrow, padding: props.arrowPadding }))
   }
+
+  middleware.push(transformOrigin({ arrowWidth, arrowHeight }))
 
   if (props.hideWhenDetached) {
     middleware.push(hide({ strategy: 'referenceHidden', ...detectOverflowOptions }))

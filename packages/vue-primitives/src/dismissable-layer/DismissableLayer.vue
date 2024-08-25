@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, shallowRef, useAttrs, watch, watchEffect } from 'vue'
+import { computed, onBeforeUnmount, shallowRef, useAttrs, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { isFunction } from '../utils/is.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'

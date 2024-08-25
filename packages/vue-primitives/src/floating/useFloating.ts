@@ -7,7 +7,6 @@ import {
   toValue,
   watch,
   watchEffect,
-  watchSyncEffect,
 } from 'vue'
 
 import { useRef } from '../hooks/useRef.ts'

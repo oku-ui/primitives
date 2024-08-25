@@ -5,7 +5,7 @@ type SetRef<T> = (el: T | undefined) => void
 export function forwardRef<T = HTMLElement>(elRef: Ref<T>, elRefs?: Array<SetRef<T>>) {
   let rawRef: T | undefined
   function setRef(nodeRef: any) {
-    const node = nodeRef?.$el
+    const node = nodeRef ? nodeRef.$el : undefined
 
     if (node === rawRef)
       return

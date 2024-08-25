@@ -71,7 +71,7 @@ export function usePresence(
    * event for ANIMATION_IN after we have entered `unmountSuspended` state. So, we
    * make sure we only trigger ANIMATION_END for the currently active animation.
    */
-  const handleAnimationEnd = async (event: AnimationEvent) => {
+  async function handleAnimationEnd(event: AnimationEvent) {
     const currentAnimationName = getAnimationName(styles)
     const isCurrentAnimation = currentAnimationName.includes(
       event.animationName,
@@ -84,7 +84,7 @@ export function usePresence(
     }
   }
 
-  const handleAnimationStart = (event: AnimationEvent) => {
+  function handleAnimationStart(event: AnimationEvent) {
     if (event.target === elRef.value)
       // if animation occurred, store its name as the previous animation.
       prevAnimationName = getAnimationName(styles)

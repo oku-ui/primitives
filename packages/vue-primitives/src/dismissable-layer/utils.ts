@@ -45,10 +45,9 @@ export function usePointerdownOutside(
       const target = event.target as HTMLElement
 
       // TODO: wip
-      // if (isLayerExist(node.value, target)) {
-      //   isPointerInsideDOMTree = false
-      //   return
-      // }
+      if (!isPointerInsideDOMTree && isInsideDOMTree(node.value, target)) {
+        isPointerInsideDOMTree = true
+      }
 
       if (target && !isPointerInsideDOMTree) {
         const eventDetail = { originalEvent: event }
@@ -143,11 +142,15 @@ export function useFocusOutside(
     const ownerDocument = nodeVal.ownerDocument
 
     async function handleFocus(event: FocusEvent) {
-      // await nextTick()
+      await nextTick()
+
+      if (!node.value)
+        return
 
       // TODO: wip
-      // if (!node.value || isLayerExist(node.value, event.target as HTMLElement))
-      // return
+      if (!isFocusInsideDOMTree && isInsideDOMTree(node.value, event.target as HTMLElement)) {
+        isFocusInsideDOMTree = true
+      }
 
       if (event.target && !isFocusInsideDOMTree) {
         const eventDetail = { originalEvent: event }
@@ -163,23 +166,23 @@ export function useFocusOutside(
   return ret
 }
 
-function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
+function isInsideDOMTree(node: HTMLElement, targetElement: HTMLElement) {
+  const mainLayer = node.dataset.dismissableLayer === '' ? node : node.querySelector<HTMLElement>('[data-dismissable-layer]')
+
+  if (!mainLayer)
+    return false
+
   const targetLayer = targetElement.closest<HTMLElement>('[data-dismissable-layer]')
 
   if (!targetLayer)
     return false
 
-  const mainLayer = layerElement.dataset.dismissableLayer === '' ? layerElement : layerElement.querySelector<HTMLElement>('[data-dismissable-layer]')
-
-  if (!mainLayer)
-    return false
-
   if (mainLayer === targetLayer)
     return true
 
-  const nodeList = Array.from(layerElement.ownerDocument.querySelectorAll<HTMLElement>('[data-dismissable-layer]'))
+  const layerList = Array.from(node.ownerDocument.querySelectorAll<HTMLElement>('[data-dismissable-layer]'))
 
-  if (nodeList.indexOf(mainLayer) < nodeList.indexOf(targetLayer))
+  if (layerList.indexOf(mainLayer) < layerList.indexOf(targetLayer))
     return true
 
   return false
