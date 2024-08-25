@@ -46,7 +46,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)             | ✓      |
 | Menubar                                                                                       | 🚧      |
 | NavigationMenu                                                                                | 🚧      |
-| Popover                                                                                       | 🚧      |
+| [Popover](https://vue-primitives.netlify.app/?path=/story/components-popover--styled)       | ✓      |
 | [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)       | ✓      |
 | [RadioGroup](https://vue-primitives.netlify.app/?path=/story/components-radiogroup--styled)   | ✓      |
 | [ScrollArea](https://vue-primitives.netlify.app/?path=/story/components-scrollarea--basic)    | ✓      |
