@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
-import { forwardRef } from '../utils/vue.ts'
-import { usePopoverContext } from './Popover.ts'
-import PopoverContentImpl from './PopoverContentImpl.vue'
-import type { PopoverContentNonModal } from './PopoverContentNonModal.ts'
+import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/DismissableLayer.ts'
+import { useDialogContext } from './Dialog.ts'
+import type { DialogContentNonModalEmits } from './DialogContentNonModal.ts'
+import DialogContentImpl from './DialogContentImpl.vue'
 
 defineOptions({
-  name: 'PopoverContentNonModal',
+  name: 'DialogContentNonModal',
 })
-const emit = defineEmits<PopoverContentNonModal>()
 
-const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const emit = defineEmits<DialogContentNonModalEmits>()
 
-const context = usePopoverContext('PopoverContentNonModal')
+const context = useDialogContext()
+
 let hasInteractedOutsideRef = false
 let hasPointerDownOutsideRef = false
 
@@ -22,9 +19,8 @@ function onCloseAutoFocus(event: Event) {
   emit('closeAutoFocus', event)
 
   if (!event.defaultPrevented) {
-    if (!hasInteractedOutsideRef) {
+    if (!hasInteractedOutsideRef)
       context.triggerRef.current?.focus()
-    }
     // Always prevent auto focus because we either focus manually or want user agent focus
     event.preventDefault()
   }
@@ -33,7 +29,7 @@ function onCloseAutoFocus(event: Event) {
   hasPointerDownOutsideRef = false
 }
 
-function interactOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
+function onInteractOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
   emit('interactOutside', event)
 
   if (!event.defaultPrevented) {
@@ -59,21 +55,15 @@ function interactOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
     event.preventDefault()
   }
 }
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
-  <PopoverContentImpl
-    :ref="forwardedRef"
+  <DialogContentImpl
     :trap-focus="false"
     :disable-outside-pointer-events="false"
-    @close-auto-focus="onCloseAutoFocus "
-
-    @interact-outside="interactOutside"
+    @close-auto-focus="onCloseAutoFocus"
+    @interact-outside="onInteractOutside"
   >
     <slot />
-  </PopoverContentImpl>
+  </DialogContentImpl>
 </template>

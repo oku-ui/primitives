@@ -4,15 +4,14 @@ import { hideOthers } from 'aria-hidden'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/DismissableLayer.ts'
 import { usePopoverContext } from './Popover.ts'
-import type { PopoverContentTypeEmits, PopoverContentTypeProps } from './PopoverContent.ts'
 import PopoverContentImpl from './PopoverContentImpl.vue'
+import type { PopoverContentModalEmits } from './PopoverContentModal.ts'
 
 defineOptions({
   name: 'PopoverContentModal',
 })
 
-const props = defineProps<PopoverContentTypeProps>()
-const emit = defineEmits<PopoverContentTypeEmits>()
+const emit = defineEmits<PopoverContentModalEmits>()
 
 const $el = shallowRef<HTMLElement>()
 const forwardedRef = forwardRef($el)
@@ -62,19 +61,13 @@ defineExpose({
 
 <template>
   <PopoverContentImpl
-    v-bind="props"
     :ref="forwardedRef"
     :trap-focus="context.open.value"
     disable-outside-pointer-events
 
-    @open-auto-focus="emit('openAutoFocus', $event)"
     @close-auto-focus="onCloseAutoFocus"
-
-    @escape-keydown="emit('escapeKeydown', $event)"
     @pointerdown-outside="onPointerDownOutside"
     @focus-outside="onFocusOutside"
-    @interact-outside="emit('interactOutside', $event)"
-    @dismiss="emit('dismiss')"
   >
     <slot />
   </PopoverContentImpl>

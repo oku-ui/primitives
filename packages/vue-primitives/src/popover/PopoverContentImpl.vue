@@ -42,10 +42,10 @@ defineExpose({
     <DismissableLayer
       as-child
       :disable-outside-pointer-events="disableOutsidePointerEvents"
+      @interact-outside="emit('interactOutside', $event)"
       @escape-keydown="emit('escapeKeydown', $event)"
       @pointerdown-outside="emit('pointerdownOutside', $event)"
       @focus-outside="emit('focusOutside', $event)"
-      @interact-outside="emit('interactOutside', $event)"
       @dismiss="context.onOpenChange(false)"
     >
       <PopperContent

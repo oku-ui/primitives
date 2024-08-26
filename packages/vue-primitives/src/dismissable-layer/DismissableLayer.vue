@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, shallowRef, useAttrs, watchEffect } from 'vue'
+import { computed, shallowRef, useAttrs, watch } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { isFunction } from '../utils/is.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
@@ -21,7 +21,7 @@ const attrs = useAttrs()
 const node = shallowRef<DismissableLayerElement>()
 const forwardedRef = forwardRef(node)
 
-const ownerDocument = computed(() => node.value?.ownerDocument ?? globalThis?.document)
+const ownerDocument = () => node.value?.ownerDocument ?? globalThis?.document
 
 const index = computed(() => node.value ? Array.from(context.layers).indexOf(node.value) : -1)
 
@@ -80,17 +80,16 @@ useEscapeKeydown((event) => {
   }
 }, ownerDocument)
 
-watchEffect((onCleanup) => {
-  const nodeVal = node.value
+watch(node, (nodeVal, _, onCleanup) => {
   if (!nodeVal)
     return
 
-  const ownerDocument = nodeVal.ownerDocument
+  const ownerDocumentVal = ownerDocument()
 
   if (props.disableOutsidePointerEvents) {
     if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
-      originalBodyPointerEvents.value = ownerDocument.body.style.pointerEvents
-      ownerDocument.body.style.pointerEvents = 'none'
+      originalBodyPointerEvents.value = ownerDocumentVal.body.style.pointerEvents
+      ownerDocumentVal.body.style.pointerEvents = 'none'
     }
     context.layersWithOutsidePointerEventsDisabled.add(nodeVal)
   }
@@ -102,24 +101,24 @@ watchEffect((onCleanup) => {
       props.disableOutsidePointerEvents
       && context.layersWithOutsidePointerEventsDisabled.size === 1
     ) {
-      ownerDocument.body.style.pointerEvents = originalBodyPointerEvents.value || undefined as any
+      if (!originalBodyPointerEvents.value) {
+        const syles = ownerDocumentVal.body.style
+        syles.removeProperty('pointer-events')
+      }
+      else {
+        ownerDocumentVal.body.style.pointerEvents = originalBodyPointerEvents.value
+      }
     }
+
+    /**
+     * We purposefully prevent combining this effect with the `disableOutsidePointerEvents` effect
+     * because a change to `disableOutsidePointerEvents` would remove this layer from the stack
+     * and add it to the end again so the layering order wouldn't be _creation order_.
+     * We only want them to be removed from context stacks when unmounted.
+     */
+    context.layers.delete(nodeVal)
+    context.layersWithOutsidePointerEventsDisabled.delete(nodeVal)
   })
-})
-
-/**
- * We purposefully prevent combining this effect with the `disableOutsidePointerEvents` effect
- * because a change to `disableOutsidePointerEvents` would remove this layer from the stack
- * and add it to the end again so the layering order wouldn't be _creation order_.
- * We only want them to be removed from context stacks when unmounted.
- */
-onBeforeUnmount(() => {
-  const nodeVal = node.value
-  if (!nodeVal)
-    return
-
-  context.layers.delete(nodeVal)
-  context.layersWithOutsidePointerEventsDisabled.delete(nodeVal)
 })
 
 const onFocusCapture = composeEventHandlers<FocusEvent>((event) => {

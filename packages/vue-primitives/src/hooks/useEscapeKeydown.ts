@@ -1,8 +1,8 @@
-import { type MaybeRef, unref, watchEffect } from 'vue'
+import { type MaybeRef, type MaybeRefOrGetter, toValue, unref, watchEffect } from 'vue'
 
 export function useEscapeKeydown(
   onEscapeKeydownProp: (event: KeyboardEvent) => void,
-  ownerDocument: MaybeRef<Document | undefined> = globalThis?.document,
+  ownerDocument: MaybeRefOrGetter<Document | undefined> = globalThis?.document,
 ) {
   function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Escape')
@@ -10,7 +10,7 @@ export function useEscapeKeydown(
   }
 
   watchEffect((onCleanup) => {
-    const ownerDocumentValue = unref(ownerDocument)
+    const ownerDocumentValue = toValue(ownerDocument)
     if (!ownerDocumentValue)
       return
 

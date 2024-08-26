@@ -1,0 +1,206 @@
+.dialog_triggerClass {
+  cursor: pointer;
+}
+
+.dialog_overlayClass {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dialog_scrollableOverlayClass {
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dialog_contentStyles {
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.dialog_contentDefaultClass {
+  position: fixed;
+
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dialog_contentScrollableClass {
+  position: fixed;
+
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  overflow: auto;
+  max-height: 300px;
+}
+
+.dialog_contentInScrollableOverlayClass {
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 10px;
+}
+
+.dialog_contentSheetClass {
+  position: fixed;
+  top: 0px;
+
+  right: 0px;
+  min-width: 300px;
+  min-height: 100vh;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 10px;
+}
+
+.dialog_closeClass {
+}
+
+@keyframes dialog_fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog_fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog_scaleIn {
+  from {
+    transform: translate(-50%, -50%) scale(0.75);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.dialog_animatedOverlayClass {
+  &[data-state="open"] {
+    animation: dialog_fadeIn 300ms ease-out;
+  }
+  &[data-state="closed"] {
+    animation: dialog_fadeOut 300ms ease-in;
+  }
+}
+
+.dialog_animatedContentClass {
+  &[data-state="open"] {
+    animation: dialog_fadeIn 150ms ease-out, scaleIn 200ms ease-out;
+  }
+  &[data-state="closed"] {
+    animation: dialog_fadeOut 300ms ease-in;
+  }
+}
+
+.dialog_chromaticContentClass {
+  position: fixed;
+
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+  padding: 10px;
+  min-width: auto;
+  min-height: auto;
+}
+
+.dialog_triggerAttrClass,
+.dialog_overlayAttrClass,
+.dialog_contentAttrClass,
+.dialog_closeAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+  &[data-state="open"] {
+    border-color: green;
+  }
+}
+
+.dialog_overlayAttrClass {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dialog_contentAttrClass {
+  position: fixed;
+
+  min-width: 300px;
+  min-height: 150px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+  padding: 10px;
+  min-width: auto;
+  min-height: auto;
+}

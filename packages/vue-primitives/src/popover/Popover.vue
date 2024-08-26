@@ -37,9 +37,7 @@ providePopoverContext({
   onCustomAnchorRemove() {
     hasCustomAnchor.value = false
   },
-  modal() {
-    return props.modal
-  },
+  modal: props.modal,
 })
 </script>
 

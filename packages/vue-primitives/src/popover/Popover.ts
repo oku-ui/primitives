@@ -25,7 +25,7 @@ export interface PopoverContextValue {
   hasCustomAnchor: Ref<boolean>
   onCustomAnchorAdd: () => void
   onCustomAnchorRemove: () => void
-  modal: () => boolean
+  modal: boolean
 }
 
 export const [providePopoverContext, usePopoverContext] = createContext<PopoverContextValue>('Poppover')
