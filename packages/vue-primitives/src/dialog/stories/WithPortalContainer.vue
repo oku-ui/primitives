@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 const portalContainer = shallowRef<HTMLElement>()
@@ -8,7 +8,7 @@ const portalContainer = shallowRef<HTMLElement>()
 
 <template>
   <div>
-    <Dialog>
+    <DialogRoot>
       <DialogTrigger class="dialog_triggerClass">
         open
       </DialogTrigger>
@@ -22,7 +22,7 @@ const portalContainer = shallowRef<HTMLElement>()
           </DialogClose>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
 
     <div ref="portalContainer" data-portal-container="" />
   </div>

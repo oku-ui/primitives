@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { Separator } from '../separator/index.ts'
-import { useToolbarContext } from './Toolbar.ts'
-import type { ToolbarSeparatorProps } from './ToolbarSeparator.ts'
+import { useToolbarContext } from './ToolbarRoot.ts'
 
 defineOptions({
   name: 'ToolbarSeparator',
-})
-
-withDefaults(defineProps<ToolbarSeparatorProps>(), {
-  decorative: undefined,
 })
 
 const context = useToolbarContext('ToolbarSeparator')
@@ -16,10 +11,7 @@ const context = useToolbarContext('ToolbarSeparator')
 
 <template>
   <Separator
-    :as="as"
-    :as-child="asChild"
     :orientation="context.orientation() === 'horizontal' ? 'vertical' : 'horizontal'"
-    :decorative="decorative"
   >
     <slot />
   </Separator>

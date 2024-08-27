@@ -2,7 +2,7 @@
 import { shallowRef } from 'vue'
 import { forwardRef } from '../utils/vue.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import { useDialogContext } from './Dialog.ts'
+import { useDialogContext } from './DialogRoot.ts'
 import DialogContentModal from './DialogContentModal.vue'
 import DialogContentNonModal from './DialogContentNonModal.vue'
 import type { DialogContentProps } from './DialogContent.ts'

@@ -1,6 +1,4 @@
-import type { PrimitiveProps } from '../primitive/index.ts'
-
-export interface TabsContentProps extends PrimitiveProps {
+export interface TabsContentProps {
   value: string
 
   /**

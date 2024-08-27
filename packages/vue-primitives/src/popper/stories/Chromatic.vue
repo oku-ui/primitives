@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { Popper, PopperAnchor, PopperContent } from '../index.ts'
-import PopperArrow from '../PopperArrow.vue'
+import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../index.ts'
 import { Portal } from '../../portal/index.ts'
 
 const scrollContainer1 = shallowRef<HTMLDivElement>()
@@ -28,16 +27,16 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
       }"
     >
       <h1>In fixed header</h1>
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           1
         </PopperAnchor>
         <PopperContent class="popper_contentClass small" :side-offset="5">
           <PopperArrow class="popper_arrowClass" :width="10" :height="5" />1
         </PopperContent>
-      </Popper>
+      </PopperRoot>
 
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           2
         </PopperAnchor>
@@ -46,7 +45,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
             <PopperArrow class="popper_arrowClass" :width="10" :height="5" />2 (portalled)
           </PopperContent>
         </Portal>
-      </Popper>
+      </PopperRoot>
     </header>
 
     <div
@@ -60,16 +59,16 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
       }"
     >
       <h1>In normal page flow</h1>
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           3
         </PopperAnchor>
         <PopperContent class="popper_contentClass small" :side-offset="5">
           <PopperArrow class="popper_arrowClass" :width="10" :height="5" />3
         </PopperContent>
-      </Popper>
+      </PopperRoot>
 
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           4
         </PopperAnchor>
@@ -78,7 +77,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
             <PopperArrow class="popper_arrowClass" :width="10" :height="5" />4 (portalled)
           </PopperContent>
         </Portal>
-      </Popper>
+      </PopperRoot>
     </div>
 
     <div
@@ -93,16 +92,16 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
       }"
     >
       <h1>In relative parent</h1>
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           5
         </PopperAnchor>
         <PopperContent class="popper_contentClass small" :side-offset="5">
           <PopperArrow class="popper_arrowClass" :width="10" :height="5" />5
         </PopperContent>
-      </Popper>
+      </PopperRoot>
 
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           6
         </PopperAnchor>
@@ -111,7 +110,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
             <PopperArrow class="popper_arrowClass" :width="10" :height="5" />6 (portalled)
           </PopperContent>
         </Portal>
-      </Popper>
+      </PopperRoot>
     </div>
 
     <div
@@ -126,16 +125,16 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
       }"
     >
       <h1>In translated parent</h1>
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           7
         </PopperAnchor>
         <PopperContent class="popper_contentClass small" :side-offset="5">
           <PopperArrow class="popper_arrowClass" :width="10" :height="5" />7
         </PopperContent>
-      </Popper>
+      </PopperRoot>
 
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           8
         </PopperAnchor>
@@ -144,7 +143,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
             <PopperArrow class="popper_arrowClass" :width="10" :height="5" />8 (portalled)
           </PopperContent>
         </Portal>
-      </Popper>
+      </PopperRoot>
     </div>
 
     <div :style="{ display: 'flex', gap: '100px' }">
@@ -166,7 +165,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
                 paddingBottom: '100px',
               }"
             >
-              <Popper>
+              <PopperRoot>
                 <PopperAnchor class="popper_anchorClass small">
                   9.{{ i + 1 }}
                 </PopperAnchor>
@@ -179,9 +178,9 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
                   <PopperArrow class="popper_arrowClass" :width="10" :height="5" />
                   9.{{ i + 1 }}
                 </PopperContent>
-              </Popper>
+              </PopperRoot>
 
-              <Popper>
+              <PopperRoot>
                 <PopperAnchor class="popper_anchorClass small">
                   10.{{ i + 1 }}
                 </PopperAnchor>
@@ -196,7 +195,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
                     10.{{ i + 1 }} (portalled)
                   </PopperContent>
                 </Portal>
-              </Popper>
+              </PopperRoot>
             </div>
           </div>
         </div>
@@ -222,7 +221,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
                 top: 0,
               }"
             >
-              <Popper>
+              <PopperRoot>
                 <PopperAnchor class="popper_anchorClass small">
                   9.{{ i + 1 }}
                 </PopperAnchor>
@@ -235,9 +234,9 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
                   <PopperArrow class="popper_arrowClass" :width="10" :height="5" />
                   9.{{ i + 1 }}
                 </PopperContent>
-              </Popper>
+              </PopperRoot>
 
-              <Popper>
+              <PopperRoot>
                 <PopperAnchor class="popper_anchorClass small">
                   10.{{ i + 1 }}
                 </PopperAnchor>
@@ -252,7 +251,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
                     10.{{ i + 1 }} (portalled)
                   </PopperContent>
                 </Portal>
-              </Popper>
+              </PopperRoot>
             </div>
           </div>
         </div>
@@ -270,7 +269,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
       }"
     >
       <h1>Logical "start" alignment (LTR)</h1>
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           11
         </PopperAnchor>
@@ -278,9 +277,9 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
           <PopperArrow class="popper_arrowClass" :width="10" :height="5" />
           11
         </PopperContent>
-      </Popper>
+      </PopperRoot>
 
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           12
         </PopperAnchor>
@@ -294,7 +293,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
             12 (portalled)
           </PopperContent>
         </Portal>
-      </Popper>
+      </PopperRoot>
     </div>
 
     <div
@@ -308,7 +307,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
       }"
     >
       <h1>Logical "start" alignment (RTL)</h1>
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           13
         </PopperAnchor>
@@ -321,9 +320,9 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
           <PopperArrow class="popper_arrowClass" :width="10" :height="5" />
           13
         </PopperContent>
-      </Popper>
+      </PopperRoot>
 
-      <Popper>
+      <PopperRoot>
         <PopperAnchor class="popper_anchorClass small">
           14
         </PopperAnchor>
@@ -338,7 +337,7 @@ const scrollContainer2 = shallowRef<HTMLDivElement>()
             14 (portalled)
           </PopperContent>
         </Portal>
-      </Popper>
+      </PopperRoot>
     </div>
   </div>
 </template>

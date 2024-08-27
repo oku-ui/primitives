@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Slider, SliderRange, SliderThumb, SliderTrack } from '../index.ts'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../index.ts'
 import './styles.css'
 
 const value = shallowRef([0.1])
 </script>
 
 <template>
-  <Slider
+  <SliderRoot
     v-model:value="value"
     class="slider_rootClass"
     :min="0.1"
@@ -18,6 +18,6 @@ const value = shallowRef([0.1])
       <SliderRange class="slider_rangeClass" />
     </SliderTrack>
     <SliderThumb class="slider_thumbClass" />
-  </Slider>
+  </SliderRoot>
   <div>{{ value }}</div>
 </template>

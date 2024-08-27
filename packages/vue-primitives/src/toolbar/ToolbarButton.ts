@@ -1,5 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 
-export interface ToolbarButtonProps extends PrimitiveProps {
+export interface ToolbarButtonProps {
+  as?: PrimitiveProps['as']
   disabled?: boolean
 }

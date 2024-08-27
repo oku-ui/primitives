@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { RadioGroup, RadioGroupIndicator, RadioGroupItem } from '../index.ts'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../index.ts'
 import './styles.css'
 
 const value = shallowRef('2')
@@ -8,7 +8,7 @@ const value = shallowRef('2')
 
 <template>
   <div>
-    <RadioGroup v-model:value="value" class="radioGroup_rootClass">
+    <RadioGroupRoot v-model:value="value" class="radioGroup_rootClass">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -18,6 +18,6 @@ const value = shallowRef('2')
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
   </div>
 </template>

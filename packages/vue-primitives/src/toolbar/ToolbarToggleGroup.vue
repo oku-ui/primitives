@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends ToggleGroupType">
 import { ToggleGroup, type ToggleGroupType } from '../toggle-group/index.ts'
-import { useToolbarContext } from './Toolbar.ts'
+import { useToolbarContext } from './ToolbarRoot.ts'
 import type { ToolbarToggleGroupProps } from './ToolbarToggleGroup.ts'
 
 defineOptions({
@@ -8,7 +8,6 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<ToolbarToggleGroupProps<T>>(), {
-  disabled: false,
   loop: true,
 })
 const context = useToolbarContext('ToolbarToggleGroup')
@@ -16,7 +15,8 @@ const context = useToolbarContext('ToolbarToggleGroup')
 
 <template>
   <ToggleGroup
-    v-bind="props"
+    :type="props.type"
+    :loop="loop"
     :data-orientation="context.orientation()"
     :dir="context.dir.value"
     :roving-focus="false"

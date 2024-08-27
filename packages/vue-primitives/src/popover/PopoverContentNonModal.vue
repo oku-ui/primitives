@@ -2,7 +2,7 @@
 import { shallowRef } from 'vue'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
 import { forwardRef } from '../utils/vue.ts'
-import { usePopoverContext } from './Popover.ts'
+import { usePopoverContext } from './PopoverRoot.ts'
 import PopoverContentImpl from './PopoverContentImpl.vue'
 import type { PopoverContentNonModal } from './PopoverContentNonModal.ts'
 
@@ -71,7 +71,6 @@ defineExpose({
     :trap-focus="false"
     :disable-outside-pointer-events="false"
     @close-auto-focus="onCloseAutoFocus "
-
     @interact-outside="interactOutside"
   >
     <slot />

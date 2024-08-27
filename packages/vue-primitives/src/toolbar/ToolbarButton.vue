@@ -20,7 +20,6 @@ withDefaults(defineProps<ToolbarButtonProps>(), {
   >
     <Primitive
       :as="as"
-      :as-child="asChild"
       type="button"
       v-bind="$attrs"
     >

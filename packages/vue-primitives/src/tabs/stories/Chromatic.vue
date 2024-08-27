@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import './styles.css'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
+import { TabsRoot, TabsContent, TabsList, TabsTrigger } from '../index.ts'
 </script>
 
 <template>
   <div>
     <h1>Uncontrolled</h1>
-    <Tabs default-value="tab3" class="tabs_rootClass">
+    <TabsRoot default-value="tab3" class="tabs_rootClass">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -30,10 +30,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
 
     <h1>Controlled</h1>
-    <Tabs value="tab3" class="tabs_rootClass">
+    <TabsRoot value="tab3" class="tabs_rootClass">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -57,10 +57,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
 
     <h1>Vertical</h1>
-    <Tabs default-value="tab3" class="tabs_rootClass" orientation="vertical" activation-mode="manual">
+    <TabsRoot default-value="tab3" class="tabs_rootClass" orientation="vertical" activation-mode="manual">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -84,11 +84,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
 
     <h1>Direction</h1>
     <h2>Prop</h2>
-    <Tabs default-value="tab3" dir="rtl" class="tabs_rootClass">
+    <TabsRoot default-value="tab3" dir="rtl" class="tabs_rootClass">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -112,11 +112,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
 
     <h2>Inherited Wip:DirectionProvider</h2>
     <!-- <DirectionProvider dir="rtl"> -->
-    <Tabs default-value="tab3" class="tabs_rootClass">
+    <TabsRoot default-value="tab3" class="tabs_rootClass">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -140,12 +140,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
     <!-- </DirectionProvider> -->
 
     <h1>Animated</h1>
     <p>Should not animate on initial mount</p>
-    <Tabs value="tab1" class="tabs_rootClass">
+    <TabsRoot value="tab1" class="tabs_rootClass">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -169,10 +169,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
 
     <h1>Force mounted contents</h1>
-    <Tabs class="tabs_rootClass">
+    <TabsRoot class="tabs_rootClass">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -193,10 +193,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
       <TabsContent value="tab3" class="tabs_contentClass" force-mount>
         Tab 3 content
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
 
     <h1>State attributes</h1>
-    <Tabs default-value="tab3" class="tabs_rootAttrClass">
+    <TabsRoot default-value="tab3" class="tabs_rootAttrClass">
       <TabsList aria-label="tabs example" class="tabs_listAttrClass">
         <TabsTrigger value="tab1" class="tabs_triggerAttrClass">
           Tab 1
@@ -220,6 +220,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
   </div>
 </template>

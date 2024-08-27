@@ -2,7 +2,7 @@
 import { shallowRef } from 'vue'
 import { forwardRef } from '../utils/vue.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import { usePopoverContext } from './Popover.ts'
+import { usePopoverContext } from './PopoverRoot.ts'
 import type { PopoverContentProps } from './PopoverContent.ts'
 import PopoverContentModal from './PopoverContentModal.vue'
 import PopoverContentNonModal from './PopoverContentNonModal.vue'
@@ -28,10 +28,7 @@ defineExpose({
 </script>
 
 <template>
-  <Comp
-    v-if="isPresent"
-    :ref="forwardedRef"
-  >
+  <Comp v-if="isPresent" :ref="forwardedRef">
     <slot />
   </Comp>
 </template>

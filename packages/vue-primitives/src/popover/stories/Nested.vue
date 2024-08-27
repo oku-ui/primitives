@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
+import { PopoverRoot, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
 
 const buttonRef = shallowRef<any>()
 
@@ -28,7 +28,7 @@ function focusButton() {
       Focus popover button
     </button>
 
-    <Popover id="11">
+    <PopoverRoot id="11">
       <PopoverTrigger ref="buttonRef" class="popover_triggerClass">
         Open popover
       </PopoverTrigger>
@@ -39,7 +39,7 @@ function focusButton() {
           :side-offset="5"
           :style="{ backgroundColor: 'crimson' }"
         >
-          <Popover id="22">
+          <PopoverRoot id="22">
             <PopoverTrigger class="popover_triggerClass">
               Open nested popover
             </PopoverTrigger>
@@ -63,7 +63,7 @@ function focusButton() {
                 />
               </PopoverContent>
             </PopoverPortal>
-          </Popover>
+          </PopoverRoot>
 
           <PopoverClose
             class="popover_closeClass"
@@ -80,6 +80,6 @@ function focusButton() {
           />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
   </div>
 </template>

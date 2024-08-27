@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../index.ts'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 import './styles.css'
 </script>
 
@@ -11,7 +11,7 @@ import './styles.css'
       When accordion buttons are focused and the user is navigating via keyboard, the page should
       not scroll unless the next tab is entering the viewport.
     </p>
-    <Accordion type="single" class="accordion_rootClass">
+    <AccordionRoot type="single" class="accordion_rootClass">
       <AccordionItem class="accordion_itemClass" value="one">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -60,7 +60,7 @@ import './styles.css'
           <button>Cool</button>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
     <div :style="{ height: '150vh' }" />
   </div>
 </template>

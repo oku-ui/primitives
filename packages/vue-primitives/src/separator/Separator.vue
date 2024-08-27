@@ -13,8 +13,6 @@ withDefaults(defineProps<SeparatorProps>(), {
 
 <template>
   <Primitive
-    :as="as"
-    :as-child="asChild"
     :data-orientation="orientation"
     v-bind="{
       ...(

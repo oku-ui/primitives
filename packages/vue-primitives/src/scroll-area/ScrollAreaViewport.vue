@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { forwardRef } from '../utils/vue.ts'
 import { Primitive } from '../primitive/index.ts'
-import { useScrollAreaContext } from './ScrollArea.ts'
-import type { ScrollAreaViewportProps } from './ScrollAreaViewport.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaViewport',
 })
-
-defineProps<ScrollAreaViewportProps>()
 
 const context = useScrollAreaContext('ScrollAreaViewport')
 const forwardedViewportRef = forwardRef(context.viewport)
@@ -17,8 +14,6 @@ const forwardedViewportRef = forwardRef(context.viewport)
 <template>
   <Primitive
     :ref="forwardedViewportRef"
-    :as="as"
-    :as-child="asChild"
     data-radix-scroll-area-viewport=""
     :style="{
       /**

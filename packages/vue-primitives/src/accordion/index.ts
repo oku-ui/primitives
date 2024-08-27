@@ -1,11 +1,9 @@
-export { default as Accordion } from './Accordion.vue'
+export { default as AccordionRoot } from './AccordionRoot.vue'
 export { default as AccordionItem } from './AccordionItem.vue'
 export { default as AccordionHeader } from './AccordionHeader.vue'
 export { default as AccordionTrigger } from './AccordionTrigger.vue'
 export { default as AccordionContent } from './AccordionContent.vue'
 
-export type{ AccordionProps } from './Accordion.ts'
+export type{ AccordionRootProps } from './AccordionRoot.ts'
 export type{ AccordionItemProps } from './AccordionItem.ts'
 export type{ AccordionHeaderProps } from './AccordionHeader.ts'
-export type{ AccordionTriggerProps } from './AccordionTrigger.ts'
-export type{ AccordionContentProps } from './AccordionContent.ts'

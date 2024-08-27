@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { useSliderContext } from './Slider.ts'
+import { useSliderContext } from './SliderRoot.ts'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
 import type { SliderRangeProps } from './SliderRange.ts'
 import { convertValueToPercentage } from './utils.ts'
@@ -26,7 +26,6 @@ const offsetEnd = computed(() => 100 - Math.max(...percentages.value))
 <template>
   <Primitive
     :as="as"
-    :as-child="asChild"
     :data-disabled="context.disabled() ? '' : undefined"
     :data-orientation="context.orientation()"
     :style="{

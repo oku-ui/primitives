@@ -3,7 +3,7 @@ import { onBeforeUnmount, shallowRef } from 'vue'
 import { hideOthers } from 'aria-hidden'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/DismissableLayer.ts'
-import { usePopoverContext } from './Popover.ts'
+import { usePopoverContext } from './PopoverRoot.ts'
 import PopoverContentImpl from './PopoverContentImpl.vue'
 import type { PopoverContentModalEmits } from './PopoverContentModal.ts'
 

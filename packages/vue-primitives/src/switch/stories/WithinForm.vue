@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Switch, SwitchThumb } from '../index.ts'
+import { SwitchRoot, SwitchThumb } from '../index.ts'
 import './styles.css'
 
 const data = shallowRef({ optional: false, required: false, stopprop: false })
@@ -23,13 +23,13 @@ const checked = shallowRef(false)
     <fieldset>
       <legend>optional checked: {{ String(data.optional) }}</legend>
       <label>
-        <Switch
+        <SwitchRoot
           v-model:checked="checked"
           class="switch_rootClass"
           name="optional"
         >
           <SwitchThumb class="switch_thumbClass" />
-        </Switch>{{ ' ' }}
+        </SwitchRoot>{{ ' ' }}
         with label
       </label>
     </fieldset>
@@ -39,9 +39,9 @@ const checked = shallowRef(false)
 
     <fieldset>
       <legend>required checked: {{ String(data.required) }}</legend>
-      <Switch class="switch_rootClass" name="required" required>
+      <SwitchRoot class="switch_rootClass" name="required" required>
         <SwitchThumb class="switch_thumbClass" />
-      </Switch>
+      </SwitchRoot>
     </fieldset>
 
     <br>
@@ -49,13 +49,13 @@ const checked = shallowRef(false)
 
     <fieldset>
       <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
-      <Switch
+      <SwitchRoot
         class="switch_rootClass"
         name="stopprop"
         @click="(event: Event) => event.stopPropagation()"
       >
         <SwitchThumb class="switch_thumbClass" />
-      </Switch>
+      </SwitchRoot>
     </fieldset>
 
     <br>

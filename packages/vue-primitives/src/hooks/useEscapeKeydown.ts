@@ -1,4 +1,4 @@
-import { type MaybeRef, type MaybeRefOrGetter, toValue, unref, watchEffect } from 'vue'
+import { type MaybeRefOrGetter, toValue, watchEffect } from 'vue'
 
 export function useEscapeKeydown(
   onEscapeKeydownProp: (event: KeyboardEvent) => void,

@@ -207,8 +207,6 @@ function handleKeydown(event: KeyboardEvent) {
   <Primitive
     :ref="forwardedRef"
     tabindex="-1"
-    :as="as"
-    :as-child="asChild"
     @keydown="handleKeydown"
   >
     <slot />

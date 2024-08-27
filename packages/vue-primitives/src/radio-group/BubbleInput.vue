@@ -19,7 +19,7 @@ const controlSize = useSize(() => props.control)
 // const initChecked = isIndeterminate(props.checked) ? false : props.checked
 
 // Bubble checked change to parents (e.g form change event)
-watch(() => props.checked, (checked, prevChecked) => {
+watch(() => props.checked, (checked) => {
   const input = elRef.value
   if (!input)
     return
@@ -28,7 +28,7 @@ watch(() => props.checked, (checked, prevChecked) => {
   const descriptor = Object.getOwnPropertyDescriptor(inputProto, 'checked') as PropertyDescriptor
   const setChecked = descriptor.set
 
-  if (prevChecked !== checked && setChecked) {
+  if (checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
     const event = new Event('change', { bubbles: props.bubbles })
     setChecked.call(input, checked)

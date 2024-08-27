@@ -1,8 +1,7 @@
 import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import type { PrimitiveProps } from '../primitive/index.ts'
 
-export interface AccordionItemProps extends PrimitiveProps {
+export interface AccordionItemProps {
   /**
    * Whether or not an accordion item is disabled from user interaction.
    *

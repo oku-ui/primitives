@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, shallowRef, useAttrs, watch } from 'vue'
+import { computed, shallowRef, watch } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { isFunction } from '../utils/is.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { useEscapeKeydown } from '../hooks/useEscapeKeydown.ts'
 import { type DismissableLayerElement, type DismissableLayerEmits, type DismissableLayerProps, context, originalBodyPointerEvents } from './DismissableLayer.ts'
@@ -9,14 +8,12 @@ import { useFocusOutside, usePointerdownOutside } from './utils.ts'
 
 defineOptions({
   name: 'DismissableLayer',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<DismissableLayerProps>(), {
   disableOutsidePointerEvents: false,
 })
 const emit = defineEmits<DismissableLayerEmits>()
-const attrs = useAttrs()
 
 const node = shallowRef<DismissableLayerElement>()
 const forwardedRef = forwardRef(node)
@@ -122,26 +119,21 @@ watch(node, (nodeVal, _, onCleanup) => {
 })
 
 const onFocusCapture = composeEventHandlers<FocusEvent>((event) => {
-  if (isFunction(attrs.onFocusCapture))
-    attrs.onFocusCapture(event)
+  emit('focusCapture', event)
 }, focusOutside.onFocusCapture)
 
 const onBlurCapture = composeEventHandlers<FocusEvent>((event) => {
-  if (isFunction(attrs.onBlurCapture))
-    attrs.onBlurCapture(event)
+  emit('blurCapture', event)
 }, focusOutside.onBlurCapture)
 
 const onPointerdownCapture = composeEventHandlers<FocusEvent>((event) => {
-  if (isFunction(attrs.onPointerdownCapture))
-    attrs.onPointerdownCapture(event)
+  emit('pointerdownCapture', event)
 }, pointerdownOutside.onPointerdownCapture)
 </script>
 
 <template>
   <Primitive
     :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
     data-dismissable-layer
     :style="{
       pointerEvents: isBodyPointerEventsDisabled
@@ -150,12 +142,9 @@ const onPointerdownCapture = composeEventHandlers<FocusEvent>((event) => {
           : 'none'
         : undefined,
     }"
-    v-bind="{
-      ...attrs,
-      onFocusCapture,
-      onBlurCapture,
-      onPointerdownCapture,
-    }"
+    @focus.capture="onFocusCapture"
+    @blur.capture="onBlurCapture"
+    @pointerdown.capture="onPointerdownCapture"
   >
     <slot />
   </Primitive>

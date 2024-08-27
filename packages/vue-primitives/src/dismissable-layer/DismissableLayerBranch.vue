@@ -2,14 +2,11 @@
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { forwardRef } from '../utils/vue.ts'
-import type { DismissableLayerBranchProps } from './DismissableLayerBranch'
 import { context } from './DismissableLayer.ts'
 
 defineOptions({
   name: 'DismissableLayerBranch',
 })
-
-defineProps<DismissableLayerBranchProps>()
 
 const elRef = shallowRef<HTMLElement>()
 const forwardedRef = forwardRef(elRef)
@@ -24,11 +21,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
-  >
+  <Primitive :ref="forwardedRef">
     <slot />
   </Primitive>
 </template>

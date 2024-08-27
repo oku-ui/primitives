@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Slider, SliderRange, SliderThumb, SliderTrack } from '../index.ts'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../index.ts'
 import './styles.css'
 </script>
 
 <template>
-  <Slider class="slider_rootClass" :default-value="[10, 30]" :min-steps-between-thumbs="3">
+  <SliderRoot class="slider_rootClass" :default-value="[10, 30]" :min-steps-between-thumbs="3">
     <SliderTrack class="slider_trackClass">
       <SliderRange class="slider_rangeClass" />
     </SliderTrack>
     <SliderThumb class="slider_thumbClass" />
     <SliderThumb class="slider_thumbClass" />
-  </Slider>
+  </SliderRoot>
 </template>

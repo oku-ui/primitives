@@ -2,15 +2,13 @@
 import { shallowRef } from 'vue'
 import { Arrow } from '../arrow/index.ts'
 import { forwardRef } from '../utils/vue.ts'
-import type { PopperArrowProps } from './PopperArrow.ts'
 import { useContentContext } from './PopperContent.ts'
 import { OPPOSITE_SIDE } from './PopperArrow.ts'
 
 defineOptions({
   name: 'PopperArrow',
+  inheritAttrs: false,
 })
-
-defineProps<PopperArrowProps>()
 
 const $el = shallowRef<HTMLElement>()
 const forwardedRef = forwardRef($el)
@@ -47,14 +45,10 @@ defineExpose({
   >
     <Arrow
       :ref="forwardedRef"
-      :as="as"
-      :as-child="asChild"
       v-bind="$attrs"
       :style="{
         display: 'block',
       }"
-      :width="width"
-      :height="height"
     >
       <slot />
     </Arrow>

@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue'
 import { PopperAnchor } from '../popper/index.ts'
-import { usePopoverContext } from './Popover.ts'
-import type { PopoverAnchorProps } from './PopoverAnchor.ts'
+import { usePopoverContext } from './PopoverRoot.ts'
 
 defineOptions({
   name: 'PopoverAnchor',
 })
-
-const props = defineProps<PopoverAnchorProps>()
 
 const context = usePopoverContext('PopoverAnchor')
 
@@ -22,9 +19,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <PopperAnchor
-    v-bind="props"
-  >
+  <PopperAnchor>
     <slot />
   </PopperAnchor>
 </template>

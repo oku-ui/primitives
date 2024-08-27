@@ -1,6 +1,6 @@
 import { type Ref, shallowRef, toValue, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
-import type { ImageLoadingStatus } from './Avatar.ts'
+import type { ImageLoadingStatus } from './AvatarRoot.ts'
 import type { AvatarImageProps } from './AvatarImage.ts'
 
 export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() => AvatarImageProps['src'])) {

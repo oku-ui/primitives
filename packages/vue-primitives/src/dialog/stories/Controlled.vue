@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 const open = shallowRef(false)
@@ -8,7 +8,7 @@ const open = shallowRef(false)
 
 <template>
   <div>
-    <Dialog v-model:open="open">
+    <DialogRoot v-model:open="open">
       <DialogTrigger class="dialog_triggerClass">
         {{ open ? 'close' : 'open' }}
       </DialogTrigger>
@@ -22,6 +22,6 @@ const open = shallowRef(false)
           </DialogClose>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
   </div>
 </template>

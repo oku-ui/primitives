@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { computed, shallowRef, useAttrs } from 'vue'
+import { computed, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
-import { isFunction } from '../utils/is.ts'
-import { type RadioEmits, type RadioProps, getState, provideRadioContext } from './Radio.ts'
+import { type ClickEvent, type RadioEmits, type RadioProps, getState, provideRadioContext } from './Radio.ts'
 import BubbleInput from './BubbleInput.vue'
 
 defineOptions({
-  name: 'Radio',
+  name: 'RadioRoot',
   inheritAttrs: false,
 })
 
@@ -17,7 +16,6 @@ const props = withDefaults(defineProps<RadioProps>(), {
   checked: false,
 })
 const emit = defineEmits<RadioEmits>()
-const attrs = useAttrs()
 const $el = shallowRef<HTMLButtonElement>()
 const forwardedRef = forwardRef($el)
 
@@ -25,8 +23,7 @@ const hasConsumerStoppedPropagation = shallowRef(false)
 // We set this to true by default so that events bubble to forms without JS (SSR)
 const isFormControl = computed(() => $el.value ? Boolean($el.value.closest('form')) : true)
 
-type CliclEvent = Event & { _stopPropagation: Event['stopPropagation'], _isPropagationStopped: boolean, isPropagationStopped: () => boolean }
-const onClick = composeEventHandlers<CliclEvent>((event) => {
+const onClick = composeEventHandlers<ClickEvent>((event) => {
   event._stopPropagation = event.stopPropagation
   event._isPropagationStopped = false
   event.stopPropagation = function stopPropagation() {
@@ -37,8 +34,7 @@ const onClick = composeEventHandlers<CliclEvent>((event) => {
     return this._isPropagationStopped
   }
 
-  if (isFunction(attrs.onClick))
-    attrs.onClick(event)
+  emit('click', event)
 }, (event) => {
   // radios cannot be unchecked so we only communicate a checked state
   if (!props.checked)
@@ -71,7 +67,6 @@ defineExpose({
   <Primitive
     :ref="forwardedRef"
     :as="as"
-    :as-child="asChild"
     type="button"
     role="radio"
     :aria-checked="checked"
@@ -79,10 +74,8 @@ defineExpose({
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
     :value="value"
-    v-bind="{
-      ...attrs,
-      onClick,
-    }"
+    v-bind="$attrs"
+    @click="onClick"
   >
     <slot />
   </Primitive>

@@ -2,8 +2,8 @@ import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
 import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 
-export interface ScrollAreaScrollbarProps extends ScrollAreaScrollbarVisibleProps {
-  forceMount?: true
+export interface ScrollAreaScrollbarProps {
+  orientation?: ScrollAreaScrollbarVisibleProps['orientation']
 }
 
 // type ScrollAreaScrollbarElement = HTMLDivElement

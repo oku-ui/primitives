@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import { useAttrs, watchEffect } from 'vue'
+import { watchEffect } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import { usePresence } from '../presence/index.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { Primitive } from '../primitive/index.ts'
-import { isFunction } from '../utils/is.ts'
-import type { ScrollAreaThumbProps } from './ScrollAreaThumb.ts'
+import type { ScrollAreaThumbEmits, ScrollAreaThumbProps } from './ScrollAreaThumb.ts'
 import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
-import { useScrollAreaContext } from './ScrollArea.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import { addUnlinkedScrollListener } from './utils.ts'
 
 defineOptions({
   name: 'ScrollAreaThumb',
-  inheritAttrs: false,
 })
 
 const props = defineProps<ScrollAreaThumbProps>()
-const attrs = useAttrs()
-// const $el = shallowRef<HTMLElement>()
+const emit = defineEmits<ScrollAreaThumbEmits>()
 
 const scrollAreaContext = useScrollAreaContext('ScrollAreaThumb')
 const scrollbarContext = useScrollbarContext('ScrollAreaThumb')
@@ -64,8 +61,7 @@ watchEffect((onCleanup) => {
 })
 
 const onPointerdownCapture = composeEventHandlers<PointerEvent>((event) => {
-  if (isFunction(attrs.onPointerdownCapture))
-    attrs.onPointerdownCapture(event)
+  emit('pointerdownCapture', event)
 }, (event) => {
   const thumb = event.target as HTMLElement
   const thumbRect = thumb.getBoundingClientRect()
@@ -75,8 +71,7 @@ const onPointerdownCapture = composeEventHandlers<PointerEvent>((event) => {
 })
 
 const onPointerup = composeEventHandlers<PointerEvent>((event) => {
-  if (isFunction(attrs.onPointerup))
-    attrs.onPointerup(event)
+  emit('pointerup', event)
 }, scrollbarContext.onThumbPointerUp)
 
 const isPresent = usePresence(scrollbarContext.thumb, () => props.forceMount || scrollbarContext.hasThumb.value)
@@ -86,15 +81,10 @@ const isPresent = usePresence(scrollbarContext.thumb, () => props.forceMount || 
   <Primitive
     v-if="isPresent"
     :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
     :data-state="scrollbarContext.hasThumb.value ? 'visible' : 'hidden'"
-    v-bind="{
-      ...attrs,
-      onPointerdownCapture,
-      onPointerup,
-    }"
     style="width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)"
+    @pointerdown.capture="onPointerdownCapture"
+    @pointerup="onPointerup"
   >
     <slot />
   </Primitive>

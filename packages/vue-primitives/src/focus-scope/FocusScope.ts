@@ -1,6 +1,4 @@
-import type { PrimitiveProps } from '../primitive/index.ts'
-
-export interface FocusScopeProps extends PrimitiveProps {
+export interface FocusScopeProps {
   /**
    * When `true`, tabbing from last item will focus first tabbable
    * and shift+tab from first item will focus last tababble.

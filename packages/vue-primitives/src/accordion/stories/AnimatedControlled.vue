@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../index.ts'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 
 const value = shallowRef(['one', 'two', 'three', 'four'])
 </script>
 
 <template>
   <div>
-    <Accordion v-model:value="value" type="multiple" class="accordion_rootClass">
+    <AccordionRoot v-model:value="value" type="multiple" class="accordion_rootClass">
       <AccordionItem class="accordion_itemClass" value="one">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -57,6 +57,6 @@ const value = shallowRef(['one', 'two', 'three', 'four'])
           <button>Cool</button>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   </div>
 </template>

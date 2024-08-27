@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Progress, ProgressIndicator } from '../index.ts'
+import { ProgressIndicator, ProgressRoot } from '../index.ts'
 import { useIndeterminateToggle, usePreviousValueRef, useProgressValueState } from './utils.ts'
 import './styles.css'
 
@@ -12,14 +12,14 @@ const previousValueRef = usePreviousValueRef(value)
 
 <template>
   <div>
-    <Progress class="progress_rootClass" :value="value" :max="max">
+    <ProgressRoot class="progress_rootClass" :value="value" :max="max">
       <ProgressIndicator
         class="progress_indicatorClass"
         :style="{
           width: percentage != null ? `${percentage}%` : undefined,
         }"
       />
-    </Progress>
+    </ProgressRoot>
     <hr>
     <button @click="toggleIndeterminate">
       Toggle Indeterminate

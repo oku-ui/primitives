@@ -1,8 +1,7 @@
 import type { MutableRefObject } from '../hooks/index.ts'
-import type { PrimitiveProps } from '../primitive/index.ts'
-import type { Measurable } from './Popper.ts'
+import type { Measurable } from './PopperRoot.ts'
 
-export interface PopperAnchorProps extends PrimitiveProps {
+export interface PopperAnchorProps {
   virtualRef?: MutableRefObject<Measurable>
 }
 

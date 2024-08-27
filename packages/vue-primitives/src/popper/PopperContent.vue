@@ -17,7 +17,7 @@ import {
 import { useSize } from '../hooks/useSize.ts'
 import { forwardRef } from '../utils/vue.ts'
 import { Primitive } from '../primitive/index.ts'
-import { usePopperContext } from './Popper.ts'
+import { usePopperContext } from './PopperRoot.ts'
 import { type Align, type PopperContentEmits, type PopperContentProps, type Side, provideContentContext } from './PopperContent.ts'
 import { getSideAndAlignFromPlacement, isNotNull, transformOrigin } from './utils.ts'
 
@@ -200,8 +200,6 @@ defineExpose({
   >
     <Primitive
       :ref="forwardedRef"
-      :as="as"
-      :as-child="asChild"
       :data-side="placedSide"
       :data-align="placedAlign"
       v-bind="$attrs"

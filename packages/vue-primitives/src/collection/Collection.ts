@@ -27,7 +27,7 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
   }
 
   function useCollectionItem(currentElement: Ref<ItemElement | undefined>, attrs: ItemData) {
-    const { itemMap } = useCollectionContext()
+    const { itemMap } = useCollectionContext('CollectionItem')
 
     // let unrefElement: ItemElement | undefined
 

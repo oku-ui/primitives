@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import './styles.css'
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../index.ts'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 </script>
 
 <template>
   <div>
     <h1>Horizontal Orientation</h1>
-    <Accordion type="single" class="accordion_rootClass" orientation="horizontal">
+    <AccordionRoot type="single" class="accordion_rootClass" orientation="horizontal">
       <AccordionItem class="accordion_itemClass" value="one">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -55,6 +55,6 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionT
           <button>Cool</button>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   </div>
 </template>

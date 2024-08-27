@@ -1,6 +1,4 @@
-import type { PrimitiveProps } from '../primitive'
-
-export interface DialogContentImplProps extends PrimitiveProps {
+export interface DialogContentImplProps {
   /**
    * When `true`, focus cannot escape the `Content` via keyboard,
    * pointer, or a programmatic focus.

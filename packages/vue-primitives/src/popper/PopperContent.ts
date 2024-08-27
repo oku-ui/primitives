@@ -1,9 +1,8 @@
 import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import type { PrimitiveProps } from '../primitive/Primitive.ts'
 import type { Direction } from '../direction/Direction.ts'
 
-export interface PopperContentProps extends PrimitiveProps {
+export interface PopperContentProps {
   side?: Side
   sideOffset?: number
   align?: Align

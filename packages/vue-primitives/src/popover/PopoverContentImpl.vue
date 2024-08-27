@@ -5,7 +5,7 @@ import { useFocusGuards } from '../focus-guards/index.ts'
 import FocusScope from '../focus-scope/FocusScope.vue'
 import { PopperContent } from '../popper/index.ts'
 import { forwardRef } from '../utils/vue.ts'
-import { usePopoverContext } from './Popover.ts'
+import { usePopoverContext } from './PopoverRoot.ts'
 import type { PopoverContentImplEmits, PopoverContentImplProps } from './PopoverContentImpl.ts'
 import { getState } from './utilts.ts'
 
@@ -51,8 +51,6 @@ defineExpose({
       <PopperContent
         :id="context.contentId"
         :ref="forwardedRef"
-        :as="as"
-        :as-child="asChild"
         :data-state="getState(context.open.value)"
         role="dialog"
         v-bind="$attrs"

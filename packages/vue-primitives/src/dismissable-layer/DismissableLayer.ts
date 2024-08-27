@@ -1,10 +1,9 @@
 import { shallowReactive } from 'vue'
-import type { PrimitiveProps } from '../primitive/index.ts'
 
 export type PointerdownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>
 export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 
-export interface DismissableLayerProps extends PrimitiveProps {
+export interface DismissableLayerProps {
   /**
    * When `true`, hover/focus/click interactions will be disabled on elements outside
    * the `DismissableLayer`. Users will need to click twice on outside elements to
@@ -40,6 +39,10 @@ export type DismissableLayerEmits = {
    * Handler called when the `DismissableLayer` should be dismissed
    */
   dismiss: []
+
+  focusCapture: [event: FocusEvent]
+  blurCapture: [event: FocusEvent]
+  pointerdownCapture: [event: FocusEvent]
 }
 
 export type DismissableLayerElement = HTMLDivElement

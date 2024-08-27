@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Collapsible } from '../collapsible/index.ts'
+import { CollapsibleRoot } from '../collapsible/index.ts'
 import { type AccordionItemProps, provideAccordionItemContext } from './AccordionItem.ts'
-import { useAccordionContext } from './Accordion.ts'
+import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'
 
 defineOptions({
@@ -11,7 +11,7 @@ defineOptions({
 
 const props = defineProps<AccordionItemProps>()
 
-const context = useAccordionContext()
+const context = useAccordionContext('AccordionItem')
 const open = computed(() => (props.value && context.value.value.includes(props.value)) || false)
 const disabled = computed(() => context.disabled() || props.disabled)
 
@@ -32,9 +32,7 @@ provideAccordionItemContext({
 </script>
 
 <template>
-  <Collapsible
-    :as="as"
-    :as-child="asChild"
+  <CollapsibleRoot
     :data-orientation="context.orientation"
     :data-state="getState(open)"
     :disabled="disabled"
@@ -42,5 +40,5 @@ provideAccordionItemContext({
     @update:open="onUpdateOpen"
   >
     <slot />
-  </Collapsible>
+  </CollapsibleRoot>
 </template>

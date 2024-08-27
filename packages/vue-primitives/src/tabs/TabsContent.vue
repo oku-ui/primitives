@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import type { TabsContentProps } from './TabsContent.ts'
-import { useTabsContext } from './Tabs.ts'
+import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 
 defineOptions({
@@ -14,7 +14,7 @@ const props = defineProps<TabsContentProps>()
 
 const elRef = shallowRef<HTMLElement>()
 
-const context = useTabsContext()
+const context = useTabsContext('TabsContent')
 const triggerId = computed(() => makeTriggerId(context.baseId, props.value))
 const contentId = computed(() => makeContentId(context.baseId, props.value))
 const isSelected = computed(() => context.value.value === props.value)
@@ -39,8 +39,6 @@ const isPresent = usePresence(elRef, () => props.forceMount || isSelected.value)
 <template>
   <Primitive
     :id="contentId"
-    :as="as"
-    :as-child="asChild"
     :data-state="isSelected ? 'active' : 'inactive'"
     :data-orientation="context.orientation"
     role="tabpanel"

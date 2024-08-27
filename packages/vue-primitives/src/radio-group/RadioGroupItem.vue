@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, shallowRef, useAttrs } from 'vue'
+import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
-import { isFunction } from '../utils/is.ts'
-import { useRadioGroupContext } from './RadioGroup.ts'
-import { ARROW_KEYS, type RadioGroupItem } from './RadioGroupItem.ts'
+import { useRadioGroupContext } from './RadioGroupRoot.ts'
+import { ARROW_KEYS, type RadioGroupItemEmits, type RadioGroupItemProps } from './RadioGroupItem.ts'
 import Radio from './Radio.vue'
 
 defineOptions({
@@ -12,12 +11,12 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<RadioGroupItem>()
-const attrs = useAttrs()
+const props = defineProps<RadioGroupItemProps>()
+const emit = defineEmits<RadioGroupItemEmits>()
 const $el = shallowRef<HTMLElement>()
 const forwardedRef = forwardRef($el)
 
-const context = useRadioGroupContext()
+const context = useRadioGroupContext('RadioGroupItem')
 
 const isDisabled = computed(() => context.disabled() || props.disabled)
 const checked = computed(() => context.value.value === props.value)
@@ -48,15 +47,14 @@ function onCheck() {
   context.onValueChange(props.value)
 }
 
-function onKeyDown(event: KeyboardEvent) {
+function onKeydown(event: KeyboardEvent) {
   // According to WAI ARIA, radio groups don't activate items on enter keypress
   if (event.key === 'Enter')
     event.preventDefault()
 }
 
 const onFocus = composeEventHandlers<FocusEvent>((event) => {
-  if (isFunction(attrs.onFocus))
-    attrs.onFocus(event)
+  emit('focus', event)
 }, () => {
   /**
    * Our `RovingFocusGroup` will focus the radio when navigating with arrow keys
@@ -80,18 +78,14 @@ defineExpose({
   >
     <Radio
       :ref="forwardedRef"
-      :as="as"
-      :as-child="asChild"
       :checked="checked"
       :required="context.required()"
       :disabled="isDisabled"
       :name="context.name()"
       :value="value"
-      v-bind="{
-        ...attrs,
-        onKeyDown,
-        onFocus,
-      }"
+      v-bind="$attrs"
+      @focus="onFocus"
+      @keydown="onKeydown"
       @update:checked="onCheck"
     >
       <slot />

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Dialog } from '../dialog/index.ts'
+import { DialogRoot } from '../dialog/index.ts'
 
 defineOptions({
   name: 'AlertDialogRoot',
@@ -7,7 +7,7 @@ defineOptions({
 </script>
 
 <template>
-  <Dialog :modal="true">
+  <DialogRoot :modal="true">
     <slot />
-  </Dialog>
+  </DialogRoot>
 </template>

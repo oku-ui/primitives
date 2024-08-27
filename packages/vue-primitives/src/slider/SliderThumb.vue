@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { computed, shallowRef, useAttrs, watchEffect } from 'vue'
+import { computed, shallowRef, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
 import { Primitive } from '../primitive/index.ts'
 import { useSize } from '../hooks/index.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
-import { isFunction } from '../utils/is.ts'
-import type { SliderThumbProps } from './SliderThumb.ts'
-import { Collection, useCollection, useSliderContext } from './Slider.ts'
+import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
+import { Collection, useCollection, useSliderContext } from './SliderRoot.ts'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
 import BubbleInput from './BubbleInput.vue'
@@ -19,7 +18,7 @@ defineOptions({
 withDefaults(defineProps<SliderThumbProps>(), {
   as: 'span',
 })
-const attrs = useAttrs()
+const emit = defineEmits<SliderThumbEmits>()
 const $el = shallowRef<HTMLSpanElement>()
 const forwardedRef = forwardRef($el)
 
@@ -57,9 +56,8 @@ if (isClient) {
   })
 }
 
-const onFocus = composeEventHandlers((event) => {
-  if (isFunction(attrs.onFocus))
-    attrs.onFocus(event)
+const onFocus = composeEventHandlers<FocusEvent>((event) => {
+  emit('focus', event)
 }, () => {
   context.valueIndexToChangeRef.value = index.value
 })
@@ -80,7 +78,6 @@ defineExpose({
     <Primitive
       :ref="forwardedRef"
       :as="as"
-      :as-child="asChild"
       role="slider"
       :aria-label="$attrs['aria-label'] || label"
       :aria-valuemin="context.min()"
@@ -90,10 +87,7 @@ defineExpose({
       :data-orientation="context.orientation()"
       :data-disabled="context.disabled() ? '' : undefined"
       :tabindex="context.disabled() ? undefined : 0"
-      v-bind="{
-        ...attrs,
-        onFocus,
-      }"
+      v-bind="$attrs"
       :style="{
         /**
          * There will be no value on initial render while we work out the index so we hide thumbs
@@ -103,6 +97,7 @@ defineExpose({
          */
         ...value === undefined ? { display: 'none' } : undefined,
       }"
+      @focus="onFocus"
     >
       <slot />
     </Primitive>

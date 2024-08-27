@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { useAccordionContext } from './Accordion.ts'
+import { useAccordionContext } from './AccordionRoot.ts'
 import type { AccordionHeaderProps } from './AccordionHeader.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { getState } from './utils.ts'
@@ -13,14 +13,13 @@ withDefaults(defineProps<AccordionHeaderProps>(), {
   as: 'h3',
 })
 
-const accordionContext = useAccordionContext()
-const itemContext = useAccordionItemContext()
+const accordionContext = useAccordionContext('AccordionHeader')
+const itemContext = useAccordionItemContext('AccordionHeader')
 </script>
 
 <template>
   <Primitive
     :as="as"
-    :as-child="asChild"
     :data-orientation="accordionContext.orientation"
     :data-state="getState(itemContext.open.value)"
     :data-disabled="itemContext.disabled.value ? '' : undefined"

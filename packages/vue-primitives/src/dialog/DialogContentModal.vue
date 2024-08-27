@@ -3,7 +3,7 @@ import { onBeforeUnmount } from 'vue'
 import { hideOthers } from 'aria-hidden'
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/DismissableLayer.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { useDialogContext } from './Dialog.ts'
+import { useDialogContext } from './DialogRoot.ts'
 import DialogContentImpl from './DialogContentImpl.vue'
 import type { DialogContentModal } from './DialogContentModal.ts'
 

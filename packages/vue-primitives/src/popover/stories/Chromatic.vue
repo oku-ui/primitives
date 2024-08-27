@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './styles.css'
-import { Popover, PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
+import { PopoverRoot, PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
 import { ALIGN_OPTIONS, SIDE_OPTIONS } from '../../popper/PopperContent.ts'
 
 const SIDES = SIDE_OPTIONS.filter(side => side !== 'bottom').concat(['bottom'] as any)
@@ -15,7 +15,7 @@ function preventDefault(event: Event) {
     <h1>Uncontrolled</h1>
     <h2>Closed</h2>
 
-    <Popover>
+    <PopoverRoot>
       <PopoverTrigger class="popover_triggerClass">
         open
       </PopoverTrigger>
@@ -28,10 +28,10 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h2>Open</h2>
-    <Popover default-open>
+    <PopoverRoot default-open>
       <PopoverTrigger class="popover_triggerClass">
         open
       </PopoverTrigger>
@@ -48,12 +48,12 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h2 :style="{ marginTop: 100 }">
       Open with reordered parts
     </h2>
-    <Popover default-open>
+    <PopoverRoot default-open>
       <PopoverPortal>
         <PopoverContent
           class="popover_contentClass"
@@ -70,13 +70,13 @@ function preventDefault(event: Event) {
       <PopoverTrigger class="popover_triggerClass">
         open
       </PopoverTrigger>
-    </Popover>
+    </PopoverRoot>
 
     <h1 :style="{ marginTop: 100 }">
       Controlled
     </h1>
     <h2>Closed</h2>
-    <Popover :open="false">
+    <PopoverRoot :open="false">
       <PopoverTrigger class="popover_triggerClass">
         open
       </PopoverTrigger>
@@ -92,10 +92,10 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h2>Open</h2>
-    <Popover open>
+    <PopoverRoot open>
       <PopoverTrigger class="popover_triggerClass">
         open
       </PopoverTrigger>
@@ -111,12 +111,12 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h2 :style="{ marginTop: '100px' }">
       Open with reordered parts
     </h2>
-    <Popover open>
+    <PopoverRoot open>
       <PopoverPortal>
         <PopoverContent
           class="popover_contentClass"
@@ -131,12 +131,12 @@ function preventDefault(event: Event) {
       <PopoverTrigger class="popover_triggerClass">
         open
       </PopoverTrigger>
-    </Popover>
+    </PopoverRoot>
 
     <h2 :style="{ marginTop: '100px' }">
       Force mounted content
     </h2>
-    <Popover>
+    <PopoverRoot>
       <PopoverTrigger class="popover_triggerClass">
         open
       </PopoverTrigger>
@@ -153,13 +153,13 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h1 :style="{ marginTop: '100px' }">
       Anchor
     </h1>
     <h2>Controlled</h2>
-    <Popover open>
+    <PopoverRoot open>
       <PopoverAnchor :style="{ padding: '20px', background: 'gainsboro' }">
         <PopoverTrigger class="popover_triggerClass">
           open
@@ -177,10 +177,10 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h2>Uncontrolled</h2>
-    <Popover default-open>
+    <PopoverRoot default-open>
       <PopoverAnchor :style="{ padding: '20px', background: 'gainsboro' }">
         <PopoverTrigger class="popover_triggerClass">
           open
@@ -199,7 +199,7 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h1 :style="{ marginTop: '100px' }">
       Positioning
@@ -209,7 +209,7 @@ function preventDefault(event: Event) {
 
     <div class="popover_gridClass">
       <template v-for="side in SIDES">
-        <Popover v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
+        <PopoverRoot v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
           <PopoverTrigger class="popover_chromaticTriggerClass" />
 
           <PopoverPortal>
@@ -227,7 +227,7 @@ function preventDefault(event: Event) {
               <PopoverArrow class="popover_chromaticArrowClass" :width="20" :height="10" />
             </PopoverContent>
           </PopoverPortal>
-        </Popover>
+        </PopoverRoot>
       </template>
     </div>
 
@@ -236,7 +236,7 @@ function preventDefault(event: Event) {
 
     <div class="popover_gridClass">
       <template v-for="side in SIDES">
-        <Popover v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
+        <PopoverRoot v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
           <PopoverTrigger class="popover_chromaticTriggerClass" />
 
           <PopoverPortal>
@@ -255,14 +255,14 @@ function preventDefault(event: Event) {
               <PopoverArrow class="popover_chromaticArrowClass" :width="20" :height="10" />
             </PopoverContent>
           </PopoverPortal>
-        </Popover>
+        </PopoverRoot>
       </template>
     </div>
 
     <h4>Negative</h4>
     <div class="popover_gridClass">
       <template v-for="side in SIDES">
-        <Popover v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
+        <PopoverRoot v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
           <PopoverTrigger class="popover_chromaticTriggerClass" />
 
           <PopoverPortal>
@@ -281,7 +281,7 @@ function preventDefault(event: Event) {
               <PopoverArrow class="popover_chromaticArrowClass" :width="20" :height="10" />
             </PopoverContent>
           </PopoverPortal>
-        </Popover>
+        </PopoverRoot>
       </template>
     </div>
 
@@ -289,7 +289,7 @@ function preventDefault(event: Event) {
     <h4>Positive</h4>
     <div class="popover_gridClass">
       <template v-for="side in SIDES">
-        <Popover v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
+        <PopoverRoot v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
           <PopoverTrigger class="popover_chromaticTriggerClass" />
 
           <PopoverPortal>
@@ -308,14 +308,14 @@ function preventDefault(event: Event) {
               <PopoverArrow class="popover_chromaticArrowClass" :width="20" :height="10" />
             </PopoverContent>
           </PopoverPortal>
-        </Popover>
+        </PopoverRoot>
       </template>
     </div>
 
     <h4>Negative</h4>
     <div class="popover_gridClass">
       <template v-for="side in SIDES">
-        <Popover v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
+        <PopoverRoot v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
           <PopoverTrigger class="popover_chromaticTriggerClass" />
 
           <PopoverPortal>
@@ -334,14 +334,14 @@ function preventDefault(event: Event) {
               <PopoverArrow class="popover_chromaticArrowClass" :width="20" :height="10" />
             </PopoverContent>
           </PopoverPortal>
-        </Popover>
+        </PopoverRoot>
       </template>
     </div>
 
     <h2>Collisions</h2>
     <p>See instances on the periphery of the page.</p>
     <template v-for="side in SIDES">
-      <Popover v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
+      <PopoverRoot v-for="align in ALIGN_OPTIONS" :key="`${side}-${align}`" open>
         <PopoverTrigger
           class="popover_chromaticTriggerClass"
           :style="{
@@ -376,12 +376,12 @@ function preventDefault(event: Event) {
             <PopoverArrow class="popover_chromaticArrowClass" :width="20" :height="10" />
           </PopoverContent>
         </PopoverPortal>
-      </Popover>
+      </PopoverRoot>
     </template>
 
     <h2>Relative parent (non-portalled)</h2>
     <div :style="{ position: 'relative' }">
-      <Popover open>
+      <PopoverRoot open>
         <PopoverTrigger as-child>
           <button class="popover_triggerClass">
             open
@@ -394,13 +394,13 @@ function preventDefault(event: Event) {
           </PopoverClose>
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" :offset="10" />
         </PopoverContent>
-      </Popover>
+      </PopoverRoot>
     </div>
 
     <h1 :style="{ marginTop: '100px' }">
       With slotted trigger
     </h1>
-    <Popover open>
+    <PopoverRoot open>
       <PopoverTrigger as-child>
         <button class="popover_triggerClass">
           open
@@ -415,13 +415,13 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" :offset="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h1 :style="{ marginTop: '100px' }">
       State attributes
     </h1>
     <h2>Closed</h2>
-    <Popover :open="false">
+    <PopoverRoot :open="false">
       <PopoverTrigger class="popover_triggerAttrClass">
         open
       </PopoverTrigger>
@@ -433,10 +433,10 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowAttrClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
 
     <h2>Open</h2>
-    <Popover open>
+    <PopoverRoot open>
       <PopoverTrigger class="popover_triggerAttrClass">
         open
       </PopoverTrigger>
@@ -453,6 +453,6 @@ function preventDefault(event: Event) {
           <PopoverArrow class="popover_arrowAttrClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
   </div>
 </template>

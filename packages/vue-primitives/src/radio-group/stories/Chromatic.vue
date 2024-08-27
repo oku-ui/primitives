@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RadioGroup, RadioGroupIndicator, RadioGroupItem } from '../index.ts'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../index.ts'
 import './styles.css'
 </script>
 
@@ -7,7 +7,7 @@ import './styles.css'
   <div>
     <h1>Uncontrolled</h1>
     <h2>Unset</h2>
-    <RadioGroup class="radioGroup_rootClass">
+    <RadioGroupRoot class="radioGroup_rootClass">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -17,10 +17,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h2>Set</h2>
-    <RadioGroup class="radioGroup_rootClass" default-value="2">
+    <RadioGroupRoot class="radioGroup_rootClass" default-value="2">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -30,11 +30,11 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>Uncontrolled</h1>
     <h2>Unset</h2>
-    <RadioGroup class="radioGroup_rootClass" value="">
+    <RadioGroupRoot class="radioGroup_rootClass" value="">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -44,10 +44,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h2>Set</h2>
-    <RadioGroup class="radioGroup_rootClass" value="2">
+    <RadioGroupRoot class="radioGroup_rootClass" value="2">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -57,10 +57,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>Disabled item</h1>
-    <RadioGroup class="radioGroup_rootClass">
+    <RadioGroupRoot class="radioGroup_rootClass">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -70,10 +70,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>Disabled root</h1>
-    <RadioGroup class="radioGroup_rootClass" disabled>
+    <RadioGroupRoot class="radioGroup_rootClass" disabled>
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -84,10 +84,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>All items disabled</h1>
-    <RadioGroup class="radioGroup_rootClass">
+    <RadioGroupRoot class="radioGroup_rootClass">
       <RadioGroupItem class="radioGroup_itemClass" value="1" disabled>
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -97,10 +97,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3" disabled>
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>Manual focus into group</h1>
-    <RadioGroup class="radioGroup_rootClass">
+    <RadioGroupRoot class="radioGroup_rootClass">
       <RadioGroupItem
         :ref="(el: any) => {
           const node = el?.$el
@@ -117,10 +117,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>Force mounted indicator</h1>
-    <RadioGroup class="radioGroup_rootClass">
+    <RadioGroupRoot class="radioGroup_rootClass">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" force-mount />
       </RadioGroupItem>
@@ -130,11 +130,11 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" force-mount />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>Direction</h1>
     <h2>Prop</h2>
-    <RadioGroup class="radioGroup_rootClass" default-value="1" dir="rtl">
+    <RadioGroupRoot class="radioGroup_rootClass" default-value="1" dir="rtl">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -144,10 +144,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h2>Inherited: WIP</h2>
-    <RadioGroup class="radioGroup_rootClass" default-value="1" dir="rtl">
+    <RadioGroupRoot class="radioGroup_rootClass" default-value="1" dir="rtl">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
@@ -157,11 +157,11 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h1>State attributes</h1>
     <h2>Default</h2>
-    <RadioGroup class="radioGroup_rootAttrClass" default-value="3">
+    <RadioGroupRoot class="radioGroup_rootAttrClass" default-value="3">
       <RadioGroupItem class="radioGroup_itemAttrClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
@@ -171,10 +171,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemAttrClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h2>Disabled item</h2>
-    <RadioGroup class="radioGroup_rootAttrClass" default-value="3">
+    <RadioGroupRoot class="radioGroup_rootAttrClass" default-value="3">
       <RadioGroupItem class="radioGroup_itemAttrClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
@@ -184,9 +184,9 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemAttrClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
-    <RadioGroup class="radioGroup_rootAttrClass" default-value="2">
+    <RadioGroupRoot class="radioGroup_rootAttrClass" default-value="2">
       <RadioGroupItem class="radioGroup_itemAttrClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
@@ -196,10 +196,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemAttrClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h2>Disabled root</h2>
-    <RadioGroup class="radioGroup_rootAttrClass" default-value="3" disabled>
+    <RadioGroupRoot class="radioGroup_rootAttrClass" default-value="3" disabled>
       <RadioGroupItem class="radioGroup_itemAttrClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
@@ -209,10 +209,10 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemAttrClass" value="3">
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
 
     <h2>All items disabled</h2>
-    <RadioGroup class="radioGroup_rootAttrClass" default-value="3">
+    <RadioGroupRoot class="radioGroup_rootAttrClass" default-value="3">
       <RadioGroupItem class="radioGroup_itemAttrClass" value="1" disabled>
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
@@ -222,6 +222,6 @@ import './styles.css'
       <RadioGroupItem class="radioGroup_itemAttrClass" value="3" disabled>
         <RadioGroupIndicator class="radioGroup_indicatorAttrClass" />
       </RadioGroupItem>
-    </RadioGroup>
+    </RadioGroupRoot>
   </div>
 </template>

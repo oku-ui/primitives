@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { RadioGroup, RadioGroupIndicator, RadioGroupItem } from '../index.ts'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../index.ts'
 import './styles.css'
 
 const data = shallowRef({ optional: '', required: '', stopprop: '' })
@@ -20,7 +20,7 @@ function setData(callback: (prevData: typeof data.value) => typeof data.value) {
   >
     <fieldset>
       <legend>optional value: {{ data.optional }}</legend>
-      <RadioGroup class="radioGroup_rootClass" name="optional">
+      <RadioGroupRoot class="radioGroup_rootClass" name="optional">
         <RadioGroupItem class="radioGroup_itemClass" value="1">
           <RadioGroupIndicator class="radioGroup_indicatorClass" />
         </RadioGroupItem>
@@ -30,7 +30,7 @@ function setData(callback: (prevData: typeof data.value) => typeof data.value) {
         <RadioGroupItem class="radioGroup_itemClass" value="3">
           <RadioGroupIndicator class="radioGroup_indicatorClass" />
         </RadioGroupItem>
-      </RadioGroup>
+      </RadioGroupRoot>
     </fieldset>
 
     <br>
@@ -38,7 +38,7 @@ function setData(callback: (prevData: typeof data.value) => typeof data.value) {
 
     <fieldset>
       <legend>required value: {{ data.required }}</legend>
-      <RadioGroup class="radioGroup_rootClass" name="required" required>
+      <RadioGroupRoot class="radioGroup_rootClass" name="required" required>
         <RadioGroupItem class="radioGroup_itemClass" value="1">
           <RadioGroupIndicator class="radioGroup_indicatorClass" />
         </RadioGroupItem>
@@ -48,7 +48,7 @@ function setData(callback: (prevData: typeof data.value) => typeof data.value) {
         <RadioGroupItem class="radioGroup_itemClass" value="3">
           <RadioGroupIndicator class="radioGroup_indicatorClass" />
         </RadioGroupItem>
-      </RadioGroup>
+      </RadioGroupRoot>
     </fieldset>
 
     <br>
@@ -56,7 +56,7 @@ function setData(callback: (prevData: typeof data.value) => typeof data.value) {
 
     <fieldset>
       <legend>stop propagation value: {{ data.stopprop }}</legend>
-      <RadioGroup class="radioGroup_rootClass" name="stopprop">
+      <RadioGroupRoot class="radioGroup_rootClass" name="stopprop">
         <RadioGroupItem
           class="radioGroup_itemClass"
           value="1"
@@ -78,7 +78,7 @@ function setData(callback: (prevData: typeof data.value) => typeof data.value) {
         >
           <RadioGroupIndicator class="radioGroup_indicatorClass" />
         </RadioGroupItem>
-      </RadioGroup>
+      </RadioGroupRoot>
     </fieldset>
 
     <br>

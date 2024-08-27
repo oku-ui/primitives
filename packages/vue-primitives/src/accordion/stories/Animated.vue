@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef, watch } from 'vue'
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../index.ts'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 
 const values = ['One', 'Two', 'Three', 'Four']
 const count = shallowRef(1)
@@ -47,7 +47,7 @@ watch([hasDynamicContent, count], (_, __, onCleanup) => {
     <br>
     <br>
     <h1>Closed by default</h1>
-    <Accordion type="single" class="accordion_rootClass">
+    <AccordionRoot type="single" class="accordion_rootClass">
       <AccordionItem v-for="value in values" :key="value" :value="value" class="accordion_itemClass">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -62,10 +62,10 @@ watch([hasDynamicContent, count], (_, __, onCleanup) => {
           </div>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
 
     <h1>Open by default</h1>
-    <Accordion type="single" class="accordion_rootClass" default-value="One">
+    <AccordionRoot type="single" class="accordion_rootClass" default-value="One">
       <AccordionItem v-for="value in values" :key="value" :value="value" class="accordion_itemClass">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -80,6 +80,6 @@ watch([hasDynamicContent, count], (_, __, onCleanup) => {
           </div>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   </div>
 </template>

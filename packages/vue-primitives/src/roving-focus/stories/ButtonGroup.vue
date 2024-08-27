@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { RovingFocusGroup } from '../index.ts'
+import { RovingFocusGroupRoot } from '../index.ts'
 import { provideButtonGroupContext } from './utils.ts'
 
 const props = withDefaults(defineProps<{
@@ -24,7 +24,7 @@ provideButtonGroupContext({
 </script>
 
 <template>
-  <RovingFocusGroup
+  <RovingFocusGroupRoot
     :dir="dir"
     :loop="loop"
     :orientation="orientation"
@@ -35,5 +35,5 @@ provideButtonGroupContext({
     }"
   >
     <slot />
-  </RovingFocusGroup>
+  </RovingFocusGroupRoot>
 </template>

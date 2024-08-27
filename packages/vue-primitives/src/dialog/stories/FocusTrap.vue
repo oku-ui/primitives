@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 </script>
 
 <template>
   <div>
-    <Dialog>
+    <DialogRoot>
       <DialogTrigger>open</DialogTrigger>
       <DialogPortal>
         <DialogOverlay class="dialog_overlayClass" />
@@ -26,7 +26,7 @@ import './styles.css'
           </div>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
 
     <p>These elements can't be focused when the dialog is opened.</p>
     <button type="button">

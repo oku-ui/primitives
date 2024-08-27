@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Avatar, AvatarFallback, AvatarImage } from '../index.ts'
+import { AvatarFallback, AvatarImage, AvatarRoot } from '../index.ts'
 import AvatarIcon from './AvatarIcon.vue'
 import './styles.css'
 
@@ -10,26 +10,26 @@ const srcBroken = 'https://broken.link.com/broken-pic.jpg'
 <template>
   <div>
     <h1>Without image & with fallback</h1>
-    <Avatar class="avatar_rootClass">
+    <AvatarRoot class="avatar_rootClass">
       <AvatarFallback class="avatar_fallbackClass">
         JS
       </AvatarFallback>
-    </Avatar>
+    </AvatarRoot>
 
     <h1>With image & with fallback</h1>
-    <Avatar class="avatar_rootClass">
+    <AvatarRoot class="avatar_rootClass">
       <AvatarImage class="avatar_imageClass" alt="John Smith" :src="src" />
       <AvatarFallback :delay-ms="300" class="avatar_fallbackClass">
         JS
       </AvatarFallback>
-    </Avatar>
+    </AvatarRoot>
 
     <h1>With image & with fallback (but broken src)</h1>
-    <Avatar class="avatar_rootClass">
+    <AvatarRoot class="avatar_rootClass">
       <AvatarImage class="avatar_imageClass" alt="John Smith" :src="srcBroken" />
       <AvatarFallback class="avatar_fallbackClass">
         <AvatarIcon />
       </AvatarFallback>
-    </Avatar>
+    </AvatarRoot>
   </div>
 </template>

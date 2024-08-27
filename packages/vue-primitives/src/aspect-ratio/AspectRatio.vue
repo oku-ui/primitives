@@ -34,8 +34,6 @@ defineExpose({
   >
     <Primitive
       :ref="forwardedRef"
-      :as="as"
-      :as-child="asChild"
       v-bind="$attrs"
       :style="{
         // ensures children expand in ratio

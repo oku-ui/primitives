@@ -1,24 +1,22 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, shallowRef, useAttrs, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
-import { isFunction } from '../utils/is.ts'
 import { useNodeEventListener } from '../utils/dom.ts'
-import { useScrollAreaContext } from './ScrollArea.ts'
-import type { ScrollAreaScrollbarVisibleProps, Sizes } from './ScrollAreaScrollbarVisible.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
+import type { ScrollAreaScrollbarVisibleEmits, ScrollAreaScrollbarVisibleProps, Sizes } from './ScrollAreaScrollbarVisible.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
 import { type ScrollAreaThumbElement, provideScrollbarContext } from './ScrollAreaScrollbar.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarVisible',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarVisibleProps>(), {
   orientation: 'vertical',
 })
-const attrs = useAttrs()
+const emit = defineEmits<ScrollAreaScrollbarVisibleEmits>()
 
 const isHorizontal = props.orientation === 'horizontal'
 
@@ -79,8 +77,7 @@ function handleDragScroll(event: PointerEvent) {
 }
 
 const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
-  if (isFunction(attrs.onPointerdown))
-    attrs.onPointerdown(event)
+  emit('pointerdown', event)
 }, (event) => {
   const mainPointer = 0
   if (event.button !== mainPointer)
@@ -101,15 +98,13 @@ const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
 })
 
 const onPointermove = composeEventHandlers<PointerEvent>((event) => {
-  if (isFunction(attrs.onPointermown))
-    attrs.onPointermown(event)
+  emit('pointermove', event)
 }, (event: PointerEvent) => {
   handleDragScroll(event)
 })
 
 const onPointerup = composeEventHandlers<PointerEvent>((event) => {
-  if (isFunction(attrs.onPointerup))
-    attrs.onPointerup(event)
+  emit('pointerup', event)
 }, (event: PointerEvent) => {
   const element = event.target as HTMLElement
   if (element.hasPointerCapture(event.pointerId))
@@ -260,17 +255,12 @@ function CompStyles() {
 <template>
   <Primitive
     :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
-    v-bind="{
-      ...$attrs,
-      onPointerdown,
-      onPointermove,
-      onPointerup,
-    }"
     :style="CompStyles()"
     data-scrollbarimpl
     :data-orientation="isHorizontal ? 'horizontal' : 'vertical'"
+    @pointerdown="onPointerdown"
+    @pointermove="onPointermove"
+    @pointerup="onPointerup"
   >
     <slot />
   </Primitive>

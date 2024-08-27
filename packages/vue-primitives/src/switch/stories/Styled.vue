@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Label } from '../../label/index.ts'
-import { Switch, SwitchThumb } from '../index.ts'
+import { SwitchRoot, SwitchThumb } from '../index.ts'
 import './styles.css'
 </script>
 
@@ -9,9 +9,9 @@ import './styles.css'
     <p>This switch is nested inside a label. The state is uncontrolled.</p>
     <Label>
       This is the label{{ ' ' }}
-      <Switch class="switch_rootClass">
+      <SwitchRoot class="switch_rootClass">
         <SwitchThumb class="switch_thumbClass" />
-      </Switch>
+      </SwitchRoot>
     </Label>
   </div>
 </template>

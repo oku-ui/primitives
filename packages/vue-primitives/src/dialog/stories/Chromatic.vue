@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 </script>
 
@@ -14,7 +14,7 @@ import './styles.css'
     <div>
       <h1>Uncontrolled</h1>
       <h2>Closed</h2>
-      <Dialog>
+      <DialogRoot>
         <DialogTrigger class="dialog_triggerClass">
           open
         </DialogTrigger>
@@ -28,10 +28,10 @@ import './styles.css'
             </DialogClose>
           </DialogContent>
         </DialogPortal>
-      </Dialog>
+      </DialogRoot>
 
       <h2>Open</h2>
-      <Dialog default-open>
+      <DialogRoot default-open>
         <DialogTrigger class="dialog_triggerClass">
           open
         </DialogTrigger>
@@ -45,13 +45,13 @@ import './styles.css'
             </DialogClose>
           </DialogContent>
         </DialogPortal>
-      </Dialog>
+      </DialogRoot>
     </div>
 
     <div>
       <h1>Uncontrolled with reordered parts</h1>
       <h2>Closed</h2>
-      <Dialog>
+      <DialogRoot>
         <DialogPortal>
           <DialogOverlay class="dialog_overlayClass" />
           <DialogContent class="dialog_chromaticContentClass">
@@ -65,10 +65,10 @@ import './styles.css'
         <DialogTrigger class="dialog_triggerClass">
           open
         </DialogTrigger>
-      </Dialog>
+      </DialogRoot>
 
       <h2>Open</h2>
-      <Dialog default-open>
+      <DialogRoot default-open>
         <DialogPortal>
           <DialogOverlay class="dialog_overlayClass" :style="{ left: '25%', bottom: '50%', width: '25%' }" />
           <DialogContent class="dialog_chromaticContentClass" :style="{ top: '25%', left: '37%' }">
@@ -82,13 +82,13 @@ import './styles.css'
         <DialogTrigger class="dialog_triggerClass">
           open
         </DialogTrigger>
-      </Dialog>
+      </DialogRoot>
     </div>
 
     <div>
       <h1>Controlled</h1>
       <h2>Closed</h2>
-      <Dialog :open="false">
+      <DialogRoot :open="false">
         <DialogTrigger class="dialog_triggerClass">
           open
         </DialogTrigger>
@@ -102,7 +102,7 @@ import './styles.css'
             </DialogClose>
           </DialogContent>
         </DialogPortal>
-      </Dialog>
+      </DialogRoot>
 
       <h2>Open</h2>
       <!-- <Dialog open>
@@ -125,7 +125,7 @@ import './styles.css'
     <div>
       <h1>Controlled with reordered parts</h1>
       <h2>Closed</h2>
-      <Dialog :open="false">
+      <DialogRoot :open="false">
         <DialogPortal>
           <DialogOverlay class="dialog_overlayClass" />
           <DialogContent class="dialog_chromaticContentClass">
@@ -139,7 +139,7 @@ import './styles.css'
         <DialogTrigger class="dialog_triggerClass">
           open
         </DialogTrigger>
-      </Dialog>
+      </DialogRoot>
 
       <h2>Open</h2>
       <!-- <Dialog open>
@@ -195,7 +195,7 @@ import './styles.css'
       <div>
         <h1>State attributes</h1>
         <h2>Closed</h2>
-        <Dialog>
+        <DialogRoot>
           <DialogTrigger class="dialog_triggerAttrClass">
             open
           </DialogTrigger>
@@ -209,10 +209,10 @@ import './styles.css'
               </DialogClose>
             </DialogContent>
           </DialogPortal>
-        </Dialog>
+        </DialogRoot>
 
         <h2>Open</h2>
-        <Dialog default-open>
+        <DialogRoot default-open>
           <DialogTrigger class="dialog_triggerAttrClass">
             open
           </DialogTrigger>
@@ -226,7 +226,7 @@ import './styles.css'
               </DialogClose>
             </DialogContent>
           </DialogPortal>
-        </Dialog>
+        </DialogRoot>
       </div>
     </div>
   </div>

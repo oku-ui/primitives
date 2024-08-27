@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 function preventDisabled(event: Event) {
@@ -9,7 +9,7 @@ function preventDisabled(event: Event) {
 
 <template>
   <div>
-    <Dialog>
+    <DialogRoot>
       <DialogTrigger class="dialog_triggerClass">
         open
       </DialogTrigger>
@@ -23,6 +23,6 @@ function preventDisabled(event: Event) {
           </DialogClose>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
   </div>
 </template>

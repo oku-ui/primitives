@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Label } from '../../label/index.ts'
-import { RadioGroup, RadioGroupIndicator, RadioGroupItem } from '../index.ts'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../index.ts'
 import './styles.css'
 </script>
 
 <template>
   <Label>
     Favourite pet
-    <RadioGroup class="radioGroup_rootClass" default-value="1">
+    <RadioGroupRoot class="radioGroup_rootClass" default-value="1">
       <Label>
         <RadioGroupItem class="radioGroup_itemClass" value="1">
           <RadioGroupIndicator class="radioGroup_indicatorClass" />
@@ -26,6 +26,6 @@ import './styles.css'
         </RadioGroupItem>
         Rabbit
       </Label>
-    </RadioGroup>
+    </RadioGroupRoot>
   </Label>
 </template>

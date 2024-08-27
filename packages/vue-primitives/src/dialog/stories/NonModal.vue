@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 function preventDefault(event: Event) {
@@ -9,7 +9,7 @@ function preventDefault(event: Event) {
 
 <template>
   <div>
-    <Dialog :modal="false">
+    <DialogRoot :modal="false">
       <DialogTrigger class="dialog_triggerClass">
         open (non-modal)
       </DialogTrigger>
@@ -22,7 +22,7 @@ function preventDefault(event: Event) {
           </DialogClose>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
 
     <div v-for="i in 5" :key="i" :style="{ marginTop: '20px' }">
       <textarea

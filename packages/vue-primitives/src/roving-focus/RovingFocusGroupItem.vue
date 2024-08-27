@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { computed, shallowRef, useAttrs, watch, watchEffect } from 'vue'
+import { computed, shallowRef, watch, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useId } from '../hooks/index.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
-import { isFunction } from '../utils/is.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
-import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroup.ts'
-import type { RovingFocusGroupItemProps } from './RovingFocusGroupItem.ts'
+import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
+import type { RovingFocusGroupItemEmits, RovingFocusGroupItemProps } from './RovingFocusGroupItem.ts'
 
 defineOptions({
   name: 'RovingFocusGroupItem',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
@@ -19,12 +17,12 @@ const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
   active: true,
   as: 'span',
 })
-const attrs = useAttrs()
+const emit = defineEmits<RovingFocusGroupItemEmits>()
 const $el = shallowRef<HTMLElement>()
 const forwardedRef = forwardRef($el)
 
 const id = computed(() => props.tabStopId || useId())
-const context = useRovingFocusContext()
+const context = useRovingFocusContext('RovingFocusGroupItem')
 const isCurrentTabStop = computed(() => context.currentTabStopId.value === id.value)
 
 const getItems = useCollection()
@@ -46,9 +44,8 @@ watchEffect(() => {
 })
 Collection.useCollectionItem($el, itemData)
 
-const onMousedown = composeEventHandlers((event) => {
-  if (isFunction(attrs.onMousedown))
-    attrs.onMousedown(event)
+const onMousedown = composeEventHandlers<MouseEvent>((event) => {
+  emit('mousedown', event)
 }, (event) => {
   // We prevent focusing non-focusable items on `mousedown`.
   // Even though the item has tabIndex={-1}, that only means take it out of the tab order.
@@ -58,14 +55,12 @@ const onMousedown = composeEventHandlers((event) => {
   else context.onItemFocus(id.value)
 })
 
-const onFocus = composeEventHandlers((event) => {
-  if (isFunction(attrs.onFocus))
-    attrs.onFocus(event)
+const onFocus = composeEventHandlers<FocusEvent>((event) => {
+  emit('focus', event)
 }, () => context.onItemFocus(id.value))
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  if (isFunction(attrs.onKeydown))
-    attrs.onKeydown(event)
+  emit('keydown', event)
 }, (event) => {
   if (event.key === 'Tab' && event.shiftKey) {
     context.onItemShiftTab()
@@ -116,16 +111,12 @@ defineExpose({
   <Primitive
     :ref="forwardedRef"
     :as="as"
-    :as-child="asChild"
     :tabindex="isCurrentTabStop ? 0 : -1"
     :data-orientation="context.orientation()"
     :[ITEM_DATA_ATTR]="true"
-    v-bind="{
-      ...attrs,
-      onMousedown,
-      onFocus,
-      onKeydown,
-    }"
+    @mousedown="onMousedown"
+    @focus="onFocus"
+    @keydown="onKeydown"
   >
     <slot />
   </Primitive>

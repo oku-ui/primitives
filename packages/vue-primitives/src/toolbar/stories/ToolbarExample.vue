@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Direction } from '../../direction/index.ts'
 import { Toggle } from '../../toggle/index.ts'
-import { Toolbar, ToolbarButton, ToolbarLink, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem } from '../index.ts'
+import { ToolbarButton, ToolbarLink, ToolbarRoot, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem } from '../index.ts'
 import './styles.css'
 
 defineProps<{
@@ -15,7 +15,7 @@ defineProps<{
   <div>
     <div :style="{ padding: '1px', margin: '-1px' }">
       <h1>{{ title }}</h1>
-      <Toolbar
+      <ToolbarRoot
         class="toolbar_toolbarClass"
         :orientation="orientation"
         :loop="true"
@@ -69,7 +69,7 @@ defineProps<{
             <DropdownMenu.Arrow />
           </DropdownMenu.Content>
         </DropdownMenu.Root> -->
-      </Toolbar>
+      </ToolbarRoot>
     </div>
   </div>
 </template>

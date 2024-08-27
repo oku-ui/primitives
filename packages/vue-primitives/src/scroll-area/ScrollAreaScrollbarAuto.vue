@@ -4,7 +4,7 @@ import { shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { forwardRef } from '../utils/vue.ts'
 import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.ts'
-import { useScrollAreaContext } from './ScrollArea.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
 defineOptions({
@@ -44,8 +44,6 @@ defineExpose({
   <ScrollAreaScrollbarVisible
     v-if="isPresent"
     :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
     :orientation="orientation"
     :data-state="visible ? 'visible' : 'hidden'"
   >

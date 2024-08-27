@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Slider, SliderRange, SliderThumb, SliderTrack } from '../index.ts'
+import { SliderRoot, SliderRange, SliderThumb, SliderTrack } from '../index.ts'
 import './styles.css'
 import serialize from './form-serialize.js'
 
@@ -29,12 +29,12 @@ const data = shallowRef(initData)
   >
     <fieldset>
       <legend>Single value: {{ String(data.single) }}</legend>
-      <Slider name="single" :default-value="initData.single" class="slider_rootClass">
+      <SliderRoot name="single" :default-value="initData.single" class="slider_rootClass">
         <SliderTrack class="slider_trackClass">
           <SliderRange class="slider_rangeClass" />
         </SliderTrack>
         <SliderThumb class="slider_thumbClass" />
-      </Slider>
+      </SliderRoot>
     </fieldset>
 
     <br>
@@ -42,7 +42,7 @@ const data = shallowRef(initData)
 
     <fieldset>
       <legend>Multiple value: {{ String(data.multiple) }}</legend>
-      <Slider name="multiple" :default-value="initData.multiple" class="slider_rootClass">
+      <SliderRoot name="multiple" :default-value="initData.multiple" class="slider_rootClass">
         <SliderTrack class="slider_trackClass">
           <SliderRange class="slider_rangeClass" />
         </SliderTrack>
@@ -50,7 +50,7 @@ const data = shallowRef(initData)
         <SliderThumb class="slider_thumbClass" />
         <SliderThumb class="slider_thumbClass" />
         <SliderThumb class="slider_thumbClass" />
-      </Slider>
+      </SliderRoot>
     </fieldset>
 
     <br>
@@ -58,13 +58,13 @@ const data = shallowRef(initData)
 
     <fieldset>
       <legend>Multiple values (with named thumbs): {{ JSON.stringify(data.price) }}</legend>
-      <Slider :default-value="[initData.price.min, initData.price.max]" class="slider_rootClass">
+      <SliderRoot :default-value="[initData.price.min, initData.price.max]" class="slider_rootClass">
         <SliderTrack class="slider_trackClass">
           <SliderRange class="slider_rangeClass" />
         </SliderTrack>
         <SliderThumb class="slider_thumbClass" name="price[min]" />
         <SliderThumb class="slider_thumbClass" name="price[max]" />
-      </Slider>
+      </SliderRoot>
     </fieldset>
 
     <button type="submit">

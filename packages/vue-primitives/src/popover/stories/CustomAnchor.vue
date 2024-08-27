@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import './styles.css'
-import { Popover, PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
+import { PopoverRoot, PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
 </script>
 
 <template>
   <div>
-    <Popover>
+    <PopoverRoot>
       <PopoverAnchor
         :style="{
           display: 'flex',
@@ -36,6 +36,6 @@ import { Popover, PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, Pop
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
   </div>
 </template>

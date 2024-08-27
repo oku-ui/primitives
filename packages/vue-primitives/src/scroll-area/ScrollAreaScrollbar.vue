@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watchEffect } from 'vue'
-import { useScrollAreaContext } from './ScrollArea.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar.ts'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
 import ScrollAreaScrollbarScroll from './ScrollAreaScrollbarScroll.vue'
@@ -35,12 +35,7 @@ const Comp = type === 'hover'
 </script>
 
 <template>
-  <Comp
-    :as="as"
-    :as-child="asChild"
-    :force-mount="forceMount"
-    :orientation="orientation"
-  >
+  <Comp :orientation="orientation">
     <slot />
   </Comp>
 </template>

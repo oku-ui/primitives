@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 </script>
 
 <template>
   <div>
-    <Dialog>
+    <DialogRoot>
       <DialogTrigger class="dialog_triggerClass">
         open
       </DialogTrigger>
@@ -22,6 +22,6 @@ import './styles.css'
           </DialogContent>
         </DialogOverlay>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
   </div>
 </template>

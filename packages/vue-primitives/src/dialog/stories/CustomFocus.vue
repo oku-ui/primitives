@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 const firstNameRef = shallowRef<HTMLInputElement>()
@@ -9,7 +9,7 @@ const searchFieldRef = shallowRef<HTMLInputElement>()
 
 <template>
   <div>
-    <Dialog>
+    <DialogRoot>
       <DialogTrigger>open</DialogTrigger>
       <DialogPortal>
         <DialogOverlay class="dialog_overlayClass" />
@@ -43,7 +43,7 @@ const searchFieldRef = shallowRef<HTMLInputElement>()
           </div>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
 
     <div>
       <p>The search input will receive the focus after closing the dialog</p>

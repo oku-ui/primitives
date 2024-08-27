@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef, watchEffect } from 'vue'
-import { Popper, PopperAnchor, PopperContent } from '../index.ts'
-import PopperArrow from '../PopperArrow.vue'
+import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../index.ts'
 import { Portal } from '../../portal/index.ts'
 import Scrollable from './Scrollable.vue'
 
@@ -34,7 +33,7 @@ function closeFn() {
 <template>
   <div>
     <Scrollable>
-      <Popper>
+      <PopperRoot>
         <PopperAnchor
           class="popper_anchorClass"
           :style="{ marginLeft: `${left}px` }"
@@ -55,7 +54,7 @@ function closeFn() {
             <PopperArrow class="popper_arrowClass" :width="20" :height="10" />
           </PopperContent>
         </Portal>
-      </Popper>
+      </PopperRoot>
     </Scrollable>
   </div>
 </template>

@@ -1,26 +1,18 @@
 <script setup lang="ts">
 import { CollapsibleContent } from '../collapsible/index.ts'
-import { useAccordionContext } from './Accordion.ts'
-import type { AccordionContentProps } from './AccordionContent.ts'
+import { useAccordionContext } from './AccordionRoot.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 
 defineOptions({
   name: 'AccordionContent',
 })
 
-withDefaults(defineProps<AccordionContentProps>(), {
-  forceMount: undefined,
-})
-
-const accordionContext = useAccordionContext()
-const itemContext = useAccordionItemContext()
+const accordionContext = useAccordionContext('AccordionContent')
+const itemContext = useAccordionItemContext('AccordionContent')
 </script>
 
 <template>
   <CollapsibleContent
-    :as="as"
-    :as-child="asChild"
-    :force-mount="forceMount"
     role="region"
     :aria-labelledby="itemContext.triggerId()"
     :data-orientation="accordionContext.orientation"

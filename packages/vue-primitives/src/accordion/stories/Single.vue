@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../index.ts'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 
 const value = shallowRef<string>()
 </script>
@@ -9,7 +9,7 @@ const value = shallowRef<string>()
 <template>
   <div>
     <h1>Uncontrolled</h1>
-    <Accordion type="single" class="accordion_rootClass">
+    <AccordionRoot type="single" class="accordion_rootClass">
       <AccordionItem class="accordion_itemClass" value="one">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -58,10 +58,10 @@ const value = shallowRef<string>()
           <button>Cool</button>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
 
     <h1>Controlled</h1>
-    <Accordion
+    <AccordionRoot
       v-model:value="value"
       type="single"
       class="accordion_rootClass"
@@ -114,10 +114,10 @@ const value = shallowRef<string>()
           <button>Cool</button>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
 
     <h1>Collapsible</h1>
-    <Accordion type="single" class="accordion_rootClass" default-value="one" collapsible>
+    <AccordionRoot type="single" class="accordion_rootClass" default-value="one" collapsible>
       <AccordionItem class="accordion_itemClass" value="one">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -166,6 +166,6 @@ const value = shallowRef<string>()
           <button>Cool</button>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   </div>
 </template>

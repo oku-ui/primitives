@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useAttrs } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { isFunction } from '../utils/is.ts'
-import type { ToolbarLinkProps } from './ToolbarLink.ts'
+import type { ToolbarLinkEmits, ToolbarLinkProps } from './ToolbarLink.ts'
 
 defineOptions({
   name: 'ToolbarLink',
@@ -14,11 +12,10 @@ defineOptions({
 withDefaults(defineProps<ToolbarLinkProps>(), {
   as: 'a',
 })
-const attrs = useAttrs()
+const emit = defineEmits<ToolbarLinkEmits>()
 
-const onKeydown = composeEventHandlers((event) => {
-  if (isFunction(attrs.onKeydown))
-    attrs.onKeydown(event)
+const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  emit('keydown', event)
 }, (event: KeyboardEvent) => {
   if (event.key === ' ') {
     (event.currentTarget as HTMLElement).click()
@@ -33,12 +30,9 @@ const onKeydown = composeEventHandlers((event) => {
   >
     <Primitive
       :as="as"
-      :as-child="asChild"
       type="button"
-      v-bind="{
-        ...attrs,
-        onKeydown,
-      }"
+      v-bind="$attrs"
+      @keydown="onKeydown"
     >
       <slot />
     </Primitive>

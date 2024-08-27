@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ScrollArea, ScrollAreaContent, ScrollAreaCorner, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '../index.ts'
+import { ScrollAreaContent, ScrollAreaCorner, ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from '../index.ts'
 import './styles.css'
 
 withDefaults(defineProps<{
@@ -14,7 +14,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <ScrollArea
+  <ScrollAreaRoot
     class="scrollArea_scrollAreaClass"
     :style="{
       width: '200px',
@@ -36,7 +36,7 @@ withDefaults(defineProps<{
     </ScrollAreaScrollbar>
 
     <ScrollAreaCorner class="scrollArea_cornerClass" />
-  </ScrollArea>
+  </ScrollAreaRoot>
 </template>
 
 <style>

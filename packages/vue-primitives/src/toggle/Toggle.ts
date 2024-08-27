@@ -1,6 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 
-export interface ToggleProps extends PrimitiveProps {
+export interface ToggleProps {
+  as?: PrimitiveProps['as']
   /**
    * The controlled state of the toggle.
    */
@@ -11,6 +12,8 @@ export interface ToggleProps extends PrimitiveProps {
    * @defaultValue false
    */
   defaultPressed?: boolean
+
+  disabled?: boolean
 }
 
 // eslint-disable-next-line ts/consistent-type-definitions
@@ -19,4 +22,5 @@ export type ToggleEmits = {
    * The callback that fires when the state of the toggle changes.
    */
   'update:pressed': [value: boolean]
+  'click': [event: MouseEvent]
 }

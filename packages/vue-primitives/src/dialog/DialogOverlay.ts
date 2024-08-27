@@ -1,6 +1,4 @@
-import type { PrimitiveProps } from '../primitive/index.ts'
-
-export interface DialogOverlayProps extends PrimitiveProps {
+export interface DialogOverlayProps {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.

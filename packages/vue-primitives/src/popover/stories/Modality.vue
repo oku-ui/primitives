@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './styles.css'
-import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
+import { PopoverRoot, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, Pop
     <div :style="{ display: 'grid', gap: '50px' }">
       <div :style="{ display: 'inline-flex', alignItems: 'center', flexDirection: 'column' }">
         <h1>Non modal (default)</h1>
-        <Popover>
+        <PopoverRoot>
           <PopoverTrigger class="popover_triggerClass">
             open
           </PopoverTrigger>
@@ -23,7 +23,7 @@ import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, Pop
               <PopoverArrow class="popover_arrowClass" :width="20" :height="10" :offset="10" />
             </PopoverContent>
           </PopoverPortal>
-        </Popover>
+        </PopoverRoot>
         <textarea
           :style="{ width: '500px', height: '100px', marginTop: '10px' }"
         >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.</textarea>
@@ -31,7 +31,7 @@ import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, Pop
 
       <div :style="{ display: 'inline-flex', alignItems: 'center', flexDirection: 'column' }">
         <h1>Modal</h1>
-        <Popover modal>
+        <PopoverRoot modal>
           <PopoverTrigger class="popover_triggerClass">
             open
           </PopoverTrigger>
@@ -44,7 +44,7 @@ import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, Pop
               <PopoverArrow class="popover_arrowClass" :width="20" :height="10" :offset="10" />
             </PopoverContent>
           </PopoverPortal>
-        </Popover>
+        </PopoverRoot>
         <textarea
           :style="{ width: '500px', height: '100px', marginTop: '10px' }"
         >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis at ipsa, nihil tempora debitis maxime dignissimos non amet.</textarea>

@@ -4,7 +4,7 @@ import { usePresence } from '../presence/index.ts'
 import { forwardRef } from '../utils/vue.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import type { ScrollAreaScrollbarHoverProps } from './ScrollAreaScrollbarHover.ts'
-import { useScrollAreaContext } from './ScrollArea.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarHover',
@@ -58,8 +58,6 @@ defineExpose({
   <ScrollAreaScrollbarAuto
     v-if="isPresent"
     :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
     :orientation="orientation"
     :data-state="visible ? 'visible' : 'hidden'"
   >

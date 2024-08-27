@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { useDialogContext } from './Dialog.ts'
+import { useDialogContext } from './DialogRoot.ts'
 import type { DialogTitleProps } from './DialogTitle.ts'
 
 defineOptions({
@@ -15,7 +15,7 @@ const context = useDialogContext('DialogTitle')
 </script>
 
 <template>
-  <Primitive :id="context.titleId" :as="as" :as-child="asChild">
+  <Primitive :id="context.titleId" :as="as">
     <slot />
   </Primitive>
 </template>

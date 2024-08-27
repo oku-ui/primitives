@@ -1,6 +1,4 @@
-import type { PrimitiveProps } from '../primitive/index.ts'
-
-export interface SeparatorProps extends PrimitiveProps {
+export interface SeparatorProps {
   /**
    * Either `vertical` or `horizontal`. Defaults to `horizontal`.
    */

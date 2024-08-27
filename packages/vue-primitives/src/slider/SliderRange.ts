@@ -1,3 +1,5 @@
 import type { PrimitiveProps } from '../primitive'
 
-export interface SliderRangeProps extends PrimitiveProps {}
+export interface SliderRangeProps {
+  as?: PrimitiveProps['as']
+}

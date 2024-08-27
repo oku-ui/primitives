@@ -1,5 +1,3 @@
-import type { PrimitiveProps } from '../primitive/index.ts'
-
-export interface AspectRatioProps extends PrimitiveProps {
+export interface AspectRatioProps {
   ratio?: number
 }

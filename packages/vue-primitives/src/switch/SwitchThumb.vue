@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { getState, useSwitchContext } from './Switch.ts'
+import { getState, useSwitchContext } from './SwitchRoot.ts'
 import type { SwitchThumbProps } from './SwitchThumb.ts'
 
 defineOptions({
-  name: 'OkuSwitchThumb',
+  name: 'SwitchThumb',
 })
 
 withDefaults(defineProps<SwitchThumbProps>(), {
   as: 'span',
 })
 
-const context = useSwitchContext('OkuSwitchThumb')
+const context = useSwitchContext('SwitchThumb')
 </script>
 
 <template>

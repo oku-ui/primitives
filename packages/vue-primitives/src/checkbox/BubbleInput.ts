@@ -1,4 +1,4 @@
-import type { CheckedState } from './Checkbox.ts'
+import type { CheckedState } from './CheckboxRoot.ts'
 
 export interface BubbleInputProps {
   checked: CheckedState

@@ -3,7 +3,7 @@ import { Primitive } from '../primitive/index.ts'
 import type { LabelEmits, LabelProps } from './Label.ts'
 
 defineOptions({
-  name: 'OkuLabel',
+  name: 'RadixLabel',
 })
 
 withDefaults(defineProps<LabelProps>(), {

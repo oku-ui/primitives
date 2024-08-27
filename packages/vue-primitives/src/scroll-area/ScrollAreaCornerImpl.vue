@@ -2,14 +2,11 @@
 import { shallowRef } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import { Primitive } from '../primitive/index.ts'
-import { useScrollAreaContext } from './ScrollArea.ts'
-import type { ScrollAreaCornerImplProps } from './ScrollAreaCornerImpl.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaCornerImpl',
 })
-
-defineProps<ScrollAreaCornerImplProps>()
 
 const context = useScrollAreaContext('ScrollAreaCornerImpl')
 
@@ -34,8 +31,6 @@ useResizeObserver(context.scrollbarY, () => {
 <template>
   <Primitive
     v-if="hasSize()"
-    :as="as"
-    :as-child="asChild"
     :style="{
       width: `${width}px`,
       height: `${height}px`,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/DismissableLayer.ts'
-import { useDialogContext } from './Dialog.ts'
+import { useDialogContext } from './DialogRoot.ts'
 import type { DialogContentNonModalEmits } from './DialogContentNonModal.ts'
 import DialogContentImpl from './DialogContentImpl.vue'
 
@@ -10,7 +10,7 @@ defineOptions({
 
 const emit = defineEmits<DialogContentNonModalEmits>()
 
-const context = useDialogContext()
+const context = useDialogContext('DialogContentNonModal')
 
 let hasInteractedOutsideRef = false
 let hasPointerDownOutsideRef = false

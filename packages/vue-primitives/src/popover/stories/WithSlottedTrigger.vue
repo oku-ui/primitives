@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './styles.css'
-import { Popover, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
+import { PopoverRoot, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
 
 function onClick() {
   // eslint-disable-next-line no-console
@@ -10,7 +10,7 @@ function onClick() {
 
 <template>
   <div>
-    <Popover>
+    <PopoverRoot>
       <PopoverTrigger as-child>
         <button class="popover_triggerClass" @click="onClick">
           open
@@ -25,6 +25,6 @@ function onClick() {
           <PopoverArrow class="popover_arrowClass" :width="20" :height="10" :offset="10" />
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
   </div>
 </template>

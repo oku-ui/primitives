@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { Popover, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
+import { PopoverRoot, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
 
 const boundary = shallowRef<HTMLDivElement>()
 </script>
@@ -15,7 +15,7 @@ const boundary = shallowRef<HTMLDivElement>()
       height: '200px',
     }"
   >
-    <Popover>
+    <PopoverRoot>
       <PopoverTrigger as-child>
         <button>open</button>
       </PopoverTrigger>
@@ -38,6 +38,6 @@ const boundary = shallowRef<HTMLDivElement>()
           bound out of bound out of bound
         </PopoverContent>
       </PopoverPortal>
-    </Popover>
+    </PopoverRoot>
   </div>
 </template>

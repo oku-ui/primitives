@@ -1,23 +1,21 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core'
-import { shallowRef, useAttrs, watchEffect } from 'vue'
+import { shallowRef, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
-import { isFunction } from '../utils/is.ts'
-import type { ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
-import { useScrollAreaContext } from './ScrollArea.ts'
+import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
 defineOptions({
   name: 'ScrollAreaScrollbarScroll',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarScrollProps>(), {
   orientation: 'vertical',
 })
-const attrs = useAttrs()
+const emit = defineEmits<ScrollAreaScrollbarScrollEmits>()
 
 const $el = shallowRef<HTMLElement>()
 const forwardedRef = forwardRef($el)
@@ -88,15 +86,13 @@ watchEffect((onCleanup) => {
 const isPresent = usePresence($el, () => props.forceMount || state.value !== 'hidden')
 
 const onPointerenter = composeEventHandlers<PointerEvent>((event) => {
-  if (isFunction(attrs.onPointerenter))
-    attrs.onPointerenter(event)
+  emit('pointerenter', event)
 }, () => {
   send('POINTER_ENTER')
 })
 
 const onPointerleave = composeEventHandlers<PointerEvent>((event) => {
-  if (isFunction(attrs.onPointerleave))
-    attrs.onPointerleave(event)
+  emit('pointerleave', event)
 }, () => {
   send('POINTER_LEAVE')
 })
@@ -110,15 +106,10 @@ defineExpose({
   <ScrollAreaScrollbarVisible
     v-if="isPresent"
     :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
     :orientation="orientation"
     :data-state="state === 'hidden' ? 'hidden' : 'visible'"
-    v-bind="{
-      ...$attrs,
-      onPointerenter,
-      onPointerleave,
-    }"
+    @pointerenter="onPointerenter"
+    @pointerleave="onPointerleave"
   >
     <slot />
   </ScrollAreaScrollbarVisible>

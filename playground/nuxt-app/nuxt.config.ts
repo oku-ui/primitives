@@ -27,7 +27,7 @@ export default defineNuxtConfig({
 
   $development: {
     debug: true,
-    devtools: { enabled: true },
+    devtools: { enabled: false },
   },
 
   compatibilityDate: '2024-07-10',

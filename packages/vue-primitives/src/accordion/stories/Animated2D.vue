@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import './styles.css'
-import { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from '../index.ts'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 
 const values = ['One', 'Two', 'Three', 'Four']
 </script>
 
 <template>
   <div>
-    <Accordion type="single" class="accordion_rootClass">
+    <AccordionRoot type="single" class="accordion_rootClass">
       <AccordionItem v-for="value in values" :key="value" :value="value" class="accordion_itemClass">
         <AccordionHeader class="accordion_headerClass">
           <AccordionTrigger class="accordion_triggerClass">
@@ -24,6 +24,6 @@ const values = ['One', 'Two', 'Three', 'Four']
           </div>
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
+    </AccordionRoot>
   </div>
 </template>

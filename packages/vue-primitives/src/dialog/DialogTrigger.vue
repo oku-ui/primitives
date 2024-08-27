@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { useDialogContext } from './Dialog.ts'
+import { useDialogContext } from './DialogRoot.ts'
 import type { DialogTriggerEmits, DialogTriggerProps } from './DialogTrigger.ts'
 import { getState } from './utils.ts'
 
@@ -21,7 +21,7 @@ function triggerRef(nodeRef: any) {
   context.triggerRef.current = node
 }
 
-const onClick = composeEventHandlers((event) => {
+const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
 }, context.onOpenToggle)
 </script>
@@ -30,7 +30,6 @@ const onClick = composeEventHandlers((event) => {
   <Primitive
     :ref="triggerRef"
     :as="as"
-    :as-child="asChild"
     type="button"
     aria-haspopup="dialog"
     :aria-expanded="context.open.value || false"

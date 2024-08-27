@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Slider, SliderRange, SliderThumb, SliderTrack } from '../index.ts'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../index.ts'
 import './styles.css'
 
 const minStepsBetweenThumbs = shallowRef(0)
@@ -20,7 +20,7 @@ const minStepsBetweenThumbs = shallowRef(0)
   <br>
   <br>
 
-  <Slider
+  <SliderRoot
     class="slider_rootClass"
     :default-value="[10, 15, 20, 80]"
     :min-steps-between-thumbs="minStepsBetweenThumbs"
@@ -32,5 +32,5 @@ const minStepsBetweenThumbs = shallowRef(0)
     <SliderThumb class="slider_thumbClass" />
     <SliderThumb class="slider_thumbClass" />
     <SliderThumb class="slider_thumbClass" />
-  </Slider>
+  </SliderRoot>
 </template>

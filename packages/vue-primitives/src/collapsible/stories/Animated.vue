@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import './styles.css'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../index.ts'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '../index.ts'
 </script>
 
 <template>
   <div>
     <h1>Closed by default</h1>
-    <Collapsible class="collapsible_root">
+    <CollapsibleRoot class="collapsible_root">
       <CollapsibleTrigger class="collapsible_trigger">
         Trigger
       </CollapsibleTrigger>
@@ -15,10 +15,10 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../index.ts
           Content 1
         </div>
       </CollapsibleContent>
-    </Collapsible>
+    </CollapsibleRoot>
 
     <h1>Open by default</h1>
-    <Collapsible default-open class="collapsible_root">
+    <CollapsibleRoot default-open class="collapsible_root">
       <CollapsibleTrigger class="collapsible_trigger">
         Trigger
       </CollapsibleTrigger>
@@ -27,6 +27,6 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../index.ts
           Content 1
         </div>
       </CollapsibleContent>
-    </Collapsible>
+    </CollapsibleRoot>
   </div>
 </template>

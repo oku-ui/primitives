@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import './styles.css'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
+import { TabsRoot, TabsContent, TabsList, TabsTrigger } from '../index.ts'
 </script>
 
 <template>
   <div>
     <h1>Horizontal (automatic activation)</h1>
-    <Tabs default-value="tab1" class="tabs_rootClass">
+    <TabsRoot default-value="tab1" class="tabs_rootClass">
       <TabsList aria-label="tabs example" class="tabs_listClass">
         <TabsTrigger value="tab1" class="tabs_triggerClass">
           Tab 1
@@ -30,10 +30,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
 
     <h1>Vertical (manual activation)</h1>
-    <Tabs
+    <TabsRoot
       default-value="tab1"
       class="tabs_rootClass"
       orientation="vertical"
@@ -62,6 +62,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../index.ts'
         Ut nisi elementum metus semper mauris dui fames accumsan aenean, maecenas ac sociis dolor
         quam tempus pretium.
       </TabsContent>
-    </Tabs>
+    </TabsRoot>
   </div>
 </template>

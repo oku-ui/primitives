@@ -1,7 +1,8 @@
 import { createContext } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
 
-export interface RadioProps extends PrimitiveProps {
+export interface RadioProps {
+  as?: PrimitiveProps['as']
   name?: string
   value?: string
   checked?: boolean
@@ -9,9 +10,12 @@ export interface RadioProps extends PrimitiveProps {
   disabled?: boolean
 }
 
+export type ClickEvent = Event & { _stopPropagation: Event['stopPropagation'], _isPropagationStopped: boolean, isPropagationStopped: () => boolean }
+
 // eslint-disable-next-line ts/consistent-type-definitions
 export type RadioEmits = {
   'update:checked': [checked: boolean]
+  'click': [event: ClickEvent]
 }
 
 export interface RadioContextValue {

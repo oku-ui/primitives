@@ -3,7 +3,7 @@ import { shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { forwardRef } from '../utils/vue.ts'
-import { useDialogContext } from './Dialog.ts'
+import { useDialogContext } from './DialogRoot.ts'
 import type { DialogOverlayProps } from './DialogOverlay.ts'
 import { getState } from './utils.ts'
 
@@ -29,8 +29,6 @@ defineExpose({
   <Primitive
     v-if="isPresent"
     :ref="forwardedRef"
-    :as="as"
-    :as-child="asChild"
     :data-state="getState(context.open.value)"
     style="pointer-events: auto"
   >

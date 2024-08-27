@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { Label } from '../../label/index.ts'
-import { Switch, SwitchThumb } from '../index.ts'
+import { SwitchRoot, SwitchThumb } from '../index.ts'
 import './styles.css'
 
 const checked = shallowRef(true)
@@ -14,8 +14,8 @@ const checked = shallowRef(true)
       This is the label
     </Label>
     {{ ' ' }}
-    <Switch id="randBox" v-model:checked="checked" class="switch_rootClass">
+    <SwitchRoot id="randBox" v-model:checked="checked" class="switch_rootClass">
       <SwitchThumb class="switch_thumbClass" />
-    </Switch>
+    </SwitchRoot>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
+import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 const modal = shallowRef(true)
@@ -19,7 +19,7 @@ function add() {
 
 <template>
   <div>
-    <Dialog :key="modal ? 1 : 0" :modal="modal">
+    <DialogRoot :key="modal ? 1 : 0" :modal="modal">
       <DialogTrigger class="dialog_triggerClass">
         open
       </DialogTrigger>
@@ -38,7 +38,7 @@ function add() {
           </div>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
+    </DialogRoot>
 
     <br>
     <br>

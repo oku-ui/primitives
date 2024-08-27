@@ -26,7 +26,6 @@ const isPresent = usePresence($el, () => props.forceMount || context.checked())
     v-if="isPresent"
     :ref="forwardedRef"
     :as="as"
-    :as-child="asChild"
     :data-state="getState(context.checked())"
     :data-disabled="context.disabled() ? '' : undefined"
   >
