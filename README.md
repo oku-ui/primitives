@@ -34,7 +34,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | Component                                                                                     | Status |
 | --------------------------------------------------------------------------------------------- | ------ |
 | [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)     | ✓      |
-| AlertDialog                                                                                   | 🚧      |
+| [AlertDialog](https://vue-primitives.netlify.app/?path=/story/components-alertdialog--styled) | ✓      |
 | [AspectRatio](https://vue-primitives.netlify.app/?path=/story/components-aspectratio--styled) | ✓      |
 | [Avatar](https://vue-primitives.netlify.app/?path=/story/components-avatar--styled)           | ✓      |
 | [Checkbox](https://vue-primitives.netlify.app/?path=/story/components-checkbox--styled)       | ✓      |

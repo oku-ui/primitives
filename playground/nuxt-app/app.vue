@@ -15,6 +15,7 @@ const utils = [
 
 const components = [
   'Accordion',
+  'Alert Dialog',
   'Aspect Ratio',
   'Avatar',
   'Checkbox',

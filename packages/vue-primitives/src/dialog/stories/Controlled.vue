@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import DialogClose from '../DialogClose.vue'
-import DialogDescription from '../DialogDescription.vue'
-import DialogTitle from '../DialogTitle.vue'
-import { Dialog, DialogContent, DialogOverlay, DialogPortal, DialogTrigger } from '../index.ts'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 const open = shallowRef(false)

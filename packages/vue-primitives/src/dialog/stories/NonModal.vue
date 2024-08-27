@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import DialogClose from '../DialogClose.vue'
-import DialogDescription from '../DialogDescription.vue'
-import DialogTitle from '../DialogTitle.vue'
-import { Dialog, DialogContent, DialogPortal, DialogTrigger } from '../index.ts'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogPortal, DialogTitle, DialogTrigger } from '../index.ts'
 import './styles.css'
 
 function preventDefault(event: Event) {
