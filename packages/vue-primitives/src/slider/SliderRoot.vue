@@ -1,4 +1,3 @@
-<!-- eslint-disable command/command -->
 <script setup lang="ts">
 import { type PropType, computed, shallowRef, watchEffect } from 'vue'
 import { useControllableState } from '../hooks/index.ts'

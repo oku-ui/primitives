@@ -108,11 +108,6 @@ const handleKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   triggerCollection[clampedIndex]?.ref.focus()
 })
 
-function onKeydown(event: KeyboardEvent) {
-  if (!props.disabled)
-    handleKeydown(event)
-}
-
 provideAccordionContext({
   id: useId(),
   collapsible: props.collapsible,
@@ -152,7 +147,10 @@ provideAccordionContext({
   <Primitive
     :ref="forwardedRef"
     :data-orientation="orientation"
-    @keydown="onKeydown"
+    data-root
+    v-bind="{
+      onKeydown: props.disabled ? undefined : handleKeydown,
+    }"
   >
     <slot />
   </Primitive>
