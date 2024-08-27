@@ -47,11 +47,13 @@ function onCheck() {
   context.onValueChange(props.value)
 }
 
-function onKeydown(event: KeyboardEvent) {
+const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  emit('keydown', event)
+}, (event) => {
   // According to WAI ARIA, radio groups don't activate items on enter keypress
   if (event.key === 'Enter')
     event.preventDefault()
-}
+})
 
 const onFocus = composeEventHandlers<FocusEvent>((event) => {
   emit('focus', event)
