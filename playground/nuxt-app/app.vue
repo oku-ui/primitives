@@ -78,7 +78,7 @@ provideConfigContext({
     <div class="page-content-box">
       <div class="page-header">
         <span>OkuUI</span>
-        <a href="https://github.com/morgenstern-ui/vue-primitives">GitHub</a>
+        <a href="https://github.com/perigee-ui/vue-primitives">GitHub</a>
       </div>
 
       <main class="page-main">
