@@ -2,7 +2,7 @@
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarAutoProps>(), {
   orientation: 'vertical',
 })
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const context = useScrollAreaContext('ScrollAreaScrollbarAuto')
 const visible = shallowRef(false)
@@ -34,16 +34,12 @@ useResizeObserver(context.viewport, handleResize)
 useResizeObserver(context.content, handleResize)
 
 const isPresent = usePresence($el, () => props.forceMount || visible.value)
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
   <ScrollAreaScrollbarVisible
     v-if="isPresent"
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :orientation="orientation"
     :data-state="visible ? 'visible' : 'hidden'"
   >

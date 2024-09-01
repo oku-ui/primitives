@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const context = useScrollAreaContext('ScrollAreaViewport')
-const forwardedViewportRef = forwardRef(context.viewport)
+const forwardedViewportRef = useForwardElement(context.viewport)
 </script>
 
 <template>

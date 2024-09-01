@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef, watchEffect } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import type { ScrollAreaScrollbarHoverProps } from './ScrollAreaScrollbarHover.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarHoverProps>(), {
   orientation: 'vertical',
 })
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const context = useScrollAreaContext('ScrollAreaScrollbarHover')
 const visible = shallowRef(false)
@@ -48,16 +48,12 @@ watchEffect((onCleanup) => {
 })
 
 const isPresent = usePresence($el, () => props.forceMount || visible.value)
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
   <ScrollAreaScrollbarAuto
     v-if="isPresent"
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :orientation="orientation"
     :data-state="visible ? 'visible' : 'hidden'"
   >

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './styles.css'
-import { TabsRoot, TabsContent, TabsList, TabsTrigger } from '../index.ts'
+import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '../index.ts'
 </script>
 
 <template>

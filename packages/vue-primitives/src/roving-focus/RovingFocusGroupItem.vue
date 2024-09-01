@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { useId } from '../hooks/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { useForwardElement, useId } from '../hooks/index.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
 import { focusFirst, getFocusIntent, wrapArray } from './utils.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
 })
 const emit = defineEmits<RovingFocusGroupItemEmits>()
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const id = computed(() => props.tabStopId || useId())
 const context = useRovingFocusContext('RovingFocusGroupItem')
@@ -101,15 +101,11 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
    */
   setTimeout(() => focusFirst(candidateNodes))
 })
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
   <Primitive
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :as="as"
     :tabindex="isCurrentTabStop ? 0 : -1"
     :data-orientation="context.orientation()"

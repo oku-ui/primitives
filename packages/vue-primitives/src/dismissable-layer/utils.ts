@@ -21,6 +21,7 @@ export function usePointerdownOutside(
   node: Ref<HTMLElement | undefined>,
 ) {
   let isPointerInsideDOMTree = false
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   let handleClick = () => { }
 
   const ret = {
@@ -135,28 +136,28 @@ export function useFocusOutside(
     return ret
   }
 
+  async function handleFocus(event: FocusEvent) {
+    await nextTick()
+
+    if (!node.value)
+      return
+
+    // TODO: wip
+    if (!isFocusInsideDOMTree && isInsideDOMTree(node.value, event.target as HTMLElement)) {
+      isFocusInsideDOMTree = true
+    }
+
+    if (event.target && !isFocusInsideDOMTree) {
+      const eventDetail = { originalEvent: event }
+      handleAndDispatchCustomEvent(FOCUS_OUTSIDE, onFocusOutside, eventDetail)
+    }
+  }
+
   watch(node, (nodeVal, _, onCleanup) => {
     if (!nodeVal)
       return
 
     const ownerDocument = nodeVal.ownerDocument
-
-    async function handleFocus(event: FocusEvent) {
-      await nextTick()
-
-      if (!node.value)
-        return
-
-      // TODO: wip
-      if (!isFocusInsideDOMTree && isInsideDOMTree(node.value, event.target as HTMLElement)) {
-        isFocusInsideDOMTree = true
-      }
-
-      if (event.target && !isFocusInsideDOMTree) {
-        const eventDetail = { originalEvent: event }
-        handleAndDispatchCustomEvent(FOCUS_OUTSIDE, onFocusOutside, eventDetail)
-      }
-    }
 
     ownerDocument.addEventListener('focusin', handleFocus)
 

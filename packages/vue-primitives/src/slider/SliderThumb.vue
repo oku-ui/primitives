@@ -2,8 +2,8 @@
 import { computed, shallowRef, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
 import { Primitive } from '../primitive/index.ts'
-import { useSize } from '../hooks/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { useForwardElement, useSize } from '../hooks/index.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
 import { Collection, useCollection, useSliderContext } from './SliderRoot.ts'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
@@ -20,7 +20,7 @@ withDefaults(defineProps<SliderThumbProps>(), {
 })
 const emit = defineEmits<SliderThumbEmits>()
 const $el = shallowRef<HTMLSpanElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const getItems = useCollection()
 
@@ -76,7 +76,7 @@ defineExpose({
     }"
   >
     <Primitive
-      :ref="forwardedRef"
+      :ref="forwardElement"
       :as="as"
       role="slider"
       :aria-label="$attrs['aria-label'] || label"

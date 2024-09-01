@@ -2,7 +2,7 @@
   "name": "@teleskop150750/primitives-monorepo",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@9.7.1",
+  "packageManager": "pnpm@9.9.0",
   "engines": {
     "node": ">=18"
   },
@@ -15,9 +15,9 @@
     "root-lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.26.0",
+    "@antfu/eslint-config": "^3.0.0",
     "@teleskop150750/typescript-config": "workspace:*",
-    "@types/node": "^20.14.10",
+    "@types/node": "^20.16.2",
     "eslint": "npm:eslint-ts-patch@9.4.0-0",
     "eslint-ts-patch": "9.4.0-0",
     "prettier": "^3.3.3",

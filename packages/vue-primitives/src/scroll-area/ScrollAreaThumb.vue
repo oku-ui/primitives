@@ -2,8 +2,9 @@
 import { watchEffect } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import { usePresence } from '../presence/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { Primitive } from '../primitive/index.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import type { ScrollAreaThumbEmits, ScrollAreaThumbProps } from './ScrollAreaThumb.ts'
 import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
@@ -18,7 +19,7 @@ const emit = defineEmits<ScrollAreaThumbEmits>()
 
 const scrollAreaContext = useScrollAreaContext('ScrollAreaThumb')
 const scrollbarContext = useScrollbarContext('ScrollAreaThumb')
-const forwardedRef = forwardRef(scrollbarContext.thumb)
+const forwardElement = useForwardElement(scrollbarContext.thumb)
 const { onThumbPositionChange } = scrollbarContext
 
 let removeUnlinkedScrollListener: (() => void) | undefined
@@ -80,7 +81,7 @@ const isPresent = usePresence(scrollbarContext.thumb, () => props.forceMount || 
 <template>
   <Primitive
     v-if="isPresent"
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :data-state="scrollbarContext.hasThumb.value ? 'visible' : 'hidden'"
     style="width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)"
     @pointerdown.capture="onPointerdownCapture"

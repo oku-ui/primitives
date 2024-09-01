@@ -30,6 +30,7 @@ const components = [
   'Slider',
   'Switch',
   'Tabs',
+  'Toast',
   'Toggle',
   'Toolbar',
   'Toggle Group',

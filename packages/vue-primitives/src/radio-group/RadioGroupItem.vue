@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { useRadioGroupContext } from './RadioGroupRoot.ts'
 import { ARROW_KEYS, type RadioGroupItemEmits, type RadioGroupItemProps } from './RadioGroupItem.ts'
 import Radio from './Radio.vue'
@@ -14,7 +15,7 @@ defineOptions({
 const props = defineProps<RadioGroupItemProps>()
 const emit = defineEmits<RadioGroupItemEmits>()
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const context = useRadioGroupContext('RadioGroupItem')
 
@@ -79,7 +80,7 @@ defineExpose({
     :active="checked"
   >
     <Radio
-      :ref="forwardedRef"
+      :ref="forwardElement"
       :checked="checked"
       :required="context.required()"
       :disabled="isDisabled"

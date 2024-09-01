@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue'
-import { useControllableState } from '../hooks/index.ts'
+import { useControllableState, useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { type ClickEvent, type SwitchRootEmits, type SwitchRootProps, getState, provideSwitchContext } from './SwitchRoot.ts'
 import BubbleInput from './BubbleInput.vue'
 
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<SwitchRootProps>(), {
 })
 const emit = defineEmits<SwitchRootEmits>()
 const $el = shallowRef<HTMLButtonElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const hasConsumerStoppedPropagation = shallowRef(false)
 
@@ -67,7 +67,7 @@ defineExpose({
 
 <template>
   <Primitive
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :as="as"
     :as-child="asChild"
     type="button"

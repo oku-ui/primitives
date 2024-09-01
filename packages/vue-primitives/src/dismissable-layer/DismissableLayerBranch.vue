@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { context } from './DismissableLayer.ts'
 
 defineOptions({
@@ -9,7 +9,7 @@ defineOptions({
 })
 
 const elRef = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef(elRef)
+const forwardElement = useForwardElement(elRef)
 
 onMounted(() => {
   context.branches.add(elRef.value!)
@@ -21,7 +21,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Primitive :ref="forwardedRef">
+  <Primitive :ref="forwardElement">
     <slot />
   </Primitive>
 </template>

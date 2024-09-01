@@ -1,9 +1,9 @@
 <script setup lang="ts" generic="T extends AccordionType">
-import { computed, shallowRef } from 'vue'
+import { computed } from 'vue'
 import { useDirection } from '../direction/Direction.ts'
-import { useControllableState, useId } from '../hooks/index.ts'
+import { useControllableState, useForwardElement, useId, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { arrayify } from '../utils/array.ts'
 import { ACCORDION_KEYS, type AccordionRootEmits, type AccordionRootProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './AccordionRoot.ts'
 
@@ -22,16 +22,18 @@ const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
 })
 const emit = defineEmits<AccordionRootEmits<T>>()
 
-const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const $el = useRef<HTMLElement>()
+const forwardElement = useForwardElement($el)
 
 const direction = useDirection(() => props.dir)
 const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
 const TYPE_SINGLE = 'single' as const satisfies AccordionType
 
 const collectionContext = Collection.provideCollectionContext($el)
+
 const getItems = useCollection(collectionContext)
-const handleKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+
+const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   emit('keydown', event)
 }, (event) => {
   if (!ACCORDION_KEYS.includes(event.key))
@@ -145,11 +147,11 @@ provideAccordionContext({
 
 <template>
   <Primitive
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :data-orientation="orientation"
     data-root
     v-bind="{
-      onKeydown: props.disabled ? undefined : handleKeydown,
+      onKeydown: props.disabled ? undefined : onKeydown,
     }"
   >
     <slot />

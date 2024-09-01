@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { PopoverRoot, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverTrigger } from '../index.ts'
+import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
 
 const open = shallowRef(false)
 </script>

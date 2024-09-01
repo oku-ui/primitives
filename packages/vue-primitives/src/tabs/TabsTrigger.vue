@@ -2,7 +2,8 @@
 import { computed, shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 import type { TabsTriggerEmits, TabsTriggerProps } from './TabsTrigger.ts'
@@ -18,7 +19,7 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
 })
 const emit = defineEmits<TabsTriggerEmits>()
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const context = useTabsContext('TabsTrigger')
 const triggerId = computed(() => makeTriggerId(context.baseId, props.value))
@@ -70,7 +71,7 @@ defineExpose({
   >
     <Primitive
       :id="triggerId"
-      :ref="forwardedRef"
+      :ref="forwardElement"
       :as="as"
       :as-child="asChild"
       v-bind="$attrs"

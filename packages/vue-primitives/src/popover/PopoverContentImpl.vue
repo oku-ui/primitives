@@ -4,7 +4,7 @@ import { DismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import FocusScope from '../focus-scope/FocusScope.vue'
 import { PopperContent } from '../popper/index.ts'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 import type { PopoverContentImplEmits, PopoverContentImplProps } from './PopoverContentImpl.ts'
 import { getState } from './utilts.ts'
@@ -18,7 +18,7 @@ defineProps<PopoverContentImplProps>()
 const emit = defineEmits<PopoverContentImplEmits>()
 
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const context = usePopoverContext('PopoverContentImpl')
 
@@ -50,7 +50,7 @@ defineExpose({
     >
       <PopperContent
         :id="context.contentId"
-        :ref="forwardedRef"
+        :ref="forwardElement"
         :data-state="getState(context.open.value)"
         role="dialog"
         v-bind="$attrs"

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { Slot } from '../slot/index.ts'
-import { ELEMENT_NODE, type PrimitiveProps } from './Primitive.ts'
+import { useForwardElement } from '../hooks/index.ts'
+import type { PrimitiveProps } from './Primitive.ts'
 
 defineOptions({
   name: 'Primitive',
@@ -15,20 +16,17 @@ withDefaults(
   },
 )
 
-const elRef = shallowRef<HTMLElement>()
+const $el = shallowRef<HTMLElement>()
 
-function forwardRef(nodeRef: any) {
-  const vnode = (nodeRef?.$el ?? nodeRef)
-  elRef.value = vnode && vnode.nodeType === ELEMENT_NODE ? vnode : undefined
-}
+const forwardElement = useForwardElement($el)
 
 defineExpose({
-  $el: elRef,
+  $el,
 })
 </script>
 
 <template>
-  <component :is="asChild ? Slot : as" :ref="forwardRef">
+  <component :is="asChild ? Slot : as" :ref="forwardElement">
     <slot />
   </component>
 </template>

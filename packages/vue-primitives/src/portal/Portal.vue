@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Teleport, onMounted, shallowRef } from 'vue'
+import { onMounted, shallowRef } from 'vue'
 import type { PortalProps } from './Portal.ts'
 
 withDefaults(defineProps<PortalProps>(), {

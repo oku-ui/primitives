@@ -2,7 +2,7 @@
 import { shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { usePresence } from '../presence/index.ts'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 import type { DialogOverlayProps } from './DialogOverlay.ts'
 import { getState } from './utils.ts'
@@ -16,19 +16,15 @@ const props = defineProps<DialogOverlayProps>()
 const context = useDialogContext('DialogOverlay')
 
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const isPresent = usePresence($el, () => props.forceMount || context.open.value)
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
   <Primitive
     v-if="isPresent"
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :data-state="getState(context.open.value)"
     style="pointer-events: auto"
   >

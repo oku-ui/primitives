@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { nextTick, shallowRef, watch, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import {
   AUTOFOCUS_ON_MOUNT,
@@ -25,7 +25,7 @@ const props = defineProps<FocusScopeProps>()
 const emit = defineEmits<FocusScopeEmits>()
 
 const container = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef(container)
+const forwardElement = useForwardElement(container)
 let lastFocusedElementRef: HTMLElement | null | undefined
 
 const focusScope = {
@@ -205,7 +205,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 <template>
   <Primitive
-    :ref="forwardedRef"
+    :ref="forwardElement"
     tabindex="-1"
     @keydown="handleKeydown"
   >

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import type { AspectRatioProps } from './AspectRatio.ts'
 
 defineOptions({
@@ -14,7 +14,7 @@ withDefaults(defineProps<AspectRatioProps>(), {
 })
 
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 defineExpose({
   $el,
@@ -33,7 +33,7 @@ defineExpose({
     data-radix-aspect-ratio-wrapper=""
   >
     <Primitive
-      :ref="forwardedRef"
+      :ref="forwardElement"
       v-bind="$attrs"
       :style="{
         // ensures children expand in ratio

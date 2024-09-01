@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import Primitive from '../primitive/Primitive.vue'
-import { forwardRef } from '../utils/vue.ts'
+import { Primitive } from '../primitive/index.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import {
   type ScrollAreaElement,
   type ScrollAreaRootProps,
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
 })
 
 const scrollArea = shallowRef<ScrollAreaElement>()
-const forwardedRef = forwardRef(scrollArea)
+const forwardElement = useForwardElement(scrollArea)
 const viewport = shallowRef<ScrollAreaViewportElement>()
 const content = shallowRef<HTMLDivElement>()
 const scrollbarX = shallowRef<ScrollAreaScrollbarElement>()
@@ -65,7 +65,7 @@ provideScrollAreaContext({
 
 <template>
   <Primitive
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :dir="direction"
     :style="{
       'position': 'relative',

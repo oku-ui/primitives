@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 import type { PopoverContentProps } from './PopoverContent.ts'
@@ -14,7 +14,7 @@ defineOptions({
 const props = defineProps<PopoverContentProps>()
 
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const context = usePopoverContext('PopoverContent')
 
@@ -28,7 +28,7 @@ defineExpose({
 </script>
 
 <template>
-  <Comp v-if="isPresent" :ref="forwardedRef">
+  <Comp v-if="isPresent" :ref="forwardElement">
     <slot />
   </Comp>
 </template>

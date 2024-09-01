@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type PropType, computed, shallowRef, watchEffect } from 'vue'
-import { useControllableState } from '../hooks/index.ts'
+import { type PropType, computed, watchEffect } from 'vue'
+import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
 import { isNumber } from '../utils/is.ts'
 import { clamp, getDecimalCount, roundValue } from '../utils/number.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { useDirection } from '../direction/Direction.ts'
 import { Primitive } from '../primitive/index.ts'
 import { ARROW_KEYS, BACK_KEYS, Collection, PAGE_KEYS, type SliderContext, type SliderRootEmits, type SliderRootProps, provideSliderContext } from './SliderRoot.ts'
@@ -79,8 +79,8 @@ const props = defineProps({
   },
 })
 const emit = defineEmits<SliderRootEmits>()
-const $el = shallowRef<HTMLSpanElement>()
-const forwardedRef = forwardRef($el)
+const $el = useRef<HTMLSpanElement>()
+const forwardElement = useForwardElement($el)
 
 const thumbRefs: SliderContext['thumbs'] = new Set()
 const valueIndexToChangeRef: SliderContext['valueIndexToChangeRef'] = { value: 0 }
@@ -229,7 +229,7 @@ const isSlidingFromStart = computed(() => {
 })
 
 function getValueFromPointer(pointerPosition: number) {
-  const rect = rectRef || $el.value!.getBoundingClientRect()
+  const rect = rectRef || $el.current!.getBoundingClientRect()
   const input: [number, number] = [0, rect[orientationLocalState.reactSise]]
   const output: [number, number] = isSlidingFromStart.value === isHorisontal() ? [props.min, props.max] : [props.max, props.min]
   const value = linearScale(input, output)
@@ -337,7 +337,7 @@ const onPointerup = composeEventHandlers<PointerEvent>((event) => {
 
 <template>
   <Primitive
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :as="as"
     :dir="direction"
     :data-orientation="orientation"

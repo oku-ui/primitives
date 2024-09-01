@@ -1,19 +1,15 @@
 import { Comment, type VNode, cloneVNode, defineComponent, shallowRef, warn } from 'vue'
 import { getRawChildren } from '../utils/getRawChildren.ts'
-import { ELEMENT_NODE } from '../primitive/Primitive.ts'
+import { useForwardElement } from '../hooks/index.ts'
 
 export const Slot = defineComponent({
   name: 'Slot',
   setup(_, { slots, expose }) {
-    const elRef = shallowRef<HTMLElement>()
-
-    function forwardRef(nodeRef: any) {
-      const vnode = (nodeRef?.$el ?? nodeRef)
-      elRef.value = vnode && vnode.nodeType === ELEMENT_NODE ? vnode : undefined
-    }
+    const $el = shallowRef<HTMLElement>()
+    const forwardElement = useForwardElement($el)
 
     expose({
-      $el: elRef,
+      $el,
     })
 
     return () => {
@@ -49,7 +45,7 @@ export const Slot = defineComponent({
 
       if (child && child.type !== Comment) {
         return cloneVNode(child, {
-          ref: forwardRef,
+          ref: forwardElement,
         }, true)
       }
 

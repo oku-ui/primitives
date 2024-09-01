@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { SliderRoot, SliderRange, SliderThumb, SliderTrack } from '../index.ts'
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from '../index.ts'
 import './styles.css'
 import serialize from './form-serialize.js'
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef, useAttrs, watchEffect } from 'vue'
-import { useControllableState } from '../hooks/index.ts'
+import { useControllableState, useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers, forwardRef } from '../utils/vue.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { type CheckboxRootEmits, type CheckboxRootProps, type ClickEvent, provideCheckboxContext } from './CheckboxRoot.ts'
 import { getState, isIndeterminate } from './utils.ts'
 import BubbleInput from './BubbleInput.vue'
@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<CheckboxRootProps>(), {
 const emit = defineEmits<CheckboxRootEmits>()
 const attrs = useAttrs()
 const $el = shallowRef<HTMLButtonElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const hasConsumerStoppedPropagation = shallowRef(false)
 // We set this to true by default so that events bubble to forms without JS (SSR)
@@ -88,7 +88,7 @@ defineExpose({
 
 <template>
   <Primitive
-    :ref="forwardedRef"
+    :ref="forwardElement"
     :as="as"
     type="button"
     role="checkbox"

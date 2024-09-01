@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
+import { useRef } from '../../hooks/index.ts'
 import { Collection } from './utils.ts'
 
-const collectionRef = shallowRef<HTMLElement>()
+const collectionRef = useRef<HTMLElement>()
+function setRef(nodeRef: any) {
+  collectionRef.current = nodeRef
+}
 Collection.provideCollectionContext(collectionRef)
 </script>
 
 <template>
-  <ul ref="collectionRef" class="list">
+  <ul :ref="setRef" class="list">
     <slot />
   </ul>
 </template>

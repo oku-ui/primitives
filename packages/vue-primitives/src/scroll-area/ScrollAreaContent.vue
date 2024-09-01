@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({
@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const context = useScrollAreaContext('ScrollAreaContent')
-const forwardedContentRef = forwardRef(context.content)
+const forwardedContentRef = useForwardElement(context.content)
 </script>
 
 <template>

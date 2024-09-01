@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { forwardRef } from '../utils/vue.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import { useDialogContext } from './DialogRoot.ts'
 import DialogContentModal from './DialogContentModal.vue'
@@ -14,7 +14,7 @@ defineOptions({
 const props = defineProps<DialogContentProps>()
 
 const $el = shallowRef<HTMLElement>()
-const forwardedRef = forwardRef($el)
+const forwardElement = useForwardElement($el)
 
 const context = useDialogContext('DialogContent')
 
@@ -26,7 +26,7 @@ const Comp = context.modal ? DialogContentModal : DialogContentNonModal
 <template>
   <Comp
     v-if="isPresent"
-    :ref="forwardedRef"
+    :ref="forwardElement"
   >
     <slot />
   </Comp>
