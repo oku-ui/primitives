@@ -21,6 +21,12 @@ Docs: [Nuxt playground](https://vue-primitives-docs.netlify.app/)
 
 Storybook: [Storybook](https://vue-primitives.netlify.app)
 
+## Install
+
+```sh
+pnpm i @perigee/vue-primitives
+```
+
 ---
 
 # TODO
