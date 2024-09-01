@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { ToggleGroup, ToggleGroupItem } from '../index.ts'
+import { ToggleGroupItem, ToggleGroupRoot } from '../index.ts'
 
 const value = shallowRef<string>()
 </script>
 
 <template>
   <h1>Uncontrolled</h1>
-  <ToggleGroup type="single" class="toggleGroup_root" aria-label="Options" default-value="1">
+  <ToggleGroupRoot type="single" class="toggleGroup_root" aria-label="Options" default-value="1">
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -18,10 +18,10 @@ const value = shallowRef<string>()
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h1>Controlled</h1>
-  <ToggleGroup
+  <ToggleGroupRoot
     v-model:value="value"
     type="single"
     class="toggleGroup_root"
@@ -36,5 +36,5 @@ const value = shallowRef<string>()
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Checkbox, CheckboxIndicator } from '../index.ts'
+import { CheckboxIndicator, CheckboxRoot } from '../index.ts'
 import './styles.css'
 </script>
 
@@ -7,65 +7,65 @@ import './styles.css'
   <div>
     <h1>Uncontrolled</h1>
     <h2>Unchecked</h2>
-    <Checkbox class="checkbox_rootClass">
+    <CheckboxRoot class="checkbox_rootClass">
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h2>Checked</h2>
-    <Checkbox class="checkbox_rootClass" default-checked>
+    <CheckboxRoot class="checkbox_rootClass" default-checked>
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h1>Controlled</h1>
     <h2>Unchecked</h2>
-    <Checkbox class="checkbox_rootClass" :checked="false">
+    <CheckboxRoot class="checkbox_rootClass" :checked="false">
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h2>Checked</h2>
-    <Checkbox class="checkbox_rootClass" checked>
+    <CheckboxRoot class="checkbox_rootClass" checked>
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h1>Indeterminate</h1>
-    <Checkbox class="checkbox_rootClass" checked="indeterminate">
+    <CheckboxRoot class="checkbox_rootClass" checked="indeterminate">
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h1>Disabled</h1>
-    <Checkbox class="checkbox_rootClass" default-checked disabled>
+    <CheckboxRoot class="checkbox_rootClass" default-checked disabled>
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h1>Force mounted indicator</h1>
-    <Checkbox class="checkbox_rootClass">
+    <CheckboxRoot class="checkbox_rootClass">
       <CheckboxIndicator class="checkbox_indicatorClass" force-mount :style="{ height: '20px' }" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h1>State attributes</h1>
     <h2>Unchecked</h2>
-    <Checkbox class="checkbox_rootAttrClass">
+    <CheckboxRoot class="checkbox_rootAttrClass">
       <CheckboxIndicator class="checkbox_indicatorAttrClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h2>Checked</h2>
-    <Checkbox class="checkbox_rootAttrClass" default-checked>
+    <CheckboxRoot class="checkbox_rootAttrClass" default-checked>
       <CheckboxIndicator class="checkbox_indicatorAttrClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h2>Indeterminate</h2>
-    <Checkbox class="checkbox_rootAttrClass" checked="indeterminate">
+    <CheckboxRoot class="checkbox_rootAttrClass" checked="indeterminate">
       <CheckboxIndicator class="checkbox_indicatorAttrClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h2>Disabled</h2>
-    <Checkbox class="checkbox_rootAttrClass" default-checked disabled>
+    <CheckboxRoot class="checkbox_rootAttrClass" default-checked disabled>
       <CheckboxIndicator class="checkbox_indicatorAttrClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h2>Force mounted indicator</h2>
-    <Checkbox class="checkbox_rootAttrClass">
+    <CheckboxRoot class="checkbox_rootAttrClass">
       <CheckboxIndicator class="checkbox_indicatorAttrClass" force-mount :style="{ height: '20px' }" />
-    </Checkbox>
+    </CheckboxRoot>
   </div>
 </template>

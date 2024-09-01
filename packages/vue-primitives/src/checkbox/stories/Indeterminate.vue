@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Checkbox, CheckboxIndicator } from '../index.ts'
+import { CheckboxIndicator, CheckboxRoot } from '../index.ts'
 import './styles.css'
 
 const checked = shallowRef<boolean | 'indeterminate'>('indeterminate')
@@ -13,9 +13,9 @@ function onClick() {
 <template>
   <div>
     <p>
-      <Checkbox v-model:checked="checked" class="checkbox_rootClass">
+      <CheckboxRoot v-model:checked="checked" class="checkbox_rootClass">
         <CheckboxIndicator class="checkbox_indicatorClass" />
-      </Checkbox>
+      </CheckboxRoot>
     </p>
 
     <button

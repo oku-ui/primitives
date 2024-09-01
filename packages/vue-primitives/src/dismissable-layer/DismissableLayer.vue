@@ -4,7 +4,7 @@ import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useEscapeKeydown } from '../hooks/useEscapeKeydown.ts'
 import { useForwardElement } from '../hooks/index.ts'
-import { type DismissableLayerElement, type DismissableLayerEmits, type DismissableLayerProps, context, originalBodyPointerEvents } from './DismissableLayer.ts'
+import { type DismissableLayerElement, type DismissableLayerEmits, type DismissableLayerProps, context } from './DismissableLayer.ts'
 import { useFocusOutside, usePointerdownOutside } from './utils.ts'
 
 defineOptions({
@@ -86,7 +86,7 @@ watch(node, (nodeVal, _, onCleanup) => {
 
   if (props.disableOutsidePointerEvents) {
     if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
-      originalBodyPointerEvents.value = ownerDocumentVal.body.style.pointerEvents
+      originalBodyPointerEvents = ownerDocumentVal.body.style.pointerEvents
       ownerDocumentVal.body.style.pointerEvents = 'none'
     }
     context.layersWithOutsidePointerEventsDisabled.add(nodeVal)
@@ -99,12 +99,12 @@ watch(node, (nodeVal, _, onCleanup) => {
       props.disableOutsidePointerEvents
       && context.layersWithOutsidePointerEventsDisabled.size === 1
     ) {
-      if (!originalBodyPointerEvents.value) {
+      if (!originalBodyPointerEvents) {
         const syles = ownerDocumentVal.body.style
         syles.removeProperty('pointer-events')
       }
       else {
-        ownerDocumentVal.body.style.pointerEvents = originalBodyPointerEvents.value
+        ownerDocumentVal.body.style.pointerEvents = originalBodyPointerEvents
       }
     }
 
@@ -130,6 +130,10 @@ const onBlurCapture = composeEventHandlers<FocusEvent>((event) => {
 const onPointerdownCapture = composeEventHandlers<FocusEvent>((event) => {
   emit('pointerdownCapture', event)
 }, pointerdownOutside.onPointerdownCapture)
+</script>
+
+<script lang="ts">
+let originalBodyPointerEvents: string | undefined
 </script>
 
 <template>

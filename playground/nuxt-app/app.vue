@@ -21,6 +21,7 @@ const components = [
   'Checkbox',
   'Collapsible',
   'Dialog',
+  'Hover Card',
   'Label',
   'Popover',
   'Progress',

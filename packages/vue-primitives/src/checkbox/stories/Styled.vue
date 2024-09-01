@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Label } from '../../label/index.ts'
-import { Checkbox, CheckboxIndicator } from '../index.ts'
+import { CheckboxIndicator, CheckboxRoot } from '../index.ts'
 import './styles.css'
 </script>
 
@@ -11,9 +11,9 @@ import './styles.css'
     <h1>Custom label</h1>
     <Label>
       Label{{ ' ' }}
-      <Checkbox class="checkbox_rootClass">
+      <CheckboxRoot class="checkbox_rootClass">
         <CheckboxIndicator class="checkbox_indicatorClass" />
-      </Checkbox>
+      </CheckboxRoot>
     </Label>
 
     <br>
@@ -22,9 +22,9 @@ import './styles.css'
     <h1>Native label</h1>
     <label>
       Label{{ ' ' }}
-      <Checkbox class="checkbox_rootClass">
+      <CheckboxRoot class="checkbox_rootClass">
         <CheckboxIndicator class="checkbox_indicatorClass" />
-      </Checkbox>
+      </CheckboxRoot>
     </label>
 
     <h1>Native label + native checkbox</h1>
@@ -34,18 +34,18 @@ import './styles.css'
 
     <h1>Custom label + for</h1>
     <Label for="one">Label</Label>
-    <Checkbox id="one" class="checkbox_rootClass">
+    <CheckboxRoot id="one" class="checkbox_rootClass">
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <br>
     <br>
 
     <h1>Native label + for</h1>
     <label for="two">Label</label>
-    <Checkbox id="two" class="checkbox_rootClass">
+    <CheckboxRoot id="two" class="checkbox_rootClass">
       <CheckboxIndicator class="checkbox_indicatorClass" />
-    </Checkbox>
+    </CheckboxRoot>
 
     <h1>Native label + for + native checkbox</h1>
     <label for="three">Label</label>

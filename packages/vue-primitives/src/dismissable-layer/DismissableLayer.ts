@@ -47,8 +47,6 @@ export type DismissableLayerEmits = {
 
 export type DismissableLayerElement = HTMLDivElement
 
-export const originalBodyPointerEvents: { value: string | undefined } = { value: undefined }
-
 export const context = {
   layers: shallowReactive(new Set<HTMLElement>()),
   layersWithOutsidePointerEventsDisabled: shallowReactive(new Set<HTMLElement>()),

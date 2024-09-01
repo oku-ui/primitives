@@ -17,7 +17,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^3.0.0",
     "@teleskop150750/typescript-config": "workspace:*",
-    "@types/node": "^20.16.2",
+    "@types/node": "^20.16.3",
     "eslint": "npm:eslint-ts-patch@9.4.0-0",
     "eslint-ts-patch": "9.4.0-0",
     "prettier": "^3.3.3",

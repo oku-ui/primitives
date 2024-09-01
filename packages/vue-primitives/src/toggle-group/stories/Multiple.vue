@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import './styles.css'
 import { shallowRef } from 'vue'
-import { ToggleGroup, ToggleGroupItem } from '../index.ts'
+import { ToggleGroupRoot, ToggleGroupItem } from '../index.ts'
 
 const value = shallowRef<string[]>([])
 </script>
 
 <template>
   <h1>Uncontrolled</h1>
-  <ToggleGroup
+  <ToggleGroupRoot
     type="multiple"
     class="toggleGroup_root"
     aria-label="Options"
@@ -23,10 +23,10 @@ const value = shallowRef<string[]>([])
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h1>Controlled</h1>
-  <ToggleGroup
+  <ToggleGroupRoot
     v-model:value="value"
     type="multiple"
     class="toggleGroup_root"
@@ -41,5 +41,5 @@ const value = shallowRef<string[]>([])
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 </template>

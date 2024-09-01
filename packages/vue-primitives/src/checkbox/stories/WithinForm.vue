@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Checkbox, CheckboxIndicator } from '../index.ts'
+import { CheckboxIndicator, CheckboxRoot } from '../index.ts'
 import './styles.css'
 
 const data = shallowRef({
@@ -22,9 +22,9 @@ function onChange(event: Event) {
     <fieldset>
       <legend>optional checked: {{ String(data.optional) }}</legend>
       <label>
-        <Checkbox v-model:checked="checked" class="checkbox_rootClass" name="optional">
+        <CheckboxRoot v-model:checked="checked" class="checkbox_rootClass" name="optional">
           <CheckboxIndicator class="checkbox_indicatorClass" />
-        </Checkbox>{{ ' ' }}
+        </CheckboxRoot>{{ ' ' }}
         with label
       </label>
       <br>
@@ -45,9 +45,9 @@ function onChange(event: Event) {
 
     <fieldset>
       <legend>required checked: {{ String(data.required) }}</legend>
-      <Checkbox class="checkbox_rootClass" name="required" required>
+      <CheckboxRoot class="checkbox_rootClass" name="required" required>
         <CheckboxIndicator class="checkbox_indicatorClass" />
-      </Checkbox>
+      </CheckboxRoot>
     </fieldset>
 
     <br>
@@ -55,9 +55,9 @@ function onChange(event: Event) {
 
     <fieldset>
       <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
-      <Checkbox class="checkbox_rootClass" name="stopprop" @click="(event: Event) => event.stopPropagation()">
+      <CheckboxRoot class="checkbox_rootClass" name="stopprop" @click="(event: Event) => event.stopPropagation()">
         <CheckboxIndicator class="checkbox_indicatorClass" />
-      </Checkbox>
+      </CheckboxRoot>
     </fieldset>
 
     <br>

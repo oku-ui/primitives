@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import './styles.css'
-import { ToggleGroup, ToggleGroupItem } from '../index.ts'
+import { ToggleGroupItem, ToggleGroupRoot } from '../index.ts'
 </script>
 
 <template>
-  <ToggleGroup
+  <ToggleGroupRoot
     type="single"
     orientation="vertical"
     class="toggleGroup_root"
@@ -20,5 +20,5 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 </template>

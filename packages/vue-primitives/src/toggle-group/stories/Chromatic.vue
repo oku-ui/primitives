@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import './styles.css'
-import { ToggleGroup, ToggleGroupItem } from '../index.ts'
+import { ToggleGroupItem, ToggleGroupRoot } from '../index.ts'
 </script>
 
 <template>
   <h1>Single</h1>
   <h2>Off</h2>
-  <ToggleGroup type="single" class="toggleGroup_root">
+  <ToggleGroupRoot type="single" class="toggleGroup_root">
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -16,10 +16,10 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>On</h2>
-  <ToggleGroup type="single" class="toggleGroup_root" default-value="1">
+  <ToggleGroupRoot type="single" class="toggleGroup_root" default-value="1">
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -29,10 +29,10 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>Disabled</h2>
-  <ToggleGroup type="single" class="toggleGroup_root" disabled>
+  <ToggleGroupRoot type="single" class="toggleGroup_root" disabled>
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -42,11 +42,11 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h1>Multiple</h1>
   <h2>Off</h2>
-  <ToggleGroup type="multiple" class="toggleGroup_root">
+  <ToggleGroupRoot type="multiple" class="toggleGroup_root">
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -56,10 +56,10 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>One on</h2>
-  <ToggleGroup
+  <ToggleGroupRoot
     type="multiple" class="toggleGroup_root" :default-value="['1']"
   >
     <ToggleGroupItem value="1" class="toggleGroup_item">
@@ -71,10 +71,10 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>One and two on</h2>
-  <ToggleGroup
+  <ToggleGroupRoot
     type="multiple" class="toggleGroup_root" :default-value="['1', '2']"
   >
     <ToggleGroupItem value="1" class="toggleGroup_item">
@@ -86,10 +86,10 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>Disabled</h2>
-  <ToggleGroup type="multiple" class="toggleGroup_root" disabled>
+  <ToggleGroupRoot type="multiple" class="toggleGroup_root" disabled>
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -99,11 +99,11 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item">
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h1>Direction</h1>
   <h2>Prop</h2>
-  <ToggleGroup type="single" class="toggleGroup_root" default-value="1" dir="rtl">
+  <ToggleGroupRoot type="single" class="toggleGroup_root" default-value="1" dir="rtl">
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -113,11 +113,11 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>Inherited WIP:DirectionProvider</h2>
   <!-- <DirectionProvider dir="rtl"> -->
-  <ToggleGroup type="single" class="toggleGroup_root" default-value="1">
+  <ToggleGroupRoot type="single" class="toggleGroup_root" default-value="1">
     <ToggleGroupItem value="1" class="toggleGroup_item">
       Option 1
     </ToggleGroupItem>
@@ -127,12 +127,12 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="3" class="toggleGroup_item" disabled>
       Option 3
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
   <!-- </DirectionProvider> -->
 
   <h1>State attributes</h1>
   <h2>Group disabled</h2>
-  <ToggleGroup type="multiple" class="toggleGroup_root" :default-value="['1', '2']" disabled>
+  <ToggleGroupRoot type="multiple" class="toggleGroup_root" :default-value="['1', '2']" disabled>
     <ToggleGroupItem value="1" class="toggleGroup_itemAttr">
       Option 1
     </ToggleGroupItem>
@@ -145,10 +145,10 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="4" class="toggleGroup_itemAttr">
       Option 4
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>Group enabled with button override</h2>
-  <ToggleGroup
+  <ToggleGroupRoot
     type="multiple"
     class="toggleGroup_root"
     :default-value="['1', '2']"
@@ -166,10 +166,10 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="4" class="toggleGroup_itemAttr" disabled>
       Option 4
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 
   <h2>Group disabled with button override</h2>
-  <ToggleGroup
+  <ToggleGroupRoot
     type="multiple"
     class="toggleGroup_root"
     :default-value="['1', '2']"
@@ -187,5 +187,5 @@ import { ToggleGroup, ToggleGroupItem } from '../index.ts'
     <ToggleGroupItem value="4" class="toggleGroup_itemAttr" :disabled="false">
       Option 4
     </ToggleGroupItem>
-  </ToggleGroup>
+  </ToggleGroupRoot>
 </template>

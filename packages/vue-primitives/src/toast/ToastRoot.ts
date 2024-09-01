@@ -11,7 +11,7 @@ export interface ToastRootProps {
 }
 
 export type SwipeEvent = { currentTarget: EventTarget & HTMLLIElement } & Omit<
-  CustomEvent<{ originalEvent: React.PointerEvent, delta: { x: number, y: number } }>,
+  CustomEvent<{ originalEvent: PointerEvent, delta: { x: number, y: number } }>,
   'currentTarget'
 >
 

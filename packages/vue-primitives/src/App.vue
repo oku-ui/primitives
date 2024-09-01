@@ -3,7 +3,7 @@ import { computed, onMounted, shallowRef } from 'vue'
 // import Foo from '../src/Foo.vue'
 // import Primitive from './primitive/Primitive.vue'
 import { Toggle } from './toggle/index.ts'
-import { ToggleGroup, ToggleGroupItem } from './toggle-group/index.ts'
+import { ToggleGroupItem, ToggleGroupRoot } from './toggle-group/index.ts'
 import Accordion from './accordion/AccordionRoot.vue'
 import AccordionItem from './accordion/AccordionItem.vue'
 import { AccordionContent, AccordionHeader, AccordionTrigger } from './accordion/index.ts'
@@ -74,14 +74,14 @@ onMounted(() => {
     </button>
 
     <div>
-      <ToggleGroup type="single">
+      <ToggleGroupRoot type="single">
         <ToggleGroupItem value="1">
           1
         </ToggleGroupItem>
         <ToggleGroupItem value="2">
           2
         </ToggleGroupItem>
-      </ToggleGroup>
+      </ToggleGroupRoot>
     </div>
 
     <div>

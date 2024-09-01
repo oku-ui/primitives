@@ -42,7 +42,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Dialog](https://vue-primitives.netlify.app/?path=/story/components-dialog--styled)           | ✓      |
 | DropdownMenu                                                                                  | 🚧      |
 | Form                                                                                          | 🚧      |
-| HoverCard                                                                                     | 🚧      |
+| [HoverCard](https://vue-primitives.netlify.app/?path=/story/components-hovercard--chromatic)  | ✓      |
 | [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)             | ✓      |
 | Menubar                                                                                       | 🚧      |
 | NavigationMenu                                                                                | 🚧      |
