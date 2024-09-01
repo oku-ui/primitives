@@ -1,8 +1,7 @@
 {
-  "name": "vue-primitives",
+  "name": "@perigee-ui/vue-primitives",
   "type": "module",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -12,9 +11,25 @@
       "types": "./dist/accordion/index.d.ts",
       "import": "./dist/accordion/index.js"
     },
+    "./alert-dialog": {
+      "types": "./dist/alert-dialog/index.d.ts",
+      "import": "./dist/alert-dialog/index.js"
+    },
+    "./arrow": {
+      "types": "./dist/arrow/index.d.ts",
+      "import": "./dist/arrow/index.js"
+    },
     "./aspect-ratio": {
       "types": "./dist/aspect-ratio/index.d.ts",
       "import": "./dist/aspect-ratio/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "import": "./dist/checkbox/index.js"
     },
     "./collapsible": {
       "types": "./dist/collapsible/index.d.ts",
@@ -28,9 +43,53 @@
       "types": "./dist/config/index.d.ts",
       "import": "./dist/config/index.js"
     },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "import": "./dist/dialog/index.js"
+    },
     "./direction": {
       "types": "./dist/direction/index.d.ts",
       "import": "./dist/direction/index.js"
+    },
+    "./dismissable-layer": {
+      "types": "./dist/dismissable-layer/index.d.ts",
+      "import": "./dist/dismissable-layer/index.js"
+    },
+    "./floating": {
+      "types": "./dist/floating/index.d.ts",
+      "import": "./dist/floating/index.js"
+    },
+    "./focus-guards": {
+      "types": "./dist/focus-guards/index.d.ts",
+      "import": "./dist/focus-guards/index.js"
+    },
+    "./focus-scope": {
+      "types": "./dist/focus-scope/index.d.ts",
+      "import": "./dist/focus-scope/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
+    },
+    "./hover-card": {
+      "types": "./dist/hover-card/index.d.ts",
+      "import": "./dist/hover-card/index.js"
+    },
+    "./label": {
+      "types": "./dist/label/index.d.ts",
+      "import": "./dist/label/index.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "import": "./dist/popover/index.js"
+    },
+    "./popper": {
+      "types": "./dist/popper/index.d.ts",
+      "import": "./dist/popper/index.js"
+    },
+    "./portal": {
+      "types": "./dist/portal/index.d.ts",
+      "import": "./dist/portal/index.js"
     },
     "./presence": {
       "types": "./dist/presence/index.d.ts",
@@ -40,21 +99,45 @@
       "types": "./dist/primitive/index.d.ts",
       "import": "./dist/primitive/index.js"
     },
+    "./progress": {
+      "types": "./dist/progress/index.d.ts",
+      "import": "./dist/progress/index.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.ts",
+      "import": "./dist/radio-group/index.js"
+    },
     "./roving-focus": {
       "types": "./dist/roving-focus/index.d.ts",
       "import": "./dist/roving-focus/index.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/scroll-area/index.d.ts",
+      "import": "./dist/scroll-area/index.js"
     },
     "./separator": {
       "types": "./dist/separator/index.d.ts",
       "import": "./dist/separator/index.js"
     },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "import": "./dist/slider/index.js"
+    },
     "./slot": {
       "types": "./dist/slot/index.d.ts",
       "import": "./dist/slot/index.js"
     },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "import": "./dist/switch/index.js"
+    },
     "./tabs": {
       "types": "./dist/tabs/index.d.ts",
       "import": "./dist/tabs/index.js"
+    },
+    "./toast": {
+      "types": "./dist/toast/index.d.ts",
+      "import": "./dist/toast/index.js"
     },
     "./toggle": {
       "types": "./dist/toggle/index.d.ts",
@@ -63,6 +146,14 @@
     "./toggle-group": {
       "types": "./dist/toggle-group/index.d.ts",
       "import": "./dist/toggle-group/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "import": "./dist/toolbar/index.js"
+    },
+    "./visually-hidden": {
+      "types": "./dist/visually-hidden/index.d.ts",
+      "import": "./dist/visually-hidden/index.js"
     }
   },
   "files": [
