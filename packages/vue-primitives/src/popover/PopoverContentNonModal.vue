@@ -59,6 +59,10 @@ function interactOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
     event.preventDefault()
   }
 }
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, watch, watchEffect } from 'vue'
-import { computedEager } from '@vueuse/core'
+import { computed, shallowRef, watch, watchEffect } from 'vue'
 import {
   type Placement,
   type UseFloatingCofnig,
@@ -65,7 +64,7 @@ function getDetectOverflowOptions() {
   }
 }
 
-const floatingConfig = computedEager<UseFloatingCofnig>(() => {
+const floatingConfig = computed<UseFloatingCofnig>(() => {
   const detectOverflowOptions = getDetectOverflowOptions()
 
   const placement = (props.side + (props.align !== 'center' ? `-${props.align}` : '')) as Placement

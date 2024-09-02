@@ -54,6 +54,10 @@ onBeforeUnmount(() => {
   if (contentRef)
     hideOthers(contentRef)
 })
+
+defineExpose({
+  $el,
+})
 </script>
 
 <template>

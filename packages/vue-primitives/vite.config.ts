@@ -45,7 +45,15 @@ export default defineConfig({
     vue(),
     vueJsx(),
     dts({
-      exclude: ['./src/main.ts'],
+      outDir: 'dist',
+      include: [
+        'env.d.ts',
+        'src/**/*',
+        'src/**/*.ts',
+        'src/**/*.tsx',
+        'src/**/*.vue',
+      ],
+      exclude: ['src/**/__tests__/*', 'src/**/stories/*'],
       tsconfigPath: 'tsconfig.app.json',
     }),
   ],
