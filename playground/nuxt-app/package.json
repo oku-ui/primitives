@@ -10,9 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@perigee/vue-primitives": "workspace:*",
     "nuxt": "^3.13.0",
     "vue": "^3.4.38",
-    "vue-primitives": "workspace:*",
     "vue-router": "^4.4.3"
   }
 }

@@ -128,15 +128,15 @@ importers:
 
   playground/nuxt-app:
     dependencies:
+      '@perigee/vue-primitives':
+        specifier: workspace:*
+        version: link:../../packages/vue-primitives
       nuxt:
         specifier: ^3.13.0
         version: 3.13.0(@parcel/watcher@2.4.1)(@types/node@20.16.3)(encoding@0.1.13)(eslint@9.4.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.3)(rollup@4.21.0)(terser@5.31.1)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.3)(terser@5.31.1))(vue-tsc@2.1.4(typescript@5.5.4))
       vue:
         specifier: ^3.4.38
         version: 3.4.38(typescript@5.5.4)
-      vue-primitives:
-        specifier: workspace:*
-        version: link:../../packages/vue-primitives
       vue-router:
         specifier: ^4.4.3
         version: 4.4.3(vue@3.4.38(typescript@5.5.4))
