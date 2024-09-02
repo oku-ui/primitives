@@ -47,7 +47,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [Collapsible](https://vue-primitives.netlify.app/?path=/story/components-collapsible--styled) | ✓      |
 | [Dialog](https://vue-primitives.netlify.app/?path=/story/components-dialog--styled)           | ✓      |
 | DropdownMenu                                                                                  | 🚧      |
-| Form                                                                                          | 🚧      |
+| Form                                                                                          | ✖️      |
 | [HoverCard](https://vue-primitives.netlify.app/?path=/story/components-hovercard--chromatic)  | ✓      |
 | [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)             | ✓      |
 | Menubar                                                                                       | 🚧      |
