@@ -29,7 +29,7 @@ export interface ToastProviderProps {
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
 export type ToastViewportElement = HTMLOListElement
 
-export interface ToastProviderContextValue {
+export interface ToastProviderContext {
   label: string
   duration: number
   swipeDirection: Ref<SwipeDirection>
@@ -43,7 +43,7 @@ export interface ToastProviderContextValue {
   isClosePausedRef: MutableRefObject<boolean>
 }
 
-export const [provideToastProviderContext, useToastProviderContext] = createContext<ToastProviderContextValue>('Toast')
+export const [provideToastProviderContext, useToastProviderContext] = createContext<ToastProviderContext>('Toast')
 
 export function useToastProvider(props: ToastProviderProps = {}) {
   const { label = 'Notification', duration = 5000, swipeDirection = 'right', swipeThreshold = 50 } = props

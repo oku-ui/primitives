@@ -11,9 +11,7 @@ defineProps<ToolbarToggleItemProps>()
 </script>
 
 <template>
-  <ToolbarButton
-    as-child
-  >
+  <ToolbarButton as="template">
     <ToggleGroupItem
       :value="value"
       v-bind="$attrs"

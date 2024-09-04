@@ -45,8 +45,15 @@ withDefaults(defineProps<{
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
 }
-
 [data-radix-scroll-area-viewport]::-webkit-scrollbar {
-  display: none
+  display: none;
+}
+:where([data-radix-scroll-area-viewport]) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+:where([data-radix-scroll-area-content]) {
+  flex-grow: 1;
 }
 </style>

@@ -26,7 +26,7 @@ defineExpose({
 
 <template>
   <RovingFocusGroupRoot
-    as-child
+    as="template"
     :orientation="context.orientation"
     :dir="context.dir.value"
     :loop="loop"

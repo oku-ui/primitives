@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, shallowRef } from 'vue'
-import Primitive from '../primitive/Primitive.vue'
+import { Primitive } from '../primitive/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePopperContext } from './PopperRoot.ts'
 import type { PopperAnchorElement, PopperAnchorProps } from './PopperAnchor'

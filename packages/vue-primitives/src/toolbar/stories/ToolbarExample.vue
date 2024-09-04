@@ -37,7 +37,7 @@ defineProps<{
           Link
         </ToolbarLink>
         <ToolbarSeparator class="toolbar_toolbarSeparatorClass" />
-        <ToolbarButton class="toolbar_toolbarItemClass toolbar_toolbarToggleButtonClass" as-child>
+        <ToolbarButton class="toolbar_toolbarItemClass toolbar_toolbarToggleButtonClass" as="template">
           <Toggle>Toggle</Toggle>
         </ToolbarButton>
         <ToolbarSeparator class="toolbar_toolbarSeparatorClass" />
@@ -56,7 +56,7 @@ defineProps<{
 
         TODO:MENU
         <!-- <DropdownMenu.Root>
-          <ToolbarButton class="toolbar_toolbarItemClass" as-child>
+          <ToolbarButton class="toolbar_toolbarItemClass" as="template">
             <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>
           </ToolbarButton>
           <DropdownMenu.Content class="toolbar_dropdownMenuContentClass" side-offset="{5}">

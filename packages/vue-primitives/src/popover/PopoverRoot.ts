@@ -2,7 +2,6 @@ import type { Ref } from 'vue'
 import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface PopoverRootProps {
-  id?: string
   open?: boolean
   defaultOpen?: boolean
   modal?: boolean
@@ -16,9 +15,9 @@ export type PopoverRootEmits = {
   'update:open': [value: boolean]
 }
 
-export interface PopoverContextValue {
+export interface PopoverContext {
   triggerRef: MutableRefObject<HTMLButtonElement | undefined>
-  contentId?: string
+  contentId: string
   open: Ref<boolean>
   onOpenChange: (open: boolean) => void
   onOpenToggle: () => void
@@ -28,4 +27,4 @@ export interface PopoverContextValue {
   modal: boolean
 }
 
-export const [providePopoverContext, usePopoverContext] = createContext<PopoverContextValue>('Poppover')
+export const [providePopoverContext, usePopoverContext] = createContext<PopoverContext>('Poppover')

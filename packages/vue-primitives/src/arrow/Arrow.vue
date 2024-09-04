@@ -16,11 +16,10 @@ withDefaults(defineProps<ArrowProps>(), {
 <template>
   <Primitive
     :as="as"
-    :as-child="asChild"
     :width="width"
     :height="height"
-    :viewBox="asChild ? undefined : '0 0 30 10'"
-    :preserveAspectRatio="asChild ? undefined : 'none'"
+    :viewBox="as === 'template' ? undefined : '0 0 30 10'"
+    :preserveAspectRatio="as === 'template' ? undefined : 'none'"
   >
     <slot><polygon points="0,0 30,0 15,10" /></slot>
   </Primitive>

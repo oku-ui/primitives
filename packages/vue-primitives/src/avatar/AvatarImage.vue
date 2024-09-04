@@ -31,7 +31,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <Primitive v-if="imageLoadingStatus === 'loaded'" :as="as" :src="src">
+  <Primitive :hidden="imageLoadingStatus !== 'loaded'" :as="as" :src="src">
     <slot />
   </Primitive>
 </template>

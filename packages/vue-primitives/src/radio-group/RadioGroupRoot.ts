@@ -18,7 +18,7 @@ export type RadioGroupRootEmits = {
   'update:value': [value: string]
 }
 
-export interface RadioGroupContextValue {
+export interface RadioGroupContext {
   name: () => string | undefined
   required: () => boolean
   disabled: () => boolean
@@ -26,4 +26,4 @@ export interface RadioGroupContextValue {
   onValueChange: (value: string) => void
 }
 
-export const [provideRadioGroupContext, useRadioGroupContext] = createContext<RadioGroupContextValue>('RadioGroup')
+export const [provideRadioGroupContext, useRadioGroupContext] = createContext<RadioGroupContext>('RadioGroup')

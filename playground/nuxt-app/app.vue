@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { provideConfigContext } from '../../packages/vue-primitives/src/config/index.ts'
-
 const utils = [
   'Collection',
   'Focus Scope',
@@ -32,19 +30,14 @@ const components = [
   'Switch',
   'Tabs',
   'Toast',
+  'Toggle Group',
   'Toggle',
   'Toolbar',
-  'Toggle Group',
+  'Tooltip',
 ].map(component => ({
   name: component.replaceAll(' ', ''),
   to: `/${component.toLowerCase().replaceAll(' ', '-')}/`,
 }))
-
-const useIdFunction = () => useId()
-
-provideConfigContext({
-  useId: useIdFunction,
-})
 </script>
 
 <template>

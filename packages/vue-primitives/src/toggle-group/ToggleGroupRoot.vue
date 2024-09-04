@@ -66,7 +66,7 @@ provideToggleGroupContext({
 <template>
   <RovingFocusGroupRoot
     v-if="rovingFocus"
-    as-child
+    as="template"
     :orientation="orientation"
     :dir="direction"
     :loop="loop"

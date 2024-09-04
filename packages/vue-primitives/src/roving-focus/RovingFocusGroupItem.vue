@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowRef, watch, watchEffect } from 'vue'
+import { computed, onWatcherCleanup, shallowRef, watch, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useForwardElement, useId } from '../hooks/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
@@ -29,10 +29,10 @@ const getItems = useCollection()
 
 const { onFocusableItemAdd, onFocusableItemRemove } = context
 
-watch(() => props.focusable, (value, _, onCleanup) => {
+watch(() => props.focusable, (value) => {
   if (value) {
     onFocusableItemAdd()
-    onCleanup(onFocusableItemRemove)
+    onWatcherCleanup(onFocusableItemRemove)
   }
 }, { immediate: true })
 

@@ -105,7 +105,7 @@ const nextButtonRef = shallowRef<HTMLButtonElement | null>(null)
     <FocusScope
       v-if="open"
       key="form"
-      as-child
+      as="template"
       :loop="trapFocus"
       :trapped="trapFocus"
       @mount-auto-focus="(event) => {

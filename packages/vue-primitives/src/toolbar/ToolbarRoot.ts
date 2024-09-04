@@ -2,14 +2,14 @@ import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
 import type { RovingFocusGroupRootProps } from '../roving-focus/RovingFocusGroupRoot.ts'
 
-export interface ToolbarProps {
+export interface ToolbarRootProps {
   orientation?: RovingFocusGroupRootProps['orientation']
   loop?: RovingFocusGroupRootProps['loop']
   dir?: RovingFocusGroupRootProps['dir']
 }
 
-interface ToolbarContextValue {
+export interface ToolbarContext {
   orientation: () => Required<RovingFocusGroupRootProps>['orientation']
   dir: Ref<Required<RovingFocusGroupRootProps>['dir']>
 }
-export const [provideToolbarContext, useToolbarContext] = createContext<ToolbarContextValue>('Toolbar')
+export const [provideToolbarContext, useToolbarContext] = createContext<ToolbarContext>('Toolbar')

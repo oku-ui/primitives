@@ -14,8 +14,8 @@ export type AlertDialogContentElement = HTMLDivElement
 
 export type AlertDialogCancelElement = HTMLButtonElement
 
-export interface AlertDialogContentContextValue {
+export interface AlertDialogContentContext {
   cancelRef: MutableRefObject<AlertDialogCancelElement | undefined>
 }
 
-export const [provideAlertDialogContentContext, useAlertDialogContentContext] = createContext<AlertDialogContentContextValue>('AlertDialogContent')
+export const [provideAlertDialogContentContext, useAlertDialogContentContext] = createContext<AlertDialogContentContext>('AlertDialogContent')

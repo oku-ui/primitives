@@ -17,7 +17,7 @@ const trapped2 = shallowRef(false)
         Trap 1
       </button>
     </div>
-    <FocusScope v-if="trapped1" as-child :loop="trapped1" :trapped="trapped1">
+    <FocusScope v-if="trapped1" as="template" :loop="trapped1" :trapped="trapped1">
       <form
         :style="{
           display: 'inline-flex',
@@ -52,7 +52,7 @@ const trapped2 = shallowRef(false)
       </button>
     </div>
 
-    <FocusScope v-if="trapped2" as-child :loop="trapped2" :trapped="trapped2">
+    <FocusScope v-if="trapped2" as="template" :loop="trapped2" :trapped="trapped2">
       <form
         :style="{
           display: 'inline-flex',

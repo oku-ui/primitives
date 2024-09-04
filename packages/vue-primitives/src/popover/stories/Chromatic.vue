@@ -382,7 +382,7 @@ function preventDefault(event: Event) {
     <h2>Relative parent (non-portalled)</h2>
     <div :style="{ position: 'relative' }">
       <PopoverRoot open>
-        <PopoverTrigger as-child>
+        <PopoverTrigger as="template">
           <button class="popover_triggerClass">
             open
           </button>
@@ -401,7 +401,7 @@ function preventDefault(event: Event) {
       With slotted trigger
     </h1>
     <PopoverRoot open>
-      <PopoverTrigger as-child>
+      <PopoverTrigger as="template">
         <button class="popover_triggerClass">
           open
         </button>

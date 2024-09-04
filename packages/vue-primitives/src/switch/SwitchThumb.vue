@@ -17,7 +17,6 @@ const context = useSwitchContext('SwitchThumb')
 <template>
   <Primitive
     :as="as"
-    :as-child="asChild"
     :data-state="getState(context.checked.value)"
   >
     <slot />

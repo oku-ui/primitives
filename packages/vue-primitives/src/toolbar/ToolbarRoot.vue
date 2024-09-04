@@ -2,14 +2,14 @@
 import { useDirection } from '../direction/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type ToolbarProps, provideToolbarContext } from './ToolbarRoot.ts'
+import { type ToolbarRootProps, provideToolbarContext } from './ToolbarRoot.ts'
 
 defineOptions({
   name: 'ToolbarRoot',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ToolbarProps>(), {
+const props = withDefaults(defineProps<ToolbarRootProps>(), {
   orientation: 'horizontal',
   loop: true,
 })
@@ -26,7 +26,7 @@ provideToolbarContext({
 
 <template>
   <RovingFocusGroupRoot
-    as-child
+    as="template"
     :orientation="orientation"
     :dir="direction"
     :loop="loop"

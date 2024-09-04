@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useControllableState, useRef } from '../hooks/index.ts'
+import { useControllableState, useId, useRef } from '../hooks/index.ts'
 import { type DialogContentElement, type DialogRootEmits, type DialogRootProps, provideDialogContext } from './DialogRoot.ts'
 
 defineOptions({
@@ -22,9 +22,9 @@ const open = useControllableState(props, v => emit('update:open', v), 'open', pr
 provideDialogContext({
   triggerRef,
   contentRef,
-  contentId: undefined,
-  titleId: undefined,
-  descriptionId: undefined,
+  contentId: useId(),
+  titleId: useId(),
+  descriptionId: useId(),
   open,
   modal: props.modal,
   onOpenChange(value) {

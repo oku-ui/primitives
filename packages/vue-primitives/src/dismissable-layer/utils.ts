@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/core'
-import { type Ref, nextTick, watch } from 'vue'
+import { type Ref, nextTick, onWatcherCleanup, watch } from 'vue'
 
 export type PointerDownOutsideEvent = CustomEvent<{
   originalEvent: PointerEvent
@@ -33,7 +33,7 @@ export function usePointerdownOutside(
     return ret
   }
 
-  watch(node, (nodeVal, _, onCleanup) => {
+  watch(node, (nodeVal) => {
     if (!nodeVal)
       return
 
@@ -107,7 +107,7 @@ export function usePointerdownOutside(
       ownerDocument.addEventListener('pointerdown', handlePointerDown)
     }, 0)
 
-    onCleanup(() => {
+    onWatcherCleanup(() => {
       window.clearTimeout(timerId)
       ownerDocument.removeEventListener('pointerdown', handlePointerDown)
       ownerDocument.removeEventListener('click', handleClick)
@@ -153,7 +153,7 @@ export function useFocusOutside(
     }
   }
 
-  watch(node, (nodeVal, _, onCleanup) => {
+  watch(node, (nodeVal) => {
     if (!nodeVal)
       return
 
@@ -161,7 +161,7 @@ export function useFocusOutside(
 
     ownerDocument.addEventListener('focusin', handleFocus)
 
-    onCleanup(() => ownerDocument.removeEventListener('focusin', handleFocus))
+    onWatcherCleanup(() => ownerDocument.removeEventListener('focusin', handleFocus))
   })
 
   return ret

@@ -30,7 +30,7 @@ export const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export interface PopperContentContextValue {
+export interface PopperContentContext {
   placedSide: Ref<Side>
   onArrowChange: (newArrow: HTMLSpanElement | undefined) => void
   arrowX: () => number | undefined
@@ -38,4 +38,4 @@ export interface PopperContentContextValue {
   shouldHideArrow: () => boolean
 }
 
-export const [provideContentContext, useContentContext] = createContext<PopperContentContextValue>('PopperContent')
+export const [provideContentContext, useContentContext] = createContext<PopperContentContext>('PopperContent')

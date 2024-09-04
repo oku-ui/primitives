@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { useControllableState, useRef } from '../hooks/index.ts'
+import { useControllableState, useId, useRef } from '../hooks/index.ts'
 import { PopperRoot } from '../popper/index.ts'
 import { type PopoverRootEmits, type PopoverRootProps, providePopoverContext } from './PopoverRoot.ts'
 
@@ -22,7 +22,7 @@ const open = useControllableState(props, v => emit('update:open', v), 'open', pr
 
 providePopoverContext({
   triggerRef,
-  contentId: props.id,
+  contentId: useId(),
   open,
   onOpenChange(value) {
     open.value = value

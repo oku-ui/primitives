@@ -28,7 +28,7 @@ function closeFn() {
           <button @click="closeFn">
             close
           </button>
-          <PopperArrow class="popper_arrowClass" as-child :offset="20">
+          <PopperArrow class="popper_arrowClass" as="template" :offset="20">
             <CustomArrow :width="20" :height="10" />
           </PopperArrow>
         </PopperContent>

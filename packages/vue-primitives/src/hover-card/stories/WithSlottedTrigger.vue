@@ -7,7 +7,7 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
 <template>
   <div>
     <HoverCardRoot>
-      <HoverCardTrigger as-child>
+      <HoverCardTrigger as="template">
         <button class="hoverCard_triggerClass" @click="() => console.log('StyledTrigger click')">
           trigger
         </button>

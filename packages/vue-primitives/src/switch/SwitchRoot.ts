@@ -2,7 +2,8 @@ import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
 
-export interface SwitchRootProps extends PrimitiveProps {
+export interface SwitchRootProps {
+  as?: PrimitiveProps['as']
   checked?: boolean
   defaultChecked?: boolean
   required?: boolean

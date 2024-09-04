@@ -65,7 +65,7 @@ defineExpose({
 
 <template>
   <RovingFocusGroupItem
-    as-child
+    as="template"
     :focusable="!disabled"
     :active="isSelected"
   >
@@ -73,7 +73,6 @@ defineExpose({
       :id="triggerId"
       :ref="forwardElement"
       :as="as"
-      :as-child="asChild"
       v-bind="$attrs"
       type="button"
       role="tab"

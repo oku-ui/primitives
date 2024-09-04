@@ -11,7 +11,7 @@ function onClick() {
 <template>
   <div>
     <PopoverRoot>
-      <PopoverTrigger as-child>
+      <PopoverTrigger as="template">
         <button class="popover_triggerClass" @click="onClick">
           open
         </button>

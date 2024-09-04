@@ -23,7 +23,7 @@ useFocusGuards()
 
 <template>
   <FocusScope
-    as-child
+    as="template"
     loop
     :trapped="trapFocus"
     @mount-auto-focus="emit('openAutoFocus', $event)"

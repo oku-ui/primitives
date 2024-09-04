@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './styles.css'
-import { shallowRef, watch } from 'vue'
+import { onWatcherCleanup, shallowRef, watch } from 'vue'
 import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 
 const values = ['One', 'Two', 'Three', 'Four']
@@ -14,7 +14,7 @@ function setHasDynamicContent(newValue: boolean) {
 }
 let timerRef = 0
 
-watch([hasDynamicContent, count], (_, __, onCleanup) => {
+watch([hasDynamicContent, count], () => {
   if (hasDynamicContent.value) {
     timerRef = window.setTimeout(() => {
       const nextCount = count.value < 5 ? count.value + 1 : count.value
@@ -22,7 +22,7 @@ watch([hasDynamicContent, count], (_, __, onCleanup) => {
         setHasDynamicContent(false)
       count.value = nextCount
     }, 3000)
-    onCleanup(() => {
+    onWatcherCleanup(() => {
       clearTimeout(timerRef)
     })
   }

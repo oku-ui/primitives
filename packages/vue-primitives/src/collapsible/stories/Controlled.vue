@@ -12,7 +12,7 @@ const open = shallowRef(false)
       <CollapsibleTrigger class="collapsible_trigger">
         {{ open ? 'close' : 'open' }}
       </CollapsibleTrigger>
-      <CollapsibleContent class="collapsible_content" as-child>
+      <CollapsibleContent class="collapsible_content" as="template">
         <article>Content 1</article>
       </CollapsibleContent>
     </CollapsibleRoot>

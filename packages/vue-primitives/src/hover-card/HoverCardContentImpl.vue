@@ -94,7 +94,7 @@ let originalBodyUserSelect: string
 
 <template>
   <DismissableLayer
-    as-child
+    as="template"
     :disable-outside-pointer-events="false"
     @interact-outside="emit('interactOutside', $event)"
     @escape-keydown="emit('escapeKeydown', $event)"

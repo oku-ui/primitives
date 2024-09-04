@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, shallowRef, toValue, watch, watchEffect } from 'vue'
+import { computed, onWatcherCleanup, shallowRef, toValue, watch, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { Primitive } from '../primitive/index.ts'
 import { DismissableLayer } from '../dismissable-layer/index.ts'
 import { Portal } from '../portal/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
+import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
 import { type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, provideToastInteractiveContext } from './ToastRoot.ts'
 import { useToastProviderContext } from './index.ts'
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport.ts'
@@ -85,14 +86,14 @@ function handlePause() {
   emit('pause')
 }
 
-watch(context.viewport, (viewport, _, onCleanup) => {
+watch(context.viewport, (viewport) => {
   if (!viewport)
     return
 
   viewport.addEventListener(VIEWPORT_PAUSE, handlePause)
   viewport.addEventListener(VIEWPORT_RESUME, handleResume)
 
-  onCleanup(() => {
+  onWatcherCleanup(() => {
     viewport.removeEventListener(VIEWPORT_PAUSE, handlePause)
     viewport.removeEventListener(VIEWPORT_RESUME, handleResume)
   })
@@ -122,7 +123,7 @@ const isAnnounced = shallowRef(false)
 // if (!context.viewport)
 //   return null
 
-watch($el, (el, _, onCleanup) => {
+watch($el, (el) => {
   if (!el)
     return
   onToastAdd()
@@ -136,7 +137,7 @@ watch($el, (el, _, onCleanup) => {
     isAnnounced.value = true
   }, 1000)
 
-  onCleanup(() => {
+  onWatcherCleanup(() => {
     onToastRemove()
     cliear()
     window.clearTimeout(timerIsAnnounced)
@@ -262,7 +263,7 @@ defineExpose({
     </ToastAnnounce>
 
     <Portal :to="context.viewport.value">
-      <DismissableLayer as-child @escape-keydown="onEscapeKeydown">
+      <DismissableLayer as="template" @escape-keydown="onEscapeKeydown">
         <Primitive
           :ref="forwardElement"
           :as="as"
@@ -274,6 +275,7 @@ defineExpose({
           :data-swipe-direction="context.swipeDirection.value"
           v-bind="$attrs"
           style="user-select: none; touch-action: none;"
+          :[ITEM_DATA_ATTR]="true"
           @keydown="onKeydown"
           @pointerdown="onPointerdown"
           @pointermove="onPointermove"

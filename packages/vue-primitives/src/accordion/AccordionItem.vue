@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { CollapsibleRoot } from '../collapsible/index.ts'
+import { useId } from '../hooks/index.ts'
 import { type AccordionItemProps, provideAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'
@@ -25,9 +26,7 @@ function onUpdateOpen(open: boolean) {
 provideAccordionItemContext({
   open,
   disabled,
-  triggerId() {
-    return `${context.id}-${props.value}`
-  },
+  triggerId: useId(),
 })
 </script>
 

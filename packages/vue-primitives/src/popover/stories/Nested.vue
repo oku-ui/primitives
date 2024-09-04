@@ -28,7 +28,7 @@ function focusButton() {
       Focus popover button
     </button>
 
-    <PopoverRoot id="11">
+    <PopoverRoot>
       <PopoverTrigger ref="buttonRef" class="popover_triggerClass">
         Open popover
       </PopoverTrigger>
@@ -39,7 +39,7 @@ function focusButton() {
           :side-offset="5"
           :style="{ backgroundColor: 'crimson' }"
         >
-          <PopoverRoot id="22">
+          <PopoverRoot>
             <PopoverTrigger class="popover_triggerClass">
               Open nested popover
             </PopoverTrigger>

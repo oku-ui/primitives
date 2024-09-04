@@ -43,7 +43,7 @@ function onUpdatePressed(pressed?: boolean) {
 <template>
   <RovingFocusGroupItem
     v-if="context.rovingFocus()"
-    as-child
+    as="template"
     :focusable="!disabled"
     :active="pressed"
   >

@@ -65,7 +65,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [ToggleGroup](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single) | ✓      |
 | [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)           | ✓      |
 | [Toolbar](https://vue-primitives.netlify.app/?path=/story/components-toolbar--styled)         | ✓      |
-| Tooltip                                                                                       | 🚧      |
+| [Tooltip](https://vue-primitives.netlify.app/?path=/story/components-tooltip--styled)         | ✓      |
 
 ## Utilites
 
@@ -76,7 +76,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [FocusScope](https://vue-primitives.netlify.app/?path=/story/utilities-focusscope--basic)             | ✓      |
 | Menu                                                                                                  | 🚧      |
 | [Popper](https://vue-primitives.netlify.app/?path=/story/utilities-popper--styled)                    | ✓      |
-| Portal                                                                                                | ✓      |
+| [Portal](https://vue-primitives.netlify.app/?path=/story/utilities-portal--base)                      | ✓      |
 | [Presence](https://vue-primitives.netlify.app/?path=/story/utilities-presence--basic)                 | ✓      |
 | Primitives                                                                                            | ✓      |
 | [RovingFocusGroup](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic) | ✓      |

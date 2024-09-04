@@ -3,6 +3,7 @@ import {
   type CSSProperties,
   type MaybeRefOrGetter,
   computed,
+  onWatcherCleanup,
   shallowRef,
   toValue,
   watch,
@@ -112,7 +113,7 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
       isPositioned.value = false
   })
 
-  watch([referenceEl, floatingEl], ([referenceEl, floatingEl], __, onCleanup) => {
+  watch([referenceEl, floatingEl], ([referenceEl, floatingEl]) => {
     if (referenceEl)
       referenceRef.current = referenceEl
 
@@ -127,7 +128,7 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
       return
     }
 
-    onCleanup(whileElementsMounted(referenceEl, floatingEl, update))
+    onWatcherCleanup(whileElementsMounted(referenceEl, floatingEl, update))
   })
 
   const floatingStyles = computed<CSSProperties>(() => {

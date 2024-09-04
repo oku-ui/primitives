@@ -13,7 +13,7 @@ export type HoverCardRootEmits = {
   'update:open': [open: boolean]
 }
 
-interface HoverCardContextValue {
+export interface HoverCardContext {
   open: Ref<boolean>
   onOpenChange: (open: boolean) => void
   onOpen: () => void
@@ -23,4 +23,4 @@ interface HoverCardContextValue {
   isPointerDownOnContentRef: MutableRefObject<boolean>
 }
 
-export const [provideHoverCardContext, useHoverCardContext] = createContext<HoverCardContextValue>('HoverCard')
+export const [provideHoverCardContext, useHoverCardContext] = createContext<HoverCardContext>('HoverCard')

@@ -4,6 +4,7 @@ import { isClient } from '@vueuse/core'
 import { Primitive } from '../primitive/index.ts'
 import { useForwardElement, useSize } from '../hooks/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
+import { ITEM_DATA_ATTR } from '../collection/index.ts'
 import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
 import { Collection, useCollection, useSliderContext } from './SliderRoot.ts'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
@@ -87,6 +88,7 @@ defineExpose({
       :data-orientation="context.orientation()"
       :data-disabled="context.disabled() ? '' : undefined"
       :tabindex="context.disabled() ? undefined : 0"
+      :[ITEM_DATA_ATTR]="true"
       v-bind="$attrs"
       :style="{
         /**

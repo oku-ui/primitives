@@ -61,12 +61,12 @@ const props = defineProps({
     default: 0,
   },
   value: {
-    type: [Array] as PropType<Required<SliderRootProps>['value']>,
+    type: Array as PropType<Required<SliderRootProps>['value']>,
     required: false,
     default: undefined,
   },
   defaultValue: {
-    type: [Array] as PropType<Required<SliderRootProps>['defaultValue']>,
+    type: Array as PropType<Required<SliderRootProps>['defaultValue']>,
     required: false,
     default(rawProps: Record<string, unknown>) {
       return isNumber(rawProps.min) ? [rawProps.min] : [0]

@@ -42,7 +42,7 @@ const onTouchstart = composeEventHandlers<TouchEvent>((event) => {
 </script>
 
 <template>
-  <PopperAnchor as-child>
+  <PopperAnchor as="template">
     <Primitive
       :as="as" v-bind="$attrs"
       :data-state="context.open.value ? 'open' : 'closed'"

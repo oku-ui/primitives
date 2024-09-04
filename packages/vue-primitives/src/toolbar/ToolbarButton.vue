@@ -15,7 +15,7 @@ withDefaults(defineProps<ToolbarButtonProps>(), {
 
 <template>
   <RovingFocusGroupItem
-    as-child
+    as="template"
     :focusable="!disabled"
   >
     <Primitive

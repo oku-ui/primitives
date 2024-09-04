@@ -9,7 +9,7 @@ export interface ProgressRootProps {
 
 type ProgressState = 'indeterminate' | 'complete' | 'loading'
 
-interface ProgressContext {
+export interface ProgressContext {
   value: () => number | null
   max: () => number
 }

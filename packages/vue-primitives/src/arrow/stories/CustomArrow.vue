@@ -4,9 +4,7 @@ import { Arrow } from '../index.ts'
 
 <template>
   <div>
-    <Arrow
-      as-child
-    >
+    <Arrow as="template">
       <div
         :style="{
           width: '20px',

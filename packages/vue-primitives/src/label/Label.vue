@@ -27,7 +27,6 @@ function onMousedown(event: MouseEvent) {
 <template>
   <Primitive
     :as="as"
-    :as-child="asChild"
     @mousedown="onMousedown"
   >
     <slot />

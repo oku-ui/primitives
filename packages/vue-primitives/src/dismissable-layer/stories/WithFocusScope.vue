@@ -37,7 +37,7 @@ function openAlert() {
 
     <DismissableLayer
       v-if="open"
-      as-child
+      as="template"
       disable-outside-pointer-events
       @pointerdown-outside="handlePointerDownOutside"
       @dismiss="handleDismiss"

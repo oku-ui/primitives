@@ -2,18 +2,18 @@
 import { useControllableState, useId } from '../hooks/index.ts'
 import { useDirection } from '../direction/Direction.ts'
 import { Primitive } from '../primitive/index.ts'
-import { type TabsEmits, type TabsProps, provideTabsContext } from './TabsRoot.ts'
+import { type TabsRootEmits, type TabsRootProps, provideTabsContext } from './TabsRoot.ts'
 
 defineOptions({
   name: 'TabsRoot',
 })
 
-const props = withDefaults(defineProps<TabsProps>(), {
+const props = withDefaults(defineProps<TabsRootProps>(), {
   orientation: 'horizontal',
   activationMode: 'automatic',
 })
 
-const emit = defineEmits<TabsEmits>()
+const emit = defineEmits<TabsRootEmits>()
 
 const direction = useDirection(() => props.dir)
 

@@ -69,7 +69,6 @@ defineExpose({
   <Primitive
     :ref="forwardElement"
     :as="as"
-    :as-child="asChild"
     type="button"
     role="switch"
     :aria-checked="checked"

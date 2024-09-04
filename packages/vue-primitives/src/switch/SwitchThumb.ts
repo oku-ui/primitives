@@ -1,3 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 
-export interface SwitchThumbProps extends PrimitiveProps {}
+export interface SwitchThumbProps {
+  as?: PrimitiveProps['as']
+}

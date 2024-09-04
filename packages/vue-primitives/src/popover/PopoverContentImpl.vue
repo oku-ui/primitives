@@ -33,14 +33,14 @@ defineExpose({
 
 <template>
   <FocusScope
-    as-child
+    as="template"
     loop
     :trapped="trapFocus"
     @mount-auto-focus="emit('openAutoFocus', $event)"
     @unmount-auto-focus="emit('closeAutoFocus', $event)"
   >
     <DismissableLayer
-      as-child
+      as="template"
       :disable-outside-pointer-events="disableOutsidePointerEvents"
       @interact-outside="emit('interactOutside', $event)"
       @escape-keydown="emit('escapeKeydown', $event)"

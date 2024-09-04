@@ -1,2 +1,1 @@
-export { default as Primitive } from './Primitive.vue'
-export type { PrimitiveProps } from './Primitive.ts'
+export { type PrimitiveProps, Primitive } from './Primitive.ts'

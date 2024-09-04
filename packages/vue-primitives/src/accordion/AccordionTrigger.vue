@@ -21,7 +21,7 @@ const itemContext = useAccordionItemContext('AccordionHeader')
 
 <template>
   <CollapsibleTrigger
-    :id="itemContext.triggerId()"
+    :id="itemContext.triggerId"
     :ref="forwardElement"
     :aria-disabled="(itemContext.open.value && !accordionContext.collapsible) || undefined"
     :data-orientation="accordionContext.orientation"

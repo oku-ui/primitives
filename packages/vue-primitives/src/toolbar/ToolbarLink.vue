@@ -25,7 +25,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 
 <template>
   <RovingFocusGroupItem
-    as-child
+    as="template"
     focusable
   >
     <Primitive

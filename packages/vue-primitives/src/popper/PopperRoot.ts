@@ -5,9 +5,9 @@ export interface Measurable {
   getBoundingClientRect: () => DOMRect
 }
 
-export interface PopperContextValue {
+export interface PopperContext {
   anchor: Ref<Measurable | undefined>
   onAnchorChange: (newAnchor: Measurable | undefined) => void
 }
 
-export const [providePopperContext, usePopperContext] = createContext<PopperContextValue>('Popper')
+export const [providePopperContext, usePopperContext] = createContext<PopperContext>('Popper')

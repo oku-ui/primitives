@@ -17,7 +17,7 @@ export interface AccordionItemProps {
 export interface AccordionItemContext {
   open: Ref<boolean>
   disabled: Ref<boolean>
-  triggerId: () => string
+  triggerId: string
 }
 
 export const [provideAccordionItemContext, useAccordionItemContext] = createContext<AccordionItemContext>('AccordionItem')

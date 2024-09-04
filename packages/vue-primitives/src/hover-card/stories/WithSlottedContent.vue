@@ -11,7 +11,7 @@ import CardContentPlaceholder from './CardContentPlaceholder.vue'
         trigger
       </HoverCardTrigger>
       <HoverCardPortal>
-        <HoverCardContent :side-offset="5" as-child>
+        <HoverCardContent :side-offset="5" as="template">
           <div class="hoverCard_contentClass">
             <HoverCardArrow class="hoverCard_arrowClass" :width="20" :height="10" />
             <CardContentPlaceholder />

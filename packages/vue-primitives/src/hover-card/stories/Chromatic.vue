@@ -292,7 +292,7 @@ const SIDES = SIDE_OPTIONS.filter(side => side !== 'bottom').concat(['bottom'])
       With slotted trigger
     </h1>
     <HoverCardRoot open>
-      <HoverCardTrigger as-child>
+      <HoverCardTrigger as="template">
         <button class="hoverCard_triggerClass">
           open
         </button>

@@ -30,7 +30,7 @@ const onFocus = composeEventHandlers((event) => {
 </script>
 
 <template>
-  <RovingFocusGroupItem as-child :active="isSelected" :focusable="!disabled">
+  <RovingFocusGroupItem as="template" :active="isSelected" :focusable="!disabled">
     <button
       :value="value"
       :disabled="disabled"

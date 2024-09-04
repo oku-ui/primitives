@@ -16,7 +16,7 @@ const boundary = shallowRef<HTMLDivElement>()
     }"
   >
     <PopoverRoot>
-      <PopoverTrigger as-child>
+      <PopoverTrigger as="template">
         <button>open</button>
       </PopoverTrigger>
 

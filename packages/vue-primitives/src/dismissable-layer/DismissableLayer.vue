@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowRef, watch } from 'vue'
+import { computed, onWatcherCleanup, shallowRef, watch } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useEscapeKeydown } from '../hooks/useEscapeKeydown.ts'
@@ -78,7 +78,7 @@ useEscapeKeydown((event) => {
   }
 }, ownerDocument)
 
-watch(node, (nodeVal, _, onCleanup) => {
+watch(node, (nodeVal) => {
   if (!nodeVal)
     return
 
@@ -94,7 +94,7 @@ watch(node, (nodeVal, _, onCleanup) => {
 
   context.layers.add(nodeVal)
 
-  onCleanup(() => {
+  onWatcherCleanup(() => {
     if (
       props.disableOutsidePointerEvents
       && context.layersWithOutsidePointerEventsDisabled.size === 1

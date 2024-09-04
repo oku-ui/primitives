@@ -14,7 +14,7 @@ const itemContext = useAccordionItemContext('AccordionContent')
 <template>
   <CollapsibleContent
     role="region"
-    :aria-labelledby="itemContext.triggerId()"
+    :aria-labelledby="itemContext.triggerId"
     :data-orientation="accordionContext.orientation"
     style="--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);"
   >

@@ -1,4 +1,4 @@
-import { type Ref, computed, toValue, watch, watchEffect } from 'vue'
+import { type Ref, computed, onWatcherCleanup, toValue, watch, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/index.ts'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
@@ -90,16 +90,14 @@ export function usePresence(
       prevAnimationName = getAnimationName(styles)
   }
 
-  watch(elRef, (_, __, onCleanup) => {
-    const node = elRef.value
-
+  watch(elRef, (node) => {
     if (node) {
       styles = getComputedStyle(node)
       node.addEventListener('animationstart', handleAnimationStart)
       node.addEventListener('animationcancel', handleAnimationEnd)
       node.addEventListener('animationend', handleAnimationEnd)
 
-      onCleanup(() => {
+      onWatcherCleanup(() => {
         node.removeEventListener('animationstart', handleAnimationStart)
         node.removeEventListener('animationcancel', handleAnimationEnd)
         node.removeEventListener('animationend', handleAnimationEnd)
@@ -112,7 +110,5 @@ export function usePresence(
     }
   })
 
-  const isPresent = computed(() => ['mounted', 'unmountSuspended'].includes(state.value))
-
-  return isPresent
+  return computed(() => state.value === 'mounted' || state.value === 'unmountSuspended')
 }
