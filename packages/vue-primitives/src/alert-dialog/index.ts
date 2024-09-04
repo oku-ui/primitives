@@ -9,6 +9,14 @@ export { DialogOverlay as AlertDialogOverlay } from '../dialog/index.ts'
 export { DialogPortal as AlertDialogPortal } from '../dialog/index.ts'
 
 export {
+  type AlertDialogRootProps,
+  type AlertDialogRootEmits,
+  type AlertDialogContext,
+  provideAlertDialogContext,
+  useAlertDialogContext,
+} from './AlertDialogRoot.ts'
+
+export {
   type AlertDialogContentEmits,
   type AlertDialogContentContext,
   provideAlertDialogContentContext,

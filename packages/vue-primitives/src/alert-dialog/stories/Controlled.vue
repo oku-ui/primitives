@@ -23,7 +23,7 @@ function onAction() {
     <div>
       <img src="https://i.ibb.co/K54hsKt/house.jpg" alt="a large white house with a red roof">
     </div>
-    <AlertDialogRoot v-model="open">
+    <AlertDialogRoot v-model:open="open">
       <AlertDialogTrigger class="alertDialog_triggerClass" @click="onCliclTrigger">
         {{ housePurchased ? 'You bought the house! Sell it!' : 'Buy this house' }}
       </AlertDialogTrigger>
