@@ -151,6 +151,10 @@
       "types": "./dist/toolbar/index.d.ts",
       "import": "./dist/toolbar/index.js"
     },
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "import": "./dist/tooltip/index.js"
+    },
     "./visually-hidden": {
       "types": "./dist/visually-hidden/index.d.ts",
       "import": "./dist/visually-hidden/index.js"
@@ -204,6 +208,6 @@
     "vite-plugin-externalize-deps": "^0.8.0",
     "vitest": "^2.0.5",
     "vue": "^3.5.0",
-    "vue-tsc": "2.0.28"
+    "vue-tsc": "^2.1.6"
   }
 }
