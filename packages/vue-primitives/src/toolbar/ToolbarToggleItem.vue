@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ITEM_DATA_ATTR } from '../collection/index.ts'
-import { useComposedElements } from '../hooks/useComposedElements.ts'
+import { useComposedElements } from '../hooks/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
 import { ToggleGroupItem } from '../toggle-group/index.ts'
 import type { ToolbarToggleItemEmits, ToolbarToggleItemProps } from './ToolbarToggleItem.ts'
@@ -34,9 +34,11 @@ const forwardElement = useComposedElements((v) => {
     :ref="forwardElement"
     :value="value"
     type="button"
+    :[ITEM_DATA_ATTR]="true"
+
     :tabindex="rovingFocusGroupItem.tabindex()"
     :data-orientation="rovingFocusGroupItem.orientation()"
-    :[ITEM_DATA_ATTR]="true"
+
     @mousedown="rovingFocusGroupItem.onMousedown"
     @focus="rovingFocusGroupItem.onFocus"
     @keydown="rovingFocusGroupItem.onKeydown"

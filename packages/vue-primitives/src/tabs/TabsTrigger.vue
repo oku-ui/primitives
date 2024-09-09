@@ -79,8 +79,6 @@ const forwardElement = useComposedElements((v) => {
     :id="triggerId"
     :ref="forwardElement"
     :as="as"
-    :tabindex="rovingFocusGroupItem.tabindex()"
-    :data-orientation="rovingFocusGroupItem.orientation()"
     :[ITEM_DATA_ATTR]="true"
     type="button"
     role="tab"
@@ -89,9 +87,13 @@ const forwardElement = useComposedElements((v) => {
     :data-state="isSelected ? 'active' : 'inactive'"
     :data-disabled="disabled"
     :disabled="disabled"
+
+    :tabindex="rovingFocusGroupItem.tabindex()"
+    :data-orientation="rovingFocusGroupItem.orientation()"
+
     @mousedown="rovingFocusGroupItem.onMousedown"
-    @keydown="rovingFocusGroupItem.onKeydown"
     @focus="rovingFocusGroupItem.onFocus"
+    @keydown="rovingFocusGroupItem.onKeydown"
   >
     <slot />
   </Primitive>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { onMounted } from 'vue'
+import { useForwardElement, useRef } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
@@ -45,11 +45,11 @@ const onTouchstart = composeEventHandlers<TouchEvent>((event) => {
 
 const popperContext = usePopperContext('PopperAnchor')
 
-const $el = shallowRef<HTMLDivElement>()
+const $el = useRef<HTMLDivElement>()
 const forwardElement = useForwardElement($el)
 
 onMounted(() => {
-  popperContext.onAnchorChange(props.virtualRef?.current || $el.value)
+  popperContext.onAnchorChange(props.virtualRef?.current || $el.current)
 })
 </script>
 

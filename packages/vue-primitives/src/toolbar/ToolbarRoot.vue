@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useDirection } from '../direction/index.ts'
-import { useForwardElement } from '../hooks/index.ts'
-import { useRef } from '../hooks/useRef.ts'
+import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { provideToolbarContext, type ToolbarRootEmits, type ToolbarRootProps } from './ToolbarRoot.ts'
@@ -55,12 +54,14 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
 <template>
   <Primitive
     :ref="forwardElement"
-    :tabindex="rovingFocusGroupRoot.tabindex()"
-    :data-orientation="orientation"
-    :dir="direction"
-    style="outline: none;"
     role="toolbar"
     :aria-orientation="orientation"
+
+    :dir="direction"
+    :tabindex="rovingFocusGroupRoot.tabindex()"
+    :data-orientation="orientation"
+    style="outline: none;"
+
     @mousedown="rovingFocusGroupRoot.onMousedown"
     @focus="rovingFocusGroupRoot.onFocus"
     @focusout="rovingFocusGroupRoot.onFocusout"

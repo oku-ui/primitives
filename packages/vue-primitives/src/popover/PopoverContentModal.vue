@@ -114,8 +114,6 @@ const dismissableLayer = useDismissableLayer($el, {
     :id="context.contentId"
     :ref="forwardElement"
 
-    tabindex="-1"
-
     data-dismissable-layer
 
     :data-state="getState(context.open.value)"
@@ -129,11 +127,13 @@ const dismissableLayer = useDismissableLayer($el, {
       '--radix-popover-trigger-height': 'var(--radix-popper-anchor-height)',
     }"
 
-    @keydown="focusScope.onKeydown"
+    tabindex="-1"
 
     @focus.capture="dismissableLayer.onFocusCapture"
     @blur.capture="dismissableLayer.onBlurCapture"
     @pointerdown.capture="dismissableLayer.onPointerdownCapture"
+
+    @keydown="focusScope.onKeydown"
   >
     <slot />
   </PopperContent>

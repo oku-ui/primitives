@@ -45,12 +45,14 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
 <template>
   <Primitive
     :ref="forwardElement"
-    :tabindex="rovingFocusGroupRoot.tabindex()"
-    :data-orientation="context.orientation"
-    :dir="context.dir.value"
-    style="outline: none;"
     role="tablist"
     :aria-orientation="context.orientation"
+
+    :dir="context.dir.value"
+    :tabindex="rovingFocusGroupRoot.tabindex()"
+    :data-orientation="context.orientation"
+    style="outline: none;"
+
     @mousedown="rovingFocusGroupRoot.onMousedown"
     @focus="rovingFocusGroupRoot.onFocus"
     @focusout="rovingFocusGroupRoot.onFocusout"

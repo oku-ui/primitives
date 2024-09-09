@@ -44,9 +44,10 @@ const forwardElement = useComposedElements((v) => {
   <Primitive
     :ref="forwardElement"
     :as="as"
+    :[ITEM_DATA_ATTR]="true"
+
     :tabindex="rovingFocusGroupItem.tabindex()"
     :data-orientation="rovingFocusGroupItem.orientation()"
-    :[ITEM_DATA_ATTR]="true"
 
     @mousedown="rovingFocusGroupItem.onMousedown"
     @focus="rovingFocusGroupItem.onFocus"

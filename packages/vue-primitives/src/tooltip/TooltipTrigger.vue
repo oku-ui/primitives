@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue'
-import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/Primitive.ts'
 import { composeEventHandlers } from '../utils/vue.ts'

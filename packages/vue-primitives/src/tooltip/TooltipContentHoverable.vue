@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, shallowRef, watchEffect } from 'vue'
-import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { isPointInPolygon, type Polygon } from '../utils/isPointInPolygon.ts'
 import TooltipContentImpl from './TooltipContentImpl.vue'
 import { useTooltipProviderContext } from './TooltipProvider.ts'

@@ -65,14 +65,16 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot($el, {
 <template>
   <Primitive
     :ref="forwardElement"
-    :tabindex="rovingFocusGroupRoot.tabindex()"
-    :data-orientation="orientation"
-    :dir="direction"
-    style="outline: none;"
     role="radiogroup"
     :aria-required="required"
     :aria-orientation="orientation"
     :data-disabled="disabled ? '' : undefined"
+
+    :dir="direction"
+    :tabindex="rovingFocusGroupRoot.tabindex()"
+    :data-orientation="orientation"
+    style="outline: none;"
+
     @mousedown="rovingFocusGroupRoot.onMousedown"
     @focus="rovingFocusGroupRoot.onFocus"
     @focusout="rovingFocusGroupRoot.onFocusout"

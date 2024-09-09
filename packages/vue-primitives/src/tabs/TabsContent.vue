@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { useForwardElement } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useTabsContext } from './TabsRoot.ts'

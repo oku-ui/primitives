@@ -43,9 +43,11 @@ const forwardElement = useComposedElements((v) => {
     :as="as"
     type="button"
     :disabled="disabled"
+    :[ITEM_DATA_ATTR]="true"
+
     :tabindex="rovingFocusGroupItem.tabindex()"
     :data-orientation="rovingFocusGroupItem.orientation()"
-    :[ITEM_DATA_ATTR]="true"
+
     @mousedown="rovingFocusGroupItem.onMousedown"
     @focus="rovingFocusGroupItem.onFocus"
     @keydown="rovingFocusGroupItem.onKeydown"

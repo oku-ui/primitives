@@ -132,8 +132,6 @@ defineExpose({
   <Primitive
     :ref="forwardElement"
     :as="as"
-    :tabindex="rovingFocusGroupItem.tabindex()"
-    :data-orientation="rovingFocusGroupItem.orientation()"
     :[ITEM_DATA_ATTR]="true"
     type="button"
     role="radio"
@@ -143,10 +141,15 @@ defineExpose({
     :disabled="isDisabled"
     :value="value"
     v-bind="$attrs"
+
+    :tabindex="rovingFocusGroupItem.tabindex()"
+    :data-orientation="rovingFocusGroupItem.orientation()"
+
     @click="onClick"
+
     @mousedown="rovingFocusGroupItem.onMousedown"
-    @keydown="rovingFocusGroupItem.onKeydown"
     @focus="rovingFocusGroupItem.onFocus"
+    @keydown="rovingFocusGroupItem.onKeydown"
   >
     <slot />
   </Primitive>

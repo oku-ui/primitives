@@ -10,7 +10,7 @@ import {
   watchEffect,
 } from 'vue'
 
-import { useRef } from '../hooks/useRef.ts'
+import { useRef } from '../hooks/index.ts'
 import { getDPR } from './utils/getDPR.ts'
 import { roundByDPR } from './utils/roundByDPR.ts'
 import type {
