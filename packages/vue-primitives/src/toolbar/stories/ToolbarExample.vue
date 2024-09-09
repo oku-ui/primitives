@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Direction } from '../../direction/index.ts'
 import { Toggle } from '../../toggle/index.ts'
 import { ToolbarButton, ToolbarLink, ToolbarRoot, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem } from '../index.ts'
+import type { Direction } from '../../direction/index.ts'
 import './styles.css'
 
 defineProps<{
@@ -25,10 +25,13 @@ defineProps<{
         <ToolbarButton class="toolbar_toolbarItemClass">
           Button
         </ToolbarButton>
+
         <ToolbarButton class="toolbar_toolbarItemClass" disabled>
           Button (disabled)
         </ToolbarButton>
+
         <ToolbarSeparator class="toolbar_toolbarSeparatorClass" />
+
         <ToolbarLink
           class="toolbar_toolbarItemClass toolbar_toolbarLinkClass "
           href="https://www.w3.org/TR/2019/WD-wai-aria-practices-1.2-20191218/examples/toolbar/toolbar.html"
@@ -37,10 +40,13 @@ defineProps<{
           Link
         </ToolbarLink>
         <ToolbarSeparator class="toolbar_toolbarSeparatorClass" />
+
         <ToolbarButton class="toolbar_toolbarItemClass toolbar_toolbarToggleButtonClass" as="template">
           <Toggle>Toggle</Toggle>
         </ToolbarButton>
+
         <ToolbarSeparator class="toolbar_toolbarSeparatorClass" />
+
         <ToolbarToggleGroup type="single" class="toolbar_toolbarToggleGroupClass">
           <ToolbarToggleItem value="left" class="toolbar_toolbarItemClass toolbar_toolbarToggleItemClass">
             Left
@@ -52,6 +58,7 @@ defineProps<{
             Right
           </ToolbarToggleItem>
         </ToolbarToggleGroup>
+
         <ToolbarSeparator class="toolbar_toolbarSeparatorClass" />
 
         TODO:MENU

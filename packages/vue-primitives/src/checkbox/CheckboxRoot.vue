@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, shallowRef, useAttrs, watchEffect } from 'vue'
+import { computed, shallowRef, watchEffect } from 'vue'
 import { useControllableState, useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { type CheckboxRootEmits, type CheckboxRootProps, type ClickEvent, provideCheckboxContext } from './CheckboxRoot.ts'
-import { getState, isIndeterminate } from './utils.ts'
 import BubbleInput from './BubbleInput.vue'
+import { type CheckboxRootEmits, type CheckboxRootProps, provideCheckboxContext } from './CheckboxRoot.ts'
+import { getState, isIndeterminate } from './utils.ts'
 
 defineOptions({
   name: 'Checkbox',
@@ -18,7 +18,6 @@ const props = withDefaults(defineProps<CheckboxRootProps>(), {
   as: 'button',
 })
 const emit = defineEmits<CheckboxRootEmits>()
-const attrs = useAttrs()
 const $el = shallowRef<HTMLButtonElement>()
 const forwardElement = useForwardElement($el)
 
@@ -50,22 +49,12 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
     event.preventDefault()
 })
 
-const onClick = composeEventHandlers<ClickEvent>((event) => {
-  event._stopPropagation = event.stopPropagation
-  event._isPropagationStopped = false
-  event.stopPropagation = function stopPropagation() {
-    this._isPropagationStopped = true
-    event._stopPropagation()
-  }
-  event.isPropagationStopped = function isPropagationStopped() {
-    return this._isPropagationStopped
-  }
-
+const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
 }, (event) => {
   checked.value = isIndeterminate(checked.value) ? true : !checked.value
   if (isFormControl.value) {
-    hasConsumerStoppedPropagation.value = event.isPropagationStopped()
+    hasConsumerStoppedPropagation.value = event.cancelBubble
     // if checkbox is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
     // form validation works and form events reflect checkbox updates.
@@ -93,7 +82,7 @@ defineExpose({
     type="button"
     role="checkbox"
     :aria-checked="isIndeterminate(checked) ? 'mixed' : checked"
-    :aria-required="attrs.required"
+    :aria-required="$attrs.required"
     :data-state="getState(checked)"
     :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
@@ -114,8 +103,5 @@ defineExpose({
     :checked="checked"
     :required="required"
     :disabled="disabled"
-    :style="{
-      transform: 'translateX(-100%)',
-    }"
   />
 </template>

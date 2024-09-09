@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
-import { TooltipArrow, TooltipContent, TooltipPortal, TooltipRoot, TooltipTrigger, useTooltipProvider } from '../index.ts'
 import { DialogClose, DialogContent, DialogDescription, DialogRoot, DialogTitle, DialogTrigger } from '../../dialog/index.ts'
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipRoot, TooltipTrigger, useTooltipProvider } from '../index.ts'
+import './styles.css'
 
 useTooltipProvider()
 </script>

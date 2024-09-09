@@ -1,5 +1,5 @@
 import { type MaybeRef, type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
-import { type MutableRefObject, createContext, useRef } from '../hooks/index.ts'
+import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 import { Collection } from './collection.ts'
 
 export interface ToastProviderProps {

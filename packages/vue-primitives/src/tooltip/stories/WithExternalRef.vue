@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef, watchEffect } from 'vue'
-import { TooltipTrigger, useTooltipProvider } from '../index.ts'
 import { useForwardElement } from '../../hooks/index.ts'
+import { TooltipTrigger, useTooltipProvider } from '../index.ts'
 import SimpleTooltip from './SimpleTooltip.vue'
+import './styles.css'
 
 useTooltipProvider()
 

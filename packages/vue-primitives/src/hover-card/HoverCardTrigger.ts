@@ -1,6 +1,7 @@
+import type { PopperAnchorProps } from '../popper'
 import type { PrimitiveProps } from '../primitive'
 
-export interface HoverCardTriggerProps {
+export interface HoverCardTriggerProps extends PopperAnchorProps {
   as?: PrimitiveProps['as']
 }
 

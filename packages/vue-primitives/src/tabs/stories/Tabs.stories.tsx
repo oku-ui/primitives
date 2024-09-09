@@ -1,6 +1,6 @@
-import CStyled from './Styled.vue'
 import CAnimated from './Animated.vue'
 import CChromatic from './Chromatic.vue'
+import CStyled from './Styled.vue'
 import './styles.css'
 
 export default { title: 'Components/Tabs' }

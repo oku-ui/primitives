@@ -1,10 +1,10 @@
 import CBasic from './Basic.vue'
-import CWithElementInBetween from './WithElementInBetween.vue'
-import CWithWrappedItem from './WithWrappedItem.vue'
-import CWithFragment from './WithFragment.vue'
 import CDynamicInsertion from './DynamicInsertion.vue'
-import CWithChangingItem from './WithChangingItem.vue'
 import CNested from './Nested.vue'
+import CWithChangingItem from './WithChangingItem.vue'
+import CWithElementInBetween from './WithElementInBetween.vue'
+import CWithFragment from './WithFragment.vue'
+import CWithWrappedItem from './WithWrappedItem.vue'
 
 export default { title: 'Utilities/Collection' }
 

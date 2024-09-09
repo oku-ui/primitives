@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { TooltipTrigger, useTooltipProvider } from '../index.ts'
 import SimpleTooltip from './SimpleTooltip.vue'
+import './styles.css'
 
 useTooltipProvider()
 </script>

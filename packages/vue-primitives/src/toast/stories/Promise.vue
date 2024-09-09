@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef, watchEffect } from 'vue'
 import { ToastDescription, ToastRoot, ToastViewport, useToastProvider } from '../index.ts'
+import './styles.css'
 
 const saving = shallowRef(false)
 const open = shallowRef(false)

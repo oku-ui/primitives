@@ -1,22 +1,20 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, shallowRef, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
-import DismissableLayer from '../dismissable-layer/DismissableLayer.vue'
-import { PopperContent } from '../popper/index.ts'
-import type { FocusOutsideEvent } from '../dismissable-layer/DismissableLayer.ts'
+import { onBeforeUnmount, onMounted, shallowRef, watchEffect } from 'vue'
+import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
+import { PopperContent } from '../popper/index.ts'
+import { provideTooltipContentContext, type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.ts'
 import { TOOLTIP_OPEN, useTooltipContext } from './TooltipRoot.ts'
-import { type TooltipContentImplEmits, type TooltipContentImplProps, provideTooltipContentContext } from './TooltipContentImpl.ts'
 
 defineOptions({
   name: 'TooltipContentImpl',
-  inheritAttrs: false,
 })
 
 const props = defineProps<TooltipContentImplProps>()
 const emit = defineEmits<TooltipContentImplEmits>()
 
-const $el = shallowRef<HTMLElement>()
+const $el = shallowRef<HTMLDivElement>()
 const forwardElement = useForwardElement($el)
 
 const context = useTooltipContext('TooltipContentImpl')
@@ -51,7 +49,7 @@ if (isClient) {
   })
 }
 
-function focusOutside(event: FocusOutsideEvent) {
+function onFocusOutside(event: FocusOutsideEvent) {
   event.preventDefault()
 }
 
@@ -62,29 +60,46 @@ provideTooltipContentContext({
   },
 })
 
+const dismissableLayer = useDismissableLayer($el, {
+  disableOutsidePointerEvents() {
+    return false
+  },
+}, {
+  onEscapeKeydown(event) {
+    emit('escapeKeydown', event)
+  },
+  onDismiss: context.onClose,
+  onFocusOutside,
+  onPointerdownOutside(event) {
+    emit('pointerdownOutside', event)
+  },
+})
+
 defineExpose({
   $el,
 })
 </script>
 
 <template>
-  <DismissableLayer
-    as="template"
-    :disable-outside-pointer-events="false"
-    @escape-keydown="emit('escapeKeydown', $event)"
-    @pointerdown-outside="emit('pointerdownOutside', $event)"
-    @focus-outside="focusOutside"
-    @dismiss="context.onClose"
+  <PopperContent
+    :id="ariaLabel ? undefined : context.contentId"
+    :ref="forwardElement"
+    data-dismissable-layer
+    :role="ariaLabel ? undefined : 'tooltip'"
+    :data-state="context.stateAttribute()"
+    :style="{
+      'pointerEvents': dismissableLayer.pointerEvents(),
+      '--radix-tooltip-content-transform-origin': 'var(--radix-popper-transform-origin)',
+      '--radix-tooltip-content-available-width': 'var(--radix-popper-available-width)',
+      '--radix-tooltip-content-available-height': 'var(--radix-popper-available-height)',
+      '--radix-tooltip-trigger-width': 'var(--radix-popper-anchor-width)',
+      '--radix-tooltip-trigger-height': 'var(--radix-popper-anchor-height)',
+    }"
+
+    @focus.capture="dismissableLayer.onFocusCapture"
+    @blur.capture="dismissableLayer.onBlurCapture"
+    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
   >
-    <PopperContent
-      :id="ariaLabel ? undefined : context.contentId"
-      :ref="forwardElement"
-      :role="ariaLabel ? undefined : 'tooltip'"
-      :data-state="context.stateAttribute()"
-      style="--radix-tooltip-content-transform-origin: var(--radix-popper-transform-origin); --radix-tooltip-content-available-width: var(--radix-popper-available-width); --radix-tooltip-content-available-height: var(--radix-popper-available-height); --radix-tooltip-trigger-width: var(--radix-popper-anchor-width); --radix-tooltip-trigger-height: var(--radix-popper-anchor-height);"
-      v-bind="$attrs"
-    >
-      <slot />
-    </PopperContent>
-  </DismissableLayer>
+    <slot />
+  </PopperContent>
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
 import { ToastViewport, useToastProvider } from '../index.ts'
 import ToastWithProgress from './ToastWithProgress.vue'
+import './styles.css'
 
 const toastCount = shallowRef(0)
 

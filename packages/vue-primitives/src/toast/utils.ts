@@ -31,10 +31,7 @@ export function getAnnounceTextContent(container: HTMLElement) {
 
 /* ---------------------------------------------------------------------------------------------- */
 
-export function handleAndDispatchCustomEvent<
-  E extends CustomEvent,
-  OriginalEvent extends Event,
->(
+export function handleAndDispatchCustomEvent< E extends CustomEvent, OriginalEvent extends Event>(
   name: string,
   handler: ((event: E) => void) | undefined,
   detail: { originalEvent: OriginalEvent } & (E extends CustomEvent<infer D> ? D : never),
@@ -102,21 +99,4 @@ export function getTabbableCandidates(container: HTMLElement) {
   // we do not take into account the order of nodes with positive `tabIndex` as it
   // hinders accessibility to have tab order different from visual order.
   return nodes
-}
-
-export function focusFirst(candidates: HTMLElement[]) {
-  const previouslyFocusedElement = document.activeElement
-
-  for (const candidate of candidates) {
-    // if focus is already where we want to go, we don't want to keep going through the candidates
-    if (candidate === previouslyFocusedElement)
-      return true
-
-    candidate.focus()
-
-    if (document.activeElement !== previouslyFocusedElement)
-      return true
-  }
-
-  return false
 }

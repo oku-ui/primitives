@@ -1,13 +1,5 @@
-export interface DialogContentImplProps {
-  /**
-   * When `true`, focus cannot escape the `Content` via keyboard,
-   * pointer, or a programmatic focus.
-   * @defaultValue false
-   */
-  trapFocus?: boolean
-}
+import type { DismissableLayerEmits } from '../dismissable-layer'
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type DialogContentImplEmits = {
   /**
    * Event handler called when auto-focusing on open.
@@ -19,4 +11,4 @@ export type DialogContentImplEmits = {
    * Can be prevented.
    */
   closeAutoFocus: [event: Event]
-}
+} & Omit<DismissableLayerEmits, 'dismiss'>

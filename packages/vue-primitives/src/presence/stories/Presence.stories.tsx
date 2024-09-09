@@ -1,10 +1,10 @@
 import CBasic from './Basic.vue'
-import CWithMountAnimation from './WithMountAnimation.vue'
-import CWithUnmountAnimation from './WithUnmountAnimation.vue'
-import CWithMultipleMountAnimations from './WithMultipleMountAnimations.vue'
-import CWithOpenAndCloseAnimation from './WithOpenAndCloseAnimation.vue'
-import CWithMultipleOpenAndCloseAnimations from './WithMultipleOpenAndCloseAnimations.vue'
 import CWithDeferredMountAnimation from './WithDeferredMountAnimation.vue'
+import CWithMountAnimation from './WithMountAnimation.vue'
+import CWithMultipleMountAnimations from './WithMultipleMountAnimations.vue'
+import CWithMultipleOpenAndCloseAnimations from './WithMultipleOpenAndCloseAnimations.vue'
+import CWithOpenAndCloseAnimation from './WithOpenAndCloseAnimation.vue'
+import CWithUnmountAnimation from './WithUnmountAnimation.vue'
 
 export default { title: 'Utilities/Presence' }
 

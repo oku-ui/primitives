@@ -25,7 +25,7 @@ function add() {
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay class="dialog_overlayClass" />
-        <DialogContent :class=" animated ? 'dialog_animatedContentClass' : 'dialog_contentDefaultClass'">
+        <DialogContent :class="animated ? 'dialog_contentDefaultClass dialog_animatedContentClass' : 'dialog_contentDefaultClass'">
           <DialogTitle>description</DialogTitle>
           <DialogDescription>description</DialogDescription>
           <DialogClose class="dialog_closeClass">

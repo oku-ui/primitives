@@ -35,31 +35,3 @@ export function getFocusIntent(event: KeyboardEvent, orientation?: Orientation, 
 
   return MAP_KEY_TO_FOCUS_INTENT[key]
 }
-
-export function focusFirst(candidates: HTMLElement[], preventScroll = false) {
-  const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement
-
-  for (const candidate of candidates) {
-    // if focus is already where we want to go, we don't want to keep going through the candidates
-    if (candidate === PREVIOUSLY_FOCUSED_ELEMENT)
-      return
-
-    candidate.focus({ preventScroll })
-    if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT)
-      return
-  }
-}
-
-/**
- * Wraps an array around itself at a given start index
- * Example: `wrapArray(['a', 'b', 'c', 'd'], 2) === ['c', 'd', 'a', 'b']`
- */
-export function wrapArray<T>(array: T[], startIndex: number) {
-  const ret: T[] = []
-
-  for (let i = 0; i < array.length; i++) {
-    ret.push(array[(startIndex + i) % array.length]!)
-  }
-
-  return ret
-}

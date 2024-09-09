@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { shallowRef, watchEffect } from 'vue'
-import { usePresence } from '../presence/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
+import { usePresence } from '../presence/index.ts'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import type { ScrollAreaScrollbarHoverProps } from './ScrollAreaScrollbarHover.ts'
-import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarHover',
@@ -34,7 +34,7 @@ watchEffect((onCleanup) => {
   const handlePointerLeave = () => {
     hideTimer = window.setTimeout(() => {
       visible.value = false
-    }, context.scrollHideDelay())
+    }, context.scrollHideDelay)
   }
 
   scrollArea.addEventListener('pointerenter', handlePointerEnter)

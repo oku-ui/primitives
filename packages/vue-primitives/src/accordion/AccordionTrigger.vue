@@ -1,32 +1,54 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { CollapsibleTrigger } from '../collapsible/index.ts'
-import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
+import { useCollapsibleContext } from '../collapsible/index.ts'
+import { ITEM_DATA_ATTR } from '../collection/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
-import { Collection, useAccordionContext } from './AccordionRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
+import { useAccordionContext } from './AccordionRoot.ts'
+import { getState } from './utils.ts'
+import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.ts'
 
 defineOptions({
   name: 'AccordionTrigger',
 })
 
+withDefaults(defineProps<AccordionTriggerProps>(), {
+  as: 'button',
+})
+const emit = defineEmits<AccordionTriggerEmits>()
+
 const $el = shallowRef<HTMLButtonElement>()
 const forwardElement = useForwardElement($el)
 
-Collection.useCollectionItem($el, undefined)
-
 const accordionContext = useAccordionContext('AccordionTrigger')
 const itemContext = useAccordionItemContext('AccordionHeader')
+
+const context = useCollapsibleContext('CollapsibleTrigger')
+
+const onClick = composeEventHandlers<MouseEvent>((event) => {
+  emit('click', event)
+}, context.onOpenToggle)
 </script>
 
 <template>
-  <CollapsibleTrigger
+  <Primitive
     :id="itemContext.triggerId"
     :ref="forwardElement"
+    :as="as"
     :aria-disabled="(itemContext.open.value && !accordionContext.collapsible) || undefined"
     :data-orientation="accordionContext.orientation"
     :[ITEM_DATA_ATTR]="true"
+
+    type="button"
+    :aria-controls="context.contentId"
+    :aria-expanded="context.open.value || false"
+    :data-state="getState(context.open.value)"
+    :data-disabled="context.disabled() ? '' : undefined"
+    :disabled="context.disabled()"
+    @click="onClick"
   >
     <slot />
-  </CollapsibleTrigger>
+  </Primitive>
 </template>

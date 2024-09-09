@@ -15,6 +15,7 @@ function setData(callback: (prevData: typeof data.value) => typeof data.value) {
     @submit="(event) => event.preventDefault()"
     @change="(event) => {
       const radio = event.target as HTMLInputElement;
+      console.log('change', radio.name, radio.value)
       setData((prevData) => ({ ...prevData, [radio.name]: radio.value }));
     }"
   >

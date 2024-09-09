@@ -4,16 +4,16 @@ export { useFloating } from './useFloating.ts'
 
 export {
   autoPlacement,
+  autoUpdate,
+  computePosition,
+  detectOverflow,
   flip,
+  getOverflowAncestors,
   hide,
   inline,
   limitShift,
   offset,
+  platform,
   shift,
   size,
-  autoUpdate,
-  computePosition,
-  detectOverflow,
-  getOverflowAncestors,
-  platform,
 } from '@floating-ui/dom'

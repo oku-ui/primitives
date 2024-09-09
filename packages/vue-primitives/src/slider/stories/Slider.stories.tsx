@@ -1,14 +1,14 @@
-import CStyled from './Styled.vue'
+import CChromatic from './Chromatic.vue'
+import CHorizontal from './Horizontal.vue'
+import CInversions from './Inversions.vue'
 import COnValueCommit from './OnValueCommit.vue'
 import CRightToLeft from './RightToLeft.vue'
-import CHorizontal from './Horizontal.vue'
+import CSmallSteps from './SmallSteps.vue'
+import CStyled from './Styled.vue'
 import CVertical from './Vertical.vue'
-import CInversions from './Inversions.vue'
+import CWithinForm from './WithinForm.vue'
 import CWithMinimumStepsBetweenThumbs from './WithMinimumStepsBetweenThumbs.vue'
 import CWithMultipleRanges from './WithMultipleRanges.vue'
-import CSmallSteps from './SmallSteps.vue'
-import CWithinForm from './WithinForm.vue'
-import CChromatic from './Chromatic.vue'
 
 export default { title: 'Components/Slider' }
 

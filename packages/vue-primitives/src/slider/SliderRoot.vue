@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { type PropType, computed, watchEffect } from 'vue'
+import { computed, type PropType, watchEffect } from 'vue'
+import { useDirection } from '../direction/Direction.ts'
 import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
 import { isNumber } from '../utils/is.ts'
 import { clamp, getDecimalCount, roundValue } from '../utils/number.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { useDirection } from '../direction/Direction.ts'
-import { Primitive } from '../primitive/index.ts'
-import { ARROW_KEYS, BACK_KEYS, Collection, PAGE_KEYS, type SliderContext, type SliderRootEmits, type SliderRootProps, provideSliderContext } from './SliderRoot.ts'
-import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
 import { provideSliderOrientationContext } from './SliderOrientation.ts'
+import { ARROW_KEYS, BACK_KEYS, Collection, PAGE_KEYS, provideSliderContext, type SliderContext, type SliderRootEmits, type SliderRootProps } from './SliderRoot.ts'
+import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
 
 defineOptions({
   name: 'SliderRoot',
@@ -79,17 +79,18 @@ const props = defineProps({
   },
 })
 const emit = defineEmits<SliderRootEmits>()
-const $el = useRef<HTMLSpanElement>()
-const forwardElement = useForwardElement($el)
+const elRef = useRef<HTMLSpanElement>()
+const forwardElement = useForwardElement(elRef)
+Collection.provideCollectionContext(elRef)
 
 const thumbRefs: SliderContext['thumbs'] = new Set()
-const valueIndexToChangeRef: SliderContext['valueIndexToChangeRef'] = { value: 0 }
+const valueIndexToChangeRef = useRef(0)
 
 const values = useControllableState(
   props,
   (v) => {
     const thumbs = Array.from(thumbRefs)
-    thumbs[valueIndexToChangeRef.value]?.focus()
+    thumbs[valueIndexToChangeRef.current]?.focus()
     emit('update:value', v)
   },
   'value',
@@ -108,30 +109,24 @@ function onSliderSlideStart(value: number) {
 function onSliderSlideMove(value: number) {
   if (props.disabled)
     return
-  updateValues(value, valueIndexToChangeRef.value)
+  updateValues(value, valueIndexToChangeRef.current)
 }
 
 function onSliderSlideEnd() {
   if (props.disabled)
     return
-  const prevValue = valuesBeforeSlideStartRef[valueIndexToChangeRef.value]
-  const nextValue = values.value[valueIndexToChangeRef.value]
+  const prevValue = valuesBeforeSlideStartRef[valueIndexToChangeRef.current]
+  const nextValue = values.value[valueIndexToChangeRef.current]
   const hasChanged = nextValue !== prevValue
   if (hasChanged)
     emit('valueCommit', values.value)
 }
 
 function onSliderHomeKeyDown() {
-  if (props.disabled)
-    return
-
   updateValues(props.min, 0, { commit: true })
 }
 
 function onSliderEndKeyDown() {
-  if (props.disabled)
-    return
-
   updateValues(props.max, values.value.length - 1, { commit: true })
 }
 
@@ -141,7 +136,7 @@ function onSliderStepKeydown({ event, direction: stepDirection }: { event: Keybo
   const isPageKey = PAGE_KEYS.includes(event.key)
   const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
   const multiplier = isSkipKey ? 10 : 1
-  const atIndex = valueIndexToChangeRef.value
+  const atIndex = valueIndexToChangeRef.current
   const value = values.value[atIndex]!
   const stepInDirection = props.step * multiplier * stepDirection
   updateValues(value + stepInDirection, atIndex, { commit: true })
@@ -150,25 +145,28 @@ function onSliderStepKeydown({ event, direction: stepDirection }: { event: Keybo
 function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
   const decimalCount = getDecimalCount(props.step)
   const snapToStep = roundValue(Math.round((value - props.min) / props.step) * props.step + props.min, decimalCount)
-  const nextValue = clamp(snapToStep, [props.min, props.max])
+  const nextValue = clamp(snapToStep, props.min, props.max)
 
   const prevValues = values.value
   const nextValues = getNextSortedValues(values.value, nextValue, atIndex)
-  if (hasMinStepsBetweenValues(nextValues, props.minStepsBetweenThumbs * props.step)) {
-    valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
-    const hasChanged = String(nextValues) !== String(prevValues)
-    if (hasChanged && commit)
-      emit('valueCommit', nextValues)
-    values.value = nextValues
-  }
+
+  if (!hasMinStepsBetweenValues(nextValues, props.minStepsBetweenThumbs * props.step))
+    return
+
+  valueIndexToChangeRef.current = nextValues.indexOf(nextValue)
+  const hasChanged = String(nextValues) !== String(prevValues)
+
+  if (hasChanged && commit)
+    emit('valueCommit', nextValues)
+
+  values.value = nextValues
 }
 
 function onSliderPointerdown() {
-  if (!props.disabled)
-    valuesBeforeSlideStartRef = values.value
+  if (props.disabled)
+    return
+  valuesBeforeSlideStartRef = values.value
 }
-
-Collection.provideCollectionContext($el)
 
 provideSliderContext({
   name() {
@@ -229,7 +227,7 @@ const isSlidingFromStart = computed(() => {
 })
 
 function getValueFromPointer(pointerPosition: number) {
-  const rect = rectRef || $el.current!.getBoundingClientRect()
+  const rect = rectRef || elRef.current!.getBoundingClientRect()
   const input: [number, number] = [0, rect[orientationLocalState.reactSise]]
   const output: [number, number] = isSlidingFromStart.value === isHorisontal() ? [props.min, props.max] : [props.max, props.min]
   const value = linearScale(input, output)
@@ -278,8 +276,13 @@ provideSliderOrientationContext(orientationContext)
 // SliderImpl
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  if (props.disabled)
+    return
   emit('keydown', event)
 }, (event) => {
+  if (props.disabled)
+    return
+
   if (event.key === 'Home') {
     onSliderHomeKeyDown()
     // Prevent scrolling to page start

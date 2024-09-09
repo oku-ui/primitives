@@ -1,7 +1,7 @@
-import CStyled from './Styled.vue'
-import CControlled from './Controlled.vue'
-import CWithinForm from './WithinForm.vue'
 import CChromatic from './Chromatic.vue'
+import CControlled from './Controlled.vue'
+import CStyled from './Styled.vue'
+import CWithinForm from './WithinForm.vue'
 
 export default { title: 'Components/Switch' }
 

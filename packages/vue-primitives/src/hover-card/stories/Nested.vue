@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
 import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from '../index.ts'
+import './styles.css'
 </script>
 
 <template>

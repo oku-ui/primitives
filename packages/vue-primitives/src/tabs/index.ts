@@ -1,15 +1,15 @@
-export { default as TabsRoot } from './TabsRoot.vue'
-export { default as TabsList } from './TabsList.vue'
-export { default as TabsTrigger } from './TabsTrigger.vue'
+export { type TabsContentProps } from './TabsContent.ts'
 export { default as TabsContent } from './TabsContent.vue'
+export { type TabsListProps } from './TabsList.ts'
+export { default as TabsList } from './TabsList.vue'
 
 export {
-  type TabsRootProps,
-  type TabsRootEmits,
-  type TabsContext,
   provideTabsContext,
+  type TabsContext,
+  type TabsRootEmits,
+  type TabsRootProps,
   useTabsContext,
 } from './TabsRoot.ts'
-export { type TabsListProps } from './TabsList.ts'
-export { type TabsTriggerProps, type TabsTriggerEmits } from './TabsTrigger.ts'
-export { type TabsContentProps } from './TabsContent.ts'
+export { default as TabsRoot } from './TabsRoot.vue'
+export { type TabsTriggerEmits, type TabsTriggerProps } from './TabsTrigger.ts'
+export { default as TabsTrigger } from './TabsTrigger.vue'

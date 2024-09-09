@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { Arrow } from '../arrow/index.ts'
-import { useForwardElement } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { OPPOSITE_SIDE, type PopperArrowProps } from './PopperArrow.ts'
 import { useContentContext } from './PopperContent.ts'
-import { OPPOSITE_SIDE } from './PopperArrow.ts'
 
 defineOptions({
   name: 'PopperArrow',
   inheritAttrs: false,
 })
 
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
+withDefaults(defineProps<PopperArrowProps>(), {
+  as: 'svg',
+  width: 10,
+  height: 5,
+})
 
 const contentContext = useContentContext('PopperArrow')
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
@@ -43,14 +40,16 @@ defineExpose({
       visibility: contentContext.shouldHideArrow() ? 'hidden' : undefined,
     }"
   >
-    <Arrow
-      :ref="forwardElement"
+    <Primitive
+      :as="as"
       v-bind="$attrs"
-      :style="{
-        display: 'block',
-      }"
+      :width="width"
+      :height="height"
+      :viewBox="as === 'template' ? undefined : '0 0 30 10'"
+      :preserveAspectRatio="as === 'template' ? undefined : 'none'"
+      style="display: block"
     >
-      <slot />
-    </Arrow>
+      <slot><polygon points="0,0 30,0 15,10" /></slot>
+    </Primitive>
   </span>
 </template>

@@ -1,11 +1,11 @@
 <script setup lang="ts" generic="T extends ToggleGroupType">
 import { computed } from 'vue'
-import { useControllableState } from '../hooks/index.ts'
 import { useDirection } from '../direction/Direction.ts'
-import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
+import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { arrayify } from '../utils/array.ts'
-import { type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType, provideToggleGroupContext } from './ToggleGroupRoot.ts'
+import { provideToggleGroupContext, type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType } from './ToggleGroupRoot.ts'
 
 type SingleValue = Exclude<ToggleGroupProps<'single'>['value'], undefined>
 type MultipleValue = Exclude<ToggleGroupProps<'multiple'>['value'], undefined>
@@ -66,18 +66,13 @@ provideToggleGroupContext({
 <template>
   <RovingFocusGroupRoot
     v-if="rovingFocus"
-    as="template"
     :orientation="orientation"
     :dir="direction"
     :loop="loop"
+    role="group"
+    v-bind="$attrs"
   >
-    <Primitive
-      v-bind="$attrs"
-      role="group"
-      :dir="direction"
-    >
-      <slot />
-    </Primitive>
+    <slot />
   </RovingFocusGroupRoot>
   <Primitive
     v-else

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import './styles.css'
 import { onBeforeUnmount, shallowRef } from 'vue'
-import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from '../index.ts'
 import { useRef } from '../../hooks/index.ts'
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from '../index.ts'
 import CardContentPlaceholder from './CardContentPlaceholder.vue'
+import './styles.css'
 
 const open = shallowRef(false)
 const contentLoaded = shallowRef(false)

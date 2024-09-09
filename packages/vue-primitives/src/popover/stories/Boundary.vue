@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
+import './styles.css'
 
 const boundary = shallowRef<HTMLDivElement>()
 </script>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
 import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
+import './styles.css'
 
 const value = shallowRef(['one', 'two'])
 </script>

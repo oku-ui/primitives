@@ -1,9 +1,9 @@
-import CBasic from './Basic.vue'
-import CResizable from './Resizable.vue'
-import CContentChange from './ContentChange.vue'
 import CAnimated from './Animated.vue'
+import CBasic from './Basic.vue'
 import CChromatic from './Chromatic.vue'
 import CChromaticDynamicContentBeforeLoaded from './ChromaticDynamicContentBeforeLoaded.vue'
+import CContentChange from './ContentChange.vue'
+import CResizable from './Resizable.vue'
 
 export default { title: 'Components/ScrollArea' }
 

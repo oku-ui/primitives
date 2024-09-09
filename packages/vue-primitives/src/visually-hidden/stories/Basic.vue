@@ -5,6 +5,6 @@ import { VisuallyHidden } from '../index.ts'
 <template>
   <button>
     <VisuallyHidden>Save the file</VisuallyHidden>
-    <span aria-hidden>💾</span>
+    <span aria-hidden="true">💾</span>
   </button>
 </template>

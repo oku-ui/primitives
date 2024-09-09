@@ -1,5 +1,5 @@
 import { isDef } from '@vueuse/core'
-import { type Ref, type UnwrapRef, computed, nextTick, shallowRef, watch } from 'vue'
+import { computed, nextTick, type Ref, shallowRef, type UnwrapRef, watch } from 'vue'
 
 /**
  * Shorthand for v-model binding, props + emit -> ref
@@ -30,29 +30,75 @@ export function useControllableState<P extends object, K extends keyof P, V = Ex
       },
     })
   }
-  else {
-    const proxy = shallowRef<V>(getValue())
-    let isUpdating = false
 
-    watch(
-      () => props[key!],
-      (v) => {
-        if (!isUpdating) {
-          isUpdating = true
-          ; (proxy as any).value = v as UnwrapRef<P[K]>
-          nextTick(() => isUpdating = false)
-        }
-      },
-    )
+  const proxy = shallowRef<V>(getValue())
+  let isUpdating = false
 
-    watch(
-      proxy,
-      (v) => {
-        if (!isUpdating && (v !== props[key!]))
-          onChange(v)
-      },
-    )
+  watch(
+    () => props[key!],
+    (v) => {
+      if (!isUpdating) {
+        isUpdating = true
+        ; (proxy as any).value = v as UnwrapRef<P[K]>
+        nextTick(() => isUpdating = false)
+      }
+    },
+  )
 
-    return proxy
+  watch(
+    proxy,
+    (v) => {
+      if (!isUpdating && (v !== props[key!]))
+        onChange(v)
+    },
+  )
+
+  return proxy
+}
+
+export function useControllableStateV2<T, V = Exclude<T, undefined>>(
+  prop: () => T,
+  onChange?: (value: V) => void,
+  defaultValue?: V | undefined,
+): Ref<V> {
+  const getValue = (): V => {
+    return (isDef(prop())
+      ? prop()
+      : defaultValue) as V
   }
+
+  if (isDef(prop())) {
+    return computed<V>({
+      get() {
+        return getValue()
+      },
+      set(value) {
+        onChange?.(value)
+      },
+    })
+  }
+
+  const proxy = shallowRef<V>(getValue())
+  let isUpdating = false
+
+  watch(
+    prop,
+    (v) => {
+      if (!isUpdating) {
+        isUpdating = true
+        ; (proxy as any).value = v
+        nextTick(() => isUpdating = false)
+      }
+    },
+  )
+
+  watch(
+    proxy,
+    (v) => {
+      if (!isUpdating && (v !== prop()))
+        onChange?.(v)
+    },
+  )
+
+  return proxy
 }

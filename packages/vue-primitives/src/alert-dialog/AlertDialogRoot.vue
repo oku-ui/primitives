@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { DialogContentElement } from '../dialog/DialogRoot.ts'
 import { provideDialogContext } from '../dialog/index.ts'
-import { useControllableState } from '../hooks/useControllableState.ts'
 import { useId, useRef } from '../hooks/index.ts'
+import { useControllableState } from '../hooks/useControllableState.ts'
+import type { DialogContentElement } from '../dialog/DialogRoot.ts'
 import type { AlertDialogRootEmits, AlertDialogRootProps } from './AlertDialogRoot.ts'
 
 defineOptions({

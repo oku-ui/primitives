@@ -1,11 +1,11 @@
-import CSingle from './Single.vue'
-import CMultiple from './Multiple.vue'
 import CAnimated from './Animated.vue'
 import CAnimated2D from './Animated2D.vue'
 import CAnimatedControlled from './AnimatedControlled.vue'
-import COutsideViewport from './OutsideViewport.vue'
-import CHorizontal from './Horizontal.vue'
 import CChromatic from './Chromatic.vue'
+import CHorizontal from './Horizontal.vue'
+import CMultiple from './Multiple.vue'
+import COutsideViewport from './OutsideViewport.vue'
+import CSingle from './Single.vue'
 
 export default { title: 'Components/Accordion' }
 

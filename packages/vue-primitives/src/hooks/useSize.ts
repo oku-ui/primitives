@@ -6,7 +6,7 @@ interface Size {
 }
 
 export function useSize(elementRef: MaybeRefOrGetter<HTMLElement | undefined>) {
-  const size = shallowRef<Size | undefined>(undefined)
+  const size = shallowRef<Size>()
 
   watchEffect((onCleanup) => {
     const element = toValue(elementRef)

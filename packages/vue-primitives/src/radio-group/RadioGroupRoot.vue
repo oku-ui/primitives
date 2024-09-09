@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import { useControllableState, useForwardElement } from '../hooks/index.ts'
+import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type RadioGroupRootEmits, type RadioGroupRootProps, provideRadioGroupContext } from './RadioGroupRoot.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { provideRadioGroupContext, type RadioGroupRootEmits, type RadioGroupRootProps } from './RadioGroupRoot.ts'
 
 defineOptions({
   name: 'RadioGroup',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
@@ -17,7 +15,7 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   loop: true,
 })
 const emit = defineEmits<RadioGroupRootEmits>()
-const $el = shallowRef<HTMLElement>()
+const $el = useRef<HTMLElement>()
 const forwardElement = useForwardElement($el)
 
 const direction = useDirection(() => props.dir)
@@ -40,28 +38,45 @@ provideRadioGroupContext({
   },
 })
 
-defineExpose({
-  $el,
+const rovingFocusGroupRoot = useRovingFocusGroupRoot($el, {
+  currentTabStopId() {
+    return undefined
+  },
+  orientation() {
+    return props.orientation
+  },
+  loop() {
+    return props.loop
+  },
+  dir: direction,
+}, {
+  onMousedown(event) {
+    emit('mousedown', event)
+  },
+  onFocus(event) {
+    emit('focus', event)
+  },
+  onFocusout(event) {
+    emit('focusout', event)
+  },
 })
 </script>
 
 <template>
-  <RovingFocusGroupRoot
-    as="template"
-    :orientation="orientation"
+  <Primitive
+    :ref="forwardElement"
+    :tabindex="rovingFocusGroupRoot.tabindex()"
+    :data-orientation="orientation"
     :dir="direction"
-    :loop="loop"
+    style="outline: none;"
+    role="radiogroup"
+    :aria-required="required"
+    :aria-orientation="orientation"
+    :data-disabled="disabled ? '' : undefined"
+    @mousedown="rovingFocusGroupRoot.onMousedown"
+    @focus="rovingFocusGroupRoot.onFocus"
+    @focusout="rovingFocusGroupRoot.onFocusout"
   >
-    <Primitive
-      :ref="forwardElement"
-      role="radiogroup"
-      :aria-required="required"
-      :aria-orientation="orientation"
-      :data-disabled="disabled ? '' : undefined"
-      :dir="direction"
-      v-bind="$attrs"
-    >
-      <slot />
-    </Primitive>
-  </RovingFocusGroupRoot>
+    <slot />
+  </Primitive>
 </template>

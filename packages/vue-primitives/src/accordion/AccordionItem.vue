@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { CollapsibleRoot } from '../collapsible/index.ts'
+import { provideCollapsibleContext } from '../collapsible/index.ts'
 import { useId } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
 import { type AccordionItemProps, provideAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'
@@ -28,16 +29,26 @@ provideAccordionItemContext({
   disabled,
   triggerId: useId(),
 })
+
+provideCollapsibleContext({
+  contentId: useId(),
+  disabled() {
+    return props.disabled
+  },
+  open,
+  onOpenToggle() {
+    onUpdateOpen(!open.value)
+  },
+})
 </script>
 
 <template>
-  <CollapsibleRoot
+  <Primitive
     :data-orientation="context.orientation"
     :data-state="getState(open)"
     :disabled="disabled"
-    :open="open"
-    @update:open="onUpdateOpen"
+    :data-disabled="disabled ? '' : undefined"
   >
     <slot />
-  </CollapsibleRoot>
+  </Primitive>
 </template>

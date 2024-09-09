@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
 import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogOverlay, AlertDialogPortal, AlertDialogRoot, AlertDialogTitle, AlertDialogTrigger } from '../index.ts'
+import './styles.css'
 </script>
 
 <template>

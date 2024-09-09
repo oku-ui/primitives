@@ -1,6 +1,6 @@
-import { type Ref, onScopeDispose, shallowRef } from 'vue'
-import { isClient } from '@vueuse/core'
-import { type MutableRefObject, createContext, useRef } from '../hooks/index.ts'
+import { isClient, tryOnScopeDispose } from '@vueuse/core'
+import { type Ref, shallowRef } from 'vue'
+import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 
 export interface TooltipProviderProps {
   /**
@@ -42,7 +42,7 @@ export function useTooltipProvider({
   let skipDelayTimerRef = 0
 
   if (isClient) {
-    onScopeDispose(() => {
+    tryOnScopeDispose(() => {
       window.clearTimeout(skipDelayTimerRef)
     })
   }

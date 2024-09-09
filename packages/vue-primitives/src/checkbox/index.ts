@@ -1,13 +1,14 @@
-export { default as CheckboxRoot } from './CheckboxRoot.vue'
+export { type CheckboxIndicatorProps } from './CheckboxIndicator.ts'
 export { default as CheckboxIndicator } from './CheckboxIndicator.vue'
 
 export {
-  type CheckboxRootProps,
-  type CheckboxRootEmits,
-  type ClickEvent,
-  type CheckedState,
   type CheckboxContext,
+  type CheckboxRootEmits,
+  type CheckboxRootProps,
+  type CheckedState,
   provideCheckboxContext,
   useCheckboxContext,
 } from './CheckboxRoot.ts'
-export { type CheckboxIndicatorProps } from './CheckboxIndicator.ts'
+export { default as CheckboxRoot } from './CheckboxRoot.vue'
+
+export { isIndeterminate } from './utils.ts'

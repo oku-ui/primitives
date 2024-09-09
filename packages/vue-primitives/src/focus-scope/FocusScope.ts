@@ -1,3 +1,7 @@
+import { isClient } from '@vueuse/core'
+import { nextTick, type Ref, toValue, watch, watchEffect } from 'vue'
+import { focus, focusFirst, focusScopesStack, getTabbableCandidates, getTabbableEdges, removeLinks } from './utils.ts'
+
 export interface FocusScopeProps {
   /**
    * When `true`, tabbing from last item will focus first tabbable
@@ -29,158 +33,187 @@ export type FocusScopeEmits = {
   unmountAutoFocus: [event: Event]
 }
 
-type FocusableTarget = HTMLElement | { focus: () => void }
-
 export const AUTOFOCUS_ON_MOUNT = 'focusScope.autoFocusOnMount'
 export const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 export const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount'
 
-/* -------------------------------------------------------------------------------------------------
- * Utils
- * ----------------------------------------------------------------------------------------------- */
-
-/**
- * Attempts focusing the first element in a list of candidates.
- * Stops when focus has actually moved.
- */
-export function focusFirst(candidates: HTMLElement[], { select = false } = {}) {
-  const previouslyFocusedElement = document.activeElement
-  for (const candidate of candidates) {
-    focus(candidate, { select })
-    if (document.activeElement !== previouslyFocusedElement)
-      return
-  }
+export interface UseFocusScopeProps {
+  loop?: boolean
+  trapped?: boolean | (() => boolean)
+}
+export interface UseFocusScopeEmits {
+  onMountAutoFocus: (event: Event) => void
+  onUnmountAutoFocus: (event: Event) => void
 }
 
-/**
- * Returns the first and last tabbable elements inside a container.
- */
-export function getTabbableEdges(container: HTMLElement) {
-  const candidates = getTabbableCandidates(container)
-  const first = findVisible(candidates, container)
-  const last = findVisible(candidates.reverse(), container)
-  return [first, last] as const
-}
+export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocusScopeProps, emits: UseFocusScopeEmits) {
+  let lastFocusedElementRef: HTMLElement | null | undefined
 
-/**
- * Returns a list of potential tabbable candidates.
- *
- * NOTE: This is only a close approximation. For example it doesn't take into account cases like when
- * elements are not visible. This cannot be worked out easily by just reading a property, but rather
- * necessitate runtime knowledge (computed styles, etc). We deal with these cases separately.
- *
- * See: https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker
- * Credit: https://github.com/discord/focus-layers/blob/master/src/util/wrapFocus.tsx#L1
- */
-export function getTabbableCandidates(container: HTMLElement) {
-  const nodes: HTMLElement[] = []
-  const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
-    acceptNode(node: HTMLInputElement) {
-      const isHiddenInput = node.tagName === 'INPUT' && node.type === 'hidden'
-      if (node.disabled || node.hidden || isHiddenInput)
-        return NodeFilter.FILTER_SKIP
-      // `.tabIndex` is not the same as the `tabindex` attribute. It works on the
-      // runtime's understanding of tabbability, so this automatically accounts
-      // for any kind of element that could be tabbed to.
-      return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+  const focusScope = {
+    paused: false,
+    pause() {
+      this.paused = true
     },
-  })
-  while (walker.nextNode()) nodes.push(walker.currentNode as HTMLElement)
-  // we do not take into account the order of nodes with positive `tabIndex` as it
-  // hinders accessibility to have tab order different from visual order.
-  return nodes
-}
-
-/**
- * Returns the first visible element in a list.
- * NOTE: Only checks visibility up to the `container`.
- */
-function findVisible(elements: HTMLElement[], container: HTMLElement) {
-  for (const element of elements) {
-    // we stop checking if it's hidden at the `container` level (excluding)
-    if (!isHidden(element, { upTo: container }))
-      return element
-  }
-}
-
-function isHidden(node: HTMLElement, { upTo }: { upTo?: HTMLElement }) {
-  if (getComputedStyle(node).visibility === 'hidden')
-    return true
-
-  while (node) {
-    // we stop at `upTo` (excluding it)
-    if (upTo !== undefined && node === upTo)
-      return false
-
-    if (getComputedStyle(node).display === 'none')
-      return true
-
-    node = node.parentElement as HTMLElement
+    resume() {
+      this.paused = false
+    },
   }
 
-  return false
-}
+  // Takes care of trapping focus if focus is moved outside programmatically for example
+  if (isClient) {
+    function handleFocusIn(event: FocusEvent) {
+      if (focusScope.paused || !$el.value)
+        return
 
-function isSelectableInput(element: any): element is FocusableTarget & { select: () => void } {
-  return element instanceof HTMLInputElement && 'select' in element
-}
+      const target = event.target as HTMLElement | null
 
-export function focus(element?: FocusableTarget | null, { select = false } = {}) {
-  // only focus if that element is focusable
-  if (!element || !element.focus)
-    return
+      if ($el.value.contains(target))
+        lastFocusedElementRef = target
+      else
+        focus(lastFocusedElementRef, { select: true })
+    }
 
-  const previouslyFocusedElement = document.activeElement
-  // NOTE: we prevent scrolling on focus, to minimize jarring transitions for users
-  element.focus({ preventScroll: true })
-  // only select if its not the same element, it supports selection and we need to select
-  if (element !== previouslyFocusedElement && isSelectableInput(element) && select)
-    element.select()
-}
+    function handleFocusOut(event: FocusEvent) {
+      if (focusScope.paused || !$el.value)
+        return
+      const relatedTarget = event.relatedTarget as HTMLElement | null
 
-/* -------------------------------------------------------------------------------------------------
- * FocusScope stack
- * ----------------------------------------------------------------------------------------------- */
+      // A `focusout` event with a `null` `relatedTarget` will happen in at least two cases:
+      //
+      // 1. When the user switches app/tabs/windows/the browser itself loses focus.
+      // 2. In Google Chrome, when the focused element is removed from the DOM.
+      //
+      // We let the browser do its thing here because:
+      //
+      // 1. The browser already keeps a memory of what's focused for when the page gets refocused.
+      // 2. In Google Chrome, if we try to focus the deleted focused element (as per below), it
+      //    throws the CPU to 100%, so we avoid doing anything for this reason here too.
+      if (relatedTarget === null)
+        return
 
-interface FocusScopeAPI { paused: boolean, pause: () => void, resume: () => void }
-export const focusScopesStack = createFocusScopesStack()
+      // If the focus has moved to an actual legitimate element (`relatedTarget !== null`)
+      // that is outside the container, we move focus to the last valid focused element inside.
+      if (!$el.value.contains(relatedTarget)) {
+        focus(lastFocusedElementRef, { select: true })
+      }
+    }
 
-function createFocusScopesStack() {
-  /** A stack of focus scopes, with the active one at the top */
-  let stack: FocusScopeAPI[] = []
+    // When the focused element gets removed from the DOM, browsers move focus
+    // back to the document.body. In this case, we move focus to the container
+    // to keep focus trapped correctly.
+    // -- related: https://github.com/radix-vue/radix-vue/issues/518
+    // Radix Vue tentative solution:
+    // instead of leaning on document.activeElement, we use lastFocusedElementRef.value to check
+    // if the element still exist inside the container,
+    // if not then we focus to the container
+    function handleMutations() {
+      const isLastFocusedElementExist = $el.value?.contains(lastFocusedElementRef as HTMLElement)
+      if (!isLastFocusedElementExist)
+        focus($el.value)
+    }
 
-  return {
-    add(focusScope: FocusScopeAPI) {
-      // pause the currently active focus scope (at the top of the stack)
-      const activeFocusScope = stack[0]
+    watchEffect((onCleanup) => {
+      if (!toValue(props.trapped))
+        return
 
-      if (focusScope !== activeFocusScope) {
-        activeFocusScope?.pause()
+      document.addEventListener('focusin', handleFocusIn)
+      document.addEventListener('focusout', handleFocusOut)
+      const mutationObserver = new MutationObserver(handleMutations)
+
+      if ($el.value)
+        mutationObserver.observe($el.value, { childList: true, subtree: true })
+
+      onCleanup(() => {
+        document.removeEventListener('focusin', handleFocusIn)
+        document.removeEventListener('focusout', handleFocusOut)
+        mutationObserver.disconnect()
+      })
+    })
+
+    watch($el, async (newContainer, _, onCleanup) => {
+      if (!newContainer)
+        return
+
+      await nextTick()
+
+      focusScopesStack.add(focusScope)
+      const previouslyFocusedElement = document.activeElement as HTMLElement | null
+      const hasFocusedCandidate = newContainer.contains(previouslyFocusedElement)
+
+      if (!hasFocusedCandidate) {
+        const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS)
+        newContainer.addEventListener(AUTOFOCUS_ON_MOUNT, emits.onMountAutoFocus)
+        newContainer.dispatchEvent(mountEvent)
+        if (!mountEvent.defaultPrevented) {
+          focusFirst(removeLinks(getTabbableCandidates(newContainer)), { select: true })
+          if (document.activeElement === previouslyFocusedElement) {
+            focus(newContainer)
+          }
+        }
       }
 
-      // remove in case it already exists (because we'll re-add it at the top of the stack)
-      stack = arrayRemove(stack, focusScope)
-      stack.unshift(focusScope)
-    },
+      onCleanup(() => {
+        newContainer.removeEventListener(AUTOFOCUS_ON_MOUNT, emits.onMountAutoFocus)
 
-    remove(focusScope: FocusScopeAPI) {
-      stack = arrayRemove(stack, focusScope)
-      stack[0]?.resume()
-    },
+        // We hit a react bug (fixed in v17) with focusing in unmount.
+        // We need to delay the focus a little to get around it for now.
+        // See: https://github.com/facebook/react/issues/17894
+        const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS)
+        newContainer.addEventListener(AUTOFOCUS_ON_UNMOUNT, emits.onUnmountAutoFocus)
+        newContainer.dispatchEvent(unmountEvent)
+
+        setTimeout(() => {
+          if (!unmountEvent.defaultPrevented)
+            focus(previouslyFocusedElement ?? document.body, { select: true })
+
+          // we need to remove the listener after we `dispatchEvent`
+          newContainer.removeEventListener(AUTOFOCUS_ON_UNMOUNT, emits.onUnmountAutoFocus)
+
+          focusScopesStack.remove(focusScope)
+        }, 0)
+      })
+    })
   }
-}
 
-function arrayRemove<T>(array: T[], item: T) {
-  const updatedArray = [...array]
-  const index = updatedArray.indexOf(item)
+  // Takes care of looping focus (when tabbing whilst at the edges)
+  function onKeydown(event: KeyboardEvent) {
+    if (!props.loop && !toValue(props.trapped))
+      return
+    if (focusScope.paused)
+      return
 
-  if (index !== -1) {
-    updatedArray.splice(index, 1)
+    const isTabKey = event.key === 'Tab' && !event.altKey && !event.ctrlKey && !event.metaKey
+    const focusedElement = document.activeElement as HTMLElement | null
+
+    if (!isTabKey || !focusedElement)
+      return
+
+    const container = event.currentTarget as HTMLElement
+    const [first, last] = getTabbableEdges(container)
+    const hasTabbableElementsInside = first && last
+
+    // we can only wrap focus if we have tabbable edges
+    if (!hasTabbableElementsInside) {
+      if (focusedElement === container)
+        event.preventDefault()
+    }
+    else {
+      if (!event.shiftKey && focusedElement === last) {
+        event.preventDefault()
+
+        if (props.loop)
+          focus(first, { select: true })
+      }
+      else if (event.shiftKey && focusedElement === first) {
+        event.preventDefault()
+
+        if (props.loop)
+          focus(last, { select: true })
+      }
+    }
   }
 
-  return updatedArray
-}
-
-export function removeLinks(items: HTMLElement[]) {
-  return items.filter(item => item.tagName !== 'A')
+  return {
+    onKeydown,
+  }
 }

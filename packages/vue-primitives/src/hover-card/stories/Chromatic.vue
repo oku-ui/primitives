@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
 import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from '../index.ts'
+import './styles.css'
 
 const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left']
 const ALIGN_OPTIONS = ['start', 'center', 'end']

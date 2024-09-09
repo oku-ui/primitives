@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
-import { Primitive } from '../primitive/index.ts'
+import { useForwardElement } from '../hooks/useForwardElement.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import type { TabsContentProps } from './TabsContent.ts'
+import { Primitive } from '../primitive/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
+import type { TabsContentProps } from './TabsContent.ts'
 
 defineOptions({
   name: 'TabsContent',
@@ -12,7 +13,8 @@ defineOptions({
 
 const props = defineProps<TabsContentProps>()
 
-const elRef = shallowRef<HTMLElement>()
+const $el = shallowRef<HTMLElement>()
+const forwardElement = useForwardElement($el)
 
 const context = useTabsContext('TabsContent')
 const triggerId = computed(() => makeTriggerId(context.baseId, props.value))
@@ -33,12 +35,13 @@ onBeforeUnmount(() => {
   cancelAnimationFrame(rAf)
 })
 
-const isPresent = usePresence(elRef, () => props.forceMount || isSelected.value)
+const isPresent = usePresence($el, () => props.forceMount || isSelected.value)
 </script>
 
 <template>
   <Primitive
     :id="contentId"
+    :ref="forwardElement"
     :data-state="isSelected ? 'active' : 'inactive'"
     :data-orientation="context.orientation"
     role="tabpanel"

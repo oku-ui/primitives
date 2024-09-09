@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
 import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '../index.ts'
+import './styles.css'
 </script>
 
 <template>

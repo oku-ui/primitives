@@ -1,4 +1,4 @@
-import { type Ref, computed, onWatcherCleanup, toValue, watch, watchEffect } from 'vue'
+import { computed, onWatcherCleanup, type Ref, toValue, watch, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/index.ts'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {

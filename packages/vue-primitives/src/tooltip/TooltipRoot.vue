@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { tryOnScopeDispose } from '@vueuse/core'
+import { onBeforeUnmount, shallowRef } from 'vue'
 import { useControllableState, useId } from '../hooks/index.ts'
 import { PopperRoot } from '../popper/index.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
-import { TOOLTIP_OPEN, type TooltipRootEmits, type TooltipRootProps, provideTooltipContext } from './TooltipRoot.ts'
+import { provideTooltipContext, TOOLTIP_OPEN, type TooltipRootEmits, type TooltipRootProps } from './TooltipRoot.ts'
 
 defineOptions({
   name: 'TooltipRoot',
@@ -65,7 +64,7 @@ function handleDelayedOpen() {
   }, delayDuration())
 }
 
-tryOnScopeDispose(() => {
+onBeforeUnmount(() => {
   window.clearTimeout(openTimerRef)
 })
 

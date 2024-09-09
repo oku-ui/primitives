@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onBeforeUnmount, shallowRef, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
+import { onBeforeUnmount, shallowRef, watchEffect } from 'vue'
 import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { isPointInPolygon, type Polygon } from '../utils/isPointInPolygon.ts'
+import TooltipContentImpl from './TooltipContentImpl.vue'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { useTooltipContext } from './TooltipRoot.ts'
-import { getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils.ts'
-import type { Polygon } from './TooltipContentHoverable.ts'
-import TooltipContentImpl from './TooltipContentImpl.vue'
+import { getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect } from './utils.ts'
 
 defineOptions({
   name: 'TooltipContentHoverable',
@@ -17,8 +17,8 @@ const providerContext = useTooltipProviderContext('TooltipContentHoverable')
 
 const pointerGraceArea = shallowRef<Polygon>()
 
-const content = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement(content)
+const $el = shallowRef<HTMLElement>()
+const forwardElement = useForwardElement($el)
 
 function handleRemoveGraceArea() {
   pointerGraceArea.value = undefined
@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
 if (isClient) {
   watchEffect((onCleanup) => {
     const triggerVal = context.trigger.value
-    const contentVal = content.value
+    const contentVal = $el.value
 
     if (!triggerVal || !contentVal)
       return
@@ -63,7 +63,7 @@ if (isClient) {
   function handleTrackPointerGrace(event: PointerEvent) {
     const target = event.target as HTMLElement
     const pointerPosition = { x: event.clientX, y: event.clientY }
-    const hasEnteredTarget = context.trigger.value?.contains(target) || content.value?.contains(target)
+    const hasEnteredTarget = context.trigger.value?.contains(target) || $el.value?.contains(target)
     const isPointerOutsideGraceArea = !isPointInPolygon(pointerPosition, pointerGraceArea.value!)
 
     if (hasEnteredTarget) {
@@ -88,7 +88,7 @@ if (isClient) {
 }
 
 defineExpose({
-  $el: content,
+  $el,
 })
 </script>
 

@@ -4,9 +4,9 @@ import { shallowRef, watchEffect } from 'vue'
 import { useForwardElement, useStateMachine } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
+import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarScroll',
@@ -49,7 +49,7 @@ watchEffect((onCleanup) => {
 
   const timeId = window.setTimeout(
     () => send('HIDE'),
-    context.scrollHideDelay(),
+    context.scrollHideDelay,
   )
 
   onCleanup(() => {

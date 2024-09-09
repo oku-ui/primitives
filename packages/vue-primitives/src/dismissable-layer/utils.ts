@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/core'
-import { type Ref, nextTick, onWatcherCleanup, watch } from 'vue'
+import { nextTick, onWatcherCleanup, type Ref, watch } from 'vue'
 
 export type PointerDownOutsideEvent = CustomEvent<{
   originalEvent: PointerEvent
@@ -21,7 +21,7 @@ export function usePointerdownOutside(
   node: Ref<HTMLElement | undefined>,
 ) {
   let isPointerInsideDOMTree = false
-  // eslint-disable-next-line unicorn/consistent-function-scoping
+
   let handleClick = () => { }
 
   const ret = {
@@ -54,11 +54,7 @@ export function usePointerdownOutside(
         const eventDetail = { originalEvent: event }
 
         function handleAndDispatchPointerDownOutsideEvent() {
-          handleAndDispatchCustomEvent(
-            POINTER_DOWN_OUTSIDE,
-            onPointerDownOutside,
-            eventDetail,
-          )
+          handleAndDispatchCustomEvent(POINTER_DOWN_OUTSIDE, onPointerDownOutside, eventDetail)
         }
 
         /**
@@ -161,7 +157,9 @@ export function useFocusOutside(
 
     ownerDocument.addEventListener('focusin', handleFocus)
 
-    onWatcherCleanup(() => ownerDocument.removeEventListener('focusin', handleFocus))
+    onWatcherCleanup(() => {
+      ownerDocument.removeEventListener('focusin', handleFocus)
+    })
   })
 
   return ret

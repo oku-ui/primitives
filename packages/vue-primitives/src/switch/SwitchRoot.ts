@@ -13,11 +13,10 @@ export interface SwitchRootProps {
   name?: string
 }
 
-export type ClickEvent = Event & { _stopPropagation: Event['stopPropagation'], _isPropagationStopped: boolean, isPropagationStopped: () => boolean }
 // eslint-disable-next-line ts/consistent-type-definitions
 export type SwitchRootEmits = {
   'update:checked': [checked: boolean]
-  'click': [event: ClickEvent]
+  'click': [event: MouseEvent]
 }
 
 export interface SwitchRootContext {

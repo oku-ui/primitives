@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
 import { ToggleGroupItem, ToggleGroupRoot } from '../index.ts'
+import './styles.css'
 
 const value = shallowRef<string>()
 </script>

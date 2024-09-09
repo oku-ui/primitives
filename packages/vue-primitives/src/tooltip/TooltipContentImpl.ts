@@ -1,4 +1,5 @@
 import { createContext } from '../hooks/index.ts'
+import type { DismissableLayerEmits } from '../dismissable-layer/index.ts'
 
 export interface TooltipContentImplProps {
   /**
@@ -10,9 +11,9 @@ export interface TooltipContentImplProps {
 // eslint-disable-next-line ts/consistent-type-definitions
 export type TooltipContentImplEmits = {
   /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
-  escapeKeydown: [event: KeyboardEvent]
+  escapeKeydown: DismissableLayerEmits['escapeKeydown']
   /** Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling `event.preventDefault`. */
-  pointerdownOutside: [event: Event]
+  pointerdownOutside: DismissableLayerEmits['pointerdownOutside']
 }
 
 export interface TooltipContentContext {

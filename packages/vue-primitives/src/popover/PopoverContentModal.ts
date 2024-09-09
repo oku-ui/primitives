@@ -1,8 +1,3 @@
-import type { PopoverContentImplEmits } from './PopoverContentImpl'
+import type { PopoverContentImplEmits } from './PopoverContentImpl.ts'
 
-// eslint-disable-next-line ts/consistent-type-definitions
-export type PopoverContentModalEmits = {
-  closeAutoFocus: PopoverContentImplEmits['closeAutoFocus']
-  pointerdownOutside: PopoverContentImplEmits['pointerdownOutside']
-  focusOutside: PopoverContentImplEmits['focusOutside']
-}
+export type PopoverContentModalEmits = Omit<PopoverContentImplEmits, 'dismiss'>

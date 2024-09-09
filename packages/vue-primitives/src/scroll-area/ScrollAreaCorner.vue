@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaCornerImpl from './ScrollAreaCornerImpl.vue'
+import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaCorner',

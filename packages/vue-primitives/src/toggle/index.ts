@@ -1,3 +1,3 @@
-export { default as Toggle } from './Toggle.vue'
+export type { ToggleEmits, ToggleProps } from './Toggle.ts'
 
-export type { ToggleProps, ToggleEmits } from './Toggle.ts'
+export { default as Toggle } from './Toggle.vue'

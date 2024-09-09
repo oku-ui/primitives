@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import type { Direction } from '../direction/index.ts'
 import { createContext } from '../hooks/index.ts'
+import type { Direction } from '../direction/index.ts'
 
 type ScrollAreaType = 'auto' | 'always' | 'scroll' | 'hover'
 
@@ -19,7 +19,7 @@ export type ScrollAreaScrollbarAxisElement = HTMLDivElement
 export interface ScrollAreaContext {
   type: () => ScrollAreaType
   dir: Ref<Direction>
-  scrollHideDelay: () => number
+  scrollHideDelay: number
   scrollArea: Ref<ScrollAreaElement | undefined>
   viewport: Ref<ScrollAreaViewportElement | undefined>
   // onViewportChange: (viewport: ScrollAreaViewportElement | undefined) => void

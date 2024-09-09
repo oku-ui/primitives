@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { watchEffect } from 'vue'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
-import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar.ts'
+import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
 import ScrollAreaScrollbarScroll from './ScrollAreaScrollbarScroll.vue'
-import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
+import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbar',
@@ -16,11 +16,20 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
 })
 const context = useScrollAreaContext('ScrollAreaScrollbar')
 
-watchEffect(() => {
-  if (props.orientation === 'horizontal')
+watchEffect((onCleanup) => {
+  const isHorizontal = props.orientation === 'horizontal'
+
+  if (isHorizontal)
     context.onScrollbarXEnabledChange(true)
   else
     context.onScrollbarYEnabledChange(true)
+
+  onCleanup(() => {
+    if (isHorizontal)
+      context.onScrollbarXEnabledChange(false)
+    else
+      context.onScrollbarYEnabledChange(false)
+  })
 })
 
 const type = context.type()

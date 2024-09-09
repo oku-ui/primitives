@@ -47,7 +47,7 @@ import './styles.css'
     </RadioGroupRoot>
 
     <h2>Set</h2>
-    <RadioGroupRoot class="radioGroup_rootClass" value="2">
+    <RadioGroupRoot class="radioGroup_rootClass" value="3">
       <RadioGroupItem class="radioGroup_itemClass" value="1">
         <RadioGroupIndicator class="radioGroup_indicatorClass" />
       </RadioGroupItem>

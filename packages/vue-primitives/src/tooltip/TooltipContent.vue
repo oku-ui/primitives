@@ -2,10 +2,10 @@
 import { shallowRef } from 'vue'
 import { useForwardElement } from '../hooks/useForwardElement.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import type { TooltipContentProps } from './TooltipContent'
-import { useTooltipContext } from './TooltipRoot.ts'
-import TooltipContentImpl from './TooltipContentImpl.vue'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
+import TooltipContentImpl from './TooltipContentImpl.vue'
+import { useTooltipContext } from './TooltipRoot.ts'
+import type { TooltipContentProps } from './TooltipContent'
 
 defineOptions({
   name: 'TooltipContent',

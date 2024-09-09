@@ -9,21 +9,20 @@ defineOptions({
 withDefaults(defineProps<SeparatorProps>(), {
   orientation: 'horizontal',
 })
+
+const decorativeAttrs = { role: 'none' }
 </script>
 
 <template>
   <Primitive
     :data-orientation="orientation"
-    v-bind="{
-      ...(
-        decorative ? {
-          role: 'none',
-        } : {
-          'aria-orientation': orientation === 'vertical' ? orientation : undefined,
-          'role': 'separator',
-        }
-      ),
-    }"
+    v-bind="decorative
+      ? decorativeAttrs
+      : {
+        'aria-orientation': orientation === 'vertical' ? orientation : undefined,
+        'role': 'separator',
+      }
+    "
   >
     <slot />
   </Primitive>

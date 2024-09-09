@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
+import { useDismissableLayer } from '../dismissable-layer/index.ts'
+import { useFocusGuards } from '../focus-guards/index.ts'
+import { useFocusScope } from '../focus-scope/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
+import { PopperContent } from '../popper/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
-import PopoverContentImpl from './PopoverContentImpl.vue'
+import { getState } from './utilts.ts'
+import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
 import type { PopoverContentNonModal } from './PopoverContentNonModal.ts'
 
 defineOptions({
@@ -33,7 +37,7 @@ function onCloseAutoFocus(event: Event) {
   hasPointerDownOutsideRef = false
 }
 
-function interactOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
+function onInteractOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
   emit('interactOutside', event)
 
   if (!event.defaultPrevented) {
@@ -59,16 +63,85 @@ function interactOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
     event.preventDefault()
   }
 }
+
+// PopoverContentImpl
+
+// Make sure the whole tree has focus guards as our `Popover` may be
+// the last element in the DOM (because of the `Portal`)
+useFocusGuards()
+
+const focusScope = useFocusScope(
+  $el,
+  {
+    loop: true,
+    trapped() {
+      return false
+    },
+  },
+  {
+    onMountAutoFocus(event) {
+      emit('openAutoFocus', event)
+    },
+    onUnmountAutoFocus: onCloseAutoFocus,
+  },
+)
+
+const dismissableLayer = useDismissableLayer($el, {
+  disableOutsidePointerEvents() {
+    return false
+  },
+}, {
+  onPointerdownCapture(event) {
+    emit('pointerdownCapture', event)
+  },
+  onFocusCapture(event) {
+    emit('focusCapture', event)
+  },
+  onInteractOutside,
+  onEscapeKeydown(event) {
+    emit('escapeKeydown', event)
+  },
+  onFocusOutside(event) {
+    emit('focusOutside', event)
+  },
+  onBlurCapture(event) {
+    emit('blurCapture', event)
+  },
+  onPointerdownOutside(event) {
+    emit('pointerdownOutside', event)
+  },
+  onDismiss() {
+    context.onOpenChange(false)
+  },
+})
 </script>
 
 <template>
-  <PopoverContentImpl
+  <PopperContent
+    :id="context.contentId"
     :ref="forwardElement"
-    :trap-focus="false"
-    :disable-outside-pointer-events="false"
-    @close-auto-focus="onCloseAutoFocus "
-    @interact-outside="interactOutside"
+
+    tabindex="-1"
+
+    data-dismissable-layer
+
+    :data-state="getState(context.open.value)"
+    role="dialog"
+    :style="{
+      'pointerEvents': dismissableLayer.pointerEvents(),
+      '--radix-popover-content-transform-origin': 'var(--radix-popper-transform-origin)',
+      '--radix-popover-content-available-width': 'var(--radix-popper-available-width)',
+      '--radix-popover-content-available-height': 'var(--radix-popper-available-height)',
+      '--radix-popover-trigger-width': 'var(--radix-popper-anchor-width)',
+      '--radix-popover-trigger-height': 'var(--radix-popper-anchor-height)',
+    }"
+
+    @keydown="focusScope.onKeydown"
+
+    @focus.capture="dismissableLayer.onFocusCapture"
+    @blur.capture="dismissableLayer.onBlurCapture"
+    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
   >
     <slot />
-  </PopoverContentImpl>
+  </PopperContent>
 </template>

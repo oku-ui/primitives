@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import { Primitive } from '../primitive/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
 import {
+  provideScrollAreaContext,
   type ScrollAreaElement,
   type ScrollAreaRootProps,
   type ScrollAreaScrollbarElement,
   type ScrollAreaViewportElement,
-  provideScrollAreaContext,
 } from './ScrollAreaRoot.ts'
 
 defineOptions({
@@ -38,9 +38,7 @@ provideScrollAreaContext({
     return props.type
   },
   dir: direction,
-  scrollHideDelay() {
-    return props.scrollHideDelay
-  },
+  scrollHideDelay: props.scrollHideDelay,
   scrollArea,
   viewport,
   content,

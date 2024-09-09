@@ -1,30 +1,31 @@
 <script setup lang="ts">
-import { onBeforeUnmount } from 'vue'
 import { hideOthers } from 'aria-hidden'
-import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/DismissableLayer.ts'
+import { onBeforeUnmount, shallowRef } from 'vue'
+import { type FocusOutsideEvent, type PointerdownOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
+import { useFocusGuards } from '../focus-guards/index.ts'
+import { useFocusScope } from '../focus-scope/index.ts'
+import { useForwardElement } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useDialogContext } from './DialogRoot.ts'
-import DialogContentImpl from './DialogContentImpl.vue'
-import type { DialogContentModal } from './DialogContentModal.ts'
+import { getState } from './utils.ts'
+import type { DialogContentModalEmits } from './DialogContentModal.ts'
 
 defineOptions({
   name: 'DialogContentModal',
 })
 
-const emit = defineEmits<DialogContentModal>()
+const emit = defineEmits<DialogContentModalEmits>()
+
+const $el = shallowRef<HTMLDivElement>()
+const forwardElement = useForwardElement($el)
 
 const context = useDialogContext('DialogContentModal')
-let contentRef: HTMLDivElement | undefined
-
-function setContentRef(nodeRef: any) {
-  const node = nodeRef ? nodeRef.$el : undefined
-  contentRef = node
-}
 
 // aria-hide everything except the content (better supported equivalent to setting aria-modal)
 onBeforeUnmount(() => {
-  if (contentRef)
-    hideOthers(contentRef)
+  if ($el.value)
+    hideOthers($el.value)
 })
 
 const onCloseAutoFocus = composeEventHandlers((event) => {
@@ -54,17 +55,78 @@ const onFocusOutside = composeEventHandlers<FocusOutsideEvent>((event) => {
 }, (event) => {
   event.preventDefault()
 })
+
+// DialogContentImpl
+
+// Make sure the whole tree has focus guards as our `Dialog` will be
+// the last element in the DOM (because of the `Portal`)
+useFocusGuards()
+
+const focusScope = useFocusScope(
+  $el,
+  {
+    loop: true,
+    trapped() {
+      return context.open.value
+    },
+  },
+  {
+    onMountAutoFocus(event) {
+      emit('openAutoFocus', event)
+    },
+    onUnmountAutoFocus: onCloseAutoFocus,
+  },
+)
+
+const dismissableLayer = useDismissableLayer($el, {
+  disableOutsidePointerEvents() {
+    return true
+  },
+}, {
+  onPointerdownCapture(event) {
+    emit('pointerdownCapture', event)
+  },
+  onFocusCapture(event) {
+    emit('focusCapture', event)
+  },
+  onInteractOutside(event) {
+    emit('interactOutside', event)
+  },
+  onEscapeKeydown(event) {
+    emit('escapeKeydown', event)
+  },
+  onDismiss() {
+    context.onOpenChange(false)
+  },
+  onFocusOutside,
+  onBlurCapture(event) {
+    emit('blurCapture', event)
+  },
+  onPointerdownOutside,
+})
 </script>
 
 <template>
-  <DialogContentImpl
-    :ref="setContentRef"
-    :trap-focus="context.open.value"
-    disable-outside-pointer-events
-    @close-auto-focus="onCloseAutoFocus"
-    @pointerdown-outside="onPointerdownOutside"
-    @focus-outside="onFocusOutside"
+  <Primitive
+    :id="context.contentId"
+    :ref="forwardElement"
+
+    tabindex="-1"
+
+    data-dismissable-layer
+
+    :style="{ pointerEvents: dismissableLayer.pointerEvents() }"
+    role="dialog"
+    :aria-describedby="context.descriptionId"
+    :aria-labelledby="context.titleId"
+    :data-state="getState(context.open.value)"
+
+    @keydown="focusScope.onKeydown"
+
+    @focus.capture="dismissableLayer.onFocusCapture"
+    @blur.capture="dismissableLayer.onBlurCapture"
+    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
   >
     <slot />
-  </DialogContentImpl>
+  </Primitive>
 </template>

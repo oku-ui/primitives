@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { shallowRef, watchEffect } from 'vue'
 import { usePresence } from '../index.ts'
-import './styles.css'
 import Toggles from './Toggles.vue'
+import './styles.css'
 
 let t = 0
 const open = shallowRef(false)

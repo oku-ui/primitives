@@ -1,5 +1,5 @@
-import type { Direction } from '../direction/index.ts'
 import { clamp } from '../utils/number.ts'
+import type { Direction } from '../direction/index.ts'
 import type { Sizes } from './ScrollAreaScrollbarVisible.ts'
 
 export function toInt(value?: string) {
@@ -47,7 +47,7 @@ export function getThumbOffsetFromScroll(scrollPos: number, sizes: Sizes, dir: D
   const maxScrollPos = sizes.content - sizes.viewport
   const maxThumbPos = scrollbar - thumbSizePx
   const scrollClampRange: [number, number] = dir === 'ltr' ? [0, maxScrollPos] : [maxScrollPos * -1, 0]
-  const scrollWithoutMomentum = clamp(scrollPos, scrollClampRange)
+  const scrollWithoutMomentum = clamp(scrollPos, scrollClampRange[0], scrollClampRange[1])
   const interpolate = linearScale([0, maxScrollPos], [0, maxThumbPos])
 
   return interpolate(scrollWithoutMomentum)

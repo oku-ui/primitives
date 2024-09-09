@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
-import { useComposedElements } from '../hooks/index.ts'
+import { computed, onBeforeUnmount, onMounted, watchEffect } from 'vue'
 import { DismissableLayerBranch } from '../dismissable-layer/index.ts'
+import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
+import { focusFirst } from '../utils/focusFirst.ts'
 import { VisuallyHidden } from '../visually-hidden/index.ts'
-import { focusFirst, getTabbableCandidates } from './utils.ts'
-import { type ToastViewportProps, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport.ts'
-import { useToastProviderContext } from './index.ts'
 import { Collection, useCollection } from './collection.ts'
+import { useToastProviderContext } from './index.ts'
+import { type ToastViewportProps, VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport.ts'
+import { getTabbableCandidates } from './utils.ts'
 
 defineOptions({
   name: 'ToastViewport',
@@ -40,10 +41,13 @@ const setTailFocusProxyRef = useComposedElements<HTMLSpanElement>((v) => {
 })
 let viewportRef: HTMLOListElement | undefined
 const forwardedRef = useComposedElements<HTMLOListElement>((v) => {
+  if (viewportRef === v)
+    return
+
   viewportRef = v
   context.onViewportChange(v)
   collеctionContext.collectionRef.current = v
-}, v => viewportRef === v)
+})
 const ariaLabel = computed(() => props.label.replace('{hotkey}', props.hotkey.join('+').replace(/Key/g, '').replace(/Digit/g, '')))
 
 const hasToasts = () => context.toastCount.value > 0
@@ -107,7 +111,7 @@ function getSortedTabbableCandidates({ tabbingDirection }: { tabbingDirection: '
   const tabbableCandidates: HTMLElement[][] = []
 
   for (const toastItem of toastItems) {
-    const toastNode = toastItem.ref
+    const toastNode = toastItem
     const toastTabbableCandidates = [toastNode, ...getTabbableCandidates(toastNode)]
 
     tabbableCandidates.push(tabbingDirection === 'forwards' ? toastTabbableCandidates : toastTabbableCandidates.reverse())
@@ -217,7 +221,7 @@ const afterFocusHandler = useFocusProxyHandler(() => {
     <VisuallyHidden
       v-if="hasToasts()"
       :ref="setHeadFocusProxyRef"
-      aria-hidden
+      aria-hidden="true"
       tabindex="0"
       style="position: fixed"
       @focus="beforeFocusHandler"
@@ -233,7 +237,7 @@ const afterFocusHandler = useFocusProxyHandler(() => {
     <VisuallyHidden
       v-if="hasToasts()"
       :ref="setTailFocusProxyRef"
-      aria-hidden
+      aria-hidden="true"
       tabindex="0"
       style="position: fixed"
       @focus="afterFocusHandler"

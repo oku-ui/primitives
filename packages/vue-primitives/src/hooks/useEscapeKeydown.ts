@@ -1,21 +1,35 @@
-import { type MaybeRefOrGetter, toValue, watchEffect } from 'vue'
+import { type MaybeRefOrGetter, onBeforeUnmount, onMounted, toValue } from 'vue'
 
-export function useEscapeKeydown(
-  onEscapeKeydownProp: (event: KeyboardEvent) => void,
-  ownerDocument: MaybeRefOrGetter<Document | undefined> = globalThis?.document,
-) {
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === 'Escape')
-      onEscapeKeydownProp?.(event)
+let registeredEscapeHandlers: ((e: KeyboardEvent) => void)[] = []
+
+function cachedHandler(e: Event) {
+  const event = e as KeyboardEvent
+  if (event.key !== 'Escape')
+    return
+
+  for (const registeredHandler of registeredEscapeHandlers) {
+    registeredHandler(event)
   }
+}
 
-  watchEffect((onCleanup) => {
-    const ownerDocumentValue = toValue(ownerDocument)
-    if (!ownerDocumentValue)
-      return
+export function useEscapeKeydown(handler: (e: KeyboardEvent) => void, ownerDocument: MaybeRefOrGetter<Document | undefined> = globalThis?.document) {
+  let document: Document
 
-    ownerDocumentValue.addEventListener('keydown', handleKeydown)
+  onMounted(() => {
+    if (registeredEscapeHandlers.length === 0) {
+      document = toValue(ownerDocument)!
+      document.addEventListener('keydown', cachedHandler)
+    }
+    registeredEscapeHandlers.push(handler)
+  })
 
-    onCleanup(() => ownerDocumentValue.removeEventListener('keydown', handleKeydown))
+  onBeforeUnmount(() => {
+    registeredEscapeHandlers = registeredEscapeHandlers.filter(
+      registeredHandler => registeredHandler !== handler,
+    )
+
+    if (registeredEscapeHandlers.length === 0) {
+      document.removeEventListener('keydown', cachedHandler)
+    }
   })
 }

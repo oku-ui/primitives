@@ -43,8 +43,8 @@ function handleDismiss() {
 
     <DismissableBox
       v-if="open"
-      @pointerdownoutside="handlePointerDownOutside"
-      @focusoutside="handleFocusOutside"
+      @pointerdown-outside="handlePointerDownOutside"
+      @focus-outside="handleFocusOutside"
       @dismiss="handleDismiss"
     />
   </DismissableLayer>

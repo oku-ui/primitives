@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, shallowRef, watchEffect } from 'vue'
+import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useForwardElement } from '../hooks/useForwardElement.ts'
-import { DismissableLayer, type FocusOutsideEvent } from '../dismissable-layer/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
 import { PopperContent } from '../popper/index.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { getTabbableNodes } from './utils.ts'
 import type { HoverCardContentImplEmits } from './HoverCardContentImpl.ts'
 
 defineOptions({
   name: 'HoverCardContentImpl',
-  inheritAttrs: false,
 })
 
 const emit = defineEmits<HoverCardContentImplEmits>()
 
 const context = useHoverCardContext('HoverCardContentImpl')
-const $el = shallowRef<HTMLElement>()
+const $el = shallowRef<HTMLDivElement>()
 const forwardElement = useForwardElement($el)
 const containSelection = shallowRef(false)
 
@@ -83,6 +82,24 @@ const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
   context.isPointerDownOnContentRef.current = true
 })
 
+const dismissableLayer = useDismissableLayer($el, {
+  disableOutsidePointerEvents() {
+    return false
+  },
+}, {
+  onInteractOutside(event) {
+    emit('interactOutside', event)
+  },
+  onEscapeKeydown(event) {
+    emit('escapeKeydown', event)
+  },
+  onDismiss: context.onDismiss,
+  onFocusOutside,
+  onPointerdownOutside(event) {
+    emit('pointerdownOutside', event)
+  },
+})
+
 defineExpose({
   $el,
 })
@@ -93,34 +110,32 @@ let originalBodyUserSelect: string
 </script>
 
 <template>
-  <DismissableLayer
-    as="template"
-    :disable-outside-pointer-events="false"
-    @interact-outside="emit('interactOutside', $event)"
-    @escape-keydown="emit('escapeKeydown', $event)"
-    @pointerdown-outside="emit('pointerdownOutside', $event)"
-    @focus-outside="onFocusOutside"
-    @dismiss="context.onDismiss"
+  <PopperContent
+    :ref="forwardElement"
+
+    data-dismissable-layer
+
+    :style="{
+      pointerEvents: dismissableLayer.pointerEvents(),
+      userSelect: containSelection ? 'text' : undefined,
+      // Safari requires prefix
+      WebkitUserSelect: containSelection ? 'text' : undefined,
+      // re-namespace exposed content custom properties
+      ...{
+        '--radix-hover-card-content-transform-origin': 'var(--radix-popper-transform-origin)',
+        '--radix-hover-card-content-available-width': 'var(--radix-popper-available-width)',
+        '--radix-hover-card-content-available-height': 'var(--radix-popper-available-height)',
+        '--radix-hover-card-trigger-width': 'var(--radix-popper-anchor-width)',
+        '--radix-hover-card-trigger-height': 'var(--radix-popper-anchor-height)',
+      },
+    }"
+
+    @focus.capture="dismissableLayer.onFocusCapture"
+    @blur.capture="dismissableLayer.onBlurCapture"
+    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
+
+    @pointerdown="onPointerdown"
   >
-    <PopperContent
-      :ref="forwardElement"
-      v-bind="$attrs"
-      :style="{
-        userSelect: containSelection ? 'text' : undefined,
-        // Safari requires prefix
-        WebkitUserSelect: containSelection ? 'text' : undefined,
-        // re-namespace exposed content custom properties
-        ...{
-          '--radix-hover-card-content-transform-origin': 'var(--radix-popper-transform-origin)',
-          '--radix-hover-card-content-available-width': 'var(--radix-popper-available-width)',
-          '--radix-hover-card-content-available-height': 'var(--radix-popper-available-height)',
-          '--radix-hover-card-trigger-width': 'var(--radix-popper-anchor-width)',
-          '--radix-hover-card-trigger-height': 'var(--radix-popper-anchor-height)',
-        },
-      }"
-      @pointerdown="onPointerdown"
-    >
-      <slot />
-    </PopperContent>
-  </DismissableLayer>
+    <slot />
+  </PopperContent>
 </template>

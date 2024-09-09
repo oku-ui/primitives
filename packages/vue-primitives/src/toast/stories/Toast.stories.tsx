@@ -1,12 +1,12 @@
-import CStyled from './Styled.vue'
+import CAnimated from './Animated.vue'
+import CChromatic from './Chromatic.vue'
 import CControlled from './Controlled.vue'
+import CCypress from './Cypress.vue'
 import CFromDialog from './FromDialog.vue'
-import CPromise from './Promise.vue'
 import CKeyChange from './KeyChange.vue'
 import CPauseResumeProps from './PauseResumeProps.vue'
-import CAnimated from './Animated.vue'
-import CCypress from './Cypress.vue'
-import CChromatic from './Chromatic.vue'
+import CPromise from './Promise.vue'
+import CStyled from './Styled.vue'
 
 export default { title: 'Components/Toast' }
 

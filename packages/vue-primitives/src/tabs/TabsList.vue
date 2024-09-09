@@ -1,43 +1,60 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
+import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { useForwardElement } from '../hooks/index.ts'
-import type { TabsListProps } from './TabsList.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
+import type { TabsListEmits, TabsListProps } from './TabsList.ts'
 
 defineOptions({
   name: 'TabsList',
-  inheritAttrs: false,
 })
 
-withDefaults(defineProps<TabsListProps>(), {
+const props = withDefaults(defineProps<TabsListProps>(), {
   loop: true,
 })
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
+const emit = defineEmits<TabsListEmits>()
+const elRef = useRef<HTMLElement>()
+const forwardElement = useForwardElement(elRef)
 
 const context = useTabsContext('TabsList')
 
-defineExpose({
-  $el,
+const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
+  currentTabStopId() {
+    return undefined
+  },
+  orientation() {
+    return context.orientation
+  },
+  loop() {
+    return props.loop
+  },
+  dir: context.dir,
+}, {
+  onMousedown(event) {
+    emit('mousedown', event)
+  },
+  onFocus(event) {
+    emit('focus', event)
+  },
+  onFocusout(event) {
+    emit('focusout', event)
+  },
 })
 </script>
 
 <template>
-  <RovingFocusGroupRoot
-    as="template"
-    :orientation="context.orientation"
+  <Primitive
+    :ref="forwardElement"
+    :tabindex="rovingFocusGroupRoot.tabindex()"
+    :data-orientation="context.orientation"
     :dir="context.dir.value"
-    :loop="loop"
+    style="outline: none;"
+    role="tablist"
+    :aria-orientation="context.orientation"
+    @mousedown="rovingFocusGroupRoot.onMousedown"
+    @focus="rovingFocusGroupRoot.onFocus"
+    @focusout="rovingFocusGroupRoot.onFocusout"
   >
-    <Primitive
-      :ref="forwardElement"
-      v-bind="$attrs"
-      role="tablist"
-      :aria-orientation="context.orientation"
-    >
-      <slot />
-    </Primitive>
-  </RovingFocusGroupRoot>
+    <slot />
+  </Primitive>
 </template>

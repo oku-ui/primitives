@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { TooltipArrow, TooltipContent, TooltipPortal, TooltipRoot, TooltipTrigger } from '../index.ts'
 import TooltipProvider from './TooltipProvider.vue'
+import './styles.css'
 </script>
 
 <template>

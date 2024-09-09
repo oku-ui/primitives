@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
 import { TooltipArrow, TooltipContent, TooltipPortal, TooltipRoot, TooltipTrigger, useTooltipProvider } from '../index.ts'
+import './styles.css'
 
 const open = shallowRef(true)
 

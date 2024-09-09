@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from '../index.ts'
 import CardContentPlaceholder from './CardContentPlaceholder.vue'
+import './styles.css'
 </script>
 
 <template>

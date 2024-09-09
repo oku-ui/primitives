@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { ToastViewport, useToastProvider } from '../index.ts'
 import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
+import './styles.css'
 
 useToastProvider()
 </script>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import './styles.css'
-import { shallowRef, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
+import { shallowRef, watchEffect } from 'vue'
 import { ToastAction, ToastDescription, ToastRoot, ToastViewport, useToastProvider } from '../index.ts'
-import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
 import ToastSubscribeSuccess from './ToastSubscribeSuccess.vue'
+import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
+import './styles.css'
 
 const hasUpgrade = shallowRef(false)
 const isSubscribed = shallowRef(false)

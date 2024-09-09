@@ -1,11 +1,18 @@
 import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import type { RovingFocusGroupRootProps } from '../roving-focus/RovingFocusGroupRoot.ts'
+import type { RovingFocusGroupRootEmits, RovingFocusGroupRootProps } from '../roving-focus/RovingFocusGroupRoot.ts'
 
 export interface ToolbarRootProps {
   orientation?: RovingFocusGroupRootProps['orientation']
   loop?: RovingFocusGroupRootProps['loop']
   dir?: RovingFocusGroupRootProps['dir']
+}
+
+// eslint-disable-next-line ts/consistent-type-definitions
+export type ToolbarRootEmits = {
+  mousedown: RovingFocusGroupRootEmits['mousedown']
+  focus: RovingFocusGroupRootEmits['focus']
+  focusout: RovingFocusGroupRootEmits['focusout']
 }
 
 export interface ToolbarContext {

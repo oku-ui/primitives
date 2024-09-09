@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import ScrollAreaStory from './ScrollAreaStory.vue'
 import Copy from './Copy.vue'
+import ScrollAreaStory from './ScrollAreaStory.vue'
 
 const verticalCount = shallowRef(1)
 const horizontalCount = shallowRef(1)

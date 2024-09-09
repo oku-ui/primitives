@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
 import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
+import './styles.css'
 </script>
 
 <template>

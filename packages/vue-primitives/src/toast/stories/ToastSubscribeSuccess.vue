@@ -9,7 +9,7 @@ import { ToastClose, ToastDescription, ToastRoot, ToastTitle } from '../index.ts
         Success!
       </ToastTitle>
       <ToastClose class="toast_closeClass" aria-label="Close">
-        <span aria-hidden>×</span>
+        <span aria-hidden="true">×</span>
       </ToastClose>
     </div>
     <ToastDescription class="toast_descriptionClass">

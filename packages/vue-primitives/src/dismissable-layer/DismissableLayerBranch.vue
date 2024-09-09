@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
+import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { useForwardElement } from '../hooks/index.ts'
 import { context } from './DismissableLayer.ts'
 
 defineOptions({
   name: 'DismissableLayerBranch',
 })
 
-const elRef = shallowRef<HTMLElement>()
+const elRef = useRef<HTMLElement>()
 const forwardElement = useForwardElement(elRef)
 
 onMounted(() => {
-  context.branches.add(elRef.value!)
+  context.branches.add(elRef.current!)
 })
 
 onBeforeUnmount(() => {
-  context.branches.delete(elRef.value!)
+  context.branches.delete(elRef.current!)
 })
 </script>
 

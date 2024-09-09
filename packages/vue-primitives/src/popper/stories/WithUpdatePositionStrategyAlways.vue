@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef, watchEffect } from 'vue'
-import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../index.ts'
 import { Portal } from '../../portal/index.ts'
+import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../index.ts'
 import Scrollable from './Scrollable.vue'
+import './styles.css'
 
 const open = shallowRef(false)
 const left = shallowRef(0)

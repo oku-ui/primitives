@@ -1,5 +1,5 @@
 import type { PopperContentProps } from '../popper/index.ts'
-import type { Point, Polygon } from './TooltipContentHoverable.ts'
+import type { Point, Polygon } from '../utils/isPointInPolygon.ts'
 
 type Side = NonNullable<PopperContentProps['side']>
 
@@ -65,27 +65,6 @@ export function getPointsFromRect(rect: DOMRect): Polygon {
     { x: right, y: bottom },
     { x: left, y: bottom },
   ]
-}
-
-// Determine if a point is inside of a polygon.
-// Based on https://github.com/substack/point-in-polygon
-export function isPointInPolygon(point: Point, polygon: Polygon) {
-  const { x, y } = point
-  let inside = false
-
-  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-    const xi = polygon[i]?.x ?? 0
-    const yi = polygon[i]?.y ?? 0
-    const xj = polygon[j]?.x ?? 0
-    const yj = polygon[j]?.y ?? 0
-
-    // prettier-ignore
-    const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
-    if (intersect)
-      inside = !inside
-  }
-
-  return inside
 }
 
 // Returns a new array of points representing the convex hull of the given set of points.

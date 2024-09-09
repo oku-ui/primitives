@@ -3,8 +3,8 @@ import { shallowRef } from 'vue'
 import { useControllableState, useForwardElement } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import type { SwipeEvent, ToastRootEmits, ToastRootProps } from './ToastRoot.ts'
 import ToastRootImpl from './ToastRootImpl.vue'
+import type { SwipeEvent, ToastRootEmits, ToastRootProps } from './ToastRoot.ts'
 
 defineOptions({
   name: 'ToastRoot',

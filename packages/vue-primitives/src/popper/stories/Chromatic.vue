@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
-import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../index.ts'
 import { Portal } from '../../portal/index.ts'
+import { PopperAnchor, PopperArrow, PopperContent, PopperRoot } from '../index.ts'
+import './styles.css'
 
 const scrollContainer1 = shallowRef<HTMLDivElement>()
 const scrollContainer2 = shallowRef<HTMLDivElement>()

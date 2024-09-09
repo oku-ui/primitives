@@ -1,29 +1,55 @@
 <script setup lang="ts">
+import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import type { ToolbarButtonProps } from './ToolbarButton.ts'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
+import type { ToolbarButtonEmits, ToolbarButtonProps } from './ToolbarButton.ts'
 
 defineOptions({
   name: 'ToolbarButton',
-  inheritAttrs: false,
 })
 
-withDefaults(defineProps<ToolbarButtonProps>(), {
+const props = withDefaults(defineProps<ToolbarButtonProps>(), {
   as: 'button',
+  disabled: undefined,
+})
+
+const emit = defineEmits<ToolbarButtonEmits>()
+
+const rovingFocusGroupItem = useRovingFocusGroupItem({
+  focusable() {
+    return !props.disabled
+  },
+}, {
+  onMousedown(event) {
+    emit('mousedown', event)
+  },
+  onKeydown(event) {
+    emit('keydown', event)
+  },
+  onFocus(event) {
+    emit('focus', event)
+  },
+})
+
+const forwardElement = useComposedElements((v) => {
+  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData)
 })
 </script>
 
 <template>
-  <RovingFocusGroupItem
-    as="template"
-    :focusable="!disabled"
+  <Primitive
+    :ref="forwardElement"
+    :as="as"
+    type="button"
+    :disabled="disabled"
+    :tabindex="rovingFocusGroupItem.tabindex()"
+    :data-orientation="rovingFocusGroupItem.orientation()"
+    :[ITEM_DATA_ATTR]="true"
+    @mousedown="rovingFocusGroupItem.onMousedown"
+    @focus="rovingFocusGroupItem.onFocus"
+    @keydown="rovingFocusGroupItem.onKeydown"
   >
-    <Primitive
-      :as="as"
-      type="button"
-      v-bind="$attrs"
-    >
-      <slot />
-    </Primitive>
-  </RovingFocusGroupItem>
+    <slot />
+  </Primitive>
 </template>

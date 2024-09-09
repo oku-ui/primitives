@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { ITEM_DATA_ATTR } from '../index.ts'
+import Item from './item.vue'
 import List from './List.vue'
 import LogItems from './LogItems.vue'
-import Item from './item.vue'
 import Tomato from './Tomato.vue'
 
 const hasTomato = shallowRef(false)

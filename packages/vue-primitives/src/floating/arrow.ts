@@ -1,7 +1,7 @@
 import {
+  arrow as arrowCore,
   type Middleware,
   type Padding,
-  arrow as arrowCore,
 } from '@floating-ui/dom'
 
 import { type MaybeRefOrGetter, toValue } from 'vue'

@@ -3,8 +3,8 @@ import { computed, shallowRef } from 'vue'
 import { useControllableState, useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { type ClickEvent, type SwitchRootEmits, type SwitchRootProps, getState, provideSwitchContext } from './SwitchRoot.ts'
 import BubbleInput from './BubbleInput.vue'
+import { getState, provideSwitchContext, type SwitchRootEmits, type SwitchRootProps } from './SwitchRoot.ts'
 
 defineOptions({
   name: 'SwitchRoot',
@@ -35,23 +35,13 @@ provideSwitchContext({
   },
 })
 
-const onClick = composeEventHandlers<ClickEvent>((event) => {
-  event._stopPropagation = event.stopPropagation
-  event._isPropagationStopped = false
-  event.stopPropagation = function stopPropagation() {
-    this._isPropagationStopped = true
-    event._stopPropagation()
-  }
-  event.isPropagationStopped = function isPropagationStopped() {
-    return this._isPropagationStopped
-  }
-
+const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
 }, (event) => {
   checked.value = !checked.value
 
   if (isFormControl.value) {
-    hasConsumerStoppedPropagation.value = event.isPropagationStopped()
+    hasConsumerStoppedPropagation.value = event.cancelBubble
     // if switch is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
     // form validation works and form events reflect switch updates.
@@ -91,11 +81,5 @@ defineExpose({
     :checked="checked"
     :required="required"
     :disabled="disabled"
-    :style="{
-      // We transform because the input is absolutely positioned but we have
-      // rendered it **after** the button. This pulls it back to sit on top
-      // of the button.
-      transform: 'translateX(-100%)',
-    }"
   />
 </template>

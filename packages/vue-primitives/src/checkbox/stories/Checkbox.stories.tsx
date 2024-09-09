@@ -1,9 +1,9 @@
-import CStyled from './Styled.vue'
-import CControlled from './Controlled.vue'
-import CIndeterminate from './Indeterminate.vue'
-import CWithinForm from './WithinForm.vue'
 import CAnimated from './Animated.vue'
 import CChromatic from './Chromatic.vue'
+import CControlled from './Controlled.vue'
+import CIndeterminate from './Indeterminate.vue'
+import CStyled from './Styled.vue'
+import CWithinForm from './WithinForm.vue'
 
 export default { title: 'Components/Checkbox' }
 

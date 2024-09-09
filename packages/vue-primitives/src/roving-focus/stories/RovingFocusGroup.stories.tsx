@@ -1,6 +1,6 @@
 import CBasic from './Basic.vue'
-import CNested from './Nested.vue'
 import CEdgeCases from './EdgeCases.vue'
+import CNested from './Nested.vue'
 
 export default { title: 'Utilities/RovingFocusGroup' }
 

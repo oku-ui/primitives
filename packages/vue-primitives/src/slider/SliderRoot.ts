@@ -1,8 +1,8 @@
 import type { HTMLAttributes, Ref } from 'vue'
-import { createContext } from '../hooks/index.ts'
+import { createCollection } from '../collection/Collection.ts'
+import { createContext, type MutableRefObject } from '../hooks/index.ts'
 import type { Direction } from '../direction/index.ts'
 import type { PrimitiveProps } from '../primitive/Primitive.ts'
-import { createCollection } from '../collection/Collection.ts'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -46,7 +46,7 @@ export interface SliderContext {
   min: () => number
   max: () => number
   values: Ref<number[]>
-  valueIndexToChangeRef: { value: number }
+  valueIndexToChangeRef: MutableRefObject<number>
   thumbs: Set<HTMLElement>
   orientation: () => SliderRootProps['orientation']
 }

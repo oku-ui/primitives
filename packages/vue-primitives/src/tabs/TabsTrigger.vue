@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue'
+import { computed } from 'vue'
+import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { RovingFocusGroupItem } from '../roving-focus/index.ts'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { useForwardElement } from '../hooks/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 import type { TabsTriggerEmits, TabsTriggerProps } from './TabsTrigger.ts'
 
 defineOptions({
   name: 'TabsTrigger',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), {
@@ -18,8 +18,6 @@ const props = withDefaults(defineProps<TabsTriggerProps>(), {
   disabled: undefined,
 })
 const emit = defineEmits<TabsTriggerEmits>()
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
 
 const context = useTabsContext('TabsTrigger')
 const triggerId = computed(() => makeTriggerId(context.baseId, props.value))
@@ -58,34 +56,43 @@ const onFocus = composeEventHandlers<FocusEvent>((event) => {
   }
 })
 
-defineExpose({
-  $el,
+const rovingFocusGroupItem = useRovingFocusGroupItem({
+  focusable() {
+    return !props.disabled
+  },
+  active() {
+    return isSelected.value
+  },
+}, {
+  onMousedown,
+  onKeydown,
+  onFocus,
+})
+
+const forwardElement = useComposedElements((v) => {
+  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData)
 })
 </script>
 
 <template>
-  <RovingFocusGroupItem
-    as="template"
-    :focusable="!disabled"
-    :active="isSelected"
+  <Primitive
+    :id="triggerId"
+    :ref="forwardElement"
+    :as="as"
+    :tabindex="rovingFocusGroupItem.tabindex()"
+    :data-orientation="rovingFocusGroupItem.orientation()"
+    :[ITEM_DATA_ATTR]="true"
+    type="button"
+    role="tab"
+    :aria-selected="isSelected"
+    :aria-controls="contentId"
+    :data-state="isSelected ? 'active' : 'inactive'"
+    :data-disabled="disabled"
+    :disabled="disabled"
+    @mousedown="rovingFocusGroupItem.onMousedown"
+    @keydown="rovingFocusGroupItem.onKeydown"
+    @focus="rovingFocusGroupItem.onFocus"
   >
-    <Primitive
-      :id="triggerId"
-      :ref="forwardElement"
-      :as="as"
-      v-bind="$attrs"
-      type="button"
-      role="tab"
-      :aria-selected="isSelected"
-      :aria-controls="contentId"
-      :data-state="isSelected ? 'active' : 'inactive'"
-      :data-disabled="disabled"
-      :disabled="disabled"
-      @mousedown="onMousedown"
-      @keydown="onKeydown"
-      @focus="onFocus"
-    >
-      <slot />
-    </Primitive>
-  </RovingFocusGroupItem>
+    <slot />
+  </Primitive>
 </template>

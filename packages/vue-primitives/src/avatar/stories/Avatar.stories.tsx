@@ -1,5 +1,5 @@
-import CStyled from './Styled.vue'
 import CChromatic from './Chromatic.vue'
+import CStyled from './Styled.vue'
 
 export default { title: 'Components/Avatar' }
 

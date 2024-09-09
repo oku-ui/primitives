@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import './styles.css'
-import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from '../index.ts'
 import { DialogClose, DialogContent, DialogRoot, DialogTitle, DialogTrigger } from '../../dialog/index.ts'
+import { HoverCardArrow, HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from '../index.ts'
 import CardContentPlaceholder from './CardContentPlaceholder.vue'
+import './styles.css'
 </script>
 
 <template>

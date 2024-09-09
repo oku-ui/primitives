@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { useDirection } from '../direction/index.ts'
+import { useForwardElement } from '../hooks/index.ts'
+import { useRef } from '../hooks/useRef.ts'
 import { Primitive } from '../primitive/index.ts'
-import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type ToolbarRootProps, provideToolbarContext } from './ToolbarRoot.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { provideToolbarContext, type ToolbarRootEmits, type ToolbarRootProps } from './ToolbarRoot.ts'
 
 defineOptions({
   name: 'ToolbarRoot',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ToolbarRootProps>(), {
   orientation: 'horizontal',
   loop: true,
 })
+
+const emit = defineEmits<ToolbarRootEmits>()
+const elRef = useRef<HTMLElement>()
+const forwardElement = useForwardElement(elRef)
 
 const direction = useDirection(() => props.dir)
 
@@ -22,22 +27,44 @@ provideToolbarContext({
   },
   dir: direction,
 })
+
+const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
+  currentTabStopId() {
+    return undefined
+  },
+  orientation() {
+    return props.orientation
+  },
+  loop() {
+    return props.loop
+  },
+  dir: direction,
+}, {
+  onMousedown(event) {
+    emit('mousedown', event)
+  },
+  onFocus(event) {
+    emit('focus', event)
+  },
+  onFocusout(event) {
+    emit('focusout', event)
+  },
+})
 </script>
 
 <template>
-  <RovingFocusGroupRoot
-    as="template"
-    :orientation="orientation"
+  <Primitive
+    :ref="forwardElement"
+    :tabindex="rovingFocusGroupRoot.tabindex()"
+    :data-orientation="orientation"
     :dir="direction"
-    :loop="loop"
+    style="outline: none;"
+    role="toolbar"
+    :aria-orientation="orientation"
+    @mousedown="rovingFocusGroupRoot.onMousedown"
+    @focus="rovingFocusGroupRoot.onFocus"
+    @focusout="rovingFocusGroupRoot.onFocusout"
   >
-    <Primitive
-      role="toolbar"
-      :aria-orientation="orientation"
-      :dir="direction"
-      v-bind="$attrs"
-    >
-      <slot />
-    </Primitive>
-  </RovingFocusGroupRoot>
+    <slot />
+  </Primitive>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { PopoverAnchor, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
 import './styles.css'
-import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
 </script>
 
 <template>
@@ -17,23 +17,22 @@ import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPorta
           backgroundColor: '#eee',
         }"
       >
-        Item  <PopoverTrigger class="popover_triggerClass">
+        <PopoverTrigger class="popover_triggerClass">
           open
         </PopoverTrigger>
+        Item
       </PopoverAnchor>
 
       <PopoverPortal>
         <PopoverContent
           class="popover_contentClass"
           side="right"
-          :side-offset="1"
           align="start"
           :style="{ borderRadius: 0, width: '200px', height: '100px' }"
         >
           <PopoverClose class="popover_closeClass">
             close
           </PopoverClose>
-          <PopoverArrow class="popover_arrowClass" :width="20" :height="10" />
         </PopoverContent>
       </PopoverPortal>
     </PopoverRoot>

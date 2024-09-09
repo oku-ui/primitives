@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { computed, onWatcherCleanup, shallowRef, toValue, watch, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
-import { composeEventHandlers } from '../utils/vue.ts'
-import { Primitive } from '../primitive/index.ts'
-import { DismissableLayer } from '../dismissable-layer/index.ts'
-import { Portal } from '../portal/index.ts'
-import { useForwardElement } from '../hooks/index.ts'
+import { computed, onBeforeUnmount, onWatcherCleanup, shallowRef, toValue, watch, watchEffect } from 'vue'
 import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
-import { type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, provideToastInteractiveContext } from './ToastRoot.ts'
+import { useDismissableLayer } from '../dismissable-layer/index.ts'
+import { useForwardElement } from '../hooks/index.ts'
+import { Portal } from '../portal/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { useToastProviderContext } from './index.ts'
+import ToastAnnounce from './ToastAnnounce.vue'
+import { provideToastInteractiveContext, type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START } from './ToastRoot.ts'
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport.ts'
 import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection, useNextFrame } from './utils.ts'
-import ToastAnnounce from './ToastAnnounce.vue'
-import { Collection } from './collection.ts'
 import type { ToastRootImplEmits, ToastRootImplProps } from './ToastRootImpl.ts'
 
 defineOptions({
@@ -28,8 +27,6 @@ const emit = defineEmits<ToastRootImplEmits>()
 
 const $el = shallowRef<HTMLLIElement>()
 const forwardElement = useForwardElement($el)
-
-Collection.useCollectionItem($el, undefined)
 
 const context = useToastProviderContext('ToastRootImpl')
 
@@ -117,7 +114,7 @@ const renderAnnounceText = shallowRef(false)
 const isAnnounced = shallowRef(false)
 // let timerIsAnnounced: number | undefined
 
-// render text content in the next frame to ensure toast is announced in NVDA
+// TODO: render text content in the next frame to ensure toast is announced in NVDA
 // let cliear: () => void
 
 // if (!context.viewport)
@@ -207,6 +204,8 @@ const onPointermove = composeEventHandlers<PointerEvent>((event) => {
   }
 })
 
+let clearOnClick: (() => void) | undefined
+
 const onPointerup = composeEventHandlers<PointerEvent>((event) => {
   emit('pointerup', event)
 }, (event) => {
@@ -231,7 +230,18 @@ const onPointerup = composeEventHandlers<PointerEvent>((event) => {
   }
   // Prevent click event from triggering on items within the toast when
   // pointer up is part of a swipe gesture
-  toast?.addEventListener('click', event => event.preventDefault(), { once: true })
+  const onClick = (event: Event) => {
+    event.preventDefault()
+  }
+  clearOnClick?.()
+  toast?.addEventListener('click', onClick, { once: true })
+  clearOnClick = () => {
+    toast?.removeEventListener('click', onClick)
+  }
+})
+
+onBeforeUnmount(() => {
+  clearOnClick?.()
 })
 
 // ToastAnnounce
@@ -248,6 +258,20 @@ provideToastInteractiveContext({
   onClose: handleClose,
 })
 
+// DismissableLayer
+
+const dismissableLayer = useDismissableLayer(
+  $el,
+  {
+    disableOutsidePointerEvents() {
+      return false
+    },
+  },
+  {
+    onEscapeKeydown,
+  },
+)
+
 defineExpose({
   $el,
 })
@@ -263,27 +287,36 @@ defineExpose({
     </ToastAnnounce>
 
     <Portal :to="context.viewport.value">
-      <DismissableLayer as="template" @escape-keydown="onEscapeKeydown">
-        <Primitive
-          :ref="forwardElement"
-          :as="as"
-          role="status"
-          aria-live="off"
-          aria-atomic
-          tabindex="0"
-          :data-state="open ? 'open' : 'closed'"
-          :data-swipe-direction="context.swipeDirection.value"
-          v-bind="$attrs"
-          style="user-select: none; touch-action: none;"
-          :[ITEM_DATA_ATTR]="true"
-          @keydown="onKeydown"
-          @pointerdown="onPointerdown"
-          @pointermove="onPointermove"
-          @pointerup="onPointerup"
-        >
-          <slot />
-        </Primitive>
-      </DismissableLayer>
+      <Primitive
+        :ref="forwardElement"
+        :as="as"
+
+        data-dismissable-layer
+
+        role="status"
+        aria-live="off"
+        aria-atomic
+        tabindex="0"
+        :data-state="open ? 'open' : 'closed'"
+        :data-swipe-direction="context.swipeDirection.value"
+        v-bind="$attrs"
+        :style="{
+          pointerEvents: dismissableLayer.pointerEvents(),
+          userSelect: 'none',
+          touchAction: 'none',
+        }"
+        :[ITEM_DATA_ATTR]="true"
+        @keydown="onKeydown"
+        @pointerdown="onPointerdown"
+        @pointermove="onPointermove"
+        @pointerup="onPointerup"
+
+        @focus.capture="dismissableLayer.onFocusCapture"
+        @blur.capture="dismissableLayer.onBlurCapture"
+        @pointerdown.capture="dismissableLayer.onPointerdownCapture"
+      >
+        <slot />
+      </Primitive>
     </Portal>
   </template>
 </template>

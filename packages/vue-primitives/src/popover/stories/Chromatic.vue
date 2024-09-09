@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
-import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
 import { ALIGN_OPTIONS, SIDE_OPTIONS } from '../../popper/PopperContent.ts'
+import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
+import './styles.css'
 
 const SIDES = SIDE_OPTIONS.filter(side => side !== 'bottom').concat(['bottom'] as any)
 

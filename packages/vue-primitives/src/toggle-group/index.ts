@@ -1,12 +1,12 @@
-export { default as ToggleGroupRoot } from './ToggleGroupRoot.vue'
+export type { ToggleGroupItemProps } from './ToggleGroupItem.ts'
 export { default as ToggleGroupItem } from './ToggleGroupItem.vue'
 
 export {
-  type ToggleGroupType,
-  type ToggleGroupProps,
-  type ToggleGroupEmits,
-  type ToggleGroupContext,
   provideToggleGroupContext,
+  type ToggleGroupContext,
+  type ToggleGroupEmits,
+  type ToggleGroupProps,
+  type ToggleGroupType,
   useToggleGroupContext,
 } from './ToggleGroupRoot.ts'
-export type { ToggleGroupItemProps } from './ToggleGroupItem.ts'
+export { default as ToggleGroupRoot } from './ToggleGroupRoot.vue'

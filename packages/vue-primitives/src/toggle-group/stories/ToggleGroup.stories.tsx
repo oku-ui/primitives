@@ -1,7 +1,7 @@
+import CChromatic from './Chromatic.vue'
+import CMultiple from './Multiple.vue'
 import CSingle from './Single.vue'
 import CVertical from './Vertical.vue'
-import CMultiple from './Multiple.vue'
-import CChromatic from './Chromatic.vue'
 
 export default { title: 'Components/ToggleGroup' }
 

@@ -35,7 +35,7 @@ export interface TabsContext {
   value: Ref<string>
   onValueChange: (value: string) => void
   orientation: Required<TabsRootProps['orientation']>
-  dir: Ref<Required<TabsRootProps['dir']>>
+  dir: Ref<Exclude<TabsRootProps['dir'], undefined>>
   activationMode: Required<TabsRootProps['activationMode']>
 }
 

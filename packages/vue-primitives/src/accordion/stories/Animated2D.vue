@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
 import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
+import './styles.css'
 
 const values = ['One', 'Two', 'Three', 'Four']
 </script>

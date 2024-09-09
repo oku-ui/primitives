@@ -1,6 +1,6 @@
-import { type Component, type PropType, defineComponent, h, shallowRef } from 'vue'
-import { Slot } from '../slot/index.ts'
+import { type Component, defineComponent, h, type PropType, shallowRef } from 'vue'
 import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { Slot } from '../slot/index.ts'
 
 export type AsTag =
   | 'a'

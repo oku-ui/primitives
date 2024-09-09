@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
 import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogRoot, DialogTitle, DialogTrigger } from '../../dialog/index.ts'
 import { ToastAction, ToastDescription, ToastRoot, ToastViewport, useToastProvider } from '../index.ts'
+import './styles.css'
 
 const open = shallowRef(false)
 

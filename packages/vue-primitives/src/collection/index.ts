@@ -1,1 +1,1 @@
-export { ITEM_DATA_ATTR, createCollection, type CollectionContext } from './Collection.ts'
+export { type CollectionContext, createCollection, ITEM_DATA_ATTR } from './Collection.ts'

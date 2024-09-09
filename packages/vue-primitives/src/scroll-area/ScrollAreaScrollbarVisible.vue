@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
+import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
+import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import { useNodeEventListener } from '../utils/dom.ts'
-import { useForwardElement } from '../hooks/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
-import type { ScrollAreaScrollbarVisibleEmits, ScrollAreaScrollbarVisibleProps, Sizes } from './ScrollAreaScrollbarVisible.ts'
+import { provideScrollbarContext, type ScrollAreaThumbElement } from './ScrollAreaScrollbar.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
-import { type ScrollAreaThumbElement, provideScrollbarContext } from './ScrollAreaScrollbar.ts'
+import type { ScrollAreaScrollbarVisibleEmits, ScrollAreaScrollbarVisibleProps, Sizes } from './ScrollAreaScrollbarVisible.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarVisible',
@@ -151,16 +150,14 @@ function onImplWheelScroll(event: WheelEvent) {
   // AXIS::END
 }
 
-let clearDocumentWheel: () => void
-
 onMounted(() => {
-  clearDocumentWheel = useNodeEventListener(document, 'wheel', onImplWheelScroll, {
+  document.addEventListener('wheel', onImplWheelScroll, {
     passive: false,
   })
 })
 
 onBeforeUnmount(() => {
-  clearDocumentWheel?.()
+  document.removeEventListener('wheel', onImplWheelScroll)
 })
 
 /**

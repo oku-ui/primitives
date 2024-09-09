@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
+import Item from './item.vue'
 import List from './List.vue'
 import LogItems from './LogItems.vue'
-import Item from './item.vue'
 
 const isDisabled = shallowRef(false)
 

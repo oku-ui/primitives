@@ -1,17 +1,8 @@
-import type { DismissableLayerEmits, DismissableLayerProps } from '../dismissable-layer/index.ts'
-import type { FocusScopeProps } from '../focus-scope/FocusScope.ts'
+import type { DismissableLayerEmits } from '../dismissable-layer/index.ts'
 
 // export interface PopoverContentImplProps extends PopperContentProps, DismissableLayerProps
-export interface PopoverContentImplProps {
-  disableOutsidePointerEvents?: DismissableLayerProps['disableOutsidePointerEvents']
-  /**
-   * Whether focus should be trapped within the `MenuContent`
-   * @defaultValue false
-   */
-  trapFocus?: FocusScopeProps['trapped']
-}
 
-export type PopoverContentImplEmits = DismissableLayerEmits & {
+export type PopoverContentImplEmits = {
   /**
    * Event handler called when auto-focusing on open.
    * Can be prevented.
@@ -22,4 +13,4 @@ export type PopoverContentImplEmits = DismissableLayerEmits & {
    * Can be prevented.
    */
   closeAutoFocus: [event: Event]
-}
+} & Omit<DismissableLayerEmits, 'dismiss'>

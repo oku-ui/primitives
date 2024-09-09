@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import ButtonGroup from './ButtonGroup.vue'
 import Button from './Button.vue'
+import ButtonGroup from './ButtonGroup.vue'
 
 const dir = shallowRef<'ltr' | 'rtl'>('ltr')
 

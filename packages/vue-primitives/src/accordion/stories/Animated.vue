@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { onWatcherCleanup, shallowRef, watch } from 'vue'
 import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
+import './styles.css'
 
 const values = ['One', 'Two', 'Three', 'Four']
 const count = shallowRef(1)

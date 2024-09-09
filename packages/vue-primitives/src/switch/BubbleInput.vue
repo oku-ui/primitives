@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, watch } from 'vue'
+import { watch } from 'vue'
 import { useSize } from '../hooks/index.ts'
 import type { BubbleInputProps } from './BubbleInput.ts'
 
@@ -12,7 +12,10 @@ const props = withDefaults(defineProps<BubbleInputProps>(), {
   control: undefined,
   bubbles: true,
 })
-const elRef = shallowRef<HTMLInputElement>()
+let input: HTMLInputElement | undefined
+function setElRef(vNode: any) {
+  input = vNode
+}
 
 const controlSize = useSize(() => props.control)
 // TODO: Check if this is the correct way to create a change event
@@ -20,7 +23,6 @@ const controlSize = useSize(() => props.control)
 
 // Bubble checked change to parents (e.g form change event)
 watch(() => props.checked, (checked, prevChecked) => {
-  const input = elRef.value
   if (!input)
     return
 
@@ -39,9 +41,9 @@ watch(() => props.checked, (checked, prevChecked) => {
 
 <template>
   <input
-    ref="elRef"
+    :ref="setElRef"
     type="checkbox"
-    aria-hidden
+    aria-hidden="true"
     tabindex="-1"
     :checked="checked"
     :style="{
@@ -51,6 +53,10 @@ watch(() => props.checked, (checked, prevChecked) => {
       pointerEvents: 'none',
       opacity: 0,
       margin: 0,
+      // We transform because the input is absolutely positioned but we have
+      // rendered it **after** the button. This pulls it back to sit on top
+      // of the button.
+      transform: 'translateX(-100%)',
     }"
   >
 </template>

@@ -1,6 +1,6 @@
-import CStyled from './Styled.vue'
-import CCustomRatios from './CustomRatios.vue'
 import CChromatic from './Chromatic.vue'
+import CCustomRatios from './CustomRatios.vue'
+import CStyled from './Styled.vue'
 
 export default { title: 'Components/AspectRatio' }
 

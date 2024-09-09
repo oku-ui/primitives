@@ -1,12 +1,12 @@
-import process from 'node:process'
-
 import fs from 'node:fs'
+
 import path from 'node:path'
+import process from 'node:process'
 // import { externalizeDeps } from 'vite-plugin-externalize-deps'
 
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 // Функция для рекурсивного поиска всех файлов index.ts в папке src

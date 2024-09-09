@@ -1,6 +1,6 @@
-import CStyled from './Styled.vue'
-import CCustomSizes from './CustomSizes.vue'
 import CCustomArrow from './CustomArrow.vue'
+import CCustomSizes from './CustomSizes.vue'
+import CStyled from './Styled.vue'
 
 export default { title: 'Utilities/Arrow' }
 

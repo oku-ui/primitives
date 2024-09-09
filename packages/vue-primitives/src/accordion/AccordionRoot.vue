@@ -3,8 +3,8 @@ import { computed } from 'vue'
 import { useDirection } from '../direction/Direction.ts'
 import { useControllableState, useForwardElement, useId, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
 import { arrayify } from '../utils/array.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { ACCORDION_KEYS, type AccordionRootEmits, type AccordionRootProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './AccordionRoot.ts'
 
 type SingleValue = Exclude<AccordionRootProps<'single'>['value'], undefined>
@@ -34,13 +34,17 @@ const collectionContext = Collection.provideCollectionContext($el)
 const getItems = useCollection(collectionContext)
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  if (props.disabled)
+    return
   emit('keydown', event)
 }, (event) => {
+  if (props.disabled)
+    return
   if (!ACCORDION_KEYS.includes(event.key))
     return
   const target = event.target as HTMLElement
-  const triggerCollection = getItems().filter(item => !item.ref.disabled)
-  const triggerIndex = triggerCollection.findIndex(item => item.ref === target)
+  const triggerCollection = getItems().filter(item => !item.disabled)
+  const triggerIndex = triggerCollection.findIndex(item => item === target)
   const triggerCount = triggerCollection.length
 
   if (triggerIndex === -1)
@@ -107,7 +111,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   }
 
   const clampedIndex = nextIndex % triggerCount
-  triggerCollection[clampedIndex]?.ref.focus()
+  triggerCollection[clampedIndex]?.focus()
 })
 
 provideAccordionContext({
@@ -149,10 +153,7 @@ provideAccordionContext({
   <Primitive
     :ref="forwardElement"
     :data-orientation="orientation"
-    data-root
-    v-bind="{
-      onKeydown: props.disabled ? undefined : onKeydown,
-    }"
+    @keydown="onKeydown"
   >
     <slot />
   </Primitive>

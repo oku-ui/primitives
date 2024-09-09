@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, watch } from 'vue'
+import { watch } from 'vue'
 import type { BubbleInputProps } from './BubbleInput.ts'
 
 defineOptions({
@@ -7,13 +7,17 @@ defineOptions({
 })
 
 const props = defineProps<BubbleInputProps>()
-const elRef = shallowRef<HTMLInputElement>()
+
+let input: HTMLInputElement | undefined
+function setElRef(vNode: any) {
+  input = vNode
+}
+
 // TODO: Check if this is the correct way to create a change event
 // const initValue = props.value
 
 // Bubble checked change to parents (e.g form change event)
 watch(() => props.value, (value, prevValue) => {
-  const input = elRef.value
   if (!input)
     return
 
@@ -41,5 +45,5 @@ watch(() => props.value, (value, prevValue) => {
 </script>
 
 <template>
-  <input ref="elRef" :name="name" type="number" :style="{ display: 'none' }" :value="value">
+  <input :ref="setElRef" :name="name" type="number" style="display: none" :value="value">
 </template>

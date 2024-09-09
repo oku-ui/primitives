@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { PopperAnchor } from '../popper/index.ts'
+import { onMounted, shallowRef } from 'vue'
+import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
-import type { HoverCardTriggerEmits, HoverCardTriggerProps } from './HoverCardTrigger.ts'
 import { excludeTouch } from './utils.ts'
+import type { HoverCardTriggerEmits, HoverCardTriggerProps } from './HoverCardTrigger.ts'
 
 defineOptions({
   name: 'HoverCardTrigger',
-  inheritAttrs: false,
 })
 
-withDefaults(defineProps<HoverCardTriggerProps>(), {
+const props = withDefaults(defineProps<HoverCardTriggerProps>(), {
   as: 'a',
 })
 
@@ -39,20 +40,31 @@ const onBlur = composeEventHandlers<FocusEvent>((event) => {
 const onTouchstart = composeEventHandlers<TouchEvent>((event) => {
   emit('touchstart', event)
 }, event => event.preventDefault())
+
+// PopperAnchor
+
+const popperContext = usePopperContext('PopperAnchor')
+
+const $el = shallowRef<HTMLDivElement>()
+const forwardElement = useForwardElement($el)
+
+onMounted(() => {
+  popperContext.onAnchorChange(props.virtualRef?.current || $el.value)
+})
 </script>
 
 <template>
-  <PopperAnchor as="template">
-    <Primitive
-      :as="as" v-bind="$attrs"
-      :data-state="context.open.value ? 'open' : 'closed'"
-      @pointerenter="onPointerenter"
-      @pointerleave="onPointerleave"
-      @focus="onFocus"
-      @blur="onBlur"
-      @touchstart="onTouchstart"
-    >
-      <slot />
-    </Primitive>
-  </PopperAnchor>
+  <Primitive
+    v-if="!virtualRef"
+    :ref="forwardElement"
+    :as="as"
+    :data-state="context.open.value ? 'open' : 'closed'"
+    @pointerenter="onPointerenter"
+    @pointerleave="onPointerleave"
+    @focus="onFocus"
+    @blur="onBlur"
+    @touchstart="onTouchstart"
+  >
+    <slot />
+  </Primitive>
 </template>

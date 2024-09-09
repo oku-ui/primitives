@@ -1,31 +1,31 @@
-export { default as SliderRoot } from './SliderRoot.vue'
-export { default as SliderTrack } from './SliderTrack.vue'
-export { default as SliderRange } from './SliderRange.vue'
-export { default as SliderThumb } from './SliderThumb.vue'
-
 export {
-  type SliderOrientationContext,
   provideSliderOrientationContext,
+  type SliderOrientationContext,
   useSliderOrientationContext,
 } from './SliderOrientation.ts'
-
 export {
-  type SliderRootProps,
-  type SliderRootEmits,
-  type SliderContext,
+  type SliderRangeProps,
+} from './SliderRange.ts'
+export { default as SliderRange } from './SliderRange.vue'
+export {
   provideSliderContext,
+  type SliderContext,
+  type SliderRootEmits,
+  type SliderRootProps,
   useSliderContext,
 } from './SliderRoot.ts'
+
+export { default as SliderRoot } from './SliderRoot.vue'
+
+export {
+  type SliderThumbEmits,
+  type SliderThumbProps,
+} from './SliderThumb.ts'
+
+export { default as SliderThumb } from './SliderThumb.vue'
 
 export {
   type SliderTrackProps,
 } from './SliderTrack.ts'
 
-export {
-  type SliderRangeProps,
-} from './SliderRange.ts'
-
-export {
-  type SliderThumbProps,
-  type SliderThumbEmits,
-} from './SliderThumb.ts'
+export { default as SliderTrack } from './SliderTrack.vue'

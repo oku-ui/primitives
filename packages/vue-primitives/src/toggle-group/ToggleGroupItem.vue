@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import { Toggle } from '../toggle/index.ts'
-import type { ToggleGroupItemProps } from './ToggleGroupItem.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { useToggleGroupContext } from './ToggleGroupRoot.ts'
+import type { ToggleGroupItemEmits, ToggleGroupItemProps } from './ToggleGroupItem.ts'
 
 defineOptions({
   name: 'ToggleGroupItem',
@@ -11,8 +12,10 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
+  as: 'button',
   disabled: undefined,
 })
+const emit = defineEmits<ToggleGroupItemEmits>()
 
 const context = useToggleGroupContext('ToggleGroupItem')
 const pressed = computed(() => context.value.value?.includes(props.value))
@@ -30,45 +33,47 @@ const typeProps = computed(() => {
   return {}
 })
 
-function onUpdatePressed(pressed?: boolean) {
-  if (pressed) {
+const onClick = composeEventHandlers<MouseEvent>((event) => {
+  emit('click', event)
+}, () => {
+  if (props.disabled)
+    return
+
+  if (!pressed.value)
     context.onItemActivate(props.value)
-  }
-  else {
+  else
     context.onItemDeactivate(props.value)
-  }
-}
+})
 </script>
 
 <template>
   <RovingFocusGroupItem
     v-if="context.rovingFocus()"
-    as="template"
+    :as="as"
     :focusable="!disabled"
     :active="pressed"
-  >
-    <Toggle
-      v-bind="{
-        ...$attrs,
-        ...typeProps,
-      }"
-      :pressed="pressed"
-      :disabled="disabled"
-      @update:pressed="onUpdatePressed"
-    >
-      <slot />
-    </Toggle>
-  </RovingFocusGroupItem>
-  <Toggle
-    v-else
-    v-bind="{
-      ...$attrs,
-      ...typeProps,
-    }"
-    :pressed="pressed"
+    v-bind="{ ...$attrs, ...typeProps }"
+    type="button"
+    :aria-pressed="pressed"
+    :data-state="pressed ? 'on' : 'off'"
     :disabled="disabled"
-    @update:pressed="onUpdatePressed"
+    :data-disabled="disabled"
+    @click="onClick"
   >
     <slot />
-  </Toggle>
+  </RovingFocusGroupItem>
+  <Primitive
+    v-else
+    :as="as"
+    v-bind="{ ...$attrs, ...typeProps }"
+    type="button"
+    :aria-pressed="pressed"
+    :data-state="pressed ? 'on' : 'off'"
+    :disabled="disabled"
+    :data-disabled="disabled"
+    :pressed="pressed"
+    @click="onClick"
+  >
+    <slot />
+  </Primitive>
 </template>

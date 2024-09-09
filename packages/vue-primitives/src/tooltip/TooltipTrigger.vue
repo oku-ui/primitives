@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { onBeforeUnmount } from 'vue'
-import { PopperAnchor } from '../popper/index.ts'
-import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { onBeforeUnmount, onMounted } from 'vue'
 import { useForwardElement } from '../hooks/useForwardElement.ts'
+import { usePopperContext } from '../popper/index.ts'
+import { Primitive } from '../primitive/Primitive.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
-import type { TooltipTriggerEmits, TooltipTriggerProps } from './TooltipTrigger.ts'
 import { useTooltipContext } from './TooltipRoot.ts'
+import type { TooltipTriggerEmits, TooltipTriggerProps } from './TooltipTrigger.ts'
 
 defineOptions({
   name: 'TooltipTrigger',
-  inheritAttrs: false,
 })
 
-withDefaults(defineProps<TooltipTriggerProps>(), {
+const props = withDefaults(defineProps<TooltipTriggerProps>(), {
   as: 'button',
 })
 
@@ -77,28 +76,30 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
 }, context.onClose)
 
-defineExpose({
-  $el: context.trigger,
+// PopperAnchor
+
+const popperContext = usePopperContext('TooltipTrigger')
+
+onMounted(() => {
+  popperContext.onAnchorChange(props.virtualRef?.current || context.trigger.value)
 })
 </script>
 
 <template>
-  <PopperAnchor as="template">
-    <Primitive
-      :ref="forwardElement"
-      :as="as"
-      :aria-describedby="context.open.value ? context.contentId : undefined"
-      :data-state="context.stateAttribute()"
-      data-grace-area-trigger
-      v-bind="$attrs"
-      @pointermove="onPointermove"
-      @pointerleave="onPointerleave"
-      @pointerdown="onPointerdown"
-      @focus="onFocus"
-      @blur="onBlur"
-      @click="onClick"
-    >
-      <slot />
-    </Primitive>
-  </PopperAnchor>
+  <Primitive
+    v-if="!virtualRef"
+    :ref="forwardElement"
+    :as="as"
+    :aria-describedby="context.open.value ? context.contentId : undefined"
+    :data-state="context.stateAttribute()"
+    data-grace-area-trigger
+    @pointermove="onPointermove"
+    @pointerleave="onPointerleave"
+    @pointerdown="onPointerdown"
+    @focus="onFocus"
+    @blur="onBlur"
+    @click="onClick"
+  >
+    <slot />
+  </Primitive>
 </template>

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { type MutableRefObject, createContext } from '../hooks/index.ts'
+import { createContext, type MutableRefObject } from '../hooks/index.ts'
 
 export interface DialogRootProps {
   open?: boolean

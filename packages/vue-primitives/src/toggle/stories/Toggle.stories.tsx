@@ -1,6 +1,6 @@
-import CStyled from './Styled.vue'
-import CControlled from './Controlled.vue'
 import CChromatic from './Chromatic.vue'
+import CControlled from './Controlled.vue'
+import CStyled from './Styled.vue'
 
 export default { title: 'Components/Toggle' }
 

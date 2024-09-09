@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, shallowRef, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
-import { Primitive } from '../primitive/index.ts'
-import { useForwardElement, useSize } from '../hooks/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { computed, shallowRef, watchEffect } from 'vue'
 import { ITEM_DATA_ATTR } from '../collection/index.ts'
-import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
-import { Collection, useCollection, useSliderContext } from './SliderRoot.ts'
-import { useSliderOrientationContext } from './SliderOrientation.ts'
-import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
+import { useForwardElement, useSize } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { composeEventHandlers } from '../utils/vue.ts'
 import BubbleInput from './BubbleInput.vue'
+import { useSliderOrientationContext } from './SliderOrientation.ts'
+import { useCollection, useSliderContext } from './SliderRoot.ts'
+import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
+import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
 
 defineOptions({
   name: 'SliderThumb',
@@ -25,9 +25,7 @@ const forwardElement = useForwardElement($el)
 
 const getItems = useCollection()
 
-const index = computed(() => $el.value ? getItems().findIndex(item => item.ref === $el.value) : -1)
-
-Collection.useCollectionItem($el, undefined)
+const index = computed(() => $el.value ? getItems().findIndex(item => item === $el.value) : -1)
 
 const context = useSliderContext('SliderThumbImpl')
 const orientation = useSliderOrientationContext('SliderThumbImpl')
@@ -60,11 +58,7 @@ if (isClient) {
 const onFocus = composeEventHandlers<FocusEvent>((event) => {
   emit('focus', event)
 }, () => {
-  context.valueIndexToChangeRef.value = index.value
-})
-
-defineExpose({
-  $el,
+  context.valueIndexToChangeRef.current = index.value
 })
 </script>
 

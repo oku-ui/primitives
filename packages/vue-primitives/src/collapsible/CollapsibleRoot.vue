@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Primitive } from '../primitive/index.ts'
 import { useControllableState, useId } from '../hooks/index.ts'
-import { getState } from './utils.ts'
+import { Primitive } from '../primitive/index.ts'
 import { type CollapsibleRootEmits, type CollapsibleRootProps, provideCollapsibleContext } from './CollapsibleRoot.ts'
+import { getState } from './utils.ts'
 
 defineOptions({
   name: 'CollapsibleRoot',

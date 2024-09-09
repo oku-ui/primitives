@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { RovingFocusGroupItem } from '../roving-focus/index.ts'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import type { ToolbarLinkEmits, ToolbarLinkProps } from './ToolbarLink.ts'
 
 defineOptions({
   name: 'ToolbarLink',
-  inheritAttrs: false,
 })
 
 withDefaults(defineProps<ToolbarLinkProps>(), {
@@ -21,20 +22,36 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
     (event.currentTarget as HTMLElement).click()
   }
 })
+
+const rovingFocusGroupItem = useRovingFocusGroupItem({
+  focusable: true,
+}, {
+  onMousedown(event) {
+    emit('mousedown', event)
+  },
+  onKeydown,
+  onFocus(event) {
+    emit('focus', event)
+  },
+})
+
+const forwardElement = useComposedElements((v) => {
+  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData)
+})
 </script>
 
 <template>
-  <RovingFocusGroupItem
-    as="template"
-    focusable
+  <Primitive
+    :ref="forwardElement"
+    :as="as"
+    :tabindex="rovingFocusGroupItem.tabindex()"
+    :data-orientation="rovingFocusGroupItem.orientation()"
+    :[ITEM_DATA_ATTR]="true"
+
+    @mousedown="rovingFocusGroupItem.onMousedown"
+    @focus="rovingFocusGroupItem.onFocus"
+    @keydown="rovingFocusGroupItem.onKeydown"
   >
-    <Primitive
-      :as="as"
-      type="button"
-      v-bind="$attrs"
-      @keydown="onKeydown"
-    >
-      <slot />
-    </Primitive>
-  </RovingFocusGroupItem>
+    <slot />
+  </Primitive>
 </template>

@@ -12,6 +12,6 @@
   "dependencies": {
     "@perigee/vue-primitives": "workspace:*",
     "nuxt": "^3.13.1",
-    "vue": "^3.5.0"
+    "vue": "^3.5.3"
   }
 }

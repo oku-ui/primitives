@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import './styles.css'
-import { type UnwrapRef, shallowRef } from 'vue'
-import type { ToastProviderProps } from '../ToastProvider'
+import { shallowRef, type UnwrapRef } from 'vue'
 import { ToastClose, ToastDescription, ToastRoot, ToastViewport, useToastProvider } from '../index.ts'
+import type { ToastProviderProps } from '../ToastProvider'
+import './styles.css'
 
 type Directions = UnwrapRef<Required<ToastProviderProps>['swipeDirection']>
 

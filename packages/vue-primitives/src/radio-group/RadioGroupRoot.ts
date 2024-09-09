@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
+import type { RovingFocusGroupRootEmits, RovingFocusGroupRootProps } from '../roving-focus/index.ts'
 
 export interface RadioGroupRootProps {
   name?: string
@@ -16,6 +16,9 @@ export interface RadioGroupRootProps {
 // eslint-disable-next-line ts/consistent-type-definitions
 export type RadioGroupRootEmits = {
   'update:value': [value: string]
+  'mousedown': RovingFocusGroupRootEmits['mousedown']
+  'focus': RovingFocusGroupRootEmits['focus']
+  'focusout': RovingFocusGroupRootEmits['focusout']
 }
 
 export interface RadioGroupContext {

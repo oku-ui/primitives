@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './styles.css'
 import { ToggleGroupItem, ToggleGroupRoot } from '../index.ts'
+import './styles.css'
 </script>
 
 <template>

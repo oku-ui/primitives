@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import Item from './item.vue'
 import List from './List.vue'
 import LogItems from './LogItems.vue'
 import Tomato from './Tomato.vue'
-import Item from './item.vue'
 </script>
 
 <template>

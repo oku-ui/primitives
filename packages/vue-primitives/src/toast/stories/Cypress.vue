@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './styles.css'
 import { shallowRef } from 'vue'
-import { ToastClose, ToastDescription, ToastRoot, ToastViewport, useToastProvider } from '../index.ts'
+import { ToastAction, ToastClose, ToastDescription, ToastRoot, ToastTitle, ToastViewport, useToastProvider } from '../index.ts'
+import './styles.css'
 
 const count = shallowRef(0)
 

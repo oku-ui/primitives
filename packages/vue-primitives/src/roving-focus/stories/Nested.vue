@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ButtonGroup from './ButtonGroup.vue'
 import Button from './Button.vue'
+import ButtonGroup from './ButtonGroup.vue'
 </script>
 
 <template>

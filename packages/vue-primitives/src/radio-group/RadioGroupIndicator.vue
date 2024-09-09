@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { Primitive } from '../primitive/index.ts'
-import { usePresence } from '../presence/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
+import { usePresence } from '../presence/index.ts'
+import { Primitive } from '../primitive/index.ts'
 import { getState, useRadioContext } from './Radio.ts'
 import type { RadioGroupIndicatorProps } from './RadioGroupIndicator.ts'
 

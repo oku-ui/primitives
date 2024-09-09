@@ -1,4 +1,4 @@
-import { type MaybeRefOrGetter, computed, toValue } from 'vue'
+import { computed, type MaybeRefOrGetter, toValue } from 'vue'
 
 export type Direction = 'ltr' | 'rtl'
 

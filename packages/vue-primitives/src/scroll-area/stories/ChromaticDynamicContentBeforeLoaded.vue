@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, shallowRef } from 'vue'
-import ScrollAreaStory from './ScrollAreaStory.vue'
 import Copy from './Copy.vue'
+import ScrollAreaStory from './ScrollAreaStory.vue'
 
 const showContent = shallowRef(false)
 

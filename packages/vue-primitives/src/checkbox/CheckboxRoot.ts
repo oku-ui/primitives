@@ -12,13 +12,11 @@ export interface CheckboxRootProps {
   name?: string
 }
 
-export type ClickEvent = Event & { _stopPropagation: Event['stopPropagation'], _isPropagationStopped: boolean, isPropagationStopped: () => boolean }
-
 // eslint-disable-next-line ts/consistent-type-definitions
 export type CheckboxRootEmits = {
   'update:checked': [value: CheckedState]
   'keydown': [event: KeyboardEvent]
-  'click': [event: ClickEvent]
+  'click': [event: MouseEvent]
 }
 
 export type CheckedState = boolean | 'indeterminate'

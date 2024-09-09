@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
+import { shallowRef } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 

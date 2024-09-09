@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useControllableState, useId } from '../hooks/index.ts'
 import { useDirection } from '../direction/Direction.ts'
+import { useControllableState, useId } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { type TabsRootEmits, type TabsRootProps, provideTabsContext } from './TabsRoot.ts'
+import { provideTabsContext, type TabsRootEmits, type TabsRootProps } from './TabsRoot.ts'
 
 defineOptions({
   name: 'TabsRoot',

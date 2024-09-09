@@ -1,1 +1,1 @@
-export { type PrimitiveProps, Primitive } from './Primitive.ts'
+export { Primitive, type PrimitiveProps } from './Primitive.ts'

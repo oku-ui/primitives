@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import type { HoverCardContentEmits, HoverCardContentProps } from './HoverCardContent'
+import { composeEventHandlers } from '../utils/vue.ts'
 import HoverCardContentImpl from './HoverCardContentImpl.vue'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { excludeTouch } from './utils.ts'
+import type { HoverCardContentEmits, HoverCardContentProps } from './HoverCardContent'
 
 defineOptions({
   name: 'HoverCardContent',

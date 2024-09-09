@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { shallowRef, watchEffect } from 'vue'
 import { isClient } from '@vueuse/core'
+import { shallowRef, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import type { AvatarFallbackProps } from './AvatarFallback.ts'
 import { useAvatarContext } from './AvatarRoot.ts'
+import type { AvatarFallbackProps } from './AvatarFallback.ts'
 
 defineOptions({
   name: 'AvatarFallback',
