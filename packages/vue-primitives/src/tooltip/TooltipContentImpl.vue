@@ -84,7 +84,9 @@ defineExpose({
   <PopperContent
     :id="ariaLabel ? undefined : context.contentId"
     :ref="forwardElement"
+
     data-dismissable-layer
+
     :role="ariaLabel ? undefined : 'tooltip'"
     :data-state="context.stateAttribute()"
     :style="{

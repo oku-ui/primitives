@@ -1,6 +1,6 @@
 import { createContext, type MutableRefObject } from '../hooks/index.ts'
 
-export const ITEM_DATA_ATTR = 'data-radix-collection-item'
+export const DATA_COLLECTION_ITEM = 'data-radix-collection-item'
 
 type ItemElementWithData<E extends HTMLElement, D> = E & {
   $$rcid: D
@@ -42,7 +42,7 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
       if (!collectionNode)
         return []
 
-      const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`))
+      const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${DATA_COLLECTION_ITEM}]`))
 
       return orderedNodes as CollectionItem[]
     }

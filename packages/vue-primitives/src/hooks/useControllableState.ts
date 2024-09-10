@@ -57,17 +57,17 @@ export function useControllableState<P extends object, K extends keyof P, V = Ex
 }
 
 export function useControllableStateV2<T, V = Exclude<T, undefined>>(
-  prop: () => T,
+  prop?: () => T,
   onChange?: (value: V) => void,
   defaultValue?: V | undefined,
 ): Ref<V> {
   const getValue = (): V => {
-    return (isDef(prop())
-      ? prop()
+    return (isDef(prop?.())
+      ? prop?.()
       : defaultValue) as V
   }
 
-  if (isDef(prop())) {
+  if (isDef(prop?.())) {
     return computed<V>({
       get() {
         return getValue()

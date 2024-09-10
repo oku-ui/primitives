@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { isClient } from '@vueuse/core'
 import { computed, shallowRef, watchEffect } from 'vue'
-import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useForwardElement, useSize } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
@@ -82,7 +82,7 @@ const onFocus = composeEventHandlers<FocusEvent>((event) => {
       :data-orientation="context.orientation()"
       :data-disabled="context.disabled() ? '' : undefined"
       :tabindex="context.disabled() ? undefined : 0"
-      :[ITEM_DATA_ATTR]="true"
+      :[DATA_COLLECTION_ITEM]="true"
       v-bind="$attrs"
       :style="{
         /**

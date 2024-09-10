@@ -18,9 +18,7 @@ const forwardElement = useForwardElement(elRef)
 const dir = useDirection(() => props.dir)
 
 const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
-  currentTabStopId() {
-    return props.currentTabStopId
-  },
+  currentTabStopId: undefined,
   preventScrollOnEntryFocus: props.preventScrollOnEntryFocus,
   orientation() {
     return props.orientation
@@ -42,7 +40,7 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
   updateCurrentTabStopId(tabStopId) {
     emit('update:currentTabStopId', tabStopId)
   },
-  entryFocus(event: CustomEvent) {
+  onEntryFocus(event: CustomEvent) {
     emit('entryFocus', event)
   },
 })

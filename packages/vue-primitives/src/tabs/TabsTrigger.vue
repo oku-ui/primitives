@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
@@ -79,7 +79,11 @@ const forwardElement = useComposedElements((v) => {
     :id="triggerId"
     :ref="forwardElement"
     :as="as"
-    :[ITEM_DATA_ATTR]="true"
+    :[DATA_COLLECTION_ITEM]="true"
+
+    :tabindex="rovingFocusGroupItem.tabindex()"
+    :data-orientation="rovingFocusGroupItem.orientation()"
+
     type="button"
     role="tab"
     :aria-selected="isSelected"
@@ -87,9 +91,6 @@ const forwardElement = useComposedElements((v) => {
     :data-state="isSelected ? 'active' : 'inactive'"
     :data-disabled="disabled"
     :disabled="disabled"
-
-    :tabindex="rovingFocusGroupItem.tabindex()"
-    :data-orientation="rovingFocusGroupItem.orientation()"
 
     @mousedown="rovingFocusGroupItem.onMousedown"
     @focus="rovingFocusGroupItem.onFocus"

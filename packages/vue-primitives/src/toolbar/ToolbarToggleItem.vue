@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
 import { ToggleGroupItem } from '../toggle-group/index.ts'
@@ -32,12 +32,13 @@ const forwardElement = useComposedElements((v) => {
 <template>
   <ToggleGroupItem
     :ref="forwardElement"
-    :value="value"
-    type="button"
-    :[ITEM_DATA_ATTR]="true"
+    :[DATA_COLLECTION_ITEM]="true"
 
     :tabindex="rovingFocusGroupItem.tabindex()"
     :data-orientation="rovingFocusGroupItem.orientation()"
+
+    :value="value"
+    type="button"
 
     @mousedown="rovingFocusGroupItem.onMousedown"
     @focus="rovingFocusGroupItem.onFocus"

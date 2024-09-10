@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
-import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
@@ -132,7 +132,11 @@ defineExpose({
   <Primitive
     :ref="forwardElement"
     :as="as"
-    :[ITEM_DATA_ATTR]="true"
+    :[DATA_COLLECTION_ITEM]="true"
+
+    :tabindex="rovingFocusGroupItem.tabindex()"
+    :data-orientation="rovingFocusGroupItem.orientation()"
+
     type="button"
     role="radio"
     :aria-checked="checked"
@@ -142,14 +146,11 @@ defineExpose({
     :value="value"
     v-bind="$attrs"
 
-    :tabindex="rovingFocusGroupItem.tabindex()"
-    :data-orientation="rovingFocusGroupItem.orientation()"
-
-    @click="onClick"
-
     @mousedown="rovingFocusGroupItem.onMousedown"
     @focus="rovingFocusGroupItem.onFocus"
     @keydown="rovingFocusGroupItem.onKeydown"
+
+    @click="onClick"
   >
     <slot />
   </Primitive>

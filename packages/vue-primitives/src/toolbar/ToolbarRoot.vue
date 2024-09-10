@@ -28,9 +28,7 @@ provideToolbarContext({
 })
 
 const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
-  currentTabStopId() {
-    return undefined
-  },
+  currentTabStopId: undefined,
   orientation() {
     return props.orientation
   },
@@ -54,13 +52,14 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
 <template>
   <Primitive
     :ref="forwardElement"
-    role="toolbar"
-    :aria-orientation="orientation"
 
     :dir="direction"
     :tabindex="rovingFocusGroupRoot.tabindex()"
     :data-orientation="orientation"
     style="outline: none;"
+
+    role="toolbar"
+    :aria-orientation="orientation"
 
     @mousedown="rovingFocusGroupRoot.onMousedown"
     @focus="rovingFocusGroupRoot.onFocus"

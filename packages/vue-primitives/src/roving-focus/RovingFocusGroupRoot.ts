@@ -72,7 +72,7 @@ export interface RovingContext {
 export const [provideRovingFocusContext, useRovingFocusContext] = createContext<RovingContext>('RovingFocusGroup')
 
 export interface UseRovingFocusGroupRootProps {
-  currentTabStopId: () => string | undefined
+  currentTabStopId?: () => string | undefined
   defaultCurrentTabStopId?: string
   orientation: (() => Orientation)
   loop: (() => boolean)
@@ -86,7 +86,7 @@ export interface UseRovingFocusGroupRootEmits {
   onFocus?: (event: FocusEvent) => void
   onFocusout?: (event: FocusEvent) => void
   updateCurrentTabStopId?: (tabStopId: string) => void
-  entryFocus?: (event: CustomEvent) => void
+  onEntryFocus?: (event: CustomEvent) => void
 }
 
 export function useRovingFocusGroupRoot(
@@ -117,7 +117,7 @@ export function useRovingFocusGroupRoot(
     if (isKeyboardFocus && !isTabbingBackOut.value) {
       const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
       // event.currentTarget!.dispatchEvent(entryFocusEvent)
-      emits.entryFocus?.(entryFocusEvent)
+      emits.onEntryFocus?.(entryFocusEvent)
 
       if (!entryFocusEvent.defaultPrevented) {
         const items = getItems().filter(item => item.$$rcid.focusable)

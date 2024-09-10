@@ -111,6 +111,8 @@ const dismissableLayer = useDismissableLayer($el, {
     :id="context.contentId"
     :ref="forwardElement"
 
+    tabindex="-1"
+
     data-dismissable-layer
 
     :style="{ pointerEvents: dismissableLayer.pointerEvents() }"
@@ -119,13 +121,11 @@ const dismissableLayer = useDismissableLayer($el, {
     :aria-labelledby="context.titleId"
     :data-state="getState(context.open.value)"
 
-    tabindex="-1"
+    @keydown="focusScope.onKeydown"
 
     @focus.capture="dismissableLayer.onFocusCapture"
     @blur.capture="dismissableLayer.onBlurCapture"
     @pointerdown.capture="dismissableLayer.onPointerdownCapture"
-
-    @keydown="focusScope.onKeydown"
   >
     <slot />
   </Primitive>

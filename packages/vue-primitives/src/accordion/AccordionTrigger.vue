@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { useCollapsibleContext } from '../collapsible/index.ts'
-import { ITEM_DATA_ATTR } from '../collection/index.ts'
+import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
@@ -39,7 +39,7 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
     :as="as"
     :aria-disabled="(itemContext.open.value && !accordionContext.collapsible) || undefined"
     :data-orientation="accordionContext.orientation"
-    :[ITEM_DATA_ATTR]="true"
+    :[DATA_COLLECTION_ITEM]="true"
 
     type="button"
     :aria-controls="context.contentId"

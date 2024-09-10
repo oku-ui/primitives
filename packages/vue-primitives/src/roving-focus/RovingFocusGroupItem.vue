@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ITEM_DATA_ATTR } from '../collection/Collection.ts'
+import { DATA_COLLECTION_ITEM } from '../collection/Collection.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { type RovingFocusGroupItemEmits, type RovingFocusGroupItemProps, useRovingFocusGroupItem } from './RovingFocusGroupItem.ts'
@@ -36,7 +36,7 @@ const forwardElement = useComposedElements((v) => {
   <Primitive
     :ref="forwardElement"
     :as="as"
-    :[ITEM_DATA_ATTR]="true"
+    :[DATA_COLLECTION_ITEM]="true"
 
     :tabindex="rovingFocusGroupItem.tabindex()"
     :data-orientation="rovingFocusGroupItem.orientation()"
