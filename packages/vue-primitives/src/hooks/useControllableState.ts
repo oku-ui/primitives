@@ -81,21 +81,23 @@ export function useControllableStateV2<T, V = Exclude<T, undefined>>(
   const proxy = shallowRef<V>(getValue())
   let isUpdating = false
 
-  watch(
-    prop,
-    (v) => {
-      if (!isUpdating) {
-        isUpdating = true
-        ; (proxy as any).value = v
-        nextTick(() => isUpdating = false)
-      }
-    },
-  )
+  if (prop) {
+    watch(
+      prop,
+      (v) => {
+        if (!isUpdating) {
+          isUpdating = true
+          ; (proxy as any).value = v
+          nextTick(() => isUpdating = false)
+        }
+      },
+    )
+  }
 
   watch(
     proxy,
     (v) => {
-      if (!isUpdating && (v !== prop()))
+      if (!isUpdating && (v !== prop?.()))
         onChange?.(v)
     },
   )

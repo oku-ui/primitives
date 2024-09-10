@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { ITEM_DATA_ATTR } from '../index.ts'
+import { DATA_COLLECTION_ITEM } from '../index.ts'
 import Item from './item.vue'
 import List from './List.vue'
 import LogItems from './LogItems.vue'
@@ -13,7 +13,7 @@ function setHasTomato(value: boolean) {
 }
 
 function log() {
-  console.warn('Items:', Array.from(document.querySelectorAll(`[${ITEM_DATA_ATTR}]`)))
+  console.warn('Items:', Array.from(document.querySelectorAll(`[${DATA_COLLECTION_ITEM}]`)))
 }
 </script>
 

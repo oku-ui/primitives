@@ -1,7 +1,13 @@
 import type { IfAny } from '@vue/shared'
 import type { Ref } from 'vue'
 
-export interface MutableRefObject<T> { current: T }
+export interface MutableRefObject<T> {
+  current: T
+}
+
+export interface RefObject<T> {
+  readonly current: T | null
+}
 
 export function useRef<T>(value: T): Ref extends T
   ? T extends Ref

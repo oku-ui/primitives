@@ -2,7 +2,7 @@
 import { useAttrs } from 'vue'
 import { useComposedElements } from '../../hooks/useComposedElements.ts'
 import { isPropFalsy } from '../../utils/is.ts'
-import { ITEM_DATA_ATTR } from '../Collection.ts'
+import { DATA_COLLECTION_ITEM } from '../Collection.ts'
 import { Collection, type ItemData } from './utils.ts'
 
 const attrs = useAttrs()
@@ -19,7 +19,7 @@ const composedElements = useComposedElements((v) => {
     :style="{
       opacity: !isPropFalsy($attrs.disabled) ? 0.3 : undefined,
     }"
-    :[ITEM_DATA_ATTR]="true"
+    :[DATA_COLLECTION_ITEM]="true"
   >
     <slot />
   </li>
