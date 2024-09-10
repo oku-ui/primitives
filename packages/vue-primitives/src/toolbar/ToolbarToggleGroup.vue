@@ -7,7 +7,7 @@ defineOptions({
   name: 'ToolbarToggleGroup',
 })
 
-const props = withDefaults(defineProps<ToolbarToggleGroupProps<T>>(), {
+withDefaults(defineProps<ToolbarToggleGroupProps<T>>(), {
   loop: true,
 })
 const context = useToolbarContext('ToolbarToggleGroup')
@@ -15,7 +15,7 @@ const context = useToolbarContext('ToolbarToggleGroup')
 
 <template>
   <ToggleGroupRoot
-    :type="props.type"
+    :type="type"
     :loop="loop"
     :data-orientation="context.orientation()"
     :dir="context.dir.value"
