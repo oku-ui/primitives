@@ -90,10 +90,10 @@ const rovingFocusGroupItem = useRovingFocusGroupItem({
 
 const forwardElement = useComposedElements<HTMLButtonElement>((v) => {
   $el.value = v
-  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData)
+  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData, rovingFocusGroupItem.collectionKey)
 })
 
-// Radio
+// COMP::Radio
 const hasConsumerStoppedPropagation = shallowRef(false)
 // We set this to true by default so that events bubble to forms without JS (SSR)
 const isFormControl = computed(() => $el.value ? Boolean($el.value.closest('form')) : true)

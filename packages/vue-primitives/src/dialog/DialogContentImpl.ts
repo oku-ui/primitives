@@ -1,4 +1,4 @@
-import type { DismissableLayerEmits } from '../dismissable-layer'
+import type { DismissableLayerEmits } from '../dismissable-layer/index.ts'
 
 export type DialogContentImplEmits = {
   /**

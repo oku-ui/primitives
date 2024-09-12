@@ -41,8 +41,7 @@ const emit = defineEmits<PopperContentEmits>()
 
 const context = usePopperContext('PopperContent')
 
-const content = shallowRef<HTMLDivElement>()
-const forwardElement = useForwardElement(content)
+const forwardElement = useForwardElement(context.content)
 
 const arrow = shallowRef<HTMLSpanElement>()
 
@@ -145,7 +144,7 @@ watchEffect(() => {
 
 const contentZIndex = shallowRef('')
 
-watch(content, (contentVal) => {
+watch(context.content, (contentVal) => {
   if (contentVal) {
     contentZIndex.value = window.getComputedStyle(contentVal).zIndex
   }
@@ -165,10 +164,6 @@ provideContentContext({
   shouldHideArrow() {
     return middlewareData.value.arrow?.centerOffset !== 0
   },
-})
-
-defineExpose({
-  $el: content,
 })
 </script>
 

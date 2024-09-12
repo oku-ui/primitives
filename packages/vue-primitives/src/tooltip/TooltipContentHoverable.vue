@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, shallowRef, watchEffect } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { isPointInPolygon, type Polygon } from '../utils/isPointInPolygon.ts'
 import TooltipContentImpl from './TooltipContentImpl.vue'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
@@ -14,11 +14,9 @@ defineOptions({
 
 const context = useTooltipContext('TooltipContentHoverable')
 const providerContext = useTooltipProviderContext('TooltipContentHoverable')
+const popperContext = usePopperContext('TooltipContentHoverable')
 
 const pointerGraceArea = shallowRef<Polygon>()
-
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
 
 function handleRemoveGraceArea() {
   pointerGraceArea.value = undefined
@@ -43,7 +41,7 @@ onBeforeUnmount(() => {
 if (isClient) {
   watchEffect((onCleanup) => {
     const triggerVal = context.trigger.value
-    const contentVal = $el.value
+    const contentVal = popperContext.content.value
 
     if (!triggerVal || !contentVal)
       return
@@ -63,7 +61,7 @@ if (isClient) {
   function handleTrackPointerGrace(event: PointerEvent) {
     const target = event.target as HTMLElement
     const pointerPosition = { x: event.clientX, y: event.clientY }
-    const hasEnteredTarget = context.trigger.value?.contains(target) || $el.value?.contains(target)
+    const hasEnteredTarget = context.trigger.value?.contains(target) || popperContext.content.value?.contains(target)
     const isPointerOutsideGraceArea = !isPointInPolygon(pointerPosition, pointerGraceArea.value!)
 
     if (hasEnteredTarget) {
@@ -86,14 +84,10 @@ if (isClient) {
     })
   })
 }
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
-  <TooltipContentImpl :ref="forwardElement">
+  <TooltipContentImpl>
     <slot />
   </TooltipContentImpl>
 </template>

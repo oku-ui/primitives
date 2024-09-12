@@ -1,3 +1,3 @@
 import { createCollection } from '../collection/index.ts'
 
-export const [Collection, useCollection] = createCollection<HTMLLIElement, undefined>('Toast')
+export const [Collection, useCollection] = createCollection<HTMLLIElement>('Toast')

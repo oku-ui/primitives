@@ -56,7 +56,7 @@ const onFocusOutside = composeEventHandlers<FocusOutsideEvent>((event) => {
   event.preventDefault()
 })
 
-// DialogContentImpl
+// COMP::DialogContentImpl
 
 // Make sure the whole tree has focus guards as our `Dialog` will be
 // the last element in the DOM (because of the `Portal`)
@@ -83,12 +83,6 @@ const dismissableLayer = useDismissableLayer($el, {
     return true
   },
 }, {
-  onPointerdownCapture(event) {
-    emit('pointerdownCapture', event)
-  },
-  onFocusCapture(event) {
-    emit('focusCapture', event)
-  },
   onInteractOutside(event) {
     emit('interactOutside', event)
   },
@@ -99,9 +93,6 @@ const dismissableLayer = useDismissableLayer($el, {
     context.onOpenChange(false)
   },
   onFocusOutside,
-  onBlurCapture(event) {
-    emit('blurCapture', event)
-  },
   onPointerdownOutside,
 })
 </script>
@@ -122,10 +113,6 @@ const dismissableLayer = useDismissableLayer($el, {
     :data-state="getState(context.open.value)"
 
     @keydown="focusScope.onKeydown"
-
-    @focus.capture="dismissableLayer.onFocusCapture"
-    @blur.capture="dismissableLayer.onBlurCapture"
-    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
   >
     <slot />
   </Primitive>

@@ -43,9 +43,9 @@ export type DismissableLayerEmits = {
    */
   dismiss: []
 
-  focusCapture: [event: FocusEvent]
-  blurCapture: [event: FocusEvent]
-  pointerdownCapture: [event: FocusEvent]
+  // focusCapture: [event: FocusEvent]
+  // blurCapture: [event: FocusEvent]
+  // pointerdownCapture: [event: FocusEvent]
 }
 
 export const context = {
@@ -65,9 +65,9 @@ export interface UseDismissableLayerEmits {
   onInteractOutside?: (event: PointerdownOutsideEvent | FocusOutsideEvent) => void
   onEscapeKeydown?: (event: KeyboardEvent) => void
   onDismiss?: () => void
-  onFocusCapture?: (event: FocusEvent) => void
-  onBlurCapture?: (event: FocusEvent) => void
-  onPointerdownCapture?: (event: FocusEvent) => void
+  // onFocusCapture?: (event: FocusEvent) => void
+  // onBlurCapture?: (event: FocusEvent) => void
+  // onPointerdownCapture?: (event: FocusEvent) => void
 }
 
 export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: UseDismissableLayerProps, emits: UseDismissableLayerEmits) {
@@ -85,7 +85,7 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
     return index.value >= highestLayerWithOutsidePointerEventsDisabledIndex
   })
 
-  const pointerdownOutside = usePointerdownOutside((event) => {
+  usePointerdownOutside((event) => {
     if (!isPointerEventsEnabled.value)
       return
 
@@ -102,7 +102,7 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
       emits.onDismiss?.()
   }, $el)
 
-  const focusOutside = useFocusOutside((event) => {
+  useFocusOutside((event) => {
     const target = event.target as HTMLElement
 
     const isFocusInBranch = [...context.branches].some(branch => branch.contains(target))
@@ -171,17 +171,17 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
     })
   })
 
-  const onFocusCapture = composeEventHandlers<FocusEvent>((event) => {
-    emits.onFocusCapture?.(event)
-  }, focusOutside.onFocusCapture)
+  // const onFocusCapture = composeEventHandlers<FocusEvent>((event) => {
+  //   emits.onFocusCapture?.(event)
+  // }, focusOutside.onFocusCapture)
 
-  const onBlurCapture = composeEventHandlers<FocusEvent>((event) => {
-    emits.onBlurCapture?.(event)
-  }, focusOutside.onBlurCapture)
+  // const onBlurCapture = composeEventHandlers<FocusEvent>((event) => {
+  //   emits.onBlurCapture?.(event)
+  // }, focusOutside.onBlurCapture)
 
-  const onPointerdownCapture = composeEventHandlers<FocusEvent>((event) => {
-    emits.onPointerdownCapture?.(event)
-  }, pointerdownOutside.onPointerdownCapture)
+  // const onPointerdownCapture = composeEventHandlers<FocusEvent>((event) => {
+  //   // emits.onPointerdownCapture?.(event)
+  // }, pointerdownOutside.onPointerdownCapture)
 
   return {
     pointerEvents() {
@@ -191,8 +191,8 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
           : 'none'
         : undefined
     },
-    onFocusCapture,
-    onBlurCapture,
-    onPointerdownCapture,
+    // onFocusCapture,
+    // onBlurCapture,
+    // onPointerdownCapture,
   }
 }

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { isClient } from '@vueuse/core'
-import { onBeforeUnmount, onMounted, shallowRef, watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted, watchEffect } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
-import { useForwardElement } from '../hooks/index.ts'
-import { PopperContent } from '../popper/index.ts'
+import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { provideTooltipContentContext, type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.ts'
 import { TOOLTIP_OPEN, useTooltipContext } from './TooltipRoot.ts'
 
@@ -14,10 +13,8 @@ defineOptions({
 const props = defineProps<TooltipContentImplProps>()
 const emit = defineEmits<TooltipContentImplEmits>()
 
-const $el = shallowRef<HTMLDivElement>()
-const forwardElement = useForwardElement($el)
-
 const context = useTooltipContext('TooltipContentImpl')
+const popperContext = usePopperContext('TooltipContentImpl')
 
 onMounted(() => {
   // Close this tooltip if another one opens
@@ -60,7 +57,7 @@ provideTooltipContentContext({
   },
 })
 
-const dismissableLayer = useDismissableLayer($el, {
+const dismissableLayer = useDismissableLayer(popperContext.content, {
   disableOutsidePointerEvents() {
     return false
   },
@@ -74,16 +71,11 @@ const dismissableLayer = useDismissableLayer($el, {
     emit('pointerdownOutside', event)
   },
 })
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
   <PopperContent
     :id="ariaLabel ? undefined : context.contentId"
-    :ref="forwardElement"
 
     data-dismissable-layer
 
@@ -97,10 +89,6 @@ defineExpose({
       '--radix-tooltip-trigger-width': 'var(--radix-popper-anchor-width)',
       '--radix-tooltip-trigger-height': 'var(--radix-popper-anchor-height)',
     }"
-
-    @focus.capture="dismissableLayer.onFocusCapture"
-    @blur.capture="dismissableLayer.onBlurCapture"
-    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
   >
     <slot />
   </PopperContent>

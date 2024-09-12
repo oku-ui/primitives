@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, shallowRef, watchEffect } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
-import { useForwardElement } from '../hooks/index.ts'
-import { PopperContent } from '../popper/index.ts'
+import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { getTabbableNodes } from './utils.ts'
@@ -15,8 +14,7 @@ defineOptions({
 const emit = defineEmits<HoverCardContentImplEmits>()
 
 const context = useHoverCardContext('HoverCardContentImpl')
-const $el = shallowRef<HTMLDivElement>()
-const forwardElement = useForwardElement($el)
+const popperContext = usePopperContext('HoverCardContentImpl')
 const containSelection = shallowRef(false)
 
 watchEffect((onCleanup) => {
@@ -48,12 +46,12 @@ function handlePointerUp() {
 }
 
 onMounted(() => {
-  if (!$el.value)
+  if (!popperContext.content.value)
     return
 
   document.addEventListener('pointerup', handlePointerUp)
 
-  const tabbables = getTabbableNodes($el.value)
+  const tabbables = getTabbableNodes(popperContext.content.value)
   for (const tabbable of tabbables) {
     tabbable.setAttribute('tabindex', '-1')
   }
@@ -82,7 +80,7 @@ const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
   context.isPointerDownOnContentRef.current = true
 })
 
-const dismissableLayer = useDismissableLayer($el, {
+const dismissableLayer = useDismissableLayer(popperContext.content, {
   disableOutsidePointerEvents() {
     return false
   },
@@ -99,10 +97,6 @@ const dismissableLayer = useDismissableLayer($el, {
     emit('pointerdownOutside', event)
   },
 })
-
-defineExpose({
-  $el,
-})
 </script>
 
 <script lang="ts">
@@ -111,8 +105,6 @@ let originalBodyUserSelect: string
 
 <template>
   <PopperContent
-    :ref="forwardElement"
-
     data-dismissable-layer
 
     :style="{
@@ -129,10 +121,6 @@ let originalBodyUserSelect: string
         '--radix-hover-card-trigger-height': 'var(--radix-popper-anchor-height)',
       },
     }"
-
-    @focus.capture="dismissableLayer.onFocusCapture"
-    @blur.capture="dismissableLayer.onBlurCapture"
-    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
 
     @pointerdown="onPointerdown"
   >

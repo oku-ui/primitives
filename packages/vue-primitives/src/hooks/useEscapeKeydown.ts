@@ -13,7 +13,7 @@ function cachedHandler(e: Event) {
 }
 
 export function useEscapeKeydown(handler: (e: KeyboardEvent) => void, ownerDocument: MaybeRefOrGetter<Document | undefined> = globalThis?.document) {
-  let document: Document
+  let document: Document | undefined
 
   onMounted(() => {
     if (registeredEscapeHandlers.length === 0) {
@@ -29,7 +29,7 @@ export function useEscapeKeydown(handler: (e: KeyboardEvent) => void, ownerDocum
     )
 
     if (registeredEscapeHandlers.length === 0) {
-      document.removeEventListener('keydown', cachedHandler)
+      document?.removeEventListener('keydown', cachedHandler)
     }
   })
 }

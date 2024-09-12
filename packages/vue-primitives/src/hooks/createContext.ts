@@ -9,14 +9,14 @@ import { inject, type InjectionKey, provide } from 'vue'
 export function createContext<T>(
   contextName: string,
   defaultValue?: T,
-): readonly [useProvidingState: (state: T) => void, useContext: (consumerName: string) => T] {
+): readonly [useProvidingState: (state: T) => void, useContext: (consumerName?: string) => T] {
   const key: string | InjectionKey<T> = Symbol(contextName)
 
   const provideContext = (state: T) => {
     provide(key, state)
   }
 
-  const useContext = (consumerName: string) => {
+  const useContext = (consumerName?: string) => {
     const state = inject(key, defaultValue)
 
     if (!state) {

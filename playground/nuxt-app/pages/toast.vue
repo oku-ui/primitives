@@ -1,11 +1,11 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/toast/stories/Styled.vue'
+import Animated from '../../../packages/vue-primitives/src/toast/stories/Animated.vue'
 import Controlled from '../../../packages/vue-primitives/src/toast/stories/Controlled.vue'
 import FromDialog from '../../../packages/vue-primitives/src/toast/stories/FromDialog.vue'
-import Promise from '../../../packages/vue-primitives/src/toast/stories/Promise.vue'
 import KeyChange from '../../../packages/vue-primitives/src/toast/stories/KeyChange.vue'
 import PauseResumeProps from '../../../packages/vue-primitives/src/toast/stories/PauseResumeProps.vue'
-import Animated from '../../../packages/vue-primitives/src/toast/stories/Animated.vue'
+import Promise from '../../../packages/vue-primitives/src/toast/stories/Promise.vue'
+import Styled from '../../../packages/vue-primitives/src/toast/stories/Styled.vue'
 // import Chromatic from '../../../packages/vue-primitives/src/toast/stories/Chromatic.vue'
 </script>
 

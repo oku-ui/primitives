@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ALIGN_OPTIONS, SIDE_OPTIONS } from '../../popper/PopperContent.ts'
+import { ALIGN_OPTIONS, SIDE_OPTIONS } from '../../popper/index.ts'
 import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from '../index.ts'
 import './styles.css'
 

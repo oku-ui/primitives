@@ -1,4 +1,4 @@
-import type { PopperContentProps } from '../popper/PopperContent.ts'
+import type { PopperContentProps } from '../popper/index.ts'
 
 export interface TooltipContentProps {
   /**

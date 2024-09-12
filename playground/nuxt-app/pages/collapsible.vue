@@ -1,9 +1,9 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/collapsible/stories/Styled.vue'
-import Controlled from '../../../packages/vue-primitives/src/collapsible/stories/Controlled.vue'
 import Animated from '../../../packages/vue-primitives/src/collapsible/stories/Animated.vue'
 import AnimatedHorizontal from '../../../packages/vue-primitives/src/collapsible/stories/AnimatedHorizontal.vue'
 import Chromatic from '../../../packages/vue-primitives/src/collapsible/stories/Chromatic.vue'
+import Controlled from '../../../packages/vue-primitives/src/collapsible/stories/Controlled.vue'
+import Styled from '../../../packages/vue-primitives/src/collapsible/stories/Styled.vue'
 </script>
 
 <template>

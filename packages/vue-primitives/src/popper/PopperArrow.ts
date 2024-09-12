@@ -1,4 +1,4 @@
-import type { ArrowProps } from '../arrow/Arrow.ts'
+import type { ArrowProps } from '../arrow/index.ts'
 import type { Side } from './PopperContent.ts'
 
 export interface PopperArrowProps extends ArrowProps {

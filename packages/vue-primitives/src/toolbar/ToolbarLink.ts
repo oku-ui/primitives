@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RovingFocusGroupItemEmits } from '../roving-focus/RovingFocusGroupItem.ts'
+import type { RovingFocusGroupItemEmits } from '../roving-focus/index.ts'
 
 export interface ToolbarLinkProps {
   as?: PrimitiveProps['as']

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Styled from '../../../packages/vue-primitives/src/tooltip/stories/Styled.vue'
+import Animated from '../../../packages/vue-primitives/src/tooltip/stories/Animated.vue'
+import AriaLabel from '../../../packages/vue-primitives/src/tooltip/stories/AriaLabel.vue'
 import Controlled from '../../../packages/vue-primitives/src/tooltip/stories/Controlled.vue'
 import CustomDurations from '../../../packages/vue-primitives/src/tooltip/stories/CustomDurations.vue'
-import Positions from '../../../packages/vue-primitives/src/tooltip/stories/Positions.vue'
-import Animated from '../../../packages/vue-primitives/src/tooltip/stories/Animated.vue'
 import KeepOpenOnActivation from '../../../packages/vue-primitives/src/tooltip/stories/KeepOpenOnActivation.vue'
-import AriaLabel from '../../../packages/vue-primitives/src/tooltip/stories/AriaLabel.vue'
+import Positions from '../../../packages/vue-primitives/src/tooltip/stories/Positions.vue'
+import Styled from '../../../packages/vue-primitives/src/tooltip/stories/Styled.vue'
 </script>
 
 <template>

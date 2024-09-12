@@ -15,8 +15,8 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   loop: true,
 })
 const emit = defineEmits<RadioGroupRootEmits>()
-const $el = useRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
+const elRef = useRef<HTMLElement>()
+const forwardElement = useForwardElement(elRef)
 
 const direction = useDirection(() => props.dir)
 
@@ -38,7 +38,7 @@ provideRadioGroupContext({
   },
 })
 
-const rovingFocusGroupRoot = useRovingFocusGroupRoot($el, {
+const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
   currentTabStopId: undefined,
   orientation() {
     return props.orientation

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, type PropType, watchEffect } from 'vue'
-import { useDirection } from '../direction/Direction.ts'
+import { useDirection } from '../direction/index.ts'
 import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { isNumber } from '../utils/is.ts'
@@ -189,7 +189,7 @@ provideSliderContext({
   },
 })
 
-// SliderOrientation
+// COMP::SliderOrientation
 
 const isHorisontal = () => props.orientation === 'horizontal'
 
@@ -273,7 +273,7 @@ const orientationContext = computed(() => {
 
 provideSliderOrientationContext(orientationContext)
 
-// SliderImpl
+// COMP::SliderImpl
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   if (props.disabled)

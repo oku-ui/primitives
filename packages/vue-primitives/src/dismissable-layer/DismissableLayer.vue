@@ -21,12 +21,6 @@ const dismissableLayer = useDismissableLayer($el, {
     return props.disableOutsidePointerEvents
   },
 }, {
-  onPointerdownCapture(event) {
-    emit('pointerdownCapture', event)
-  },
-  onFocusCapture(event) {
-    emit('focusCapture', event)
-  },
   onInteractOutside(event) {
     emit('interactOutside', event)
   },
@@ -39,9 +33,6 @@ const dismissableLayer = useDismissableLayer($el, {
   onFocusOutside(event) {
     emit('focusOutside', event)
   },
-  onBlurCapture(event) {
-    emit('blurCapture', event)
-  },
   onPointerdownOutside(event) {
     emit('pointerdownOutside', event)
   },
@@ -53,9 +44,6 @@ const dismissableLayer = useDismissableLayer($el, {
     :ref="forwardElement"
     data-dismissable-layer
     :style="{ pointerEvents: dismissableLayer.pointerEvents() }"
-    @focus.capture="dismissableLayer.onFocusCapture"
-    @blur.capture="dismissableLayer.onBlurCapture"
-    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
   >
     <slot />
   </Primitive>

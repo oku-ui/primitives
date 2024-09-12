@@ -76,7 +76,7 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
 }, context.onClose)
 
-// PopperAnchor
+// COMP::PopperAnchor
 
 const popperContext = usePopperContext('TooltipTrigger')
 

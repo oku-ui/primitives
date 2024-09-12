@@ -74,7 +74,7 @@ export interface AccordionImplProps {
 
 export const ACCORDION_KEYS = ['Home', 'End', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight']
 
-export const [Collection, useCollection] = createCollection<HTMLButtonElement, undefined>('Accordion')
+export const [Collection, useCollection] = createCollection<HTMLButtonElement>('Accordion')
 
 export interface AccordionContext {
   id: string

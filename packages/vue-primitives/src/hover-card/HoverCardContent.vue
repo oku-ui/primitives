@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import HoverCardContentImpl from './HoverCardContentImpl.vue'
@@ -15,12 +14,10 @@ defineOptions({
 const props = defineProps<HoverCardContentProps>()
 const emit = defineEmits<HoverCardContentEmits>()
 
-const $el = shallowRef<HTMLElement>()
-const forwardedRef = useForwardElement($el)
-
 const context = useHoverCardContext('HoverCardContent')
+const popperContext = usePopperContext('HoverCardContent')
 
-const isPresent = usePresence($el, () => props.forceMount || context.open.value)
+const isPresent = usePresence(popperContext.content, () => props.forceMount || context.open.value)
 
 const onPointerenter = composeEventHandlers<PointerEvent>((event) => {
   emit('pointerenter', event)
@@ -34,7 +31,6 @@ const onPointerleave = composeEventHandlers<PointerEvent>((event) => {
 <template>
   <HoverCardContentImpl
     v-if="isPresent"
-    :ref="forwardedRef"
     :data-state="context.open.value ? 'open' : 'closed'"
     @pointerenter="onPointerenter"
     @pointerleave="onPointerleave"

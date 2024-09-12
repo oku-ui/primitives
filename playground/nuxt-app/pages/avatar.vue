@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/avatar/stories/Styled.vue'
 import Chromatic from '../../../packages/vue-primitives/src/avatar/stories/Chromatic.vue'
+import Styled from '../../../packages/vue-primitives/src/avatar/stories/Styled.vue'
 </script>
 
 <template>

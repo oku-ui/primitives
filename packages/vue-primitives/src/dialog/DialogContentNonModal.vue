@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { type FocusOutsideEvent, type PointerdownOutsideEvent, useDismissableLayer } from '../dismissable-layer/DismissableLayer.ts'
+import { type FocusOutsideEvent, type PointerdownOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
@@ -64,7 +64,7 @@ function onInteractOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
   }
 }
 
-// DialogContentImpl
+// COMP::DialogContentImpl
 
 // Make sure the whole tree has focus guards as our `Dialog` will be
 // the last element in the DOM (because of the `Portal`)
@@ -91,12 +91,6 @@ const dismissableLayer = useDismissableLayer($el, {
     return false
   },
 }, {
-  onPointerdownCapture(event) {
-    emit('pointerdownCapture', event)
-  },
-  onFocusCapture(event) {
-    emit('focusCapture', event)
-  },
   onInteractOutside,
   onEscapeKeydown(event) {
     emit('escapeKeydown', event)
@@ -106,9 +100,6 @@ const dismissableLayer = useDismissableLayer($el, {
   },
   onFocusOutside(event) {
     emit('focusOutside', event)
-  },
-  onBlurCapture(event) {
-    emit('blurCapture', event)
   },
   onPointerdownOutside(event) {
     emit('pointerdownOutside', event)
@@ -132,10 +123,6 @@ const dismissableLayer = useDismissableLayer($el, {
     :data-state="getState(context.open.value)"
 
     @keydown="focusScope.onKeydown"
-
-    @focus.capture="dismissableLayer.onFocusCapture"
-    @blur.capture="dismissableLayer.onBlurCapture"
-    @pointerdown.capture="dismissableLayer.onPointerdownCapture"
   >
     <slot />
   </Primitive>

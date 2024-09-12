@@ -1,7 +1,7 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/tabs/stories/Styled.vue'
 import Animated from '../../../packages/vue-primitives/src/tabs/stories/Animated.vue'
 import Chromatic from '../../../packages/vue-primitives/src/tabs/stories/Chromatic.vue'
+import Styled from '../../../packages/vue-primitives/src/tabs/stories/Styled.vue'
 </script>
 
 <template>

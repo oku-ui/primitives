@@ -1,8 +1,8 @@
 import type { HTMLAttributes, Ref } from 'vue'
-import { createCollection } from '../collection/Collection.ts'
+import { createCollection } from '../collection/index.ts'
 import { createContext, type MutableRefObject } from '../hooks/index.ts'
 import type { Direction } from '../direction/index.ts'
-import type { PrimitiveProps } from '../primitive/Primitive.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -53,4 +53,4 @@ export interface SliderContext {
 
 export const [provideSliderContext, useSliderContext] = createContext<SliderContext>('Slider')
 
-export const [Collection, useCollection] = createCollection<HTMLSpanElement, undefined>('Slider')
+export const [Collection, useCollection] = createCollection<HTMLSpanElement>('Slider')

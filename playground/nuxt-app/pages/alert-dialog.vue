@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/alert-dialog/stories/Styled.vue'
 import Controlled from '../../../packages/vue-primitives/src/alert-dialog/stories/Controlled.vue'
+import Styled from '../../../packages/vue-primitives/src/alert-dialog/stories/Styled.vue'
 </script>
 
 <template>

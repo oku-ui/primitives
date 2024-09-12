@@ -6,6 +6,7 @@ export interface Measurable {
 }
 
 export interface PopperContext {
+  content: Ref<HTMLElement | undefined>
   anchor: Ref<Measurable | undefined>
   onAnchorChange: (newAnchor: Measurable | undefined) => void
 }

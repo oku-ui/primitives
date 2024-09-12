@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import type { Direction } from '../direction/Direction.ts'
+import type { Direction } from '../direction/index.ts'
 
 export interface PopperContentProps {
   side?: Side

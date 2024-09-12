@@ -1,7 +1,7 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/toggle/stories/Styled.vue'
-import Controlled from '../../../packages/vue-primitives/src/toggle/stories/Controlled.vue'
 import Chromatic from '../../../packages/vue-primitives/src/toggle/stories/Chromatic.vue'
+import Controlled from '../../../packages/vue-primitives/src/toggle/stories/Controlled.vue'
+import Styled from '../../../packages/vue-primitives/src/toggle/stories/Styled.vue'
 </script>
 
 <template>

@@ -1,15 +1,15 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/slider/stories/Styled.vue'
+import Chromatic from '../../../packages/vue-primitives/src/slider/stories/Chromatic.vue'
+import Horizontal from '../../../packages/vue-primitives/src/slider/stories/Horizontal.vue'
+import Inversions from '../../../packages/vue-primitives/src/slider/stories/Inversions.vue'
 import OnValueCommit from '../../../packages/vue-primitives/src/slider/stories/OnValueCommit.vue'
 import RightToLeft from '../../../packages/vue-primitives/src/slider/stories/RightToLeft.vue'
-import Horizontal from '../../../packages/vue-primitives/src/slider/stories/Horizontal.vue'
+import SmallSteps from '../../../packages/vue-primitives/src/slider/stories/SmallSteps.vue'
+import Styled from '../../../packages/vue-primitives/src/slider/stories/Styled.vue'
 import Vertical from '../../../packages/vue-primitives/src/slider/stories/Vertical.vue'
-import Inversions from '../../../packages/vue-primitives/src/slider/stories/Inversions.vue'
+import WithinForm from '../../../packages/vue-primitives/src/slider/stories/WithinForm.vue'
 import WithMinimumStepsBetweenThumbs from '../../../packages/vue-primitives/src/slider/stories/WithMinimumStepsBetweenThumbs.vue'
 import WithMultipleRanges from '../../../packages/vue-primitives/src/slider/stories/WithMultipleRanges.vue'
-import SmallSteps from '../../../packages/vue-primitives/src/slider/stories/SmallSteps.vue'
-import WithinForm from '../../../packages/vue-primitives/src/slider/stories/WithinForm.vue'
-import Chromatic from '../../../packages/vue-primitives/src/slider/stories/Chromatic.vue'
 </script>
 
 <template>

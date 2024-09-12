@@ -2,6 +2,7 @@
 const utils = [
   'Collection',
   'Focus Scope',
+  'Menu',
   'Popper',
   'Presence',
   'Roving Focus Group',

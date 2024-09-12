@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import PopoverContentModal from './PopoverContentModal.vue'
 import PopoverContentNonModal from './PopoverContentNonModal.vue'
@@ -13,18 +12,16 @@ defineOptions({
 
 const props = defineProps<PopoverContentProps>()
 
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
-
 const context = usePopoverContext('PopoverContent')
+const popperContext = usePopperContext('PopoverContent')
 
-const isPresent = usePresence($el, () => props.forceMount || context.open.value)
+const isPresent = usePresence(popperContext.content, () => props.forceMount || context.open.value)
 
 const Comp = context.modal ? PopoverContentModal : PopoverContentNonModal
 </script>
 
 <template>
-  <Comp v-if="isPresent" :ref="forwardElement">
+  <Comp v-if="isPresent">
     <slot />
   </Comp>
 </template>

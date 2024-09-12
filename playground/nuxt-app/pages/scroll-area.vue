@@ -1,10 +1,10 @@
 <script setup lang="tsx">
-import Basic from '../../../packages/vue-primitives/src/scroll-area/stories/Basic.vue'
-import Resizable from '../../../packages/vue-primitives/src/scroll-area/stories/Resizable.vue'
-import ContentChange from '../../../packages/vue-primitives/src/scroll-area/stories/ContentChange.vue'
 import Animated from '../../../packages/vue-primitives/src/scroll-area/stories/Animated.vue'
+import Basic from '../../../packages/vue-primitives/src/scroll-area/stories/Basic.vue'
 import Chromatic from '../../../packages/vue-primitives/src/scroll-area/stories/Chromatic.vue'
 import ChromaticDynamicContentBeforeLoaded from '../../../packages/vue-primitives/src/scroll-area/stories/ChromaticDynamicContentBeforeLoaded.vue'
+import ContentChange from '../../../packages/vue-primitives/src/scroll-area/stories/ContentChange.vue'
+import Resizable from '../../../packages/vue-primitives/src/scroll-area/stories/Resizable.vue'
 </script>
 
 <template>

@@ -130,44 +130,44 @@ export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocus
       })
     })
 
-    watch($el, async (newContainer, _, onCleanup) => {
-      if (!newContainer)
+    watch($el, async (container, _, onCleanup) => {
+      if (!container)
         return
+      focusScopesStack.add(focusScope)
 
       await nextTick()
 
-      focusScopesStack.add(focusScope)
       const previouslyFocusedElement = document.activeElement as HTMLElement | null
-      const hasFocusedCandidate = newContainer.contains(previouslyFocusedElement)
+      const hasFocusedCandidate = container.contains(previouslyFocusedElement)
 
       if (!hasFocusedCandidate) {
         const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS)
-        newContainer.addEventListener(AUTOFOCUS_ON_MOUNT, emits.onMountAutoFocus)
-        newContainer.dispatchEvent(mountEvent)
+        container.addEventListener(AUTOFOCUS_ON_MOUNT, emits.onMountAutoFocus)
+        container.dispatchEvent(mountEvent)
         if (!mountEvent.defaultPrevented) {
-          focusFirst(removeLinks(getTabbableCandidates(newContainer)), { select: true })
+          focusFirst(removeLinks(getTabbableCandidates(container)), { select: true })
           if (document.activeElement === previouslyFocusedElement) {
-            focus(newContainer)
+            focus(container)
           }
         }
       }
 
       onCleanup(() => {
-        newContainer.removeEventListener(AUTOFOCUS_ON_MOUNT, emits.onMountAutoFocus)
+        container.removeEventListener(AUTOFOCUS_ON_MOUNT, emits.onMountAutoFocus)
 
         // We hit a react bug (fixed in v17) with focusing in unmount.
         // We need to delay the focus a little to get around it for now.
         // See: https://github.com/facebook/react/issues/17894
         const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS)
-        newContainer.addEventListener(AUTOFOCUS_ON_UNMOUNT, emits.onUnmountAutoFocus)
-        newContainer.dispatchEvent(unmountEvent)
+        container.addEventListener(AUTOFOCUS_ON_UNMOUNT, emits.onUnmountAutoFocus)
+        container.dispatchEvent(unmountEvent)
 
         setTimeout(() => {
           if (!unmountEvent.defaultPrevented)
             focus(previouslyFocusedElement ?? document.body, { select: true })
 
           // we need to remove the listener after we `dispatchEvent`
-          newContainer.removeEventListener(AUTOFOCUS_ON_UNMOUNT, emits.onUnmountAutoFocus)
+          container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, emits.onUnmountAutoFocus)
 
           focusScopesStack.remove(focusScope)
         }, 0)

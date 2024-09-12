@@ -70,7 +70,7 @@ const rovingFocusGroupItem = useRovingFocusGroupItem({
 })
 
 const forwardElement = useComposedElements((v) => {
-  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData)
+  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData, rovingFocusGroupItem.collectionKey)
 })
 </script>
 

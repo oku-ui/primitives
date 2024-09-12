@@ -22,16 +22,14 @@ const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
 })
 const emit = defineEmits<AccordionRootEmits<T>>()
 
-const $el = useRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
+const elRef = useRef<HTMLElement>()
+const forwardElement = useForwardElement(elRef)
 
 const direction = useDirection(() => props.dir)
 const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
 const TYPE_SINGLE = 'single' as const satisfies AccordionType
 
-const collectionContext = Collection.provideCollectionContext($el)
-
-const getItems = useCollection(collectionContext)
+const getItems = useCollection(Collection.provideCollectionContext(elRef))
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   if (props.disabled)

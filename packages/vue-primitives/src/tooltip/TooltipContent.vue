@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import TooltipContentImpl from './TooltipContentImpl.vue'
@@ -15,22 +14,16 @@ const props = withDefaults(defineProps<TooltipContentProps>(), {
   side: 'top',
 })
 
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
-
 const context = useTooltipContext('TooltipContent')
+const popperContext = usePopperContext('TooltipContent')
 
-const isPresent = usePresence($el, () => props.forceMount || context.open.value)
+const isPresent = usePresence(popperContext.content, () => props.forceMount || context.open.value)
 
 const Comp = context.disableHoverableContent ? TooltipContentImpl : TooltipContentHoverable
-
-defineExpose({
-  $el,
-})
 </script>
 
 <template>
-  <Comp v-if="isPresent" :ref="forwardElement" :side="side">
+  <Comp v-if="isPresent" :side="side">
     <slot />
   </Comp>
 </template>

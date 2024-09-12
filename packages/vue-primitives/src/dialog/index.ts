@@ -9,6 +9,7 @@ export { type DialogOverlayProps } from './DialogOverlay.ts'
 
 export { default as DialogOverlay } from './DialogOverlay.vue'
 export {
+  type DialogContentElement,
   type DialogContext,
   type DialogRootEmits,
   type DialogRootProps,

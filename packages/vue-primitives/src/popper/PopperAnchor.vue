@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { onMounted } from 'vue'
+import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { usePopperContext } from './PopperRoot.ts'
 import type { PopperAnchorElement, PopperAnchorProps } from './PopperAnchor'
@@ -13,11 +13,11 @@ const props = defineProps<PopperAnchorProps>()
 
 const context = usePopperContext('PopperAnchor')
 
-const $el = shallowRef<PopperAnchorElement>()
-const forwardElement = useForwardElement($el)
+const elRef = useRef<PopperAnchorElement>()
+const forwardElement = useForwardElement(elRef)
 
 onMounted(() => {
-  context.onAnchorChange(props.virtualRef?.current || $el.value)
+  context.onAnchorChange(props.virtualRef?.current || elRef.current)
 })
 </script>
 

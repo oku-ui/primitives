@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { TooltipArrow, TooltipContent, TooltipPortal, TooltipRoot } from '../index.ts'
-import TooltipContentAriaLabel from '../TooltipContentAriaLabel.vue'
+import { TooltipArrow, TooltipContent, TooltipContentAriaLabel, TooltipPortal, TooltipRoot } from '../index.ts'
 
 defineOptions({
   inheritAttrs: false,

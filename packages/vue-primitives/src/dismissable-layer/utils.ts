@@ -26,7 +26,9 @@ export function usePointerdownOutside(
 
   const ret = {
     // ensures we check React component tree (not just DOM tree)
-    onPointerdownCapture: () => (isPointerInsideDOMTree = true),
+    onPointerdownCapture: () => {
+      isPointerInsideDOMTree = true
+    },
   }
 
   if (!isClient) {
@@ -46,9 +48,7 @@ export function usePointerdownOutside(
       const target = event.target as HTMLElement
 
       // TODO: wip
-      if (!isPointerInsideDOMTree && isInsideDOMTree(node.value, target)) {
-        isPointerInsideDOMTree = true
-      }
+      isPointerInsideDOMTree = isInsideDOMTree(node.value, target)
 
       if (target && !isPointerInsideDOMTree) {
         const eventDetail = { originalEvent: event }
@@ -124,24 +124,25 @@ export function useFocusOutside(
   let isFocusInsideDOMTree = false
 
   const ret = {
-    onFocusCapture: () => (isFocusInsideDOMTree = true),
-    onBlurCapture: () => (isFocusInsideDOMTree = false),
+    onFocusCapture: () => {
+      isFocusInsideDOMTree = true
+    },
+    onBlurCapture: () => {
+      isFocusInsideDOMTree = false
+    },
   }
 
   if (!isClient) {
     return ret
   }
 
-  async function handleFocus(event: FocusEvent) {
+  const handleFocus = async (event: FocusEvent) => {
     await nextTick()
 
     if (!node.value)
       return
 
-    // TODO: wip
-    if (!isFocusInsideDOMTree && isInsideDOMTree(node.value, event.target as HTMLElement)) {
-      isFocusInsideDOMTree = true
-    }
+    isFocusInsideDOMTree = isInsideDOMTree(node.value, event.target as HTMLElement)
 
     if (event.target && !isFocusInsideDOMTree) {
       const eventDetail = { originalEvent: event }
@@ -165,9 +166,7 @@ export function useFocusOutside(
   return ret
 }
 
-function isInsideDOMTree(node: HTMLElement, targetElement: HTMLElement) {
-  const mainLayer = node.dataset.dismissableLayer === '' ? node : node.querySelector<HTMLElement>('[data-dismissable-layer]')
-
+function isInsideDOMTree(mainLayer: HTMLElement, targetElement: HTMLElement) {
   if (!mainLayer)
     return false
 
@@ -179,7 +178,7 @@ function isInsideDOMTree(node: HTMLElement, targetElement: HTMLElement) {
   if (mainLayer === targetLayer)
     return true
 
-  const layerList = Array.from(node.ownerDocument.querySelectorAll<HTMLElement>('[data-dismissable-layer]'))
+  const layerList = Array.from(mainLayer.ownerDocument.querySelectorAll<HTMLElement>('[data-dismissable-layer]'))
 
   if (layerList.indexOf(mainLayer) < layerList.indexOf(targetLayer))
     return true

@@ -1,0 +1,164 @@
+.menu_nuxtBoxClass {
+  min-height: 800px;
+}
+
+.menu_contentClass {
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 150px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  font-size: 13px;
+
+  &:focus-within {
+    border-color: #111;
+  }
+}
+
+.menu_itemStyles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+  height: 25px;
+  padding: 0 10px;
+  color: #111;
+  border-radius: 3px;
+}
+
+.menu_labelClass {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+  height: 25px;
+  padding: 0 10px;
+  color: #ccc;
+  border-radius: 3px;
+}
+
+.menu_itemClass {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+  height: 25px;
+  padding: 0 10px;
+  color: #111;
+  border-radius: 3px;
+  outline: none;
+
+  &[data-highlighted] {
+    background-color: #111;
+    color: white;
+  }
+
+  &[data-disabled] {
+    color: #ccc;
+  }
+}
+
+.menu_subTriggerClass {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+  height: 25px;
+  padding: 0 10px;
+  color: #111;
+  border-radius: 3px;
+  outline: none;
+
+  &[data-highlighted] {
+    background-color: #111;
+    color: white;
+  }
+
+  &[data-disabled] {
+    color: #ccc;
+  }
+
+  &:not([data-highlighted])[data-state="open"] {
+    background-color: #ccc;
+    color: #111;
+  }
+}
+
+.menu_separatorClass {
+  height: 1px;
+  margin: 5px 10px;
+  background-color: #ccc;
+}
+
+@keyframes menu_animateIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes menu_animateOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+.menu_animatedContentClass {
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 150px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  font-size: 13px;
+
+  &:focus-within {
+    border-color: #111;
+  }
+
+  &[data-state="open"] {
+    animation: menu_animateIn 300ms ease;
+  }
+
+  &[data-state="closed"] {
+    animation: menu_animateOut 300ms ease;
+  }
+}
+
+.menu_animatedItemIndicatorClass {
+  &[data-state="checked"] {
+    animation: menu_animateIn 300ms ease;
+  }
+
+  &[data-state="unchecked"] {
+    animation: menu_animateOut 300ms ease;
+  }
+}

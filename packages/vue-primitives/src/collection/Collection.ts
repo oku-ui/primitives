@@ -10,7 +10,7 @@ export interface CollectionContext {
   collectionRef: MutableRefObject<HTMLElement | undefined>
 }
 
-export function createCollection<ItemElement extends HTMLElement, ItemData = object>(name: string) {
+export function createCollection<ItemElement extends HTMLElement, ItemData = Record<string, any>>(name: string) {
   const [_provideCollectionContext, useCollectionContext] = createContext<CollectionContext>(`${name}CollectionProvider`)
 
   type CollectionItem = ItemElementWithData<ItemElement, ItemData>
@@ -26,23 +26,35 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = obj
     return context
   }
 
-  function useCollectionItem(currentElement: ItemElement | undefined, attrs: ItemData) {
+  function useCollectionItem<K extends keyof ItemData>(currentElement: ItemElement | undefined, attrs: ItemData[K], key: K) {
     const unrefElement = currentElement as CollectionItem | undefined
-    if (!unrefElement || '$$rcid' in unrefElement)
+    if (!unrefElement)
       return
 
-    (unrefElement as any).$$rcid = attrs
+    if ('$$rcid' in unrefElement) {
+      if (!key)
+        return
+      if (key in unrefElement)
+        return
+    }
+
+    if (key) {
+      (unrefElement as any).$$rcid = (unrefElement as any).$$rcid || {}
+      ; (unrefElement as any).$$rcid[key] = attrs
+    }
+    else {
+      (unrefElement as any).$$rcid = attrs
+    }
   }
 
   function useCollection(thereContext?: CollectionContext) {
     const context = thereContext || useCollectionContext(`${name}CollectionConsumer`)
 
     function getItems(): CollectionItem[] {
-      const collectionNode = context.collectionRef.current
-      if (!collectionNode)
+      if (!context.collectionRef.current)
         return []
 
-      const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${DATA_COLLECTION_ITEM}]`))
+      const orderedNodes = Array.from(context.collectionRef.current.querySelectorAll(`[${DATA_COLLECTION_ITEM}]`))
 
       return orderedNodes as CollectionItem[]
     }
