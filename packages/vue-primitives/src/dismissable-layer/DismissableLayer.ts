@@ -1,6 +1,5 @@
 import { computed, onWatcherCleanup, type Ref, shallowReactive, watch } from 'vue'
 import { useEscapeKeydown } from '../hooks/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
 import { useFocusOutside, usePointerdownOutside } from './utils.ts'
 
 export type PointerdownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>

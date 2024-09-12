@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, shallowRef, watchEffect } from 'vue'
+import { shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
