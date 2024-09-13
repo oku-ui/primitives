@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { ToolbarLinkEmits, ToolbarLinkProps } from './ToolbarLink.ts'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import type { ToolbarLinkEmits, ToolbarLinkProps } from './ToolbarLink.ts'
 
 defineOptions({
   name: 'ToolbarLink',

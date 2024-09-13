@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { RadioGroupIndicatorProps } from './RadioGroupIndicator.ts'
 import { shallowRef } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { getState, useRadioContext } from './Radio.ts'
-import type { RadioGroupIndicatorProps } from './RadioGroupIndicator.ts'
 
 defineOptions({
   name: 'RadioGroupIndicator',

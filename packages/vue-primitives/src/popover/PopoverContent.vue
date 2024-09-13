@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { PopoverContentProps } from './PopoverContent.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import PopoverContentModal from './PopoverContentModal.vue'
 import PopoverContentNonModal from './PopoverContentNonModal.vue'
 import { usePopoverContext } from './PopoverRoot.ts'
-import type { PopoverContentProps } from './PopoverContent.ts'
 
 defineOptions({
   name: 'PopoverContent',

@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { HoverCardContentImplEmits } from './HoverCardContentImpl.ts'
 import { onBeforeUnmount, onMounted, shallowRef, watchEffect } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { getTabbableNodes } from './utils.ts'
-import type { HoverCardContentImplEmits } from './HoverCardContentImpl.ts'
 
 defineOptions({
   name: 'HoverCardContentImpl',

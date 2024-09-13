@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { PopoverTriggerEmits, PopoverTriggerProps } from './PopoverTrigger.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { PopperAnchor } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 import { getState } from './utilts.ts'
-import type { PopoverTriggerEmits, PopoverTriggerProps } from './PopoverTrigger.ts'
 
 defineOptions({
   name: 'PopoverTrigger',

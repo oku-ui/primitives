@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { ToolbarSeparatorProps } from './ToolbarSeparator.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'
-import type { ToolbarSeparatorProps } from './ToolbarSeparator.ts'
 
 defineOptions({
   name: 'ToolbarSeparator',

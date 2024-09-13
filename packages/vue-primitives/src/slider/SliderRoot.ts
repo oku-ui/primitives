@@ -1,8 +1,8 @@
 import type { HTMLAttributes, Ref } from 'vue'
-import { createCollection } from '../collection/index.ts'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
 import type { Direction } from '../direction/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
+import { createCollection } from '../collection/index.ts'
+import { createContext, type MutableRefObject } from '../hooks/index.ts'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']

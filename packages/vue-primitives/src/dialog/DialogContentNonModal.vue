@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { DialogContentNonModalEmits } from './DialogContentNonModal.ts'
 import { shallowRef } from 'vue'
 import { type FocusOutsideEvent, type PointerdownOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
@@ -7,7 +8,6 @@ import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 import { getState } from './utils.ts'
-import type { DialogContentNonModalEmits } from './DialogContentNonModal.ts'
 
 defineOptions({
   name: 'DialogContentNonModal',

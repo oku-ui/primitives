@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import type { FocusOutsideEvent } from '../dismissable-layer/index.ts'
+import type { MenuSubContentEmits, MenuSubContentProps } from './MenuSubContent.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import MenuContentImpl from './MenuContentImpl.vue'
 import { SUB_CLOSE_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'
-import type { FocusOutsideEvent } from '../dismissable-layer/index.ts'
-import type { MenuSubContentEmits, MenuSubContentProps } from './MenuSubContent.ts'
 
 defineOptions({
   name: 'MenuSubContent',

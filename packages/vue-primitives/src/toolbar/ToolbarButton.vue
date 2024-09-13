@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { ToolbarButtonEmits, ToolbarButtonProps } from './ToolbarButton.ts'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
-import type { ToolbarButtonEmits, ToolbarButtonProps } from './ToolbarButton.ts'
 
 defineOptions({
   name: 'ToolbarButton',

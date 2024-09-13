@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { SliderTrackProps } from './SliderTrack.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useSliderContext } from './SliderRoot.ts'
-import type { SliderTrackProps } from './SliderTrack.ts'
 
 defineOptions({
   name: 'SliderTrack',

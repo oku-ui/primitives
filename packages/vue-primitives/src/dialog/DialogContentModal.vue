@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { DialogContentModalEmits } from './DialogContentModal.ts'
 import { hideOthers } from 'aria-hidden'
 import { onBeforeUnmount, shallowRef } from 'vue'
 import { type FocusOutsideEvent, type PointerdownOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
@@ -9,7 +10,6 @@ import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useDialogContext } from './DialogRoot.ts'
 import { getState } from './utils.ts'
-import type { DialogContentModalEmits } from './DialogContentModal.ts'
 
 defineOptions({
   name: 'DialogContentModal',

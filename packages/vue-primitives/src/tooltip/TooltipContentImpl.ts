@@ -1,5 +1,5 @@
-import { createContext } from '../hooks/index.ts'
 import type { DismissableLayerEmits } from '../dismissable-layer/index.ts'
+import { createContext } from '../hooks/index.ts'
 
 export interface TooltipContentImplProps {
   /**

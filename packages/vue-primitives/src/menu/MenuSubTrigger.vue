@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { MenuSubTriggerEmits, MenuSubTriggerProps } from './MenuSubTrigger.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
@@ -8,7 +9,6 @@ import MenuItemImpl from './MenuItemImpl.vue'
 import { SUB_OPEN_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'
 import { getOpenState, type Side } from './utils.ts'
-import type { MenuSubTriggerEmits, MenuSubTriggerProps } from './MenuSubTrigger.ts'
 
 defineOptions({
   name: 'MenuSubTrigger',

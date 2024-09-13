@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Measurable } from '../popper/index.ts'
 import { shallowRef } from 'vue'
 import { useDirection } from '../direction/Direction.ts'
 import { providePopperContext } from '../popper/index.ts'
@@ -9,7 +10,6 @@ import {
   provideMenuRootContext,
   useIsUsingKeyboard,
 } from './MenuRoot.ts'
-import type { Measurable } from '../popper/index.ts'
 
 defineOptions({
   name: 'MenuRoot',

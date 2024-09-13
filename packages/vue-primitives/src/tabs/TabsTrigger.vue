@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TabsTriggerEmits, TabsTriggerProps } from './TabsTrigger.ts'
 import { computed } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
@@ -7,7 +8,6 @@ import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
-import type { TabsTriggerEmits, TabsTriggerProps } from './TabsTrigger.ts'
 
 defineOptions({
   name: 'TabsTrigger',

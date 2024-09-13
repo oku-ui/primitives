@@ -1,5 +1,5 @@
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
 import type { GraceIntent } from './utils.ts'
+import { createContext, type MutableRefObject } from '../hooks/index.ts'
 
 export interface MenuContentProps {
   /**

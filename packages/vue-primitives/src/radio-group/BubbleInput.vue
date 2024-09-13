@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { BubbleInputProps } from './BubbleInput.ts'
 import { watch } from 'vue'
 import { useSize } from '../hooks/index.ts'
-import type { BubbleInputProps } from './BubbleInput.ts'
 
 defineOptions({
   name: 'BubbleInput',

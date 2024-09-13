@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { CheckboxIndicatorProps } from './CheckboxIndicator.ts'
 import { shallowRef } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useCheckboxContext } from './CheckboxRoot.ts'
 import { getState, isIndeterminate } from './utils.ts'
-import type { CheckboxIndicatorProps } from './CheckboxIndicator.ts'
 
 defineOptions({
   name: 'CheckboxIndicator',

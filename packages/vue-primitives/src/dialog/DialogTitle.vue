@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { DialogTitleProps } from './DialogTitle.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
-import type { DialogTitleProps } from './DialogTitle.ts'
 
 defineOptions({
   name: 'DialogTitle',

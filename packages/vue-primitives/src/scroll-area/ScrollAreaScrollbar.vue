@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar.ts'
 import { watchEffect } from 'vue'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
 import ScrollAreaScrollbarScroll from './ScrollAreaScrollbarScroll.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
-import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbar',

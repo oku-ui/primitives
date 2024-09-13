@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Primitive } from '../primitive/index.ts'
 import type { LabelEmits, LabelProps } from './Label.ts'
+import { Primitive } from '../primitive/index.ts'
 
 defineOptions({
   name: 'RadixLabel',

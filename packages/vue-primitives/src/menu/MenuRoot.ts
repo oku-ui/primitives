@@ -1,7 +1,7 @@
+import type { Direction } from '../direction/index.ts'
 import { onBeforeUnmount, onMounted, type Ref } from 'vue'
 import { createCollection } from '../collection/Collection.ts'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
-import type { Direction } from '../direction/index.ts'
 
 export interface MenuRootProps {
   open?: boolean

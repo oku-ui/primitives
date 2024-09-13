@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { ToastCloseEmits, ToastCloseProps } from './ToastClose.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useToastInteractiveContext } from './ToastRoot.ts'
-import type { ToastCloseEmits, ToastCloseProps } from './ToastClose.ts'
 
 defineOptions({
   name: 'ToastClose',

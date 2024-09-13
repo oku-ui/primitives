@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { Direction } from '../../direction/index.ts'
 import { Toggle } from '../../toggle/index.ts'
 import { ToolbarButton, ToolbarLink, ToolbarRoot, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem } from '../index.ts'
-import type { Direction } from '../../direction/index.ts'
 import './styles.css'
 
 defineProps<{

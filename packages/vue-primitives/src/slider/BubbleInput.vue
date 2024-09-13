@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { watch } from 'vue'
 import type { BubbleInputProps } from './BubbleInput.ts'
+import { watch } from 'vue'
 
 defineOptions({
   name: 'BubbleInput',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { DialogDescriptionProps } from './DialogDescription.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
-import type { DialogDescriptionProps } from './DialogDescription.ts'
 
 defineOptions({
   name: 'DialogDescription',

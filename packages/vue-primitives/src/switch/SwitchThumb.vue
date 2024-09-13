@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { SwitchThumbProps } from './SwitchThumb.ts'
 import { Primitive } from '../primitive/index.ts'
 import { getState, useSwitchContext } from './SwitchRoot.ts'
-import type { SwitchThumbProps } from './SwitchThumb.ts'
 
 defineOptions({
   name: 'SwitchThumb',

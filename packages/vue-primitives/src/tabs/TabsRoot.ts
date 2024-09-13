@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import { createContext } from '../hooks/index.ts'
 import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
+import { createContext } from '../hooks/index.ts'
 
 export interface TabsRootProps {
   /** The value for the selected tab, if controlled */

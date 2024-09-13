@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { TabsContentProps } from './TabsContent.ts'
 import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
-import type { TabsContentProps } from './TabsContent.ts'
 
 defineOptions({
   name: 'TabsContent',

@@ -1,3 +1,4 @@
+import type { PrimitiveProps } from '../primitive/index.ts'
 import { computed, onWatcherCleanup, watch, watchEffect } from 'vue'
 import { useId } from '../hooks/index.ts'
 import { wrapArray } from '../utils/array.ts'
@@ -6,7 +7,6 @@ import { isFunction } from '../utils/is.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
 import { getFocusIntent } from './utils.ts'
-import type { PrimitiveProps } from '../primitive/index.ts'
 
 export interface RovingFocusGroupItemProps {
   as?: PrimitiveProps['as']

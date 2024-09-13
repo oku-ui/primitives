@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Primitive } from '../primitive/index.ts'
 import type { AspectRatioProps } from './AspectRatio.ts'
+import { Primitive } from '../primitive/index.ts'
 
 defineOptions({
   name: 'AspectRatio',

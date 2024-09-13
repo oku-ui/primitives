@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { HoverCardTriggerEmits, HoverCardTriggerProps } from './HoverCardTrigger.ts'
 import { onMounted } from 'vue'
 import { useForwardElement, useRef } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
@@ -6,7 +7,6 @@ import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { excludeTouch } from './utils.ts'
-import type { HoverCardTriggerEmits, HoverCardTriggerProps } from './HoverCardTrigger.ts'
 
 defineOptions({
   name: 'HoverCardTrigger',

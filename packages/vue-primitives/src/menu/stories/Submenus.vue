@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { Direction } from '../../direction/index.ts'
 import { shallowRef } from 'vue'
 import { provideConfigContext } from '../../config/index.ts'
 import { MenuItem, MenuSeparator } from '../index.ts'
 import MenuWithAnchor from './MenuWithAnchor.vue'
 import Submenu from './Submenu.vue'
-import type { Direction } from '../../direction/index.ts'
 
 const open1 = shallowRef(false)
 const open2 = shallowRef(false)

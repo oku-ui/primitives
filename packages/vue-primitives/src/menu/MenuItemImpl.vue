@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { MenuItemImplEmits, MenuItemImplProps } from './MenuItemImpl.ts'
 import { shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
@@ -7,7 +8,6 @@ import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useMenuContentContext } from './MenuContent.ts'
 import { Collection, type ItemData } from './MenuRoot.ts'
-import type { MenuItemImplEmits, MenuItemImplProps } from './MenuItemImpl.ts'
 
 defineOptions({
   name: 'MenuItemImpl',

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AccordionContentProps } from './AccordionContent.ts'
 import { shallowRef } from 'vue'
 import { useCollapsibleContent } from '../collapsible/CollapsibleContent.ts'
 import { useForwardElement } from '../hooks/index.ts'
@@ -6,7 +7,6 @@ import { Primitive } from '../primitive/index.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'
-import type { AccordionContentProps } from './AccordionContent.ts'
 
 defineOptions({
   name: 'AccordionContent',

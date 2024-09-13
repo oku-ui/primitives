@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { ToolbarToggleItemEmits, ToolbarToggleItemProps } from './ToolbarToggleItem.ts'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { ToggleGroupItem } from '../toggle-group/index.ts'
-import type { ToolbarToggleItemEmits, ToolbarToggleItemProps } from './ToolbarToggleItem.ts'
 
 defineOptions({
   name: 'ToolbarToggleItem',

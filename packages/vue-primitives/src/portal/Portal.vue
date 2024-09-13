@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, shallowRef } from 'vue'
 import type { PortalProps } from './Portal.ts'
+import { onMounted, shallowRef } from 'vue'
 
 withDefaults(defineProps<PortalProps>(), {
   to: 'body',

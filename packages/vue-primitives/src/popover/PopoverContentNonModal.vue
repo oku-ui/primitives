@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
+import type { PopoverContentNonModal } from './PopoverContentNonModal.ts'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 import { getState } from './utilts.ts'
-import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
-import type { PopoverContentNonModal } from './PopoverContentNonModal.ts'
 
 defineOptions({
   name: 'PopoverContentNonModal',

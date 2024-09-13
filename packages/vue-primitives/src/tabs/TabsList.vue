@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { TabsListEmits, TabsListProps } from './TabsList.ts'
 import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
-import type { TabsListEmits, TabsListProps } from './TabsList.ts'
 
 defineOptions({
   name: 'TabsList',

@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { DialogTriggerEmits, DialogTriggerProps } from './DialogTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { useDialogContext } from './DialogRoot.ts'
 import { getState } from './utils.ts'
-import type { DialogTriggerEmits, DialogTriggerProps } from './DialogTrigger.ts'
 
 defineOptions({
   name: 'DialogTrigger',

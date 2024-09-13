@@ -1,3 +1,4 @@
+import type { Direction } from '../direction/index.ts'
 import { type AriaAttributes, type Ref, shallowRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { createContext, type MutableRefObject } from '../hooks/index.ts'
@@ -5,7 +6,6 @@ import { useControllableStateV2 } from '../hooks/index.ts'
 import { focusFirst } from '../utils/focusFirst.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { ENTRY_FOCUS, EVENT_OPTIONS } from './utils.ts'
-import type { Direction } from '../direction/index.ts'
 
 type Orientation = AriaAttributes['aria-orientation']
 

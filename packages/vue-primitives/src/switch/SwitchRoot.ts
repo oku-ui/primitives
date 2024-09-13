@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import { createContext } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
+import { createContext } from '../hooks/index.ts'
 
 export interface SwitchRootProps {
   as?: PrimitiveProps['as']

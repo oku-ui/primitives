@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ScrollAreaScrollbarVisibleEmits, ScrollAreaScrollbarVisibleProps, Sizes } from './ScrollAreaScrollbarVisible.ts'
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
@@ -7,7 +8,6 @@ import { composeEventHandlers } from '../utils/vue.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import { provideScrollbarContext, type ScrollAreaThumbElement } from './ScrollAreaScrollbar.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
-import type { ScrollAreaScrollbarVisibleEmits, ScrollAreaScrollbarVisibleProps, Sizes } from './ScrollAreaScrollbarVisible.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarVisible',

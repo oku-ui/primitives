@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Primitive } from '../primitive/index.ts'
 import type { ArrowProps } from './Arrow.ts'
+import { Primitive } from '../primitive/index.ts'
 
 defineOptions({
   name: 'Arrow',

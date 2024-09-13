@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.ts'
 import { shallowRef } from 'vue'
 import { useCollapsibleContext } from '../collapsible/index.ts'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
@@ -8,7 +9,6 @@ import { composeEventHandlers } from '../utils/vue.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'
-import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.ts'
 
 defineOptions({
   name: 'AccordionTrigger',

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ToastRootImplEmits, ToastRootImplProps } from './ToastRootImpl.ts'
 import { isClient } from '@vueuse/core'
 import { computed, onBeforeUnmount, onWatcherCleanup, shallowRef, toValue, watch, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
@@ -12,7 +13,6 @@ import ToastAnnounce from './ToastAnnounce.vue'
 import { provideToastInteractiveContext, type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START } from './ToastRoot.ts'
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport.ts'
 import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection, useNextFrame } from './utils.ts'
-import type { ToastRootImplEmits, ToastRootImplProps } from './ToastRootImpl.ts'
 
 defineOptions({
   name: 'ToastRootImpl',

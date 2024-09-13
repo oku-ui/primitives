@@ -1,7 +1,7 @@
 import type { AriaAttributes, Ref } from 'vue'
+import type { Direction } from '../direction/Direction.ts'
 import { createCollection } from '../collection/index.ts'
 import { createContext } from '../hooks/index.ts'
-import type { Direction } from '../direction/Direction.ts'
 
 export type AccordionType = 'single' | 'multiple'
 

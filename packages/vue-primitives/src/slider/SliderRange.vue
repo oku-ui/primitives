@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { SliderRangeProps } from './SliderRange.ts'
 import { computed } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
 import { useSliderContext } from './SliderRoot.ts'
 import { convertValueToPercentage } from './utils.ts'
-import type { SliderRangeProps } from './SliderRange.ts'
 
 defineOptions({
   name: 'SliderRange',

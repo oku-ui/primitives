@@ -1,5 +1,5 @@
-import { type ComponentPublicInstance, isRef, type Ref } from 'vue'
 import type { MutableRefObject } from './useRef.ts'
+import { type ComponentPublicInstance, isRef, type Ref } from 'vue'
 
 export function useForwardElement<T extends HTMLElement = HTMLElement>(elRef: Ref<T | undefined> | MutableRefObject<T | undefined>) {
   function setRef(nodeRef: Element | ComponentPublicInstance | null | undefined) {

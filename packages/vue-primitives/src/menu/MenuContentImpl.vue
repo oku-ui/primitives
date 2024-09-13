@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { MenuContentImplEmits, MenuContentImplProps } from './MenuContentImpl.ts'
 import { onBeforeUnmount, shallowRef } from 'vue'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
@@ -11,7 +12,6 @@ import { composeEventHandlers } from '../utils/vue.ts'
 import { provideMenuContentContext } from './MenuContent.ts'
 import { Collection, FIRST_LAST_KEYS, LAST_KEYS, useCollection, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { getNextMatch, getOpenState, type GraceIntent, isPointerInGraceArea, type Side } from './utils.ts'
-import type { MenuContentImplEmits, MenuContentImplProps } from './MenuContentImpl.ts'
 
 defineOptions({
   name: 'MenuContentImpl',

@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { MenuCheckboxItemEmits, MenuCheckboxItemProps } from './MenuCheckboxItem.ts'
 import { isIndeterminate } from '../checkbox/index.ts'
 import MenuItem from './MenuItem.vue'
 import { provideItemIndicatorContext } from './MenuItemIndicator.ts'
 import { getCheckedState } from './utils.ts'
-import type { MenuCheckboxItemEmits, MenuCheckboxItemProps } from './MenuCheckboxItem.ts'
 
 defineOptions({
   name: 'MenuCheckboxItem',

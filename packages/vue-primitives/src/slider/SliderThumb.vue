@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
 import { isClient } from '@vueuse/core'
 import { computed, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
@@ -9,7 +10,6 @@ import BubbleInput from './BubbleInput.vue'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
 import { useCollection, useSliderContext } from './SliderRoot.ts'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
-import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
 
 defineOptions({
   name: 'SliderThumb',

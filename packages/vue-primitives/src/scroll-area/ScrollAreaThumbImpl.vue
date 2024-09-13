@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ScrollAreaThumbImplEmits } from './ScrollAreaThumbImpl.ts'
 import { useDebounceFn } from '@vueuse/core'
 import { watchEffect } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
@@ -7,7 +8,6 @@ import { composeEventHandlers } from '../utils/vue.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { addUnlinkedScrollListener } from './utils.ts'
-import type { ScrollAreaThumbImplEmits } from './ScrollAreaThumbImpl.ts'
 
 defineOptions({
   name: 'ScrollAreaThumbImpl',

@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { MenuContentProps } from './MenuContent.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import MenuRootContentModal from './MenuRootContentModal.vue'
 import MenuRootContentNonModal from './MenuRootContentNonModal.vue'
-import type { MenuContentProps } from './MenuContent.ts'
 
 defineOptions({
   name: 'MenuContent',
