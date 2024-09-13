@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/core'
-import { nextTick, type Ref, toValue, watch, watchEffect } from 'vue'
+import { nextTick, onWatcherCleanup, type Ref, toValue, watch, watchEffect } from 'vue'
 import { focus, focusFirst, focusScopesStack, getTabbableCandidates, getTabbableEdges, removeLinks } from './utils.ts'
 
 export interface FocusScopeProps {
@@ -112,7 +112,7 @@ export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocus
         focus($el.value)
     }
 
-    watchEffect((onCleanup) => {
+    watchEffect(() => {
       if (!toValue(props.trapped))
         return
 
@@ -123,7 +123,7 @@ export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocus
       if ($el.value)
         mutationObserver.observe($el.value, { childList: true, subtree: true })
 
-      onCleanup(() => {
+      onWatcherCleanup(() => {
         document.removeEventListener('focusin', handleFocusIn)
         document.removeEventListener('focusout', handleFocusOut)
         mutationObserver.disconnect()

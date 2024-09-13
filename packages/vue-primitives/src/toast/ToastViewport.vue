@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isClient } from '@vueuse/core'
-import { computed, onBeforeUnmount, onMounted, watchEffect } from 'vue'
+import { computed, onBeforeUnmount, onMounted, onWatcherCleanup, watchEffect } from 'vue'
 import { DismissableLayerBranch } from '../dismissable-layer/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
@@ -81,7 +81,7 @@ if (isClient) {
       handleResume()
   }
 
-  watchEffect((onCleanup) => {
+  watchEffect(() => {
     const wrapper = wrapperRef
     if (!hasToasts() || !wrapper || !viewportRef)
       return
@@ -94,7 +94,7 @@ if (isClient) {
     window.addEventListener('blur', handlePause)
     window.addEventListener('focus', handleResume)
 
-    onCleanup(() => {
+    onWatcherCleanup(() => {
       wrapper.removeEventListener('focusin', handlePause)
       wrapper.removeEventListener('focusout', handleFocusOutResume)
       wrapper.removeEventListener('pointermove', handlePause)

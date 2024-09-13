@@ -1,3 +1,5 @@
+export { default as SwitchBubbleInput } from './SwitchBubbleInput.vue'
+
 export {
   provideSwitchContext,
   type SwitchRootContext,

@@ -5,7 +5,7 @@
 .menu_contentClass {
   display: inline-block;
   box-sizing: border-box;
-  min-width: 150px;
+  min-width: 130px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -131,11 +131,11 @@
 .menu_animatedContentClass {
   display: inline-block;
   box-sizing: border-box;
-  min-width: 150px;
+  min-width: 130px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 10px;
+  padding: 5px;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
   font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
   font-size: 13px;

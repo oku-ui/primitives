@@ -9,9 +9,9 @@ defineOptions({
 const anchor = shallowRef<Measurable>()
 
 providePopperContext({
-  content: shallowRef<HTMLDivElement>(),
+  content: shallowRef(),
   anchor,
-  onAnchorChange(newAnchor: Measurable | undefined) {
+  onAnchorChange(newAnchor) {
     anchor.value = newAnchor
   },
 })

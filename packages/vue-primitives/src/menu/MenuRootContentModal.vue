@@ -39,7 +39,7 @@ function onDismiss() {
     :trap-focus="context.open()"
     :disable-outside-pointer-events="context.open()"
     disable-outside-scroll
-    @pointerdown-outside="onFocusOutside"
+    @focus-outside="onFocusOutside"
     @dismiss="onDismiss"
   >
     <slot />

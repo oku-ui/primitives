@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { CheckboxIndicator, CheckboxRoot } from '../index.ts'
+import { CheckboxBubbleInput, CheckboxIndicator, CheckboxRoot } from '../index.ts'
 import './styles.css'
 
 const data = shallowRef({
@@ -23,7 +23,10 @@ function onChange(event: Event) {
       <legend>optional checked: {{ String(data.optional) }}</legend>
       <label>
         <CheckboxRoot v-model:checked="checked" class="checkbox_rootClass" name="optional">
-          <CheckboxIndicator class="checkbox_indicatorClass" />
+          <template #default="scope">
+            <CheckboxBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
+            <CheckboxIndicator class="checkbox_indicatorClass" />
+          </template>
         </CheckboxRoot>{{ ' ' }}
         with label
       </label>
@@ -46,7 +49,10 @@ function onChange(event: Event) {
     <fieldset>
       <legend>required checked: {{ String(data.required) }}</legend>
       <CheckboxRoot class="checkbox_rootClass" name="required" required>
-        <CheckboxIndicator class="checkbox_indicatorClass" />
+        <template #default="scope">
+          <CheckboxBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
+          <CheckboxIndicator class="checkbox_indicatorClass" />
+        </template>
       </CheckboxRoot>
     </fieldset>
 
@@ -56,7 +62,10 @@ function onChange(event: Event) {
     <fieldset>
       <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
       <CheckboxRoot class="checkbox_rootClass" name="stopprop" @click="(event: Event) => event.stopPropagation()">
-        <CheckboxIndicator class="checkbox_indicatorClass" />
+        <template #default="scope">
+          <CheckboxBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
+          <CheckboxIndicator class="checkbox_indicatorClass" />
+        </template>
       </CheckboxRoot>
     </fieldset>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ScrollAreaThumbImplEmits } from './ScrollAreaThumbImpl.ts'
 import { useDebounceFn } from '@vueuse/core'
-import { watchEffect } from 'vue'
+import { onWatcherCleanup, watchEffect } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
@@ -29,7 +29,7 @@ const debounceScrollEnd = useDebounceFn(() => {
   removeUnlinkedScrollListener = undefined
 }, 100)
 
-watchEffect((onCleanup) => {
+watchEffect(() => {
   const viewport = scrollAreaContext.viewport.value
   if (!viewport)
     return
@@ -53,7 +53,7 @@ watchEffect((onCleanup) => {
   scrollbarContext.onThumbPositionChange()
   viewport.addEventListener('scroll', handleScroll)
 
-  onCleanup(() => {
+  onWatcherCleanup(() => {
     viewport.removeEventListener('scroll', handleScroll)
   })
 })

@@ -1,30 +1,29 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
-import { useComposedElements } from '../hooks/index.ts'
+import { useComposedElements, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import BubbleInput from './BubbleInput.vue'
 import { getState, provideRadioContext } from './Radio.ts'
-import { ARROW_KEYS, type RadioGroupItemEmits, type RadioGroupItemProps } from './RadioGroupItem.ts'
+import { ARROW_KEYS, type RadioGroupItemEmits, type RadioGroupItemProps, type RadioGroupItemSlots } from './RadioGroupItem.ts'
 import { useRadioGroupContext } from './RadioGroupRoot.ts'
 
 defineOptions({
   name: 'RadioGroupItem',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<RadioGroupItemProps>(), {
   as: 'button',
 })
 const emit = defineEmits<RadioGroupItemEmits>()
+defineSlots<RadioGroupItemSlots>()
 
-const $el = shallowRef<HTMLButtonElement>()
+const control = shallowRef<HTMLButtonElement>()
 
 const context = useRadioGroupContext('RadioGroupItem')
 
-const isDisabled = computed(() => context.disabled() || props.disabled)
+const disabled = computed(() => context.disabled() || props.disabled)
 const checked = computed(() => context.value.value === props.value)
 
 let isArrowKeyPressed: boolean = false
@@ -70,12 +69,12 @@ const onFocus = composeEventHandlers<FocusEvent>((event) => {
    * of updating `context.value`) so that the radio change event fires.
    */
   if (isArrowKeyPressed)
-    $el.value?.click()
+    control.value?.click()
 })
 
 const rovingFocusGroupItem = useRovingFocusGroupItem({
   focusable() {
-    return !isDisabled.value
+    return !disabled.value
   },
   active() {
     return checked.value
@@ -89,14 +88,14 @@ const rovingFocusGroupItem = useRovingFocusGroupItem({
 })
 
 const forwardElement = useComposedElements<HTMLButtonElement>((v) => {
-  $el.value = v
+  control.value = v
   rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData, rovingFocusGroupItem.collectionKey)
 })
 
 // COMP::Radio
-const hasConsumerStoppedPropagation = shallowRef(false)
+const bubbles = useRef(true)
 // We set this to true by default so that events bubble to forms without JS (SSR)
-const isFormControl = computed(() => $el.value ? Boolean($el.value.closest('form')) : true)
+const isFormControl = computed(() => control.value ? Boolean(control.value.closest('form')) : true)
 
 const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
@@ -105,11 +104,11 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
   if (!checked.value)
     onCheck()
   if (isFormControl.value) {
-    hasConsumerStoppedPropagation.value = event.cancelBubble
+    bubbles.current = !event.cancelBubble
     // if radio is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
     // form validation works and form events reflect radio updates.
-    if (!hasConsumerStoppedPropagation.value)
+    if (bubbles.current)
       event.stopPropagation()
   }
 })
@@ -119,12 +118,12 @@ provideRadioContext({
     return checked.value
   },
   disabled() {
-    return isDisabled.value
+    return disabled.value
   },
 })
 
 defineExpose({
-  $el,
+  $el: control,
 })
 </script>
 
@@ -141,10 +140,9 @@ defineExpose({
     role="radio"
     :aria-checked="checked"
     :data-state="getState(checked)"
-    :data-disabled="isDisabled ? '' : undefined"
-    :disabled="isDisabled"
+    :data-disabled="disabled ? '' : undefined"
+    :disabled="disabled"
     :value="value"
-    v-bind="$attrs"
 
     @mousedown="rovingFocusGroupItem.onMousedown"
     @focus="rovingFocusGroupItem.onFocus"
@@ -152,17 +150,17 @@ defineExpose({
 
     @click="onClick"
   >
-    <slot />
+    <slot
+      :is-form-control="isFormControl"
+      :input="{
+        control,
+        bubbles,
+        name: context.name(),
+        value,
+        checked,
+        required: context.required(),
+        disabled,
+      }"
+    />
   </Primitive>
-
-  <BubbleInput
-    v-if="isFormControl"
-    :control="$el"
-    :bubbles="!hasConsumerStoppedPropagation"
-    :name="context.name()"
-    :value="value"
-    :checked="checked"
-    :required="context.required()"
-    :disabled="isDisabled"
-  />
 </template>

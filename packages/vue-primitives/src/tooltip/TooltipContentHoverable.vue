@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { isClient } from '@vueuse/core'
-import { onBeforeUnmount, shallowRef, watchEffect } from 'vue'
+import { onBeforeUnmount, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
 import { isPointInPolygon, type Polygon } from '../utils/isPointInPolygon.ts'
 import TooltipContentImpl from './TooltipContentImpl.vue'
@@ -39,7 +39,7 @@ onBeforeUnmount(() => {
 })
 
 if (isClient) {
-  watchEffect((onCleanup) => {
+  watchEffect(() => {
     const triggerVal = context.trigger.value
     const contentVal = popperContext.content.value
 
@@ -52,7 +52,7 @@ if (isClient) {
     triggerVal.addEventListener('pointerleave', handleTriggerLeave)
     contentVal.addEventListener('pointerleave', handleContentLeave)
 
-    onCleanup(() => {
+    onWatcherCleanup(() => {
       triggerVal.removeEventListener('pointerleave', handleTriggerLeave)
       contentVal.removeEventListener('pointerleave', handleContentLeave)
     })
@@ -73,13 +73,13 @@ if (isClient) {
     }
   }
 
-  watchEffect((onCleanup) => {
+  watchEffect(() => {
     if (!pointerGraceArea.value)
       return
 
     document.addEventListener('pointermove', handleTrackPointerGrace)
 
-    onCleanup(() => {
+    onWatcherCleanup(() => {
       document.removeEventListener('pointermove', handleTrackPointerGrace)
     })
   })

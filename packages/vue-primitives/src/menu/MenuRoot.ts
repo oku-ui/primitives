@@ -51,21 +51,22 @@ export const SUB_CLOSE_KEYS: Record<Direction, string[]> = {
 let subscribers = 0
 const isUsingKeyboardRef = useRef(false)
 
+function handlePointer() {
+  isUsingKeyboardRef.current = false
+}
+
+function handleKeyDown() {
+  isUsingKeyboardRef.current = true
+}
+
 export function useIsUsingKeyboard() {
   if (subscribers > 0)
     return isUsingKeyboardRef
 
-  function handlePointer() {
-    isUsingKeyboardRef.current = false
-  }
-
-  function handleKeyDown() {
-    isUsingKeyboardRef.current = true
-  }
-
   onMounted(() => {
     if (subscribers > 0)
       return
+
     subscribers += 1
     document.addEventListener('keydown', handleKeyDown, { capture: true, passive: true })
     document.addEventListener('pointerdown', handlePointer, { capture: true, passive: true })
@@ -73,10 +74,9 @@ export function useIsUsingKeyboard() {
   })
 
   onBeforeUnmount(() => {
-    subscribers -= 1
-
-    if (subscribers !== 0)
+    if (subscribers <= 0)
       return
+    subscribers -= 1
 
     document.removeEventListener('pointerdown', handlePointer, { capture: true })
     document.removeEventListener('pointermove', handlePointer, { capture: true })

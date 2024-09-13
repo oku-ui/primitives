@@ -1,12 +1,14 @@
+export { default as RadioGroupBubbleInput } from './RadioGroupBubbleInput.vue'
+
 export {
   type RadioGroupIndicatorProps,
 } from './RadioGroupIndicator.ts'
 export { default as RadioGroupIndicator } from './RadioGroupIndicator.vue'
+
 export {
   type RadioGroupItemEmits,
   type RadioGroupItemProps,
 } from './RadioGroupItem.ts'
-
 export { default as RadioGroupItem } from './RadioGroupItem.vue'
 
 export {

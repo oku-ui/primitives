@@ -6,10 +6,9 @@ import { inject, type InjectionKey, provide } from 'vue'
  * @see https://vueuse.org/createInjectionState
  *
  */
-export function createContext<T>(
-  contextName: string,
-  defaultValue?: T,
-): readonly [useProvidingState: (state: T) => void, useContext: (consumerName?: string) => T] {
+export function createContext<T>(contextName: string, defaultValue: T): readonly [useProvidingState: (state: T) => void, useContext: (consumerName?: string) => T]
+export function createContext<T>(contextName: string): readonly [useProvidingState: (state: T) => void, useContext: (consumerName: string) => T]
+export function createContext<T>(contextName: string, defaultValue?: T): readonly [useProvidingState: (state: T) => void, useContext: (consumerName?: string) => T] {
   const key: string | InjectionKey<T> = Symbol(contextName)
 
   const provideContext = (state: T) => {

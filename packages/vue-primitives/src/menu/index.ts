@@ -49,11 +49,15 @@ export {
   type MenuRootProps,
   provideMenuContext,
   provideMenuRootContext,
+  useIsUsingKeyboard,
   useMenuContext,
   useMenuRootContext,
 } from './MenuRoot.ts'
 
 export { default as MenuRoot } from './MenuRoot.vue'
+
+export { default as MenuRootContentModal } from './MenuRootContentModal.vue'
+export { default as MenuRootContentNonModal } from './MenuRootContentNonModal.vue'
 
 export { default as MenuSeparator } from './MenuSeparator.vue'
 
@@ -78,5 +82,4 @@ export {
   type MenuSubTriggerEmits,
   type MenuSubTriggerProps,
 } from './MenuSubTrigger.ts'
-
 export { default as MenuSubTrigger } from './MenuSubTrigger.vue'

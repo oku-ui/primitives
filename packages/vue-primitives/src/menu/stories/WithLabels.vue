@@ -21,7 +21,7 @@ function alert(name: string) {
           :key="food.value"
           class="menu_itemClass"
           :disabled="food.disabled"
-          @select="() => alert(food.label)"
+          @select="alert(food.label)"
         >
           {{ food.label }}
         </MenuItem>

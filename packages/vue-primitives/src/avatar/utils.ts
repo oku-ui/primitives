@@ -1,7 +1,7 @@
 import type { AvatarImageProps } from './AvatarImage.ts'
 import type { ImageLoadingStatus } from './AvatarRoot.ts'
 import { isClient } from '@vueuse/core'
-import { type Ref, shallowRef, toValue, watchEffect } from 'vue'
+import { onWatcherCleanup, type Ref, shallowRef, toValue, watchEffect } from 'vue'
 
 export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() => AvatarImageProps['src'])) {
   const loadingStatus = shallowRef<ImageLoadingStatus>('idle')
@@ -9,7 +9,7 @@ export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() =>
   if (!isClient)
     return loadingStatus
 
-  watchEffect((onCleanup) => {
+  watchEffect(() => {
     const value = toValue(src)
 
     if (!value) {
@@ -31,7 +31,7 @@ export function useImageLoadingStatus(src: Ref<AvatarImageProps['src']> | (() =>
     image.onerror = updateStatus('error')
     image.src = value
 
-    onCleanup(() => {
+    onWatcherCleanup(() => {
       isMounted = false
     })
   })

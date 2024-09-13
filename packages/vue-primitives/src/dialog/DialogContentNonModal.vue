@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DialogContentNonModalEmits } from './DialogContentNonModal.ts'
 import { shallowRef } from 'vue'
-import { type FocusOutsideEvent, type PointerdownOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
+import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
@@ -37,7 +37,7 @@ function onCloseAutoFocus(event: Event) {
   hasPointerDownOutsideRef = false
 }
 
-function onInteractOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
+function onInteractOutside(event: DialogContentNonModalEmits['interactOutside'][0]) {
   emit('interactOutside', event)
 
   if (!event.defaultPrevented) {

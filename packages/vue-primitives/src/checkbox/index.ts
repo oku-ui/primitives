@@ -1,6 +1,7 @@
+export { default as CheckboxBubbleInput } from './CheckboxBubbleInput.vue'
 export { type CheckboxIndicatorProps } from './CheckboxIndicator.ts'
-export { default as CheckboxIndicator } from './CheckboxIndicator.vue'
 
+export { default as CheckboxIndicator } from './CheckboxIndicator.vue'
 export {
   type CheckboxContext,
   type CheckboxRootEmits,

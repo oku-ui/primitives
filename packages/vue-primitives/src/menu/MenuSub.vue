@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, watchEffect } from 'vue'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useId, useRef } from '../hooks/index.ts'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { provideMenuContext, useMenuContext } from './MenuRoot.ts'
@@ -18,11 +18,11 @@ const parentMenuContext = useMenuContext('MenuSub')
 const trigger = useRef<HTMLDivElement>()
 
 // Prevent the parent menu from reopening with open submenus.
-watchEffect((onCleanup) => {
+watchEffect(() => {
   if (parentMenuContext.open() === false)
     emit('update:open', false)
 
-  onCleanup(() => {
+  onWatcherCleanup(() => {
     emit('update:open', false)
   })
 })
@@ -52,7 +52,7 @@ const anchor = shallowRef<Measurable>()
 providePopperContext({
   content: shallowRef(),
   anchor,
-  onAnchorChange(newAnchor: Measurable | undefined) {
+  onAnchorChange(newAnchor) {
     anchor.value = newAnchor
   },
 })

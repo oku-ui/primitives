@@ -19,6 +19,7 @@ const components = [
   'Avatar',
   'Checkbox',
   'Collapsible',
+  'Context Menu',
   'Dialog',
   'Hover Card',
   'Label',

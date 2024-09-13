@@ -11,7 +11,6 @@ import { Collection, type ItemData } from './MenuRoot.ts'
 
 defineOptions({
   name: 'MenuItemImpl',
-  inheritAttrs: false,
 })
 
 const props = defineProps<MenuItemImplProps>()
@@ -121,7 +120,6 @@ const forwardElement = useComposedElements<HTMLDivElement>((v) => {
     :data-highlighted="isFocused ? '' : undefined"
     :aria-disabled="disabled || undefined"
     :data-disabled="disabled ? '' : undefined"
-    v-bind="$attrs"
 
     @mousedown="rovingFocusGroupItem.onMousedown"
     @keydown="rovingFocusGroupItem.onKeydown"

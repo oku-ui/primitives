@@ -54,74 +54,74 @@ provideConfigContext({
       </label>
     </div>
     <MenuWithAnchor>
-      <MenuItem class="menu_itemClass" @select="() => alert('undo')">
+      <MenuItem class="menu_itemClass" @select="alert('undo')">
         Undo
       </MenuItem>
       <Submenu v-model:open="open1" :animated="animated">
         <MenuItem class="menu_itemClass" disabled>
           Disabled
         </MenuItem>
-        <MenuItem class="menu_itemClass" @select="() => alert('one')">
+        <MenuItem class="menu_itemClass" @select="alert('one')">
           One
         </MenuItem>
         <Submenu v-model:open="open2" :animated="animated">
-          <MenuItem class="menu_itemClass" @select="() => alert('one')">
+          <MenuItem class="menu_itemClass" @select="alert('one')">
             One
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('two')">
+          <MenuItem class="menu_itemClass" @select="alert('two')">
             Two
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('three')">
+          <MenuItem class="menu_itemClass" @select="alert('three')">
             Three
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('four')">
+          <MenuItem class="menu_itemClass" @select="alert('four')">
             Four
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('five')">
+          <MenuItem class="menu_itemClass" @select="alert('five')">
             Five
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('six')">
+          <MenuItem class="menu_itemClass" @select="alert('six')">
             Six
           </MenuItem>
         </Submenu>
         <Submenu v-model:open="open3" heading="Sub Menu" :animated="animated">
-          <MenuItem class="menu_itemClass" @select="() => alert('one')">
+          <MenuItem class="menu_itemClass" @select="alert('one')">
             One
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('two')">
+          <MenuItem class="menu_itemClass" @select="alert('two')">
             Two
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('three')">
+          <MenuItem class="menu_itemClass" @select="alert('three')">
             Three
           </MenuItem>
         </Submenu>
-        <MenuItem class="menu_itemClass" @select="() => alert('two')">
+        <MenuItem class="menu_itemClass" @select="alert('two')">
           Two
         </MenuItem>
         <Submenu v-model:open="open4" :animated="animated" disabled>
-          <MenuItem class="menu_itemClass" @select="() => alert('one')">
+          <MenuItem class="menu_itemClass" @select="alert('one')">
             One
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('two')">
+          <MenuItem class="menu_itemClass" @select="alert('two')">
             Two
           </MenuItem>
-          <MenuItem class="menu_itemClass" @select="() => alert('three')">
+          <MenuItem class="menu_itemClass" @select="alert('three')">
             Three
           </MenuItem>
         </Submenu>
-        <MenuItem class="menu_itemClass" @select="() => alert('three')">
+        <MenuItem class="menu_itemClass" @select="alert('three')">
           Three
         </MenuItem>
       </Submenu>
 
       <MenuSeparator class="menu_separatorClass" />
-      <MenuItem class="menu_itemClass" disabled @select="() => alert('cut')">
+      <MenuItem class="menu_itemClass" disabled @select="alert('cut')">
         Cut
       </MenuItem>
-      <MenuItem class="menu_itemClass" @select="() => alert('copy')">
+      <MenuItem class="menu_itemClass" @select="alert('copy')">
         Copy
       </MenuItem>
-      <MenuItem class="menu_itemClass" @select="() => alert('paste')">
+      <MenuItem class="menu_itemClass" @select="alert('paste')">
         Paste
       </MenuItem>
     </MenuWithAnchor>

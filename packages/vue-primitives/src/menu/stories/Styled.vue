@@ -14,17 +14,13 @@ function alert(name: string) {
     <MenuWithAnchor>
       <MenuItem
         class="menu_itemClass"
-        @select="() => {
-          alert('undo')
-        }"
+        @select="alert('undo')"
       >
         Undo
       </MenuItem>
       <MenuItem
         class="menu_itemClass"
-        @select="() => {
-          alert('redo')
-        }"
+        @select="alert('redo')"
       >
         Redo
       </MenuItem>
@@ -32,25 +28,19 @@ function alert(name: string) {
       <MenuItem
         class="menu_itemClass"
         disabled
-        @select="() => {
-          alert('cut')
-        }"
+        @select="alert('cut')"
       >
         Cut
       </MenuItem>
       <MenuItem
         class="menu_itemClass"
-        @select="() => {
-          alert('copy')
-        }"
+        @select="alert('copy')"
       >
         Copy
       </MenuItem>
       <MenuItem
         class="menu_itemClass"
-        @select="() => {
-          alert('paste')
-        }"
+        @select="alert('paste')"
       >
         Paste
       </MenuItem>

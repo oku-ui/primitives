@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
-import { useDebounceFn } from '@vueuse/core'
-import { shallowRef, watchEffect } from 'vue'
+import { isClient, useDebounceFn } from '@vueuse/core'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useForwardElement, useStateMachine } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
@@ -43,21 +43,23 @@ const [state, send] = useStateMachine('hidden', {
 
 const debounceScrollEnd = useDebounceFn(() => send('SCROLL_END'), 100)
 
-watchEffect((onCleanup) => {
-  if (state.value !== 'idle')
-    return
+if (isClient) {
+  watchEffect(() => {
+    if (state.value !== 'idle')
+      return
 
-  const timeId = window.setTimeout(
-    () => send('HIDE'),
-    context.scrollHideDelay,
-  )
+    const timeId = window.setTimeout(
+      () => send('HIDE'),
+      context.scrollHideDelay,
+    )
 
-  onCleanup(() => {
-    window.clearTimeout(timeId)
+    onWatcherCleanup(() => {
+      window.clearTimeout(timeId)
+    })
   })
-})
+}
 
-watchEffect((onCleanup) => {
+watchEffect(() => {
   const viewport = context.viewport.value
   if (!viewport)
     return
@@ -67,6 +69,7 @@ watchEffect((onCleanup) => {
     : 'scrollTop'
 
   let prevScrollPos = viewport[scrollDirection]
+
   const handleScroll = () => {
     const scrollPos = viewport[scrollDirection]
     const hasScrollInDirectionChanged = prevScrollPos !== scrollPos
@@ -76,9 +79,10 @@ watchEffect((onCleanup) => {
     }
     prevScrollPos = scrollPos
   }
+
   viewport.addEventListener('scroll', handleScroll)
 
-  onCleanup(() => {
+  onWatcherCleanup(() => {
     viewport.removeEventListener('scroll', handleScroll)
   })
 })

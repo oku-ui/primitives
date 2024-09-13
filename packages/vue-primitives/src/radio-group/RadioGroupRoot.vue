@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   loop: true,
 })
 const emit = defineEmits<RadioGroupRootEmits>()
+
 const elRef = useRef<HTMLElement>()
 const forwardElement = useForwardElement(elRef)
 

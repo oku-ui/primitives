@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { createContext } from '../hooks/index.ts'
+import { createContext, type MutableRefObject } from '../hooks/index.ts'
 
 export interface CheckboxRootProps {
   as?: PrimitiveProps['as']
@@ -17,6 +17,22 @@ export type CheckboxRootEmits = {
   'update:checked': [value: CheckedState]
   'keydown': [event: KeyboardEvent]
   'click': [event: MouseEvent]
+}
+
+// eslint-disable-next-line ts/consistent-type-definitions
+export type CheckboxRootSlots = {
+  default: (props: {
+    isFormControl: boolean
+    input: {
+      control: HTMLButtonElement | undefined
+      bubbles: MutableRefObject<boolean>
+      name?: string
+      value: string
+      checked: CheckedState
+      required?: boolean
+      disabled?: boolean
+    }
+  }) => any
 }
 
 export type CheckedState = boolean | 'indeterminate'

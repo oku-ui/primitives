@@ -20,13 +20,13 @@ function alert(name: string) {
 <template>
   <div>
     <MenuWithAnchor>
-      <MenuItem class="menu_itemClass" @select="() => alert('minimize')">
+      <MenuItem class="menu_itemClass" @select="alert('minimize')">
         Minimize window
       </MenuItem>
-      <MenuItem class="menu_itemClass" @select="() => alert('zoom')">
+      <MenuItem class="menu_itemClass" @select="alert('zoom')">
         Zoom
       </MenuItem>
-      <MenuItem class="menu_itemClass" @select="() => alert('smaller')">
+      <MenuItem class="menu_itemClass" @select="alert('smaller')">
         Smaller
       </MenuItem>
       <MenuSeparator class="menu_separatorClass" />

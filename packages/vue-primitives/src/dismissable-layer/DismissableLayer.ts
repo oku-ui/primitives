@@ -97,8 +97,9 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
     emits.onPointerdownOutside?.(event)
     emits.onInteractOutside?.(event)
 
-    if (!event.defaultPrevented)
+    if (!event.defaultPrevented) {
       emits.onDismiss?.()
+    }
   }, $el)
 
   useFocusOutside((event) => {
@@ -135,7 +136,8 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
 
     const ownerDocumentVal = ownerDocument()
 
-    if (props.disableOutsidePointerEvents()) {
+    const disableOutsidePointerEvents = props.disableOutsidePointerEvents()
+    if (disableOutsidePointerEvents) {
       if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
         originalBodyPointerEvents = ownerDocumentVal.body.style.pointerEvents
         ownerDocumentVal.body.style.pointerEvents = 'none'
@@ -146,10 +148,7 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
     context.layers.add(nodeVal)
 
     onWatcherCleanup(() => {
-      if (
-        props.disableOutsidePointerEvents()
-        && context.layersWithOutsidePointerEventsDisabled.size === 1
-      ) {
+      if (disableOutsidePointerEvents && context.layersWithOutsidePointerEventsDisabled.size === 1) {
         if (!originalBodyPointerEvents) {
           const syles = ownerDocumentVal.body.style
           syles.removeProperty('pointer-events')

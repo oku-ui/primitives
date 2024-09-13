@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { SwitchRoot, SwitchThumb } from '../index.ts'
+import { SwitchBubbleInput, SwitchRoot, SwitchThumb } from '../index.ts'
 import './styles.css'
 
 const data = shallowRef({ optional: false, required: false, stopprop: false })
@@ -23,12 +23,11 @@ const checked = shallowRef(false)
     <fieldset>
       <legend>optional checked: {{ String(data.optional) }}</legend>
       <label>
-        <SwitchRoot
-          v-model:checked="checked"
-          class="switch_rootClass"
-          name="optional"
-        >
-          <SwitchThumb class="switch_thumbClass" />
+        <SwitchRoot v-model:checked="checked" class="switch_rootClass" name="optional">
+          <template #default="scope">
+            <SwitchBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
+            <SwitchThumb class="switch_thumbClass" />
+          </template>
         </SwitchRoot>{{ ' ' }}
         with label
       </label>
@@ -40,7 +39,10 @@ const checked = shallowRef(false)
     <fieldset>
       <legend>required checked: {{ String(data.required) }}</legend>
       <SwitchRoot class="switch_rootClass" name="required" required>
-        <SwitchThumb class="switch_thumbClass" />
+        <template #default="scope">
+          <SwitchBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
+          <SwitchThumb class="switch_thumbClass" />
+        </template>
       </SwitchRoot>
     </fieldset>
 
@@ -49,12 +51,11 @@ const checked = shallowRef(false)
 
     <fieldset>
       <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
-      <SwitchRoot
-        class="switch_rootClass"
-        name="stopprop"
-        @click="(event: Event) => event.stopPropagation()"
-      >
-        <SwitchThumb class="switch_thumbClass" />
+      <SwitchRoot class="switch_rootClass" name="stopprop" @click="(event: Event) => event.stopPropagation()">
+        <template #default="scope">
+          <SwitchBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
+          <SwitchThumb class="switch_thumbClass" />
+        </template>
       </SwitchRoot>
     </fieldset>
 

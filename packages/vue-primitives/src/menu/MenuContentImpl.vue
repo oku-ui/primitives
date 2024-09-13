@@ -84,13 +84,15 @@ useFocusGuards()
 
 function isPointerMovingToSubmenu(event: PointerEvent) {
   const isMovingTowards = pointerDirRef === pointerGraceIntentRef?.side
+
   return isMovingTowards && isPointerInGraceArea(event, pointerGraceIntentRef?.area)
 }
 
 provideMenuContentContext({
   onItemEnter(event) {
-    if (isPointerMovingToSubmenu(event))
+    if (isPointerMovingToSubmenu(event)) {
       event.preventDefault()
+    }
   },
   onItemLeave(event) {
     if (isPointerMovingToSubmenu(event))
@@ -99,8 +101,9 @@ provideMenuContentContext({
     currentItemId.value = undefined
   },
   onTriggerLeave(event) {
-    if (isPointerMovingToSubmenu(event))
+    if (isPointerMovingToSubmenu(event)) {
       event.preventDefault()
+    }
   },
   searchRef,
   pointerGraceTimerRef,
@@ -154,6 +157,7 @@ const focusScope = useFocusScope(
     }, (event) => {
       // when opening, explicitly focus the content area only and leave
       // `onEntryFocus` in  control of focusing first item
+
       event.preventDefault()
       popperContext.content.value?.focus({ preventScroll: true })
     }),
@@ -218,8 +222,9 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
     emit('entryFocus', event)
   }, (event) => {
   // only focus first item when using keyboard
-    if (!rootContext.isUsingKeyboardRef.current)
+    if (!rootContext.isUsingKeyboardRef.current) {
       event.preventDefault()
+    }
   }),
 })
 
@@ -234,8 +239,9 @@ const onKeydown = composeEventHandlers<KeyboardEvent>(focusScope.onKeydown, (eve
 
   if (isKeyDownInside) {
     // menus should not be navigated using tab key so we prevent it
-    if (event.key === 'Tab')
+    if (event.key === 'Tab') {
       event.preventDefault()
+    }
 
     if (!isModifierKey && isCharacterKey)
       handleTypeaheadSearch(event.key)

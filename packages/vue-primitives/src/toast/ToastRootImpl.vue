@@ -100,11 +100,14 @@ watch(context.viewport, (viewport) => {
 // we include `open` in deps because closed !== unmounted when animating
 // so it could reopen before being completely unmounted
 if (isClient) {
-  watchEffect((onCleanup) => {
-    if (props.open && !context.isClosePausedRef.current) {
-      startTimer(duration())
-      onCleanup(() => window.clearTimeout(closeTimerRef))
-    }
+  watchEffect(() => {
+    if (!props.open || context.isClosePausedRef.current)
+      return
+
+    startTimer(duration())
+    onWatcherCleanup(() => {
+      window.clearTimeout(closeTimerRef)
+    })
   })
 }
 
@@ -115,7 +118,7 @@ const isAnnounced = shallowRef(false)
 // let timerIsAnnounced: number | undefined
 
 // TODO: render text content in the next frame to ensure toast is announced in NVDA
-// let cliear: () => void
+// let clear: () => void
 
 // if (!context.viewport)
 //   return null
@@ -126,7 +129,7 @@ watch($el, (el) => {
   onToastAdd()
 
   // render text content in the next frame to ensure toast is announced in NVDA
-  const cliear = useNextFrame(() => {
+  const clear = useNextFrame(() => {
     renderAnnounceText.value = true
   })
 
@@ -136,7 +139,7 @@ watch($el, (el) => {
 
   onWatcherCleanup(() => {
     onToastRemove()
-    cliear()
+    clear()
     window.clearTimeout(timerIsAnnounced)
   })
 })

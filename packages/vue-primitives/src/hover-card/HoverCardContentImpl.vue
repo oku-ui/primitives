@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HoverCardContentImplEmits } from './HoverCardContentImpl.ts'
-import { onBeforeUnmount, onMounted, shallowRef, watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
@@ -17,20 +17,22 @@ const context = useHoverCardContext('HoverCardContentImpl')
 const popperContext = usePopperContext('HoverCardContentImpl')
 const containSelection = shallowRef(false)
 
-watchEffect((onCleanup) => {
-  if (containSelection.value) {
-    const body = document.body
+watchEffect(() => {
+  if (!containSelection.value)
+    return
 
-    // Safari requires prefix
-    originalBodyUserSelect = body.style.userSelect || body.style.webkitUserSelect
+  const body = document.body
 
-    body.style.userSelect = 'none'
-    body.style.webkitUserSelect = 'none'
-    onCleanup(() => {
-      body.style.userSelect = originalBodyUserSelect
-      body.style.webkitUserSelect = originalBodyUserSelect
-    })
-  }
+  // Safari requires prefix
+  originalBodyUserSelect = body.style.userSelect || body.style.webkitUserSelect
+
+  body.style.userSelect = 'none'
+  body.style.webkitUserSelect = 'none'
+
+  onWatcherCleanup(() => {
+    body.style.userSelect = originalBodyUserSelect
+    body.style.webkitUserSelect = originalBodyUserSelect
+  })
 })
 
 function handlePointerUp() {

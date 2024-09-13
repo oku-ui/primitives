@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
 import type { PopoverContentNonModal } from './PopoverContentNonModal.ts'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
@@ -33,7 +32,7 @@ function onCloseAutoFocus(event: Event) {
   hasPointerDownOutsideRef = false
 }
 
-function onInteractOutside(event: PointerdownOutsideEvent | FocusOutsideEvent) {
+function onInteractOutside(event: PopoverContentNonModal['interactOutside'][0]) {
   emit('interactOutside', event)
 
   if (!event.defaultPrevented) {

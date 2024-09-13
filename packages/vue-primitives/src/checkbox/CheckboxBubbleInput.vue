@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import type { BubbleInputProps } from './BubbleInput.ts'
+import type { CheckboxBubbleInputProps } from './CheckboxBubbleInput.ts'
 import { watch } from 'vue'
 import { useSize } from '../hooks/index.ts'
+import { isIndeterminate } from './utils.ts'
 
 defineOptions({
-  name: 'BubbleInput',
+  name: 'CheckboxBubbleInput',
 })
 
-const props = withDefaults(defineProps<BubbleInputProps>(), {
+const props = withDefaults(defineProps<CheckboxBubbleInputProps>(), {
   checked: undefined,
   control: undefined,
-  bubbles: true,
 })
+
 let input: HTMLInputElement | undefined
 function setElRef(vNode: any) {
   input = vNode
@@ -32,8 +33,9 @@ watch(() => props.checked, (checked, prevChecked) => {
 
   if (prevChecked !== checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
-    const event = new Event('change', { bubbles: props.bubbles })
-    setChecked.call(input, checked)
+    const event = new Event('change', { bubbles: props.bubbles.current })
+    input.indeterminate = isIndeterminate(checked)
+    setChecked.call(input, isIndeterminate(checked) ? false : checked)
     input.dispatchEvent(event)
   }
 })
@@ -45,7 +47,7 @@ watch(() => props.checked, (checked, prevChecked) => {
     type="checkbox"
     aria-hidden="true"
     tabindex="-1"
-    :checked="checked"
+    :checked="isIndeterminate(checked) ? false : checked"
     :style="{
       width: `${controlSize?.width || 0}px`,
       height: `${controlSize?.height || 0}px`,

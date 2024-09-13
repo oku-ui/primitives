@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { AvatarFallbackProps } from './AvatarFallback.ts'
 import { isClient } from '@vueuse/core'
-import { shallowRef, watchEffect } from 'vue'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { useAvatarContext } from './AvatarRoot.ts'
 
@@ -17,10 +17,10 @@ const context = useAvatarContext('AvatarFallback')
 const canRender = shallowRef(props.delayMs === undefined)
 
 if (isClient) {
-  watchEffect((onCleanup) => {
+  watchEffect(() => {
     if (props.delayMs !== undefined) {
       const timerId = window.setTimeout(() => canRender.value = true, props.delayMs)
-      onCleanup(() => {
+      onWatcherCleanup(() => {
         window.clearTimeout(timerId)
       })
     }

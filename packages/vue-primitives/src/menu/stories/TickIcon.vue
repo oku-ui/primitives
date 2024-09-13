@@ -10,9 +10,9 @@
     height="12"
     fill="none"
     stroke="currentcolor"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="3"
   >
     <path d="M2 20 L12 28 30 4" />
   </svg>

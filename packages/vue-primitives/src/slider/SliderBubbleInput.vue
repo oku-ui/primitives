@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { BubbleInputProps } from './BubbleInput.ts'
+import type { SliderBubbleInputProps } from './SliderBubbleInput.ts'
 import { watch } from 'vue'
 
 defineOptions({
-  name: 'BubbleInput',
+  name: 'SliderBubbleInput',
 })
 
-const props = defineProps<BubbleInputProps>()
+const props = defineProps<SliderBubbleInputProps>()
 
 let input: HTMLInputElement | undefined
 function setElRef(vNode: any) {

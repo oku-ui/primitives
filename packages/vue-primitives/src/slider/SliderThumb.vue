@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
 import { isClient } from '@vueuse/core'
-import { computed, shallowRef, watchEffect } from 'vue'
+import { computed, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useForwardElement, useSize } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
-import BubbleInput from './BubbleInput.vue'
+import SliderBubbleInput from './SliderBubbleInput.vue'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
 import { useCollection, useSliderContext } from './SliderRoot.ts'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
@@ -46,12 +46,16 @@ const thumbInBoundsOffset = computed(() => {
 })
 
 if (isClient) {
-  watchEffect((onCleanup) => {
+  watchEffect(() => {
     const thumb = $el.value
-    if (thumb) {
-      context.thumbs.add(thumb)
-      onCleanup(() => context.thumbs.delete(thumb))
-    }
+
+    if (!thumb)
+      return
+    context.thumbs.add(thumb)
+
+    onWatcherCleanup(() => {
+      context.thumbs.delete(thumb)
+    })
   })
 }
 
@@ -98,7 +102,7 @@ const onFocus = composeEventHandlers<FocusEvent>((event) => {
       <slot />
     </Primitive>
 
-    <BubbleInput
+    <SliderBubbleInput
       v-if="isFormControl"
       :key="index"
       :name="name ?? (context.name() ? context.name() + (context.values.value.length > 1 ? '[]' : '') : undefined)"
