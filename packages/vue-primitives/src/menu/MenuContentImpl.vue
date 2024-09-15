@@ -4,7 +4,7 @@ import { onBeforeUnmount, shallowRef } from 'vue'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
-import { useForwardElement, useRef } from '../hooks/index.ts'
+import { useBodyScrollLock, useForwardElement, useRef } from '../hooks/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { focusFirst } from '../utils/focusFirst.ts'
@@ -40,11 +40,7 @@ let pointerGraceIntentRef: GraceIntent | undefined
 let pointerDirRef: Side = 'right'
 let lastPointerXRef = 0
 
-// TODO: ScrollLock
-// const ScrollLockWrapper = disableOutsideScroll ? RemoveScroll : React.Fragment
-// const scrollLockWrapperProps = disableOutsideScroll
-// ? { as: Slot, allowPinchZoom: true }
-// : undefined
+const unlock = props.disableOutsideScroll ? useBodyScrollLock() : undefined
 
 function handleTypeaheadSearch(key: string) {
   const search = searchRef.current + key
@@ -76,6 +72,7 @@ function handleTypeaheadSearch(key: string) {
 
 onBeforeUnmount(() => {
   window.clearTimeout(timerRef)
+  unlock?.()
 })
 
 // Make sure the whole tree has focus guards as our `MenuContent` may be

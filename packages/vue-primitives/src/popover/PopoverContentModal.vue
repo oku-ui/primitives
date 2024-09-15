@@ -6,6 +6,7 @@ import { onBeforeUnmount } from 'vue'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { composeEventHandlers } from '../utils/vue.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
@@ -50,7 +51,10 @@ const onFocusOutside = composeEventHandlers<FocusOutsideEvent>((event) => {
   emit('focusOutside', event)
 }, event => event.preventDefault(), { checkForDefaultPrevented: false })
 
+const unlock = useBodyScrollLock()
+
 onBeforeUnmount(() => {
+  unlock()
   if (popperContext.content.value)
     hideOthers(popperContext.content.value)
 })

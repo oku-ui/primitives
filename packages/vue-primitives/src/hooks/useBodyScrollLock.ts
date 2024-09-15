@@ -53,7 +53,7 @@ export function useBodyScrollLock(): () => void {
     }
   }
 
-  function onlock() {
+  const unlock = () => {
     bodyStyle.overflow = initialOverflow ?? ''
     body.removeAttribute('data-scroll-lock')
 
@@ -70,7 +70,7 @@ export function useBodyScrollLock(): () => void {
     stopTouchMoveListener?.()
   }
 
-  return onlock
+  return unlock
 }
 
 function preventDefault(event: TouchEvent): boolean {
