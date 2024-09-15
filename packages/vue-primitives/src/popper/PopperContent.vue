@@ -118,11 +118,10 @@ const floatingConfig = computed<UseFloatingCofnig>(() => {
 const { refs, floatingStyles, placement, isPositioned, middlewareData } = useFloating(
   {
     elements: { reference: context.anchor },
-    whileElementsMounted: (...args) => {
-      const cleanup = autoUpdate(...args, {
+    whileElementsMounted(reference, floating, update) {
+      return autoUpdate(reference, floating, update, {
         animationFrame: props.updatePositionStrategy === 'always',
       })
-      return cleanup
     },
   },
   floatingConfig,
