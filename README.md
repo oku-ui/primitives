@@ -76,7 +76,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | Form                                                                                          | ✖️      |
 | [HoverCard](https://vue-primitives.netlify.app/?path=/story/components-hovercard--chromatic)  | ✓      |
 | [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)             | ✓      |
-| Menubar                                                                                       | 🚧      |
+| [Menubar](https://vue-primitives.netlify.app/?path=/story/components-menubar--styled)         | ✓      |
 | NavigationMenu                                                                                | 🚧      |
 | [Popover](https://vue-primitives.netlify.app/?path=/story/components-popover--styled)         | ✓      |
 | [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)       | ✓      |

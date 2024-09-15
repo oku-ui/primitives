@@ -42,18 +42,20 @@ const popperContext = usePopperContext('MenuContent')
 const isPresent = usePresence(popperContext.content, () => props.forceMount || menuContext.open())
 
 const Comp = rootContext.modal ? MenuRootContentModal : MenuRootContentNonModal
+
+const style = {
+  '--radix-context-menu-content-transform-origin': 'var(--radix-popper-transform-origin)',
+  '--radix-context-menu-content-available-width': 'var(--radix-popper-available-width)',
+  '--radix-context-menu-content-available-height': 'var(--radix-popper-available-height)',
+  '--radix-context-menu-trigger-width': 'var(--radix-popper-anchor-width)',
+  '--radix-context-menu-trigger-height': 'var(--radix-popper-anchor-height)',
+}
 </script>
 
 <template>
   <Comp
     v-if="isPresent"
-    :style="{
-      '--radix-context-menu-content-transform-origin': 'var(--radix-popper-transform-origin)',
-      '--radix-context-menu-content-available-width': 'var(--radix-popper-available-width)',
-      '--radix-context-menu-content-available-height': 'var(--radix-popper-available-height)',
-      '--radix-context-menu-trigger-width': 'var(--radix-popper-anchor-width)',
-      '--radix-context-menu-trigger-height': 'var(--radix-popper-anchor-height)',
-    }"
+    :style="style"
     side="right"
     :side-offset="2"
     align="start"

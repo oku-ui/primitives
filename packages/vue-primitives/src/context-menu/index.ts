@@ -9,7 +9,6 @@ export { MenuItemIndicator as ContextMenuItemIndicator } from '../menu/index.ts'
 export { MenuSeparator as ContextMenuSeparator } from '../menu/index.ts'
 export { MenuArrow as ContextMenuArrow } from '../menu/index.ts'
 export { MenuSubTrigger as ContextMenuSubTrigger } from '../menu/index.ts'
-export { MenuSubContent as ContextMenuSubContent } from '../menu/index.ts'
 export {
   type ContextMenuContentEmits,
   type ContextMenuContentProps,
@@ -28,4 +27,5 @@ export {
   type ContextMenuSubProps,
 } from './ContextMenuSub.ts'
 export { default as ContextMenuSub } from './ContextMenuSub.vue'
+export { default as ContextMenuSubContent } from './ContextMenuSubContent.vue'
 export { default as ContextMenuTrigger } from './ContextMenuTrigger.vue'

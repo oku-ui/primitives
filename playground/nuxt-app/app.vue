@@ -23,6 +23,7 @@ const components = [
   'Dialog',
   'Hover Card',
   'Label',
+  'Menubar',
   'Popover',
   'Progress',
   'Radio Group',
