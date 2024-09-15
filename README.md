@@ -29,7 +29,7 @@ pnpm i @perigee/vue-primitives
 
 ---
 
-Main differences from [RadixVue](https://github.com/radix-vue/radix-vue)
+### Main differences from [RadixVue](https://github.com/radix-vue/radix-vue)
 
 1) I use [let](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hover-card/HoverCardRoot.vue#L22) variables or [useRef](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hooks/useRef.ts#L18) where React uses useRef. Radix-vue [creates unnecessary reactive ref](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/HoverCard/HoverCardRoot.vue#L64) variables in all places, which is completely unnecessary.
 
