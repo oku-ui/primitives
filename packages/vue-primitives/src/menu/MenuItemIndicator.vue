@@ -27,6 +27,7 @@ const isPresent = usePresence($el, () => props.forceMount || isIndeterminate(ind
   <Primitive
     v-if="isPresent"
     :ref="forwardElement"
+    :as="as"
     :data-state="getCheckedState(indicatorContext.checked())"
   >
     <slot />

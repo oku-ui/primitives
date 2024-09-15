@@ -227,7 +227,10 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
 
 // COMP::PopperRoot
 
-const onKeydown = composeEventHandlers<KeyboardEvent>(focusScope.onKeydown, (event) => {
+const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
+  emit('keydowm', event)
+  focusScope.onKeydown(event)
+}, (event) => {
   // submenu key events bubble through portals. We only care about keys in this menu.
   const target = event.target as HTMLElement
   const isKeyDownInside = target.closest('[data-radix-menu-content]') === event.currentTarget

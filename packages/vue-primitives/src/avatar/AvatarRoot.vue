@@ -22,9 +22,7 @@ provideAvatarContext({
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-  >
+  <Primitive :as="as">
     <slot />
   </Primitive>
 </template>
