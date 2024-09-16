@@ -54,6 +54,8 @@ This is currently a test implementation.
 
 11) An easier way to get the current element [without `computed`](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hooks/useForwardElement.ts#L4). [Radix-vue](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/shared/useForwardExpose.ts#L9C9-L9C23)
 
+12) scoped context WIP
+
 # TODO
 
 ## Components
