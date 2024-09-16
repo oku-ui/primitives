@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { isClient } from '@vueuse/core'
-import { onBeforeUnmount, onMounted, onWatcherCleanup, watchEffect } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { provideTooltipContentContext, type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.ts'

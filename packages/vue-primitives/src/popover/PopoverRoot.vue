@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { useControllableState, useId, useRef } from '../hooks/index.ts'
-import { PopperRoot } from '../popper/index.ts'
+import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { type PopoverRootEmits, type PopoverRootProps, providePopoverContext } from './PopoverRoot.ts'
 
 defineOptions({
@@ -39,10 +39,20 @@ providePopoverContext({
   },
   modal: props.modal,
 })
+
+// COMP::PopperRoot
+
+const anchor = shallowRef<Measurable>()
+
+providePopperContext({
+  content: shallowRef(),
+  anchor,
+  onAnchorChange(newAnchor) {
+    anchor.value = newAnchor
+  },
+})
 </script>
 
 <template>
-  <PopperRoot>
-    <slot />
-  </PopperRoot>
+  <slot />
 </template>

@@ -1,0 +1,81 @@
+.dropdownMenu_triggerClass {
+  border: 1px solid #111;
+  border-radius: 6px;
+  background-color: transparent;
+  padding: 5px 10px;
+  font-family: apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  font-size: 13px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.dropdownMenu_gridClass {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 50px);
+  column-gap: 150px;
+  row-gap: 100px;
+  padding: 100px;
+  border: 1px solid black;
+}
+
+.dropdownMenu_dialogClass {
+  position: fixed;
+  background: white;
+  border: 1px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+}
+
+.dropdownMenu_chromaticTriggerClass {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  background-color: tomato;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dropdownMenu_chromaticContentClass {
+  box-sizing: border-box;
+  display: grid;
+  place-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: royalblue;
+  color: white;
+  font-size: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dropdownMenu_chromaticArrowClass {
+  fill: black;
+}
+
+.dropdownMenu_triggerAttrClass,
+.dropdownMenu_contentAttrClass,
+.dropdownMenu_itemAttrClass,
+.dropdownMenu_itemIndicatorAttrClass,
+.dropdownMenu_checkboxItemAttrClass,
+.dropdownMenu_radioGroupAttrClass,
+.dropdownMenu_radioItemAttrClass,
+.dropdownMenu_separatorAttrClass,
+.dropdownMenu_arrowAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &[data-state="closed"] {
+    border-color: red;
+  }
+  &[data-state="open"] {
+    border-color: green;
+  }
+}

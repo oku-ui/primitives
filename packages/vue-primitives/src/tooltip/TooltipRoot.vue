@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, shallowRef } from 'vue'
 import { useControllableState, useId } from '../hooks/index.ts'
-import { PopperRoot } from '../popper/index.ts'
+import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { provideTooltipContext, TOOLTIP_OPEN, type TooltipRootEmits, type TooltipRootProps } from './TooltipRoot.ts'
 
@@ -96,10 +96,20 @@ provideTooltipContext({
   onClose: handleClose,
   disableHoverableContent,
 })
+
+// COMP::PopperRoot
+
+const anchor = shallowRef<Measurable>()
+
+providePopperContext({
+  content: shallowRef(),
+  anchor,
+  onAnchorChange(newAnchor) {
+    anchor.value = newAnchor
+  },
+})
 </script>
 
 <template>
-  <PopperRoot>
-    <slot />
-  </PopperRoot>
+  <slot />
 </template>

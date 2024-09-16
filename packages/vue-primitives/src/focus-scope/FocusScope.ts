@@ -67,10 +67,12 @@ export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocus
 
       const target = event.target as HTMLElement | null
 
-      if ($el.value.contains(target))
+      if ($el.value.contains(target)) {
         lastFocusedElementRef = target
-      else
+      }
+      else {
         focus(lastFocusedElementRef, { select: true })
+      }
     }
 
     function handleFocusOut(event: FocusEvent) {
@@ -108,8 +110,9 @@ export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocus
     // if not then we focus to the container
     function handleMutations() {
       const isLastFocusedElementExist = $el.value?.contains(lastFocusedElementRef as HTMLElement)
-      if (!isLastFocusedElementExist)
+      if (!isLastFocusedElementExist) {
         focus($el.value)
+      }
     }
 
     watchEffect(() => {
@@ -163,8 +166,9 @@ export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocus
         container.dispatchEvent(unmountEvent)
 
         setTimeout(() => {
-          if (!unmountEvent.defaultPrevented)
+          if (!unmountEvent.defaultPrevented) {
             focus(previouslyFocusedElement ?? document.body, { select: true })
+          }
 
           // we need to remove the listener after we `dispatchEvent`
           container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, emits.onUnmountAutoFocus)
@@ -201,14 +205,16 @@ export function useFocusScope($el: Ref<HTMLElement | undefined>, props: UseFocus
       if (!event.shiftKey && focusedElement === last) {
         event.preventDefault()
 
-        if (props.loop)
+        if (props.loop) {
           focus(first, { select: true })
+        }
       }
       else if (event.shiftKey && focusedElement === first) {
         event.preventDefault()
 
-        if (props.loop)
+        if (props.loop) {
           focus(last, { select: true })
+        }
       }
     }
   }

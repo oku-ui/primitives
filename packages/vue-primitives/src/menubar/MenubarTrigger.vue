@@ -2,7 +2,7 @@
 import type { MenubarTriggerEmits, MenubarTriggerProps } from './MenubarTrigger.ts'
 import { computed, onMounted, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
-import { useComposedElements, useRef } from '../hooks/index.ts'
+import { useComposedElements } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'

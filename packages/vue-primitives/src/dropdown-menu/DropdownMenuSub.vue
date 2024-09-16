@@ -1,0 +1,68 @@
+<script setup lang="ts">
+import type { DropdownMenuSubEmits, DropdownMenuSubProps } from './DropdownMenuSub.ts'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
+import { useControllableState, useId, useRef } from '../hooks/index.ts'
+import { provideMenuContext, provideMenuSubContext, useMenuContext } from '../menu/index.ts'
+import { type Measurable, providePopperContext } from '../popper/index.ts'
+
+defineOptions({
+  name: 'DropdownMenuSub',
+})
+
+const props = withDefaults(defineProps<DropdownMenuSubProps>(), {
+  open: undefined,
+  defaultOpen: false,
+})
+const emit = defineEmits<DropdownMenuSubEmits>()
+
+const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
+
+// COMP::MenuSub
+
+const parentMenuContext = useMenuContext('DropdownMenuSub')
+const trigger = useRef<HTMLDivElement>()
+
+// Prevent the parent menu from reopening with open submenus.
+watchEffect(() => {
+  if (parentMenuContext.open() === false)
+    open.value = false
+
+  onWatcherCleanup(() => {
+    open.value = false
+  })
+})
+
+provideMenuContext({
+  open() {
+    return open.value
+  },
+  onOpenChange(v) {
+    open.value = v
+  },
+})
+
+provideMenuSubContext({
+  contentId: useId(),
+  triggerId: useId(),
+  trigger,
+  onTriggerChange(el) {
+    trigger.current = el
+  },
+})
+
+// COMP::PopperRoot
+
+const anchor = shallowRef<Measurable>()
+
+providePopperContext({
+  content: shallowRef(),
+  anchor,
+  onAnchorChange(newAnchor) {
+    anchor.value = newAnchor
+  },
+})
+</script>
+
+<template>
+  <slot />
+</template>

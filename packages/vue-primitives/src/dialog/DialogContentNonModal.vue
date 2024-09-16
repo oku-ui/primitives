@@ -27,8 +27,9 @@ function onCloseAutoFocus(event: Event) {
   emit('closeAutoFocus', event)
 
   if (!event.defaultPrevented) {
-    if (!hasInteractedOutsideRef)
+    if (!hasInteractedOutsideRef) {
       context.triggerRef.current?.focus()
+    }
     // Always prevent auto focus because we either focus manually or want user agent focus
     event.preventDefault()
   }

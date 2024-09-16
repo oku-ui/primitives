@@ -21,6 +21,7 @@ const components = [
   'Collapsible',
   'Context Menu',
   'Dialog',
+  'Dropdown Menu',
   'Hover Card',
   'Label',
   'Menubar',

@@ -1,17 +1,9 @@
-import { cloneVNode, Comment, defineComponent, shallowRef, type VNode, warn } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { cloneVNode, Comment, defineComponent, type VNode, warn } from 'vue'
 import { getRawChildren } from '../utils/vue.ts'
 
 export const Slot = defineComponent({
   name: 'Slot',
-  setup(_, { slots, expose }) {
-    const $el = shallowRef<HTMLElement>()
-    const forwardElement = useForwardElement($el)
-
-    expose({
-      $el,
-    })
-
+  setup(_, { slots }) {
     return () => {
       if (!slots.default)
         return null
@@ -44,9 +36,7 @@ export const Slot = defineComponent({
       }
 
       if (child && child.type !== Comment) {
-        return cloneVNode(child, {
-          ref: forwardElement,
-        }, true)
+        return cloneVNode(child, null, true)
       }
 
       return null

@@ -61,7 +61,7 @@ export interface UseDismissableLayerProps {
 export interface UseDismissableLayerEmits {
   onPointerdownOutside?: (event: PointerdownOutsideEvent) => void
   onFocusOutside?: (event: FocusOutsideEvent) => void
-  onInteractOutside?: (event: PointerdownOutsideEvent | FocusOutsideEvent) => void
+  onInteractOutside?: (event: DismissableLayerEmits['interactOutside'][0]) => void
   onEscapeKeydown?: (event: KeyboardEvent) => void
   onDismiss?: () => void
   // onFocusCapture?: (event: FocusEvent) => void

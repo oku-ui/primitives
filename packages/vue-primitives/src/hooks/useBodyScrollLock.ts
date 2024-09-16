@@ -30,7 +30,9 @@ export function useBodyScrollLock(): () => void {
   bodyStyle.overflowX = 'hidden'
   html.style.scrollBehavior = 'auto'
 
-  bodyStyle.setProperty('overflow-y', 'scroll', 'important')
+  if (body.scrollHeight > window.innerHeight)
+    bodyStyle.setProperty('overflow-y', 'scroll', 'important')
+
   bodyStyle.position = 'fixed'
   bodyStyle.left = '0'
   bodyStyle.right = '0'

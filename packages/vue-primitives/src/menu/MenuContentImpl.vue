@@ -94,6 +94,7 @@ provideMenuContentContext({
   onItemLeave(event) {
     if (isPointerMovingToSubmenu(event))
       return
+
     popperContext.content.value?.focus()
     currentItemId.value = undefined
   },

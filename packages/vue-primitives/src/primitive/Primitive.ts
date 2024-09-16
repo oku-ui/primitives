@@ -1,5 +1,4 @@
-import { type Component, defineComponent, h, type PropType, shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { type Component, defineComponent, h, type PropType } from 'vue'
 import { Slot } from '../slot/index.ts'
 
 export type AsTag =
@@ -39,23 +38,15 @@ export const Primitive = defineComponent({
   setup(props, ctx) {
     const asChild = props.as === 'template'
     if (asChild) {
-      const $el = shallowRef<HTMLElement>()
-      const forwardElement = useForwardElement($el)
-      ctx.expose({ $el })
-
-      return () => h(Slot, { ref: forwardElement }, { default: ctx.slots.default })
+      return () => h(Slot, null, { default: ctx.slots.default })
     }
 
     const isSingleHtmlTag = typeof props.as === 'string' && singleHtmlTags.has(props.as)
 
     if (isSingleHtmlTag) {
-      return () => h(props.as, {})
+      return () => h(props.as, null)
     }
 
-    const $el = shallowRef<HTMLElement>()
-    const forwardElement = useForwardElement($el)
-    ctx.expose({ $el })
-
-    return () => h(props.as, { ref: forwardElement }, { default: ctx.slots.default })
+    return () => h(props.as, null, { default: ctx.slots.default })
   },
 })
