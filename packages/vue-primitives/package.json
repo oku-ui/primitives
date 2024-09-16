@@ -1,7 +1,7 @@
 {
   "name": "@perigee/vue-primitives",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -43,6 +43,10 @@
       "types": "./dist/config/index.d.ts",
       "import": "./dist/config/index.js"
     },
+    "./context-menu": {
+      "types": "./dist/context-menu/index.d.ts",
+      "import": "./dist/context-menu/index.js"
+    },
     "./dialog": {
       "types": "./dist/dialog/index.d.ts",
       "import": "./dist/dialog/index.js"
@@ -54,6 +58,10 @@
     "./dismissable-layer": {
       "types": "./dist/dismissable-layer/index.d.ts",
       "import": "./dist/dismissable-layer/index.js"
+    },
+    "./dropdown-menu": {
+      "types": "./dist/dropdown-menu/index.d.ts",
+      "import": "./dist/dropdown-menu/index.js"
     },
     "./floating": {
       "types": "./dist/floating/index.d.ts",
@@ -78,6 +86,14 @@
     "./label": {
       "types": "./dist/label/index.d.ts",
       "import": "./dist/label/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "import": "./dist/menu/index.js"
+    },
+    "./menubar": {
+      "types": "./dist/menubar/index.d.ts",
+      "import": "./dist/menubar/index.js"
     },
     "./popover": {
       "types": "./dist/popover/index.d.ts",
