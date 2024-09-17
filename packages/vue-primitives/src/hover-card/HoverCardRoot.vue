@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, shallowRef } from 'vue'
 import { useControllableState, useRef } from '../hooks/index.ts'
-import { PopoverRoot } from '../popover/index.ts'
+import { type Measurable, providePopperContext } from '../popper/PopperRoot.ts'
 import { type HoverCardRootEmits, type HoverCardRootProps, provideHoverCardContext } from './HoverCardRoot.ts'
 
 defineOptions({
@@ -24,6 +24,7 @@ let closeTimerRef = 0
 const hasSelectionRef = useRef(false)
 const isPointerDownOnContentRef = useRef(false)
 
+// cleanup any queued state updates on unmount
 onBeforeUnmount(() => {
   clearTimeout(openTimerRef)
   clearTimeout(closeTimerRef)
@@ -56,10 +57,20 @@ provideHoverCardContext({
   hasSelectionRef,
   isPointerDownOnContentRef,
 })
+
+// COMP::PopperRoot
+
+const anchor = shallowRef<Measurable>()
+
+providePopperContext({
+  content: shallowRef(),
+  anchor,
+  onAnchorChange(newAnchor) {
+    anchor.value = newAnchor
+  },
+})
 </script>
 
 <template>
-  <PopoverRoot>
-    <slot />
-  </PopoverRoot>
+  <slot />
 </template>
