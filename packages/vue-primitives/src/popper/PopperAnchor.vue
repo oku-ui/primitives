@@ -22,10 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Primitive
-    v-if="!virtualRef"
-    :ref="forwardElement"
-  >
+  <Primitive v-if="!virtualRef" :ref="forwardElement">
     <slot />
   </Primitive>
 </template>
