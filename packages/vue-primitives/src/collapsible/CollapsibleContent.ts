@@ -1,4 +1,4 @@
-import { computed, nextTick, onMounted, type Ref, shallowRef } from 'vue'
+import { computed, type CSSProperties, nextTick, onMounted, type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
@@ -45,7 +45,7 @@ export function useCollapsibleContent($el: Ref<HTMLElement | undefined>, props: 
   // when closing we delay `present` to retrieve dimensions before closing
   const isOpen = computed(() => context.open.value || isPresent.value)
 
-  const blockAnimationStyles = shallowRef<Partial<CSSStyleDeclaration> | undefined>(isOpen.value
+  const blockAnimationStyles = shallowRef<CSSProperties | undefined>(isOpen.value
     ? {
         transitionDuration: '0s !important',
         animationName: 'none !important',
