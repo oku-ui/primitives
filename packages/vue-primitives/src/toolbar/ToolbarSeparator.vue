@@ -7,7 +7,7 @@ defineOptions({
   name: 'ToolbarSeparator',
 })
 
-defineProps<ToolbarSeparatorProps>()
+const props = defineProps<ToolbarSeparatorProps>()
 
 const context = useToolbarContext('ToolbarSeparator')
 
@@ -16,9 +16,10 @@ const decorativeAttrs = { role: 'none' }
 const orientation = () => context.orientation() === 'horizontal' ? 'vertical' : 'horizontal'
 
 function attrs() {
-  const orientation = context.orientation()
-  if (orientation)
+  if (props.decorative)
     return decorativeAttrs
+
+  const orientation = context.orientation()
 
   return {
     'aria-orientation': orientation === 'vertical' ? orientation : undefined,
