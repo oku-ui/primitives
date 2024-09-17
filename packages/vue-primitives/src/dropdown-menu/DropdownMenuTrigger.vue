@@ -63,6 +63,7 @@ onMounted(() => {
   <Primitive
     :id="context.triggerId"
     :ref="forwardElement"
+    type="button"
     :as="as"
     aria-haspopup="menu"
     :aria-expanded="context.open()"
