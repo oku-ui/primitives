@@ -12,6 +12,7 @@ defineOptions({
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
   disabled: false,
   required: false,
+  defaultValue: undefined,
   loop: true,
 })
 const emit = defineEmits<RadioGroupRootEmits>()
@@ -21,7 +22,7 @@ const forwardElement = useForwardElement(elRef)
 
 const direction = useDirection(() => props.dir)
 
-const value = useControllableState(props, v => emit('update:value', v), 'value', props.defaultValue)
+const value = useControllableState(props, 'value', v => emit('update:value', v as string), props.defaultValue)
 
 provideRadioGroupContext({
   name() {

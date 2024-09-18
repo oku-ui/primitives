@@ -19,9 +19,7 @@ const forwardElement = useForwardElement(elRef)
 const context = useTabsContext('TabsList')
 
 const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
-  currentTabStopId() {
-    return undefined
-  },
+  currentTabStopId: undefined,
   orientation() {
     return context.orientation
   },

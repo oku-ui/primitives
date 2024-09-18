@@ -28,6 +28,7 @@ let wasOpenDelayedRef = false
 
 const open = useControllableState(
   props,
+  'open',
   (v) => {
     if (v) {
       providerContext.onOpen()
@@ -41,7 +42,6 @@ const open = useControllableState(
     }
     emit('update:open', v)
   },
-  'open',
   props.defaultOpen,
 )
 

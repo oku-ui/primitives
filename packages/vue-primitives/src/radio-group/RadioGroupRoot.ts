@@ -25,7 +25,7 @@ export interface RadioGroupContext {
   name: () => string | undefined
   required: () => boolean
   disabled: () => boolean
-  value: Ref<string>
+  value: Ref<string | undefined>
   onValueChange: (value: string) => void
 }
 

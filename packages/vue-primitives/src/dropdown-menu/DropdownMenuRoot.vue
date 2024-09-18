@@ -19,7 +19,7 @@ const emit = defineEmits<DropdownMenuRootEmits>()
 
 const triggerRef = useRef<HTMLButtonElement>()
 
-const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
+const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
 provideDropdownMenuContext({
   triggerId: useId(),

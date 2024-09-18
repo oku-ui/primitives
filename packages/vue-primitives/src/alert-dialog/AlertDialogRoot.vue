@@ -18,7 +18,7 @@ const emit = defineEmits<AlertDialogRootEmits>()
 const triggerRef = useRef<HTMLButtonElement>()
 const contentRef = useRef<DialogContentElement>()
 
-const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
+const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
 provideDialogContext({
   triggerRef,

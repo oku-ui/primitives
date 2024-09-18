@@ -26,7 +26,8 @@ const elRef = useRef<HTMLElement>()
 const forwardElement = useForwardElement(elRef)
 
 const direction = useDirection(() => props.dir)
-const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
+const defaultValue = props.type === 'single' ? props.defaultValue : props.defaultValue ?? []
+const value = useControllableState(props, 'value', v => emit('update:value', v as Value), defaultValue)
 const TYPE_SINGLE = 'single' as const satisfies AccordionType
 
 const getItems = useCollection(Collection.provideCollectionContext(elRef))

@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 })
 const emit = defineEmits<ToggleEmits>()
 
-const pressed = useControllableState(props, v => emit('update:pressed', v), 'pressed', props.defaultPressed)
+const pressed = useControllableState(props, 'pressed', v => emit('update:pressed', v), props.defaultPressed)
 
 const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)

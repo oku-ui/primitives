@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<ToastRootProps>(), {
   defaultOpen: true,
 })
 const emit = defineEmits<ToastRootEmits>()
-const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
+const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
 const $el = shallowRef<HTMLLIElement>()
 const forwardElement = useForwardElement($el)

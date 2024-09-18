@@ -32,7 +32,7 @@ export type TabsRootEmits = {
 
 export interface TabsContext {
   baseId: string
-  value: Ref<string>
+  value: Ref<string | undefined>
   onValueChange: (value: string) => void
   orientation: Required<TabsRootProps['orientation']>
   dir: Ref<Exclude<TabsRootProps['dir'], undefined>>

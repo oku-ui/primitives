@@ -23,7 +23,8 @@ const props = withDefaults(defineProps<ToggleGroupProps<T>>(), {
 })
 const emit = defineEmits<ToggleGroupEmits<T>>()
 
-const value = useControllableState(props, v => emit('update:value', v as Value), 'value', props.defaultValue)
+const defaultValue = props.type === 'single' ? props.defaultValue : props.defaultValue ?? [] as string[]
+const value = useControllableState(props, 'value', v => emit('update:value', v as Value), defaultValue)
 
 const TYPE_SINGLE = 'single' as const satisfies ToggleGroupType
 

@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<MenubarSubProps>(), {
 
 const emit = defineEmits<MenubarSubEmits>()
 
-const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
+const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
 // COMP::MenuSub
 

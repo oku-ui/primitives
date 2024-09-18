@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<ContextMenuSubProps>(), {
 
 const emit = defineEmits<ContextMenuSubEmits>()
 
-const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
+const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
 // COMP::MenuSub
 

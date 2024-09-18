@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
 
 const emit = defineEmits<HoverCardRootEmits>()
 
-const open = useControllableState(props, v => emit('update:open', v), 'open', props.defaultOpen)
+const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
 let openTimerRef = 0
 let closeTimerRef = 0

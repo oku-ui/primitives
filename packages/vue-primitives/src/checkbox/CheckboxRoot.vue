@@ -12,6 +12,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<CheckboxRootProps>(), {
   checked: undefined,
+  defaultChecked: false,
   value: 'on',
   as: 'button',
 })
@@ -26,7 +27,7 @@ const forwardElement = useForwardElement<HTMLButtonElement>(control)
 const bubbles = useRef(true)
 // We set this to true by default so that events bubble to forms without JS (SSR)
 const isFormControl = computed(() => control.value ? Boolean(control.value.closest('form')) : true)
-const checked = useControllableState(props, v => emit('update:checked', v), 'checked', props.defaultChecked)
+const checked = useControllableState(props, 'checked', v => emit('update:checked', v), props.defaultChecked)
 
 const initialCheckedStateRef = checked.value
 

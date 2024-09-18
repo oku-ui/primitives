@@ -88,12 +88,12 @@ const valueIndexToChangeRef = useRef(0)
 
 const values = useControllableState(
   props,
+  'value',
   (v) => {
     const thumbs = Array.from(thumbRefs)
     thumbs[valueIndexToChangeRef.current]?.focus()
     emit('update:value', v)
   },
-  'value',
   props.defaultValue,
 )
 

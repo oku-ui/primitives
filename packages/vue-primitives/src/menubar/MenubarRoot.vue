@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 const emit = defineEmits<MenubarRootEmits>()
 
 const direction = useDirection(() => props.dir)
-const value = useControllableState(props, v => emit('update:value', v), 'value', props.defaultValue)
+const value = useControllableState(props, 'value', v => emit('update:value', v), props.defaultValue)
 
 // We need to manage tab stop id manually as `RovingFocusGroup` updates the stop
 // based on focus, and in some situations our triggers won't ever be given focus

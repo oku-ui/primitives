@@ -17,7 +17,7 @@ const emit = defineEmits<TabsRootEmits>()
 
 const direction = useDirection(() => props.dir)
 
-const value = useControllableState(props, v => emit('update:value', v), 'value', props.defaultValue)
+const value = useControllableState(props, 'value', v => emit('update:value', v as string), props.defaultValue)
 
 provideTabsContext({
   baseId: useId(),
