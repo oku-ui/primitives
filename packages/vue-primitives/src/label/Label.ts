@@ -12,7 +12,11 @@ export interface UseLabelEmits {
   onMousedown?: (event: MouseEvent) => void
 }
 
-export function useLabel(emits?: UseLabelEmits) {
+export interface UseLabelReturns {
+  onMousedown?: (event: MouseEvent) => void
+}
+
+export function useLabel(emits?: UseLabelEmits): () => UseLabelReturns {
   function onMousedown(event: MouseEvent) {
     // only prevent text selection if clicking inside the label itself
     const target = event.target as HTMLElement
