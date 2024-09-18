@@ -1,4 +1,5 @@
-import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { PrimitiveProps } from '../primitive/index.ts'
+import type { ConvertEmitsToUseEmits } from '../utils/vue.ts'
 
 export interface LabelProps {
   as?: PrimitiveProps['as']
@@ -8,9 +9,7 @@ export type LabelEmits = {
   mousedown: [event: MouseEvent]
 }
 
-export interface UseLabelEmits {
-  onMousedown?: (event: MouseEvent) => void
-}
+export type UseLabelEmits = ConvertEmitsToUseEmits<LabelEmits>
 
 export interface UseLabelReturns {
   onMousedown?: (event: MouseEvent) => void
@@ -29,7 +28,7 @@ export function useLabel(emits?: UseLabelEmits): () => UseLabelReturns {
       event.preventDefault()
   }
 
-  return () => ({
+  return (): UseLabelReturns => ({
     onMousedown,
   })
 }

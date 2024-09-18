@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { useControllableState, useId } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { type CollapsibleRootEmits, type CollapsibleRootProps, provideCollapsibleContext } from './CollapsibleRoot.ts'
-import { getState } from './utils.ts'
+import { Primitive } from '../primitive/index.ts'
+import { type CollapsibleRootEmits, type CollapsibleRootProps, useCollapsibleRoot } from './CollapsibleRoot.ts'
 
 defineOptions({
   name: 'CollapsibleRoot',
@@ -14,25 +12,23 @@ const props = withDefaults(defineProps<CollapsibleRootProps>(), {
 })
 const emit = defineEmits<CollapsibleRootEmits>()
 
-const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
-
-provideCollapsibleContext({
-  contentId: useId(),
+const collapsibleRoot = useCollapsibleRoot({
+  open() {
+    return props.open
+  },
+  defaultOpen: props.defaultOpen,
   disabled() {
     return props.disabled
   },
-  open,
-  onOpenToggle() {
-    open.value = !open.value
+}, {
+  onUpdateOpen(value) {
+    emit('update:open', value)
   },
 })
 </script>
 
 <template>
-  <Primitive
-    :data-state="getState(open)"
-    :data-disabled="disabled ? '' : undefined"
-  >
+  <Primitive v-bind="collapsibleRoot()">
     <slot />
   </Primitive>
 </template>

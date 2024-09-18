@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { useCollapsibleContext } from './CollapsibleRoot.ts'
-import { getState } from './utils.ts'
+import { Primitive } from '../primitive/index.ts'
+import { type CollapsibleTriggerEmits, type CollapsibleTriggerProps, useCollapsibleTrigger } from './CollapsibleTrigger.ts'
 
 defineOptions({
   name: 'CollapsibleTrigger',
@@ -14,24 +11,15 @@ withDefaults(defineProps<CollapsibleTriggerProps>(), {
 })
 const emit = defineEmits<CollapsibleTriggerEmits>()
 
-const context = useCollapsibleContext('CollapsibleTrigger')
-
-const onClick = composeEventHandlers<MouseEvent>((event) => {
-  emit('click', event)
-}, context.onOpenToggle)
+const collapsibleTrigger = useCollapsibleTrigger({
+  onClick(event) {
+    emit('click', event)
+  },
+})
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    type="button"
-    :aria-controls="context.contentId"
-    :aria-expanded="context.open.value || false"
-    :data-state="getState(context.open.value)"
-    :data-disabled="context.disabled() ? '' : undefined"
-    :disabled="context.disabled()"
-    @click="onClick"
-  >
+  <Primitive :as="as" v-bind="collapsibleTrigger()">
     <slot />
   </Primitive>
 </template>
