@@ -4,8 +4,7 @@ import type {
   VirtualElement,
 } from '@floating-ui/dom'
 
-import type { CSSProperties, MaybeRefOrGetter, Ref } from 'vue'
-import type { MutableRefObject } from '../hooks'
+import type { CSSProperties, Ref } from 'vue'
 
 export type { ArrowOptions } from './arrow'
 export type {

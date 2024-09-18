@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, shallowRef, watch, watchEffect } from 'vue'
+import { shallowRef, watch, watchEffect } from 'vue'
 import {
   autoUpdate,
   flip,
