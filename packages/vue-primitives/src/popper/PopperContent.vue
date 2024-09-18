@@ -42,6 +42,7 @@ const emit = defineEmits<PopperContentEmits>()
 const context = usePopperContext('PopperContent')
 
 const forwardElement = useForwardElement(context.content)
+const floatingEl = shallowRef<HTMLDivElement>()
 
 const arrow = shallowRef<HTMLSpanElement>()
 
@@ -63,7 +64,7 @@ function getDetectOverflowOptions() {
   }
 }
 
-const floatingConfig = computed<UseFloatingCofnig>(() => {
+function floatingConfig(): UseFloatingCofnig {
   const detectOverflowOptions = getDetectOverflowOptions()
 
   const placement = (props.side + (props.align !== 'center' ? `-${props.align}` : '')) as Placement
@@ -113,11 +114,14 @@ const floatingConfig = computed<UseFloatingCofnig>(() => {
     placement,
     middleware,
   }
-})
+}
 
-const { refs, floatingStyles, placement, isPositioned, middlewareData } = useFloating(
+const { floatingStyles, placement, isPositioned, middlewareData } = useFloating(
   {
-    elements: { reference: context.anchor },
+    elements: {
+      floatingEl,
+      referenceEl: context.anchor,
+    },
     whileElementsMounted(reference, floating, update) {
       return autoUpdate(reference, floating, update, {
         animationFrame: props.updatePositionStrategy === 'always',
@@ -168,7 +172,7 @@ provideContentContext({
 
 <template>
   <div
-    :ref="(refs.setFloating as any)"
+    ref="floatingEl"
     data-radix-popper-content-wrapper=""
     :style="{
       ...floatingStyles,

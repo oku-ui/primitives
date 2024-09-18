@@ -15,10 +15,8 @@ import {
   onWatcherCleanup,
   shallowRef,
   toValue,
-  watch,
   watchEffect,
 } from 'vue'
-import { useRef } from '../hooks/index.ts'
 import { getDPR } from './utils/getDPR.ts'
 import { roundByDPR } from './utils/roundByDPR.ts'
 
@@ -29,9 +27,9 @@ import { roundByDPR } from './utils/roundByDPR.ts'
  * @see https://floating-ui.com/docs/vue
  */
 export function useFloating<RT extends ReferenceType = ReferenceType>(
-  options: UseFloatingOptions<RT> = {},
+  options: UseFloatingOptions<RT>,
   config: MaybeRefOrGetter<UseFloatingCofnig> = {},
-): UseFloatingReturn<RT> {
+): UseFloatingReturn {
   let configValue: UseFloatingCofnig
 
   watchEffect(() => {
@@ -46,11 +44,10 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
   const {
     transform = true,
     whileElementsMounted,
-    open,
     elements: {
-      reference: externalReference,
-      floating: externalFloating,
-    } = {},
+      referenceEl,
+      floatingEl,
+    },
   } = options
 
   const x = shallowRef(0)
@@ -60,31 +57,11 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
   const middlewareData = shallowRef<MiddlewareData>({})
   const isPositioned = shallowRef(false)
 
-  const referenceRef = useRef<ReferenceType>()
-  const floatingRef = useRef<HTMLElement>()
-
-  const _reference = shallowRef<RT>()
-  const _floating = shallowRef<HTMLElement>()
-
-  function setReference(node: RT | undefined) {
-    if (node !== referenceRef.current) {
-      referenceRef.current = node
-      _reference.value = node
-    }
-  }
-
-  function setFloating(node: HTMLElement | undefined) {
-    if (node !== floatingRef.current) {
-      floatingRef.current = node
-      _floating.value = node
-    }
-  }
-
-  const referenceEl = computed(() => externalReference?.value || _reference.value)
-  const floatingEl = computed(() => externalFloating?.value || _floating.value)
+  let referenceRef: ReferenceType | undefined
+  let floatingRef: HTMLElement | undefined
 
   function update() {
-    if (!referenceRef.current || !floatingRef.current)
+    if (!referenceRef || !floatingRef)
       return
 
     const config: ComputePositionConfig = {
@@ -96,7 +73,7 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
     if (configValue.platform)
       config.platform = configValue.platform
 
-    computePosition(referenceRef.current, floatingRef.current, config).then(
+    computePosition(referenceRef, floatingRef, config).then(
       (data) => {
         x.value = data.x
         y.value = data.y
@@ -108,19 +85,14 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
     )
   }
 
-  watch(() => toValue(open), (openVal) => {
-    if (openVal === false && isPositioned.value)
-      isPositioned.value = false
-  })
+  watchEffect(() => {
+    if (referenceEl.value)
+      referenceRef = referenceEl.value
 
-  watch([referenceEl, floatingEl], ([referenceEl, floatingEl]) => {
-    if (referenceEl)
-      referenceRef.current = referenceEl
+    if (floatingEl.value)
+      floatingRef = floatingEl.value
 
-    if (floatingEl)
-      floatingRef.current = floatingEl
-
-    if (!referenceEl || !floatingEl)
+    if (!referenceEl.value || !floatingEl.value)
       return
 
     if (!whileElementsMounted) {
@@ -128,7 +100,7 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
       return
     }
 
-    onWatcherCleanup(whileElementsMounted(referenceEl, floatingEl, update))
+    onWatcherCleanup(whileElementsMounted(referenceEl.value, floatingEl.value, update))
   })
 
   const floatingStyles = computed<CSSProperties>(() => {
@@ -168,16 +140,6 @@ export function useFloating<RT extends ReferenceType = ReferenceType>(
     middlewareData,
     isPositioned,
     floatingStyles,
-    refs: {
-      reference: referenceRef,
-      floating: floatingRef,
-      setReference,
-      setFloating,
-    },
-    elements: {
-      reference: referenceEl,
-      floating: floatingEl,
-    },
     update,
   }
 }
