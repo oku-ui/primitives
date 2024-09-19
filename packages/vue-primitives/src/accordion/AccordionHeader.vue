@@ -1,29 +1,21 @@
 <script setup lang="ts">
-import type { AccordionHeaderProps } from './AccordionHeader.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { useAccordionItemContext } from './AccordionItem.ts'
-import { useAccordionContext } from './AccordionRoot.ts'
-import { getState } from './utils.ts'
+import { Primitive } from '../primitive/index.ts'
+import { type AccordionHeaderProps, useAccordionHeader } from './AccordionHeader.ts'
 
 defineOptions({
   name: 'AccordionHeader',
+  inheritAttrs: false,
 })
 
 withDefaults(defineProps<AccordionHeaderProps>(), {
   as: 'h3',
 })
 
-const accordionContext = useAccordionContext('AccordionHeader')
-const itemContext = useAccordionItemContext('AccordionHeader')
+const accordionHeader = useAccordionHeader()
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    :data-orientation="accordionContext.orientation"
-    :data-state="getState(itemContext.open.value)"
-    :data-disabled="itemContext.disabled.value ? '' : undefined"
-  >
+  <Primitive :as="as" v-bind="accordionHeader($attrs)">
     <slot />
   </Primitive>
 </template>

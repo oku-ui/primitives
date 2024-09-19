@@ -4,6 +4,7 @@ import { type CollapsibleRootEmits, type CollapsibleRootProps, useCollapsibleRoo
 
 defineOptions({
   name: 'CollapsibleRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<CollapsibleRootProps>(), {
@@ -16,19 +17,18 @@ const collapsibleRoot = useCollapsibleRoot({
   open() {
     return props.open
   },
+  onUpdateOpen(value) {
+    emit('update:open', value)
+  },
   defaultOpen: props.defaultOpen,
   disabled() {
     return props.disabled
-  },
-}, {
-  onUpdateOpen(value) {
-    emit('update:open', value)
   },
 })
 </script>
 
 <template>
-  <Primitive v-bind="collapsibleRoot()">
+  <Primitive v-bind="collapsibleRoot($attrs)">
     <slot />
   </Primitive>
 </template>

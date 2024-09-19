@@ -1,7 +1,7 @@
-import { isDef } from '@vueuse/core'
 import { computed, nextTick, type Ref, shallowRef, type UnwrapRef, watch } from 'vue'
+import { isDef } from '../shared/index.ts'
 
-type NonUndefined<T> = T extends undefined ? never : T
+// type NonUndefined<T> = T extends undefined ? never : T
 
 /**
  * Shorthand for v-model binding, props + emit -> ref
@@ -54,9 +54,9 @@ export function useControllableState<P extends object, K extends keyof P, V = P[
   return proxy
 }
 
-export function useControllableStateV2<T, V = NonUndefined<T>>(
-  prop?: () => T,
-  onChange?: (value: V) => void,
+export function useControllableStateV2<P, U = P, V = P>(
+  prop?: () => P,
+  onChange?: (value: U) => void,
   defaultValue?: V | undefined,
 ): Ref<V> {
   const _isDef = isDef(prop?.())
@@ -67,7 +67,7 @@ export function useControllableStateV2<T, V = NonUndefined<T>>(
         return (prop?.() ?? defaultValue) as V
       },
       set(value) {
-        onChange?.(value)
+        onChange?.(value as unknown as U)
       },
     })
   }

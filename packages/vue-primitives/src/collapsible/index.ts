@@ -1,7 +1,7 @@
 export {
   type CollapsibleContentProps,
   useCollapsibleContent,
-  type UseCollapsibleContentOptions,
+  type UseCollapsibleContentProps as UseCollapsibleContentOptions,
   type UseCollapsibleContentReturns,
 } from './CollapsibleContent.ts'
 export { default as CollapsibleContent } from './CollapsibleContent.vue'
@@ -21,7 +21,7 @@ export {
   type CollapsibleTriggerEmits,
   type CollapsibleTriggerProps,
   useCollapsibleTrigger,
-  type UseCollapsibleTriggerEmits,
+  type UseCollapsibleTriggerProps as UseCollapsibleTriggerEmits,
   type UseCollapsibleTriggerReturns,
 } from './CollapsibleTrigger.ts'
 export { default as CollapsibleTrigger } from './CollapsibleTrigger.vue'

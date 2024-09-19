@@ -2,6 +2,10 @@ import { createContext, type MutableRefObject } from '@oku-ui/hooks'
 
 export const DATA_COLLECTION_ITEM = 'data-radix-collection-item'
 
+export interface CollectionItemAttrs {
+  [DATA_COLLECTION_ITEM]: true
+}
+
 type ItemElementWithData<E extends HTMLElement, D> = E & {
   $$rcid: D
 }

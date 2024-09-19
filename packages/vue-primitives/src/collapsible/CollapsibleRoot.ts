@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import type { ConvertEmitsToUseEmits } from '../utils/vue.ts'
 import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
+import { type ConvertEmitsToUseEmits, type Data, mergeAttrs } from '../shared/index.ts'
 
 export interface CollapsibleRootProps {
   defaultOpen?: boolean
@@ -21,35 +21,41 @@ export interface CollapsibleContext {
 
 export const [provideCollapsibleContext, useCollapsibleContext] = createContext<CollapsibleContext>('Collapsible')
 
-export interface UseCollapsibleRootProps {
+export interface UseCollapsibleRootProps extends ConvertEmitsToUseEmits<CollapsibleRootEmits> {
   open?: () => boolean | undefined
   defaultOpen?: boolean
-  disabled?: () => boolean
+  disabled?: () => boolean | undefined
 }
-
-export type UseCollapsibleRootEmits = ConvertEmitsToUseEmits<CollapsibleRootEmits>
 
 export interface UseCollapsibleRootReturns {
   'data-state': 'open' | 'closed'
-  'data-disabled'?: boolean
+  'data-disabled': '' | undefined
+  [key: string]: any
 }
 
-export function useCollapsibleRoot(props: UseCollapsibleRootProps, emits: UseCollapsibleRootEmits): () => UseCollapsibleRootReturns {
-  const open = useControllableStateV2(props.open, emits.onUpdateOpen, props.defaultOpen)
+export function useCollapsibleRoot(
+  props: UseCollapsibleRootProps,
+): (extraAttrs?: Data) => UseCollapsibleRootReturns {
+  const open = useControllableStateV2(props.open, props.onUpdateOpen, props.defaultOpen ?? false)
 
   provideCollapsibleContext({
     contentId: useId(),
-    disabled() {
-      return props.disabled?.()
-    },
+    disabled: props.disabled ?? (() => false),
     open,
     onOpenToggle() {
       open.value = !open.value
     },
   })
 
-  return (): UseCollapsibleRootReturns => ({
-    'data-state': open.value ? 'open' : 'closed',
-    'data-disabled': props.disabled?.() ? true : undefined,
-  })
+  return (extraAttrs?: Data): UseCollapsibleRootReturns => {
+    const attrs = {
+      'data-state': open.value ? 'open' : 'closed',
+      'data-disabled': props.disabled?.() ? '' : undefined,
+    } as const
+
+    if (extraAttrs)
+      mergeAttrs(attrs, extraAttrs)
+
+    return attrs
+  }
 }

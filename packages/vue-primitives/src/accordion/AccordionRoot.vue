@@ -1,17 +1,11 @@
 <script setup lang="ts" generic="T extends AccordionType">
-import { useDirection } from '@oku-ui/direction'
-import { useControllableState, useForwardElement, useId, useRef } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { arrayify, composeEventHandlers } from '@oku-ui/shared'
-import { computed } from 'vue'
-import { ACCORDION_KEYS, type AccordionRootEmits, type AccordionRootProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './AccordionRoot.ts'
-
-type SingleValue = Exclude<AccordionRootProps<'single'>['value'], undefined>
-type MultipleValue = Exclude<AccordionRootProps<'multiple'>['value'], undefined>
-type Value = T extends 'single' ? SingleValue : MultipleValue
+import { useForwardElement, useRef } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { type AccordionRootEmits, type AccordionRootProps, type AccordionType, useAccordionRoot } from './AccordionRoot.ts'
 
 defineOptions({
   name: 'AccordionRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
@@ -24,132 +18,32 @@ const emit = defineEmits<AccordionRootEmits<T>>()
 const elRef = useRef<HTMLElement>()
 const forwardElement = useForwardElement(elRef)
 
-const direction = useDirection(() => props.dir)
-const defaultValue = props.type === 'single' ? props.defaultValue : props.defaultValue ?? []
-const value = useControllableState(props, 'value', v => emit('update:value', v as Value), defaultValue)
-const TYPE_SINGLE = 'single' as const satisfies AccordionType
-
-const getItems = useCollection(Collection.provideCollectionContext(elRef))
-
-const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  emit('keydown', event)
-}, (event) => {
-  if (!ACCORDION_KEYS.includes(event.key))
-    return
-  const target = event.target as HTMLElement
-  const triggerCollection = getItems().filter(item => !item.disabled)
-  const triggerIndex = triggerCollection.findIndex(item => item === target)
-  const triggerCount = triggerCollection.length
-
-  if (triggerIndex === -1)
-    return
-
-  // Prevents page scroll while user is navigating
-  event.preventDefault()
-
-  let nextIndex = triggerIndex
-  const homeIndex = 0
-  const endIndex = triggerCount - 1
-
-  const moveNext = () => {
-    nextIndex = triggerIndex + 1
-    if (nextIndex > endIndex) {
-      nextIndex = homeIndex
-    }
-  }
-
-  const movePrev = () => {
-    nextIndex = triggerIndex - 1
-    if (nextIndex < homeIndex) {
-      nextIndex = endIndex
-    }
-  }
-
-  switch (event.key) {
-    case 'Home':
-      nextIndex = homeIndex
-      break
-    case 'End':
-      nextIndex = endIndex
-      break
-    case 'ArrowRight':
-      if (props.orientation === 'horizontal') {
-        if (direction.value === 'ltr') {
-          moveNext()
-        }
-        else {
-          movePrev()
-        }
-      }
-      break
-    case 'ArrowDown':
-      if (props.orientation === 'vertical') {
-        moveNext()
-      }
-      break
-    case 'ArrowLeft':
-      if (props.orientation === 'horizontal') {
-        if (direction.value === 'ltr') {
-          movePrev()
-        }
-        else {
-          moveNext()
-        }
-      }
-      break
-    case 'ArrowUp':
-      if (props.orientation === 'vertical') {
-        movePrev()
-      }
-      break
-  }
-
-  const clampedIndex = nextIndex % triggerCount
-  triggerCollection[clampedIndex]?.focus()
-})
-
-provideAccordionContext({
-  id: useId(),
+const accordionRoot = useAccordionRoot({
+  elRef,
+  value() {
+    return props.value
+  },
+  onUpdateValue(value) {
+    emit('update:value', value)
+  },
+  defaultValue: props.defaultValue,
   collapsible: props.collapsible,
-
+  type: props.type,
   disabled() {
     return props.disabled
   },
-  direction,
   orientation: props.orientation,
-  value: computed(() => {
-    if (props.type === TYPE_SINGLE)
-      return typeof value.value === 'string' ? [value.value] : []
-    return Array.isArray(value.value) ? value.value : []
-  }),
-  onItemOpen(itemValue) {
-    if (props.type === TYPE_SINGLE) {
-      value.value = itemValue as Value
-    }
-    else {
-      value.value = [...arrayify<SingleValue>(value.value || []), itemValue] as Value
-    }
+  dir() {
+    return props.dir
   },
-  onItemClose(itemValue) {
-    if (props.type === TYPE_SINGLE) {
-      if (props.collapsible) {
-        value.value = '' as Value
-      }
-    }
-    else {
-      value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value
-    }
+  onKeydown(event: KeyboardEvent) {
+    emit('keydown', event)
   },
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-    :data-disabled="disabled ? '' : undefined"
-    :data-orientation="orientation"
-    @keydown="onKeydown"
-  >
+  <Primitive :ref="forwardElement" v-bind="accordionRoot($attrs)">
     <slot />
   </Primitive>
 </template>

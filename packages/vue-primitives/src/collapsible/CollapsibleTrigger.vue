@@ -4,6 +4,7 @@ import { type CollapsibleTriggerEmits, type CollapsibleTriggerProps, useCollapsi
 
 defineOptions({
   name: 'CollapsibleTrigger',
+  inheritAttrs: false,
 })
 
 withDefaults(defineProps<CollapsibleTriggerProps>(), {
@@ -19,7 +20,7 @@ const collapsibleTrigger = useCollapsibleTrigger({
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="collapsibleTrigger()">
+  <Primitive :as="as" v-bind="collapsibleTrigger($attrs)">
     <slot />
   </Primitive>
 </template>

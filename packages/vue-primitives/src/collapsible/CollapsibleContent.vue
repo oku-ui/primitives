@@ -6,6 +6,7 @@ import { type CollapsibleContentProps, useCollapsibleContent } from './Collapsib
 
 defineOptions({
   name: 'CollapsibleContent',
+  inheritAttrs: false,
 })
 
 const props = defineProps<CollapsibleContentProps>()
@@ -17,11 +18,12 @@ const isOpen = shallowRef(false)
 const collapsibleContent = useCollapsibleContent({
   el,
   isOpen,
-}, props)
+  forceMount: props.forceMount,
+})
 </script>
 
 <template>
-  <Primitive :ref="forwardElement" v-bind="collapsibleContent()">
+  <Primitive :ref="forwardElement" v-bind="collapsibleContent($attrs)">
     <slot v-if="isOpen" />
   </Primitive>
 </template>

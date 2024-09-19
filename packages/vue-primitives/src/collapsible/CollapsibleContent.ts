@@ -1,5 +1,6 @@
 import { type CSSProperties, nextTick, onMounted, type Ref, shallowRef, watchEffect } from 'vue'
 import { usePresence } from '../presence/index.ts'
+import { type Data, mergeAttrs } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleContentProps {
@@ -10,9 +11,10 @@ export interface CollapsibleContentProps {
   forceMount?: boolean
 }
 
-export interface UseCollapsibleContentOptions {
+export interface UseCollapsibleContentProps {
   isOpen: Ref<boolean>
   el: Ref<HTMLElement | undefined>
+  forceMount?: boolean
 }
 
 export interface UseCollapsibleContentReturns {
@@ -21,15 +23,18 @@ export interface UseCollapsibleContentReturns {
   'data-disabled'?: string
   'hidden': boolean
   'style': CSSProperties
+  [key: string]: any
 }
 
-export function useCollapsibleContent(options: UseCollapsibleContentOptions, props: CollapsibleContentProps): () => UseCollapsibleContentReturns {
+export function useCollapsibleContent(
+  props: UseCollapsibleContentProps,
+): (extraAttrs?: Data) => UseCollapsibleContentReturns {
   const context = useCollapsibleContext('CollapsibleContent')
 
   let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
 
-  const isPresent = usePresence(options.el, () => props.forceMount || context.open.value, () => {
-    const node = options.el.value
+  const isPresent = usePresence(props.el, () => props.forceMount || context.open.value, () => {
+    const node = props.el.value
     if (!node)
       return
 
@@ -57,10 +62,10 @@ export function useCollapsibleContent(options: UseCollapsibleContentOptions, pro
   // when opening we want it to immediately open to retrieve dimensions
   // when closing we delay `present` to retrieve dimensions before closing
   watchEffect(() => {
-    options.isOpen.value = context.open.value || isPresent.value
+    props.isOpen.value = context.open.value || isPresent.value
   })
 
-  const blockAnimationStyles = shallowRef<CSSProperties | undefined>(options.isOpen.value
+  const blockAnimationStyles = shallowRef<CSSProperties | undefined>(props.isOpen.value
     ? {
         transitionDuration: '0s !important',
         animationName: 'none !important',
@@ -68,10 +73,10 @@ export function useCollapsibleContent(options: UseCollapsibleContentOptions, pro
     : undefined)
 
   onMounted(async () => {
-    if (!options.isOpen.value)
+    if (!props.isOpen.value)
       return
 
-    const node = options.el.value
+    const node = props.el.value
     if (!node)
       return
 
@@ -89,15 +94,22 @@ export function useCollapsibleContent(options: UseCollapsibleContentOptions, pro
     nodeStyle.animationName = 'none'
   })
 
-  return (): UseCollapsibleContentReturns => ({
-    'id': context.contentId,
-    'data-state': context.open.value ? 'open' : 'closed',
-    'data-disabled': context.disabled() ? '' : undefined,
-    'hidden': !options.isOpen.value,
-    'style': {
-      '--radix-collapsible-content-height': '0px',
-      '--radix-collapsible-content-width': '0px',
-      ...blockAnimationStyles.value,
-    },
-  })
+  return (extraAttrs?: Data): UseCollapsibleContentReturns => {
+    const attrs = {
+      'id': context.contentId,
+      'data-state': context.open.value ? 'open' : 'closed',
+      'data-disabled': context.disabled() ? '' : undefined,
+      'hidden': !props.isOpen.value,
+      'style': {
+        '--radix-collapsible-content-height': '0px',
+        '--radix-collapsible-content-width': '0px',
+        ...blockAnimationStyles.value,
+      },
+    } as const
+
+    if (extraAttrs)
+      mergeAttrs(attrs, extraAttrs)
+
+    return attrs
+  }
 }
