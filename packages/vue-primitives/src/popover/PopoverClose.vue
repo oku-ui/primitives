@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PopoverCloseEmits, PopoverCloseProps } from './PopoverClose.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 defineOptions({

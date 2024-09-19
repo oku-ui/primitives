@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 import { getState } from './utils.ts'
 

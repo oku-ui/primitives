@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRef } from '../hooks/index.ts'
 import { useForwardElement } from '../hooks/useForwardElement.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useMenuContentContext } from './MenuContent.ts'
 import { ITEM_SELECT, type MenuItemEmits, type MenuItemProps } from './MenuItem.ts'
 import MenuItemImpl from './MenuItemImpl.vue'

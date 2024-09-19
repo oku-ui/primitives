@@ -1,5 +1,5 @@
 import { createContext } from '../hooks/index.ts'
-import { isNumber } from '../utils/is.ts'
+import { isNumber } from '../shared/index.ts'
 
 export interface ProgressRootProps {
   value?: number | null | undefined

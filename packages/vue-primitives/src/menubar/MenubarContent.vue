@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { MenubarContentEmits, MenubarContentProps } from './MenubarContent.ts'
 import { MenuContent } from '../menu/index.ts'
-import { wrapArray } from '../utils/array.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { wrapArray } from '../shared/index.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useMenubarMenuContext } from './MenubarMenu.ts'
 import { useCollection, useMenubarContext } from './MenubarRoot.ts'
 

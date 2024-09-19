@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { DialogContent } from '../dialog/index.ts'
 import { useRef } from '../hooks/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { type AlertDialogCancelElement, type AlertDialogContentEmits, provideAlertDialogContentContext } from './AlertDialogContent.ts'
 
 defineOptions({

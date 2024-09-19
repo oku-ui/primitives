@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
-import { isFunction } from '../../utils/is.ts'
-import { composeEventHandlers } from '../../utils/vue.ts'
+import { composeEventHandlers, isFunction } from '../../shared/index.ts'
 import { RovingFocusGroupItem } from '../index.ts'
 import { useButtonGroupContext } from './utils.ts'
 

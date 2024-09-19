@@ -8,7 +8,7 @@ import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 import { getState } from './utilts.ts'
 

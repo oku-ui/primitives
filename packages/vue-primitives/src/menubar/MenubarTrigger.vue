@@ -6,7 +6,7 @@ import { useComposedElements } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useMenubarMenuContext } from './MenubarMenu.ts'
 import { Collection, type ItemData, useMenubarContext } from './MenubarRoot.ts'
 

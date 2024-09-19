@@ -135,6 +135,10 @@
       "types": "./dist/separator/index.d.ts",
       "import": "./dist/separator/index.js"
     },
+    "./shared": {
+      "types": "./dist/shared/index.d.ts",
+      "import": "./dist/shared/index.js"
+    },
     "./slider": {
       "types": "./dist/slider/index.d.ts",
       "import": "./dist/slider/index.js"

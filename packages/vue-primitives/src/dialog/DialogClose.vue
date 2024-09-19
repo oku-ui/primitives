@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DialogCloseEmits, DialogCloseProps } from './DialogClose.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 defineOptions({

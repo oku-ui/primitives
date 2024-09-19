@@ -4,7 +4,7 @@ import { isClient, useDebounceFn } from '@vueuse/core'
 import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useForwardElement, useStateMachine } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 

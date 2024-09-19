@@ -1,5 +1,5 @@
 import { cloneVNode, Comment, defineComponent, type VNode, warn } from 'vue'
-import { getRawChildren } from '../utils/vue.ts'
+import { getRawChildren } from '../shared/index.ts'
 
 export const Slot = defineComponent({
   name: 'Slot',

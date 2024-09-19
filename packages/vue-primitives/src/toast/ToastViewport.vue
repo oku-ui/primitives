@@ -4,7 +4,7 @@ import { computed, onBeforeUnmount, onMounted, onWatcherCleanup, watchEffect } f
 import { DismissableLayerBranch } from '../dismissable-layer/index.ts'
 import { useComposedElements } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { focusFirst } from '../utils/focusFirst.ts'
+import { focusFirst } from '../shared/index.ts'
 import { VisuallyHidden } from '../visually-hidden/index.ts'
 import { Collection, useCollection } from './collection.ts'
 import { useToastProviderContext } from './index.ts'

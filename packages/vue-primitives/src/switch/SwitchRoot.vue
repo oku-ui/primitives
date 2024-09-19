@@ -2,7 +2,7 @@
 import { computed, shallowRef } from 'vue'
 import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { getState, provideSwitchContext, type SwitchRootEmits, type SwitchRootProps, type SwitchRootSlots } from './SwitchRoot.ts'
 
 defineOptions({

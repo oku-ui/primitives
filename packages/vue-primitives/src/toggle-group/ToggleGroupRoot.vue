@@ -4,7 +4,7 @@ import { useDirection } from '../direction/Direction.ts'
 import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { arrayify } from '../utils/array.ts'
+import { arrayify } from '../shared/index.ts'
 import { provideToggleGroupContext, type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType } from './ToggleGroupRoot.ts'
 
 type SingleValue = Exclude<ToggleGroupProps<'single'>['value'], undefined>

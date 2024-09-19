@@ -1,8 +1,7 @@
 /* ----------------------------------------------------------------------------------------------- */
 
 import type { CheckedState } from '../checkbox/index.ts'
-import { wrapArray } from '../utils/array.ts'
-import { isPointInPolygon, type Polygon } from '../utils/isPointInPolygon.ts'
+import { isPointInPolygon, type Polygon, wrapArray } from '../shared/index.ts'
 
 export function getOpenState(open: boolean) {
   return open ? 'open' : 'closed'

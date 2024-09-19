@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DropdownMenuContentEmits } from './DropdownMenuContent.ts'
 import { MenuContent } from '../menu/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useDropdownMenuContext } from './DropdownMenuRoot.ts'
 
 defineOptions({

@@ -2,7 +2,7 @@
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 import { useControllableState } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 
 defineOptions({
   name: 'Toggle',

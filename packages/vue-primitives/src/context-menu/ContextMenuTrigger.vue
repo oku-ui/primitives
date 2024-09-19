@@ -4,7 +4,7 @@ import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, onWatcherCleanup, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useContextMenuContext } from './ContextMenuRoot.ts'
 
 defineOptions({

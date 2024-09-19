@@ -4,7 +4,7 @@ import { onMounted } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useDropdownMenuContext } from './DropdownMenuRoot.ts'
 
 defineOptions({

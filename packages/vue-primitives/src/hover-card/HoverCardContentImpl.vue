@@ -3,7 +3,7 @@ import type { HoverCardContentImplEmits } from './HoverCardContentImpl.ts'
 import { onBeforeUnmount, onMounted, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { getTabbableNodes } from './utils.ts'
 

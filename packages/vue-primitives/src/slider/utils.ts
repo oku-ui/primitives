@@ -1,4 +1,4 @@
-import { clamp } from '../utils/number.ts'
+import { clamp } from '../shared/index.ts'
 
 export function getNextSortedValues(prevValues: number[] = [], nextValue: number, atIndex: number) {
   const nextValues = [...prevValues]

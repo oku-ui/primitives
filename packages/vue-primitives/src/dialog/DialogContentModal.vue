@@ -7,7 +7,7 @@ import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 import { getState } from './utils.ts'
 

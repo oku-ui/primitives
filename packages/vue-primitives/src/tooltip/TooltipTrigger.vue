@@ -4,7 +4,7 @@ import { onBeforeUnmount, onMounted } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '../primitive/Primitive.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { useTooltipContext } from './TooltipRoot.ts'
 

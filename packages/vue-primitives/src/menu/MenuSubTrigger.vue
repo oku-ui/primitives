@@ -3,7 +3,7 @@ import type { MenuSubTriggerEmits, MenuSubTriggerProps } from './MenuSubTrigger.
 import { onBeforeUnmount, onMounted } from 'vue'
 import { useForwardElement } from '../hooks/index.ts'
 import { usePopperContext } from '../popper/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useMenuContentContext } from './MenuContent.ts'
 import MenuItemImpl from './MenuItemImpl.vue'
 import { SUB_OPEN_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'

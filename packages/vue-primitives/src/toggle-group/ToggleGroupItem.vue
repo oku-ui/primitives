@@ -3,7 +3,7 @@ import type { ToggleGroupItemEmits, ToggleGroupItemProps } from './ToggleGroupIt
 import { computed } from 'vue'
 import { Primitive } from '../primitive/index.ts'
 import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import { composeEventHandlers } from '../utils/vue.ts'
+import { composeEventHandlers } from '../shared/index.ts'
 import { useToggleGroupContext } from './ToggleGroupRoot.ts'
 
 defineOptions({
