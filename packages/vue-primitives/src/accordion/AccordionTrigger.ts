@@ -40,7 +40,7 @@ export function useAccordionTrigger(
     }
 
     if (extraAttrs)
-      mergeProps(attrs, collapsibleTrigger(), extraAttrs)
+      mergeProps(attrs, [collapsibleTrigger(), extraAttrs])
     else
       mergeAttrs(attrs, collapsibleTrigger())
 

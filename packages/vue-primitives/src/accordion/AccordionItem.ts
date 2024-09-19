@@ -72,7 +72,7 @@ export function useAccordionItem(props: UseAccordionItemProps): (extraAttrs?: Da
     } as const
 
     if (extraAttrs)
-      mergeProps(attrs, collapsibleRoot(), extraAttrs)
+      mergeProps(attrs, [collapsibleRoot(), extraAttrs])
     else
       mergeAttrs(attrs, collapsibleRoot())
 

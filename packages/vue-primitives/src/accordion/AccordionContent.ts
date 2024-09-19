@@ -30,7 +30,7 @@ export function useAccordionContent(
     } as const
 
     if (extraAttrs)
-      mergeProps(attrs, collapsibleContent(), extraAttrs)
+      mergeProps(attrs, [collapsibleContent(), extraAttrs])
     else
       mergeAttrs(attrs, collapsibleContent())
 

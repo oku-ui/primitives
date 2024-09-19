@@ -3,10 +3,10 @@ import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
 
 export type Data = Record<string, any>
 
-export function mergeProps(innerProps: (Data & VNodeProps), ...args: (Data & VNodeProps)[]): Data {
+export function mergeProps(innerProps: (Data & VNodeProps), attrs: (Data & VNodeProps)[]): Data {
   const ret: Data = innerProps
-  for (let i = 0; i < args.length; i++) {
-    const extraProps = args[i]
+  for (let i = 0; i < attrs.length; i++) {
+    const extraProps = attrs[i]
     for (const propName in extraProps) {
       if (propName === 'class') {
         if (ret.class !== extraProps.class) {
