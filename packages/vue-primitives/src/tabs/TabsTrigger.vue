@@ -89,7 +89,7 @@ const forwardElement = useComposedElements((v) => {
     :aria-selected="isSelected"
     :aria-controls="contentId"
     :data-state="isSelected ? 'active' : 'inactive'"
-    :data-disabled="disabled"
+    :data-disabled="disabled ? '' : undefined"
     :disabled="disabled"
 
     @mousedown="rovingFocusGroupItem.onMousedown"

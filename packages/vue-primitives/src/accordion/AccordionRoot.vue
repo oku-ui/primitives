@@ -146,7 +146,7 @@ provideAccordionContext({
 <template>
   <Primitive
     :ref="forwardElement"
-    :data-disabled="disabled"
+    :data-disabled="disabled ? '' : undefined"
     :data-orientation="orientation"
     @keydown="onKeydown"
   >

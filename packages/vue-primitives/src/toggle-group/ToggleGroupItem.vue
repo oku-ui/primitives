@@ -57,7 +57,7 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
     :aria-pressed="pressed"
     :data-state="pressed ? 'on' : 'off'"
     :disabled="disabled"
-    :data-disabled="disabled"
+    :data-disabled="disabled ? '' : undefined"
     @click="onClick"
   >
     <slot />
@@ -70,7 +70,7 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
     :aria-pressed="pressed"
     :data-state="pressed ? 'on' : 'off'"
     :disabled="disabled"
-    :data-disabled="disabled"
+    :data-disabled="disabled ? '' : undefined"
     :pressed="pressed"
     @click="onClick"
   >
