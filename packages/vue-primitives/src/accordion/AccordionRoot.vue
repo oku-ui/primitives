@@ -32,12 +32,8 @@ const TYPE_SINGLE = 'single' as const satisfies AccordionType
 const getItems = useCollection(Collection.provideCollectionContext(elRef))
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  if (props.disabled)
-    return
   emit('keydown', event)
 }, (event) => {
-  if (props.disabled)
-    return
   if (!ACCORDION_KEYS.includes(event.key))
     return
   const target = event.target as HTMLElement
@@ -150,6 +146,7 @@ provideAccordionContext({
 <template>
   <Primitive
     :ref="forwardElement"
+    :data-disabled="disabled"
     :data-orientation="orientation"
     @keydown="onKeydown"
   >

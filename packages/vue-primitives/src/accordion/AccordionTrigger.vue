@@ -25,11 +25,11 @@ const forwardElement = useForwardElement($el)
 const accordionContext = useAccordionContext('AccordionTrigger')
 const itemContext = useAccordionItemContext('AccordionHeader')
 
-const context = useCollapsibleContext('CollapsibleTrigger')
+const collapsibleContext = useCollapsibleContext('CollapsibleTrigger')
 
 const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
-}, context.onOpenToggle)
+}, collapsibleContext.onOpenToggle)
 </script>
 
 <template>
@@ -42,11 +42,11 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
     :[DATA_COLLECTION_ITEM]="true"
 
     type="button"
-    :aria-controls="context.contentId"
-    :aria-expanded="context.open.value || false"
-    :data-state="getState(context.open.value)"
-    :data-disabled="context.disabled() ? '' : undefined"
-    :disabled="context.disabled()"
+    :aria-controls="collapsibleContext.contentId"
+    :aria-expanded="itemContext.open.value || false"
+    :data-state="getState(itemContext.open.value)"
+    :data-disabled="itemContext.disabled.value ? '' : undefined"
+    :disabled="itemContext.disabled.value"
     @click="onClick"
   >
     <slot />

@@ -33,7 +33,7 @@ provideAccordionItemContext({
 provideCollapsibleContext({
   contentId: useId(),
   disabled() {
-    return props.disabled
+    return disabled.value
   },
   open,
   onOpenToggle() {
