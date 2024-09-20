@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T extends ToggleGroupType">
+<script setup lang="ts" generic="T extends ToggleGroupType = undefined">
 import type { ToolbarToggleGroupProps } from './ToolbarToggleGroup.ts'
 import { ToggleGroupRoot, type ToggleGroupType } from '../toggle-group/index.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'

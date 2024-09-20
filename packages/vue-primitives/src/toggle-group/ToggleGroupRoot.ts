@@ -2,21 +2,21 @@ import type { Ref } from 'vue'
 import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
 import { createContext } from '@oku-ui/hooks'
 
-export type ToggleGroupType = 'single' | 'multiple'
+export type ToggleGroupType = 'single' | 'multiple' | undefined
 
 export interface ToggleGroupProps<T extends ToggleGroupType> extends ToggleGroupImplProps {
   type: T
 
-  value?: T extends 'single' ? ToggleGroupSingleProps['value'] : ToggleGroupMultipleProps['value']
+  value?: T extends 'multiple' ? ToggleGroupMultipleProps['value'] : ToggleGroupSingleProps['value']
 
-  defaultValue?: T extends 'single' ? ToggleGroupSingleProps['defaultValue'] : ToggleGroupMultipleProps['defaultValue']
+  defaultValue?: T extends 'multiple' ? ToggleGroupMultipleProps['defaultValue'] : ToggleGroupSingleProps['defaultValue']
 }
 
 export type ToggleGroupEmits<T extends ToggleGroupType> = {
   /**
    * The callback that fires when the state of the toggle group changes.
    */
-  'update:value': [value: T extends 'single' ? NonNullable<ToggleGroupSingleProps['value']> : NonNullable<ToggleGroupMultipleProps['value']>]
+  'update:value': [value: T extends 'multiple' ? NonNullable<ToggleGroupMultipleProps['value']> : NonNullable<ToggleGroupSingleProps['value']>]
 }
 
 interface ToggleGroupSingleProps {
@@ -62,8 +62,7 @@ interface ToggleGroupImplProps {
 export interface ToggleGroupContext {
   rovingFocus: () => boolean
   disabled: () => boolean
-
-  type: () => 'single' | 'multiple'
+  type: () => ToggleGroupType
   value: Ref<string[]>
   onItemActivate: (value: string) => void
   onItemDeactivate: (value: string) => void

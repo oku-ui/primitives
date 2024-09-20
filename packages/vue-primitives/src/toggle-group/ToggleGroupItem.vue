@@ -22,15 +22,15 @@ const pressed = computed(() => context.value.value?.includes(props.value))
 const disabled = computed(() => context.disabled() || props.disabled)
 
 const typeProps = computed(() => {
-  if (context.type() === 'single') {
-    return {
-      'role': 'radio',
-      'aria-checked': pressed.value,
-      'aria-pressed': undefined,
-    }
+  if (context.type() === 'multiple') {
+    return {}
   }
 
-  return {}
+  return {
+    'role': 'radio',
+    'aria-checked': pressed.value,
+    'aria-pressed': undefined,
+  }
 })
 
 const onClick = composeEventHandlers<MouseEvent>((event) => {

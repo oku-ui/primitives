@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T extends AccordionType">
+<script setup lang="ts" generic="T extends AccordionType = undefined">
 import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { type AccordionRootEmits, type AccordionRootProps, type AccordionType, useAccordionRoot } from './AccordionRoot.ts'
@@ -11,7 +11,6 @@ defineOptions({
 const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
   disabled: false,
   orientation: 'vertical',
-  collapsible: false,
 })
 const emit = defineEmits<AccordionRootEmits<T>>()
 

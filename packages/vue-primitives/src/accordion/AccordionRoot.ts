@@ -6,14 +6,15 @@ import { createContext, type MutableRefObject, useControllableStateV2, useId } f
 import { composeEventHandlers } from '../shared/composeEventHandlers.ts'
 import { arrayify, type Data, mergeAttrs } from '../shared/index.ts'
 
-export type AccordionType = 'single' | 'multiple'
+export type AccordionType = 'single' | 'multiple' | undefined
+export type IsSingle<T extends AccordionType> = T extends 'single' | undefined ? true : false
 
 export interface AccordionRootProps<T extends AccordionType> extends AccordionImplProps {
-  type: T
+  type?: T
 
-  value?: T extends 'single' ? AccordionSingleProps['value'] : AccordionMultipleProps['value']
+  value?: T extends 'multiple' ? AccordionMultipleProps['value'] : AccordionSingleProps['value']
 
-  defaultValue?: T extends 'single' ? AccordionSingleProps['defaultValue'] : AccordionMultipleProps['defaultValue']
+  defaultValue?: T extends 'multiple' ? AccordionMultipleProps['defaultValue'] : AccordionSingleProps['defaultValue']
 
   collapsible?: AccordionSingleProps['collapsible']
 }
@@ -22,7 +23,7 @@ export type AccordionRootEmits<T extends AccordionType> = {
   /**
    * The callback that fires when the state of the toggle group changes.
    */
-  'update:value': [value: T extends 'single' ? NonNullable<AccordionSingleProps['value']> : NonNullable<AccordionMultipleProps['value']>]
+  'update:value': [value: T extends 'multiple' ? NonNullable<AccordionMultipleProps['value']> : NonNullable<AccordionSingleProps['value']>]
 
   'keydown': [event: KeyboardEvent]
 }
@@ -80,7 +81,7 @@ export const [Collection, useCollection] = createCollection<HTMLButtonElement>('
 
 export interface AccordionContext {
   id: string
-  collapsible: boolean
+  collapsible?: boolean
 
   disabled?: () => boolean | undefined
   direction: Ref<Direction>
@@ -93,11 +94,9 @@ export interface AccordionContext {
 
 export const [provideAccordionContext, useAccordionContext] = createContext<AccordionContext>('AccordionContext')
 
-type SingleValue = Exclude<AccordionRootProps<'single'>['value'], undefined>
+type SingleValue = AccordionRootProps<'single'>['value']
 type MultipleValue = Exclude<AccordionRootProps<'multiple'>['value'], undefined>
-type Value<T extends AccordionType> = T extends 'single' ? SingleValue | undefined : MultipleValue | undefined
-type DefaultValue<T extends AccordionType> = T extends 'single' ? SingleValue | undefined : MultipleValue
-type UptValue<T extends AccordionType> = T extends 'single' ? SingleValue : MultipleValue
+type Value<T extends AccordionType> = T extends 'multiple' ? MultipleValue : SingleValue
 
 export interface UseAccordionRootProps<T extends AccordionType> extends ConvertEmitsToUseEmits<AccordionRootEmits<T>> {
   elRef: MutableRefObject<HTMLElement | undefined>
@@ -107,7 +106,7 @@ export interface UseAccordionRootProps<T extends AccordionType> extends ConvertE
 
   collapsible?: AccordionSingleProps['collapsible']
 
-  type: T
+  type?: T
   disabled?: () => boolean
   orientation?: AccordionImplProps['orientation']
   dir: () => Direction | undefined
@@ -124,9 +123,9 @@ export function useAccordionRoot<T extends AccordionType>(
   props: UseAccordionRootProps<T>,
 ): (extraAttrs?: Data) => UseAccordionRootReturns {
   const direction = useDirection(props.dir)
-  const defaultValue = (props.type === 'single' ? props.defaultValue : props.defaultValue ?? []) as DefaultValue<T>
-  const value = useControllableStateV2<Value<T>, UptValue<T>, DefaultValue<T>>(props.value, props.onUpdateValue, defaultValue)
-  const TYPE_SINGLE = 'single' as const satisfies AccordionType
+  const defaultValue = (props.type === 'multiple' ? props.defaultValue ?? [] : props.defaultValue) as Value<T>
+  const value = useControllableStateV2(props.value, props.onUpdateValue, defaultValue)
+  const TYPE_MULTIPLE = 'multiple' as const satisfies AccordionType
 
   const getItems = useCollection(Collection.provideCollectionContext(props.elRef))
 
@@ -207,32 +206,33 @@ export function useAccordionRoot<T extends AccordionType>(
 
   provideAccordionContext({
     id: useId(),
-    collapsible: props.collapsible ?? false,
+    collapsible: props.collapsible,
 
     disabled: props.disabled,
     direction,
     orientation: props.orientation ?? 'vertical',
     value: computed(() => {
-      if (props.type === TYPE_SINGLE)
-        return typeof value.value === 'string' ? [value.value] : []
-      return Array.isArray(value.value) ? value.value : []
+      if (props.type === TYPE_MULTIPLE)
+        return Array.isArray(value.value) ? value.value : []
+      return typeof value.value === 'string' ? [value.value] : []
     }),
     onItemOpen(itemValue) {
-      if (props.type === TYPE_SINGLE) {
-        value.value = itemValue as DefaultValue<T>
+      if (props.type === TYPE_MULTIPLE) {
+        value.value = [...arrayify<SingleValue>(value.value || []), itemValue] as Value<T>
       }
       else {
-        value.value = [...arrayify<SingleValue>(value.value || []), itemValue] as DefaultValue<T>
+        value.value = itemValue as Value<T>
       }
     },
     onItemClose(itemValue) {
-      if (props.type === TYPE_SINGLE) {
-        if (props.collapsible) {
-          value.value = '' as DefaultValue<T>
-        }
+      console.error('onItemClose', itemValue, props.collapsible, props.type)
+      if (props.type === TYPE_MULTIPLE) {
+        value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value<T>
       }
       else {
-        value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as DefaultValue<T>
+        if (props.collapsible) {
+          value.value = '' as Value<T>
+        }
       }
     },
   })

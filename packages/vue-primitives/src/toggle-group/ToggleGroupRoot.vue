@@ -1,15 +1,11 @@
-<script setup lang="ts" generic="T extends ToggleGroupType">
-import { useDirection } from '@oku-ui/direction'
-import { useControllableState } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { arrayify } from '@oku-ui/shared'
+<script setup lang="ts" generic="T extends ToggleGroupType = undefined">
 import { computed } from 'vue'
 import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { provideToggleGroupContext, type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType } from './ToggleGroupRoot.ts'
 
 type SingleValue = Exclude<ToggleGroupProps<'single'>['value'], undefined>
 type MultipleValue = Exclude<ToggleGroupProps<'multiple'>['value'], undefined>
-type Value = T extends 'single' ? SingleValue : MultipleValue
+type Value = T extends 'multiple' ? MultipleValue : SingleValue
 
 defineOptions({
   name: 'ToggleGroup',
@@ -23,10 +19,10 @@ const props = withDefaults(defineProps<ToggleGroupProps<T>>(), {
 })
 const emit = defineEmits<ToggleGroupEmits<T>>()
 
-const defaultValue = props.type === 'single' ? props.defaultValue : props.defaultValue ?? [] as string[]
-const value = useControllableState(props, 'value', v => emit('update:value', v as Value), defaultValue)
+const defaultValue = (props.type === 'multiple' ? props.defaultValue ?? [] : props.defaultValue) as Value
+const value = useControllableState(props, 'value', v => emit('update:value', v), defaultValue)
 
-const TYPE_SINGLE = 'single' as const satisfies ToggleGroupType
+const TYPE_MULTIPLE = 'multiple' as const satisfies ToggleGroupType
 
 const direction = useDirection(() => props.dir)
 
@@ -35,25 +31,21 @@ provideToggleGroupContext({
     return props.type
   },
   value: computed(() => {
-    if (props.type === TYPE_SINGLE)
-      return typeof value.value === 'string' ? [value.value] : []
-    return Array.isArray(value.value) ? value.value : []
+    if (props.type === TYPE_MULTIPLE)
+      return Array.isArray(value.value) ? value.value : []
+    return typeof value.value === 'string' ? [value.value] : []
   }),
   onItemActivate(itemValue) {
-    if (props.type === TYPE_SINGLE) {
-      value.value = itemValue as Value
-    }
-    else {
+    if (props.type === TYPE_MULTIPLE)
       value.value = [...arrayify<SingleValue>(value.value || []), itemValue] as Value
-    }
+    else
+      value.value = itemValue as Value
   },
   onItemDeactivate(itemValue) {
-    if (props.type === TYPE_SINGLE) {
-      value.value = '' as Value
-    }
-    else {
+    if (props.type === TYPE_MULTIPLE)
       value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value
-    }
+    else
+      value.value = '' as Value
   },
   rovingFocus() {
     return props.rovingFocus
