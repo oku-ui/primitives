@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
+import { mergeAttrs } from '../shared/index.ts'
 import { type AccordionItemProps, useAccordionItem } from './AccordionItem.ts'
 
 defineOptions({
@@ -20,7 +21,7 @@ const accordionItem = useAccordionItem({
 </script>
 
 <template>
-  <Primitive v-bind="accordionItem($attrs)">
+  <Primitive v-bind="mergeAttrs(accordionItem(), $attrs)">
     <slot />
   </Primitive>
 </template>

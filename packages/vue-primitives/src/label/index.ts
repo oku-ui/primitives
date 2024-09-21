@@ -2,7 +2,6 @@ export {
   type LabelEmits,
   type LabelProps,
   useLabel,
-  type UseLabelProps as UseLabelEmits,
-  type UseLabelReturns,
+  type UseLabelProps,
 } from './Label.ts'
 export { default as Label } from './Label.vue'

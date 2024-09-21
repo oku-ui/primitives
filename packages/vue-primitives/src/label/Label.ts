@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { type ConvertEmitsToUseEmits, type Data, mergeAttrs } from '../shared/index.ts'
+import { type ConvertEmitsToUseEmits, mergeHookAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface LabelProps {
   as?: PrimitiveProps['as']
@@ -11,12 +11,7 @@ export type LabelEmits = {
 
 export interface UseLabelProps extends ConvertEmitsToUseEmits<LabelEmits> {}
 
-export interface UseLabelReturns {
-  onMousedown?: (event: MouseEvent) => void
-  [key: string]: any
-}
-
-export function useLabel(props?: UseLabelProps): (extraAttrs?: Data) => UseLabelReturns {
+export function useLabel(props?: UseLabelProps): RadixPrimitiveReturns {
   function onMousedown(event: MouseEvent) {
     // only prevent text selection if clicking inside the label itself
     const target = event.target as HTMLElement
@@ -29,13 +24,13 @@ export function useLabel(props?: UseLabelProps): (extraAttrs?: Data) => UseLabel
       event.preventDefault()
   }
 
-  return (extraAttrs?: Data): UseLabelReturns => {
+  return (extraAttrs) => {
     const attrs = {
       onMousedown,
-    } as const
+    }
 
     if (extraAttrs)
-      mergeAttrs(attrs, extraAttrs)
+      mergeHookAttrs(attrs, extraAttrs)
 
     return attrs
   }

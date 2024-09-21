@@ -1,7 +1,8 @@
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, type Ref } from 'vue'
-import { useCollapsibleRoot, type UseCollapsibleRootReturns } from '../collapsible/CollapsibleRoot.ts'
+import { useCollapsibleRoot } from '../collapsible/CollapsibleRoot.ts'
 import { createContext, useId } from '../hooks/index.ts'
-import { type Data, mergeAttrs, mergeProps } from '../shared/index.ts'
+import { mergeHookAttrs } from '../shared/index.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 
 export interface AccordionItemProps {
@@ -30,12 +31,7 @@ export interface UseAccordionItemProps {
   disabled?: () => boolean
 }
 
-export interface UseAccordionItemReturns extends UseCollapsibleRootReturns {
-  'data-orientation': 'horizontal' | 'vertical'
-  [key: string]: any
-}
-
-export function useAccordionItem(props: UseAccordionItemProps): (extraAttrs?: Data) => UseAccordionItemReturns {
+export function useAccordionItem(props: UseAccordionItemProps): RadixPrimitiveReturns {
   const context = useAccordionContext('AccordionItem')
   const open = computed(() => {
     const value = props.value()
@@ -66,16 +62,13 @@ export function useAccordionItem(props: UseAccordionItemProps): (extraAttrs?: Da
     },
   })
 
-  return (extraAttrs?: Data): UseAccordionItemReturns => {
+  return (extraAttrs) => {
     const attrs = {
       'data-orientation': context.orientation,
-    } as const
+    }
 
-    if (extraAttrs)
-      mergeProps(attrs, [collapsibleRoot(), extraAttrs])
-    else
-      mergeAttrs(attrs, collapsibleRoot())
+    mergeHookAttrs(attrs, [collapsibleRoot(extraAttrs)])
 
-    return attrs as UseAccordionItemReturns
+    return attrs
   }
 }

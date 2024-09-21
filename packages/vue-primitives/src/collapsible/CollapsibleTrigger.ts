@@ -1,50 +1,36 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { composeEventHandlers, type ConvertEmitsToUseEmits, type Data, mergeAttrs } from '../shared/index.ts'
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
+import { NOOP } from '@vue/shared'
+import { mergeHookAttrs } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleTriggerProps {
   as?: PrimitiveProps['as']
 }
 
-export type CollapsibleTriggerEmits = {
-  click: [event: MouseEvent]
-}
-
-export interface UseCollapsibleTriggerProps extends ConvertEmitsToUseEmits<CollapsibleTriggerEmits> {}
-
-export interface UseCollapsibleTriggerReturns {
-  'type': 'button'
-  'aria-controls': string
-  'aria-expanded': boolean
-  'data-state': 'open' | 'closed'
-  'data-disabled'?: string
-  'disabled': boolean | undefined
-  'onClick': (event: MouseEvent) => void
-  [key: string]: any
-}
-
-export function useCollapsibleTrigger(
-  props: UseCollapsibleTriggerProps,
-): (extraAttrs?: Data) => UseCollapsibleTriggerReturns {
+export function useCollapsibleTrigger(): RadixPrimitiveReturns {
   const context = useCollapsibleContext('CollapsibleTrigger')
 
-  const onClick = composeEventHandlers<MouseEvent>((event) => {
-    props.onClick?.(event)
-  }, context.onOpenToggle)
+  const onClick = function (event: MouseEvent) {
+    if (event.defaultPrevented)
+      return
+    context.onOpenToggle()
+  }
 
-  return (extraAttrs?: Data): UseCollapsibleTriggerReturns => {
+  return (extraAttrs) => {
+    const isDisabled = context.disabled()
     const attrs = {
       'type': 'button',
       'aria-controls': context.contentId,
       'aria-expanded': context.open.value || false,
       'data-state': context.open.value ? 'open' : 'closed',
-      'data-disabled': context.disabled() ? '' : undefined,
-      'disabled': context.disabled(),
-      onClick,
-    } as const
+      'data-disabled': isDisabled ? '' : undefined,
+      'disabled': isDisabled,
+      'onClick': isDisabled ? NOOP : onClick,
+    }
 
     if (extraAttrs)
-      mergeAttrs(attrs, extraAttrs)
+      mergeHookAttrs(attrs, extraAttrs)
 
     return attrs
   }

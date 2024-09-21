@@ -1,10 +1,9 @@
-import type { ConvertEmitsToUseEmits } from '../shared/typeUtils.ts'
+import { NOOP } from '@vue/shared'
 import { type AriaAttributes, computed, type Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { type Direction, useDirection } from '../direction/Direction.ts'
+import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useId } from '../hooks/index.ts'
-import { composeEventHandlers } from '../shared/composeEventHandlers.ts'
-import { arrayify, type Data, mergeAttrs } from '../shared/index.ts'
+import { arrayify, type ConvertEmitsToUseEmits, mergeHookAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type AccordionType = 'single' | 'multiple' | undefined
 export type IsSingle<T extends AccordionType> = T extends 'single' | undefined ? true : false
@@ -24,8 +23,6 @@ export type AccordionRootEmits<T extends AccordionType> = {
    * The callback that fires when the state of the toggle group changes.
    */
   'update:value': [value: T extends 'multiple' ? NonNullable<AccordionMultipleProps['value']> : NonNullable<AccordionSingleProps['value']>]
-
-  'keydown': [event: KeyboardEvent]
 }
 
 interface AccordionSingleProps {
@@ -112,16 +109,7 @@ export interface UseAccordionRootProps<T extends AccordionType> extends ConvertE
   dir: () => Direction | undefined
 }
 
-export interface UseAccordionRootReturns {
-  'data-disabled'?: string
-  'data-orientation': AccordionImplProps['orientation']
-  'onKeydown': (event: KeyboardEvent) => void
-  [key: string]: any
-}
-
-export function useAccordionRoot<T extends AccordionType>(
-  props: UseAccordionRootProps<T>,
-): (extraAttrs?: Data) => UseAccordionRootReturns {
+export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRootProps<T>): RadixPrimitiveReturns {
   const direction = useDirection(props.dir)
   const defaultValue = (props.type === 'multiple' ? props.defaultValue ?? [] : props.defaultValue) as Value<T>
   const value = useControllableStateV2(props.value, props.onUpdateValue, defaultValue)
@@ -129,7 +117,10 @@ export function useAccordionRoot<T extends AccordionType>(
 
   const getItems = useCollection(Collection.provideCollectionContext(props.elRef))
 
-  const onKeydown = composeEventHandlers<KeyboardEvent>(props.onKeydown, (event) => {
+  function onKeydown(event: KeyboardEvent) {
+    if (event.defaultPrevented)
+      return
+
     if (!ACCORDION_KEYS.includes(event.key))
       return
     const target = event.target as HTMLElement
@@ -202,7 +193,7 @@ export function useAccordionRoot<T extends AccordionType>(
 
     const clampedIndex = nextIndex % triggerCount
     triggerCollection[clampedIndex]?.focus()
-  })
+  }
 
   provideAccordionContext({
     id: useId(),
@@ -237,15 +228,16 @@ export function useAccordionRoot<T extends AccordionType>(
     },
   })
 
-  return (extraAttrs?: Data): UseAccordionRootReturns => {
+  return (extraAttrs) => {
+    const isDisabled = props.disabled?.()
     const attrs = {
-      'data-disabled': props.disabled?.() ? '' : undefined,
+      'data-disabled': isDisabled ? '' : undefined,
       'data-orientation': props.orientation,
-      onKeydown,
-    } as const
+      'onKeydown': isDisabled ? NOOP : onKeydown,
+    }
 
     if (extraAttrs)
-      mergeAttrs(attrs, extraAttrs)
+      mergeHookAttrs(attrs, extraAttrs)
 
     return attrs
   }

@@ -1,6 +1,7 @@
 <script setup lang="ts" generic="T extends AccordionType = undefined">
 import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
+import { mergeAttrs } from '../shared/index.ts'
 import { type AccordionRootEmits, type AccordionRootProps, type AccordionType, useAccordionRoot } from './AccordionRoot.ts'
 
 defineOptions({
@@ -35,14 +36,11 @@ const accordionRoot = useAccordionRoot({
   dir() {
     return props.dir
   },
-  onKeydown(event: KeyboardEvent) {
-    emit('keydown', event)
-  },
 })
 </script>
 
 <template>
-  <Primitive :ref="forwardElement" v-bind="accordionRoot($attrs)">
+  <Primitive :ref="forwardElement" v-bind="mergeAttrs(accordionRoot(), $attrs)">
     <slot />
   </Primitive>
 </template>
