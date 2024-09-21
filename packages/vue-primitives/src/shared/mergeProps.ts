@@ -1,26 +1,29 @@
-import type { ElAttrs } from './typeUtils'
+import type { ElAttrs, VNodeRef } from './typeUtils'
 import { isArray, isOn, NOOP } from '@vue/shared'
 import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
+import { getElFromTemplateRef } from './getElFromTemplateRef.ts'
 
-export type IAttrsData = Record<string, unknown>
+export type IAttrsData = Record<string, unknown> & Omit<VNodeProps, 'ref'> & {
+  ref?: ((nodeRef: VNodeRef) => void)
+}
 
-export function mergeHooksAttrs(attrs: ElAttrs, extraAttrs: ElAttrs[]): IAttrsData {
-  const ret: IAttrsData = attrs
+export function mergeHooksAttrs(attrs: ElAttrs, extraAttrsList: ElAttrs[]): ElAttrs {
+  const ret = attrs
 
-  for (let i = 0; i < extraAttrs.length; i++) {
-    const extraProps = extraAttrs[i]!
+  for (let i = 0; i < extraAttrsList.length; i++) {
+    const extraAttrs = extraAttrsList[i]!
 
-    for (const propName in extraProps) {
+    for (const propName in extraAttrs) {
       if (propName === 'class') {
-        if (ret.class !== extraProps.class) {
-          ret.class = normalizeClass([ret.class, extraProps.class])
+        if (ret.class !== extraAttrs.class) {
+          ret.class = normalizeClass([ret.class, extraAttrs.class])
         }
       }
       else if (propName === 'style') {
-        ret.style = normalizeStyle([ret.style, extraProps.style])
+        ret.style = normalizeStyle([ret.style, extraAttrs.style])
       }
       else if (isOn(propName)) {
-        const incoming = extraProps[propName]
+        const incoming = extraAttrs[propName]
 
         if (incoming) {
           const existing = ret[propName]
@@ -30,8 +33,15 @@ export function mergeHooksAttrs(attrs: ElAttrs, extraAttrs: ElAttrs[]): IAttrsDa
           }
         }
       }
+
+      if (propName === 'ref') {
+        const incoming = extraAttrs[propName]!
+        const existing = ret[propName]
+        ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming
+      }
+
       else if (propName !== '') {
-        ret[propName] = extraProps[propName]
+        ret[propName] = extraAttrs[propName]
       }
     }
   }
@@ -39,43 +49,76 @@ export function mergeHooksAttrs(attrs: ElAttrs, extraAttrs: ElAttrs[]): IAttrsDa
   return ret
 }
 
-export function mergeAttrs(attrs: ElAttrs, extraAttrs: (IAttrsData & VNodeProps)): IAttrsData {
-  const ret: IAttrsData = attrs
+export function normalizeAttrs(attrs: ElAttrs, ...extraAttrsList: (IAttrsData)[]): IAttrsData {
+  const ret = attrs
 
   const isInnerDisabled = attrs.disabled === true || (attrs['data-disabled'] != null && attrs['data-disabled'] !== false)
 
-  const hasDisabledAttr = 'disabled' in attrs || 'disabled' in extraAttrs
-  const isOuterDisabled = extraAttrs.disabled === true || (extraAttrs['data-disabled'] != null && extraAttrs['data-disabled'] !== false)
+  const primitiveRef = ret.ref
+  if (primitiveRef) {
+    ret.ref = (templateRef: VNodeRef) => {
+      const el = getElFromTemplateRef(templateRef)
+
+      if (Array.isArray(primitiveRef)) {
+        for (const setRef of primitiveRef) {
+          setRef(el)
+        }
+      }
+      else {
+        primitiveRef(el)
+      }
+    }
+  }
+
+  let hasDisabledAttr = 'disabled' in attrs
+  let isOuterDisabled = false
 
   const isDisabled = isInnerDisabled || isOuterDisabled
 
-  for (const propName in extraAttrs) {
-    if (propName === 'class') {
-      if (ret.class !== extraAttrs.class) {
-        ret.class = normalizeClass([ret.class, extraAttrs.class])
-      }
-    }
-    else if (propName === 'style') {
-      ret.style = normalizeStyle([ret.style, extraAttrs.style])
-    }
-    else if (isOn(propName)) {
-      const incoming = extraAttrs[propName]
+  if (extraAttrsList.length === 0) {
+    return ret as IAttrsData
+  }
 
-      if (incoming) {
-        if (isDisabled) {
-          ret[propName] = NOOP
+  for (let i = 0; i < extraAttrsList.length; i++) {
+    const extraAttrs = extraAttrsList[i]!
+
+    hasDisabledAttr = hasDisabledAttr || 'disabled' in extraAttrs
+    isOuterDisabled = isOuterDisabled || extraAttrs.disabled === true || (extraAttrs['data-disabled'] != null && extraAttrs['data-disabled'] !== false)
+
+    for (const propName in extraAttrs) {
+      if (propName === 'class') {
+        if (ret.class !== extraAttrs.class) {
+          ret.class = normalizeClass([ret.class, extraAttrs.class])
         }
-        else {
-          const existing = ret[propName]
+      }
+      else if (propName === 'style') {
+        ret.style = normalizeStyle([ret.style, extraAttrs.style])
+      }
+      else if (isOn(propName)) {
+        const incoming = extraAttrs[propName]
 
-          if (existing !== incoming && !(isArray(existing) && existing.includes(incoming))) {
-            ret[propName] = existing ? [].concat(incoming as any, existing as any) : incoming
+        if (incoming) {
+          if (isDisabled) {
+            ret[propName] = NOOP
+          }
+          else {
+            const existing = ret[propName]
+
+            if (existing !== incoming && !(isArray(existing) && existing.includes(incoming))) {
+              ret[propName] = existing ? [].concat(incoming as any, existing as any) : incoming
+            }
           }
         }
       }
-    }
-    else if (propName !== '') {
-      ret[propName] = extraAttrs[propName]
+
+      if (propName === 'ref') {
+        const incoming = extraAttrs[propName]!
+        const existing = ret[propName]
+        ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming as any
+      }
+      else if (propName !== '') {
+        ret[propName] = extraAttrs[propName]
+      }
     }
   }
 
@@ -86,5 +129,14 @@ export function mergeAttrs(attrs: ElAttrs, extraAttrs: (IAttrsData & VNodeProps)
     ret['data-disabled'] = true
   }
 
-  return ret
+  const _primitiveRef = ret.ref
+  if (Array.isArray(_primitiveRef)) {
+    ret.ref = (templateRef: any) => {
+      for (const setRef of _primitiveRef) {
+        setRef(templateRef)
+      }
+    }
+  }
+
+  return ret as IAttrsData
 }

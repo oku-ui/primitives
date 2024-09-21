@@ -1,86 +1,18 @@
 <script setup lang="ts">
-import type { ScrollAreaThumbImplEmits } from './ScrollAreaThumbImpl.ts'
-import { useForwardElement } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { useDebounceFn } from '@vueuse/core'
-import { onWatcherCleanup, watchEffect } from 'vue'
-import { useScrollAreaContext } from './ScrollAreaRoot.ts'
-import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
-import { addUnlinkedScrollListener } from './utils.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { useScrollAreaThumbImpl } from './ScrollAreaThumbImpl.ts'
 
 defineOptions({
   name: 'ScrollAreaThumbImpl',
+  inheritAttrs: false,
 })
 
-const emit = defineEmits<ScrollAreaThumbImplEmits>()
-
-const scrollAreaContext = useScrollAreaContext('ScrollAreaThumb')
-const scrollbarContext = useScrollbarContext('ScrollAreaThumb')
-const forwardElement = useForwardElement(scrollbarContext.thumb)
-
-let removeUnlinkedScrollListener: (() => void) | undefined
-
-const debounceScrollEnd = useDebounceFn(() => {
-  if (!removeUnlinkedScrollListener)
-    return
-
-  removeUnlinkedScrollListener()
-  removeUnlinkedScrollListener = undefined
-}, 100)
-
-watchEffect(() => {
-  const viewport = scrollAreaContext.viewport.value
-  if (!viewport)
-    return
-
-  /**
-   * We only bind to native scroll event so we know when scroll starts and ends.
-   * When scroll starts we start a requestAnimationFrame loop that checks for
-   * changes to scroll position. That rAF loop triggers our thumb position change
-   * when relevant to avoid scroll-linked effects. We cancel the loop when scroll ends.
-   * https://developer.mozilla.org/en-US/docs/Mozilla/Performance/Scroll-linked_effects
-   */
-  function handleScroll() {
-    debounceScrollEnd()
-    if (!removeUnlinkedScrollListener) {
-      const listener = addUnlinkedScrollListener(viewport!, scrollbarContext.onThumbPositionChange)
-      removeUnlinkedScrollListener = listener
-      scrollbarContext.onThumbPositionChange()
-    }
-  }
-
-  scrollbarContext.onThumbPositionChange()
-  viewport.addEventListener('scroll', handleScroll)
-
-  onWatcherCleanup(() => {
-    viewport.removeEventListener('scroll', handleScroll)
-  })
-})
-
-const onPointerdownCapture = composeEventHandlers<PointerEvent>((event) => {
-  emit('pointerdownCapture', event)
-}, (event) => {
-  const thumb = event.target as HTMLElement
-  const thumbRect = thumb.getBoundingClientRect()
-  const x = event.clientX - thumbRect.left
-  const y = event.clientY - thumbRect.top
-  scrollbarContext.onThumbPointerDown({ x, y })
-})
-
-const onPointerup = composeEventHandlers<PointerEvent>((event) => {
-  emit('pointerup', event)
-}, scrollbarContext.onThumbPointerUp)
+const scrollAreaThumbImpl = useScrollAreaThumbImpl()
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-    :data-state="scrollbarContext.hasThumb.value ? 'visible' : 'hidden'"
-    style="width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)"
-    @pointerdown.capture="onPointerdownCapture"
-    @pointerup="onPointerup"
-  >
+  <Primitive v-bind="normalizeAttrs(scrollAreaThumbImpl(), $attrs)">
     <slot />
   </Primitive>
 </template>

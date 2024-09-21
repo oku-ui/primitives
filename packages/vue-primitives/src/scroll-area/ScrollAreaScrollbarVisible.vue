@@ -6,7 +6,7 @@ import { composeEventHandlers } from '@oku-ui/shared'
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
-import { provideScrollbarContext, type ScrollAreaThumbElement } from './ScrollAreaScrollbar.ts'
+import { provideScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
 
 defineOptions({
@@ -25,7 +25,7 @@ const context = useScrollAreaContext('ScrollAreaScrollbarVisible')
 
 const forwardElement = useForwardElement(isHorizontal ? context.scrollbarX : context.scrollbarY)
 
-const thumbRef = shallowRef<ScrollAreaThumbElement>()
+const thumbRef = shallowRef<HTMLElement>()
 let pointerOffset = 0
 const sizes = shallowRef<Sizes>({
   content: 0,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { mergeAttrs } from '../shared/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
 import { type CollapsibleRootEmits, type CollapsibleRootProps, useCollapsibleRoot } from './CollapsibleRoot.ts'
 
 defineOptions({
@@ -29,7 +29,7 @@ const collapsibleRoot = useCollapsibleRoot({
 </script>
 
 <template>
-  <Primitive v-bind="mergeAttrs(collapsibleRoot(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(collapsibleRoot(), $attrs)">
     <slot />
   </Primitive>
 </template>

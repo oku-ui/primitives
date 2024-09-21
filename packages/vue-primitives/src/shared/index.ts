@@ -11,7 +11,8 @@ export {
   roundValue,
   wrapArray,
 } from './general.ts'
+export { getElFromTemplateRef } from './getElFromTemplateRef.ts'
 export { getRawChildren } from './getRawChildren.ts'
 export { isPointInPolygon, type Point, type Polygon } from './isPointInPolygon.ts'
-export { type IAttrsData, mergeAttrs, mergeHooksAttrs } from './mergeProps.ts'
-export { type ConvertEmitsToUseEmits, type RadixPrimitiveReturns } from './typeUtils.ts'
+export { type IAttrsData, mergeHooksAttrs, normalizeAttrs } from './mergeProps.ts'
+export { type ConvertEmitsToUseEmits, type ElAttrs, type RadixPrimitiveReturns, type VNodeRef } from './typeUtils.ts'

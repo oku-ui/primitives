@@ -6,14 +6,9 @@ export interface ScrollAreaScrollbarProps {
   orientation?: ScrollAreaScrollbarVisibleProps['orientation']
 }
 
-// type ScrollAreaScrollbarElement = HTMLDivElement
-export type ScrollAreaThumbElement = HTMLDivElement
-
 export interface ScrollbarContext {
   hasThumb: Ref<boolean>
-  // scrollbar: Ref<ScrollAreaScrollbarElement | undefined>
-  // onThumbChange: (thumb: ScrollAreaThumbElement | undefined) => void
-  thumb: Ref<ScrollAreaThumbElement | undefined>
+  thumb: Ref<HTMLElement | undefined>
   onThumbPointerUp: () => void
   onThumbPointerDown: (pointerPos: { x: number, y: number }) => void
   onThumbPositionChange: () => void

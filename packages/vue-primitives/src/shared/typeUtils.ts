@@ -1,4 +1,4 @@
-import type { AriaAttributes, Events, HTMLAttributes } from 'vue'
+import type { AriaAttributes, ComponentPublicInstance, Events, HTMLAttributes } from 'vue'
 
 export type ConvertEmitsToUseEmits<T extends Record<string, any[]>> = {
   [K in keyof T as K extends `update:${infer Rest}`
@@ -21,6 +21,12 @@ type AllEventHandlers = {
   [K in keyof Events as K | `${K}${EventSuffixes}`]: EventHandlers<Events[K]>;
 }
 
-export type ElAttrs = Partial<AllEventHandlers & AriaAttributes & HTMLAttributes> & Partial<Record<string, unknown>>
+type Hook<T = () => void> = T | T[]
+
+export type ElAttrs = Partial<AllEventHandlers & AriaAttributes & HTMLAttributes> & Partial<Record<string, unknown>> & {
+  ref?: Hook<(nodeRef: HTMLElement | undefined) => void>
+}
 
 export type RadixPrimitiveReturns<T extends ElAttrs = ElAttrs> = (extraAttrs?: ElAttrs[]) => T
+
+export type VNodeRef = Element | ComponentPublicInstance | null | undefined

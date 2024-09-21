@@ -3,13 +3,9 @@ import { useForwardElement } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
 import { shallowRef } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import {
-  provideScrollAreaContext,
-  type ScrollAreaElement,
-  type ScrollAreaRootProps,
-  type ScrollAreaScrollbarElement,
-  type ScrollAreaViewportElement,
-} from './ScrollAreaRoot.ts'
+import { useForwardElement } from '../hooks/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { provideScrollAreaContext, type ScrollAreaRootProps } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaRoot',
@@ -20,12 +16,12 @@ const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
   scrollHideDelay: 600,
 })
 
-const scrollArea = shallowRef<ScrollAreaElement>()
+const scrollArea = shallowRef<HTMLElement>()
 const forwardElement = useForwardElement(scrollArea)
-const viewport = shallowRef<ScrollAreaViewportElement>()
+const viewport = shallowRef<HTMLElement>()
 const content = shallowRef<HTMLDivElement>()
-const scrollbarX = shallowRef<ScrollAreaScrollbarElement>()
-const scrollbarY = shallowRef<ScrollAreaScrollbarElement>()
+const scrollbarX = shallowRef<HTMLElement>()
+const scrollbarY = shallowRef<HTMLElement>()
 const cornerWidth = shallowRef(0)
 const cornerHeight = shallowRef(0)
 const scrollbarXEnabled = shallowRef(false)

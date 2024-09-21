@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { mergeAttrs } from '../shared/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
 import { type LabelEmits, type LabelProps, useLabel } from './Label.ts'
 
 defineOptions({
@@ -21,7 +21,7 @@ const label = useLabel({
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="mergeAttrs(label(), $attrs)">
+  <Primitive :as="as" v-bind="normalizeAttrs(label(), $attrs)">
     <slot />
   </Primitive>
 </template>

@@ -10,27 +10,17 @@ export interface ScrollAreaRootProps {
   scrollHideDelay?: number
 }
 
-export type ScrollAreaElement = HTMLDivElement
-export type ScrollAreaViewportElement = HTMLDivElement
-export type ScrollAreaScrollbarElement = ScrollAreaScrollbarVisibleElement
-export type ScrollAreaScrollbarVisibleElement = ScrollAreaScrollbarAxisElement
-export type ScrollAreaScrollbarAxisElement = HTMLDivElement
-
 export interface ScrollAreaContext {
   type: () => ScrollAreaType
   dir: Ref<Direction>
   scrollHideDelay: number
-  scrollArea: Ref<ScrollAreaElement | undefined>
-  viewport: Ref<ScrollAreaViewportElement | undefined>
-  // onViewportChange: (viewport: ScrollAreaViewportElement | undefined) => void
+  scrollArea: Ref<HTMLElement | undefined>
+  viewport: Ref<HTMLElement | undefined>
   content: Ref<HTMLDivElement | undefined>
-  // onContentChange: (content: HTMLDivElement | undefined) => void
-  scrollbarX: Ref<ScrollAreaScrollbarElement | undefined>
-  // onScrollbarXChange: (scrollbar: ScrollAreaScrollbarElement | undefined) => void
+  scrollbarX: Ref<HTMLElement | undefined>
   scrollbarXEnabled: Ref<boolean>
   onScrollbarXEnabledChange: (rendered: boolean) => void
-  scrollbarY: Ref<ScrollAreaScrollbarElement | undefined>
-  // onScrollbarYChange: (scrollbar: ScrollAreaScrollbarElement | undefined) => void
+  scrollbarY: Ref<HTMLElement | undefined>
   scrollbarYEnabled: Ref<boolean>
   onScrollbarYEnabledChange: (rendered: boolean) => void
   onCornerWidthChange: (width: number) => void

@@ -6,7 +6,7 @@ export interface MutableRefObject<T> {
 }
 
 export interface RefObject<T> {
-  readonly current: T | null
+  readonly current: T
 }
 
 export function useRef<T>(value: T): Ref extends T

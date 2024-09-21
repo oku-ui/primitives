@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { mergeAttrs } from '../shared/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
 import { type AccordionHeaderProps, useAccordionHeader } from './AccordionHeader.ts'
 
 defineOptions({
@@ -16,7 +16,7 @@ const accordionHeader = useAccordionHeader()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="mergeAttrs(accordionHeader(), $attrs)">
+  <Primitive :as="as" v-bind="normalizeAttrs(accordionHeader(), $attrs)">
     <slot />
   </Primitive>
 </template>
