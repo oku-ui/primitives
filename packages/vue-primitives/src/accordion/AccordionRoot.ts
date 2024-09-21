@@ -3,7 +3,7 @@ import { type AriaAttributes, computed, type Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useId } from '../hooks/index.ts'
-import { arrayify, type ConvertEmitsToUseEmits, mergeHookAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { arrayify, type ConvertEmitsToUseEmits, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type AccordionType = 'single' | 'multiple' | undefined
 export type IsSingle<T extends AccordionType> = T extends 'single' | undefined ? true : false
@@ -237,7 +237,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
     }
 
     if (extraAttrs)
-      mergeHookAttrs(attrs, extraAttrs)
+      mergeHooksAttrs(attrs, extraAttrs)
 
     return attrs
   }

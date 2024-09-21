@@ -1,5 +1,4 @@
 import type { AriaAttributes, Events, HTMLAttributes } from 'vue'
-import type { IAttrsData } from './mergeProps.ts'
 
 export type ConvertEmitsToUseEmits<T extends Record<string, any[]>> = {
   [K in keyof T as K extends `update:${infer Rest}`
@@ -24,4 +23,4 @@ type AllEventHandlers = {
 
 export type ElAttrs = Partial<AllEventHandlers & AriaAttributes & HTMLAttributes> & Partial<Record<string, unknown>>
 
-export type RadixPrimitiveReturns<T extends ElAttrs = ElAttrs> = (extraAttrs?: IAttrsData[]) => T
+export type RadixPrimitiveReturns<T extends ElAttrs = ElAttrs> = (extraAttrs?: ElAttrs[]) => T

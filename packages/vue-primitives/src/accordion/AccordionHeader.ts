@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
-import { mergeHookAttrs } from '../shared/index.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 
@@ -20,7 +20,7 @@ export function useAccordionHeader(): RadixPrimitiveReturns {
     }
 
     if (extraAttrs)
-      mergeHookAttrs(attrs, extraAttrs)
+      mergeHooksAttrs(attrs, extraAttrs)
 
     return attrs
   }

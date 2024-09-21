@@ -1,9 +1,10 @@
+import type { ElAttrs } from './typeUtils'
 import { isArray, isOn, NOOP } from '@vue/shared'
 import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
 
-export type IAttrsData = Record<string, any>
+export type IAttrsData = Record<string, unknown>
 
-export function mergeHookAttrs(attrs: (IAttrsData & VNodeProps), extraAttrs: (IAttrsData & VNodeProps)[]): IAttrsData {
+export function mergeHooksAttrs(attrs: ElAttrs, extraAttrs: ElAttrs[]): IAttrsData {
   const ret: IAttrsData = attrs
 
   for (let i = 0; i < extraAttrs.length; i++) {
@@ -34,10 +35,11 @@ export function mergeHookAttrs(attrs: (IAttrsData & VNodeProps), extraAttrs: (IA
       }
     }
   }
+
   return ret
 }
 
-export function mergeAttrs(attrs: (IAttrsData & VNodeProps), extraAttrs: (IAttrsData & VNodeProps)): IAttrsData {
+export function mergeAttrs(attrs: ElAttrs, extraAttrs: (IAttrsData & VNodeProps)): IAttrsData {
   const ret: IAttrsData = attrs
 
   const isInnerDisabled = attrs.disabled === true || (attrs['data-disabled'] != null && attrs['data-disabled'] !== false)

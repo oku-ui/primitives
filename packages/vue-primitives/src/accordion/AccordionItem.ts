@@ -2,7 +2,7 @@ import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, type Ref } from 'vue'
 import { useCollapsibleRoot } from '../collapsible/CollapsibleRoot.ts'
 import { createContext, useId } from '../hooks/index.ts'
-import { mergeHookAttrs } from '../shared/index.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 
 export interface AccordionItemProps {
@@ -67,7 +67,7 @@ export function useAccordionItem(props: UseAccordionItemProps): RadixPrimitiveRe
       'data-orientation': context.orientation,
     }
 
-    mergeHookAttrs(attrs, [collapsibleRoot(extraAttrs)])
+    mergeHooksAttrs(attrs, [collapsibleRoot(extraAttrs)])
 
     return attrs
   }

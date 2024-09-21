@@ -1,6 +1,6 @@
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { type CollapsibleContentProps, useCollapsibleContent, type UseCollapsibleContentProps } from '../collapsible/index.ts'
-import { mergeHookAttrs } from '../shared/index.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 
@@ -22,7 +22,9 @@ export function useAccordionContent(props: UseAccordionContentProps): RadixPrimi
     }
 
     if (extraAttrs)
-      mergeHookAttrs(attrs, [collapsibleContent(extraAttrs)])
+      mergeHooksAttrs(attrs, [collapsibleContent(), ...extraAttrs])
+    else
+      mergeHooksAttrs(attrs, [collapsibleContent()])
 
     return attrs
   }

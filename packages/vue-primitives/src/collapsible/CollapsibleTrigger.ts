@@ -1,7 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { NOOP } from '@vue/shared'
-import { mergeHookAttrs } from '../shared/index.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleTriggerProps {
@@ -30,7 +30,7 @@ export function useCollapsibleTrigger(): RadixPrimitiveReturns {
     }
 
     if (extraAttrs)
-      mergeHookAttrs(attrs, extraAttrs)
+      mergeHooksAttrs(attrs, extraAttrs)
 
     return attrs
   }

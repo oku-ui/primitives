@@ -2,7 +2,7 @@ import type { PrimitiveProps } from '../primitive/Primitive.ts'
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { useCollapsibleTrigger } from '../collapsible/index.ts'
 import { DATA_COLLECTION_ITEM } from '../collection/Collection.ts'
-import { mergeHookAttrs } from '../shared/index.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 
@@ -23,7 +23,10 @@ export function useAccordionTrigger(): RadixPrimitiveReturns {
       [DATA_COLLECTION_ITEM]: true,
     }
 
-    mergeHookAttrs(attrs, [collapsibleTrigger(extraAttrs)])
+    if (extraAttrs)
+      mergeHooksAttrs(attrs, [collapsibleTrigger(), ...extraAttrs])
+    else
+      mergeHooksAttrs(attrs, [collapsibleTrigger()])
 
     return attrs
   }

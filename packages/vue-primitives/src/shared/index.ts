@@ -13,5 +13,5 @@ export {
 } from './general.ts'
 export { getRawChildren } from './getRawChildren.ts'
 export { isPointInPolygon, type Point, type Polygon } from './isPointInPolygon.ts'
-export { type IAttrsData, mergeAttrs, mergeHookAttrs } from './mergeProps.ts'
+export { type IAttrsData, mergeAttrs, mergeHooksAttrs } from './mergeProps.ts'
 export { type ConvertEmitsToUseEmits, type RadixPrimitiveReturns } from './typeUtils.ts'

@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
-import { type ConvertEmitsToUseEmits, type Data, mergeAttrs } from '../shared/index.ts'
+import { type ConvertEmitsToUseEmits, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface CollapsibleRootProps {
   defaultOpen?: boolean
@@ -27,15 +27,7 @@ export interface UseCollapsibleRootProps extends ConvertEmitsToUseEmits<Collapsi
   disabled?: () => boolean | undefined
 }
 
-export interface UseCollapsibleRootReturns {
-  'data-state': 'open' | 'closed'
-  'data-disabled': '' | undefined
-  [key: string]: any
-}
-
-export function useCollapsibleRoot(
-  props: UseCollapsibleRootProps,
-): (extraAttrs?: Data) => UseCollapsibleRootReturns {
+export function useCollapsibleRoot(props: UseCollapsibleRootProps): RadixPrimitiveReturns {
   const open = useControllableStateV2(props.open, props.onUpdateOpen, props.defaultOpen ?? false)
 
   provideCollapsibleContext({
@@ -47,14 +39,14 @@ export function useCollapsibleRoot(
     },
   })
 
-  return (extraAttrs?: Data): UseCollapsibleRootReturns => {
+  return (extraAttrs) => {
     const attrs = {
       'data-state': open.value ? 'open' : 'closed',
       'data-disabled': props.disabled?.() ? '' : undefined,
-    } as const
+    }
 
     if (extraAttrs)
-      mergeAttrs(attrs, extraAttrs)
+      mergeHooksAttrs(attrs, extraAttrs)
 
     return attrs
   }

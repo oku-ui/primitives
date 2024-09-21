@@ -1,6 +1,6 @@
 import { type CSSProperties, nextTick, onMounted, type Ref, shallowRef, watchEffect } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { type Data, mergeAttrs } from '../shared/index.ts'
+import { mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleContentProps {
@@ -17,18 +17,7 @@ export interface UseCollapsibleContentProps {
   forceMount?: boolean
 }
 
-export interface UseCollapsibleContentReturns {
-  'id': string
-  'data-state': 'open' | 'closed'
-  'data-disabled'?: string
-  'hidden': boolean
-  'style': CSSProperties
-  [key: string]: any
-}
-
-export function useCollapsibleContent(
-  props: UseCollapsibleContentProps,
-): (extraAttrs?: Data) => UseCollapsibleContentReturns {
+export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixPrimitiveReturns {
   const context = useCollapsibleContext('CollapsibleContent')
 
   let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
@@ -94,7 +83,7 @@ export function useCollapsibleContent(
     nodeStyle.animationName = 'none'
   })
 
-  return (extraAttrs?: Data): UseCollapsibleContentReturns => {
+  return (extraAttrs) => {
     const attrs = {
       'id': context.contentId,
       'data-state': context.open.value ? 'open' : 'closed',
@@ -105,10 +94,10 @@ export function useCollapsibleContent(
         '--radix-collapsible-content-width': '0px',
         ...blockAnimationStyles.value,
       },
-    } as const
+    }
 
     if (extraAttrs)
-      mergeAttrs(attrs, extraAttrs)
+      mergeHooksAttrs(attrs, extraAttrs)
 
     return attrs
   }
