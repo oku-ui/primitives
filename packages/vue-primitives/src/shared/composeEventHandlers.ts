@@ -4,13 +4,13 @@ export function composeEventHandlers<E extends Event>(
   { checkForDefaultPrevented = true } = {},
 ) {
   return function handleEvent(event: E) {
-    const currentTarget = event.currentTarget as HTMLButtonElement
-    if (currentTarget.disabled || currentTarget.hasAttribute('data-disabled')) {
+    const currentTarget = event.currentTarget as HTMLButtonElement | null
+    if (currentTarget && (currentTarget.disabled || currentTarget.hasAttribute('data-disabled'))) {
       return
     }
 
-    const target = event.target as HTMLButtonElement
-    if (target.disabled || target.hasAttribute('data-disabled')) {
+    const target = event.target as HTMLButtonElement | null
+    if (target && (target.disabled || target.hasAttribute('data-disabled'))) {
       return
     }
 
