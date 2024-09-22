@@ -1,17 +1,16 @@
 <script setup lang="ts">
+import { useScrollAreaCorner } from './ScrollAreaCorner.ts'
 import ScrollAreaCornerImpl from './ScrollAreaCornerImpl.vue'
-import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaCorner',
 })
 
-const context = useScrollAreaContext('ScrollAreaCorner')
-const hasCorner = () => context.type() !== 'scroll' && Boolean(context.scrollbarX.value && context.scrollbarY.value)
+const scrollAreaCorner = useScrollAreaCorner()
 </script>
 
 <template>
-  <ScrollAreaCornerImpl v-if="hasCorner()">
+  <ScrollAreaCornerImpl v-if="scrollAreaCorner.hasCorner.value">
     <slot />
   </ScrollAreaCornerImpl>
 </template>

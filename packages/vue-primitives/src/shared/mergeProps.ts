@@ -33,13 +33,11 @@ export function mergeHooksAttrs(attrs: ElAttrs, extraAttrsList: ElAttrs[]): ElAt
           }
         }
       }
-
-      if (propName === 'ref') {
+      else if (propName === 'ref') {
         const incoming = extraAttrs[propName]!
         const existing = ret[propName]
         ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming
       }
-
       else if (propName !== '') {
         ret[propName] = extraAttrs[propName]
       }
@@ -70,14 +68,14 @@ export function normalizeAttrs(attrs: ElAttrs, ...extraAttrsList: (IAttrsData)[]
     }
   }
 
+  if (extraAttrsList.length === 0) {
+    return ret as IAttrsData
+  }
+
   let hasDisabledAttr = 'disabled' in attrs
   let isOuterDisabled = false
 
   const isDisabled = isInnerDisabled || isOuterDisabled
-
-  if (extraAttrsList.length === 0) {
-    return ret as IAttrsData
-  }
 
   for (let i = 0; i < extraAttrsList.length; i++) {
     const extraAttrs = extraAttrsList[i]!
@@ -110,8 +108,7 @@ export function normalizeAttrs(attrs: ElAttrs, ...extraAttrsList: (IAttrsData)[]
           }
         }
       }
-
-      if (propName === 'ref') {
+      else if (propName === 'ref') {
         const incoming = extraAttrs[propName]!
         const existing = ret[propName]
         ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming as any
@@ -122,11 +119,19 @@ export function normalizeAttrs(attrs: ElAttrs, ...extraAttrsList: (IAttrsData)[]
     }
   }
 
-  if (isInnerDisabled || isOuterDisabled) {
+  if (isInnerDisabled && !isOuterDisabled) {
     if (hasDisabledAttr) {
       ret.disabled = true
     }
     ret['data-disabled'] = true
+  }
+
+  if (!isInnerDisabled && isOuterDisabled) {
+    for (const propName in ret) {
+      if (isOn(propName)) {
+        ret[propName] = NOOP
+      }
+    }
   }
 
   const _primitiveRef = ret.ref

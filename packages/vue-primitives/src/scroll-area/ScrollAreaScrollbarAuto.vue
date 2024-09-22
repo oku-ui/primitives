@@ -1,47 +1,27 @@
 <script setup lang="ts">
-import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.ts'
-import { useForwardElement } from '@oku-ui/hooks'
-import { useDebounceFn, useResizeObserver } from '@vueuse/core'
-import { shallowRef } from 'vue'
-import { usePresence } from '../presence/index.ts'
-import { useScrollAreaContext } from './ScrollAreaRoot.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type ScrollAreaScrollbarAutoProps, useScrollAreaScrollbarAuto } from './ScrollAreaScrollbarAuto.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
 defineOptions({
   name: 'ScrollAreaScrollbarAuto',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarAutoProps>(), {
   orientation: 'vertical',
 })
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
 
-const context = useScrollAreaContext('ScrollAreaScrollbarAuto')
-const visible = shallowRef(false)
-
-const handleResize = useDebounceFn(() => {
-  const viewport = context.viewport.value
-  if (viewport) {
-    const isOverflowX = viewport.offsetWidth < viewport.scrollWidth
-    const isOverflowY = viewport.offsetHeight < viewport.scrollHeight
-
-    visible.value = props.orientation === 'horizontal' ? isOverflowX : isOverflowY
-  }
-}, 10)
-
-useResizeObserver(context.viewport, handleResize)
-useResizeObserver(context.content, handleResize)
-
-const isPresent = usePresence($el, () => props.forceMount || visible.value)
+const scrollAreaScrollbarAuto = useScrollAreaScrollbarAuto({
+  orientation: props.orientation,
+  forceMount: props.forceMount,
+})
 </script>
 
 <template>
   <ScrollAreaScrollbarVisible
-    v-if="isPresent"
-    :ref="forwardElement"
-    :orientation="orientation"
-    :data-state="visible ? 'visible' : 'hidden'"
+    v-if="scrollAreaScrollbarAuto.isPresent.value"
+    v-bind="normalizeAttrs(scrollAreaScrollbarAuto.attrs(), $attrs)"
   >
     <slot />
   </ScrollAreaScrollbarVisible>

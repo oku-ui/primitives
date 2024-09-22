@@ -1,5 +1,5 @@
 import { NOOP } from '@vue/shared'
-import { type AriaAttributes, computed, type Ref } from 'vue'
+import { type AriaAttributes, computed, type MaybeRefOrGetter, type Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useId } from '../hooks/index.ts'
@@ -106,7 +106,7 @@ export interface UseAccordionRootProps<T extends AccordionType> extends ConvertE
   type?: T
   disabled?: () => boolean
   orientation?: AccordionImplProps['orientation']
-  dir: () => Direction | undefined
+  dir?: MaybeRefOrGetter<Direction | undefined>
 }
 
 export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRootProps<T>): RadixPrimitiveReturns {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar.ts'
-import { onWatcherCleanup, watchEffect } from 'vue'
+import { normalizeAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
+import { type ScrollAreaScrollbarProps, useScrollAreaScrollbar } from './ScrollAreaScrollbar.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
 import ScrollAreaScrollbarScroll from './ScrollAreaScrollbarScroll.vue'
@@ -9,6 +9,7 @@ import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
 defineOptions({
   name: 'ScrollAreaScrollbar',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
@@ -16,35 +17,21 @@ const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
 })
 const context = useScrollAreaContext('ScrollAreaScrollbar')
 
-watchEffect(() => {
-  const isHorizontal = props.orientation === 'horizontal'
-
-  if (isHorizontal)
-    context.onScrollbarXEnabledChange(true)
-  else
-    context.onScrollbarYEnabledChange(true)
-
-  onWatcherCleanup(() => {
-    if (isHorizontal)
-      context.onScrollbarXEnabledChange(false)
-    else
-      context.onScrollbarYEnabledChange(false)
-  })
+const scrollAreaScrollbar = useScrollAreaScrollbar({
+  orientation: props.orientation,
 })
 
-const type = context.type()
-
-const Comp = type === 'hover'
+const Comp = context.type === 'hover'
   ? ScrollAreaScrollbarHover
-  : type === 'scroll'
+  : context.type === 'scroll'
     ? ScrollAreaScrollbarScroll
-    : type === 'auto'
+    : context.type === 'auto'
       ? ScrollAreaScrollbarAuto
       : ScrollAreaScrollbarVisible
 </script>
 
 <template>
-  <Comp :orientation="orientation">
+  <Comp v-bind="normalizeAttrs(scrollAreaScrollbar.attrs(), $attrs)">
     <slot />
   </Comp>
 </template>

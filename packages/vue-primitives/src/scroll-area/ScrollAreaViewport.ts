@@ -35,8 +35,9 @@ export function useScrollAreaViewport(props: ScrollAreaViewportProps): RadixPrim
         },
       }
 
-      if (extraAttrs)
+      if (extraAttrs) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },

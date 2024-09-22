@@ -1,6 +1,7 @@
-import type { Ref } from 'vue'
-import type { Direction } from '../direction/index.ts'
-import { createContext } from '@oku-ui/hooks'
+import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
+import { type Direction, useDirection } from '../direction/index.ts'
+import { createContext } from '../hooks/index.ts'
+import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 type ScrollAreaType = 'auto' | 'always' | 'scroll' | 'hover'
 
@@ -11,12 +12,12 @@ export interface ScrollAreaRootProps {
 }
 
 export interface ScrollAreaContext {
-  type: () => ScrollAreaType
+  type: ScrollAreaType
   dir: Ref<Direction>
   scrollHideDelay: number
   scrollArea: Ref<HTMLElement | undefined>
   viewport: Ref<HTMLElement | undefined>
-  content: Ref<HTMLDivElement | undefined>
+  content: Ref<HTMLElement | undefined>
   scrollbarX: Ref<HTMLElement | undefined>
   scrollbarXEnabled: Ref<boolean>
   onScrollbarXEnabledChange: (rendered: boolean) => void
@@ -28,3 +29,68 @@ export interface ScrollAreaContext {
 }
 
 export const [provideScrollAreaContext, useScrollAreaContext] = createContext<ScrollAreaContext>('ScrollArea')
+
+export interface UseScrollAreaRootProps {
+  el: Ref<HTMLElement | undefined>
+  type?: ScrollAreaType
+  dir?: MaybeRefOrGetter<Direction | undefined>
+  scrollHideDelay: number
+}
+
+export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitiveReturns {
+  const viewport = shallowRef<HTMLElement>()
+  const content = shallowRef<HTMLDivElement>()
+  const scrollbarX = shallowRef<HTMLElement>()
+  const scrollbarY = shallowRef<HTMLElement>()
+  const cornerWidth = shallowRef(0)
+  const cornerHeight = shallowRef(0)
+  const scrollbarXEnabled = shallowRef(false)
+  const scrollbarYEnabled = shallowRef(false)
+
+  const direction = useDirection(props.dir)
+
+  provideScrollAreaContext({
+    type: props.type ?? 'hover',
+    dir: direction,
+    scrollHideDelay: props.scrollHideDelay,
+    scrollArea: props.el,
+    viewport,
+    content,
+    scrollbarX,
+    scrollbarXEnabled,
+    onScrollbarXEnabledChange(rendered) {
+      scrollbarXEnabled.value = rendered
+    },
+    scrollbarY,
+    scrollbarYEnabled,
+    onScrollbarYEnabledChange(rendered) {
+      scrollbarYEnabled.value = rendered
+    },
+    onCornerWidthChange(width) {
+      cornerWidth.value = width
+    },
+    onCornerHeightChange(height) {
+      cornerHeight.value = height
+    },
+  })
+
+  return {
+    attrs(extraAttrs) {
+      const attrs: ElAttrs = {
+        dir: direction.value,
+        style: {
+          'position': 'relative',
+          // Pass corner sizes as CSS vars to reduce re-renders of context consumers
+          '--radix-scroll-area-corner-width': `${cornerWidth.value}px`,
+          '--radix-scroll-area-corner-height': `${cornerHeight.value}px`,
+        },
+      }
+
+      if (extraAttrs) {
+        mergeHooksAttrs(attrs, extraAttrs)
+      }
+
+      return attrs
+    },
+  }
+}

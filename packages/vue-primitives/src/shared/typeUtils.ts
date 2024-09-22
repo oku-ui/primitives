@@ -29,6 +29,6 @@ export type ElAttrs = Partial<AllEventHandlers & AriaAttributes & HTMLAttributes
 
 export type RadixPrimitiveGetAttrs = (extraAttrs?: ElAttrs[]) => ElAttrs
 
-export type RadixPrimitiveReturns<T extends { attrs: RadixPrimitiveGetAttrs } = { attrs: RadixPrimitiveGetAttrs }> = T
+export type RadixPrimitiveReturns<T = { attrs: RadixPrimitiveGetAttrs }> = T
 
 export type VNodeRef = Element | ComponentPublicInstance | null | undefined

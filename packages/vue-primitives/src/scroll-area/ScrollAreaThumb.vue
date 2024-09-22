@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { ScrollAreaThumbProps } from './ScrollAreaThumb.ts'
-import { usePresence } from '../presence/index.ts'
-import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
+import { type ScrollAreaThumbProps, useScrollAreaThumb } from './ScrollAreaThumb.ts'
 import ScrollAreaThumbImpl from './ScrollAreaThumbImpl.vue'
 
 defineOptions({
@@ -10,13 +8,13 @@ defineOptions({
 
 const props = defineProps<ScrollAreaThumbProps>()
 
-const scrollbarContext = useScrollbarContext('ScrollAreaThumb')
-
-const isPresent = usePresence(scrollbarContext.thumb, () => props.forceMount || scrollbarContext.hasThumb.value)
+const scrollAreaThumb = useScrollAreaThumb({
+  forceMount: props.forceMount,
+})
 </script>
 
 <template>
-  <ScrollAreaThumbImpl v-if="isPresent">
+  <ScrollAreaThumbImpl v-if="scrollAreaThumb.isPresent.value">
     <slot />
   </ScrollAreaThumbImpl>
 </template>

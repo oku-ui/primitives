@@ -10,8 +10,8 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
   const scrollAreaContext = useScrollAreaContext('ScrollAreaThumb')
   const scrollbarContext = useScrollbarContext('ScrollAreaThumb')
 
-  function forwardElement(nodeRef: HTMLElement | undefined) {
-    scrollbarContext.thumb.value = nodeRef
+  function setTemplateEl(templateEl: HTMLElement | undefined) {
+    scrollbarContext.thumb.value = templateEl
   }
 
   let removeUnlinkedScrollListener: (() => void) | undefined
@@ -72,15 +72,16 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs = {
-        'ref': forwardElement,
+        'ref': setTemplateEl,
         'data-state': scrollbarContext.hasThumb.value ? 'visible' : 'hidden',
         'style': 'width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)',
         onPointerdownCapture,
         onPointerup,
       }
 
-      if (extraAttrs)
+      if (extraAttrs) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },
