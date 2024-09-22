@@ -1,6 +1,6 @@
-import { type CSSProperties, nextTick, onMounted, type Ref, shallowRef, watchEffect } from 'vue'
+import { computed, type CSSProperties, nextTick, onMounted, type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleContentProps {
@@ -12,12 +12,14 @@ export interface CollapsibleContentProps {
 }
 
 export interface UseCollapsibleContentProps {
-  isOpen: Ref<boolean>
   el: Ref<HTMLElement | undefined>
   forceMount?: boolean
 }
 
-export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixPrimitiveReturns {
+export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixPrimitiveReturns<{
+  isOpen: Ref<boolean>
+  attrs: RadixPrimitiveGetAttrs
+}> {
   const context = useCollapsibleContext('CollapsibleContent')
 
   let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
@@ -50,19 +52,16 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
 
   // when opening we want it to immediately open to retrieve dimensions
   // when closing we delay `present` to retrieve dimensions before closing
-  watchEffect(() => {
-    props.isOpen.value = context.open.value || isPresent.value
-  })
+  const isOpen = computed(() => context.open.value || isPresent.value)
 
-  const blockAnimationStyles = shallowRef<CSSProperties | undefined>(props.isOpen.value
-    ? {
-        transitionDuration: '0s !important',
-        animationName: 'none !important',
-      }
-    : undefined)
+  const blockAnimationStyles = shallowRef<CSSProperties | undefined>(
+    isOpen.value
+      ? { transitionDuration: '0s !important', animationName: 'none !important' }
+      : undefined,
+  )
 
   onMounted(async () => {
-    if (!props.isOpen.value)
+    if (!isOpen.value)
       return
 
     const node = props.el.value
@@ -83,22 +82,25 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     nodeStyle.animationName = 'none'
   })
 
-  return (extraAttrs) => {
-    const attrs = {
-      'id': context.contentId,
-      'data-state': context.open.value ? 'open' : 'closed',
-      'data-disabled': context.disabled() ? '' : undefined,
-      'hidden': !props.isOpen.value,
-      'style': {
-        '--radix-collapsible-content-height': '0px',
-        '--radix-collapsible-content-width': '0px',
-        ...blockAnimationStyles.value,
-      },
-    }
+  return {
+    isOpen,
+    attrs(extraAttrs) {
+      const attrs = {
+        'id': context.contentId,
+        'data-state': context.open.value ? 'open' : 'closed',
+        'data-disabled': context.disabled() ? '' : undefined,
+        'hidden': !isOpen.value,
+        'style': {
+          '--radix-collapsible-content-height': '0px',
+          '--radix-collapsible-content-width': '0px',
+          ...blockAnimationStyles.value,
+        },
+      }
 
-    if (extraAttrs)
-      mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs)
+        mergeHooksAttrs(attrs, extraAttrs)
 
-    return attrs
+      return attrs
+    },
   }
 }

@@ -16,18 +16,17 @@ export function useAccordionTrigger(): RadixPrimitiveReturns {
   const accordionContext = useAccordionContext('AccordionTrigger')
   const itemContext = useAccordionItemContext('AccordionHeader')
 
-  return (extraAttrs) => {
-    const attrs = {
-      'aria-disabled': (itemContext.open.value && !accordionContext.collapsible) || undefined,
-      'data-orientation': accordionContext.orientation,
-      [DATA_COLLECTION_ITEM]: true,
-    }
+  return {
+    attrs(extraAttrs = []) {
+      const attrs = {
+        'aria-disabled': (itemContext.open.value && !accordionContext.collapsible) || undefined,
+        'data-orientation': accordionContext.orientation,
+        [DATA_COLLECTION_ITEM]: true,
+      }
 
-    if (extraAttrs)
-      mergeHooksAttrs(attrs, [collapsibleTrigger(), ...extraAttrs])
-    else
-      mergeHooksAttrs(attrs, [collapsibleTrigger()])
+      mergeHooksAttrs(attrs, [collapsibleTrigger.attrs(), ...extraAttrs])
 
-    return attrs
+      return attrs
+    },
   }
 }

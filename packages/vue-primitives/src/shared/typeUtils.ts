@@ -27,6 +27,8 @@ export type ElAttrs = Partial<AllEventHandlers & AriaAttributes & HTMLAttributes
   ref?: Hook<(nodeRef: HTMLElement | undefined) => void>
 }
 
-export type RadixPrimitiveReturns<T extends ElAttrs = ElAttrs> = (extraAttrs?: ElAttrs[]) => T
+export type RadixPrimitiveGetAttrs = (extraAttrs?: ElAttrs[]) => ElAttrs
+
+export type RadixPrimitiveReturns<T extends { attrs: RadixPrimitiveGetAttrs } = { attrs: RadixPrimitiveGetAttrs }> = T
 
 export type VNodeRef = Element | ComponentPublicInstance | null | undefined

@@ -40,7 +40,7 @@ const accordionRoot = useAccordionRoot({
 </script>
 
 <template>
-  <Primitive :ref="forwardElement" v-bind="normalizeAttrs(accordionRoot(), $attrs)">
+  <Primitive :ref="forwardElement" v-bind="normalizeAttrs(accordionRoot.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

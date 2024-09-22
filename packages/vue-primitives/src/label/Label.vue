@@ -21,7 +21,7 @@ const label = useLabel({
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(label(), $attrs)">
+  <Primitive :as="as" v-bind="normalizeAttrs(label.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

@@ -69,18 +69,20 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
     scrollbarContext.onThumbPointerUp()
   }
 
-  return (extraAttrs) => {
-    const attrs = {
-      'ref': forwardElement,
-      'data-state': scrollbarContext.hasThumb.value ? 'visible' : 'hidden',
-      'style': 'width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)',
-      onPointerdownCapture,
-      onPointerup,
-    }
+  return {
+    attrs(extraAttrs) {
+      const attrs = {
+        'ref': forwardElement,
+        'data-state': scrollbarContext.hasThumb.value ? 'visible' : 'hidden',
+        'style': 'width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)',
+        onPointerdownCapture,
+        onPointerup,
+      }
 
-    if (extraAttrs)
-      mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs)
+        mergeHooksAttrs(attrs, extraAttrs)
 
-    return attrs
+      return attrs
+    },
   }
 }

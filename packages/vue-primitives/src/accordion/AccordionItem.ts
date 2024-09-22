@@ -62,13 +62,15 @@ export function useAccordionItem(props: UseAccordionItemProps): RadixPrimitiveRe
     },
   })
 
-  return (extraAttrs) => {
-    const attrs = {
-      'data-orientation': context.orientation,
-    }
+  return {
+    attrs(extraAttrs = []) {
+      const attrs = {
+        'data-orientation': context.orientation,
+      }
 
-    mergeHooksAttrs(attrs, [collapsibleRoot(extraAttrs)])
+      mergeHooksAttrs(attrs, [collapsibleRoot.attrs(), ...extraAttrs])
 
-    return attrs
+      return attrs
+    },
   }
 }

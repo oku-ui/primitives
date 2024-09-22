@@ -16,7 +16,7 @@ const scrollAreaViewport = useScrollAreaViewport({ el })
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(scrollAreaViewport(), $attrs, { ref: forwardElement })">
+  <Primitive v-bind="normalizeAttrs(scrollAreaViewport.attrs(), $attrs, { ref: forwardElement })">
     <slot />
   </Primitive>
 </template>

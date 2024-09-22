@@ -29,7 +29,7 @@ const collapsibleRoot = useCollapsibleRoot({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(collapsibleRoot(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(collapsibleRoot.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

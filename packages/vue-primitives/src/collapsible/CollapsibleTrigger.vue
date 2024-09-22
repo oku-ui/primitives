@@ -15,7 +15,7 @@ const collapsibleTrigger = useCollapsibleTrigger()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(collapsibleTrigger(), $attrs)">
+  <Primitive :as="as" v-bind="normalizeAttrs(collapsibleTrigger.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

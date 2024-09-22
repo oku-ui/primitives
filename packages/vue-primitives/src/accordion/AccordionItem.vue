@@ -21,7 +21,7 @@ const accordionItem = useAccordionItem({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(accordionItem(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(accordionItem.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

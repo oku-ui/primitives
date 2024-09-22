@@ -39,15 +39,17 @@ export function useCollapsibleRoot(props: UseCollapsibleRootProps): RadixPrimiti
     },
   })
 
-  return (extraAttrs) => {
-    const attrs = {
-      'data-state': open.value ? 'open' : 'closed',
-      'data-disabled': props.disabled?.() ? '' : undefined,
-    }
+  return {
+    attrs(extraAttrs) {
+      const attrs = {
+        'data-state': open.value ? 'open' : 'closed',
+        'data-disabled': props.disabled?.() ? '' : undefined,
+      }
 
-    if (extraAttrs)
-      mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs)
+        mergeHooksAttrs(attrs, extraAttrs)
 
-    return attrs
+      return attrs
+    },
   }
 }

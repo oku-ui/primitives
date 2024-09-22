@@ -16,17 +16,14 @@ const props = defineProps<CollapsibleContentProps>()
 const el = shallowRef<HTMLElement>()
 const forwardElement = useForwardElement(el)
 
-const isOpen = shallowRef(false)
-
 const collapsibleContent = useCollapsibleContent({
   el,
-  isOpen,
   forceMount: props.forceMount,
 })
 </script>
 
 <template>
-  <Primitive :ref="forwardElement" v-bind="normalizeAttrs(collapsibleContent(), $attrs)">
-    <slot v-if="isOpen" />
+  <Primitive :ref="forwardElement" v-bind="normalizeAttrs(collapsibleContent.attrs(), $attrs)">
+    <slot v-if="collapsibleContent.isOpen.value" />
   </Primitive>
 </template>

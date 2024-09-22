@@ -15,4 +15,10 @@ export { getElFromTemplateRef } from './getElFromTemplateRef.ts'
 export { getRawChildren } from './getRawChildren.ts'
 export { isPointInPolygon, type Point, type Polygon } from './isPointInPolygon.ts'
 export { type IAttrsData, mergeHooksAttrs, normalizeAttrs } from './mergeProps.ts'
-export { type ConvertEmitsToUseEmits, type ElAttrs, type RadixPrimitiveReturns, type VNodeRef } from './typeUtils.ts'
+export {
+  type ConvertEmitsToUseEmits,
+  type ElAttrs,
+  type RadixPrimitiveGetAttrs,
+  type RadixPrimitiveReturns,
+  type VNodeRef,
+} from './typeUtils.ts'

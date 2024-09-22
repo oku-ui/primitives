@@ -12,7 +12,6 @@ export {
   useCollapsibleContext,
   useCollapsibleRoot,
   type UseCollapsibleRootProps,
-  type UseCollapsibleRootReturns,
 } from './CollapsibleRoot.ts'
 export { default as CollapsibleRoot } from './CollapsibleRoot.vue'
 export {

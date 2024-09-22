@@ -228,17 +228,19 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
     },
   })
 
-  return (extraAttrs) => {
-    const isDisabled = props.disabled?.()
-    const attrs = {
-      'data-disabled': isDisabled ? '' : undefined,
-      'data-orientation': props.orientation,
-      'onKeydown': isDisabled ? NOOP : onKeydown,
-    }
+  return {
+    attrs(extraAttrs) {
+      const isDisabled = props.disabled?.()
+      const attrs = {
+        'data-disabled': isDisabled ? '' : undefined,
+        'data-orientation': props.orientation,
+        'onKeydown': isDisabled ? NOOP : onKeydown,
+      }
 
-    if (extraAttrs)
-      mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs)
+        mergeHooksAttrs(attrs, extraAttrs)
 
-    return attrs
+      return attrs
+    },
   }
 }

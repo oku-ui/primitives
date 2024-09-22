@@ -17,21 +17,23 @@ export function useCollapsibleTrigger(): RadixPrimitiveReturns {
     context.onOpenToggle()
   }
 
-  return (extraAttrs) => {
-    const isDisabled = context.disabled()
-    const attrs = {
-      'type': 'button',
-      'aria-controls': context.contentId,
-      'aria-expanded': context.open.value || false,
-      'data-state': context.open.value ? 'open' : 'closed',
-      'data-disabled': isDisabled ? '' : undefined,
-      'disabled': isDisabled,
-      'onClick': isDisabled ? NOOP : onClick,
-    }
+  return {
+    attrs(extraAttrs) {
+      const isDisabled = context.disabled()
+      const attrs = {
+        'type': 'button',
+        'aria-controls': context.contentId,
+        'aria-expanded': context.open.value || false,
+        'data-state': context.open.value ? 'open' : 'closed',
+        'data-disabled': isDisabled ? '' : undefined,
+        'disabled': isDisabled,
+        'onClick': isDisabled ? NOOP : onClick,
+      }
 
-    if (extraAttrs)
-      mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs)
+        mergeHooksAttrs(attrs, extraAttrs)
 
-    return attrs
+      return attrs
+    },
   }
 }

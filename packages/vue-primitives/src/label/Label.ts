@@ -24,14 +24,16 @@ export function useLabel(props?: UseLabelProps): RadixPrimitiveReturns {
       event.preventDefault()
   }
 
-  return (extraAttrs) => {
-    const attrs = {
-      onMousedown,
-    }
+  return {
+    attrs(extraAttrs) {
+      const attrs = {
+        onMousedown,
+      }
 
-    if (extraAttrs)
-      mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs)
+        mergeHooksAttrs(attrs, extraAttrs)
 
-    return attrs
+      return attrs
+    },
   }
 }

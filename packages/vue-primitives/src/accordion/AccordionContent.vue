@@ -15,17 +15,14 @@ const props = defineProps<AccordionContentProps>()
 const el = shallowRef<HTMLElement>()
 const forwardElement = useForwardElement(el)
 
-const isOpen = shallowRef(false)
-
 const accordionContent = useAccordionContent({
   el,
-  isOpen,
   forceMount: props.forceMount,
 })
 </script>
 
 <template>
-  <Primitive :ref="forwardElement" v-bind="normalizeAttrs(accordionContent(), $attrs)">
-    <slot v-if="isOpen" />
+  <Primitive :ref="forwardElement" v-bind="normalizeAttrs(accordionContent.attrs(), $attrs)">
+    <slot v-if="accordionContent.isOpen.value" />
   </Primitive>
 </template>
