@@ -216,7 +216,6 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
       }
     },
     onItemClose(itemValue) {
-      console.error('onItemClose', itemValue, props.collapsible, props.type)
       if (props.type === TYPE_MULTIPLE) {
         value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value<T>
       }

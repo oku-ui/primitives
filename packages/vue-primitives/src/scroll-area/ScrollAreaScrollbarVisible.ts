@@ -23,6 +23,14 @@ export interface UseScrollAreaScrollbarVisibleProps {
   orientation?: 'horizontal' | 'vertical'
 }
 
+let wheelListeners: ((e: WheelEvent) => void)[] = []
+
+function onDocumentWheel(event: WheelEvent) {
+  for (const wheelListener of wheelListeners) {
+    wheelListener(event)
+  }
+}
+
 export function useScrollAreaScrollbarVisible(props: UseScrollAreaScrollbarVisibleProps): RadixPrimitiveReturns {
   const isHorizontal = props.orientation === 'horizontal'
 
@@ -160,14 +168,15 @@ export function useScrollAreaScrollbarVisible(props: UseScrollAreaScrollbarVisib
   }
 
   onMounted(() => {
-    // TODO: optimize this
-    document.addEventListener('wheel', onImplWheelScroll, {
-      passive: false,
-    })
+    if (wheelListeners.length === 0)
+      document.addEventListener('wheel', onDocumentWheel, { passive: false })
+    wheelListeners.push(onImplWheelScroll)
   })
 
   onBeforeUnmount(() => {
-    document.removeEventListener('wheel', onImplWheelScroll)
+    wheelListeners = wheelListeners.filter(i => i !== onImplWheelScroll)
+    if (wheelListeners.length === 0)
+      document.removeEventListener('wheel', onDocumentWheel)
   })
 
   /**
