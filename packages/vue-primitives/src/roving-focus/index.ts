@@ -1,8 +1,6 @@
 export {
-  type RovingFocusGroupItemEmits,
   type RovingFocusGroupItemProps,
   useRovingFocusGroupItem,
-  type UseRovingFocusGroupItemEmits,
   type UseRovingFocusGroupItemProps,
 } from './RovingFocusGroupItem.ts'
 export { default as RovingFocusGroupItem } from './RovingFocusGroupItem.vue'
@@ -14,7 +12,6 @@ export {
   type RovingFocusGroupRootProps,
   useRovingFocusContext,
   useRovingFocusGroupRoot,
-  type UseRovingFocusGroupRootEmits,
   type UseRovingFocusGroupRootProps,
 } from './RovingFocusGroupRoot.ts'
 

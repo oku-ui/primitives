@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
-import { useComposedElements } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { type RovingFocusGroupItemEmits, type RovingFocusGroupItemProps, useRovingFocusGroupItem } from './RovingFocusGroupItem.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { type RovingFocusGroupItemProps, useRovingFocusGroupItem } from './RovingFocusGroupItem.ts'
 
 defineOptions({
   name: 'RovingFocusGroupItem',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
@@ -13,38 +13,22 @@ const props = withDefaults(defineProps<RovingFocusGroupItemProps>(), {
   active: false,
   as: 'span',
 })
-const emit = defineEmits<RovingFocusGroupItemEmits>()
 
-const rovingFocusGroupItem = useRovingFocusGroupItem(props, {
-  onMousedown(event) {
-    emit('mousedown', event)
+const rovingFocusGroupItem = useRovingFocusGroupItem({
+  focusable() {
+    return props.focusable
   },
-  onFocus(event) {
-    emit('focus', event)
+  active() {
+    return props.active
   },
-  onKeydown(event) {
-    emit('keydown', event)
+  tabStopId() {
+    return props.tabStopId
   },
-})
-
-const forwardElement = useComposedElements((v) => {
-  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData, rovingFocusGroupItem.collectionKey)
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-    :as="as"
-    :[DATA_COLLECTION_ITEM]="true"
-
-    :tabindex="rovingFocusGroupItem.tabindex()"
-    :data-orientation="rovingFocusGroupItem.orientation()"
-
-    @mousedown="rovingFocusGroupItem.onMousedown"
-    @focus="rovingFocusGroupItem.onFocus"
-    @keydown="rovingFocusGroupItem.onKeydown"
-  >
+  <Primitive v-bind="normalizeAttrs(rovingFocusGroupItem.attrs([{ as }]), $attrs)">
     <slot />
   </Primitive>
 </template>
