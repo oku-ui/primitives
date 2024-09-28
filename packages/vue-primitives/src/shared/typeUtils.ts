@@ -23,11 +23,11 @@ type AllEventHandlers = {
 
 type Hook<T = () => void> = T | T[]
 
-export type ElAttrs = Partial<AllEventHandlers & AriaAttributes & HTMLAttributes> & Partial<Record<string, unknown>> & {
-  ref?: Hook<(nodeRef: HTMLElement | undefined) => void>
+export type ElAttrs<E extends HTMLElement = HTMLElement> = Partial<AllEventHandlers & AriaAttributes & HTMLAttributes> & Partial<Record<string, unknown>> & {
+  ref?: Hook<(nodeRef: E | undefined) => void>
 }
 
-export type RadixPrimitiveGetAttrs = (extraAttrs?: ElAttrs[]) => ElAttrs
+export type RadixPrimitiveGetAttrs<E extends HTMLElement = HTMLElement> = (extraAttrs?: ElAttrs<E>[]) => ElAttrs<E>
 
 export type RadixPrimitiveReturns<T = { attrs: RadixPrimitiveGetAttrs }> = T
 
