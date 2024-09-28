@@ -2,8 +2,8 @@ import { NOOP } from '@vue/shared'
 import { type AriaAttributes, computed, type MaybeRefOrGetter, type Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useControllableStateV2, useId } from '../hooks/index.ts'
-import { arrayify, type ConvertEmitsToUseEmits, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
+import { arrayify, type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type AccordionType = 'single' | 'multiple' | undefined
 export type IsSingle<T extends AccordionType> = T extends 'single' | undefined ? true : false
@@ -95,8 +95,8 @@ type SingleValue = AccordionRootProps<'single'>['value']
 type MultipleValue = Exclude<AccordionRootProps<'multiple'>['value'], undefined>
 type Value<T extends AccordionType> = T extends 'multiple' ? MultipleValue : SingleValue
 
-export interface UseAccordionRootProps<T extends AccordionType> extends ConvertEmitsToUseEmits<AccordionRootEmits<T>> {
-  elRef: MutableRefObject<HTMLElement | undefined>
+export interface UseAccordionRootProps<T extends AccordionType> extends EmitsToHookProps<AccordionRootEmits<T>> {
+  elRef?: MutableRefObject<HTMLElement | undefined>
 
   value?: () => AccordionRootProps<T>['value']
   defaultValue?: AccordionRootProps<T>['defaultValue']
@@ -115,7 +115,10 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
   const value = useControllableStateV2(props.value, props.onUpdateValue, defaultValue)
   const TYPE_MULTIPLE = 'multiple' as const satisfies AccordionType
 
-  const getItems = useCollection(Collection.provideCollectionContext(props.elRef))
+  const elRef = props.elRef || useRef<HTMLElement>()
+  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.current = value
+
+  const getItems = useCollection(Collection.provideCollectionContext(elRef))
 
   function onKeydown(event: KeyboardEvent) {
     if (event.defaultPrevented)
@@ -231,6 +234,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
     attrs(extraAttrs) {
       const isDisabled = props.disabled?.()
       const attrs = {
+        'ref': setTemplateEl,
         'data-disabled': isDisabled ? '' : undefined,
         'data-orientation': props.orientation,
         'onKeydown': isDisabled ? NOOP : onKeydown,

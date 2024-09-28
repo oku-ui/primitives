@@ -31,13 +31,16 @@ export interface ScrollAreaContext {
 export const [provideScrollAreaContext, useScrollAreaContext] = createContext<ScrollAreaContext>('ScrollArea')
 
 export interface UseScrollAreaRootProps {
-  el: Ref<HTMLElement | undefined>
+  el?: Ref<HTMLElement | undefined>
   type?: ScrollAreaType
   dir?: MaybeRefOrGetter<Direction | undefined>
   scrollHideDelay: number
 }
 
 export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitiveReturns {
+  const el = props.el || shallowRef<HTMLElement>()
+  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+
   const viewport = shallowRef<HTMLElement>()
   const content = shallowRef<HTMLDivElement>()
   const scrollbarX = shallowRef<HTMLElement>()
@@ -53,7 +56,7 @@ export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitive
     type: props.type ?? 'hover',
     dir: direction,
     scrollHideDelay: props.scrollHideDelay,
-    scrollArea: props.el,
+    scrollArea: el,
     viewport,
     content,
     scrollbarX,
@@ -77,6 +80,7 @@ export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitive
   return {
     attrs(extraAttrs) {
       const attrs: ElAttrs = {
+        ref: setTemplateEl,
         dir: direction.value,
         style: {
           'position': 'relative',

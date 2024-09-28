@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import { useScrollAreaViewport } from './ScrollAreaViewport.ts'
@@ -9,14 +8,11 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const el = useRef<HTMLElement>()
-const forwardElement = useForwardElement(el)
-
-const scrollAreaViewport = useScrollAreaViewport({ el })
+const scrollAreaViewport = useScrollAreaViewport()
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(scrollAreaViewport.attrs(), $attrs, { ref: forwardElement })">
+  <Primitive v-bind="normalizeAttrs(scrollAreaViewport.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
-import { type ConvertEmitsToUseEmits, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface CollapsibleRootProps {
   defaultOpen?: boolean
@@ -21,7 +21,7 @@ export interface CollapsibleContext {
 
 export const [provideCollapsibleContext, useCollapsibleContext] = createContext<CollapsibleContext>('Collapsible')
 
-export interface UseCollapsibleRootProps extends ConvertEmitsToUseEmits<CollapsibleRootEmits> {
+export interface UseCollapsibleRootProps extends EmitsToHookProps<CollapsibleRootEmits> {
   open?: () => boolean | undefined
   defaultOpen?: boolean
   disabled?: () => boolean | undefined

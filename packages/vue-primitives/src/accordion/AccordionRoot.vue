@@ -1,5 +1,4 @@
 <script setup lang="ts" generic="T extends AccordionType = undefined">
-import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import { type AccordionRootEmits, type AccordionRootProps, type AccordionType, useAccordionRoot } from './AccordionRoot.ts'
@@ -15,11 +14,7 @@ const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
 })
 const emit = defineEmits<AccordionRootEmits<T>>()
 
-const elRef = useRef<HTMLElement>()
-const forwardElement = useForwardElement(elRef)
-
 const accordionRoot = useAccordionRoot({
-  elRef,
   value() {
     return props.value
   },
@@ -40,7 +35,7 @@ const accordionRoot = useAccordionRoot({
 </script>
 
 <template>
-  <Primitive :ref="forwardElement" v-bind="normalizeAttrs(accordionRoot.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(accordionRoot.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

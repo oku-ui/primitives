@@ -12,7 +12,7 @@ export interface CollapsibleContentProps {
 }
 
 export interface UseCollapsibleContentProps {
-  el: Ref<HTMLElement | undefined>
+  el?: Ref<HTMLElement | undefined>
   forceMount?: boolean
 }
 
@@ -20,6 +20,9 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
   isOpen: Ref<boolean>
   attrs: RadixPrimitiveGetAttrs
 }> {
+  const el = props.el || shallowRef<HTMLElement>()
+  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+
   const context = useCollapsibleContext('CollapsibleContent')
 
   let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
@@ -31,8 +34,8 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     isOpen = shallowRef(true)
   }
   else {
-    isPresent = usePresence(props.el, () => props.forceMount || context.open.value, () => {
-      const node = props.el.value
+    isPresent = usePresence(el, () => props.forceMount || context.open.value, () => {
+      const node = el.value
       if (!node)
         return
 
@@ -72,7 +75,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     if (!isOpen.value)
       return
 
-    const node = props.el.value
+    const node = el.value
     if (!node)
       return
 
@@ -94,6 +97,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     isOpen,
     attrs(extraAttrs) {
       const attrs = {
+        'ref': setTemplateEl,
         'id': context.contentId,
         'data-state': context.open.value ? 'open' : 'closed',
         'data-disabled': context.disabled() ? '' : undefined,

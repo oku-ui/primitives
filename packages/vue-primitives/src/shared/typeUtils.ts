@@ -1,6 +1,6 @@
 import type { AriaAttributes, ComponentPublicInstance, Events, HTMLAttributes } from 'vue'
 
-export type ConvertEmitsToUseEmits<T extends Record<string, any[]>> = {
+export type EmitsToHookProps<T extends Record<string, any[]>> = {
   [K in keyof T as K extends `update:${infer Rest}`
     ? `onUpdate${Capitalize<Rest>}`
     : `on${Capitalize<string & K>}`]?: (event: T[K][0]) => void

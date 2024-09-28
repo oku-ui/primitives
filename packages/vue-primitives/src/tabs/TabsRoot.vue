@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useControllableState, useId } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { useDirection } from '../direction/index.ts'
-import { provideTabsContext, type TabsRootEmits, type TabsRootProps } from './TabsRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
 
 defineOptions({
   name: 'TabsRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<TabsRootProps>(), {
@@ -15,27 +15,24 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
 
 const emit = defineEmits<TabsRootEmits>()
 
-const direction = useDirection(() => props.dir)
-
-const value = useControllableState(props, 'value', v => emit('update:value', v as string), props.defaultValue)
-
-provideTabsContext({
-  baseId: useId(),
-  value,
-  onValueChange(newValue) {
-    value.value = newValue
+const tabsRoot = useTabsRoot({
+  value() {
+    return props.value
   },
+  onUpdateValue(value) {
+    emit('update:value', value)
+  },
+  defaultValue: props.defaultValue,
   orientation: props.orientation,
-  dir: direction,
+  dir() {
+    return props.dir
+  },
   activationMode: props.activationMode,
 })
 </script>
 
 <template>
-  <Primitive
-    :dir="direction"
-    :data-orientation="orientation"
-  >
+  <Primitive v-bind="normalizeAttrs(tabsRoot.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

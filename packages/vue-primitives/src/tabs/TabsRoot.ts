@@ -1,6 +1,8 @@
-import type { Ref } from 'vue'
+import type { MaybeRefOrGetter, Ref } from 'vue'
 import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
-import { createContext } from '@oku-ui/hooks'
+import { type Direction, useDirection } from '../direction/index.ts'
+import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
+import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface TabsRootProps {
   /** The value for the selected tab, if controlled */
@@ -33,9 +35,50 @@ export interface TabsContext {
   baseId: string
   value: Ref<string | undefined>
   onValueChange: (value: string) => void
-  orientation: Required<TabsRootProps['orientation']>
-  dir: Ref<Exclude<TabsRootProps['dir'], undefined>>
-  activationMode: Required<TabsRootProps['activationMode']>
+  orientation: Exclude<TabsRootProps['orientation'], undefined>
+  dir: Ref<Direction>
+  activationMode: Exclude<TabsRootProps['activationMode'], undefined>
 }
 
 export const [provideTabsContext, useTabsContext] = createContext<TabsContext>('Tabs')
+
+export interface UseTabsRootProps extends EmitsToHookProps<TabsRootEmits> {
+  value?: () => string | undefined
+  defaultValue?: string
+  orientation?: TabsRootProps['orientation']
+  dir?: MaybeRefOrGetter<Direction | undefined>
+  activationMode?: TabsRootProps['activationMode']
+}
+
+export function useTabsRoot(props: UseTabsRootProps): RadixPrimitiveReturns {
+  const { orientation = 'horizontal' } = props
+  const direction = useDirection(props.dir)
+
+  const value = useControllableStateV2(props.value, props.onUpdateValue, props.defaultValue)
+
+  provideTabsContext({
+    baseId: useId(),
+    value,
+    onValueChange(newValue) {
+      value.value = newValue
+    },
+    orientation,
+    dir: direction,
+    activationMode: props.activationMode || 'automatic',
+  })
+
+  return {
+    attrs(extraAttrs) {
+      const attrs = {
+        'dir': direction.value,
+        'data-orientation': orientation,
+      }
+
+      if (extraAttrs) {
+        mergeHooksAttrs(attrs, extraAttrs)
+      }
+
+      return attrs
+    },
+  }
+}

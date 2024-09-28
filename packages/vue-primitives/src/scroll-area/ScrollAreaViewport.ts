@@ -1,22 +1,34 @@
-import type { RefObject } from '../hooks/index.ts'
 import { onMounted, type Ref } from 'vue'
+import { type MutableRefObject, useRef } from '../hooks/index.ts'
 import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaViewportProps {
-  el: RefObject<HTMLElement | undefined> | Ref<HTMLElement | undefined>
+  el?: MutableRefObject<HTMLElement | undefined> | Ref<HTMLElement | undefined>
 }
 
-export function useScrollAreaViewport(props: ScrollAreaViewportProps): RadixPrimitiveReturns {
+export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): RadixPrimitiveReturns {
   const context = useScrollAreaContext('ScrollAreaViewport')
+  const el = props.el || useRef<HTMLElement>()
+  const setTemplateEl = props.el
+    ? undefined
+    : (value: HTMLElement | undefined) => {
+        if ('current' in el) {
+          el.current = value
+        }
+        else {
+          el.value = value
+        }
+      }
 
   onMounted(() => {
-    context.viewport.value = 'current' in props.el ? props.el.current : props.el.value
+    context.viewport.value = 'current' in el ? el.current : el.value
   })
 
   return {
     attrs(extraAttrs) {
       const attrs: ElAttrs = {
+        'ref': setTemplateEl,
         'data-radix-scroll-area-viewport': '',
         'style': {
           /**

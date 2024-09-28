@@ -94,7 +94,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps): Ra
       if (focusIntent === 'prev')
         candidateNodes.reverse()
       const currentIndex = (candidateNodes as HTMLElement[]).indexOf(event.currentTarget as HTMLElement)
-      candidateNodes = context.loop()
+      candidateNodes = context.loop
         ? wrapArray(candidateNodes, currentIndex + 1)
         : candidateNodes.slice(currentIndex + 1)
     }

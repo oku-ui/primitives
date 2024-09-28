@@ -34,9 +34,11 @@ export function mergeHooksAttrs(attrs: ElAttrs, extraAttrsList: ElAttrs[]): ElAt
         }
       }
       else if (propName === 'ref') {
-        const incoming = extraAttrs[propName]!
-        const existing = ret[propName]
-        ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming
+        const incoming = extraAttrs[propName]
+        if (incoming) {
+          const existing = ret[propName]
+          ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming
+        }
       }
       else if (propName !== '') {
         ret[propName] = extraAttrs[propName]
@@ -109,9 +111,11 @@ export function normalizeAttrs(attrs: ElAttrs, ...extraAttrsList: (IAttrsData)[]
         }
       }
       else if (propName === 'ref') {
-        const incoming = extraAttrs[propName]!
-        const existing = ret[propName]
-        ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming as any
+        const incoming = extraAttrs[propName]
+        if (incoming) {
+          const existing = ret[propName]
+          ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming as any
+        }
       }
       else if (propName !== '') {
         ret[propName] = extraAttrs[propName]

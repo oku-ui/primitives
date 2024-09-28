@@ -1,13 +1,9 @@
-import type { Direction } from '../direction/index.ts'
-import { createCollection } from '@oku-ui/collection'
-import { createContext, type MutableRefObject } from '@oku-ui/hooks'
-import { useControllableStateV2 } from '@oku-ui/hooks'
-import { composeEventHandlers, focusFirst } from '@oku-ui/shared'
-import { type AriaAttributes, type Ref, shallowRef } from 'vue'
+import { type AriaAttributes, type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type Direction, useDirection } from '../direction/index.ts'
+import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 import { useControllableStateV2 } from '../hooks/index.ts'
-import { type ConvertEmitsToUseEmits, focusFirst, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, focusFirst, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { ENTRY_FOCUS, EVENT_OPTIONS } from './utils.ts'
 
 type Orientation = AriaAttributes['aria-orientation']
@@ -62,7 +58,7 @@ export interface RovingContext {
    * Whether keyboard navigation should loop around
    * @defaultValue false
    */
-  loop: () => boolean
+  loop: boolean
   currentTabStopId: Ref<string | null>
   onItemFocus: (tabStopId: string) => void
   onItemShiftTab: () => void
@@ -72,20 +68,25 @@ export interface RovingContext {
 
 export const [provideRovingFocusContext, useRovingFocusContext] = createContext<RovingContext>('RovingFocusGroup')
 
-export interface UseRovingFocusGroupRootProps extends ConvertEmitsToUseEmits<RovingFocusGroupRootEmits> {
-  elRef: MutableRefObject<HTMLElement | undefined>
+export interface UseRovingFocusGroupRootProps extends EmitsToHookProps<RovingFocusGroupRootEmits> {
+  elRef?: MutableRefObject<HTMLElement | undefined>
   currentTabStopId?: () => string | undefined
   defaultCurrentTabStopId?: string
   orientation?: Orientation
-  loop: (() => boolean)
-  dir: Ref<Direction>
+  loop?: boolean
+  dir?: MaybeRefOrGetter<Direction | undefined>
   preventScrollOnEntryFocus?: boolean
 }
 
 export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): RadixPrimitiveReturns {
+  const elRef = props.elRef || useRef<HTMLElement>()
+  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.current = value
+
+  const dir = useDirection(props.dir)
+
   const currentTabStopId = useControllableStateV2(props.currentTabStopId, props.onUpdateCurrentTabStopId, props.defaultCurrentTabStopId)
 
-  const collectionContext = Collection.provideCollectionContext(props.elRef)
+  const collectionContext = Collection.provideCollectionContext(elRef)
   const getItems = useCollection(collectionContext)
   const isTabbingBackOut = shallowRef(false)
   let isClickFocus = false
@@ -134,8 +135,8 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
 
   provideRovingFocusContext({
     orientation: props.orientation,
-    dir: props.dir,
-    loop: props.loop,
+    dir,
+    loop: props.loop ?? false,
     currentTabStopId,
     onItemFocus(tabStopId) {
       currentTabStopId.value = tabStopId
@@ -154,7 +155,9 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
   return {
     attrs(extraAttrs) {
       const attrs = {
-        'dir': props.dir.value,
+        'ref': setTemplateEl,
+        'dir': dir.value,
+        'focusableItemsCount': focusableItemsCount.value,
         'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': props.orientation,
         'style': 'outline: none;',

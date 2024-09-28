@@ -1,61 +1,24 @@
 <script setup lang="ts">
-import type { TabsListEmits, TabsListProps } from './TabsList.ts'
-import { useForwardElement, useRef } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { useTabsContext } from './TabsRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { type TabsListProps, useTabsList } from './TabsList.ts'
 
 defineOptions({
   name: 'TabsList',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<TabsListProps>(), {
   loop: true,
 })
-const emit = defineEmits<TabsListEmits>()
-const elRef = useRef<HTMLElement>()
-const forwardElement = useForwardElement(elRef)
 
-const context = useTabsContext('TabsList')
-
-const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
-  currentTabStopId: undefined,
-  orientation() {
-    return context.orientation
-  },
-  loop() {
-    return props.loop
-  },
-  dir: context.dir,
-}, {
-  onMousedown(event) {
-    emit('mousedown', event)
-  },
-  onFocus(event) {
-    emit('focus', event)
-  },
-  onFocusout(event) {
-    emit('focusout', event)
-  },
+const tabsList = useTabsList({
+  loop: props.loop,
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-
-    :dir="context.dir.value"
-    :tabindex="rovingFocusGroupRoot.tabindex()"
-    :data-orientation="context.orientation"
-    style="outline: none;"
-
-    role="tablist"
-    :aria-orientation="context.orientation"
-
-    @mousedown="rovingFocusGroupRoot.onMousedown"
-    @focus="rovingFocusGroupRoot.onFocus"
-    @focusout="rovingFocusGroupRoot.onFocusout"
-  >
+  <Primitive v-bind="normalizeAttrs(tabsList.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { type ConvertEmitsToUseEmits, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface LabelProps {
   as?: PrimitiveProps['as']
@@ -9,7 +9,7 @@ export type LabelEmits = {
   mousedown: [event: MouseEvent]
 }
 
-export interface UseLabelProps extends ConvertEmitsToUseEmits<LabelEmits> {}
+export interface UseLabelProps extends EmitsToHookProps<LabelEmits> {}
 
 export function useLabel(props?: UseLabelProps): RadixPrimitiveReturns {
   function onMousedown(event: MouseEvent) {
