@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { CheckboxBubbleInputProps } from './CheckboxBubbleInput.ts'
-import { useSize } from '@oku-ui/hooks'
 import { watch } from 'vue'
 import { useSize } from '../hooks/index.ts'
 import { useCheckboxContext } from './CheckboxRoot.ts'
@@ -10,7 +8,6 @@ defineOptions({
   name: 'CheckboxBubbleInput',
 })
 
-defineProps<CheckboxBubbleInputProps>()
 const bubbleInput = useCheckboxContext('CheckboxBubbleInput').bubbleInput
 bubbleInput.isFormControl.current = true
 
