@@ -23,7 +23,7 @@ export type CheckedState = boolean | 'indeterminate'
 
 export interface CheckboxContext {
   state: Ref<CheckedState>
-  disabled: () => boolean
+  disabled: () => boolean | undefined
   bubbleInput: {
     name?: () => string | undefined
     control: Ref<HTMLButtonElement | undefined>
@@ -43,8 +43,8 @@ export interface UseCheckboxRootProps extends EmitsToHookProps<CheckboxRootEmits
   control?: Ref<HTMLButtonElement | undefined>
   checked?: () => CheckedState | undefined
   defaultChecked?: CheckedState
-  disabled?: () => boolean
-  required?: () => boolean
+  disabled?: () => boolean | undefined
+  required?: () => boolean | undefined
   value?: () => string
   name?: () => string | undefined
 }

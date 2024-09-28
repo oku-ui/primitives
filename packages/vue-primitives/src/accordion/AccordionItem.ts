@@ -28,7 +28,7 @@ export const [provideAccordionItemContext, useAccordionItemContext] = createCont
 
 export interface UseAccordionItemProps {
   value: () => string
-  disabled?: () => boolean
+  disabled?: () => boolean | undefined
 }
 
 export function useAccordionItem(props: UseAccordionItemProps): RadixPrimitiveReturns {

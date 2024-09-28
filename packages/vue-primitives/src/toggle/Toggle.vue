@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { ToggleEmits, ToggleProps } from './Toggle.ts'
-import { useControllableState } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type ToggleEmits, type ToggleProps, useToggle } from './Toggle.ts'
 
 defineOptions({
   name: 'Toggle',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ToggleProps>(), {
@@ -15,25 +15,24 @@ const props = withDefaults(defineProps<ToggleProps>(), {
 })
 const emit = defineEmits<ToggleEmits>()
 
-const pressed = useControllableState(props, 'pressed', v => emit('update:pressed', v), props.defaultPressed)
-
-const onClick = composeEventHandlers<MouseEvent>((event) => {
-  emit('click', event)
-}, () => {
-  if (!props.disabled)
-    pressed.value = !pressed.value
+const toggle = useToggle({
+  pressed() {
+    return props.pressed
+  },
+  onUpdatePressed(checked) {
+    emit('update:pressed', checked)
+  },
+  defaultPressed: props.defaultPressed,
+  disabled() {
+    return props.disabled
+  },
 })
 </script>
 
 <template>
   <Primitive
     :as="as"
-    type="button"
-    :aria-pressed="pressed"
-    :data-state="pressed ? 'on' : 'off'"
-    :disabled="disabled"
-    :data-disabled="disabled ? '' : undefined"
-    @click="onClick"
+    v-bind="normalizeAttrs(toggle.attrs(), $attrs)"
   >
     <slot />
   </Primitive>

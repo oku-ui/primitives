@@ -104,7 +104,7 @@ export interface UseAccordionRootProps<T extends AccordionType> extends EmitsToH
   collapsible?: AccordionSingleProps['collapsible']
 
   type?: T
-  disabled?: () => boolean
+  disabled?: () => boolean | undefined
   orientation?: AccordionImplProps['orientation']
   dir?: MaybeRefOrGetter<Direction | undefined>
 }
