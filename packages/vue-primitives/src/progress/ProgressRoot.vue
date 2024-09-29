@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
-import { isNumber } from '@oku-ui/shared'
-import { computed, type PropType } from 'vue'
-import { DEFAULT_MAX, defaultGetValueLabel, getProgressState, isValidMaxNumber, isValidValueNumber, type ProgressRootProps, provideProgressContext } from './ProgressRoot.ts'
+import type { PropType } from 'vue'
+import { Primitive } from '../primitive/index.ts'
+import { isNumber, normalizeAttrs } from '../shared/index.ts'
+import { type ProgressRootProps, useProgressRoot } from './ProgressRoot.ts'
+import { DEFAULT_MAX, defaultGetValueLabel, isValidMaxNumber, isValidValueNumber } from './utils.ts'
 
 defineOptions({
   name: 'ProgressRoot',
+  inheritAttrs: false,
 })
 
 const props = defineProps({
   value: {
-    type: [Number, null] as PropType<Required<ProgressRootProps>['value']>,
+    type: [Number, undefined] as PropType<Required<ProgressRootProps>['value']>,
     required: false,
     validator(value, props) {
       return isNumber(props.max) && isValidValueNumber(value, props.max)
     },
-    default: null,
+    default: undefined,
   },
   max: {
     type: Number as PropType<Required<ProgressRootProps>['max']>,
@@ -32,29 +34,19 @@ const props = defineProps({
   },
 })
 
-const valueLabel = computed(() => isNumber(props.value) ? props.getValueLabel(props.value, props.max) : undefined)
-
-provideProgressContext({
+const progressRoot = useProgressRoot({
   value() {
     return props.value
   },
   max() {
     return props.max
   },
+  getValueLabel: props.getValueLabel,
 })
 </script>
 
 <template>
-  <Primitive
-    :aria-valuemax="max"
-    :aria-valuemin="0"
-    :aria-valuenow="isNumber(value) ? value : undefined"
-    :aria-valuetext="valueLabel"
-    role="progressbar"
-    :data-state="getProgressState(value, max)"
-    :data-value="value ?? undefined"
-    :data-max="max"
-  >
+  <Primitive v-bind="normalizeAttrs(progressRoot.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

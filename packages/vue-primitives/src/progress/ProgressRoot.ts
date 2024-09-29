@@ -1,44 +1,61 @@
-import { createContext } from '@oku-ui/hooks'
-import { isNumber } from '@oku-ui/shared'
+import { computed, toValue } from 'vue'
+import { createContext } from '../hooks/index.ts'
+import { isNumber, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { DEFAULT_MAX, defaultGetValueLabel, getProgressState } from './utils.ts'
 
 export interface ProgressRootProps {
-  value?: number | null | undefined
+  value?: number | undefined
   max?: number
   getValueLabel?: (value: number, max: number) => string
 }
 
-type ProgressState = 'indeterminate' | 'complete' | 'loading'
-
 export interface ProgressContext {
-  value: () => number | null
-  max: () => number
+  value?: () => number | undefined
+  max: (() => number) | number
 }
 
 export const [provideProgressContext, useProgressContext] = createContext<ProgressContext>('Progress')
 
-export const DEFAULT_MAX = 100
-
-export function defaultGetValueLabel(value: number, max: number) {
-  return `${Math.round((value / max) * 100)}%`
+export interface UseProgressRootProps {
+  value?: () => number | undefined
+  max?: (() => number) | number
+  getValueLabel?: (value: number, max: number) => string
 }
 
-export function getProgressState(value: number | undefined | null, maxValue: number): ProgressState {
-  return value == null ? 'indeterminate' : value === maxValue ? 'complete' : 'loading'
-}
+export function useProgressRoot(props: UseProgressRootProps): RadixPrimitiveReturns {
+  const { max = DEFAULT_MAX, getValueLabel = defaultGetValueLabel } = props
 
-export function isValidMaxNumber(max: unknown): max is number {
-  return (
-    isNumber(max)
-    && !Number.isNaN(max)
-    && max > 0
-  )
-}
+  const valueLabel = computed(() => {
+    const _value = props.value?.()
+    return isNumber(_value) ? getValueLabel(_value, toValue(max)) : undefined
+  })
 
-export function isValidValueNumber(value: unknown, max: number): value is number {
-  return (
-    isNumber(value)
-    && !Number.isNaN(value)
-    && value <= max
-    && value >= 0
-  )
+  provideProgressContext({
+    value: props.value,
+    max,
+  })
+
+  return {
+    attrs(extraAttrs) {
+      const value = props.value?.()
+      const _max = toValue(max)
+
+      const attrs = {
+        'aria-valuemax': _max,
+        'aria-valuemin': 0,
+        'aria-valuenow': isNumber(value) ? value : undefined,
+        'aria-valuetext': valueLabel.value,
+        'role': 'progressbar',
+        'data-state': getProgressState(value, _max),
+        'data-value': value ?? undefined,
+        'data-max': max,
+      }
+
+      if (extraAttrs) {
+        mergeHooksAttrs(attrs, extraAttrs)
+      }
+
+      return attrs
+    },
+  }
 }

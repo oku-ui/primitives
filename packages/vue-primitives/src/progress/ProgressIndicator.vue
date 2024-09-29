@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
-import { getProgressState, useProgressContext } from './ProgressRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { useProgressIndicator } from './ProgressIndicator.ts'
 
 defineOptions({
   name: 'ProgressIndicator',
+  inheritAttrs: false,
 })
 
-const context = useProgressContext('ProgressIndicator')
+const progressIndicator = useProgressIndicator()
 </script>
 
 <template>
-  <Primitive
-    :data-state="getProgressState(context.value(), context.max())"
-    :data-value="context.value() ?? undefined"
-    :data-max="context.max()"
-  >
+  <Primitive v-bind="normalizeAttrs(progressIndicator.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>
