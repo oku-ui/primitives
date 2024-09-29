@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import type { ToggleGroupItemEmits, ToggleGroupItemProps } from './ToggleGroupItem.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { computed } from 'vue'
-import { RovingFocusGroupItem } from '../roving-focus/index.ts'
-import { useToggleGroupContext } from './ToggleGroupRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type ToggleGroupItemProps, useToggleGroupItem } from './ToggleGroupItem.ts'
 
 defineOptions({
   name: 'ToggleGroupItem',
@@ -15,64 +12,21 @@ const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
   as: 'button',
   disabled: undefined,
 })
-const emit = defineEmits<ToggleGroupItemEmits>()
 
-const context = useToggleGroupContext('ToggleGroupItem')
-const pressed = computed(() => context.value.value?.includes(props.value))
-const disabled = computed(() => context.disabled() || props.disabled)
-
-const typeProps = computed(() => {
-  if (context.type() === 'multiple') {
-    return {}
-  }
-
-  return {
-    'role': 'radio',
-    'aria-checked': pressed.value,
-    'aria-pressed': undefined,
-  }
-})
-
-const onClick = composeEventHandlers<MouseEvent>((event) => {
-  emit('click', event)
-}, () => {
-  if (props.disabled)
-    return
-
-  if (!pressed.value)
-    context.onItemActivate(props.value)
-  else
-    context.onItemDeactivate(props.value)
+const toggleGroupItem = useToggleGroupItem({
+  value() {
+    return props.value
+  },
+  disabled() {
+    return props.disabled
+  },
 })
 </script>
 
 <template>
-  <RovingFocusGroupItem
-    v-if="context.rovingFocus()"
-    :as="as"
-    :focusable="!disabled"
-    :active="pressed"
-    v-bind="{ ...$attrs, ...typeProps }"
-    type="button"
-    :aria-pressed="pressed"
-    :data-state="pressed ? 'on' : 'off'"
-    :disabled="disabled"
-    :data-disabled="disabled ? '' : undefined"
-    @click="onClick"
-  >
-    <slot />
-  </RovingFocusGroupItem>
   <Primitive
-    v-else
     :as="as"
-    v-bind="{ ...$attrs, ...typeProps }"
-    type="button"
-    :aria-pressed="pressed"
-    :data-state="pressed ? 'on' : 'off'"
-    :disabled="disabled"
-    :data-disabled="disabled ? '' : undefined"
-    :pressed="pressed"
-    @click="onClick"
+    v-bind="normalizeAttrs(toggleGroupItem.attrs(), $attrs)"
   >
     <slot />
   </Primitive>

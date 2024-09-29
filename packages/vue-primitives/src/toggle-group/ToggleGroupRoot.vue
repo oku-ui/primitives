@@ -1,11 +1,7 @@
 <script setup lang="ts" generic="T extends ToggleGroupType = undefined">
-import { computed } from 'vue'
-import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { provideToggleGroupContext, type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType } from './ToggleGroupRoot.ts'
-
-type SingleValue = Exclude<ToggleGroupProps<'single'>['value'], undefined>
-type MultipleValue = Exclude<ToggleGroupProps<'multiple'>['value'], undefined>
-type Value = T extends 'multiple' ? MultipleValue : SingleValue
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType, useToggleGroup } from './ToggleGroupRoot.ts'
 
 defineOptions({
   name: 'ToggleGroup',
@@ -19,60 +15,31 @@ const props = withDefaults(defineProps<ToggleGroupProps<T>>(), {
 })
 const emit = defineEmits<ToggleGroupEmits<T>>()
 
-const defaultValue = (props.type === 'multiple' ? props.defaultValue ?? [] : props.defaultValue) as Value
-const value = useControllableState(props, 'value', v => emit('update:value', v), defaultValue)
+const toggleGroup = useToggleGroup({
+  type: props.type,
 
-const TYPE_MULTIPLE = 'multiple' as const satisfies ToggleGroupType
+  value() {
+    return props.value
+  },
+  onUpdateValue(value) {
+    emit('update:value', value)
+  },
+  defaultValue: props.defaultValue,
 
-const direction = useDirection(() => props.dir)
-
-provideToggleGroupContext({
-  type() {
-    return props.type
-  },
-  value: computed(() => {
-    if (props.type === TYPE_MULTIPLE)
-      return Array.isArray(value.value) ? value.value : []
-    return typeof value.value === 'string' ? [value.value] : []
-  }),
-  onItemActivate(itemValue) {
-    if (props.type === TYPE_MULTIPLE)
-      value.value = [...arrayify<SingleValue>(value.value || []), itemValue] as Value
-    else
-      value.value = itemValue as Value
-  },
-  onItemDeactivate(itemValue) {
-    if (props.type === TYPE_MULTIPLE)
-      value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value
-    else
-      value.value = '' as Value
-  },
-  rovingFocus() {
-    return props.rovingFocus
-  },
   disabled() {
     return props.disabled
+  },
+  rovingFocus: props.rovingFocus,
+  loop: props.loop,
+  orientation: props.orientation,
+  dir() {
+    return props.dir
   },
 })
 </script>
 
 <template>
-  <RovingFocusGroupRoot
-    v-if="rovingFocus"
-    :orientation="orientation"
-    :dir="direction"
-    :loop="loop"
-    role="group"
-    v-bind="$attrs"
-  >
-    <slot />
-  </RovingFocusGroupRoot>
-  <Primitive
-    v-else
-    v-bind="$attrs"
-    role="group"
-    :dir="direction"
-  >
+  <Primitive v-bind="normalizeAttrs(toggleGroup.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>
