@@ -1,3 +1,5 @@
+import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+
 export interface SeparatorProps {
   /**
    * Either `vertical` or `horizontal`. Defaults to `horizontal`.
@@ -8,4 +10,31 @@ export interface SeparatorProps {
    * are updated so that that the rendered element is removed from the accessibility tree.
    */
   decorative?: boolean
+}
+
+export interface UseSeparatorProps {
+  decorative?: SeparatorProps['decorative']
+  orientation?: SeparatorProps['orientation']
+}
+
+export function useSeparator(props: UseSeparatorProps): RadixPrimitiveReturns {
+  const { orientation = 'horizontal' } = props
+
+  return {
+    attrs(extraAttrs) {
+      const attrs: ElAttrs = props.decorative
+        ? { role: 'none' }
+        : {
+            'aria-orientation': orientation === 'vertical' ? orientation : undefined,
+            'role': 'separator',
+          }
+      attrs['data-orientation'] = orientation
+
+      if (extraAttrs) {
+        mergeHooksAttrs(attrs, extraAttrs)
+      }
+
+      return attrs
+    },
+  }
 }

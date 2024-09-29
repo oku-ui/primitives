@@ -1,29 +1,24 @@
 <script setup lang="ts">
-import type { SeparatorProps } from './Separator.ts'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type SeparatorProps, useSeparator } from './Separator.ts'
 
 defineOptions({
   name: 'Separator',
 })
 
-withDefaults(defineProps<SeparatorProps>(), {
+const props = withDefaults(defineProps<SeparatorProps>(), {
   orientation: 'horizontal',
 })
 
-const decorativeAttrs = { role: 'none' }
+const separator = useSeparator({
+  orientation: props.orientation,
+  decorative: props.decorative,
+})
 </script>
 
 <template>
-  <Primitive
-    :data-orientation="orientation"
-    v-bind="decorative
-      ? decorativeAttrs
-      : {
-        'aria-orientation': orientation === 'vertical' ? orientation : undefined,
-        'role': 'separator',
-      }
-    "
-  >
+  <Primitive v-bind="normalizeAttrs(separator.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>
