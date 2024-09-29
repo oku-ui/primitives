@@ -2,7 +2,7 @@ import { computed, type MaybeRefOrGetter, type Ref } from 'vue'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2 } from '../hooks/index.ts'
 import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { arrayify, type ElAttrs, type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type ElAttrs, type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type ToggleGroupType = 'single' | 'multiple' | undefined
 
@@ -105,23 +105,23 @@ export function useToggleGroup<T extends ToggleGroupType>(props: UseToggleGroupP
 
   provideToggleGroupContext({
     type: props.type,
-    value: computed(() => {
-      if (props.type === TYPE_MULTIPLE)
-        return Array.isArray(value.value) ? value.value : []
-      return typeof value.value === 'string' ? [value.value] : []
-    }),
-    onItemActivate(itemValue) {
-      if (props.type === TYPE_MULTIPLE)
-        value.value = [...arrayify<SingleValue>(value.value || []), itemValue] as Value<T>
-      else
-        value.value = itemValue as Value<T>
-    },
-    onItemDeactivate(itemValue) {
-      if (props.type === TYPE_MULTIPLE)
-        value.value = arrayify<SingleValue>(value.value || []).filter(value => value !== itemValue) as Value<T>
-      else
-        value.value = '' as Value<T>
-    },
+    value: props.type === TYPE_MULTIPLE
+      ? value as Ref<string[]>
+      : computed<string[]>(() => value.value ? [value.value as string] : []),
+    onItemActivate: props.type === TYPE_MULTIPLE
+      ? (itemValue) => {
+          value.value = [...value.value || [], itemValue] as Value<T>
+        }
+      : (itemValue) => {
+          value.value = itemValue as Value<T>
+        },
+    onItemDeactivate: props.type === TYPE_MULTIPLE
+      ? (itemValue) => {
+          value.value = ((value.value || []) as string[]).filter(value => value !== itemValue) as Value<T>
+        }
+      : () => {
+          value.value = '' as Value<T>
+        },
     rovingFocus,
     disabled,
   })
