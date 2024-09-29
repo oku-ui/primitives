@@ -69,7 +69,9 @@ export function useToggleGroupItem(props: UseToggleGroupItemProps): RadixPrimiti
         extraAttrsList.push(...extraAttrs)
       }
 
-      mergeHooksAttrs(attrs, [...extraAttrsList])
+      if (extraAttrsList.length > 0) {
+        mergeHooksAttrs(attrs, extraAttrsList)
+      }
 
       return attrs
     },
