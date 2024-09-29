@@ -1,8 +1,8 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { ElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type Ref, shallowRef } from 'vue'
-import { usePresence } from '../presence/usePresence.ts'
-import { mergeHooksAttrs } from '../shared/mergeProps.ts'
+import { usePresence } from '../presence/index.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useCheckboxContext } from './CheckboxRoot.ts'
 import { getState, isIndeterminate } from './utils.ts'
 
@@ -12,7 +12,7 @@ export interface CheckboxIndicatorProps {
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
    */
-  forceMount?: true
+  forceMount?: boolean
 }
 
 export interface UseCheckboxIndicatorProps {
@@ -43,7 +43,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
         },
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

@@ -74,7 +74,7 @@ export function useTabsRoot(props: UseTabsRootProps): RadixPrimitiveReturns {
         'data-orientation': orientation,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

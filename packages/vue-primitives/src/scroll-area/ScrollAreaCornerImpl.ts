@@ -40,7 +40,7 @@ export function useScrollAreaCornerImpl(): RadixPrimitiveReturns<{
         },
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

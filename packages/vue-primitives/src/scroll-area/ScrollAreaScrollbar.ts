@@ -47,7 +47,7 @@ export function useScrollAreaScrollbar(props: UseScrollbarProps): RadixPrimitive
         orientation: props.orientation,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

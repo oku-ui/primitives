@@ -9,7 +9,6 @@ export {
   type CheckboxContext,
   type CheckboxRootEmits,
   type CheckboxRootProps,
-  type CheckboxRootSlots,
   type CheckedState,
   provideCheckboxContext,
   useCheckboxContext,

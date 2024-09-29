@@ -30,8 +30,9 @@ export function useCollapsibleTrigger(): RadixPrimitiveReturns {
         'onClick': isDisabled ? NOOP : onClick,
       }
 
-      if (extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },

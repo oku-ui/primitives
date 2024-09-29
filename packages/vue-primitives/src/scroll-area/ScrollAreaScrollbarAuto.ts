@@ -50,7 +50,7 @@ export function useScrollAreaScrollbarAuto(props: UseScrollAreaScrollbarAutoProp
         'orientation': props.orientation,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

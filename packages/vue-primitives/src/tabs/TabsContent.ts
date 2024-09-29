@@ -11,7 +11,7 @@ export interface TabsContentProps {
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
    */
-  forceMount?: true
+  forceMount?: boolean
 }
 
 export interface UseTabsContentProps {
@@ -65,7 +65,7 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
         },
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

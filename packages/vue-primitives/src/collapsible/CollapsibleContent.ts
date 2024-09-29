@@ -109,8 +109,9 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
         },
       }
 
-      if (extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },

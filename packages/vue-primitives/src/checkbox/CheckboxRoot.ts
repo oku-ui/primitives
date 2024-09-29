@@ -1,8 +1,8 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { ElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { ElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
-import { mergeHooksAttrs } from '../shared/mergeProps.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { getState, isIndeterminate } from './utils.ts'
 
 export interface CheckboxRootProps {
@@ -25,15 +25,15 @@ export interface CheckboxContext {
   state: Ref<CheckedState>
   disabled: () => boolean | undefined
   bubbleInput: {
-    name?: () => string | undefined
     control: Ref<HTMLButtonElement | undefined>
     bubbles: MutableRefObject<boolean>
+    isFormControl: MutableRefObject<boolean>
+    name?: () => string | undefined
     value: () => string
     checked: Ref<CheckedState>
+    defaultChecked: boolean | undefined
     required: () => boolean | undefined
     disabled: () => boolean | undefined
-    defaultChecked: boolean | undefined
-    isFormControl: MutableRefObject<boolean>
   }
 }
 
@@ -83,12 +83,16 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
   })
 
   function onKeydown(event: KeyboardEvent) {
-  // According to WAI ARIA, Checkboxes don't activate on enter keypress
+    if (event.defaultPrevented)
+      return
+    // According to WAI ARIA, Checkboxes don't activate on enter keypress
     if (event.key === 'Enter')
       event.preventDefault()
   }
 
   function onClick(event: MouseEvent) {
+    if (event.defaultPrevented)
+      return
     checked.value = isIndeterminate(checked.value) ? true : !checked.value
     if (isFormControl.current) {
       bubbles.current = !event.cancelBubble
@@ -104,15 +108,15 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
     disabled,
     state: checked,
     bubbleInput: {
-      name: props.name,
       control,
       bubbles,
+      isFormControl,
+      name: props.name,
       value,
       checked,
+      defaultChecked: isIndeterminate(props.defaultChecked) ? false : props.defaultChecked,
       required,
       disabled,
-      isFormControl,
-      defaultChecked: isIndeterminate(props.defaultChecked) ? false : props.defaultChecked,
     },
   })
 
@@ -133,7 +137,7 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
         onClick,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

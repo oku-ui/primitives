@@ -47,7 +47,7 @@ export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): Radi
         },
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

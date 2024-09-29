@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TooltipContentProps } from './TooltipContent'
 import { usePopperContext } from '../popper/index.ts'
-import { usePresence } from '../presence/usePresence.ts'
+import { usePresence } from '../presence/index.ts'
 import TooltipContentHoverable from './TooltipContentHoverable.vue'
 import TooltipContentImpl from './TooltipContentImpl.vue'
 import { useTooltipContext } from './TooltipRoot.ts'

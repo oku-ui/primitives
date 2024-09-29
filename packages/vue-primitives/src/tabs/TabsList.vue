@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { normalizeAttrs } from '../shared/index.ts'
 import { type TabsListProps, useTabsList } from './TabsList.ts'
 
 defineOptions({

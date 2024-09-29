@@ -46,8 +46,9 @@ export function useCollapsibleRoot(props: UseCollapsibleRootProps): RadixPrimiti
         'data-disabled': props.disabled?.() ? '' : undefined,
       }
 
-      if (extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },

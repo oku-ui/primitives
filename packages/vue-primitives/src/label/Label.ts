@@ -30,8 +30,9 @@ export function useLabel(props?: UseLabelProps): RadixPrimitiveReturns {
         onMousedown,
       }
 
-      if (extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },

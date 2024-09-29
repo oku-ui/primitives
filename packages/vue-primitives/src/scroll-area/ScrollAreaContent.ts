@@ -15,8 +15,9 @@ export function useScrollAreaContent(): RadixPrimitiveReturns {
         style: 'min-width: 100%; display: table',
       }
 
-      if (extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },

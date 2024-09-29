@@ -20,8 +20,9 @@ export function useAccordionHeader(): RadixPrimitiveReturns {
         'data-disabled': itemContext.disabled.value ? '' : undefined,
       }
 
-      if (extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
+      }
 
       return attrs
     },

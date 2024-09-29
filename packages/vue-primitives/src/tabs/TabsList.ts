@@ -1,7 +1,7 @@
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import { type MutableRefObject, useRef } from '../hooks/useRef.ts'
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
+import { type MutableRefObject, useRef } from '../hooks/index.ts'
 import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { mergeHooksAttrs } from '../shared/mergeProps.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 
 export interface TabsListProps {

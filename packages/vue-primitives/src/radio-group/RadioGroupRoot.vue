@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useControllableState, useForwardElement, useRef } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { useDirection } from '../direction/index.ts'
-import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { provideRadioGroupContext, type RadioGroupRootEmits, type RadioGroupRootProps } from './RadioGroupRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { type RadioGroupRootEmits, type RadioGroupRootProps, useRadioGroupRoot } from './RadioGroupRoot.ts'
 
 defineOptions({
   name: 'RadioGroup',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<RadioGroupRootProps>(), {
@@ -17,14 +16,15 @@ const props = withDefaults(defineProps<RadioGroupRootProps>(), {
 })
 const emit = defineEmits<RadioGroupRootEmits>()
 
-const elRef = useRef<HTMLElement>()
-const forwardElement = useForwardElement(elRef)
+const radioGroupRoot = useRadioGroupRoot({
+  value() {
+    return props.value
+  },
+  onUpdateValue(value) {
+    emit('update:value', value)
+  },
+  defaultValue: props.defaultValue,
 
-const direction = useDirection(() => props.dir)
-
-const value = useControllableState(props, 'value', v => emit('update:value', v as string), props.defaultValue)
-
-provideRadioGroupContext({
   name() {
     return props.name
   },
@@ -34,52 +34,16 @@ provideRadioGroupContext({
   disabled() {
     return props.disabled
   },
-  value,
-  onValueChange(v) {
-    value.value = v
-  },
-})
-
-const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
-  currentTabStopId: undefined,
-  orientation() {
-    return props.orientation
-  },
-  loop() {
-    return props.loop
-  },
-  dir: direction,
-}, {
-  onMousedown(event) {
-    emit('mousedown', event)
-  },
-  onFocus(event) {
-    emit('focus', event)
-  },
-  onFocusout(event) {
-    emit('focusout', event)
+  orientation: props.orientation,
+  loop: props.loop,
+  dir() {
+    return props.dir
   },
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-
-    :dir="direction"
-    :tabindex="rovingFocusGroupRoot.tabindex()"
-    :data-orientation="orientation"
-    style="outline: none;"
-
-    role="radiogroup"
-    :aria-required="required"
-    :aria-orientation="orientation"
-    :data-disabled="disabled ? '' : undefined"
-
-    @mousedown="rovingFocusGroupRoot.onMousedown"
-    @focus="rovingFocusGroupRoot.onFocus"
-    @focusout="rovingFocusGroupRoot.onFocusout"
-  >
+  <Primitive v-bind="normalizeAttrs(radioGroupRoot.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

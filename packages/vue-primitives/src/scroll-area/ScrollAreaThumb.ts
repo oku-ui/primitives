@@ -1,5 +1,5 @@
 import { type Ref, shallowRef } from 'vue'
-import { usePresence } from '../presence/usePresence.ts'
+import { usePresence } from '../presence/index.ts'
 import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
 
 export interface ScrollAreaThumbProps {

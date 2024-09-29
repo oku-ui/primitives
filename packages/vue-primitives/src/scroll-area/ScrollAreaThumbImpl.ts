@@ -79,7 +79,7 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
         onPointerup,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

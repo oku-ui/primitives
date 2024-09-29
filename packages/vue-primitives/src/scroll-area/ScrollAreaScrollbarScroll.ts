@@ -2,7 +2,7 @@ import type { ScrollAreaScrollbarVisibleProps, UseScrollAreaScrollbarVisibleProp
 import { isClient, useDebounceFn } from '@vueuse/core'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/index.ts'
-import { usePresence } from '../presence/usePresence.ts'
+import { usePresence } from '../presence/index.ts'
 import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
@@ -116,7 +116,7 @@ export function useScrollAreaScrollbarScroll(props: UseScrollAreaScrollbarScroll
         onPointerleave,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

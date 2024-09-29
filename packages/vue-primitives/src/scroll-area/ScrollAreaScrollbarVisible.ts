@@ -275,7 +275,7 @@ export function useScrollAreaScrollbarVisible(props: UseScrollAreaScrollbarVisib
         onPointerup,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

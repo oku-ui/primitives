@@ -1,8 +1,8 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed } from 'vue'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
-import { mergeHooksAttrs } from '../shared/mergeProps.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 
@@ -26,6 +26,8 @@ export function useTabsTrigger(props: UseTabsTriggerProps): RadixPrimitiveReturn
   const isSelected = computed(() => context.value.value === props.value())
 
   function onMousedown(event: MouseEvent) {
+    if (event.defaultPrevented)
+      return
     // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
     // but not when the control key is pressed (avoiding MacOS right click)
     if (!disabled() && event.button === 0 && event.ctrlKey === false) {
@@ -38,11 +40,15 @@ export function useTabsTrigger(props: UseTabsTriggerProps): RadixPrimitiveReturn
   }
 
   function onKeydown(event: KeyboardEvent) {
+    if (event.defaultPrevented)
+      return
     if ([' ', 'Enter'].includes(event.key))
       context.onValueChange(props.value())
   }
 
-  function onFocus() {
+  function onFocus(event: FocusEvent) {
+    if (event.defaultPrevented)
+      return
     // handle "automatic" activation if necessary
     // ie. activate tab following focus
     const isAutomaticActivation = context.activationMode !== 'manual'

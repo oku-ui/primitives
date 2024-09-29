@@ -90,7 +90,7 @@ export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitive
         },
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

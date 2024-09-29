@@ -125,7 +125,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps): Ra
         onKeydown,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 

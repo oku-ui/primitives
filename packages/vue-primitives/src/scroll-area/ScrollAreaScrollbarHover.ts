@@ -1,7 +1,7 @@
 import type { RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import type { ScrollAreaScrollbarVisibleProps, UseScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
-import { usePresence } from '../presence/usePresence.ts'
+import { usePresence } from '../presence/index.ts'
 import { mergeHooksAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
@@ -65,7 +65,7 @@ export function useScrollAreaScrollbarHover(props: UseScrollAreaScrollbarHoverPr
         'orientation': props.orientation,
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         mergeHooksAttrs(attrs, extraAttrs)
       }
 
