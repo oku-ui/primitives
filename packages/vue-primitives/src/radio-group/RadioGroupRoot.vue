@@ -29,7 +29,7 @@ provideRadioGroupContext({
     return props.name
   },
   required() {
-    return props.loop
+    return props.required
   },
   disabled() {
     return props.disabled
