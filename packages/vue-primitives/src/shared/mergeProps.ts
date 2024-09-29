@@ -29,7 +29,7 @@ export function mergeHooksAttrs(attrs: ElAttrs, extraAttrsList: ElAttrs[]): ElAt
           const existing = ret[propName]
 
           if (existing !== incoming && !(isArray(existing) && existing.includes(incoming))) {
-            ret[propName] = existing ? [].concat(incoming as any, existing as any) : incoming
+            ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming
           }
         }
       }
