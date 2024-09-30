@@ -4,7 +4,7 @@ import { Collection } from './utils.ts'
 
 const collectionRef = useRef<HTMLElement>()
 function setRef(nodeRef: any) {
-  collectionRef.current = nodeRef
+  collectionRef.value = nodeRef
 }
 Collection.provideCollectionContext(collectionRef)
 </script>

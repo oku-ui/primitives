@@ -49,7 +49,7 @@ const elRef = useRef<HTMLDivElement>()
 const forwardElement = useForwardElement(elRef)
 
 onMounted(() => {
-  popperContext.onAnchorChange(props.virtualRef?.current || elRef.current)
+  popperContext.onAnchorChange(props.virtualRef?.value || elRef.value)
 })
 </script>
 

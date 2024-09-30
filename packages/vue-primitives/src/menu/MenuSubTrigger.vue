@@ -35,7 +35,7 @@ function clearOpenTimer() {
 onBeforeUnmount(() => {
   clearOpenTimer()
 
-  window.clearTimeout(contentContext.pointerGraceTimerRef.current)
+  window.clearTimeout(contentContext.pointerGraceTimerRef.value)
   contentContext.onPointerGraceIntentChange(undefined)
 })
 
@@ -104,8 +104,8 @@ const onPointerLeave = composeEventHandlers<PointerEvent>((event) => {
       side,
     })
 
-    window.clearTimeout(contentContext.pointerGraceTimerRef.current)
-    contentContext.pointerGraceTimerRef.current = window.setTimeout(
+    window.clearTimeout(contentContext.pointerGraceTimerRef.value)
+    contentContext.pointerGraceTimerRef.value = window.setTimeout(
       () => contentContext.onPointerGraceIntentChange(undefined),
       300,
     )
@@ -123,7 +123,7 @@ const onPointerLeave = composeEventHandlers<PointerEvent>((event) => {
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   emit('keydown', event)
 }, (event) => {
-  const isTypingAhead = contentContext.searchRef.current !== ''
+  const isTypingAhead = contentContext.searchRef.value !== ''
 
   if (props.disabled || (isTypingAhead && event.key === ' '))
     return
@@ -143,7 +143,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 const forwardElement = useForwardElement(subContext.trigger)
 
 onMounted(() => {
-  popperContext.onAnchorChange(props.virtualRef?.current || subContext.trigger.current)
+  popperContext.onAnchorChange(props.virtualRef?.value || subContext.trigger.value)
 })
 </script>
 

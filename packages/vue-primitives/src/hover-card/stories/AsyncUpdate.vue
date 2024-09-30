@@ -10,10 +10,10 @@ const contentLoaded = shallowRef(false)
 const timerRef = useRef(0)
 
 function handleOpenChange(v: boolean) {
-  clearTimeout(timerRef.current)
+  clearTimeout(timerRef.value)
 
   if (v) {
-    timerRef.current = window.setTimeout(() => {
+    timerRef.value = window.setTimeout(() => {
       contentLoaded.value = true
     }, 500)
   }
@@ -25,7 +25,7 @@ function handleOpenChange(v: boolean) {
 }
 
 onBeforeUnmount(() => {
-  clearTimeout(timerRef.current)
+  clearTimeout(timerRef.value)
 })
 </script>
 

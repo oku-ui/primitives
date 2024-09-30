@@ -24,7 +24,7 @@ const onOpenAutoFocus = composeEventHandlers((event) => {
   emit('openAutoFocus', event)
 }, (event) => {
   event.preventDefault()
-  cancelRef.current?.focus({ preventScroll: true })
+  cancelRef.value?.focus({ preventScroll: true })
 })
 </script>
 

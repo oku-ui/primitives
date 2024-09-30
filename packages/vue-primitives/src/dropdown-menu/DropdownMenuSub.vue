@@ -46,7 +46,7 @@ provideMenuSubContext({
   triggerId: useId(),
   trigger,
   onTriggerChange(el) {
-    trigger.current = el
+    trigger.value = el
   },
 })
 

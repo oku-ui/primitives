@@ -50,7 +50,7 @@ const $el = shallowRef<HTMLElement>()
 const elRef = useRef<HTMLElement>()
 const forwardedRef = useComposedElements((v) => {
   $el.value = v
-  elRef.current = v
+  elRef.value = v
 })
 
 Collection.provideCollectionContext(elRef)

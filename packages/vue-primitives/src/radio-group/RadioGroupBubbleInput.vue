@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const bubbleInput = useRadioContext('RadioGroupBubbleInput').bubbleInput
-bubbleInput.isFormControl.current = true
+bubbleInput.isFormControl.value = true
 
 let input: HTMLInputElement | undefined
 function setElRef(vNode: any) {
@@ -31,7 +31,7 @@ watch(bubbleInput.checked, (checked) => {
 
   if (checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
-    const event = new Event('change', { bubbles: bubbleInput.bubbles.current })
+    const event = new Event('change', { bubbles: bubbleInput.bubbles.value })
     setChecked.call(input, checked)
     input.dispatchEvent(event)
   }

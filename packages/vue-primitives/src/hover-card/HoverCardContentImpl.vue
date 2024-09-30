@@ -37,13 +37,13 @@ watchEffect(() => {
 
 function handlePointerUp() {
   containSelection.value = false
-  context.isPointerDownOnContentRef.current = false
+  context.isPointerDownOnContentRef.value = false
 
   // Delay a frame to ensure we always access the latest selection
   setTimeout(() => {
     const hasSelection = document.getSelection()?.toString() !== ''
     if (hasSelection)
-      context.hasSelectionRef.current = true
+      context.hasSelectionRef.value = true
   })
 }
 
@@ -61,8 +61,8 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   document.removeEventListener('pointerup', handlePointerUp)
-  context.hasSelectionRef.current = false
-  context.isPointerDownOnContentRef.current = false
+  context.hasSelectionRef.value = false
+  context.isPointerDownOnContentRef.value = false
 })
 
 const onFocusOutside = composeEventHandlers<FocusOutsideEvent>((event) => {
@@ -78,8 +78,8 @@ const onPointerdown = composeEventHandlers<PointerEvent>((event) => {
   if ((event.currentTarget as HTMLElement)?.contains(event.target as HTMLElement)) {
     containSelection.value = true
   }
-  context.hasSelectionRef.current = false
-  context.isPointerDownOnContentRef.current = true
+  context.hasSelectionRef.value = false
+  context.isPointerDownOnContentRef.value = true
 })
 
 const dismissableLayer = useDismissableLayer(popperContext.content, {

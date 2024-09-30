@@ -27,7 +27,7 @@ const onCloseAutoFocus = composeEventHandlers((event) => {
 }, (event: Event) => {
   event.preventDefault()
   if (!isRightClickOutsideRef)
-    context.triggerRef.current?.focus()
+    context.triggerRef.value?.focus()
 })
 
 const onPointerdownOutside = composeEventHandlers(

@@ -21,7 +21,7 @@ const open = computed(() => context.value.value === value)
 
 watch(open, () => {
   if (!open.value)
-    wasKeyboardTriggerOpenRef.current = false
+    wasKeyboardTriggerOpenRef.value = false
 })
 
 provideMenubarMenuContext({

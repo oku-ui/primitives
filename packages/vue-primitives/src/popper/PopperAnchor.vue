@@ -17,7 +17,7 @@ const elRef = useRef<PopperAnchorElement>()
 const forwardElement = useForwardElement(elRef)
 
 onMounted(() => {
-  context.onAnchorChange(props.virtualRef?.current || elRef.current)
+  context.onAnchorChange(props.virtualRef?.value || elRef.value)
 })
 </script>
 

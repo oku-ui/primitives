@@ -41,11 +41,11 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
   checked.value = !checked.value
 
   if (isFormControl.value) {
-    bubbles.current = !event.cancelBubble
+    bubbles.value = !event.cancelBubble
     // if switch is in a form, stop propagation from the button so that we only propagate
     // one click event (from the input). We propagate changes from an input so that native
     // form validation works and form events reflect switch updates.
-    if (bubbles.current)
+    if (bubbles.value)
       event.stopPropagation()
   }
 })

@@ -4,7 +4,6 @@ export {
   type FocusOutsideEvent,
   type PointerdownOutsideEvent,
   useDismissableLayer,
-  type UseDismissableLayerEmits,
   type UseDismissableLayerProps,
 } from './DismissableLayer.ts'
 export { default as DismissableLayer } from './DismissableLayer.vue'

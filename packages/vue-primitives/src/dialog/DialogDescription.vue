@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import type { DialogDescriptionProps } from './DialogDescription.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { useDialogContext } from './DialogRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type DialogDescriptionProps, useDialogDescription } from './DialogDescription.ts'
 
 defineOptions({
   name: 'DialogDescription',
+  inheritAttrs: false,
 })
 
 withDefaults(defineProps<DialogDescriptionProps>(), {
   as: 'p',
 })
 
-const context = useDialogContext('DialogDescription')
+const dialogDescription = useDialogDescription()
 </script>
 
 <template>
-  <Primitive :id="context.descriptionId" :as="as">
+  <Primitive :as="as" v-bind="normalizeAttrs(dialogDescription.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

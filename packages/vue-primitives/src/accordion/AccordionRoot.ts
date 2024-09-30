@@ -116,7 +116,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
   const TYPE_MULTIPLE = 'multiple' as const satisfies AccordionType
 
   const elRef = props.elRef || useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.current = value
+  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const getItems = useCollection(Collection.provideCollectionContext(elRef))
 

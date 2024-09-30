@@ -22,7 +22,7 @@ function onCloseAutoFocus(event: Event) {
 
   if (!event.defaultPrevented) {
     if (!hasInteractedOutsideRef) {
-      context.triggerRef.current?.focus()
+      context.triggerRef.value?.focus()
     }
     // Always prevent auto focus because we either focus manually or want user agent focus
     event.preventDefault()
@@ -46,7 +46,7 @@ function onInteractOutside(event: PopoverContentNonModal['interactOutside'][0]) 
   // As the trigger is already setup to close, without doing so would
   // cause it to close and immediately open.
   const target = event.target as HTMLElement
-  const targetIsTrigger = context.triggerRef.current?.contains(target)
+  const targetIsTrigger = context.triggerRef.value?.contains(target)
   if (targetIsTrigger)
     event.preventDefault()
 

@@ -10,7 +10,7 @@ const context = useAlertDialogContentContext('AlertDialogCancel')
 
 function setCancelRef(nodeRef: any) {
   const node = nodeRef ? nodeRef.$el : undefined
-  context.cancelRef.current = node
+  context.cancelRef.value = node
 }
 </script>
 

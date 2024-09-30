@@ -9,7 +9,7 @@ defineOptions({
 })
 
 const bubbleInput = useCheckboxContext('CheckboxBubbleInput').bubbleInput
-bubbleInput.isFormControl.current = true
+bubbleInput.isFormControl.value = true
 
 let input: HTMLInputElement | undefined
 function setElRef(vNode: any) {
@@ -31,7 +31,7 @@ watch(bubbleInput.checked, (checked, prevChecked) => {
 
   if (prevChecked !== checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
-    const event = new Event('change', { bubbles: bubbleInput.bubbles.current })
+    const event = new Event('change', { bubbles: bubbleInput.bubbles.value })
     input.indeterminate = isIndeterminate(checked)
     setChecked.call(input, isIndeterminate(checked) ? false : checked)
     input.dispatchEvent(event)

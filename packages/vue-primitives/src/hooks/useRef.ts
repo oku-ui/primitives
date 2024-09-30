@@ -2,11 +2,11 @@ import type { IfAny } from '@vue/shared'
 import type { Ref } from 'vue'
 
 export interface MutableRefObject<T> {
-  current: T
+  value: T
 }
 
 export interface RefObject<T> {
-  readonly current: T
+  readonly value: T
 }
 
 export function useRef<T>(value: T): Ref extends T
@@ -16,5 +16,5 @@ export function useRef<T>(value: T): Ref extends T
   : MutableRefObject<T>
 export function useRef<T = any>(): MutableRefObject<T | undefined>
 export function useRef(initialValue?: unknown) {
-  return { current: initialValue }
+  return { value: initialValue }
 }

@@ -12,11 +12,11 @@ const elRef = useRef<HTMLElement>()
 const forwardElement = useForwardElement(elRef)
 
 onMounted(() => {
-  context.branches.add(elRef.current!)
+  context.branches.add(elRef.value!)
 })
 
 onBeforeUnmount(() => {
-  context.branches.delete(elRef.current!)
+  context.branches.delete(elRef.value!)
 })
 </script>
 

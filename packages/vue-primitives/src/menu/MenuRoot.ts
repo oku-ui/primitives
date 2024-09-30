@@ -51,11 +51,11 @@ let subscribers = 0
 const isUsingKeyboardRef = useRef(false)
 
 function handlePointer() {
-  isUsingKeyboardRef.current = false
+  isUsingKeyboardRef.value = false
 }
 
 function handleKeyDown() {
-  isUsingKeyboardRef.current = true
+  isUsingKeyboardRef.value = true
 }
 
 export function useIsUsingKeyboard() {

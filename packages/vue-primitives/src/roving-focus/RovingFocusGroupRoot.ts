@@ -80,7 +80,7 @@ export interface UseRovingFocusGroupRootProps extends EmitsToHookProps<RovingFoc
 
 export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): RadixPrimitiveReturns {
   const elRef = props.elRef || useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.current = value
+  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const dir = useDirection(props.dir)
 

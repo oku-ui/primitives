@@ -89,7 +89,7 @@ const values = useControllableState(
   'value',
   (v) => {
     const thumbs = Array.from(thumbRefs)
-    thumbs[valueIndexToChangeRef.current]?.focus()
+    thumbs[valueIndexToChangeRef.value]?.focus()
     emit('update:value', v)
   },
   props.defaultValue,
@@ -107,14 +107,14 @@ function onSliderSlideStart(value: number) {
 function onSliderSlideMove(value: number) {
   if (props.disabled)
     return
-  updateValues(value, valueIndexToChangeRef.current)
+  updateValues(value, valueIndexToChangeRef.value)
 }
 
 function onSliderSlideEnd() {
   if (props.disabled)
     return
-  const prevValue = valuesBeforeSlideStartRef[valueIndexToChangeRef.current]
-  const nextValue = values.value[valueIndexToChangeRef.current]
+  const prevValue = valuesBeforeSlideStartRef[valueIndexToChangeRef.value]
+  const nextValue = values.value[valueIndexToChangeRef.value]
   const hasChanged = nextValue !== prevValue
   if (hasChanged)
     emit('valueCommit', values.value)
@@ -134,7 +134,7 @@ function onSliderStepKeydown({ event, direction: stepDirection }: { event: Keybo
   const isPageKey = PAGE_KEYS.includes(event.key)
   const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
   const multiplier = isSkipKey ? 10 : 1
-  const atIndex = valueIndexToChangeRef.current
+  const atIndex = valueIndexToChangeRef.value
   const value = values.value[atIndex]!
   const stepInDirection = props.step * multiplier * stepDirection
   updateValues(value + stepInDirection, atIndex, { commit: true })
@@ -151,7 +151,7 @@ function updateValues(value: number, atIndex: number, { commit } = { commit: fal
   if (!hasMinStepsBetweenValues(nextValues, props.minStepsBetweenThumbs * props.step))
     return
 
-  valueIndexToChangeRef.current = nextValues.indexOf(nextValue)
+  valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
   const hasChanged = String(nextValues) !== String(prevValues)
 
   if (hasChanged && commit)
@@ -225,7 +225,7 @@ const isSlidingFromStart = computed(() => {
 })
 
 function getValueFromPointer(pointerPosition: number) {
-  const rect = rectRef || elRef.current!.getBoundingClientRect()
+  const rect = rectRef || elRef.value!.getBoundingClientRect()
   const input: [number, number] = [0, rect[orientationLocalState.reactSise]]
   const output: [number, number] = isSlidingFromStart.value === isHorisontal() ? [props.min, props.max] : [props.max, props.min]
   const value = linearScale(input, output)

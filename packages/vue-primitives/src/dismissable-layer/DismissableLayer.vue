@@ -1,11 +1,15 @@
+
+
+
+
 <script setup lang="ts">
-import { useForwardElement } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { shallowRef } from 'vue'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
 import { type DismissableLayerEmits, type DismissableLayerProps, useDismissableLayer } from './DismissableLayer.ts'
 
 defineOptions({
   name: 'DismissableLayer',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<DismissableLayerProps>(), {
@@ -13,14 +17,16 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 })
 const emit = defineEmits<DismissableLayerEmits>()
 
-const $el = shallowRef<HTMLDivElement>()
-const forwardElement = useForwardElement($el)
-
-const dismissableLayer = useDismissableLayer($el, {
+const dismissableLayer = useDismissableLayer({
   disableOutsidePointerEvents() {
     return props.disableOutsidePointerEvents
   },
-}, {
+  onPointerdownOutside(event) {
+    emit('pointerdownOutside', event)
+  },
+  onFocusOutside(event) {
+    emit('focusOutside', event)
+  },
   onInteractOutside(event) {
     emit('interactOutside', event)
   },
@@ -30,21 +36,11 @@ const dismissableLayer = useDismissableLayer($el, {
   onDismiss() {
     emit('dismiss')
   },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-    data-dismissable-layer
-    :style="{ pointerEvents: dismissableLayer.pointerEvents() }"
-  >
+  <Primitive v-bind="normalizeAttrs(dismissableLayer.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

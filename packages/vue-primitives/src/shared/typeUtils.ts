@@ -1,9 +1,10 @@
-import type { AriaAttributes, ComponentPublicInstance, Events, HTMLAttributes } from 'vue'
+import type { AriaAttributes, ComponentPublicInstance, Events, HTMLAttributes, Ref } from 'vue'
+import type { MutableRefObject } from '../hooks/index.ts'
 
 export type EmitsToHookProps<T extends Record<string, any[]>> = {
   [K in keyof T as K extends `update:${infer Rest}`
     ? `onUpdate${Capitalize<Rest>}`
-    : `on${Capitalize<string & K>}`]?: (event: T[K][0]) => void
+    : `on${Capitalize<string & K>}`]?: (...args: T[K]) => void
 }
 
 type BaseEventSuffixes = 'Capture' | 'Once' | 'Passive'
@@ -32,3 +33,5 @@ export type RadixPrimitiveGetAttrs<E extends HTMLElement = HTMLElement> = (extra
 export type RadixPrimitiveReturns<T = { attrs: RadixPrimitiveGetAttrs }> = T
 
 export type VNodeRef = Element | ComponentPublicInstance | null | undefined
+
+export type RefOrRefObject<T> = Ref<T> | MutableRefObject<T>

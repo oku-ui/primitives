@@ -1,5 +1,7 @@
-import { useEscapeKeydown } from '@oku-ui/hooks'
-import { computed, onWatcherCleanup, type Ref, shallowReactive, watch } from 'vue'
+import type { ElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { computed, onWatcherCleanup, type Ref, shallowReactive, shallowRef, watch } from 'vue'
+import { useEscapeKeydown } from '../hooks/index.ts'
+import { mergeHooksAttrs } from '../shared/index.ts'
 import { useFocusOutside, usePointerdownOutside } from './utils.ts'
 
 export type PointerdownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>
@@ -54,24 +56,18 @@ export const context = {
 
 let originalBodyPointerEvents: string | undefined
 
-export interface UseDismissableLayerProps {
-  disableOutsidePointerEvents: () => boolean
-}
-export interface UseDismissableLayerEmits {
-  onPointerdownOutside?: (event: PointerdownOutsideEvent) => void
-  onFocusOutside?: (event: FocusOutsideEvent) => void
-  onInteractOutside?: (event: DismissableLayerEmits['interactOutside'][0]) => void
-  onEscapeKeydown?: (event: KeyboardEvent) => void
-  onDismiss?: () => void
-  // onFocusCapture?: (event: FocusEvent) => void
-  // onBlurCapture?: (event: FocusEvent) => void
-  // onPointerdownCapture?: (event: FocusEvent) => void
+export interface UseDismissableLayerProps extends EmitsToHookProps<DismissableLayerEmits> {
+  el?: Ref<HTMLElement | undefined>
+  disableOutsidePointerEvents?: boolean
 }
 
-export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: UseDismissableLayerProps, emits: UseDismissableLayerEmits) {
-  const ownerDocument = () => $el.value?.ownerDocument ?? globalThis?.document
+export function useDismissableLayer(props: UseDismissableLayerProps = {}): RadixPrimitiveReturns {
+  const el = props.el || shallowRef<HTMLElement>()
+  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
-  const index = computed(() => $el.value ? Array.from(context.layers).indexOf($el.value) : -1)
+  const ownerDocument = () => el.value?.ownerDocument ?? globalThis?.document
+
+  const index = computed(() => el.value ? Array.from(context.layers).indexOf(el.value) : -1)
 
   const isBodyPointerEventsDisabled = computed(() => context.layersWithOutsidePointerEventsDisabled.size > 0)
 
@@ -93,13 +89,13 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
     if (isPointerdownOnBranch)
       return
 
-    emits.onPointerdownOutside?.(event)
-    emits.onInteractOutside?.(event)
+    props.onPointerdownOutside?.(event)
+    props.onInteractOutside?.(event)
 
     if (!event.defaultPrevented) {
-      emits.onDismiss?.()
+      props.onDismiss?.()
     }
-  }, $el)
+  }, el)
 
   useFocusOutside((event) => {
     const target = event.target as HTMLElement
@@ -108,12 +104,12 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
     if (isFocusInBranch)
       return
 
-    emits.onFocusOutside?.(event)
-    emits.onInteractOutside?.(event)
+    props.onFocusOutside?.(event)
+    props.onInteractOutside?.(event)
 
     if (!event.defaultPrevented)
-      emits.onDismiss?.()
-  }, $el)
+      props.onDismiss?.()
+  }, el)
 
   useEscapeKeydown((event) => {
     const isHighestLayer = index.value === context.layers.size - 1
@@ -121,21 +117,21 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
     if (!isHighestLayer)
       return
 
-    emits.onEscapeKeydown?.(event)
+    props.onEscapeKeydown?.(event)
 
     if (!event.defaultPrevented) {
       event.preventDefault()
-      emits.onDismiss?.()
+      props.onDismiss?.()
     }
   }, ownerDocument)
 
-  watch($el, (nodeVal) => {
+  watch(el, (nodeVal) => {
     if (!nodeVal)
       return
 
     const ownerDocumentVal = ownerDocument()
 
-    const disableOutsidePointerEvents = props.disableOutsidePointerEvents()
+    const disableOutsidePointerEvents = props.disableOutsidePointerEvents ?? false
     if (disableOutsidePointerEvents) {
       if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
         originalBodyPointerEvents = ownerDocumentVal.body.style.pointerEvents
@@ -181,15 +177,24 @@ export function useDismissableLayer($el: Ref<HTMLElement | undefined>, props: Us
   // }, pointerdownOutside.onPointerdownCapture)
 
   return {
-    pointerEvents() {
-      return isBodyPointerEventsDisabled.value
-        ? isPointerEventsEnabled.value
-          ? 'auto'
-          : 'none'
-        : undefined
+    attrs(extraAttrs) {
+      const attrs: ElAttrs = {
+        'ref': setTemplateEl,
+        'data-dismissable-layer': true,
+        'style': {
+          pointerEvents: isBodyPointerEventsDisabled.value
+            ? isPointerEventsEnabled.value
+              ? 'auto'
+              : 'none'
+            : undefined,
+        },
+      }
+
+      if (extraAttrs) {
+        mergeHooksAttrs(attrs, extraAttrs)
+      }
+
+      return attrs
     },
-    // onFocusCapture,
-    // onBlurCapture,
-    // onPointerdownCapture,
   }
 }

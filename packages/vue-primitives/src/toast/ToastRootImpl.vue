@@ -101,7 +101,7 @@ watch(context.viewport, (viewport) => {
 // so it could reopen before being completely unmounted
 if (isClient) {
   watchEffect(() => {
-    if (!props.open || context.isClosePausedRef.current)
+    if (!props.open || context.isClosePausedRef.value)
       return
 
     startTimer(duration())
@@ -147,9 +147,9 @@ watch($el, (el) => {
 const onEscapeKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   emit('escapeKeydown', event)
 }, () => {
-  if (!context.isFocusedToastEscapeKeyDownRef.current)
+  if (!context.isFocusedToastEscapeKeyDownRef.value)
     handleClose()
-  context.isFocusedToastEscapeKeyDownRef.current = false
+  context.isFocusedToastEscapeKeyDownRef.value = false
 })
 
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
@@ -161,7 +161,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   emit('escapeKeydown', event)
 
   if (!event.defaultPrevented) {
-    context.isFocusedToastEscapeKeyDownRef.current = true
+    context.isFocusedToastEscapeKeyDownRef.value = true
     handleClose()
   }
 })

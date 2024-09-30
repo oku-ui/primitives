@@ -32,7 +32,7 @@ watch(() => props.checked, (checked, prevChecked) => {
 
   if (prevChecked !== checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
-    const event = new Event('change', { bubbles: props.bubbles.current })
+    const event = new Event('change', { bubbles: props.bubbles.value })
     setChecked.call(input, checked)
     input.dispatchEvent(event)
   }

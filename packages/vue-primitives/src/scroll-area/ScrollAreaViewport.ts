@@ -1,10 +1,10 @@
-import { onMounted, type Ref } from 'vue'
-import { type MutableRefObject, useRef } from '../hooks/index.ts'
-import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { onMounted } from 'vue'
+import { useRef } from '../hooks/index.ts'
+import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns, type RefOrRefObject } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaViewportProps {
-  el?: MutableRefObject<HTMLElement | undefined> | Ref<HTMLElement | undefined>
+  el?: RefOrRefObject<HTMLElement | undefined>
 }
 
 export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): RadixPrimitiveReturns {
@@ -13,16 +13,11 @@ export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): Radi
   const setTemplateEl = props.el
     ? undefined
     : (value: HTMLElement | undefined) => {
-        if ('current' in el) {
-          el.current = value
-        }
-        else {
-          el.value = value
-        }
+        el.value = value
       }
 
   onMounted(() => {
-    context.viewport.value = 'current' in el ? el.current : el.value
+    context.viewport.value = el.value
   })
 
   return {

@@ -15,7 +15,7 @@ export interface UseTabsListProps {
 
 export function useTabsList(props: UseTabsListProps): RadixPrimitiveReturns {
   const elRef = props.elRef || useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.current = value
+  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const context = useTabsContext('TabsList')
 

@@ -25,7 +25,7 @@ let isPointerDownRef = false
 const onClick = composeEventHandlers<MouseEvent>((event) => {
   emit('click', event)
 }, () => {
-  if (props.disabled || !elRef.current)
+  if (props.disabled || !elRef.value)
     return
 
   const itemSelectEvent = new CustomEvent(ITEM_SELECT, { bubbles: true, cancelable: true })
@@ -58,7 +58,7 @@ const onPointerup = composeEventHandlers<PointerEvent>((event) => {
 const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   emit('keydown', event)
 }, (event) => {
-  const isTypingAhead = contentContext.searchRef.current !== ''
+  const isTypingAhead = contentContext.searchRef.value !== ''
 
   if (props.disabled || (isTypingAhead && event.key === ' '))
     return

@@ -46,7 +46,7 @@ const forwardedRef = useComposedElements<HTMLOListElement>((v) => {
 
   viewportRef = v
   context.onViewportChange(v)
-  collеctionContext.collectionRef.current = v
+  collеctionContext.collectionRef.value = v
 })
 const ariaLabel = computed(() => props.label.replace('{hotkey}', props.hotkey.join('+').replace(/Key/g, '').replace(/Digit/g, '')))
 
@@ -54,18 +54,18 @@ const hasToasts = () => context.toastCount.value > 0
 
 if (isClient) {
   function handlePause() {
-    if (!context.isClosePausedRef.current) {
+    if (!context.isClosePausedRef.value) {
       const pauseEvent = new CustomEvent(VIEWPORT_PAUSE)
       viewportRef?.dispatchEvent(pauseEvent)
-      context.isClosePausedRef.current = true
+      context.isClosePausedRef.value = true
     }
   }
 
   function handleResume() {
-    if (context.isClosePausedRef.current) {
+    if (context.isClosePausedRef.value) {
       const resumeEvent = new CustomEvent(VIEWPORT_RESUME)
       viewportRef?.dispatchEvent(resumeEvent)
-      context.isClosePausedRef.current = false
+      context.isClosePausedRef.value = false
     }
   }
 

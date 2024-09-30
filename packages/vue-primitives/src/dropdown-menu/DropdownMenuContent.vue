@@ -18,7 +18,7 @@ const onCloseAutoFocus = composeEventHandlers((event) => {
   emit('closeAutoFocus', event)
 }, (event) => {
   if (!hasInteractedOutsideRef) {
-    context.triggerRef.current?.focus()
+    context.triggerRef.value?.focus()
   }
   hasInteractedOutsideRef = false
   // Always prevent auto focus because we either focus manually or want user agent focus

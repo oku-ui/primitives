@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { DialogCloseEmits, DialogCloseProps } from './DialogClose.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { useDialogContext } from './DialogRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type DialogCloseProps, useDialogClose } from './DialogClose.ts'
 
 defineOptions({
   name: 'DialogClose',
@@ -11,17 +10,12 @@ defineOptions({
 withDefaults(defineProps<DialogCloseProps>(), {
   as: 'button',
 })
-const emit = defineEmits<DialogCloseEmits>()
 
-const context = useDialogContext('DialogClose')
-
-const onClick = composeEventHandlers<MouseEvent>((event) => {
-  emit('click', event)
-}, () => context.onOpenChange(false))
+const dialogClose = useDialogClose()
 </script>
 
 <template>
-  <Primitive :as="as" type="button" @click="onClick">
+  <Primitive :as="as" v-bind="normalizeAttrs(dialogClose.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

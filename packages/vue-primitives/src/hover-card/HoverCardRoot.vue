@@ -44,7 +44,7 @@ provideHoverCardContext({
   onClose() {
     clearTimeout(openTimerRef)
 
-    if (hasSelectionRef.current || isPointerDownOnContentRef.current)
+    if (hasSelectionRef.value || isPointerDownOnContentRef.value)
       return
 
     closeTimerRef = window.setTimeout(() => {

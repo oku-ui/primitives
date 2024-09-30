@@ -1,6 +1,8 @@
+
+
+
 <script setup lang="ts">
-import { useControllableState, useId, useRef } from '@oku-ui/hooks'
-import { type DialogContentElement, type DialogRootEmits, type DialogRootProps, provideDialogContext } from './DialogRoot.ts'
+import { type DialogRootEmits, type DialogRootProps, useDialogRoot } from './DialogRoot.ts'
 
 defineOptions({
   name: 'DialogRoot',
@@ -14,25 +16,15 @@ const props = withDefaults(defineProps<DialogRootProps>(), {
 
 const emit = defineEmits<DialogRootEmits>()
 
-const triggerRef = useRef<HTMLButtonElement>()
-const contentRef = useRef<DialogContentElement>()
-
-const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
-
-provideDialogContext({
-  triggerRef,
-  contentRef,
-  contentId: useId(),
-  titleId: useId(),
-  descriptionId: useId(),
-  open,
+useDialogRoot({
   modal: props.modal,
-  onOpenChange(value) {
-    open.value = value
+  open() {
+    return props.open
   },
-  onOpenToggle() {
-    open.value = !open.value
+  onUpdateOpen(value) {
+    emit('update:open', value)
   },
+  defaultOpen: props.defaultOpen,
 })
 </script>
 

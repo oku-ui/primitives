@@ -42,7 +42,7 @@ let lastPointerXRef = 0
 const unlock = props.disableOutsideScroll ? useBodyScrollLock() : undefined
 
 function handleTypeaheadSearch(key: string) {
-  const search = searchRef.current + key
+  const search = searchRef.value + key
   const items = getItems().filter(item => !item.$$rcid.menu.disabled)
   const currentItem = document.activeElement
   const currentMatch = items.find(item => item === currentItem)?.$$rcid.menu.textValue
@@ -52,7 +52,7 @@ function handleTypeaheadSearch(key: string) {
 
   // Reset `searchRef` 1 second after it was last updated
   (function updateSearch(value: string) {
-    searchRef.current = value
+    searchRef.value = value
     window.clearTimeout(timerRef)
     if (value !== '')
       timerRef = window.setTimeout(() => updateSearch(''), 1000)
@@ -117,7 +117,7 @@ const onBlur = composeEventHandlers<FocusEvent>((event) => {
   // clear search buffer when leaving the menu
   if (!(event.currentTarget as HTMLElement | null)?.contains(event.target as HTMLElement | null)) {
     window.clearTimeout(timerRef)
-    searchRef.current = ''
+    searchRef.value = ''
   }
 })
 
@@ -219,7 +219,7 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
     emit('entryFocus', event)
   }, (event) => {
   // only focus first item when using keyboard
-    if (!rootContext.isUsingKeyboardRef.current) {
+    if (!rootContext.isUsingKeyboardRef.value) {
       event.preventDefault()
     }
   }),

@@ -24,7 +24,7 @@ const onCloseAutoFocus = composeEventHandlers((event) => {
 }, (event) => {
   const menubarOpen = Boolean(context.value.value)
   if (!menubarOpen && !hasInteractedOutsideRef) {
-    menuContext.triggerRef.current?.focus()
+    menuContext.triggerRef.value?.focus()
   }
 
   hasInteractedOutsideRef = false
@@ -48,7 +48,7 @@ const onInteractOutside = composeEventHandlers<MenubarContentEmits['interactOuts
 })
 
 function onEntryFocus(event: Event) {
-  if (!menuContext.wasKeyboardTriggerOpenRef.current)
+  if (!menuContext.wasKeyboardTriggerOpenRef.value)
     event.preventDefault()
 }
 

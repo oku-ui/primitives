@@ -62,7 +62,7 @@ export function useTooltipProvider({
     },
     isPointerInTransitRef,
     onPointerInTransitChange(inTransit: boolean) {
-      isPointerInTransitRef.current = inTransit
+      isPointerInTransitRef.value = inTransit
     },
     disableHoverableContent,
   })

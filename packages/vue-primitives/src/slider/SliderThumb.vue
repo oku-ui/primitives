@@ -62,7 +62,7 @@ if (isClient) {
 const onFocus = composeEventHandlers<FocusEvent>((event) => {
   emit('focus', event)
 }, () => {
-  context.valueIndexToChangeRef.current = index.value
+  context.valueIndexToChangeRef.value = index.value
 })
 </script>
 

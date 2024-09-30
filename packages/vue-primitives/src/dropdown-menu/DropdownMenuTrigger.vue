@@ -55,7 +55,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
 const forwardElement = useForwardElement(context.triggerRef)
 
 onMounted(() => {
-  popperContext.onAnchorChange(context.triggerRef.current)
+  popperContext.onAnchorChange(context.triggerRef.value)
 })
 </script>
 

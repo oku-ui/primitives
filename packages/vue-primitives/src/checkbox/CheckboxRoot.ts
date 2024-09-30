@@ -94,12 +94,12 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
     if (event.defaultPrevented)
       return
     checked.value = isIndeterminate(checked.value) ? true : !checked.value
-    if (isFormControl.current) {
-      bubbles.current = !event.cancelBubble
+    if (isFormControl.value) {
+      bubbles.value = !event.cancelBubble
       // if checkbox is in a form, stop propagation from the button so that we only propagate
       // one click event (from the input). We propagate changes from an input so that native
       // form validation works and form events reflect checkbox updates.
-      if (bubbles.current)
+      if (bubbles.value)
         event.stopPropagation()
     }
   }

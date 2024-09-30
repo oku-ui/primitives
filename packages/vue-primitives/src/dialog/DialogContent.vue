@@ -1,30 +1,22 @@
 <script setup lang="ts">
-import type { DialogContentProps } from './DialogContent.ts'
-import { useForwardElement } from '@oku-ui/hooks'
-import { shallowRef } from 'vue'
-import { usePresence } from '../presence/index.ts'
-import DialogContentModal from './DialogContentModal.vue'
-import DialogContentNonModal from './DialogContentNonModal.vue'
-import { useDialogContext } from './DialogRoot.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type DialogContentProps, useDialogContent } from './DialogContent.ts'
+import DialogContentImpl from './DialogContentImpl.vue'
 
 defineOptions({
   name: 'DialogContent',
+  inheritAttrs: false,
 })
 
 const props = defineProps<DialogContentProps>()
 
-const $el = shallowRef<HTMLElement>()
-const forwardElement = useForwardElement($el)
-
-const context = useDialogContext('DialogContent')
-
-const isPresent = usePresence($el, () => props.forceMount || context.open.value)
-
-const Comp = context.modal ? DialogContentModal : DialogContentNonModal
+const dialogContent = useDialogContent({
+  forceMount: props.forceMount,
+})
 </script>
 
 <template>
-  <Comp v-if="isPresent" :ref="forwardElement">
+  <DialogContentImpl v-if="dialogContent.isPresent.value" v-bind="normalizeAttrs(dialogContent.attrs(), $attrs)">
     <slot />
-  </Comp>
+  </DialogContentImpl>
 </template>

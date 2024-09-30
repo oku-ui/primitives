@@ -47,7 +47,7 @@ export interface UseRadioGroupRootProps extends EmitsToHookProps<RadioGroupRootE
 
 export function useRadioGroupRoot(props: UseRadioGroupRootProps): RadixPrimitiveReturns {
   const elRef = props.elRef || useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.current = value
+  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const direction = useDirection(props.dir)
 

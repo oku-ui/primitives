@@ -1,42 +1,21 @@
 <script setup lang="ts">
-import type { DialogTriggerEmits, DialogTriggerProps } from './DialogTrigger.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { useDialogContext } from './DialogRoot.ts'
-import { getState } from './utils.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type DialogTriggerProps, useDialogTrigger } from './DialogTrigger.ts'
 
 defineOptions({
   name: 'DialogTrigger',
+  inheritAttrs: false,
 })
 
 withDefaults(defineProps<DialogTriggerProps>(), {
   as: 'button',
 })
-const emit = defineEmits<DialogTriggerEmits>()
-
-const context = useDialogContext('DialogTrigger')
-
-function triggerRef(nodeRef: any) {
-  const node = nodeRef ? nodeRef.$el : undefined
-  context.triggerRef.current = node
-}
-
-const onClick = composeEventHandlers<MouseEvent>((event) => {
-  emit('click', event)
-}, context.onOpenToggle)
+const dialogTrigger = useDialogTrigger()
 </script>
 
 <template>
-  <Primitive
-    :ref="triggerRef"
-    :as="as"
-    type="button"
-    aria-haspopup="dialog"
-    :aria-expanded="context.open.value || false"
-    :aria-controls="context.open.value ? context.contentId : undefined"
-    :data-state="getState(context.open.value)"
-    @click="onClick"
-  >
+  <Primitive :as="as" v-bind="normalizeAttrs(dialogTrigger.attrs(), $attrs)">
     <slot />
   </Primitive>
 </template>

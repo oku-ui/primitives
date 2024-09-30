@@ -22,7 +22,7 @@ const forwardElement = useForwardElement(elRef)
 
 onMounted(() => {
   context.onCustomAnchorAdd()
-  popperContext.onAnchorChange(props.virtualRef?.current || elRef.current)
+  popperContext.onAnchorChange(props.virtualRef?.value || elRef.value)
 })
 
 onBeforeUnmount(() => {

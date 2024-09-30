@@ -55,10 +55,10 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = Rec
     const context = thereContext || useCollectionContext(`${name}CollectionConsumer`)
 
     function getItems(): CollectionItem[] {
-      if (!context.collectionRef.current)
+      if (!context.collectionRef.value)
         return []
 
-      const orderedNodes = Array.from(context.collectionRef.current.querySelectorAll(`[${DATA_COLLECTION_ITEM}]`))
+      const orderedNodes = Array.from(context.collectionRef.value.querySelectorAll(`[${DATA_COLLECTION_ITEM}]`))
 
       return orderedNodes as CollectionItem[]
     }

@@ -59,7 +59,7 @@ const onPointerenter = composeEventHandlers<PointerEvent>((event) => {
   const menubarOpen = Boolean(context.value.value)
   if (menubarOpen && !open.value) {
     context.onMenuOpen(menuContext.value)
-    menuContext.triggerRef.current?.focus()
+    menuContext.triggerRef.value?.focus()
   }
 })
 
@@ -75,7 +75,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>((event) => {
   // prevent keydown from scrolling window / first focused item to execute
   // that keydown (inadvertently closing the menu)
   if (['Enter', ' ', 'ArrowDown'].includes(event.key)) {
-    menuContext.wasKeyboardTriggerOpenRef.current = true
+    menuContext.wasKeyboardTriggerOpenRef.value = true
     event.preventDefault()
   }
 })
@@ -110,11 +110,11 @@ const rovingFocusGroupItem = useRovingFocusGroupItem({
 
 // COMP::PopperAnchor
 onMounted(() => {
-  popperContext.onAnchorChange(menuContext.triggerRef.current)
+  popperContext.onAnchorChange(menuContext.triggerRef.value)
 })
 
 const forwardElement = useComposedElements<HTMLButtonElement>((v) => {
-  menuContext.triggerRef.current = v
+  menuContext.triggerRef.value = v
   Collection.useCollectionItem(v, itemData, '$menubar')
   rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData, rovingFocusGroupItem.collectionKey)
 })

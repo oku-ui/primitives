@@ -79,7 +79,7 @@ function setSwitchAccountsOpen2(value: boolean) {
           class="dropdownMenu_dialogClass"
           @close-auto-focus="(event) => {
             // focus dropdown trigger for accessibility so user doesn't lose their place in the document
-            dropdownTriggerRef.current?.focus();
+            dropdownTriggerRef.value?.focus();
             event.preventDefault();
           }"
         >
@@ -136,7 +136,7 @@ function setSwitchAccountsOpen2(value: boolean) {
           class="dropdownMenu_dialogClass"
           @close-auto-focus="(event) => {
             // focus dropdown trigger for accessibility so user doesn't lose their place in the document
-            dropdownTriggerRef2.current?.focus();
+            dropdownTriggerRef2.value?.focus();
             event.preventDefault();
           }"
         >

@@ -13,15 +13,15 @@ const isDialogOpenRef = useRef(false)
 
 function handleModalDialogClose(event: Event) {
   // focus dropdown trigger for accessibility so user doesn't lose their place in the document
-  dropdownTriggerRef.current?.focus()
+  dropdownTriggerRef.value?.focus()
   event.preventDefault()
 }
 
 function handleNonModalDialogClose(event: Event) {
   // focus dropdown trigger for accessibility so user doesn't lose their place in the document
-  dropdownTriggerRef2.current?.focus()
+  dropdownTriggerRef2.value?.focus()
   event.preventDefault()
-  isDialogOpenRef.current = false
+  isDialogOpenRef.value = false
 }
 </script>
 
@@ -75,11 +75,11 @@ function handleNonModalDialogClose(event: Event) {
               :side-offset="5"
               @close-auto-focus="(event) => {
                 // prevent focusing dropdown trigger when it closes from a dialog trigger
-                if (isDialogOpenRef.current) event.preventDefault();
+                if (isDialogOpenRef.value) event.preventDefault();
               }"
             >
               <DialogTrigger class="menu_itemClass" as="template">
-                <DropdownMenuItem @select="() => (isDialogOpenRef.current = true)">
+                <DropdownMenuItem @select="() => (isDialogOpenRef.value = true)">
                   Delete
                 </DropdownMenuItem>
               </DialogTrigger>

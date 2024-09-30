@@ -40,7 +40,7 @@ const onPointermove = composeEventHandlers<PointerEvent>((event) => {
   if (event.pointerType === 'touch')
     return
 
-  if (hasPointerMoveOpenedRef || providerContext.isPointerInTransitRef.current)
+  if (hasPointerMoveOpenedRef || providerContext.isPointerInTransitRef.value)
     return
 
   context.onTriggerEnter()
@@ -81,7 +81,7 @@ const onClick = composeEventHandlers<MouseEvent>((event) => {
 const popperContext = usePopperContext('TooltipTrigger')
 
 onMounted(() => {
-  popperContext.onAnchorChange(props.virtualRef?.current || context.trigger.value)
+  popperContext.onAnchorChange(props.virtualRef?.value || context.trigger.value)
 })
 </script>
 

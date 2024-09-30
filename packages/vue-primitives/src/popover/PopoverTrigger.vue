@@ -18,7 +18,7 @@ const emit = defineEmits<PopoverTriggerEmits>()
 const context = usePopoverContext('PopoverTrigger')
 
 const composedElements = useComposedElements<HTMLButtonElement>((v) => {
-  context.triggerRef.current = v
+  context.triggerRef.value = v
 })
 
 const onClick = composeEventHandlers<MouseEvent>((event) => {
