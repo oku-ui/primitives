@@ -1,10 +1,9 @@
 import type { EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { hideOthers } from 'aria-hidden'
-import { onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, shallowRef } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer, type UseDismissableLayerProps } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
-import { useRef } from '../hooks/useRef.ts'
 import { mergeHooksAttrs } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
@@ -54,15 +53,12 @@ export function useDialogContentImpl(props: UseDialogContentProps): RadixPrimiti
 }
 
 export function useDialogContentModal(props: UseDialogContentProps): RadixPrimitiveReturns {
-  const el = useRef<HTMLElement>()
-  const setTemplateEl = (value: HTMLElement | undefined) => el.value = value
-
   const context = useDialogContext('DialogContentModal')
 
   // aria-hide everything except the content (better supported equivalent to setting aria-modal)
   onBeforeUnmount(() => {
-    if (el.value)
-      hideOthers(el.value)
+    if (context.content.value)
+      hideOthers(context.content.value)
   })
 
   const dialogContentImpl = useDialogContentInnerImpl({
@@ -102,13 +98,11 @@ export function useDialogContentModal(props: UseDialogContentProps): RadixPrimit
   })
 
   return {
-    attrs(extraAttrs = []) {
-      const attrs = {
-        ref: setTemplateEl,
-      }
+    attrs(extraAttrs) {
+      const attrs = dialogContentImpl.attrs()
 
       if (extraAttrs) {
-        mergeHooksAttrs(attrs, [dialogContentImpl.attrs(), ...extraAttrs])
+        mergeHooksAttrs(attrs, extraAttrs)
       }
 
       return attrs
@@ -184,18 +178,27 @@ export function useDialogContentNonModal(props: UseDialogContentProps): RadixPri
   }
 }
 
-export interface UseDialogContentInnerImplProps extends EmitsToHookProps<DialogContentImplPublicEmits>, Omit<UseDismissableLayerProps, 'el' | 'onDismiss'> {
+export interface UseDialogContentInnerImplProps extends EmitsToHookProps<DialogContentImplPublicEmits>, Omit<UseDismissableLayerProps, 'onDismiss'> {
   trapFocus?: boolean
 }
 
 export function useDialogContentInnerImpl(props: UseDialogContentInnerImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContentNonModal')
 
+  const el = props.el || shallowRef<HTMLElement>()
+  const setTemplateEl = props.el
+    ? undefined
+    : (value: HTMLElement | undefined) => {
+        el.value = value
+        context.content.value = value
+      }
+
   // Make sure the whole tree has focus guards as our `Dialog` will be
   // the last element in the DOM (because of the `Portal`)
   useFocusGuards()
 
   const dismissableLayer = useDismissableLayer({
+    el,
     disableOutsidePointerEvents: props.disableOutsidePointerEvents,
     onPointerdownOutside: props.onPointerdownOutside,
     onFocusOutside: props.onFocusOutside,
@@ -207,6 +210,7 @@ export function useDialogContentInnerImpl(props: UseDialogContentInnerImplProps)
   })
 
   const focusScope = useFocusScope({
+    el,
     loop: true,
     trapped: props.trapFocus,
     onMountAutoFocus: props.onOpenAutoFocus,
@@ -215,7 +219,10 @@ export function useDialogContentInnerImpl(props: UseDialogContentInnerImplProps)
 
   return {
     attrs(extraAttrs = []) {
-      const attrs = {
+      const attrs = dismissableLayer.attrs()
+
+      const dismissableAttrs = {
+        'ref': setTemplateEl,
         'role': 'dialog',
         'id': context.contentId,
         'aria-describedby': context.descriptionId,
@@ -223,8 +230,7 @@ export function useDialogContentInnerImpl(props: UseDialogContentInnerImplProps)
         'data-state': context.open.value ? 'open' : 'closed',
       }
 
-      mergeHooksAttrs(attrs, [dismissableLayer.attrs(), focusScope.attrs(), ...extraAttrs])
-      console.error('Content attrs', attrs)
+      mergeHooksAttrs(attrs, [dismissableLayer.attrs(), focusScope.attrs(), ...extraAttrs, dismissableAttrs])
 
       return attrs
     },

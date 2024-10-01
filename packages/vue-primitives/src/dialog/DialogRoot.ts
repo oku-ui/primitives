@@ -1,5 +1,5 @@
-import type { Ref } from 'vue'
 import type { EmitsToHookProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import { type Ref, shallowRef } from 'vue'
 import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 
 export interface DialogRootProps {
@@ -14,7 +14,7 @@ export type DialogRootEmits = {
 
 export interface DialogContext {
   triggerRef: MutableRefObject<HTMLElement | undefined>
-  contentRef: MutableRefObject<HTMLElement | undefined>
+  content: Ref<HTMLElement | undefined>
   contentId: string
   titleId: string
   descriptionId: string
@@ -28,7 +28,7 @@ export const [provideDialogContext, useDialogContext] = createContext<DialogCont
 
 export interface UseDialogRootProps extends EmitsToHookProps<DialogRootEmits> {
   triggerRef?: MutableRefObject<HTMLElement | undefined>
-  contentRef?: MutableRefObject<HTMLElement | undefined>
+  content?: Ref<HTMLElement | undefined>
 
   open?: () => boolean | undefined
   defaultOpen?: boolean
@@ -36,14 +36,14 @@ export interface UseDialogRootProps extends EmitsToHookProps<DialogRootEmits> {
 }
 
 export function useDialogRoot(props: UseDialogRootProps) {
-  const triggerRef = props.contentRef || useRef<HTMLElement>()
-  const contentRef = props.contentRef || useRef<HTMLElement>()
+  const triggerRef = props.content || useRef<HTMLElement>()
+  const content = props.content || shallowRef<HTMLElement>()
 
   const open = useControllableStateV2(props.open, props.onUpdateOpen, props.defaultOpen || false)
 
   provideDialogContext({
     triggerRef,
-    contentRef,
+    content,
     contentId: useId(),
     titleId: useId(),
     descriptionId: useId(),

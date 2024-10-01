@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { DialogContentElement } from '../dialog/index.ts'
 import type { AlertDialogRootEmits, AlertDialogRootProps } from './AlertDialogRoot.ts'
-import { useControllableState, useId, useRef } from '@oku-ui/hooks'
+import { shallowRef } from 'vue'
 import { provideDialogContext } from '../dialog/index.ts'
 
 defineOptions({
@@ -16,13 +15,13 @@ const props = withDefaults(defineProps<AlertDialogRootProps>(), {
 const emit = defineEmits<AlertDialogRootEmits>()
 
 const triggerRef = useRef<HTMLButtonElement>()
-const contentRef = useRef<DialogContentElement>()
+const content = shallowRef<HTMLElement>()
 
 const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
 provideDialogContext({
   triggerRef,
-  contentRef,
+  content,
   contentId: useId(),
   titleId: useId(),
   descriptionId: useId(),
