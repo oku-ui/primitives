@@ -1,4 +1,4 @@
-import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type PrimitiveElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface SeparatorProps {
   /**
@@ -22,7 +22,7 @@ export function useSeparator(props: UseSeparatorProps): RadixPrimitiveReturns {
 
   return {
     attrs(extraAttrs) {
-      const attrs: ElAttrs = props.decorative
+      const attrs: PrimitiveElAttrs = props.decorative
         ? { role: 'none' }
         : {
             'aria-orientation': orientation === 'vertical' ? orientation : undefined,

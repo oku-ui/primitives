@@ -1,4 +1,4 @@
-import type { ElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, onWatcherCleanup, type Ref, shallowReactive, shallowRef, watch } from 'vue'
 import { useEscapeKeydown } from '../hooks/index.ts'
 import { mergeHooksAttrs } from '../shared/index.ts'
@@ -178,7 +178,7 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
 
   return {
     attrs(extraAttrs) {
-      const attrs: ElAttrs = {
+      const attrs: PrimitiveElAttrs = {
         'ref': setTemplateEl,
         'data-dismissable-layer': true,
         'style': {

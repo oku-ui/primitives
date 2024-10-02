@@ -1,6 +1,6 @@
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
-import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type PrimitiveElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import { provideScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
@@ -251,7 +251,7 @@ export function useScrollAreaScrollbarVisible(props: UseScrollAreaScrollbarVisib
 
   return {
     attrs(extraAttrs) {
-      const attrs: ElAttrs = {
+      const attrs: PrimitiveElAttrs = {
         'ref': setTemplateEl,
         'style': isHorizontal
           ? {

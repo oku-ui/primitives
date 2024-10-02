@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { ElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
 import { mergeHooksAttrs } from '../shared/index.ts'
@@ -123,7 +123,7 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
   return {
     attrs(extraAttrs) {
       const _disabled = disabled()
-      const attrs: ElAttrs = {
+      const attrs: PrimitiveElAttrs = {
         'ref': setTemplateEl,
         'type': 'button',
         'role': 'checkbox',

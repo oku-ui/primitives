@@ -16,7 +16,7 @@ export { getRawChildren } from './getRawChildren.ts'
 export { isPointInPolygon, type Point, type Polygon } from './isPointInPolygon.ts'
 export { type IAttrsData, mergeHooksAttrs, normalizeAttrs } from './mergeProps.ts'
 export {
-  type ElAttrs,
+  type PrimitiveElAttrs,
   type EmitsToHookProps,
   type RadixPrimitiveGetAttrs,
   type RadixPrimitiveReturns,

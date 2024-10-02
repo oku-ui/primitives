@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { ElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { mergeHooksAttrs } from '../shared/index.ts'
@@ -34,7 +34,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
   return {
     isPresent,
     attrs(extraAttrs) {
-      const attrs: ElAttrs = {
+      const attrs: PrimitiveElAttrs = {
         'ref': setTemplateEl,
         'data-state': getState(context.state.value),
         'data-disabled': context.disabled() ? '' : undefined,

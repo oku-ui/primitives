@@ -1,4 +1,4 @@
-import type { ElAttrs, VNodeRef } from './typeUtils'
+import type { PrimitiveElAttrs, VNodeRef } from './typeUtils'
 import { isArray, isOn, NOOP } from '@vue/shared'
 import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
 import { getElFromTemplateRef } from './getElFromTemplateRef.ts'
@@ -7,7 +7,7 @@ export type IAttrsData = Record<string, unknown> & Omit<VNodeProps, 'ref'> & {
   ref?: ((nodeRef: VNodeRef) => void)
 }
 
-export function mergeHooksAttrs(attrs: ElAttrs, extraAttrsList: ElAttrs[]): ElAttrs {
+export function mergeHooksAttrs(attrs: PrimitiveElAttrs, extraAttrsList: PrimitiveElAttrs[]): PrimitiveElAttrs {
   const ret = attrs
 
   for (let i = 0; i < extraAttrsList.length; i++) {
@@ -49,7 +49,7 @@ export function mergeHooksAttrs(attrs: ElAttrs, extraAttrsList: ElAttrs[]): ElAt
   return ret
 }
 
-export function normalizeAttrs(attrs: ElAttrs, ...extraAttrsList: (IAttrsData)[]): IAttrsData {
+export function normalizeAttrs(attrs: PrimitiveElAttrs, ...extraAttrsList: (IAttrsData)[]): IAttrsData {
   const ret = attrs
 
   const isInnerDisabled = attrs.disabled === true || (attrs['data-disabled'] != null && attrs['data-disabled'] !== false)

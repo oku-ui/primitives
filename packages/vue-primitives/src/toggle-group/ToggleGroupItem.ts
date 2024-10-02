@@ -1,4 +1,4 @@
-import type { ElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, type MaybeRefOrGetter, toValue } from 'vue'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { mergeHooksAttrs } from '../shared/index.ts'
@@ -59,7 +59,7 @@ export function useToggleGroupItem(props: UseToggleGroupItemProps): RadixPrimiti
             'aria-pressed': undefined,
           }
 
-      const extraAttrsList: ElAttrs[] = [toggle.attrs()]
+      const extraAttrsList: PrimitiveElAttrs[] = [toggle.attrs()]
 
       if (rovingFocusGroupItem) {
         extraAttrsList.push(rovingFocusGroupItem.attrs())

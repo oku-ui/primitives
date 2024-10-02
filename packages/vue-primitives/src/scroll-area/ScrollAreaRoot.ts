@@ -1,7 +1,7 @@
 import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext } from '../hooks/index.ts'
-import { type ElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type PrimitiveElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 type ScrollAreaType = 'auto' | 'always' | 'scroll' | 'hover'
 
@@ -79,7 +79,7 @@ export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitive
 
   return {
     attrs(extraAttrs) {
-      const attrs: ElAttrs = {
+      const attrs: PrimitiveElAttrs = {
         ref: setTemplateEl,
         dir: direction.value,
         style: {
