@@ -42,19 +42,21 @@ pnpm i @perigee/vue-primitives
 5) I do not use [asChild for implementing primitives](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/Menu/MenuContentImpl.vue#L274). Instead, I wrap the component's [content in a hook and use it](https://github.com/perigee-ui/vue-primitives/blob/a991db71fbecf364cd0b8479b294606236b104b4/packages/vue-primitives/src/dialog/DialogContentModal.vue#L65). I thought it was a bit cumbersome to use so many empty wrapper components when they can be eliminated. For example, the FocusScope wrapper is 3 components: FocusScope -> Primitive -> Slot. If there are 3 such wrappers, it is already a tree of 9+ components. 
 This is currently a test implementation.
 
-6) The idea of [discarding components and leaving only hooks that return props](https://github.com/perigee-ui/vue-primitives/blob/feat/hooks/packages/vue-primitives/src/accordion/AccordionItem.vue) is currently being explored. For example, as in [Zag](https://zagjs.com/components/react/accordion) and [Melt](https://melt-ui.com/docs/introduction). If the Vapor mod is released during our lifetime, this method will allow us to get rid of `Primitive `and `Slot` (VDom).
+6) Slot [WIP] [Discussion](https://github.com/radix-vue/radix-vue/discussions/1324)
 
-7) Different implementation of [Collection](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/collection/Collection.ts#L29) without Map, VDom. [Radix vue](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/Collection/Collection.ts#L59) 
+7) The idea of [discarding components and leaving only hooks that return props](https://github.com/perigee-ui/vue-primitives/blob/feat/hooks/packages/vue-primitives/src/accordion/AccordionItem.vue) is currently being explored. For example, as in [Zag](https://zagjs.com/components/react/accordion) and [Melt](https://melt-ui.com/docs/introduction). If the Vapor mod is released during our lifetime, this method will allow us to get rid of `Primitive `and `Slot` (VDom).
 
-8) Presence is just a [hook for me](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/presence/usePresence.ts#L8). The same approach was found in [Solid's Kobalte](https://github.com/corvudev/corvu/blob/main/packages/solid-presence/src/presence.ts). In radix-vue, it is the reason for the absence of content on the first render in components like [Accordion](https://github.com/radix-vue/radix-vue/issues/978).
+8) Different implementation of [Collection](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/collection/Collection.ts#L29) without Map, VDom. [Radix vue](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/Collection/Collection.ts#L59) 
 
-9) Availability of component context export for access in user code. It seems that this was promised to be added in Radix v2. I am not following.
+9) Presence is just a [hook for me](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/presence/usePresence.ts#L8). The same approach was found in [Solid's Kobalte](https://github.com/corvudev/corvu/blob/main/packages/solid-presence/src/presence.ts). In radix-vue, it is the reason for the absence of content on the first render in components like [Accordion](https://github.com/radix-vue/radix-vue/issues/978).
 
-10) No [empty wrappers that do nothing](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/AlertDialog/AlertDialogTrigger.vue).
+10) Availability of component context export for access in user code. It seems that this was promised to be added in Radix v2. I am not following.
 
-11) An easier way to get the current element [without `computed`](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hooks/useForwardElement.ts#L4). [Radix-vue](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/shared/useForwardExpose.ts#L9C9-L9C23)
+11) No [empty wrappers that do nothing](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/AlertDialog/AlertDialogTrigger.vue).
 
-12) Scoped Context WIP [Link](https://github.com/facebook/react/issues/23287) [Link](https://so-so.dev/react/scoped-context/)
+12) An easier way to get the current element [without `computed`](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hooks/useForwardElement.ts#L4). [Radix-vue](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/shared/useForwardExpose.ts#L9C9-L9C23)
+
+13) Scoped Context WIP [Link](https://github.com/facebook/react/issues/23287) [Link](https://so-so.dev/react/scoped-context/)
 
 # TODO
 
