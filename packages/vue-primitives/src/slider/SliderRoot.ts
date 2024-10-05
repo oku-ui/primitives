@@ -67,7 +67,7 @@ export interface UseSliderRootProps extends EmitsToHookProps<SliderRootEmits> {
   min?: () => number
   max?: () => number
   step?: () => number
-  minStepsBetweenThumbs?: number
+  minStepsBetweenThumbs?: () => number
   inverted?: () => boolean
 }
 
@@ -79,7 +79,7 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     step = () => 1,
     disabled = () => false,
     orientation = () => 'horizontal',
-    minStepsBetweenThumbs = 0,
+    minStepsBetweenThumbs = () => 0,
   } = props
 
   const el = props.el || useRef<HTMLElement>()
@@ -87,15 +87,18 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
 
   Collection.provideCollectionContext(el)
 
-  const thumbRefs: SliderContext['thumbs'] = new Set()
+  const thumbs: SliderContext['thumbs'] = new Set()
   const valueIndexToChangeRef = useRef(0)
 
   // TODO: is not reactive
-  const defaultValue = props.defaultValue ?? isNumber(min()) ? [min()] : [0]
   const values = useControllableStateV2(
     props.value,
-    props.onUpdateValue,
-    defaultValue,
+    (v) => {
+      const _thumbs = Array.from(thumbs)
+      _thumbs[valueIndexToChangeRef.value]?.focus()
+      props.onUpdateValue?.(v as number[])
+    },
+    props.defaultValue ?? (isNumber(min()) ? [min()] : [0]),
   )
 
   let valuesBeforeSlideStartRef = values.value
@@ -144,7 +147,7 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     const prevValues = values.value
     const nextValues = getNextSortedValues(values.value, nextValue, atIndex)
 
-    if (!hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs * step()))
+    if (!hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs() * step()))
       return
 
     valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
@@ -158,8 +161,6 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
   }
 
   function onSliderPointerdown() {
-    if (props.disabled)
-      return
     valuesBeforeSlideStartRef = values.value
   }
 
@@ -169,7 +170,7 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     min,
     max,
     valueIndexToChangeRef,
-    thumbs: thumbRefs,
+    thumbs,
     values,
     orientation,
   })
@@ -295,7 +296,7 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     event.preventDefault()
     // Touch devices have a delay before focusing so won't focus if touch immediately moves
     // away from target (sliding). We want thumb to focus regardless.
-    if (thumbRefs.has(target)) {
+    if (thumbs.has(target)) {
       target.focus()
     }
     else {
@@ -327,12 +328,14 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
 
   return {
     attrs(extraAttrs) {
+      const _disabled = disabled()
+
       const attrs = {
         'elRef': setTemplateEl,
         'dir': direction.value,
         'data-orientation': orientation(),
-        'aria-disabled': disabled(),
-        'data-disabled': disabled() ? '' : undefined,
+        'aria-disabled': _disabled,
+        'data-disabled': _disabled ? '' : undefined,
         'style': orientation() === 'horizontal' ? '--radix-slider-thumb-transform: translateX(-50%)' : '--radix-slider-thumb-transform: translateY(50%)',
         onKeydown,
         onPointerdown,

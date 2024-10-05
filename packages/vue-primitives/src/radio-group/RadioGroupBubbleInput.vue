@@ -21,7 +21,6 @@ const controlSize = useSize(() => bubbleInput.control.value)
 
 // Bubble checked change to parents (e.g form change event)
 watch(bubbleInput.checked, (checked) => {
-  console.error('bubbleInput')
   if (!input)
     return
 

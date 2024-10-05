@@ -3,9 +3,7 @@ import { isArray, isOn } from '@vue/shared'
 import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
 import { getElFromTemplateRef } from './getElFromTemplateRef.ts'
 
-export type IAttrsData = Record<string, unknown> & Omit<VNodeProps, 'ref'> & {
-  ref?: ((nodeRef: VNodeRef) => void)
-}
+export type IAttrsData = Record<string, unknown> & VNodeProps
 
 export function mergePrimitiveAttrs(attrs: PrimitiveElAttrs, extraAttrsList: PrimitiveElAttrs[]): PrimitiveElAttrs {
   const ret = attrs
@@ -29,7 +27,7 @@ export function mergePrimitiveAttrs(attrs: PrimitiveElAttrs, extraAttrsList: Pri
           const existing = ret[propName]
 
           if (existing !== incoming && !(isArray(existing) && existing.includes(incoming))) {
-            ret[propName] = existing ? [].concat(existing as any, incoming as any) : incoming
+            ret[propName] = existing ? [].concat(incoming as any, existing as any) : incoming
           }
         }
       }
@@ -57,16 +55,10 @@ export function mergePrimitiveAttrs(attrs: PrimitiveElAttrs, extraAttrsList: Pri
 }
 
 export function normalizeAttrs(attrs: PrimitiveElAttrs): IAttrsData {
-  normalizeTemplateRefs(attrs)
-
-  return attrs
-}
-
-function normalizeTemplateRefs(attrs: PrimitiveElAttrs) {
   const _elRef = attrs.elRef
   delete attrs.elRef
 
-  let elRef: ((nodeRef: VNodeRef) => void) | undefined
+  let elRef: ((vNodeRef: VNodeRef) => void) | undefined
   if (_elRef) {
     elRef = (templateRef: VNodeRef) => {
       const el = getElFromTemplateRef(templateRef)
@@ -84,7 +76,8 @@ function normalizeTemplateRefs(attrs: PrimitiveElAttrs) {
 
   const _templateRef = attrs.ref
   delete attrs.ref
-  let templateRef: ((nodeRef: VNodeRef) => void) | undefined
+
+  let templateRef = _templateRef as ((vNodeRef: VNodeRef) => void) | undefined
 
   if (_templateRef) {
     if (Array.isArray(_templateRef)) {
@@ -97,9 +90,9 @@ function normalizeTemplateRefs(attrs: PrimitiveElAttrs) {
   }
 
   if (elRef && templateRef) {
-    attrs.ref = (templateRef: any) => {
-      elRef(templateRef)
-      templateRef(elRef)
+    attrs.ref = (vNodeRef: VNodeRef) => {
+      elRef(vNodeRef)
+      templateRef(vNodeRef)
     }
   }
   else if (elRef) {
@@ -108,4 +101,6 @@ function normalizeTemplateRefs(attrs: PrimitiveElAttrs) {
   else if (templateRef) {
     attrs.ref = templateRef
   }
+
+  return attrs
 }

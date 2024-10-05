@@ -4,6 +4,7 @@ import { watch } from 'vue'
 
 defineOptions({
   name: 'SliderBubbleInput',
+  inheritAttrs: false,
 })
 
 const props = defineProps<SliderBubbleInputProps>()

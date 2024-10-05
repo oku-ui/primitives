@@ -111,8 +111,11 @@ export interface UseAccordionRootProps<T extends AccordionType> extends EmitsToH
 
 export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRootProps<T>): RadixPrimitiveReturns {
   const direction = useDirection(props.dir)
-  const defaultValue = (props.type === 'multiple' ? props.defaultValue ?? [] : props.defaultValue) as Value<T>
-  const value = useControllableStateV2(props.value, props.onUpdateValue, defaultValue)
+  const value = useControllableStateV2(
+    props.value,
+    props.onUpdateValue,
+    (props.type === 'multiple' ? props.defaultValue ?? [] : props.defaultValue) as Value<T>,
+  )
   const TYPE_MULTIPLE = 'multiple' as const satisfies AccordionType
 
   const elRef = props.elRef || useRef<HTMLElement>()

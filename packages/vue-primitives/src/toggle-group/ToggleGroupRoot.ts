@@ -98,8 +98,11 @@ export function useToggleGroup<T extends ToggleGroupType>(props: UseToggleGroupP
     loop = true,
   } = props
 
-  const defaultValue = (props.type === TYPE_MULTIPLE ? props.defaultValue ?? [] : props.defaultValue) as Value<T>
-  const value = useControllableStateV2(props.value, props.onUpdateValue, defaultValue)
+  const value = useControllableStateV2(
+    props.value,
+    props.onUpdateValue,
+    (props.type === TYPE_MULTIPLE ? props.defaultValue ?? [] : props.defaultValue) as Value<T>,
+  )
 
   const direction = useDirection(props.dir)
 

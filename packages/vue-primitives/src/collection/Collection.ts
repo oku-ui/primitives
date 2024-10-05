@@ -44,7 +44,7 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = Rec
 
     if (key) {
       (unrefElement as any).$$rcid = (unrefElement as any).$$rcid || {}
-      ; (unrefElement as any).$$rcid[key] = attrs
+      ;(unrefElement as any).$$rcid[key] = attrs
     }
     else {
       (unrefElement as any).$$rcid = attrs

@@ -1,4 +1,4 @@
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type IAttrsData, mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface AspectRatioProps {
   ratio?: number
@@ -10,7 +10,7 @@ export interface UseAspectRatioProps {
 
 export function useAspectRatio(props: UseAspectRatioProps = {}): RadixPrimitiveReturns<
   {
-    wrapperAttrs: () => Record<string, any>
+    wrapperAttrs: () => IAttrsData
     attrs: RadixPrimitiveGetAttrs
   }
 > {
