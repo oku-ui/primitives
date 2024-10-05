@@ -21,7 +21,7 @@ const aspectRatio = useAspectRatio({
 
 <template>
   <div v-bind="aspectRatio.wrapperAttrs()">
-    <Primitive v-bind="normalizeAttrs(aspectRatio.attrs(), $attrs)">
+    <Primitive v-bind="normalizeAttrs(aspectRatio.attrs([$attrs]))">
       <slot />
     </Primitive>
   </div>

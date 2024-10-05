@@ -16,7 +16,7 @@ const accordionTrigger = useAccordionTrigger()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(accordionTrigger.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(accordionTrigger.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

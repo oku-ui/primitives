@@ -1,7 +1,7 @@
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { type MutableRefObject, useRef } from '../hooks/index.ts'
 import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 
 export interface TabsListProps {
@@ -30,12 +30,12 @@ export function useTabsList(props: UseTabsListProps): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs = []) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'role': 'tablist',
         'aria-orientation': context.orientation,
       }
 
-      mergeHooksAttrs(attrs, [rovingFocusGroupRoot.attrs(), ...extraAttrs])
+      mergePrimitiveAttrs(attrs, [rovingFocusGroupRoot.attrs(), ...extraAttrs])
 
       return attrs
     },

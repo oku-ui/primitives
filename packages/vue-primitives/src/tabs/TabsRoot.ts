@@ -2,7 +2,7 @@ import type { MaybeRefOrGetter, Ref } from 'vue'
 import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
-import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface TabsRootProps {
   /** The value for the selected tab, if controlled */
@@ -75,7 +75,7 @@ export function useTabsRoot(props: UseTabsRootProps): RadixPrimitiveReturns {
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

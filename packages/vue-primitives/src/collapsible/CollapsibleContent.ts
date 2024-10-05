@@ -1,6 +1,6 @@
 import { computed, type CSSProperties, nextTick, onMounted, type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleContentProps {
@@ -97,7 +97,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     isOpen,
     attrs(extraAttrs) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'id': context.contentId,
         'data-state': context.open.value ? 'open' : 'closed',
         'data-disabled': context.disabled() ? '' : undefined,
@@ -110,7 +110,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

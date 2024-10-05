@@ -16,7 +16,7 @@ const dialogDescription = useDialogDescription()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(dialogDescription.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(dialogDescription.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

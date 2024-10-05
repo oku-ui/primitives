@@ -15,7 +15,7 @@ const dialogClose = useDialogClose()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(dialogClose.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(dialogClose.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

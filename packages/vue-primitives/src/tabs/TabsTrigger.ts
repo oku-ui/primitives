@@ -2,7 +2,7 @@ import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed } from 'vue'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 
@@ -84,7 +84,7 @@ export function useTabsTrigger(props: UseTabsTriggerProps): RadixPrimitiveReturn
         onFocus,
       }
 
-      mergeHooksAttrs(attrs, [rovingFocusGroupItem.attrs(), ...extraAttrs])
+      mergePrimitiveAttrs(attrs, [rovingFocusGroupItem.attrs(), ...extraAttrs])
 
       return attrs
     },

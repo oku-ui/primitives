@@ -14,7 +14,7 @@ const scrollAreaCornerImpl = useScrollAreaCornerImpl()
 <template>
   <Primitive
     v-if="scrollAreaCornerImpl.hasSize.value"
-    v-bind="normalizeAttrs(scrollAreaCornerImpl.attrs(), $attrs)"
+    v-bind="normalizeAttrs(scrollAreaCornerImpl.attrs([$attrs]))"
   >
     <slot />
   </Primitive>

@@ -1,6 +1,6 @@
 import { isClient } from '@vueuse/core'
 import { nextTick, onWatcherCleanup, type Ref, shallowRef, toValue, watch, watchEffect } from 'vue'
-import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { focus, focusFirst, focusScopesStack, getTabbableCandidates, getTabbableEdges, removeLinks } from './utils.ts'
 
 export interface FocusScopeProps {
@@ -226,15 +226,15 @@ export function useFocusScope(props: UseFocusScopeProps): RadixPrimitiveReturns 
   }
 
   return {
-    attrs(extraAttrs = []) {
+    attrs(extraAttrs) {
       const attrs = {
-        ref: setTemplateEl,
+        elRef: setTemplateEl,
         tabindex: -1,
         onKeydown,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

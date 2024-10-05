@@ -17,7 +17,7 @@ const dialogOverlay = useDialogOverlay({
 <template>
   <Primitive
     v-if="dialogOverlay.isPresent.value"
-    v-bind="normalizeAttrs(dialogOverlay.attrs(), $attrs)"
+    v-bind="normalizeAttrs(dialogOverlay.attrs([$attrs]))"
   >
     <slot />
   </Primitive>

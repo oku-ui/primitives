@@ -1,7 +1,7 @@
 import type { UseDialogContentInnerImplProps as _UseDialogContentImplProps, DialogContentImplEmits } from './DialogContentImpl.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogContentProps {
@@ -36,11 +36,11 @@ export function useDialogContent(props: UseDialogContent): RadixPrimitiveReturns
     isPresent,
     attrs(extraAttrs = []) {
       const attrs = {
-        ref: setTemplateEl,
+        elRef: setTemplateEl,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

@@ -21,7 +21,7 @@ const scrollAreaScrollbarScroll = useScrollAreaScrollbarScroll({
 <template>
   <ScrollAreaScrollbarVisible
     v-if="scrollAreaScrollbarScroll.isPresent.value"
-    v-bind="normalizeAttrs(scrollAreaScrollbarScroll.attrs(), $attrs)"
+    v-bind="normalizeAttrs(scrollAreaScrollbarScroll.attrs([$attrs]))"
   >
     <slot />
   </ScrollAreaScrollbarVisible>

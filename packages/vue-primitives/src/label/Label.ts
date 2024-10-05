@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface LabelProps {
   as?: PrimitiveProps['as']
@@ -31,7 +31,7 @@ export function useLabel(props?: UseLabelProps): RadixPrimitiveReturns {
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

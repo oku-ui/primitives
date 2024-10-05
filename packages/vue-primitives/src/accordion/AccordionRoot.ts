@@ -3,7 +3,7 @@ import { type AriaAttributes, computed, type MaybeRefOrGetter, type Ref } from '
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
-import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type AccordionType = 'single' | 'multiple' | undefined
 export type IsSingle<T extends AccordionType> = T extends 'single' | undefined ? true : false
@@ -230,14 +230,14 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
     attrs(extraAttrs) {
       const isDisabled = props.disabled?.()
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'data-disabled': isDisabled ? '' : undefined,
         'data-orientation': props.orientation,
         'onKeydown': isDisabled ? NOOP : onKeydown,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

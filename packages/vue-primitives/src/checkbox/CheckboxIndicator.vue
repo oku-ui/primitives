@@ -20,8 +20,7 @@ const checkboxIndicator = useCheckboxIndicator({
 <template>
   <Primitive
     v-if="checkboxIndicator.isPresent.value"
-    :as="as"
-    v-bind="normalizeAttrs(checkboxIndicator.attrs(), $attrs)"
+    v-bind="normalizeAttrs(checkboxIndicator.attrs([$attrs, { as }]))"
   >
     <slot />
   </Primitive>

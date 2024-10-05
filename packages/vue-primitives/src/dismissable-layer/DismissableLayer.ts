@@ -1,7 +1,7 @@
-import type { PrimitiveElAttrs, EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, onWatcherCleanup, type Ref, shallowReactive, shallowRef, watch } from 'vue'
 import { useEscapeKeydown } from '../hooks/index.ts'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useFocusOutside, usePointerdownOutside } from './utils.ts'
 
 export type PointerdownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>
@@ -177,9 +177,9 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
   // }, pointerdownOutside.onPointerdownCapture)
 
   return {
-    attrs(extraAttrs) {
+    attrs(extraAttrs = []) {
       const attrs: PrimitiveElAttrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'data-dismissable-layer': true,
         'style': {
           pointerEvents: isBodyPointerEventsDisabled.value
@@ -190,9 +190,7 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
         },
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
-      }
+      mergePrimitiveAttrs({}, [...extraAttrs, attrs])
 
       return attrs
     },

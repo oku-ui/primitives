@@ -16,7 +16,7 @@ const accordionContent = useAccordionContent({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(accordionContent.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(accordionContent.attrs([$attrs]))">
     <slot v-if="accordionContent.isOpen.value" />
   </Primitive>
 </template>

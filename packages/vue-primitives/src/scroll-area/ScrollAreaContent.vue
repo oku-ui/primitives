@@ -12,7 +12,7 @@ const scrollAreaContent = useScrollAreaContent()
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(scrollAreaContent.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(scrollAreaContent.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

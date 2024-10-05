@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogDescriptionProps {
@@ -15,8 +15,8 @@ export function useDialogDescription(): RadixPrimitiveReturns {
         id: context.descriptionId,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

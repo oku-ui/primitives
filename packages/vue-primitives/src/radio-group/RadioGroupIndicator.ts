@@ -1,7 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useRadioContext } from './RadioGroupItem.ts'
 
 export interface RadioGroupIndicatorProps {
@@ -35,13 +35,13 @@ export function useRadioGroupIndicator(
     isPresent,
     attrs(extraAttrs) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'data-state': context.checked.value ? 'checked' : 'unchecked',
         'data-disabled': context.disabled.value ? '' : undefined,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

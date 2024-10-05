@@ -1,7 +1,7 @@
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { useBodyScrollLock } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogOverlayProps {
@@ -38,13 +38,13 @@ export function useDialogOverlay(props: UseDialogOverlayProps = {}): RadixPrimit
     isPresent,
     attrs(extraAttrs) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'data-state': isPresent.value ? 'open' : 'closed',
         'style': 'pointer-events: auto',
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

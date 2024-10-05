@@ -2,7 +2,7 @@ import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useCheckboxContext } from './CheckboxRoot.ts'
 import { getState, isIndeterminate } from './utils.ts'
 
@@ -35,7 +35,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
     isPresent,
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'data-state': getState(context.state.value),
         'data-disabled': context.disabled() ? '' : undefined,
         'style': {
@@ -44,7 +44,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

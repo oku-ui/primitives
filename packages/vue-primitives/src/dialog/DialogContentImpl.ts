@@ -4,7 +4,7 @@ import { onBeforeUnmount, shallowRef } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer, type UseDismissableLayerProps } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export type DialogContentImplEmits = DialogContentImplPublicEmits & Omit<DismissableLayerEmits, 'dismiss'>
@@ -43,8 +43,8 @@ export function useDialogContentImpl(props: UseDialogContentProps): RadixPrimiti
     attrs(extraAttrs = []) {
       const attrs = dialogContentImpl.attrs()
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs
@@ -101,8 +101,8 @@ export function useDialogContentModal(props: UseDialogContentProps): RadixPrimit
     attrs(extraAttrs) {
       const attrs = dialogContentImpl.attrs()
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs
@@ -169,8 +169,8 @@ export function useDialogContentNonModal(props: UseDialogContentProps): RadixPri
     attrs(extraAttrs = []) {
       const attrs = dialogContentImpl.attrs()
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs
@@ -219,10 +219,8 @@ export function useDialogContentInnerImpl(props: UseDialogContentInnerImplProps)
 
   return {
     attrs(extraAttrs = []) {
-      const attrs = dismissableLayer.attrs()
-
       const dismissableAttrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'role': 'dialog',
         'id': context.contentId,
         'aria-describedby': context.descriptionId,
@@ -230,7 +228,7 @@ export function useDialogContentInnerImpl(props: UseDialogContentInnerImplProps)
         'data-state': context.open.value ? 'open' : 'closed',
       }
 
-      mergeHooksAttrs(attrs, [dismissableLayer.attrs(), focusScope.attrs(), ...extraAttrs, dismissableAttrs])
+      const attrs = dismissableLayer.attrs([dismissableAttrs, focusScope.attrs(), ...extraAttrs])
 
       return attrs
     },

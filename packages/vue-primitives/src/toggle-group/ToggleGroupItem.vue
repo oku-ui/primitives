@@ -24,10 +24,7 @@ const toggleGroupItem = useToggleGroupItem({
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    v-bind="normalizeAttrs(toggleGroupItem.attrs(), $attrs)"
-  >
+  <Primitive v-bind="normalizeAttrs(toggleGroupItem.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

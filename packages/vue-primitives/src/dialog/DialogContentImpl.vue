@@ -33,7 +33,7 @@ const dialogContentImpl = useDialogContentImpl({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(dialogContentImpl.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(dialogContentImpl.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

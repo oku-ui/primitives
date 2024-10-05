@@ -1,7 +1,7 @@
 import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, type MaybeRefOrGetter, toValue } from 'vue'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { type ToggleProps, useToggle, type UseToggleProps } from '../toggle/index.ts'
 import { useToggleGroupContext } from './ToggleGroupRoot.ts'
 
@@ -65,12 +65,12 @@ export function useToggleGroupItem(props: UseToggleGroupItemProps): RadixPrimiti
         extraAttrsList.push(rovingFocusGroupItem.attrs())
       }
 
-      if (extraAttrs) {
+      if (extraAttrs && extraAttrs.length > 0) {
         extraAttrsList.push(...extraAttrs)
       }
 
       if (extraAttrsList.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrsList)
+        mergePrimitiveAttrs(attrs, extraAttrsList)
       }
 
       return attrs

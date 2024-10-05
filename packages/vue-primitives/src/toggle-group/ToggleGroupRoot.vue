@@ -39,7 +39,7 @@ const toggleGroup = useToggleGroup({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(toggleGroup.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(toggleGroup.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

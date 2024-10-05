@@ -21,7 +21,7 @@ const scrollAreaScrollbarAuto = useScrollAreaScrollbarAuto({
 <template>
   <ScrollAreaScrollbarVisible
     v-if="scrollAreaScrollbarAuto.isPresent.value"
-    v-bind="normalizeAttrs(scrollAreaScrollbarAuto.attrs(), $attrs)"
+    v-bind="normalizeAttrs(scrollAreaScrollbarAuto.attrs([$attrs]))"
   >
     <slot />
   </ScrollAreaScrollbarVisible>

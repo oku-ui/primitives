@@ -4,7 +4,7 @@ import { composeEventHandlers, focusFirst, isFunction, wrapArray } from '@oku-ui
 import { computed, onWatcherCleanup, watch, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/Collection.ts'
 import { useId } from '../hooks/index.ts'
-import { focusFirst, mergeHooksAttrs, type RadixPrimitiveReturns, wrapArray } from '../shared/index.ts'
+import { focusFirst, mergePrimitiveAttrs, type RadixPrimitiveReturns, wrapArray } from '../shared/index.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
 import { getFocusIntent } from './utils.ts'
 
@@ -116,7 +116,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps): Ra
   return {
     attrs(extraAttrs) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         [DATA_COLLECTION_ITEM]: true,
         'tabindex': isCurrentTabStop.value ? 0 : -1,
         'data-orientation': context.orientation,
@@ -126,7 +126,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps): Ra
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

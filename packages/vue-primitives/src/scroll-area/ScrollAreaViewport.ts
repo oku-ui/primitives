@@ -1,6 +1,6 @@
 import { onMounted } from 'vue'
 import { useRef } from '../hooks/index.ts'
-import { mergeHooksAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns, type RefOrRefObject } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns, type RefOrRefObject } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaViewportProps {
@@ -19,7 +19,7 @@ export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): Radi
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'data-radix-scroll-area-viewport': '',
         'style': {
           /**
@@ -39,7 +39,7 @@ export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): Radi
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

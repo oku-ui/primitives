@@ -28,7 +28,7 @@ const rovingFocusGroupItem = useRovingFocusGroupItem({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(rovingFocusGroupItem.attrs([{ as }]), $attrs)">
+  <Primitive v-bind="normalizeAttrs(rovingFocusGroupItem.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

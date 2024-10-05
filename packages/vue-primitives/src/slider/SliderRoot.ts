@@ -6,7 +6,7 @@ import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
 import { getDecimalCount, isNumber, roundValue } from '../shared/general.ts'
-import { mergeHooksAttrs } from '../shared/mergeProps.ts'
+import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { provideSliderOrientationContext } from './SliderOrientation.ts'
 import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
 
@@ -328,7 +328,7 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
   return {
     attrs(extraAttrs) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'dir': direction.value,
         'data-orientation': orientation(),
         'aria-disabled': disabled(),
@@ -340,8 +340,8 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
         onPointerup,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

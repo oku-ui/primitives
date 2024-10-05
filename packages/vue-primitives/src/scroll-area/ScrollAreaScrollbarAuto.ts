@@ -2,7 +2,7 @@ import type { ScrollAreaScrollbarVisibleProps, UseScrollAreaScrollbarVisibleProp
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarAutoProps {
@@ -51,7 +51,7 @@ export function useScrollAreaScrollbarAuto(props: UseScrollAreaScrollbarAutoProp
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

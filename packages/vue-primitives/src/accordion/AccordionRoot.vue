@@ -35,7 +35,7 @@ const accordionRoot = useAccordionRoot({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(accordionRoot.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(accordionRoot.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

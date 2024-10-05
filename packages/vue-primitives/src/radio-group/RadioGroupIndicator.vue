@@ -20,8 +20,7 @@ const radioGroupIndicator = useRadioGroupIndicator({
 <template>
   <Primitive
     v-if="radioGroupIndicator.isPresent.value"
-    :as="as"
-    v-bind="normalizeAttrs(radioGroupIndicator.attrs(), $attrs)"
+    v-bind="normalizeAttrs(radioGroupIndicator.attrs([$attrs, { as }]))"
   >
     <slot />
   </Primitive>

@@ -19,7 +19,7 @@ const tabsContent = useTabsContent({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(tabsContent.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(tabsContent.attrs([$attrs]))">
     <slot v-if="tabsContent.isPresent.value" />
   </Primitive>
 </template>

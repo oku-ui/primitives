@@ -3,7 +3,7 @@ import { isClient, useDebounceFn } from '@vueuse/core'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarScrollProps {
@@ -117,7 +117,7 @@ export function useScrollAreaScrollbarScroll(props: UseScrollAreaScrollbarScroll
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

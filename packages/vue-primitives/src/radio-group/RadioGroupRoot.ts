@@ -2,7 +2,7 @@ import type { MaybeRefOrGetter, Ref } from 'vue'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
 import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface RadioGroupRootProps {
   name?: string
@@ -72,14 +72,14 @@ export function useRadioGroupRoot(props: UseRadioGroupRootProps): RadixPrimitive
   return {
     attrs(extraAttrs = []) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'role': 'radiogroup',
         'aria-required': props.required?.(),
         'aria-orientation': props.orientation,
         'data-disabled': props.disabled?.() ? '' : undefined,
       }
 
-      mergeHooksAttrs(attrs, [rovingFocusGroupRoot.attrs(), ...extraAttrs])
+      mergePrimitiveAttrs(attrs, [rovingFocusGroupRoot.attrs(), ...extraAttrs])
 
       return attrs
     },

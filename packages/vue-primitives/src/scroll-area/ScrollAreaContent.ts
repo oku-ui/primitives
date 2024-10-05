@@ -1,4 +1,4 @@
-import { mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export function useScrollAreaContent(): RadixPrimitiveReturns {
@@ -11,12 +11,12 @@ export function useScrollAreaContent(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs = {
-        ref: setTemplateEl,
+        elRef: setTemplateEl,
         style: 'min-width: 100%; display: table',
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

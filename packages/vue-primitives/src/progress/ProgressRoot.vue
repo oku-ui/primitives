@@ -46,7 +46,7 @@ const progressRoot = useProgressRoot({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(progressRoot.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(progressRoot.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

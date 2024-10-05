@@ -32,7 +32,7 @@ const tabsRoot = useTabsRoot({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(tabsRoot.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(tabsRoot.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

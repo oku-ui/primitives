@@ -29,7 +29,7 @@ const focusScope = useFocusScope({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(focusScope.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(focusScope.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

@@ -18,7 +18,7 @@ const separator = useSeparator({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(separator.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(separator.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

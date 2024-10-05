@@ -1,6 +1,6 @@
 import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 
@@ -52,7 +52,7 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
     isPresent,
     attrs(extraAttrs) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'id': contentId.value,
         'data-state': isSelected.value ? 'active' : 'inactive',
         'data-orientation': context.orientation,
@@ -66,7 +66,7 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

@@ -16,7 +16,7 @@ const dialogContent = useDialogContent({
 </script>
 
 <template>
-  <DialogContentImpl v-if="dialogContent.isPresent.value" v-bind="normalizeAttrs(dialogContent.attrs(), $attrs)">
+  <DialogContentImpl v-if="dialogContent.isPresent.value" v-bind="normalizeAttrs(dialogContent.attrs([$attrs]))">
     <slot />
   </DialogContentImpl>
 </template>

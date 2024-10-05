@@ -24,7 +24,7 @@ const scrollAreaRoot = useScrollAreaRoot({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(scrollAreaRoot.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(scrollAreaRoot.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

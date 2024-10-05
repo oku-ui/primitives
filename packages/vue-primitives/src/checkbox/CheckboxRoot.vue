@@ -42,7 +42,7 @@ const checkboxRoot = useCheckboxRoot({
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(checkboxRoot.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(checkboxRoot.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

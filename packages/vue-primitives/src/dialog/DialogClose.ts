@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import { mergeHooksAttrs } from '../shared/mergeProps.ts'
+import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogCloseProps {
@@ -22,8 +22,8 @@ export function useDialogClose(): RadixPrimitiveReturns {
         onClick,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

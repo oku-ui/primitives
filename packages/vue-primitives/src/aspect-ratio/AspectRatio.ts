@@ -1,4 +1,4 @@
-import { mergeHooksAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface AspectRatioProps {
   ratio?: number
@@ -41,8 +41,8 @@ export function useAspectRatio(props: UseAspectRatioProps = {}): RadixPrimitiveR
         },
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

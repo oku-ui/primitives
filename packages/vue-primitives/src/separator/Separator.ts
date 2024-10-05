@@ -1,4 +1,4 @@
-import { type PrimitiveElAttrs, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface SeparatorProps {
   /**
@@ -30,8 +30,8 @@ export function useSeparator(props: UseSeparatorProps): RadixPrimitiveReturns {
           }
       attrs['data-orientation'] = orientation
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

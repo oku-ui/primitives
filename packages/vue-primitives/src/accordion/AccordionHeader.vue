@@ -16,7 +16,7 @@ const accordionHeader = useAccordionHeader()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(accordionHeader.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(accordionHeader.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

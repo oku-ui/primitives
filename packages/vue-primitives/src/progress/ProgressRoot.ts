@@ -1,6 +1,6 @@
 import { computed, toValue } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import { isNumber, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { isNumber, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { DEFAULT_MAX, defaultGetValueLabel, getProgressState } from './utils.ts'
 
 export interface ProgressRootProps {
@@ -51,8 +51,8 @@ export function useProgressRoot(props: UseProgressRootProps): RadixPrimitiveRetu
         'data-max': max,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

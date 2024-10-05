@@ -1,7 +1,7 @@
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { useDebounceFn } from '@vueuse/core'
 import { onWatcherCleanup, watchEffect } from 'vue'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { addUnlinkedScrollListener } from './utils.ts'
@@ -72,7 +72,7 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'data-state': scrollbarContext.hasThumb.value ? 'visible' : 'hidden',
         'style': 'width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)',
         onPointerdownCapture,
@@ -80,7 +80,7 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

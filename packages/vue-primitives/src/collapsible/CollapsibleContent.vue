@@ -16,7 +16,7 @@ const collapsibleContent = useCollapsibleContent({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(collapsibleContent.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(collapsibleContent.attrs([$attrs]))">
     <slot v-if="collapsibleContent.isOpen.value" />
   </Primitive>
 </template>

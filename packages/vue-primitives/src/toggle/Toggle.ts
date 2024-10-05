@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { useControllableStateV2 } from '../hooks/useControllableState.ts'
-import { type EmitsToHookProps, mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface ToggleProps {
   as?: PrimitiveProps['as']
@@ -53,7 +53,7 @@ export function useToggle(props: UseToggleProps): RadixPrimitiveReturns {
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

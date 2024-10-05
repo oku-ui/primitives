@@ -30,10 +30,7 @@ const toggle = useToggle({
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    v-bind="normalizeAttrs(toggle.attrs(), $attrs)"
-  >
+  <Primitive v-bind="normalizeAttrs(toggle.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

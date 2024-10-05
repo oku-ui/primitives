@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
-import { mergeHooksAttrs } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogTriggerProps {
@@ -21,7 +21,7 @@ export function useDialogTrigger(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'type': 'button',
         'aria-haspopup': 'dialog',
         'aria-expanded': context.open.value || false,
@@ -30,8 +30,8 @@ export function useDialogTrigger(): RadixPrimitiveReturns {
         onClick,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

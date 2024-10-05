@@ -15,7 +15,7 @@ const dialogTrigger = useDialogTrigger()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(dialogTrigger.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(dialogTrigger.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

@@ -1,7 +1,7 @@
 import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 import { onBeforeUnmount, onMounted, type Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import { mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarProps {
@@ -48,7 +48,7 @@ export function useScrollAreaScrollbar(props: UseScrollbarProps): RadixPrimitive
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
-        mergeHooksAttrs(attrs, extraAttrs)
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs

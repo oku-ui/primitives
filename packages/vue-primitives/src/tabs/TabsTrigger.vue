@@ -24,7 +24,7 @@ const tabsTrigger = useTabsTrigger({
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(tabsTrigger.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(tabsTrigger.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

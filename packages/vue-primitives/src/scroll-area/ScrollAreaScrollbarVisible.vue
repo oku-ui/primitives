@@ -19,7 +19,7 @@ const scrollAreaScrollbarVisible = useScrollAreaScrollbarVisible({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(scrollAreaScrollbarVisible.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(scrollAreaScrollbarVisible.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

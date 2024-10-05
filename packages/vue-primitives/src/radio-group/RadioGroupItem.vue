@@ -26,7 +26,7 @@ const radioGroupItem = useRadioGroupItem({
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(radioGroupItem.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(radioGroupItem.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

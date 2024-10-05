@@ -2,7 +2,7 @@ import type { PrimitiveProps } from '../primitive/index.ts'
 import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
-import { mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useRadioGroupContext } from './RadioGroupRoot.ts'
 
 export interface RadioGroupItemProps {
@@ -145,7 +145,7 @@ export function useRadioGroupItem(props: UseRadioGroupItem): RadixPrimitiveRetur
       const _disabled = disabled.value
 
       const attrs = {
-        'ref': setTemplateEl,
+        'elRef': setTemplateEl,
         'type': 'button',
         'role': 'radio',
         'aria-checked': checked.value,
@@ -158,7 +158,7 @@ export function useRadioGroupItem(props: UseRadioGroupItem): RadixPrimitiveRetur
         onClick,
       }
 
-      mergeHooksAttrs(attrs, [rovingFocusGroupItem.attrs(), ...extraAttrs])
+      mergePrimitiveAttrs(attrs, [rovingFocusGroupItem.attrs(), ...extraAttrs])
 
       return attrs
     },

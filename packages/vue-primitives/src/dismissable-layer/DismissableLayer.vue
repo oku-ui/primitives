@@ -18,9 +18,7 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 const emit = defineEmits<DismissableLayerEmits>()
 
 const dismissableLayer = useDismissableLayer({
-  disableOutsidePointerEvents() {
-    return props.disableOutsidePointerEvents
-  },
+  disableOutsidePointerEvents: props.disableOutsidePointerEvents,
   onPointerdownOutside(event) {
     emit('pointerdownOutside', event)
   },
@@ -40,7 +38,7 @@ const dismissableLayer = useDismissableLayer({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(dismissableLayer.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(dismissableLayer.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

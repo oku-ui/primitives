@@ -18,7 +18,7 @@ const tabsList = useTabsList({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(tabsList.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(tabsList.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

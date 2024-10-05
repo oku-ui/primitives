@@ -18,7 +18,7 @@ const dialogTitle = useDialogTitle()
 </script>
 
 <template>
-  <Primitive :as="as" v-bind="normalizeAttrs(dialogTitle.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(dialogTitle.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

@@ -31,7 +31,7 @@ const Comp = context.type === 'hover'
 </script>
 
 <template>
-  <Comp v-bind="normalizeAttrs(scrollAreaScrollbar.attrs(), $attrs)">
+  <Comp v-bind="normalizeAttrs(scrollAreaScrollbar.attrs([$attrs]))">
     <slot />
   </Comp>
 </template>

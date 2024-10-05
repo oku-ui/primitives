@@ -12,7 +12,7 @@ const progressIndicator = useProgressIndicator()
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(progressIndicator.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(progressIndicator.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

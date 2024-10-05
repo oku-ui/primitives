@@ -31,7 +31,7 @@ const rovingFocusGroupRoot = useRovingFocusGroupRoot({
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(rovingFocusGroupRoot.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(rovingFocusGroupRoot.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

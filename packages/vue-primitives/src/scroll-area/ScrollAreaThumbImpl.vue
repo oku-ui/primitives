@@ -12,7 +12,7 @@ const scrollAreaThumbImpl = useScrollAreaThumbImpl()
 </script>
 
 <template>
-  <Primitive v-bind="normalizeAttrs(scrollAreaThumbImpl.attrs(), $attrs)">
+  <Primitive v-bind="normalizeAttrs(scrollAreaThumbImpl.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

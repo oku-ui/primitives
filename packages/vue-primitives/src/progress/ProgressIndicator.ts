@@ -1,5 +1,5 @@
 import { toValue } from 'vue'
-import { mergeHooksAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useProgressContext } from './ProgressRoot.ts'
 import { getProgressState } from './utils.ts'
 
@@ -17,8 +17,8 @@ export function useProgressIndicator(): RadixPrimitiveReturns {
         'data-max': _max,
       }
 
-      if (extraAttrs) {
-        mergeHooksAttrs(attrs, extraAttrs)
+      if (extraAttrs && extraAttrs.length > 0) {
+        mergePrimitiveAttrs(attrs, extraAttrs)
       }
 
       return attrs
