@@ -1,6 +1,5 @@
 import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import type { ToggleGroupEmits, ToggleGroupProps, ToggleGroupType } from '../toggle-group/index.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { useToggleGroup, type UseToggleGroupProps } from '../toggle-group/ToggleGroupRoot.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'
 
