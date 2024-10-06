@@ -1,10 +1,11 @@
+import type { PrimitiveProps } from '../primitive/Primitive.ts'
 import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import type { ToggleGroupItemProps } from '../toggle-group/index.ts'
-import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
 import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import { type ToggleGroupItemProps, useToggleGroupItem } from '../toggle-group/index.ts'
 import { useToolbarButton } from './ToolbarButton.ts'
 
 export interface ToolbarToggleItemProps {
+  as?: PrimitiveProps['as']
   value: ToggleGroupItemProps['value']
   disabled?: boolean
 }
@@ -15,7 +16,10 @@ export interface UseToolbarToggleItem {
 }
 
 export function useToolbarToggleItem(props: UseToolbarToggleItem): RadixPrimitiveReturns {
-  const rovingFocusGroupItem = useRovingFocusGroupItem()
+  const toggleGroupItem = useToggleGroupItem({
+    value: props.value,
+    disabled: props.disabled,
+  })
 
   const toolbarButton = useToolbarButton({
     disabled: props.disabled,
@@ -23,7 +27,7 @@ export function useToolbarToggleItem(props: UseToolbarToggleItem): RadixPrimitiv
 
   return {
     attrs(extraAttrs = []) {
-      const attrs = rovingFocusGroupItem.attrs()
+      const attrs = toggleGroupItem.attrs()
 
       mergePrimitiveAttrs(attrs, [toolbarButton.attrs(), ...extraAttrs])
 

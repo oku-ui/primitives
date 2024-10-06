@@ -9,6 +9,7 @@ defineOptions({
 })
 
 const prosp = withDefaults(defineProps<ToolbarToggleItemProps>(), {
+  as: 'button',
   disabled: undefined,
 })
 
@@ -23,9 +24,7 @@ const toolbarToggleItem = useToolbarToggleItem({
 </script>
 
 <template>
-  <Primitive
-    v-bind="normalizeAttrs(toolbarToggleItem.attrs([$attrs]))"
-  >
+  <Primitive v-bind="normalizeAttrs(toolbarToggleItem.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

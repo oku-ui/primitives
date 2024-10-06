@@ -5,6 +5,6 @@ import ToolbarExample from './ToolbarExample.vue'
 <template>
   <div>
     <ToolbarExample title="Horizontal" />
-    <ToolbarExample title="Vertical" orientation="vertical" />
+    <!-- <ToolbarExample title="Vertical" orientation="vertical" /> -->
   </div>
 </template>
