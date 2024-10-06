@@ -18,7 +18,9 @@ const emit = defineEmits<FocusScopeEmits>()
 
 const focusScope = useFocusScope({
   loop: props.loop,
-  trapped: props.trapped,
+  trapped() {
+    return props.trapped
+  },
   onMountAutoFocus(event) {
     emit('mountAutoFocus', event)
   },

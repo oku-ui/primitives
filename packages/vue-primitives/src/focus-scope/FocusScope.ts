@@ -40,10 +40,12 @@ export const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount'
 export interface UseFocusScopeProps extends EmitsToHookProps<FocusScopeEmits> {
   el?: Ref<HTMLElement | undefined>
   loop?: boolean
-  trapped?: boolean
+  trapped?: () => boolean
 }
 
 export function useFocusScope(props: UseFocusScopeProps): RadixPrimitiveReturns {
+  const { trapped = () => false } = props
+
   const el = props.el || shallowRef<HTMLElement>()
   const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
@@ -116,7 +118,7 @@ export function useFocusScope(props: UseFocusScopeProps): RadixPrimitiveReturns 
     }
 
     watchEffect(() => {
-      if (!props.trapped)
+      if (!trapped())
         return
 
       document.addEventListener('focusin', handleFocusIn)
@@ -187,7 +189,7 @@ export function useFocusScope(props: UseFocusScopeProps): RadixPrimitiveReturns 
 
   // Takes care of looping focus (when tabbing whilst at the edges)
   function onKeydown(event: KeyboardEvent) {
-    if (!props.loop && !toValue(props.trapped))
+    if (!props.loop && !trapped())
       return
     if (focusScope.paused)
       return

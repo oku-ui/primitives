@@ -23,9 +23,9 @@ export type DialogContentImplPublicEmits = {
   closeAutoFocus: [event: Event]
 }
 
-export interface UseDialogContentProps extends Omit<UseDialogContentInnerImplProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
+export interface UseDialogContentImplProps extends Omit<UseDialogContentImplSharedProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
 
-export function useDialogContentImpl(props: UseDialogContentProps): RadixPrimitiveReturns {
+export function useDialogContentImpl(props: UseDialogContentImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContent')
 
   const useDialogContentImpl = context.modal ? useDialogContentModal : useDialogContentNonModal
@@ -52,7 +52,7 @@ export function useDialogContentImpl(props: UseDialogContentProps): RadixPrimiti
   }
 }
 
-export function useDialogContentModal(props: UseDialogContentProps): RadixPrimitiveReturns {
+export function useDialogContentModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContentModal')
 
   // aria-hide everything except the content (better supported equivalent to setting aria-modal)
@@ -61,9 +61,11 @@ export function useDialogContentModal(props: UseDialogContentProps): RadixPrimit
       hideOthers(context.content.value)
   })
 
-  const dialogContentImpl = useDialogContentInnerImpl({
-    trapFocus: false,
-    disableOutsidePointerEvents: false,
+  const dialogContentImpl = useDialogContentImplShared({
+    trapFocus() {
+      return context.open.value
+    },
+    disableOutsidePointerEvents: true,
     onCloseAutoFocus(event) {
       props.onCloseAutoFocus?.(event)
       if (event.defaultPrevented)
@@ -110,14 +112,16 @@ export function useDialogContentModal(props: UseDialogContentProps): RadixPrimit
   }
 }
 
-export function useDialogContentNonModal(props: UseDialogContentProps): RadixPrimitiveReturns {
+export function useDialogContentNonModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContentNonModal')
 
   let hasInteractedOutsideRef = false
   let hasPointerDownOutsideRef = false
 
-  const dialogContentImpl = useDialogContentInnerImpl({
-    trapFocus: false,
+  const dialogContentImpl = useDialogContentImplShared({
+    trapFocus() {
+      return false
+    },
     disableOutsidePointerEvents: false,
     onCloseAutoFocus(event) {
       props.onCloseAutoFocus?.(event)
@@ -178,11 +182,11 @@ export function useDialogContentNonModal(props: UseDialogContentProps): RadixPri
   }
 }
 
-export interface UseDialogContentInnerImplProps extends EmitsToHookProps<DialogContentImplPublicEmits>, Omit<UseDismissableLayerProps, 'onDismiss'> {
-  trapFocus?: boolean
+export interface UseDialogContentImplSharedProps extends EmitsToHookProps<DialogContentImplPublicEmits>, Omit<UseDismissableLayerProps, 'onDismiss'> {
+  trapFocus?: () => boolean
 }
 
-export function useDialogContentInnerImpl(props: UseDialogContentInnerImplProps): RadixPrimitiveReturns {
+export function useDialogContentImplShared(props: UseDialogContentImplSharedProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContentNonModal')
 
   const el = props.el || shallowRef<HTMLElement>()

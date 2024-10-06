@@ -1,4 +1,4 @@
-import type { UseDialogContentInnerImplProps as _UseDialogContentImplProps, DialogContentImplEmits } from './DialogContentImpl.ts'
+import type { UseDialogContentImplSharedProps as _UseDialogContentImplProps, DialogContentImplEmits } from './DialogContentImpl.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
