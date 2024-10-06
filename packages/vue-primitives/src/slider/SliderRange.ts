@@ -1,8 +1,7 @@
 import type { PrimitiveProps } from '../primitive'
 import { computed } from 'vue'
 import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
-import { useSliderOrientationContext } from './SliderOrientation.ts'
-import { useSliderContext } from './SliderRoot.ts'
+import { useSliderContext, useSliderOrientationContext } from './SliderRoot.ts'
 import { convertValueToPercentage } from './utils.ts'
 
 export interface SliderRangeProps {
@@ -12,7 +11,6 @@ export interface SliderRangeProps {
 export function useSliderRange(): RadixPrimitiveReturns {
   const context = useSliderContext('SliderRange')
   const orientation = useSliderOrientationContext('SliderRange')
-  console.error('context', context.values.value)
 
   const percentages = computed(() => context.values.value.map(value => convertValueToPercentage(value, context.min(), context.max())))
 

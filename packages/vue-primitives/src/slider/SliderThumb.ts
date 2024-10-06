@@ -2,10 +2,9 @@ import type { PrimitiveProps } from '../primitive/index.ts'
 import { isClient } from '@vueuse/core'
 import { computed, onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
-import { createContext, useSize } from '../hooks/index.ts'
+import { useSize } from '../hooks/index.ts'
 import { type IAttrsData, mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
-import { useSliderOrientationContext } from './SliderOrientation.ts'
-import { useCollection, useSliderContext } from './SliderRoot.ts'
+import { useCollection, useSliderContext, useSliderOrientationContext } from './SliderRoot.ts'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
 
 export interface SliderThumbProps {

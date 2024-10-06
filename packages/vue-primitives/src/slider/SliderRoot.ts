@@ -1,19 +1,18 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { EmitsToHookProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { clamp } from '@floating-ui/utils'
-import { computed, type HTMLAttributes, type MaybeRefOrGetter, type Ref, watchEffect } from 'vue'
+import { computed, type HTMLAttributes, type MaybeRefOrGetter, type Ref, type UnwrapRef, watchEffect } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
+import { createContext, type MutableRefObject, useControllableStateV2, useRef, type useSize } from '../hooks/index.ts'
 import { getDecimalCount, isNumber, roundValue } from '../shared/general.ts'
 import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
-import { provideSliderOrientationContext } from './SliderOrientation.ts'
 import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 
-type SlideDirection = 'from-left' | 'from-right' | 'from-bottom' | 'from-top'
+export type SlideDirection = 'from-left' | 'from-right' | 'from-bottom' | 'from-top'
 export const BACK_KEYS: Record<SlideDirection, string[]> = {
   'from-left': ['Home', 'PageDown', 'ArrowDown', 'ArrowLeft'],
   'from-right': ['Home', 'PageDown', 'ArrowDown', 'ArrowRight'],
@@ -55,6 +54,17 @@ export interface SliderContext {
 export const [provideSliderContext, useSliderContext] = createContext<SliderContext>('Slider')
 
 export const [Collection, useCollection] = createCollection<HTMLElement>('Slider')
+
+export type Side = 'top' | 'right' | 'bottom' | 'left'
+
+export type SliderOrientationContext = Ref<{
+  startEdge: Side
+  endEdge: Side
+  size: keyof NonNullable<UnwrapRef<ReturnType<typeof useSize>>>
+  direction: number
+}>
+
+export const [provideSliderOrientationContext, useSliderOrientationContext] = createContext<SliderOrientationContext>('SliderOrientation')
 
 export interface UseSliderRootProps extends EmitsToHookProps<SliderRootEmits> {
   el?: MutableRefObject<HTMLElement>
