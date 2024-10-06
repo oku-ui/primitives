@@ -35,6 +35,20 @@ export interface PopperContentProps {
   dir?: Direction
 }
 
+export const PopperContentPropsDefaults = {
+  side: 'bottom',
+  sideOffset: 0,
+  align: 'center',
+  alignOffset: 0,
+  arrowPadding: 0,
+  avoidCollisions: true,
+  collisionBoundary: () => [],
+  collisionPadding: 0,
+  sticky: 'partial',
+  hideWhenDetached: false,
+  updatePositionStrategy: 'optimized',
+} as const
+
 export type PopperContentEmits = {
   placed: []
 }
@@ -57,7 +71,7 @@ export interface PopperContentContext {
 
 export const [provideContentContext, useContentContext] = createContext<PopperContentContext>('PopperContent')
 
-export interface UseCollisionPadding extends EmitsToHookProps<PopperContentEmits> {
+export interface UsePopperContentProps extends EmitsToHookProps<PopperContentEmits> {
   side?: Side
   sideOffset?: number
   align?: Align
@@ -72,7 +86,7 @@ export interface UseCollisionPadding extends EmitsToHookProps<PopperContentEmits
   dir?: MaybeRefOrGetter<Direction | undefined>
 }
 
-export function usePopperContent(props: UseCollisionPadding): RadixPrimitiveReturns<{
+export function usePopperContent(props: UsePopperContentProps): RadixPrimitiveReturns<{
   wrapperAttrs: () => IAttrsData
   attrs: RadixPrimitiveGetAttrs
 }> {

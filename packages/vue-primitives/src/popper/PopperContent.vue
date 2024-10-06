@@ -1,26 +1,14 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type PopperContentEmits, type PopperContentProps, usePopperContent } from './PopperContent.ts'
+import { type PopperContentEmits, type PopperContentProps, PopperContentPropsDefaults, usePopperContent } from './PopperContent.ts'
 
 defineOptions({
   name: 'PopperContent',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<PopperContentProps>(), {
-  side: 'bottom',
-  sideOffset: 0,
-  align: 'center',
-  alignOffset: 0,
-  arrowPadding: 0,
-  avoidCollisions: true,
-  collisionBoundary: () => [],
-  collisionPadding: 0,
-  sticky: 'partial',
-  hideWhenDetached: false,
-  updatePositionStrategy: 'optimized',
-})
+const props = withDefaults(defineProps<PopperContentProps>(), PopperContentPropsDefaults)
 const emit = defineEmits<PopperContentEmits>()
 
 const popperContent = usePopperContent({

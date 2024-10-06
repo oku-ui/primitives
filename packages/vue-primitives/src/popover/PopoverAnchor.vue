@@ -2,8 +2,8 @@
 import type { PopoverAnchorProps } from './PopoverAnchor.ts'
 import { Primitive } from '@oku-ui/primitive'
 import { onBeforeUnmount, onMounted } from 'vue'
-import { useForwardElement } from '../hooks/useForwardElement.ts'
 import { useRef } from '../hooks/index.ts'
+import { useForwardElement } from '../hooks/useForwardElement.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 

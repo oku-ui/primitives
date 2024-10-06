@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { PopoverTriggerEmits, PopoverTriggerProps } from './PopoverTrigger.ts'
-import { useComposedElements } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
+import type { PopoverTriggerProps } from './PopoverTrigger.ts'
+import { useComposedElements } from '../hooks/index.ts'
 import { PopperAnchor } from '../popper/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 import { getState } from './utilts.ts'
@@ -14,7 +12,7 @@ defineOptions({
 withDefaults(defineProps<PopoverTriggerProps>(), {
   as: 'button',
 })
-const emit = defineEmits<PopoverTriggerEmits>()
+// const emit = defineEmits<PopoverTriggerEmits>()
 const context = usePopoverContext('PopoverTrigger')
 
 const composedElements = useComposedElements<HTMLButtonElement>((v) => {
@@ -22,7 +20,7 @@ const composedElements = useComposedElements<HTMLButtonElement>((v) => {
 })
 
 const onClick = composeEventHandlers<MouseEvent>((event) => {
-  emit('click', event)
+  // emit('click', event)
 }, context.onOpenToggle)
 </script>
 

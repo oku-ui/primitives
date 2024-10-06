@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import type { PopoverContentProps } from './PopoverContent.ts'
-import { usePopperContext } from '../popper/index.ts'
-import { usePresence } from '../presence/index.ts'
-import PopoverContentModal from './PopoverContentModal.vue'
-import PopoverContentNonModal from './PopoverContentNonModal.vue'
-import { usePopoverContext } from './PopoverRoot.ts'
+import { type PopoverContentProps, usePopoverContent } from './PopoverContent.ts'
+import PopoverContentImpl from './PopoverContentImpl.vue'
 
 defineOptions({
   name: 'PopoverContent',
@@ -12,16 +8,13 @@ defineOptions({
 
 const props = defineProps<PopoverContentProps>()
 
-const context = usePopoverContext('PopoverContent')
-const popperContext = usePopperContext('PopoverContent')
-
-const isPresent = usePresence(popperContext.content, () => props.forceMount || context.open.value)
-
-const Comp = context.modal ? PopoverContentModal : PopoverContentNonModal
+const popoverContent = usePopoverContent({
+  forceMount: props.forceMount,
+})
 </script>
 
 <template>
-  <Comp v-if="isPresent">
+  <PopoverContentImpl v-if="popoverContent.isPresent.value">
     <slot />
-  </Comp>
+  </PopoverContentImpl>
 </template>
