@@ -93,7 +93,7 @@ const TYPE_MULTIPLE = 'multiple' as const satisfies ToggleGroupType
 
 export function useToggleGroup<T extends ToggleGroupType>(props: UseToggleGroupProps<T>): RadixPrimitiveReturns {
   const {
-    disabled = () => false,
+    disabled = () => undefined,
     rovingFocus = true,
     loop = true,
   } = props

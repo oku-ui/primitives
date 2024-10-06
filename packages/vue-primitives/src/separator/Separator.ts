@@ -23,12 +23,15 @@ export function useSeparator(props: UseSeparatorProps): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = props.decorative
-        ? { role: 'none' }
+        ? {
+            'role': 'none',
+            'data-orientation': orientation,
+          }
         : {
             'aria-orientation': orientation === 'vertical' ? orientation : undefined,
             'role': 'separator',
+            'data-orientation': orientation,
           }
-      attrs['data-orientation'] = orientation
 
       if (extraAttrs && extraAttrs.length > 0) {
         mergePrimitiveAttrs(attrs, extraAttrs)

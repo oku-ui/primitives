@@ -1,49 +1,31 @@
 <script setup lang="ts">
-import type { ToolbarToggleItemEmits, ToolbarToggleItemProps } from './ToolbarToggleItem.ts'
-import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
-import { useComposedElements } from '@oku-ui/hooks'
-import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
-import { ToggleGroupItem } from '../toggle-group/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type ToolbarToggleItemProps, useToolbarToggleItem } from './ToolbarToggleItem.ts'
 
 defineOptions({
   name: 'ToolbarToggleItem',
-})
-defineProps<ToolbarToggleItemProps>()
-
-const emit = defineEmits<ToolbarToggleItemEmits>()
-
-const rovingFocusGroupItem = useRovingFocusGroupItem({}, {
-  onMousedown(event) {
-    emit('mousedown', event)
-  },
-  onKeydown(event) {
-    emit('keydown', event)
-  },
-  onFocus(event) {
-    emit('focus', event)
-  },
+  inheritAttrs: false,
 })
 
-const forwardElement = useComposedElements((v) => {
-  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData, rovingFocusGroupItem.collectionKey)
+const prosp = withDefaults(defineProps<ToolbarToggleItemProps>(), {
+  disabled: undefined,
+})
+
+const toolbarToggleItem = useToolbarToggleItem({
+  value() {
+    return prosp.value
+  },
+  disabled() {
+    return prosp.disabled
+  },
 })
 </script>
 
 <template>
-  <ToggleGroupItem
-    :ref="forwardElement"
-    :[DATA_COLLECTION_ITEM]="true"
-
-    :tabindex="rovingFocusGroupItem.tabindex()"
-    :data-orientation="rovingFocusGroupItem.orientation()"
-
-    :value="value"
-    type="button"
-
-    @mousedown="rovingFocusGroupItem.onMousedown"
-    @focus="rovingFocusGroupItem.onFocus"
-    @keydown="rovingFocusGroupItem.onKeydown"
+  <Primitive
+    v-bind="normalizeAttrs(toolbarToggleItem.attrs([$attrs]))"
   >
     <slot />
-  </ToggleGroupItem>
+  </Primitive>
 </template>

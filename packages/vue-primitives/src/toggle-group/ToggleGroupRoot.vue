@@ -9,7 +9,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<ToggleGroupProps<T>>(), {
-  disabled: false,
+  disabled: undefined,
   rovingFocus: true,
   loop: true,
 })

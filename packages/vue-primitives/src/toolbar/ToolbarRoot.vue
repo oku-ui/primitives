@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useForwardElement, useRef } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { useDirection } from '../direction/index.ts'
-import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { provideToolbarContext, type ToolbarRootEmits, type ToolbarRootProps } from './ToolbarRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { type ToolbarRootProps, useToolbarRoot } from './ToolbarRoot.ts'
 
 defineOptions({
   name: 'ToolbarRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ToolbarRootProps>(), {
@@ -14,57 +13,17 @@ const props = withDefaults(defineProps<ToolbarRootProps>(), {
   loop: true,
 })
 
-const emit = defineEmits<ToolbarRootEmits>()
-const elRef = useRef<HTMLElement>()
-const forwardElement = useForwardElement(elRef)
-
-const direction = useDirection(() => props.dir)
-
-provideToolbarContext({
-  orientation() {
-    return props.orientation
-  },
-  dir: direction,
-})
-
-const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
-  currentTabStopId: undefined,
-  orientation() {
-    return props.orientation
-  },
-  loop() {
-    return props.loop
-  },
-  dir: direction,
-}, {
-  onMousedown(event) {
-    emit('mousedown', event)
-  },
-  onFocus(event) {
-    emit('focus', event)
-  },
-  onFocusout(event) {
-    emit('focusout', event)
+const toolbarRoot = useToolbarRoot({
+  orientation: props.orientation,
+  loop: props.loop,
+  dir() {
+    return props.dir
   },
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-
-    :dir="direction"
-    :tabindex="rovingFocusGroupRoot.tabindex()"
-    :data-orientation="orientation"
-    style="outline: none;"
-
-    role="toolbar"
-    :aria-orientation="orientation"
-
-    @mousedown="rovingFocusGroupRoot.onMousedown"
-    @focus="rovingFocusGroupRoot.onFocus"
-    @focusout="rovingFocusGroupRoot.onFocusout"
-  >
+  <Primitive v-bind="normalizeAttrs(toolbarRoot.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

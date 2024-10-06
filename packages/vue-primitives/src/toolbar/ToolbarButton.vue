@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { ToolbarButtonEmits, ToolbarButtonProps } from './ToolbarButton.ts'
-import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
-import { useComposedElements } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type ToolbarButtonProps, useToolbarButton } from './ToolbarButton.ts'
 
 defineOptions({
   name: 'ToolbarButton',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ToolbarButtonProps>(), {
@@ -14,45 +13,15 @@ const props = withDefaults(defineProps<ToolbarButtonProps>(), {
   disabled: undefined,
 })
 
-const emit = defineEmits<ToolbarButtonEmits>()
-
-const rovingFocusGroupItem = useRovingFocusGroupItem({
-  focusable() {
-    return !props.disabled
+const toolbarButton = useToolbarButton({
+  disabled() {
+    return props.disabled
   },
-}, {
-  onMousedown(event) {
-    emit('mousedown', event)
-  },
-  onKeydown(event) {
-    emit('keydown', event)
-  },
-  onFocus(event) {
-    emit('focus', event)
-  },
-})
-
-const forwardElement = useComposedElements((v) => {
-  rovingFocusGroupItem.useCollectionItem(v, rovingFocusGroupItem.itemData, rovingFocusGroupItem.collectionKey)
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardElement"
-    :as="as"
-    :[DATA_COLLECTION_ITEM]="true"
-
-    :tabindex="rovingFocusGroupItem.tabindex()"
-    :data-orientation="rovingFocusGroupItem.orientation()"
-
-    type="button"
-    :disabled="disabled"
-
-    @mousedown="rovingFocusGroupItem.onMousedown"
-    @focus="rovingFocusGroupItem.onFocus"
-    @keydown="rovingFocusGroupItem.onKeydown"
-  >
+  <Primitive v-bind="normalizeAttrs(toolbarButton.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>
