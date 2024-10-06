@@ -13,6 +13,7 @@ import {
 
 defineOptions({
   name: 'MenuRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<MenuRootProps>(), {

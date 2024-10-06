@@ -6,6 +6,7 @@ import { type PopoverRootEmits, type PopoverRootProps, providePopoverContext } f
 
 defineOptions({
   name: 'PopoverRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<PopoverRootProps>(), {

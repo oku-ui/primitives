@@ -7,6 +7,7 @@ import { type Measurable, providePopperContext } from '../popper/index.ts'
 
 defineOptions({
   name: 'DropdownMenuSub',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<DropdownMenuSubProps>(), {

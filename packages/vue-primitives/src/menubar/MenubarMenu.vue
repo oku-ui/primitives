@@ -8,7 +8,9 @@ import { useMenubarContext } from './MenubarRoot.ts'
 
 defineOptions({
   name: 'MenubarMenu',
+  inheritAttrs: false,
 })
+
 const props = defineProps<MenubarMenuProps>()
 
 // We need to provide an initial deterministic value as `useId` will return

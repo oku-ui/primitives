@@ -7,6 +7,7 @@ import { type ContextMenuRootEmits, type ContextMenuRootProps, provideContextMen
 
 defineOptions({
   name: 'ContextMenuRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ContextMenuRootProps>(), {

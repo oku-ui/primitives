@@ -7,6 +7,7 @@ import { provideTooltipContext, TOOLTIP_OPEN, type TooltipRootEmits, type Toolti
 
 defineOptions({
   name: 'TooltipRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<TooltipRootProps>(), {

@@ -5,6 +5,7 @@ import { provideDialogContext } from '../dialog/index.ts'
 
 defineOptions({
   name: 'AlertDialogRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<AlertDialogRootProps>(), {

@@ -8,6 +8,7 @@ import { type DropdownMenuRootEmits, type DropdownMenuRootProps, provideDropdown
 
 defineOptions({
   name: 'DropdownMenuRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<DropdownMenuRootProps>(), {

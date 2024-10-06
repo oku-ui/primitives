@@ -1,28 +1,22 @@
 <script setup lang="ts">
-import type { PopperAnchorElement, PopperAnchorProps } from './PopperAnchor'
-import { useForwardElement, useRef } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { onMounted } from 'vue'
-import { usePopperContext } from './PopperRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { type PopperAnchorProps, usePopperAnchor } from './PopperAnchor.ts'
 
 defineOptions({
   name: 'PopperAnchor',
+  inheritAttrs: false,
 })
 
 const props = defineProps<PopperAnchorProps>()
 
-const context = usePopperContext('PopperAnchor')
-
-const elRef = useRef<PopperAnchorElement>()
-const forwardElement = useForwardElement(elRef)
-
-onMounted(() => {
-  context.onAnchorChange(props.virtualRef?.value || elRef.value)
+const popperAnchor = usePopperAnchor({
+  virtualRef: props.virtualRef,
 })
 </script>
 
 <template>
-  <Primitive v-if="!virtualRef" :ref="forwardElement">
+  <Primitive v-if="!virtualRef" v-bind="normalizeAttrs(popperAnchor.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

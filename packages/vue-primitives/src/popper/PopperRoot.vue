@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { type Measurable, providePopperContext } from './PopperRoot.ts'
+import { usePooperRoot } from './PopperRoot.ts'
 
 defineOptions({
   name: 'PopperRoot',
+  inheritAttrs: false,
 })
 
-const anchor = shallowRef<Measurable>()
-
-providePopperContext({
-  content: shallowRef(),
-  anchor,
-  onAnchorChange(newAnchor) {
-    anchor.value = newAnchor
-  },
-})
+usePooperRoot()
 </script>
 
 <template>

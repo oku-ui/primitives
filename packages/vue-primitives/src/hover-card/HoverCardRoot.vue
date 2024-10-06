@@ -6,6 +6,7 @@ import { type HoverCardRootEmits, type HoverCardRootProps, provideHoverCardConte
 
 defineOptions({
   name: 'HoverCardRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<HoverCardRootProps>(), {

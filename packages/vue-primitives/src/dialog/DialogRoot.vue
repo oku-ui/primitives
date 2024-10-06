@@ -6,6 +6,7 @@ import { type DialogRootEmits, type DialogRootProps, useDialogRoot } from './Dia
 
 defineOptions({
   name: 'DialogRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<DialogRootProps>(), {

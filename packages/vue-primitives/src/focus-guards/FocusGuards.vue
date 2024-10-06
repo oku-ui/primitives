@@ -3,6 +3,7 @@ import { useFocusGuards } from './FocusGuards.ts'
 
 defineOptions({
   name: 'FocusGuards',
+  inheritAttrs: false,
 })
 
 useFocusGuards()

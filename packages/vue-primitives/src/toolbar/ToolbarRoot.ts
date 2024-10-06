@@ -26,7 +26,7 @@ export interface UseToolbarRootProps {
 export function useToolbarRoot(props: UseToolbarRootProps = {}): RadixPrimitiveReturns {
   const { orientation = 'horizontal' } = props
 
-  const elRef = props.elRef || useRef<HTMLElement>()
+  const elRef = props.elRef ?? useRef<HTMLElement>()
   const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const dir = useDirection(props.dir)

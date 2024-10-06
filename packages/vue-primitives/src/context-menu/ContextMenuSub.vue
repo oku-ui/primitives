@@ -7,6 +7,7 @@ import { type Measurable, providePopperContext } from '../popper/index.ts'
 
 defineOptions({
   name: 'ContextMenuSub',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ContextMenuSubProps>(), {

@@ -7,6 +7,7 @@ import { type MenuSubEmits, type MenuSubProps, provideMenuSubContext } from './M
 
 defineOptions({
   name: 'MenuSub',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<MenuSubProps>(), {
