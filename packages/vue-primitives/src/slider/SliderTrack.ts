@@ -14,7 +14,7 @@ export function useSliderTrack(): RadixPrimitiveReturns {
     attrs(extraAttrs) {
       const attrs = {
         'data-disabled': context.disabled() ? '' : undefined,
-        'data-orientation': context.orientation(),
+        'data-orientation': context.orientation,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

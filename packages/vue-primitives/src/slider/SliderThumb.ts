@@ -109,7 +109,7 @@ export function useSliderThumb(props: UseSliderThumbProps = {}): RadixPrimitiveR
       return attrs
     },
     attrs(extraAttrs) {
-      const _orientation = context.orientation()
+      const _orientation = context.orientation
       const _disabled = context.disabled()
       const attrs = {
         'elRef': setTemplateEl,

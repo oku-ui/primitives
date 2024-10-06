@@ -39,9 +39,7 @@ const sliderRoot = useSliderRoot({
   disabled() {
     return props.disabled
   },
-  orientation() {
-    return props.orientation
-  },
+  orientation: props.orientation,
   dir() {
     return props.dir
   },

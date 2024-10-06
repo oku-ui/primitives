@@ -21,7 +21,7 @@ export function useSliderRange(): RadixPrimitiveReturns {
     attrs(extraAttrs) {
       const attrs = {
         'data-disabled': context.disabled() ? '' : undefined,
-        'data-orientation': context.orientation(),
+        'data-orientation': context.orientation,
         'style': {
           [orientation.value.startEdge]: `${offsetStart.value}%`,
           [orientation.value.endEdge]: `${offsetEnd.value}%`,
