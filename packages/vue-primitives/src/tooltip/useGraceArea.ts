@@ -60,20 +60,23 @@ export function useGraceArea(props: UseGraceArea) {
 
     function handleTrackPointerGrace(event: PointerEvent) {
       const target = event.target as HTMLElement
-      const pointerPosition: Point = [event.clientX, event.clientY]
 
       const _trigger = popperContext.anchor.value
       const triggerVal: HTMLElement = (_trigger as VirtualElement)?.contextElement ?? _trigger
 
       const hasEnteredTarget = triggerVal?.contains(target) || popperContext.content.value?.contains(target)
-      const isPointerOutsideGraceArea = !isPointInPolygon(pointerPosition, pointerGraceArea.value!)
 
       if (hasEnteredTarget) {
         handleRemoveGraceArea()
       }
-      else if (isPointerOutsideGraceArea) {
-        handleRemoveGraceArea()
-        props.onClose()
+      else {
+        const pointerPosition: Point = [event.clientX, event.clientY]
+        const isPointerOutsideGraceArea = !isPointInPolygon(pointerPosition, pointerGraceArea.value!)
+
+        if (isPointerOutsideGraceArea) {
+          handleRemoveGraceArea()
+          props.onClose()
+        }
       }
     }
 
