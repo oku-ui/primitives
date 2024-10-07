@@ -4,10 +4,11 @@ import type { PopperContentProps } from '../popper/index.ts'
 type Side = NonNullable<PopperContentProps['side']>
 
 export function getExitSideFromRect(point: Point, rect: DOMRect): Side {
-  const top = Math.abs(rect.top - point.y)
-  const bottom = Math.abs(rect.bottom - point.y)
-  const right = Math.abs(rect.right - point.x)
-  const left = Math.abs(rect.left - point.x)
+  const [x, y] = point
+  const top = Math.abs(rect.top - y)
+  const bottom = Math.abs(rect.bottom - y)
+  const right = Math.abs(rect.right - x)
+  const left = Math.abs(rect.left - x)
 
   switch (Math.min(top, bottom, right, left)) {
     case left:
@@ -23,32 +24,33 @@ export function getExitSideFromRect(point: Point, rect: DOMRect): Side {
   }
 }
 
-export function getPaddedExitPoints(exitPoint: Point, exitSide: Side, padding = 5) {
-  const paddedExitPoints: Point[] = []
+export function getPaddedExitPoints(exitPoint: Point, exitSide: Side, padding = 5): Polygon {
+  const paddedExitPoints: Polygon = []
+  const [x, y] = exitPoint
 
   switch (exitSide) {
     case 'top':
       paddedExitPoints.push(
-        { x: exitPoint.x - padding, y: exitPoint.y + padding },
-        { x: exitPoint.x + padding, y: exitPoint.y + padding },
+        [x - padding, y + padding],
+        [x + padding, y + padding],
       )
       break
     case 'bottom':
       paddedExitPoints.push(
-        { x: exitPoint.x - padding, y: exitPoint.y - padding },
-        { x: exitPoint.x + padding, y: exitPoint.y - padding },
+        [x - padding, y - padding],
+        [x + padding, y - padding],
       )
       break
     case 'left':
       paddedExitPoints.push(
-        { x: exitPoint.x + padding, y: exitPoint.y - padding },
-        { x: exitPoint.x + padding, y: exitPoint.y + padding },
+        [x + padding, y - padding],
+        [x + padding, y + padding],
       )
       break
     case 'right':
       paddedExitPoints.push(
-        { x: exitPoint.x - padding, y: exitPoint.y - padding },
-        { x: exitPoint.x - padding, y: exitPoint.y + padding },
+        [x - padding, y - padding],
+        [x - padding, y + padding],
       )
       break
   }
@@ -60,10 +62,10 @@ export function getPointsFromRect(rect: DOMRect): Polygon {
   const { top, right, bottom, left } = rect
 
   return [
-    { x: left, y: top },
-    { x: right, y: top },
-    { x: right, y: bottom },
-    { x: left, y: bottom },
+    [left, top],
+    [right, top],
+    [right, bottom],
+    [left, bottom],
   ]
 }
 
@@ -73,13 +75,16 @@ export function getHull<P extends Point>(points: Readonly<Array<P>>): Array<P> {
   const newPoints: Array<P> = points.slice()
 
   newPoints.sort((a: Point, b: Point) => {
-    if (a.x < b.x)
+    const [a1, b1] = a
+    const [a2, b2] = b
+
+    if (a1 < a2)
       return -1
-    else if (a.x > b.x)
+    else if (a1 > a2)
       return +1
-    else if (a.y < b.y)
+    else if (b1 < b2)
       return -1
-    else if (a.y > b.y)
+    else if (b1 > b2)
       return +1
     else return 0
   })
@@ -96,10 +101,11 @@ function getHullPresorted<P extends Point>(points: Readonly<Array<P>>): Array<P>
 
   for (let i = 0; i < points.length; i++) {
     const p = points[i]!
+    const [pX, pY] = p
     while (upperHull.length >= 2) {
-      const q = upperHull[upperHull.length - 1]!
-      const r = upperHull[upperHull.length - 2]!
-      if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x))
+      const [qX, qY] = upperHull[upperHull.length - 1]!
+      const [rX, rY] = upperHull[upperHull.length - 2]!
+      if ((qX - rX) * (pY - rY) >= (qY - rY) * (pX - rX))
         upperHull.pop()
       else break
     }
@@ -111,10 +117,11 @@ function getHullPresorted<P extends Point>(points: Readonly<Array<P>>): Array<P>
   const lowerHull: Array<P> = []
   for (let i = points.length - 1; i >= 0; i--) {
     const p = points[i]!
+    const [pX, pY] = p
     while (lowerHull.length >= 2) {
-      const q = lowerHull[lowerHull.length - 1]!
-      const r = lowerHull[lowerHull.length - 2]!
-      if ((q.x - r.x) * (p.y - r.y) >= (q.y - r.y) * (p.x - r.x))
+      const [qX, qY] = lowerHull[lowerHull.length - 1]!
+      const [rX, rY] = lowerHull[lowerHull.length - 2]!
+      if ((qX - rX) * (pY - rY) >= (qY - rY) * (pX - rX))
         lowerHull.pop()
       else break
     }
@@ -125,8 +132,8 @@ function getHullPresorted<P extends Point>(points: Readonly<Array<P>>): Array<P>
   if (
     upperHull.length === 1
     && lowerHull.length === 1
-    && upperHull[0]?.x === lowerHull[0]?.x
-    && upperHull[0]?.y === lowerHull[0]?.y
+    && upperHull[0]?.[0] === lowerHull[0]?.[0]
+    && upperHull[0]?.[1] === lowerHull[0]?.[1]
   ) {
     return upperHull
   }
