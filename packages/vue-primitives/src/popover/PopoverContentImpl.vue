@@ -1,35 +1,18 @@
 <script setup lang="ts">
-import { PopperContentPropsDefaults } from '../popper/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type PopoverContentImplEmits, type PopoverContentImplProps, usePopoverContentImpl } from './PopoverContentImpl.ts'
+import { type PopoverContentImplEmits, type PopoverContentImplProps, PopoverContentPropsDefaults, usePopoverContentImpl } from './PopoverContentImpl.ts'
 
 defineOptions({
   name: 'PopoverContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<PopoverContentImplProps>(), PopperContentPropsDefaults)
+const props = withDefaults(defineProps<PopoverContentImplProps>(), PopoverContentPropsDefaults)
 
 const emit = defineEmits<PopoverContentImplEmits>()
 
 const popoverContentImpl = usePopoverContentImpl({
-  side: props.side,
-  align: props.align,
-  sideOffset: props.sideOffset,
-  alignOffset: props.alignOffset,
-  arrowPadding: props.arrowPadding,
-  avoidCollisions: props.avoidCollisions,
-  collisionBoundary() {
-    return props.collisionBoundary
-  },
-  collisionPadding: props.collisionPadding,
-  sticky: props.sticky,
-  hideWhenDetached: props.hideWhenDetached,
-  updatePositionStrategy: props.updatePositionStrategy,
-  dir() {
-    return props.dir
-  },
   onOpenAutoFocus(event) {
     emit('openAutoFocus', event)
   },
@@ -47,6 +30,24 @@ const popoverContentImpl = usePopoverContentImpl({
   },
   onInteractOutside(event) {
     emit('interactOutside', event)
+  },
+  popperProps: {
+    side: props.side,
+    align: props.align,
+    sideOffset: props.sideOffset,
+    alignOffset: props.alignOffset,
+    arrowPadding: props.arrowPadding,
+    avoidCollisions: props.avoidCollisions,
+    collisionBoundary() {
+      return props.collisionBoundary
+    },
+    collisionPadding: props.collisionPadding,
+    sticky: props.sticky,
+    hideWhenDetached: props.hideWhenDetached,
+    updatePositionStrategy: props.updatePositionStrategy,
+    dir() {
+      return props.dir
+    },
   },
 })
 </script>

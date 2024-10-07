@@ -86,7 +86,7 @@ export interface UsePopperContentProps extends EmitsToHookProps<PopperContentEmi
   dir?: MaybeRefOrGetter<Direction | undefined>
 }
 
-export function usePopperContent(props: UsePopperContentProps): RadixPrimitiveReturns<{
+export function usePopperContent(props: UsePopperContentProps = {}): RadixPrimitiveReturns<{
   wrapperAttrs: () => IAttrsData
   attrs: RadixPrimitiveGetAttrs
 }> {

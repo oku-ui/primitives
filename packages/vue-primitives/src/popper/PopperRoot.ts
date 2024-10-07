@@ -21,13 +21,15 @@ export interface UsePooperRootProps {
 
 export function usePooperRoot(props?: UsePooperRootProps) {
   const content = props?.content ?? shallowRef<HTMLElement>()
-  const anchor = shallowRef<Measurable>()
+  const anchor = props?.anchor ?? shallowRef<Measurable>()
   let anchorRef: Measurable | undefined
 
   providePopperContext({
     content,
     anchor,
     onAnchorChange(node) {
+      if (props?.anchor != null)
+        return
       // Backwards-compatibility for passing a virtual element to `reference`
       // after it has set the DOM reference.
       if (
@@ -42,6 +44,9 @@ export function usePooperRoot(props?: UsePooperRootProps) {
       }
     },
     onPostionAnchorChange(node) {
+      if (props?.anchor != null)
+        return
+
       const computedPositionReference = isElement(node)
         ? {
             getBoundingClientRect: () => node.getBoundingClientRect(),

@@ -4,7 +4,7 @@ import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useBodyScrollLock } from '../hooks/index.ts'
-import { type PopperContentProps, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
+import { type PopperContentProps, PopperContentPropsDefaults, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
 import { type EmitsToHookProps, type IAttrsData, mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 
@@ -22,6 +22,8 @@ export type PopoverContentImplEmits = {
    */
   closeAutoFocus: [event: Event]
 } & Omit<DismissableLayerEmits, 'dismiss'>
+
+export const PopoverContentPropsDefaults = { ...PopperContentPropsDefaults } as const
 
 export interface UsePopoverContentImplProps extends Omit<UsePopoverContentImplSharedProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
 
@@ -132,8 +134,8 @@ export function usePopoverContentNonModal(props: UsePopoverContentImplProps): Ra
   })
 }
 
-export interface UsePopoverContentImplSharedProps extends Omit<UsePopperContentProps, 'onPlaced'>, EmitsToHookProps<PopoverContentImplEmits> {
-
+export interface UsePopoverContentImplSharedProps extends EmitsToHookProps<PopoverContentImplEmits> {
+  popperProps?: Omit<UsePopperContentProps, 'onPlaced'>
 }
 
 export function usePopoverContentImplShared(props: UsePopoverContentImplSharedProps): RadixPrimitiveReturns<{
@@ -171,20 +173,7 @@ export function usePopoverContentImplShared(props: UsePopoverContentImplSharedPr
     },
   })
 
-  const popperContent = usePopperContent({
-    side: props.side,
-    align: props.align,
-    sideOffset: props.sideOffset,
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary: props.collisionBoundary,
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-    dir: props.dir,
-  })
+  const popperContent = usePopperContent(props.popperProps)
 
   return {
     wrapperAttrs: popperContent.wrapperAttrs,
