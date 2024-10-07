@@ -1,29 +1,20 @@
 <script setup lang="ts">
-import type { TooltipContentProps } from './TooltipContent'
-import { usePopperContext } from '../popper/index.ts'
-import { usePresence } from '../presence/index.ts'
-import TooltipContentHoverable from './TooltipContentHoverable.vue'
+import { type TooltipContentProps, useTooltipContent } from './TooltipContent.ts'
 import TooltipContentImpl from './TooltipContentImpl.vue'
-import { useTooltipContext } from './TooltipRoot.ts'
 
 defineOptions({
   name: 'TooltipContent',
 })
 
-const props = withDefaults(defineProps<TooltipContentProps>(), {
-  side: 'top',
+const props = defineProps<TooltipContentProps>()
+
+const context = useTooltipContent({
+  forceMount: props.forceMount,
 })
-
-const context = useTooltipContext('TooltipContent')
-const popperContext = usePopperContext('TooltipContent')
-
-const isPresent = usePresence(popperContext.content, () => props.forceMount || context.open.value)
-
-const Comp = context.disableHoverableContent ? TooltipContentImpl : TooltipContentHoverable
 </script>
 
 <template>
-  <Comp v-if="isPresent" :side="side">
+  <TooltipContentImpl v-if="context.isPresent.value">
     <slot />
-  </Comp>
+  </TooltipContentImpl>
 </template>

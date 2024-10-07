@@ -1,23 +1,20 @@
-export type Point = { x: number, y: number }
+export type Point = [number, number]
 export type Polygon = Point[]
 
-// Determine if a point is inside of a polygon.
-// Based on https://github.com/substack/point-in-polygon
+// @see floatin-ui
 export function isPointInPolygon(point: Point, polygon: Polygon) {
-  const { x, y } = point
-  let inside = false
-
-  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-    const xi = polygon[i]?.x ?? 0
-    const yi = polygon[i]?.y ?? 0
-    const xj = polygon[j]?.x ?? 0
-    const yj = polygon[j]?.y ?? 0
-
-    // prettier-ignore
-    const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
-    if (intersect)
-      inside = !inside
+  const [x, y] = point
+  let isInside = false
+  const length = polygon.length
+  for (let i = 0, j = length - 1; i < length; j = i++) {
+    const [xi, yi] = polygon[i] || [0, 0]
+    const [xj, yj] = polygon[j] || [0, 0]
+    const intersect
+      // eslint-disable-next-line style/no-mixed-operators
+      = yi >= y !== yj >= y && x <= ((xj - xi) * (y - yi)) / (yj - yi) + xi
+    if (intersect) {
+      isInside = !isInside
+    }
   }
-
-  return inside
+  return isInside
 }
