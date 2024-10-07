@@ -1,37 +1,22 @@
 <script setup lang="ts">
-import type { PopoverAnchorProps } from './PopoverAnchor.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { onBeforeUnmount, onMounted } from 'vue'
-import { useRef } from '../hooks/index.ts'
-import { useForwardElement } from '../hooks/useForwardElement.ts'
-import { usePopperContext } from '../popper/index.ts'
-import { usePopoverContext } from './PopoverRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type PopoverAnchorProps, usePopoverAnchor } from './PopoverAnchor.ts'
 
 defineOptions({
   name: 'PopoverAnchor',
+  inheritAttrs: false,
 })
 
 const props = defineProps<PopoverAnchorProps>()
 
-const context = usePopoverContext('PopoverAnchor')
-const popperContext = usePopperContext('PopperAnchor')
-
-// COMP::PopperAnchor
-const elRef = useRef<HTMLDivElement>()
-const forwardElement = useForwardElement(elRef)
-
-onMounted(() => {
-  context.onCustomAnchorAdd()
-  popperContext.onAnchorChange(props.virtualRef?.value || elRef.value)
-})
-
-onBeforeUnmount(() => {
-  context.onCustomAnchorRemove()
+const popoverAnchor = usePopoverAnchor({
+  virtualRef: props.virtualRef,
 })
 </script>
 
 <template>
-  <Primitive v-if="!virtualRef" :ref="forwardElement">
+  <Primitive v-if="!virtualRef" v-bind="normalizeAttrs(popoverAnchor.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

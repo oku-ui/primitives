@@ -1,5 +1,5 @@
+import type { Ref } from 'vue'
 import type { EmitsToHookProps } from '../shared/index.ts'
-import { type Ref, shallowRef } from 'vue'
 import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/index.ts'
 
@@ -22,9 +22,6 @@ export interface PopoverContext {
   open: Ref<boolean>
   onOpenChange: (open: boolean) => void
   onOpenToggle: () => void
-  hasCustomAnchor: Ref<boolean>
-  onCustomAnchorAdd: () => void
-  onCustomAnchorRemove: () => void
   modal: boolean
 }
 
@@ -39,7 +36,6 @@ export interface UsePopoverRootProps extends EmitsToHookProps<PopoverRootEmits> 
 
 export function usePopoverRoot(props: UsePopoverRootProps = {}) {
   const triggerRef = props.triggerRef ?? useRef<HTMLElement>()
-  const hasCustomAnchor = shallowRef(false)
 
   const open = useControllableStateV2(props.open, props.onUpdateOpen, props.defaultOpen ?? false)
 
@@ -52,13 +48,6 @@ export function usePopoverRoot(props: UsePopoverRootProps = {}) {
     },
     onOpenToggle() {
       open.value = !open.value
-    },
-    hasCustomAnchor,
-    onCustomAnchorAdd() {
-      hasCustomAnchor.value = true
-    },
-    onCustomAnchorRemove() {
-      hasCustomAnchor.value = false
     },
     modal: props.modal ?? false,
   })
