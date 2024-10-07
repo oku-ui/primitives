@@ -178,7 +178,8 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
 
   return {
     attrs(extraAttrs = []) {
-      const attrs: PrimitiveElAttrs = {
+      const attrs = {}
+      const overideAttrs: PrimitiveElAttrs = {
         'elRef': setTemplateEl,
         'data-dismissable-layer': true,
         'style': {
@@ -190,7 +191,7 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
         },
       }
 
-      mergePrimitiveAttrs({}, [...extraAttrs, attrs])
+      mergePrimitiveAttrs(attrs, [...extraAttrs, overideAttrs])
 
       return attrs
     },

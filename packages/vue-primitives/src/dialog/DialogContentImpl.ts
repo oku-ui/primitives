@@ -30,7 +30,7 @@ export function useDialogContentImpl(props: UseDialogContentImplProps): RadixPri
 
   const useDialogContentImpl = context.modal ? useDialogContentModal : useDialogContentNonModal
 
-  const dialogContentImpl = useDialogContentImpl({
+  return useDialogContentImpl({
     onOpenAutoFocus: props.onOpenAutoFocus,
     onCloseAutoFocus: props.onCloseAutoFocus,
     onEscapeKeydown: props.onEscapeKeydown,
@@ -38,18 +38,6 @@ export function useDialogContentImpl(props: UseDialogContentImplProps): RadixPri
     onFocusOutside: props.onFocusOutside,
     onInteractOutside: props.onInteractOutside,
   })
-
-  return {
-    attrs(extraAttrs = []) {
-      const attrs = dialogContentImpl.attrs()
-
-      if (extraAttrs && extraAttrs.length > 0) {
-        mergePrimitiveAttrs(attrs, extraAttrs)
-      }
-
-      return attrs
-    },
-  }
 }
 
 export function useDialogContentModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
@@ -61,7 +49,7 @@ export function useDialogContentModal(props: UseDialogContentImplProps): RadixPr
       hideOthers(context.content.value)
   })
 
-  const dialogContentImpl = useDialogContentImplShared({
+  return useDialogContentImplShared({
     trapFocus() {
       return context.open.value
     },
@@ -98,18 +86,6 @@ export function useDialogContentModal(props: UseDialogContentImplProps): RadixPr
     },
     onEscapeKeydown: props.onEscapeKeydown,
   })
-
-  return {
-    attrs(extraAttrs) {
-      const attrs = dialogContentImpl.attrs()
-
-      if (extraAttrs && extraAttrs.length > 0) {
-        mergePrimitiveAttrs(attrs, extraAttrs)
-      }
-
-      return attrs
-    },
-  }
 }
 
 export function useDialogContentNonModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
@@ -118,7 +94,7 @@ export function useDialogContentNonModal(props: UseDialogContentImplProps): Radi
   let hasInteractedOutsideRef = false
   let hasPointerDownOutsideRef = false
 
-  const dialogContentImpl = useDialogContentImplShared({
+  return useDialogContentImplShared({
     trapFocus() {
       return false
     },
@@ -168,18 +144,6 @@ export function useDialogContentNonModal(props: UseDialogContentImplProps): Radi
     onFocusOutside: props.onFocusOutside,
     onEscapeKeydown: props.onEscapeKeydown,
   })
-
-  return {
-    attrs(extraAttrs = []) {
-      const attrs = dialogContentImpl.attrs()
-
-      if (extraAttrs && extraAttrs.length > 0) {
-        mergePrimitiveAttrs(attrs, extraAttrs)
-      }
-
-      return attrs
-    },
-  }
 }
 
 export interface UseDialogContentImplSharedProps extends EmitsToHookProps<DialogContentImplPublicEmits>, Omit<UseDismissableLayerProps, 'onDismiss'> {
