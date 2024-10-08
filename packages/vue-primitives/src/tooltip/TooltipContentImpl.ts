@@ -87,7 +87,10 @@ export function useTooltipContentImpl(props: UseTooltipContentImplProps): Return
     onPointerdownOutside: props.onPointerdownOutside,
   })
 
-  const popperContent = usePopperContent(props.popperProps)
+  const popperProps = props.popperProps ?? {}
+  popperProps.side = popperProps.side ?? 'top'
+
+  const popperContent = usePopperContent(popperProps)
 
   return {
     wrapperAttrs: popperContent.wrapperAttrs,
