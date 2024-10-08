@@ -1,8 +1,3 @@
-export function excludeTouch(eventHandler: () => void) {
-  return (event: PointerEvent) =>
-    event.pointerType === 'touch' ? undefined : eventHandler()
-}
-
 /**
  * Returns a list of nodes that can be in the tab sequence.
  * @see: https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker

@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { useControllableState, useRef } from '@oku-ui/hooks'
-import { onBeforeUnmount, shallowRef } from 'vue'
-import { type Measurable, providePopperContext } from '../popper/PopperRoot.ts'
-import { type HoverCardRootEmits, type HoverCardRootProps, provideHoverCardContext } from './HoverCardRoot.ts'
+import { type HoverCardRootEmits, type HoverCardRootProps, useHoverCardRoot } from './HoverCardRoot.ts'
 
 defineOptions({
   name: 'HoverCardRoot',
@@ -18,57 +15,16 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
 
 const emit = defineEmits<HoverCardRootEmits>()
 
-const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
-
-let openTimerRef = 0
-let closeTimerRef = 0
-const hasSelectionRef = useRef(false)
-const isPointerDownOnContentRef = useRef(false)
-
-// cleanup any queued state updates on unmount
-onBeforeUnmount(() => {
-  clearTimeout(openTimerRef)
-  clearTimeout(closeTimerRef)
-})
-
-provideHoverCardContext({
-  open,
-  onOpenChange(v) {
-    open.value = v
+useHoverCardRoot({
+  open() {
+    return props.open
   },
-  onOpen() {
-    clearTimeout(closeTimerRef)
-    openTimerRef = window.setTimeout(() => {
-      open.value = true
-    }, props.openDelay)
+  onUpdateOpen(open) {
+    emit('update:open', open)
   },
-  onClose() {
-    clearTimeout(openTimerRef)
-
-    if (hasSelectionRef.value || isPointerDownOnContentRef.value)
-      return
-
-    closeTimerRef = window.setTimeout(() => {
-      open.value = false
-    }, props.closeDelay)
-  },
-  onDismiss() {
-    open.value = false
-  },
-  hasSelectionRef,
-  isPointerDownOnContentRef,
-})
-
-// COMP::PopperRoot
-
-const anchor = shallowRef<Measurable>()
-
-providePopperContext({
-  content: shallowRef(),
-  anchor,
-  onAnchorChange(newAnchor) {
-    anchor.value = newAnchor
-  },
+  defaultOpen: props.defaultOpen,
+  openDelay: props.openDelay,
+  closeDelay: props.closeDelay,
 })
 </script>
 
