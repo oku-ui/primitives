@@ -196,7 +196,7 @@ export function useDialogContentImplShared(props: UseDialogContentImplSharedProp
         'data-state': context.open.value ? 'open' : 'closed',
       }
 
-      const attrs = dismissableLayer.attrs([dismissableAttrs, focusScope.attrs(), ...extraAttrs])
+      const attrs = dismissableLayer.attrs([focusScope.attrs(), dismissableAttrs, ...extraAttrs])
 
       return attrs
     },
