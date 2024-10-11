@@ -121,7 +121,9 @@ export function useHoverCardContentImpl(props: UseHoverCardContentImplProps = {}
 
   const dismissableLayer = useDismissableLayer({
     el: popperContext.content,
-    disableOutsidePointerEvents: false,
+    disableOutsidePointerEvents() {
+      return false
+    },
     onInteractOutside: props.onInteractOutside,
     onEscapeKeydown: props.onEscapeKeydown,
     onPointerdownOutside: props.onPointerdownOutside,

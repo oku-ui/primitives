@@ -28,16 +28,9 @@ export interface UseDialogContentImplProps extends Omit<UseDialogContentImplShar
 export function useDialogContentImpl(props: UseDialogContentImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContent')
 
-  const useDialogContentImpl = context.modal ? useDialogContentModal : useDialogContentNonModal
+  const useDialogContent = context.modal ? useDialogContentModal : useDialogContentNonModal
 
-  return useDialogContentImpl({
-    onOpenAutoFocus: props.onOpenAutoFocus,
-    onCloseAutoFocus: props.onCloseAutoFocus,
-    onEscapeKeydown: props.onEscapeKeydown,
-    onPointerdownOutside: props.onPointerdownOutside,
-    onFocusOutside: props.onFocusOutside,
-    onInteractOutside: props.onInteractOutside,
-  })
+  return useDialogContent(props)
 }
 
 export function useDialogContentModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
@@ -53,7 +46,9 @@ export function useDialogContentModal(props: UseDialogContentImplProps): RadixPr
     trapFocus() {
       return context.open.value
     },
-    disableOutsidePointerEvents: true,
+    disableOutsidePointerEvents() {
+      return true
+    },
     onCloseAutoFocus(event) {
       props.onCloseAutoFocus?.(event)
       if (event.defaultPrevented)
@@ -98,7 +93,9 @@ export function useDialogContentNonModal(props: UseDialogContentImplProps): Radi
     trapFocus() {
       return false
     },
-    disableOutsidePointerEvents: false,
+    disableOutsidePointerEvents() {
+      return false
+    },
     onCloseAutoFocus(event) {
       props.onCloseAutoFocus?.(event)
 

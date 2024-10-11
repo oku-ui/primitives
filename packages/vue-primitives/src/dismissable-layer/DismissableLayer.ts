@@ -58,10 +58,12 @@ let originalBodyPointerEvents: string | undefined
 
 export interface UseDismissableLayerProps extends EmitsToHookProps<DismissableLayerEmits> {
   el?: Ref<HTMLElement | undefined>
-  disableOutsidePointerEvents?: boolean
+  disableOutsidePointerEvents?: () => boolean
 }
 
 export function useDismissableLayer(props: UseDismissableLayerProps = {}): RadixPrimitiveReturns {
+  const { disableOutsidePointerEvents = () => false } = props
+
   const el = props.el || shallowRef<HTMLElement>()
   const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
@@ -131,8 +133,8 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
 
     const ownerDocumentVal = ownerDocument()
 
-    const disableOutsidePointerEvents = props.disableOutsidePointerEvents ?? false
-    if (disableOutsidePointerEvents) {
+    const _disableOutsidePointerEvents = disableOutsidePointerEvents()
+    if (_disableOutsidePointerEvents) {
       if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
         originalBodyPointerEvents = ownerDocumentVal.body.style.pointerEvents
         ownerDocumentVal.body.style.pointerEvents = 'none'
@@ -143,7 +145,7 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
     context.layers.add(nodeVal)
 
     onWatcherCleanup(() => {
-      if (disableOutsidePointerEvents && context.layersWithOutsidePointerEventsDisabled.size === 1) {
+      if (_disableOutsidePointerEvents && context.layersWithOutsidePointerEventsDisabled.size === 1) {
         if (!originalBodyPointerEvents) {
           const syles = ownerDocumentVal.body.style
           syles.removeProperty('pointer-events')

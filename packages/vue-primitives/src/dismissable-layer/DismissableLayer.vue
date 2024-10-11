@@ -18,7 +18,9 @@ const props = withDefaults(defineProps<DismissableLayerProps>(), {
 const emit = defineEmits<DismissableLayerEmits>()
 
 const dismissableLayer = useDismissableLayer({
-  disableOutsidePointerEvents: props.disableOutsidePointerEvents,
+  disableOutsidePointerEvents() {
+    return props.disableOutsidePointerEvents
+  },
   onPointerdownOutside(event) {
     emit('pointerdownOutside', event)
   },

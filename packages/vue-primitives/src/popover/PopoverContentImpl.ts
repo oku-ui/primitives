@@ -163,7 +163,9 @@ export function usePopoverContentImplShared(props: UsePopoverContentImplSharedPr
 
   const dismissableLayer = useDismissableLayer({
     el: popperContext.content,
-    disableOutsidePointerEvents: false,
+    disableOutsidePointerEvents() {
+      return false
+    },
     onInteractOutside: props.onInteractOutside,
     onEscapeKeydown: props.onEscapeKeydown,
     onFocusOutside: props.onFocusOutside,
