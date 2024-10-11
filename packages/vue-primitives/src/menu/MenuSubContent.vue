@@ -44,7 +44,7 @@ const onFocusOutside = composeEventHandlers<FocusOutsideEvent>((event) => {
   }
 })
 const onEscapeKeydown = composeEventHandlers<KeyboardEvent>((event) => {
-  emit('keydown', event)
+  emit('escapeKeydown', event)
 }, (event) => {
   rootContext.onClose()
   // ensure pressing escape in submenu doesn't escape full screen mode
