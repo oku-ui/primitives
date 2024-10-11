@@ -197,7 +197,7 @@ export function useDialogContentImplShared(props: UseDialogContentImplSharedProp
         'data-state': context.open.value ? 'open' : 'closed',
       }
 
-      mergePrimitiveAttrs(dismissableLayer.attrs(), [focusScope.attrs(), dismissableAttrs, ...extraAttrs])
+      mergePrimitiveAttrs(attrs, [focusScope.attrs(), dismissableAttrs, ...extraAttrs])
 
       return attrs
     },
