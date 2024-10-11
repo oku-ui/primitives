@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/core'
-import { nextTick, onWatcherCleanup, type Ref, shallowRef, toValue, watch, watchEffect } from 'vue'
+import { nextTick, onWatcherCleanup, type Ref, shallowRef, watch, watchEffect } from 'vue'
 import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { focus, focusFirst, focusScopesStack, getTabbableCandidates, getTabbableEdges, removeLinks } from './utils.ts'
 
