@@ -184,7 +184,6 @@ export function useDialogContentImplShared(props: UseDialogContentImplSharedProp
 
   return {
     attrs(extraAttrs = []) {
-      const attrs = dismissableLayer.attrs()
       const dismissableAttrs = {
         'elRef': setTemplateEl,
         'role': 'dialog',
@@ -194,9 +193,7 @@ export function useDialogContentImplShared(props: UseDialogContentImplSharedProp
         'data-state': context.open.value ? 'open' : 'closed',
       }
 
-      mergePrimitiveAttrs(attrs, [focusScope.attrs(), dismissableAttrs, ...extraAttrs])
-
-      return attrs
+      return dismissableLayer.attrs([focusScope.attrs(), dismissableAttrs, ...extraAttrs])
     },
   }
 }

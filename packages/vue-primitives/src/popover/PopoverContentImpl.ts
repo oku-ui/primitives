@@ -180,8 +180,6 @@ export function usePopoverContentImplShared(props: UsePopoverContentImplSharedPr
   return {
     wrapperAttrs: popperContent.wrapperAttrs,
     attrs(extraAttrs = []) {
-      const attrs = popperContent.attrs()
-
       const popperAttrs = {
         'id': context.contentId,
         'data-state': context.open.value ? 'open' : 'closed',
@@ -195,9 +193,7 @@ export function usePopoverContentImplShared(props: UsePopoverContentImplSharedPr
         },
       }
 
-      mergePrimitiveAttrs(attrs, [dismissableLayer.attrs(), focusScope.attrs(), popperAttrs, ...extraAttrs])
-
-      return attrs
+      return popperContent.attrs([dismissableLayer.attrs(), focusScope.attrs(), popperAttrs, ...extraAttrs])
     },
   }
 }

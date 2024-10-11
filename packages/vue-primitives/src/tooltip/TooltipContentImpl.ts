@@ -97,8 +97,6 @@ export function useTooltipContentImpl(props: UseTooltipContentImplProps): Return
   return {
     wrapperAttrs: popperContent.wrapperAttrs,
     attrs(extraAttrs = []) {
-      const attrs = popperContent.attrs()
-
       const popperAttrs = {
         'data-state': context.stateAttribute(),
         'style': {
@@ -110,9 +108,7 @@ export function useTooltipContentImpl(props: UseTooltipContentImplProps): Return
         },
       }
 
-      mergePrimitiveAttrs(attrs, [dismissableLayer.attrs(), popperAttrs, ...extraAttrs])
-
-      return attrs
+      return popperContent.attrs([dismissableLayer.attrs(), popperAttrs, ...extraAttrs])
     },
   }
 }

@@ -27,11 +27,7 @@ export function useToolbarToggleItem(props: UseToolbarToggleItem): RadixPrimitiv
 
   return {
     attrs(extraAttrs = []) {
-      const attrs = toggleGroupItem.attrs()
-
-      mergePrimitiveAttrs(attrs, [toolbarButton.attrs(), ...extraAttrs])
-
-      return attrs
+      return toggleGroupItem.attrs([toolbarButton.attrs(), ...extraAttrs])
     },
   }
 }
