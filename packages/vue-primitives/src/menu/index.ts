@@ -7,10 +7,7 @@ export {
 } from './MenuCheckboxItem.ts'
 export { default as MenuCheckboxItem } from './MenuCheckboxItem.vue'
 export {
-  type MenuContentContext,
   type MenuContentProps,
-  provideMenuContentContext,
-  useMenuContentContext,
 } from './MenuContent.ts'
 export { default as MenuContent } from './MenuContent.vue'
 export { default as MenuGroup } from './MenuGroup.vue'
@@ -54,9 +51,6 @@ export {
 
 export { default as MenuRoot } from './MenuRoot.vue'
 
-export { default as MenuRootContentModal } from './MenuRootContentModal.vue'
-
-export { default as MenuRootContentNonModal } from './MenuRootContentNonModal.vue'
 export { default as MenuSeparator } from './MenuSeparator.vue'
 
 export {
@@ -72,9 +66,9 @@ export { default as MenuSub } from './MenuSub.vue'
 export {
   type MenuSubContentEmits,
   type MenuSubContentProps,
-} from './MenuSubContent.ts'
+} from './MenuSubContentImpl.ts'
 
-export { default as MenuSubContent } from './MenuSubContent.vue'
+export { default as MenuSubContent } from './MenuSubContentImpl.vue'
 
 export {
   type MenuSubTriggerEmits,

@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import type { Measurable } from '../popper/index.ts'
-import { useDirection } from '@oku-ui/direction'
-import { shallowRef } from 'vue'
-import { providePopperContext } from '../popper/index.ts'
 import {
   type MenuRootEmits,
   type MenuRootProps,
-  provideMenuContext,
-  provideMenuRootContext,
-  useIsUsingKeyboard,
+  useMenuRoot,
 } from './MenuRoot.ts'
 
 defineOptions({
@@ -23,37 +17,17 @@ const props = withDefaults(defineProps<MenuRootProps>(), {
 
 const emit = defineEmits<MenuRootEmits>()
 
-const isUsingKeyboardRef = useIsUsingKeyboard()
-const direction = useDirection(() => props.dir)
-
-provideMenuContext({
+useMenuRoot({
   open() {
     return props.open
   },
-  onOpenChange(open) {
+  onUpdateOpen(open) {
     emit('update:open', open)
   },
-})
-
-provideMenuRootContext({
-  onClose() {
-    emit('update:open', false)
+  dir() {
+    return props.dir
   },
-  isUsingKeyboardRef,
-  dir: direction,
   modal: props.modal,
-})
-
-// COMP::PopperRoot
-
-const anchor = shallowRef<Measurable>()
-
-providePopperContext({
-  content: shallowRef(),
-  anchor,
-  onAnchorChange(newAnchor) {
-    anchor.value = newAnchor
-  },
 })
 </script>
 

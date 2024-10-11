@@ -1,27 +1,20 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type MenuContentImplEmits, type MenuContentImplProps, useMenuContentImpl } from './MenuContentImpl.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { type MenuSubContentEmits, type MenuSubContentProps, useMenuSubContent } from './MenuSubContentImpl.ts'
 
 defineOptions({
-  name: 'MenuContentImpl',
+  name: 'MenuSubContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenuContentImplProps>(), {
+const props = withDefaults(defineProps<MenuSubContentProps>(), {
   loop: false,
 })
+const emit = defineEmits<MenuSubContentEmits>()
 
-const emit = defineEmits<MenuContentImplEmits>()
-
-const menuContentImpl = useMenuContentImpl({
+const menuSubContent = useMenuSubContent({
   loop: props.loop,
-  onCloseAutoFocus(event) {
-    emit('closeAutoFocus', event)
-  },
-  onEntryFocus(event) {
-    emit('entryFocus', event)
-  },
   onEscapeKeydown(event) {
     emit('escapeKeydown', event)
   },
@@ -35,8 +28,6 @@ const menuContentImpl = useMenuContentImpl({
     emit('interactOutside', event)
   },
   popperProps: {
-    side: props.side,
-    align: props.align,
     sideOffset: props.sideOffset,
     alignOffset: props.alignOffset,
     arrowPadding: props.arrowPadding,
@@ -53,8 +44,8 @@ const menuContentImpl = useMenuContentImpl({
 </script>
 
 <template>
-  <div v-bind="menuContentImpl.wrapperAttrs()">
-    <Primitive v-bind="normalizeAttrs(menuContentImpl.attrs([$attrs]))">
+  <div v-bind="menuSubContent.wrapperAttrs()">
+    <Primitive v-bind="normalizeAttrs(menuSubContent.attrs([$attrs]))">
       <slot />
     </Primitive>
   </div>

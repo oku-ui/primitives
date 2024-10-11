@@ -1,9 +1,6 @@
+
 <script setup lang="ts">
-import { useId, useRef } from '@oku-ui/hooks'
-import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { type Measurable, providePopperContext } from '../popper/index.ts'
-import { provideMenuContext, useMenuContext } from './MenuRoot.ts'
-import { type MenuSubEmits, type MenuSubProps, provideMenuSubContext } from './MenuSub.ts'
+import { type MenuSubEmits, type MenuSubProps, useMenuSub } from './MenuSub.ts'
 
 defineOptions({
   name: 'MenuSub',
@@ -15,46 +12,12 @@ const props = withDefaults(defineProps<MenuSubProps>(), {
 })
 const emit = defineEmits<MenuSubEmits>()
 
-const parentMenuContext = useMenuContext('MenuSub')
-const trigger = useRef<HTMLDivElement>()
-
-// Prevent the parent menu from reopening with open submenus.
-watchEffect(() => {
-  if (parentMenuContext.open() === false)
-    emit('update:open', false)
-
-  onWatcherCleanup(() => {
-    emit('update:open', false)
-  })
-})
-
-provideMenuContext({
+useMenuSub({
   open() {
     return props.open
   },
-  onOpenChange(open) {
+  onUpdateOpen(open) {
     emit('update:open', open)
-  },
-})
-
-provideMenuSubContext({
-  contentId: useId(),
-  triggerId: useId(),
-  trigger,
-  onTriggerChange(el) {
-    trigger.value = el
-  },
-})
-
-// COMP::PopperRoot
-
-const anchor = shallowRef<Measurable>()
-
-providePopperContext({
-  content: shallowRef(),
-  anchor,
-  onAnchorChange(newAnchor) {
-    anchor.value = newAnchor
   },
 })
 </script>

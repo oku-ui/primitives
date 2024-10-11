@@ -27,10 +27,7 @@ export const PopoverContentPropsDefaults = { ...PopperContentPropsDefaults } as 
 
 export interface UsePopoverContentImplProps extends Omit<UsePopoverContentImplSharedProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
 
-export function usePopoverContentImpl(props: UsePopoverContentImplProps): RadixPrimitiveReturns<{
-  wrapperAttrs: () => IAttrsData
-  attrs: RadixPrimitiveGetAttrs
-}> {
+export function usePopoverContentImpl(props: UsePopoverContentImplProps): UsePopoverContentImplSharedPeturns {
   const context = usePopoverContext('PopoverContentImpl')
 
   const usePopoverContent = context.modal ? usePopoverContentModal : usePopoverContentNonModal
@@ -38,10 +35,7 @@ export function usePopoverContentImpl(props: UsePopoverContentImplProps): RadixP
   return usePopoverContent(props)
 }
 
-export function usePopoverContentModal(props: UsePopoverContentImplProps): RadixPrimitiveReturns<{
-  wrapperAttrs: () => IAttrsData
-  attrs: RadixPrimitiveGetAttrs
-}> {
+export function usePopoverContentModal(props: UsePopoverContentImplProps): UsePopoverContentImplSharedPeturns {
   const context = usePopoverContext('PopoverContentModal')
   const popperContext = usePopperContext('PopoverContentModal')
   let isRightClickOutsideRef = false
@@ -81,10 +75,7 @@ export function usePopoverContentModal(props: UsePopoverContentImplProps): Radix
   })
 }
 
-export function usePopoverContentNonModal(props: UsePopoverContentImplProps): RadixPrimitiveReturns<{
-  wrapperAttrs: () => IAttrsData
-  attrs: RadixPrimitiveGetAttrs
-}> {
+export function usePopoverContentNonModal(props: UsePopoverContentImplProps): UsePopoverContentImplSharedPeturns {
   const context = usePopoverContext('PopoverContentNonModal')
   let hasInteractedOutsideRef = false
   let hasPointerDownOutsideRef = false
@@ -138,10 +129,12 @@ export interface UsePopoverContentImplSharedProps extends EmitsToHookProps<Popov
   popperProps?: Omit<UsePopperContentProps, 'onPlaced'>
 }
 
-export function usePopoverContentImplShared(props: UsePopoverContentImplSharedProps): RadixPrimitiveReturns<{
+export interface UsePopoverContentImplSharedPeturns {
   wrapperAttrs: () => IAttrsData
   attrs: RadixPrimitiveGetAttrs
-}> {
+}
+
+export function usePopoverContentImplShared(props: UsePopoverContentImplSharedProps): UsePopoverContentImplSharedPeturns {
   const context = usePopoverContext('PopoverContentImplShared')
   const popperContext = usePopperContext('PopoverContentImplShared')
 

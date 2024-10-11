@@ -1,5 +1,8 @@
-import type { GraceIntent } from './utils.ts'
-import { createContext, type MutableRefObject } from '@oku-ui/hooks'
+import type { Ref } from 'vue'
+import type { RadixPrimitiveReturns } from '../shared'
+import { usePopperContext } from '../popper/index.ts'
+import { usePresence } from '../presence/index.ts'
+import { useMenuContext } from './MenuRoot.ts'
 
 export interface MenuContentProps {
   /**
@@ -9,12 +12,19 @@ export interface MenuContentProps {
   forceMount?: boolean
 }
 
-export interface MenuContentContext {
-  onItemEnter: (event: PointerEvent) => void
-  onItemLeave: (event: PointerEvent) => void
-  onTriggerLeave: (event: PointerEvent) => void
-  searchRef: MutableRefObject<string>
-  pointerGraceTimerRef: MutableRefObject<number>
-  onPointerGraceIntentChange: (intent: GraceIntent | undefined) => void
+export interface UseMenuContentProps {
+  forceMount?: boolean
 }
-export const [provideMenuContentContext, useMenuContentContext] = createContext<MenuContentContext>('MenuContent')
+
+export function useMenuContent(props: UseMenuContentProps = {}): RadixPrimitiveReturns<{
+  isPresent: Ref<boolean>
+}> {
+  const context = useMenuContext('MenuContent')
+  const popperContext = usePopperContext('MenuContent')
+
+  const isPresent = usePresence(popperContext.content, () => props.forceMount || context.open())
+
+  return {
+    isPresent,
+  }
+}
