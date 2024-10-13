@@ -33,7 +33,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
   const context = useRovingFocusContext('RovingFocusGroupItem')
   const isCurrentTabStop = computed(() => context.currentTabStopId.value === id.value)
 
-  const getItems = useCollection()
+  // const getItems = useCollection()
 
   watch(focusable, (value) => {
     if (value) {
@@ -67,47 +67,49 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
     context.onItemFocus(id.value)
   }
 
-  function onKeydown(event: KeyboardEvent) {
-    if (event.key === 'Tab' && event.shiftKey) {
-      context.onItemShiftTab()
-      return
-    }
+  // function onKeydown(event: KeyboardEvent) {
+  //   if (event.defaultPrevented)
+  //     return
+  //   if (event.key === 'Tab' && event.shiftKey) {
+  //     context.onItemShiftTab()
+  //     return
+  //   }
 
-    if (event.target !== event.currentTarget)
-      return
+  //   if (event.target !== event.currentTarget)
+  //     return
 
-    if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
-      return
+  //   if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
+  //     return
 
-    const focusIntent = getFocusIntent(event, context.orientation, context.dir.value)
+  //   const focusIntent = getFocusIntent(event, context.orientation, context.dir.value)
 
-    if (!focusIntent)
-      return
+  //   if (!focusIntent)
+  //     return
 
-    event.preventDefault()
-    let candidateNodes = getItems().filter(item => item.$$rcid.rfg.focusable)
+  //   event.preventDefault()
+  //   let candidateNodes = getItems().filter(item => item.$$rcid.rfg.focusable)
 
-    if (focusIntent === 'last') {
-      candidateNodes.reverse()
-    }
-    else if (focusIntent === 'prev' || focusIntent === 'next') {
-      if (focusIntent === 'prev')
-        candidateNodes.reverse()
-      const currentIndex = (candidateNodes as HTMLElement[]).indexOf(event.currentTarget as HTMLElement)
-      candidateNodes = context.loop
-        ? wrapArray(candidateNodes, currentIndex + 1)
-        : candidateNodes.slice(currentIndex + 1)
-    }
+  //   if (focusIntent === 'last') {
+  //     candidateNodes.reverse()
+  //   }
+  //   else if (focusIntent === 'prev' || focusIntent === 'next') {
+  //     if (focusIntent === 'prev')
+  //       candidateNodes.reverse()
+  //     const currentIndex = (candidateNodes as HTMLElement[]).indexOf(event.currentTarget as HTMLElement)
+  //     candidateNodes = context.loop
+  //       ? wrapArray(candidateNodes, currentIndex + 1)
+  //       : candidateNodes.slice(currentIndex + 1)
+  //   }
 
-    // TODO: wip
-    /**
-     * Imperative focus during keydown is risky so we prevent React's batching updates
-     * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
-     */
-    setTimeout(() => {
-      focusFirst(candidateNodes)
-    })
-  }
+  //   // TODO: wip
+  //   /**
+  //    * Imperative focus during keydown is risky so we prevent React's batching updates
+  //    * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
+  //    */
+  //   setTimeout(() => {
+  //     focusFirst(candidateNodes)
+  //   })
+  // }
 
   function setTemplateEl(templateEl: HTMLElement | undefined) {
     Collection.useCollectionItem(templateEl, itemData, 'rfg')
@@ -122,7 +124,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
         'data-orientation': context.orientation,
         onFocus,
         onMousedown,
-        onKeydown,
+        // onKeydown,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
