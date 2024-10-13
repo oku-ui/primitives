@@ -1,5 +1,5 @@
 import type { PrimitiveElAttrs, VNodeRef } from './typeUtils'
-import { isArray, isOn } from '@vue/shared'
+import { isArray, isOn, NOOP } from '@vue/shared'
 import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
 import { getElFromTemplateRef } from './getElFromTemplateRef.ts'
 
@@ -100,6 +100,16 @@ export function normalizeAttrs(attrs: PrimitiveElAttrs): IAttrsData {
   }
   else if (templateRef) {
     attrs.ref = templateRef
+  }
+
+  const disabled = attrs.disabled === true || attrs['data-disabled'] != null
+
+  if (disabled) {
+    for (const propName in attrs) {
+      if (isOn(propName)) {
+        attrs[propName] = NOOP
+      }
+    }
   }
 
   return attrs
