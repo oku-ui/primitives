@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/mergeProps.ts'
-import { type MenuSubContentEmits, type MenuSubContentProps, useMenuSubContent } from './MenuSubContentImpl.ts'
+import { type MenuSubContentImplEmits, type MenuSubContentImplProps, useMenuSubContentImpl } from './MenuSubContentImpl.ts'
 
 defineOptions({
   name: 'MenuSubContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenuSubContentProps>(), {
+const props = withDefaults(defineProps<MenuSubContentImplProps>(), {
   loop: false,
 })
-const emit = defineEmits<MenuSubContentEmits>()
+const emit = defineEmits<MenuSubContentImplEmits>()
 
-const menuSubContent = useMenuSubContent({
+const menuSubContent = useMenuSubContentImpl({
   loop: props.loop,
   onEscapeKeydown(event) {
     emit('escapeKeydown', event)

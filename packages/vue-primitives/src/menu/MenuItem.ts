@@ -16,7 +16,7 @@ export const ITEM_SELECT = 'menu.itemSelect'
 
 export interface UseMenuItemProps extends UseMenuItemImplProps, EmitsToHookProps<MenuItemEmits> {}
 
-export function useMenuItem(props: UseMenuItemProps): RadixPrimitiveReturns {
+export function useMenuItem(props: UseMenuItemProps = {}): RadixPrimitiveReturns {
   const rootContext = useMenuRootContext('MenuItem')
   const contentContext = useMenuContentContext('MenuItem')
 

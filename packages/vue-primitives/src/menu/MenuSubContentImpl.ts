@@ -1,10 +1,16 @@
 import type { FocusOutsideEvent } from '../dismissable-layer/index.ts'
 import { type PopperContentProps, usePopperContext } from '../popper/index.ts'
-import { useMenuContentImplShared, type UseMenuContentImplSharedEmits, type UseMenuContentImplSharedPeturns, type UseMenuContentImplSharedPrivateProps, type UseMenuContentImplSharedProps } from './MenuContentImpl.ts'
+import {
+  useMenuContentImplShared,
+  type UseMenuContentImplSharedEmits,
+  type UseMenuContentImplSharedPeturns,
+  type UseMenuContentImplSharedPrivateProps,
+  type UseMenuContentImplSharedProps,
+} from './MenuContentImpl.ts'
 import { SUB_CLOSE_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'
 
-export interface MenuSubContentProps extends Omit<PopperContentProps, 'dir' | 'side' | 'align'> {
+export interface MenuSubContentImplProps extends Omit<PopperContentProps, 'dir' | 'side' | 'align'> {
   /**
    * Whether keyboard navigation should loop around
    * @defaultValue false
@@ -12,13 +18,13 @@ export interface MenuSubContentProps extends Omit<PopperContentProps, 'dir' | 's
   loop?: boolean
 }
 
-export type MenuSubContentEmits = Omit<UseMenuContentImplSharedEmits, 'closeAutoFocus' | 'entryFocus'>
+export type MenuSubContentImplEmits = Omit<UseMenuContentImplSharedEmits, 'closeAutoFocus' | 'entryFocus'>
 
-export interface UseMenuSubContentProps extends Omit<UseMenuContentImplSharedProps, keyof UseMenuContentImplSharedPrivateProps | 'onCloseAutoFocus' | 'onEntryFocus' | 'popperProps'> {
+export interface UseMenuSubContentImplProps extends Omit<UseMenuContentImplSharedProps, keyof UseMenuContentImplSharedPrivateProps | 'onCloseAutoFocus' | 'onEntryFocus' | 'popperProps'> {
   popperProps?: Omit<UseMenuContentImplSharedProps['popperProps'], 'side' | 'align'>
 }
 
-export function useMenuSubContent(props: UseMenuSubContentProps): UseMenuContentImplSharedPeturns {
+export function useMenuSubContentImpl(props: UseMenuSubContentImplProps): UseMenuContentImplSharedPeturns {
   const context = useMenuContext('MenuSubContent')
   const rootContext = useMenuRootContext('MenuSubContent')
   const subContext = useMenuSubContext('MenuSubContent')
