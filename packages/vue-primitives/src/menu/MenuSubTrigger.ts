@@ -86,7 +86,7 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps): RadixPrimitive
     }
   }
 
-  function onPointerLeave(event: PointerEvent) {
+  function onPointerleave(event: PointerEvent) {
     if (event.defaultPrevented) {
       return
     }
@@ -169,7 +169,7 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps): RadixPrimitive
         'aria-controls': getOpenState(context.open()),
         onClick,
         onPointermove,
-        onPointerLeave,
+        onPointerleave,
         onKeydown,
       }
 
