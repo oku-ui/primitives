@@ -51,15 +51,10 @@ export function useMenuItemImpl(props: UseMenuItemImplProps): RadixPrimitiveRetu
     if (event.pointerType !== 'mouse')
       return
 
-    if (props.disabled) {
-      contentContext.onItemLeave(event)
-    }
-    else {
-      contentContext.onItemEnter(event)
-      if (!event.defaultPrevented) {
-        const item = event.currentTarget as HTMLElement | null
-        item?.focus({ preventScroll: true })
-      }
+    contentContext.onItemEnter(event)
+    if (!event.defaultPrevented) {
+      const item = event.currentTarget as HTMLElement | null
+      item?.focus({ preventScroll: true })
     }
   }
 
