@@ -63,12 +63,12 @@ export {
 
 export { default as MenuSub } from './MenuSub.vue'
 
+export { default as MenuSubContent } from './MenuSubContent.vue'
+
 export {
   type MenuSubContentImplEmits,
   type MenuSubContentImplProps,
 } from './MenuSubContentImpl.ts'
-
-export { default as MenuSubContent } from './MenuSubContentImpl.vue'
 
 export {
   type MenuSubTriggerProps,

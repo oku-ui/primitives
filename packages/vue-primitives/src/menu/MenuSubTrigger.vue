@@ -5,6 +5,7 @@ import { type MenuSubTriggerProps, useMenuSubTrigger } from './MenuSubTrigger.ts
 
 defineOptions({
   name: 'MenuSubTrigger',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<MenuSubTriggerProps>(), {
