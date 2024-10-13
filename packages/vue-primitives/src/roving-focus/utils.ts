@@ -3,7 +3,7 @@ import type { Direction } from '../direction/index.ts'
 export type Orientation = 'horizontal' | 'vertical'
 
 export const ENTRY_FOCUS = 'rovingFocusGroup.onEntryFocus'
-export const EVENT_OPTIONS = { bubbles: false, cancelable: true }
+export const EVENT_OPTIONS: { bubbles: boolean, cancelable: boolean } = { bubbles: false, cancelable: true }
 
 export const MAP_KEY_TO_FOCUS_INTENT: Record<string, FocusIntent> = {
   ArrowLeft: 'prev',
@@ -16,7 +16,7 @@ export const MAP_KEY_TO_FOCUS_INTENT: Record<string, FocusIntent> = {
   End: 'last',
 }
 
-export function getDirectionAwareKey(key: string, dir?: Direction) {
+export function getDirectionAwareKey(key: string, dir?: Direction): string {
   if (dir !== 'rtl')
     return key
 
@@ -25,7 +25,7 @@ export function getDirectionAwareKey(key: string, dir?: Direction) {
 
 type FocusIntent = 'first' | 'last' | 'prev' | 'next'
 
-export function getFocusIntent(event: KeyboardEvent, orientation?: Orientation, dir?: Direction) {
+export function getFocusIntent(event: KeyboardEvent, orientation?: Orientation, dir?: Direction): FocusIntent | undefined {
   const key = getDirectionAwareKey(event.key, dir)
   if (orientation === 'vertical' && ['ArrowLeft', 'ArrowRight'].includes(key))
     return undefined
