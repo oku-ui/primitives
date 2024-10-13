@@ -46,6 +46,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
 
   watchEffect(() => {
     itemData.active = active()
+    // TODO: remove focusable
     itemData.focusable = focusable()
     itemData.id = id.value
   })
