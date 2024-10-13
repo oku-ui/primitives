@@ -80,6 +80,8 @@ export function useMenuSubContentImpl(props: UseMenuSubContentImplProps): UseMen
     }
   }
 
+  console.error('Context::', rootContext.dir.value, rootContext.dir.value === 'rtl' ? 'right' : 'left')
+
   const menuContentImplShared = useMenuContentImplShared({
     ...props,
     onOpenAutoFocus,
@@ -89,7 +91,7 @@ export function useMenuSubContentImpl(props: UseMenuSubContentImplProps): UseMen
     popperProps: {
       ...props.popperProps,
       align: 'start',
-      side: rootContext.dir.value === 'rtl' ? 'right' : 'left',
+      side: rootContext.dir.value !== 'rtl' ? 'right' : 'left',
     },
   })
 

@@ -1,5 +1,5 @@
 import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import { onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
 import { useMenuContentContext } from './MenuContentImpl.ts'
 import { type MenuItemImplProps, useMenuItemImpl, type UseMenuItemImplProps } from './MenuItemImpl.ts'
@@ -25,18 +25,26 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps): RadixPrimitive
     subContext.trigger.value = v
   }
 
-  let openTimerRef: number | undefined
+  onMounted(() => {
+    popperContext.onAnchorChange(subContext.trigger.value)
+  })
+
+  let openTimerRef: number = 0
 
   function clearOpenTimer() {
-    if (openTimerRef)
+    if (openTimerRef) {
       window.clearTimeout(openTimerRef)
-    openTimerRef = undefined
+      openTimerRef = 0
+    }
   }
 
   onBeforeUnmount(() => {
     clearOpenTimer()
 
-    window.clearTimeout(contentContext.pointerGraceTimerRef.value)
+    if (contentContext.pointerGraceTimerRef.value) {
+      window.clearTimeout(contentContext.pointerGraceTimerRef.value)
+      contentContext.pointerGraceTimerRef.value = 0
+    }
     contentContext.onPointerGraceIntentChange(undefined)
   })
 
@@ -73,6 +81,7 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps): RadixPrimitive
       openTimerRef = window.setTimeout(() => {
         context.onOpenChange(true)
         clearOpenTimer()
+        openTimerRef = 0
       }, 100)
     }
   }
@@ -109,8 +118,9 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps): RadixPrimitive
         side,
       })
 
-      if (contentContext.pointerGraceTimerRef.value)
+      if (contentContext.pointerGraceTimerRef.value) {
         window.clearTimeout(contentContext.pointerGraceTimerRef.value)
+      }
       contentContext.pointerGraceTimerRef.value = window.setTimeout(
         () => {
           contentContext.onPointerGraceIntentChange(undefined)

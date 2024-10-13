@@ -9,7 +9,7 @@ import { type FocusScopeProps, useFocusScope } from '../focus-scope/index.ts'
 import { useBodyScrollLock, useRef } from '../hooks/index.ts'
 import { createContext, type MutableRefObject } from '../hooks/index.ts'
 import { type PopperContentProps, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
-import { type RovingFocusGroupRootEmits, type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { type RovingFocusGroupRootEmits, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { focusFirst } from '../shared/focusFirst.ts'
 import { Collection, FIRST_LAST_KEYS, LAST_KEYS, useCollection, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 
@@ -372,7 +372,7 @@ export function useMenuContentImplShared(props: UseMenuContentImplSharedProps = 
         onPointermove,
       }
 
-      return popperContent.attrs([focusScope.attrs(), dismissableLayer.attrs(), rovingFocusGroupRoot.attrs(), popperAttrs, ...extraAttrs])
+      return popperContent.attrs([rovingFocusGroupRoot.attrs(), dismissableLayer.attrs(), focusScope.attrs(), popperAttrs, ...extraAttrs])
     },
   }
 }
