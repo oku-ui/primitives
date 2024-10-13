@@ -58,7 +58,7 @@ export function createCollection<ItemElement extends HTMLElement, ItemData = Rec
       if (!context.collectionRef.value)
         return []
 
-      const orderedNodes = Array.from(context.collectionRef.value.querySelectorAll(`[${DATA_COLLECTION_ITEM}]`))
+      const orderedNodes = Array.from(context.collectionRef.value.querySelectorAll(`[${DATA_COLLECTION_ITEM}]:not([data-disabled])`))
 
       return orderedNodes as CollectionItem[]
     }
