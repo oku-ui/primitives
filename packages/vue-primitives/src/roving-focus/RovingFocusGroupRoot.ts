@@ -204,7 +204,6 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
       const attrs = {
         'elRef': setTemplateEl,
         'dir': dir.value,
-        'focusableItemsCount': focusableItemsCount.value,
         'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
         'data-orientation': props.orientation,
         'style': 'outline: none;',
