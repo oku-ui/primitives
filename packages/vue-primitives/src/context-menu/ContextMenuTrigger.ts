@@ -1,7 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { isClient } from '@vueuse/core'
-import { onBeforeUnmount, onWatcherCleanup, useId, watchEffect } from 'vue'
+import { onBeforeUnmount, onWatcherCleanup, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/PopperRoot.ts'
 import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { useContextMenuContext } from './ContextMenuRoot.ts'
@@ -57,6 +57,9 @@ export function useContextMenuTrigger(props: UseContextMenuTriggerProps = {}): R
   }
 
   function onContextmenu(event: MouseEvent) {
+    if (event.defaultPrevented) {
+      return
+    }
     if (props.disabled?.()) {
       return
     }
@@ -68,7 +71,7 @@ export function useContextMenuTrigger(props: UseContextMenuTriggerProps = {}): R
   }
 
   function onPointerdown(event: PointerEvent) {
-    if (props.disabled?.()) {
+    if (event.defaultPrevented) {
       return
     }
     if (event.pointerType === 'mouse')
@@ -79,7 +82,7 @@ export function useContextMenuTrigger(props: UseContextMenuTriggerProps = {}): R
   }
 
   function onPointermove(event: PointerEvent) {
-    if (props.disabled?.()) {
+    if (event.defaultPrevented) {
       return
     }
     if (event.pointerType === 'mouse')
@@ -88,7 +91,7 @@ export function useContextMenuTrigger(props: UseContextMenuTriggerProps = {}): R
   }
 
   function onPointercancel(event: PointerEvent) {
-    if (props.disabled?.()) {
+    if (event.defaultPrevented) {
       return
     }
     if (event.pointerType === 'mouse')
@@ -97,7 +100,7 @@ export function useContextMenuTrigger(props: UseContextMenuTriggerProps = {}): R
   }
 
   function onPointerup(event: PointerEvent) {
-    if (props.disabled?.()) {
+    if (event.defaultPrevented) {
       return
     }
     if (event.pointerType === 'mouse')
