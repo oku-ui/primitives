@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { type MenuSubContentImplEmits, type MenuSubContentImplProps, useMenuSubContentImpl } from '../menu/MenuSubContentImpl.ts'
-import { PopperContentPropsDefaults } from '../popper/PopperContent.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/mergeProps.ts'
 
