@@ -10,7 +10,8 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
-  ...PopperContentPropsDefaults,
+  avoidCollisions: true,
+  hideWhenDetached: false,
   loop: false,
 })
 

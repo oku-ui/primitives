@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { PopperContentPropsDefaults } from '../popper/PopperContent.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import { type DropdownMenuContentImplEmits, type DropdownMenuContentImplProps, useDropdownMenuContentImpl } from './DropdownMenuContentImpl.ts'
@@ -10,7 +9,8 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<DropdownMenuContentImplProps>(), {
-  ...PopperContentPropsDefaults,
+  avoidCollisions: true,
+  hideWhenDetached: false,
   loop: false,
 })
 
