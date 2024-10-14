@@ -106,7 +106,7 @@ export function normalizeAttrs(attrs: PrimitiveElAttrs): IAttrsData {
 
   if (disabled) {
     for (const propName in attrs) {
-      if (isOn(propName)) {
+      if (isOn(propName) && attrs[propName] !== undefined) {
         attrs[propName] = NOOP
       }
     }
