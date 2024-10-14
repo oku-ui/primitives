@@ -1,22 +1,29 @@
 <script setup lang="ts">
 import { PopperContentPropsDefaults } from '../popper/PopperContent.ts'
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/mergeProps.ts'
-import { type MenuSubContentImplEmits, type MenuSubContentImplProps, useMenuSubContentImpl } from './MenuSubContentImpl.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type DropdownMenuContentImplEmits, type DropdownMenuContentImplProps, useDropdownMenuContentImpl } from './DropdownMenuContentImpl.ts'
 
 defineOptions({
-  name: 'MenuSubContentImpl',
+  name: 'DropdownMenuContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenuSubContentImplProps>(), {
+const props = withDefaults(defineProps<DropdownMenuContentImplProps>(), {
   ...PopperContentPropsDefaults,
   loop: false,
 })
-const emit = defineEmits<MenuSubContentImplEmits>()
 
-const menuSubContentImpl = useMenuSubContentImpl({
+const emit = defineEmits<DropdownMenuContentImplEmits>()
+
+const menuContentImpl = useDropdownMenuContentImpl({
   loop: props.loop,
+  onCloseAutoFocus(event) {
+    emit('closeAutoFocus', event)
+  },
+  onEntryFocus(event) {
+    emit('entryFocus', event)
+  },
   onEscapeKeydown(event) {
     emit('escapeKeydown', event)
   },
@@ -30,6 +37,8 @@ const menuSubContentImpl = useMenuSubContentImpl({
     emit('interactOutside', event)
   },
   popperProps: {
+    side: props.side,
+    align: props.align,
     sideOffset: props.sideOffset,
     alignOffset: props.alignOffset,
     arrowPadding: props.arrowPadding,
@@ -46,8 +55,8 @@ const menuSubContentImpl = useMenuSubContentImpl({
 </script>
 
 <template>
-  <div v-bind="menuSubContentImpl.wrapperAttrs()">
-    <Primitive v-bind="normalizeAttrs(menuSubContentImpl.attrs([$attrs]))">
+  <div v-bind="menuContentImpl.wrapperAttrs()">
+    <Primitive v-bind="normalizeAttrs(menuContentImpl.attrs([$attrs]))">
       <slot />
     </Primitive>
   </div>

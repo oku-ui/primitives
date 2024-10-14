@@ -9,9 +9,6 @@ export { MenuItemIndicator as DropdownMenuItemIndicator } from '../menu/index.ts
 export { MenuSeparator as DropdownMenuSeparator } from '../menu/index.ts'
 export { MenuArrow as DropdownMenuArrow } from '../menu/index.ts'
 export { MenuSubTrigger as DropdownMenuSubTrigger } from '../menu/index.ts'
-export {
-  type DropdownMenuContentEmits,
-} from './DropdownMenuContent.ts'
 
 export { default as DropdownMenuContent } from './DropdownMenuContent.vue'
 
@@ -31,7 +28,6 @@ export {
 export { default as DropdownMenuSub } from './DropdownMenuSub.vue'
 export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue'
 export {
-  type DropdownMenuTriggerEmits,
   type DropdownMenuTriggerProps,
 } from './DropdownMenuTrigger.ts'
 

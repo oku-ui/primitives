@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import type { DropdownMenuSubEmits, DropdownMenuSubProps } from './DropdownMenuSub.ts'
-import { useControllableState, useId, useRef } from '@oku-ui/hooks'
-import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { provideMenuContext, provideMenuSubContext, useMenuContext } from '../menu/index.ts'
-import { type Measurable, providePopperContext } from '../popper/index.ts'
+import { type DropdownMenuSubEmits, type DropdownMenuSubProps, useDropdownMenuSub } from './DropdownMenuSub.ts'
 
 defineOptions({
   name: 'DropdownMenuSub',
@@ -16,51 +12,14 @@ const props = withDefaults(defineProps<DropdownMenuSubProps>(), {
 })
 const emit = defineEmits<DropdownMenuSubEmits>()
 
-const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
-
-// COMP::MenuSub
-
-const parentMenuContext = useMenuContext('DropdownMenuSub')
-const trigger = useRef<HTMLDivElement>()
-
-// Prevent the parent menu from reopening with open submenus.
-watchEffect(() => {
-  if (parentMenuContext.open() === false)
-    open.value = false
-
-  onWatcherCleanup(() => {
-    open.value = false
-  })
-})
-
-provideMenuContext({
+useDropdownMenuSub({
   open() {
-    return open.value
+    return props.open
   },
-  onOpenChange(v) {
-    open.value = v
+  onUpdateOpen(open) {
+    emit('update:open', open)
   },
-})
-
-provideMenuSubContext({
-  contentId: useId(),
-  triggerId: useId(),
-  trigger,
-  onTriggerChange(el) {
-    trigger.value = el
-  },
-})
-
-// COMP::PopperRoot
-
-const anchor = shallowRef<Measurable>()
-
-providePopperContext({
-  content: shallowRef(),
-  anchor,
-  onAnchorChange(newAnchor) {
-    anchor.value = newAnchor
-  },
+  defaultOpen: props.defaultOpen,
 })
 </script>
 

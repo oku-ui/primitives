@@ -1,7 +1,7 @@
-import type { DismissableLayerEmits } from '../dismissable-layer/index.ts'
-import type { MenuContentImplSharedEmits } from '../menu/MenuContentImpl.ts'
+import { type MenuContentProps, useMenuContent, type UseMenuContentProps } from '../menu/index.ts'
 
-export type DropdownMenuContentEmits = {
-  closeAutoFocus: MenuContentImplSharedEmits['closeAutoFocus']
-  interactOutside: DismissableLayerEmits['interactOutside']
-}
+export interface DropdownMenuContentProps extends MenuContentProps {}
+
+export interface UseDropdownMenuContentProps extends UseMenuContentProps {}
+
+export const useDropdownMenuContent = useMenuContent

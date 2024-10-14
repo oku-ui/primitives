@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { PopperContentPropsDefaults } from '../popper/PopperContent.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import { type MenuContentImplEmits, type MenuContentImplProps, useMenuContentImpl } from './MenuContentImpl.ts'
@@ -9,6 +10,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<MenuContentImplProps>(), {
+  ...PopperContentPropsDefaults,
   loop: false,
 })
 
