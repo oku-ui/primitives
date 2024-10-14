@@ -2,25 +2,27 @@
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import {
-  type DropdownMenuSubContentImplEmits,
-  type DropdownMenuSubContentImplProps,
-  useDropdownMenuSubContentImpl,
-} from './DropdownMenuSubContentImpl.ts'
+  type ContextMenuContentImplEmits,
+  type ContextMenuContentImplProps,
+  useContextMenuContentImpl,
+} from './ContextMenuContentImpl.ts'
 
 defineOptions({
-  name: 'DropdownMenuSubContentImpl',
+  name: 'ContextMenuContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<DropdownMenuSubContentImplProps>(), {
+const props = withDefaults(defineProps<ContextMenuContentImplProps>(), {
   avoidCollisions: true,
   hideWhenDetached: false,
-  loop: false,
 })
-const emit = defineEmits<DropdownMenuSubContentImplEmits>()
+const emit = defineEmits<ContextMenuContentImplEmits>()
 
-const menuSubContentImpl = useDropdownMenuSubContentImpl({
+const contextMenuContentImpl = useContextMenuContentImpl({
   loop: props.loop,
+  onCloseAutoFocus(event) {
+    emit('closeAutoFocus', event)
+  },
   onEscapeKeydown(event) {
     emit('escapeKeydown', event)
   },
@@ -34,7 +36,6 @@ const menuSubContentImpl = useDropdownMenuSubContentImpl({
     emit('interactOutside', event)
   },
   popperProps: {
-    sideOffset: props.sideOffset,
     alignOffset: props.alignOffset,
     arrowPadding: props.arrowPadding,
     avoidCollisions: props.avoidCollisions,
@@ -50,8 +51,8 @@ const menuSubContentImpl = useDropdownMenuSubContentImpl({
 </script>
 
 <template>
-  <div v-bind="menuSubContentImpl.wrapperAttrs()">
-    <Primitive v-bind="normalizeAttrs(menuSubContentImpl.attrs([$attrs]))">
+  <div v-bind="contextMenuContentImpl.wrapperAttrs()">
+    <Primitive v-bind="normalizeAttrs(contextMenuContentImpl.attrs([$attrs]))">
       <slot />
     </Primitive>
   </div>

@@ -1,25 +1,21 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import {
-  type DropdownMenuSubContentImplEmits,
-  type DropdownMenuSubContentImplProps,
-  useDropdownMenuSubContentImpl,
-} from './DropdownMenuSubContentImpl.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { type ContextMenuSubContentImplEmits, type ContextMenuSubContentImplProps, useContextMenuSubContentImpl } from './ContextMenuSubContentImpl.ts'
 
 defineOptions({
-  name: 'DropdownMenuSubContentImpl',
+  name: 'ContextMenuSubContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<DropdownMenuSubContentImplProps>(), {
+const props = withDefaults(defineProps<ContextMenuSubContentImplProps>(), {
   avoidCollisions: true,
   hideWhenDetached: false,
   loop: false,
 })
-const emit = defineEmits<DropdownMenuSubContentImplEmits>()
+const emit = defineEmits<ContextMenuSubContentImplEmits>()
 
-const menuSubContentImpl = useDropdownMenuSubContentImpl({
+const contextMenuSubContentImpl = useContextMenuSubContentImpl({
   loop: props.loop,
   onEscapeKeydown(event) {
     emit('escapeKeydown', event)
@@ -50,8 +46,8 @@ const menuSubContentImpl = useDropdownMenuSubContentImpl({
 </script>
 
 <template>
-  <div v-bind="menuSubContentImpl.wrapperAttrs()">
-    <Primitive v-bind="normalizeAttrs(menuSubContentImpl.attrs([$attrs]))">
+  <div v-bind="contextMenuSubContentImpl.wrapperAttrs()">
+    <Primitive v-bind="normalizeAttrs(contextMenuSubContentImpl.attrs([$attrs]))">
       <slot />
     </Primitive>
   </div>
