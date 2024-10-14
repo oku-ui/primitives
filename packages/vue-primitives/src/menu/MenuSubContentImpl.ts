@@ -80,8 +80,6 @@ export function useMenuSubContentImpl(props: UseMenuSubContentImplProps): UseMen
     }
   }
 
-  console.error('Context::', rootContext.dir.value, rootContext.dir.value === 'rtl' ? 'right' : 'left')
-
   const menuContentImplShared = useMenuContentImplShared({
     ...props,
     onOpenAutoFocus,

@@ -174,7 +174,6 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
 
     event.preventDefault()
     let candidateNodes = getItems().filter(item => item.$$rcid.rfg.focusable)
-    console.error('target', candidateNodes)
 
     if (focusIntent === 'last') {
       candidateNodes.reverse()
