@@ -28,6 +28,7 @@ const sliderThumb = useSliderThumb({
 
     <SliderBubbleInput
       v-if="sliderThumb.isFormControl.value"
+      :key="sliderThumb.bubbleInput.index.value"
       :name="sliderThumb.bubbleInput.name()"
       :value="sliderThumb.bubbleInput.value.value"
     />
