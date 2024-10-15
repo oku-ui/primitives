@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import { type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
 
@@ -15,20 +16,16 @@ const props = withDefaults(defineProps<TabsRootProps>(), {
 
 const emit = defineEmits<TabsRootEmits>()
 
-const tabsRoot = useTabsRoot({
-  value() {
-    return props.value
-  },
-  onUpdateValue(value) {
-    emit('update:value', value)
-  },
-  defaultValue: props.defaultValue,
-  orientation: props.orientation,
-  dir() {
-    return props.dir
-  },
-  activationMode: props.activationMode,
-})
+const tabsRoot = useTabsRoot(convertPropsToHookProps(
+  props,
+  ['value'],
+  null as unknown as TabsRootEmits,
+  () => ({
+    onUpdateValue(value) {
+      emit('update:value', value)
+    },
+  }),
+))
 </script>
 
 <template>

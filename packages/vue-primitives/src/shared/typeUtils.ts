@@ -1,6 +1,10 @@
 import type { AriaAttributes, ComponentPublicInstance, Events, HTMLAttributes, Ref } from 'vue'
 import type { MutableRefObject } from '../hooks/index.ts'
 
+export type BooleanKey<T, K extends keyof T = keyof T> = K extends any ? [T[K]] extends [boolean | undefined] ? K : never : never
+
+export type PrimitiveDefaultProps<T extends Record<string, any>> = Record<BooleanKey<T>, undefined> & (T extends { as?: any } ? Required<Pick<T, 'as'>> : unknown)
+
 export type EmitsToHookProps<T extends Record<string, any[]>> = {
   [K in keyof T as K extends `update:${infer Rest}`
     ? `onUpdate${Capitalize<Rest>}`

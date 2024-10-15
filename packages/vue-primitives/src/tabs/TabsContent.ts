@@ -1,3 +1,4 @@
+import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
@@ -13,6 +14,10 @@ export interface TabsContentProps {
    */
   forceMount?: boolean
 }
+
+export const TabsContentDefaltProps = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<TabsContentProps>
 
 export interface UseTabsContentProps {
   el?: Ref<HTMLElement | undefined>

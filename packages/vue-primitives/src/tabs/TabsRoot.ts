@@ -1,5 +1,6 @@
 import type { MaybeRefOrGetter, Ref } from 'vue'
 import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
+import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
 import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
@@ -25,6 +26,9 @@ export interface TabsRootProps {
    */
   activationMode?: 'automatic' | 'manual'
 }
+
+export const TabsRootDefaltProps = {
+} satisfies PrimitiveDefaultProps<TabsRootProps>
 
 export type TabsRootEmits = {
   /** A function called when a new tab is selected */

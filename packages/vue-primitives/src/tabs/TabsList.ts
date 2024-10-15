@@ -1,4 +1,5 @@
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { type MutableRefObject, useRef } from '../hooks/index.ts'
 import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
@@ -7,6 +8,10 @@ import { useTabsContext } from './TabsRoot.ts'
 export interface TabsListProps {
   loop?: RovingFocusGroupRootProps['loop']
 }
+
+export const TabsListDefaltProps = {
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<TabsListProps>
 
 export interface UseTabsListProps {
   elRef?: MutableRefObject<HTMLElement | undefined>
