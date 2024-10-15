@@ -68,6 +68,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
     context.onItemFocus(id.value)
   }
 
+  // TODO: wip onKeydown
   // function onKeydown(event: KeyboardEvent) {
   //   if (event.defaultPrevented)
   //     return
