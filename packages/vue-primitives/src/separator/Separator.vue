@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
-import { normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { DEFAULT_SEPARATOR_PROPS, type SeparatorProps, useSeparator } from './Separator.ts'
 
 defineOptions({

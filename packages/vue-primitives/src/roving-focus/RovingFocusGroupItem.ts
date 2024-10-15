@@ -2,11 +2,10 @@ import type { PrimitiveProps } from '@oku-ui/primitive'
 import { useId } from '@oku-ui/hooks'
 import { composeEventHandlers, focusFirst, isFunction, wrapArray } from '@oku-ui/shared'
 import { computed, onWatcherCleanup, watch, watchEffect } from 'vue'
-import { DATA_COLLECTION_ITEM } from '../collection/Collection.ts'
+import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useId } from '../hooks/index.ts'
-import { focusFirst, mergePrimitiveAttrs, type RadixPrimitiveReturns, wrapArray } from '../shared/index.ts'
-import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
-import { getFocusIntent } from './utils.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { Collection, type ItemData, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
 
 export interface RovingFocusGroupItemProps {
   as?: PrimitiveProps['as']
@@ -14,6 +13,12 @@ export interface RovingFocusGroupItemProps {
   focusable?: boolean
   active?: boolean
 }
+
+export const DEFAULT_ROVING_FOCUS_GROUP_ITEM_PROPS = {
+  as: 'span',
+  focusable: true,
+  active: false,
+} satisfies PrimitiveDefaultProps<RovingFocusGroupItemProps, 'focusable' | 'active'>
 
 export interface UseRovingFocusGroupItemProps {
   tabStopId?: () => string | undefined
@@ -68,7 +73,8 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
     context.onItemFocus(id.value)
   }
 
-  // TODO: wip onKeydown
+  // TODO: wip onKeydown on RovingFocusGroupRoot
+
   // function onKeydown(event: KeyboardEvent) {
   //   if (event.defaultPrevented)
   //     return

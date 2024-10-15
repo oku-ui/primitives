@@ -3,7 +3,7 @@ import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 import { useControllableStateV2 } from '../hooks/index.ts'
-import { type EmitsToHookProps, focusFirst, mergePrimitiveAttrs, type RadixPrimitiveReturns, wrapArray } from '../shared/index.ts'
+import { type EmitsToHookProps, focusFirst, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns, wrapArray } from '../shared/index.ts'
 import { ENTRY_FOCUS, EVENT_OPTIONS, getFocusIntent } from './utils.ts'
 
 type Orientation = AriaAttributes['aria-orientation']
@@ -28,6 +28,11 @@ export interface RovingFocusGroupRootProps {
   defaultCurrentTabStopId?: string
   preventScrollOnEntryFocus?: boolean
 }
+
+export const DEFAULT_ROVING_FOCUS_GROUP_ROOT_PROPS = {
+  loop: undefined,
+  preventScrollOnEntryFocus: undefined,
+} satisfies PrimitiveDefaultProps<RovingFocusGroupRootProps>
 
 export type RovingFocusGroupRootEmits = {
   'update:currentTabStopId': [tabStopId: string | undefined]

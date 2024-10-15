@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { TabsRootDefaltProps, type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TABS_ROOT_PROPS, type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
 
 defineOptions({
   name: 'TabsRoot',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<TabsRootProps>(), TabsRootDefaltProps)
+const props = withDefaults(defineProps<TabsRootProps>(), DEFAULT_TABS_ROOT_PROPS)
 
 const emit = defineEmits<TabsRootEmits>()
 

@@ -1,7 +1,6 @@
-import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 
@@ -15,7 +14,7 @@ export interface TabsContentProps {
   forceMount?: boolean
 }
 
-export const TabsContentDefaltProps = {
+export const DEFAULT_TABS_CONTENT_PROPS = {
   forceMount: undefined,
 } satisfies PrimitiveDefaultProps<TabsContentProps>
 

@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { TabsContentDefaltProps, type TabsContentProps, useTabsContent } from './TabsContent.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TABS_CONTENT_PROPS, type TabsContentProps, useTabsContent } from './TabsContent.ts'
 
 defineOptions({
   name: 'TabsContent',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<TabsContentProps>(), TabsContentDefaltProps)
+const props = withDefaults(defineProps<TabsContentProps>(), DEFAULT_TABS_CONTENT_PROPS)
 
 const tabsContent = useTabsContent(convertPropsToHookProps(props, ['value']))
 </script>

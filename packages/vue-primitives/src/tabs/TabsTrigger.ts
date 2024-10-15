@@ -1,8 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveReturns } from '../shared/index.ts'
-import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed } from 'vue'
-import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
@@ -13,7 +12,7 @@ export interface TabsTriggerProps {
   disabled?: boolean
 }
 
-export const TabsTriggerDefaltProps = {
+export const DEFAULT_TABS_TRIGGER_PROPS = {
   as: 'button',
   disabled: undefined,
 } satisfies PrimitiveDefaultProps<TabsTriggerProps>

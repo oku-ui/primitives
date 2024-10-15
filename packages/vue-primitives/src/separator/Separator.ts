@@ -1,5 +1,4 @@
-import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface SeparatorProps {
   /**

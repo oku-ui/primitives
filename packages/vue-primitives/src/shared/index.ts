@@ -1,4 +1,5 @@
 export { composeEventHandlers } from './composeEventHandlers.ts'
+export { convertPropsToHookProps } from './convertPropsToHookProps.ts'
 export { focusFirst } from './focusFirst.ts'
 export {
   arrayify,
@@ -17,6 +18,7 @@ export { isPointInPolygon, type Point, type Polygon } from './isPointInPolygon.t
 export { type IAttrsData, mergePrimitiveAttrs, normalizeAttrs } from './mergeProps.ts'
 export {
   type EmitsToHookProps,
+  type PrimitiveDefaultProps,
   type PrimitiveElAttrs,
   type RadixPrimitiveGetAttrs,
   type RadixPrimitiveReturns,

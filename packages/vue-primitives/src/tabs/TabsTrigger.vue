@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { TabsTriggerDefaltProps, type TabsTriggerProps, useTabsTrigger } from './TabsTrigger.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TABS_TRIGGER_PROPS, type TabsTriggerProps, useTabsTrigger } from './TabsTrigger.ts'
 
 defineOptions({
   name: 'TabsTrigger',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<TabsTriggerProps>(), TabsTriggerDefaltProps)
+const props = withDefaults(defineProps<TabsTriggerProps>(), DEFAULT_TABS_TRIGGER_PROPS)
 
 const tabsTrigger = useTabsTrigger(convertPropsToHookProps(props, ['value', 'disabled']))
 </script>
