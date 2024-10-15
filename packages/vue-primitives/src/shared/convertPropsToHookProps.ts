@@ -22,6 +22,10 @@ export function convertPropsToHookProps<
 export function convertPropsToHookProps(props: any, reactiveProps?: any, _events?: any, emits?: any) {
   const result = (emits ? { ...props, ...emits() } : { ...props }) as Record<string, any>
 
+  if (!reactiveProps) {
+    return result
+  }
+
   for (const field of reactiveProps) {
     result[field] = () => props[field]
   }
