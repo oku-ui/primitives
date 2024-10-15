@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import { TabsTriggerDefaltProps, type TabsTriggerProps, useTabsTrigger } from './TabsTrigger.ts'
 
@@ -10,14 +11,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), TabsTriggerDefaltProps)
 
-const tabsTrigger = useTabsTrigger({
-  value() {
-    return props.value
-  },
-  disabled() {
-    return props.disabled
-  },
-})
+const tabsTrigger = useTabsTrigger(convertPropsToHookProps(props, ['value', 'disabled']))
 </script>
 
 <template>
