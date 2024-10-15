@@ -7,7 +7,6 @@ export interface CollapsibleRootProps {
   disabled?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type CollapsibleRootEmits = {
   'update:open': [value: boolean]
 }

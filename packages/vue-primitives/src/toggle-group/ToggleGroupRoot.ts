@@ -12,7 +12,6 @@ export interface ToggleGroupProps<T extends ToggleGroupType> extends ToggleGroup
   defaultValue?: T extends 'single' ? ToggleGroupSingleProps['defaultValue'] : ToggleGroupMultipleProps['defaultValue']
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ToggleGroupEmits<T extends ToggleGroupType> = {
   /**
    * The callback that fires when the state of the toggle group changes.

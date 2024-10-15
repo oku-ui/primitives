@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ToastProviderProps } from '../index.ts'
-import { shallowRef, type UnwrapRef } from 'vue'
+import { type UnwrapRef, shallowRef } from 'vue'
 import { ToastClose, ToastDescription, ToastRoot, ToastViewport, useToastProvider } from '../index.ts'
 import './styles.css'
 

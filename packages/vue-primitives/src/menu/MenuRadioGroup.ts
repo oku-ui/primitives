@@ -5,7 +5,6 @@ export interface MenuRadioGroupProps {
   onValueChange?: (value: string) => void
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenuRadioGroupEmits = {
   /** Event handler called when the value changes. */
   'update:value': [payload: string]

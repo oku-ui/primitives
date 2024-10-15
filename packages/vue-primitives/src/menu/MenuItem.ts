@@ -1,9 +1,7 @@
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenuItemProps = {
   disabled?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenuItemEmits = {
   select: [event: Event]
   click: [event: MouseEvent]

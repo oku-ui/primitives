@@ -1,4 +1,4 @@
-import { inject, type InjectionKey, provide } from 'vue'
+import { type InjectionKey, inject, provide } from 'vue'
 
 /**
  * Create global state that can be injected into components.

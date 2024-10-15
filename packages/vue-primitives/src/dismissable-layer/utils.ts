@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/core'
-import { nextTick, onWatcherCleanup, type Ref, watch } from 'vue'
+import { type Ref, nextTick, onWatcherCleanup, watch } from 'vue'
 
 export type PointerDownOutsideEvent = CustomEvent<{
   originalEvent: PointerEvent

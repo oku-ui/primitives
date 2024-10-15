@@ -8,7 +8,6 @@ export interface MenuSubContentProps {
   forceMount?: true
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenuSubContentEmits = {
   focusOutside: [event: FocusOutsideEvent]
   escapeKeydown: [event: KeyboardEvent]

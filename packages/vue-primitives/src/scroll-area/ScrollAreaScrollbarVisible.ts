@@ -2,7 +2,6 @@ export interface ScrollAreaScrollbarVisibleProps {
   orientation?: 'horizontal' | 'vertical'
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ScrollAreaScrollbarVisibleEmits = {
   pointerdown: [event: PointerEvent]
   pointermove: [event: PointerEvent]

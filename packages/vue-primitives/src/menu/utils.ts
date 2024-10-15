@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------------------------- */
 
 import type { CheckedState } from '../checkbox/index.ts'
-import { isPointInPolygon, type Polygon, wrapArray } from '../shared/index.ts'
+import { type Polygon, isPointInPolygon, wrapArray } from '../shared/index.ts'
 
 export function getOpenState(open: boolean) {
   return open ? 'open' : 'closed'
@@ -49,7 +49,7 @@ export function getNextMatch(values: string[], search: string, currentMatch?: st
 }
 
 export type Side = 'left' | 'right'
-// eslint-disable-next-line ts/consistent-type-definitions
+
 export type GraceIntent = { area: Polygon, side: Side }
 
 export function isPointerInGraceArea(event: PointerEvent, area?: Polygon) {

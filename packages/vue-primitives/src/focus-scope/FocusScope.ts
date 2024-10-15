@@ -1,5 +1,5 @@
 import { isClient } from '@vueuse/core'
-import { nextTick, onWatcherCleanup, type Ref, toValue, watch, watchEffect } from 'vue'
+import { type Ref, nextTick, onWatcherCleanup, toValue, watch, watchEffect } from 'vue'
 import { focus, focusFirst, focusScopesStack, getTabbableCandidates, getTabbableEdges, removeLinks } from './utils.ts'
 
 export interface FocusScopeProps {
@@ -18,7 +18,6 @@ export interface FocusScopeProps {
   trapped?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type FocusScopeEmits = {
   /**
    * Event handler called when auto-focusing on mount.

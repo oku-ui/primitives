@@ -7,7 +7,6 @@ export interface ContextMenuRootProps {
   modal?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ContextMenuRootEmits = {
   'update:open': [open: boolean]
 }

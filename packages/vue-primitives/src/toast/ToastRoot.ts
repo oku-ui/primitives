@@ -15,7 +15,6 @@ export type SwipeEvent = { currentTarget: EventTarget & HTMLLIElement } & Omit<
   'currentTarget'
 >
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ToastRootEmits = {
   'update:open': [open: boolean]
 

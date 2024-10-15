@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface SwitchRootProps {
   as?: PrimitiveProps['as']
@@ -13,13 +13,11 @@ export interface SwitchRootProps {
   name?: string
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type SwitchRootEmits = {
   'update:checked': [checked: boolean]
   'click': [event: MouseEvent]
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type SwitchRootSlots = {
   default: (props: {
     isFormControl: boolean

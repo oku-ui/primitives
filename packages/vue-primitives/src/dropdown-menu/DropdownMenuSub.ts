@@ -3,7 +3,6 @@ export interface DropdownMenuSubProps {
   defaultOpen?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type DropdownMenuSubEmits = {
   'update:open': [open: boolean]
 }

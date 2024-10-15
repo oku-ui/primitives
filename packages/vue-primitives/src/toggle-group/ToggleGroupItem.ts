@@ -10,7 +10,6 @@ export interface ToggleGroupItemProps {
   disabled?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ToggleGroupItemEmits = {
   /**
    * Emitted when the toggle group item is clicked.

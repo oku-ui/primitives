@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface PopoverRootProps {
   open?: boolean
@@ -7,7 +7,6 @@ export interface PopoverRootProps {
   modal?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type PopoverRootEmits = {
   /**
    * Event handler called when the open state of the popover changes.

@@ -6,7 +6,6 @@ export interface TabsTriggerProps {
   disabled?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type TabsTriggerEmits = {
   mousedown: [event: MouseEvent]
   keydown: [event: KeyboardEvent]

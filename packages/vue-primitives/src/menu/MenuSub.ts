@@ -1,10 +1,9 @@
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface MenuSubProps {
   open?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenuSubEmits = {
   'update:open': [open: boolean]
 }

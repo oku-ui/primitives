@@ -16,7 +16,6 @@ export interface ToggleProps {
   disabled?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ToggleEmits = {
   /**
    * The callback that fires when the state of the toggle changes.

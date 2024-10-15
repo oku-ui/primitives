@@ -13,7 +13,6 @@ export interface ToastRootImplProps {
   open: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ToastRootImplEmits = {
   close: []
 

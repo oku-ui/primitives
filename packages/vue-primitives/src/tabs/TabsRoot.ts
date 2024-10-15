@@ -24,7 +24,6 @@ export interface TabsRootProps {
   activationMode?: 'automatic' | 'manual'
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type TabsRootEmits = {
   /** A function called when a new tab is selected */
   'update:value': [value: string]

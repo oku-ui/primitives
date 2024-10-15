@@ -13,7 +13,6 @@ export interface RadioGroupRootProps {
   value?: string
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type RadioGroupRootEmits = {
   'update:value': [value: string]
   'mousedown': RovingFocusGroupRootEmits['mousedown']

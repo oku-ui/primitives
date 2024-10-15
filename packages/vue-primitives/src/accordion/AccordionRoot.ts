@@ -15,7 +15,6 @@ export interface AccordionRootProps<T extends AccordionType> extends AccordionIm
   collapsible?: AccordionSingleProps['collapsible']
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type AccordionRootEmits<T extends AccordionType> = {
   /**
    * The callback that fires when the state of the toggle group changes.

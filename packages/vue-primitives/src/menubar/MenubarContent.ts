@@ -5,7 +5,6 @@ export interface MenubarContentProps {
   align?: PopperContentProps['align']
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenubarContentEmits = {
   keydown: [event: KeyboardEvent]
   closeAutoFocus: [event: Event]

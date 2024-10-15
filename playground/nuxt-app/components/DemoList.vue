@@ -1,6 +1,6 @@
 <template>
   <div class="demo-box-list">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -11,4 +11,3 @@
   gap: 60px;
 }
 </style>
-

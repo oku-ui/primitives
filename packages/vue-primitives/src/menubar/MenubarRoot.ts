@@ -11,7 +11,6 @@ export interface MenubarRootProps {
   dir?: RovingFocusGroupRootProps['dir']
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenubarRootEmits = {
   'update:value': [value: string]
 }

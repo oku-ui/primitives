@@ -6,7 +6,7 @@ import { useForwardElement } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
-import { provideScrollbarContext, type ScrollAreaThumbElement } from './ScrollAreaScrollbar.ts'
+import { type ScrollAreaThumbElement, provideScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
 
 defineOptions({

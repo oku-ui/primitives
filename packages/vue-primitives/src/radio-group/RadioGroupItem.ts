@@ -9,7 +9,6 @@ export interface RadioGroupItemProps {
   name?: string
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type RadioGroupItemEmits = {
   mousedown: [event: MouseEvent]
   keydown: [event: KeyboardEvent]
@@ -17,7 +16,6 @@ export type RadioGroupItemEmits = {
   click: [event: MouseEvent]
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type RadioGroupItemSlots = {
   default: (props: {
     isFormControl: boolean

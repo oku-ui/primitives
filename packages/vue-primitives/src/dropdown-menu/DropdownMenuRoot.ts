@@ -1,5 +1,5 @@
 import type { Direction } from '../direction/index.ts'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface DropdownMenuRootProps {
   dir?: Direction
@@ -8,7 +8,6 @@ export interface DropdownMenuRootProps {
   modal?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type DropdownMenuRootEmits = {
   'update:open': [open: boolean]
 }

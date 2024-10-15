@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface DialogRootProps {
   open?: boolean
@@ -7,7 +7,6 @@ export interface DialogRootProps {
   modal?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type DialogRootEmits = {
   'update:open': [open: boolean]
 }

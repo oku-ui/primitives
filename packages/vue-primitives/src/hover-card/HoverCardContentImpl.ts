@@ -4,7 +4,6 @@ export interface HoverCardContentImplProps {
 
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type HoverCardContentImplEmits = {
   /**
    * Event handler called when the escape key is down.

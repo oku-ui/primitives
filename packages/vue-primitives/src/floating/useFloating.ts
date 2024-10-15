@@ -1,3 +1,14 @@
+import { computePosition } from '@floating-ui/dom'
+
+import {
+  type CSSProperties,
+  type MaybeRefOrGetter,
+  computed,
+  onWatcherCleanup,
+  shallowRef,
+  toValue,
+  watchEffect,
+} from 'vue'
 import type {
   ComputePositionConfig,
   MiddlewareData,
@@ -6,17 +17,6 @@ import type {
   UseFloatingOptions,
   UseFloatingReturn,
 } from './types.ts'
-import { computePosition } from '@floating-ui/dom'
-
-import {
-  computed,
-  type CSSProperties,
-  type MaybeRefOrGetter,
-  onWatcherCleanup,
-  shallowRef,
-  toValue,
-  watchEffect,
-} from 'vue'
 import { getDPR } from './utils/getDPR.ts'
 import { roundByDPR } from './utils/roundByDPR.ts'
 

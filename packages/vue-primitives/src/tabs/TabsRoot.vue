@@ -2,7 +2,7 @@
 import { useDirection } from '../direction/index.ts'
 import { useControllableState, useId } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { provideTabsContext, type TabsRootEmits, type TabsRootProps } from './TabsRoot.ts'
+import { type TabsRootEmits, type TabsRootProps, provideTabsContext } from './TabsRoot.ts'
 
 defineOptions({
   name: 'TabsRoot',

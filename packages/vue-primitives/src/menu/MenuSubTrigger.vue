@@ -8,7 +8,7 @@ import { useMenuContentContext } from './MenuContent.ts'
 import MenuItemImpl from './MenuItemImpl.vue'
 import { SUB_OPEN_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'
-import { getOpenState, type Side } from './utils.ts'
+import { type Side, getOpenState } from './utils.ts'
 
 defineOptions({
   name: 'MenuSubTrigger',

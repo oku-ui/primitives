@@ -3,7 +3,7 @@ import { useDirection } from '../direction/index.ts'
 import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { provideRadioGroupContext, type RadioGroupRootEmits, type RadioGroupRootProps } from './RadioGroupRoot.ts'
+import { type RadioGroupRootEmits, type RadioGroupRootProps, provideRadioGroupContext } from './RadioGroupRoot.ts'
 
 defineOptions({
   name: 'RadioGroup',

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface HoverCardRootProps {
   open?: boolean
@@ -8,7 +8,6 @@ export interface HoverCardRootProps {
   closeDelay?: number
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type HoverCardRootEmits = {
   'update:open': [open: boolean]
 }

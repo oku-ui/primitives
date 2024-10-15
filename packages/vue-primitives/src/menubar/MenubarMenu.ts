@@ -1,4 +1,4 @@
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export interface MenubarMenuProps {
   value?: string

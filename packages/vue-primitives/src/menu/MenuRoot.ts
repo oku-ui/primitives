@@ -1,7 +1,7 @@
+import { type Ref, onBeforeUnmount, onMounted } from 'vue'
 import type { Direction } from '../direction/index.ts'
-import { onBeforeUnmount, onMounted, type Ref } from 'vue'
 import { createCollection } from '../collection/Collection.ts'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
+import { type MutableRefObject, createContext, useRef } from '../hooks/index.ts'
 
 export interface MenuRootProps {
   open?: boolean
@@ -9,7 +9,6 @@ export interface MenuRootProps {
   modal?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenuRootEmits = {
   'update:open': [open: boolean]
 }

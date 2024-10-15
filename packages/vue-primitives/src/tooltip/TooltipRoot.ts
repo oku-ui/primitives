@@ -17,7 +17,6 @@ export interface TooltipRootProps {
   disableHoverableContent?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type TooltipRootEmits = {
   'update:open': [open: boolean]
 }

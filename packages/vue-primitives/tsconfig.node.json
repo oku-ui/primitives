@@ -1,7 +1,7 @@
 {
   "extends": "@teleskop150750/typescript-config/tsconfig.node.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
   },
   "include": [
     "vite.config.*",

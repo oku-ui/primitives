@@ -10,7 +10,7 @@ import { Primitive } from '../primitive/index.ts'
 import { composeEventHandlers } from '../shared/index.ts'
 import { useToastProviderContext } from './index.ts'
 import ToastAnnounce from './ToastAnnounce.vue'
-import { provideToastInteractiveContext, type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START } from './ToastRoot.ts'
+import { type SwipeEvent, TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, provideToastInteractiveContext } from './ToastRoot.ts'
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from './ToastViewport.ts'
 import { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection, useNextFrame } from './utils.ts'
 

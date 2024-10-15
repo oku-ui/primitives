@@ -1,4 +1,4 @@
-import { computed, type CSSProperties, nextTick, onMounted, type Ref, shallowRef } from 'vue'
+import { type CSSProperties, type Ref, computed, nextTick, onMounted, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 

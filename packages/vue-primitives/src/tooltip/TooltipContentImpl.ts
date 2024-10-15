@@ -8,7 +8,6 @@ export interface TooltipContentImplProps {
   ariaLabel?: string
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type TooltipContentImplEmits = {
   /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
   escapeKeydown: DismissableLayerEmits['escapeKeydown']

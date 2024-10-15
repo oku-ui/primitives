@@ -1,4 +1,4 @@
-import { computed, onWatcherCleanup, type Ref, shallowReactive, watch } from 'vue'
+import { type Ref, computed, onWatcherCleanup, shallowReactive, watch } from 'vue'
 import { useEscapeKeydown } from '../hooks/index.ts'
 import { useFocusOutside, usePointerdownOutside } from './utils.ts'
 
@@ -14,7 +14,6 @@ export interface DismissableLayerProps {
   disableOutsidePointerEvents?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type DismissableLayerEmits = {
   /**
    * Event handler called when the escape key is down.

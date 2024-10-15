@@ -6,7 +6,6 @@ export interface HoverCardContentProps {
   forceMount?: true
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type HoverCardContentEmits = {
   pointerenter: [event: PointerEvent]
   pointerleave: [event: PointerEvent]

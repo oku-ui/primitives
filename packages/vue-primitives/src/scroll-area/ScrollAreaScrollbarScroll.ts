@@ -5,7 +5,6 @@ export interface ScrollAreaScrollbarScrollProps {
   forceMount?: true
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ScrollAreaScrollbarScrollEmits = {
   pointerenter: [event: PointerEvent]
   pointerleave: [event: PointerEvent]

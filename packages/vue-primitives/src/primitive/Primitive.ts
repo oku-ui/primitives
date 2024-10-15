@@ -1,4 +1,4 @@
-import { type Component, defineComponent, h, type PropType } from 'vue'
+import { type Component, type PropType, defineComponent, h } from 'vue'
 import { Slot } from '../slot/index.ts'
 
 export type AsTag =

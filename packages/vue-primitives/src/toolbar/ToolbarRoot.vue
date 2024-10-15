@@ -3,7 +3,7 @@ import { useDirection } from '../direction/index.ts'
 import { useForwardElement, useRef } from '../hooks/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { provideToolbarContext, type ToolbarRootEmits, type ToolbarRootProps } from './ToolbarRoot.ts'
+import { type ToolbarRootEmits, type ToolbarRootProps, provideToolbarContext } from './ToolbarRoot.ts'
 
 defineOptions({
   name: 'ToolbarRoot',

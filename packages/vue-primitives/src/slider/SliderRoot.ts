@@ -2,7 +2,7 @@ import type { HTMLAttributes, Ref } from 'vue'
 import type { Direction } from '../direction/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { createCollection } from '../collection/index.ts'
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '../hooks/index.ts'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
@@ -30,7 +30,6 @@ export interface SliderRootProps {
   inverted?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type SliderRootEmits = {
   'update:value': [value: number[]]
   'valueCommit': [value: number[]]

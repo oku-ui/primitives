@@ -8,7 +8,6 @@ export interface ToolbarRootProps {
   dir?: RovingFocusGroupRootProps['dir']
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type ToolbarRootEmits = {
   mousedown: RovingFocusGroupRootEmits['mousedown']
   focus: RovingFocusGroupRootEmits['focus']

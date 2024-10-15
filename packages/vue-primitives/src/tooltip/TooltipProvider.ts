@@ -1,6 +1,6 @@
 import { isClient, tryOnScopeDispose } from '@vueuse/core'
 import { type Ref, shallowRef } from 'vue'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
+import { type MutableRefObject, createContext, useRef } from '../hooks/index.ts'
 
 export interface TooltipProviderProps {
   /**

@@ -3,7 +3,6 @@ export interface MenubarSubProps {
   defaultOpen?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenubarSubEmits = {
   'update:open': [open: boolean]
 }

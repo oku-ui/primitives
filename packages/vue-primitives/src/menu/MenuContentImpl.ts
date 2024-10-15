@@ -16,7 +16,6 @@ export interface MenuContentImplProps {
   loop?: RovingFocusGroupRootProps['loop']
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenuContentImplEmits = {
   openAutoFocus: [event: Event]
   /**

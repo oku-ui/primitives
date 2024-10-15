@@ -1,5 +1,5 @@
-import type { PrimitiveProps } from '../primitive/index.ts'
 import { computed, onWatcherCleanup, watch, watchEffect } from 'vue'
+import type { PrimitiveProps } from '../primitive/index.ts'
 import { useId } from '../hooks/index.ts'
 import { composeEventHandlers, focusFirst, isFunction, wrapArray } from '../shared/index.ts'
 import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
@@ -12,7 +12,6 @@ export interface RovingFocusGroupItemProps {
   active?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type RovingFocusGroupItemEmits = {
   mousedown: [event: MouseEvent]
   focus: [event: FocusEvent]

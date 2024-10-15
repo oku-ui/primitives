@@ -3,7 +3,7 @@ import { onBeforeUnmount, shallowRef } from 'vue'
 import { useControllableState, useId } from '../hooks/index.ts'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
-import { provideTooltipContext, TOOLTIP_OPEN, type TooltipRootEmits, type TooltipRootProps } from './TooltipRoot.ts'
+import { TOOLTIP_OPEN, type TooltipRootEmits, type TooltipRootProps, provideTooltipContext } from './TooltipRoot.ts'
 
 defineOptions({
   name: 'TooltipRoot',

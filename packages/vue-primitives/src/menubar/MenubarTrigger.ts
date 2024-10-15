@@ -5,7 +5,6 @@ export interface MenubarTriggerProps {
   disabled?: boolean
 }
 
-// eslint-disable-next-line ts/consistent-type-definitions
 export type MenubarTriggerEmits = {
   pointerdown: [event: PointerEvent]
   pointerenter: [event: PointerEvent]
