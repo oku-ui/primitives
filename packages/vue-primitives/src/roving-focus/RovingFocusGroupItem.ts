@@ -42,7 +42,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
     }
   }, { immediate: true })
 
-  const itemData: ItemData['rfg'] = { id: id.value, focusable: focusable(), active: active() }
+  const itemData: ItemData['$rfg'] = { id: id.value, focusable: focusable(), active: active() }
 
   watchEffect(() => {
     itemData.active = active()
@@ -114,7 +114,7 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
   // }
 
   function setTemplateEl(templateEl: HTMLElement | undefined) {
-    Collection.useCollectionItem(templateEl, itemData, 'rfg')
+    Collection.useCollectionItem(templateEl, itemData, '$rfg')
   }
 
   return {

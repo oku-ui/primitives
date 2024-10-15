@@ -2,6 +2,7 @@
 import type { MenubarContentEmits, MenubarContentProps } from './MenubarContent.ts'
 import { composeEventHandlers, wrapArray } from '@oku-ui/shared'
 import { MenuContent } from '../menu/index.ts'
+import { composeEventHandlers, wrapArray } from '../shared/index.ts'
 import { useMenubarMenuContext } from './MenubarMenu.ts'
 import { useCollection, useMenubarContext } from './MenubarRoot.ts'
 
@@ -87,7 +88,7 @@ const onKeydown = composeEventHandlers<KeyboardEvent>(
 
       const currentIndex = candidateValues.indexOf(menuContext.value)
 
-      candidateValues = context.loop()
+      candidateValues = context.loop
         ? wrapArray(candidateValues, currentIndex + 1)
         : candidateValues.slice(currentIndex + 1)
 

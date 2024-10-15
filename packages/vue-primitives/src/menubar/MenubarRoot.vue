@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { useComposedElements, useControllableState, useRef } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { shallowRef } from 'vue'
-import { useDirection } from '../direction/index.ts'
-import { useRovingFocusGroupRoot } from '../roving-focus/RovingFocusGroupRoot.ts'
-import { Collection, type MenubarRootEmits, type MenubarRootProps, provideMenubarContext } from './MenubarRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type MenubarRootEmits, type MenubarRootProps, useMenuvarRoot } from './MenubarRoot.ts'
 
 defineOptions({
   name: 'MenubarRoot',
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<MenubarRootProps>(), {
@@ -17,78 +15,23 @@ const props = withDefaults(defineProps<MenubarRootProps>(), {
 })
 const emit = defineEmits<MenubarRootEmits>()
 
-const direction = useDirection(() => props.dir)
-const value = useControllableState(props, 'value', v => emit('update:value', v), props.defaultValue)
-
-// We need to manage tab stop id manually as `RovingFocusGroup` updates the stop
-// based on focus, and in some situations our triggers won't ever be given focus
-// (e.g. click to open and then outside to close)
-const currentTabStopId = shallowRef<string>()
-
-provideMenubarContext({
-  value,
-  onMenuOpen(id) {
-    value.value = id
-    currentTabStopId.value = id
+const menuvarRoot = useMenuvarRoot({
+  value() {
+    return props.value
   },
-  onMenuClose() {
-    value.value = ''
+  onUpdateValue(value) {
+    emit('update:value', value)
   },
-  onMenuToggle(id) {
-    value.value = (value.value ? '' : id)
-    // `openMenuOpen` and `onMenuToggle` are called exclusively so we
-    // need to update the id in either case
-    currentTabStopId.value = id
-  },
-  dir: direction,
-  loop() {
-    return props.loop
-  },
-})
-
-const $el = shallowRef<HTMLElement>()
-const elRef = useRef<HTMLElement>()
-const forwardedRef = useComposedElements((v) => {
-  $el.value = v
-  elRef.value = v
-})
-
-Collection.provideCollectionContext(elRef)
-
-// Comp::RovingFocusGroupRoot
-const rovingFocusGroupRoot = useRovingFocusGroupRoot(elRef, {
-  orientation() {
-    return 'horizontal'
-  },
-  loop() {
-    return props.loop
-  },
-  dir: direction,
-  currentTabStopId() {
-    return currentTabStopId.value
-  },
-}, {
-  updateCurrentTabStopId(tabStopId) {
-    currentTabStopId.value = tabStopId
+  defaultValue: props.defaultValue,
+  loop: props.loop,
+  dir() {
+    return props.dir
   },
 })
 </script>
 
 <template>
-  <Primitive
-    :ref="forwardedRef"
-
-    role="menubar"
-
-    :dir="dir"
-    :tabindex="rovingFocusGroupRoot.tabindex()"
-    data-orientation="horizontal"
-    style="outline: none;"
-
-    @mousedown="rovingFocusGroupRoot.onMousedown"
-    @focus="rovingFocusGroupRoot.onFocus"
-    @focusout="rovingFocusGroupRoot.onFocusout"
-  >
+  <Primitive v-bind="normalizeAttrs(menuvarRoot.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>

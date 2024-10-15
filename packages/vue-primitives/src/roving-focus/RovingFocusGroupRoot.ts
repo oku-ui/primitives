@@ -35,7 +35,7 @@ export type RovingFocusGroupRootEmits = {
 }
 
 export interface ItemData {
-  rfg: {
+  $rfg: {
     id: string
     focusable: boolean
     active: boolean
@@ -115,9 +115,9 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
       props.onEntryFocus?.(entryFocusEvent)
 
       if (!entryFocusEvent.defaultPrevented) {
-        const items = getItems().filter(item => item.$$rcid.rfg.focusable)
-        const activeItem = items.find(item => item.$$rcid.rfg.active)
-        const currentItem = items.find(item => item.$$rcid.rfg.id === currentTabStopId.value)
+        const items = getItems().filter(item => item.$$rcid.$rfg.focusable)
+        const activeItem = items.find(item => item.$$rcid.$rfg.active)
+        const currentItem = items.find(item => item.$$rcid.$rfg.id === currentTabStopId.value)
         const candidateItems = [activeItem, currentItem, ...items].filter(Boolean) as typeof items
         focusFirst(candidateItems, props.preventScrollOnEntryFocus ?? false)
       }
@@ -173,7 +173,7 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
       return
 
     event.preventDefault()
-    let candidateNodes = getItems().filter(item => item.$$rcid.rfg.focusable)
+    let candidateNodes = getItems().filter(item => item.$$rcid.$rfg.focusable)
 
     if (focusIntent === 'last') {
       candidateNodes.reverse()
