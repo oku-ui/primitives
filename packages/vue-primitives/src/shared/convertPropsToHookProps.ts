@@ -13,9 +13,13 @@ export function convertPropsToHookProps<
 export function convertPropsToHookProps<
   T extends Record<string, any>,
   K extends keyof T,
->(props: T, reactiveProps?: K[]): Prettify<ReplaceProps<T, K>>
+>(props: T, reactiveProps: K[]): Prettify<ReplaceProps<T, K>>
 
-export function convertPropsToHookProps(props: any, reactiveProps: any = [], _events?: any, emits?: any) {
+export function convertPropsToHookProps<
+  T extends Record<string, any>,
+>(props: T): Prettify<T>
+
+export function convertPropsToHookProps(props: any, reactiveProps?: any, _events?: any, emits?: any) {
   const result = (emits ? { ...props, ...emits() } : { ...props }) as Record<string, any>
 
   for (const field of reactiveProps) {
