@@ -11,7 +11,8 @@ defineOptions({
 
 const props = withDefaults(defineProps<TabsContentProps>(), TabsContentDefaltProps)
 
-const tabsContent = useTabsContent(convertPropsToHookProps(props, ['value']))
+const hookProps = convertPropsToHookProps(props, ['value'])
+const tabsContent = useTabsContent(hookProps)
 </script>
 
 <template>

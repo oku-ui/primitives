@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<TabsRootProps>(), TabsRootDefaltProps)
 
 const emit = defineEmits<TabsRootEmits>()
 
-const tabsRoot = useTabsRoot(convertPropsToHookProps(
+const hookProps = convertPropsToHookProps(
   props,
   ['value'],
   null as unknown as TabsRootEmits,
@@ -22,7 +22,8 @@ const tabsRoot = useTabsRoot(convertPropsToHookProps(
       emit('update:value', value)
     },
   }),
-))
+)
+const tabsRoot = useTabsRoot(hookProps)
 </script>
 
 <template>
