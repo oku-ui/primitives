@@ -1,3 +1,4 @@
+import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface SeparatorProps {
@@ -11,6 +12,10 @@ export interface SeparatorProps {
    */
   decorative?: boolean
 }
+
+export const DEFAULT_SEPARATOR_PROPS = {
+  decorative: undefined,
+} satisfies PrimitiveDefaultProps<SeparatorProps>
 
 export interface UseSeparatorProps {
   decorative?: SeparatorProps['decorative']
