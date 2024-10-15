@@ -27,8 +27,7 @@ export interface TabsRootProps {
   activationMode?: 'automatic' | 'manual'
 }
 
-export const TabsRootDefaltProps = {
-} satisfies PrimitiveDefaultProps<TabsRootProps>
+export const TabsRootDefaltProps = {} satisfies PrimitiveDefaultProps<TabsRootProps>
 
 export type TabsRootEmits = {
   /** A function called when a new tab is selected */

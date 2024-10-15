@@ -2,17 +2,14 @@
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
+import { TabsRootDefaltProps, type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
 
 defineOptions({
   name: 'TabsRoot',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<TabsRootProps>(), {
-  orientation: 'horizontal',
-  activationMode: 'automatic',
-})
+const props = withDefaults(defineProps<TabsRootProps>(), TabsRootDefaltProps)
 
 const emit = defineEmits<TabsRootEmits>()
 
