@@ -11,8 +11,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<TabsTriggerProps>(), TabsTriggerDefaltProps)
 
-const hookProps = convertPropsToHookProps(props, ['value', 'disabled'])
-const tabsTrigger = useTabsTrigger(hookProps)
+const tabsTrigger = useTabsTrigger(convertPropsToHookProps(props, ['value', 'disabled']))
 </script>
 
 <template>

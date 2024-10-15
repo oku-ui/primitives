@@ -11,8 +11,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<TabsListProps>(), TabsListDefaltProps)
 
-const hookProps = convertPropsToHookProps(props)
-const tabsList = useTabsList(hookProps)
+const tabsList = useTabsList(convertPropsToHookProps(props))
 </script>
 
 <template>
