@@ -1,0 +1,6 @@
+export const RADIO_NAME = 'OkuRadio'
+export const BUBBLE_INPUT_NAME = 'OkuBubbleInput'
+export const RADIO_INDICATOR_NAME = 'OkuRadioIndicator'
+export const RADIO_GROUP_NAME = 'OkuRadioGroup'
+export const RADIO_GROUP_ITEM_NAME = 'OkuRadioGroupItem'
+export const RADIO_GROUP_INDICATOR_NAME = 'OkuRadioGroupIndicator'

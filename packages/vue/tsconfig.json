@@ -1,0 +1,158 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@oku-ui/accordion": [
+        "src/accordion"
+      ],
+      "@oku-ui/alert-dialog": [
+        "src/alert-dialog"
+      ],
+      "@oku-ui/arrow": [
+        "src/arrow"
+      ],
+      "@oku-ui/aspect-ratio": [
+        "src/aspect-ratio"
+      ],
+      "@oku-ui/avatar": [
+        "src/avatar"
+      ],
+      "@oku-ui/collection": [
+        "src/collection"
+      ],
+      "@oku-ui/collapsible": [
+        "src/collapsible"
+      ],
+      "@oku-ui/checkbox": [
+        "src/checkbox"
+      ],
+      "@oku-ui/dialog": [
+        "src/dialog"
+      ],
+      "@oku-ui/direction": [
+        "src/direction"
+      ],
+      "@oku-ui/dismissable-layer": [
+        "src/dismissable-layer"
+      ],
+      "@oku-ui/focus-guards": [
+        "src/focus-guards"
+      ],
+      "@oku-ui/focus-scope": [
+        "src/focus-scope"
+      ],
+      "@oku-ui/hover-card": [
+        "src/hover-card"
+      ],
+      "@oku-ui/label": [
+        "src/label"
+      ],
+      "@oku-ui/menu": [
+        "src/menu"
+      ],
+      "@oku-ui/popover": [
+        "src/popover"
+      ],
+      "@oku-ui/popper": [
+        "src/popper"
+      ],
+      "@oku-ui/portal": [
+        "src/portal"
+      ],
+      "@oku-ui/primitive": [
+        "src/primitive"
+      ],
+      "@oku-ui/progress": [
+        "src/progress"
+      ],
+      "@oku-ui/provide": [
+        "src/provide"
+      ],
+      "@oku-ui/radio-group": [
+        "src/radio-group"
+      ],
+      "@oku-ui/roving-focus": [
+        "src/roving-focus"
+      ],
+      "@oku-ui/scroll-area": [
+        "src/scroll-area"
+      ],
+      "@oku-ui/separator": [
+        "src/separator"
+      ],
+      "@oku-ui/slider": [
+        "src/slider"
+      ],
+      "@oku-ui/slot": [
+        "src/slot"
+      ],
+      "@oku-ui/switch": [
+        "src/switch"
+      ],
+      "@oku-ui/tabs": [
+        "src/tabs"
+      ],
+      "@oku-ui/toggle": [
+        "src/toggle"
+      ],
+      "@oku-ui/toggle-group": [
+        "src/toggle-group"
+      ],
+      "@oku-ui/toast": [
+        "src/toast"
+      ],
+      "@oku-ui/toolbar": [
+        "src/toolbar"
+      ],
+      "@oku-ui/tooltip": [
+        "src/tooltip"
+      ],
+      "@oku-ui/use-composable": [
+        "src/use-composable"
+      ],
+      "@oku-ui/utils": [
+        "src/utils"
+      ],
+      "@oku-ui/visually-hidden": [
+        "src/visually-hidden"
+      ],
+      "@oku-ui/presence": [
+        "src/presence"
+      ]
+    },
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "*.d.ts"
+  ]
+}

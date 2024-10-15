@@ -1,0 +1,68 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":widenPeerDependencies"
+  ],
+  "baseBranches": [
+    "main"
+  ],
+  "ignoreDeps": [
+    "node",
+    "pnpm"
+  ],
+  "packageRules": [
+    {
+      "groupName": "all digest updates",
+      "groupSlug": "all-digest",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "automerge": true,
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "schedule": [
+        "every 1 month"
+      ]
+    },
+    {
+      "groupName": "all minor updates",
+      "groupSlug": "all-minor",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "automerge": true,
+      "schedule": [
+        "every 1 month"
+      ]
+    },
+    {
+      "groupName": "all patch updates",
+      "groupSlug": "all-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true,
+      "schedule": [
+        "every 1 month"
+      ]
+    },
+    {
+      "groupName": "all major updates",
+      "groupSlug": "all-major",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ]
+    }
+  ]
+}

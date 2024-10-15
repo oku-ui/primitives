@@ -1,8 +1,3 @@
-> [!NOTE]
-> This repository is a fork of [OkuUI](https://github.com/oku-ui/primitives) and serves as a staging area for migrating Vue components to Single File Components (SFC). All contributions and changes will be merged back into the original repository upon completion.
-
----
-
 <a href="https://oku-ui.com">
   <img alt="Oku UI hero image" src="https://github.com/oku-ui/primitives/blob/main/.github/assets/primitives-cover.png?raw=true"
 </a>
@@ -17,98 +12,97 @@ Oku Primitives is a low-level UI component library with a focus on accessibility
 
 Website: [Oku Website](https://oku-ui.com)
 
-Docs: [Nuxt playground](https://vue-primitives-docs.netlify.app/)
-
-Storybook: [Storybook](https://vue-primitives.netlify.app)
-
-## Install
-
-```sh
-pnpm i @perigee/vue-primitives
-```
-
 ---
 
-### Main differences from [RadixVue](https://github.com/radix-vue/radix-vue)
+# Contributing
 
-1) I use [let](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hover-card/HoverCardRoot.vue#L22) variables or [useRef](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hooks/useRef.ts#L18) where React uses useRef. Radix-vue [creates unnecessary reactive ref](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/HoverCard/HoverCardRoot.vue#L64) variables in all places, which is completely unnecessary.
+Please read our [contributing guide](https://github.com/oku-ui/primitives/blob/master/CONTRIBUTING.md)
 
-2) I use the [composeEventHandlers hook](https://github.com/radix-ui/primitives/blob/660060a765634e9cc7bf4513f41e8dabc9824d74/packages/core/primitive/src/primitive.tsx#L1). This hook allows canceling events through preventDefault. Unfortunately, in Vue, [handlers received from the parent component end up at the end of the array and are called last](https://github.com/vuejs/core-vapor/blob/30583b9ee1c696d3cb836f0bfd969793e57e849d/packages/runtime-core/src/vnode.ts#L886) (I might have misunderstood the code, there may be inaccuracies).
-
-3) I use attribute inheritance instead of redefining them in each component, [generating unnecessary code](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/shared/useForwardProps.ts#L16). Moreover, it seems that Volar now[ has typing for attrs](https://github.com/vuejs/language-tools/pull/4103). This approach may change if it turns out to be inconvenient to use.
-
-4) I do not use their [useForwardExpose](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/shared/useForwardExpose.ts#L21). A hook that replaces the original expose object to pass props outside. Why, if access to them is [already available](https://vuejs.org/api/component-instance.html#props).
-
-5) I do not use [asChild for implementing primitives](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/Menu/MenuContentImpl.vue#L274). Instead, I wrap the component's [content in a hook and use it](https://github.com/perigee-ui/vue-primitives/blob/a991db71fbecf364cd0b8479b294606236b104b4/packages/vue-primitives/src/dialog/DialogContentModal.vue#L65). I thought it was a bit cumbersome to use so many empty wrapper components when they can be eliminated. For example, the FocusScope wrapper is 3 components: FocusScope -> Primitive -> Slot. If there are 3 such wrappers, it is already a tree of 9+ components. 
-This is currently a test implementation.
-
-6) Slot [WIP] [Discussion](https://github.com/radix-vue/radix-vue/discussions/1324)
-
-7) The idea of [discarding components and leaving only hooks that return props](https://github.com/perigee-ui/vue-primitives/blob/feat/hooks/packages/vue-primitives/src/accordion/AccordionItem.vue) is currently being explored. For example, as in [Zag](https://zagjs.com/components/react/accordion) and [Melt](https://melt-ui.com/docs/introduction). If the Vapor mod is released during our lifetime, this method will allow us to get rid of `Primitive `and `Slot` (VDom).
-
-8) Different implementation of [Collection](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/collection/Collection.ts#L29) without Map, VDom. [Radix vue](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/Collection/Collection.ts#L59) 
-
-9) Presence is just a [hook for me](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/presence/usePresence.ts#L8). The same approach was found in [Solid's Kobalte](https://github.com/corvudev/corvu/blob/main/packages/solid-presence/src/presence.ts). In radix-vue, it is the reason for the absence of content on the first render in components like [Accordion](https://github.com/radix-vue/radix-vue/issues/978).
-
-10) Availability of component context export for access in user code. It seems that this was promised to be added in Radix v2. I am not following.
-
-11) No [empty wrappers that do nothing](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/AlertDialog/AlertDialogTrigger.vue).
-
-12) An easier way to get the current element [without `computed`](https://github.com/perigee-ui/vue-primitives/blob/7c341db59fdfdb0cc88dfa6614d6c390b6856780/packages/vue-primitives/src/hooks/useForwardElement.ts#L4). [Radix-vue](https://github.com/radix-vue/radix-vue/blob/3f0f965fcf6fc3901e4fbbedf9a68dcb7d706f3f/packages/radix-vue/src/shared/useForwardExpose.ts#L9C9-L9C23)
-
-13) Scoped Context WIP [Link](https://github.com/facebook/react/issues/23287) [Link](https://so-so.dev/react/scoped-context/)
-
-# TODO
-
-## Components
+# TODO Components - 22/28
 
 Enter the component you want most in the components, leave the emojis and follow.
 
 **Developers can work on unclaimed components**.
 
-| Component                                                                                       | Status |
-| ----------------------------------------------------------------------------------------------- | ------ |
-| [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)       | ✓      |
-| [AlertDialog](https://vue-primitives.netlify.app/?path=/story/components-alertdialog--styled)   | ✓      |
-| [AspectRatio](https://vue-primitives.netlify.app/?path=/story/components-aspectratio--styled)   | ✓      |
-| [Avatar](https://vue-primitives.netlify.app/?path=/story/components-avatar--styled)             | ✓      |
-| [Checkbox](https://vue-primitives.netlify.app/?path=/story/components-checkbox--styled)         | ✓      |
-| [Collapsible](https://vue-primitives.netlify.app/?path=/story/components-collapsible--styled)   | ✓      |
-| [Context Menu](https://vue-primitives.netlify.app/?path=/story/components-contextmenu--styled)  | ✓      |
-| [Dialog](https://vue-primitives.netlify.app/?path=/story/components-dialog--styled)             | ✓      |
-| [DropdownMenu](https://vue-primitives.netlify.app/?path=/story/components-dropdownmenu--styled) | ✓      |
-| Form                                                                                            | ✖️      |
-| [HoverCard](https://vue-primitives.netlify.app/?path=/story/components-hovercard--chromatic)    | ✓      |
-| [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)               | ✓      |
-| [Menubar](https://vue-primitives.netlify.app/?path=/story/components-menubar--styled)           | ✓      |
-| NavigationMenu                                                                                  | 🚧      |
-| [Popover](https://vue-primitives.netlify.app/?path=/story/components-popover--styled)           | ✓      |
-| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)         | ✓      |
-| [RadioGroup](https://vue-primitives.netlify.app/?path=/story/components-radiogroup--styled)     | ✓      |
-| [ScrollArea](https://vue-primitives.netlify.app/?path=/story/components-scrollarea--basic)      | ✓      |
-| Select                                                                                          | 🚧      |
-| [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)       | ✓      |
-| [Slider](https://vue-primitives.netlify.app/?path=/story/components-slider--styled)             | ✓      |
-| [Switch](https://vue-primitives.netlify.app/?path=/story/components-switch--styled)             | ✓      |
-| [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)                 | ✓      |
-| [Toast](https://vue-primitives.netlify.app/?path=/story/components-toast--styled)               | ✓      |
-| [ToggleGroup](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single)   | ✓      |
-| [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)             | ✓      |
-| [Toolbar](https://vue-primitives.netlify.app/?path=/story/components-toolbar--styled)           | ✓      |
-| [Tooltip](https://vue-primitives.netlify.app/?path=/story/components-tooltip--styled)           | ✓      |
+| Component | Description | Status | Docs |
+| --- | --- | --- | --- |
+| [Accordion](https://oku-ui.com/primitives/components/accordion) | <span><a href="https://www.npmjs.com/package/@oku-ui/accordion "><img src="https://img.shields.io/npm/v/@oku-ui/accordion.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/accordion"><img src="https://img.shields.io/npm/dm/@oku-ui/accordion.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a> </span> | <span> <a href="https://oku-ui.com/primitives/components/accordion"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Alert Dialog](https://oku-ui.com/primitives/components/alert-dialog) | <span><a href="https://www.npmjs.com/package/@oku-ui/alert-dialog "><img src="https://img.shields.io/npm/v/@oku-ui/alert-dialog.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/alert-dialog"><img src="https://img.shields.io/npm/dm/@oku-ui/alert-dialog.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a> </span> | <span> <a href="https://oku-ui.com/primitives/components/alert-dialog"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Aspect Ratio](https://oku-ui.com/primitives/components/aspect-ratio) | <span><a href="https://www.npmjs.com/package/@oku-ui/aspect-ratio "><img src="https://img.shields.io/npm/v/@oku-ui/aspect-ratio.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/aspect-ratio"><img src="https://img.shields.io/npm/dm/@oku-ui/aspect-ratio.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a> </span> | <span> <a href="https://oku-ui.com/primitives/components/aspect-ratio"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Avatar](https://oku-ui.com/primitives/components/avatar) | <span><a href="https://www.npmjs.com/package/@oku-ui/avatar "><img src="https://img.shields.io/npm/v/@oku-ui/avatar?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/avatar"><img src="https://img.shields.io/npm/dm/@oku-ui/avatar?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a></span> | <span> <a href="https://oku-ui.com/primitives/components/avatar"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Checkbox](https://oku-ui.com/primitives/components/checkbox) | <span><a href="https://www.npmjs.com/package/@oku-ui/checkbox "><img src="https://img.shields.io/npm/v/@oku-ui/checkbox?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/checkbox"> <img src="https://img.shields.io/npm/dm/@oku-ui/checkbox?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/checkbox"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Collapsible](https://oku-ui.com/primitives/components/collapsible) | <span><a href="https://www.npmjs.com/package/@oku-ui/collapsible "><img src="https://img.shields.io/npm/v/@oku-ui/collapsible?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/collapsible"> <img src="https://img.shields.io/npm/dm/@oku-ui/collapsible?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/collapsible"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Context Menu](https://github.com/oku-ui/primitives/issues/8) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
+| [Dialog](https://oku-ui.com/primitives/components/dialog) | <span><a href="https://www.npmjs.com/package/@oku-ui/dialog "><img src="https://img.shields.io/npm/v/@oku-ui/dialog?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/dialog"> <img src="https://img.shields.io/npm/dm/@oku-ui/dialog?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/dialog"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Dropdown Menu](https://github.com/oku-ui/primitives/issues/10) | A menu that appears when a user interacts with an element's trigger | Not Started | -  |
+| [Form](https://github.com/oku-ui/primitives/issues/11) | A group of form controls | Not Started | -  |
+| [Hover Card](https://oku-ui.com/primitives/components/hover-card) | <span><a href="https://www.npmjs.com/package/@oku-ui/hover-card "><img src="https://img.shields.io/npm/v/@oku-ui/hover-card?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/hover-card"> <img src="https://img.shields.io/npm/dm/@oku-ui/hover-card?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/hover-card"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Label](https://oku-ui.com/primitives/components/label) | <span><a href="https://www.npmjs.com/package/@oku-ui/label "><img src="https://img.shields.io/npm/v/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/label"> <img src="https://img.shields.io/npm/dm/@oku-ui/label?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/label"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+| [Menubar](https://github.com/oku-ui/primitives/issues/13) | A menu that appears when a user interacts with an element's trigger | 🚧 In Progress | -  |
+| [Navigation Menu](https://github.com/oku-ui/primitives/issues/14) | A collection of links for navigating websites | Not Started | -  |
+| [Popover](https://oku-ui.com/primitives/components/popover) | <span><a href="https://www.npmjs.com/package/@oku-ui/popover "><img src="https://img.shields.io/npm/v/@oku-ui/popover?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/popover"> <img src="https://img.shields.io/npm/dm/@oku-ui/popover?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/popover"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Progress](https://oku-ui.com/primitives/components/progress) | <span><a href="https://www.npmjs.com/package/@oku-ui/progress "><img src="https://img.shields.io/npm/v/@oku-ui/progress?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/progress"> <img src="https://img.shields.io/npm/dm/@oku-ui/progress?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/progress"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Radio Group](https://oku-ui.com/primitives/components/radio-group) | <span><a href="https://www.npmjs.com/package/@oku-ui/radio-group "><img src="https://img.shields.io/npm/v/@oku-ui/radio-group?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/radio-group"> <img src="https://img.shields.io/npm/dm/@oku-ui/radio-group?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/radio-group"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Scroll Area](https://oku-ui.com/primitives/components/scroll-area) | <span><a href="https://www.npmjs.com/package/@oku-ui/scroll-area "><img src="https://img.shields.io/npm/v/@oku-ui/scroll-area?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/scroll-area"> <img src="https://img.shields.io/npm/dm/@oku-ui/scroll-area?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/scroll-area"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Select](https://github.com/oku-ui/primitives/issues/19) | A control that allows users to select one or more items from a list of options | 🚧 In Progress | -  |
+| [Separator](https://oku-ui.com/primitives/components/separator) | <span><a href="https://www.npmjs.com/package/@oku-ui/separator "><img src="https://img.shields.io/npm/v/@oku-ui/separator?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/separator"> <img src="https://img.shields.io/npm/dm/@oku-ui/separator?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/separator"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Slider](https://oku-ui.com/primitives/components/slider) | <span><a href="https://www.npmjs.com/package/@oku-ui/slider "><img src="https://img.shields.io/npm/v/@oku-ui/slider?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/slider"> <img src="https://img.shields.io/npm/dm/@oku-ui/slider?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/slider"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Switch](https://oku-ui.com/primitives/components/switch) | <span><a href="https://www.npmjs.com/package/@oku-ui/switch "><img src="https://img.shields.io/npm/v/@oku-ui/switch?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/switch"> <img src="https://img.shields.io/npm/dm/@oku-ui/switch?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/slider"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Tabs](https://oku-ui.com/primitives/components/tabs) | <span><a href="https://www.npmjs.com/package/@oku-ui/tabs "><img src="https://img.shields.io/npm/v/@oku-ui/tabs?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/tabs"> <img src="https://img.shields.io/npm/dm/@oku-ui/tabs?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/slider"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Toast](https://oku-ui.com/primitives/components/toast) | <span><a href="https://www.npmjs.com/package/@oku-ui/toast "><img src="https://img.shields.io/npm/v/@oku-ui/toast?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/toast"> <img src="https://img.shields.io/npm/dm/@oku-ui/toast?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/toast"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Toggle](https://oku-ui.com/primitives/components/toggle) | <span><a href="https://www.npmjs.com/package/@oku-ui/toggle "><img src="https://img.shields.io/npm/v/@oku-ui/toggle?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/toggle"> <img src="https://img.shields.io/npm/dm/@oku-ui/toggle?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/toggle"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Toggle Group](https://oku-ui.com/primitives/components/toggle-group) | <span><a href="https://www.npmjs.com/package/@oku-ui/toggle-group "><img src="https://img.shields.io/npm/v/@oku-ui/toggle-group?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/toggle-group"> <img src="https://img.shields.io/npm/dm/@oku-ui/toggle-group?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/slider"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Toolbar](https://oku-ui.com/primitives/components/toolbar) | <span><a href="https://www.npmjs.com/package/@oku-ui/toolbar "><img src="https://img.shields.io/npm/v/@oku-ui/toolbar?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/toolbar"> <img src="https://img.shields.io/npm/dm/@oku-ui/switch?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/toolbar"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+| [Tooltip](https://oku-ui.com/primitives/components/tooltip) | <span><a href="https://www.npmjs.com/package/@oku-ui/tooltip "><img src="https://img.shields.io/npm/v/@oku-ui/tooltip?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/tooltip"> <img src="https://img.shields.io/npm/dm/@oku-ui/tooltip?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/tooltip"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+[Primitives](https://oku-ui.com/primitives) | <span><a href="https://www.npmjs.com/package/@oku-ui/primitives "><img src="https://img.shields.io/npm/v/@oku-ui/primitives?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/primitives"> <img src="https://img.shields.io/npm/dm/@oku-ui/primitives?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/components/primitives"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
 
-## Utilites
 
-| Utilites                                                                                              | Status |
-| ----------------------------------------------------------------------------------------------------- | ------ |
-| [Collection](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic)       | ✓      |
-| [DismissableLayer](https://vue-primitives.netlify.app/?path=/story/utilities-dismissablelayer--basic) | ✓      |
-| [FocusScope](https://vue-primitives.netlify.app/?path=/story/utilities-focusscope--basic)             | ✓      |
-| [Menu](https://vue-primitives.netlify.app/?path=/story/utilities-menu--styled)                        | ✓      |
-| [Popper](https://vue-primitives.netlify.app/?path=/story/utilities-popper--styled)                    | ✓      |
-| [Portal](https://vue-primitives.netlify.app/?path=/story/utilities-portal--base)                      | ✓      |
-| [Presence](https://vue-primitives.netlify.app/?path=/story/utilities-presence--basic)                 | ✓      |
-| Primitives                                                                                            | ✓      |
-| [RovingFocusGroup](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic) | ✓      |
-| Slot                                                                                                  | ✓      |
-| [VisuallyHidden](https://vue-primitives.netlify.app/?path=/story/utilities-visuallyhidden--basic)     | ✓      |
+## Utils
+
+[Nuxt Module](https://oku-ui.com/primitives/introduction/nuxt) | <span><a href="https://www.npmjs.com/package/@oku-ui/primitives-nuxt"><img src="https://img.shields.io/npm/v/@oku-ui/primitives-nuxt?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/primitives-nuxt"> <img src="https://img.shields.io/npm/dm/@oku-ui/primitives-nuxt?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="ttps://oku-ui.com/primitives/introduction/nuxt"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> </span> |
+
+## Core
+
+| [Menu](https://oku-ui.com/primitives/core/menu) | <span><a href="https://www.npmjs.com/package/@oku-ui/menu "><img src="https://img.shields.io/npm/v/@oku-ui/menu?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a> </span> | <span> <a href="https://www.npmjs.com/package/@oku-ui/menu"> <img src="https://img.shields.io/npm/dm/@oku-ui/menu?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"> </a> </span> | <span> <a href="https://oku-ui.com/primitives/core/menu"><img src="https://img.shields.io/badge/Open%20Documentation-18181B" alt="Website"></a> |
+
+## Community
+
+- [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.
+- [Twitter](https://twitter.com/oku_ui) - To receive updates, announcements, blog posts, and general Oku tips.
+
+## Sponsors
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/productdevbook/static/sponsors.svg">
+    <img alt="sponsors" src='https://cdn.jsdelivr.net/gh/productdevbook/static/sponsors.svg'/>
+  </a>
+</p>
+
+
+## Thanks
+
+Thanks to [@radix_ui](https://github.com/radix-ui/primitives) for the inspiration and the great work they've done with [Radix Primitives](https://radix-ui.com). We proceed through the initial stages of many codes by looking at them.
+
+Thanks to Johnson Chu [@johnsoncodehk](https://github.com/johnsoncodehk). Supported me with many issues that I was stuck in Typescript.
+
+Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped me in many areas so far.
+
+Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
+
+## Credits
+
+- [Daniel Roe](https://github.com/danielroe)
+- [Johnson Chu](https://github.com/johnsoncodehk)
+- [Skirtle](https://github.com/skirtles-code)
+- [Jacek Karczmarczyk](https://github.com/jacekkarczmarczyk)
+- [Headless UI](https://headlessui.com/)
+- [Radix Primitives](https://radix-ui.com/)
+- [Element Plus](https://github.com/element-plus/element-plus)
+
+---
+
+## License
+
+Licensed under the MIT License, Copyright © 2023-present [productdevbook](https://twitter.com/productdevbook).
+
+See [LICENSE](./LICENSE) for more information.

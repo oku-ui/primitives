@@ -1,0 +1,40 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuSeparator > should log an error when the orientation prop is invalid 1`] = `
+[MockFunction error] {
+  "calls": [
+    [
+      "Invalid prop \`orientation\` of value \`invalid-orientation\` supplied to \`OkuSeparator\`, expected one of:
+  - horizontal
+  - vertical
+
+Defaulting to \`horizontal\`.",
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`okuSeparator > should render OkuSeparator correctly 1`] = `"<oku-primitive-stub is="div" aschild="false" data-orientation="horizontal" role="separator"></oku-primitive-stub>"`;
+
+exports[`okuSeparator > should render OkuSeparator correctly 2`] = `"<oku-primitive-stub is="div" aschild="false" data-orientation="horizontal" role="separator"></oku-primitive-stub>"`;
+
+exports[`okuSeparator Stories > styled > should render correctly 1`] = `
+"<h1>Horizontal</h1>
+<p>The following separator is horizontal and has semantic meaning.</p>
+<oku-separator-stub orientation="horizontal" decorative="false" is="div" aschild="false" class="separator"></oku-separator-stub>
+<p> The following separator is horizontal and is purely decorative. Assistive technology will ignore this element. </p>
+<oku-separator-stub orientation="horizontal" decorative="true" is="div" aschild="false" class="separator"></oku-separator-stub>
+<h1>Vertical</h1>
+<div style="display: flex; align-items: center;">
+  <p>The following separator is vertical and has semantic meaning.</p>
+  <oku-separator-stub orientation="vertical" decorative="false" is="div" aschild="false" class="separator"></oku-separator-stub>
+  <p> The following separator is vertical and is purely decorative. Assistive technology will ignore this element. </p>
+  <oku-separator-stub orientation="vertical" decorative="true" is="div" aschild="false" class="separator"></oku-separator-stub>
+</div>"
+`;

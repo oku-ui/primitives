@@ -1,0 +1,78 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuAspectRatio > should render OkuAspectRatio correctly 1`] = `
+"<div style="width: 500px;">
+  <div style="position: relative; width: 100%; padding-bottom: 200%;" data-oku-aspect-ratio-wrapper="">
+    <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><span>Hello</span></div>
+  </div>
+</div>"
+`;
+
+exports[`okuAspectRatio Stories > chromatic > should render correctly 1`] = `
+"<h1>Default ratio</h1>
+<div style="width: 300px;">
+  <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="">
+    <div class="aspect-ratio" style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;">
+      <p>Default ratio (1/1)</p>
+    </div>
+  </div>
+</div>
+<h1>Custom ratios</h1>
+<div style="display: flex; gap: 20px;">
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 200%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 56.25%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 50%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`okuAspectRatio Stories > customRatios > should render correctly 1`] = `
+"<div style="display: flex; gap: 20px;">
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 200%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 56.25%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+  <div style="width: 200px;">
+    <div style="position: relative; width: 100%; padding-bottom: 50%;" data-oku-aspect-ratio-wrapper="">
+      <div style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;"><img src="https://images.unsplash.com/photo-1605030753481-bb38b08c384a?&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="A house in a forest" style="object-fit: cover; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`okuAspectRatio Stories > styled > should render correctly 1`] = `
+"<div style="width: 500px;">
+  <div style="position: relative; width: 100%; padding-bottom: 100%;" data-oku-aspect-ratio-wrapper="">
+    <div class="aspect-ratio" style="position: absolute; top: 0px; right: 0px; left: 0px; bottom: 0px;">
+      <h1>Default ratio (1/1)</h1>
+    </div>
+  </div>
+</div>"
+`;

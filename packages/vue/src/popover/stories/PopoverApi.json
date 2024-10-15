@@ -1,0 +1,66 @@
+{
+  "name": "Popover",
+  "path": "popover",
+  "data": [
+    {
+      "name": "Animated",
+      "file": "Animated.vue",
+      "path": "animated"
+    },
+    {
+      "name": "Boundary",
+      "file": "Boundary.vue",
+      "path": "boundary"
+    },
+    {
+      "name": "Chromatic",
+      "file": "Chromatic.vue",
+      "path": "chromatic"
+    },
+    {
+      "name": "Controlled.vue",
+      "file": "Controlled.vue",
+      "path": "controlled"
+    },
+    {
+      "name": "CustomAnchor",
+      "file": "CustomAnchor.vue",
+      "path": "custom-anchor"
+    },
+    {
+      "name": "CustomAnchor",
+      "file": "CustomAnchor.vue",
+      "path": "custom-anchor"
+    },
+    {
+      "name": "ForceMount",
+      "file": "ForceMount.vue",
+      "path": "force-mount"
+    },
+    {
+      "name": "Modality",
+      "file": "Modality.vue",
+      "path": "modality"
+    },
+    {
+      "name": "Nested",
+      "file": "Nested.vue",
+      "path": "nested"
+    },
+    {
+      "name": "Styled",
+      "file": "Styled.vue",
+      "path": "styled"
+    },
+    {
+      "name": "VControlled",
+      "file": "VControlled.vue",
+      "path": "v-controlled"
+    },
+    {
+      "name": "WithSlottedTrigger",
+      "file": "WithSlottedTrigger.vue",
+      "path": "with-slotted-trigger"
+    }
+  ]
+}

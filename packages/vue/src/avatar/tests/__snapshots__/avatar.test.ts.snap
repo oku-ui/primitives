@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`okuAvatar > should render OkuAvatar correctly 1`] = `"<oku-avatar-stub is="span" aschild="false" data-testid="avatar-test"></oku-avatar-stub>"`;
+
+exports[`okuAvatar > should render OkuAvatar correctly 2`] = `"<oku-primitive-stub is="span" aschild="false"></oku-primitive-stub>"`;
+
+exports[`okuAvatar > should render OkuAvatarFallback correctly 1`] = `[Error: \`OkuAvatar\` must be used within \`OkuAvatar\`]`;
+
+exports[`okuAvatar > should render OkuAvatarImage correctly 1`] = `[Error: \`OkuAvatar\` must be used within \`OkuAvatar\`]`;
+
+exports[`okuAvatar > should render OkuAvatarImage correctly 2`] = `"[Vue warn]: Missing required prop: "src""`;
+
+exports[`okuAvatar Stories > chromatic > should render correctly 1`] = `
+"<h1>Without image &amp; with fallback</h1>
+<oku-avatar-stub is="span" aschild="false" class="avatar"></oku-avatar-stub>
+<h1>With image &amp; with fallback</h1>
+<oku-avatar-stub is="span" aschild="false" class="avatar"></oku-avatar-stub>
+<h1>With image &amp; with fallback (but broken src)</h1>
+<oku-avatar-stub is="span" aschild="false" class="avatar"></oku-avatar-stub>"
+`;
+
+exports[`okuAvatar Stories > styled > should render correctly 1`] = `
+"<h1>Without image &amp; with fallback</h1>
+<oku-avatar-stub is="span" aschild="false" class="avatar"></oku-avatar-stub>
+<h1>With image &amp; with fallback</h1>
+<oku-avatar-stub is="span" aschild="false" class="avatar"></oku-avatar-stub>
+<h1>With image &amp; with fallback (but broken src)</h1>
+<oku-avatar-stub is="span" aschild="false" class="avatar"></oku-avatar-stub>"
+`;

@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "fabiospampinato.vscode-terminals",
+    "fabiospampinato.vscode-commands"
+  ]
+}

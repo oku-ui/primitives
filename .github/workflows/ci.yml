@@ -1,0 +1,78 @@
+name: CI
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - ".docs/**"
+
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - ".docs/**"
+
+
+jobs:
+  build-test:
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      # Required to checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [20]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Cache .
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./.nx
+            ./.eslintcache
+            ./.vitest-cache
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 👀 Lint
+        run: pnpm lint
+
+      - name: 👀 Typecheck
+        run: pnpm typecheck
+
+      - name: 🚀 Build
+        run: pnpm build
+
+      - name: 🧪 Test with coverage
+        run: pnpm coverage
+
+      - name: 📝 Upload coverage
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
