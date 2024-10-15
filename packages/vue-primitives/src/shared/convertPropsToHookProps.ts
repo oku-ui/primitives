@@ -4,18 +4,18 @@ import type { EmitsToHookProps } from './typeUtils'
 type ReplaceProps<T, K extends keyof T> = Omit<T, K> & { [P in K]: () => T[P] }
 
 export function convertPropsToHookProps<
-  T extends object,
+  T extends Record<string, any>,
   K extends keyof T,
   E extends Record<string, any[]>,
   EP extends Required<EmitsToHookProps<E>> = Required<EmitsToHookProps<E>>,
 >(props: T, reactiveProps: K[], events: E, emits: () => EP): Prettify<ReplaceProps<T, K> & EP>
 
 export function convertPropsToHookProps<
-  T extends object,
-  K extends keyof T,
->(props: T, reactiveProps?: K[]): Prettify<ReplaceProps<T, K>>
+  T extends Record<string, any>,
+  K extends keyof T | undefined = undefined,
+>(props: T, reactiveProps?: K[]): K extends keyof T ? Prettify<ReplaceProps<T, K>> : T
 
-export function convertPropsToHookProps(props: any, reactiveProps: any, _events?: any, emits?: any) {
+export function convertPropsToHookProps(props: any, reactiveProps?: any, _events?: any, emits?: any) {
   const result = { ...props, ...emits?.() } as Record<string, any>
 
   for (const field of reactiveProps) {
