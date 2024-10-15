@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type CollapsibleContentProps, useCollapsibleContent } from './CollapsibleContent.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { type CollapsibleContentProps, DEFAULT_COLLAPSIBLE_CONTENT_PROPS, useCollapsibleContent } from './CollapsibleContent.ts'
 
 defineOptions({
   name: 'CollapsibleContent',
   inheritAttrs: false,
 })
 
-const props = defineProps<CollapsibleContentProps>()
+const props = withDefaults(defineProps<CollapsibleContentProps>(), DEFAULT_COLLAPSIBLE_CONTENT_PROPS)
 
-const collapsibleContent = useCollapsibleContent({
-  forceMount: props.forceMount,
-})
+const collapsibleContent = useCollapsibleContent(convertPropsToHookProps(props))
 </script>
 
 <template>

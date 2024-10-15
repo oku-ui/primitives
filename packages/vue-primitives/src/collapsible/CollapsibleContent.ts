@@ -1,6 +1,6 @@
 import { computed, type CSSProperties, nextTick, onMounted, type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleContentProps {
@@ -10,6 +10,10 @@ export interface CollapsibleContentProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_COLLAPSIBLE_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<CollapsibleContentProps>
 
 export interface UseCollapsibleContentProps {
   el?: Ref<HTMLElement | undefined>

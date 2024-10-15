@@ -14,7 +14,7 @@ const emit = defineEmits<TabsRootEmits>()
 
 const tabsRoot = useTabsRoot(convertPropsToHookProps(
   props,
-  ['value'],
+  ['value', 'dir'],
   null as unknown as TabsRootEmits,
   () => ({
     onUpdateValue(value) {
