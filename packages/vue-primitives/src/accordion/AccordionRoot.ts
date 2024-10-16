@@ -115,6 +115,8 @@ export interface UseAccordionRootProps<T extends AccordionType> extends EmitsToH
 }
 
 export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRootProps<T>): RadixPrimitiveReturns {
+  const { orientation = 'vertical' } = props
+
   const direction = useDirection(props.dir)
   const value = useControllableStateV2(
     props.value,
@@ -171,7 +173,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
         nextIndex = endIndex
         break
       case 'ArrowRight':
-        if (props.orientation === 'horizontal') {
+        if (orientation === 'horizontal') {
           if (direction.value === 'ltr') {
             moveNext()
           }
@@ -181,12 +183,12 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
         }
         break
       case 'ArrowDown':
-        if (props.orientation === 'vertical') {
+        if (orientation === 'vertical') {
           moveNext()
         }
         break
       case 'ArrowLeft':
-        if (props.orientation === 'horizontal') {
+        if (orientation === 'horizontal') {
           if (direction.value === 'ltr') {
             movePrev()
           }
@@ -196,7 +198,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
         }
         break
       case 'ArrowUp':
-        if (props.orientation === 'vertical') {
+        if (orientation === 'vertical') {
           movePrev()
         }
         break
@@ -212,7 +214,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
 
     disabled: props.disabled,
     direction,
-    orientation: props.orientation ?? 'vertical',
+    orientation: orientation ?? 'vertical',
     value: props.type === TYPE_MULTIPLE
       ? value as Ref<string[]>
       : computed<string[]>(() => value.value ? [value.value as string] : []),
@@ -236,12 +238,12 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
 
   return {
     attrs(extraAttrs) {
-      const isDisabled = props.disabled?.()
+      const _disabled = props.disabled?.()
       const attrs = {
         'elRef': setTemplateEl,
-        'data-disabled': isDisabled ? '' : undefined,
-        'data-orientation': props.orientation,
-        'onKeydown': isDisabled ? NOOP : onKeydown,
+        'data-disabled': _disabled ? '' : undefined,
+        'data-orientation': orientation,
+        'onKeydown': _disabled ? NOOP : onKeydown,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
