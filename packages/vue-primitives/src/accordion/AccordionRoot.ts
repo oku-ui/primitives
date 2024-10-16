@@ -3,7 +3,7 @@ import { type AriaAttributes, computed, type MaybeRefOrGetter, type Ref } from '
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type AccordionType = 'single' | 'multiple' | undefined
 export type IsSingle<T extends AccordionType> = T extends 'single' | undefined ? true : false
@@ -17,6 +17,11 @@ export interface AccordionRootProps<T extends AccordionType> extends AccordionIm
 
   collapsible?: AccordionSingleProps['collapsible']
 }
+
+export const DEFAULT_ACCORDION_ROOT_PROPS = {
+  collapsible: undefined,
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<AccordionRootProps<AccordionType>>
 
 export type AccordionRootEmits<T extends AccordionType> = {
   /**

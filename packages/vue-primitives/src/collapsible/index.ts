@@ -1,5 +1,6 @@
 export {
   type CollapsibleContentProps,
+  DEFAULT_COLLAPSIBLE_CONTENT_PROPS,
   useCollapsibleContent,
   type UseCollapsibleContentProps,
 } from './CollapsibleContent.ts'
@@ -8,6 +9,7 @@ export {
   type CollapsibleContext,
   type CollapsibleRootEmits,
   type CollapsibleRootProps,
+  DEFAULT_COLLAPSIBLE_ROOT_PROPS,
   provideCollapsibleContext,
   useCollapsibleContext,
   useCollapsibleRoot,

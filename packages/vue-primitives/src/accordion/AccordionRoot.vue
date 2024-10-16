@@ -1,37 +1,25 @@
 <script setup lang="ts" generic="T extends AccordionType = undefined">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type AccordionRootEmits, type AccordionRootProps, type AccordionType, useAccordionRoot } from './AccordionRoot.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { type AccordionRootEmits, type AccordionRootProps, type AccordionType, DEFAULT_ACCORDION_ROOT_PROPS, useAccordionRoot } from './AccordionRoot.ts'
 
 defineOptions({
   name: 'AccordionRoot',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<AccordionRootProps<T>>(), {
-  disabled: false,
-  orientation: 'vertical',
-})
+const props = withDefaults(defineProps<AccordionRootProps<T>>(), DEFAULT_ACCORDION_ROOT_PROPS)
 const emit = defineEmits<AccordionRootEmits<T>>()
 
-const accordionRoot = useAccordionRoot({
-  value() {
-    return props.value
-  },
-  onUpdateValue(value) {
-    emit('update:value', value)
-  },
-  defaultValue: props.defaultValue,
-  collapsible: props.collapsible,
-  type: props.type,
-  disabled() {
-    return props.disabled
-  },
-  orientation: props.orientation,
-  dir() {
-    return props.dir
-  },
-})
+const accordionRoot = useAccordionRoot(convertPropsToHookProps(
+  props,
+  ['value', 'disabled', 'dir'],
+  (): Required<EmitsToHookProps<AccordionRootEmits<T>>> => ({
+    onUpdateValue(value) {
+      emit('update:value', value)
+    },
+  }),
+))
 </script>
 
 <template>

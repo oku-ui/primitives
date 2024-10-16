@@ -1,4 +1,5 @@
 export {
+  DEFAULT_SEPARATOR_PROPS,
   type SeparatorProps,
   useSeparator,
   type UseSeparatorProps,

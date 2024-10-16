@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type AccordionContentProps, useAccordionContent } from './AccordionContent.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { type AccordionContentProps, DEFAULT_ACCORDION_CONTENT_PROPS, useAccordionContent } from './AccordionContent.ts'
 
 defineOptions({
   name: 'AccordionContent',
   inheritAttrs: false,
 })
 
-const props = defineProps<AccordionContentProps>()
+const props = withDefaults(defineProps<AccordionContentProps>(), DEFAULT_ACCORDION_CONTENT_PROPS)
 
-const accordionContent = useAccordionContent({
-  forceMount: props.forceMount,
-})
+const accordionContent = useAccordionContent(convertPropsToHookProps(props))
 </script>
 
 <template>

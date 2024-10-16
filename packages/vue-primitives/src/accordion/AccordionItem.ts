@@ -1,4 +1,4 @@
-import type { RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, type Ref } from 'vue'
 import { useCollapsibleRoot } from '../collapsible/CollapsibleRoot.ts'
 import { createContext, useId } from '../hooks/index.ts'
@@ -17,6 +17,10 @@ export interface AccordionItemProps {
    */
   value: string
 }
+
+export const DEFAULT_ACCORDION_ITEM_PROPS = {
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<AccordionItemProps>
 
 export interface AccordionItemContext {
   open: Ref<boolean>

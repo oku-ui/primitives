@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { type CollapsibleRootEmits, type CollapsibleRootProps, DEFAULT_COLLAPSIBLE_ROOT_PROPS, useCollapsibleRoot } from './CollapsibleRoot.ts'
 
 defineOptions({
@@ -14,8 +14,7 @@ const emit = defineEmits<CollapsibleRootEmits>()
 const collapsibleRoot = useCollapsibleRoot(convertPropsToHookProps(
   props,
   ['disabled', 'open'],
-  null as unknown as CollapsibleRootEmits,
-  () => ({
+  (): Required<EmitsToHookProps<CollapsibleRootEmits>> => ({
     onUpdateOpen(value: boolean) {
       emit('update:open', value)
     },

@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type AccordionItemProps, useAccordionItem } from './AccordionItem.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { type AccordionItemProps, DEFAULT_ACCORDION_ITEM_PROPS, useAccordionItem } from './AccordionItem.ts'
 
 defineOptions({
   name: 'AccordionItem',
   inheritAttrs: false,
 })
 
-const props = defineProps<AccordionItemProps>()
+const props = withDefaults(defineProps<AccordionItemProps>(), DEFAULT_ACCORDION_ITEM_PROPS)
 
-const accordionItem = useAccordionItem({
-  value() {
-    return props.value
-  },
-  disabled() {
-    return props.disabled
-  },
-})
+const accordionItem = useAccordionItem(convertPropsToHookProps(props, ['value', 'disabled']))
 </script>
 
 <template>

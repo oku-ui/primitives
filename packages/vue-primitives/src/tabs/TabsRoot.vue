@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { DEFAULT_TABS_ROOT_PROPS, type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
 
 defineOptions({
@@ -15,8 +15,7 @@ const emit = defineEmits<TabsRootEmits>()
 const tabsRoot = useTabsRoot(convertPropsToHookProps(
   props,
   ['value', 'dir'],
-  null as unknown as TabsRootEmits,
-  () => ({
+  (): Required<EmitsToHookProps<TabsRootEmits>> => ({
     onUpdateValue(value) {
       emit('update:value', value)
     },
