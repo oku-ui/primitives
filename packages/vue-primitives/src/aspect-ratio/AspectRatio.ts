@@ -12,10 +12,11 @@ export interface AspectRatioProps {
 }
 
 export const DEFAULT_ASPECT_RATIO_PROPS = {
+  ratio: 1,
 } satisfies PrimitiveDefaultProps<AspectRatioProps>
 
 export interface UseAspectRatioProps {
-  ratio?: () => number | undefined
+  ratio?: () => number
 }
 
 export function useAspectRatio(props: UseAspectRatioProps = {}): RadixPrimitiveReturns<
@@ -24,6 +25,8 @@ export function useAspectRatio(props: UseAspectRatioProps = {}): RadixPrimitiveR
     attrs: RadixPrimitiveGetAttrs
   }
 > {
+  const { ratio = () => 1 } = props
+
   return {
     wrapperAttrs() {
       const attrs = {
@@ -32,7 +35,7 @@ export function useAspectRatio(props: UseAspectRatioProps = {}): RadixPrimitiveR
           position: 'relative',
           // ensures padding bottom trick maths works
           width: '100%',
-          paddingBottom: `${100 / (props.ratio?.() || 1)}%`,
+          paddingBottom: `${100 / (ratio())}%`,
         },
         'data-radix-aspect-ratio-wrapper': '',
       }
