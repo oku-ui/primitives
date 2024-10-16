@@ -1,41 +1,31 @@
 <script setup lang="ts" generic="T extends ToggleGroupType = undefined">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType, useToggleGroup } from './ToggleGroupRoot.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import {
+  DEFAULT_TOGGLE_GROUP_PROPS,
+  type ToggleGroupEmits,
+  type ToggleGroupProps,
+  type ToggleGroupType,
+  useToggleGroup,
+} from './ToggleGroupRoot.ts'
 
 defineOptions({
   name: 'ToggleGroup',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ToggleGroupProps<T>>(), {
-  disabled: undefined,
-  rovingFocus: true,
-  loop: true,
-})
+const props = withDefaults(defineProps<ToggleGroupProps<T>>(), DEFAULT_TOGGLE_GROUP_PROPS)
 const emit = defineEmits<ToggleGroupEmits<T>>()
 
-const toggleGroup = useToggleGroup({
-  type: props.type,
-
-  value() {
-    return props.value
-  },
-  onUpdateValue(value) {
-    emit('update:value', value)
-  },
-  defaultValue: props.defaultValue,
-
-  disabled() {
-    return props.disabled
-  },
-  rovingFocus: props.rovingFocus,
-  loop: props.loop,
-  orientation: props.orientation,
-  dir() {
-    return props.dir
-  },
-})
+const toggleGroup = useToggleGroup(convertPropsToHookProps(
+  props,
+  ['value', 'disabled', 'dir'],
+  (): Required<EmitsToHookProps<ToggleGroupEmits<T>>> => ({
+    onUpdateValue(value) {
+      emit('update:value', value)
+    },
+  }),
+))
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, type MaybeRefOrGetter, toValue } from 'vue'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
@@ -12,13 +12,21 @@ export interface ToggleGroupItemProps extends Omit<ToggleProps, 'pressed' | 'def
   value: string
 }
 
+export const DEFAULT_TOGGLE_GROUP_ITEM_PROPS = {
+  as: 'button',
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<ToggleGroupItemProps>
+
 export interface UseToggleGroupItemProps extends Omit<UseToggleProps, 'pressed' | 'defaultPressed' | 'onUpdatePressed'> {
   value: MaybeRefOrGetter<string>
 }
 
 export function useToggleGroupItem(props: UseToggleGroupItemProps): RadixPrimitiveReturns {
   const context = useToggleGroupContext('ToggleGroupItem')
-  const pressed = computed(() => context.value.value?.includes(toValue(props.value)))
+  const pressed = computed(() => {
+    const _value = toValue(props.value)
+    return context.value.value.includes(_value)
+  })
   const disabled = computed(() => context.disabled() || props.disabled?.())
 
   const toggle = useToggle({

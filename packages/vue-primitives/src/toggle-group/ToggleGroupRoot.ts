@@ -2,7 +2,7 @@ import { computed, type MaybeRefOrGetter, type Ref } from 'vue'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2 } from '../hooks/index.ts'
 import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type ToggleGroupType = 'single' | 'multiple' | undefined
 
@@ -13,6 +13,12 @@ export interface ToggleGroupProps<T extends ToggleGroupType> extends ToggleGroup
 
   defaultValue?: T extends 'multiple' ? ToggleGroupMultipleProps['defaultValue'] : ToggleGroupSingleProps['defaultValue']
 }
+
+export const DEFAULT_TOGGLE_GROUP_PROPS = {
+  disabled: undefined,
+  rovingFocus: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<ToggleGroupProps<ToggleGroupType>>
 
 export type ToggleGroupEmits<T extends ToggleGroupType> = {
   /**
@@ -138,27 +144,19 @@ export function useToggleGroup<T extends ToggleGroupType>(props: UseToggleGroupP
     : undefined
 
   return {
-    attrs(extraAttrs) {
-      const attrs = {
+    attrs(extraAttrs = []) {
+      const primitiveAttrs = {
         role: 'group',
         dir: direction.value,
       }
 
-      const extraAttrsList: PrimitiveElAttrs[] = []
-
       if (rovingFocusGroupRoot) {
-        extraAttrsList.push(rovingFocusGroupRoot.attrs())
+        return rovingFocusGroupRoot.attrs([primitiveAttrs, ...extraAttrs])
       }
 
-      if (extraAttrs && extraAttrs.length > 0) {
-        extraAttrsList.push(...extraAttrs)
-      }
+      mergePrimitiveAttrs(primitiveAttrs, extraAttrs)
 
-      if (extraAttrsList.length > 0) {
-        mergePrimitiveAttrs(attrs, extraAttrsList)
-      }
-
-      return attrs
+      return primitiveAttrs
     },
   }
 }

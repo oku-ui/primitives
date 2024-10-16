@@ -1,26 +1,19 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type ToggleGroupItemProps, useToggleGroupItem } from './ToggleGroupItem.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TOGGLE_GROUP_ITEM_PROPS, type ToggleGroupItemProps, useToggleGroupItem } from './ToggleGroupItem.ts'
 
 defineOptions({
   name: 'ToggleGroupItem',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ToggleGroupItemProps>(), {
-  as: 'button',
-  disabled: undefined,
-})
+const props = withDefaults(defineProps<ToggleGroupItemProps>(), DEFAULT_TOGGLE_GROUP_ITEM_PROPS)
 
-const toggleGroupItem = useToggleGroupItem({
-  value() {
-    return props.value
-  },
-  disabled() {
-    return props.disabled
-  },
-})
+const toggleGroupItem = useToggleGroupItem(convertPropsToHookProps(
+  props,
+  ['value', 'disabled'],
+))
 </script>
 
 <template>

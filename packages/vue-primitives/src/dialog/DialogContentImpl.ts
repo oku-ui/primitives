@@ -4,7 +4,6 @@ import { onBeforeUnmount, shallowRef } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer, type UseDismissableLayerProps } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
-import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export type DialogContentImplEmits = DialogContentImplPublicEmits & Omit<DismissableLayerEmits, 'dismiss'>
