@@ -1,8 +1,18 @@
-import { type IAttrsData, mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import {
+  type IAttrsData,
+  mergePrimitiveAttrs,
+  type PrimitiveDefaultProps,
+  type PrimitiveElAttrs,
+  type RadixPrimitiveGetAttrs,
+  type RadixPrimitiveReturns,
+} from '../shared/index.ts'
 
 export interface AspectRatioProps {
   ratio?: number
 }
+
+export const DEFAULT_ASPECT_RATIO_PROPS = {
+} satisfies PrimitiveDefaultProps<AspectRatioProps>
 
 export interface UseAspectRatioProps {
   ratio?: () => number | undefined

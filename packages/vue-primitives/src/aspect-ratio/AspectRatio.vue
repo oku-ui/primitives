@@ -1,22 +1,17 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { normalizeAttrs } from '../shared/mergeProps.ts'
-import { type AspectRatioProps, useAspectRatio } from './AspectRatio.ts'
+import { type AspectRatioProps, DEFAULT_ASPECT_RATIO_PROPS, useAspectRatio } from './AspectRatio.ts'
 
 defineOptions({
   name: 'AspectRatio',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<AspectRatioProps>(), {
-  ratio: 1,
-})
+const props = withDefaults(defineProps<AspectRatioProps>(), DEFAULT_ASPECT_RATIO_PROPS)
 
-const aspectRatio = useAspectRatio({
-  ratio() {
-    return props.ratio
-  },
-})
+const aspectRatio = useAspectRatio(convertPropsToHookProps(props, ['ratio']))
 </script>
 
 <template>
