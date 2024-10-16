@@ -1,6 +1,5 @@
 import type { PrimitiveProps } from '../primitive/Primitive.ts'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { type ToggleGroupItemProps, useToggleGroupItem } from '../toggle-group/index.ts'
 import { useToolbarButton } from './ToolbarButton.ts'
 
@@ -9,6 +8,11 @@ export interface ToolbarToggleItemProps {
   value: ToggleGroupItemProps['value']
   disabled?: boolean
 }
+
+export const DEFAULT_TOOLBAR_TOGGLE_ITEM_PROPS = {
+  as: 'button',
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<ToolbarToggleItemProps>
 
 export interface UseToolbarToggleItem {
   value: () => ToggleGroupItemProps['value']

@@ -1,26 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type ToolbarToggleItemProps, useToolbarToggleItem } from './ToolbarToggleItem.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TOOLBAR_TOGGLE_ITEM_PROPS, type ToolbarToggleItemProps, useToolbarToggleItem } from './ToolbarToggleItem.ts'
 
 defineOptions({
   name: 'ToolbarToggleItem',
   inheritAttrs: false,
 })
 
-const prosp = withDefaults(defineProps<ToolbarToggleItemProps>(), {
-  as: 'button',
-  disabled: undefined,
-})
+const props = withDefaults(defineProps<ToolbarToggleItemProps>(), DEFAULT_TOOLBAR_TOGGLE_ITEM_PROPS)
 
-const toolbarToggleItem = useToolbarToggleItem({
-  value() {
-    return prosp.value
-  },
-  disabled() {
-    return prosp.disabled
-  },
-})
+const toolbarToggleItem = useToolbarToggleItem(convertPropsToHookProps(props, ['value', 'disabled']))
 </script>
 
 <template>

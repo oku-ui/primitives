@@ -1,41 +1,29 @@
 <script setup lang="ts" generic="T extends ToggleGroupType = undefined">
+import type { EmitsToHookProps } from '../shared/typeUtils.ts'
 import type { ToggleGroupType } from '../toggle-group/index.ts'
 import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { normalizeAttrs } from '../shared/mergeProps.ts'
-import { type ToolbarToggleGroupEmits, type ToolbarToggleGroupProps, useToolbarToggleGroup } from './ToolbarToggleGroup.ts'
+import { DEFAULT_TOOLBAR_TOGGLE_GROUP_PROPS, type ToolbarToggleGroupEmits, type ToolbarToggleGroupProps, useToolbarToggleGroup } from './ToolbarToggleGroup.ts'
 
 defineOptions({
   name: 'ToolbarToggleGroup',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ToolbarToggleGroupProps<T>>(), {
-  disabled: undefined,
-  loop: true,
-})
+const props = withDefaults(defineProps<ToolbarToggleGroupProps<T>>(), DEFAULT_TOOLBAR_TOGGLE_GROUP_PROPS)
 
 const emit = defineEmits<ToolbarToggleGroupEmits<T>>()
 
-const toolbarToggleGroup = useToolbarToggleGroup({
-  type: props.type,
-
-  value() {
-    return props.value
-  },
-  onUpdateValue(value) {
-    emit('update:value', value)
-  },
-  defaultValue: props.defaultValue,
-
-  disabled() {
-    return props.disabled
-  },
-  loop: props.loop,
-  orientation: props.orientation,
-  dir() {
-    return props.dir
-  },
-})
+const toolbarToggleGroup = useToolbarToggleGroup(convertPropsToHookProps(
+  props,
+  ['value', 'disabled', 'dir'],
+  (): Required<EmitsToHookProps<ToolbarToggleGroupEmits<T>>> => ({
+    onUpdateValue(value) {
+      emit('update:value', value)
+    },
+  }),
+))
 </script>
 
 <template>

@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type ToolbarLinkProps, useToolbarLink } from './ToolbarLink.ts'
+import { DEFAULT_TOOLBAR_LINK_PROPS, type ToolbarLinkProps, useToolbarLink } from './ToolbarLink.ts'
 
 defineOptions({
   name: 'ToolbarLink',
   inheritAttrs: false,
 })
 
-withDefaults(defineProps<ToolbarLinkProps>(), {
-  as: 'a',
-})
+withDefaults(defineProps<ToolbarLinkProps>(), DEFAULT_TOOLBAR_LINK_PROPS)
 
 const toolbarLink = useToolbarLink()
 </script>

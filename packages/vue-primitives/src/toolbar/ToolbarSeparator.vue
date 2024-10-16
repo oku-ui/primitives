@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { normalizeAttrs } from '../shared/mergeProps.ts'
-import { type ToolbarSeparatorProps, useToolbarSeparator } from './ToolbarSeparator.ts'
+import { DEFAULT_TOOLBAR_SEPARATOR_PROPS, type ToolbarSeparatorProps, useToolbarSeparator } from './ToolbarSeparator.ts'
 
 defineOptions({
   name: 'ToolbarSeparator',
   inheritAttrs: false,
 })
 
-const props = defineProps<ToolbarSeparatorProps>()
+const props = withDefaults(defineProps<ToolbarSeparatorProps>(), DEFAULT_TOOLBAR_SEPARATOR_PROPS)
 
-const toolbarSeparator = useToolbarSeparator({
-  decorative: props.decorative,
-})
+const toolbarSeparator = useToolbarSeparator(convertPropsToHookProps(props))
 </script>
 
 <template>

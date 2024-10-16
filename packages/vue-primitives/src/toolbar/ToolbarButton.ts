@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
 import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 
@@ -7,6 +7,11 @@ export interface ToolbarButtonProps {
   as?: PrimitiveProps['as']
   disabled?: boolean
 }
+
+export const DEFAULT_TOOLBAR_BUTTON_PROPS = {
+  as: 'button',
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<ToolbarButtonProps>
 
 export interface UseToolbarButtonProps {
   disabled?: () => boolean | undefined

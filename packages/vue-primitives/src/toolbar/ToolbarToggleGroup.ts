@@ -1,9 +1,14 @@
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import type { ToggleGroupEmits, ToggleGroupProps, ToggleGroupType } from '../toggle-group/index.ts'
 import { useToggleGroup, type UseToggleGroupProps } from '../toggle-group/ToggleGroupRoot.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'
 
 export interface ToolbarToggleGroupProps<T extends ToggleGroupType> extends Omit<ToggleGroupProps<T>, 'rovingFocus'> {}
+
+export const DEFAULT_TOOLBAR_TOGGLE_GROUP_PROPS = {
+  disabled: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<ToolbarToggleGroupProps<ToggleGroupType>>
 
 export type ToolbarToggleGroupEmits<T extends ToggleGroupType> = ToggleGroupEmits<T>
 
