@@ -7,7 +7,7 @@ const resolve = (val: string) => new URL(val, import.meta.url).pathname
 const config: StorybookConfig = {
   stories: [
     '../stories/*.mdx',
-    `../packages/vue/src/**/stories/*.stories.@(js|jsx|ts|tsx)`,
+    `../packages/vue-primitives/src/**/stories/*.stories.@(js|jsx|ts|tsx)`,
   ],
   addons: [
     '@storybook/addon-links',
@@ -27,7 +27,7 @@ const config: StorybookConfig = {
       define: { 'process.env': {} },
       resolve: {
         alias: [
-          ...primitivesPackagesAlias('../packages/vue/src', resolve),
+          ...primitivesPackagesAlias('../packages/vue-primitives/src', resolve),
         ],
       },
     })
