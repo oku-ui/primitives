@@ -1,4 +1,5 @@
 export {
+  DEFAULT_TOGGLE_PROPS,
   type ToggleEmits,
   type ToggleProps,
   useToggle,

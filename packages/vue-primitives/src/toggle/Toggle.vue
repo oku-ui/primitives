@@ -1,32 +1,25 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type ToggleEmits, type ToggleProps, useToggle } from './Toggle.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TOGGLE_PROPS, type ToggleEmits, type ToggleProps, useToggle } from './Toggle.ts'
 
 defineOptions({
   name: 'Toggle',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ToggleProps>(), {
-  pressed: undefined,
-  as: 'button',
-  disabled: undefined,
-})
+const props = withDefaults(defineProps<ToggleProps>(), DEFAULT_TOGGLE_PROPS)
 const emit = defineEmits<ToggleEmits>()
 
-const toggle = useToggle({
-  pressed() {
-    return props.pressed
-  },
-  onUpdatePressed(checked) {
-    emit('update:pressed', checked)
-  },
-  defaultPressed: props.defaultPressed,
-  disabled() {
-    return props.disabled
-  },
-})
+const toggle = useToggle(convertPropsToHookProps(
+  props,
+  ['pressed', 'disabled'],
+  (): Required<EmitsToHookProps<ToggleEmits>> => ({
+    onUpdatePressed(value) {
+      emit('update:pressed', value)
+    },
+  }),
+))
 </script>
 
 <template>

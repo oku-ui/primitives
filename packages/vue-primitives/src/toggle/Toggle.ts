@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { useControllableStateV2 } from '../hooks/useControllableState.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface ToggleProps {
   as?: PrimitiveProps['as']
@@ -18,6 +18,13 @@ export interface ToggleProps {
   disabled?: boolean
 }
 
+export const DEFAULT_TOGGLE_PROPS = {
+  as: 'button',
+  pressed: undefined,
+  defaultPressed: undefined,
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<ToggleProps>
+
 export type ToggleEmits = {
   /**
    * The callback that fires when the state of the toggle changes.
@@ -32,7 +39,9 @@ export interface UseToggleProps extends EmitsToHookProps<ToggleEmits> {
 }
 
 export function useToggle(props: UseToggleProps): RadixPrimitiveReturns {
-  const pressed = useControllableStateV2(props.pressed, props.onUpdatePressed, props.defaultPressed)
+  const { defaultPressed = false } = props
+
+  const pressed = useControllableStateV2(props.pressed, props.onUpdatePressed, defaultPressed)
 
   function onClick(event: MouseEvent) {
     if (event.defaultPrevented)
