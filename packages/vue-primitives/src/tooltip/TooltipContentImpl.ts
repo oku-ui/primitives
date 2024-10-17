@@ -4,7 +4,6 @@ import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-
 import { createContext } from '../hooks/index.ts'
 import { type PopperContentProps, PopperContentPropsDefaults, usePopperContent, type UsePopperContentProps } from '../popper/PopperContent.ts'
 import { usePopperContext } from '../popper/PopperRoot.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { TOOLTIP_OPEN, useTooltipContext } from './TooltipRoot.ts'
 import { useGraceArea } from './useGraceArea.ts'

@@ -2,7 +2,7 @@ import { computed, type MaybeRefOrGetter, type Ref } from 'vue'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2 } from '../hooks/index.ts'
 import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export type ToggleGroupType = 'single' | 'multiple' | undefined
 

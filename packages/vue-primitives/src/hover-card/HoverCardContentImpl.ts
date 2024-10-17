@@ -1,7 +1,7 @@
+import type { EmitsToHookProps } from '../shared/index.ts'
 import { onBeforeUnmount, onMounted, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { type PopperContentProps, PopperContentPropsDefaults, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs } from '../shared/index.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { getTabbableNodes } from './utils.ts'
 
