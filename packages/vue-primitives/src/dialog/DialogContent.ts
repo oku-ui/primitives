@@ -1,7 +1,7 @@
 import type { UseDialogContentImplSharedProps as _UseDialogContentImplProps, DialogContentImplEmits } from './DialogContentImpl.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogContentProps {
@@ -11,6 +11,10 @@ export interface DialogContentProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_DIALOG_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<DialogContentProps>
 
 export type DialogContentEmits = DialogContentImplEmits
 

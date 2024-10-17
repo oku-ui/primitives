@@ -6,10 +6,7 @@ import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
-export type DialogContentImplEmits = DialogContentImplPublicEmits & Omit<DismissableLayerEmits, 'dismiss'>
-
-// eslint-disable-next-line ts/consistent-type-definitions
-export type DialogContentImplPublicEmits = {
+export type DialogContentImplEmits = {
   /**
    * Event handler called when auto-focusing on open.
    * Can be prevented.
@@ -20,7 +17,7 @@ export type DialogContentImplPublicEmits = {
    * Can be prevented.
    */
   closeAutoFocus: [event: Event]
-}
+} & Omit<DismissableLayerEmits, 'dismiss'>
 
 export interface UseDialogContentImplProps extends Omit<UseDialogContentImplSharedProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
 
@@ -142,7 +139,7 @@ export function useDialogContentNonModal(props: UseDialogContentImplProps): Radi
   })
 }
 
-export interface UseDialogContentImplSharedProps extends EmitsToHookProps<DialogContentImplPublicEmits>, Omit<UseDismissableLayerProps, 'onDismiss'> {
+export interface UseDialogContentImplSharedProps extends EmitsToHookProps<DialogContentImplEmits>, Omit<UseDismissableLayerProps, 'onDismiss'> {
   trapFocus?: () => boolean
 }
 

@@ -4,15 +4,13 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type DialogTitleProps, useDialogTitle } from './DialogTitle.ts'
+import { DEFAULT_DIALOG_TITLE_PROPS, type DialogTitleProps, useDialogTitle } from './DialogTitle.ts'
 
 defineOptions({
   name: 'DialogTitle',
 })
 
-withDefaults(defineProps<DialogTitleProps>(), {
-  as: 'h2',
-})
+withDefaults(defineProps<DialogTitleProps>(), DEFAULT_DIALOG_TITLE_PROPS)
 
 const dialogTitle = useDialogTitle()
 </script>

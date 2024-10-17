@@ -1,4 +1,4 @@
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { type Ref, shallowRef } from 'vue'
 import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 
@@ -7,6 +7,12 @@ export interface DialogRootProps {
   defaultOpen?: boolean
   modal?: boolean
 }
+
+export const DEFAULT_DIALOG_ROOT_PROPS = {
+  open: undefined,
+  defaultOpen: undefined,
+  modal: undefined,
+} satisfies PrimitiveDefaultProps<DialogRootProps>
 
 export type DialogRootEmits = {
   'update:open': [open: boolean]
@@ -36,10 +42,14 @@ export interface UseDialogRootProps extends EmitsToHookProps<DialogRootEmits> {
 }
 
 export function useDialogRoot(props: UseDialogRootProps) {
+  const {
+    modal = true,
+    defaultOpen = false,
+  } = props
   const triggerRef = props.content || useRef<HTMLElement>()
   const content = props.content || shallowRef<HTMLElement>()
 
-  const open = useControllableStateV2(props.open, props.onUpdateOpen, props.defaultOpen || false)
+  const open = useControllableStateV2(props.open, props.onUpdateOpen, defaultOpen)
 
   provideDialogContext({
     triggerRef,
@@ -48,7 +58,7 @@ export function useDialogRoot(props: UseDialogRootProps) {
     titleId: useId(),
     descriptionId: useId(),
     open,
-    modal: props.modal || true,
+    modal,
     onOpenChange(value) {
       open.value = value
     },

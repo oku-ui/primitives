@@ -1,11 +1,13 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogCloseProps {
   as?: PrimitiveProps['as']
 }
+
+export const DEFAULT_DIALOG_CLOSE_PROPS = { as: 'button' } satisfies PrimitiveDefaultProps<DialogCloseProps>
 
 export function useDialogClose(): RadixPrimitiveReturns {
   const context = useDialogContext('DialogClose')

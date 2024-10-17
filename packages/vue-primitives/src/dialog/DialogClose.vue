@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type DialogCloseProps, useDialogClose } from './DialogClose.ts'
+import { DEFAULT_DIALOG_CLOSE_PROPS, type DialogCloseProps, useDialogClose } from './DialogClose.ts'
 
 defineOptions({
   name: 'DialogClose',
 })
 
-withDefaults(defineProps<DialogCloseProps>(), {
-  as: 'button',
-})
+withDefaults(defineProps<DialogCloseProps>(), DEFAULT_DIALOG_CLOSE_PROPS)
 
 const dialogClose = useDialogClose()
 </script>

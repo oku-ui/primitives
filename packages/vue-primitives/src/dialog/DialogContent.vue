@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { normalizeAttrs } from '../shared/index.ts'
-import { type DialogContentProps, useDialogContent } from './DialogContent.ts'
+import { DEFAULT_DIALOG_CONTENT_PROPS, type DialogContentProps, useDialogContent } from './DialogContent.ts'
 import DialogContentImpl from './DialogContentImpl.vue'
 
 defineOptions({
@@ -8,7 +8,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<DialogContentProps>()
+const props = withDefaults(defineProps<DialogContentProps>(), DEFAULT_DIALOG_CONTENT_PROPS)
 
 const dialogContent = useDialogContent({
   forceMount: props.forceMount,

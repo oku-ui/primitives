@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type DialogDescriptionProps, useDialogDescription } from './DialogDescription.ts'
+import { DEFAULT_DIALOG_DESCRIPTION_PROPS, type DialogDescriptionProps, useDialogDescription } from './DialogDescription.ts'
 
 defineOptions({
   name: 'DialogDescription',
   inheritAttrs: false,
 })
 
-withDefaults(defineProps<DialogDescriptionProps>(), {
-  as: 'p',
-})
+withDefaults(defineProps<DialogDescriptionProps>(), DEFAULT_DIALOG_DESCRIPTION_PROPS)
 
 const dialogDescription = useDialogDescription()
 </script>

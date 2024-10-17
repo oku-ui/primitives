@@ -1,7 +1,12 @@
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { useBodyScrollLock } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import {
+  mergePrimitiveAttrs,
+  type PrimitiveDefaultProps,
+  type RadixPrimitiveGetAttrs,
+  type RadixPrimitiveReturns,
+} from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
 export interface DialogOverlayProps {
@@ -11,6 +16,10 @@ export interface DialogOverlayProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_DIALOG_OVERLAY_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<DialogOverlayProps>
 
 export interface UseDialogOverlayProps {
   forceMount?: boolean

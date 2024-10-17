@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
+import { type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { type DialogContentImplEmits, useDialogContentImpl } from './DialogContentImpl.ts'
 
 defineOptions({
@@ -29,7 +29,7 @@ const dialogContentImpl = useDialogContentImpl({
   onInteractOutside(event) {
     emit('interactOutside', event)
   },
-})
+} satisfies Required<EmitsToHookProps<DialogContentImplEmits>>)
 </script>
 
 <template>
