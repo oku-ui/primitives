@@ -41,10 +41,12 @@ const packages = [
   'use-composable',
   'utils',
   'visually-hidden',
+  'hooks',
+  'shared',
 ]
 
 export function primitivesPackagesAlias(_path: string, resolve: any) {
-  const dd = fileURLToPath(new URL('../packages/vue/src/arrow', import.meta.url))
+  const dd = fileURLToPath(new URL('../packages/vue-primitives/src/arrow', import.meta.url))
   console.log('dd', dd, import.meta.url)
 
   const data = packages.map((pkg) => {

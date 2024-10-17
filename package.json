@@ -2,16 +2,11 @@
   "name": "primitives",
   "type": "module",
   "version": "0.6.1",
-  "packageManager": "pnpm@8.13.1",
+  "packageManager": "pnpm@9.12.1",
   "repository": "oku-ui/primitives",
   "engines": {
     "node": ">=20"
   },
-  "workspaces": [
-    "playground/*",
-    "packages/*",
-    "packages/package-build/*"
-  ],
   "scripts": {
     "dev": "esno scripts/dev.ts",
     "build": "pnpm nx run-many -t build",
@@ -128,7 +123,7 @@
     "vite-plugin-dts": "^4.2.4",
     "vitest": "^2.1.3",
     "vitest-axe": "1.0.0-pre.3",
-    "vue": "3.5.12"
+    "vue": "^3.5.12"
   },
   "pnpm": {
     "overrides": {
@@ -145,6 +140,7 @@
       "@oku-ui/dismissable-layer": "workspace:^",
       "@oku-ui/focus-guards": "workspace:^",
       "@oku-ui/focus-scope": "workspace:^",
+      "@oku-ui/hooks": "workspace:^",
       "@oku-ui/hover-card": "workspace:^",
       "@oku-ui/label": "workspace:^",
       "@oku-ui/menu": "workspace:^",
@@ -159,6 +155,7 @@
       "@oku-ui/roving-focus": "workspace:^",
       "@oku-ui/scroll-area": "workspace:^",
       "@oku-ui/separator": "workspace:^",
+      "@oku-ui/shared": "workspace:^",
       "@oku-ui/slider": "workspace:^",
       "@oku-ui/slot": "workspace:^",
       "@oku-ui/switch": "workspace:^",
