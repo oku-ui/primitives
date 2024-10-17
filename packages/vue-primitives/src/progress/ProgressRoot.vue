@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { Primitive } from '../primitive/index.ts'
-import { isNumber, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, isNumber, normalizeAttrs } from '../shared/index.ts'
 import { type ProgressRootProps, useProgressRoot } from './ProgressRoot.ts'
 import { DEFAULT_MAX, defaultGetValueLabel, isValidMaxNumber, isValidValueNumber } from './utils.ts'
 
@@ -34,15 +34,7 @@ const props = defineProps({
   },
 })
 
-const progressRoot = useProgressRoot({
-  value() {
-    return props.value
-  },
-  max() {
-    return props.max
-  },
-  getValueLabel: props.getValueLabel,
-})
+const progressRoot = useProgressRoot(convertPropsToHookProps(props, ['value', 'max']))
 </script>
 
 <template>
