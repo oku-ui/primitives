@@ -1,6 +1,6 @@
 import { isClient } from '@vueuse/core'
 import { nextTick, onWatcherCleanup, type Ref, shallowRef, watch, watchEffect } from 'vue'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { focus, focusFirst, focusScopesStack, getTabbableCandidates, getTabbableEdges, removeLinks } from './utils.ts'
 
 export interface FocusScopeProps {
@@ -18,6 +18,11 @@ export interface FocusScopeProps {
    */
   trapped?: boolean
 }
+
+export const DEFAULT_FOCUS_SCOPE_PROPS = {
+  loop: undefined,
+  trapped: false,
+} satisfies PrimitiveDefaultProps<FocusScopeProps, 'trapped'>
 
 export type FocusScopeEmits = {
   /**
