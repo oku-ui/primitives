@@ -37,7 +37,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/utils": "latest",
+
     "@vueuse/core": "^10.11.1"
   },
   "devDependencies": {

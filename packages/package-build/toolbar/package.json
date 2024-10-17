@@ -45,9 +45,8 @@
     "@oku-ui/provide": "latest",
     "@oku-ui/roving-focus": "latest",
     "@oku-ui/separator": "latest",
-    "@oku-ui/toggle-group": "latest",
-    "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest"
+    "@oku-ui/toggle-group": "latest"
+
   },
   "devDependencies": {
     "tsconfig": "latest"

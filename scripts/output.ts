@@ -38,8 +38,6 @@ const packages = [
   'toggle-group',
   'toolbar',
   'tooltip',
-  'use-composable',
-  'utils',
   'visually-hidden',
   'hooks',
   'shared',
