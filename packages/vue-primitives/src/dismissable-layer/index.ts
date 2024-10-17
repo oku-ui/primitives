@@ -1,4 +1,5 @@
 export {
+  DEFAULT_DISMISSABLE_LAYER_PROPS,
   type DismissableLayerEmits,
   type DismissableLayerProps,
   type FocusOutsideEvent,

@@ -1,4 +1,4 @@
-import type { EmitsToHookProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, onWatcherCleanup, type Ref, shallowReactive, shallowRef, watch } from 'vue'
 import { useEscapeKeydown } from '../hooks/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
@@ -15,6 +15,10 @@ export interface DismissableLayerProps {
    */
   disableOutsidePointerEvents?: boolean
 }
+
+export const DEFAULT_DISMISSABLE_LAYER_PROPS = {
+  disableOutsidePointerEvents: false,
+} satisfies PrimitiveDefaultProps<DismissableLayerProps, 'disableOutsidePointerEvents'>
 
 export type DismissableLayerEmits = {
   /**
