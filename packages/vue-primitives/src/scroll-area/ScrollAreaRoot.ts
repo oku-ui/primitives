@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { Direction } from '../direction/index.ts'
-import { createContext } from '../hooks/index.ts'
+import { createContext } from '@oku-ui/hooks'
 
 type ScrollAreaType = 'auto' | 'always' | 'scroll' | 'hover'
 

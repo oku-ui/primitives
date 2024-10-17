@@ -1,4 +1,4 @@
-import { type MutableRefObject, createContext } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '@oku-ui/hooks'
 import type { GraceIntent } from './utils.ts'
 
 export interface MenuContentProps {

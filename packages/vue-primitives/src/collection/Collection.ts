@@ -1,4 +1,4 @@
-import { type MutableRefObject, createContext } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '@oku-ui/hooks'
 
 export const DATA_COLLECTION_ITEM = 'data-radix-collection-item'
 

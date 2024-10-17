@@ -2,9 +2,9 @@
 import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
 import { isClient, useDebounceFn } from '@vueuse/core'
 import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { useForwardElement, useStateMachine } from '../hooks/index.ts'
+import { useForwardElement, useStateMachine } from '@oku-ui/hooks'
 import { usePresence } from '../presence/usePresence.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 

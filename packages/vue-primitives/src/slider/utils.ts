@@ -1,4 +1,4 @@
-import { clamp } from '../shared/index.ts'
+import { clamp } from '@oku-ui/shared'
 
 export function getNextSortedValues(prevValues: number[] = [], nextValue: number, atIndex: number) {
   const nextValues = [...prevValues]

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useControllableState, useId, useRef } from '../hooks/index.ts'
+import { useControllableState, useId, useRef } from '@oku-ui/hooks'
 import { type DialogContentElement, type DialogRootEmits, type DialogRootProps, provideDialogContext } from './DialogRoot.ts'
 
 defineOptions({

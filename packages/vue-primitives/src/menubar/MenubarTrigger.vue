@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { MenubarTriggerEmits, MenubarTriggerProps } from './MenubarTrigger.ts'
 import { computed, onMounted, shallowRef, watchEffect } from 'vue'
-import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
-import { useComposedElements } from '../hooks/index.ts'
+import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
+import { useComposedElements } from '@oku-ui/hooks'
 import { usePopperContext } from '../popper/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { useMenubarMenuContext } from './MenubarMenu.ts'
 import { Collection, type ItemData, useMenubarContext } from './MenubarRoot.ts'
 

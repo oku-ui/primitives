@@ -1,4 +1,4 @@
-import type { PrimitiveProps } from '../primitive/index.ts'
+import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { ImageLoadingStatus } from './AvatarRoot.ts'
 
 export interface AvatarImageProps {

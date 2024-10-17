@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RadioGroupBubbleInputProps } from './RadioGroupBubbleInput.ts'
 import { watch } from 'vue'
-import { useSize } from '../hooks/index.ts'
+import { useSize } from '@oku-ui/hooks'
 
 defineOptions({
   name: 'RadioGroupBubbleInput',

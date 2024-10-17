@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useForwardElement } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { type CollapsibleContentProps, useCollapsibleContent } from './CollapsibleContent.ts'
 import { getState } from './utils.ts'
 

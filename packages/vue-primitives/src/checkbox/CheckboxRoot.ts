@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import type { PrimitiveProps } from '../primitive/index.ts'
-import { type MutableRefObject, createContext } from '../hooks/index.ts'
+import type { PrimitiveProps } from '@oku-ui/primitive'
+import { type MutableRefObject, createContext } from '@oku-ui/hooks'
 
 export interface CheckboxRootProps {
   as?: PrimitiveProps['as']

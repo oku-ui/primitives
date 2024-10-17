@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue'
-import { useForwardElement, useRef } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useForwardElement, useRef } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { context } from './DismissableLayer.ts'
 
 defineOptions({

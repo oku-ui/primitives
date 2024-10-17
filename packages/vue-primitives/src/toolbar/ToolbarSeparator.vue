@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ToolbarSeparatorProps } from './ToolbarSeparator.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { useToolbarContext } from './ToolbarRoot.ts'
 
 defineOptions({

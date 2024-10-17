@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { MenuItemImplEmits, MenuItemImplProps } from './MenuItemImpl.ts'
 import { shallowRef, watchEffect } from 'vue'
-import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
-import { useComposedElements } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
+import { useComposedElements } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { useMenuContentContext } from './MenuContent.ts'
 import { Collection, type ItemData } from './MenuRoot.ts'
 

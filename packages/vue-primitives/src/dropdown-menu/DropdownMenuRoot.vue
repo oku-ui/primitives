@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import { useControllableState, useId, useRef } from '../hooks/index.ts'
+import { useControllableState, useId, useRef } from '@oku-ui/hooks'
 import { provideMenuContext, provideMenuRootContext, useIsUsingKeyboard } from '../menu/index.ts'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { type DropdownMenuRootEmits, type DropdownMenuRootProps, provideDropdownMenuContext } from './DropdownMenuRoot.ts'

@@ -2,7 +2,7 @@
 import type { DialogContentElement } from '../dialog/index.ts'
 import type { AlertDialogRootEmits, AlertDialogRootProps } from './AlertDialogRoot.ts'
 import { provideDialogContext } from '../dialog/index.ts'
-import { useControllableState, useId, useRef } from '../hooks/index.ts'
+import { useControllableState, useId, useRef } from '@oku-ui/hooks'
 
 defineOptions({
   name: 'AlertDialogRoot',

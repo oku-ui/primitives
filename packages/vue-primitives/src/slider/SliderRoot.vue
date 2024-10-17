@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { type PropType, computed, watchEffect } from 'vue'
 import { useDirection } from '../direction/index.ts'
-import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
-import { clamp, composeEventHandlers, getDecimalCount, isNumber, roundValue } from '../shared/index.ts'
+import { useControllableState, useForwardElement, useRef } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
+import { clamp, composeEventHandlers, getDecimalCount, isNumber, roundValue } from '@oku-ui/shared'
 import { provideSliderOrientationContext } from './SliderOrientation.ts'
 import { ARROW_KEYS, BACK_KEYS, Collection, PAGE_KEYS, type SliderContext, type SliderRootEmits, type SliderRootProps, provideSliderContext } from './SliderRoot.ts'
 import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'

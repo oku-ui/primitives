@@ -1,5 +1,5 @@
-export { Primitive as ToastTitle } from '../primitive/index.ts'
-export { Primitive as ToastDescription } from '../primitive/index.ts'
+export { Primitive as ToastTitle } from '@oku-ui/primitive'
+export { Primitive as ToastDescription } from '@oku-ui/primitive'
 export {
   type ToastCloseEmits,
   type ToastCloseProps,

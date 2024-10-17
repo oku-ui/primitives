@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { HoverCardTriggerEmits, HoverCardTriggerProps } from './HoverCardTrigger.ts'
 import { onMounted } from 'vue'
-import { useForwardElement, useRef } from '../hooks/index.ts'
+import { useForwardElement, useRef } from '@oku-ui/hooks'
 import { usePopperContext } from '../popper/index.ts'
-import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { excludeTouch } from './utils.ts'
 

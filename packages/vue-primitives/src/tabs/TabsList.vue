@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TabsListEmits, TabsListProps } from './TabsList.ts'
-import { useForwardElement, useRef } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useForwardElement, useRef } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 

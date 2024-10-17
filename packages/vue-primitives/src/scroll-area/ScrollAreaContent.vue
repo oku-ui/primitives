@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useForwardElement } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useForwardElement } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({

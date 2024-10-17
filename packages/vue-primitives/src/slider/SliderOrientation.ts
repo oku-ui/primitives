@@ -1,5 +1,5 @@
 import type { Ref, UnwrapRef } from 'vue'
-import { createContext, type useSize } from '../hooks/index.ts'
+import { createContext, type useSize } from '@oku-ui/hooks'
 
 type Side = 'top' | 'right' | 'bottom' | 'left'
 

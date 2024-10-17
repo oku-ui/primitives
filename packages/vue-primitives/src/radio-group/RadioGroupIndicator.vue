@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { RadioGroupIndicatorProps } from './RadioGroupIndicator.ts'
 import { shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { useForwardElement } from '@oku-ui/hooks'
 import { usePresence } from '../presence/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { getState, useRadioContext } from './Radio.ts'
 
 defineOptions({

@@ -1,10 +1,10 @@
 <script setup lang="ts" generic="T extends ToggleGroupType">
 import { computed } from 'vue'
-import { useDirection } from '../direction/Direction.ts'
-import { useControllableState } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useDirection } from '@oku-ui/direction'
+import { useControllableState } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { RovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { arrayify } from '../shared/index.ts'
+import { arrayify } from '@oku-ui/shared'
 import { type ToggleGroupEmits, type ToggleGroupProps, type ToggleGroupType, provideToggleGroupContext } from './ToggleGroupRoot.ts'
 
 type SingleValue = Exclude<ToggleGroupProps<'single'>['value'], undefined>

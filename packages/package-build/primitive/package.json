@@ -37,8 +37,8 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/slot": "latest",
-    "@oku-ui/use-composable": "latest",
+    "@oku-ui/slot": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^",
     "filter-anything": "^3.0.7"
   },
   "devDependencies": {

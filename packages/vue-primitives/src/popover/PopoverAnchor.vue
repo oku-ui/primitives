@@ -4,7 +4,7 @@ import { onBeforeUnmount, onMounted } from 'vue'
 import { useForwardElement } from '../hooks/useForwardElement.ts'
 import { useRef } from '../hooks/useRef.ts'
 import { usePopperContext } from '../popper/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 defineOptions({

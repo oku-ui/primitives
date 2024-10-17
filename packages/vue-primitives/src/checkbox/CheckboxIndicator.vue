@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { CheckboxIndicatorProps } from './CheckboxIndicator.ts'
 import { shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { useForwardElement } from '@oku-ui/hooks'
 import { usePresence } from '../presence/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { useCheckboxContext } from './CheckboxRoot.ts'
 import { getState, isIndeterminate } from './utils.ts'
 

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { createContext } from '../hooks/index.ts'
+import { createContext } from '@oku-ui/hooks'
 import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 
 export interface ScrollAreaScrollbarProps {

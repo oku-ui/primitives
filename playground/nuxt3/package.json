@@ -57,9 +57,9 @@
     "@oku-ui/collapsible": "latest",
     "@oku-ui/collection": "latest",
     "@oku-ui/dialog": "latest",
-    "@oku-ui/direction": "latest",
+    "@oku-ui/direction": "workspace:^",
     "@oku-ui/dismissable-layer": "latest",
-    "@oku-ui/focus-guards": "latest",
+    "@oku-ui/focus-guards": "workspace:^",
     "@oku-ui/focus-scope": "latest",
     "@oku-ui/hover-card": "latest",
     "@oku-ui/label": "latest",
@@ -68,9 +68,9 @@
     "@oku-ui/popper": "latest",
     "@oku-ui/portal": "latest",
     "@oku-ui/presence": "latest",
-    "@oku-ui/primitive": "latest",
+    "@oku-ui/primitive": "workspace:^",
     "@oku-ui/progress": "latest",
-    "@oku-ui/provide": "latest",
+    "@oku-ui/provide": "workspace:^",
     "@oku-ui/radio-group": "latest",
     "@oku-ui/roving-focus": "latest",
     "@oku-ui/scroll-area": "latest",
@@ -84,10 +84,10 @@
     "@oku-ui/toggle-group": "latest",
     "@oku-ui/toolbar": "latest",
     "@oku-ui/tooltip": "latest",
-    "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest",
+    "@oku-ui/use-composable": "workspace:^",
+    "@oku-ui/utils": "workspace:^",
     "@oku-ui/visually-hidden": "latest",
-    "@types/node": "^20.11.7",
-    "nuxt": "^3.9.3"
+    "@types/node": "^20.16.11",
+    "nuxt": "^3.13.2"
   }
 }

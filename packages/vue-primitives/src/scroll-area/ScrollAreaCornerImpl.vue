@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useResizeObserver } from '@vueuse/core'
 import { shallowRef } from 'vue'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 defineOptions({

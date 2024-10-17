@@ -2,7 +2,7 @@
 import type { HoverCardContentEmits, HoverCardContentProps } from './HoverCardContent'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { composeEventHandlers } from '@oku-ui/shared'
 import HoverCardContentImpl from './HoverCardContentImpl.vue'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { excludeTouch } from './utils.ts'

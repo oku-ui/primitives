@@ -1,5 +1,5 @@
 import type { PopperContentProps } from '../popper/index.ts'
-import type { Point, Polygon } from '../shared/index.ts'
+import type { Point, Polygon } from '@oku-ui/shared'
 
 type Side = NonNullable<PopperContentProps['side']>
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { TooltipTriggerEmits, TooltipTriggerProps } from './TooltipTrigger.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { useForwardElement } from '@oku-ui/hooks'
 import { usePopperContext } from '../popper/index.ts'
-import { Primitive } from '../primitive/Primitive.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { useTooltipContext } from './TooltipRoot.ts'
 

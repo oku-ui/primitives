@@ -1,5 +1,5 @@
 import type { PopperAnchorProps } from '../popper/index.ts'
-import type { PrimitiveProps } from '../primitive/index.ts'
+import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export interface TooltipTriggerProps extends PopperAnchorProps {
   as?: PrimitiveProps['as']

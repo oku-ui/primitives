@@ -1,4 +1,4 @@
-import { type MutableRefObject, createContext } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '@oku-ui/hooks'
 
 export interface MenubarMenuProps {
   value?: string

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { AvatarImageEmits, AvatarImageProps } from './AvatarImage.ts'
 import { watchEffect } from 'vue'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { type ImageLoadingStatus, useAvatarContext } from './AvatarRoot.ts'
 import { useImageLoadingStatus } from './utils.ts'
 

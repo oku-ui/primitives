@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DialogContentProps } from './DialogContent.ts'
 import { shallowRef } from 'vue'
-import { useForwardElement } from '../hooks/index.ts'
+import { useForwardElement } from '@oku-ui/hooks'
 import { usePresence } from '../presence/index.ts'
 import DialogContentModal from './DialogContentModal.vue'
 import DialogContentNonModal from './DialogContentNonModal.vue'

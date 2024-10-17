@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type PropType, computed } from 'vue'
-import { Primitive } from '../primitive/index.ts'
-import { isNumber } from '../shared/index.ts'
+import { Primitive } from '@oku-ui/primitive'
+import { isNumber } from '@oku-ui/shared'
 import { DEFAULT_MAX, type ProgressRootProps, defaultGetValueLabel, getProgressState, isValidMaxNumber, isValidValueNumber, provideProgressContext } from './ProgressRoot.ts'
 
 defineOptions({

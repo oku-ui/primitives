@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { RovingFocusGroupRootEmits, RovingFocusGroupRootProps } from '../roving-focus/index.ts'
-import { createContext } from '../hooks/index.ts'
+import { createContext } from '@oku-ui/hooks'
 
 export interface RadioGroupRootProps {
   name?: string

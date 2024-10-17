@@ -40,13 +40,13 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/dialog": "latest",
-    "@oku-ui/primitive": "latest",
-    "@oku-ui/provide": "latest",
-    "@oku-ui/slot": "latest",
-    "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest",
-    "@types/node": "^20.11.7"
+    "@oku-ui/dialog": "workspace:^",
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/provide": "workspace:^",
+    "@oku-ui/slot": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^",
+    "@oku-ui/utils": "workspace:^",
+    "@types/node": "^20.16.11"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

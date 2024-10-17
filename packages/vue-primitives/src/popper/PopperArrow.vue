@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { OPPOSITE_SIDE, type PopperArrowProps } from './PopperArrow.ts'
 import { useContentContext } from './PopperContent.ts'
 

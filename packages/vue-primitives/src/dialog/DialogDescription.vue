@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DialogDescriptionProps } from './DialogDescription.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { useDialogContext } from './DialogRoot.ts'
 
 defineOptions({

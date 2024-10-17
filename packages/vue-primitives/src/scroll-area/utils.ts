@@ -1,5 +1,5 @@
 import type { Direction } from '../direction/index.ts'
-import { clamp } from '../shared/index.ts'
+import { clamp } from '@oku-ui/shared'
 import type { Sizes } from './ScrollAreaScrollbarVisible.ts'
 
 export function toInt(value?: string) {

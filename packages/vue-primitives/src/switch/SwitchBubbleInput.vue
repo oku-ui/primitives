@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SwitchBubbleInputProps } from './SwitchBubbleInput.ts'
 import { watch } from 'vue'
-import { useSize } from '../hooks/index.ts'
+import { useSize } from '@oku-ui/hooks'
 
 defineOptions({
   name: 'SwitchBubbleInput',

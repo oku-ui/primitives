@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { useControllableState, useForwardElement, useRef } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { useControllableState, useForwardElement, useRef } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { type CheckboxRootEmits, type CheckboxRootProps, type CheckboxRootSlots, provideCheckboxContext } from './CheckboxRoot.ts'
 import { getState, isIndeterminate } from './utils.ts'
 

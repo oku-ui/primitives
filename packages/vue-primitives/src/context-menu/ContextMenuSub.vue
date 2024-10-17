@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ContextMenuSubEmits, ContextMenuSubProps } from './ContextMenuSub.ts'
 import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { useControllableState, useId, useRef } from '../hooks/index.ts'
+import { useControllableState, useId, useRef } from '@oku-ui/hooks'
 import { provideMenuContext, provideMenuSubContext, useMenuContext } from '../menu/index.ts'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 

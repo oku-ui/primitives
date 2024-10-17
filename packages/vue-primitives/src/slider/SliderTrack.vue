@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SliderTrackProps } from './SliderTrack.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { useSliderContext } from './SliderRoot.ts'
 
 defineOptions({

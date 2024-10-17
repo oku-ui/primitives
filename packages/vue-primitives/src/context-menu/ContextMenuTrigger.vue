@@ -3,8 +3,8 @@ import type { ContextMenuTriggerEmits, ContextMenuTriggerProps } from './Context
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, onWatcherCleanup, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
-import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { useContextMenuContext } from './ContextMenuRoot.ts'
 
 defineOptions({

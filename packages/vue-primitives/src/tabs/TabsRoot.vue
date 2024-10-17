@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDirection } from '../direction/index.ts'
-import { useControllableState, useId } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useControllableState, useId } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { type TabsRootEmits, type TabsRootProps, provideTabsContext } from './TabsRoot.ts'
 
 defineOptions({

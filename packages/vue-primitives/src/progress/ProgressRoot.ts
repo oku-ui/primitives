@@ -1,5 +1,5 @@
-import { createContext } from '../hooks/index.ts'
-import { isNumber } from '../shared/index.ts'
+import { createContext } from '@oku-ui/hooks'
+import { isNumber } from '@oku-ui/shared'
 
 export interface ProgressRootProps {
   value?: number | null | undefined

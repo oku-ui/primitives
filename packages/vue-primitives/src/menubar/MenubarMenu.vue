@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue'
-import { useId, useRef } from '../hooks/index.ts'
+import { useId, useRef } from '@oku-ui/hooks'
 import { provideMenuContext, provideMenuRootContext, useIsUsingKeyboard } from '../menu/index.ts'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { type MenubarMenuProps, provideMenubarMenuContext } from './MenubarMenu.ts'

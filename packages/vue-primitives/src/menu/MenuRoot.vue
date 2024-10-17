@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Measurable } from '../popper/index.ts'
 import { shallowRef } from 'vue'
-import { useDirection } from '../direction/Direction.ts'
+import { useDirection } from '@oku-ui/direction'
 import { providePopperContext } from '../popper/index.ts'
 import {
   type MenuRootEmits,

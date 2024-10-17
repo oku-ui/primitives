@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { type MutableRefObject, createContext } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '@oku-ui/hooks'
 
 export interface PopoverRootProps {
   open?: boolean

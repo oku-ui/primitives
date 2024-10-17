@@ -1,8 +1,8 @@
 import type { Ref } from 'vue'
 import type { Direction } from '../direction/index.ts'
 import type { RovingFocusGroupRootProps } from '../roving-focus/RovingFocusGroupRoot.ts'
-import { createCollection } from '../collection/index.ts'
-import { createContext } from '../hooks/index.ts'
+import { createCollection } from '@oku-ui/collection'
+import { createContext } from '@oku-ui/hooks'
 
 export interface MenubarRootProps {
   value?: string

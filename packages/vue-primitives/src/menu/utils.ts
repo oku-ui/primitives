@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------------------------- */
 
 import type { CheckedState } from '../checkbox/index.ts'
-import { type Polygon, isPointInPolygon, wrapArray } from '../shared/index.ts'
+import { type Polygon, isPointInPolygon, wrapArray } from '@oku-ui/shared'
 
 export function getOpenState(open: boolean) {
   return open ? 'open' : 'closed'

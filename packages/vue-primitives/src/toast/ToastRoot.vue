@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { SwipeEvent, ToastRootEmits, ToastRootProps } from './ToastRoot.ts'
 import { shallowRef } from 'vue'
-import { useControllableState, useForwardElement } from '../hooks/index.ts'
+import { useControllableState, useForwardElement } from '@oku-ui/hooks'
 import { usePresence } from '../presence/index.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { composeEventHandlers } from '@oku-ui/shared'
 import ToastRootImpl from './ToastRootImpl.vue'
 
 defineOptions({

@@ -1,5 +1,5 @@
-import { createContext } from '../hooks/index.ts'
-// import type { PrimitiveProps } from '../primitive/index.ts'
+import { createContext } from '@oku-ui/hooks'
+// import type { PrimitiveProps } from '@oku-ui/primitive'
 
 // export interface RadioProps {
 //   as?: PrimitiveProps['as']

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { AspectRatioProps } from './AspectRatio.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({
   name: 'AspectRatio',

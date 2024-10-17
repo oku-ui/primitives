@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { provideCollapsibleContext } from '../collapsible/index.ts'
-import { useId } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
+import { useId } from '@oku-ui/hooks'
+import { provideCollapsibleContext } from '@oku-ui/collapsible'
 import { type AccordionItemProps, provideAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'

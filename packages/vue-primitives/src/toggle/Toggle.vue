@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { ToggleEmits, ToggleProps } from './Toggle.ts'
-import { useControllableState } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { useControllableState } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 
 defineOptions({
   name: 'Toggle',

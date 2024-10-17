@@ -1,9 +1,9 @@
 <script setup lang="ts" generic="T extends AccordionType">
 import { computed } from 'vue'
-import { useDirection } from '../direction/Direction.ts'
-import { useControllableState, useForwardElement, useId, useRef } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
-import { arrayify, composeEventHandlers } from '../shared/index.ts'
+import { useDirection } from '@oku-ui/direction'
+import { useControllableState, useForwardElement, useId, useRef } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
+import { arrayify, composeEventHandlers } from '@oku-ui/shared'
 import { ACCORDION_KEYS, type AccordionRootEmits, type AccordionRootProps, type AccordionType, Collection, provideAccordionContext, useCollection } from './AccordionRoot.ts'
 
 type SingleValue = Exclude<AccordionRootProps<'single'>['value'], undefined>

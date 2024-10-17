@@ -37,12 +37,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/direction": "latest",
-    "@oku-ui/primitive": "latest",
-    "@oku-ui/provide": "latest",
-    "@oku-ui/roving-focus": "latest",
-    "@oku-ui/toggle": "latest",
-    "@oku-ui/use-composable": "latest"
+    "@oku-ui/direction": "workspace:^",
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/provide": "workspace:^",
+    "@oku-ui/roving-focus": "workspace:^",
+    "@oku-ui/toggle": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

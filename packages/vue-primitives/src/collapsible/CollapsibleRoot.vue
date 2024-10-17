@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useControllableState, useId } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useControllableState, useId } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { type CollapsibleRootEmits, type CollapsibleRootProps, provideCollapsibleContext } from './CollapsibleRoot.ts'
 import { getState } from './utils.ts'
 

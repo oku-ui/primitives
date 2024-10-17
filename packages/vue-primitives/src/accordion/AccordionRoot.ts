@@ -1,7 +1,7 @@
 import type { AriaAttributes, Ref } from 'vue'
-import type { Direction } from '../direction/Direction.ts'
-import { createCollection } from '../collection/index.ts'
-import { createContext } from '../hooks/index.ts'
+import type { Direction } from '@oku-ui/direction'
+import { createContext } from '@oku-ui/hooks'
+import { createCollection } from '@oku-ui/collection'
 
 export type AccordionType = 'single' | 'multiple'
 
@@ -15,7 +15,7 @@ export interface AccordionRootProps<T extends AccordionType> extends AccordionIm
   collapsible?: AccordionSingleProps['collapsible']
 }
 
-export type AccordionRootEmits<T extends AccordionType> = {
+export interface AccordionRootEmits<T extends AccordionType> {
   /**
    * The callback that fires when the state of the toggle group changes.
    */

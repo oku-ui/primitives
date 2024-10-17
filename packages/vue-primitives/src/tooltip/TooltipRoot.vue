@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, shallowRef } from 'vue'
-import { useControllableState, useId } from '../hooks/index.ts'
+import { useControllableState, useId } from '@oku-ui/hooks'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { TOOLTIP_OPEN, type TooltipRootEmits, type TooltipRootProps, provideTooltipContext } from './TooltipRoot.ts'

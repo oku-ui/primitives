@@ -132,6 +132,12 @@
       ],
       "@oku-ui/presence": [
         "src/presence"
+      ],
+      "@oku-ui/hooks": [
+        "src/hooks"
+      ],
+      "@oku-ui/shared": [
+        "src/shared"
       ]
     },
     "resolveJsonModule": true,

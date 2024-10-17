@@ -1,5 +1,5 @@
 import { Comment, type VNode, cloneVNode, defineComponent, warn } from 'vue'
-import { getRawChildren } from '../shared/index.ts'
+import { getRawChildren } from '@oku-ui/shared'
 
 export const Slot = defineComponent({
   name: 'Slot',

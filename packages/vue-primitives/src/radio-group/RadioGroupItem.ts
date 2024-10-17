@@ -1,5 +1,5 @@
-import type { MutableRefObject } from '../hooks/index.ts'
-import type { PrimitiveProps } from '../primitive/index.ts'
+import type { MutableRefObject } from '@oku-ui/hooks'
+import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export interface RadioGroupItemProps {
   as?: PrimitiveProps['as']

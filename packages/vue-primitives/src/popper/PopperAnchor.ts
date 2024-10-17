@@ -1,4 +1,4 @@
-import type { MutableRefObject } from '../hooks/index.ts'
+import type { MutableRefObject } from '@oku-ui/hooks'
 import type { Measurable } from './PopperRoot.ts'
 
 export interface PopperAnchorProps {

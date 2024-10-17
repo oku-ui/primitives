@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PopoverCloseEmits, PopoverCloseProps } from './PopoverClose.ts'
-import { Primitive } from '../primitive/index.ts'
-import { composeEventHandlers } from '../shared/index.ts'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 defineOptions({

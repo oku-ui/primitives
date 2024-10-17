@@ -13,8 +13,8 @@ import {
   size,
   useFloating,
 } from '../floating/index.ts'
-import { useForwardElement, useSize } from '../hooks/index.ts'
-import { Primitive } from '../primitive/index.ts'
+import { useForwardElement, useSize } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { type Align, type PopperContentEmits, type PopperContentProps, type Side, provideContentContext } from './PopperContent.ts'
 import { usePopperContext } from './PopperRoot.ts'
 import { getSideAndAlignFromPlacement, isNotNull, transformOrigin } from './utils.ts'

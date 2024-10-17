@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { LabelEmits, LabelProps } from './Label.ts'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({
   name: 'RadixLabel',

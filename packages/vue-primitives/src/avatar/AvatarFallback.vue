@@ -2,7 +2,7 @@
 import type { AvatarFallbackProps } from './AvatarFallback.ts'
 import { isClient } from '@vueuse/core'
 import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { Primitive } from '../primitive/index.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { useAvatarContext } from './AvatarRoot.ts'
 
 defineOptions({

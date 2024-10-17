@@ -40,17 +40,17 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.0.5",
-    "@oku-ui/dismissable-layer": "latest",
-    "@oku-ui/popper": "latest",
-    "@oku-ui/portal": "latest",
-    "@oku-ui/presence": "latest",
-    "@oku-ui/primitive": "latest",
-    "@oku-ui/provide": "latest",
-    "@oku-ui/slot": "latest",
-    "@oku-ui/use-composable": "latest",
-    "@oku-ui/utils": "latest",
-    "@oku-ui/visually-hidden": "latest"
+    "@floating-ui/vue": "^1.1.5",
+    "@oku-ui/dismissable-layer": "workspace:^",
+    "@oku-ui/popper": "workspace:^",
+    "@oku-ui/portal": "workspace:^",
+    "@oku-ui/presence": "workspace:^",
+    "@oku-ui/primitive": "workspace:^",
+    "@oku-ui/provide": "workspace:^",
+    "@oku-ui/slot": "workspace:^",
+    "@oku-ui/use-composable": "workspace:^",
+    "@oku-ui/utils": "workspace:^",
+    "@oku-ui/visually-hidden": "workspace:^"
   },
   "devDependencies": {
     "tsconfig": "workspace:^"

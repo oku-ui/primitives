@@ -1,5 +1,5 @@
 import type { DialogContentImplEmits } from '../dialog/DialogContentImpl.ts'
-import { type MutableRefObject, createContext } from '../hooks/index.ts'
+import { type MutableRefObject, createContext } from '@oku-ui/hooks'
 
 export type AlertDialogContentEmits = {
   /**

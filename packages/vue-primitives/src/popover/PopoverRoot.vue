@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import { useControllableState, useId, useRef } from '../hooks/index.ts'
+import { useControllableState, useId, useRef } from '@oku-ui/hooks'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { type PopoverRootEmits, type PopoverRootProps, providePopoverContext } from './PopoverRoot.ts'
 

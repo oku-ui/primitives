@@ -1,4 +1,4 @@
-import { createContext } from '../hooks/index.ts'
+import { createContext } from '@oku-ui/hooks'
 
 export interface ToastRootProps {
   open?: boolean
