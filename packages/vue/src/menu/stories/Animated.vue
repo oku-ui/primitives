@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
 import { OkuMenuCheckboxItem, OkuMenuItemIndicator, OkuMenuRadioGroup, OkuMenuRadioItem } from '@oku-ui/menu'
+import { reactive, ref } from 'vue'
 import MenuWithAnchor from './MenuWithAnchor.vue'
 import TickIcon from './TickIcon.vue'
 

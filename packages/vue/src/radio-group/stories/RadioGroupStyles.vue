@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
+  OkuLabel,
+} from '@oku-ui/label'
+import {
   OkuRadioGroup,
   OkuRadioGroupIndicator,
   OkuRadioGroupItem,
 } from '@oku-ui/radio-group'
-import {
-  OkuLabel,
-} from '@oku-ui/label'
 
 </script>
 

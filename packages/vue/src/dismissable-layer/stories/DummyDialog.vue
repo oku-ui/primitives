@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { OkuFocusGuards } from '@oku-ui/focus-guards'
-import { OkuPortal } from '@oku-ui/portal'
-import { OkuFocusScope } from '@oku-ui/focus-scope'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
+import { OkuFocusGuards } from '@oku-ui/focus-guards'
+import { OkuFocusScope } from '@oku-ui/focus-scope'
+import { OkuPortal } from '@oku-ui/portal'
 import { useComponentRef, useScrollLock } from '@oku-ui/use-composable'
+import { ref } from 'vue'
 
 withDefaults(defineProps<{ openLabel?: string, closeLabel?: string }>(), {
   openLabel: 'Open',

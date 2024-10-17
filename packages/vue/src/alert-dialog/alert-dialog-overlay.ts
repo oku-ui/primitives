@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuDialogOverlay } from '@oku-ui/dialog'
 import type { AlertDialogOverlayNaviteElement } from './props'
-import { OVERLAY_NAME, alertDialogOverlayProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
+import { OkuDialogOverlay } from '@oku-ui/dialog'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { alertDialogOverlayProps, OVERLAY_NAME, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
 const alertDialogOverlay = defineComponent({
   name: OVERLAY_NAME,

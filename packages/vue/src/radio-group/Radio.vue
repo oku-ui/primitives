@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { type RadioEmits, type RadioProps, provideRadioContext } from './Radio'
-import { computed, shallowRef, toRef, useAttrs } from 'vue'
-import { getState } from './utils'
-import { RADIO_NAME } from './constants'
-import { composeEventHandlers } from '@oku-ui/utils'
-import BubbleInput from './BubbleInput.vue'
 import { Primitive } from '@oku-ui/primitive'
 import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, shallowRef, toRef, useAttrs } from 'vue'
+import BubbleInput from './BubbleInput.vue'
+import { RADIO_NAME } from './constants'
+import { provideRadioContext, type RadioEmits, type RadioProps } from './Radio'
+import { getState } from './utils'
 
 defineOptions({
   name: RADIO_NAME,

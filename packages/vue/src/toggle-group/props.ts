@@ -1,12 +1,12 @@
-import type { PropType, Ref } from 'vue'
-import { ScopePropObject, createScope } from '@oku-ui/provide'
-import type { Scope } from '@oku-ui/provide'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import type { ToggleElement, ToggleEmits, ToggleNativeElement, ToggleProps } from '@oku-ui/toggle'
+import type { PropType, Ref } from 'vue'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
+import { createScope, ScopePropObject } from '@oku-ui/provide'
 import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import { toggleProps } from '@oku-ui/toggle'
-import type { ToggleElement, ToggleEmits, ToggleNativeElement, ToggleProps } from '@oku-ui/toggle'
 
 export type ScopeToggleGroup<T> = T & { scopeOkuToggleGroup?: Scope }
 

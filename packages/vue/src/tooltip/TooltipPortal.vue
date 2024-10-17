@@ -18,11 +18,11 @@ export interface TooltipPortalProps {
 </script>
 
 <script setup lang="ts">
-import { OkuPortal } from '@oku-ui/portal'
 import type { PortalProps } from '@oku-ui/portal'
+import { OkuPortal } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
-import { useTooltipInject, useTooltipPortalProvider } from './utils'
 import { toRef, withDefaults } from 'vue'
+import { useTooltipInject, useTooltipPortalProvider } from './utils'
 
 defineOptions({
   name: 'OkuTooltipArrow',

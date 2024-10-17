@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { type Scope, createScope } from '@oku-ui/provide'
 import type { Ref } from 'vue'
+import { createScope, type Scope } from '@oku-ui/provide'
 import { RADIO_NAME } from './constants'
 
 // Props

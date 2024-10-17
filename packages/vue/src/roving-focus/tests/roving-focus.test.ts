@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest'
+import type { Component } from 'vue'
 import { mount } from '@vue/test-utils'
 
-import type { Component } from 'vue'
+import { describe, expect, it } from 'vitest'
 import { h } from 'vue'
 import { OkuRovingFocusGroup, OkuRovingFocusGroupItem } from '../'
 

@@ -1,11 +1,11 @@
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import type { DialogContentModalEmits } from '@oku-ui/dialog'
-import { OkuDialogContent, OkuDialogDescriptionWarning, WarningProvider } from '@oku-ui/dialog'
-import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuSlottable } from '@oku-ui/slot'
 import type { AlertDialogContentNaviteElement } from './props'
-import { AlertDialogContentProvider, CONTENT_NAME, TITLE_NAME, alertDialogContentProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
+import { OkuDialogContent, OkuDialogDescriptionWarning, WarningProvider } from '@oku-ui/dialog'
+import { OkuSlottable } from '@oku-ui/slot'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import { alertDialogContentProps, AlertDialogContentProvider, CONTENT_NAME, scopeAlertDialogProps, TITLE_NAME, useAlertDialogScope } from './props'
 
 const alertDialogContent = defineComponent({
   name: CONTENT_NAME,

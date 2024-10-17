@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { type MutableRefObject, createContext } from '@oku-ui/hooks'
+import { createContext, type MutableRefObject } from '@oku-ui/hooks'
 
 export interface DialogRootProps {
   open?: boolean

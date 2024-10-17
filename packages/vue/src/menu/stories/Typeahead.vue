@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { OkuMenuItem } from '..'
+import { foodGroups } from './foods'
 import MenuWithAnchor from './MenuWithAnchor.vue'
 import WithLabels from './WithLabels.vue'
-import { foodGroups } from './foods'
 
 const suits = [
   { emoji: '♥️', label: 'Hearts' },

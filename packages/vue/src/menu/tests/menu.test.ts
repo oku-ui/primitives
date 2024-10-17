@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
 import {
@@ -26,13 +26,13 @@ import {
   OkuMenuSubTrigger,
 } from '../'
 
-import Styled from '../stories/Styled.vue'
-import Submenus from '../stories/Submenus.vue'
-import WithLabels from '../stories/WithLabels.vue'
-import Typeahead from '../stories/Typeahead.vue'
+import Animated from '../stories/Animated.vue'
 import CheckboxItems from '../stories/CheckboxItems.vue'
 import RadioItems from '../stories/RadioItems.vue'
-import Animated from '../stories/Animated.vue'
+import Styled from '../stories/Styled.vue'
+import Submenus from '../stories/Submenus.vue'
+import Typeahead from '../stories/Typeahead.vue'
+import WithLabels from '../stories/WithLabels.vue'
 
 enableAutoUnmount(afterEach)
 

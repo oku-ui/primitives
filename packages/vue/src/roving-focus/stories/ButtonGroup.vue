@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { provide, toRef } from 'vue'
 import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
+import { provide, toRef } from 'vue'
 
 const { dir, value, orientation } = defineProps(['value', 'dir', 'orientation'])
 

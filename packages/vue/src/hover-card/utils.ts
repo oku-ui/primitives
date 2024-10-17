@@ -1,6 +1,6 @@
-import { createPopperScope } from '@oku-ui/popper'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createScope } from '@oku-ui/provide'
+import { createPopperScope } from '@oku-ui/popper'
+import { createScope, ScopePropObject } from '@oku-ui/provide'
 
 export type ScopeHoverCard<T> = T & { scopeOkuHoverCard?: Scope }
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { useForwardElement } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { shallowRef } from 'vue'
 import { isIndeterminate } from '../checkbox/utils.ts'
-import { useForwardElement } from '@oku-ui/hooks'
 import { usePresence } from '../presence/index.ts'
-import { Primitive } from '@oku-ui/primitive'
 import { type MenuItemIndicatorProps, useItemIndicatorContext } from './MenuItemIndicator.ts'
 import { getCheckedState } from './utils.ts'
 

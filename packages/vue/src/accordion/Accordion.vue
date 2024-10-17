@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { CollectionProvider } from './AccordionCollections'
-import { ACCORDION_NAME } from './constants'
 import type { AccordionEmits, AccordionProps } from './Accordion'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { CollectionProvider } from './AccordionCollections'
 import AccordionMultiple from './AccordionMultiple.vue'
 import AccordionSingle from './AccordionSingle.vue'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { ACCORDION_NAME } from './constants'
 
 defineOptions({
   name: ACCORDION_NAME,

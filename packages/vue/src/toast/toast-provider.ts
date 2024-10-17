@@ -1,10 +1,10 @@
-import { defineComponent, h, ref, toRefs } from 'vue'
 import type { PropType } from 'vue'
+import type { SwipeDirection, ToastNativeElement } from './share'
 
 import type { ToastViewportElement } from './toast-viewport'
-import { scopedToastProps } from './types'
+import { defineComponent, h, ref, toRefs } from 'vue'
 import { CollectionProvider, PROVIDER_NAME, toastProviderProvider } from './share'
-import type { SwipeDirection, ToastNativeElement } from './share'
+import { scopedToastProps } from './types'
 
 export interface ToastProviderProps {
   /**

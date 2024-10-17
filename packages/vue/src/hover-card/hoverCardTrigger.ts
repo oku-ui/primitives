@@ -1,12 +1,12 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
+import { OkuPopperAnchor } from '@oku-ui/popper'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperAnchor } from '@oku-ui/popper'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { excludeTouch, scopeHoverCardProps } from './utils'
-
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { useHoverCardInject, usePopperScope } from './hoverCard'
+
+import { excludeTouch, scopeHoverCardProps } from './utils'
 
 const HOVERCARD_TRIGGER_NAME = 'OkuHoverCardTrigger'
 

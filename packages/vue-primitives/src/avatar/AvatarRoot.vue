@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
+import { shallowRef } from 'vue'
 import { type AvatarRootProps, type ImageLoadingStatus, provideAvatarContext } from './AvatarRoot.ts'
 
 defineOptions({

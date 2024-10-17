@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { SliderThumbEmits, SliderThumbProps } from './SliderThumb.ts'
-import { isClient } from '@vueuse/core'
-import { computed, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
 import { useForwardElement, useSize } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { isClient } from '@vueuse/core'
+import { computed, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import SliderBubbleInput from './SliderBubbleInput.vue'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
 import { useCollection, useSliderContext } from './SliderRoot.ts'

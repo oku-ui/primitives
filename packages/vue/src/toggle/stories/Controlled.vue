@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuToggle } from '@oku-ui/toggle'
+import { ref } from 'vue'
 
 const pressed = ref(true)
 </script>

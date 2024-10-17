@@ -1,17 +1,17 @@
-import { defineComponent, ref, watchEffect } from 'vue'
-import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
+import { defineComponent, ref, watchEffect } from 'vue'
 
 import { OkuCheckbox, OkuCheckboxIndicator } from '../'
 
-import Styled from '../stories/Styled.vue'
-import Controlled from '../stories/Controlled.vue'
-import Indeterminate from '../stories/Indeterminate.vue'
-import WithinForm from '../stories/WithinForm.vue'
 import Animated from '../stories/Animated.vue'
 import Chromatic from '../stories/Chromatic.vue'
+import Controlled from '../stories/Controlled.vue'
+import Indeterminate from '../stories/Indeterminate.vue'
+import Styled from '../stories/Styled.vue'
+import WithinForm from '../stories/WithinForm.vue'
 
 enableAutoUnmount(afterEach)
 

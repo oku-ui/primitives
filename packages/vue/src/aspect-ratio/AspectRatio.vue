@@ -7,9 +7,9 @@ export interface AspectRatioProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { defineOptions } from 'vue'
-import { useComponentRef } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { defineOptions } from 'vue'
 
 defineOptions({
   name: 'OkuAspectRatio',

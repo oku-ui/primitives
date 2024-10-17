@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { PopoverCloseEmits, PopoverCloseNaviteElement } from './props'
 import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { PopoverCloseEmits, PopoverCloseNaviteElement } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { CLOSE_NAME, popoverCloseProps, scopePopoverProps, usePopoverInject } from './props'
 
 const popoverClose = defineComponent({

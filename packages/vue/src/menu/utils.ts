@@ -99,4 +99,4 @@ function whenMouse(event: (e: PointerEvent) => void) {
   return (e: PointerEvent) => (e.pointerType === 'mouse' ? event(e) : undefined)
 }
 
-export { getOpenState, isIndeterminate, getCheckedState, focusFirst, getNextMatch, isPointerInGraceArea, whenMouse }
+export { focusFirst, getCheckedState, getNextMatch, getOpenState, isIndeterminate, isPointerInGraceArea, whenMouse }

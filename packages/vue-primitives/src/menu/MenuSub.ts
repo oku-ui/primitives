@@ -1,4 +1,4 @@
-import { type MutableRefObject, createContext } from '@oku-ui/hooks'
+import { createContext, type MutableRefObject } from '@oku-ui/hooks'
 
 export interface MenuSubProps {
   open?: boolean

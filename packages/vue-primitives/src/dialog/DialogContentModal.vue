@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { DialogContentModalEmits } from './DialogContentModal.ts'
+import { useForwardElement } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { hideOthers } from 'aria-hidden'
 import { onBeforeUnmount, shallowRef } from 'vue'
 import { type FocusOutsideEvent, type PointerdownOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
-import { useForwardElement } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
 import { useDialogContext } from './DialogRoot.ts'
 import { getState } from './utils.ts'
 

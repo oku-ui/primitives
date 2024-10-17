@@ -64,18 +64,18 @@ export type PopperContentEmits = {
 </script>
 
 <script lang="ts" setup>
-import { computed, defineOptions, ref, watch, watchEffect, withDefaults } from 'vue'
-import type { PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import { useComponentRef, useSize } from '@oku-ui/use-composable'
-import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type {
   DetectOverflowOptions,
   Middleware,
   Padding,
   Placement,
 } from '@floating-ui/vue'
+import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Align, Side } from './utils'
+import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
+import { Primitive } from '@oku-ui/primitive'
+import { useComponentRef, useSize } from '@oku-ui/use-composable'
+import { computed, defineOptions, ref, watch, watchEffect, withDefaults } from 'vue'
 import { getSideAndAlignFromPlacement, isNotNull, transformOrigin, usePopperContentProvide, usePopperInject } from './utils'
 
 defineOptions({

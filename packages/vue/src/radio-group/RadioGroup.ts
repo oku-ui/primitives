@@ -1,11 +1,11 @@
-import type { Scope } from '@oku-ui/provide'
-import { createScope } from '@oku-ui/provide'
-import type { Ref } from 'vue'
-import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
-import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { RADIO_GROUP_NAME } from './constants'
+import type { Scope } from '@oku-ui/provide'
+import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import type { Ref } from 'vue'
 import type { RadioProps } from './Radio'
+import { createScope } from '@oku-ui/provide'
+import { createRovingFocusGroupScope } from '@oku-ui/roving-focus'
+import { RADIO_GROUP_NAME } from './constants'
 import { createRadioScope } from './Radio'
 
 export interface RadioGroupProps extends PrimitiveProps {

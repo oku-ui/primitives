@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
+import { ref } from 'vue'
 
 const checked = ref<boolean | 'indeterminate'>('indeterminate')
 </script>

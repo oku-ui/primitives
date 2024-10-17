@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { TabsTriggerEmits, TabsTriggerProps } from './TabsTrigger'
-import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
-import { useRovingFocusGroupScope, useTabsContext } from './Tabs'
 import { Primitive } from '@oku-ui/primitive'
-import { TAB_TRIGGER_NAME } from './constants'
-import { makeContentId, makeTriggerId } from './utils'
-import { composeEventHandlers } from '@oku-ui/utils'
+import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { computed } from 'vue'
+import { TAB_TRIGGER_NAME } from './constants'
+import { useRovingFocusGroupScope, useTabsContext } from './Tabs'
+import { makeContentId, makeTriggerId } from './utils'
 
 defineOptions({
   name: TAB_TRIGGER_NAME,

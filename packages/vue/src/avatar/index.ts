@@ -1,16 +1,16 @@
 export {
-  default as OkuAvatar,
   type AvatarProps,
+  default as OkuAvatar,
 } from './Avatar.vue'
 export {
-  default as OkuAvatarImage,
-  type AvatarImageProps,
-  type AvatarImageEmits,
-} from './AvatarImage.vue'
-export {
-  default as OkuAvatarFallback,
   type AvatarFallbackProps,
+  default as OkuAvatarFallback,
 } from './AvatarFallback.vue'
+export {
+  type AvatarImageEmits,
+  type AvatarImageProps,
+  default as OkuAvatarImage,
+} from './AvatarImage.vue'
 
 export type * from './types'
 

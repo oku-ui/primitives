@@ -1,8 +1,8 @@
-import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
-import { reactiveOmit, useControllable, useForwardRef, useListeners } from '@oku-ui/use-composable'
-import { OkuToggleGroupImpl } from './toggle-group-impl'
-import { TOGGLE_GROUP_IMPL_SINGLE_NAME, scopeToggleGroupProps, toggleGroupImplSingleProps, toggleGroupValueProvider } from './props'
 import type { ToggleGroupImplSingleNativeElement } from './props'
+import { reactiveOmit, useControllable, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs, useModel } from 'vue'
+import { scopeToggleGroupProps, TOGGLE_GROUP_IMPL_SINGLE_NAME, toggleGroupImplSingleProps, toggleGroupValueProvider } from './props'
+import { OkuToggleGroupImpl } from './toggle-group-impl'
 
 const toggleGroupImplSingle = defineComponent({
   name: TOGGLE_GROUP_IMPL_SINGLE_NAME,

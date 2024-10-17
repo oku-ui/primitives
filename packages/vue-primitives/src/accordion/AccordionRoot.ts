@@ -1,7 +1,7 @@
-import type { AriaAttributes, Ref } from 'vue'
 import type { Direction } from '@oku-ui/direction'
-import { createContext } from '@oku-ui/hooks'
+import type { AriaAttributes, Ref } from 'vue'
 import { createCollection } from '@oku-ui/collection'
+import { createContext } from '@oku-ui/hooks'
 
 export type AccordionType = 'single' | 'multiple'
 

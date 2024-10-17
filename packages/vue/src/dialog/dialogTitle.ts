@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { TITLE_NAME, scopeDialogProps, useDialogInject } from './utils'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { scopeDialogProps, TITLE_NAME, useDialogInject } from './utils'
 
 export type DialogTitleNaviteElement = OkuElement<'h2'>
 export type DialogTitleElement = HTMLHeadingElement

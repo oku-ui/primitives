@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
+import { useForwardElement, useStateMachine } from '@oku-ui/hooks'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { isClient, useDebounceFn } from '@vueuse/core'
 import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { useForwardElement, useStateMachine } from '@oku-ui/hooks'
 import { usePresence } from '../presence/usePresence.ts'
-import { composeEventHandlers } from '@oku-ui/shared'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 

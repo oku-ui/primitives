@@ -1,13 +1,13 @@
-import { enableAutoUnmount, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 
 import { OkuAspectRatio } from '../'
 
-import Styled from '../stories/Styled.vue'
-import CustomRatios from '../stories/CustomRatios.vue'
 import Chromatic from '../stories/Chromatic.vue'
+import CustomRatios from '../stories/CustomRatios.vue'
+import Styled from '../stories/Styled.vue'
 
 enableAutoUnmount(afterEach)
 

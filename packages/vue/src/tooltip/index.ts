@@ -2,25 +2,9 @@ import type { } from '@floating-ui/vue'
 
 export {
   default as OkuTooltip,
-  type TooltipProps,
   type TooltipEmits,
+  type TooltipProps,
 } from './Tooltip.vue'
-
-export {
-  default as OkuTooltipContent,
-  type TooltipContentProps,
-  type TooltipContentEmits,
-} from './TooltipContent.vue'
-
-export {
-  default as OkuTooltipTrigger,
-  type TooltipTriggerProps,
-} from './TooltipTrigger.vue'
-
-export {
-  default as OkuTooltipProvider,
-  type TooltipProviderProps,
-} from './TooltipProvider.vue'
 
 export {
   default as OkuTooltipArrow,
@@ -28,9 +12,25 @@ export {
 } from './TooltipArrow.vue'
 
 export {
+  default as OkuTooltipContent,
+  type TooltipContentEmits,
+  type TooltipContentProps,
+} from './TooltipContent.vue'
+
+export {
   default as OkuTooltipPortal,
   type TooltipPortalProps,
 } from './TooltipPortal.vue'
+
+export {
+  default as OkuTooltipProvider,
+  type TooltipProviderProps,
+} from './TooltipProvider.vue'
+
+export {
+  default as OkuTooltipTrigger,
+  type TooltipTriggerProps,
+} from './TooltipTrigger.vue'
 
 export {
   createTooltipScope,

@@ -1,6 +1,6 @@
 <script lang="ts">
-import type { Scope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
 
 export type SliderThumbImplElement = HTMLSpanElement
 
@@ -17,10 +17,10 @@ export type SliderThumbImplEmits = {
 </script>
 
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef, useSize } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, watchEffect } from 'vue'
 import {
   CollectionItemSlot,
   convertValueToPercentage,

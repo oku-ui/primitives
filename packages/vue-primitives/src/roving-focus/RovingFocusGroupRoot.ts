@@ -1,9 +1,9 @@
-import { type AriaAttributes, type Ref, shallowRef } from 'vue'
 import type { Direction } from '../direction/index.ts'
 import { createCollection } from '@oku-ui/collection'
-import { type MutableRefObject, createContext } from '@oku-ui/hooks'
+import { createContext, type MutableRefObject } from '@oku-ui/hooks'
 import { useControllableStateV2 } from '@oku-ui/hooks'
 import { composeEventHandlers, focusFirst } from '@oku-ui/shared'
+import { type AriaAttributes, type Ref, shallowRef } from 'vue'
 import { ENTRY_FOCUS, EVENT_OPTIONS } from './utils.ts'
 
 type Orientation = AriaAttributes['aria-orientation']

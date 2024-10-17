@@ -28,10 +28,10 @@ export type CheckboxEmits = {
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { defineOptions, onMounted, ref, toRef, watchEffect, withDefaults } from 'vue'
-import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { Primitive } from '@oku-ui/primitive'
+import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
+import { defineOptions, onMounted, ref, toRef, watchEffect, withDefaults } from 'vue'
 import OkuBubbleInput from './BubbleInput.vue'
 import { getState, isIndeterminate, useCheckboxProvide } from './utils'
 

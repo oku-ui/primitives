@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useDirection } from '../direction/index.ts'
 import { useForwardElement, useRef } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
+import { useDirection } from '../direction/index.ts'
 import { type RovingFocusGroupRootEmits, type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from './RovingFocusGroupRoot.ts'
 
 defineOptions({

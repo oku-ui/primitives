@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 import {
   OkuCollapsible,
   OkuCollapsibleContent,
   OkuCollapsibleTrigger,
 } from '@oku-ui/collapsible'
+
+import { ref } from 'vue'
 
 const open = ref(false)
 const rootDisabled = ref(false)

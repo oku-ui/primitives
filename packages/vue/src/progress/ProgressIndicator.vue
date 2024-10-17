@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
+import { Primitive } from '@oku-ui/primitive'
 
 export interface ProgressIndicatorProps extends PrimitiveProps {
   scopeOkuProgress?: Scope

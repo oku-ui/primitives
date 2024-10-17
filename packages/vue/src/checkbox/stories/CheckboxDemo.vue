@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
-import Controlled from './Controlled.vue'
-import Indeterminate from './Indeterminate.vue'
-import WithinForm from './WithinForm.vue'
 import Animated from './Animated.vue'
 import Chromatic from './Chromatic.vue'
+import Controlled from './Controlled.vue'
+import Indeterminate from './Indeterminate.vue'
+import Styled from './Styled.vue'
+import WithinForm from './WithinForm.vue'
 
 withDefaults(defineProps<ICheckBoxProps>(), {})
 

@@ -1,8 +1,8 @@
 import { execSync } from 'node:child_process'
 import { dirname, join, resolve } from 'node:path'
 import { watch } from 'chokidar'
-import { join as pjoin } from 'pathe'
 import { globbySync } from 'globby'
+import { join as pjoin } from 'pathe'
 import { rimrafSync } from 'rimraf'
 
 const componentsPath = resolve('packages/components/')

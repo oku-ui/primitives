@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { DialogOverlayProps } from './DialogOverlay.ts'
-import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useBodyScrollLock, useForwardElement } from '@oku-ui/hooks'
-import { usePresence } from '../presence/index.ts'
 import { Primitive } from '@oku-ui/primitive'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
+import { usePresence } from '../presence/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 import { getState } from './utils.ts'
 

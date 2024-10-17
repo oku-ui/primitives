@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import ScrollAreaStory from './ScrollAreaStory.vue'
 import Copy from './Copy.vue'
+import ScrollAreaStory from './ScrollAreaStory.vue'
 
 const DYNAMIC_CONTENT_DELAY = 2000
 

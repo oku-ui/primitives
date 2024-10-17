@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto.ts'
+import { useForwardElement } from '@oku-ui/hooks'
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { shallowRef } from 'vue'
-import { useForwardElement } from '@oku-ui/hooks'
 import { usePresence } from '../presence/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'

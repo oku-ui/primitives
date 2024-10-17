@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { isPointInPolygon, type Polygon } from '@oku-ui/shared'
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
-import { type Polygon, isPointInPolygon } from '@oku-ui/shared'
 import TooltipContentImpl from './TooltipContentImpl.vue'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { useTooltipContext } from './TooltipRoot.ts'

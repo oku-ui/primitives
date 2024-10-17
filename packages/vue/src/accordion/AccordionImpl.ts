@@ -1,7 +1,7 @@
-import type { Ref } from 'vue'
-import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
-import type { Scope } from '@oku-ui/provide'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import type { Ref } from 'vue'
 import { createAccordionProvider } from './Accordion'
 import { ACCORDION_NAME } from './constants'
 

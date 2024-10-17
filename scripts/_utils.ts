@@ -1,13 +1,13 @@
 import { promises as fsp } from 'node:fs'
 import process from 'node:process'
-import { resolve } from 'pathe'
-import { execaSync } from 'execa'
 import {
   determineSemverChange,
   getGitDiff,
   loadChangelogConfig,
   parseCommits,
 } from 'changelogen'
+import { execaSync } from 'execa'
+import { resolve } from 'pathe'
 
 export interface Dep {
   name: string

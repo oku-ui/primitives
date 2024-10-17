@@ -1,10 +1,10 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { PopoverTriggerNaviteElement } from './props'
+import { OkuPopperAnchor } from '@oku-ui/popper'
 import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuPopperAnchor } from '@oku-ui/popper'
-import type { PopoverTriggerNaviteElement } from './props'
-import { TRIGGER_NAME, popoverTriggerProps, usePopoverInject, usePopperScope } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { popoverTriggerProps, TRIGGER_NAME, usePopoverInject, usePopperScope } from './props'
 import { getState } from './utils'
 
 const popoverTrigger = defineComponent({

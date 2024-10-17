@@ -1,8 +1,8 @@
-import { h } from 'vue'
-import { enableAutoUnmount, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
+import { h } from 'vue'
 
 import { OkuVisuallyHidden } from '../'
 

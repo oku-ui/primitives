@@ -1,8 +1,8 @@
 <script lang="ts">
+import type { Polygon } from './types'
 import type {
   TooltipContentImplProps,
 } from './utils'
-import type { Polygon } from './types'
 
 export interface TooltipContentHoverableProps extends TooltipContentImplProps {
 }
@@ -11,6 +11,9 @@ export interface TooltipContentHoverableProps extends TooltipContentImplProps {
 
 <script setup lang="ts">
 
+import { useComponentRef } from '@oku-ui/use-composable'
+import { ref, watchEffect, withDefaults } from 'vue'
+import OkuTooltipContentImpl from './TooltipContentImpl.vue'
 import {
   getExitSideFromRect,
   getHull,
@@ -20,9 +23,6 @@ import {
   useTooltipInject,
   useTooltipProviderInject,
 } from './utils'
-import { ref, watchEffect, withDefaults } from 'vue'
-import { useComponentRef } from '@oku-ui/use-composable'
-import OkuTooltipContentImpl from './TooltipContentImpl.vue'
 
 const props = withDefaults(defineProps<TooltipContentHoverableProps>(), {
   ariaLabel: undefined,

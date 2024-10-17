@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuAccordion, OkuAccordionContent, OkuAccordionHeader, OkuAccordionItem, OkuAccordionTrigger } from '@oku-ui/accordion'
+import { ref } from 'vue'
 
 const values = ref(['One', 'Two', 'Three', 'Four'])
 </script>

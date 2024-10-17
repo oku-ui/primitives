@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { ToggleGroupItemEmits, ToggleGroupItemProps } from './ToggleGroupItem.ts'
-import { computed } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
-import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { computed } from 'vue'
+import { RovingFocusGroupItem } from '../roving-focus/index.ts'
 import { useToggleGroupContext } from './ToggleGroupRoot.ts'
 
 defineOptions({

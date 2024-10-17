@@ -1,7 +1,7 @@
 <script lang="ts">
+import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { SliderOrientationPrivateEmits } from './utils'
 import { BACK_KEYS, linearScale, sliderOrientationProvider } from './utils'
-import type { PrimitiveProps } from '@oku-ui/primitive'
 
 export type SliderVerticalElement = SliderImplElement
 
@@ -16,9 +16,9 @@ export interface SliderVerticalProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import type { SliderImplElement } from './SliderImpl.vue'
-import OkuSliderImpl from './SliderImpl.vue'
-import { computed, ref } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
+import { computed, ref } from 'vue'
+import OkuSliderImpl from './SliderImpl.vue'
 
 defineOptions({
   name: 'OkuSliderVertical',

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuSwitch, OkuSwitchThumb } from '@oku-ui/switch'
+import { ref } from 'vue'
 
 const data = ref({ optional: false, required: false, stopprop: false })
 const checked = ref<boolean>(false)

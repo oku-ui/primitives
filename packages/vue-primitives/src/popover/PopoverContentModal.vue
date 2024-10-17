@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FocusOutsideEvent, PointerdownOutsideEvent } from '../dismissable-layer/index.ts'
 import type { PopoverContentModalEmits } from './PopoverContentModal.ts'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { hideOthers } from 'aria-hidden'
 import { onBeforeUnmount } from 'vue'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
@@ -8,7 +9,6 @@ import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
-import { composeEventHandlers } from '@oku-ui/shared'
 import { usePopoverContext } from './PopoverRoot.ts'
 import { getState } from './utilts.ts'
 

@@ -1,13 +1,13 @@
 <script lang="ts">
+import type { TooltipContentImplEmits, TooltipContentImplProps } from './utils'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
 import { TOOLTIP_OPEN, usePopperScope, useTooltipInject } from './utils'
-import type { TooltipContentImplEmits, TooltipContentImplProps } from './utils'
 </script>
 
 <script setup lang="ts">
-import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuPopperContent } from '@oku-ui/popper'
 import { OkuSlottable } from '@oku-ui/slot'
+import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuVisuallyHidden } from '@oku-ui/visually-hidden'
 import { computed, onMounted, onUnmounted, watch } from 'vue'
 import VisuallyHiddenContentProvider from './VisuallyHiddenContentProvider.vue'

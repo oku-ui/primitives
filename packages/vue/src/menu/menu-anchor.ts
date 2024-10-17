@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { MenuAnchorNativeElement } from './props'
 import { OkuPopperAnchor } from '@oku-ui/popper'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { MENU_ANCHOR_NAME, menuAnchorProps, scopedMenuProps, usePopperScope } from './props'
-import type { MenuAnchorNativeElement } from './props'
 
 const menuAnchor = defineComponent({
   name: MENU_ANCHOR_NAME,

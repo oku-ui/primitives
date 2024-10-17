@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import RadioGroupAnimated from './RadioGroupAnimated.vue'
+import RadioGroupChromatic from './RadioGroupChromatic.vue'
 import RadioGroupControlled from './RadioGroupControlled.vue'
 import RadioGroupStyles from './RadioGroupStyles.vue'
 import RadioGroupUnset from './RadioGroupUnset.vue'
 import RadioGroupWithinForm from './RadioGroupWithinForm.vue'
-import RadioGroupAnimated from './RadioGroupAnimated.vue'
-import RadioGroupChromatic from './RadioGroupChromatic.vue'
 
 type ITabsProps = {
   template?: 'styled' | 'controlled' | 'unset' | 'within-form' | 'animated' | 'chromatic'

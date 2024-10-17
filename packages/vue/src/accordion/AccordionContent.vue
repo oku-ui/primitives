@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { AccordionContentProps } from './AccordionContent'
+import { OkuCollapsibleContent } from '@oku-ui/collapsible'
+import { useCollapsibleScope } from './Accordion'
 import { CONTENT_NAME } from './AccordionContent'
 import { useAccordionInject } from './AccordionImpl'
 import { useAccordionItemInject } from './AccordionItem'
-import type { AccordionContentProps } from './AccordionContent'
-import { useCollapsibleScope } from './Accordion'
-import { OkuCollapsibleContent } from '@oku-ui/collapsible'
 import { ACCORDION_NAME } from './constants'
 
 defineOptions({

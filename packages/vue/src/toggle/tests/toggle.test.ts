@@ -1,13 +1,13 @@
-import { enableAutoUnmount, mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 
 import { OkuToggle } from '../'
 
-import Styled from '../stories/Styled.vue'
-import Controlled from '../stories/Controlled.vue'
 import Chromatic from '../stories/Chromatic.vue'
+import Controlled from '../stories/Controlled.vue'
+import Styled from '../stories/Styled.vue'
 
 enableAutoUnmount(afterEach)
 

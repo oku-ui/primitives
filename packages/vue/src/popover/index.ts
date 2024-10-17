@@ -9,56 +9,56 @@ export {
 } from './popoverAnchor'
 
 export {
-  OkuPopoverTrigger,
-} from './popoverTrigger'
-
-export {
-  OkuPopoverPortal,
-} from './popoverPortal'
-
-export {
-  OkuPopoverContent,
-} from './popoverContent'
+  OkuPopoverArrow,
+} from './popoverArrow'
 
 export {
   OkuPopoverClose,
 } from './popoverClose'
 
 export {
-  OkuPopoverArrow,
-} from './popoverArrow'
+  OkuPopoverContent,
+} from './popoverContent'
+
+export {
+  OkuPopoverPortal,
+} from './popoverPortal'
+
+export {
+  OkuPopoverTrigger,
+} from './popoverTrigger'
 
 export type {
-  PopoverArrowProps,
-  PopoverArrowElement,
-  PopoverArrowNaviteElement,
-
-  PopoverCloseNaviteElement,
-  PopoverCloseElement,
-  PopoverCloseEmits,
-
-  PopoverPortalProps,
-
-  PopoverTriggerNaviteElement,
-  PopoverTriggerEmits,
-  PopoverTriggerProps,
-
-  PopoverContentProps,
-
   PopoverAnchorElement,
   PopoverAnchorNaviteElement,
   PopoverAnchorProps,
 
+  PopoverArrowElement,
+  PopoverArrowNaviteElement,
+  PopoverArrowProps,
+
+  PopoverCloseElement,
+
+  PopoverCloseEmits,
+  PopoverCloseNaviteElement,
+  PopoverContentProps,
+
   PopoverEmits,
+
+  PopoverPortalProps,
   PopoverProps,
+  PopoverTriggerEmits,
+
+  PopoverTriggerNaviteElement,
+  PopoverTriggerProps,
 } from './props'
 
 export {
-  popoverArrowProps,
-  popoverTriggerProps,
-  popoverContentProps,
-  popoverAnchorProps,
   createPopoverScope,
-  popoverProps,
+  popoverAnchorProps,
+  popoverArrowProps,
+  popoverContentProps,
   popoverPortalProps,
+  popoverProps,
+  popoverTriggerProps,
 } from './props'

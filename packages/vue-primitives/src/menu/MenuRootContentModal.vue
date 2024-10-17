@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { FocusOutsideEvent } from '../dismissable-layer/index.ts'
+import { useComposedElements } from '@oku-ui/hooks'
 import { hideOthers } from 'aria-hidden'
 import { onBeforeUnmount } from 'vue'
-import { useComposedElements } from '@oku-ui/hooks'
 import MenuContentImpl from './MenuContentImpl.vue'
 import { useMenuContext } from './MenuRoot.ts'
 

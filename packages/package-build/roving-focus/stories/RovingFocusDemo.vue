@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { RovingFocusGroupProps } from '@oku-ui/roving-focus'
+import { ref } from 'vue'
 import Button from './Button.vue'
 import ButtonGroup from './ButtonGroup.vue'
 

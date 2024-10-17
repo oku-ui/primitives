@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import { OkuSlot, OkuSlottable } from '@oku-ui/slot'
+import { onMounted, ref } from 'vue'
 
 export interface OkuLabelProps {
   template?: '#1' | '#2' | '#3' | '#4'

@@ -1,8 +1,8 @@
 /// <reference types="resize-observer-browser" />
 
+import type { MaybeRefOrGetter } from 'vue'
 import { toValue } from '@oku-ui/utils'
 import { shallowRef, watchEffect } from 'vue'
-import type { MaybeRefOrGetter } from 'vue'
 
 interface Size {
   width: number

@@ -1,9 +1,9 @@
-import { computed, defineComponent, h, mergeProps, reactive, ref } from 'vue'
-import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
-import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
-import { OkuToggleGroupItemImpl } from './toggle-group-item-impl'
-import { TOGGLE_GROUP_ITEM_NAME, scopeToggleGroupProps, toggleGroupItemProps, useRovingFocusGroupScope, useToggleGroupInject, useToggleGroupValueInject } from './props'
 import type { ToggleGroupItemNativeElement } from './props'
+import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { reactiveOmit, useForwardRef, useListeners } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, ref } from 'vue'
+import { scopeToggleGroupProps, TOGGLE_GROUP_ITEM_NAME, toggleGroupItemProps, useRovingFocusGroupScope, useToggleGroupInject, useToggleGroupValueInject } from './props'
+import { OkuToggleGroupItemImpl } from './toggle-group-item-impl'
 
 const toggleGroupItem = defineComponent({
   name: TOGGLE_GROUP_ITEM_NAME,

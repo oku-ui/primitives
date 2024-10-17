@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { ARROW_KEYS, PAGE_KEYS, useSliderInject } from './utils'
 import type { Scope } from '@oku-ui/provide'
+import { ARROW_KEYS, PAGE_KEYS, useSliderInject } from './utils'
 
 export type SliderImplElement = HTMLSpanElement
 
@@ -26,9 +26,9 @@ export interface SliderImplProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/utils'
-
 import { useComponentRef } from '@oku-ui/use-composable'
+
+import { composeEventHandlers } from '@oku-ui/utils'
 
 defineOptions({
   name: 'OkuSliderImpl',

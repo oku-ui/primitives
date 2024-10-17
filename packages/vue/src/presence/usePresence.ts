@@ -1,5 +1,5 @@
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import type { Ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useStateMachine } from './useStateMachine'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {

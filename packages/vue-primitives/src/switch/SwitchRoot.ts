@@ -1,6 +1,6 @@
-import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { type MutableRefObject, createContext } from '@oku-ui/hooks'
+import type { Ref } from 'vue'
+import { createContext, type MutableRefObject } from '@oku-ui/hooks'
 
 export interface SwitchRootProps {
   as?: PrimitiveProps['as']

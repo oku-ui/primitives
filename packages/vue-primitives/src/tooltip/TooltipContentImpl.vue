@@ -2,7 +2,7 @@
 import { onBeforeUnmount, onMounted } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
-import { type TooltipContentImplEmits, type TooltipContentImplProps, provideTooltipContentContext } from './TooltipContentImpl.ts'
+import { provideTooltipContentContext, type TooltipContentImplEmits, type TooltipContentImplProps } from './TooltipContentImpl.ts'
 import { TOOLTIP_OPEN, useTooltipContext } from './TooltipRoot.ts'
 
 defineOptions({

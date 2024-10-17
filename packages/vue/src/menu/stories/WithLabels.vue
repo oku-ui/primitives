@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { OkuMenuGroup, OkuMenuItem, OkuMenuLabel, OkuMenuSeparator } from '@oku-ui/menu'
-import MenuWithAnchor from './MenuWithAnchor.vue'
 import { foodGroups } from './foods'
+import MenuWithAnchor from './MenuWithAnchor.vue'
 
 function alert(text: string) {
   // eslint-disable-next-line no-alert

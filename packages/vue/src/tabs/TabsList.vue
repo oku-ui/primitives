@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
-import { useRovingFocusGroupScope, useTabsContext } from './Tabs'
 import type { TabsListProps } from './TabsList'
-import { TAB_LIST_NAME } from './constants'
 import { Primitive } from '@oku-ui/primitive'
+import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
 import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { TAB_LIST_NAME } from './constants'
+import { useRovingFocusGroupScope, useTabsContext } from './Tabs'
 
 defineOptions({
   name: TAB_LIST_NAME,

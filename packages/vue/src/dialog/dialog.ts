@@ -1,7 +1,7 @@
-import type { PropType } from 'vue'
-import { computed, defineComponent, ref, toRefs, useModel } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
 import { useControllable, useId } from '@oku-ui/use-composable'
+import { computed, defineComponent, ref, toRefs, useModel } from 'vue'
 import { DIALOG_NAME, DialogProvider, scopeDialogProps } from './utils'
 
 export type DialogNaviteElement = OkuElement<'div'>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
+import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.ts'
 import { useCollapsibleContext } from '@oku-ui/collapsible'
 import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
 import { useForwardElement } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/shared'
-import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger.ts'
+import { shallowRef } from 'vue'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'

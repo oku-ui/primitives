@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { useDirection } from '../direction/index.ts'
 import { useComposedElements, useControllableState, useRef } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
+import { shallowRef } from 'vue'
+import { useDirection } from '../direction/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/RovingFocusGroupRoot.ts'
 import { Collection, type MenubarRootEmits, type MenubarRootProps, provideMenubarContext } from './MenubarRoot.ts'
 

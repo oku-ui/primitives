@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useComponentRef } from '@oku-ui/use-composable'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import { useComponentRef } from '@oku-ui/use-composable'
 
 export interface LabelProps extends PrimitiveProps {
   for?: string

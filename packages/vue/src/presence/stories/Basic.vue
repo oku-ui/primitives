@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuPresence } from '@oku-ui/presence'
+import { ref } from 'vue'
 
 const open = ref(true)
 

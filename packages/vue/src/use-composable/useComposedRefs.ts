@@ -2,10 +2,10 @@
 
 import type { ComponentPublicInstance, Ref } from 'vue'
 
+import { isValidElement } from '@oku-ui/utils'
 import {
   isFunction,
 } from '@vue/shared'
-import { isValidElement } from '@oku-ui/utils'
 
 type TemplateRef = Element | ComponentPublicInstance | null | undefined
 

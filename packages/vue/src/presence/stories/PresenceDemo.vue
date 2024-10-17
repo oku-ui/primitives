@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import WithMountAnimation from './WithMountAnimation.vue'
-import WithUnmountAnimation from './WithUnmountAnimation.vue'
-import WithMultipleMountAnimations from './WithMultipleMountAnimations.vue'
-import WithOpenAndCloseAnimation from './WithOpenAndCloseAnimation.vue'
-import WithMultipleOpenAndCloseAnimations from './WithMultipleOpenAndCloseAnimations.vue'
-import WithDeferredMountAnimation from './WithDeferredMountAnimation.vue'
 import Basic from './Basic.vue'
+import WithDeferredMountAnimation from './WithDeferredMountAnimation.vue'
+import WithMountAnimation from './WithMountAnimation.vue'
+import WithMultipleMountAnimations from './WithMultipleMountAnimations.vue'
+import WithMultipleOpenAndCloseAnimations from './WithMultipleOpenAndCloseAnimations.vue'
+import WithOpenAndCloseAnimation from './WithOpenAndCloseAnimation.vue'
+import WithUnmountAnimation from './WithUnmountAnimation.vue'
 
 export interface OkuPresenceProps {
   template: 'Basic'

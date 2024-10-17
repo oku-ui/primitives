@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { withoutTrailingSlash } from 'ufo'
 import type { ParsedContent } from '@nuxt/content/dist/runtime/types'
+import { withoutTrailingSlash } from 'ufo'
 
 const searchRef = ref()
 

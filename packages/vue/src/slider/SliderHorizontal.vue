@@ -1,11 +1,11 @@
 <script lang="ts">
-import { useComponentRef } from '@oku-ui/use-composable'
-import { useDirection } from '@oku-ui/direction'
-import type { Direction, SliderOrientationPrivateEmits } from './utils'
-import { BACK_KEYS, linearScale, sliderOrientationProvider } from './utils'
+import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import type { SliderImplElement } from './SliderImpl.vue'
-import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { Direction, SliderOrientationPrivateEmits } from './utils'
+import { useDirection } from '@oku-ui/direction'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { BACK_KEYS, linearScale, sliderOrientationProvider } from './utils'
 
 export type SliderHorizontalElement = SliderImplElement
 

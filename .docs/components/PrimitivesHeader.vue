@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { NavItem } from '@nuxt/content/dist/runtime/types'
 import type { Link } from '#ui-pro/types'
+import type { NavItem } from '@nuxt/content/dist/runtime/types'
 
 defineProps<{
   links?: Link[]

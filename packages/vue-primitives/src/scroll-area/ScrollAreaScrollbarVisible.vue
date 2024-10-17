@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { ScrollAreaScrollbarVisibleEmits, ScrollAreaScrollbarVisibleProps, Sizes } from './ScrollAreaScrollbarVisible.ts'
-import { useDebounceFn, useResizeObserver } from '@vueuse/core'
-import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
 import { useForwardElement } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { useDebounceFn, useResizeObserver } from '@vueuse/core'
+import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
-import { type ScrollAreaThumbElement, provideScrollbarContext } from './ScrollAreaScrollbar.ts'
+import { provideScrollbarContext, type ScrollAreaThumbElement } from './ScrollAreaScrollbar.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
 
 defineOptions({

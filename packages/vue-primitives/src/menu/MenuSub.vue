@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useId, useRef } from '@oku-ui/hooks'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { type Measurable, providePopperContext } from '../popper/index.ts'
 import { provideMenuContext, useMenuContext } from './MenuRoot.ts'
 import { type MenuSubEmits, type MenuSubProps, provideMenuSubContext } from './MenuSub.ts'

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
+import type { AccordionContentProps } from './AccordionContent.ts'
 import { useForwardElement } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
+import { shallowRef } from 'vue'
 import { useCollapsibleContent } from '../collapsible/CollapsibleContent.ts'
-import type { AccordionContentProps } from './AccordionContent.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'
 import { getState } from './utils.ts'

@@ -1,7 +1,7 @@
 export {
   default as OkuSwitch,
-  type SwitchProps,
   type SwitchEmits,
+  type SwitchProps,
 } from './Switch.vue'
 
 export {

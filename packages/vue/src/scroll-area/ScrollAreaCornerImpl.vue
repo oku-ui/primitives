@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useScrollAreaContext } from './ScrollArea'
-import { SCROLL_AREA_CORNER_IMPL_NAME, SCROLL_AREA_CORNER_NAME } from './constants'
 import type { ScrollAreaCornerImplProps } from './ScrollAreaCornerImpl'
 import { Primitive } from '@oku-ui/primitive'
 import { useResizeObserver } from '@oku-ui/use-composable'
+import { computed, ref } from 'vue'
+import { SCROLL_AREA_CORNER_IMPL_NAME, SCROLL_AREA_CORNER_NAME } from './constants'
+import { useScrollAreaContext } from './ScrollArea'
 
 defineOptions({
   name: SCROLL_AREA_CORNER_IMPL_NAME,

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
-import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
-import { composeEventHandlers } from '@oku-ui/utils'
-import { useRadioGroupContext, useRovingFocusGroupScope } from './RadioGroup'
 import type { RadioGroupItemEmits, RadioGroupItemProps } from './RadioGroupItem'
+import type { RadioElement } from './types'
+import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import { RADIO_GROUP_ITEM_NAME } from './constants'
 import { useRadioScope } from './Radio'
 import Radio from './Radio.vue'
+import { useRadioGroupContext, useRovingFocusGroupScope } from './RadioGroup'
 import { ARROW_KEYS } from './utils'
-import { RADIO_GROUP_ITEM_NAME } from './constants'
-import type { RadioElement } from './types'
 
 defineOptions({
   name: RADIO_GROUP_ITEM_NAME,

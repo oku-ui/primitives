@@ -1,6 +1,6 @@
 // OkuCollapsible
 
-export type { CollapsibleProps, CollapsibleEmits } from './Collapsible'
+export type { CollapsibleEmits, CollapsibleProps } from './Collapsible'
 
 export { createCollapsibleScope } from './Collapsible'
 
@@ -20,6 +20,6 @@ export { default as OkuCollapsibleContentImpl } from './CollapsibleContentImpl.v
 
 // OkuCollapsibleContentImpl
 
-export type { CollapsibleTriggerProps, CollapsibleTriggerEmits } from './CollapsibleTrigger'
+export type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from './CollapsibleTrigger'
 
 export { default as OkuCollapsibleTrigger } from './CollapsibleTrigger.vue'

@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vitest } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { enableAutoUnmount, mount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vitest } from 'vitest'
 import { axe } from 'vitest-axe'
 import { nextTick } from 'vue'
 import {
@@ -10,9 +10,9 @@ import {
   OkuPopperContent,
 } from '../'
 
-import StyledVue from '../stories/Styled.vue'
 import Animated from '../stories/Animated.vue'
 import OneScroll from '../stories/OneScroll.vue'
+import StyledVue from '../stories/Styled.vue'
 import Transition from '../stories/Transition.vue'
 import WithCustomArrow from '../stories/WithCustomArrow.vue'
 import WithPortal from '../stories/WithPortal.vue'

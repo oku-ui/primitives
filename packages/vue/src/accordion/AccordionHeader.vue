@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { AccordionHeaderProps } from './AccordionHeader'
+import { Primitive } from '@oku-ui/primitive'
 import { useAccordionInject } from './AccordionImpl'
 import { useAccordionItemInject } from './AccordionItem'
 import { ACCORDION_NAME, HEADER_NAME } from './constants'
-import { Primitive } from '@oku-ui/primitive'
 import { getState } from './utils'
 
 defineOptions({

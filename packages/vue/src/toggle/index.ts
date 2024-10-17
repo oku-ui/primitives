@@ -1,5 +1,5 @@
 export {
   default as OkuToggle,
-  type ToggleProps,
   type ToggleEmits,
+  type ToggleProps,
 } from './Toggle.vue'

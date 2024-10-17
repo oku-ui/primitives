@@ -1,13 +1,13 @@
-import { setTimeout } from 'node:timers/promises'
+import type { MultiSelectOptions } from '@clack/prompts'
+import { execSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { execSync } from 'node:child_process'
 import { exit } from 'node:process'
-import { defineCommand } from 'citty'
-import type { MultiSelectOptions } from '@clack/prompts'
+import { setTimeout } from 'node:timers/promises'
 import { intro, isCancel, multiselect, outro, select } from '@clack/prompts'
-import color from 'picocolors'
+import { defineCommand } from 'citty'
 import { globbySync } from 'globby'
+import color from 'picocolors'
 
 export default defineCommand({
   meta: {

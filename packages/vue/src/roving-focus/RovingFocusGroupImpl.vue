@@ -1,13 +1,13 @@
 <script lang="ts">
 import type { Ref } from 'vue'
-import { onBeforeUnmount, onMounted, ref, toRef } from 'vue'
-import { useComponentRef, useVModel } from '@oku-ui/use-composable'
-
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/utils'
-import { focusFirst } from './utils'
 import type { RovingFocusGroupProps } from './props'
+import { Primitive } from '@oku-ui/primitive'
+
+import { useComponentRef, useVModel } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { onBeforeUnmount, onMounted, ref, toRef } from 'vue'
 import { ENTRY_FOCUS, EVENT_OPTIONS, rovingFocusProvider, useCollection } from './props'
+import { focusFirst } from './utils'
 
 export interface RovingFocusGroupImplProps extends RovingFocusGroupProps {
   currentTabStopId?: string | null

@@ -1,8 +1,8 @@
 <script lang="ts">
-import { computed, onMounted } from 'vue'
-import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef } from '@oku-ui/use-composable'
+import { computed, onMounted } from 'vue'
 
 export const DEFAULT_ORIENTATION = 'horizontal' as const
 export const ORIENTATIONS = ['horizontal', 'vertical'] as const

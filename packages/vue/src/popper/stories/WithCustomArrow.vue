@@ -6,8 +6,8 @@ import {
   OkuPopperContent,
 } from '@oku-ui/popper'
 import { ref } from 'vue'
-import Scrollable from './Scrollable.vue'
 import CustomArrow from './CustomArrow.vue'
+import Scrollable from './Scrollable.vue'
 
 const open = ref(false)
 </script>

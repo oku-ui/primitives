@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuDialogTrigger } from '@oku-ui/dialog'
 import type { AlertDialogTriggerNaviteElement } from './props'
-import { TRIGGER_NAME, alertDialogTriggerProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
+import { OkuDialogTrigger } from '@oku-ui/dialog'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { alertDialogTriggerProps, scopeAlertDialogProps, TRIGGER_NAME, useAlertDialogScope } from './props'
 
 const alertDialogTrigger = defineComponent({
   name: TRIGGER_NAME,

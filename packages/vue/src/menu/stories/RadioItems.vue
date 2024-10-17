@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuMenuItem, OkuMenuItemIndicator, OkuMenuRadioGroup, OkuMenuRadioItem, OkuMenuSeparator } from '@oku-ui/menu'
+import { ref } from 'vue'
 import MenuWithAnchor from './MenuWithAnchor.vue'
 import TickIcon from './TickIcon.vue'
 

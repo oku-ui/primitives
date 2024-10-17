@@ -1,9 +1,9 @@
 <script lang="ts">
-import { computed } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
-import { convertValueToPercentage, useSliderInject, useSliderOrientationInject } from './utils'
 import type { Scope } from '@oku-ui/provide'
+import { Primitive } from '@oku-ui/primitive'
+import { computed } from 'vue'
+import { convertValueToPercentage, useSliderInject, useSliderOrientationInject } from './utils'
 
 export type SliderRangeElement = HTMLSpanElement
 

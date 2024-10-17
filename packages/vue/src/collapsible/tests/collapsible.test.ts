@@ -1,6 +1,6 @@
+import type { Component } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it, vitest } from 'vitest'
-import type { Component } from 'vue'
 import { h, ref } from 'vue'
 import { OkuCollapsible, OkuCollapsibleContent, OkuCollapsibleContentImpl, OkuCollapsibleTrigger } from '../'
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { ScrollAreaViewportProps } from './ScrollAreaViewport'
-import { useScrollAreaContext } from './ScrollArea'
-import { SCROLL_AREA_VIEWPORT } from './constants'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
 import type { ScrollAreaViewportElement } from './types'
 import { Primitive } from '@oku-ui/primitive'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { SCROLL_AREA_VIEWPORT } from './constants'
+import { useScrollAreaContext } from './ScrollArea'
 
 defineOptions({
   name: SCROLL_AREA_VIEWPORT,

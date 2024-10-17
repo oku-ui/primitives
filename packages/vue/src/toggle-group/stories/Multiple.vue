@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuToggleGroup, OkuToggleGroupItem } from '@oku-ui/toggle-group'
+import { ref } from 'vue'
 
 const value = ref<string[]>([])
 </script>

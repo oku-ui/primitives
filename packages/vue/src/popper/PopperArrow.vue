@@ -17,9 +17,9 @@ export const OPPOSITE_SIDE: Record<Side, Side> = {
 </script>
 
 <script setup lang="ts">
-import { computed, defineOptions } from 'vue'
-import { useComponentRef } from '@oku-ui/use-composable'
 import { OkuArrow } from '@oku-ui/arrow'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { computed, defineOptions } from 'vue'
 
 defineOptions({
   name: 'OkuPopperArrow',

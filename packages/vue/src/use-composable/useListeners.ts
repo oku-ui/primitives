@@ -1,5 +1,5 @@
-import { isOn } from '@oku-ui/utils'
 import type { ComponentInternalInstance } from 'vue'
+import { isOn } from '@oku-ui/utils'
 import { camelize, getCurrentInstance, mergeProps, toHandlerKey, useAttrs } from 'vue'
 
 export function useListeners(

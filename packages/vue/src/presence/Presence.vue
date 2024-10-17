@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { defineOptions, h, shallowRef, toRef } from 'vue'
-import { unrefElement } from '@oku-ui/use-composable'
-import { usePresence } from './usePresence.ts'
 import type { PresenceProps } from './Presence.ts'
+import { unrefElement } from '@oku-ui/use-composable'
+import { defineOptions, h, shallowRef, toRef } from 'vue'
 import { PRESENCE_NAME } from './Presence.ts'
+import { usePresence } from './usePresence.ts'
 
 defineOptions({
   name: PRESENCE_NAME,

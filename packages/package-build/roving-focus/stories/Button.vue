@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, inject, useAttrs } from 'vue'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
 import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, inject, useAttrs } from 'vue'
 
 defineOptions({
   inheritAttrs: false,

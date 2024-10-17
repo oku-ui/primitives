@@ -3,9 +3,9 @@ export {
 } from './toolbar'
 
 export type {
-  ToolbarProps,
   ToolbarElement,
   ToolbarNaviteElement,
+  ToolbarProps,
 } from './toolbar'
 
 export {
@@ -26,8 +26,8 @@ export {
 
 export type {
   ToolbarLinkElement,
-  ToolbarLinkProps,
   ToolbarLinkEmits,
+  ToolbarLinkProps,
 } from './toolbarLink'
 
 export {
@@ -35,8 +35,8 @@ export {
 } from './toolbarSeparator'
 
 export type {
-  ToolbarSeparatorNaviteElement,
   ToolbarSeparatorElement,
+  ToolbarSeparatorNaviteElement,
   ToolbarSeparatorProps,
 } from './toolbarSeparator'
 

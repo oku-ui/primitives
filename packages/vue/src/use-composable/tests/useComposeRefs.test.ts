@@ -1,7 +1,7 @@
 import type { Component } from 'vue'
-import { h, onMounted, ref } from 'vue'
-import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+import { h, onMounted, ref } from 'vue'
 import { useComposedRefs } from '../'
 
 const DivComponent: Component = {

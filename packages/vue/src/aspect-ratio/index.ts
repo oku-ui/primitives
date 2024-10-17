@@ -1,4 +1,4 @@
 export {
-  default as OkuAspectRatio,
   type AspectRatioProps,
+  default as OkuAspectRatio,
 } from './AspectRatio.vue'

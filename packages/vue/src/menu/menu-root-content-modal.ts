@@ -1,10 +1,10 @@
-import { defineComponent, h, mergeProps, onBeforeMount, onMounted, reactive, ref, toRefs } from 'vue'
+import type { MenuRootContentTypeElement, MenuRootContentTypeEmits, MenuRootContentTypeNativeElement } from './props'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
-import type { MenuRootContentTypeElement, MenuRootContentTypeEmits, MenuRootContentTypeNativeElement } from './props'
-import { MENU_CONTENT_NAME, MENU_ROOT_CONTENT_MODAL_NAME, menuRootContentTypeProps, scopedMenuProps, useMenuInject } from './props'
+import { defineComponent, h, mergeProps, onBeforeMount, onMounted, reactive, ref, toRefs } from 'vue'
 import { OkuMenuContentImpl } from './menu-content-impl'
+import { MENU_CONTENT_NAME, MENU_ROOT_CONTENT_MODAL_NAME, menuRootContentTypeProps, scopedMenuProps, useMenuInject } from './props'
 
 const menuRootContentModel = defineComponent({
   name: MENU_ROOT_CONTENT_MODAL_NAME,

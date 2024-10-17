@@ -1,7 +1,7 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { scopeDialogProps, useDialogInject } from './utils'
 
 export const DESCRIPTION_NAME = 'OkuDialogDescription'

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { shallowRef, toRef, watch } from 'vue'
 import type { BubbleInputProps } from './BubbleInput'
-import { BUBBLE_INPUT_NAME } from './constants'
 import { usePrevious, useSize } from '@oku-ui/use-composable'
+import { shallowRef, toRef, watch } from 'vue'
+import { BUBBLE_INPUT_NAME } from './constants'
 
 defineOptions({
   name: BUBBLE_INPUT_NAME,

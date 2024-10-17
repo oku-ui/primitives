@@ -1,10 +1,10 @@
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { composeEventHandlers } from '@oku-ui/utils'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { getCheckedState } from './utils'
-import { OkuMenuItem } from './menu-item'
 import type { MenuRadioItemEmits, MenuRadioItemNativeElement } from './props'
-import { MENU_RADIO_ITEM_NAME, itemIndicatorProvider, menuRadioItemProps, scopedMenuProps, useRadioGroupInject } from './props'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { OkuMenuItem } from './menu-item'
+import { itemIndicatorProvider, MENU_RADIO_ITEM_NAME, menuRadioItemProps, scopedMenuProps, useRadioGroupInject } from './props'
+import { getCheckedState } from './utils'
 
 const menuRadioItem = defineComponent({
   name: MENU_RADIO_ITEM_NAME,

@@ -1,6 +1,6 @@
-import { onMounted, ref } from 'vue'
-import { clamp } from '@oku-ui/utils'
 import type { Direction, Sizes } from './types'
+import { clamp } from '@oku-ui/utils'
+import { onMounted, ref } from 'vue'
 
 export function toInt(value?: string) {
   return value ? Number.parseInt(value, 10) : 0

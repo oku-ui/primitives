@@ -1,9 +1,9 @@
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuPresence } from '@oku-ui/presence'
-import { CONTENT_NAME, popoverContentProps, scopePopoverProps, usePopoverInject, usePortalInject } from './props'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuPopoverContentModal } from './popoverContentModal'
 import { OkuPopoverContentNonModal } from './popoverContentNonModal'
+import { CONTENT_NAME, popoverContentProps, scopePopoverProps, usePopoverInject, usePortalInject } from './props'
 
 const popoverContent = defineComponent({
   name: CONTENT_NAME,

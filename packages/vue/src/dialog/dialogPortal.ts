@@ -1,10 +1,10 @@
-import type { PropType } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
+import type { PropType } from 'vue'
 import { OkuPortal, type PortalProps } from '@oku-ui/portal'
-
 import { OkuPresence } from '@oku-ui/presence'
+import { primitiveProps } from '@oku-ui/primitive'
+
+import { computed, defineComponent, h, toRefs } from 'vue'
 import { DialogPortalProvider, scopeDialogProps, useDialogInject } from './utils'
 
 const PORTAL_NAME = 'OkuDialogPortal'

@@ -1,8 +1,8 @@
-import { describe, expect, it, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { h, nextTick } from 'vue'
 import type { Component } from 'vue'
-import { Primitive, dispatchDiscreteCustomEvent } from '../'
+import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
+import { h, nextTick } from 'vue'
+import { dispatchDiscreteCustomEvent, Primitive } from '../'
 
 const componentDiv = {
   setup(props, { slots }) {

@@ -1,9 +1,9 @@
-import { defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs, watchEffect } from 'vue'
+import type { MenuItemImplEmits, MenuItemImplNativeElement } from './props'
 import { Primitive } from '@oku-ui/primitive'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
-import { composeEventHandlers } from '@oku-ui/utils'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuItemImplEmits, MenuItemImplNativeElement } from './props'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs, watchEffect } from 'vue'
 import { CollectionItemSlot, MENU_ITEM_IMPL_NAME, MENU_ITEM_NAME, menuItemImplProps, scopedMenuProps, useMenuContentInject, useRovingFocusGroupScope } from './props'
 import { whenMouse } from './utils'
 

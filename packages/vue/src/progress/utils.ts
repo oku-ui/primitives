@@ -1,5 +1,5 @@
-import { ScopePropObject, createScope } from '@oku-ui/provide'
 import type { Ref } from 'vue'
+import { createScope, ScopePropObject } from '@oku-ui/provide'
 
 export const DEFAULT_MAX = 100
 const PROGRESS_NAME = 'OkuProgress'

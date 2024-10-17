@@ -1,8 +1,8 @@
-import { defineComponent, h, onBeforeMount, onMounted, ref, toRefs } from 'vue'
-import { OkuPopper } from '@oku-ui/popper'
-import { useDirection } from '@oku-ui/direction'
-import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'
 import type { MenuContentElement } from './props'
+import { useDirection } from '@oku-ui/direction'
+import { OkuPopper } from '@oku-ui/popper'
+import { defineComponent, h, onBeforeMount, onMounted, ref, toRefs } from 'vue'
+import { MENU_NAME, menuProps, menuProvider, menuRootProvider, scopedMenuProps, usePopperScope } from './props'
 
 const menu = defineComponent({
   name: MENU_NAME,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { withoutTrailingSlash } from 'ufo'
 import type { NavItem } from '@nuxt/content/dist/runtime/types'
+import { withoutTrailingSlash } from 'ufo'
 
 definePageMeta({
   layout: 'primitives',

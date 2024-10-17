@@ -1,8 +1,8 @@
 import type { Ref } from 'vue'
-import { nextTick, ref, watchEffect } from 'vue'
+import type { FocusOutsideEvent, PointerdownOutsideEvent } from './props'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import { isClient } from '@oku-ui/use-composable'
-import type { FocusOutsideEvent, PointerdownOutsideEvent } from './props'
+import { nextTick, ref, watchEffect } from 'vue'
 import { CONTEXT_UPDATE, FOCUS_OUTSIDE, POINTER_DOWN_OUTSIDE } from './props'
 
 function isElementDescendantOf(layerElement: HTMLElement, targetElement: HTMLElement) {

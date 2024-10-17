@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { ScrollAreaThumbProps } from './ScrollAreaThumb'
+import { OkuPresence } from '@oku-ui/presence'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { SCROLL_AREA_THUMB_NAME } from './constants'
 import { useScrollbarContext } from './ScrollAreaScrollbarImpl'
-import { OkuPresence } from '@oku-ui/presence'
 import ScrollAreaThumbImpl from './ScrollAreaThumbImpl.vue'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
 
 defineOptions({
   name: SCROLL_AREA_THUMB_NAME,

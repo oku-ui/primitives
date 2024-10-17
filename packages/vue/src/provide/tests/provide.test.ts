@@ -1,8 +1,8 @@
 import type { Component } from 'vue'
-import { defineComponent, h } from 'vue'
-import { describe, expect, it, vitest } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { ScopePropObject, createProvide, createScope } from '../'
+import { describe, expect, it, vitest } from 'vitest'
+import { defineComponent, h } from 'vue'
+import { createProvide, createScope, ScopePropObject } from '../'
 
 describe('provide', () => {
   it('createProvide consumerName emty test', async () => {

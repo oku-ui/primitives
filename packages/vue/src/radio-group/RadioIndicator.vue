@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { usePrimitiveElement } from '@oku-ui/use-composable'
-import { useRadioContext } from './Radio'
 import type { RadioIndicatorProps } from './RadioIndicator'
-import { RADIO_INDICATOR_NAME } from './constants'
 import { OkuPresence } from '@oku-ui/presence'
 import { Primitive } from '@oku-ui/primitive'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { RADIO_INDICATOR_NAME } from './constants'
+import { useRadioContext } from './Radio'
 import { getState } from './utils'
 
 defineOptions({

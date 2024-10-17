@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { ScrollAreaThumbImplEmits } from './ScrollAreaThumbImpl.ts'
-import { useDebounceFn } from '@vueuse/core'
-import { onWatcherCleanup, watchEffect } from 'vue'
 import { useForwardElement } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { useDebounceFn } from '@vueuse/core'
+import { onWatcherCleanup, watchEffect } from 'vue'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { addUnlinkedScrollListener } from './utils.ts'

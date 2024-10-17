@@ -1,9 +1,9 @@
-import type { Scope } from '@oku-ui/provide'
-import { createScope } from '@oku-ui/provide'
 import type { CollectionPropsType } from '@oku-ui/collection'
-import { createCollection } from '@oku-ui/collection'
-import type { AriaAttributes, Ref } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import type { AriaAttributes, Ref } from 'vue'
+import { createCollection } from '@oku-ui/collection'
+import { createScope } from '@oku-ui/provide'
 
 export interface RovingFocusGroupProps extends PrimitiveProps {
   scopeOkuRovingFocusGroup?: Scope

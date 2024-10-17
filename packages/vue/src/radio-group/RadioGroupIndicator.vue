@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { RadioGroupIndicatorProps } from './RadioGroupIndicator'
-import RadioIndicator from './RadioIndicator.vue'
-import { useRadioScope } from './Radio'
 import { RADIO_GROUP_INDICATOR_NAME } from './constants'
+import { useRadioScope } from './Radio'
+import RadioIndicator from './RadioIndicator.vue'
 
 defineOptions({
   name: RADIO_GROUP_INDICATOR_NAME,

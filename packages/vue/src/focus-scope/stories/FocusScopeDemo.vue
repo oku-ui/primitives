@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { FocusScopeProps } from '@oku-ui/focus-scope'
 import { OkuFocusScope } from '@oku-ui/focus-scope'
+import { ref } from 'vue'
 
 export interface IFocusScopeProps extends FocusScopeProps {
   template?: '#1' | '#2' | '#3'

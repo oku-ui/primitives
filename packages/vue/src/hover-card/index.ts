@@ -1,8 +1,8 @@
 import type { } from '@floating-ui/vue'
 
 export {
-  OkuHoverCard,
   hoverCardProps,
+  OkuHoverCard,
 } from './hoverCard'
 
 export type {
@@ -13,41 +13,8 @@ export type {
 } from './hoverCard'
 
 export {
-  OkuHoverCardTrigger,
-  hoverCardTriggerProps,
-} from './hoverCardTrigger'
-
-export type {
-  HoverCardTriggerElement,
-  HoverCardTriggerNativeElement,
-  HoverCardTriggerProps,
-} from './hoverCardTrigger'
-
-export {
-  OkuHoverCardPortal,
-  hoverCardPortalProps,
-} from './hoverCardPortal'
-
-export type {
-  HoverCardPortalProps,
-  HoverCardPortalElement,
-} from './hoverCardPortal'
-
-export {
-  OkuHoverCardContent,
-  hoverCardContentProps,
-} from './hoverCardContent'
-
-export type {
-  HoverCardContentElement,
-  HoverCardContentNaviteElement,
-  HoverCardContentProps,
-  HoverCardContentEmits,
-} from './hoverCardContent'
-
-export {
-  OkuHoverCardArrow,
   hoverCardArrowProps,
+  OkuHoverCardArrow,
 } from './hoverCardArrow'
 
 export type {
@@ -55,3 +22,36 @@ export type {
   HoverCardArrowNaviteElement,
   HoverCardArrowProps,
 } from './hoverCardArrow'
+
+export {
+  hoverCardContentProps,
+  OkuHoverCardContent,
+} from './hoverCardContent'
+
+export type {
+  HoverCardContentElement,
+  HoverCardContentEmits,
+  HoverCardContentNaviteElement,
+  HoverCardContentProps,
+} from './hoverCardContent'
+
+export {
+  hoverCardPortalProps,
+  OkuHoverCardPortal,
+} from './hoverCardPortal'
+
+export type {
+  HoverCardPortalElement,
+  HoverCardPortalProps,
+} from './hoverCardPortal'
+
+export {
+  hoverCardTriggerProps,
+  OkuHoverCardTrigger,
+} from './hoverCardTrigger'
+
+export type {
+  HoverCardTriggerElement,
+  HoverCardTriggerNativeElement,
+  HoverCardTriggerProps,
+} from './hoverCardTrigger'

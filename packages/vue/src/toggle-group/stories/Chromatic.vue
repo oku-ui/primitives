@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { OkuToggleGroup, OkuToggleGroupItem } from '@oku-ui/toggle-group'
 import { OkuDirectionProvider } from '@oku-ui/direction'
+import { OkuToggleGroup, OkuToggleGroupItem } from '@oku-ui/toggle-group'
 </script>
 
 <template>

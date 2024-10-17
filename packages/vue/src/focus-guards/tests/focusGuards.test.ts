@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'vitest'
-import { mount } from '@vue/test-utils'
 import type { Component } from 'vue'
+import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { h } from 'vue'
 import { OkuFocusGuards } from '../'
 import { createFocusGuard } from '../utils'

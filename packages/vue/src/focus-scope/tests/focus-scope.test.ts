@@ -1,8 +1,8 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { SpyInstance } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
-import { enableAutoUnmount, mount } from '@vue/test-utils'
+import type { SpyInstance } from 'vitest'
 import userEvent from '@testing-library/user-event'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { OkuFocusScope } from '../'
 
 const INNER_NAME_INPUT_LABEL = 'Name'

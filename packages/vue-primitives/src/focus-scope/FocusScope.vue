@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
 import { useForwardElement } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
+import { shallowRef } from 'vue'
 import {
   type FocusScopeEmits,
   type FocusScopeProps,

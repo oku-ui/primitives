@@ -1,6 +1,6 @@
-import { computed, defineComponent, h, ref, toRefs, useModel } from 'vue'
-import { useControllable, useId } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
+import { useControllable, useId } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, ref, toRefs, useModel } from 'vue'
 import { POPOVER_NAME, popoverProps, popoverProvide, scopePopoverProps, usePopperScope } from './props'
 
 const popover = defineComponent({

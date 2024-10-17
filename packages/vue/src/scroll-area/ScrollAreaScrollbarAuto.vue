@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto'
 import { OkuPresence } from '@oku-ui/presence'
 import { usePrimitiveElement, useResizeObserver } from '@oku-ui/use-composable'
-import { useScrollAreaContext } from './ScrollArea'
-import type { ScrollAreaScrollbarAutoProps } from './ScrollAreaScrollbarAuto'
+import { ref } from 'vue'
 import { SCROLL_AREA_SCROLLBAR_AUTO_NAME, SCROLL_AREA_SCROLLBAR_NAME } from './constants'
-import { useDebounceCallback } from './utils'
+import { useScrollAreaContext } from './ScrollArea'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
+import { useDebounceCallback } from './utils'
 
 defineOptions({
   name: SCROLL_AREA_SCROLLBAR_AUTO_NAME,

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { ContextMenuTriggerEmits, ContextMenuTriggerProps } from './ContextMenuTrigger'
+import { Primitive } from '@oku-ui/primitive'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, onWatcherCleanup, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
 import { useContextMenuContext } from './ContextMenuRoot.ts'
 
 defineOptions({

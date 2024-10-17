@@ -1,5 +1,5 @@
-import type { CheckedState } from '../checkbox/index.ts'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { CheckedState } from '../checkbox/index.ts'
 import { createContext } from '@oku-ui/hooks'
 
 export interface MenuItemIndicatorProps {

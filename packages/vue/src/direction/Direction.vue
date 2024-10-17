@@ -1,6 +1,6 @@
 <script lang="ts">
-import { provide, toRefs } from 'vue'
 import type { Direction } from './utils'
+import { provide, toRefs } from 'vue'
 import { DirectionContextSymbol } from './utils'
 
 export interface DirectionProps {

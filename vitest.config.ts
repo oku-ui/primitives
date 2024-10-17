@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config'
 import Vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vitest/config'
 import { primitivesPackagesAlias } from './scripts/output'
 
 const resolve = (val: string) => new URL(val, import.meta.url).pathname

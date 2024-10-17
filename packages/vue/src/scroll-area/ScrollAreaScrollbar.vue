@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
+import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar'
 import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { computed, watchEffect } from 'vue'
+import { SCROLL_AREA_SCROLLBAR_NAME } from './constants'
+import { useScrollAreaContext } from './ScrollArea'
+import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
 import ScrollAreaScrollbarScroll from './ScrollAreaScrollbarScroll.vue'
-import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
-import { useScrollAreaContext } from './ScrollArea'
-import type { ScrollAreaScrollbarProps } from './ScrollAreaScrollbar'
-import { SCROLL_AREA_SCROLLBAR_NAME } from './constants'
 
 defineOptions({
   name: SCROLL_AREA_SCROLLBAR_NAME,

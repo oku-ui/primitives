@@ -1,5 +1,5 @@
-import type { Scope } from '@oku-ui/provide'
 import type { CollapsibleTriggerEmits, CollapsibleTriggerProps } from '@oku-ui/collapsible'
+import type { Scope } from '@oku-ui/provide'
 
 // Props
 

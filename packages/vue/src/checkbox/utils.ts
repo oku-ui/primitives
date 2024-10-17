@@ -1,6 +1,6 @@
-import { createScope } from '@oku-ui/provide'
 import type { Ref } from 'vue'
 import type { CheckedState } from './Checkbox.vue'
+import { createScope } from '@oku-ui/provide'
 
 export function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
   return checked === 'indeterminate'

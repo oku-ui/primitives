@@ -2,6 +2,7 @@
 import type {
   ToolbarProps,
 } from '@oku-ui/toolbar'
+import { OkuToggle } from '@oku-ui/toggle'
 import {
   OkuToolbar,
   OkuToolbarButton,
@@ -10,7 +11,6 @@ import {
   OkuToolbarToggleGroup,
   OkuToolbarToggleItem,
 } from '@oku-ui/toolbar'
-import { OkuToggle } from '@oku-ui/toggle'
 
 const props = defineProps<{
   orientation?: ToolbarProps['orientation']

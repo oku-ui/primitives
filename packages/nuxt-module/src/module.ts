@@ -1,8 +1,8 @@
+import type { ModuleOptions, SelectPackage } from './types'
 import { resolve } from 'node:path'
 import { addComponent, addPlugin, createResolver, defineNuxtModule, logger } from '@nuxt/kit'
 import chalk from 'chalk'
 import { version } from './../package.json'
-import type { ModuleOptions, SelectPackage } from './types'
 import { checkForUpdateOf, components, getMainPackageJSON, installPackage } from './utils'
 
 export default defineNuxtModule<ModuleOptions>({

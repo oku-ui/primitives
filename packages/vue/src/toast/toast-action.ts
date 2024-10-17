@@ -1,8 +1,8 @@
+import type { ToastCloseElement, ToastCloseNaviteElement, ToastCloseProps } from './toast-close'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { OkuToastClose, toastCloseProps } from './toast-close'
-import type { ToastCloseElement, ToastCloseNaviteElement, ToastCloseProps } from './toast-close'
 import { OkuToastAnnounceExclude } from './toast-announce-exclude'
+import { OkuToastClose, toastCloseProps } from './toast-close'
 import { scopedToastProps } from './types'
 
 const ACTION_NAME = 'OkuToastAction'

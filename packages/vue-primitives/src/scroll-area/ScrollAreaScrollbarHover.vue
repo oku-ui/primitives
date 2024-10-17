@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ScrollAreaScrollbarHoverProps } from './ScrollAreaScrollbarHover.ts'
-import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useForwardElement } from '@oku-ui/hooks'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'

@@ -1,5 +1,5 @@
 import { isDef } from '@vueuse/core'
-import { type Ref, type UnwrapRef, computed, nextTick, shallowRef, watch } from 'vue'
+import { computed, nextTick, type Ref, shallowRef, type UnwrapRef, watch } from 'vue'
 
 type NonUndefined<T> = T extends undefined ? never : T
 

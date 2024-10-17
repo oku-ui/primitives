@@ -1,8 +1,8 @@
-import { createScope } from '@oku-ui/provide'
-import { createCollection } from '@oku-ui/collection'
 import type { Ref } from 'vue'
 import type { ToastImplElement, ToastImplNaviteElement } from './toast-impl'
 import type { ToastViewportElement } from './toast-viewport'
+import { createCollection } from '@oku-ui/collection'
+import { createScope } from '@oku-ui/provide'
 
 export const PROVIDER_NAME = 'OkuToastProvider'
 export const TOAST_NAME = 'Toast'

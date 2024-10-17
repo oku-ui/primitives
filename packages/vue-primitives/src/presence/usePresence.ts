@@ -1,5 +1,5 @@
-import { type Ref, computed, onWatcherCleanup, toValue, watch, watchEffect } from 'vue'
 import { useStateMachine } from '@oku-ui/hooks'
+import { computed, onWatcherCleanup, type Ref, toValue, watch, watchEffect } from 'vue'
 
 function getAnimationName(styles?: CSSStyleDeclaration) {
   return styles?.animationName || 'none'

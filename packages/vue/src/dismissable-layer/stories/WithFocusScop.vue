@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { OkuFocusScope } from '@oku-ui/focus-scope'
 import { OkuDismissableLayer } from '@oku-ui/dismissable-layer'
+import { OkuFocusScope } from '@oku-ui/focus-scope'
+import { ref } from 'vue'
 
 const open = ref(false)
 const openButtonRef = ref<HTMLButtonElement | null>(null)

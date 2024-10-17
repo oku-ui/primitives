@@ -1,7 +1,7 @@
-import { defineComponent, h, toRefs } from 'vue'
 import { OkuPortal } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
-import { PORTAL_NAME, popoverPortalProps, portalProvider, scopePopoverProps, usePopoverInject } from './props'
+import { defineComponent, h, toRefs } from 'vue'
+import { popoverPortalProps, PORTAL_NAME, portalProvider, scopePopoverProps, usePopoverInject } from './props'
 
 const popoverPortal = defineComponent({
   name: PORTAL_NAME,

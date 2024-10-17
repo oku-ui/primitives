@@ -1,8 +1,8 @@
 import { execSync } from 'node:child_process'
 import process from 'node:process'
+import { generateMarkDown, loadChangelogConfig } from 'changelogen'
 import { $fetch } from 'ofetch'
 import { inc } from 'semver'
-import { generateMarkDown, loadChangelogConfig } from 'changelogen'
 import { determineBumpType, getLatestCommits, loadWorkspace } from './_utils'
 
 async function main() {

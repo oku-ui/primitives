@@ -25,12 +25,12 @@ export type SwitchEmits = {
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { onMounted, ref, toRef } from 'vue'
+import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { Primitive } from '@oku-ui/primitive'
-import { getState, useSwitchProvide } from './utils'
+import { onMounted, ref, toRef } from 'vue'
 import OkuBubbleInput from './BubbleInput.vue'
+import { getState, useSwitchProvide } from './utils'
 
 defineOptions({
   name: 'OkuSwitch',

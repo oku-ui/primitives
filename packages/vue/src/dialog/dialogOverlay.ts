@@ -1,11 +1,11 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { DialogOverlayImplNaviteElement, DialogOverlayImplProps } from './dialogOverlayImpl'
+import { OkuPresence } from '@oku-ui/presence'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPresence } from '@oku-ui/presence'
-import { OVERLAY_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
-import type { DialogOverlayImplNaviteElement, DialogOverlayImplProps } from './dialogOverlayImpl'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuDialogOverlayImpl } from './dialogOverlayImpl'
+import { OVERLAY_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
 
 export type DialogOverlayNaviteElement = DialogOverlayImplNaviteElement
 

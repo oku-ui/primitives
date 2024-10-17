@@ -1,10 +1,10 @@
-import { defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs } from 'vue'
-import { composeEventHandlers } from '@oku-ui/utils'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import type { MenuItemEmits, MenuItemNativeElement } from './props'
-import { ITEM_SELECT, MENU_ITEM_NAME, SELECTION_KEYS, menuItemProps, scopedMenuProps, useMenuContentInject, useMenuRootInject } from './props'
+import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { defineComponent, h, mergeProps, nextTick, reactive, ref, toRefs } from 'vue'
 import { OkuMenuItemImpl } from './menu-item-impl'
+import { ITEM_SELECT, MENU_ITEM_NAME, menuItemProps, scopedMenuProps, SELECTION_KEYS, useMenuContentInject, useMenuRootInject } from './props'
 
 const menuItem = defineComponent({
   name: MENU_ITEM_NAME,

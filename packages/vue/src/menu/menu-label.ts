@@ -1,7 +1,7 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { MenuLabelNativeElement } from './props'
 import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuLabelNativeElement } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { MENU_LABEL_NAME, menuLabelProps, scopedMenuProps } from './props'
 
 const menuLabel = defineComponent({

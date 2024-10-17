@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useComponentRef } from '@oku-ui/use-composable'
-import OkuRovingFocusGroupImpl from './RovingFocusGroupImpl.vue'
 import type { RovingFocusGroupProps } from './props'
+import { useComponentRef } from '@oku-ui/use-composable'
 import { CollectionProvider, CollectionSlot } from './props'
+import OkuRovingFocusGroupImpl from './RovingFocusGroupImpl.vue'
 
 defineOptions({
   name: 'OkuRovingFocusGroup',

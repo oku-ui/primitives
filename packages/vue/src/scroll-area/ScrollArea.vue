@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { shallowRef, toRef } from 'vue'
 import type { ScrollAreaProps } from './ScrollArea'
 import type { ScrollAreaElement, ScrollAreaScrollbarElement, ScrollAreaViewportElement } from './types'
 import { useDirection } from '@oku-ui/direction'
-import { provideScrollAreaContext } from './ScrollArea'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
-import { SCROLL_AREA_NAME } from './constants'
 import { Primitive } from '@oku-ui/primitive'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { shallowRef, toRef } from 'vue'
+import { SCROLL_AREA_NAME } from './constants'
+import { provideScrollAreaContext } from './ScrollArea'
 
 defineOptions({
   name: SCROLL_AREA_NAME,

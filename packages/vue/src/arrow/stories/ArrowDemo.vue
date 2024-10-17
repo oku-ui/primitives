@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import { OkuArrow } from '@oku-ui/arrow'
+import { onMounted, ref } from 'vue'
 
 export interface OkuArrowProps {
   template: '#1' | '#2' | '#3'

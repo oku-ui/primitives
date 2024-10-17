@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import { createContext } from '@oku-ui/hooks'
 import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
+import { createContext } from '@oku-ui/hooks'
 
 export interface ScrollAreaScrollbarProps {
   orientation?: ScrollAreaScrollbarVisibleProps['orientation']

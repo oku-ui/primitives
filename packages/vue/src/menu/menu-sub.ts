@@ -1,7 +1,7 @@
-import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
-import { useId } from '@oku-ui/use-composable'
-import { OkuPopper } from '@oku-ui/popper'
 import type { MenuContentElement, MenuSubTriggerElement } from './props'
+import { OkuPopper } from '@oku-ui/popper'
+import { useId } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import { MENU_SUB_NAME, menuProvider, menuSubProps, menuSubProvider, scopedMenuProps, useMenuInject, usePopperScope } from './props'
 
 const menuSub = defineComponent({

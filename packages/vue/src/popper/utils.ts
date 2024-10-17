@@ -1,7 +1,7 @@
 import type { Middleware, Placement } from '@floating-ui/vue'
-import { createScope } from '@oku-ui/provide'
-import type { Ref } from 'vue'
 import type { Measurable } from '@oku-ui/utils'
+import type { Ref } from 'vue'
+import { createScope } from '@oku-ui/provide'
 
 export const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 export const ALIGN_OPTIONS = ['start', 'center', 'end'] as const

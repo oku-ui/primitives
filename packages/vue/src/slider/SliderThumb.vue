@@ -13,10 +13,10 @@ export type SliderThumbElement = SliderThumbImplElement
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useComponentRef } from '@oku-ui/use-composable'
-import { useCollection } from './utils'
+import { computed } from 'vue'
 import OkuSliderThumbImpl from './SliderThumbImpl.vue'
+import { useCollection } from './utils'
 
 defineOptions({
   name: 'OkuSliderThumb',

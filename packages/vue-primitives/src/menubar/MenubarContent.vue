@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MenubarContentEmits, MenubarContentProps } from './MenubarContent.ts'
-import { MenuContent } from '../menu/index.ts'
 import { composeEventHandlers, wrapArray } from '@oku-ui/shared'
+import { MenuContent } from '../menu/index.ts'
 import { useMenubarMenuContext } from './MenubarMenu.ts'
 import { useCollection, useMenubarContext } from './MenubarRoot.ts'
 

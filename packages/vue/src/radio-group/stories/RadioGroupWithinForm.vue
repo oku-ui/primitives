@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, toRaw } from 'vue'
 import { OkuRadioGroup, OkuRadioGroupIndicator, OkuRadioGroupItem } from '@oku-ui/radio-group'
+import { ref, toRaw } from 'vue'
 
 const data = ref({ optional: '', required: '', stopprop: '' })
 

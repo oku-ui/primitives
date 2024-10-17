@@ -1,9 +1,9 @@
 import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, onBeforeUnmount, ref, toRefs, useModel } from 'vue'
+import { createPopperScope, OkuPopper } from '@oku-ui/popper'
 import { primitiveProps } from '@oku-ui/primitive'
-import { useControllable } from '@oku-ui/use-composable'
 import { createScope } from '@oku-ui/provide'
-import { OkuPopper, createPopperScope } from '@oku-ui/popper'
+import { useControllable } from '@oku-ui/use-composable'
+import { computed, defineComponent, h, onBeforeUnmount, ref, toRefs, useModel } from 'vue'
 import { scopeHoverCardProps } from './utils'
 
 export const HOVERCARD_NAME = 'OkuHoverCard'

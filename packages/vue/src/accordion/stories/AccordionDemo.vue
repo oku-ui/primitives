@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Single from './Single.vue'
-import Multiple from './Multiple.vue'
 import Animated from './Animated.vue'
 import Animated2D from './Animated2D.vue'
 import AnimatedControlled from './AnimatedControlled.vue'
-import OutsideViewport from './OutsideViewport.vue'
-import Horizontal from './Horizontal.vue'
 import Chromatic from './Chromatic.vue'
+import Horizontal from './Horizontal.vue'
+import Multiple from './Multiple.vue'
+import OutsideViewport from './OutsideViewport.vue'
+import Single from './Single.vue'
 
 export interface OkuAccordionProps {
   template: 'Single' | 'Multiple' | 'Animated' | 'Animated2D' | 'AnimatedControlled' | 'OutsideViewport' | 'Horizontal' | 'Chromatic'

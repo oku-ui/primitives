@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
 import { useComposedElements, useRef } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
-import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { getState, provideRadioContext } from './Radio.ts'
 import { ARROW_KEYS, type RadioGroupItemEmits, type RadioGroupItemProps, type RadioGroupItemSlots } from './RadioGroupItem.ts'
 import { useRadioGroupContext } from './RadioGroupRoot.ts'

@@ -11,10 +11,10 @@ export interface AvatarProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { defineOptions, ref } from 'vue'
-import { useComponentRef } from '@oku-ui/use-composable'
-import { Primitive } from '@oku-ui/primitive'
 import type { ImageLoadingStatus } from './types'
+import { Primitive } from '@oku-ui/primitive'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { defineOptions, ref } from 'vue'
 import { useAvatarProvider } from './utils'
 
 defineOptions({

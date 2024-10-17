@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useId, usePrimitiveElement, useVModel } from '@oku-ui/use-composable'
-import { Primitive } from '@oku-ui/primitive'
-import { collapsibleProvider } from './Collapsible'
 import type { CollapsibleEmits, CollapsibleProps } from './Collapsible'
-import { getState } from './utils'
+import { Primitive } from '@oku-ui/primitive'
+import { useId, usePrimitiveElement, useVModel } from '@oku-ui/use-composable'
+import { computed, type Ref } from 'vue'
+import { collapsibleProvider } from './Collapsible'
 import { COLLAPSIBLE_NAME } from './constants'
-import { type Ref, computed } from 'vue'
+import { getState } from './utils'
 
 defineOptions({
   name: COLLAPSIBLE_NAME,

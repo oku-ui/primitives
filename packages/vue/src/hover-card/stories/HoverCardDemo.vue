@@ -1,16 +1,16 @@
 <script setup lang="ts">
+import Animated from './Animated.vue'
+import AsyncUpdate from './AsyncUpdate.vue'
 import Basic from './Basic.vue'
 import ContainTextSelection from './ContainTextSelection.vue'
-import AsyncUpdate from './AsyncUpdate.vue'
-import CustomDurations from './CustomDurations.vue'
 import Controlled from './Controlled.vue'
-import Layerable from './Layerable.vue'
-import Animated from './Animated.vue'
+import CustomDurations from './CustomDurations.vue'
 import ForcedMount from './ForcedMount.vue'
+import Layerable from './Layerable.vue'
 import Nested from './Nested.vue'
 import NonPortal from './NonPortal.vue'
-import WithSlottedTrigger from './WithSlottedTrigger.vue'
 import WithSlottedContent from './WithSlottedContent.vue'
+import WithSlottedTrigger from './WithSlottedTrigger.vue'
 
 export interface OkuHoverCardProps {
   template: 'Basic' | 'ContainTextSelection' |

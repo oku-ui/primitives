@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onBeforeUnmount, shallowRef } from 'vue'
 import { useControllableState, useRef } from '@oku-ui/hooks'
+import { onBeforeUnmount, shallowRef } from 'vue'
 import { type Measurable, providePopperContext } from '../popper/PopperRoot.ts'
 import { type HoverCardRootEmits, type HoverCardRootProps, provideHoverCardContext } from './HoverCardRoot.ts'
 

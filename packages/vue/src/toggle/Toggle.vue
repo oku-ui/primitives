@@ -27,10 +27,10 @@ export type ToggleEmits = {
 </script>
 
 <script setup lang="ts">
-import { defineOptions } from 'vue'
+import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { Primitive } from '@oku-ui/primitive'
+import { defineOptions } from 'vue'
 
 defineOptions({
   name: 'OkuToggle',

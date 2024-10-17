@@ -1,7 +1,7 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperArrow } from '@oku-ui/popper'
 import type { PopoverArrowNaviteElement } from './props'
+import { OkuPopperArrow } from '@oku-ui/popper'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { ARROW_NAME, popoverArrowProps, scopePopoverProps, usePopperScope } from './props'
 
 const popoverArrow = defineComponent({

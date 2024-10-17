@@ -1,11 +1,11 @@
-import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
+import type { DialogContentImplEmits, DialogContentImplNaviteElement, DialogContentImplProps } from './dialogContentImpl'
 import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { hideOthers } from 'aria-hidden'
+import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
+import { dialogContentImplProps, OkuDialogContentImpl } from './dialogContentImpl'
 import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
-import type { DialogContentImplEmits, DialogContentImplNaviteElement, DialogContentImplProps } from './dialogContentImpl'
-import { OkuDialogContentImpl, dialogContentImplProps } from './dialogContentImpl'
 
 export const CONTENT_MODAL_NAME = 'OkuDialogContentModal'
 

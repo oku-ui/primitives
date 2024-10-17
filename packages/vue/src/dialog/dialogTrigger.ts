@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
+import { defineComponent, h, mergeProps } from 'vue'
 import { getState, scopeDialogProps, useDialogInject } from './utils'
 
 const TRIGGER_NAME = 'OkuDialogTrigger'

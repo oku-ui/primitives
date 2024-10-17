@@ -7,8 +7,8 @@ export interface BubbleInputProps {
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs, watchEffect } from 'vue'
 import { useComponentRef, usePrevious, useSize } from '@oku-ui/use-composable'
+import { computed, toRefs, watchEffect } from 'vue'
 
 defineOptions({
   name: 'OkuBubbleInput',

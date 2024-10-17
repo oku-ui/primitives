@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
-import { OVERLAY_NAME, getState, scopeDialogProps, useDialogInject } from './utils'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { getState, OVERLAY_NAME, scopeDialogProps, useDialogInject } from './utils'
 
 export type DialogOverlayImplNaviteElement = OkuElement<'div'>
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { ScrollAreaScrollbarAxisPrivateEmits, ScrollAreaScrollbarAxisProps } from './ScrollAreaScrollbarAxis'
+import type { ScrollAreaScrollbarAxisElement } from './types'
 import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { shallowRef, watchEffect } from 'vue'
-import { useScrollAreaContext } from './ScrollArea'
-import type { ScrollAreaScrollbarAxisPrivateEmits, ScrollAreaScrollbarAxisProps } from './ScrollAreaScrollbarAxis'
 import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_X } from './constants'
-import type { ScrollAreaScrollbarAxisElement } from './types'
+import { useScrollAreaContext } from './ScrollArea'
 import ScrollAreaScrollbarImpl from './ScrollAreaScrollbarImpl.vue'
 import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 

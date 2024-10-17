@@ -1,5 +1,5 @@
-import { Fragment, isVNode } from 'vue'
 import type { Component, VNode } from 'vue'
+import { Fragment, isVNode } from 'vue'
 
 export function isSlottable(child: VNode): child is VNode {
   return (

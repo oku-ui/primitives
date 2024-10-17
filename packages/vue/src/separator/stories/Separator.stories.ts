@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import OkuSeparator from './SeparatorDemo.vue'
 import type { ISeparatorProps } from './SeparatorDemo.vue'
+import OkuSeparator from './SeparatorDemo.vue'
 
 interface StoryProps extends ISeparatorProps { }
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { OkuSwitch, OkuSwitchThumb } from '@oku-ui/switch'
+import { ref } from 'vue'
 import Label from './Label.vue'
 
 const checked = ref<boolean>(true)

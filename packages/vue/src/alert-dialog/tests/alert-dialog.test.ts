@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vitest } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { enableAutoUnmount, mount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vitest } from 'vitest'
 import { axe } from 'vitest-axe'
 import { nextTick } from 'vue'
 import {
@@ -17,8 +17,8 @@ import {
 
 } from '../'
 
-import StyledVue from '../stories/Styled.vue'
 import Controlled from '../stories/Controlled.vue'
+import StyledVue from '../stories/Styled.vue'
 
 enableAutoUnmount(afterEach)
 

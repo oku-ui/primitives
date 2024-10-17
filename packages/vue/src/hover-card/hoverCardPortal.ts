@@ -1,11 +1,11 @@
-import type { PropType, Ref } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
-import { primitiveProps } from '@oku-ui/primitive'
-import { OkuPortal } from '@oku-ui/portal'
 import type { PortalProps as OkuPortalProps, PortalElement, PortalElementNaviteElement } from '@oku-ui/portal'
+import type { PropType, Ref } from 'vue'
+import { OkuPortal } from '@oku-ui/portal'
 import { OkuPresence } from '@oku-ui/presence'
-import { createHoverCardProvide, scopeHoverCardProps } from './utils'
+import { primitiveProps } from '@oku-ui/primitive'
+import { computed, defineComponent, h, toRefs } from 'vue'
 import { useHoverCardInject } from './hoverCard'
+import { createHoverCardProvide, scopeHoverCardProps } from './utils'
 
 const PORTAL_NAME = 'OkuHoverCardPortal'
 

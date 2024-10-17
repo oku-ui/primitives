@@ -1,10 +1,10 @@
-import { defineComponent, h, mergeProps, ref } from 'vue'
 import { primitiveProps } from '@oku-ui/primitive'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
-import { type DialogContentModalElement, type DialogContentModalEmits, type DialogContentTypeProps, dialogContentTypeProps } from './dialogContentModal'
+import { defineComponent, h, mergeProps, ref } from 'vue'
 import { OkuDialogContentImpl } from './dialogContentImpl'
+import { type DialogContentModalElement, type DialogContentModalEmits, type DialogContentTypeProps, dialogContentTypeProps } from './dialogContentModal'
+import { CONTENT_NAME, scopeDialogProps, useDialogInject } from './utils'
 
 export const CONTENTNON_NAME = 'OkuDialogContentNonModal'
 

@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPopperAnchor } from '@oku-ui/popper'
-
 import type { PopoverAnchorNaviteElement } from './props'
+import { OkuPopperAnchor } from '@oku-ui/popper'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+
+import { defineComponent, h, mergeProps, reactive, toRefs, watchEffect } from 'vue'
 import { ANCHOR_NAME, popoverAnchorProps, scopePopoverProps, usePopoverInject, usePopperScope } from './props'
 
 const popoverAnchor = defineComponent({

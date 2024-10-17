@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { shallowRef, watchEffect } from 'vue'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
-import { useScrollAreaContext } from './ScrollArea'
 import type { ScrollAreaScrollbarAxisPrivateEmits, ScrollAreaScrollbarAxisProps } from './ScrollAreaScrollbarAxis'
-import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_Y } from './constants'
 import type { ScrollAreaScrollbarAxisElement } from './types'
-import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { shallowRef, watchEffect } from 'vue'
+import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_Y } from './constants'
+import { useScrollAreaContext } from './ScrollArea'
 import ScrollAreaScrollbarImpl from './ScrollAreaScrollbarImpl.vue'
+import { getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils'
 
 defineOptions({
   name: SCROLL_AREA_SCROLLBAR_Y,

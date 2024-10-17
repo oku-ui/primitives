@@ -1,8 +1,8 @@
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Ref } from 'vue'
 import type { ScrollAreaScopeProps, ScrollAreaScrollbarElement, ScrollAreaThumbElement, Sizes } from './types'
-import { createScrollAreaContext } from './ScrollArea'
 import { SCROLL_AREA_SCROLLBAR_NAME } from './constants'
+import { createScrollAreaContext } from './ScrollArea'
 
 // Props
 

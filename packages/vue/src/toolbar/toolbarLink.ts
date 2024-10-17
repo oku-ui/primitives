@@ -1,11 +1,11 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive, primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { OkuRovingFocusGroupItem } from '@oku-ui/roving-focus'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { scopeToolbarProps } from './utils'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { useRovingFocusGroupScope } from './toolbar'
+import { scopeToolbarProps } from './utils'
 
 const LINK_NAME = 'OkuToolbarLink'
 

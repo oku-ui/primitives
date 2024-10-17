@@ -1,5 +1,5 @@
-import { computed, inject, toValue } from 'vue'
 import type { InjectionKey, MaybeRefOrGetter, Ref } from 'vue'
+import { computed, inject, toValue } from 'vue'
 
 export type Direction = 'ltr' | 'rtl'
 export const DirectionContextSymbol = Symbol('OkuDirectionProvider') as InjectionKey<Ref<Direction>>

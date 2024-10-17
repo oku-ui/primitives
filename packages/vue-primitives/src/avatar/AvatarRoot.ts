@@ -1,5 +1,5 @@
-import type { Ref } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { Ref } from 'vue'
 import { createContext } from '@oku-ui/hooks'
 
 export interface AvatarRootProps {

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, reactive, ref, shallowRef } from 'vue'
-import { useScrollAreaContext } from './ScrollArea'
 import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible'
-import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_VISIBLE_NAME } from './constants'
 import type { Direction, ScrollAreaThumbElement, Sizes } from './types'
-import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio } from './utils'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { computed, reactive, ref, shallowRef } from 'vue'
+import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_VISIBLE_NAME } from './constants'
+import { useScrollAreaContext } from './ScrollArea'
 import ScrollAreaScrollbarX from './ScrollAreaScrollbarX.vue'
 import ScrollAreaScrollbarY from './ScrollAreaScrollbarY.vue'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio } from './utils'
 
 defineOptions({
   name: SCROLL_AREA_SCROLLBAR_VISIBLE_NAME,

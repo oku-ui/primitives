@@ -1,5 +1,5 @@
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createProvide, createScope } from '@oku-ui/provide'
+import { createProvide, createScope, ScopePropObject } from '@oku-ui/provide'
 import { type Ref, ref } from 'vue'
 
 export const CONTENT_NAME = 'OkuDialogContent'

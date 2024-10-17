@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useAccordionItemInject } from './AccordionItem'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
-import { useAccordionCollapsibleInject, useCollapsibleScope } from './Accordion'
-import { useAccordionInject } from './AccordionImpl'
 import type { AccordionTriggerEmits, AccordionTriggerProps } from './AccordionTrigger'
-import { computed } from 'vue'
 import { OkuCollapsibleTrigger } from '@oku-ui/collapsible'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { computed } from 'vue'
+import { useAccordionCollapsibleInject, useCollapsibleScope } from './Accordion'
 import { CollectionItemSlot } from './AccordionCollections'
+import { useAccordionInject } from './AccordionImpl'
+import { useAccordionItemInject } from './AccordionItem'
 import { ACCORDION_NAME, TRIGGER_NAME } from './constants'
 
 defineOptions({

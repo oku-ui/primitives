@@ -1,9 +1,9 @@
-import { defineComponent, h, mergeProps, ref } from 'vue'
+import type { PopoverContentTypeEmits, PopoverContentTypeNaviteElement } from './props'
 import { useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
+import { defineComponent, h, mergeProps, ref } from 'vue'
 import { OkuPopoverContentImpl } from './popoverContentImpl'
 import { CONTENT_NAME, CONTENT_NON_MODAL_NAME, popoverContentTypeProps, scopePopoverProps, usePopoverInject } from './props'
-import type { PopoverContentTypeEmits, PopoverContentTypeNaviteElement } from './props'
 
 const popoverContentNonModal = defineComponent({
   name: CONTENT_NON_MODAL_NAME,

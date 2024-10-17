@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { MenuSubTriggerEmits, MenuSubTriggerProps } from './MenuSubTrigger.ts'
-import { onBeforeUnmount, onMounted } from 'vue'
 import { useForwardElement } from '@oku-ui/hooks'
-import { usePopperContext } from '../popper/index.ts'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { onBeforeUnmount, onMounted } from 'vue'
+import { usePopperContext } from '../popper/index.ts'
 import { useMenuContentContext } from './MenuContent.ts'
 import MenuItemImpl from './MenuItemImpl.vue'
 import { SUB_OPEN_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'
-import { type Side, getOpenState } from './utils.ts'
+import { getOpenState, type Side } from './utils.ts'
 
 defineOptions({
   name: 'MenuSubTrigger',

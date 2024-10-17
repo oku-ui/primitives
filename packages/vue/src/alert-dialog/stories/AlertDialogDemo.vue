@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
-import Controlled from './Controlled.vue'
 import Chromatic from './Chromatic.vue'
+import Controlled from './Controlled.vue'
+import Styled from './Styled.vue'
 
 export interface OkuAlertDialogProps {
   template: 'Styled' | 'Controlled' | 'Chromatic'

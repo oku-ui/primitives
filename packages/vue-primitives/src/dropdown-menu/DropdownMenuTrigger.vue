@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { DropdownMenuTriggerEmits, DropdownMenuTriggerProps } from './DropdownMenuTrigger.ts'
-import { onMounted } from 'vue'
 import { useForwardElement } from '@oku-ui/hooks'
-import { usePopperContext } from '../popper/index.ts'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { onMounted } from 'vue'
+import { usePopperContext } from '../popper/index.ts'
 import { useDropdownMenuContext } from './DropdownMenuRoot.ts'
 
 defineOptions({

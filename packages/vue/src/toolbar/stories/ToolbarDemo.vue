@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
 import Chromatic from './Chromatic.vue'
+import Styled from './Styled.vue'
 
 export interface OkuToolbarProps {
   template: 'Styled' | 'Chromatic'

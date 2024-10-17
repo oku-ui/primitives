@@ -1,9 +1,9 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { AlertDialogCancelNaviteElement } from './props'
+import { OkuDialogClose } from '@oku-ui/dialog'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { OkuDialogClose } from '@oku-ui/dialog'
-import type { AlertDialogCancelNaviteElement } from './props'
-import { CANCEL_NAME, alertDialogCancelProps, scopeAlertDialogProps, useAlertDialogContentInject, useAlertDialogScope } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { alertDialogCancelProps, CANCEL_NAME, scopeAlertDialogProps, useAlertDialogContentInject, useAlertDialogScope } from './props'
 
 const alertDialogCancel = defineComponent({
   name: CANCEL_NAME,

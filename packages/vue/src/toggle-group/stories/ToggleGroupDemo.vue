@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import Chromatic from './Chromatic.vue'
+import Multiple from './Multiple.vue'
 import Single from './Single.vue'
 import Vertical from './Vertical.vue'
-import Multiple from './Multiple.vue'
-import Chromatic from './Chromatic.vue'
 
 withDefaults(defineProps<IToggleGroupProps>(), {})
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DialogContent } from '../dialog/index.ts'
 import { useRef } from '@oku-ui/hooks'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { DialogContent } from '../dialog/index.ts'
 import { type AlertDialogCancelElement, type AlertDialogContentEmits, provideAlertDialogContentContext } from './AlertDialogContent.ts'
 
 defineOptions({

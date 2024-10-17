@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { Scope } from '@oku-ui/provide'
 import { toRefs } from 'vue'
 import { visuallyHiddenContentProvider } from './utils'
-import type { Scope } from '@oku-ui/provide'
 
 interface VisuallyHiddenContentProviderProps {
   scope: Scope

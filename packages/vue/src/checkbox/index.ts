@@ -1,11 +1,11 @@
 export {
-  default as OkuCheckbox,
-  type CheckboxProps,
   type CheckboxEmits,
+  type CheckboxProps,
+  default as OkuCheckbox,
 } from './Checkbox.vue'
 export {
-  default as OkuCheckboxIndicator,
   type CheckboxIndicatorProps,
+  default as OkuCheckboxIndicator,
 } from './CheckboxIndicator.vue'
 
 export {

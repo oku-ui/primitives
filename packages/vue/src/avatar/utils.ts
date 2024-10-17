@@ -1,8 +1,8 @@
-import { onBeforeUnmount, ref, watchEffect } from 'vue'
-import { isClient } from '@oku-ui/use-composable'
-import { createScope } from '@oku-ui/provide'
 import type { Ref } from 'vue'
 import type { ImageLoadingStatus } from './types'
+import { createScope } from '@oku-ui/provide'
+import { isClient } from '@oku-ui/use-composable'
+import { onBeforeUnmount, ref, watchEffect } from 'vue'
 
 export const [createAvatarProvide, createAvatarScope]
   = createScope<'OkuAvatar'>('OkuAvatar')

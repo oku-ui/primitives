@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Basic from './Basic.vue'
-import Resizable from './Resizable.vue'
-import ContentChange from './ContentChange.vue'
 import Animated from './Animated.vue'
+import Basic from './Basic.vue'
 import Chromatic from './Chromatic.vue'
 import ChromaticDynamicContent from './ChromaticDynamicContent.vue'
+import ContentChange from './ContentChange.vue'
+import Resizable from './Resizable.vue'
 
 withDefaults(defineProps<IScrollAreaProps>(), {})
 

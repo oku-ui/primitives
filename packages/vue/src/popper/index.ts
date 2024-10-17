@@ -9,18 +9,18 @@ export {
   type PopperAnchorProps,
 } from './PopperAnchor.vue'
 export {
-  default as OkuPopperContent,
-  type PopperContentProps,
-  type PopperContentEmits,
-} from './PopperContent.vue'
-export {
   default as OkuPopperArrow,
-  type PopperArrowProps,
   type PopperArrowElement,
+  type PopperArrowProps,
 } from './PopperArrow.vue'
+export {
+  default as OkuPopperContent,
+  type PopperContentEmits,
+  type PopperContentProps,
+} from './PopperContent.vue'
 
 export {
-  SIDE_OPTIONS,
   ALIGN_OPTIONS,
   createPopperScope,
+  SIDE_OPTIONS,
 } from './utils'

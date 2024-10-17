@@ -1,7 +1,7 @@
-import { isFunction } from '@vue/shared'
 import type { Ref } from 'vue'
-import { shallowRef } from 'vue'
 import type { MaybeElement, MaybeElementRef } from './unrefElement'
+import { isFunction } from '@vue/shared'
+import { shallowRef } from 'vue'
 
 export function usePrimitiveElement<T extends MaybeElement = MaybeElement>(...refs: Array<Ref<T> | ((ref: T) => void)>) {
   const currentElement = shallowRef<T>()

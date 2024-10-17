@@ -32,9 +32,9 @@ export type TooltipEmits = {
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, ref, withDefaults } from 'vue'
-import { useId, useTimeoutFn, useVModel } from '@oku-ui/use-composable'
 import { OkuPopper } from '@oku-ui/popper'
+import { useId, useTimeoutFn, useVModel } from '@oku-ui/use-composable'
+import { computed, ref, withDefaults } from 'vue'
 import { usePopperScope, useTooltipProvide, useTooltipProviderInject } from './utils'
 
 const props = withDefaults(

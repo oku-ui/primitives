@@ -1,8 +1,8 @@
-import type { PropsWithChildren } from 'react'
-import React from 'react'
 import type { DocsContainerProps as BaseContainerProps } from '@storybook/blocks'
+import type { PropsWithChildren } from 'react'
 import { DocsContainer as BaseContainer } from '@storybook/blocks'
 import { themes } from '@storybook/theming'
+import React from 'react'
 import { useDarkMode } from 'storybook-dark-mode'
 
 export function DocsContainer(props: PropsWithChildren<BaseContainerProps>) {

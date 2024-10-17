@@ -14,10 +14,10 @@ export interface TooltipContentProps extends TooltipContentImplProps {
 <script setup lang="ts">
 import { OkuPresence } from '@oku-ui/presence'
 import { useComponentRef, useMergePropsEmits } from '@oku-ui/use-composable'
-import { useTooltipInject, useTooltipPortalInject } from './utils'
 import { computed, withDefaults } from 'vue'
 import OkuTooltipContentHoverable from './TooltipContentHoverable.vue'
 import OkuTooltipContentImpl from './TooltipContentImpl.vue'
+import { useTooltipInject, useTooltipPortalInject } from './utils'
 
 defineOptions({
   name: 'OkuTooltipContent',

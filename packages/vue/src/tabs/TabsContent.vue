@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import { makeContentId, makeTriggerId } from './utils'
 import type { TabsContentProps } from './TabsContent'
-import { useTabsContext } from './Tabs'
-import { TAB_CONTENT_NAME } from './constants'
 import { OkuPresence } from '@oku-ui/presence'
 import { Primitive } from '@oku-ui/primitive'
 import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { TAB_CONTENT_NAME } from './constants'
+import { useTabsContext } from './Tabs'
+import { makeContentId, makeTriggerId } from './utils'
 
 defineOptions({
   name: TAB_CONTENT_NAME,

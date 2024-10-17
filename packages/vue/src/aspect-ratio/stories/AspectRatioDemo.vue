@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
-import CustomRatios from './CustomRatios.vue'
 import Chromatic from './Chromatic.vue'
+import CustomRatios from './CustomRatios.vue'
+import Styled from './Styled.vue'
 
 withDefaults(defineProps<IAspectRatioProps>(), {})
 

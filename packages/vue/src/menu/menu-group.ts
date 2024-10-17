@@ -1,7 +1,7 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { MenuGroupNativeElement } from './props'
 import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuGroupNativeElement } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { MENU_GROUP_NAME, menuGroupProps, scopedMenuProps } from './props'
 
 const menuGroup = defineComponent({

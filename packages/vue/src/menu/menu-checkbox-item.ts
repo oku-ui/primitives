@@ -1,10 +1,10 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { MenuCheckboxItemEmits, MenuCheckboxItemNativeElement } from './props'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { getCheckedState, isIndeterminate } from './utils'
-import type { MenuCheckboxItemEmits, MenuCheckboxItemNativeElement } from './props'
-import { MENU_CHECKBOX_ITEM_NAME, itemIndicatorProvider, menuCheckboxItemProps, scopedMenuProps } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuMenuItem } from './menu-item'
+import { itemIndicatorProvider, MENU_CHECKBOX_ITEM_NAME, menuCheckboxItemProps, scopedMenuProps } from './props'
+import { getCheckedState, isIndeterminate } from './utils'
 
 const menuCheckboxItem = defineComponent({
   name: MENU_CHECKBOX_ITEM_NAME,

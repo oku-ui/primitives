@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import type { MenuContentImplEmits, MenuContentImplProps } from './MenuContentImpl.ts'
+import { useBodyScrollLock, useForwardElement, useRef } from '@oku-ui/hooks'
+import { composeEventHandlers, focusFirst } from '@oku-ui/shared'
 import { onBeforeUnmount, shallowRef } from 'vue'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
-import { useBodyScrollLock, useForwardElement, useRef } from '@oku-ui/hooks'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { composeEventHandlers, focusFirst } from '@oku-ui/shared'
 import { provideMenuContentContext } from './MenuContent.ts'
 import { Collection, FIRST_LAST_KEYS, LAST_KEYS, useCollection, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
-import { type GraceIntent, type Side, getNextMatch, getOpenState, isPointerInGraceArea } from './utils.ts'
+import { getNextMatch, getOpenState, type GraceIntent, isPointerInGraceArea, type Side } from './utils.ts'
 
 defineOptions({
   name: 'MenuContentImpl',

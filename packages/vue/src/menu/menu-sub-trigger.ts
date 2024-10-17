@@ -1,12 +1,12 @@
-import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
+import type { MenuSubTriggerElement, MenuSubTriggerEmits, MenuSubTriggerNativeElement } from './props'
+import type { Side } from './utils'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { Side } from './utils'
-import { getOpenState, whenMouse } from './utils'
-import type { MenuSubTriggerElement, MenuSubTriggerEmits, MenuSubTriggerNativeElement } from './props'
-import { MENU_SUB_TRIGGER_NAME, SUB_OPEN_KEYS, menuSubTriggerProps, scopedMenuProps, useMenuContentInject, useMenuInject, useMenuRootInject, useMenuSubInject } from './props'
+import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, reactive, ref, toRefs } from 'vue'
 import { OkuMenuAnchor } from './menu-anchor'
 import { OkuMenuItemImpl } from './menu-item-impl'
+import { MENU_SUB_TRIGGER_NAME, menuSubTriggerProps, scopedMenuProps, SUB_OPEN_KEYS, useMenuContentInject, useMenuInject, useMenuRootInject, useMenuSubInject } from './props'
+import { getOpenState, whenMouse } from './utils'
 
 const menuSubTrigger = defineComponent({
   name: MENU_SUB_TRIGGER_NAME,

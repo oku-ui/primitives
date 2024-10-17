@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
-import { composeEventHandlers } from '@oku-ui/utils'
-import { usePrimitiveElement } from '@oku-ui/use-composable'
-import { OkuPresence } from '@oku-ui/presence'
-import { useScrollAreaContext } from './ScrollArea'
-import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_SCROLL_NAME } from './constants'
-import { useStateMachine } from './useStateMachine'
-import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 import type { ScrollAreaScrollbarScrollEmits, ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll'
+import { OkuPresence } from '@oku-ui/presence'
+import { usePrimitiveElement } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { computed, watchEffect } from 'vue'
+import { SCROLL_AREA_SCROLLBAR_NAME, SCROLL_AREA_SCROLLBAR_SCROLL_NAME } from './constants'
+import { useScrollAreaContext } from './ScrollArea'
+import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
+import { useStateMachine } from './useStateMachine'
 import { useDebounceCallback } from './utils'
 
 defineOptions({

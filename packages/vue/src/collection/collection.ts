@@ -1,8 +1,8 @@
 import type { ShallowReactive, ShallowRef } from 'vue'
-import { defineComponent, h, markRaw, ref, shallowReactive, shallowRef, unref, watch, watchEffect } from 'vue'
-import { useComponentRef } from '@oku-ui/use-composable'
 import { createScope } from '@oku-ui/provide'
 import { OkuSlot } from '@oku-ui/slot'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { defineComponent, h, markRaw, ref, shallowReactive, shallowRef, unref, watch, watchEffect } from 'vue'
 
 export const collectionProps = {
   scope: { type: null, required: false },

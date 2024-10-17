@@ -1,8 +1,8 @@
 <script lang="ts">
-import { useSliderInject } from './utils'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import type { SliderThumbImplElement } from './SliderThumbImpl.vue'
 import type { Scope } from '@oku-ui/provide'
+import type { SliderThumbImplElement } from './SliderThumbImpl.vue'
+import { useSliderInject } from './utils'
 
 export type SliderTrackElement = HTMLSpanElement
 

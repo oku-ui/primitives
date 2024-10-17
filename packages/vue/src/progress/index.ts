@@ -1,7 +1,7 @@
 export {
   default as OkuProgress,
-  type ProgressProps,
   type ProgressEmits,
+  type ProgressProps,
 } from './Progress.vue'
 
 export {

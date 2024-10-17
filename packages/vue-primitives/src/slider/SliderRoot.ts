@@ -1,8 +1,8 @@
+import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { HTMLAttributes, Ref } from 'vue'
 import type { Direction } from '../direction/index.ts'
-import type { PrimitiveProps } from '@oku-ui/primitive'
 import { createCollection } from '@oku-ui/collection'
-import { type MutableRefObject, createContext } from '@oku-ui/hooks'
+import { createContext, type MutableRefObject } from '@oku-ui/hooks'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
 export const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']

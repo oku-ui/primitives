@@ -1,17 +1,17 @@
 <script lang="ts">
-import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { defineOptions, nextTick, reactive, ref, watchEffect } from 'vue'
-
+import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef } from '@oku-ui/use-composable'
 
+import { defineOptions, nextTick, reactive, ref, watchEffect } from 'vue'
+
+import { focusScopesStack, removeLinks } from './focus-scope-stack'
 import {
   focus,
   focusFirst,
   getTabbableCandidates,
   getTabbableEdges,
 } from './utils'
-import { focusScopesStack, removeLinks } from './focus-scope-stack'
 
 const AUTOFOCUS_ON_MOUNT = 'okuFocusScope.autoFocusonMount'
 const AUTOFOCUS_ON_UNMOUNT = 'okuFocusScope.autoFocusonUnmount'

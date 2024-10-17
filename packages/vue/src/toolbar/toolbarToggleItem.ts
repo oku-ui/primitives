@@ -1,12 +1,12 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { primitiveProps } from '@oku-ui/primitive'
-import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
 import type { ToggleGroupItemProps } from '@oku-ui/toggle-group'
+import { primitiveProps } from '@oku-ui/primitive'
 import { OkuToggleGroupItem, toggleGroupItemProps } from '@oku-ui/toggle-group'
-import { scopeToolbarProps } from './utils'
+import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { useToggleGroupScope } from './toolbar'
 import { OkuToolbarButton } from './toolbarButton'
+import { scopeToolbarProps } from './utils'
 
 const TOGGLE_ITEM_NAME = 'OkuToolbarToggleItem'
 

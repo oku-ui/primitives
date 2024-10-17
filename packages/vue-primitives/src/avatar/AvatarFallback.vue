@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { AvatarFallbackProps } from './AvatarFallback.ts'
+import { Primitive } from '@oku-ui/primitive'
 import { isClient } from '@vueuse/core'
 import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { Primitive } from '@oku-ui/primitive'
 import { useAvatarContext } from './AvatarRoot.ts'
 
 defineOptions({

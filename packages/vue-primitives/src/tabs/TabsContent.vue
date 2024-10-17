@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { TabsContentProps } from './TabsContent.ts'
-import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { useForwardElement } from '@oku-ui/hooks'
-import { usePresence } from '../presence/index.ts'
 import { Primitive } from '@oku-ui/primitive'
+import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import { usePresence } from '../presence/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 

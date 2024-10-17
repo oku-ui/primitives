@@ -1,13 +1,13 @@
 <script lang="ts">
-import type { AriaAttributes, Ref } from 'vue'
-import { computed, ref, toRefs } from 'vue'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
+import type { AriaAttributes, Ref } from 'vue'
+import type { SliderThumbElement } from './SliderThumb.vue'
+import type { Direction } from './utils'
 import { useComponentRef, useVModel } from '@oku-ui/use-composable'
 import { clamp, composeEventHandlers } from '@oku-ui/utils'
-import { ARROW_KEYS, CollectionProvider, CollectionSlot, PAGE_KEYS, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue, sliderProvider } from './utils'
-import type { Direction } from './utils'
-import type { SliderThumbElement } from './SliderThumb.vue'
-import type { Scope } from '@oku-ui/provide'
+import { computed, ref, toRefs } from 'vue'
+import { ARROW_KEYS, CollectionProvider, CollectionSlot, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, PAGE_KEYS, roundValue, sliderProvider } from './utils'
 
 export interface SliderProps extends PrimitiveProps {
   scopeOkuSlider?: Scope
@@ -43,9 +43,9 @@ export type SliderEmits = {
 </script>
 
 <script setup lang="ts">
+import OkuSliderBubbleInput from './SliderBubbleInput.vue'
 import OkuSliderHorizontal from './SliderHorizontal.vue'
 import OkuSliderVertical from './SliderVertical.vue'
-import OkuSliderBubbleInput from './SliderBubbleInput.vue'
 
 defineOptions({
   name: 'OkuSlider',

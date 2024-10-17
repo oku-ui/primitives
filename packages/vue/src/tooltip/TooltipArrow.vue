@@ -13,19 +13,19 @@ export interface TooltipArrowProps extends PopperArrowProps {
 </script>
 
 <script setup lang="ts">
-import {
-  useComponentRef,
-} from '@oku-ui/use-composable'
+import type {
+  Scope,
+} from '@oku-ui/provide'
 import {
   OkuPopperArrow,
 } from '@oku-ui/popper'
 import {
+  useComponentRef,
+} from '@oku-ui/use-composable'
+import {
   usePopperScope,
   useVisuallyHiddenContentInject,
 } from './utils'
-import type {
-  Scope,
-} from '@oku-ui/provide'
 
 defineOptions({
   name: 'OkuTooltipArrow',

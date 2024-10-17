@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CheckboxBubbleInputProps } from './CheckboxBubbleInput.ts'
-import { watch } from 'vue'
 import { useSize } from '@oku-ui/hooks'
+import { watch } from 'vue'
 import { isIndeterminate } from './utils.ts'
 
 defineOptions({

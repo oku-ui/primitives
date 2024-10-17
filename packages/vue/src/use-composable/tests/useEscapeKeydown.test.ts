@@ -1,9 +1,9 @@
-import { ref } from 'vue'
-import type { Ref } from 'vue'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { SpyInstance } from 'vitest'
-import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import type { SpyInstance } from 'vitest'
+import type { Ref } from 'vue'
+import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { ref } from 'vue'
 import { useEscapeKeydown } from '../'
 
 enableAutoUnmount(afterEach)

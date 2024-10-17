@@ -1,4 +1,13 @@
 <script lang="ts">
+import type {
+  DismissableLayerBranchElement,
+  DismissableLayerElement,
+  FocusBlurCaptureEvent,
+  FocusCaptureEvent,
+  FocusOutsideEvent,
+  PointerdownCaptureEvent,
+  PointerdownOutsideEvent,
+} from './props'
 import {
   computed,
   defineOptions,
@@ -10,15 +19,6 @@ import {
   watch,
   watchEffect,
 } from 'vue'
-import type {
-  DismissableLayerBranchElement,
-  DismissableLayerElement,
-  FocusBlurCaptureEvent,
-  FocusCaptureEvent,
-  FocusOutsideEvent,
-  PointerdownCaptureEvent,
-  PointerdownOutsideEvent,
-} from './props'
 import { CONTEXT_UPDATE } from './props'
 
 export const context = reactive({
@@ -31,9 +31,9 @@ let originalBodyPointerEvents: string
 </script>
 
 <script setup lang="ts">
-import { useComponentRef, useEscapeKeydown } from '@oku-ui/use-composable'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import { Primitive } from '@oku-ui/primitive'
+import { useComponentRef, useEscapeKeydown } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { dispatchUpdate, useFocusOutside, usePointerdownOutside } from './util'
 

@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { AlertDialogActionNaviteElement } from './props'
+import { OkuDialogClose } from '@oku-ui/dialog'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuDialogClose } from '@oku-ui/dialog'
-import type { AlertDialogActionNaviteElement } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { ACTION_NAME, alertDialogActionProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
 const alertDialogAction = defineComponent({

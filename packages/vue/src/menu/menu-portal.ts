@@ -1,7 +1,7 @@
-import { defineComponent, h, toRefs } from 'vue'
-import { OkuPresence } from '@oku-ui/presence'
-import { OkuPortal } from '@oku-ui/portal'
 import type { MenuPortalNativeElement } from './props'
+import { OkuPortal } from '@oku-ui/portal'
+import { OkuPresence } from '@oku-ui/presence'
+import { defineComponent, h, toRefs } from 'vue'
 import { MENU_PORTAL_NAME, menuPortalProps, portalProvider, scopedMenuProps, useMenuInject } from './props'
 
 const menuPortal = defineComponent({

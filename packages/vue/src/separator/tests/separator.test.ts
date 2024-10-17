@@ -1,5 +1,5 @@
-import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, shallowMount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 

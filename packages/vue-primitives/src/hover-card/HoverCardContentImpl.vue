@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { HoverCardContentImplEmits } from './HoverCardContentImpl.ts'
+import { composeEventHandlers } from '@oku-ui/shared'
 import { onBeforeUnmount, onMounted, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { type FocusOutsideEvent, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { PopperContent, usePopperContext } from '../popper/index.ts'
-import { composeEventHandlers } from '@oku-ui/shared'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { getTabbableNodes } from './utils.ts'
 

@@ -1,10 +1,10 @@
 <script lang="ts">
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
 import type { Ref } from 'vue'
-import { computed } from 'vue'
+import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef, useVModel } from '@oku-ui/use-composable'
+import { computed } from 'vue'
 import {
   defaultGetValueLabel,
   getInvalidMaxError,

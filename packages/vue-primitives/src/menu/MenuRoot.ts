@@ -1,7 +1,7 @@
-import { type Ref, onBeforeUnmount, onMounted } from 'vue'
 import type { Direction } from '../direction/index.ts'
+import { createContext, type MutableRefObject, useRef } from '@oku-ui/hooks'
+import { onBeforeUnmount, onMounted, type Ref } from 'vue'
 import { createCollection } from '../collection/Collection.ts'
-import { type MutableRefObject, createContext, useRef } from '@oku-ui/hooks'
 
 export interface MenuRootProps {
   open?: boolean

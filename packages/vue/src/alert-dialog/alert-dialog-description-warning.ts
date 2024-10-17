@@ -1,6 +1,6 @@
 import { defineComponent, toRefs, watchEffect } from 'vue'
 
-import { CONTENT_NAME, DESCRIPTION_NAME, DESCRIPTION_WARNING_NAME, alertDialogDescriptionWarningProps } from './props'
+import { alertDialogDescriptionWarningProps, CONTENT_NAME, DESCRIPTION_NAME, DESCRIPTION_WARNING_NAME } from './props'
 
 const alertDialogDescriptionWarning = defineComponent({
   name: DESCRIPTION_WARNING_NAME,

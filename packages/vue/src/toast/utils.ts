@@ -1,6 +1,6 @@
+import type { SwipeDirection } from './share'
 import { dispatchDiscreteCustomEvent } from '@oku-ui/primitive'
 import { nextTick, watchEffect } from 'vue'
-import type { SwipeDirection } from './share'
 
 function getAnnounceTextContent(container: HTMLElement) {
   const textContent: string[] = []
@@ -119,4 +119,4 @@ function focusFirst(candidates: HTMLElement[]) {
   })
 }
 
-export { getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection, useNextFrame, isHTMLElement, getTabbableCandidates, focusFirst }
+export { focusFirst, getAnnounceTextContent, getTabbableCandidates, handleAndDispatchCustomEvent, isDeltaInDirection, isHTMLElement, useNextFrame }

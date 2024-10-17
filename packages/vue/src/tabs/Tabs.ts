@@ -1,8 +1,8 @@
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { type RovingFocusGroupProps, createRovingFocusGroupScope } from '@oku-ui/roving-focus'
 import type { Ref } from 'vue'
-import { createScope } from '@oku-ui/provide'
 import type { ActivationMode, TabsScopeProps } from './types'
+import { createScope } from '@oku-ui/provide'
+import { createRovingFocusGroupScope, type RovingFocusGroupProps } from '@oku-ui/roving-focus'
 import { TAB_NAME } from './constants'
 
 // Props

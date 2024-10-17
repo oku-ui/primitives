@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useDirection } from '../direction/index.ts'
 import { useControllableState, useForwardElement, useRef } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
+import { useDirection } from '../direction/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type RadioGroupRootEmits, type RadioGroupRootProps, provideRadioGroupContext } from './RadioGroupRoot.ts'
+import { provideRadioGroupContext, type RadioGroupRootEmits, type RadioGroupRootProps } from './RadioGroupRoot.ts'
 
 defineOptions({
   name: 'RadioGroup',

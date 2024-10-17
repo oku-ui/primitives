@@ -1,5 +1,5 @@
-import { unref } from 'vue'
 import type { AnyFn, MaybeRefOrGetter } from './types'
+import { unref } from 'vue'
 
 /**
  * Get the value of value/ref/getter.

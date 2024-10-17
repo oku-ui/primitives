@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
 import OnValueCommit from './OnValueCommit.vue'
+import Styled from './Styled.vue'
 import Vertical from './Vertical.vue'
 
 export interface OkuSliderProps {

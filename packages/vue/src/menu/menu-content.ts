@@ -1,10 +1,10 @@
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { MenuContentNativeElement } from './props'
 import { OkuPresence } from '@oku-ui/presence'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import type { MenuContentNativeElement } from './props'
-import { CollectionProvider, CollectionSlot, MENU_CONTENT_NAME, menuContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, usePortalInject } from './props'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { OkuMenuRootContentModal } from './menu-root-content-modal'
 import { OkuMenuRootContentNonModal } from './menu-root-content-non-modal'
+import { CollectionProvider, CollectionSlot, MENU_CONTENT_NAME, menuContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, usePortalInject } from './props'
 
 const menuContent = defineComponent({
   name: MENU_CONTENT_NAME,

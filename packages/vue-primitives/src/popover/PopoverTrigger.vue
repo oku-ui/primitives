@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { PopoverTriggerEmits, PopoverTriggerProps } from './PopoverTrigger.ts'
 import { useComposedElements } from '@oku-ui/hooks'
-import { PopperAnchor } from '../popper/index.ts'
 import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { PopperAnchor } from '../popper/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 import { getState } from './utilts.ts'
 

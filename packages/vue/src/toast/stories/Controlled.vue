@@ -6,10 +6,10 @@ import {
   OkuToastProvider,
   OkuToastViewport,
 } from '@oku-ui/toast'
-import { ref, watchEffect } from 'vue'
 import { isClient } from '@oku-ui/use-composable'
-import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
+import { ref, watchEffect } from 'vue'
 import ToastSubscribeSuccess from './ToastSubscribeSuccess.vue'
+import ToastUpgradeAvailable from './ToastUpgradeAvailable.vue'
 
 const isSubscribed = ref(false)
 const savedCount = ref(0)

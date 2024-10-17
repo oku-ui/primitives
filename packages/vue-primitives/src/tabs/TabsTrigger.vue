@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { TabsTriggerEmits, TabsTriggerProps } from './TabsTrigger.ts'
-import { computed } from 'vue'
 import { DATA_COLLECTION_ITEM } from '@oku-ui/collection'
 import { useComposedElements } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
-import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { composeEventHandlers } from '@oku-ui/shared'
+import { computed } from 'vue'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 

@@ -1,10 +1,10 @@
-import { beforeEach, describe, expect, it } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
-import { mount } from '@vue/test-utils'
 import type { VueNode } from '@vue/test-utils/dist/types'
 import type { Component } from 'vue'
-import { h } from 'vue'
+import { mount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
+import { h } from 'vue'
 import { OkuArrow } from '../'
 
 const component = {

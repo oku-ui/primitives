@@ -1,10 +1,10 @@
 import type { DialogCloseProps, DialogContentProps, DialogDescriptionProps, DialogOverlayProps, DialogProps, DialogTitleProps, DialogTriggerProps, OkuDialog, OkuDialogClose, OkuDialogContent, OkuDialogDescription, OkuDialogOverlay, OkuDialogPortal, OkuDialogTitle, OkuDialogTrigger } from '@oku-ui/dialog'
 import type { OkuElement } from '@oku-ui/primitive'
-import { propsOmit } from '@oku-ui/primitive'
-import { createDialogScope, dialogCloseProps, dialogContentProps, dialogDescriptionProps, dialogOverlayProps, dialogProps, dialogTitleProps, dialogTriggerProps } from '@oku-ui/dialog'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createScope } from '@oku-ui/provide'
 import type { PropType, Ref } from 'vue'
+import { createDialogScope, dialogCloseProps, dialogContentProps, dialogDescriptionProps, dialogOverlayProps, dialogProps, dialogTitleProps, dialogTriggerProps } from '@oku-ui/dialog'
+import { propsOmit } from '@oku-ui/primitive'
+import { createScope, ScopePropObject } from '@oku-ui/provide'
 
 export const ROOT_NAME = 'OkuAlertDialog'
 export const TITLE_NAME = 'OkuAlertDialogTitle'

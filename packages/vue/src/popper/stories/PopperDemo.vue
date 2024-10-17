@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import Animated from './Animated.vue'
+import Chromatic from './Chromatic.vue'
+import OneScroll from './OneScroll.vue'
 import Styled from './Styled.vue'
+import TransitionVue from './Transition.vue'
 import WithCustomArrow from './WithCustomArrow.vue'
 import WithPortal from './WithPortal.vue'
 import WithUpdatePositionStrategyAlways from './WithUpdatePositionStrategyAlways.vue'
-import Chromatic from './Chromatic.vue'
-import OneScroll from './OneScroll.vue'
-import TransitionVue from './Transition.vue'
 
 export interface Props {
   template?: 'Styled' | 'WithCustomArrow' | 'Animated' | 'WithPortal' | 'WithUpdatePositionStrategyAlways' | 'Chromatic' | 'OneScroll' | 'Transition'

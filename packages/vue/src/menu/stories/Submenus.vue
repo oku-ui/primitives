@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
 import { OkuDirectionProvider } from '@oku-ui/direction'
 import { OkuMenuItem, OkuMenuSeparator } from '@oku-ui/menu'
+import { ref, watchEffect } from 'vue'
 import MenuWithAnchor from './MenuWithAnchor.vue'
 import Submenu from './Submenu.vue'
 

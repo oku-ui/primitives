@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { useDirection } from '../direction/index.ts'
 import { useForwardElement } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
+import { shallowRef } from 'vue'
+import { useDirection } from '../direction/index.ts'
 import {
+  provideScrollAreaContext,
   type ScrollAreaElement,
   type ScrollAreaRootProps,
   type ScrollAreaScrollbarElement,
   type ScrollAreaViewportElement,
-  provideScrollAreaContext,
 } from './ScrollAreaRoot.ts'
 
 defineOptions({

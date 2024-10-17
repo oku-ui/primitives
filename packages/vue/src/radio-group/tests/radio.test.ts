@@ -1,6 +1,6 @@
+import type { Component } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import type { Component } from 'vue'
 import { defineComponent, h } from 'vue'
 import { OkuRadioGroup, OkuRadioGroupIndicator, OkuRadioGroupItem } from '../'
 

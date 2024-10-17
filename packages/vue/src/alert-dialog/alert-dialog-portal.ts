@@ -1,8 +1,8 @@
-import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { AlertDialogPortalNaviteElement } from './props'
 import { OkuDialogPortal } from '@oku-ui/dialog'
 import { reactiveOmit } from '@oku-ui/use-composable'
-import type { AlertDialogPortalNaviteElement } from './props'
-import { PORTAL_NAME, alertDialogPortalProps, scopeAlertDialogProps, useAlertDialogScope } from './props'
+import { defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { alertDialogPortalProps, PORTAL_NAME, scopeAlertDialogProps, useAlertDialogScope } from './props'
 
 const alertDialogPortal = defineComponent({
   name: PORTAL_NAME,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
 import { OkuCheckbox, OkuCheckboxIndicator } from '@oku-ui/checkbox'
+import { reactive, ref } from 'vue'
 
 const data = reactive({ optional: false, required: false, stopprop: false })
 const checked = ref<boolean | 'indeterminate'>('indeterminate')

@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { enableAutoUnmount, mount, shallowMount } from '@vue/test-utils'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import { nextTick } from 'vue'
 
@@ -21,12 +21,12 @@ import {
   OkuScrollAreaViewport,
 } from '../'
 
-import Basic from '../story/Basic.vue'
-import Resizable from '../story/Resizable.vue'
-import ContentChange from '../story/ContentChange.vue'
 import Animated from '../story/Animated.vue'
+import Basic from '../story/Basic.vue'
 import Chromatic from '../story/Chromatic.vue'
 import ChromaticDynamicContent from '../story/ChromaticDynamicContent.vue'
+import ContentChange from '../story/ContentChange.vue'
+import Resizable from '../story/Resizable.vue'
 
 enableAutoUnmount(afterEach)
 

@@ -1,15 +1,15 @@
-import type { PropType } from 'vue'
-import { Fragment, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import type { OkuElement } from '@oku-ui/primitive'
-import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
-import { type DismissableLayerEmits, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps, dismissableLayerProps } from '@oku-ui/dismissable-layer'
-import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
+import type { PropType } from 'vue'
+import { type DismissableLayerEmits, dismissableLayerProps, OkuDismissableLayer, type DismissableLayerProps as OkuDismissableLayerProps } from '@oku-ui/dismissable-layer'
 import { useFocusGuards } from '@oku-ui/focus-guards'
-
+import { type FocusScopeEmits, type FocusScopeProps, OkuFocusScope } from '@oku-ui/focus-scope'
 import { primitiveProps } from '@oku-ui/primitive'
-import { getState, scopeDialogProps, useDialogInject } from './utils'
-import { OkuDialogTitleWarning } from './dialogTitleWarning'
+import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
+
+import { defineComponent, Fragment, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { OkuDialogDescriptionWarning } from './dialogDescriptionWarning'
+import { OkuDialogTitleWarning } from './dialogTitleWarning'
+import { getState, scopeDialogProps, useDialogInject } from './utils'
 
 export const CONTENT_NAME = 'OkuDialogContentImpl'
 

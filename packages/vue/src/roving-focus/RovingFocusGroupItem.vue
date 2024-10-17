@@ -1,12 +1,12 @@
 <script lang="ts">
 
 import type { PrimitiveProps } from '@oku-ui/primitive'
-import { Primitive } from '@oku-ui/primitive'
+import type { Scope } from '@oku-ui/provide'
 
+import { Primitive } from '@oku-ui/primitive'
 import { composeEventHandlers } from '@oku-ui/utils'
 import { CollectionItemSlot, useCollection, useRovingFocusInject } from './props'
 import { focusFirst, getFocusIntent, wrapArray } from './utils'
-import type { Scope } from '@oku-ui/provide'
 
 export interface RovingFocusItemProps extends PrimitiveProps {
   scopeOkuRovingFocusGroup?: Scope
@@ -24,8 +24,8 @@ export type RovingFocusGroupItemEmits = {
 </script>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted } from 'vue'
 import { useComponentRef, useId } from '@oku-ui/use-composable'
+import { computed, onBeforeUnmount, onMounted } from 'vue'
 
 defineOptions({
   name: 'OkuRovingFocusGroupItem',

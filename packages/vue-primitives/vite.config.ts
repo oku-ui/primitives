@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
 import { primitivesPackagesAlias } from '../../scripts/output'
 

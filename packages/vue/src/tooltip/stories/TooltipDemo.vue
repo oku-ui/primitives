@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
 import Controlled from './Controlled.vue'
 import CustomDurations from './CustomDurations.vue'
+import Styled from './Styled.vue'
 
 export interface OkuTooltipProps {
   template?: 'Styled' | 'Controlled' | 'CustomDurations'

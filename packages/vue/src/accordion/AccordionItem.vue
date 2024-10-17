@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useId } from '@oku-ui/use-composable'
-import { accordionItemProvider } from './AccordionItem'
 import type { AccordionItemProps } from './AccordionItem'
-import { useAccordionInject } from './AccordionImpl'
-import { useAccordionValueInject, useCollapsibleScope } from './Accordion'
-import { computed } from 'vue'
 import { OkuCollapsible } from '@oku-ui/collapsible'
-import { getState } from './utils'
+import { useId } from '@oku-ui/use-composable'
+import { computed } from 'vue'
+import { useAccordionValueInject, useCollapsibleScope } from './Accordion'
+import { useAccordionInject } from './AccordionImpl'
+import { accordionItemProvider } from './AccordionItem'
 import { ITEM_NAME } from './constants'
+import { getState } from './utils'
 
 defineOptions({
   name: ITEM_NAME,

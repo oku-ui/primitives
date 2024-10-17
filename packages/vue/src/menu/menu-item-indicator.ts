@@ -1,10 +1,10 @@
+import type { MenuItemIndicatorNativeElement } from './props'
 import { OkuPresence } from '@oku-ui/presence'
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { getCheckedState, isIndeterminate } from './utils'
-import type { MenuItemIndicatorNativeElement } from './props'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
 import { MENU_ITEM_INDICATOR_NAME, menuItemIndicatorProps, scopedMenuProps, useItemIndicatorInject } from './props'
+import { getCheckedState, isIndeterminate } from './utils'
 
 const menuItemIndicator = defineComponent({
   name: MENU_ITEM_INDICATOR_NAME,

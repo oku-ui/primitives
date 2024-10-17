@@ -1,11 +1,11 @@
-import { createScope } from '@oku-ui/provide'
-import { createPopperScope } from '@oku-ui/popper'
-import type { Ref } from 'vue'
-import { ref } from 'vue'
 import type { DismissableLayerEmits } from '@oku-ui/dismissable-layer'
 import type { PopperContentEmits, PopperContentProps } from '@oku-ui/popper'
 import type { Scope } from '@oku-ui/provide'
+import type { Ref } from 'vue'
 import type { Point, Polygon, Side } from './types'
+import { createPopperScope } from '@oku-ui/popper'
+import { createScope } from '@oku-ui/provide'
+import { ref } from 'vue'
 
 export type TooltipTriggerElement = HTMLButtonElement
 

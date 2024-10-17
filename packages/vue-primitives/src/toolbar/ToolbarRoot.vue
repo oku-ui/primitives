@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useDirection } from '../direction/index.ts'
 import { useForwardElement, useRef } from '@oku-ui/hooks'
 import { Primitive } from '@oku-ui/primitive'
+import { useDirection } from '../direction/index.ts'
 import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type ToolbarRootEmits, type ToolbarRootProps, provideToolbarContext } from './ToolbarRoot.ts'
+import { provideToolbarContext, type ToolbarRootEmits, type ToolbarRootProps } from './ToolbarRoot.ts'
 
 defineOptions({
   name: 'ToolbarRoot',

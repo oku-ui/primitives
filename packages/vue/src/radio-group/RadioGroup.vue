@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
+import { useDirection } from '@oku-ui/direction'
+import { Primitive } from '@oku-ui/primitive'
 import { OkuRovingFocusGroup } from '@oku-ui/roving-focus'
 import { usePrimitiveElement, useVModel } from '@oku-ui/use-composable'
-import { useDirection } from '@oku-ui/direction'
+import { toRef } from 'vue'
+import { RADIO_GROUP_NAME } from './constants'
 import { type RadioGroupEmits, type RadioGroupProps, useRovingFocusGroupScope } from './RadioGroup'
 import { provideRadioGroupContext } from './RadioGroup'
-import { RADIO_GROUP_NAME } from './constants'
-import { Primitive } from '@oku-ui/primitive'
 
 defineOptions({
   name: RADIO_GROUP_NAME,

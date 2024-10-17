@@ -1,5 +1,5 @@
-import type { Scope } from '@oku-ui/provide'
 import type { CollapsibleProps } from '@oku-ui/collapsible'
+import type { Scope } from '@oku-ui/provide'
 import type { Ref } from 'vue'
 import { createAccordionProvider } from './Accordion'
 import { ITEM_NAME } from './constants'

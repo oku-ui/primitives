@@ -1,5 +1,5 @@
-import process from 'node:process'
 import type { ChangelogConfig } from 'changelogen'
+import process from 'node:process'
 
 function getDefaultConfig() {
   return <Partial<ChangelogConfig>>{

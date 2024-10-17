@@ -1,5 +1,5 @@
-import { primitiveProps } from '@oku-ui/primitive'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
+import { primitiveProps } from '@oku-ui/primitive'
 
 export const LABEL_NAME = 'OkuLabel'
 

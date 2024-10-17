@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Primitive } from '@oku-ui/primitive'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import { Primitive } from '@oku-ui/primitive'
 
 export interface CheckboxIndicatorProps extends PrimitiveProps {
   scopeOkuCheckbox?: any
@@ -10,10 +10,10 @@ export interface CheckboxIndicatorProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { defineOptions, withDefaults } from 'vue'
-import { useComponentRef } from '@oku-ui/use-composable'
-import { getState, isIndeterminate, useCheckboxInject } from './utils'
 import { OkuPresence } from '@oku-ui/presence'
+import { useComponentRef } from '@oku-ui/use-composable'
+import { defineOptions, withDefaults } from 'vue'
+import { getState, isIndeterminate, useCheckboxInject } from './utils'
 
 defineOptions({
   name: 'OkuCheckboxIndicator',

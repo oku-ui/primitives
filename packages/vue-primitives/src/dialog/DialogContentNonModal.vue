@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { DialogContentNonModalEmits } from './DialogContentNonModal.ts'
+import { useForwardElement } from '@oku-ui/hooks'
+import { Primitive } from '@oku-ui/primitive'
 import { shallowRef } from 'vue'
 import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
-import { useForwardElement } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
 import { useDialogContext } from './DialogRoot.ts'
 import { getState } from './utils.ts'
 

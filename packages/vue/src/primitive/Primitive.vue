@@ -6,9 +6,9 @@ export interface PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { defineOptions, onMounted } from 'vue'
 import { OkuSlot } from '@oku-ui/slot'
 import { useComponentRef } from '@oku-ui/use-composable'
+import { defineOptions, onMounted } from 'vue'
 
 defineOptions({
   name: 'OkuPrimitive',

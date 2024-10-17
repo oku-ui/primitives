@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SliderRangeProps } from './SliderRange.ts'
-import { computed } from 'vue'
 import { Primitive } from '@oku-ui/primitive'
+import { computed } from 'vue'
 import { useSliderOrientationContext } from './SliderOrientation.ts'
 import { useSliderContext } from './SliderRoot.ts'
 import { convertValueToPercentage } from './utils.ts'

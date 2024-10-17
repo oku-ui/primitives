@@ -1,13 +1,13 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import type { DialogContentModalElement, DialogContentModalEmits, DialogContentTypeProps } from './dialogContentModal'
+import { OkuPresence } from '@oku-ui/presence'
 import { primitiveProps } from '@oku-ui/primitive'
 import { reactiveOmit, useForwardRef } from '@oku-ui/use-composable'
-import { OkuPresence } from '@oku-ui/presence'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { CONTENT_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
-import type { DialogContentModalElement, DialogContentModalEmits, DialogContentTypeProps } from './dialogContentModal'
-import { OkuDialogContentModal, dialogContentTypeProps } from './dialogContentModal'
+import { computed, defineComponent, h, mergeProps, reactive, toRefs } from 'vue'
+import { dialogContentTypeProps, OkuDialogContentModal } from './dialogContentModal'
 import { OkuDialogContentNonModal } from './dialogContentNonModal'
+import { CONTENT_NAME, scopeDialogProps, useDialogInject, useDialogPortalInject } from './utils'
 
 export type DialogContentNaviteElement = DialogContentModalElement
 

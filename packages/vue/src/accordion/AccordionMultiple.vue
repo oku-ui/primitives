@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { ref } from 'vue'
-import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion'
 import type { AccordionMultipleEmits, AccordionMultipleProps } from './AccordionMultiple'
 import { useVModel } from '@oku-ui/use-composable'
+import { ref } from 'vue'
+import { accordionCollapsibleProvider, accordionValueProvider } from './Accordion'
 import AccordionImpl from './AccordionImpl.vue'
 import { ACCORDION_MULTIPLE_NAME } from './constants'
 

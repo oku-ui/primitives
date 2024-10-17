@@ -1,13 +1,13 @@
-import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
 import type { DismissableLayerEmits, DismissableLayerProps } from '@oku-ui/dismissable-layer'
 import type { FocusScopeEmits, FocusScopeProps } from '@oku-ui/focus-scope'
 import type { PopperAnchorElement, PopperAnchorNaviteElement, PopperAnchorProps, PopperArrowElement, PopperArrowNaviteElement, PopperArrowProps, PopperContentEmits, PopperContentProps } from '@oku-ui/popper'
-import { createPopperScope, popperAnchorProps, popperContentProps } from '@oku-ui/popper'
 import type { PortalProps } from '@oku-ui/portal'
 import type { OkuElement, PrimitiveProps } from '@oku-ui/primitive'
-import { primitiveProps, propsOmit } from '@oku-ui/primitive'
 import type { Scope } from '@oku-ui/provide'
-import { ScopePropObject, createScope } from '@oku-ui/provide'
+import { dismissableLayerProps } from '@oku-ui/dismissable-layer'
+import { createPopperScope, popperAnchorProps, popperContentProps } from '@oku-ui/popper'
+import { primitiveProps, propsOmit } from '@oku-ui/primitive'
+import { createScope, ScopePropObject } from '@oku-ui/provide'
 import { type PropType, type Ref, ref } from 'vue'
 
 export type ScopePopover<T> = T & { scopeOkuPopover?: Scope }

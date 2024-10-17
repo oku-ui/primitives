@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { OkuDirectionProvider } from '@oku-ui/direction'
 import {
   OkuRadioGroup,
   OkuRadioGroupIndicator,
   OkuRadioGroupItem,
 } from '@oku-ui/radio-group'
-import { OkuDirectionProvider } from '@oku-ui/direction'
 import { onMounted, ref } from 'vue'
 
 const manualFocusRef = ref()

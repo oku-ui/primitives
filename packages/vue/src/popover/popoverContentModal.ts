@@ -1,10 +1,10 @@
-import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
-import { useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
-import { hideOthers } from 'aria-hidden'
-import { OkuSlot } from '@oku-ui/slot'
-import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuPopoverContentImpl } from './popoverContentImpl'
 import type { PopoverContentTypeEmits, PopoverContentTypeNaviteElement } from './props'
+import { OkuSlot } from '@oku-ui/slot'
+import { useComposedRefs, useForwardRef, useScrollLock } from '@oku-ui/use-composable'
+import { composeEventHandlers } from '@oku-ui/utils'
+import { hideOthers } from 'aria-hidden'
+import { defineComponent, h, mergeProps, onBeforeUnmount, ref } from 'vue'
+import { OkuPopoverContentImpl } from './popoverContentImpl'
 import { CONTENT_MODAL_NAME, CONTENT_NAME, popoverContentTypeProps, scopePopoverProps, usePopoverInject } from './props'
 
 const popoverContentModal = defineComponent({

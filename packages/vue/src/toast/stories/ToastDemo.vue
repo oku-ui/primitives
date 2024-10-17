@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import Animated from './Animated.vue'
+import Chromatic from './Chromatic.vue'
 import Controlled from './Controlled.vue'
-import Promise from './Promise.vue'
+import Cypress from './Cypress.vue'
+import FromDialog from './FromDialog.vue'
 import KeyChange from './KeyChange.vue'
 import PauseResumeProps from './PauseResumeProps.vue'
-import Animated from './Animated.vue'
-import Cypress from './Cypress.vue'
-import Chromatic from './Chromatic.vue'
+import Promise from './Promise.vue'
 import Styled from './Styled.vue'
-import FromDialog from './FromDialog.vue'
 
 withDefaults(defineProps<IToastProps>(), {})
 const VIEWPORT_PADDING = '20px'

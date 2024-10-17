@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import type { ScrollAreaThumbImplEmits, ScrollAreaThumbImplProps } from './ScrollAreaThumbImpl'
+import type { ScrollAreaThumbElement } from './types'
 import { Primitive } from '@oku-ui/primitive'
 import { usePrimitiveElement } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { useScrollAreaContext } from './ScrollArea'
-import type { ScrollAreaThumbImplEmits, ScrollAreaThumbImplProps } from './ScrollAreaThumbImpl'
+import { ref, watchEffect } from 'vue'
 import { SCROLL_AREA_THUMB_IMPL_NAME, SCROLL_AREA_THUMB_NAME } from './constants'
+import { useScrollAreaContext } from './ScrollArea'
 import { useScrollbarContext } from './ScrollAreaScrollbarImpl'
 import { addUnlinkedScrollListener, useDebounceCallback } from './utils'
-import type { ScrollAreaThumbElement } from './types'
 
 defineOptions({
   name: SCROLL_AREA_THUMB_IMPL_NAME,

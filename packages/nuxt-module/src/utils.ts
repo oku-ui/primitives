@@ -1,13 +1,13 @@
+import type { PackageUpdateInfo } from '@nuxt/devtools'
+import type { ModuleOptions } from '@nuxt/schema'
+import type { PackageJson } from 'pkg-types'
+
 import { execSync } from 'node:child_process'
 import { createRequire } from 'node:module'
 import { logger, useNuxt } from '@nuxt/kit'
-
-import type { ModuleOptions } from '@nuxt/schema'
 import consola from 'consola'
-import type { PackageJson } from 'pkg-types'
-import { readPackageJSON } from 'pkg-types'
 import { getPackageInfo } from 'local-pkg'
-import type { PackageUpdateInfo } from '@nuxt/devtools'
+import { readPackageJSON } from 'pkg-types'
 import semver from 'semver'
 
 export const primitivesPackageNames = [

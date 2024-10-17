@@ -1,10 +1,10 @@
-import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
+import type { MenuSubContentElement, MenuSubContentEmits, MenuSubContentNativeElement } from './props'
+import { OkuPresence } from '@oku-ui/presence'
 import { reactiveOmit, useComposedRefs, useForwardRef } from '@oku-ui/use-composable'
 import { composeEventHandlers } from '@oku-ui/utils'
-import { OkuPresence } from '@oku-ui/presence'
-import type { MenuSubContentElement, MenuSubContentEmits, MenuSubContentNativeElement } from './props'
-import { CollectionProvider, CollectionSlot, MENU_SUB_CONTENT_NAME, SUB_CLOSE_KEYS, menuSubContentProps, scopedMenuProps, useMenuInject, useMenuRootInject, useMenuSubInject, usePortalInject } from './props'
+import { computed, defineComponent, h, mergeProps, reactive, ref, toRefs } from 'vue'
 import { OkuMenuContentImpl } from './menu-content-impl'
+import { CollectionProvider, CollectionSlot, MENU_SUB_CONTENT_NAME, menuSubContentProps, scopedMenuProps, SUB_CLOSE_KEYS, useMenuInject, useMenuRootInject, useMenuSubInject, usePortalInject } from './props'
 
 const menuSubContent = defineComponent({
   name: MENU_SUB_CONTENT_NAME,

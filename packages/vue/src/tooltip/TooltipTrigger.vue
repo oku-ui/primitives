@@ -17,14 +17,14 @@ export type TooltipTriggerEmits = {
 </script>
 
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue'
+import type { Scope } from '@oku-ui/provide'
+import type { TooltipTriggerElement } from './utils'
+import { OkuPopperAnchor } from '@oku-ui/popper'
 import { Primitive } from '@oku-ui/primitive'
 import { useComponentRef } from '@oku-ui/use-composable'
-import { OkuPopperAnchor } from '@oku-ui/popper'
 import { composeEventHandlers } from '@oku-ui/utils'
-import type { TooltipTriggerElement } from './utils'
+import { ref, watch, watchEffect } from 'vue'
 import { usePopperScope, useTooltipInject, useTooltipProviderInject } from './utils'
-import type { Scope } from '@oku-ui/provide'
 
 defineOptions({
   name: 'OkuTooltipTrigger',

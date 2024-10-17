@@ -1,5 +1,5 @@
-import { createScope } from '@oku-ui/provide'
 import type { Ref } from 'vue'
+import { createScope } from '@oku-ui/provide'
 
 export function getState(checked: boolean | undefined) {
   return checked ? 'checked' : 'unchecked'

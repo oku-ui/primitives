@@ -5,8 +5,8 @@ import {
   OkuPopperArrow,
   OkuPopperContent,
 } from '@oku-ui/popper'
-import { ref } from 'vue'
 import { OkuPortal } from '@oku-ui/portal'
+import { ref } from 'vue'
 
 const scrollContainer1 = ref<HTMLDivElement | null>(null)
 const scrollContainer2 = ref<HTMLDivElement | null>(null)

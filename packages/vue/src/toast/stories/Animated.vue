@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { OkuToast, OkuToastClose, OkuToastDescription, OkuToastProvider, OkuToastViewport } from '@oku-ui/toast'
 import type { ToastProviderProps } from '@oku-ui/toast'
+import { OkuToast, OkuToastClose, OkuToastDescription, OkuToastProvider, OkuToastViewport } from '@oku-ui/toast'
 import { ref } from 'vue'
 
 type Direction = ToastProviderProps['swipeDirection']

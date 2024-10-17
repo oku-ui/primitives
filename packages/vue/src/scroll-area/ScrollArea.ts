@@ -1,9 +1,9 @@
+import type { Direction } from '@oku-ui/direction'
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { Ref } from 'vue'
-import type { Direction } from '@oku-ui/direction'
+import type { ScrollAreaElement, ScrollAreaScopeProps, ScrollAreaScrollbarElement, ScrollAreaViewportElement } from './types'
 import { createScope } from '@oku-ui/provide'
 import { SCROLL_AREA_NAME } from './constants'
-import type { ScrollAreaElement, ScrollAreaScopeProps, ScrollAreaScrollbarElement, ScrollAreaViewportElement } from './types'
 
 // Props
 

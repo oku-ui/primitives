@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { type Ref, toRef } from 'vue'
-import { Primitive } from '@oku-ui/primitive'
 import { useDirection } from '@oku-ui/direction'
+import { Primitive } from '@oku-ui/primitive'
 import { useId, useVModel } from '@oku-ui/use-composable'
-import { type TabsEmits, type TabsProps, tabsProvider } from './Tabs'
+import { type Ref, toRef } from 'vue'
 import { TAB_NAME } from './constants'
+import { type TabsEmits, type TabsProps, tabsProvider } from './Tabs'
 
 defineOptions({
   name: TAB_NAME,

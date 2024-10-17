@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Styled from './Styled.vue'
-import Submenus from './Submenus.vue'
-import WithLabels from './WithLabels.vue'
-import Typeahead from './Typeahead.vue'
+import Animated from './Animated.vue'
 import CheckboxItems from './CheckboxItems.vue'
 import RadioItems from './RadioItems.vue'
-import Animated from './Animated.vue'
+import Styled from './Styled.vue'
+import Submenus from './Submenus.vue'
+import Typeahead from './Typeahead.vue'
+import WithLabels from './WithLabels.vue'
 
 withDefaults(defineProps<IMenuProps>(), {})
 
