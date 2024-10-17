@@ -103,6 +103,9 @@ importers:
       '@oku-ui/focus-scope':
         specifier: workspace:^
         version: link:packages/package-build/focus-scope
+      '@oku-ui/hooks':
+        specifier: workspace:^
+        version: link:packages/package-build/hooks
       '@oku-ui/hover-card':
         specifier: workspace:^
         version: link:packages/package-build/hover-card
@@ -145,6 +148,9 @@ importers:
       '@oku-ui/separator':
         specifier: workspace:^
         version: link:packages/package-build/separator
+      '@oku-ui/shared':
+        specifier: workspace:^
+        version: link:packages/package-build/shared
       '@oku-ui/slider':
         specifier: workspace:^
         version: link:packages/package-build/slider
@@ -429,8 +435,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/alert-dialog:
     dependencies:
@@ -460,8 +466,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/arrow:
     dependencies:
@@ -476,8 +482,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/aspect-ratio:
     dependencies:
@@ -492,8 +498,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/avatar:
     dependencies:
@@ -511,8 +517,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/checkbox:
     dependencies:
@@ -536,8 +542,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/collapsible:
     dependencies:
@@ -561,8 +567,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/collection:
     dependencies:
@@ -586,8 +592,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/dialog:
     dependencies:
@@ -632,8 +638,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/direction:
     dependencies:
@@ -642,8 +648,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/dismissable-layer:
     dependencies:
@@ -664,8 +670,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/focus-guards:
     dependencies:
@@ -674,8 +680,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/focus-scope:
     dependencies:
@@ -690,8 +696,24 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
+        specifier: latest
+        version: 7.0.0
+
+  packages/package-build/hooks:
+    dependencies:
+      '@oku-ui/primitive':
         specifier: workspace:^
-        version: link:../../tsconfig
+        version: link:../primitive
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.5.12(typescript@5.6.3)
+    devDependencies:
+      tsconfig:
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/hover-card:
     dependencies:
@@ -733,8 +755,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/label:
     dependencies:
@@ -749,8 +771,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/menu:
     dependencies:
@@ -807,8 +829,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/popover:
     dependencies:
@@ -856,8 +878,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/popper:
     dependencies:
@@ -884,8 +906,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/portal:
     dependencies:
@@ -906,8 +928,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/presence:
     dependencies:
@@ -922,8 +944,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/primitive:
     dependencies:
@@ -941,8 +963,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/progress:
     dependencies:
@@ -963,8 +985,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/provide:
     dependencies:
@@ -973,8 +995,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/radio-group:
     dependencies:
@@ -1004,8 +1026,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/roving-focus:
     dependencies:
@@ -1032,8 +1054,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/scroll-area:
     dependencies:
@@ -1060,8 +1082,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/separator:
     dependencies:
@@ -1076,8 +1098,24 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
+        specifier: latest
+        version: 7.0.0
+
+  packages/package-build/shared:
+    dependencies:
+      '@oku-ui/primitive':
         specifier: workspace:^
-        version: link:../../tsconfig
+        version: link:../primitive
+      '@oku-ui/use-composable':
+        specifier: workspace:^
+        version: link:../use-composable
+      vue:
+        specifier: ^3.3.0
+        version: 3.5.12(typescript@5.6.3)
+    devDependencies:
+      tsconfig:
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/slider:
     dependencies:
@@ -1104,8 +1142,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/slot:
     dependencies:
@@ -1120,8 +1158,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/switch:
     dependencies:
@@ -1142,8 +1180,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/tabs:
     dependencies:
@@ -1173,8 +1211,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/toast:
     dependencies:
@@ -1210,8 +1248,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/toggle:
     dependencies:
@@ -1229,8 +1267,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/toggle-group:
     dependencies:
@@ -1257,8 +1295,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/toolbar:
     dependencies:
@@ -1291,8 +1329,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/tooltip:
     dependencies:
@@ -1334,8 +1372,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/use-composable:
     dependencies:
@@ -1353,8 +1391,8 @@ importers:
         specifier: ^0.1.11
         version: 0.1.11
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/utils:
     dependencies:
@@ -1363,8 +1401,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/package-build/visually-hidden:
     dependencies:
@@ -1379,8 +1417,8 @@ importers:
         version: 3.5.12(typescript@5.6.3)
     devDependencies:
       tsconfig:
-        specifier: workspace:^
-        version: link:../../tsconfig
+        specifier: latest
+        version: 7.0.0
 
   packages/primitives:
     dependencies:
@@ -1514,27 +1552,6 @@ importers:
         specifier: ^1.2.4
         version: 1.2.4
     devDependencies:
-      '@storybook/addon-essentials':
-        specifier: ^8.3.5
-        version: 8.3.5(storybook@8.3.5)
-      '@storybook/addon-interactions':
-        specifier: ^8.3.5
-        version: 8.3.5(storybook@8.3.5)
-      '@storybook/addon-links':
-        specifier: ^8.3.5
-        version: 8.3.5(react@18.3.1)(storybook@8.3.5)
-      '@storybook/blocks':
-        specifier: ^8.3.5
-        version: 8.3.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.3.5)
-      '@storybook/test':
-        specifier: ^8.3.5
-        version: 8.3.5(storybook@8.3.5)
-      '@storybook/vue3':
-        specifier: ^8.3.5
-        version: 8.3.5(storybook@8.3.5)(vue@3.5.12(typescript@5.6.3))
-      '@storybook/vue3-vite':
-        specifier: ^8.3.5
-        version: 8.3.5(storybook@8.3.5)(vite@5.4.9(@types/node@20.16.11)(terser@5.34.1))(vue@3.5.12(typescript@5.6.3))
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.4
@@ -1556,6 +1573,9 @@ importers:
       '@vueuse/core':
         specifier: ^11.1.0
         version: 11.1.0(vue@3.5.12(typescript@5.6.3))
+      filter-anything:
+        specifier: ^3.0.7
+        version: 3.0.7
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
@@ -1565,6 +1585,12 @@ importers:
       storybook:
         specifier: ^8.3.5
         version: 8.3.5
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
+      unplugin-vue-components:
+        specifier: ^0.26.0
+        version: 0.26.0(@babel/parser@7.25.8)(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.24.0))(rollup@4.24.0)(vue@3.5.12(typescript@5.6.3))
       vite:
         specifier: ^5.4.9
         version: 5.4.9(@types/node@20.16.11)(terser@5.34.1)
@@ -1574,12 +1600,18 @@ importers:
       vite-plugin-externalize-deps:
         specifier: ^0.8.0
         version: 0.8.0(vite@5.4.9(@types/node@20.16.11)(terser@5.34.1))
+      vite-plugin-pages:
+        specifier: ^0.32.3
+        version: 0.32.3(@vue/compiler-sfc@3.5.12)(vite@5.4.9(@types/node@20.16.11)(terser@5.34.1))(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3)))
       vitest:
         specifier: ^2.1.3
         version: 2.1.3(@types/node@20.16.11)(happy-dom@15.7.4)(jsdom@25.0.1)(terser@5.34.1)
       vue:
         specifier: ^3.5.12
         version: 3.5.12(typescript@5.6.3)
+      vue-router:
+        specifier: ^4.4.5
+        version: 4.4.5(vue@3.5.12(typescript@5.6.3))
       vue-tsc:
         specifier: ^2.1.6
         version: 2.1.6(typescript@5.6.3)
@@ -3838,6 +3870,12 @@ packages:
 
   '@types/ssri@7.1.5':
     resolution: {integrity: sha512-odD/56S3B51liILSk5aXJlnYt99S6Rt9EFDDqGtJM26rKHApHcwyU/UoYHrzKkdkHMAIquGWCuHtQTbes+FRQw==}
+
+  '@types/strip-bom@3.0.0':
+    resolution: {integrity: sha512-xevGOReSYGM7g/kUBZzPqCrR/KYAo+F0yiPc85WFTJa0MSLtyFTVTU6cJu/aV4mid7IffDIWqo69THF2o4JiEQ==}
+
+  '@types/strip-json-comments@0.0.30':
+    resolution: {integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -7996,6 +8034,10 @@ packages:
     resolution: {integrity: sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==}
     engines: {node: '>=8'}
 
+  strip-json-comments@2.0.1:
+    resolution: {integrity: sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==}
+    engines: {node: '>=0.10.0'}
+
   strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
@@ -8209,6 +8251,9 @@ packages:
   tsconfig-paths@4.2.0:
     resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
     engines: {node: '>=6'}
+
+  tsconfig@7.0.0:
+    resolution: {integrity: sha512-vZXmzPrL+EmC4T/4rVlT2jNVMWCi/O4DIiSj3UHg1OE5kCKbk4mfrXc6dZksLgRM/TZlKnousKH9bbTazUWRRw==}
 
   tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
@@ -10835,25 +10880,6 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.3.5(storybook@8.3.5)(typescript@5.6.3)(vite@5.4.9(@types/node@20.16.11)(terser@5.34.1))':
-    dependencies:
-      '@storybook/csf-plugin': 8.3.5(storybook@8.3.5)
-      '@types/find-cache-dir': 3.2.1
-      browser-assert: 1.2.1
-      es-module-lexer: 1.5.4
-      express: 4.21.1
-      find-cache-dir: 3.3.2
-      fs-extra: 11.2.0
-      magic-string: 0.30.12
-      storybook: 8.3.5
-      ts-dedent: 2.2.0
-      vite: 5.4.9(@types/node@20.16.11)(terser@5.34.1)
-    optionalDependencies:
-      typescript: 5.6.3
-    transitivePeerDependencies:
-      - supports-color
-      - webpack-sources
-
   '@storybook/builder-vite@8.3.5(storybook@8.3.5)(typescript@5.6.3)(vite@5.4.9(@types/node@22.7.5)(terser@5.34.1))':
     dependencies:
       '@storybook/csf-plugin': 8.3.5(storybook@8.3.5)
@@ -10966,24 +10992,6 @@ snapshots:
   '@storybook/theming@8.3.5(storybook@8.3.5)':
     dependencies:
       storybook: 8.3.5
-
-  '@storybook/vue3-vite@8.3.5(storybook@8.3.5)(vite@5.4.9(@types/node@20.16.11)(terser@5.34.1))(vue@3.5.12(typescript@5.6.3))':
-    dependencies:
-      '@storybook/builder-vite': 8.3.5(storybook@8.3.5)(typescript@5.6.3)(vite@5.4.9(@types/node@20.16.11)(terser@5.34.1))
-      '@storybook/vue3': 8.3.5(storybook@8.3.5)(vue@3.5.12(typescript@5.6.3))
-      find-package-json: 1.2.0
-      magic-string: 0.30.12
-      storybook: 8.3.5
-      typescript: 5.6.3
-      vite: 5.4.9(@types/node@20.16.11)(terser@5.34.1)
-      vue-component-meta: 2.1.6(typescript@5.6.3)
-      vue-docgen-api: 4.79.2(vue@3.5.12(typescript@5.6.3))
-    transitivePeerDependencies:
-      - '@preact/preset-vite'
-      - supports-color
-      - vite-plugin-glimmerx
-      - vue
-      - webpack-sources
 
   '@storybook/vue3-vite@8.3.5(storybook@8.3.5)(vite@5.4.9(@types/node@22.7.5)(terser@5.34.1))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
@@ -11216,6 +11224,10 @@ snapshots:
   '@types/ssri@7.1.5':
     dependencies:
       '@types/node': 20.16.11
+
+  '@types/strip-bom@3.0.0': {}
+
+  '@types/strip-json-comments@0.0.30': {}
 
   '@types/tough-cookie@4.0.5': {}
 
@@ -16560,6 +16572,8 @@ snapshots:
     dependencies:
       min-indent: 1.0.1
 
+  strip-json-comments@2.0.1: {}
+
   strip-json-comments@3.1.1: {}
 
   strip-literal@2.1.0:
@@ -16789,6 +16803,13 @@ snapshots:
       json5: 2.2.3
       minimist: 1.2.8
       strip-bom: 3.0.0
+
+  tsconfig@7.0.0:
+    dependencies:
+      '@types/strip-bom': 3.0.0
+      '@types/strip-json-comments': 0.0.30
+      strip-bom: 3.0.0
+      strip-json-comments: 2.0.1
 
   tslib@1.14.1: {}
 
@@ -17320,6 +17341,24 @@ snapshots:
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.12
       vue-router: 4.4.5(vue@3.4.21(typescript@5.6.3))
+    transitivePeerDependencies:
+      - supports-color
+
+  vite-plugin-pages@0.32.3(@vue/compiler-sfc@3.5.12)(vite@5.4.9(@types/node@20.16.11)(terser@5.34.1))(vue-router@4.4.5(vue@3.5.12(typescript@5.6.3))):
+    dependencies:
+      '@types/debug': 4.1.12
+      debug: 4.3.7
+      dequal: 2.0.3
+      extract-comments: 1.1.0
+      fast-glob: 3.3.2
+      json5: 2.2.3
+      local-pkg: 0.5.0
+      picocolors: 1.1.0
+      vite: 5.4.9(@types/node@20.16.11)(terser@5.34.1)
+      yaml: 2.6.0
+    optionalDependencies:
+      '@vue/compiler-sfc': 3.5.12
+      vue-router: 4.4.5(vue@3.5.12(typescript@5.6.3))
     transitivePeerDependencies:
       - supports-color
 

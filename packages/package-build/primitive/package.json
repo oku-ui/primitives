@@ -37,12 +37,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/slot": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^",
+    "@oku-ui/slot": "latest",
+    "@oku-ui/use-composable": "latest",
     "filter-anything": "^3.0.7"
   },
   "devDependencies": {
-    "tsconfig": "workspace:^"
+    "tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"

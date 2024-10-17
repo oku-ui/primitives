@@ -37,12 +37,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/utils": "workspace:^",
+    "@oku-ui/utils": "latest",
     "@vueuse/core": "^10.11.1"
   },
   "devDependencies": {
     "@types/resize-observer-browser": "^0.1.11",
-    "tsconfig": "workspace:^"
+    "tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"

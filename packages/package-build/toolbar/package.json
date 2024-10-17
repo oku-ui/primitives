@@ -40,17 +40,17 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/direction": "workspace:^",
-    "@oku-ui/primitive": "workspace:^",
-    "@oku-ui/provide": "workspace:^",
-    "@oku-ui/roving-focus": "workspace:^",
-    "@oku-ui/separator": "workspace:^",
-    "@oku-ui/toggle-group": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^",
-    "@oku-ui/utils": "workspace:^"
+    "@oku-ui/direction": "latest",
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/roving-focus": "latest",
+    "@oku-ui/separator": "latest",
+    "@oku-ui/toggle-group": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
-    "tsconfig": "workspace:^"
+    "tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"

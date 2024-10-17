@@ -38,7 +38,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "tsconfig": "workspace:^"
+    "tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"

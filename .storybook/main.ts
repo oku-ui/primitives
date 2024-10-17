@@ -7,7 +7,7 @@ const resolve = (val: string) => new URL(val, import.meta.url).pathname
 const config: StorybookConfig = {
   stories: [
     '../stories/*.mdx',
-    `../packages/vue-primitives/src/**/stories/*.stories.@(js|jsx|mjs|ts|tsx)`,
+    '../packages/vue-primitives/src/**/stories/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',

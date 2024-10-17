@@ -39,8 +39,6 @@
     "scripts/**/*"
   ],
   "exclude": [
-    "**/*/*.stories.ts",
-    "**/*/*.stories.tsx",
 
     "**dist**",
     "**node_modules**"

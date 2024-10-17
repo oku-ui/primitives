@@ -40,12 +40,12 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/primitive": "workspace:^",
-    "@oku-ui/provide": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^",
-    "@oku-ui/utils": "workspace:^"
+    "@oku-ui/primitive": "latest",
+    "@oku-ui/provide": "latest",
+    "@oku-ui/use-composable": "latest",
+    "@oku-ui/utils": "latest"
   },
   "devDependencies": {
-    "tsconfig": "workspace:^"
+    "tsconfig": "latest"
   }
 }

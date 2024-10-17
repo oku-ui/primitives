@@ -6,180 +6,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "exports": {
-    "./accordion": {
-      "types": "./dist/accordion/index.d.ts",
-      "import": "./dist/accordion/index.js"
-    },
-    "./alert-dialog": {
-      "types": "./dist/alert-dialog/index.d.ts",
-      "import": "./dist/alert-dialog/index.js"
-    },
-    "./arrow": {
-      "types": "./dist/arrow/index.d.ts",
-      "import": "./dist/arrow/index.js"
-    },
-    "./aspect-ratio": {
-      "types": "./dist/aspect-ratio/index.d.ts",
-      "import": "./dist/aspect-ratio/index.js"
-    },
-    "./avatar": {
-      "types": "./dist/avatar/index.d.ts",
-      "import": "./dist/avatar/index.js"
-    },
-    "./checkbox": {
-      "types": "./dist/checkbox/index.d.ts",
-      "import": "./dist/checkbox/index.js"
-    },
-    "./collapsible": {
-      "types": "./dist/collapsible/index.d.ts",
-      "import": "./dist/collapsible/index.js"
-    },
-    "./collection": {
-      "types": "./dist/collection/index.d.ts",
-      "import": "./dist/collection/index.js"
-    },
-    "./config": {
-      "types": "./dist/config/index.d.ts",
-      "import": "./dist/config/index.js"
-    },
-    "./context-menu": {
-      "types": "./dist/context-menu/index.d.ts",
-      "import": "./dist/context-menu/index.js"
-    },
-    "./dialog": {
-      "types": "./dist/dialog/index.d.ts",
-      "import": "./dist/dialog/index.js"
-    },
-    "./direction": {
-      "types": "./dist/direction/index.d.ts",
-      "import": "./dist/direction/index.js"
-    },
-    "./dismissable-layer": {
-      "types": "./dist/dismissable-layer/index.d.ts",
-      "import": "./dist/dismissable-layer/index.js"
-    },
-    "./dropdown-menu": {
-      "types": "./dist/dropdown-menu/index.d.ts",
-      "import": "./dist/dropdown-menu/index.js"
-    },
-    "./floating": {
-      "types": "./dist/floating/index.d.ts",
-      "import": "./dist/floating/index.js"
-    },
-    "./focus-guards": {
-      "types": "./dist/focus-guards/index.d.ts",
-      "import": "./dist/focus-guards/index.js"
-    },
-    "./focus-scope": {
-      "types": "./dist/focus-scope/index.d.ts",
-      "import": "./dist/focus-scope/index.js"
-    },
-    "./hooks": {
-      "types": "./dist/hooks/index.d.ts",
-      "import": "./dist/hooks/index.js"
-    },
-    "./hover-card": {
-      "types": "./dist/hover-card/index.d.ts",
-      "import": "./dist/hover-card/index.js"
-    },
-    "./label": {
-      "types": "./dist/label/index.d.ts",
-      "import": "./dist/label/index.js"
-    },
-    "./menu": {
-      "types": "./dist/menu/index.d.ts",
-      "import": "./dist/menu/index.js"
-    },
-    "./menubar": {
-      "types": "./dist/menubar/index.d.ts",
-      "import": "./dist/menubar/index.js"
-    },
-    "./popover": {
-      "types": "./dist/popover/index.d.ts",
-      "import": "./dist/popover/index.js"
-    },
-    "./popper": {
-      "types": "./dist/popper/index.d.ts",
-      "import": "./dist/popper/index.js"
-    },
-    "./portal": {
-      "types": "./dist/portal/index.d.ts",
-      "import": "./dist/portal/index.js"
-    },
-    "./presence": {
-      "types": "./dist/presence/index.d.ts",
-      "import": "./dist/presence/index.js"
-    },
-    "./primitive": {
-      "types": "./dist/primitive/index.d.ts",
-      "import": "./dist/primitive/index.js"
-    },
-    "./progress": {
-      "types": "./dist/progress/index.d.ts",
-      "import": "./dist/progress/index.js"
-    },
-    "./radio-group": {
-      "types": "./dist/radio-group/index.d.ts",
-      "import": "./dist/radio-group/index.js"
-    },
-    "./roving-focus": {
-      "types": "./dist/roving-focus/index.d.ts",
-      "import": "./dist/roving-focus/index.js"
-    },
-    "./scroll-area": {
-      "types": "./dist/scroll-area/index.d.ts",
-      "import": "./dist/scroll-area/index.js"
-    },
-    "./separator": {
-      "types": "./dist/separator/index.d.ts",
-      "import": "./dist/separator/index.js"
-    },
-    "./shared": {
-      "types": "./dist/shared/index.d.ts",
-      "import": "./dist/shared/index.js"
-    },
-    "./slider": {
-      "types": "./dist/slider/index.d.ts",
-      "import": "./dist/slider/index.js"
-    },
-    "./slot": {
-      "types": "./dist/slot/index.d.ts",
-      "import": "./dist/slot/index.js"
-    },
-    "./switch": {
-      "types": "./dist/switch/index.d.ts",
-      "import": "./dist/switch/index.js"
-    },
-    "./tabs": {
-      "types": "./dist/tabs/index.d.ts",
-      "import": "./dist/tabs/index.js"
-    },
-    "./toast": {
-      "types": "./dist/toast/index.d.ts",
-      "import": "./dist/toast/index.js"
-    },
-    "./toggle": {
-      "types": "./dist/toggle/index.d.ts",
-      "import": "./dist/toggle/index.js"
-    },
-    "./toggle-group": {
-      "types": "./dist/toggle-group/index.d.ts",
-      "import": "./dist/toggle-group/index.js"
-    },
-    "./toolbar": {
-      "types": "./dist/toolbar/index.d.ts",
-      "import": "./dist/toolbar/index.js"
-    },
-    "./tooltip": {
-      "types": "./dist/tooltip/index.d.ts",
-      "import": "./dist/tooltip/index.js"
-    },
-    "./visually-hidden": {
-      "types": "./dist/visually-hidden/index.d.ts",
-      "import": "./dist/visually-hidden/index.js"
-    }
-  },
   "files": [
     "dist"
   ],
@@ -205,13 +31,6 @@
     "aria-hidden": "^1.2.4"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.3.5",
-    "@storybook/addon-interactions": "^8.3.5",
-    "@storybook/addon-links": "^8.3.5",
-    "@storybook/blocks": "^8.3.5",
-    "@storybook/test": "^8.3.5",
-    "@storybook/vue3": "^8.3.5",
-    "@storybook/vue3-vite": "^8.3.5",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.16.11",
@@ -219,14 +38,19 @@
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/test-utils": "^2.4.6",
     "@vueuse/core": "^11.1.0",
+    "filter-anything": "^3.0.7",
     "jsdom": "^25.0.1",
     "npm-run-all2": "^6.2.3",
     "storybook": "^8.3.5",
+    "typescript": "^5.6.3",
+    "unplugin-vue-components": "^0.26.0",
     "vite": "^5.4.9",
     "vite-plugin-dts": "^4.2.4",
     "vite-plugin-externalize-deps": "^0.8.0",
+    "vite-plugin-pages": "^0.32.3",
     "vitest": "^2.1.3",
     "vue": "^3.5.12",
+    "vue-router": "^4.4.5",
     "vue-tsc": "^2.1.6"
   }
 }
