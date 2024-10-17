@@ -2,13 +2,17 @@ import type { ScrollAreaScrollbarVisibleProps, UseScrollAreaScrollbarVisibleProp
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarAutoProps {
   orientation?: ScrollAreaScrollbarVisibleProps['orientation']
   forceMount?: boolean
 }
+
+export const DEFAULT_SCROLLBAR_AUTO_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<ScrollAreaScrollbarAutoProps>
 
 export interface UseScrollAreaScrollbarAutoProps extends UseScrollAreaScrollbarVisibleProps {
   forceMount?: boolean
@@ -18,7 +22,8 @@ export function useScrollAreaScrollbarAuto(props: UseScrollAreaScrollbarAutoProp
   isPresent: Ref<boolean>
   attrs: RadixPrimitiveGetAttrs
 }> {
-  const isHorizontal = props.orientation === 'horizontal'
+  const { orientation = 'vertical' } = props
+  const isHorizontal = orientation === 'horizontal'
   const context = useScrollAreaContext('ScrollAreaScrollbarAuto')
   const visible = shallowRef(false)
   const scrollbar = isHorizontal ? context.scrollbarX : context.scrollbarY
@@ -29,7 +34,7 @@ export function useScrollAreaScrollbarAuto(props: UseScrollAreaScrollbarAutoProp
       const isOverflowX = viewport.offsetWidth < viewport.scrollWidth
       const isOverflowY = viewport.offsetHeight < viewport.scrollHeight
 
-      visible.value = props.orientation === 'horizontal' ? isOverflowX : isOverflowY
+      visible.value = orientation === 'horizontal' ? isOverflowX : isOverflowY
     }
   }, 10)
 
@@ -47,7 +52,7 @@ export function useScrollAreaScrollbarAuto(props: UseScrollAreaScrollbarAutoProp
     attrs(extraAttrs) {
       const attrs = {
         'data-state': visible.value ? 'visible' : 'hidden',
-        'orientation': props.orientation,
+        'orientation': orientation,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

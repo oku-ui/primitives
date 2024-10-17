@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { type ScrollAreaThumbProps, useScrollAreaThumb } from './ScrollAreaThumb.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { DEFAULT_SCROLL_AREA_THUMB_PROPS, type ScrollAreaThumbProps, useScrollAreaThumb } from './ScrollAreaThumb.ts'
 import ScrollAreaThumbImpl from './ScrollAreaThumbImpl.vue'
 
 defineOptions({
   name: 'ScrollAreaThumb',
 })
 
-const props = defineProps<ScrollAreaThumbProps>()
+const props = withDefaults(defineProps<ScrollAreaThumbProps>(), DEFAULT_SCROLL_AREA_THUMB_PROPS)
 
-const scrollAreaThumb = useScrollAreaThumb({
-  forceMount: props.forceMount,
-})
+const scrollAreaThumb = useScrollAreaThumb(convertPropsToHookProps(props))
 </script>
 
 <template>

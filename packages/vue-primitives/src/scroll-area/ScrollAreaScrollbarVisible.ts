@@ -1,6 +1,6 @@
 import { useDebounceFn, useResizeObserver } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 import { provideScrollbarContext } from './ScrollAreaScrollbar.ts'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, getThumbSize, isScrollingWithinScrollbarBounds, toInt } from './utils.ts'
@@ -8,6 +8,8 @@ import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, 
 export interface ScrollAreaScrollbarVisibleProps {
   orientation?: 'horizontal' | 'vertical'
 }
+
+export const DEFAULT_SCROLL_AREA_SCROLLBAR_VISIBLE_PROPS = {} satisfies PrimitiveDefaultProps<ScrollAreaScrollbarVisibleProps>
 
 export interface Sizes {
   content: number

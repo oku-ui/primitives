@@ -1,7 +1,7 @@
 import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext } from '../hooks/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 type ScrollAreaType = 'auto' | 'always' | 'scroll' | 'hover'
 
@@ -10,6 +10,8 @@ export interface ScrollAreaRootProps {
   dir?: Direction
   scrollHideDelay?: number
 }
+
+export const DEFAULT_SCROLL_AREA_PROPS = {} satisfies PrimitiveDefaultProps<ScrollAreaRootProps>
 
 export interface ScrollAreaContext {
   type: ScrollAreaType
@@ -34,10 +36,15 @@ export interface UseScrollAreaRootProps {
   el?: Ref<HTMLElement | undefined>
   type?: ScrollAreaType
   dir?: MaybeRefOrGetter<Direction | undefined>
-  scrollHideDelay: number
+  scrollHideDelay?: number
 }
 
 export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitiveReturns {
+  const {
+    type = 'hover',
+    scrollHideDelay = 600,
+  } = props
+
   const el = props.el || shallowRef<HTMLElement>()
   const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
@@ -53,9 +60,9 @@ export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitive
   const direction = useDirection(props.dir)
 
   provideScrollAreaContext({
-    type: props.type ?? 'hover',
+    type,
     dir: direction,
-    scrollHideDelay: props.scrollHideDelay,
+    scrollHideDelay,
     scrollArea: el,
     viewport,
     content,

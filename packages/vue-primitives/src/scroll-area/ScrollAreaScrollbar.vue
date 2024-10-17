@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
-import { type ScrollAreaScrollbarProps, useScrollAreaScrollbar } from './ScrollAreaScrollbar.ts'
+import { DEFAULT_SCROLLBAR_PROPS, type ScrollAreaScrollbarProps, useScrollAreaScrollbar } from './ScrollAreaScrollbar.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
 import ScrollAreaScrollbarHover from './ScrollAreaScrollbarHover.vue'
 import ScrollAreaScrollbarScroll from './ScrollAreaScrollbarScroll.vue'
@@ -12,14 +12,10 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), {
-  orientation: 'vertical',
-})
+const props = withDefaults(defineProps<ScrollAreaScrollbarProps>(), DEFAULT_SCROLLBAR_PROPS)
 const context = useScrollAreaContext('ScrollAreaScrollbar')
 
-const scrollAreaScrollbar = useScrollAreaScrollbar({
-  orientation: props.orientation,
-})
+const scrollAreaScrollbar = useScrollAreaScrollbar(convertPropsToHookProps(props))
 
 const Comp = context.type === 'hover'
   ? ScrollAreaScrollbarHover

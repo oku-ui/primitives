@@ -3,13 +3,17 @@ import { isClient, useDebounceFn } from '@vueuse/core'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarScrollProps {
   orientation?: ScrollAreaScrollbarVisibleProps['orientation']
   forceMount?: boolean
 }
+
+export const DEFAULT_SCROLLBAR_SCROLL_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<ScrollAreaScrollbarScrollProps>
 
 export interface UseScrollAreaScrollbarScrollProps extends UseScrollAreaScrollbarVisibleProps {
   forceMount?: boolean
@@ -19,7 +23,8 @@ export function useScrollAreaScrollbarScroll(props: UseScrollAreaScrollbarScroll
   isPresent: Ref<boolean>
   attrs: RadixPrimitiveGetAttrs
 }> {
-  const isHorizontal = props.orientation === 'horizontal'
+  const { orientation = 'vertical' } = props
+  const isHorizontal = orientation === 'horizontal'
   const context = useScrollAreaContext('ScrollAreaScrollbarScroll')
   const scrollbar = isHorizontal ? context.scrollbarX : context.scrollbarY
 
@@ -65,7 +70,7 @@ export function useScrollAreaScrollbarScroll(props: UseScrollAreaScrollbarScroll
     if (!viewport)
       return
 
-    const scrollDirection = props.orientation === 'horizontal'
+    const scrollDirection = orientation === 'horizontal'
       ? 'scrollLeft'
       : 'scrollTop'
 
@@ -111,7 +116,7 @@ export function useScrollAreaScrollbarScroll(props: UseScrollAreaScrollbarScroll
     attrs(extraAttrs) {
       const attrs = {
         'data-state': state.value === 'hidden' ? 'hidden' : 'visible',
-        'orientation': props.orientation,
+        'orientation': orientation,
         onPointerenter,
         onPointerleave,
       }

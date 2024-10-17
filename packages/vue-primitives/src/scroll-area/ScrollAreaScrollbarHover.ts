@@ -1,4 +1,4 @@
-import type { RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import type { ScrollAreaScrollbarVisibleProps, UseScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { usePresence } from '../presence/index.ts'
@@ -10,6 +10,8 @@ export interface ScrollAreaScrollbarHoverProps {
   forceMount?: boolean
 }
 
+export const DEFAULT_SCROLLBAR_HOVER_PROPS = { forceMount: undefined } satisfies PrimitiveDefaultProps<ScrollAreaScrollbarHoverProps>
+
 export interface UseScrollAreaScrollbarHoverProps extends UseScrollAreaScrollbarVisibleProps {
   forceMount?: boolean
 }
@@ -18,7 +20,8 @@ export function useScrollAreaScrollbarHover(props: UseScrollAreaScrollbarHoverPr
   isPresent: Ref<boolean>
   attrs: RadixPrimitiveGetAttrs
 }> {
-  const isHorizontal = props.orientation === 'horizontal'
+  const { orientation = 'vertical' } = props
+  const isHorizontal = orientation === 'horizontal'
   const context = useScrollAreaContext('ScrollAreaScrollbarHover')
   const visible = shallowRef(false)
   const scrollbar = isHorizontal ? context.scrollbarX : context.scrollbarY
@@ -62,7 +65,7 @@ export function useScrollAreaScrollbarHover(props: UseScrollAreaScrollbarHoverPr
     attrs(extraAttrs) {
       const attrs = {
         'data-state': visible.value ? 'visible' : 'hidden',
-        'orientation': props.orientation,
+        'orientation': orientation,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

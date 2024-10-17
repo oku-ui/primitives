@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type ScrollAreaRootProps, useScrollAreaRoot } from './ScrollAreaRoot.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_SCROLL_AREA_PROPS, type ScrollAreaRootProps, useScrollAreaRoot } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaRoot',
@@ -9,18 +9,9 @@ defineOptions({
 
 })
 
-const props = withDefaults(defineProps<ScrollAreaRootProps>(), {
-  type: 'hover',
-  scrollHideDelay: 600,
-})
+const props = withDefaults(defineProps<ScrollAreaRootProps>(), DEFAULT_SCROLL_AREA_PROPS)
 
-const scrollAreaRoot = useScrollAreaRoot({
-  type: props.type,
-  dir() {
-    return props.dir
-  },
-  scrollHideDelay: props.scrollHideDelay,
-})
+const scrollAreaRoot = useScrollAreaRoot(convertPropsToHookProps(props, ['dir']))
 </script>
 
 <template>

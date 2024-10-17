@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { normalizeAttrs } from '../shared/index.ts'
-import { type ScrollAreaScrollbarScrollProps, useScrollAreaScrollbarScroll } from './ScrollAreaScrollbarScroll.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_SCROLLBAR_SCROLL_PROPS, type ScrollAreaScrollbarScrollProps, useScrollAreaScrollbarScroll } from './ScrollAreaScrollbarScroll.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
 defineOptions({
@@ -8,14 +8,9 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ScrollAreaScrollbarScrollProps>(), {
-  orientation: 'vertical',
-})
+const props = withDefaults(defineProps<ScrollAreaScrollbarScrollProps>(), DEFAULT_SCROLLBAR_SCROLL_PROPS)
 
-const scrollAreaScrollbarScroll = useScrollAreaScrollbarScroll({
-  orientation: props.orientation,
-  forceMount: props.forceMount,
-})
+const scrollAreaScrollbarScroll = useScrollAreaScrollbarScroll(convertPropsToHookProps(props))
 </script>
 
 <template>

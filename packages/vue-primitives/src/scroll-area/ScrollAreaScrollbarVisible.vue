@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-
-import { type ScrollAreaScrollbarVisibleProps, useScrollAreaScrollbarVisible } from './ScrollAreaScrollbarVisible.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import {
+  DEFAULT_SCROLL_AREA_SCROLLBAR_VISIBLE_PROPS,
+  type ScrollAreaScrollbarVisibleProps,
+  useScrollAreaScrollbarVisible,
+} from './ScrollAreaScrollbarVisible.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarVisible',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ScrollAreaScrollbarVisibleProps>(), {
-  orientation: 'vertical',
-})
+const props = withDefaults(defineProps<ScrollAreaScrollbarVisibleProps>(), DEFAULT_SCROLL_AREA_SCROLLBAR_VISIBLE_PROPS)
 
-const scrollAreaScrollbarVisible = useScrollAreaScrollbarVisible({
-  orientation: props.orientation,
-})
+const scrollAreaScrollbarVisible = useScrollAreaScrollbarVisible(convertPropsToHookProps(props))
 </script>
 
 <template>

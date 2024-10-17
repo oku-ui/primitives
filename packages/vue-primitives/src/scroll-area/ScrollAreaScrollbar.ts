@@ -1,12 +1,14 @@
 import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 import { onBeforeUnmount, onMounted, type Ref } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarProps {
   orientation?: ScrollAreaScrollbarVisibleProps['orientation']
 }
+
+export const DEFAULT_SCROLLBAR_PROPS = {} satisfies PrimitiveDefaultProps<ScrollAreaScrollbarProps>
 
 export interface ScrollbarContext {
   hasThumb: Ref<boolean>
@@ -23,7 +25,8 @@ export interface UseScrollbarProps {
 }
 
 export function useScrollAreaScrollbar(props: UseScrollbarProps): RadixPrimitiveReturns {
-  const isHorizontal = props.orientation === 'horizontal'
+  const { orientation = 'vertical' } = props
+  const isHorizontal = orientation === 'horizontal'
 
   const context = useScrollAreaContext('ScrollAreaScrollbar')
 
@@ -44,7 +47,7 @@ export function useScrollAreaScrollbar(props: UseScrollbarProps): RadixPrimitive
   return {
     attrs(extraAttrs) {
       const attrs = {
-        orientation: props.orientation,
+        orientation,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
