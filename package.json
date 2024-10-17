@@ -78,8 +78,6 @@
     "@oku-ui/toggle-group": "workspace:^",
     "@oku-ui/toolbar": "workspace:^",
     "@oku-ui/tooltip": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^",
-    "@oku-ui/utils": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/addon-interactions": "^8.3.5",
@@ -165,8 +163,6 @@
       "@oku-ui/toggle-group": "workspace:^",
       "@oku-ui/toolbar": "workspace:^",
       "@oku-ui/tooltip": "workspace:^",
-      "@oku-ui/use-composable": "workspace:^",
-      "@oku-ui/utils": "workspace:^",
       "@oku-ui/visually-hidden": "workspace:^"
     }
   },

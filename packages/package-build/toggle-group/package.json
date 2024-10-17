@@ -41,8 +41,8 @@
     "@oku-ui/primitive": "latest",
     "@oku-ui/provide": "latest",
     "@oku-ui/roving-focus": "latest",
-    "@oku-ui/toggle": "latest",
-    "@oku-ui/use-composable": "latest"
+    "@oku-ui/toggle": "latest"
+
   },
   "devDependencies": {
     "tsconfig": "latest"

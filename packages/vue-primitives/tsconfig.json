@@ -121,12 +121,6 @@
       "@oku-ui/tooltip": [
         "src/tooltip"
       ],
-      "@oku-ui/use-composable": [
-        "src/use-composable"
-      ],
-      "@oku-ui/utils": [
-        "src/utils"
-      ],
       "@oku-ui/visually-hidden": [
         "src/visually-hidden"
       ],

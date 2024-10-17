@@ -84,8 +84,6 @@
     "@oku-ui/toggle-group": "latest",
     "@oku-ui/toolbar": "latest",
     "@oku-ui/tooltip": "latest",
-    "@oku-ui/use-composable": "workspace:^",
-    "@oku-ui/utils": "workspace:^",
     "@oku-ui/visually-hidden": "latest",
     "@types/node": "^20.16.11",
     "nuxt": "^3.13.2"

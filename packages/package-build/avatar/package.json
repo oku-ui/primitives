@@ -41,8 +41,8 @@
   },
   "dependencies": {
     "@oku-ui/primitive": "latest",
-    "@oku-ui/provide": "latest",
-    "@oku-ui/use-composable": "latest"
+    "@oku-ui/provide": "latest"
+
   },
   "devDependencies": {
     "tsconfig": "latest"

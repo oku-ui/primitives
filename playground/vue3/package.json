@@ -52,8 +52,6 @@
     "@oku-ui/toggle-group": "workspace:^",
     "@oku-ui/toolbar": "workspace:^",
     "@oku-ui/tooltip": "workspace:^",
-    "@oku-ui/use-composable": "workspace:^",
-    "@oku-ui/utils": "workspace:^",
     "@oku-ui/visually-hidden": "workspace:^",
     "@vitejs/plugin-vue": "^5.1.4",
     "typescript": "^5.6.3",
