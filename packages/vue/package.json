@@ -13,8 +13,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
-    "@vueuse/core": "^10.7.2",
-    "filter-anything": "^3.0.7",
+    "@vueuse/core": "^11.0.0",
+    "filter-anything": "^4.0.0",
     "typescript": "^5.3.3",
     "unplugin-vue-components": "^0.26.0",
     "vite-plugin-pages": "^0.32.0",

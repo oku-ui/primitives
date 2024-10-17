@@ -31,7 +31,7 @@
     "@iconify-json/solar": "^1.1.9",
     "@iconify-json/twemoji": "latest",
     "@nuxt/devtools": "^1.0.8",
-    "@vueuse/nuxt": "^10.7.2",
+    "@vueuse/nuxt": "^11.0.0",
     "nuxt": "^3.10.0",
     "typescript": "^5.3.3"
   },
