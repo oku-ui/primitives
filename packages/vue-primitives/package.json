@@ -1,11 +1,9 @@
 {
-  "name": "@perigee/vue-primitives",
+  "name": "vue-packages",
   "type": "module",
-  "version": "0.2.5",
+  "version": "0.0.0",
+  "private": true,
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "dist"
   ],
