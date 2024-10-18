@@ -66,6 +66,7 @@ export default defineConfig({
       formats: ['es'],
       entry: input,
     },
+    target: 'esnext',
     rollupOptions: {
       external: ['vue', '@vue/shared'],
     },
