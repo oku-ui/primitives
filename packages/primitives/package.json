@@ -65,7 +65,7 @@
     "@oku-ui/tooltip": "workspace:^"
   },
   "devDependencies": {
-    "tsconfig": "workspace:^"
+    "@oku/tsconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

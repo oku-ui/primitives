@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/node.json",
+  "extends": "@oku/tsconfig/node.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
   },

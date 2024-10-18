@@ -50,7 +50,7 @@
     "@oku-ui/visually-hidden": "latest"
   },
   "devDependencies": {
-    "tsconfig": "latest"
+    "@oku/tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"

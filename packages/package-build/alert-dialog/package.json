@@ -48,7 +48,7 @@
     "@types/node": "^20.16.11"
   },
   "devDependencies": {
-    "tsconfig": "latest"
+    "@oku/tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"

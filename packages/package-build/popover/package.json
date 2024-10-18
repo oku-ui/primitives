@@ -55,7 +55,7 @@
     "aria-hidden": "^1.2.4"
   },
   "devDependencies": {
-    "tsconfig": "latest"
+    "@oku/tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"

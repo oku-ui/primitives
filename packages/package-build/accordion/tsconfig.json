@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/node18.json",
+  "extends": "@oku/tsconfig/node18.json",
   "compilerOptions": {
     "rootDir": "src",
     "types": ["node"],

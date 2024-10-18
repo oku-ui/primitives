@@ -46,6 +46,6 @@
 
   },
   "devDependencies": {
-    "tsconfig": "latest"
+    "@oku/tsconfig": "latest"
   }
 }

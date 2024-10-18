@@ -43,7 +43,7 @@
 
   },
   "devDependencies": {
-    "tsconfig": "latest"
+    "@oku/tsconfig": "latest"
   },
   "publishConfig": {
     "access": "public"
