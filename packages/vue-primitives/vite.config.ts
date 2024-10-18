@@ -54,7 +54,7 @@ export default defineConfig({
         'src/**/*.vue',
       ],
       exclude: ['src/**/__tests__/*', 'src/**/stories/*'],
-      tsconfigPath: 'app.json',
+      tsconfigPath: 'tsconfig.app.json',
     }),
   ],
   build: {
