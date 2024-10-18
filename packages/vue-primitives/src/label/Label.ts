@@ -1,9 +1,13 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 
 export interface LabelProps {
   as?: PrimitiveProps['as']
 }
+
+export const DEFAULT_LABEL_PROPS = {
+  as: 'label',
+} satisfies PrimitiveDefaultProps<LabelProps>
 
 export type LabelEmits = {
   mousedown: [event: MouseEvent]
