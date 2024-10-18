@@ -3,7 +3,7 @@ import { isClient } from '@vueuse/core'
 import { computed, onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useSize } from '../hooks/index.ts'
-import { type IAttrsData, mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type IAttrsData, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useCollection, useSliderContext, useSliderOrientationContext } from './SliderRoot.ts'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
 
@@ -11,6 +11,10 @@ export interface SliderThumbProps {
   as?: PrimitiveProps['as']
   name?: string
 }
+
+export const DEFAULT_SLIDER_THUMB_PROPS = {
+  as: 'span',
+} satisfies PrimitiveDefaultProps<SliderThumbProps>
 
 // export interface SliderThumbContext {
 //   bubbleInput: {

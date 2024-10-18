@@ -1,12 +1,11 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { EmitsToHookProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, LooseRequired, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { clamp } from '@floating-ui/utils'
 import { computed, type HTMLAttributes, type MaybeRefOrGetter, type Ref, type UnwrapRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useControllableStateV2, useRef, type useSize } from '../hooks/index.ts'
-import { getDecimalCount, isNumber, roundValue } from '../shared/general.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import { createContext, type MutableRefObject, useControllableStateV3, useRef, type useSize } from '../hooks/index.ts'
+import { getDecimalCount, isNumber, mergePrimitiveAttrs, roundValue } from '../shared/index.ts'
 import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
@@ -34,6 +33,17 @@ export interface SliderRootProps {
   defaultValue?: number[]
   inverted?: boolean
 }
+
+export const DEFAULT_SLIDER_ROOT_PROPS = {
+  as: 'span',
+  disabled: undefined,
+  inverted: undefined,
+  min: 0,
+  max: 100,
+  step: 1,
+  minStepsBetweenThumbs: 0,
+  defaultValue: (v: LooseRequired<SliderRootProps>) => isNumber(v.min) ? [v.min] : [0],
+} satisfies PrimitiveDefaultProps<SliderRootProps>
 
 export type SliderRootEmits = {
   'update:value': [value: number[]]
@@ -69,7 +79,7 @@ export const [provideSliderOrientationContext, useSliderOrientationContext] = cr
 export interface UseSliderRootProps extends EmitsToHookProps<SliderRootEmits> {
   el?: MutableRefObject<HTMLElement>
   value?: () => number[] | undefined
-  defaultValue?: number[]
+  defaultValue?: () => number[]
   name?: () => string | undefined
   disabled?: () => boolean | undefined
   orientation?: HTMLAttributes['aria-orientation']
@@ -78,7 +88,7 @@ export interface UseSliderRootProps extends EmitsToHookProps<SliderRootEmits> {
   max?: () => number
   step?: () => number
   minStepsBetweenThumbs?: () => number
-  inverted?: () => boolean
+  inverted?: boolean
 }
 
 export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns {
@@ -90,6 +100,7 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     disabled = () => false,
     orientation = 'horizontal',
     minStepsBetweenThumbs = () => 0,
+    defaultValue = () => isNumber(min()) ? [min()] : [0],
   } = props
 
   const el = props.el || useRef<HTMLElement>()
@@ -101,14 +112,14 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
   const valueIndexToChangeRef = useRef(0)
 
   // TODO: is not reactive
-  const values = useControllableStateV2(
+  const values = useControllableStateV3(
     props.value,
     (v) => {
       const _thumbs = Array.from(thumbs)
       _thumbs[valueIndexToChangeRef.value]?.focus()
       props.onUpdateValue?.(v as number[])
     },
-    props.defaultValue ?? (isNumber(min()) ? [min()] : [0]),
+    defaultValue,
   )
 
   let valuesBeforeSlideStartRef = values.value
@@ -211,10 +222,10 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
   const isSlidingFromStart = computed(() => {
     if (isHorisontal) {
       const isLtr = direction.value === 'ltr'
-      return (isLtr && !props.inverted?.()) || (!isLtr && props.inverted?.())
+      return (isLtr && !props.inverted) || (!isLtr && props.inverted)
     }
 
-    return !props.inverted?.()
+    return !props.inverted
   })
 
   function getValueFromPointer(pointerPosition: number) {

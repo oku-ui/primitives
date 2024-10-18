@@ -18,6 +18,7 @@ export { isPointInPolygon, type Point, type Polygon } from './isPointInPolygon.t
 export { type IAttrsData, mergePrimitiveAttrs, normalizeAttrs } from './mergeProps.ts'
 export {
   type EmitsToHookProps,
+  type LooseRequired,
   type PrimitiveDefaultProps,
   type PrimitiveElAttrs,
   type RadixPrimitiveGetAttrs,

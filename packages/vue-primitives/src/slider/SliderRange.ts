@@ -1,12 +1,16 @@
 import type { PrimitiveProps } from '../primitive'
 import { computed } from 'vue'
-import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useSliderContext, useSliderOrientationContext } from './SliderRoot.ts'
 import { convertValueToPercentage } from './utils.ts'
 
 export interface SliderRangeProps {
   as?: PrimitiveProps['as']
 }
+
+export const DEFAULT_SLIDER_RANGE_PROPS = {
+  as: 'span',
+} satisfies PrimitiveDefaultProps<SliderRangeProps>
 
 export function useSliderRange(): RadixPrimitiveReturns {
   const context = useSliderContext('SliderRange')

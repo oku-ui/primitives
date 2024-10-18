@@ -1,4 +1,5 @@
 export {
+  DEFAULT_SLIDER_RANGE_PROPS,
   type SliderRangeProps,
 } from './SliderRange.ts'
 export { default as SliderRange } from './SliderRange.vue'
@@ -6,6 +7,7 @@ export {
   ARROW_KEYS,
   BACK_KEYS,
   Collection,
+  DEFAULT_SLIDER_ROOT_PROPS,
   PAGE_KEYS,
   provideSliderContext,
   provideSliderOrientationContext,
@@ -25,6 +27,7 @@ export {
 export { default as SliderRoot } from './SliderRoot.vue'
 
 export {
+  DEFAULT_SLIDER_THUMB_PROPS,
   type SliderThumbProps,
   useSliderThumb,
   type UseSliderThumbProps,
@@ -33,6 +36,7 @@ export {
 export { default as SliderThumb } from './SliderThumb.vue'
 
 export {
+  DEFAULT_SLIDER_TRACK_PROPS,
   type SliderTrackProps,
   useSliderTrack,
 } from './SliderTrack.ts'

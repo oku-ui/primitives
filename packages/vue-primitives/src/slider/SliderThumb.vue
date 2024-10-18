@@ -1,23 +1,17 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import SliderBubbleInput from './SliderBubbleInput.vue'
-import { type SliderThumbProps, useSliderThumb } from './SliderThumb.ts'
+import { DEFAULT_SLIDER_THUMB_PROPS, type SliderThumbProps, useSliderThumb } from './SliderThumb.ts'
 
 defineOptions({
   name: 'SliderThumb',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<SliderThumbProps>(), {
-  as: 'span',
-})
+const props = withDefaults(defineProps<SliderThumbProps>(), DEFAULT_SLIDER_THUMB_PROPS)
 
-const sliderThumb = useSliderThumb({
-  name() {
-    return props.name
-  },
-})
+const sliderThumb = useSliderThumb(convertPropsToHookProps(props, ['name']))
 </script>
 
 <template>

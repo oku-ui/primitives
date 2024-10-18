@@ -1,11 +1,15 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { useSliderContext } from './SliderRoot.ts'
 
 export interface SliderTrackProps {
   as?: PrimitiveProps['as']
 }
+
+export const DEFAULT_SLIDER_TRACK_PROPS = {
+  as: 'span',
+} satisfies PrimitiveDefaultProps<SliderTrackProps>
 
 export function useSliderTrack(): RadixPrimitiveReturns {
   const context = useSliderContext('SliderTrack')
