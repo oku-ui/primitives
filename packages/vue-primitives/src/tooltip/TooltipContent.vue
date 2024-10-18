@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { type TooltipContentProps, useTooltipContent } from './TooltipContent.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
+import { DEFAULT_TOOLTIP_CONTENT_PROPS, type TooltipContentProps, useTooltipContent } from './TooltipContent.ts'
 import TooltipContentImpl from './TooltipContentImpl.vue'
 
 defineOptions({
   name: 'TooltipContent',
 })
 
-const props = defineProps<TooltipContentProps>()
+const props = withDefaults(defineProps<TooltipContentProps>(), DEFAULT_TOOLTIP_CONTENT_PROPS)
 
-const context = useTooltipContent({
-  forceMount: props.forceMount,
-})
+const context = useTooltipContent(convertPropsToHookProps(props))
 </script>
 
 <template>

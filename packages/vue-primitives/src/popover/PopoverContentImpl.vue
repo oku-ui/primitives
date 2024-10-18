@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type PopoverContentImplEmits, type PopoverContentImplProps, PopoverContentPropsDefaults, usePopoverContentImpl } from './PopoverContentImpl.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import {
+  DEFAULT_POPOVER_CONTENT_IMPL_PROPS,
+  type PopoverContentImplEmits,
+  type PopoverContentImplProps,
+  usePopoverContentImpl,
+} from './PopoverContentImpl.ts'
 
 defineOptions({
   name: 'PopoverContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<PopoverContentImplProps>(), PopoverContentPropsDefaults)
+const props = withDefaults(defineProps<PopoverContentImplProps>(), DEFAULT_POPOVER_CONTENT_IMPL_PROPS)
 
 const emit = defineEmits<PopoverContentImplEmits>()
 
-const popoverContentImpl = usePopoverContentImpl({
+const popoverContentImpl = usePopoverContentImpl(convertPropsToHookProps(props, [
+  'collisionBoundary',
+  'dir',
+], (): Required<EmitsToHookProps<PopoverContentImplEmits>> => ({
   onOpenAutoFocus(event) {
     emit('openAutoFocus', event)
   },
@@ -31,25 +39,7 @@ const popoverContentImpl = usePopoverContentImpl({
   onInteractOutside(event) {
     emit('interactOutside', event)
   },
-  popperProps: {
-    side: props.side,
-    align: props.align,
-    sideOffset: props.sideOffset,
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary() {
-      return props.collisionBoundary
-    },
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-    dir() {
-      return props.dir
-    },
-  },
-})
+})))
 </script>
 
 <template>

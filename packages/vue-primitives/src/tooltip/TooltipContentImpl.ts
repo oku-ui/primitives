@@ -1,8 +1,8 @@
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { createContext } from '../hooks/index.ts'
-import { type PopperContentProps, PopperContentPropsDefaults, usePopperContent, type UsePopperContentProps } from '../popper/PopperContent.ts'
+import { type PopperContentProps, usePopperContent, type UsePopperContentProps } from '../popper/PopperContent.ts'
 import { usePopperContext } from '../popper/PopperRoot.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { TOOLTIP_OPEN, useTooltipContext } from './TooltipRoot.ts'
@@ -15,10 +15,10 @@ export interface TooltipContentImplProps extends PopperContentProps {
   ariaLabel?: string
 }
 
-export const TooltipContentPropsDefaults = {
-  ...PopperContentPropsDefaults,
-  side: 'top',
-} as const
+export const DEFAULT_TOOLTIP_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+} satisfies PrimitiveDefaultProps<TooltipContentImplProps>
 
 export type TooltipContentImplEmits = {
   /** Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault` */
@@ -29,14 +29,13 @@ export type TooltipContentImplEmits = {
 
 export interface TooltipContentContext {
   id: string
-  ariaLabel: () => string | undefined
+  ariaLabel?: string | undefined
 }
 
 export const [provideTooltipContentContext, useTooltipContentContext] = createContext<TooltipContentContext>('TooltipContent')
 
-export interface UseTooltipContentImplProps extends EmitsToHookProps<TooltipContentImplEmits> {
-  ariaLabel?: () => string | undefined
-  popperProps?: Omit<UsePopperContentProps, 'onPlaced'>
+export interface UseTooltipContentImplProps extends EmitsToHookProps<TooltipContentImplEmits>, Omit<UsePopperContentProps, 'onPlaced'> {
+  ariaLabel?: string | undefined
 }
 
 export function useTooltipContentImpl(props: UseTooltipContentImplProps): ReturnType<typeof usePopperContent> {
@@ -72,7 +71,7 @@ export function useTooltipContentImpl(props: UseTooltipContentImplProps): Return
 
   provideTooltipContentContext({
     id: context.contentId,
-    ariaLabel: props.ariaLabel ?? (() => undefined),
+    ariaLabel: props.ariaLabel,
   })
 
   const dismissableLayer = useDismissableLayer({
@@ -88,10 +87,10 @@ export function useTooltipContentImpl(props: UseTooltipContentImplProps): Return
     onPointerdownOutside: props.onPointerdownOutside,
   })
 
-  const popperProps = props.popperProps ?? {}
-  popperProps.side = popperProps.side ?? 'top'
-
-  const popperContent = usePopperContent(popperProps)
+  const popperContent = usePopperContent({
+    ...props,
+    side: props.side ?? 'top',
+  })
 
   return {
     wrapperAttrs: popperContent.wrapperAttrs,

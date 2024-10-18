@@ -1,29 +1,25 @@
 <script setup lang="ts">
-import { type TooltipRootEmits, type TooltipRootProps, useTooltipRoot } from './TooltipRoot.ts'
+import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { DEFAULT_TOOLTIP_ROOT_PROPS, type TooltipRootEmits, type TooltipRootProps, useTooltipRoot } from './TooltipRoot.ts'
 
 defineOptions({
   name: 'TooltipRoot',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<TooltipRootProps>(), {
-  open: undefined,
-  defaultOpen: false,
-  delayDuration: undefined,
-  disableHoverableContent: undefined,
-})
+const props = withDefaults(defineProps<TooltipRootProps>(), DEFAULT_TOOLTIP_ROOT_PROPS)
 const emit = defineEmits<TooltipRootEmits>()
 
-useTooltipRoot({
-  open() {
-    return props.open
-  },
-  onUpdateOpen(open) {
-    emit('update:open', open)
-  },
-  delayDuration: props.delayDuration,
-  disableHoverableContent: props.disableHoverableContent,
-})
+useTooltipRoot(convertPropsToHookProps(
+  props,
+  ['open'],
+  (): Required<EmitsToHookProps<TooltipRootEmits>> => ({
+    onUpdateOpen(open) {
+      emit('update:open', open)
+    },
+  }),
+))
 </script>
 
 <template>

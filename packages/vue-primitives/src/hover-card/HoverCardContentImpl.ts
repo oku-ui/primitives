@@ -1,13 +1,16 @@
-import type { EmitsToHookProps } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
 import { onBeforeUnmount, onMounted, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-layer/index.ts'
-import { type PopperContentProps, PopperContentPropsDefaults, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
+import { type PopperContentProps, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 import { getTabbableNodes } from './utils.ts'
 
 export interface HoverCardContentImplProps extends PopperContentProps { }
 
-export const HoverCardContentImplPropsDefaults = { ...PopperContentPropsDefaults } as const
+export const DEFAULT_HOVER_CARD_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+} satisfies PrimitiveDefaultProps<HoverCardContentImplProps>
 
 export type HoverCardContentImplEmits = {
   /**

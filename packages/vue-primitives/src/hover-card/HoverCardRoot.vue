@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { type HoverCardRootEmits, type HoverCardRootProps, useHoverCardRoot } from './HoverCardRoot.ts'
 
 defineOptions({
@@ -15,17 +17,15 @@ const props = withDefaults(defineProps<HoverCardRootProps>(), {
 
 const emit = defineEmits<HoverCardRootEmits>()
 
-useHoverCardRoot({
-  open() {
-    return props.open
-  },
-  onUpdateOpen(open) {
-    emit('update:open', open)
-  },
-  defaultOpen: props.defaultOpen,
-  openDelay: props.openDelay,
-  closeDelay: props.closeDelay,
-})
+useHoverCardRoot(convertPropsToHookProps(
+  props,
+  ['open'],
+  (): Required<EmitsToHookProps<HoverCardRootEmits>> => ({
+    onUpdateOpen(open) {
+      emit('update:open', open)
+    },
+  }),
+))
 </script>
 
 <template>

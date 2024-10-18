@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { RadixPrimitiveReturns } from '../shared'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
@@ -11,6 +11,10 @@ export interface HoverCardContentProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_HOVER_CARD_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<HoverCardContentProps>
 
 export interface UseHoverCardContentProps {
   forceMount?: boolean

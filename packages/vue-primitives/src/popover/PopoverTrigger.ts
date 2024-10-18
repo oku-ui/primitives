@@ -1,11 +1,15 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { usePopperContext } from '../popper/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 export interface PopoverTriggerProps {
   as?: PrimitiveProps['as']
 }
+
+export const DEFAULT_POPOVER_TRIGGER_PROPS = {
+  as: 'button',
+} satisfies PrimitiveDefaultProps<PopoverTriggerProps>
 
 export function usePopoverTrigger(): RadixPrimitiveReturns {
   const context = usePopoverContext('PopoverTrigger')

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
-import { OPPOSITE_SIDE, type PopperArrowProps } from './PopperArrow.ts'
+import { Primitive } from '../primitive/index.ts'
+import { DEFAULT_ARROW_PROPS, OPPOSITE_SIDE, type PopperArrowProps } from './PopperArrow.ts'
 import { useContentContext } from './PopperContent.ts'
 
 defineOptions({
@@ -8,11 +8,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-withDefaults(defineProps<PopperArrowProps>(), {
-  as: 'svg',
-  width: 10,
-  height: 5,
-})
+withDefaults(defineProps<PopperArrowProps>(), DEFAULT_ARROW_PROPS)
 
 const contentContext = useContentContext('PopperArrow')
 </script>

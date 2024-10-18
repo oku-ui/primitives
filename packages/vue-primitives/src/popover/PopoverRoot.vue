@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { type PopoverRootEmits, type PopoverRootProps, usePopoverRoot } from './PopoverRoot.ts'
+import { DEFAULT_POPOVER_ROOT_PROPS, type PopoverRootEmits, type PopoverRootProps, usePopoverRoot } from './PopoverRoot.ts'
 
 defineOptions({
   name: 'PopoverRoot',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<PopoverRootProps>(), {
-  open: undefined,
-  defaultOpen: false,
-  modal: false,
-})
+const props = withDefaults(defineProps<PopoverRootProps>(), DEFAULT_POPOVER_ROOT_PROPS)
 const emit = defineEmits<PopoverRootEmits>()
 
 usePopoverRoot({

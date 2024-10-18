@@ -1,4 +1,4 @@
-import { createContext, type MutableRefObject, useRef } from '@oku-ui/hooks'
+import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { isClient, tryOnScopeDispose } from '@vueuse/core'
 import { type Ref, shallowRef } from 'vue'
 
@@ -19,6 +19,10 @@ export interface TooltipProviderProps {
    */
   disableHoverableContent?: boolean
 }
+
+export const DEFAULT_TOOLTIP_PROVIDER_PROPS = {
+  disableHoverableContent: undefined,
+} satisfies PrimitiveDefaultProps<TooltipProviderProps>
 
 export interface TooltipProviderContext {
   isOpenDelayed: Ref<boolean>

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { useTooltipContext } from './TooltipRoot.ts'
@@ -11,6 +11,10 @@ export interface TooltipContentProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_TOOLTIP_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<TooltipContentProps>
 
 export interface UseTooltipContentProps {
   forceMount?: boolean

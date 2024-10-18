@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { type PopoverContentProps, usePopoverContent } from './PopoverContent.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { DEFAULT_POPOVER_CONTENT_PROPS, type PopoverContentProps, usePopoverContent } from './PopoverContent.ts'
 import PopoverContentImpl from './PopoverContentImpl.vue'
 
 defineOptions({
   name: 'PopoverContent',
 })
 
-const props = defineProps<PopoverContentProps>()
+const props = withDefaults(defineProps<PopoverContentProps>(), DEFAULT_POPOVER_CONTENT_PROPS)
 
-const popoverContent = usePopoverContent({
-  forceMount: props.forceMount,
-})
+const popoverContent = usePopoverContent(convertPropsToHookProps(props))
 </script>
 
 <template>

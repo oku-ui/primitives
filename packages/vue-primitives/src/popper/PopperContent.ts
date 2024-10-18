@@ -16,7 +16,7 @@ import {
   type UseFloatingCofnig,
 } from '../floating/index.ts'
 import { createContext, useSize } from '../hooks/index.ts'
-import { type EmitsToHookProps, type IAttrsData, mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { type EmitsToHookProps, type IAttrsData, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { usePopperContext } from './PopperRoot.ts'
 import { getSideAndAlignFromPlacement, isNotNull, transformOrigin } from './utils.ts'
 
@@ -35,19 +35,10 @@ export interface PopperContentProps {
   dir?: Direction
 }
 
-export const PopperContentPropsDefaults = {
-  side: 'bottom',
-  sideOffset: 0,
-  align: 'center',
-  alignOffset: 0,
-  arrowPadding: 0,
-  avoidCollisions: true,
-  collisionBoundary: () => [],
-  collisionPadding: 0,
-  sticky: 'partial',
-  hideWhenDetached: false,
-  updatePositionStrategy: 'optimized',
-} as const
+export const DEFAULT_POPPER_CONTENT_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+} satisfies PrimitiveDefaultProps<PopperContentProps>
 
 export type PopperContentEmits = {
   placed: []

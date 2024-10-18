@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type HoverCardContentImplEmits, type HoverCardContentImplProps, HoverCardContentImplPropsDefaults, useHoverCardContentImpl } from './HoverCardContentImpl.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_HOVER_CARD_CONTENT_IMPL_PROPS, type HoverCardContentImplEmits, type HoverCardContentImplProps, useHoverCardContentImpl } from './HoverCardContentImpl.ts'
 
 defineOptions({
   name: 'HoverCardContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<HoverCardContentImplProps>(), HoverCardContentImplPropsDefaults)
+const props = withDefaults(defineProps<HoverCardContentImplProps>(), DEFAULT_HOVER_CARD_CONTENT_IMPL_PROPS)
 
 const emit = defineEmits<HoverCardContentImplEmits>()
 
-const hoverCardContentImpl = useHoverCardContentImpl({
+const hoverCardContentImpl = useHoverCardContentImpl(convertPropsToHookProps(props, [
+  'collisionBoundary',
+  'dir',
+], (): Required<EmitsToHookProps<HoverCardContentImplEmits>> => ({
   onEscapeKeydown(event) {
     emit('escapeKeydown', event)
   },
@@ -25,25 +28,7 @@ const hoverCardContentImpl = useHoverCardContentImpl({
   onInteractOutside(event) {
     emit('interactOutside', event)
   },
-  popperProps: {
-    side: props.side,
-    align: props.align,
-    sideOffset: props.sideOffset,
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary() {
-      return props.collisionBoundary
-    },
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-    dir() {
-      return props.dir
-    },
-  },
-})
+})))
 </script>
 
 <template>

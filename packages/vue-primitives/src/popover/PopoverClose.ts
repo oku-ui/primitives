@@ -1,11 +1,15 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 export interface PopoverCloseProps {
   as?: PrimitiveProps['as']
 }
+
+export const DEFAULT_POPOVER_CLOSE_PROPS = {
+  as: 'button',
+} satisfies PrimitiveDefaultProps<PopoverCloseProps>
 
 export function usePopoverClose(): RadixPrimitiveReturns {
   const context = usePopoverContext('PopoverClose')

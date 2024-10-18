@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { type TooltipProviderProps, useTooltipProvider } from './TooltipProvider.ts'
+import { DEFAULT_TOOLTIP_PROVIDER_PROPS, type TooltipProviderProps, useTooltipProvider } from './TooltipProvider.ts'
 
-const props = defineProps<TooltipProviderProps>()
+const props = withDefaults(defineProps<TooltipProviderProps>(), DEFAULT_TOOLTIP_PROVIDER_PROPS)
 
 useTooltipProvider(props)
 </script>

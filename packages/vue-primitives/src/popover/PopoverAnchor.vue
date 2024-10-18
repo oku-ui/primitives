@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { type PopoverAnchorProps, usePopoverAnchor } from './PopoverAnchor.ts'
 
 defineOptions({
@@ -10,9 +10,7 @@ defineOptions({
 
 const props = defineProps<PopoverAnchorProps>()
 
-const popoverAnchor = usePopoverAnchor({
-  virtualRef: props.virtualRef,
-})
+const popoverAnchor = usePopoverAnchor(convertPropsToHookProps(props))
 </script>
 
 <template>

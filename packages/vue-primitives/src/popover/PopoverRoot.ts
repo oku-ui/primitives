@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { EmitsToHookProps } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/index.ts'
 
@@ -8,6 +8,12 @@ export interface PopoverRootProps {
   defaultOpen?: boolean
   modal?: boolean
 }
+
+export const DEFAULT_POPOVER_ROOT_PROPS = {
+  open: undefined,
+  defaultOpen: undefined,
+  modal: undefined,
+} satisfies PrimitiveDefaultProps<PopoverRootProps>
 
 export type PopoverRootEmits = {
   /**
@@ -35,9 +41,13 @@ export interface UsePopoverRootProps extends EmitsToHookProps<PopoverRootEmits> 
 }
 
 export function usePopoverRoot(props: UsePopoverRootProps = {}) {
+  const {
+    defaultOpen = false,
+    modal = false,
+  } = props
   const triggerRef = props.triggerRef ?? useRef<HTMLElement>()
 
-  const open = useControllableStateV2(props.open, props.onUpdateOpen, props.defaultOpen ?? false)
+  const open = useControllableStateV2(props.open, props.onUpdateOpen, defaultOpen)
 
   providePopoverContext({
     triggerRef,
@@ -49,7 +59,7 @@ export function usePopoverRoot(props: UsePopoverRootProps = {}) {
     onOpenToggle() {
       open.value = !open.value
     },
-    modal: props.modal ?? false,
+    modal,
   })
 
   usePooperRoot()

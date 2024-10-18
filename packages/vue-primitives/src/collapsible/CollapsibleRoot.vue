@@ -15,7 +15,7 @@ const collapsibleRoot = useCollapsibleRoot(convertPropsToHookProps(
   props,
   ['disabled', 'open'],
   (): Required<EmitsToHookProps<CollapsibleRootEmits>> => ({
-    onUpdateOpen(value: boolean) {
+    onUpdateOpen(value) {
       emit('update:open', value)
     },
   }),

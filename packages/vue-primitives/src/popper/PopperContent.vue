@@ -1,37 +1,29 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type PopperContentEmits, type PopperContentProps, PopperContentPropsDefaults, usePopperContent } from './PopperContent.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import {
+  DEFAULT_POPPER_CONTENT_PROPS,
+  type PopperContentEmits,
+  type PopperContentProps,
+  usePopperContent,
+} from './PopperContent.ts'
 
 defineOptions({
   name: 'PopperContent',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<PopperContentProps>(), PopperContentPropsDefaults)
+const props = withDefaults(defineProps<PopperContentProps>(), DEFAULT_POPPER_CONTENT_PROPS)
 const emit = defineEmits<PopperContentEmits>()
 
-const popperContent = usePopperContent({
-  side: props.side,
-  align: props.align,
-  sideOffset: props.sideOffset,
-  alignOffset: props.alignOffset,
-  arrowPadding: props.arrowPadding,
-  avoidCollisions: props.avoidCollisions,
-  collisionBoundary() {
-    return props.collisionBoundary
-  },
-  collisionPadding: props.collisionPadding,
-  sticky: props.sticky,
-  hideWhenDetached: props.hideWhenDetached,
-  updatePositionStrategy: props.updatePositionStrategy,
-  dir() {
-    return props.dir
-  },
+const popperContent = usePopperContent(convertPropsToHookProps(props, [
+  'collisionBoundary',
+  'dir',
+], (): Required<EmitsToHookProps<PopperContentEmits>> => ({
   onPlaced() {
     emit('placed')
   },
-})
+})))
 </script>
 
 <template>

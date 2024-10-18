@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { RadixPrimitiveReturns } from '../shared'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
@@ -11,6 +11,10 @@ export interface PopoverContentProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_POPOVER_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<PopoverContentProps>
 
 export interface UsePopoverContentProps {
   forceMount?: boolean

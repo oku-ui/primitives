@@ -1,14 +1,19 @@
-import type { EmitsToHookProps, IAttrsData, RadixPrimitiveGetAttrs } from '../shared/index.ts'
+import type { EmitsToHookProps, IAttrsData, PrimitiveDefaultProps, RadixPrimitiveGetAttrs } from '../shared/index.ts'
 import { hideOthers } from 'aria-hidden'
 import { onBeforeUnmount } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useBodyScrollLock } from '../hooks/index.ts'
-import { type PopperContentProps, PopperContentPropsDefaults, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
+import { type PopperContentProps, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 export interface PopoverContentImplProps extends PopperContentProps { }
+
+export const DEFAULT_POPOVER_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+} satisfies PrimitiveDefaultProps<PopoverContentImplProps>
 
 export type PopoverContentImplEmits = {
   /**
@@ -22,8 +27,6 @@ export type PopoverContentImplEmits = {
    */
   closeAutoFocus: [event: Event]
 } & Omit<DismissableLayerEmits, 'dismiss'>
-
-export const PopoverContentPropsDefaults = { ...PopperContentPropsDefaults } as const
 
 export interface UsePopoverContentImplProps extends Omit<UsePopoverContentImplSharedProps, 'trapFocus' | 'disableOutsidePointerEvents'> { }
 
@@ -125,8 +128,8 @@ export function usePopoverContentNonModal(props: UsePopoverContentImplProps): Us
   })
 }
 
-export interface UsePopoverContentImplSharedProps extends EmitsToHookProps<PopoverContentImplEmits> {
-  popperProps?: Omit<UsePopperContentProps, 'onPlaced'>
+export interface UsePopoverContentImplSharedProps extends EmitsToHookProps<PopoverContentImplEmits>, Omit<UsePopperContentProps, 'onPlaced'> {
+
 }
 
 export interface UsePopoverContentImplSharedPeturns {
@@ -168,7 +171,7 @@ export function usePopoverContentImplShared(props: UsePopoverContentImplSharedPr
     },
   })
 
-  const popperContent = usePopperContent(props.popperProps)
+  const popperContent = usePopperContent(props)
 
   return {
     wrapperAttrs: popperContent.wrapperAttrs,

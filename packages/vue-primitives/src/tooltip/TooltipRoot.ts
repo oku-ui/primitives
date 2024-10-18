@@ -1,4 +1,4 @@
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { onBeforeUnmount, type Ref, shallowRef, useId } from 'vue'
 import { createContext, useControllableStateV2 } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/PopperRoot.ts'
@@ -19,6 +19,12 @@ export interface TooltipRootProps {
    */
   disableHoverableContent?: boolean
 }
+
+export const DEFAULT_TOOLTIP_ROOT_PROPS = {
+  open: undefined,
+  defaultOpen: undefined,
+  disableHoverableContent: undefined,
+} satisfies PrimitiveDefaultProps<TooltipRootProps>
 
 export type TooltipRootEmits = {
   'update:open': [open: boolean]
@@ -49,12 +55,17 @@ export interface UseTooltipRootProps extends EmitsToHookProps<TooltipRootEmits> 
 
 export function useTooltipRoot(props: UseTooltipRootProps) {
   const providerContext = useTooltipProviderContext('Tooltip')
+
+  const {
+    defaultOpen = false,
+    disableHoverableContent = providerContext.disableHoverableContent,
+    delayDuration = providerContext.delayDuration,
+  } = props
+
   const trigger = shallowRef<HTMLElement>()
 
   let openTimerRef = 0
 
-  const disableHoverableContent = props.disableHoverableContent ?? providerContext.disableHoverableContent
-  const delayDuration = () => props.delayDuration ?? providerContext.delayDuration
   let wasOpenDelayedRef = false
 
   const open = useControllableStateV2(
@@ -73,7 +84,7 @@ export function useTooltipRoot(props: UseTooltipRootProps) {
 
       props.onUpdateOpen?.(v)
     },
-    props.defaultOpen ?? false,
+    defaultOpen,
   )
 
   function handleOpen() {
@@ -95,7 +106,7 @@ export function useTooltipRoot(props: UseTooltipRootProps) {
       wasOpenDelayedRef = true
       open.value = true
       openTimerRef = 0
-    }, delayDuration())
+    }, delayDuration)
   }
 
   onBeforeUnmount(() => {
