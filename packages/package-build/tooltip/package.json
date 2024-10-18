@@ -52,7 +52,7 @@
     "@oku-ui/visually-hidden": "latest"
   },
   "devDependencies": {
-    "@oku/tsconfig": "latest"
+    "@oku/tsconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

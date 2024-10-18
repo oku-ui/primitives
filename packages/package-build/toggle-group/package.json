@@ -45,6 +45,6 @@
 
   },
   "devDependencies": {
-    "@oku/tsconfig": "latest"
+    "@oku/tsconfig": "workspace:^"
   }
 }

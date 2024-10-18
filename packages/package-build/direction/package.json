@@ -40,7 +40,7 @@
     "vue": "^3.3.0"
   },
   "devDependencies": {
-    "@oku/tsconfig": "latest"
+    "@oku/tsconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

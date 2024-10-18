@@ -38,7 +38,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@oku/tsconfig": "latest"
+    "@oku/tsconfig": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
