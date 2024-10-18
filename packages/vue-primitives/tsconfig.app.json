@@ -1,5 +1,5 @@
 {
-  "extends": "@teleskop150750/typescript-config/tsconfig.vue.json",
+  "extends": "tsconfig/vue.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "rootDir": "src"

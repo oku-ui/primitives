@@ -45,6 +45,7 @@ const packages = [
 
 export function primitivesPackagesAlias(_path: string, resolve: any) {
   const dd = fileURLToPath(new URL('../packages/vue-primitives/src/arrow', import.meta.url))
+  // eslint-disable-next-line no-console
   console.log('dd', dd, import.meta.url)
 
   const data = packages.map((pkg) => {

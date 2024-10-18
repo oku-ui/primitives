@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { execSync } from 'node:child_process'
 import { dirname, join, resolve } from 'node:path'
 import { watch } from 'chokidar'
@@ -48,6 +49,7 @@ async function deleteAllPackageDists() {
   watchMode()
 }
 
+// eslint-disable-next-line antfu/no-top-level-await
 await deleteAllPackageDists()
 
 async function whereComponent(path: string) {

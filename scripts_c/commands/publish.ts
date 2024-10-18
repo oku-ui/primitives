@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { MultiSelectOptions } from '@clack/prompts'
 import { execSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'

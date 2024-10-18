@@ -35,5 +35,6 @@ async function main() {
   turboDependenciesFilter = filteredDependencies.concat(` --filter=${packageName}`)
 }
 
+// eslint-disable-next-line antfu/no-top-level-await
 await main()
 execaCommandSync(`turbo build ${turboDependenciesFilter}`, { stdio: 'inherit' })
