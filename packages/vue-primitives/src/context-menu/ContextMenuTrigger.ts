@@ -1,15 +1,20 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, onWatcherCleanup, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/PopperRoot.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useContextMenuContext } from './ContextMenuRoot.ts'
 
 export interface ContextMenuTriggerProps {
   as?: PrimitiveProps['as']
   disabled?: boolean
 }
+
+export const DEFAULT_CONTEXT_MENU_TRIGGER_PROPS = {
+  as: 'span',
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<ContextMenuTriggerProps>
 
 export type ContextMenuTriggerEmits = {
   contextmenu: [event: MouseEvent]

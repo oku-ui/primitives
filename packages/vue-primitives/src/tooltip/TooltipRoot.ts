@@ -1,7 +1,7 @@
-import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
 import { onBeforeUnmount, type Ref, shallowRef, useId } from 'vue'
 import { createContext, useControllableStateV2 } from '../hooks/index.ts'
-import { usePooperRoot } from '../popper/PopperRoot.ts'
+import { usePooperRoot } from '../popper/index.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 
 export interface TooltipRootProps {

@@ -3,10 +3,6 @@
 import type { CheckedState } from '../checkbox/index.ts'
 import { isPointInPolygon, type Point, type Polygon, wrapArray } from '../shared/index.ts'
 
-export function getOpenState(open: boolean) {
-  return open ? 'open' : 'closed'
-}
-
 function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
   return checked === 'indeterminate'
 }

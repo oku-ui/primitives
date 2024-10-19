@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useSliderContext } from './SliderRoot.ts'
 
 export interface SliderTrackProps {

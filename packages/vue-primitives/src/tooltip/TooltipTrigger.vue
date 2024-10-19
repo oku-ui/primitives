@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Primitive } from '../primitive/Primitive.ts'
+import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
 import { DEFAULT_TOOLTIP_TRIGGER_PROPS, type TooltipTriggerProps, useTooltipTrigger } from './TooltipTrigger.ts'
 

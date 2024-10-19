@@ -1,4 +1,4 @@
-import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import type { ToggleGroupEmits, ToggleGroupProps, ToggleGroupType } from '../toggle-group/index.ts'
 import { useToggleGroup, type UseToggleGroupProps } from '../toggle-group/ToggleGroupRoot.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'

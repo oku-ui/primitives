@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
   type ContextMenuContentImplEmits,
   type ContextMenuContentImplProps,
+  DEFAULT_CONTEXT_MENU_CONTENT_IMPL_PROPS,
   useContextMenuContentImpl,
 } from './ContextMenuContentImpl.ts'
 
@@ -12,42 +13,30 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ContextMenuContentImplProps>(), {
-  avoidCollisions: true,
-  hideWhenDetached: false,
-})
+const props = withDefaults(defineProps<ContextMenuContentImplProps>(), DEFAULT_CONTEXT_MENU_CONTENT_IMPL_PROPS)
 const emit = defineEmits<ContextMenuContentImplEmits>()
 
-const contextMenuContentImpl = useContextMenuContentImpl({
-  loop: props.loop,
-  onCloseAutoFocus(event) {
-    emit('closeAutoFocus', event)
-  },
-  onEscapeKeydown(event) {
-    emit('escapeKeydown', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onInteractOutside(event) {
-    emit('interactOutside', event)
-  },
-  popperProps: {
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary() {
-      return props.collisionBoundary
+const contextMenuContentImpl = useContextMenuContentImpl(convertPropsToHookProps(
+  props,
+  ['collisionBoundary'],
+  (): Required<EmitsToHookProps<ContextMenuContentImplEmits>> => ({
+    onCloseAutoFocus(event) {
+      emit('closeAutoFocus', event)
     },
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-  },
-})
+    onEscapeKeydown(event) {
+      emit('escapeKeydown', event)
+    },
+    onPointerdownOutside(event) {
+      emit('pointerdownOutside', event)
+    },
+    onFocusOutside(event) {
+      emit('focusOutside', event)
+    },
+    onInteractOutside(event) {
+      emit('interactOutside', event)
+    },
+  }),
+))
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 import type { FocusOutsideEvent } from '../dismissable-layer/index.ts'
-import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
 import { type PopperContentProps, usePopperContext } from '../popper/index.ts'
 import {
   useMenuContentImplShared,

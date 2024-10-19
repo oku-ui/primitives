@@ -3,7 +3,7 @@ import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/ind
 import { onMounted } from 'vue'
 import { useRef } from '../hooks/index.ts'
 import { type PopperAnchorProps, usePopperContext } from '../popper/index.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 
 export interface HoverCardTriggerProps extends PopperAnchorProps {

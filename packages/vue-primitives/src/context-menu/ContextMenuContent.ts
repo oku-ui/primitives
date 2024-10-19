@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { useMenuContext } from '../menu/MenuRoot.ts'
 import { usePopperContext } from '../popper/PopperRoot.ts'
 import { usePresence } from '../presence/usePresence.ts'
@@ -11,6 +11,11 @@ export interface ContextMenuContenttProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_CONTEXT_MENU_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<ContextMenuContenttProps>
+
 export interface UseContextMenuContenttProps {
   forceMount?: boolean
 }

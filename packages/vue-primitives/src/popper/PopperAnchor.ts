@@ -1,7 +1,7 @@
-import type { RadixPrimitiveReturns, RefOrRefObject } from '../shared/typeUtils.ts'
+import type { RadixPrimitiveReturns, RefOrRefObject } from '../shared/index.ts'
 import { onMounted } from 'vue'
 import { type MutableRefObject, useRef } from '../hooks/index.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { type Measurable, usePopperContext } from './PopperRoot.ts'
 
 export interface PopperAnchorProps {

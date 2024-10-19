@@ -1,5 +1,5 @@
 import type { Direction } from '../direction/index.ts'
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
 import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
 import { createContext } from '../hooks/index.ts'
 import { useMenuRoot } from '../menu/MenuRoot.ts'
@@ -8,6 +8,10 @@ export interface ContextMenuRootProps {
   dir?: Direction
   modal?: boolean
 }
+
+export const DEFAULT_CONTEXT_MENU_ROOT_PROPS = {
+  modal: undefined,
+} satisfies PrimitiveDefaultProps<ContextMenuRootProps>
 
 export type ContextMenuRootEmits = {
   'update:open': [open: boolean]

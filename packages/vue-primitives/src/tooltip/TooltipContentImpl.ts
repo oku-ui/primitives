@@ -1,4 +1,4 @@
-import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { createContext } from '../hooks/index.ts'

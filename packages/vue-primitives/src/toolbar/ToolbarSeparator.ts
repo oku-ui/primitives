@@ -1,4 +1,4 @@
-import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type SeparatorProps, useSeparator, type UseSeparatorProps } from '../separator/index.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'
 

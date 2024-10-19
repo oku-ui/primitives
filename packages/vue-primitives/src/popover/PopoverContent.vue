@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
 import { DEFAULT_POPOVER_CONTENT_PROPS, type PopoverContentProps, usePopoverContent } from './PopoverContent.ts'
 import PopoverContentImpl from './PopoverContentImpl.vue'
 

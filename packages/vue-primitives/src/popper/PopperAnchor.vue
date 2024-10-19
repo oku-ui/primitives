@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
-import { normalizeAttrs } from '../shared/mergeProps.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { type PopperAnchorProps, usePopperAnchor } from './PopperAnchor.ts'
 
 defineOptions({

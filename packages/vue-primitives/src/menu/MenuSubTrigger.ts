@@ -1,11 +1,11 @@
-import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { Side } from './utils.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
 import { useMenuContentContext } from './MenuContentImpl.ts'
 import { type MenuItemImplProps, useMenuItemImpl, type UseMenuItemImplProps } from './MenuItemImpl.ts'
 import { SUB_OPEN_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'
-import { getOpenState, type Side } from './utils.ts'
 
 export interface MenuSubTriggerProps extends MenuItemImplProps {
 }
@@ -166,11 +166,14 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps): RadixPrimitive
 
   return {
     attrs(extraAttrs = []) {
+      const _open = context.open()
       const rovingFocusGroupItemAttrs: PrimitiveElAttrs = {
         'id': subContext.triggerId,
         'elRef': setTemplateEl,
         'aria-haspopup': 'menu',
-        'aria-controls': getOpenState(context.open()),
+        'aria-expanded': _open ? 'true' : 'false',
+        'aria-controls': subContext.contentId,
+        'data-state': _open ? 'open' : 'closed',
         onClick,
         onPointermove,
         onPointerleave,

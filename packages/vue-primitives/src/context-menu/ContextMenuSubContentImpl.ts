@@ -1,3 +1,4 @@
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
 import {
   type MenuSubContentImplEmits,
   type MenuSubContentImplProps,
@@ -9,6 +10,12 @@ import {
 export interface ContextMenuSubContentImplProps extends MenuSubContentImplProps {
 
 }
+
+export const DEFAULT_CONTEXT_MENU_SUB_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<ContextMenuSubContentImplProps>
 
 export type ContextMenuSubContentImplEmits = MenuSubContentImplEmits
 

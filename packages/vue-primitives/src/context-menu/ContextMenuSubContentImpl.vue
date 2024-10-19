@@ -1,48 +1,34 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/mergeProps.ts'
-import { type ContextMenuSubContentImplEmits, type ContextMenuSubContentImplProps, useContextMenuSubContentImpl } from './ContextMenuSubContentImpl.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { type ContextMenuSubContentImplEmits, type ContextMenuSubContentImplProps, DEFAULT_CONTEXT_MENU_SUB_CONTENT_IMPL_PROPS, useContextMenuSubContentImpl } from './ContextMenuSubContentImpl.ts'
 
 defineOptions({
   name: 'ContextMenuSubContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<ContextMenuSubContentImplProps>(), {
-  avoidCollisions: true,
-  hideWhenDetached: false,
-  loop: false,
-})
+const props = withDefaults(defineProps<ContextMenuSubContentImplProps>(), DEFAULT_CONTEXT_MENU_SUB_CONTENT_IMPL_PROPS)
 const emit = defineEmits<ContextMenuSubContentImplEmits>()
 
-const contextMenuSubContentImpl = useContextMenuSubContentImpl({
-  loop: props.loop,
-  onEscapeKeydown(event) {
-    emit('escapeKeydown', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onInteractOutside(event) {
-    emit('interactOutside', event)
-  },
-  popperProps: {
-    sideOffset: props.sideOffset,
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary() {
-      return props.collisionBoundary
+const contextMenuSubContentImpl = useContextMenuSubContentImpl(convertPropsToHookProps(
+  props,
+  ['collisionBoundary'],
+  (): Required<EmitsToHookProps<ContextMenuSubContentImplEmits>> => ({
+    onEscapeKeydown(event) {
+      emit('escapeKeydown', event)
     },
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-  },
-})
+    onPointerdownOutside(event) {
+      emit('pointerdownOutside', event)
+    },
+    onFocusOutside(event) {
+      emit('focusOutside', event)
+    },
+    onInteractOutside(event) {
+      emit('interactOutside', event)
+    },
+  }),
+))
 </script>
 
 <template>

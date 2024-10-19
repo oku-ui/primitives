@@ -1,5 +1,5 @@
-import type { PrimitiveProps } from '../primitive/Primitive.ts'
-import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type ToggleGroupItemProps, useToggleGroupItem } from '../toggle-group/index.ts'
 import { useToolbarButton } from './ToolbarButton.ts'
 

@@ -1,4 +1,4 @@
-import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
 import { type Ref, shallowRef } from 'vue'
 import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 

@@ -12,23 +12,24 @@ const props = withDefaults(defineProps<HoverCardContentImplProps>(), DEFAULT_HOV
 
 const emit = defineEmits<HoverCardContentImplEmits>()
 
-const hoverCardContentImpl = useHoverCardContentImpl(convertPropsToHookProps(props, [
-  'collisionBoundary',
-  'dir',
-], (): Required<EmitsToHookProps<HoverCardContentImplEmits>> => ({
-  onEscapeKeydown(event) {
-    emit('escapeKeydown', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onInteractOutside(event) {
-    emit('interactOutside', event)
-  },
-})))
+const hoverCardContentImpl = useHoverCardContentImpl(convertPropsToHookProps(
+  props,
+  ['collisionBoundary', 'dir'],
+  (): Required<EmitsToHookProps<HoverCardContentImplEmits>> => ({
+    onEscapeKeydown(event) {
+      emit('escapeKeydown', event)
+    },
+    onPointerdownOutside(event) {
+      emit('pointerdownOutside', event)
+    },
+    onFocusOutside(event) {
+      emit('focusOutside', event)
+    },
+    onInteractOutside(event) {
+      emit('interactOutside', event)
+    },
+  }),
+))
 </script>
 
 <template>

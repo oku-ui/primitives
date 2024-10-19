@@ -1,8 +1,8 @@
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { PopperAnchorProps } from '../popper/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import { mergePrimitiveAttrs } from '../shared/mergeProps.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useTooltipProviderContext } from './TooltipProvider.ts'
 import { useTooltipContext } from './TooltipRoot.ts'
 

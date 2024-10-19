@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
 import { DEFAULT_MENU_CONTENT_PROPS, type MenuContentProps, useMenuContent } from './MenuContent.ts'
 import MenuContentImpl from './MenuContentImpl.vue'
 

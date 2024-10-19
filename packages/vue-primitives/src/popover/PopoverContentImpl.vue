@@ -17,29 +17,30 @@ const props = withDefaults(defineProps<PopoverContentImplProps>(), DEFAULT_POPOV
 
 const emit = defineEmits<PopoverContentImplEmits>()
 
-const popoverContentImpl = usePopoverContentImpl(convertPropsToHookProps(props, [
-  'collisionBoundary',
-  'dir',
-], (): Required<EmitsToHookProps<PopoverContentImplEmits>> => ({
-  onOpenAutoFocus(event) {
-    emit('openAutoFocus', event)
-  },
-  onCloseAutoFocus(event) {
-    emit('closeAutoFocus', event)
-  },
-  onEscapeKeydown(event) {
-    emit('escapeKeydown', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onInteractOutside(event) {
-    emit('interactOutside', event)
-  },
-})))
+const popoverContentImpl = usePopoverContentImpl(convertPropsToHookProps(
+  props,
+  ['collisionBoundary', 'dir'],
+  (): Required<EmitsToHookProps<PopoverContentImplEmits>> => ({
+    onOpenAutoFocus(event) {
+      emit('openAutoFocus', event)
+    },
+    onCloseAutoFocus(event) {
+      emit('closeAutoFocus', event)
+    },
+    onEscapeKeydown(event) {
+      emit('escapeKeydown', event)
+    },
+    onPointerdownOutside(event) {
+      emit('pointerdownOutside', event)
+    },
+    onFocusOutside(event) {
+      emit('focusOutside', event)
+    },
+    onInteractOutside(event) {
+      emit('interactOutside', event)
+    },
+  }),
+))
 </script>
 
 <template>

@@ -1,5 +1,6 @@
 import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { DismissableLayerEmits } from '../dismissable-layer/index.ts'
+import type { PrimitiveProps } from '../primitive/index.ts'
 import type { SwipeEvent } from './ToastRoot.ts'
 
 export interface ToastRootImplProps {

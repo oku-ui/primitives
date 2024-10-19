@@ -1,3 +1,4 @@
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
 import {
   type MenuContentImplEmits,
   type MenuContentImplProps,
@@ -8,10 +9,16 @@ import {
 import { useContextMenuContext } from './ContextMenuRoot.ts'
 
 export interface ContextMenuContentImplProps extends Omit<MenuContentImplProps, 'side' | 'sideOffset' | 'align'> {}
+
+export const DEFAULT_CONTEXT_MENU_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<ContextMenuContentImplProps>
+
 export type ContextMenuContentImplEmits = Omit<MenuContentImplEmits, 'entryFocus'>
 
-export interface UseContextMenuContentImplProps extends Omit<UseMenuContentImplProps, 'onEntryFocus' | 'popperProps'> {
-  popperProps?: Omit<UseMenuContentImplProps['popperProps'], 'side' | 'sideOffset' | 'align'>
+export interface UseContextMenuContentImplProps extends Omit<UseMenuContentImplProps, 'onEntryFocus' | 'popperProps' | 'side' | 'sideOffset' | 'align'> {
 }
 
 export function useContextMenuContentImpl(props: UseContextMenuContentImplProps = {}): UseMenuContentImplSharedPeturns {
@@ -35,12 +42,9 @@ export function useContextMenuContentImpl(props: UseContextMenuContentImplProps 
       if (!event.defaultPrevented && !context.modal)
         hasInteractedOutsideRef = true
     },
-    popperProps: {
-      ...props.popperProps,
-      side: 'right',
-      sideOffset: 2,
-      align: 'start',
-    },
+    side: 'right',
+    sideOffset: 2,
+    align: 'start',
   })
 
   const attrs = {

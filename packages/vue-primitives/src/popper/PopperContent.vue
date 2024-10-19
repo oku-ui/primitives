@@ -16,14 +16,15 @@ defineOptions({
 const props = withDefaults(defineProps<PopperContentProps>(), DEFAULT_POPPER_CONTENT_PROPS)
 const emit = defineEmits<PopperContentEmits>()
 
-const popperContent = usePopperContent(convertPropsToHookProps(props, [
-  'collisionBoundary',
-  'dir',
-], (): Required<EmitsToHookProps<PopperContentEmits>> => ({
-  onPlaced() {
-    emit('placed')
-  },
-})))
+const popperContent = usePopperContent(convertPropsToHookProps(
+  props,
+  ['collisionBoundary', 'dir'],
+  (): Required<EmitsToHookProps<PopperContentEmits>> => ({
+    onPlaced() {
+      emit('placed')
+    },
+  }),
+))
 </script>
 
 <template>

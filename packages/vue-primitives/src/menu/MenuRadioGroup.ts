@@ -1,4 +1,4 @@
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps } from '../shared/index.ts'
 import { NOOP } from '@vue/shared'
 import { createContext } from '../hooks/index.ts'
 
