@@ -1,4 +1,4 @@
-import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared'
 import { type MenuItemEmits, type MenuItemProps, useMenuItem, type UseMenuItemProps } from './MenuItem.ts'
 import { provideItemIndicatorContext } from './MenuItemIndicator.ts'
 import { useRadioGroupContext } from './MenuRadioGroup.ts'
@@ -7,6 +7,10 @@ import { getCheckedState } from './utils.ts'
 export interface MenuRadioItemProps extends MenuItemProps {
   value: string
 }
+
+export const DEFAULT_MENU_RADIO_ITEM_PROPS = {
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<MenuRadioItemProps>
 
 export type MenuRadioItemEmits = MenuItemEmits
 

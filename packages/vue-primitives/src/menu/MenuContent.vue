@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { type MenuContentProps, useMenuContent } from './MenuContent.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { DEFAULT_MENU_CONTENT_PROPS, type MenuContentProps, useMenuContent } from './MenuContent.ts'
 import MenuContentImpl from './MenuContentImpl.vue'
 
 defineOptions({
   name: 'MenuContent',
 })
 
-const props = defineProps<MenuContentProps>()
+const props = withDefaults(defineProps<MenuContentProps>(), DEFAULT_MENU_CONTENT_PROPS)
 
-const menuContent = useMenuContent(props)
+const menuContent = useMenuContent(convertPropsToHookProps(props))
 </script>
 
 <template>

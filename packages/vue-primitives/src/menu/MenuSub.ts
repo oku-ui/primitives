@@ -1,4 +1,4 @@
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { onWatcherCleanup, useId, watchEffect } from 'vue'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/PopperRoot.ts'
@@ -7,6 +7,10 @@ import { provideMenuContext, useMenuContext } from './MenuRoot.ts'
 export interface MenuSubProps {
   open?: boolean
 }
+
+export const DEFAULT_MENU_SUB_PROPS = {
+  open: false,
+} satisfies PrimitiveDefaultProps<MenuSubProps, 'open'>
 
 export type MenuSubEmits = {
   'update:open': [open: boolean]

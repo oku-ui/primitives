@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type Ref, shallowRef } from 'vue'
 import { type CheckedState, isIndeterminate } from '../checkbox/index.ts'
 import { createContext } from '../hooks/index.ts'
@@ -15,6 +15,11 @@ export interface MenuItemIndicatorProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_MENU_ITEM_INDICATOR_PROPS = {
+  as: 'span',
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<MenuItemIndicatorProps>
 
 export interface ItemIndicatorContext {
   checked: () => CheckedState

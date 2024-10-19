@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/typeUtils.ts'
 import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { normalizeAttrs } from '../shared/mergeProps.ts'
 import { type MenuSubContentImplEmits, type MenuSubContentImplProps, useMenuSubContentImpl } from './MenuSubContentImpl.ts'
 
@@ -15,34 +17,24 @@ const props = withDefaults(defineProps<MenuSubContentImplProps>(), {
 })
 const emit = defineEmits<MenuSubContentImplEmits>()
 
-const menuSubContentImpl = useMenuSubContentImpl({
-  loop: props.loop,
-  onEscapeKeydown(event) {
-    emit('escapeKeydown', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onInteractOutside(event) {
-    emit('interactOutside', event)
-  },
-  popperProps: {
-    sideOffset: props.sideOffset,
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary() {
-      return props.collisionBoundary
+const menuSubContentImpl = useMenuSubContentImpl(convertPropsToHookProps(
+  props,
+  ['collisionBoundary'],
+  (): Required<EmitsToHookProps<MenuSubContentImplEmits>> => ({
+    onEscapeKeydown(event) {
+      emit('escapeKeydown', event)
     },
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-  },
-})
+    onPointerdownOutside(event) {
+      emit('pointerdownOutside', event)
+    },
+    onFocusOutside(event) {
+      emit('focusOutside', event)
+    },
+    onInteractOutside(event) {
+      emit('interactOutside', event)
+    },
+  }),
+))
 </script>
 
 <template>

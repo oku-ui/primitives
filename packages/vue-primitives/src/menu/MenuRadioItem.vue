@@ -1,29 +1,26 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type MenuRadioItemEmits, type MenuRadioItemProps, useMenuRadioItem } from './MenuRadioItem.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_RADIO_ITEM_PROPS, type MenuRadioItemEmits, type MenuRadioItemProps, useMenuRadioItem } from './MenuRadioItem.ts'
 
 defineOptions({
   name: 'MenuRadioItem',
   inheritAttrs: false,
 })
 
-const props = defineProps<MenuRadioItemProps>()
+const props = withDefaults(defineProps<MenuRadioItemProps>(), DEFAULT_MENU_RADIO_ITEM_PROPS)
 
 const emit = defineEmits<MenuRadioItemEmits>()
 
-const menuRadioItem = useMenuRadioItem({
-  value: props.value,
-  menuItemProps: {
-    disabled() {
-      return props.disabled
-    },
-    textValue: props.textValue,
+const menuRadioItem = useMenuRadioItem(convertPropsToHookProps(
+  props,
+  ['disabled'],
+  (): Required<EmitsToHookProps<MenuRadioItemEmits>> => ({
     onSelect(event) {
       emit('select', event)
     },
-  },
-})
+  }),
+))
 </script>
 
 <template>

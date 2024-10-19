@@ -1,57 +1,41 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type MenuContentImplEmits, type MenuContentImplProps, useMenuContentImpl } from './MenuContentImpl.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_CONTENT_IMPL_PROPS, type MenuContentImplEmits, type MenuContentImplProps, useMenuContentImpl } from './MenuContentImpl.ts'
 
 defineOptions({
   name: 'MenuContentImpl',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenuContentImplProps>(), {
-  avoidCollisions: true,
-  hideWhenDetached: false,
-  loop: false,
-})
+const props = withDefaults(defineProps<MenuContentImplProps>(), DEFAULT_MENU_CONTENT_IMPL_PROPS)
 
 const emit = defineEmits<MenuContentImplEmits>()
 
-const menuContentImpl = useMenuContentImpl({
-  loop: props.loop,
-  onCloseAutoFocus(event) {
-    emit('closeAutoFocus', event)
-  },
-  onEntryFocus(event) {
-    emit('entryFocus', event)
-  },
-  onEscapeKeydown(event) {
-    emit('escapeKeydown', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onInteractOutside(event) {
-    emit('interactOutside', event)
-  },
-  popperProps: {
-    side: props.side,
-    align: props.align,
-    sideOffset: props.sideOffset,
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary() {
-      return props.collisionBoundary
+const menuContentImpl = useMenuContentImpl(convertPropsToHookProps(
+  props,
+  ['collisionBoundary'],
+  (): Required<EmitsToHookProps<MenuContentImplEmits>> => ({
+    onCloseAutoFocus(event) {
+      emit('closeAutoFocus', event)
     },
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-  },
-})
+    onEntryFocus(event) {
+      emit('entryFocus', event)
+    },
+    onEscapeKeydown(event) {
+      emit('escapeKeydown', event)
+    },
+    onPointerdownOutside(event) {
+      emit('pointerdownOutside', event)
+    },
+    onFocusOutside(event) {
+      emit('focusOutside', event)
+    },
+    onInteractOutside(event) {
+      emit('interactOutside', event)
+    },
+  }),
+))
 </script>
 
 <template>

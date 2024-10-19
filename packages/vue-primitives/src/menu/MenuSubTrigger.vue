@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type MenuSubTriggerProps, useMenuSubTrigger } from './MenuSubTrigger.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_SUB_TRIGGER_PROPS, type MenuSubTriggerProps, useMenuSubTrigger } from './MenuSubTrigger.ts'
 
 defineOptions({
   name: 'MenuSubTrigger',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenuSubTriggerProps>(), {
-  disabled: false,
-})
+const props = withDefaults(defineProps<MenuSubTriggerProps>(), DEFAULT_MENU_SUB_TRIGGER_PROPS)
 
-const menuSubTrigger = useMenuSubTrigger({
-  disabled() {
-    return props.disabled
-  },
-  textValue: props.textValue,
-})
+const menuSubTrigger = useMenuSubTrigger(convertPropsToHookProps(props, ['disabled']))
 </script>
 
 <template>

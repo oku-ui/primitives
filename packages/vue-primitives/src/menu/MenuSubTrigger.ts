@@ -1,4 +1,4 @@
-import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
 import { useMenuContentContext } from './MenuContentImpl.ts'
@@ -9,6 +9,10 @@ import { getOpenState, type Side } from './utils.ts'
 
 export interface MenuSubTriggerProps extends MenuItemImplProps {
 }
+
+export const DEFAULT_MENU_SUB_TRIGGER_PROPS = {
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<MenuSubTriggerProps>
 
 export interface UseMenuSubTriggerProps extends UseMenuItemImplProps {
 

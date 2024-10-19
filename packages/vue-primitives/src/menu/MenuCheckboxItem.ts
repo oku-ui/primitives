@@ -1,4 +1,4 @@
-import type { EmitsToHookProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type CheckedState, isIndeterminate } from '../checkbox/index.ts'
 import { type MenuItemEmits, type MenuItemProps, useMenuItem, type UseMenuItemProps } from './MenuItem.ts'
 import { provideItemIndicatorContext } from './MenuItemIndicator.ts'
@@ -8,13 +8,17 @@ export interface MenuCheckboxItemProps extends MenuItemProps {
   checked?: CheckedState
 }
 
+export const DEFAULT_MENU_CHECKBOX_ITEM_PROPS = {
+  disabled: undefined,
+  checked: false,
+} satisfies PrimitiveDefaultProps<MenuCheckboxItemProps>
+
 export type MenuCheckboxItemEmits = {
   'update:checked': [event: boolean]
 } & MenuItemEmits
 
-export interface UseMenuCheckboxItemProps extends EmitsToHookProps<MenuCheckboxItemEmits> {
+export interface UseMenuCheckboxItemProps extends EmitsToHookProps<MenuCheckboxItemEmits>, UseMenuItemProps {
   checked?: () => CheckedState
-  menuItemProps?: UseMenuItemProps
 }
 
 export function useMenuCheckboxItem(props: UseMenuCheckboxItemProps): RadixPrimitiveReturns {
@@ -25,9 +29,9 @@ export function useMenuCheckboxItem(props: UseMenuCheckboxItemProps): RadixPrimi
   })
 
   const menuItem = useMenuItem({
-    ...props.menuItemProps,
+    ...props,
     onSelect(event) {
-      props.menuItemProps?.onSelect?.(event)
+      props?.onSelect?.(event)
 
       if (props.onUpdateChecked) {
         const _checked = checked()

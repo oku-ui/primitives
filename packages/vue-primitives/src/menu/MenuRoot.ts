@@ -1,4 +1,4 @@
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { type MaybeRefOrGetter, onBeforeUnmount, onMounted, type Ref } from 'vue'
 import { createCollection } from '../collection/Collection.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
@@ -10,6 +10,11 @@ export interface MenuRootProps {
   dir?: Direction
   modal?: boolean
 }
+
+export const DEFAULT_MENU_ROOT_PROPS = {
+  open: false,
+  modal: undefined,
+} satisfies PrimitiveDefaultProps<MenuRootProps, 'open'>
 
 export type MenuRootEmits = {
   'update:open': [open: boolean]
@@ -43,7 +48,7 @@ export interface UseMenuRootProps extends EmitsToHookProps<MenuRootEmits> {
 }
 
 export function useMenuRoot(props: UseMenuRootProps = {}) {
-  const { open = () => false } = props
+  const { open = () => false, modal = true } = props
   const isUsingKeyboardRef = useIsUsingKeyboard()
   const direction = useDirection(props.dir)
 
@@ -60,7 +65,7 @@ export function useMenuRoot(props: UseMenuRootProps = {}) {
     },
     isUsingKeyboardRef,
     dir: direction,
-    modal: props.modal ?? true,
+    modal,
   })
 
   usePooperRoot()

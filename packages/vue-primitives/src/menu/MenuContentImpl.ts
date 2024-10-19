@@ -1,16 +1,15 @@
 import type { Side } from '@floating-ui/utils'
-import type { IAttrsData } from '../shared/mergeProps.ts'
-import type { EmitsToHookProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps, IAttrsData, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs } from '../shared/index.ts'
 import { hideOthers } from 'aria-hidden'
 import { onBeforeUnmount, shallowRef } from 'vue'
 import { type DismissableLayerEmits, type DismissableLayerProps, useDismissableLayer } from '../dismissable-layer/index.ts'
-import { useFocusGuards } from '../focus-guards/FocusGuards.ts'
+import { useFocusGuards } from '../focus-guards/index.ts'
 import { type FocusScopeProps, useFocusScope } from '../focus-scope/index.ts'
 import { useBodyScrollLock, useRef } from '../hooks/index.ts'
 import { createContext, type MutableRefObject } from '../hooks/index.ts'
 import { type PopperContentProps, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
 import { type RovingFocusGroupRootEmits, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { focusFirst } from '../shared/focusFirst.ts'
+import { focusFirst } from '../shared/index.ts'
 import { Collection, FIRST_LAST_KEYS, LAST_KEYS, useCollection, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 
 import { getNextMatch, type GraceIntent, isPointerInGraceArea } from './utils.ts'
@@ -22,6 +21,12 @@ export interface MenuContentImplProps extends Omit<PopperContentProps, 'dir'> {
    */
   loop?: boolean
 }
+
+export const DEFAULT_MENU_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<MenuContentImplProps>
 
 export type MenuContentImplEmits = UseMenuContentImplSharedEmits
 export interface MenuContentContext {
@@ -125,13 +130,11 @@ export interface UseMenuContentImplSharedPrivateProps extends EmitsToHookProps<U
   trapFocus?: FocusScopeProps['trapped']
 }
 
-export interface UseMenuContentImplSharedProps extends EmitsToHookProps<MenuContentImplEmits & UseMenuContentImplSharedPrivateEmits> {
+export interface UseMenuContentImplSharedProps extends EmitsToHookProps<MenuContentImplEmits & UseMenuContentImplSharedPrivateEmits>, Omit<UsePopperContentProps, 'dir' | 'onPlaced'> {
   disableOutsidePointerEvents?: () => boolean
   disableOutsideScroll?: boolean
   trapFocus?: () => boolean
   loop?: boolean
-
-  popperProps?: Omit<UsePopperContentProps, 'dir' | 'onPlaced'>
 }
 
 export interface UseMenuContentImplSharedPeturns {
@@ -140,6 +143,7 @@ export interface UseMenuContentImplSharedPeturns {
 }
 
 export function useMenuContentImplShared(props: UseMenuContentImplSharedProps = {}): UseMenuContentImplSharedPeturns {
+  const { loop = false } = props
   const context = useMenuContext('MenuContentImpl')
   const rootContext = useMenuRootContext('MenuContentImpl')
   const popperContext = usePopperContext('MenuContentImpl')
@@ -175,7 +179,8 @@ export function useMenuContentImplShared(props: UseMenuContentImplSharedProps = 
     // Reset `searchRef` 1 second after it was last updated
     (function updateSearch(value: string) {
       searchRef.value = value
-      window.clearTimeout(timerRef)
+      if (timerRef)
+        window.clearTimeout(timerRef)
       timerRef = 0
       if (value !== '') {
         timerRef = window.setTimeout(() => {
@@ -339,7 +344,7 @@ export function useMenuContentImplShared(props: UseMenuContentImplSharedProps = 
     },
     preventScrollOnEntryFocus: true,
     orientation: 'vertical',
-    loop: props.loop,
+    loop,
     dir: rootContext.dir,
     onEntryFocus(event) {
       props.onEntryFocus?.(event)
@@ -352,7 +357,7 @@ export function useMenuContentImplShared(props: UseMenuContentImplSharedProps = 
     },
   })
 
-  const popperContent = usePopperContent(props.popperProps)
+  const popperContent = usePopperContent(props)
 
   return {
     wrapperAttrs: popperContent.wrapperAttrs,

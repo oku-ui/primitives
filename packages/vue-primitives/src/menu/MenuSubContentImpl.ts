@@ -1,4 +1,5 @@
 import type { FocusOutsideEvent } from '../dismissable-layer/index.ts'
+import type { PrimitiveDefaultProps } from '../shared/typeUtils.ts'
 import { type PopperContentProps, usePopperContext } from '../popper/index.ts'
 import {
   useMenuContentImplShared,
@@ -18,10 +19,15 @@ export interface MenuSubContentImplProps extends Omit<PopperContentProps, 'dir' 
   loop?: boolean
 }
 
+export const DEFAULT_MENU_SUB_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<MenuSubContentImplProps>
+
 export type MenuSubContentImplEmits = Omit<UseMenuContentImplSharedEmits, 'closeAutoFocus' | 'entryFocus'>
 
-export interface UseMenuSubContentImplProps extends Omit<UseMenuContentImplSharedProps, keyof UseMenuContentImplSharedPrivateProps | 'onCloseAutoFocus' | 'onEntryFocus' | 'popperProps'> {
-  popperProps?: Omit<UseMenuContentImplSharedProps['popperProps'], 'side' | 'align'>
+export interface UseMenuSubContentImplProps extends Omit<UseMenuContentImplSharedProps, keyof UseMenuContentImplSharedPrivateProps | 'onCloseAutoFocus' | 'onEntryFocus' | 'side' | 'align'> {
 }
 
 export function useMenuSubContentImpl(props: UseMenuSubContentImplProps): UseMenuContentImplSharedPeturns {
@@ -86,11 +92,8 @@ export function useMenuSubContentImpl(props: UseMenuSubContentImplProps): UseMen
     onCloseAutoFocus,
     onFocusOutside,
     onEscapeKeydown,
-    popperProps: {
-      ...props.popperProps,
-      align: 'start',
-      side: rootContext.dir.value !== 'rtl' ? 'right' : 'left',
-    },
+    align: 'start',
+    side: rootContext.dir.value !== 'rtl' ? 'right' : 'left',
   })
 
   return {

@@ -1,20 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type MenuItemIndicatorProps, useMenuItemIndicator } from './MenuItemIndicator.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_ITEM_INDICATOR_PROPS, type MenuItemIndicatorProps, useMenuItemIndicator } from './MenuItemIndicator.ts'
 
 defineOptions({
   name: 'MenuItemIndicator',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenuItemIndicatorProps>(), {
-  as: 'span',
-})
+const props = withDefaults(defineProps<MenuItemIndicatorProps>(), DEFAULT_MENU_ITEM_INDICATOR_PROPS)
 
-const indicatorContext = useMenuItemIndicator({
-  forceMount: props.forceMount,
-})
+const indicatorContext = useMenuItemIndicator(convertPropsToHookProps(props))
 </script>
 
 <template>

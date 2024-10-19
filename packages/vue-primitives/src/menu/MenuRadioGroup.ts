@@ -1,4 +1,5 @@
 import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import { NOOP } from '@vue/shared'
 import { createContext } from '../hooks/index.ts'
 
 export interface MenuRadioGroupProps {
@@ -30,8 +31,12 @@ export interface UseMenuRadioGroupProps extends EmitsToHookProps<MenuRadioGroupE
 }
 
 export function useMenuRadioGroup(props: UseMenuRadioGroupProps): void {
+  const {
+    value = () => undefined,
+    onUpdateValue = NOOP,
+  } = props
   providRadioGroupContext({
-    value: props.value ?? (() => undefined),
-    onValueChange: props.onUpdateValue ?? (() => { }),
+    value,
+    onValueChange: onUpdateValue,
   })
 }
