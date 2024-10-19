@@ -15,7 +15,7 @@ export interface AccordionRootProps<T extends AccordionType> extends AccordionIm
   collapsible?: AccordionSingleProps['collapsible']
 }
 
-export interface AccordionRootEmits<T extends AccordionType> {
+export type AccordionRootEmits<T extends AccordionType> = {
   /**
    * The callback that fires when the state of the toggle group changes.
    */

@@ -1,7 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
 export default antfu(
-  {},
   {
     ignores: [
       'dist',
@@ -23,6 +22,7 @@ export default antfu(
       'node/prefer-global/process': 'off',
       'ts/consistent-type-definitions': 'off',
       'ts/no-unused-expressions': 'off',
+      '@typescript-eslint/prefer-interface': 'off',
     },
   },
   {
