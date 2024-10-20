@@ -113,7 +113,7 @@ export function useMenubarTrigger(props: UseMenubarTriggerProps = {}): RadixPrim
   return {
     attrs(extraAttrs = []) {
       const _open = open.value
-      const _disabled = props.disabled?.() ?? false
+      const _disabled = props.disabled?.()
       const rovingFocusGroupItemAttrs: PrimitiveElAttrs = {
         'id': menuContext.triggerId,
         'elRef': setTemplateEl,
