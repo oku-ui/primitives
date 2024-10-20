@@ -46,7 +46,7 @@ export function useMenubarTrigger(props: UseMenubarTriggerProps = {}): RadixPrim
       return
     // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
     // but not when the control key is pressed (avoiding MacOS right click)
-    if (!props.disabled && event.button === 0 && event.ctrlKey === false) {
+    if (event.button === 0 && event.ctrlKey === false) {
       context.onMenuOpen(menuContext.value)
       // prevent trigger focusing when opening
       // this allows the content to be given focus without competition
