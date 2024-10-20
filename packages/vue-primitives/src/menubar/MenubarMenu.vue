@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
 import { type MenubarMenuProps, useMenubarMenu } from './MenubarMenu.ts'
 
 defineOptions({
@@ -8,9 +9,7 @@ defineOptions({
 
 const props = defineProps<MenubarMenuProps>()
 
-useMenubarMenu({
-  value: props.value,
-})
+useMenubarMenu(convertPropsToHookProps(props))
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import { type MaybeRefOrGetter, onBeforeUnmount, onMounted, type Ref } from 'vue
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
-import { usePooperRoot } from '../popper/PopperRoot.ts'
+import { usePooperRoot } from '../popper/index.ts'
 
 export interface MenuRootProps {
   open?: boolean

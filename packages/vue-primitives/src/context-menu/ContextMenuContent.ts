@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { useMenuContext } from '../menu/MenuRoot.ts'
-import { usePopperContext } from '../popper/PopperRoot.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 
 export interface ContextMenuContenttProps {

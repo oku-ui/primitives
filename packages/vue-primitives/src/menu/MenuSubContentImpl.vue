@@ -2,6 +2,7 @@
 import type { EmitsToHookProps } from '../shared/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_CONTENT_IMPL_PROPS } from './MenuContentImpl.ts'
 import { type MenuSubContentImplEmits, type MenuSubContentImplProps, useMenuSubContentImpl } from './MenuSubContentImpl.ts'
 
 defineOptions({
@@ -9,11 +10,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenuSubContentImplProps>(), {
-  avoidCollisions: true,
-  hideWhenDetached: false,
-  loop: false,
-})
+const props = withDefaults(defineProps<MenuSubContentImplProps>(), DEFAULT_MENU_CONTENT_IMPL_PROPS)
 const emit = defineEmits<MenuSubContentImplEmits>()
 
 const menuSubContentImpl = useMenuSubContentImpl(convertPropsToHookProps(

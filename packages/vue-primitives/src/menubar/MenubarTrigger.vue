@@ -1,22 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type MenubarTriggerProps, useMenubarTrigger } from './MenubarTrigger.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENUBAR_TRIGGER_PROPS, type MenubarTriggerProps, useMenubarTrigger } from './MenubarTrigger.ts'
 
 defineOptions({
   name: 'MenubarTrigger',
+  inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<MenubarTriggerProps>(), {
-  as: 'button',
-  disabled: undefined,
-})
+const props = withDefaults(defineProps<MenubarTriggerProps>(), DEFAULT_MENUBAR_TRIGGER_PROPS)
 
-const menubarTrigger = useMenubarTrigger({
-  disabled() {
-    return props.disabled
-  },
-})
+const menubarTrigger = useMenubarTrigger(convertPropsToHookProps(props, ['disabled']))
 </script>
 
 <template>

@@ -1,13 +1,13 @@
-import type { DismissableLayerEmits } from '../dismissable-layer/DismissableLayer.ts'
-import type { PopperContentProps } from '../popper/index.ts'
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
+import { type MenuContentProps, useMenuContent, type UseMenuContentProps } from '../menu/index.ts'
 
-export interface MenubarContentProps {
-  align?: PopperContentProps['align']
+export interface MenubarContentProps extends MenuContentProps {}
+
+export const DEFAULT_MENUBAR_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<MenubarContentProps>
+
+export interface UseMenubarContentProps extends UseMenuContentProps {
 }
 
-export type MenubarContentEmits = {
-  keydown: [event: KeyboardEvent]
-  closeAutoFocus: [event: Event]
-  focusOutside: DismissableLayerEmits['focusOutside']
-  interactOutside: DismissableLayerEmits['interactOutside']
-}
+export const useMenubarContent = useMenuContent

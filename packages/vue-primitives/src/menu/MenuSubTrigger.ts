@@ -18,7 +18,7 @@ export interface UseMenuSubTriggerProps extends UseMenuItemImplProps {
 
 }
 
-export function useMenuSubTrigger(props: UseMenuSubTriggerProps): RadixPrimitiveReturns {
+export function useMenuSubTrigger(props: UseMenuSubTriggerProps = {}): RadixPrimitiveReturns {
   const context = useMenuContext('MenuSubTrigger')
   const rootContext = useMenuRootContext('MenuSubTrigger')
   const subContext = useMenuSubContext('MenuSubTrigger')

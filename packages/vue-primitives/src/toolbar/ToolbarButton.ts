@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export interface ToolbarButtonProps {

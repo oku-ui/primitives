@@ -1,4 +1,4 @@
-import type { EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
@@ -11,6 +11,11 @@ export interface MenubarRootProps {
   loop?: RovingFocusGroupRootProps['loop']
   dir?: RovingFocusGroupRootProps['dir']
 }
+
+export const DEFAULT_MENUBAR_ROOT_PROPS = {
+  value: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<MenubarRootProps>
 
 export type MenubarRootEmits = {
   'update:value': [value: string]
@@ -44,10 +49,10 @@ export interface UseMenubarRootProps extends EmitsToHookProps<MenubarRootEmits> 
 }
 
 export function useMenuvarRoot(props: UseMenubarRootProps = {}): RadixPrimitiveReturns {
-  const { loop = true } = props
+  const { loop = true, defaultValue = '' } = props
 
   const direction = useDirection(props.dir)
-  const value = useControllableStateV2(props.value, props.onUpdateValue, props.defaultValue ?? '')
+  const value = useControllableStateV2(props.value, props.onUpdateValue, defaultValue)
 
   // We need to manage tab stop id manually as `RovingFocusGroup` updates the stop
   // based on focus, and in some situations our triggers won't ever be given focus

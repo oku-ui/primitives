@@ -2,7 +2,7 @@ import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, onWatcherCleanup, watchEffect } from 'vue'
-import { usePopperContext } from '../popper/PopperRoot.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useContextMenuContext } from './ContextMenuRoot.ts'
 

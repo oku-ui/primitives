@@ -29,6 +29,7 @@ export const DEFAULT_MENU_CONTENT_IMPL_PROPS = {
 } satisfies PrimitiveDefaultProps<MenuContentImplProps>
 
 export type MenuContentImplEmits = UseMenuContentImplSharedEmits
+
 export interface MenuContentContext {
   onItemEnter: (event: PointerEvent) => void
   onItemLeave: (event: PointerEvent) => void

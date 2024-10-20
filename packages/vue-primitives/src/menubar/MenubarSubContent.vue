@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import { MenuSubContent } from '../menu/index.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
+import { DEFAULT_MENUBAR_SUB_CONTENT_PROPS, type MenubarSubContentProps, useMenubarSubContent } from './MenubarSubContent.ts'
+import MenubarSubContentImpl from './MenubarSubContentImpl.vue'
 
 defineOptions({
   name: 'MenubarSubContent',
 })
 
-const style = {
-  '--radix-menubar-content-transform-origin': 'var(--radix-popper-transform-origin)',
-  '--radix-menubar-content-available-width': 'var(--radix-popper-available-width)',
-  '--radix-menubar-content-available-height': 'var(--radix-popper-available-height)',
-  '--radix-menubar-trigger-width': 'var(--radix-popper-anchor-width)',
-  '--radix-menubar-trigger-height': 'var(--radix-popper-anchor-height)',
-}
+const props = withDefaults(defineProps<MenubarSubContentProps>(), DEFAULT_MENUBAR_SUB_CONTENT_PROPS)
+
+const menuContent = useMenubarSubContent(convertPropsToHookProps(props))
 </script>
 
 <template>
-  <MenuSubContent data-radix-menubar-content="" :style="style">
+  <MenubarSubContentImpl v-if="menuContent.isPresent.value">
     <slot />
-  </MenuSubContent>
+  </MenubarSubContentImpl>
 </template>

@@ -1,9 +1,9 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, onMounted, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
-import { usePopperContext } from '../popper/PopperRoot.ts'
-import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
+import { usePopperContext } from '../popper/index.ts'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { useMenubarMenuContext } from './MenubarMenu.ts'
 import { Collection, type ItemData, useMenubarContext } from './MenubarRoot.ts'
 
@@ -11,6 +11,11 @@ export interface MenubarTriggerProps {
   as?: PrimitiveProps['as']
   disabled?: boolean
 }
+
+export const DEFAULT_MENUBAR_TRIGGER_PROPS = {
+  as: 'button',
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<MenubarTriggerProps>
 
 export interface UseMenubarTriggerProps {
   disabled?: () => boolean | undefined

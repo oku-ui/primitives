@@ -1,7 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
-import { useRovingFocusGroupItem } from '../roving-focus/RovingFocusGroupItem.ts'
+import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useRadioGroupContext } from './RadioGroupRoot.ts'
 
