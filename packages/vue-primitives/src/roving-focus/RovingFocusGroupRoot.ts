@@ -1,4 +1,4 @@
-import { type AriaAttributes, type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
+import { type AriaAttributes, computed, type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
@@ -202,12 +202,14 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
     })
   }
 
+  const tabindex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
+
   return {
     attrs(extraAttrs) {
       const attrs = {
         'elRef': setTemplateEl,
         'dir': dir.value,
-        'tabindex': isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0,
+        'tabindex': tabindex.value,
         'data-orientation': props.orientation,
         'style': 'outline: none;',
         onMousedown,

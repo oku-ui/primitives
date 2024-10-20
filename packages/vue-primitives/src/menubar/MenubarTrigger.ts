@@ -103,7 +103,7 @@ export function useMenubarTrigger(props: UseMenubarTriggerProps = {}): RadixPrim
 
   const rovingFocusGroupItem = useRovingFocusGroupItem({
     focusable() {
-      return !props.disabled
+      return !props.disabled?.()
     },
     tabStopId() {
       return menuContext.value
@@ -133,6 +133,7 @@ export function useMenubarTrigger(props: UseMenubarTriggerProps = {}): RadixPrim
         onFocus,
         onBlur,
       }
+
       return rovingFocusGroupItem.attrs([rovingFocusGroupItemAttrs, ...extraAttrs])
     },
   }
