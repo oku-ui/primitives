@@ -2,8 +2,8 @@ import type { PrimitiveDefaultProps } from '../shared'
 import {
   type MenuSubContentImplEmits,
   type MenuSubContentImplProps,
-  useMenuContentImpl,
   type UseMenuContentImplSharedPeturns,
+  useMenuSubContentImpl,
   type UseMenuSubContentImplProps,
 } from '../menu/index.ts'
 
@@ -20,7 +20,7 @@ export type MenubarSubContentImplEmits = MenuSubContentImplEmits
 export interface UseMenubarSubContentImplProps extends UseMenuSubContentImplProps { }
 
 export function useMenubarSubContentImpl(props: UseMenubarSubContentImplProps = {}): UseMenuContentImplSharedPeturns {
-  const menuContentImpl = useMenuContentImpl(props)
+  const menuSubContentImpl = useMenuSubContentImpl(props)
 
   const attrs = {
     'data-radix-menubar-content': '',
@@ -34,9 +34,9 @@ export function useMenubarSubContentImpl(props: UseMenubarSubContentImplProps = 
   }
 
   return {
-    wrapperAttrs: menuContentImpl.wrapperAttrs,
+    wrapperAttrs: menuSubContentImpl.wrapperAttrs,
     attrs(extraAttrs = []) {
-      return menuContentImpl.attrs([attrs, ...extraAttrs])
+      return menuSubContentImpl.attrs([attrs, ...extraAttrs])
     },
   }
 }
