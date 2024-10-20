@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type DropdownMenuTriggerProps, useDropdownMenuTrigger } from './DropdownMenuTrigger.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_DROPDOWN_MENU_TRIGGER_PROPS, type DropdownMenuTriggerProps, useDropdownMenuTrigger } from './DropdownMenuTrigger.ts'
 
 defineOptions({
   name: 'DropdownMenuTrigger',
 })
 
-const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), {
-  as: 'button',
-  disabled: undefined,
-})
+const props = withDefaults(defineProps<DropdownMenuTriggerProps>(), DEFAULT_DROPDOWN_MENU_TRIGGER_PROPS)
 
-const dropdownMenuTrigger = useDropdownMenuTrigger({
-  disabled() {
-    return props.disabled
-  },
-})
+const dropdownMenuTrigger = useDropdownMenuTrigger(convertPropsToHookProps(props, ['disabled']))
 </script>
 
 <template>

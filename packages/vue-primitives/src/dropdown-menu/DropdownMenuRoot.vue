@@ -1,31 +1,25 @@
 <script setup lang="ts">
-import { type DropdownMenuRootEmits, type DropdownMenuRootProps, useDropdownMenuRoot } from './DropdownMenuRoot.ts'
+import type { EmitsToHookProps } from '../shared/index.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
+import { DEFAULT_DROPDOWN_MENU_ROOT_PROPS, type DropdownMenuRootEmits, type DropdownMenuRootProps, useDropdownMenuRoot } from './DropdownMenuRoot.ts'
 
 defineOptions({
   name: 'DropdownMenuRoot',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<DropdownMenuRootProps>(), {
-  open: undefined,
-  defaultOpen: false,
-  modal: true,
-})
+const props = withDefaults(defineProps<DropdownMenuRootProps>(), DEFAULT_DROPDOWN_MENU_ROOT_PROPS)
 const emit = defineEmits<DropdownMenuRootEmits>()
 
-useDropdownMenuRoot({
-  open() {
-    return props.open
-  },
-  onUpdateOpen(open) {
-    emit('update:open', open)
-  },
-  defaultOpen: props.defaultOpen,
-  dir() {
-    return props.dir
-  },
-  modal: props.modal,
-})
+useDropdownMenuRoot(convertPropsToHookProps(
+  props,
+  ['open', 'dir'],
+  (): Required<EmitsToHookProps<DropdownMenuRootEmits>> => ({
+    onUpdateOpen(open) {
+      emit('update:open', open)
+    },
+  }),
+))
 </script>
 
 <template>

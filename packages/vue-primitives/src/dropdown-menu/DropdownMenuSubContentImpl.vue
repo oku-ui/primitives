@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
+  DEFAULT_DROPDOWN_MENU_SUB_CONTENT_IMPL_PROPS,
   type DropdownMenuSubContentImplEmits,
   type DropdownMenuSubContentImplProps,
   useDropdownMenuSubContentImpl,
@@ -12,41 +13,27 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<DropdownMenuSubContentImplProps>(), {
-  avoidCollisions: true,
-  hideWhenDetached: false,
-  loop: false,
-})
+const props = withDefaults(defineProps<DropdownMenuSubContentImplProps>(), DEFAULT_DROPDOWN_MENU_SUB_CONTENT_IMPL_PROPS)
 const emit = defineEmits<DropdownMenuSubContentImplEmits>()
 
-const menuSubContentImpl = useDropdownMenuSubContentImpl({
-  loop: props.loop,
-  onEscapeKeydown(event) {
-    emit('escapeKeydown', event)
-  },
-  onPointerdownOutside(event) {
-    emit('pointerdownOutside', event)
-  },
-  onFocusOutside(event) {
-    emit('focusOutside', event)
-  },
-  onInteractOutside(event) {
-    emit('interactOutside', event)
-  },
-  popperProps: {
-    sideOffset: props.sideOffset,
-    alignOffset: props.alignOffset,
-    arrowPadding: props.arrowPadding,
-    avoidCollisions: props.avoidCollisions,
-    collisionBoundary() {
-      return props.collisionBoundary
+const menuSubContentImpl = useDropdownMenuSubContentImpl(convertPropsToHookProps(
+  props,
+  ['collisionBoundary'],
+  (): Required<EmitsToHookProps<DropdownMenuSubContentImplEmits>> => ({
+    onEscapeKeydown(event) {
+      emit('escapeKeydown', event)
     },
-    collisionPadding: props.collisionPadding,
-    sticky: props.sticky,
-    hideWhenDetached: props.hideWhenDetached,
-    updatePositionStrategy: props.updatePositionStrategy,
-  },
-})
+    onPointerdownOutside(event) {
+      emit('pointerdownOutside', event)
+    },
+    onFocusOutside(event) {
+      emit('focusOutside', event)
+    },
+    onInteractOutside(event) {
+      emit('interactOutside', event)
+    },
+  }),
+))
 </script>
 
 <template>

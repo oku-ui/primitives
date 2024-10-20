@@ -1,7 +1,15 @@
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
 import { type MenuContentImplEmits, type MenuContentImplProps, useMenuContentImpl, type UseMenuContentImplProps, type UseMenuContentImplSharedPeturns } from '../menu/index.ts'
 import { useDropdownMenuContext } from './DropdownMenuRoot.ts'
 
 export interface DropdownMenuContentImplProps extends MenuContentImplProps {}
+
+export const DEFAULT_DROPDOWN_MENU_CONTENT_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<DropdownMenuContentImplProps>
+
 export type DropdownMenuContentImplEmits = MenuContentImplEmits
 
 export interface UseDropdownMenuContentImplProps extends UseMenuContentImplProps {}

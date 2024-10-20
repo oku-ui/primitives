@@ -1,3 +1,4 @@
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
 import {
   type MenuSubContentImplEmits,
   type MenuSubContentImplProps,
@@ -9,6 +10,12 @@ import {
 export interface DropdownMenuSubContentImplProps extends MenuSubContentImplProps {
 
 }
+
+export const DEFAULT_DROPDOWN_MENU_SUB_CONTENT_IMPL_PROPS = {
+  avoidCollisions: undefined,
+  hideWhenDetached: undefined,
+  loop: undefined,
+} satisfies PrimitiveDefaultProps<DropdownMenuSubContentImplProps>
 
 export type DropdownMenuSubContentImplEmits = MenuSubContentImplEmits
 

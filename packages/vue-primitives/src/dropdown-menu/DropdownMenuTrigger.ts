@@ -1,13 +1,18 @@
 import type { PrimitiveProps } from '../primitive'
 import { onMounted } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useDropdownMenuContext } from './DropdownMenuRoot.ts'
 
 export interface DropdownMenuTriggerProps {
   as?: PrimitiveProps['as']
   disabled?: boolean
 }
+
+export const DEFAULT_DROPDOWN_MENU_TRIGGER_PROPS = {
+  as: 'button',
+  disabled: undefined,
+} satisfies PrimitiveDefaultProps<DropdownMenuTriggerProps>
 
 export interface UseDropdownMenuTriggerProps {
   disabled?: () => boolean | undefined
