@@ -7,7 +7,6 @@ export default defineBuildConfig({
     { builder: 'mkdist', input: '../../vue-primitives/src/label', pattern: ['**/*.ts', '!stories/**', '!tests/**'], format: 'esm', ext: 'ts' },
   ],
   clean: true,
-  declaration: false,
+  declaration: true,
   externals: ['vue'],
-  failOnWarn: false,
 })
