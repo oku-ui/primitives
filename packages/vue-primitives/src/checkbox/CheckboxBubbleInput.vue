@@ -42,6 +42,7 @@ watch(bubbleInput.checked, (checked, prevChecked) => {
 <template>
   <input
     :ref="setElRef"
+    hidden
     type="checkbox"
     aria-hidden="true"
     :name="bubbleInput.name?.()"
