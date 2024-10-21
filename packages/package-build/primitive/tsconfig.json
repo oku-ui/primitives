@@ -1,8 +1,11 @@
 {
-  "extends": "@oku/tsconfig/node18.json",
-  "include": [
-    "src/**/*",
-    "tests/**/*",
-    "node_modules/tsconfig"
-  ]
+  "extends": "@oku/tsconfig/tsconfig.vue.json",
+  "compilerOptions": {
+    /* Проекты */
+    "incremental": true,
+    "composite": true
+
+  },
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["src/**/__tests__/*", "src/**/stories/*"]
 }
