@@ -1,7 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useRadioContext } from './RadioGroupItem.ts'
 
 export interface RadioGroupIndicatorProps {
@@ -12,6 +12,11 @@ export interface RadioGroupIndicatorProps {
    */
   forceMount?: boolean
 }
+
+export const DEFAULT_RADIO_GROUP_INDICATOR_PROPS = {
+  as: 'span',
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<RadioGroupIndicatorProps>
 
 export interface UseRadioGroupIndicatorProps {
   el?: Ref<HTMLElement | undefined>

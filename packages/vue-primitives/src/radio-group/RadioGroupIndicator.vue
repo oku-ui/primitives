@@ -1,20 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type RadioGroupIndicatorProps, useRadioGroupIndicator } from './RadioGroupIndicator.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_RADIO_GROUP_INDICATOR_PROPS, type RadioGroupIndicatorProps, useRadioGroupIndicator } from './RadioGroupIndicator.ts'
 
 defineOptions({
   name: 'RadioGroupIndicator',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<RadioGroupIndicatorProps>(), {
-  as: 'span',
-})
+const props = withDefaults(defineProps<RadioGroupIndicatorProps>(), DEFAULT_RADIO_GROUP_INDICATOR_PROPS)
 
-const radioGroupIndicator = useRadioGroupIndicator({
-  forceMount: props.forceMount,
-})
+const radioGroupIndicator = useRadioGroupIndicator(convertPropsToHookProps(props))
 </script>
 
 <template>

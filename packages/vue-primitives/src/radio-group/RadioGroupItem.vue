@@ -1,28 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type RadioGroupItemProps, useRadioGroupItem } from './RadioGroupItem.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_RADIO_GROUP_ITEM_PROPS, type RadioGroupItemProps, useRadioGroupItem } from './RadioGroupItem.ts'
 
 defineOptions({
   name: 'RadioGroupItem',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<RadioGroupItemProps>(), {
-  as: 'button',
-})
+const props = withDefaults(defineProps<RadioGroupItemProps>(), DEFAULT_RADIO_GROUP_ITEM_PROPS)
 
-const radioGroupItem = useRadioGroupItem({
-  value() {
-    return props.value
-  },
-  name() {
-    return props.name
-  },
-  disabled() {
-    return props.disabled
-  },
-})
+const radioGroupItem = useRadioGroupItem(convertPropsToHookProps(props, ['value', 'disabled', 'name']))
 </script>
 
 <template>
