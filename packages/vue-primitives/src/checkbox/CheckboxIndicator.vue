@@ -1,20 +1,16 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
-import { type CheckboxIndicatorProps, useCheckboxIndicator } from './CheckboxIndicator.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { type CheckboxIndicatorProps, DEFAULT_CHECKBOX_INDICATOR_PROPS, useCheckboxIndicator } from './CheckboxIndicator.ts'
 
 defineOptions({
   name: 'CheckboxIndicator',
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<CheckboxIndicatorProps>(), {
-  as: 'span',
-})
+const props = withDefaults(defineProps<CheckboxIndicatorProps>(), DEFAULT_CHECKBOX_INDICATOR_PROPS)
 
-const checkboxIndicator = useCheckboxIndicator({
-  forceMount: props.forceMount,
-})
+const checkboxIndicator = useCheckboxIndicator(convertPropsToHookProps(props))
 </script>
 
 <template>

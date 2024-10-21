@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
@@ -15,6 +15,11 @@ export interface CheckboxIndicatorProps {
   forceMount?: boolean
 }
 
+export const DEFAULT_CHECKBOX_INDICATOR_PROPS = {
+  as: 'span',
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<CheckboxIndicatorProps>
+
 export interface UseCheckboxIndicatorProps {
   el?: Ref<HTMLElement | undefined>
   forceMount?: boolean
@@ -29,14 +34,14 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
 
   const context = useCheckboxContext('CheckboxIndicator')
 
-  const isPresent = usePresence(el, () => props.forceMount || isIndeterminate(context.state.value) || context.state.value === true)
+  const isPresent = usePresence(el, () => props.forceMount || isIndeterminate(context.checked.value) || context.checked.value === true)
 
   return {
     isPresent,
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
         'elRef': setTemplateEl,
-        'data-state': getState(context.state.value),
+        'data-state': getState(context.checked.value),
         'data-disabled': context.disabled() ? '' : undefined,
         'style': {
           pointerEvents: 'none',

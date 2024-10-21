@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { EmitsToHookProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
@@ -15,6 +15,15 @@ export interface CheckboxRootProps {
   name?: string
 }
 
+export const DEFAULT_CHECKBOX_ROOT_PROPS = {
+  as: 'button',
+  value: 'on',
+  checked: undefined,
+  defaultChecked: undefined,
+  disabled: undefined,
+  required: undefined,
+} satisfies PrimitiveDefaultProps<CheckboxRootProps>
+
 export type CheckboxRootEmits = {
   'update:checked': [value: CheckedState]
 }
@@ -22,7 +31,7 @@ export type CheckboxRootEmits = {
 export type CheckedState = boolean | 'indeterminate'
 
 export interface CheckboxContext {
-  state: Ref<CheckedState>
+  checked: Ref<CheckedState>
   disabled: () => boolean | undefined
   bubbleInput: {
     control: Ref<HTMLButtonElement | undefined>
@@ -108,7 +117,7 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
 
   provideCheckboxContext({
     disabled,
-    state: checked,
+    checked,
     bubbleInput: {
       control,
       bubbles,
