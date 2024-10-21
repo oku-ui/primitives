@@ -4,6 +4,7 @@ import path from 'node:path'
 import process from 'node:process'
 // import { externalizeDeps } from 'vite-plugin-externalize-deps'
 
+import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'vite'
@@ -46,14 +47,12 @@ export default defineConfig({
     vueJsx(),
     dts({
       outDir: 'dist',
-      include: [
-        'env.d.ts',
-        'src/**/*',
-        'src/**/*.ts',
-        'src/**/*.tsx',
-        'src/**/*.vue',
-      ],
       exclude: ['src/**/__tests__/*', 'src/**/stories/*'],
+      compilerOptions: {
+        composite: false,
+        declaration: true,
+        declarationMap: true,
+      },
       tsconfigPath: 'tsconfig.app.json',
     }),
   ],
@@ -69,6 +68,11 @@ export default defineConfig({
     target: 'esnext',
     rollupOptions: {
       external: ['vue', '@vue/shared'],
+    },
+  },
+  resolve: {
+    alias: {
+      '@oku-ui': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   // resolve: {
