@@ -40,7 +40,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@oku-ui/primitive": "latest@beta"
+    "@oku-ui/primitive": "beta"
 
   },
   "devDependencies": {
