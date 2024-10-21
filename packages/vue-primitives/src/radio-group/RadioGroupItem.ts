@@ -30,7 +30,7 @@ export interface RadioContext {
     name: () => string | undefined
     value: () => string
     checked: Ref<boolean>
-    required: () => boolean
+    required: () => boolean | undefined
     disabled: Ref<boolean | undefined>
   }
 }

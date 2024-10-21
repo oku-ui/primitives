@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { useSize } from '../hooks/index.ts'
 import { useRadioContext } from './RadioGroupItem.ts'
 
 defineOptions({
@@ -15,7 +14,6 @@ function setElRef(vNode: any) {
   input = vNode
 }
 
-const controlSize = useSize(() => bubbleInput.control.value)
 // TODO: Check if this is the correct way to create a change event
 // const initChecked = isIndeterminate(props.checked) ? false : props.checked
 
@@ -46,14 +44,12 @@ watch(bubbleInput.checked, (checked) => {
     :name="bubbleInput.name()"
     :value="bubbleInput.value()"
     :checked="bubbleInput.checked.value"
+    :required="bubbleInput.required()"
     :style="{
-      width: `${controlSize?.width || 0}px`,
-      height: `${controlSize?.height || 0}px`,
       position: 'absolute',
       pointerEvents: 'none',
       opacity: 0,
       margin: 0,
-      transform: 'translateX(-50% -50%)',
     }"
   >
 </template>

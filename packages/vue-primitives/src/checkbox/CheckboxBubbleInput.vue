@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { useSize } from '../hooks/index.ts'
 import { useCheckboxContext } from './CheckboxRoot.ts'
 import { isIndeterminate } from './utils.ts'
 
@@ -16,7 +15,6 @@ function setElRef(vNode: any) {
   input = vNode
 }
 
-const controlSize = useSize(() => bubbleInput.control.value)
 // TODO: Check if this is the correct way to create a change event
 // const initChecked = isIndeterminate(props.checked) ? false : props.checked
 
@@ -42,23 +40,17 @@ watch(bubbleInput.checked, (checked, prevChecked) => {
 <template>
   <input
     :ref="setElRef"
-    hidden
     type="checkbox"
     aria-hidden="true"
     :name="bubbleInput.name?.()"
+    :required="bubbleInput.required()"
     tabindex="-1"
     :checked="isIndeterminate(bubbleInput.checked.value) ? false : bubbleInput.defaultChecked"
     :style="{
-      width: `${controlSize?.width || 0}px`,
-      height: `${controlSize?.height || 0}px`,
       position: 'absolute',
       pointerEvents: 'none',
       opacity: 0,
       margin: 0,
-      // We transform because the input is absolutely positioned but we have
-      // rendered it **after** the button. This pulls it back to sit on top
-      // of the button.
-      transform: 'translateX(-50%) translateY(-50%)',
     }"
   >
 </template>
