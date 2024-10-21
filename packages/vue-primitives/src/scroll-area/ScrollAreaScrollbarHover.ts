@@ -10,7 +10,9 @@ export interface ScrollAreaScrollbarHoverProps {
   forceMount?: boolean
 }
 
-export const DEFAULT_SCROLLBAR_HOVER_PROPS = { forceMount: undefined } satisfies PrimitiveDefaultProps<ScrollAreaScrollbarHoverProps>
+export const DEFAULT_SCROLLBAR_HOVER_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<ScrollAreaScrollbarHoverProps>
 
 export interface UseScrollAreaScrollbarHoverProps extends UseScrollAreaScrollbarVisibleProps {
   forceMount?: boolean

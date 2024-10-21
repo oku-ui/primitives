@@ -7,8 +7,8 @@ export type BooleanKey<T, K extends keyof T = keyof T> = K extends any ? [T[K]] 
 
 type PrimitiveProps<T> = (T extends { as?: any } ? Required<Pick<T, 'as'>> : unknown)
 
-export type PrimitiveDefaultProps<T extends object, BK extends BooleanKey<T> = never, UK extends BooleanKey<T> = Exclude<BooleanKey<T>, BK>> =
-    Record<UK, undefined> & Record<BK, boolean> & PrimitiveProps<T> & Record<string, unknown>
+export type PrimitiveDefaultProps<T extends object, BK extends BooleanKey<T> = never, UK extends BooleanKey<T> = Exclude<BooleanKey<T>, BK>, K extends keyof T = Exclude<keyof T, BK>> =
+  Record<UK, undefined> & Record<BK, boolean> & PrimitiveProps<T> & Partial<Record<K, unknown>>
 
 export type EmitsToHookProps<T extends Record<string, any[]>> = {
   [K in keyof T as K extends `update:${infer Rest}`

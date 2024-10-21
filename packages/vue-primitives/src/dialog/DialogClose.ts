@@ -7,7 +7,9 @@ export interface DialogCloseProps {
   as?: PrimitiveProps['as']
 }
 
-export const DEFAULT_DIALOG_CLOSE_PROPS = { as: 'button' } satisfies PrimitiveDefaultProps<DialogCloseProps>
+export const DEFAULT_DIALOG_CLOSE_PROPS = {
+  as: 'button',
+} satisfies PrimitiveDefaultProps<DialogCloseProps>
 
 export function useDialogClose(): RadixPrimitiveReturns {
   const context = useDialogContext('DialogClose')
