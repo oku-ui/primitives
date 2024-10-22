@@ -9,4 +9,9 @@ export {
 } from './DismissableLayer.ts'
 export { default as DismissableLayer } from './DismissableLayer.vue'
 
+export {
+  useDismissableLayerBranch,
+  type UseDismissableLayerBranchProps,
+} from './DismissableLayerBranch.ts'
+
 export { default as DismissableLayerBranch } from './DismissableLayerBranch.vue'

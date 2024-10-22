@@ -1,27 +1,17 @@
 <script setup lang="ts">
-import { useForwardElement, useRef } from '@oku-ui/hooks'
-import { Primitive } from '@oku-ui/primitive'
-import { onBeforeUnmount, onMounted } from 'vue'
-import { context } from './DismissableLayer.ts'
+import { Primitive } from '../primitive/index.ts'
+import { useDismissableLayerBranch } from './DismissableLayerBranch.ts'
 
 defineOptions({
   name: 'DismissableLayerBranch',
+  inheritAttrs: false,
 })
 
-const elRef = useRef<HTMLElement>()
-const forwardElement = useForwardElement(elRef)
-
-onMounted(() => {
-  context.branches.add(elRef.value!)
-})
-
-onBeforeUnmount(() => {
-  context.branches.delete(elRef.value!)
-})
+const dismissableLayerBranch = useDismissableLayerBranch()
 </script>
 
 <template>
-  <Primitive :ref="forwardElement">
+  <Primitive v-bind="dismissableLayerBranch.attrs([$attrs])">
     <slot />
   </Primitive>
 </template>

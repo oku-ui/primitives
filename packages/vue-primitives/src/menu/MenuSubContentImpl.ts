@@ -96,14 +96,14 @@ export function useMenuSubContentImpl(props: UseMenuSubContentImplProps): UseMen
     side: rootContext.dir.value !== 'rtl' ? 'right' : 'left',
   })
 
+  const attrs = {
+    'aria-labelledby': subContext.triggerId,
+    onKeydown,
+  }
+
   return {
     wrapperAttrs: menuContentImplShared.wrapperAttrs,
     attrs(extraAttrs = []) {
-      const attrs = {
-        'aria-labelledby': subContext.triggerId,
-        onKeydown,
-      }
-
       return menuContentImplShared.attrs([attrs, ...extraAttrs])
     },
   }

@@ -30,12 +30,12 @@ export function useToolbarToggleGroup<T extends ToggleGroupType>(props: UseToolb
     dir: props.dir,
   })
 
+  const attrs = {
+    'data-orientation': context.orientation,
+  }
+
   return {
     attrs(extraAttrs = []) {
-      const attrs = {
-        'data-orientation': context.orientation,
-      }
-
       return toggleGroup.attrs([attrs, ...extraAttrs])
     },
   }
