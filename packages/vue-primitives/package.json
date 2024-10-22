@@ -27,7 +27,7 @@
     "build-storybook": "storybook build",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
-    "release": "pnpm build && pnpm bumpp --commit='version(accordion): release %s' --no-tag && pnpm publish",
+    "release": "pnpm build && pnpm bumpp --commit='version(accordion): release %s' --no-tag && pnpm publish --no-git-checks",
     "release:beta": "pnpm release --tag beta",
     "release:alpha": "pnpm release --tag alpha"
   },
