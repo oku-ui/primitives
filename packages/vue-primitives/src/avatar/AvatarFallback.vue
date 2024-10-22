@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { AvatarFallbackProps } from './AvatarFallback.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { isClient } from '@vueuse/core'
-import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
-import { useAvatarContext } from './AvatarRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
+import { type AvatarFallbackProps, useAvatarFallback } from './AvatarFallback.ts'
 
 defineOptions({
   name: 'AvatarFallback',
@@ -13,23 +11,11 @@ const props = withDefaults(defineProps<AvatarFallbackProps>(), {
   as: 'span',
 })
 
-const context = useAvatarContext('AvatarFallback')
-const canRender = shallowRef(props.delayMs === undefined)
-
-if (isClient) {
-  watchEffect(() => {
-    if (props.delayMs !== undefined) {
-      const timerId = window.setTimeout(() => canRender.value = true, props.delayMs)
-      onWatcherCleanup(() => {
-        window.clearTimeout(timerId)
-      })
-    }
-  })
-}
+const avatarFallback = useAvatarFallback(convertPropsToHookProps(props))
 </script>
 
 <template>
-  <Primitive v-if="canRender && context.imageLoadingStatus.value !== 'loaded'" :as="as">
+  <Primitive v-if="avatarFallback.isOpen.value" :as="as">
     <slot />
   </Primitive>
 </template>

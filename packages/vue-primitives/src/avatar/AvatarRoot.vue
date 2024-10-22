@@ -1,24 +1,14 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
-import { shallowRef } from 'vue'
-import { type AvatarRootProps, type ImageLoadingStatus, provideAvatarContext } from './AvatarRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { type AvatarRootProps, DEFAULT_AVATAR_ROOT_PROPS, useAvatarRoot } from './AvatarRoot.ts'
 
 defineOptions({
   name: 'AvatarRoot',
 })
 
-withDefaults(defineProps<AvatarRootProps>(), {
-  as: 'span',
-})
+withDefaults(defineProps<AvatarRootProps>(), DEFAULT_AVATAR_ROOT_PROPS)
 
-const imageLoadingStatus = shallowRef<ImageLoadingStatus>('idle')
-
-provideAvatarContext({
-  imageLoadingStatus,
-  onImageLoadingStatusChange(newStatus) {
-    imageLoadingStatus.value = newStatus
-  },
-})
+useAvatarRoot()
 </script>
 
 <template>

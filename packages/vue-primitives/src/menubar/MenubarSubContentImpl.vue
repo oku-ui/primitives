@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import type { EmitsToHookProps } from '../shared/index.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps } from '../shared/index.ts'
-import { normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { DEFAULT_MENUBAR_SUB_CONTENT_IMPL_PROPS, type MenubarSubContentImplEmits, type MenubarSubContentImplProps, useMenubarSubContentImpl } from './MenubarSubContentImpl.ts'
 
 defineOptions({

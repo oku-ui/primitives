@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { EmitsToHookProps } from '../shared/typeUtils.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { DEFAULT_SWITCH_ROOT_PROPS, type SwitchRootEmits, type SwitchRootProps, useSwitchRoot } from './SwitchRoot.ts'
 
 defineOptions({

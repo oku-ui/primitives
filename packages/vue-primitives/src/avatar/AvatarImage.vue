@@ -1,37 +1,30 @@
 <script setup lang="ts">
-import type { AvatarImageEmits, AvatarImageProps } from './AvatarImage.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { watchEffect } from 'vue'
-import { type ImageLoadingStatus, useAvatarContext } from './AvatarRoot.ts'
-import { useImageLoadingStatus } from './utils.ts'
+import { Primitive } from '../primitive/index.ts'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { type AvatarImageEmits, type AvatarImageProps, DEFAULT_AVATAR_IMAGE_PROPS, useAvatarImage } from './AvatarImage.ts'
 
 defineOptions({
   name: 'AvatarImage',
+  inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<AvatarImageProps>(), {
-  as: 'img',
-})
+const props = withDefaults(defineProps<AvatarImageProps>(), DEFAULT_AVATAR_IMAGE_PROPS)
 
 const emit = defineEmits<AvatarImageEmits>()
 
-const context = useAvatarContext('AvatarImage')
-const imageLoadingStatus = useImageLoadingStatus(() => props.src)
-
-function handleLoadingStatusChange(status: ImageLoadingStatus) {
-  emit('loadingStatusChange', status)
-  context.onImageLoadingStatusChange(status)
-}
-
-watchEffect(() => {
-  if (imageLoadingStatus.value !== 'idle') {
-    handleLoadingStatusChange(imageLoadingStatus.value)
-  }
-})
+const avatarImage = useAvatarImage(convertPropsToHookProps(
+  props,
+  ['src'],
+  (): Required<EmitsToHookProps<AvatarImageEmits>> => ({
+    onLoadingStatusChange(status) {
+      emit('loadingStatusChange', status)
+    },
+  }),
+))
 </script>
 
 <template>
-  <Primitive :hidden="imageLoadingStatus !== 'loaded'" :as="as" :src="src">
+  <Primitive v-bind="normalizeAttrs(avatarImage.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>
