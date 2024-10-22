@@ -1,9 +1,18 @@
 {
-  "name": "vue-packages",
+  "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.6.1",
   "license": "MIT",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/vue-primitives"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
   "files": [
     "dist"
   ],
@@ -17,7 +26,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix"
+    "eslint:fix": "eslint . --fix",
+    "release": "pnpm build && pnpm bumpp --commit='version(accordion): release %s' --no-tag && pnpm publish",
+    "release:beta": "pnpm release --tag beta",
+    "release:alpha": "pnpm release --tag alpha"
   },
   "peerDependencies": {
     "@vue/shared": "^3.4.31"
@@ -51,5 +63,8 @@
     "vue": "^3.5.12",
     "vue-router": "^4.4.5",
     "vue-tsc": "^2.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

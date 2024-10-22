@@ -1,40 +1,12 @@
-import fs from 'node:fs'
-
-import path from 'node:path'
 import process from 'node:process'
 // import { externalizeDeps } from 'vite-plugin-externalize-deps'
 
 import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { globbySync } from 'globby'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
-
-// Функция для рекурсивного поиска всех файлов index.ts в папке src
-function findComponentsEntryPoints(dir: string, baseDir = '') {
-  const entries: Record<string, string> = {}
-  const files = fs.readdirSync(dir)
-
-  files.forEach((file) => {
-    const fullPath = path.join(dir, file)
-    const relativePath = path.join(baseDir, file)
-    const stat = fs.statSync(fullPath)
-
-    if (stat.isDirectory()) {
-      Object.assign(entries, findComponentsEntryPoints(fullPath, relativePath))
-    }
-    else if (file === 'index.ts') {
-      const name = `${path.relative('.', path.dirname(fullPath)).replace('src/', '')}/index`
-      entries[name] = fullPath
-    }
-  })
-
-  return entries
-}
-
-const componentsDir = path.resolve(__dirname, 'src')
-const input = findComponentsEntryPoints(componentsDir)
-console.error(input)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -63,10 +35,16 @@ export default defineConfig({
     lib: {
       name: 'radix',
       formats: ['es'],
-      entry: input,
+      entry: globbySync('src/**/index.ts'),
     },
     target: 'esnext',
     rollupOptions: {
+      output: {
+        esModule: true,
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].mjs',
+      },
       external: ['vue', '@vue/shared'],
     },
   },
