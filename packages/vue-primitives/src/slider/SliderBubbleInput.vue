@@ -28,9 +28,11 @@ watch(() => props.value, (value, prevValue) => {
 
   if (prevValue !== value && setValue) {
     // TODO: Check if this is the correct way to create a change event
-    const event = new Event('change', { bubbles: true })
+    const inputEvent = new Event('input', { bubbles: true })
+    const changeEvent = new Event('change', { bubbles: true })
     setValue.call(input, value)
-    input.dispatchEvent(event)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
   }
 })
 

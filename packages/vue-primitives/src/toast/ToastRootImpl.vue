@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Portal } from '../portal/index.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { VISUALLY_HIDDEN_STYLE } from '../visually-hidden/VisuallyHidden.ts'
+import { useToastAnnounce } from './ToastAnnounce.ts'
 import { type ToastRootImplEmits, type ToastRootImplProps, useToastRootImpl } from './ToastRootImpl.ts'
 
 defineOptions({
@@ -42,12 +43,29 @@ const toastRootImpl = useToastRootImpl(convertPropsToHookProps(
     },
   }),
 ))
+
+const toastAnnounce = useToastAnnounce()
 </script>
 
 <template>
-  <Portal v-if="toastRootImpl.viewport.value" :to="toastRootImpl.viewport.value">
-    <Primitive v-bind="normalizeAttrs(toastRootImpl.attrs([$attrs, { as }]))">
-      <slot />
-    </Primitive>
-  </Portal>
+  <template v-if="toastRootImpl.viewport.value">
+    <Teleport v-if="!toastAnnounce.isAnnounced.value" to="body">
+      <span
+        v-if="toastRootImpl.announceTextContent.value"
+        role="status"
+        :aria-live="toastRootImpl.type === 'foreground' ? 'assertive' : 'polite'"
+        aria-atomic
+        :style="VISUALLY_HIDDEN_STYLE"
+      >
+        <span v-if="toastAnnounce.renderAnnounceText.value">
+          {{ toastAnnounce.label }} {{ toastRootImpl.announceTextContent.value }}
+        </span>
+      </span>
+    </Teleport>
+    <Teleport :to="toastRootImpl.viewport.value">
+      <Primitive v-bind="normalizeAttrs(toastRootImpl.attrs([$attrs, { as }]))">
+        <slot />
+      </Primitive>
+    </Teleport>
+  </template>
 </template>

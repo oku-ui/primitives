@@ -58,7 +58,7 @@ export function useToastViewport(props: UseToastViewportProps = {}): RadixPrimit
   }
   let tailFocusProxyRef: HTMLElement | undefined
   function setTailFocusProxyRef(v: any) {
-    headFocusProxyRef = v
+    tailFocusProxyRef = v
   }
   const viewportRef = useRef<HTMLElement>()
 

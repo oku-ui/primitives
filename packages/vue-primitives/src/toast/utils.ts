@@ -1,6 +1,6 @@
 import type { SwipeDirection } from './ToastProvider'
 
-export function getAnnounceTextContent(container: HTMLElement): string {
+export function getAnnounceTextContent(container: HTMLElement): string[] {
   const textContent: string[] = []
 
   for (const node of container.childNodes) {
@@ -26,7 +26,7 @@ export function getAnnounceTextContent(container: HTMLElement): string {
 
   // We return a collection of text rather than a single concatenated string.
   // This allows SR VO to naturally pause break between nodes while announcing.
-  return textContent.join(' ')
+  return textContent
 }
 
 /* ---------------------------------------------------------------------------------------------- */

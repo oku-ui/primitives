@@ -19,7 +19,6 @@ function setElRef(vNode: any) {
 
 // Bubble checked change to parents (e.g form change event)
 watch(bubbleInput.checked, (checked, prevChecked) => {
-  console.error('input', input)
   if (!input)
     return
 

@@ -2,15 +2,7 @@ import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { useToastProviderContext } from './ToastProvider.ts'
 import { useNextFrame } from './utils.ts'
 
-export interface ToastAnnounceProps {
-  label?: string
-}
-
-export interface UseToastAnnounceProps {
-  label?: string
-}
-
-export function useToastAnnounce(props: UseToastAnnounceProps = {}) {
+export function useToastAnnounce() {
   const context = useToastProviderContext('ToastAnnounce')
   const renderAnnounceText = shallowRef(false)
   const isAnnounced = shallowRef(false)
@@ -40,6 +32,6 @@ export function useToastAnnounce(props: UseToastAnnounceProps = {}) {
   return {
     isAnnounced,
     renderAnnounceText,
-    label: context.label + (props.label ? ` ${props.label}` : ''),
+    label: context.label,
   }
 }

@@ -39,13 +39,14 @@ export interface UseToastRootImplProps extends EmitsToHookProps<ToastRootImplEmi
 }
 
 export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveReturns<{
+  type: 'foreground' | 'background'
   viewport: Ref<HTMLElement | undefined>
   announceTextContent: Ref<string | undefined>
   attrs: RadixPrimitiveGetAttrs
 }> {
-  // const {
-  //   type = 'foreground',
-  // } = props
+  const {
+    type = 'foreground',
+  } = props
 
   const context = useToastProviderContext('ToastRootImpl')
   const contextToastRoot = useToastRootContext('ToastRootImpl')
@@ -68,7 +69,7 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
     const isFocusInToast = contextToastRoot.el.value?.contains(document.activeElement)
     if (isFocusInToast)
       context.viewport.value?.focus()
-    contextToastRoot.changeOpen(false)
+    contextToastRoot.onChangeOpen(false)
   }
   contextToastRoot.setOnClose(handleClose)
 
@@ -128,7 +129,17 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
     onToastRemove()
   })
 
-  const announceTextContent = computed(() => contextToastRoot.el.value ? getAnnounceTextContent(contextToastRoot.el.value) : undefined)
+  const announceTextContent = computed(() => {
+    if (!contextToastRoot.el.value)
+      return undefined
+    let text = ''
+
+    for (const item of getAnnounceTextContent(contextToastRoot.el.value)) {
+      text += `${item} `
+    }
+
+    return text
+  })
 
   function onSwipeStart(event: SwipeEvent) {
     props.onSwipeStart?.(event)
@@ -166,7 +177,7 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
     event.currentTarget.style.removeProperty('--radix-toast-swipe-move-y')
     event.currentTarget.style.setProperty('--radix-toast-swipe-end-x', `${event.detail.delta.x}px`)
     event.currentTarget.style.setProperty('--radix-toast-swipe-end-y', `${event.detail.delta.y}px`)
-    contextToastRoot.changeOpen(false)
+    contextToastRoot.onChangeOpen(false)
   }
 
   function onKeydown(event: KeyboardEvent) {
@@ -265,6 +276,7 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
   )
 
   return {
+    type,
     viewport: context.viewport,
     announceTextContent,
     attrs(extraAttrs = []) {
