@@ -1,6 +1,5 @@
 import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import type { UseDialogContentImplSharedProps as _UseDialogContentImplProps } from './DialogContentImpl.ts'
 import { usePresence } from '../presence/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
