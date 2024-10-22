@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
 import { DEFAULT_SLIDER_TRACK_PROPS, type SliderTrackProps, useSliderTrack } from './SliderTrack.ts'
 
 defineOptions({
@@ -13,7 +14,7 @@ const sliderTrack = useSliderTrack()
 </script>
 
 <template>
-  <Primitive v-bind="sliderTrack.attrs([$attrs, { as }])">
+  <Primitive v-bind="normalizeAttrs(sliderTrack.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

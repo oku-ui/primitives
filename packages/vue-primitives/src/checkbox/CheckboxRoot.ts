@@ -12,6 +12,7 @@ export interface CheckboxRootProps {
   disabled?: boolean
   required?: boolean
   value?: string
+  name?: string
 }
 
 export const DEFAULT_CHECKBOX_ROOT_PROPS = {
@@ -50,7 +51,7 @@ export const [provideCheckboxContext, useCheckboxContext] = createContext<Checkb
 export interface UseCheckboxRootProps extends EmitsToHookProps<CheckboxRootEmits> {
   control?: Ref<HTMLButtonElement | undefined>
   checked?: () => CheckedState | undefined
-  defaultChecked?: CheckedState
+  defaultChecked?: CheckedState | undefined
   disabled?: () => boolean | undefined
   required?: () => boolean | undefined
   value?: () => string

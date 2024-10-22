@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/mergeProps.ts'
 import { useDismissableLayerBranch } from './DismissableLayerBranch.ts'
 
 defineOptions({
@@ -11,7 +12,7 @@ const dismissableLayerBranch = useDismissableLayerBranch()
 </script>
 
 <template>
-  <Primitive v-bind="dismissableLayerBranch.attrs([$attrs])">
+  <Primitive v-bind="normalizeAttrs(dismissableLayerBranch.attrs([$attrs]))">
     <slot />
   </Primitive>
 </template>
