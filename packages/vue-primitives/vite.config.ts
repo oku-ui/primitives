@@ -35,7 +35,14 @@ export default defineConfig({
     lib: {
       name: 'radix',
       formats: ['es'],
-      entry: globbySync('src/**/index.ts'),
+      entry: [
+        ...globbySync('src/**/*.ts', { ignore: [
+          '**/__tests__/**',
+          '**/stories/**',
+          '**/*.stories.ts',
+        ] }),
+        'src/index.ts',
+      ],
     },
     target: 'esnext',
     rollupOptions: {
@@ -45,7 +52,14 @@ export default defineConfig({
         preserveModulesRoot: 'src',
         entryFileNames: '[name].mjs',
       },
-      external: ['vue', '@vue/shared'],
+      external: [
+        'vue',
+        '@vue/shared',
+        '@floating-ui/dom',
+        '@floating-ui/utils',
+        '@floating-ui/vue',
+        'aria-hidden',
+      ],
     },
   },
   resolve: {
