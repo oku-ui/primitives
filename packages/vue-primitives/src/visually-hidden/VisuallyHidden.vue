@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { VisuallyHiddenProps } from './VisuallyHidden.ts'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive } from '../primitive/index.ts'
+import { VISUALLY_HIDDEN_STYLE, type VisuallyHiddenProps } from './VisuallyHidden.ts'
 
 defineOptions({
   name: 'VisuallyHidden',
@@ -14,7 +14,7 @@ withDefaults(defineProps<VisuallyHiddenProps>(), {
 <template>
   <Primitive
     :as="as"
-    style="position: absolute; border: 0; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; word-wrap: normal;"
+    :style="VISUALLY_HIDDEN_STYLE"
   >
     <slot />
   </Primitive>
