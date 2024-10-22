@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/typeUtils.ts'
-import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
 import { DEFAULT_DROPDOWN_MENU_SUB_PROPS, type DropdownMenuSubEmits, type DropdownMenuSubProps, useDropdownMenuSub } from './DropdownMenuSub.ts'
 
 defineOptions({

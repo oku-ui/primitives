@@ -24,12 +24,12 @@ export interface UseDialogContentImplProps extends Omit<UseDialogContentImplShar
 export function useDialogContentImpl(props: UseDialogContentImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContent')
 
-  const useDialogContent = context.modal ? useDialogContentModal : useDialogContentNonModal
+  const useDialogContent = context.modal ? useDialogContentImplModal : useDialogContentImplNonModal
 
   return useDialogContent(props)
 }
 
-export function useDialogContentModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
+export function useDialogContentImplModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContentModal')
 
   // aria-hide everything except the content (better supported equivalent to setting aria-modal)
@@ -79,11 +79,11 @@ export function useDialogContentModal(props: UseDialogContentImplProps): RadixPr
   })
 }
 
-export function useDialogContentNonModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
+export function useDialogContentImplNonModal(props: UseDialogContentImplProps): RadixPrimitiveReturns {
   const context = useDialogContext('DialogContentNonModal')
 
   let hasInteractedOutsideRef = false
-  let hasPointerDownOutsideRef = false
+  let hasPointerdownOutsideRef = false
 
   return useDialogContentImplShared({
     trapFocus() {
@@ -104,7 +104,7 @@ export function useDialogContentNonModal(props: UseDialogContentImplProps): Radi
       }
 
       hasInteractedOutsideRef = false
-      hasPointerDownOutsideRef = false
+      hasPointerdownOutsideRef = false
     },
     onOpenAutoFocus: props.onOpenAutoFocus,
     onInteractOutside(event) {
@@ -113,7 +113,7 @@ export function useDialogContentNonModal(props: UseDialogContentImplProps): Radi
       if (!event.defaultPrevented) {
         hasInteractedOutsideRef = true
         if (event.detail.originalEvent.type === 'pointerdown') {
-          hasPointerDownOutsideRef = true
+          hasPointerdownOutsideRef = true
         }
       }
 
@@ -129,7 +129,7 @@ export function useDialogContentNonModal(props: UseDialogContentImplProps): Radi
       // we will get the pointer down outside event on the trigger, but then a subsequent
       // focus outside event on the container, we ignore any focus outside event when we've
       // already had a pointer down outside event.
-      if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef) {
+      if (event.detail.originalEvent.type === 'focusin' && hasPointerdownOutsideRef) {
         event.preventDefault()
       }
     },

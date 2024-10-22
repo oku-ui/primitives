@@ -1,20 +1,13 @@
-import type { DialogContentImplEmits } from '../dialog/DialogContentImpl.ts'
-import { createContext, type MutableRefObject } from '@oku-ui/hooks'
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
+import { type DialogContentProps, useDialogContent, type UseDialogContent } from '../dialog/index.ts'
 
-export type AlertDialogContentEmits = {
-  /**
-   * Event handler called when auto-focusing on open.
-   * Can be prevented.
-   */
-  openAutoFocus: DialogContentImplEmits['openAutoFocus']
+export interface AlertDialogContentProps extends DialogContentProps {}
+
+export const DEFAULT_ALERT_DIALOG_CONTENT_PROPS = {
+  forceMount: undefined,
+} satisfies PrimitiveDefaultProps<AlertDialogContentProps>
+
+export interface UseAlertDialogContent extends UseDialogContent {
 }
 
-export type AlertDialogContentElement = HTMLDivElement
-
-export type AlertDialogCancelElement = HTMLButtonElement
-
-export interface AlertDialogContentContext {
-  cancelRef: MutableRefObject<AlertDialogCancelElement | undefined>
-}
-
-export const [provideAlertDialogContentContext, useAlertDialogContentContext] = createContext<AlertDialogContentContext>('AlertDialogContent')
+export const useAlertDialogContent = useDialogContent

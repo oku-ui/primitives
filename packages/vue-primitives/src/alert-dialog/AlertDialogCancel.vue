@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { DialogClose } from '../dialog/index.ts'
-import { useAlertDialogContentContext } from './AlertDialogContent.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { type AlertDialogCancelProps, DEFAULT_ALERT_DIALOG_CANCEL_PROPS, useAlretDialogCancel } from './AlertDialogCancel.ts'
 
 defineOptions({
   name: 'AlertDialogCancel',
+  inheritAttrs: false,
 })
 
-const context = useAlertDialogContentContext('AlertDialogCancel')
+withDefaults(defineProps<AlertDialogCancelProps>(), DEFAULT_ALERT_DIALOG_CANCEL_PROPS)
 
-function setCancelRef(nodeRef: any) {
-  const node = nodeRef ? nodeRef.$el : undefined
-  context.cancelRef.value = node
-}
+const alretDialogCancel = useAlretDialogCancel()
 </script>
 
 <template>
-  <DialogClose :ref="setCancelRef">
+  <DialogClose v-bind="normalizeAttrs(alretDialogCancel.attrs([$attrs, { as }]))">
     <slot />
   </DialogClose>
 </template>

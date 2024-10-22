@@ -7,13 +7,21 @@ export {
 export { default as DialogClose } from './DialogClose.vue'
 export {
   DEFAULT_DIALOG_CONTENT_PROPS,
-  type DialogContentEmits,
   type DialogContentProps,
   type UseDialogContent,
   useDialogContent,
   type UseDialogContentPublicProps,
 } from './DialogContent.ts'
 export { default as DialogContent } from './DialogContent.vue'
+export {
+  type DialogContentImplEmits,
+  useDialogContentImpl,
+  useDialogContentImplModal,
+  useDialogContentImplNonModal,
+  type UseDialogContentImplProps,
+  useDialogContentImplShared,
+  type UseDialogContentImplSharedProps,
+} from './DialogContentImpl.ts'
 export {
   DEFAULT_DIALOG_DESCRIPTION_PROPS,
   type DialogDescriptionProps,

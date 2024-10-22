@@ -1,40 +1,19 @@
 <script setup lang="ts">
-import { useRef } from '@oku-ui/hooks'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { DialogContent } from '../dialog/index.ts'
-import { type AlertDialogCancelElement, type AlertDialogContentEmits, provideAlertDialogContentContext } from './AlertDialogContent.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
+import { type AlertDialogContentProps, DEFAULT_ALERT_DIALOG_CONTENT_PROPS, useAlertDialogContent } from './AlertDialogContent.ts'
+import AlertDialogContentImpl from './AlertDialogContentImpl.vue'
 
 defineOptions({
   name: 'AlertDialogContent',
 })
 
-const emit = defineEmits<AlertDialogContentEmits>()
+const props = withDefaults(defineProps<AlertDialogContentProps>(), DEFAULT_ALERT_DIALOG_CONTENT_PROPS)
 
-const cancelRef = useRef<AlertDialogCancelElement>()
-
-provideAlertDialogContentContext({
-  cancelRef,
-})
-
-function preventDefault(event: Event) {
-  event.preventDefault()
-}
-
-const onOpenAutoFocus = composeEventHandlers((event) => {
-  emit('openAutoFocus', event)
-}, (event) => {
-  event.preventDefault()
-  cancelRef.value?.focus({ preventScroll: true })
-})
+const dialogContent = useAlertDialogContent(convertPropsToHookProps(props))
 </script>
 
 <template>
-  <DialogContent
-    role="alertdialog"
-    @open-auto-focus="onOpenAutoFocus"
-    @pointerdown-outside="preventDefault"
-    @interact-outside="preventDefault"
-  >
+  <AlertDialogContentImpl v-if="dialogContent.isPresent.value">
     <slot />
-  </DialogContent>
+  </AlertDialogContentImpl>
 </template>

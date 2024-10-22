@@ -6,10 +6,10 @@ export { DialogOverlay as AlertDialogOverlay } from '../dialog/index.ts'
 export { DialogPortal as AlertDialogPortal } from '../dialog/index.ts'
 export { default as AlertDialogCancel } from './AlertDialogCancel.vue'
 export {
-  type AlertDialogContentContext,
-  type AlertDialogContentEmits,
-  provideAlertDialogContentContext,
-  useAlertDialogContentContext,
+  type AlertDialogContentProps,
+  DEFAULT_ALERT_DIALOG_CONTENT_PROPS,
+  type UseAlertDialogContent,
+  useAlertDialogContent,
 } from './AlertDialogContent.ts'
 export { default as AlertDialogContent } from './AlertDialogContent.vue'
 

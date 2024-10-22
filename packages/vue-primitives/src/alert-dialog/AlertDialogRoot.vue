@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { AlertDialogRootEmits, AlertDialogRootProps } from './AlertDialogRoot.ts'
-import { shallowRef } from 'vue'
-import { provideDialogContext } from '../dialog/index.ts'
+import type { EmitsToHookProps } from '../shared/typeUtils.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
+import { type AlertDialogRootEmits, type AlertDialogRootProps, useAlertDialogRoot } from './AlertDialogRoot.ts'
 
 defineOptions({
   name: 'AlertDialogRoot',
@@ -15,26 +15,15 @@ const props = withDefaults(defineProps<AlertDialogRootProps>(), {
 
 const emit = defineEmits<AlertDialogRootEmits>()
 
-const triggerRef = useRef<HTMLButtonElement>()
-const content = shallowRef<HTMLElement>()
-
-const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
-
-provideDialogContext({
-  triggerRef,
-  content,
-  contentId: useId(),
-  titleId: useId(),
-  descriptionId: useId(),
-  open,
-  modal: true,
-  onOpenChange(value) {
-    open.value = value
-  },
-  onOpenToggle() {
-    open.value = !open.value
-  },
-})
+useAlertDialogRoot(convertPropsToHookProps(
+  props,
+  ['open'],
+  (): Required<EmitsToHookProps<AlertDialogRootEmits>> => ({
+    onUpdateOpen(open) {
+      emit('update:open', open)
+    },
+  }),
+))
 </script>
 
 <template>

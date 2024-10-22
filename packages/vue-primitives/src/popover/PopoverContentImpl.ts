@@ -81,7 +81,7 @@ export function usePopoverContentModal(props: UsePopoverContentImplProps): UsePo
 export function usePopoverContentNonModal(props: UsePopoverContentImplProps): UsePopoverContentImplSharedPeturns {
   const context = usePopoverContext('PopoverContentNonModal')
   let hasInteractedOutsideRef = false
-  let hasPointerDownOutsideRef = false
+  let hasPointerdownOutsideRef = false
 
   return usePopoverContentImplShared({
     ...props,
@@ -97,7 +97,7 @@ export function usePopoverContentNonModal(props: UsePopoverContentImplProps): Us
       }
 
       hasInteractedOutsideRef = false
-      hasPointerDownOutsideRef = false
+      hasPointerdownOutsideRef = false
     },
     onInteractOutside(event: DismissableLayerEmits['interactOutside'][0]) {
       props.onInteractOutside?.(event)
@@ -105,7 +105,7 @@ export function usePopoverContentNonModal(props: UsePopoverContentImplProps): Us
       if (!event.defaultPrevented) {
         hasInteractedOutsideRef = true
         if (event.detail.originalEvent.type === 'pointerdown') {
-          hasPointerDownOutsideRef = true
+          hasPointerdownOutsideRef = true
         }
       }
 
@@ -121,7 +121,7 @@ export function usePopoverContentNonModal(props: UsePopoverContentImplProps): Us
       // we will get the pointer down outside event on the trigger, but then a subsequent
       // focus outside event on the container, we ignore any focus outside event when we've
       // already had a pointer down outside event.
-      if (event.detail.originalEvent.type === 'focusin' && hasPointerDownOutsideRef) {
+      if (event.detail.originalEvent.type === 'focusin' && hasPointerdownOutsideRef) {
         event.preventDefault()
       }
     },
