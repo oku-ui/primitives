@@ -2,20 +2,21 @@ import type { PrimitiveProps } from '../primitive/index.ts'
 import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
 import { useToastRootContext } from './ToastRoot.ts'
 
-export interface ToastCloseProps {
+export interface ToastActionProps {
   as?: PrimitiveProps['as']
-}
-
-export const DEFAULT_TOAST_CLOSE_PROPS = {
-  as: 'button',
-} satisfies PrimitiveDefaultProps<ToastCloseProps>
-
-export interface UseToastCloseProps {
   altText?: string
 }
 
-export function useToastClose(): RadixPrimitiveReturns {
-  const interactiveContext = useToastRootContext('ToastClose')
+export const DEFAULT_TOAST_ACTION_PROPS = {
+  as: 'button',
+} satisfies PrimitiveDefaultProps<ToastActionProps>
+
+export interface UseToastActionProps {
+  altText?: string
+}
+
+export function useToastAction(props: UseToastActionProps = {}): RadixPrimitiveReturns {
+  const interactiveContext = useToastRootContext('ToastAction')
 
   function onClick(event: MouseEvent) {
     if (event.defaultPrevented) {
@@ -30,6 +31,7 @@ export function useToastClose(): RadixPrimitiveReturns {
       const attrs = {
         'type': 'button',
         'data-radix-toast-announce-exclude': '',
+        'data-radix-toast-announce-alt': props.altText || undefined,
         onClick,
       }
 

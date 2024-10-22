@@ -19,6 +19,7 @@ export { type IAttrsData, mergePrimitiveAttrs, normalizeAttrs } from './mergePro
 export {
   type EmitsToHookProps,
   type LooseRequired,
+  type OptionalKeys,
   type PrimitiveDefaultProps,
   type PrimitiveElAttrs,
   type RadixPrimitiveGetAttrs,

@@ -1,20 +1,18 @@
 export {
-  type ToastCloseEmits,
   type ToastCloseProps,
 } from './ToastClose.ts'
 export {
-  type ToastCloseEmits as ToastActionEmits,
   type ToastCloseProps as ToastActionProps,
 } from './ToastClose.ts'
 export { default as ToastClose } from './ToastClose.vue'
 export { default as ToastAction } from './ToastClose.vue'
 export { provideToastProviderContext, type ToastProviderProps, useToastProvider, useToastProviderContext } from './ToastProvider.ts'
 export {
-  provideToastInteractiveContext,
+  provideToastRootContext as provideToastInteractiveContext,
   type SwipeEvent,
   type ToastRootEmits,
   type ToastRootProps,
-  useToastInteractiveContext,
+  useToastRootContext as useToastInteractiveContext,
 } from './ToastRoot.ts'
 
 export { default as ToastRoot } from './ToastRoot.vue'

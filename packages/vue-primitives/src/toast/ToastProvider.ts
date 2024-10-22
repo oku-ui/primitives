@@ -1,6 +1,6 @@
 import { createContext, type MutableRefObject, useRef } from '@oku-ui/hooks'
 import { type MaybeRef, type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
-import { Collection } from './collection.ts'
+import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 
 export interface ToastProviderProps {
   /**
@@ -27,7 +27,6 @@ export interface ToastProviderProps {
 }
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
-export type ToastViewportElement = HTMLOListElement
 
 export interface ToastProviderContext {
   label: string
@@ -35,8 +34,7 @@ export interface ToastProviderContext {
   swipeDirection: Ref<SwipeDirection>
   swipeThreshold: MaybeRefOrGetter<number>
   toastCount: Ref<number>
-  viewport: Ref<ToastViewportElement | undefined>
-  onViewportChange: (viewport: ToastViewportElement | undefined) => void
+  viewport: Ref<HTMLElement | undefined>
   onToastAdd: () => void
   onToastRemove: () => void
   isFocusedToastEscapeKeyDownRef: MutableRefObject<boolean>
@@ -46,14 +44,16 @@ export interface ToastProviderContext {
 export const [provideToastProviderContext, useToastProviderContext] = createContext<ToastProviderContext>('Toast')
 
 export function useToastProvider(props: ToastProviderProps = {}) {
-  const { label = 'Notification', duration = 5000, swipeDirection = 'right', swipeThreshold = 50 } = props
-  const viewport = shallowRef<ToastViewportElement>()
-  const viewportRef = useRef<ToastViewportElement>()
+  const {
+    label = 'Notification',
+    duration = 5000,
+    swipeDirection = 'right',
+    swipeThreshold = 50,
+  } = props
+  const viewport = shallowRef<HTMLElement>()
   const toastCount = shallowRef(0)
   const isFocusedToastEscapeKeyDownRef = useRef(false)
   const isClosePausedRef = useRef(false)
-
-  Collection.provideCollectionContext(viewportRef)
 
   provideToastProviderContext({
     label,
@@ -62,9 +62,6 @@ export function useToastProvider(props: ToastProviderProps = {}) {
     swipeThreshold,
     toastCount,
     viewport,
-    onViewportChange(newViewport) {
-      viewport.value = newViewport
-    },
     onToastAdd() {
       toastCount.value += 1
     },

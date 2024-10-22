@@ -5,6 +5,10 @@ export type { LooseRequired } from '@vue/shared'
 
 export type BooleanKey<T, K extends keyof T = keyof T> = K extends any ? [T[K]] extends [boolean | undefined] ? K : never : never
 
+export type KeysOfType<T, U> = { [K in keyof T]: T[K] extends U ? K : never }[keyof T]
+export type RequiredKeys<T> = Exclude<KeysOfType<T, Exclude<T[keyof T], undefined>>, undefined>
+export type OptionalKeys<T> = Exclude<keyof T, RequiredKeys<T>>
+
 type PrimitiveProps<T> = (T extends { as?: any } ? Required<Pick<T, 'as'>> : unknown)
 
 export type PrimitiveDefaultProps<T extends object, BK extends BooleanKey<T> = never, UK extends BooleanKey<T> = Exclude<BooleanKey<T>, BK>, K extends keyof T = Exclude<keyof T, BK>> =

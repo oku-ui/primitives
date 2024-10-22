@@ -1,81 +1,27 @@
 <script setup lang="ts">
-import type { SwipeEvent, ToastRootEmits, ToastRootProps } from './ToastRoot.ts'
-import { useControllableState, useForwardElement } from '@oku-ui/hooks'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { shallowRef } from 'vue'
-import { usePresence } from '../presence/index.ts'
+import { convertPropsToHookProps, type EmitsToHookProps } from '../shared/index.ts'
+import { DEFAULT_TOAST_ROOT_PROPS, type ToastRootEmits, type ToastRootProps, useToastRoot } from './ToastRoot.ts'
 import ToastRootImpl from './ToastRootImpl.vue'
 
 defineOptions({
   name: 'ToastRoot',
 })
-const props = withDefaults(defineProps<ToastRootProps>(), {
-  open: undefined,
-  defaultOpen: true,
-})
+const props = withDefaults(defineProps<ToastRootProps>(), DEFAULT_TOAST_ROOT_PROPS)
 const emit = defineEmits<ToastRootEmits>()
-const open = useControllableState(props, 'open', v => emit('update:open', v), props.defaultOpen)
 
-const $el = shallowRef<HTMLLIElement>()
-const forwardElement = useForwardElement($el)
-
-const isPresent = usePresence($el, () => props.forceMount || open.value)
-
-function onClose() {
-  open.value = false
-}
-
-const onSwipeStart = composeEventHandlers<SwipeEvent>((event) => {
-  emit('swipeStart', event)
-}, (event) => {
-  event.currentTarget?.setAttribute('data-swipe', 'start')
-})
-
-const onSwipeMove = composeEventHandlers<SwipeEvent>((event) => {
-  emit('swipeMove', event)
-}, (event) => {
-  event.currentTarget.setAttribute('data-swipe', 'move')
-  event.currentTarget.style.setProperty('--radix-toast-swipe-move-x', `${event.detail.delta.x}px`)
-  event.currentTarget.style.setProperty('--radix-toast-swipe-move-y', `${event.detail.delta.y}px`)
-})
-
-const onSwipeCancel = composeEventHandlers<SwipeEvent>((event) => {
-  emit('swipeCancel', event)
-}, (event) => {
-  event.currentTarget.setAttribute('data-swipe', 'cancel')
-  event.currentTarget.style.removeProperty('--radix-toast-swipe-move-x')
-  event.currentTarget.style.removeProperty('--radix-toast-swipe-move-y')
-  event.currentTarget.style.removeProperty('--radix-toast-swipe-end-x')
-  event.currentTarget.style.removeProperty('--radix-toast-swipe-end-y')
-})
-
-const onSwipeEnd = composeEventHandlers<SwipeEvent>((event) => {
-  emit('swipeEnd', event)
-}, (event) => {
-  event.currentTarget.setAttribute('data-swipe', 'end')
-  event.currentTarget.style.removeProperty('--radix-toast-swipe-move-x')
-  event.currentTarget.style.removeProperty('--radix-toast-swipe-move-y')
-  event.currentTarget.style.setProperty('--radix-toast-swipe-end-x', `${event.detail.delta.x}px`)
-  event.currentTarget.style.setProperty('--radix-toast-swipe-end-y', `${event.detail.delta.y}px`)
-  open.value = false
-})
-
-defineExpose({
-  $el,
-})
+const toastRoot = useToastRoot(convertPropsToHookProps(
+  props,
+  ['open'],
+  (): Required<EmitsToHookProps<ToastRootEmits>> => ({
+    onUpdateOpen(open) {
+      emit('update:open', open)
+    },
+  }),
+))
 </script>
 
 <template>
-  <ToastRootImpl
-    v-if="isPresent"
-    :ref="forwardElement"
-    :open="open"
-    @close="onClose"
-    @swipe-start="onSwipeStart"
-    @swipe-move="onSwipeMove"
-    @swipe-cancel="onSwipeCancel"
-    @swipe-end="onSwipeEnd"
-  >
+  <ToastRootImpl v-if="toastRoot.isPresent.value">
     <slot />
   </ToastRootImpl>
 </template>

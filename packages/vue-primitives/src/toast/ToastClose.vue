@@ -1,34 +1,20 @@
 <script setup lang="ts">
-import type { ToastCloseEmits, ToastCloseProps } from './ToastClose.ts'
-import { Primitive } from '@oku-ui/primitive'
-import { composeEventHandlers } from '@oku-ui/shared'
-import { useToastInteractiveContext } from './ToastRoot.ts'
+import { Primitive } from '../primitive/index.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TOAST_CLOSE_PROPS, type ToastCloseProps, useToastClose } from './ToastClose.ts'
 
 defineOptions({
   name: 'ToastClose',
+  inheritAttrs: false,
 })
 
-withDefaults(defineProps<ToastCloseProps>(), {
-  as: 'button',
-})
+withDefaults(defineProps<ToastCloseProps>(), DEFAULT_TOAST_CLOSE_PROPS)
 
-const emit = defineEmits<ToastCloseEmits>()
-
-const interactiveContext = useToastInteractiveContext('ToastClose')
-
-const onClick = composeEventHandlers<MouseEvent>((event) => {
-  emit('click', event)
-}, interactiveContext.onClose)
+const toastClose = useToastClose()
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    type="button"
-    data-radix-toast-announce-exclude=""
-    :data-radix-toast-announce-alt="altText || undefined"
-    @click="onClick"
-  >
+  <Primitive v-bind="normalizeAttrs(toastClose.attrs([$attrs, { as }]))">
     <slot />
   </Primitive>
 </template>

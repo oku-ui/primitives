@@ -1,49 +1,29 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
-import { Portal } from '../portal/index.ts'
-import { VisuallyHidden } from '../visually-hidden/index.ts'
-import { useToastProviderContext } from './index.ts'
-import { useNextFrame } from './utils.ts'
+import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
+import { VISUALLY_HIDDEN_STYLE } from '../visually-hidden/index.ts'
+import { type ToastAnnounceProps, useToastAnnounce } from './ToastAnnounce.ts'
 
 defineOptions({
   name: 'ToastAnnounce',
   inheritAttrs: false,
 })
 
-const context = useToastProviderContext('ToastAnnounce')
-const renderAnnounceText = shallowRef(false)
-const isAnnounced = shallowRef(false)
+const props = defineProps<ToastAnnounceProps>()
 
-let timer: number | undefined
-let clear: () => void
-
-onMounted(() => {
-  timer = window.setTimeout(() => {
-    isAnnounced.value = true
-  }, 1000)
-
-  // render text content in the next frame to ensure toast is announced in NVDA
-  clear = useNextFrame(() => {
-    renderAnnounceText.value = true
-  })
-})
-
-onBeforeUnmount(() => {
-  window.clearTimeout(timer)
-  clear?.()
-})
+const toastAnnounce = useToastAnnounce(convertPropsToHookProps(props))
 </script>
 
 <template>
-  <Portal v-if="!isAnnounced">
-    <VisuallyHidden
+  <Teleport v-if="!toastAnnounce.isAnnounced.value" to="body">
+    <span
       role="status"
       aria-atomic
+      :style="VISUALLY_HIDDEN_STYLE"
       v-bind="$attrs"
     >
-      <template v-if="renderAnnounceText">
-        {{ context.label }} <slot />
+      <template v-if="toastAnnounce.renderAnnounceText.value">
+        {{ toastAnnounce.label }}
       </template>
-    </VisuallyHidden>
-  </Portal>
+    </span>
+  </Teleport>
 </template>
