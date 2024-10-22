@@ -12,7 +12,6 @@ export interface CheckboxRootProps {
   disabled?: boolean
   required?: boolean
   value?: string
-  name?: string
 }
 
 export const DEFAULT_CHECKBOX_ROOT_PROPS = {
@@ -37,7 +36,7 @@ export interface CheckboxContext {
     control: Ref<HTMLButtonElement | undefined>
     bubbles: MutableRefObject<boolean>
     isFormControl: MutableRefObject<boolean>
-    name?: () => string | undefined
+    name: () => string | undefined
     value: () => string
     checked: Ref<CheckedState>
     defaultChecked: boolean | undefined
@@ -60,9 +59,10 @@ export interface UseCheckboxRootProps extends EmitsToHookProps<CheckboxRootEmits
 
 export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveReturns {
   const {
-    disabled = () => false,
-    required = () => false,
+    disabled = () => undefined,
+    required = () => undefined,
     value = () => 'on',
+    name = () => undefined,
   } = props
 
   const control = props.control || shallowRef<HTMLButtonElement>()
@@ -108,11 +108,6 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
       return
 
     bubbles.value = !event.cancelBubble
-    // if checkbox is in a form, stop propagation from the button so that we only propagate
-    // one click event (from the input). We propagate changes from an input so that native
-    // form validation works and form events reflect checkbox updates.
-    if (bubbles.value)
-      event.stopPropagation()
   }
 
   provideCheckboxContext({
@@ -122,7 +117,7 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
       control,
       bubbles,
       isFormControl,
-      name: props.name,
+      name,
       value,
       checked,
       defaultChecked: isIndeterminate(props.defaultChecked) ? false : props.defaultChecked,

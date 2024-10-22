@@ -26,10 +26,8 @@ const checked = shallowRef(false)
         <legend>optional checked: {{ String(data.optional) }}</legend>
         <label>
           <SwitchRoot v-model:checked="checked" class="switch_rootClass" name="optional">
-            <template #default="scope">
-              <SwitchBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
-              <SwitchThumb class="switch_thumbClass" />
-            </template>
+            <SwitchBubbleInput />
+            <SwitchThumb class="switch_thumbClass" />
           </SwitchRoot>{{ ' ' }}
           with label
         </label>
@@ -41,10 +39,8 @@ const checked = shallowRef(false)
       <fieldset>
         <legend>required checked: {{ String(data.required) }}</legend>
         <SwitchRoot class="switch_rootClass" name="required" required>
-          <template #default="scope">
-            <SwitchBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
-            <SwitchThumb class="switch_thumbClass" />
-          </template>
+          <SwitchBubbleInput />
+          <SwitchThumb class="switch_thumbClass" />
         </SwitchRoot>
       </fieldset>
 
@@ -54,10 +50,8 @@ const checked = shallowRef(false)
       <fieldset>
         <legend>stop propagation checked: {{ String(data.stopprop) }}</legend>
         <SwitchRoot class="switch_rootClass" name="stopprop" @click="(event: Event) => event.stopPropagation()">
-          <template #default="scope">
-            <SwitchBubbleInput v-if="scope.isFormControl" v-bind="scope.input" />
-            <SwitchThumb class="switch_thumbClass" />
-          </template>
+          <SwitchBubbleInput />
+          <SwitchThumb class="switch_thumbClass" />
         </SwitchRoot>
       </fieldset>
 

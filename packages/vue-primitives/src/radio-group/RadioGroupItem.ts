@@ -115,11 +115,6 @@ export function useRadioGroupItem(props: UseRadioGroupItem): RadixPrimitiveRetur
       return
 
     bubbles.value = !event.cancelBubble
-    // if radio is in a form, stop propagation from the button so that we only propagate
-    // one click event (from the input). We propagate changes from an input so that native
-    // form validation works and form events reflect radio updates.
-    if (bubbles.value)
-      event.stopPropagation()
   }
 
   provideRadioContext({

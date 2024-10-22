@@ -28,9 +28,11 @@ watch(bubbleInput.checked, (checked) => {
 
   if (checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
-    const event = new Event('change', { bubbles: bubbleInput.bubbles.value })
+    const inputEvent = new Event('input', { bubbles: bubbleInput.bubbles.value })
+    const changeEvent = new Event('change', { bubbles: bubbleInput.bubbles.value })
     setChecked.call(input, checked)
-    input.dispatchEvent(event)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
   }
 })
 </script>

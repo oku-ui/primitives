@@ -29,10 +29,12 @@ watch(bubbleInput.checked, (checked, prevChecked) => {
 
   if (prevChecked !== checked && setChecked) {
     // TODO: Check if this is the correct way to create a change event
-    const event = new Event('change', { bubbles: bubbleInput.bubbles.value })
+    const inputEvent = new Event('input', { bubbles: bubbleInput.bubbles.value })
+    const changeEvent = new Event('change', { bubbles: bubbleInput.bubbles.value })
     input.indeterminate = isIndeterminate(checked)
     setChecked.call(input, isIndeterminate(checked) ? false : checked)
-    input.dispatchEvent(event)
+    input.dispatchEvent(inputEvent)
+    input.dispatchEvent(changeEvent)
   }
 })
 </script>
@@ -42,7 +44,8 @@ watch(bubbleInput.checked, (checked, prevChecked) => {
     :ref="setElRef"
     type="checkbox"
     aria-hidden="true"
-    :name="bubbleInput.name?.()"
+    :name="bubbleInput.name()"
+    :value="bubbleInput.value()"
     :required="bubbleInput.required()"
     tabindex="-1"
     :checked="isIndeterminate(bubbleInput.checked.value) ? false : bubbleInput.defaultChecked"
