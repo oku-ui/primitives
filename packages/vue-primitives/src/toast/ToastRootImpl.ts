@@ -21,7 +21,7 @@ export interface ToastRootImplProps {
 
 export const DEFAULT_TOAST_ROOT_IMPL_PROPS = {
   as: 'li',
-} satisfies PrimitiveDefaultProps<Pick<ToastRootImplProps, OptionalKeys<ToastRootImplProps>>>
+} satisfies PrimitiveDefaultProps<ToastRootImplProps>
 
 export type ToastRootImplEmits = {
   escapeKeydown: DismissableLayerEmits['escapeKeydown']

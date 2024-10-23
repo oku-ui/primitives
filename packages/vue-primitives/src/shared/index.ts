@@ -20,6 +20,7 @@ export {
   type EmitsToHookProps,
   type LooseRequired,
   type OptionalKeys,
+  type PickOptionalRecord,
   type PrimitiveDefaultProps,
   type PrimitiveElAttrs,
   type RadixPrimitiveGetAttrs,

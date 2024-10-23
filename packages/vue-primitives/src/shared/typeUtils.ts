@@ -8,10 +8,11 @@ export type BooleanKey<T, K extends keyof T = keyof T> = K extends any ? [T[K]] 
 export type KeysOfType<T, U> = { [K in keyof T]: T[K] extends U ? K : never }[keyof T]
 export type RequiredKeys<T> = Exclude<KeysOfType<T, Exclude<T[keyof T], undefined>>, undefined>
 export type OptionalKeys<T> = Exclude<keyof T, RequiredKeys<T>>
+export type PickOptionalRecord<T> = Pick<T, OptionalKeys<T>>
 
 type PrimitiveProps<T> = (T extends { as?: any } ? Required<Pick<T, 'as'>> : unknown)
 
-export type PrimitiveDefaultProps<T extends object, BK extends BooleanKey<T> = never, UK extends BooleanKey<T> = Exclude<BooleanKey<T>, BK>, K extends keyof T = Exclude<keyof T, BK>> =
+export type PrimitiveDefaultProps<T extends object, BK extends BooleanKey<PickOptionalRecord<T>> = never, UK extends BooleanKey<PickOptionalRecord<T>> = Exclude<BooleanKey<PickOptionalRecord<T>>, BK>, K extends keyof PickOptionalRecord<T> = Exclude<keyof PickOptionalRecord<T>, BK>> =
   Record<UK, undefined> & Record<BK, boolean> & PrimitiveProps<T> & Partial<Record<K, unknown>>
 
 export type EmitsToHookProps<T extends Record<string, any[]>> = {
