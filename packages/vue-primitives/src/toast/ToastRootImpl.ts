@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import type { EmitsToHookProps, OptionalKeys, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { isClient } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, onWatcherCleanup, type Ref, toValue, watch, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/Collection.ts'
