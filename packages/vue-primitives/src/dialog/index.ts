@@ -10,7 +10,6 @@ export {
   type DialogContentProps,
   type UseDialogContent,
   useDialogContent,
-  type UseDialogContentPublicProps,
 } from './DialogContent.ts'
 export { default as DialogContent } from './DialogContent.vue'
 export {

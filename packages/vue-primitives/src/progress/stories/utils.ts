@@ -1,6 +1,6 @@
 import { computed, type Ref, shallowRef, toRaw, toValue, watch } from 'vue'
 
-type ProgressValue = number | null
+type ProgressValue = number | undefined
 
 export function useProgressValueState(initialState: ProgressValue | (() => ProgressValue), max = 100) {
   const value = shallowRef<ProgressValue>(toValue(initialState))
@@ -12,7 +12,7 @@ export function useProgressValueState(initialState: ProgressValue | (() => Progr
       value.value = newValue
   }
 
-  const precentage = computed(() => value.value != null ? Math.round((value.value / max) * 100) : null)
+  const precentage = computed(() => value.value != null ? Math.round((value.value / max) * 100) : undefined)
 
   return [value, precentage, setValue] as const
 }
@@ -27,7 +27,7 @@ export function useIndeterminateToggle(
     setValue((val) => {
       if (val == null)
         return previousValueRef.value
-      return null
+      return undefined
     })
   }
 
