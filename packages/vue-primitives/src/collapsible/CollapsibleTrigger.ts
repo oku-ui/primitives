@@ -1,6 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
-import { NOOP } from '@vue/shared'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
@@ -11,7 +10,7 @@ export interface CollapsibleTriggerProps {
 export function useCollapsibleTrigger(): RadixPrimitiveReturns {
   const context = useCollapsibleContext('CollapsibleTrigger')
 
-  const onClick = function (event: MouseEvent) {
+  function onClick(event: MouseEvent) {
     if (event.defaultPrevented)
       return
     context.onOpenToggle()
@@ -19,15 +18,15 @@ export function useCollapsibleTrigger(): RadixPrimitiveReturns {
 
   return {
     attrs(extraAttrs) {
-      const isDisabled = context.disabled()
+      const _disabled = context.disabled()
       const attrs = {
         'type': 'button',
         'aria-controls': context.contentId,
-        'aria-expanded': context.open.value || false,
+        'aria-expanded': context.open.value,
         'data-state': context.open.value ? 'open' : 'closed',
-        'data-disabled': isDisabled ? '' : undefined,
-        'disabled': isDisabled,
-        'onClick': isDisabled ? NOOP : onClick,
+        'data-disabled': _disabled ? '' : undefined,
+        'disabled': _disabled,
+        'onClick': onClick,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

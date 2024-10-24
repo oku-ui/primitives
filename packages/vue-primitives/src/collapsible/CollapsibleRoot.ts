@@ -34,11 +34,16 @@ export interface UseCollapsibleRootProps extends EmitsToHookProps<CollapsibleRoo
 }
 
 export function useCollapsibleRoot(props: UseCollapsibleRootProps): RadixPrimitiveReturns {
-  const open = useControllableStateV2(props.open, props.onUpdateOpen, props.defaultOpen ?? false)
+  const {
+    disabled = () => undefined,
+    defaultOpen = false,
+  } = props
+
+  const open = useControllableStateV2(props.open, props.onUpdateOpen, defaultOpen)
 
   provideCollapsibleContext({
     contentId: useId(),
-    disabled: props.disabled ?? (() => false),
+    disabled,
     open,
     onOpenToggle() {
       open.value = !open.value
@@ -49,7 +54,7 @@ export function useCollapsibleRoot(props: UseCollapsibleRootProps): RadixPrimiti
     attrs(extraAttrs) {
       const attrs = {
         'data-state': open.value ? 'open' : 'closed',
-        'data-disabled': props.disabled?.() ? '' : undefined,
+        'data-disabled': disabled() ? '' : undefined,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
