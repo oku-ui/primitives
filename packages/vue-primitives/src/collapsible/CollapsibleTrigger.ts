@@ -19,11 +19,12 @@ export function useCollapsibleTrigger(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const _disabled = context.disabled()
+      const _open = context.open.value
       const attrs = {
         'type': 'button',
         'aria-controls': context.contentId,
-        'aria-expanded': context.open.value,
-        'data-state': context.open.value ? 'open' : 'closed',
+        'aria-expanded': _open,
+        'data-state': _open ? 'open' : 'closed',
         'data-disabled': _disabled ? '' : undefined,
         'disabled': _disabled,
         'onClick': onClick,
