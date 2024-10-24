@@ -26,11 +26,7 @@ export function usePopoverContent(props: UsePopoverContentProps = {}): RadixPrim
   const context = usePopoverContext('PopoverContent')
   const popperContext = usePopperContext('PopoverContent')
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(popperContext.content, () => context.open.value)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(popperContext.content, () => context.open.value)
 
   return {
     isPresent,

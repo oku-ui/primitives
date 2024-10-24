@@ -34,11 +34,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
 
   const context = useCheckboxContext('CheckboxIndicator')
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(el, () => isIndeterminate(context.checked.value) || context.checked.value === true)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(el, () => isIndeterminate(context.checked.value) || context.checked.value === true)
 
   return {
     isPresent,

@@ -26,11 +26,7 @@ export function useContextMenuContent(props: UseContextMenuContenttProps = {}): 
   const menuContext = useMenuContext('MenuContent')
   const popperContext = usePopperContext('MenuContent')
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(popperContext.content, menuContext.open)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(popperContext.content, menuContext.open)
 
   return {
     isPresent,

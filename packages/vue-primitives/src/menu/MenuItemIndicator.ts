@@ -44,11 +44,7 @@ export function useMenuItemIndicator(props: UseMenuItemIndicatorProps = {}): Rad
   const setElRef = props.el ? undefined : (v: HTMLElement | undefined) => el.value = v
   // const forwardElement = useForwardElement(el)
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(el, () => isIndeterminate(indicatorContext.checked()) || indicatorContext.checked() === true)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(el, () => isIndeterminate(indicatorContext.checked()) || indicatorContext.checked() === true)
 
   return {
     isPresent,

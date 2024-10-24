@@ -93,11 +93,7 @@ export function useScrollAreaScrollbarScroll(props: UseScrollAreaScrollbarScroll
     })
   })
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(scrollbar, () => state.value !== 'hidden')
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(scrollbar, () => state.value !== 'hidden')
 
   function onPointerenter(event: PointerEvent) {
     if (event.defaultPrevented)

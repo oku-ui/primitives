@@ -22,11 +22,7 @@ export interface UseScrollAreaThumbProps {
 export function useScrollAreaThumb(props: UseScrollAreaThumbProps) {
   const scrollbarContext = useScrollbarContext('ScrollAreaThumb')
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(scrollbarContext.thumb, scrollbarContext.hasThumb)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(scrollbarContext.thumb, scrollbarContext.hasThumb)
 
   return {
     isPresent,

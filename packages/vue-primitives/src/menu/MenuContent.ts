@@ -26,11 +26,7 @@ export function useMenuContent(props: UseMenuContentProps = {}): RadixPrimitiveR
   const context = useMenuContext('MenuContent')
   const popperContext = usePopperContext('MenuContent')
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(popperContext.content, context.open)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(popperContext.content, context.open)
 
   return {
     isPresent,

@@ -50,11 +50,7 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
     cancelAnimationFrame(rAf)
   })
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(el, () => isSelected.value)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(el, () => isSelected.value)
 
   return {
     isPresent,

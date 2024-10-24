@@ -41,11 +41,7 @@ export function useScrollAreaScrollbarAuto(props: UseScrollAreaScrollbarAutoProp
   useResizeObserver(context.viewport, handleResize)
   useResizeObserver(context.content, handleResize)
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(scrollbar, visible)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(scrollbar, visible)
 
   return {
     isPresent,

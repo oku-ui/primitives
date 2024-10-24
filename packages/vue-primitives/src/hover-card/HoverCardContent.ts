@@ -26,11 +26,7 @@ export function useHoverCardConten(props: UseHoverCardContentProps = {}): RadixP
   const context = useHoverCardContext('HoverCardContent')
   const popperContext = usePopperContext('HoverCardContent')
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(popperContext.content, () => context.open.value)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(popperContext.content, () => context.open.value)
 
   return {
     isPresent,

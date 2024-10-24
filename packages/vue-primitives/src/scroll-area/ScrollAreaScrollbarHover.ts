@@ -56,11 +56,7 @@ export function useScrollAreaScrollbarHover(props: UseScrollAreaScrollbarHoverPr
     })
   })
 
-  let isPresent: Ref<boolean>
-  if (props.forceMount)
-    isPresent = shallowRef(true)
-  else
-    isPresent = usePresence(scrollbar, visible)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(scrollbar, visible)
 
   return {
     isPresent,
