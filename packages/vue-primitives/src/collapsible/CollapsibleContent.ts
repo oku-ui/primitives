@@ -69,7 +69,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     isOpen = computed(() => context.open.value || isPresent.value)
   }
 
-  const blockAnimationStyles = shallowRef<CSSProperties | undefined>(
+  const lockAnimationStyles = shallowRef<CSSProperties | undefined>(
     isOpen.value
       ? { transitionDuration: '0s !important', animationName: 'none !important' }
       : undefined,
@@ -83,7 +83,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     if (!node)
       return
 
-    blockAnimationStyles.value = undefined
+    lockAnimationStyles.value = undefined
     await nextTick()
 
     const nodeStyle = node.style
@@ -109,7 +109,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
         'style': {
           '--radix-collapsible-content-height': '0px',
           '--radix-collapsible-content-width': '0px',
-          ...blockAnimationStyles.value,
+          ...lockAnimationStyles.value,
         },
       }
 
