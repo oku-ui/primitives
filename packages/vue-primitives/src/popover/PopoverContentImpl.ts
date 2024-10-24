@@ -1,6 +1,6 @@
 import type { EmitsToHookProps, IAttrsData, PrimitiveDefaultProps, RadixPrimitiveGetAttrs } from '../shared/index.ts'
 import { hideOthers } from 'aria-hidden'
-import { onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
@@ -44,11 +44,17 @@ export function usePopoverContentModal(props: UsePopoverContentImplProps): UsePo
   let isRightClickOutsideRef = false
 
   const unlock = useBodyScrollLock()
+  let clearHideOthers: (() => void) | undefined
+
+  onMounted(() => {
+    if (popperContext.content.value)
+      clearHideOthers = hideOthers(popperContext.content.value)
+  })
 
   onBeforeUnmount(() => {
     unlock()
-    if (popperContext.content.value)
-      hideOthers(popperContext.content.value)
+    clearHideOthers?.()
+    clearHideOthers = undefined
   })
 
   return usePopoverContentImplShared({

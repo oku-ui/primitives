@@ -1,7 +1,7 @@
 import type { Side } from '@floating-ui/utils'
 import type { EmitsToHookProps, IAttrsData, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs } from '../shared/index.ts'
 import { hideOthers } from 'aria-hidden'
-import { onBeforeUnmount, shallowRef } from 'vue'
+import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { type DismissableLayerEmits, type DismissableLayerProps, useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { type FocusScopeProps, useFocusScope } from '../focus-scope/index.ts'
@@ -56,9 +56,16 @@ export function useMenuContentImplModal(props: UseMenuContentImplProps = {}): Us
   const popperContext = usePopperContext('MenuContentImpl')
 
   // Hide everything from ARIA except the `MenuContent`
-  onBeforeUnmount(() => {
+  let clearHideOthers: (() => void) | undefined
+
+  onMounted(() => {
     if (popperContext.content.value)
-      hideOthers(popperContext.content.value)
+      clearHideOthers = hideOthers(popperContext.content.value)
+  })
+
+  onBeforeUnmount(() => {
+    clearHideOthers?.()
+    clearHideOthers = undefined
   })
 
   return useMenuContentImplShared({

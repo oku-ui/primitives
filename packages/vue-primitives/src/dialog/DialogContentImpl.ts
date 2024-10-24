@@ -1,6 +1,6 @@
 import type { EmitsToHookProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { hideOthers } from 'aria-hidden'
-import { onBeforeUnmount, shallowRef } from 'vue'
+import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { type DismissableLayerEmits, useDismissableLayer, type UseDismissableLayerProps } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
@@ -33,9 +33,16 @@ export function useDialogContentImplModal(props: UseDialogContentImplProps): Rad
   const context = useDialogContext('DialogContentModal')
 
   // aria-hide everything except the content (better supported equivalent to setting aria-modal)
-  onBeforeUnmount(() => {
+  let clearHideOthers: (() => void) | undefined
+
+  onMounted(() => {
     if (context.content.value)
-      hideOthers(context.content.value)
+      clearHideOthers = hideOthers(context.content.value)
+  })
+
+  onBeforeUnmount(() => {
+    clearHideOthers?.()
+    clearHideOthers = undefined
   })
 
   return useDialogContentImplShared({
