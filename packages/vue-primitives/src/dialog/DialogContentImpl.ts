@@ -154,7 +154,7 @@ export function useDialogContentImplShared(props: UseDialogContentImplSharedProp
   const context = useDialogContext('DialogContentNonModal')
 
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el
+  const setElRef = props.el
     ? undefined
     : (value: HTMLElement | undefined) => {
         el.value = value
@@ -188,7 +188,7 @@ export function useDialogContentImplShared(props: UseDialogContentImplSharedProp
   return {
     attrs(extraAttrs = []) {
       const dismissableAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'role': 'dialog',
         'id': context.contentId,
         'aria-describedby': context.descriptionId,

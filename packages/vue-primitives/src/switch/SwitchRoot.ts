@@ -63,7 +63,7 @@ export function useSwitchRoot(props: UseSwitchRootProps): RadixPrimitiveReturns 
   } = props
 
   const control = props.control || shallowRef<HTMLButtonElement>()
-  const setTemplateEl = props.control ? undefined : (value: HTMLElement | undefined) => control.value = value as HTMLButtonElement
+  const setElRef = props.control ? undefined : (value: HTMLElement | undefined) => control.value = value as HTMLButtonElement
 
   const bubbles = useRef(true)
 
@@ -101,7 +101,7 @@ export function useSwitchRoot(props: UseSwitchRootProps): RadixPrimitiveReturns 
       const _disabled = disabled()
       const _checked = checked.value
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'type': 'button',
         'role': 'switch',
         'aria-checked': _checked,

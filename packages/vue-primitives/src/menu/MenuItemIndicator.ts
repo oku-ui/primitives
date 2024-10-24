@@ -41,7 +41,7 @@ export function useMenuItemIndicator(props: UseMenuItemIndicatorProps = {}): Rad
   const indicatorContext = useItemIndicatorContext('MenuItemIndicator')
 
   const el = props.el ?? shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (v: HTMLElement | undefined) => el.value = v
+  const setElRef = props.el ? undefined : (v: HTMLElement | undefined) => el.value = v
   // const forwardElement = useForwardElement(el)
 
   const isPresent = usePresence(el, () => props.forceMount || isIndeterminate(indicatorContext.checked()) || indicatorContext.checked() === true)
@@ -50,7 +50,7 @@ export function useMenuItemIndicator(props: UseMenuItemIndicatorProps = {}): Rad
     isPresent,
     attrs(extraAttrs) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-state': getCheckedState(indicatorContext.checked()),
       }
 

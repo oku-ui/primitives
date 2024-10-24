@@ -119,14 +119,14 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
   //   })
   // }
 
-  function setTemplateEl(templateEl: HTMLElement | undefined) {
+  function setElRef(templateEl: HTMLElement | undefined) {
     Collection.useCollectionItem(templateEl, itemData, '$rfg')
   }
 
   return {
     attrs(extraAttrs) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         [DATA_COLLECTION_ITEM]: true,
         'tabindex': isCurrentTabStop.value ? 0 : -1,
         'data-orientation': context.orientation,

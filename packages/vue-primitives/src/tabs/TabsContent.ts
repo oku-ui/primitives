@@ -29,7 +29,7 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
   attrs: RadixPrimitiveGetAttrs
 }> {
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const context = useTabsContext('TabsContent')
   const triggerId = computed(() => makeTriggerId(context.baseId, props.value()))
@@ -56,7 +56,7 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
     isPresent,
     attrs(extraAttrs) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'id': contentId.value,
         'data-state': isSelected.value ? 'active' : 'inactive',
         'data-orientation': context.orientation,

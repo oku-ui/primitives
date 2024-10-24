@@ -126,7 +126,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
   const TYPE_MULTIPLE = 'multiple' as const satisfies AccordionType
 
   const elRef = props.elRef || useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
+  const setElRef = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const getItems = useCollection(Collection.provideCollectionContext(elRef))
 
@@ -240,7 +240,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
     attrs(extraAttrs) {
       const _disabled = props.disabled?.()
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-disabled': _disabled ? '' : undefined,
         'data-orientation': orientation,
         'onKeydown': _disabled ? NOOP : onKeydown,

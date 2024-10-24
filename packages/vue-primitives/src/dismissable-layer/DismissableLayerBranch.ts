@@ -10,7 +10,7 @@ export interface UseDismissableLayerBranchProps {
 
 export function useDismissableLayerBranch(props: UseDismissableLayerBranchProps = {}): RadixPrimitiveReturns {
   const elRef = props.elRef ?? useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
+  const setElRef = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   onMounted(() => {
     context.branches.add(elRef.value!)
@@ -23,7 +23,7 @@ export function useDismissableLayerBranch(props: UseDismissableLayerBranchProps 
   return {
     attrs(extraAttrs) {
       const attrs = {
-        elRef: setTemplateEl,
+        elRef: setElRef,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

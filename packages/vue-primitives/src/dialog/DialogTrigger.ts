@@ -14,7 +14,7 @@ export const DEFAULT_DIALOG_TRIGGER_PROPS = {
 export function useDialogTrigger(): RadixPrimitiveReturns {
   const context = useDialogContext('DialogTrigger')
 
-  const setTemplateEl = (value: HTMLElement | undefined) => context.triggerRef.value = value
+  const setElRef = (value: HTMLElement | undefined) => context.triggerRef.value = value
 
   function onClick(event: MouseEvent) {
     if (event.defaultPrevented)
@@ -25,7 +25,7 @@ export function useDialogTrigger(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'type': 'button',
         'aria-haspopup': 'dialog',
         'aria-expanded': context.open.value || false,

@@ -52,7 +52,7 @@ export function useDropdownMenuTrigger(props: UseDropdownMenuTriggerProps = {}):
 
   // COMP::MenuAnchor COMP::PopperAnchor
 
-  function setTemplateEl(el: HTMLElement | undefined) {
+  function setElRef(el: HTMLElement | undefined) {
     context.triggerRef.value = el
   }
 
@@ -65,7 +65,7 @@ export function useDropdownMenuTrigger(props: UseDropdownMenuTriggerProps = {}):
       const _open = context.open()
       const _disabled = props.disabled?.()
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'id': context.triggerId,
         'type': 'button',
         'aria-haspopup': 'menu',

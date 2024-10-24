@@ -31,7 +31,7 @@ export function useToolbarRoot(props: UseToolbarRootProps = {}): RadixPrimitiveR
   const { orientation = 'horizontal', loop = true } = props
 
   const elRef = props.elRef ?? useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
+  const setElRef = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const dir = useDirection(props.dir)
 
@@ -50,7 +50,7 @@ export function useToolbarRoot(props: UseToolbarRootProps = {}): RadixPrimitiveR
   return {
     attrs(extraAttrs = []) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'role': 'toolbar',
         'aria-orientation': orientation,
         'dir': dir.value,

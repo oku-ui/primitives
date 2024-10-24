@@ -4,14 +4,14 @@ import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 export function useScrollAreaContent(): RadixPrimitiveReturns {
   const context = useScrollAreaContext('ScrollAreaContent')
 
-  function setTemplateEl(templateEl: HTMLElement | undefined) {
+  function setElRef(templateEl: HTMLElement | undefined) {
     context.content.value = templateEl
   }
 
   return {
     attrs(extraAttrs) {
       const attrs = {
-        elRef: setTemplateEl,
+        elRef: setElRef,
         style: 'min-width: 100%; display: table',
       }
 

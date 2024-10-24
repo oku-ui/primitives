@@ -10,7 +10,7 @@ export interface ScrollAreaViewportProps {
 export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): RadixPrimitiveReturns {
   const context = useScrollAreaContext('ScrollAreaViewport')
   const el = props.el || useRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   onMounted(() => {
     context.viewport.value = el.value
@@ -19,7 +19,7 @@ export function useScrollAreaViewport(props: ScrollAreaViewportProps = {}): Radi
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-radix-scroll-area-viewport': '',
         'style': {
           /**

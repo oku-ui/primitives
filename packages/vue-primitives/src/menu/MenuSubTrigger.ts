@@ -25,7 +25,7 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps = {}): RadixPrim
   const contentContext = useMenuContentContext('MenuSubTrigger')
   const popperContext = usePopperContext('MenuSubTrigger')
 
-  function setTemplateEl(v: HTMLElement | undefined) {
+  function setElRef(v: HTMLElement | undefined) {
     subContext.trigger.value = v
   }
 
@@ -169,7 +169,7 @@ export function useMenuSubTrigger(props: UseMenuSubTriggerProps = {}): RadixPrim
       const _open = context.open()
       const rovingFocusGroupItemAttrs: PrimitiveElAttrs = {
         'id': subContext.triggerId,
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'aria-haspopup': 'menu',
         'aria-expanded': _open ? 'true' : 'false',
         'aria-controls': subContext.contentId,

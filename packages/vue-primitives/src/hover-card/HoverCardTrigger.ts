@@ -57,7 +57,7 @@ export function useHoverCardTrigger(): RadixPrimitiveReturns {
   const popperContext = usePopperContext('HoverCardTrigger')
 
   const el = useRef<HTMLElement>()
-  function setTemplateEl(v: HTMLElement | undefined) {
+  function setElRef(v: HTMLElement | undefined) {
     el.value = v
   }
 
@@ -68,7 +68,7 @@ export function useHoverCardTrigger(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs = {
-        elRef: setTemplateEl,
+        elRef: setElRef,
         onPointerenter,
         onPointerleave,
         onFocus,

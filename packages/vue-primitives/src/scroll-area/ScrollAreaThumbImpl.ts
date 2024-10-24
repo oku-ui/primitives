@@ -10,7 +10,7 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
   const scrollAreaContext = useScrollAreaContext('ScrollAreaThumb')
   const scrollbarContext = useScrollbarContext('ScrollAreaThumb')
 
-  function setTemplateEl(templateEl: HTMLElement | undefined) {
+  function setElRef(templateEl: HTMLElement | undefined) {
     scrollbarContext.thumb.value = templateEl
   }
 
@@ -72,7 +72,7 @@ export function useScrollAreaThumbImpl(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-state': scrollbarContext.hasThumb.value ? 'visible' : 'hidden',
         'style': 'width: var(--radix-scroll-area-thumb-width); height: var(--radix-scroll-area-thumb-height)',
         onPointerdownCapture,

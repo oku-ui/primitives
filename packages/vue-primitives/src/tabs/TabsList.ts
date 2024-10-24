@@ -19,7 +19,7 @@ export interface UseTabsListProps {
 
 export function useTabsList(props: UseTabsListProps): RadixPrimitiveReturns {
   const elRef = props.elRef || useRef<HTMLElement>()
-  const setTemplateEl = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
+  const setElRef = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
   const context = useTabsContext('TabsList')
 
@@ -34,7 +34,7 @@ export function useTabsList(props: UseTabsListProps): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs = []) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'role': 'tablist',
         'aria-orientation': context.orientation,
       }

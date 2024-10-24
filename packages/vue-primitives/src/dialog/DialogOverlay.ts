@@ -33,7 +33,7 @@ export function useDialogOverlay(props: UseDialogOverlayProps = {}): RadixPrimit
   const context = useDialogContext('DialogOverlay')
 
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const isPresent = usePresence(el, () => props.forceMount || context.open.value)
 
@@ -47,7 +47,7 @@ export function useDialogOverlay(props: UseDialogOverlayProps = {}): RadixPrimit
     isPresent,
     attrs(extraAttrs) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-state': isPresent.value ? 'open' : 'closed',
         'style': 'pointer-events: auto',
       }

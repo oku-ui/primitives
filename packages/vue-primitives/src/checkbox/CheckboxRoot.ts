@@ -67,7 +67,7 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
   } = props
 
   const control = props.control || shallowRef<HTMLButtonElement>()
-  const setTemplateEl = props.control ? undefined : (value: HTMLElement | undefined) => control.value = value as HTMLButtonElement
+  const setElRef = props.control ? undefined : (value: HTMLElement | undefined) => control.value = value as HTMLButtonElement
 
   const bubbles = useRef(true)
   // We set this to true by default so that events bubble to forms without JS (SSR)
@@ -131,7 +131,7 @@ export function useCheckboxRoot(props: UseCheckboxRootProps): RadixPrimitiveRetu
     attrs(extraAttrs) {
       const _disabled = disabled()
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'type': 'button',
         'role': 'checkbox',
         'aria-checked': isIndeterminate(checked.value) ? 'mixed' : checked.value,

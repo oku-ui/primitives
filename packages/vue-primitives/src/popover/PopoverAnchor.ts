@@ -20,7 +20,7 @@ export function usePopoverAnchor(props: UsePopoverAnchorProps = {}): RadixPrimit
     popperContext.onAnchorChange(props.virtualRef.value)
   }
 
-  function setTemplateEl(v: HTMLElement | undefined) {
+  function setElRef(v: HTMLElement | undefined) {
     popperContext.onPostionAnchorChange(v)
   }
 
@@ -28,7 +28,7 @@ export function usePopoverAnchor(props: UsePopoverAnchorProps = {}): RadixPrimit
     isShow: !!props.virtualRef,
     attrs(extraAttrs) {
       const attrs = {
-        elRef: setTemplateEl,
+        elRef: setElRef,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

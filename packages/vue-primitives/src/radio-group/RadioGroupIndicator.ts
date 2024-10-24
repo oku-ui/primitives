@@ -30,7 +30,7 @@ export function useRadioGroupIndicator(
     attrs: RadixPrimitiveGetAttrs
   }> {
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const context = useRadioContext('RadioGroupIndicator')
 
@@ -40,7 +40,7 @@ export function useRadioGroupIndicator(
     isPresent,
     attrs(extraAttrs) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-state': context.checked.value ? 'checked' : 'unchecked',
         'data-disabled': context.disabled.value ? '' : undefined,
       }

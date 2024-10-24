@@ -46,7 +46,7 @@ export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitive
   } = props
 
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const viewport = shallowRef<HTMLElement>()
   const content = shallowRef<HTMLDivElement>()
@@ -87,7 +87,7 @@ export function useScrollAreaRoot(props: UseScrollAreaRootProps): RadixPrimitive
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        elRef: setTemplateEl,
+        elRef: setElRef,
         dir: direction.value,
         style: {
           'position': 'relative',

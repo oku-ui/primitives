@@ -69,7 +69,7 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
   const { disableOutsidePointerEvents = () => false } = props
 
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const ownerDocument = () => el.value?.ownerDocument ?? globalThis?.document
 
@@ -185,7 +185,7 @@ export function useDismissableLayer(props: UseDismissableLayerProps = {}): Radix
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-dismissable-layer': true,
         'style': {
           pointerEvents: isBodyPointerEventsDisabled.value

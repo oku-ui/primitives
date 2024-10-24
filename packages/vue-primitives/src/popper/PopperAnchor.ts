@@ -17,7 +17,7 @@ export function usePopperAnchor(props: UsePopperAnchorProps = {}): RadixPrimitiv
   const context = usePopperContext('PopperAnchor')
 
   const el = props.el ?? useRef<HTMLElement>()
-  const setTemplateEl
+  const setElRef
     = props.virtualRef
       ? undefined
       : props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
@@ -29,7 +29,7 @@ export function usePopperAnchor(props: UsePopperAnchorProps = {}): RadixPrimitiv
   return {
     attrs(extraAttrs) {
       const attrs = {
-        elRef: setTemplateEl,
+        elRef: setElRef,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

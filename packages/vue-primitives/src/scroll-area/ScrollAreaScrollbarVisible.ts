@@ -40,7 +40,7 @@ export function useScrollAreaScrollbarVisible(props: UseScrollAreaScrollbarVisib
   const context = useScrollAreaContext('ScrollAreaScrollbarVisible')
   const scrollbar = isHorizontal ? context.scrollbarX : context.scrollbarY
 
-  function setTemplateEl(templateEl: HTMLElement | undefined) {
+  function setElRef(templateEl: HTMLElement | undefined) {
     scrollbar.value = templateEl
   }
 
@@ -254,7 +254,7 @@ export function useScrollAreaScrollbarVisible(props: UseScrollAreaScrollbarVisib
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'style': isHorizontal
           ? {
               'position': 'absolute',

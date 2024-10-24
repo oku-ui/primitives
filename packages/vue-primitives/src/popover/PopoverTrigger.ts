@@ -15,7 +15,7 @@ export function usePopoverTrigger(): RadixPrimitiveReturns {
   const context = usePopoverContext('PopoverTrigger')
   const popperContext = usePopperContext('PopoverTrigger')
 
-  function setTemplateEl(v: HTMLElement | undefined) {
+  function setElRef(v: HTMLElement | undefined) {
     context.triggerRef.value = v
     popperContext.onAnchorChange(v)
   }
@@ -30,7 +30,7 @@ export function usePopoverTrigger(): RadixPrimitiveReturns {
   return {
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'type': 'button',
         'aria-haspopup': 'dialog',
         'aria-expanded': context.open.value,

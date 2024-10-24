@@ -13,12 +13,12 @@ export function useAlretDialogCancel(): RadixPrimitiveReturns {
 
   const context = useAlertDialogContentContext('AlertDialogCancel')
 
-  function setTemplateEl(v: HTMLElement | undefined) {
+  function setElRef(v: HTMLElement | undefined) {
     context.cancelRef.value = v
   }
 
   const attrs = {
-    elRef: setTemplateEl,
+    elRef: setElRef,
   }
 
   return {

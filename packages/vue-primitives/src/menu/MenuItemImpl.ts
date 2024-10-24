@@ -26,7 +26,7 @@ export function useMenuItemImpl(props: UseMenuItemImplProps): RadixPrimitiveRetu
     itemData.textValue = props.textValue ?? el.value?.textContent ?? ''
   })
 
-  function setTemplateEl(v: HTMLElement | undefined) {
+  function setElRef(v: HTMLElement | undefined) {
     el.value = v
     Collection.useCollectionItem(v, itemData, 'menu')
   }
@@ -88,7 +88,7 @@ export function useMenuItemImpl(props: UseMenuItemImplProps): RadixPrimitiveRetu
       const _disabled = props.disabled?.()
 
       const rovingFocusGroupItemAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         [DATA_COLLECTION_ITEM]: true,
         'role': 'menuitem',
         'data-highlighted': isFocused.value ? '' : undefined,

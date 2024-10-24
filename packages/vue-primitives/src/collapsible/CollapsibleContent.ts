@@ -25,7 +25,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
   attrs: RadixPrimitiveGetAttrs
 }> {
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const context = useCollapsibleContext('CollapsibleContent')
 
@@ -101,7 +101,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     isOpen,
     attrs(extraAttrs) {
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'id': context.contentId,
         'data-state': context.open.value ? 'open' : 'closed',
         'data-disabled': context.disabled() ? '' : undefined,

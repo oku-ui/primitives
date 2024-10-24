@@ -46,7 +46,7 @@ export interface UseRadioGroupItem {
 
 export function useRadioGroupItem(props: UseRadioGroupItem): RadixPrimitiveReturns {
   const control = props.control || shallowRef<HTMLButtonElement>()
-  const setTemplateEl = props.control ? undefined : (value: HTMLElement | undefined) => control.value = value as HTMLButtonElement
+  const setElRef = props.control ? undefined : (value: HTMLElement | undefined) => control.value = value as HTMLButtonElement
 
   const context = useRadioGroupContext('RadioGroupItem')
 
@@ -147,7 +147,7 @@ export function useRadioGroupItem(props: UseRadioGroupItem): RadixPrimitiveRetur
       const _disabled = disabled.value
 
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'type': 'button',
         'role': 'radio',
         'aria-checked': checked.value,

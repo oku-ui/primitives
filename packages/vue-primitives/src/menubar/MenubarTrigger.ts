@@ -92,7 +92,7 @@ export function useMenubarTrigger(props: UseMenubarTriggerProps = {}): RadixPrim
     isFocused.value = false
   }
 
-  function setTemplateEl(v: HTMLElement | undefined) {
+  function setElRef(v: HTMLElement | undefined) {
     menuContext.triggerRef.value = v
     Collection.useCollectionItem(v, itemData, '$menubar')
   }
@@ -116,7 +116,7 @@ export function useMenubarTrigger(props: UseMenubarTriggerProps = {}): RadixPrim
       const _disabled = props.disabled?.()
       const rovingFocusGroupItemAttrs: PrimitiveElAttrs = {
         'id': menuContext.triggerId,
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'type': 'button',
         'role': 'menuitem',
         'aria-haspopup': 'menu',

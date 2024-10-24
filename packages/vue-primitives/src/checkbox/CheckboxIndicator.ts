@@ -30,7 +30,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
   attrs: RadixPrimitiveGetAttrs
 }> {
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const context = useCheckboxContext('CheckboxIndicator')
 
@@ -40,7 +40,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
     isPresent,
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'data-state': getState(context.checked.value),
         'data-disabled': context.disabled() ? '' : undefined,
         'style': {

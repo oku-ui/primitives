@@ -41,7 +41,7 @@ export function useSliderThumb(props: UseSliderThumbProps = {}): RadixPrimitiveR
   attrs: RadixPrimitiveGetAttrs
 }> {
   const el = props.el || shallowRef<HTMLElement>()
-  const setTemplateEl = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
+  const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const getItems = useCollection()
 
@@ -116,7 +116,7 @@ export function useSliderThumb(props: UseSliderThumbProps = {}): RadixPrimitiveR
       const _orientation = context.orientation
       const _disabled = context.disabled()
       const attrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         'role': 'slider',
         'aria-label': label.value,
         'aria-valuemin': context.min(),

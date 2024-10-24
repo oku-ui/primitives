@@ -51,7 +51,7 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
   const context = useToastProviderContext('ToastRootImpl')
   const contextToastRoot = useToastRootContext('ToastRootImpl')
 
-  function setTemplateEl(node: HTMLElement | undefined) {
+  function setElRef(node: HTMLElement | undefined) {
     contextToastRoot.el.value = node
   }
 
@@ -281,7 +281,7 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
     announceTextContent,
     attrs(extraAttrs = []) {
       const attrs: PrimitiveElAttrs = {
-        'elRef': setTemplateEl,
+        'elRef': setElRef,
         [DATA_COLLECTION_ITEM]: true,
         'role': 'status',
         'aria-live': 'off',
