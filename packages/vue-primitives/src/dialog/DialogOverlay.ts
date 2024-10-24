@@ -35,7 +35,11 @@ export function useDialogOverlay(props: UseDialogOverlayProps = {}): RadixPrimit
   const el = props.el || shallowRef<HTMLElement>()
   const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
-  const isPresent = usePresence(el, () => props.forceMount || context.open.value)
+  let isPresent: Ref<boolean>
+  if (props.forceMount)
+    isPresent = shallowRef(true)
+  else
+    isPresent = usePresence(el, () => context.open.value)
 
   watchEffect(() => {
     if (isPresent.value) {

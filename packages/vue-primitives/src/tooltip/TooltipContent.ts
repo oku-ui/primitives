@@ -1,5 +1,5 @@
-import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { type Ref, shallowRef } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/index.ts'
 import { useTooltipContext } from './TooltipRoot.ts'
@@ -26,7 +26,11 @@ export function useTooltipContent(props: UseTooltipContentProps = {}): RadixPrim
   const context = useTooltipContext('TooltipContent')
   const popperContext = usePopperContext('TooltipContent')
 
-  const isPresent = usePresence(popperContext.content, () => props.forceMount || context.open.value)
+  let isPresent: Ref<boolean>
+  if (props.forceMount)
+    isPresent = shallowRef(true)
+  else
+    isPresent = usePresence(popperContext.content, () => context.open.value)
 
   return {
     isPresent,

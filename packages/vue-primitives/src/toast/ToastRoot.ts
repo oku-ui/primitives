@@ -52,7 +52,11 @@ export function useToastRoot(props: UseToastRootProps = {}): RadixPrimitiveRetur
     defaultOpen,
   )
 
-  const isPresent = usePresence(el, () => props.forceMount || open.value)
+  let isPresent: Ref<boolean>
+  if (props.forceMount)
+    isPresent = shallowRef(true)
+  else
+    isPresent = usePresence(el, () => open.value)
 
   let _onClose = () => { }
 

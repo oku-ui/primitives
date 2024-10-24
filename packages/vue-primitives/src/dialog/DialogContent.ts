@@ -1,5 +1,5 @@
-import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { type Ref, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 
@@ -24,7 +24,11 @@ export function useDialogContent(props: UseDialogContent): RadixPrimitiveReturns
 }> {
   const context = useDialogContext('DialogContent')
 
-  const isPresent = usePresence(context.content, () => props.forceMount || context.open.value)
+  let isPresent: Ref<boolean>
+  if (props.forceMount)
+    isPresent = shallowRef(true)
+  else
+    isPresent = usePresence(context.content, () => context.open.value)
 
   return {
     isPresent,

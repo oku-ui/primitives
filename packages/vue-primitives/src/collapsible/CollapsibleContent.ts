@@ -38,7 +38,7 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
     isOpen = shallowRef(true)
   }
   else {
-    isPresent = usePresence(el, () => props.forceMount || context.open.value, () => {
+    isPresent = usePresence(el, () => context.open.value, () => {
       const node = el.value
       if (!node)
         return

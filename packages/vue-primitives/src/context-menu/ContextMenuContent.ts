@@ -1,5 +1,5 @@
-import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { type Ref, shallowRef } from 'vue'
 import { useMenuContext } from '../menu/MenuRoot.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
@@ -26,7 +26,11 @@ export function useContextMenuContent(props: UseContextMenuContenttProps = {}): 
   const menuContext = useMenuContext('MenuContent')
   const popperContext = usePopperContext('MenuContent')
 
-  const isPresent = usePresence(popperContext.content, () => props.forceMount || menuContext.open())
+  let isPresent: Ref<boolean>
+  if (props.forceMount)
+    isPresent = shallowRef(true)
+  else
+    isPresent = usePresence(popperContext.content, menuContext.open)
 
   return {
     isPresent,
