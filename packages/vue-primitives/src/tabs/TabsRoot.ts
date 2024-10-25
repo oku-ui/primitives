@@ -53,7 +53,10 @@ export interface UseTabsRootProps extends EmitsToHookProps<TabsRootEmits> {
 }
 
 export function useTabsRoot(props: UseTabsRootProps): RadixPrimitiveReturns {
-  const { orientation = 'horizontal' } = props
+  const {
+    orientation = 'horizontal',
+    activationMode = 'automatic',
+  } = props
   const direction = useDirection(props.dir)
 
   const value = useControllableStateV2(props.value, props.onUpdateValue, props.defaultValue)
@@ -66,7 +69,7 @@ export function useTabsRoot(props: UseTabsRootProps): RadixPrimitiveReturns {
     },
     orientation,
     dir: direction,
-    activationMode: props.activationMode || 'automatic',
+    activationMode,
   })
 
   return {

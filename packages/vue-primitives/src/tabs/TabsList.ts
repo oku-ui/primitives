@@ -18,6 +18,10 @@ export interface UseTabsListProps {
 }
 
 export function useTabsList(props: UseTabsListProps): RadixPrimitiveReturns {
+  const {
+    loop = true,
+  } = props
+
   const elRef = props.elRef || useRef<HTMLElement>()
   const setElRef = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
 
@@ -27,7 +31,7 @@ export function useTabsList(props: UseTabsListProps): RadixPrimitiveReturns {
     elRef,
     currentTabStopId: undefined,
     orientation: context.orientation,
-    loop: props.loop ?? true,
+    loop,
     dir: context.dir,
   })
 
