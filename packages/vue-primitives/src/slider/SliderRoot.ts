@@ -173,10 +173,12 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
     const hasChanged = String(nextValues) !== String(prevValues)
 
-    if (hasChanged && commit) {
+    if (!hasChanged)
+      return
+
+    if (commit) {
       props.onValueCommit?.(nextValues)
     }
-
     values.value = nextValues
   }
 
