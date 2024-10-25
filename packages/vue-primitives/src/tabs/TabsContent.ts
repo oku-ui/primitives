@@ -36,13 +36,13 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
   const contentId = computed(() => makeContentId(context.baseId, props.value()))
   const isSelected = computed(() => context.value.value === props.value())
 
-  let isMountAnimationPrevented = isSelected.value
+  const isMountAnimationPrevented = shallowRef(isSelected.value)
 
   let rAf: number
 
   onMounted(() => {
     rAf = requestAnimationFrame(() => {
-      isMountAnimationPrevented = false
+      isMountAnimationPrevented.value = false
     })
   })
 
@@ -65,7 +65,7 @@ export function useTabsContent(props: UseTabsContentProps): RadixPrimitiveReturn
         'hidden': !isPresent.value,
         'tabindex': 0,
         'style': {
-          animationDuration: isMountAnimationPrevented ? '0s' : undefined,
+          animationDuration: isMountAnimationPrevented.value ? '0s' : undefined,
         },
       }
 
