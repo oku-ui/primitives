@@ -1,5 +1,4 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { isClient } from '@vueuse/core'
 import { computed, onBeforeUnmount, onMounted, onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useSize } from '../hooks/index.ts'
