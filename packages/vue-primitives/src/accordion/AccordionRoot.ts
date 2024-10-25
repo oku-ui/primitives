@@ -1,4 +1,3 @@
-import { NOOP } from '@vue/shared'
 import { type AriaAttributes, computed, type MaybeRefOrGetter, type Ref } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
@@ -18,6 +17,12 @@ export interface AccordionRootProps<T extends AccordionType> extends AccordionIm
   collapsible?: AccordionSingleProps['collapsible']
 }
 
+type SingleValue = AccordionRootProps<'single'>['value']
+type MultipleValue = Exclude<AccordionRootProps<'multiple'>['value'], undefined>
+type Value<T extends AccordionType> = T extends 'multiple' ? MultipleValue : SingleValue
+type DefValue<T extends AccordionType> = T extends 'multiple' ? Exclude<SingleValue, undefined> : MultipleValue
+type EmitValue<T> = T extends 'multiple' ? Exclude<SingleValue, undefined> : Exclude<MultipleValue, undefined>
+
 export const DEFAULT_ACCORDION_ROOT_PROPS = {
   collapsible: undefined,
   disabled: undefined,
@@ -27,7 +32,7 @@ export type AccordionRootEmits<T extends AccordionType> = {
   /**
    * The callback that fires when the state of the toggle group changes.
    */
-  'update:value': [value: T extends 'multiple' ? NonNullable<AccordionMultipleProps['value']> : NonNullable<AccordionSingleProps['value']>]
+  'update:value': [value: EmitValue<T>]
 }
 
 interface AccordionSingleProps {
@@ -96,15 +101,11 @@ export interface AccordionContext {
 
 export const [provideAccordionContext, useAccordionContext] = createContext<AccordionContext>('AccordionContext')
 
-type SingleValue = AccordionRootProps<'single'>['value']
-type MultipleValue = Exclude<AccordionRootProps<'multiple'>['value'], undefined>
-type Value<T extends AccordionType> = T extends 'multiple' ? MultipleValue : SingleValue
-
 export interface UseAccordionRootProps<T extends AccordionType> extends EmitsToHookProps<AccordionRootEmits<T>> {
   elRef?: MutableRefObject<HTMLElement | undefined>
 
-  value?: () => AccordionRootProps<T>['value']
-  defaultValue?: AccordionRootProps<T>['defaultValue']
+  value?: () => Value<T>
+  defaultValue?: DefValue<T>
 
   collapsible?: AccordionSingleProps['collapsible']
 
@@ -114,16 +115,21 @@ export interface UseAccordionRootProps<T extends AccordionType> extends EmitsToH
   dir?: MaybeRefOrGetter<Direction | undefined>
 }
 
+const TYPE_MULTIPLE = 'multiple' as const satisfies AccordionType
+
 export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRootProps<T>): RadixPrimitiveReturns {
-  const { orientation = 'vertical' } = props
+  const isMultiple = props.type === TYPE_MULTIPLE
+  const {
+    orientation = 'vertical',
+    defaultValue = isMultiple ? [] : undefined,
+  } = props
 
   const direction = useDirection(props.dir)
-  const value = useControllableStateV2(
+  const value = useControllableStateV2<Value<T>, EmitValue<T>, DefValue<T>>(
     props.value,
     props.onUpdateValue,
-    (props.type === 'multiple' ? props.defaultValue ?? [] : props.defaultValue) as Value<T>,
+    defaultValue as DefValue<T>,
   )
-  const TYPE_MULTIPLE = 'multiple' as const satisfies AccordionType
 
   const elRef = props.elRef || useRef<HTMLElement>()
   const setElRef = props.elRef ? undefined : (value: HTMLElement | undefined) => elRef.value = value
@@ -215,23 +221,23 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
     disabled: props.disabled,
     direction,
     orientation: orientation ?? 'vertical',
-    value: props.type === TYPE_MULTIPLE
+    value: isMultiple
       ? value as Ref<string[]>
       : computed<string[]>(() => value.value ? [value.value as string] : []),
-    onItemOpen: props.type === TYPE_MULTIPLE
+    onItemOpen: isMultiple
       ? (itemValue) => {
-          value.value = [...value.value || [], itemValue] as Value<T>
+          value.value = [...value.value || [], itemValue] as DefValue<T>
         }
       : (itemValue) => {
-          value.value = itemValue as Value<T>
+          value.value = itemValue as DefValue<T>
         },
-    onItemClose: props.type === TYPE_MULTIPLE
+    onItemClose: isMultiple
       ? (itemValue) => {
-          value.value = ((value.value || []) as string[]).filter(value => value !== itemValue) as Value<T>
+          value.value = ((value.value || []) as string[]).filter(value => value !== itemValue) as DefValue<T>
         }
       : () => {
           if (props.collapsible) {
-            value.value = '' as Value<T>
+            value.value = '' as DefValue<T>
           }
         },
   })
@@ -243,7 +249,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
         'elRef': setElRef,
         'data-disabled': _disabled ? '' : undefined,
         'data-orientation': orientation,
-        'onKeydown': _disabled ? NOOP : onKeydown,
+        'onKeydown': onKeydown,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

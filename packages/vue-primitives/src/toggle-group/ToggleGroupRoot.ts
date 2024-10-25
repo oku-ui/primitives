@@ -20,11 +20,17 @@ export const DEFAULT_TOGGLE_GROUP_PROPS = {
   loop: undefined,
 } satisfies PrimitiveDefaultProps<ToggleGroupProps<ToggleGroupType>>
 
+type SingleValue = ToggleGroupProps<'single'>['value']
+type MultipleValue = ToggleGroupProps<'multiple'>['value']
+type Value<T extends ToggleGroupType> = T extends 'multiple' ? MultipleValue : SingleValue
+type DefValue<T extends ToggleGroupType> = T extends 'multiple' ? Exclude<SingleValue, undefined> : MultipleValue
+type EmitValue<T> = T extends 'multiple' ? Exclude<SingleValue, undefined> : Exclude<MultipleValue, undefined>
+
 export type ToggleGroupEmits<T extends ToggleGroupType> = {
   /**
    * The callback that fires when the state of the toggle group changes.
    */
-  'update:value': [value: T extends 'multiple' ? NonNullable<ToggleGroupMultipleProps['value']> : NonNullable<ToggleGroupSingleProps['value']>]
+  'update:value': [value: EmitValue<T>]
 }
 
 interface ToggleGroupSingleProps {
@@ -81,8 +87,8 @@ export const [provideToggleGroupContext, useToggleGroupContext] = createContext<
 
 export interface UseToggleGroupProps<T extends ToggleGroupType> extends EmitsToHookProps<ToggleGroupEmits<T>> {
   type?: T
-  value?: () => T extends 'multiple' ? ToggleGroupMultipleProps['value'] : ToggleGroupSingleProps['value']
-  defaultValue?: T extends 'multiple' ? ToggleGroupMultipleProps['defaultValue'] : ToggleGroupSingleProps['defaultValue']
+  value?: () => Value<T>
+  defaultValue?: DefValue<T>
 
   disabled?: () => boolean | undefined
   rovingFocus?: boolean
@@ -91,45 +97,43 @@ export interface UseToggleGroupProps<T extends ToggleGroupType> extends EmitsToH
   dir?: MaybeRefOrGetter<Direction | undefined>
 }
 
-type SingleValue = Exclude<ToggleGroupProps<'single'>['value'], undefined>
-type MultipleValue = Exclude<ToggleGroupProps<'multiple'>['value'], undefined>
-type Value<T extends ToggleGroupType> = T extends 'multiple' ? MultipleValue : SingleValue
-
 const TYPE_MULTIPLE = 'multiple' as const satisfies ToggleGroupType
 
 export function useToggleGroup<T extends ToggleGroupType>(props: UseToggleGroupProps<T>): RadixPrimitiveReturns {
+  const isMultiple = props.type === TYPE_MULTIPLE
   const {
     disabled = () => undefined,
     rovingFocus = true,
     loop = true,
+    defaultValue = isMultiple ? [] : undefined,
   } = props
 
-  const value = useControllableStateV2(
+  const value = useControllableStateV2<Value<T>, EmitValue<T>, DefValue<T>>(
     props.value,
     props.onUpdateValue,
-    (props.type === TYPE_MULTIPLE ? props.defaultValue ?? [] : props.defaultValue) as Value<T>,
+    defaultValue as DefValue<T>,
   )
 
   const direction = useDirection(props.dir)
 
   provideToggleGroupContext({
     type: props.type,
-    value: props.type === TYPE_MULTIPLE
+    value: isMultiple
       ? value as Ref<string[]>
       : computed<string[]>(() => value.value ? [value.value as string] : []),
-    onItemActivate: props.type === TYPE_MULTIPLE
+    onItemActivate: isMultiple
       ? (itemValue) => {
-          value.value = [...value.value || [], itemValue] as Value<T>
+          value.value = [...value.value || [], itemValue] as DefValue<T>
         }
       : (itemValue) => {
-          value.value = itemValue as Value<T>
+          value.value = itemValue as DefValue<T>
         },
-    onItemDeactivate: props.type === TYPE_MULTIPLE
+    onItemDeactivate: isMultiple
       ? (itemValue) => {
-          value.value = ((value.value || []) as string[]).filter(value => value !== itemValue) as Value<T>
+          value.value = ((value.value || []) as string[]).filter(value => value !== itemValue) as DefValue<T>
         }
       : () => {
-          value.value = '' as Value<T>
+          value.value = '' as DefValue<T>
         },
     rovingFocus,
     disabled,
@@ -154,7 +158,9 @@ export function useToggleGroup<T extends ToggleGroupType>(props: UseToggleGroupP
         return rovingFocusGroupRoot.attrs([primitiveAttrs, ...extraAttrs])
       }
 
-      mergePrimitiveAttrs(primitiveAttrs, extraAttrs)
+      if (extraAttrs.length > 0) {
+        mergePrimitiveAttrs(primitiveAttrs, extraAttrs)
+      }
 
       return primitiveAttrs
     },
