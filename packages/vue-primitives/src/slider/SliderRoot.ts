@@ -1,11 +1,10 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { EmitsToHookProps, LooseRequired, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import { clamp } from '@floating-ui/utils'
 import { computed, type HTMLAttributes, type MaybeRefOrGetter, type Ref, type UnwrapRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useControllableStateV3, useRef, type useSize } from '../hooks/index.ts'
-import { getDecimalCount, isNumber, mergePrimitiveAttrs, roundValue } from '../shared/index.ts'
+import { clamp, getDecimalCount, isNumber, mergePrimitiveAttrs, roundValue } from '../shared/index.ts'
 import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
 
 export const PAGE_KEYS = ['PageUp', 'PageDown']
@@ -138,7 +137,7 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     const nextValue = values.value[valueIndexToChangeRef.value]
     const hasChanged = nextValue !== prevValue
     if (hasChanged) {
-      props.onUpdateValue?.(values.value)
+      props.onValueCommit?.(values.value)
     }
   }
 
