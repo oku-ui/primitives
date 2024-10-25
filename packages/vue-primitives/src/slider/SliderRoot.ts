@@ -99,7 +99,10 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     disabled = () => false,
     orientation = 'horizontal',
     minStepsBetweenThumbs = () => 0,
-    defaultValue = () => isNumber(min()) ? [min()] : [0],
+    defaultValue = () => {
+      const _min = min()
+      return isNumber(_min) ? [_min] : [0]
+    },
   } = props
 
   const el = props.el || useRef<HTMLElement>()
