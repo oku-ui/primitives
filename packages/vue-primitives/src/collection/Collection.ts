@@ -6,7 +6,7 @@ export interface CollectionItemAttrs {
   [DATA_COLLECTION_ITEM]: true
 }
 
-type ItemElementWithData<E extends HTMLElement, D> = E & {
+export type CollectionItemWithData<E extends HTMLElement, D> = E & {
   $$rcid: D
 }
 
@@ -17,7 +17,7 @@ export interface CollectionContext {
 export function createCollection<ItemElement extends HTMLElement, ItemData extends Record<string, any> = Record<string, any>>(name: string) {
   const [_provideCollectionContext, useCollectionContext] = createContext<CollectionContext>(`${name}CollectionProvider`)
 
-  type CollectionItem = ItemElementWithData<ItemElement, ItemData>
+  type CollectionItem = CollectionItemWithData<ItemElement, ItemData>
 
   function provideCollectionContext(collectionRef: MutableRefObject<HTMLElement | undefined>, provide = true) {
     const context = {
