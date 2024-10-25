@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
 import { isClient } from '@vueuse/core'
-import { computed, onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
+import { computed, onBeforeUnmount, onMounted, onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useSize } from '../hooks/index.ts'
 import { type IAttrsData, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
@@ -65,19 +65,13 @@ export function useSliderThumb(props: UseSliderThumbProps = {}): RadixPrimitiveR
     return orientationSize ? getThumbInBoundsOffset(orientationSize, percent.value, orientation.value.direction) : 0
   })
 
-  if (isClient) {
-    watchEffect(() => {
-      const thumb = el.value
+  onMounted(() => {
+    context.thumbs.add(el.value!)
+  })
 
-      if (!thumb)
-        return
-      context.thumbs.add(thumb)
-
-      onWatcherCleanup(() => {
-        context.thumbs.delete(thumb)
-      })
-    })
-  }
+  onBeforeUnmount(() => {
+    context.thumbs.delete(el.value!)
+  })
 
   function onFocus(event: FocusEvent) {
     if (event.defaultPrevented) {
