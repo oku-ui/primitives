@@ -141,11 +141,11 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     }
   }
 
-  function onSliderHomeKeyDown() {
+  function onSliderHomeKeydown() {
     updateValues(min(), 0, { commit: true })
   }
 
-  function onSliderEndKeyDown() {
+  function onSliderEndKeydown() {
     updateValues(max(), values.value.length - 1, { commit: true })
   }
 
@@ -281,12 +281,12 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
     }
 
     if (event.key === 'Home') {
-      onSliderHomeKeyDown()
+      onSliderHomeKeydown()
       // Prevent scrolling to page start
       event.preventDefault()
     }
     else if (event.key === 'End') {
-      onSliderEndKeyDown()
+      onSliderEndKeydown()
       // Prevent scrolling to page end
       event.preventDefault()
     }
