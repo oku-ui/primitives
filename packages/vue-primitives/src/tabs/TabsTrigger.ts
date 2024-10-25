@@ -23,7 +23,7 @@ export interface UseTabsTriggerProps {
 }
 
 export function useTabsTrigger(props: UseTabsTriggerProps): RadixPrimitiveReturns {
-  const { disabled = () => false } = props
+  const { disabled = () => undefined } = props
 
   const context = useTabsContext('TabsTrigger')
   const triggerId = computed(() => makeTriggerId(context.baseId, props.value()))
@@ -35,7 +35,7 @@ export function useTabsTrigger(props: UseTabsTriggerProps): RadixPrimitiveReturn
       return
     // only call handler if it's the left button (mousedown gets triggered by all mouse buttons)
     // but not when the control key is pressed (avoiding MacOS right click)
-    if (!disabled() && event.button === 0 && event.ctrlKey === false) {
+    if (event.button === 0 && event.ctrlKey === false) {
       context.onValueChange(props.value())
     }
     else {
@@ -57,7 +57,7 @@ export function useTabsTrigger(props: UseTabsTriggerProps): RadixPrimitiveReturn
     // handle "automatic" activation if necessary
     // ie. activate tab following focus
     const isAutomaticActivation = context.activationMode !== 'manual'
-    if (!isSelected.value && !disabled() && isAutomaticActivation) {
+    if (!isSelected.value && isAutomaticActivation) {
       context.onValueChange(props.value())
     }
   }
@@ -74,14 +74,15 @@ export function useTabsTrigger(props: UseTabsTriggerProps): RadixPrimitiveReturn
   return {
     attrs(extraAttrs = []) {
       const _disabled = disabled()
+      const _isSelected = isSelected.value
 
       const attrs = {
         'id': triggerId.value,
         'type': 'button',
         'role': 'tab',
-        'aria-selected': isSelected.value,
+        'aria-selected': _isSelected,
         'aria-controls': contentId.value,
-        'data-state': isSelected.value ? 'active' : 'inactive',
+        'data-state': _isSelected ? 'active' : 'inactive',
         'data-disabled': _disabled ? '' : undefined,
         'disabled': _disabled,
         onMousedown,

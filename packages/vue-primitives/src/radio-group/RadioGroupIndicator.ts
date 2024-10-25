@@ -34,7 +34,7 @@ export function useRadioGroupIndicator(
 
   const context = useRadioContext('RadioGroupIndicator')
 
-  const isPresent = props.forceMount ? shallowRef(true) : usePresence(el, () => context.checked.value)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(el, context.checked)
 
   return {
     isPresent,

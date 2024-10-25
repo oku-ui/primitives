@@ -26,7 +26,7 @@ export function useTooltipContent(props: UseTooltipContentProps = {}): RadixPrim
   const context = useTooltipContext('TooltipContent')
   const popperContext = usePopperContext('TooltipContent')
 
-  const isPresent = props.forceMount ? shallowRef(true) : usePresence(popperContext.content, () => context.open.value)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(popperContext.content, context.open)
 
   return {
     isPresent,

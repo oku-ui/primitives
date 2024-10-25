@@ -24,7 +24,7 @@ export function useDialogContent(props: UseDialogContent): RadixPrimitiveReturns
 }> {
   const context = useDialogContext('DialogContent')
 
-  const isPresent = props.forceMount ? shallowRef(true) : usePresence(context.content, () => context.open.value)
+  const isPresent = props.forceMount ? shallowRef(true) : usePresence(context.content, context.open)
 
   return {
     isPresent,
