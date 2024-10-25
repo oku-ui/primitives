@@ -1,5 +1,5 @@
 import type { PrimitiveDefaultProps } from '../shared/index.ts'
-import { type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { useScrollbarContext } from './ScrollAreaScrollbar.ts'
 
