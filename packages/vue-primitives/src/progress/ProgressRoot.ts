@@ -37,18 +37,18 @@ export function useProgressRoot(props: UseProgressRootProps): RadixPrimitiveRetu
 
   return {
     attrs(extraAttrs) {
-      const value = props.value?.()
+      const _value = props.value?.()
       const _max = toValue(max)
 
       const attrs = {
         'aria-valuemax': _max,
         'aria-valuemin': 0,
-        'aria-valuenow': isNumber(value) ? value : undefined,
+        'aria-valuenow': isNumber(_value) ? _value : undefined,
         'aria-valuetext': valueLabel.value,
         'role': 'progressbar',
-        'data-state': getProgressState(value, _max),
-        'data-value': value ?? undefined,
-        'data-max': max,
+        'data-state': getProgressState(_value, _max),
+        'data-value': _value ?? undefined,
+        'data-max': _max,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
