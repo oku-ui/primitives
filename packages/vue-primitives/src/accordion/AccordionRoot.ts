@@ -17,11 +17,11 @@ export interface AccordionRootProps<T extends AccordionType> extends AccordionIm
   collapsible?: AccordionSingleProps['collapsible']
 }
 
-type SingleValue = AccordionRootProps<'single'>['value']
-type MultipleValue = Exclude<AccordionRootProps<'multiple'>['value'], undefined>
+type SingleValue = AccordionSingleProps['value']
+type MultipleValue = AccordionMultipleProps['value']
 type Value<T extends AccordionType> = T extends 'multiple' ? MultipleValue : SingleValue
 type DefValue<T extends AccordionType> = T extends 'multiple' ? Exclude<SingleValue, undefined> : MultipleValue
-type EmitValue<T> = T extends 'multiple' ? Exclude<SingleValue, undefined> : Exclude<MultipleValue, undefined>
+type EmitValue<T> = T extends 'multiple' ? Exclude<AccordionMultipleProps['value'], undefined> : Exclude<AccordionSingleProps['value'], undefined>
 
 export const DEFAULT_ACCORDION_ROOT_PROPS = {
   collapsible: undefined,
@@ -104,8 +104,8 @@ export const [provideAccordionContext, useAccordionContext] = createContext<Acco
 export interface UseAccordionRootProps<T extends AccordionType> extends EmitsToHookProps<AccordionRootEmits<T>> {
   elRef?: MutableRefObject<HTMLElement | undefined>
 
-  value?: () => Value<T>
-  defaultValue?: DefValue<T>
+  value?: () => T extends 'multiple' ? AccordionMultipleProps['value'] : AccordionSingleProps['value']
+  defaultValue?: T extends 'multiple' ? AccordionMultipleProps['defaultValue'] : AccordionSingleProps['defaultValue']
 
   collapsible?: AccordionSingleProps['collapsible']
 

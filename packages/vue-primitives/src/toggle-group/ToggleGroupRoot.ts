@@ -20,17 +20,17 @@ export const DEFAULT_TOGGLE_GROUP_PROPS = {
   loop: undefined,
 } satisfies PrimitiveDefaultProps<ToggleGroupProps<ToggleGroupType>>
 
-type SingleValue = ToggleGroupProps<'single'>['value']
-type MultipleValue = ToggleGroupProps<'multiple'>['value']
+type SingleValue = ToggleGroupSingleProps['value']
+type MultipleValue = ToggleGroupMultipleProps['value']
 type Value<T extends ToggleGroupType> = T extends 'multiple' ? MultipleValue : SingleValue
 type DefValue<T extends ToggleGroupType> = T extends 'multiple' ? Exclude<SingleValue, undefined> : MultipleValue
-type EmitValue<T> = T extends 'multiple' ? Exclude<SingleValue, undefined> : Exclude<MultipleValue, undefined>
+type EmitValue<T> = T extends 'multiple' ? Exclude<ToggleGroupMultipleProps['value'], undefined> : Exclude<ToggleGroupSingleProps['value'], undefined>
 
 export type ToggleGroupEmits<T extends ToggleGroupType> = {
   /**
    * The callback that fires when the state of the toggle group changes.
    */
-  'update:value': [value: EmitValue<T>]
+  'update:value': [value: EmitValue<T> ]
 }
 
 interface ToggleGroupSingleProps {
@@ -87,8 +87,8 @@ export const [provideToggleGroupContext, useToggleGroupContext] = createContext<
 
 export interface UseToggleGroupProps<T extends ToggleGroupType> extends EmitsToHookProps<ToggleGroupEmits<T>> {
   type?: T
-  value?: () => Value<T>
-  defaultValue?: DefValue<T>
+  value?: () => T extends 'multiple' ? ToggleGroupMultipleProps['value'] : ToggleGroupSingleProps['value']
+  defaultValue?: T extends 'multiple' ? ToggleGroupMultipleProps['defaultValue'] : ToggleGroupSingleProps['defaultValue']
 
   disabled?: () => boolean | undefined
   rovingFocus?: boolean

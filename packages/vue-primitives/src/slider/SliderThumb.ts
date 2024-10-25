@@ -1,5 +1,5 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { computed, onBeforeUnmount, onMounted, onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
+import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useSize } from '../hooks/index.ts'
 import { type IAttrsData, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
