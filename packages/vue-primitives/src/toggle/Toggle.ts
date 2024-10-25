@@ -51,13 +51,14 @@ export function useToggle(props: UseToggleProps): RadixPrimitiveReturns {
 
   return {
     attrs(extraAttrs) {
-      const _isDisabled = props.disabled?.()
+      const _disabled = props.disabled?.()
+      const _pressed = pressed.value
       const attrs = {
         'type': 'button',
-        'aria-pressed': pressed.value,
-        'data-state': pressed.value ? 'on' : 'off',
-        'disabled': _isDisabled,
-        'data-disabled': _isDisabled ? '' : undefined,
+        'aria-pressed': _pressed,
+        'data-state': _pressed ? 'on' : 'off',
+        'disabled': _disabled,
+        'data-disabled': _disabled ? '' : undefined,
         onClick,
       }
 
