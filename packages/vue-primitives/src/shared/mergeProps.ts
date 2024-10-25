@@ -102,7 +102,7 @@ export function normalizeAttrs(attrs: PrimitiveElAttrs): IAttrsData {
     attrs.ref = templateRef
   }
 
-  const disabled = attrs.disabled === true || attrs['data-disabled'] != null
+  const disabled = attrs.disabled === true || attrs['data-disabled'] != null || attrs['aria-disabled'] === true
 
   if (disabled) {
     for (const propName in attrs) {

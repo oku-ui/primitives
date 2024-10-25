@@ -3,7 +3,7 @@ import { shallowRef } from 'vue'
 import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
 import './styles.css'
 
-const value = shallowRef<string>()
+const value = shallowRef<string>('one')
 </script>
 
 <template>
