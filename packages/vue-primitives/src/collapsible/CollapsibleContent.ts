@@ -31,14 +31,9 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
 
   let originalStyles: Pick<CSSStyleDeclaration, 'transitionDuration' | 'animationName'>
 
-  let isPresent: Ref<boolean>
-  let isOpen: Ref<boolean>
-  if (props.forceMount) {
-    isPresent = shallowRef(true)
-    isOpen = shallowRef(true)
-  }
-  else {
-    isPresent = usePresence(el, () => context.open.value, () => {
+  const isPresent = props.forceMount
+    ? shallowRef(true)
+    : usePresence(el, () => context.open.value, () => {
       const node = el.value
       if (!node)
         return
@@ -64,19 +59,19 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
       nodeStyle.animationName = originalStyles.animationName
     })
 
-    // when opening we want it to immediately open to retrieve dimensions
-    // when closing we delay `present` to retrieve dimensions before closing
-    isOpen = computed(() => context.open.value || isPresent.value)
-  }
+  // when opening we want it to immediately open to retrieve dimensions
+  // when closing we delay `present` to retrieve dimensions before closing
+  const isOpen = computed(() => isPresent.value || context.open.value)
+  const _isOpen = isOpen.value
 
   const lockAnimationStyles = shallowRef<CSSProperties | undefined>(
-    isOpen.value
+    _isOpen
       ? { transitionDuration: '0s !important', animationName: 'none !important' }
       : undefined,
   )
 
   onMounted(async () => {
-    if (!isOpen.value)
+    if (!_isOpen)
       return
 
     const node = el.value
@@ -93,8 +88,14 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
       animationName: nodeStyle.animationName,
     }
 
+    // block any animations/transitions so the element renders at its full dimensions
     nodeStyle.transitionDuration = '0s'
     nodeStyle.animationName = 'none'
+
+    // get width and height from full dimensions
+    const rect = node.getBoundingClientRect()
+    nodeStyle.setProperty('--radix-collapsible-content-height', `${rect.height}px`)
+    nodeStyle.setProperty('--radix-collapsible-content-width', `${rect.width}px`)
   })
 
   return {
