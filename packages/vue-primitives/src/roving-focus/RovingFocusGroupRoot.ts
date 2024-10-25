@@ -3,8 +3,8 @@ import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
 import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
 import { useControllableStateV2 } from '../hooks/index.ts'
-import { type EmitsToHookProps, focusFirst, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns, wrapArray } from '../shared/index.ts'
-import { ENTRY_FOCUS, EVENT_OPTIONS, getFocusIntent } from './utils.ts'
+import { type EmitsToHookProps, focusFirst, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { ENTRY_FOCUS, EVENT_OPTIONS } from './utils.ts'
 
 type Orientation = AriaAttributes['aria-orientation']
 
@@ -103,7 +103,7 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
     isClickFocus = true
   }
 
-  function onFocus(event: FocusEvent) {
+  function onFocusin(event: FocusEvent) {
     if (event.defaultPrevented)
       return
 
@@ -113,8 +113,7 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
     // instead, the wrapper will get focused and not through a bubbling event.
     const isKeyboardFocus = !isClickFocus
 
-    // TODO: event.target === event.currentTarget всегда равно true
-    if (isKeyboardFocus && !isTabbingBackOut.value) {
+    if (event.target === event.currentTarget && isKeyboardFocus && !isTabbingBackOut.value) {
       const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
       // event.currentTarget!.dispatchEvent(entryFocusEvent)
       props.onEntryFocus?.(entryFocusEvent)
@@ -156,52 +155,6 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
     },
   })
 
-  function onKeydown(event: KeyboardEvent) {
-    const target = event.target as HTMLElement
-    if (!target.matches('[data-radix-collection-item]')) {
-      return
-    }
-    if (event.key === 'Tab' && event.shiftKey) {
-      isTabbingBackOut.value = true
-      return
-    }
-
-    // if (event.target !== event.currentTarget)
-    //   return
-
-    if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
-      return
-
-    const focusIntent = getFocusIntent(event, props.orientation, dir.value)
-
-    if (!focusIntent)
-      return
-
-    event.preventDefault()
-    let candidateNodes = getItems().filter(item => item.$$rcid.$rfg.focusable)
-
-    if (focusIntent === 'last') {
-      candidateNodes.reverse()
-    }
-    else if (focusIntent === 'prev' || focusIntent === 'next') {
-      if (focusIntent === 'prev')
-        candidateNodes.reverse()
-      const currentIndex = (candidateNodes as HTMLElement[]).indexOf(event.target as HTMLElement)
-      candidateNodes = props.loop ?? false
-        ? wrapArray(candidateNodes, currentIndex + 1)
-        : candidateNodes.slice(currentIndex + 1)
-    }
-
-    // TODO: wip
-    /**
-     * Imperative focus during keydown is risky so we prevent React's batching updates
-     * to avoid potential bugs. See: https://github.com/facebook/react/issues/20332
-     */
-    setTimeout(() => {
-      focusFirst(candidateNodes)
-    })
-  }
-
   const tabindex = computed(() => isTabbingBackOut.value || focusableItemsCount.value === 0 ? -1 : 0)
 
   return {
@@ -213,9 +166,8 @@ export function useRovingFocusGroupRoot(props: UseRovingFocusGroupRootProps): Ra
         'data-orientation': props.orientation,
         'style': 'outline: none;',
         onMousedown,
-        onFocus,
+        onFocusin,
         onFocusout,
-        onKeydown,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
