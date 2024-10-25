@@ -135,7 +135,7 @@ export function useSliderThumb(props: UseSliderThumbProps = {}): RadixPrimitiveR
            * snap into the correct position during hydration which would be visually jarring for
            * slower connections.
            */
-          // ...value.value === undefined ? { display: 'none' } : undefined,
+          ...value.value === undefined ? { display: 'none' } : undefined,
         },
         onFocus,
       }

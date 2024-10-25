@@ -179,6 +179,14 @@ export function usePopoverContentImplShared(props: UsePopoverContentImplSharedPr
 
   const popperContent = usePopperContent(props)
 
+  const style = {
+    '--radix-popover-content-transform-origin': 'var(--radix-popper-transform-origin)',
+    '--radix-popover-content-available-width': 'var(--radix-popper-available-width)',
+    '--radix-popover-content-available-height': 'var(--radix-popper-available-height)',
+    '--radix-popover-trigger-width': 'var(--radix-popper-anchor-width)',
+    '--radix-popover-trigger-height': 'var(--radix-popper-anchor-height)',
+  }
+
   return {
     wrapperAttrs: popperContent.wrapperAttrs,
     attrs(extraAttrs = []) {
@@ -186,13 +194,7 @@ export function usePopoverContentImplShared(props: UsePopoverContentImplSharedPr
         'id': context.contentId,
         'data-state': context.open.value ? 'open' : 'closed',
         'role': 'dialog',
-        'style': {
-          '--radix-popover-content-transform-origin': 'var(--radix-popper-transform-origin)',
-          '--radix-popover-content-available-width': 'var(--radix-popper-available-width)',
-          '--radix-popover-content-available-height': 'var(--radix-popper-available-height)',
-          '--radix-popover-trigger-width': 'var(--radix-popper-anchor-width)',
-          '--radix-popover-trigger-height': 'var(--radix-popper-anchor-height)',
-        },
+        'style': style,
       }
 
       return popperContent.attrs([dismissableLayer.attrs(), focusScope.attrs(), popperAttrs, ...extraAttrs])

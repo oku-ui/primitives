@@ -20,6 +20,11 @@ export function useAccordionContent(props: UseAccordionContentProps): RadixPrimi
   const accordionContext = useAccordionContext('AccordionContent')
   const itemContext = useAccordionItemContext('AccordionContent')
 
+  const style = {
+    '--radix-accordion-content-height': 'var(--radix-collapsible-content-height)',
+    '--radix-accordion-content-width': 'var(--radix-collapsible-content-width)',
+  }
+
   return {
     isOpen: collapsibleContent.isOpen,
     attrs(extraAttrs = []) {
@@ -27,10 +32,7 @@ export function useAccordionContent(props: UseAccordionContentProps): RadixPrimi
         'role': 'region',
         'aria-labelledby': itemContext.triggerId,
         'data-orientation': accordionContext.orientation,
-        'style': {
-          '--radix-accordion-content-height': 'var(--radix-collapsible-content-height)',
-          '--radix-accordion-content-width': 'var(--radix-collapsible-content-width)',
-        },
+        'style': style,
       }
 
       mergePrimitiveAttrs(attrs, [collapsibleContent.attrs(), ...extraAttrs])

@@ -36,6 +36,10 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
 
   const isPresent = props.forceMount ? shallowRef(true) : usePresence(el, () => isIndeterminate(context.checked.value) || context.checked.value === true)
 
+  const style = {
+    pointerEvents: 'none',
+  } as const
+
   return {
     isPresent,
     attrs(extraAttrs) {
@@ -43,9 +47,7 @@ export function useCheckboxIndicator(props: UseCheckboxIndicatorProps): RadixPri
         'elRef': setElRef,
         'data-state': getState(context.checked.value),
         'data-disabled': context.disabled() ? '' : undefined,
-        'style': {
-          pointerEvents: 'none',
-        },
+        'style': style,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

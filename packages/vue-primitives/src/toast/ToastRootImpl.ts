@@ -275,6 +275,11 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
     },
   )
 
+  const style = {
+    userSelect: 'none',
+    touchAction: 'none',
+  } as const
+
   return {
     type,
     viewport: context.viewport,
@@ -289,10 +294,7 @@ export function useToastRootImpl(props: UseToastRootImplProps): RadixPrimitiveRe
         'tabindex': 0,
         'data-state': contextToastRoot.open.value ? 'open' : 'closed',
         'data-swipe-direction': context.swipeDirection.value,
-        'style': {
-          userSelect: 'none',
-          touchAction: 'none',
-        },
+        'style': style,
         onKeydown,
         onPointerdown,
         onPointermove,
