@@ -102,12 +102,11 @@ export function useRovingFocusGroupItem(props: UseRovingFocusGroupItemProps = {}
       candidateNodes.reverse()
     }
     else if (focusIntent === 'prev' || focusIntent === 'next') {
-      if (focusIntent === 'prev')
+      if (focusIntent === 'prev') {
         candidateNodes.reverse()
+      }
       const currentIndex = (candidateNodes as HTMLElement[]).indexOf(event.currentTarget as HTMLElement)
-      candidateNodes = context.loop
-        ? wrapArray(candidateNodes, currentIndex + 1)
-        : candidateNodes.slice(currentIndex + 1)
+      candidateNodes = context.loop ? wrapArray(candidateNodes, currentIndex + 1) : candidateNodes.slice(currentIndex + 1)
     }
 
     // TODO: wip
