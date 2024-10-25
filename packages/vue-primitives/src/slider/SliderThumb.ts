@@ -44,7 +44,7 @@ export function useSliderThumb(props: UseSliderThumbProps = {}): RadixPrimitiveR
   const setElRef = props.el ? undefined : (value: HTMLElement | undefined) => el.value = value
 
   const getItems = useCollection()
-  // TODO: check reactive index
+  // TODO: check: index is not reactive
   const index = computed(() => el.value ? getItems().findIndex(item => item === el.value) : -1)
 
   const context = useSliderContext('SliderThumbImpl')
