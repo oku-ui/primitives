@@ -50,7 +50,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            ./.nx
+            ./.turbo
             ./.eslintcache
             ./.vitest-cache
           key: ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}

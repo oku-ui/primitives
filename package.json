@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "esno scripts/dev.ts",
-    "build": "pnpm nx run-many -t build",
+    "build": "pnpm turbo build",
     "build:skip": "pnpm nx run-many -t build --skip-nx-cache",
     "oku": "pnpm jiti ./scripts/index.ts",
     "story": "pnpm storybook dev -p 6006 --no-open",
