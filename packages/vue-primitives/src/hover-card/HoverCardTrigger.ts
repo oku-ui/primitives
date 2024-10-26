@@ -1,5 +1,5 @@
+import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { PopperAnchorProps } from '../popper'
-import type { PrimitiveProps } from '../primitive'
 
 export interface HoverCardTriggerProps extends PopperAnchorProps {
   as?: PrimitiveProps['as']

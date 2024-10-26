@@ -1,4 +1,4 @@
-import type { MutableRefObject } from '../hooks'
+import type { MutableRefObject } from '@oku-ui/hooks'
 
 export interface SwitchBubbleInputProps {
   checked: boolean
