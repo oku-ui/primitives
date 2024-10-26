@@ -27,56 +27,56 @@ Enter the component you want most in the components, leave the emojis and follow
 **Developers can work on unclaimed components**
 
 ### Components
+### Components
 
-| Component                                                                                       | Status       | 🔗 Hook v1 | 👀 Visual Check | 📝 Note                        |
-| ------------------------------------------------------------------------------------------------ | ------------ | ---------- | --------------- | ------------------------------ |
-| [Accordion](https://primitives-storybook.oku-ui.com/?path=/story/components-accordion--single)       | ✅ Completed | ✅         | ✅              |                                |
-| [AlertDialog](https://primitives-storybook.oku-ui.com/?path=/story/components-alertdialog--styled)   | ✅ Completed | ✅         |                 |                                |
-| [AspectRatio](https://primitives-storybook.oku-ui.com/?path=/story/components-aspectratio--styled)   | ✅ Completed | ✅         |                 |                                |
-| [Avatar](https://primitives-storybook.oku-ui.com/?path=/story/components-avatar--styled)             | ✅ Completed | ✅         |                 | 🔨 PR from Radix               |
-| [Checkbox](https://primitives-storybook.oku-ui.com/?path=/story/components-checkbox--styled)         | ✅ Completed | ✅         |                 | 🔧 Needs input                 |
-| [Collapsible](https://primitives-storybook.oku-ui.com/?path=/story/components-collapsible--styled)   | ✅ Completed | ✅         | ✅              |                                |
-| [Context Menu](https://primitives-storybook.oku-ui.com/?path=/story/components-contextmenu--styled)  | ✅ Completed | ✅         |                 |                                |
-| [Dialog](https://primitives-storybook.oku-ui.com/?path=/story/components-dialog--styled)             | ✅ Completed | ✅         |                 |                                |
-| [DropdownMenu](https://primitives-storybook.oku-ui.com/?path=/story/components-dropdownmenu--styled) | ✅ Completed | ✅         |                 |                                |
-| Form                                                                                            | ❌ Not Started | ❌         |                 |                                |
-| [HoverCard](https://primitives-storybook.oku-ui.com/?path=/story/components-hovercard--chromatic)    | ✅ Completed | ✅         |                 | 🔧 Needs polygon; fix close    |
-| [Label](https://primitives-storybook.oku-ui.com/?path=/story/components-label--styled)               | ✅ Completed | ✅         |                 |                                |
-| [Menubar](https://primitives-storybook.oku-ui.com/?path=/story/components-menubar--styled)           | ✅ Completed | ✅         |                 |                                |
-| NavigationMenu                                                                                  | 🚧 In Progress | 🚧         |                 |                                |
-| [Popover](https://primitives-storybook.oku-ui.com/?path=/story/components-popover--styled)           | ✅ Completed | ✅         |                 |                                |
-| [Progress](https://primitives-storybook.oku-ui.com/?path=/story/components-progress--styled)         | ✅ Completed | ✅         |                 | ✅                              |
-| [RadioGroup](https://primitives-storybook.oku-ui.com/?path=/story/components-radiogroup--styled)     | ✅ Completed | ✅         |                 | 🔧 Needs input                 |
-| [ScrollArea](https://primitives-storybook.oku-ui.com/?path=/story/components-scrollarea--basic)      | ✅ Completed | ✅         |                 |                                |
-| Select                                                                                          | 🚧 In Progress | 🚧         |                 |                                |
-| [Separator](https://primitives-storybook.oku-ui.com/?path=/story/components-separator--styled)       | ✅ Completed | ✅         |                 |                                |
-| [Slider](https://primitives-storybook.oku-ui.com/?path=/story/components-slider--styled)             | ✅ Completed | ✅         | ✅              |                                |
-| [Switch](https://primitives-storybook.oku-ui.com/?path=/story/components-switch--styled)             | ✅ Completed | ✅         |                 | 🔧 Needs input                 |
-| [Tabs](https://primitives-storybook.oku-ui.com/?path=/story/components-tabs--styled)                 | ✅ Completed | ✅         | ✅              |                                |
-| [Toast](https://primitives-storybook.oku-ui.com/?path=/story/components-toast--styled)               | ✅ Completed | ✅         |                 |                                |
-| [ToggleGroup](https://primitives-storybook.oku-ui.com/?path=/story/components-togglegroup--single)   | ✅ Completed | ✅         | ✅              |                                |
-| [Toggle](https://primitives-storybook.oku-ui.com/?path=/story/components-toggle--styled)             | ✅ Completed | ✅         | ✅              |                                |
-| [Toolbar](https://primitives-storybook.oku-ui.com/?path=/story/components-toolbar--styled)           | ✅ Completed | ✅         |                 | 🔧 Focus on MouseDown          |
-| [Tooltip](https://primitives-storybook.oku-ui.com/?path=/story/components-tooltip--styled)           | ✅ Completed | ✅         |                 |                                |
+| Component                                                                                       | Status       | 🔗 Hook v1 | 👀 Visual Check | 📄 Docs | 📝 Note                        |
+| ------------------------------------------------------------------------------------------------ | ------------ | ---------- | --------------- | ------- | ------------------------------ |
+| [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)       | ✅ Completed | ✅         | ✅              |         |                                |
+| [AlertDialog](https://vue-primitives.netlify.app/?path=/story/components-alertdialog--styled)   | ✅ Completed | ✅         |                 |         |                                |
+| [AspectRatio](https://vue-primitives.netlify.app/?path=/story/components-aspectratio--styled)   | ✅ Completed | ✅         |                 |         |                                |
+| [Avatar](https://vue-primitives.netlify.app/?path=/story/components-avatar--styled)             | ✅ Completed | ✅         |                 |         | 🔨 PR from Radix               |
+| [Checkbox](https://vue-primitives.netlify.app/?path=/story/components-checkbox--styled)         | ✅ Completed | ✅         |                 |         | 🔧 Needs input                 |
+| [Collapsible](https://vue-primitives.netlify.app/?path=/story/components-collapsible--styled)   | ✅ Completed | ✅         | ✅              |         |                                |
+| [Context Menu](https://vue-primitives.netlify.app/?path=/story/components-contextmenu--styled)  | ✅ Completed | ✅         |                 |         |                                |
+| [Dialog](https://vue-primitives.netlify.app/?path=/story/components-dialog--styled)             | ✅ Completed | ✅         |                 |         |                                |
+| [DropdownMenu](https://vue-primitives.netlify.app/?path=/story/components-dropdownmenu--styled) | ✅ Completed | ✅         |                 |         |                                |
+| Form                                                                                            | ❌ Not Started | ❌         |                 |         |                                |
+| [HoverCard](https://vue-primitives.netlify.app/?path=/story/components-hovercard--chromatic)    | ✅ Completed | ✅         |                 |         | 🔧 Needs polygon; fix close    |
+| [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)               | ✅ Completed | ✅         |                 |         |                                |
+| [Menubar](https://vue-primitives.netlify.app/?path=/story/components-menubar--styled)           | ✅ Completed | ✅         |                 |         |                                |
+| NavigationMenu                                                                                  | 🚧 In Progress | 🚧         |                 |         |                                |
+| [Popover](https://vue-primitives.netlify.app/?path=/story/components-popover--styled)           | ✅ Completed | ✅         |                 |         |                                |
+| [Progress](https://vue-primitives.netlify.app/?path=/story/components-progress--styled)         | ✅ Completed | ✅         |                 |         | ✅                              |
+| [RadioGroup](https://vue-primitives.netlify.app/?path=/story/components-radiogroup--styled)     | ✅ Completed | ✅         |                 |         | 🔧 Needs input                 |
+| [ScrollArea](https://vue-primitives.netlify.app/?path=/story/components-scrollarea--basic)      | ✅ Completed | ✅         |                 |         |                                |
+| Select                                                                                          | 🚧 In Progress | 🚧         |                 |         |                                |
+| [Separator](https://vue-primitives.netlify.app/?path=/story/components-separator--styled)       | ✅ Completed | ✅         |                 |         |                                |
+| [Slider](https://vue-primitives.netlify.app/?path=/story/components-slider--styled)             | ✅ Completed | ✅         | ✅              |         |                                |
+| [Switch](https://vue-primitives.netlify.app/?path=/story/components-switch--styled)             | ✅ Completed | ✅         |                 |         | 🔧 Needs input                 |
+| [Tabs](https://vue-primitives.netlify.app/?path=/story/components-tabs--styled)                 | ✅ Completed | ✅         | ✅              |         |                                |
+| [Toast](https://vue-primitives.netlify.app/?path=/story/components-toast--styled)               | ✅ Completed | ✅         |                 |         |                                |
+| [ToggleGroup](https://vue-primitives.netlify.app/?path=/story/components-togglegroup--single)   | ✅ Completed | ✅         | ✅              |         |                                |
+| [Toggle](https://vue-primitives.netlify.app/?path=/story/components-toggle--styled)             | ✅ Completed | ✅         | ✅              |         |                                |
+| [Toolbar](https://vue-primitives.netlify.app/?path=/story/components-toolbar--styled)           | ✅ Completed | ✅         |                 |         | 🔧 Focus on MouseDown          |
+| [Tooltip](https://vue-primitives.netlify.app/?path=/story/components-tooltip--styled)           | ✅ Completed | ✅         |                 |         |                                |
 
 ---
 
 ### Utilities
 
-| Utility                                                                                              | Status       | 🔗 Hook v1 | 👀 Visual Check | 📝 Note                             |
-| ---------------------------------------------------------------------------------------------------- | ------------ | ---------- | --------------- | ----------------------------------- |
-| [Collection](https://primitives-storybook.oku-ui.com/?path=/story/utilities-rovingfocusgroup--basic)      | 🚧 Partial | ✅         |                 | 🔧 Needs array items               |
-| [DismissableLayer](https://primitives-storybook.oku-ui.com/?path=/story/utilities-dismissablelayer--basic) | 🚧 Partial | ✅         |                 | 🔧 Dismissable like Solid.js       |
-| [FocusScope](https://primitives-storybook.oku-ui.com/?path=/story/utilities-focusscope--basic)             | ✅ Completed | ✅         |                 |                                     |
-| [Menu](https://primitives-storybook.oku-ui.com/?path=/story/utilities-menu--styled)                        | ✅ Completed | ✅         |                 |                                     |
-| [Popper](https://primitives-storybook.oku-ui.com/?path=/story/utilities-popper--styled)                    | ✅ Completed | ✅         |                 | 🔧 Needs Arrow                     |
-| [Portal](https://primitives-storybook.oku-ui.com/?path=/story/utilities-portal--base)                      | ✅ Completed | ❌         |                 | 🔧 Dismissable like Solid.js       |
-| [Presence](https://primitives-storybook.oku-ui.com/?path=/story/utilities-presence--basic)                 | ✅ Completed | ✅         |                 |                                     |
-| Primitives                                                                                           | ✅ Completed | ❌         |                 |                                     |
-| [RovingFocusGroup](https://primitives-storybook.oku-ui.com/?path=/story/utilities-rovingfocusgroup--basic) | ✅ Completed | ✅         | ✅              |                                     |
-| Slot                                                                                                 | ✅ Completed | ❌         |                 | 🔧 Remove VDom                     |
-| [VisuallyHidden](https://primitives-storybook.oku-ui.com/?path=/story/utilities-visuallyhidden--basic)     | ✅ Completed | ❌         |                 |                                     |
-
+| Utility                                                                                              | Status       | 🔗 Hook v1 | 👀 Visual Check | 📄 Docs | 📝 Note                             |
+| ---------------------------------------------------------------------------------------------------- | ------------ | ---------- | --------------- | ------- | ----------------------------------- |
+| [Collection](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic)      | 🚧 Partial | ✅         |                 |         | 🔧 Needs array items               |
+| [DismissableLayer](https://vue-primitives.netlify.app/?path=/story/utilities-dismissablelayer--basic) | 🚧 Partial | ✅         |                 |         | 🔧 Dismissable like Solid.js       |
+| [FocusScope](https://vue-primitives.netlify.app/?path=/story/utilities-focusscope--basic)             | ✅ Completed | ✅         |                 |         |                                     |
+| [Menu](https://vue-primitives.netlify.app/?path=/story/utilities-menu--styled)                        | ✅ Completed | ✅         |                 |         |                                     |
+| [Popper](https://vue-primitives.netlify.app/?path=/story/utilities-popper--styled)                    | ✅ Completed | ✅         |                 |         | 🔧 Needs Arrow                     |
+| [Portal](https://vue-primitives.netlify.app/?path=/story/utilities-portal--base)                      | ✅ Completed | ❌         |                 |         | 🔧 Dismissable like Solid.js       |
+| [Presence](https://vue-primitives.netlify.app/?path=/story/utilities-presence--basic)                 | ✅ Completed | ✅         |                 |         |                                     |
+| Primitives                                                                                           | ✅ Completed | ❌         |                 |         |                                     |
+| [RovingFocusGroup](https://vue-primitives.netlify.app/?path=/story/utilities-rovingfocusgroup--basic) | ✅ Completed | ✅         | ✅              |         |                                     |
+| Slot                                                                                                 | ✅ Completed | ❌         |                 |         | 🔧 Remove VDom                     |
+| [VisuallyHidden](https://vue-primitives.netlify.app/?path=/story/utilities-visuallyhidden--basic)     | ✅ Completed | ❌         |                 |         |                                     |
 ## Community
 
 - [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.
