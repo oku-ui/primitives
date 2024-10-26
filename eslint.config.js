@@ -15,7 +15,7 @@ export default antfu(
       '.nx',
       '.vitest-cache',
       '__snapshots__',
-      'packages/vue-primitives/src/index.ts',
+      'packages/core/src/index.ts',
     ],
   },
   {

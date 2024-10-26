@@ -1,7 +1,7 @@
 <script setup lang="tsx">
-import Basic from '../../../packages/vue-primitives/src/roving-focus/stories/Basic.vue'
-import EdgeCases from '../../../packages/vue-primitives/src/roving-focus/stories/EdgeCases.vue'
-import Nested from '../../../packages/vue-primitives/src/roving-focus/stories/Nested.vue'
+import Basic from '../../../packages/core/src/roving-focus/stories/Basic.vue'
+import EdgeCases from '../../../packages/core/src/roving-focus/stories/EdgeCases.vue'
+import Nested from '../../../packages/core/src/roving-focus/stories/Nested.vue'
 </script>
 
 <template>

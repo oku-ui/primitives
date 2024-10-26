@@ -1,15 +1,15 @@
 <script setup lang="tsx">
-import Animated from '../../../packages/vue-primitives/src/dialog/stories/Animated.vue'
-import Controlled from '../../../packages/vue-primitives/src/dialog/stories/Controlled.vue'
-import CustomFocus from '../../../packages/vue-primitives/src/dialog/stories/CustomFocus.vue'
-import FocusTrap from '../../../packages/vue-primitives/src/dialog/stories/FocusTrap.vue'
-import InnerScrollable from '../../../packages/vue-primitives/src/dialog/stories/InnerScrollable.vue'
-import NoEscapeDismiss from '../../../packages/vue-primitives/src/dialog/stories/NoEscapeDismiss.vue'
-import NonModal from '../../../packages/vue-primitives/src/dialog/stories/NonModal.vue'
-import NoPointerDownOutsideDismiss from '../../../packages/vue-primitives/src/dialog/stories/NoPointerDownOutsideDismiss.vue'
-import OuterScrollable from '../../../packages/vue-primitives/src/dialog/stories/OuterScrollable.vue'
-import Styled from '../../../packages/vue-primitives/src/dialog/stories/Styled.vue'
-import WithPortalContainer from '../../../packages/vue-primitives/src/dialog/stories/WithPortalContainer.vue'
+import Animated from '../../../packages/core/src/dialog/stories/Animated.vue'
+import Controlled from '../../../packages/core/src/dialog/stories/Controlled.vue'
+import CustomFocus from '../../../packages/core/src/dialog/stories/CustomFocus.vue'
+import FocusTrap from '../../../packages/core/src/dialog/stories/FocusTrap.vue'
+import InnerScrollable from '../../../packages/core/src/dialog/stories/InnerScrollable.vue'
+import NoEscapeDismiss from '../../../packages/core/src/dialog/stories/NoEscapeDismiss.vue'
+import NonModal from '../../../packages/core/src/dialog/stories/NonModal.vue'
+import NoPointerDownOutsideDismiss from '../../../packages/core/src/dialog/stories/NoPointerDownOutsideDismiss.vue'
+import OuterScrollable from '../../../packages/core/src/dialog/stories/OuterScrollable.vue'
+import Styled from '../../../packages/core/src/dialog/stories/Styled.vue'
+import WithPortalContainer from '../../../packages/core/src/dialog/stories/WithPortalContainer.vue'
 </script>
 
 <template>

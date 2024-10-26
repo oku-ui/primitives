@@ -1,10 +1,10 @@
 <script setup lang="tsx">
-import Animated from '../../../packages/vue-primitives/src/radio-group/stories/Animated.vue'
-import Chromatic from '../../../packages/vue-primitives/src/radio-group/stories/Chromatic.vue'
-import Controlled from '../../../packages/vue-primitives/src/radio-group/stories/Controlled.vue'
-import Styled from '../../../packages/vue-primitives/src/radio-group/stories/Styled.vue'
-import Unset from '../../../packages/vue-primitives/src/radio-group/stories/Unset.vue'
-import WithinForm from '../../../packages/vue-primitives/src/radio-group/stories/WithinForm.vue'
+import Animated from '../../../packages/core/src/radio-group/stories/Animated.vue'
+import Chromatic from '../../../packages/core/src/radio-group/stories/Chromatic.vue'
+import Controlled from '../../../packages/core/src/radio-group/stories/Controlled.vue'
+import Styled from '../../../packages/core/src/radio-group/stories/Styled.vue'
+import Unset from '../../../packages/core/src/radio-group/stories/Unset.vue'
+import WithinForm from '../../../packages/core/src/radio-group/stories/WithinForm.vue'
 </script>
 
 <template>

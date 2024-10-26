@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/menubar/stories/Styled.vue'
+import Styled from '../../../packages/core/src/menubar/stories/Styled.vue'
 </script>
 
 <template>

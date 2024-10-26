@@ -1,12 +1,12 @@
 <script setup lang="tsx">
-import Animated from '../../../packages/vue-primitives/src/accordion/stories/Animated.vue'
-import Animated2D from '../../../packages/vue-primitives/src/accordion/stories/Animated2D.vue'
-import AnimatedControlled from '../../../packages/vue-primitives/src/accordion/stories/AnimatedControlled.vue'
-import Chromatic from '../../../packages/vue-primitives/src/accordion/stories/Chromatic.vue'
-import Horizontal from '../../../packages/vue-primitives/src/accordion/stories/Horizontal.vue'
-import Multiple from '../../../packages/vue-primitives/src/accordion/stories/Multiple.vue'
-import OutsideViewport from '../../../packages/vue-primitives/src/accordion/stories/OutsideViewport.vue'
-import Single from '../../../packages/vue-primitives/src/accordion/stories/Single.vue'
+import Animated from '../../../packages/core/src/accordion/stories/Animated.vue'
+import Animated2D from '../../../packages/core/src/accordion/stories/Animated2D.vue'
+import AnimatedControlled from '../../../packages/core/src/accordion/stories/AnimatedControlled.vue'
+import Chromatic from '../../../packages/core/src/accordion/stories/Chromatic.vue'
+import Horizontal from '../../../packages/core/src/accordion/stories/Horizontal.vue'
+import Multiple from '../../../packages/core/src/accordion/stories/Multiple.vue'
+import OutsideViewport from '../../../packages/core/src/accordion/stories/OutsideViewport.vue'
+import Single from '../../../packages/core/src/accordion/stories/Single.vue'
 </script>
 
 <template>

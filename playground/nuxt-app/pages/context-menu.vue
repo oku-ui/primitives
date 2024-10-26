@@ -1,13 +1,13 @@
 <script setup lang="tsx">
-import CheckboxItems from '../../../packages/vue-primitives/src/context-menu/stories/CheckboxItems.vue'
-import Modality from '../../../packages/vue-primitives/src/context-menu/stories/Modality.vue'
-import Multiple from '../../../packages/vue-primitives/src/context-menu/stories/Multiple.vue'
-import Nested from '../../../packages/vue-primitives/src/context-menu/stories/Nested.vue'
-import PreventClosing from '../../../packages/vue-primitives/src/context-menu/stories/PreventClosing.vue'
-import RadioItems from '../../../packages/vue-primitives/src/context-menu/stories/RadioItems.vue'
-import Styled from '../../../packages/vue-primitives/src/context-menu/stories/Styled.vue'
-import Submenus from '../../../packages/vue-primitives/src/context-menu/stories/Submenus.vue'
-import WithLabels from '../../../packages/vue-primitives/src/context-menu/stories/WithLabels.vue'
+import CheckboxItems from '../../../packages/core/src/context-menu/stories/CheckboxItems.vue'
+import Modality from '../../../packages/core/src/context-menu/stories/Modality.vue'
+import Multiple from '../../../packages/core/src/context-menu/stories/Multiple.vue'
+import Nested from '../../../packages/core/src/context-menu/stories/Nested.vue'
+import PreventClosing from '../../../packages/core/src/context-menu/stories/PreventClosing.vue'
+import RadioItems from '../../../packages/core/src/context-menu/stories/RadioItems.vue'
+import Styled from '../../../packages/core/src/context-menu/stories/Styled.vue'
+import Submenus from '../../../packages/core/src/context-menu/stories/Submenus.vue'
+import WithLabels from '../../../packages/core/src/context-menu/stories/WithLabels.vue'
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="tsx">
-import Chromatic from '../../../packages/vue-primitives/src/aspect-ratio/stories/Chromatic.vue'
-import CustomRatios from '../../../packages/vue-primitives/src/aspect-ratio/stories/CustomRatios.vue'
-import Styled from '../../../packages/vue-primitives/src/aspect-ratio/stories/Styled.vue'
+import Chromatic from '../../../packages/core/src/aspect-ratio/stories/Chromatic.vue'
+import CustomRatios from '../../../packages/core/src/aspect-ratio/stories/CustomRatios.vue'
+import Styled from '../../../packages/core/src/aspect-ratio/stories/Styled.vue'
 </script>
 
 <template>

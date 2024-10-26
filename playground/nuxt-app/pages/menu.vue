@@ -1,10 +1,10 @@
 <script setup lang="tsx">
-import CheckboxItems from '../../../packages/vue-primitives/src/menu/stories/CheckboxItems.vue'
-import RadioItems from '../../../packages/vue-primitives/src/menu/stories/RadioItems.vue'
-import Styled from '../../../packages/vue-primitives/src/menu/stories/Styled.vue'
-import Submenus from '../../../packages/vue-primitives/src/menu/stories/Submenus.vue'
-import Typeahead from '../../../packages/vue-primitives/src/menu/stories/Typeahead.vue'
-import WithLabels from '../../../packages/vue-primitives/src/menu/stories/WithLabels.vue'
+import CheckboxItems from '../../../packages/core/src/menu/stories/CheckboxItems.vue'
+import RadioItems from '../../../packages/core/src/menu/stories/RadioItems.vue'
+import Styled from '../../../packages/core/src/menu/stories/Styled.vue'
+import Submenus from '../../../packages/core/src/menu/stories/Submenus.vue'
+import Typeahead from '../../../packages/core/src/menu/stories/Typeahead.vue'
+import WithLabels from '../../../packages/core/src/menu/stories/WithLabels.vue'
 </script>
 
 <template>

@@ -1,11 +1,11 @@
 <script setup lang="tsx">
-import Basic from '../../../packages/vue-primitives/src/presence/stories/Basic.vue'
-import WithDeferredMountAnimation from '../../../packages/vue-primitives/src/presence/stories/WithDeferredMountAnimation.vue'
-import WithMountAnimation from '../../../packages/vue-primitives/src/presence/stories/WithMountAnimation.vue'
-import WithMultipleMountAnimations from '../../../packages/vue-primitives/src/presence/stories/WithMultipleMountAnimations.vue'
-import WithMultipleOpenAndCloseAnimations from '../../../packages/vue-primitives/src/presence/stories/WithMultipleOpenAndCloseAnimations.vue'
-import WithOpenAndCloseAnimation from '../../../packages/vue-primitives/src/presence/stories/WithOpenAndCloseAnimation.vue'
-import WithUnmountAnimation from '../../../packages/vue-primitives/src/presence/stories/WithUnmountAnimation.vue'
+import Basic from '../../../packages/core/src/presence/stories/Basic.vue'
+import WithDeferredMountAnimation from '../../../packages/core/src/presence/stories/WithDeferredMountAnimation.vue'
+import WithMountAnimation from '../../../packages/core/src/presence/stories/WithMountAnimation.vue'
+import WithMultipleMountAnimations from '../../../packages/core/src/presence/stories/WithMultipleMountAnimations.vue'
+import WithMultipleOpenAndCloseAnimations from '../../../packages/core/src/presence/stories/WithMultipleOpenAndCloseAnimations.vue'
+import WithOpenAndCloseAnimation from '../../../packages/core/src/presence/stories/WithOpenAndCloseAnimation.vue'
+import WithUnmountAnimation from '../../../packages/core/src/presence/stories/WithUnmountAnimation.vue'
 </script>
 
 <template>

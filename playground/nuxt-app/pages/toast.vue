@@ -1,12 +1,12 @@
 <script setup lang="tsx">
-import Animated from '../../../packages/vue-primitives/src/toast/stories/Animated.vue'
-import Controlled from '../../../packages/vue-primitives/src/toast/stories/Controlled.vue'
-import FromDialog from '../../../packages/vue-primitives/src/toast/stories/FromDialog.vue'
-import KeyChange from '../../../packages/vue-primitives/src/toast/stories/KeyChange.vue'
-import PauseResumeProps from '../../../packages/vue-primitives/src/toast/stories/PauseResumeProps.vue'
-import Promise from '../../../packages/vue-primitives/src/toast/stories/Promise.vue'
-import Styled from '../../../packages/vue-primitives/src/toast/stories/Styled.vue'
-// import Chromatic from '../../../packages/vue-primitives/src/toast/stories/Chromatic.vue'
+import Animated from '../../../packages/core/src/toast/stories/Animated.vue'
+import Controlled from '../../../packages/core/src/toast/stories/Controlled.vue'
+import FromDialog from '../../../packages/core/src/toast/stories/FromDialog.vue'
+import KeyChange from '../../../packages/core/src/toast/stories/KeyChange.vue'
+import PauseResumeProps from '../../../packages/core/src/toast/stories/PauseResumeProps.vue'
+import Promise from '../../../packages/core/src/toast/stories/Promise.vue'
+import Styled from '../../../packages/core/src/toast/stories/Styled.vue'
+// import Chromatic from '../../../packages/core/src/toast/stories/Chromatic.vue'
 </script>
 
 <template>

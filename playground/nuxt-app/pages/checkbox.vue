@@ -1,10 +1,10 @@
 <script setup lang="tsx">
-import Animated from '../../../packages/vue-primitives/src/checkbox/stories/Animated.vue'
-import Chromatic from '../../../packages/vue-primitives/src/checkbox/stories/Chromatic.vue'
-import Controlled from '../../../packages/vue-primitives/src/checkbox/stories/Controlled.vue'
-import Indeterminate from '../../../packages/vue-primitives/src/checkbox/stories/Indeterminate.vue'
-import Styled from '../../../packages/vue-primitives/src/checkbox/stories/Styled.vue'
-import WithinForm from '../../../packages/vue-primitives/src/checkbox/stories/WithinForm.vue'
+import Animated from '../../../packages/core/src/checkbox/stories/Animated.vue'
+import Chromatic from '../../../packages/core/src/checkbox/stories/Chromatic.vue'
+import Controlled from '../../../packages/core/src/checkbox/stories/Controlled.vue'
+import Indeterminate from '../../../packages/core/src/checkbox/stories/Indeterminate.vue'
+import Styled from '../../../packages/core/src/checkbox/stories/Styled.vue'
+import WithinForm from '../../../packages/core/src/checkbox/stories/WithinForm.vue'
 </script>
 
 <template>

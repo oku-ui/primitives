@@ -1,11 +1,11 @@
 <script setup lang="tsx">
-import Animated from '../../../packages/vue-primitives/src/hover-card/stories/Animated.vue'
-import AsyncUpdate from '../../../packages/vue-primitives/src/hover-card/stories/AsyncUpdate.vue'
-import Basic from '../../../packages/vue-primitives/src/hover-card/stories/Basic.vue'
-import ContainTextSelection from '../../../packages/vue-primitives/src/hover-card/stories/ContainTextSelection.vue'
-import Controlled from '../../../packages/vue-primitives/src/hover-card/stories/Controlled.vue'
-import CustomDurations from '../../../packages/vue-primitives/src/hover-card/stories/CustomDurations.vue'
-import Layerable from '../../../packages/vue-primitives/src/hover-card/stories/Layerable.vue'
+import Animated from '../../../packages/core/src/hover-card/stories/Animated.vue'
+import AsyncUpdate from '../../../packages/core/src/hover-card/stories/AsyncUpdate.vue'
+import Basic from '../../../packages/core/src/hover-card/stories/Basic.vue'
+import ContainTextSelection from '../../../packages/core/src/hover-card/stories/ContainTextSelection.vue'
+import Controlled from '../../../packages/core/src/hover-card/stories/Controlled.vue'
+import CustomDurations from '../../../packages/core/src/hover-card/stories/CustomDurations.vue'
+import Layerable from '../../../packages/core/src/hover-card/stories/Layerable.vue'
 </script>
 
 <template>

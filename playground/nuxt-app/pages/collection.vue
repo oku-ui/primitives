@@ -1,11 +1,11 @@
 <script setup lang="tsx">
-import Basic from '../../../packages/vue-primitives/src/collection/stories/Basic.vue'
-import DynamicInsertion from '../../../packages/vue-primitives/src/collection/stories/DynamicInsertion.vue'
-import Nested from '../../../packages/vue-primitives/src/collection/stories/Nested.vue'
-import WithChangingItem from '../../../packages/vue-primitives/src/collection/stories/WithChangingItem.vue'
-import WithElementInBetween from '../../../packages/vue-primitives/src/collection/stories/WithElementInBetween.vue'
-import WithFragment from '../../../packages/vue-primitives/src/collection/stories/WithFragment.vue'
-import WithWrappedItem from '../../../packages/vue-primitives/src/collection/stories/WithWrappedItem.vue'
+import Basic from '../../../packages/core/src/collection/stories/Basic.vue'
+import DynamicInsertion from '../../../packages/core/src/collection/stories/DynamicInsertion.vue'
+import Nested from '../../../packages/core/src/collection/stories/Nested.vue'
+import WithChangingItem from '../../../packages/core/src/collection/stories/WithChangingItem.vue'
+import WithElementInBetween from '../../../packages/core/src/collection/stories/WithElementInBetween.vue'
+import WithFragment from '../../../packages/core/src/collection/stories/WithFragment.vue'
+import WithWrappedItem from '../../../packages/core/src/collection/stories/WithWrappedItem.vue'
 </script>
 
 <template>

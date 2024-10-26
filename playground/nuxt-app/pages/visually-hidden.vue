@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import Basic from '../../../packages/vue-primitives/src/visually-hidden/stories/Basic.vue'
+import Basic from '../../../packages/core/src/visually-hidden/stories/Basic.vue'
 </script>
 
 <template>

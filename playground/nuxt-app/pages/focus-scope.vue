@@ -1,7 +1,7 @@
 <script setup lang="tsx">
-import Basic from '../../../packages/vue-primitives/src/focus-scope/stories/Basic.vue'
-import Multiple from '../../../packages/vue-primitives/src/focus-scope/stories/Multiple.vue'
-import WithOptions from '../../../packages/vue-primitives/src/focus-scope/stories/WithOptions.vue'
+import Basic from '../../../packages/core/src/focus-scope/stories/Basic.vue'
+import Multiple from '../../../packages/core/src/focus-scope/stories/Multiple.vue'
+import WithOptions from '../../../packages/core/src/focus-scope/stories/WithOptions.vue'
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import Nested from '../../../packages/vue-primitives/src/popover/stories/Nested.vue'
-import Styled from '../../../packages/vue-primitives/src/popover/stories/Styled.vue'
+import Nested from '../../../packages/core/src/popover/stories/Nested.vue'
+import Styled from '../../../packages/core/src/popover/stories/Styled.vue'
 </script>
 
 <template>

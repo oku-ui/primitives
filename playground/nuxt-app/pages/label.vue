@@ -1,7 +1,7 @@
 <script setup lang="tsx">
-import Styled from '../../../packages/vue-primitives/src/label/stories/Styled.vue'
-import WithControl from '../../../packages/vue-primitives/src/label/stories/WithControl.vue'
-import WithInputNumber from '../../../packages/vue-primitives/src/label/stories/WithInputNumber.vue'
+import Styled from '../../../packages/core/src/label/stories/Styled.vue'
+import WithControl from '../../../packages/core/src/label/stories/WithControl.vue'
+import WithInputNumber from '../../../packages/core/src/label/stories/WithInputNumber.vue'
 </script>
 
 <template>
