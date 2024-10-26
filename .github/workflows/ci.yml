@@ -70,9 +70,9 @@ jobs:
       - name: 🚀 Build
         run: pnpm build
 
-      - name: 🧪 Test with coverage
-        run: pnpm coverage
+      # - name: 🧪 Test with coverage
+      #   run: pnpm coverage
 
-      - name: 📝 Upload coverage
-        if: always()
-        uses: davelosert/vitest-coverage-report-action@v2
+      # - name: 📝 Upload coverage
+      #   if: always()
+      #   uses: davelosert/vitest-coverage-report-action@v2

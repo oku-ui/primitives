@@ -1,7 +1,0 @@
-{
-  "extends": "@oku/tsconfig/node18.json",
-  "include": [
-    "tests/**/*",
-    "node_modules/tsconfig"
-  ]
-}
