@@ -8,9 +8,6 @@
     "p:generate": "nuxi generate"
   },
   "dependencies": {
-    "@oku-ui/aspect-ratio": "workspace:^",
-    "@oku-ui/avatar": "workspace:^",
-    "@oku-ui/checkbox": "workspace:^",
     "@oku-ui/primitives": "workspace:^"
   },
   "devDependencies": {
