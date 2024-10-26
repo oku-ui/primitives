@@ -3,9 +3,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "generate": "nuxi generate"
+    "p:dev": "nuxi dev",
+    "p:build": "nuxi build",
+    "p:generate": "nuxi generate"
   },
   "dependencies": {
     "@oku-ui/aspect-ratio": "workspace:^",
