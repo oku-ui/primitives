@@ -9,6 +9,7 @@
   },
   "include": [
     "vite.config.*",
+    "vite.config.ts",
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
