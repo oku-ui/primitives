@@ -1,6 +1,3 @@
-
-
-
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'

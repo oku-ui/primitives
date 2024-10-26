@@ -1,25 +1,6 @@
 import { PatchFlags } from '@vue/shared'
 import { Comment, Fragment, type VNode } from 'vue'
 
-export type ConvertEmitsToUseEmits<T extends Record<string, any[]>> = {
-  [K in keyof T as K extends `update:${infer Rest}`
-    ? `onUpdate${Capitalize<Rest>}`
-    : `on${Capitalize<string & K>}`]?: (event: T[K][0]) => void
-}
-
-export function composeEventHandlers<E extends Event>(
-  originalEventHandler?: (event: E) => void,
-  ourEventHandler?: (event: E) => void,
-  { checkForDefaultPrevented = true } = {},
-) {
-  return function handleEvent(event: E) {
-    originalEventHandler?.(event)
-
-    if (checkForDefaultPrevented === false || !((event as unknown) as Event).defaultPrevented)
-      ourEventHandler?.(event)
-  }
-}
-
 // TODO: wip
 export function getRawChildren(children: VNode[]): VNode[] {
   let ret: VNode[] = []

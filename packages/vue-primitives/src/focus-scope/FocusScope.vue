@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'

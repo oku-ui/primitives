@@ -6,8 +6,8 @@ import type {
   UseFloatingOptions,
   UseFloatingReturn,
 } from './types.ts'
-
 import { computePosition } from '@floating-ui/dom'
+
 import {
   computed,
   type CSSProperties,

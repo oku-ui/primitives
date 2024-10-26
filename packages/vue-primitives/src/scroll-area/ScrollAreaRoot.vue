@@ -6,7 +6,6 @@ import { DEFAULT_SCROLL_AREA_PROPS, type ScrollAreaRootProps, useScrollAreaRoot 
 defineOptions({
   name: 'ScrollAreaRoot',
   inheritAttrs: false,
-
 })
 
 const props = withDefaults(defineProps<ScrollAreaRootProps>(), DEFAULT_SCROLL_AREA_PROPS)

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive } from '../primitive/index.ts'
 
 defineOptions({
   name: 'MenuSeparator',

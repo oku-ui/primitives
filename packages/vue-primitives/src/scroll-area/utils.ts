@@ -1,6 +1,6 @@
 import type { Direction } from '../direction/index.ts'
 import type { Sizes } from './ScrollAreaScrollbarVisible.ts'
-import { clamp } from '@oku-ui/shared'
+import { clamp } from '../shared/index.ts'
 
 export function toInt(value?: string) {
   return value ? Number.parseInt(value, 10) : 0

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ArrowProps } from './Arrow.ts'
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive } from '../primitive/index.ts'
 
 defineOptions({
   name: 'Arrow',

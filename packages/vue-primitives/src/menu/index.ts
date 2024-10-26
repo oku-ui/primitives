@@ -1,6 +1,7 @@
 export { PopperAnchor as MenuAnchor } from '../popper/index.ts'
 export { PopperArrow as MenuArrow } from '../popper/index.ts'
 export { Portal as MenuPortal } from '../portal/index.ts'
+export { Primitive as MenuLabel } from '../primitive/index.ts'
 export {
   DEFAULT_MENU_CHECKBOX_ITEM_PROPS,
   type MenuCheckboxItemEmits,
@@ -71,6 +72,7 @@ export {
   useMenuRadioItem,
   type UseMenuRadioItemProps,
 } from './MenuRadioItem.ts'
+
 export { default as MenuRadioItem } from './MenuRadioItem.vue'
 
 export {
@@ -127,6 +129,4 @@ export {
   useMenuSubTrigger,
   type UseMenuSubTriggerProps,
 } from './MenuSubTrigger.ts'
-
 export { default as MenuSubTrigger } from './MenuSubTrigger.vue'
-export { Primitive as MenuLabel } from '@oku-ui/primitive'

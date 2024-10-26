@@ -1,4 +1,3 @@
-import type { PrimitiveProps } from '@oku-ui/primitive'
 import type { PopperAnchorProps } from '../popper/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'

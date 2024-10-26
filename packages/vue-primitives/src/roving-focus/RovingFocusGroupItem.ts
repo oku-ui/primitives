@@ -1,6 +1,4 @@
-import type { PrimitiveProps } from '@oku-ui/primitive'
-import { useId } from '@oku-ui/hooks'
-import { composeEventHandlers, focusFirst, isFunction, wrapArray } from '@oku-ui/shared'
+import type { PrimitiveProps } from '../primitive/index.ts'
 import { computed, onWatcherCleanup, watch, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useId } from '../hooks/index.ts'

@@ -1,5 +1,3 @@
-
-
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'

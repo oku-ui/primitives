@@ -1,4 +1,4 @@
-import type { PrimitiveProps } from '@oku-ui/primitive'
+import type { PrimitiveProps } from '../primitive/index.ts'
 
 export interface ArrowProps extends PrimitiveProps {
   /**
