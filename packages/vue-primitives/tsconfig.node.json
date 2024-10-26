@@ -8,11 +8,6 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
   },
   "include": [
-    "vite.config.*",
-    "vite.config.ts",
-    "vitest.config.*",
-    "cypress.config.*",
-    "nightwatch.conf.*",
-    "playwright.config.*"
+    "vite.config.ts"
   ]
 }
