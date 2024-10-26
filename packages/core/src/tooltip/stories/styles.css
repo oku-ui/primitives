@@ -1,0 +1,97 @@
+.tooltip_positionButtonClass {
+  margin: 5px;
+  border: 1px solid black;
+  background: transparent;
+}
+
+.tooltip_triggerClass {
+}
+
+.tooltip_contentClass {
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  user-select: none;
+  background-color: #111;
+  color: white;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 300px;
+}
+
+.tooltip_arrowClass {
+  fill: #111;
+}
+
+@keyframes tooltip_scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes tooltip_fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes tooltip_fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.tooltip_animatedContentClass {
+  &[data-state="delayed-open"] {
+    animation: tooltip_scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  &[data-state="instant-open"] {
+    animation: tooltip_fadeIn 0.3s ease-out;
+  }
+  &[data-state="closed"] {
+    animation: tooltip_fadeOut 0.3s ease-out;
+  }
+}
+
+.tooltip_gridClass {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 50px);
+  column-gap: 150px;
+  row-gap: 100px;
+  padding: 100px;
+  border: 1px solid black;
+}
+
+.tooltip_chromaticTriggerClass {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  background-color: tomato;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.tooltip_chromaticContentClass {
+  box-sizing: border-box;
+  display: grid;
+  place-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: royalblue;
+  color: white;
+  font-size: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.tooltip_chromaticArrowClass {
+  fill: black;
+}

@@ -1,7 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
 export default antfu(
-  {},
   {
     ignores: [
       'dist',
@@ -15,12 +14,16 @@ export default antfu(
       '*.d.ts',
       '.nx',
       '.vitest-cache',
+      '__snapshots__',
+      'packages/core/src/index.ts',
     ],
   },
   {
     rules: {
       'node/prefer-global/process': 'off',
       'ts/consistent-type-definitions': 'off',
+      'ts/no-unused-expressions': 'off',
+      '@typescript-eslint/prefer-interface': 'off',
     },
   },
   {

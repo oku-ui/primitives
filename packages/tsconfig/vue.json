@@ -1,0 +1,20 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "allowImportingTsExtensions": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+
+    "rootDir": "src"
+  }
+}

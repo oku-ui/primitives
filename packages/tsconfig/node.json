@@ -1,0 +1,14 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+
+    "declaration": true,
+    "declarationMap": true,
+
+    "lib": [
+      "ESNext"
+    ]
+  }
+}

@@ -1,13 +1,13 @@
 import type { StorybookConfig } from '@storybook/vue3-vite'
 import { mergeConfig } from 'vite'
-import { primitivesPackagesAlias } from '../scripts/output'
+import { primitivesPackagesAlias } from '../scripts_c/output'
 
 const resolve = (val: string) => new URL(val, import.meta.url).pathname
 
 const config: StorybookConfig = {
   stories: [
     '../stories/*.mdx',
-    `../packages/vue/src/**/stories/*.stories.@(js|jsx|ts|tsx)`,
+    '../packages/core/src/**/stories/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',
@@ -27,7 +27,7 @@ const config: StorybookConfig = {
       define: { 'process.env': {} },
       resolve: {
         alias: [
-          ...primitivesPackagesAlias('../packages/vue/src', resolve),
+          ...primitivesPackagesAlias('../packages/core/src', resolve),
         ],
       },
     })

@@ -1,0 +1,62 @@
+<script setup lang="ts">
+import { shallowRef } from 'vue'
+import { AccordionContent, AccordionHeader, AccordionItem, AccordionRoot, AccordionTrigger } from '../index.ts'
+import './styles.css'
+
+const value = shallowRef(['one', 'two', 'three', 'four'])
+</script>
+
+<template>
+  <div>
+    <AccordionRoot v-model:value="value" type="multiple" class="accordion_rootClass">
+      <AccordionItem class="accordion_itemClass" value="one">
+        <AccordionHeader class="accordion_headerClass">
+          <AccordionTrigger class="accordion_triggerClass">
+            One
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionContent class="accordion_animatedContentClass">
+          Per erat orci nostra luctus sociosqu mus risus penatibus, duis elit vulputate viverra
+          integer ullamcorper congue curabitur sociis, nisi malesuada scelerisque quam suscipit
+          habitant sed.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem class="accordion_itemClass" value="two">
+        <AccordionHeader class="accordion_headerClass">
+          <AccordionTrigger class="accordion_triggerClass">
+            Two
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionContent class="accordion_animatedContentClass">
+          Cursus sed mattis commodo fermentum conubia ipsum pulvinar sagittis, diam eget bibendum
+          porta nascetur ac dictum, leo tellus dis integer platea ultrices mi.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem class="accordion_itemClass" value="three">
+        <AccordionHeader class="accordion_headerClass">
+          <AccordionTrigger class="accordion_triggerClass">
+            Three
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionContent class="accordion_animatedContentClass">
+          Sociis hac sapien turpis conubia sagittis justo dui, inceptos penatibus feugiat himenaeos
+          euismod magna, nec tempor pulvinar eu etiam mattis.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem class="accordion_itemClass" value="four">
+        <AccordionHeader class="accordion_headerClass">
+          <AccordionTrigger class="accordion_triggerClass">
+            Four
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionContent class="accordion_animatedContentClass">
+          Odio placerat
+          <a href="#">quisque</a>
+          sapien sagittis non sociis ligula penatibus
+          dignissim vitae, enim vulputate nullam semper potenti etiam volutpat libero.
+          <button>Cool</button>
+        </AccordionContent>
+      </AccordionItem>
+    </AccordionRoot>
+  </div>
+</template>

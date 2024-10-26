@@ -1,0 +1,55 @@
+.toggleGroup_root {
+  display: inline-flex;
+  gap: 5px;
+  padding: 5px;
+
+  &[data-orientation="vertical"] {
+    flex-direction: column;
+  }
+}
+
+.toggleGroup_item {
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 13px;
+  background-color: white;
+  color: #111;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &[data-state="on"] {
+    background-color: #111;
+    color: white;
+  }
+}
+
+
+.toggleGroup_itemAttr {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="off"] {
+    border-color: crimson;
+  }
+
+  &[data-state="on"] {
+    border-color: green;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled {
+    opacity: 0.5
+  }
+}

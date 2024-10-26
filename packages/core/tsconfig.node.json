@@ -1,0 +1,13 @@
+{
+  "extends": "@oku/tsconfig/tsconfig.node.json",
+  "compilerOptions": {
+    /* Проекты */
+    "incremental": true,
+    "composite": true,
+
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
+  },
+  "include": [
+    "vite.config.ts"
+  ]
+}

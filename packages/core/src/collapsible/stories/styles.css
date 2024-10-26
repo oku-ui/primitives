@@ -1,0 +1,162 @@
+.collapsible_root {
+  max-width: 20em;
+  font-family: sans-serif;
+}
+
+.collapsible_trigger {
+  --shadow-color: crimson;
+
+  width: 100%;
+  text-align: inherit;
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+  padding: 10px;
+  background-color: #111;
+  color: white;
+  font-family: inherit;
+  font-size: 1.2em;
+
+  &:focus {
+    outline: none;
+    box-shadow: inset 0 -5px 0 0 var(--shadow-color);
+    color: crimson;
+  }
+
+  &[data-disabled] {
+    color: #aaa;
+  }
+
+  &[data-state="open"] {
+    background-color: crimson;
+    color: white;
+  }
+
+  &[data-state="open"]:focus {
+    --shadow-color: #111;
+    color: #111;
+  }
+
+}
+
+
+.collapsible_content {
+  padding: 10px;
+  line-height: 1.5;
+}
+
+@keyframes collapsible_slideDown {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+
+@keyframes collapsible_slideUp {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+@keyframes collapsible_openRight {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--radix-collapsible-content-width);
+  }
+}
+
+@keyframes collapsible_closeRight {
+  from {
+    width: var(--radix-collapsible-content-width);
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+.collapsible_animatedContent {
+  overflow: hidden;
+
+  &[data-state="open"] {
+    animation: collapsible_slideDown 300ms ease-out;
+  }
+
+  &[data-state="closed"] {
+    animation: collapsible_slideUp 300ms ease-in;
+  }
+}
+
+.collapsible_animatedWidthContent {
+  overflow: hidden;
+
+  &[data-state="open"] {
+    animation: collapsible_openRight 300ms ease-out;
+  }
+  
+  &[data-state="closed"] {
+    animation: collapsible_closeRight 300ms ease-in;
+  }
+}
+
+.collapsible_rootAttr,
+.collapsible_triggerAttr,
+.collapsible_contentAttr {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="closed"] {
+    border-color: crimson;
+  }
+
+  &[data-state="open"] {
+    border-color: green;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+/* .collapsible_rootAttr[data-state="closed"],
+.collapsible_triggerAttr[data-state="closed"],
+.collapsible_contentAttr[data-state="closed"] {
+  border-color: crimson;
+}
+
+.collapsible_rootAttr[data-state="open"],
+.collapsible_triggerAttr[data-state="open"],
+.collapsible_contentAttr[data-state="open"] {
+  border-color: green;
+}
+
+.collapsible_rootAttr[data-disabled],
+.collapsible_triggerAttr[data-disabled],
+.collapsible_contentAttr[data-disabled] {
+  border-style: dashed;
+}
+
+.collapsible_rootAttr:disabled,
+.collapsible_triggerAttr:disabled,
+.collapsible_contentAttr:disabled {
+  opacity: 0.5;
+} */
+
+.collapsible_contentAttr {
+  display: block;
+}

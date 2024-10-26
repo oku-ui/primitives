@@ -31,7 +31,7 @@ defineProps<PropsTableProps>()
         </ProseTd>
         <ProseTd>
           <ProseCodeInline v-if="Array.isArray(item.values)" class="bg-oku-100">
-            <span v-for="(value, index) in item.values" :key="index">
+            <span v-for="(value, indexa) in item.values" :key="indexa">
               {{ index + 1 !== item.values.length ? `"${value}" | ` : `"${value}"` }}
             </span>
           </ProseCodeInline>

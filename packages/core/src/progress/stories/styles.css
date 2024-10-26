@@ -1,0 +1,50 @@
+.progress_rootClass {
+  width: 400px;
+  height: 20px;
+  max-width: 100%;
+  border: 5px solid #111;
+}
+
+.progress_indicatorClass {
+  width: 0;
+  height: 100%;
+  background-color: crimson;
+  transition: background 150ms ease-out;
+
+  &[data-state="indeterminate"] {
+    background-color: #aaa;
+  }
+
+  &[data-state="complete"] {
+    background-color: green;
+  }
+}
+
+.progress_indicatorPseudos {
+  &::before {
+    content: attr(data-value);
+  }
+
+  &::after {
+    content: attr(data-max);
+  }
+}
+
+.progress_rootAttrClass,
+.progress_indicatorAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="loading"] {
+    border-color: red;
+  }
+
+  &[data-state="indeterminate"] {
+    border-color: purple;
+  }
+
+  &[data-state="complete"] {
+    border-color: green;
+  }
+}

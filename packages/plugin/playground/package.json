@@ -1,0 +1,16 @@
+{
+  "name": "my-module-playground",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "p:dev": "nuxi dev",
+    "p:build": "nuxi build",
+    "p:generate": "nuxi generate"
+  },
+  "dependencies": {
+    "@oku-ui/primitives": "workspace:^"
+  },
+  "devDependencies": {
+    "nuxt": "latest"
+  }
+}

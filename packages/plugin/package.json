@@ -1,0 +1,72 @@
+{
+  "name": "@oku-ui/primitives-nuxt",
+  "type": "module",
+  "version": "0.3.0",
+  "description": "Oku Primitives for Nuxt Module",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/primitives-nuxt"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "nuxtjs",
+    "oku",
+    "oku-ui",
+    "primitives"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "pnpm nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
+    "release": "pnpm prepack && pnpm bumpp --commit='version(primitives-nuxt): release %s' --no-tag && pnpm publish",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "dependencies": {
+    "@antfu/ni": "^0.21.12",
+    "@nuxt/kit": "^3.13.2",
+    "chalk": "^5.3.0",
+    "consola": "^3.2.3",
+    "install": "^0.13.0",
+    "local-pkg": "^0.5.0",
+    "ofetch": "^1.4.1",
+    "pacote": "^17.0.7",
+    "pathe": "^1.1.2",
+    "pkg-types": "^1.2.1",
+    "semver": "^7.6.3"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxt/module-builder": "^0.5.5",
+    "@nuxt/schema": "^3.13.2",
+    "@nuxt/test-utils": "^3.14.3",
+    "@types/node": "^20.16.11",
+    "@types/pacote": "^11.1.8",
+    "nuxt": "^3.13.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -21,7 +21,7 @@ codeFilePaths.forEach((filePath) => {
   codeCache.set(keyName, readFileSync(filePath, 'utf-8'))
 })
 
-const autodocsRegEx = /<!--\s*Autodocs\s*\{(.+)}\s*-->/g
+const autodocsRegEx = /<!--\s*Autodocs\s*\{(.+)\}\s*-->/g
 const paramsRegEx = /(\w+)="([^"]+)"/g
 
 export default defineNitroPlugin((nitroApp) => {

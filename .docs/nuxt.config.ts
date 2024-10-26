@@ -1,7 +1,7 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-import { defu } from 'defu'
 import type { NuxtConfig } from 'nuxt/config'
 import { createResolver } from '@nuxt/kit'
+// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defu } from 'defu'
 
 const { resolve } = createResolver(import.meta.url)
 

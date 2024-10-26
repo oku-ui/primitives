@@ -1,0 +1,97 @@
+
+.checkbox_rootClass {
+  vertical-align: middle;
+  border: 1px solid #aaa;
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+
+  &:focus {
+    outline: none;
+    border-color: crimson;
+    box-shadow: 0 0 0 1px crimson;
+  }
+
+  &[data-disabled] {
+    opacity: 0.3;
+  }
+}
+
+
+
+.checkbox_indicatorClass {
+  background-color: crimson;
+  display: block;
+  width: 20px;
+  height: 4px;
+
+  &[data-state="checked"],
+  &[data-state="unchecked"] {
+    height: 20px;
+  }
+}
+
+@keyframes checkbox_fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes checkbox_fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.checkbox_animatedIndicatorClass {
+  transition: height 300ms;
+
+  &[data-state="checked"] {
+    animation: checkbox_fadeIn 1000ms ease-out;
+  }
+
+  &[data-state="unchecked"] {
+    animation: checkbox_fadeOut 1000ms ease-in;
+  }
+}
+
+
+.checkbox_rootAttrClass,
+.checkbox_indicatorAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="unchecked"],
+  &[data-state="unchecked"] {
+    border-color: crimson;
+  }
+
+  &[data-state="checked"],
+  &[data-state="checked"] {
+    border-color: green;
+  }
+
+  &[data-state="indeterminate"],
+  &[data-state="indeterminate"] {
+    border-color: purple;
+  }
+
+  &[data-disabled],
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &:disabled,
+  &:disabled {
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,133 @@
+.tabs_rootClass {
+  display: flex;
+  border: 1px solid #eee;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  max-width: 20rem;
+
+  &[data-orientation="horizontal"] {
+    flex-direction: column;
+  }
+}
+
+.tabs_listClass {
+  flex-shrink: 0;
+  display: flex;
+  background-color: #eee;
+
+  &[data-orientation="vertical"] {
+    flex-direction: column;
+  }
+}
+
+.tabs_triggerClass {
+  all: unset;
+  flex-shrink: 0;
+  padding: 0.4em 0.6em;
+  font-weight: 500;
+  line-height: 1;
+  user-select: none;
+
+  &[data-orientation="horizontal"] {
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid var(--border-color, transparent);
+  }
+
+  &[data-orientation="vertical"] {
+    padding: 0.6em;
+    border-right: 4px solid var(--border-color, transparent);
+  }
+
+  &[data-disabled] {
+    color: #ccc;
+  }
+
+  &[data-state="active"] {
+    --border-color: crimson;
+  }
+
+  &:focus {
+    --border-color: #111;
+    outline: 1px solid var(--border-color);
+
+    &[data-state="active"] {
+      --border-color: crimson;
+    }
+  }
+}
+
+.tabs_contentClass {
+  flex-grow: 1;
+  padding: 1em;
+  font-weight: 300;
+  font-size: 0.85em;
+  line-height: 1.65;
+
+  &[data-orientation="horizontal"] {
+    border-top: none;
+  }
+
+  &[data-orientation="vertical"] {
+    border-left: none;
+  }
+}
+
+@keyframes tabs_show {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tabs_animatedContentClass {
+  flex-grow: 1;
+  padding: 1em;
+  font-weight: 300;
+  font-size: 0.85em;
+  line-height: 1.65;
+
+  &[data-orientation="horizontal"] {
+    border-top: none;
+  }
+
+  &[data-orientation="vertical"] {
+    border-left: none;
+  }
+
+  &[data-state="active"] {
+    animation: tabs_show 400ms ease;
+  }
+}
+
+.tabs_rootAttrClass,
+.tabs_listAttrClass,
+.tabs_triggerAttrClass,
+.tabs_contentAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &[data-disabled] {
+    border-style: dashed;
+  }
+
+  &[data-state="inactive"] {
+    border-color: crimson;
+  }
+
+  &[data-state="active"] {
+    border-color: green;
+  }
+}
+
+.tabs_contentAttrClass {
+  display: block;
+}

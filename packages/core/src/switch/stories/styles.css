@@ -1,0 +1,69 @@
+.switch_rootClass {
+  /* // better default alignment */
+  vertical-align: middle;
+  /* // ensures thumb is not horizontally centered (default in `button`) */
+  text-align: left;
+
+  outline: none;
+  border: none;
+  width: 50px;
+  padding: 4px;
+  border-radius: 9999px;
+  background-color: #aaa;
+  transition: background-color 166ms ease-out;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #111;
+  }
+
+  &[data-state="checked"] {
+    background-color: crimson;
+    border-color: crimson;
+  }
+
+  &[data-disabled] {
+    opacity: 0.5;
+  }
+}
+
+.switch_thumbClass {
+  /* // ensures thumb is sizeable/can receive vertical margins */
+  display: inline-block;
+  /* // ensures thumb is vertically centered */
+  vertical-align: middle;
+
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 9999px;
+  transition: transform 166ms ease-out;
+
+  &[data-state="checked"] {
+    transform: translateX(22px); /* WIDTH - GAP * 2 - THUMB_WIDTH */
+  }
+}
+
+.switch_rootAttrClass,
+.switch_thumbAttrClass {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 2px solid blue;
+  padding: 10px;
+
+  &[data-state="unchecked"] {
+    border-color: red;
+  }
+
+  &[data-state="checked"] {
+    border-color: green;
+  }
+
+  &[data-state="indeterminate"] {
+    border-color: purple;
+  }
+
+  &[data-disabled], &:disabled {
+    border-style: dashed;
+    opacity: 0.5;
+  }
+}

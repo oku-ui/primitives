@@ -1,0 +1,90 @@
+{
+  "name": "@oku-ui/primitives",
+  "type": "module",
+  "version": "0.7.0-beta.4",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/productdevbook",
+  "homepage": "https://oku-ui.com/primitives",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/vue-primitives"
+  },
+  "bugs": {
+    "url": "https://github.com/oku-ui/primitives/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix",
+    "release": "pnpm build && pnpm bumpp --commit='version(primitives): release %s' --push --tag && pnpm publish --no-git-checks",
+    "release:beta": "pnpm release --tag beta",
+    "release:alpha": "pnpm release --tag alpha"
+  },
+  "peerDependencies": {
+    "@vue/shared": "^3.4.31"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.6.11",
+    "@floating-ui/utils": "^0.2.8",
+    "@floating-ui/vue": "^1.1.5",
+    "aria-hidden": "^1.2.4"
+  },
+  "devDependencies": {
+    "@oku/tsconfig": "workspace:*",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.16.11",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "@vue/test-utils": "^2.4.6",
+    "@vueuse/core": "^11.1.0",
+    "filter-anything": "^3.0.7",
+    "jsdom": "^25.0.1",
+    "npm-run-all2": "^6.2.3",
+    "storybook": "^8.3.5",
+    "typescript": "^5.6.3",
+    "unplugin-vue-components": "^0.26.0",
+    "vite": "^5.4.9",
+    "vite-plugin-dts": "^4.2.4",
+    "vite-plugin-externalize-deps": "^0.8.0",
+    "vite-plugin-pages": "^0.32.3",
+    "vitest": "^2.1.3",
+    "vue": "^3.5.12",
+    "vue-router": "^4.4.5",
+    "vue-tsc": "^2.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

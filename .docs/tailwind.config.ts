@@ -1,8 +1,8 @@
-import defaultTheme from 'tailwindcss/defaultTheme'
-
 import { getIconCollections, iconsPlugin } from '@egoist/tailwindcss-icons'
 
 import { blackA, cyan, grass, green, indigo, mauve, purple, red, teal, violet } from '@radix-ui/colors'
+
+import defaultTheme from 'tailwindcss/defaultTheme'
 import { blackOA, codGray, grayOA, oku } from './colors'
 
 export default <Partial<any>>{

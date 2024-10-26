@@ -18,6 +18,7 @@
       "vue",
       "vite/client"
     ],
+    "allowImportingTsExtensions": true,
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
@@ -36,10 +37,10 @@
   "include": [
     "vitest-setup.ts",
     "vitest.config.ts",
-    "scripts/**/*"
+    "scripts_c/**/*"
   ],
   "exclude": [
-    "**/*/*.stories.ts",
+
     "**dist**",
     "**node_modules**"
   ]

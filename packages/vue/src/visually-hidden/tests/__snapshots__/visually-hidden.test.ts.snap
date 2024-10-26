@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`okuVisuallyHidden > should render OkuVisuallyHidden correctly 1`] = `"<span style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"></span>"`;
-
-exports[`okuVisuallyHidden Stories > basic > should render correctly 1`] = `"<button><span style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;">Save the file</span><span aria-hidden="true">💾</span></button>"`;
