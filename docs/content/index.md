@@ -5,7 +5,7 @@ titleTemplate: Discover a collection of unstyled, accessible Vue components craf
 
 hero:
   name: Oku Primitives
-  text: Vue Port of Radix UI
+  text: Radix UI
   tagline: Discover a collection of unstyled, accessible Vue components crafted to build high-quality design systems and seamless web applications. Designed with flexibility and performance in mind, these components provide the building blocks for a wide range of interactive experiences. Effortlessly integrate, customize, and elevate your Vue apps with components that prioritize accessibility, responsiveness, and intuitive usability..
   image:
     src: /logo.svg
