@@ -5,7 +5,7 @@ node_modules
 .pnp
 .pnp.js
 .turbo
-.vitepress
+docs/.vitepress/cache
 
 # testing
 coverage
