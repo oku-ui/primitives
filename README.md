@@ -102,13 +102,13 @@ Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped
 Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
 
 ## Credits
-
 - [Daniel Roe](https://github.com/danielroe)
 - [Johnson Chu](https://github.com/johnsoncodehk)
 - [Skirtle](https://github.com/skirtles-code)
 - [Jacek Karczmarczyk](https://github.com/jacekkarczmarczyk)
 - [Headless UI](https://headlessui.com/)
 - [Radix Primitives](https://radix-ui.com/)
+- [Radix Vue](https://github.com/unovue/radix-vue)
 - [Element Plus](https://github.com/element-plus/element-plus)
 
 ---
