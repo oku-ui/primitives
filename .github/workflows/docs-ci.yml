@@ -13,13 +13,13 @@ on:
     branches:
       - main
     paths:
-      - ".docs/**"
+      - "docs/**"
 
   pull_request:
     branches:
       - main
     paths:
-      - ".docs/**"
+      - "docs/**"
 
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        working-directory: .docs
+        working-directory: docs
 
     permissions:
       # Required to checkout the code
@@ -56,6 +56,6 @@ jobs:
       #   run: pnpm lint
 
       - name: 🚀 Build
-        run: pnpm build
+        run: pnpm docs:build
         env:
           NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
