@@ -27,7 +27,7 @@ export function useCollapsibleTrigger(): RadixPrimitiveReturns {
         'data-state': _open ? 'open' : 'closed',
         'data-disabled': _disabled ? '' : undefined,
         'disabled': _disabled,
-        'onClick': onClick,
+        onClick,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

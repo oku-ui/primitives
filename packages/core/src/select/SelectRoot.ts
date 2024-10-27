@@ -1,5 +1,5 @@
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '@oku-ui/shared'
-import { createCollection } from '@oku-ui/collection'
+import { type CollectionItemWithData, createCollection } from '@oku-ui/collection'
 import { type Direction, useDirection } from '@oku-ui/direction'
 import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '@oku-ui/hooks'
 import { type MaybeRefOrGetter, type Ref, shallowRef, useId } from 'vue'
@@ -48,6 +48,7 @@ export interface SelectContextValue {
 export const [provideSelectContext, useSelectContext] = createContext<SelectContextValue>('Select')
 
 export interface ItemData { $select: { value: string, disabled?: boolean, textValue: string } }
+export type CollectionItem = CollectionItemWithData<HTMLElement, ItemData>
 export const [Collection, useCollection] = createCollection<HTMLElement, ItemData>('Menu')
 
 export interface UseSelectRootProps extends EmitsToHookProps<SelectRootEmits> {

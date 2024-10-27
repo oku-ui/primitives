@@ -249,7 +249,7 @@ export function useAccordionRoot<T extends AccordionType>(props: UseAccordionRoo
         'elRef': setElRef,
         'data-disabled': _disabled ? '' : undefined,
         'data-orientation': orientation,
-        'onKeydown': onKeydown,
+        onKeydown,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {
