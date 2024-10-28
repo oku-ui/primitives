@@ -28,7 +28,7 @@ A control that allows the user to toggle between checked and not checked.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

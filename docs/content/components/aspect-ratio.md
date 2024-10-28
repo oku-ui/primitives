@@ -25,7 +25,7 @@ Displays content within a desired ratio.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

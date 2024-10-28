@@ -26,7 +26,7 @@ Displays an indicator showing the completion progress of a task, typically displ
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ### Anatomy
 

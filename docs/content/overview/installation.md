@@ -6,7 +6,7 @@ A quick tutorial to walk through installing the packages, as well as the support
 
 <a href="https://www.npmjs.com/package/@oku-ui/primitives" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/@oku-ui/primitives?flat&colorA=002438&colorB=41c399"></a>
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Nuxt modules
 

@@ -21,7 +21,7 @@ A good example is with `TooltipTrigger`. By default this part is rendered as a `
 
 ```vue{7}
 <script setup lang="ts">
-import { TooltipRoot, TooltipTrigger, TooltipPortal } from "oku-primitives";
+import { TooltipRoot, TooltipTrigger, TooltipPortal } from "@oku-ui/primitives";
 </script>
 
 <template>
@@ -50,7 +50,7 @@ Here is an example of how you can compose `TooltipTrigger` and `DialogTrigger` t
 
 ```vue{9,10}
 <script setup lang="ts">
-import { TooltipRoot, TooltipTrigger, TooltipPortal, DialogRoot, DialogTrigger, DialogPortal } from "oku-primitives";
+import { TooltipRoot, TooltipTrigger, TooltipPortal, DialogRoot, DialogTrigger, DialogPortal } from "@oku-ui/primitives";
 import MyButton from from "@/components/MyButton.vue"
 </script>
 

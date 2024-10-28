@@ -27,7 +27,7 @@ An image element with a fallback for representing the user.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

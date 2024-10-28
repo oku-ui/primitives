@@ -35,7 +35,7 @@ A visually persistent menu common in desktop applications that provides quick ac
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

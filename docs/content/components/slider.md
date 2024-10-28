@@ -31,7 +31,7 @@ An input where the user selects a value from within a given range.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

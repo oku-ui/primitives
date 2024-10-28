@@ -30,7 +30,7 @@ A window overlaid on either the primary window or another dialog window, renderi
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

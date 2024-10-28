@@ -29,7 +29,7 @@ For sighted users to preview content available behind a link.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

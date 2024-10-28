@@ -28,7 +28,7 @@ A set of checkable buttons—known as radio buttons—where no more than one of 
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

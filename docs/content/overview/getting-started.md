@@ -25,7 +25,7 @@ In this quick tutorial, we will install and style the [Popover](../components/po
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ### 2. Import the parts
 

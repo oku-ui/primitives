@@ -36,7 +36,7 @@ Displays a menu to the user—such as a set of actions or functions—triggered 
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

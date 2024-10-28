@@ -29,7 +29,7 @@ A set of layered sections of content—known as tab panels—that are displayed 
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

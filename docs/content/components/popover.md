@@ -31,7 +31,7 @@ Displays rich content in a portal, triggered by a button.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

@@ -27,7 +27,7 @@ An interactive component which expands/collapses a panel.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

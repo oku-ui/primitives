@@ -28,7 +28,7 @@ Augments native scroll functionality for custom, cross-browser styling.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 

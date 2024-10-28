@@ -29,7 +29,7 @@ A set of two-state buttons that can be toggled on or off.
 
 Install the component from your command line.
 
-<InstallationTabs value="oku-primitives" />
+<InstallationTabs value="@oku-ui/primitives" />
 
 ## Anatomy
 
