@@ -29,6 +29,7 @@ const tabs = computed(
     const currentFramework = slots.default?.().find(slot => slot.props?.key?.toString().includes(cssFramework.value))
     const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => a?.props?.title?.localeCompare(b?.props?.title))
     return childSlots?.map((slot, index) => {
+      console.log(slot.props)
       return {
         label: slot.props?.title || `${index}`,
         component: slot,

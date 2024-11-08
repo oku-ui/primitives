@@ -146,22 +146,21 @@ export default defineConfig({
           { text: 'Tooltip', link: '/components/tooltip' },
         ],
       },
-      {
-        text: 'Utilities',
-        collapsed: false,
-        items: [
-          { text: 'Config Provider', link: '/utilities/config-provider' },
-          { text: 'Visually Hidden', link: '/utilities/visually-hidden' },
-          { text: 'Primitive', link: '/utilities/primitive' },
-          { text: 'Slot', link: '/utilities/slot' },
-          { text: 'useId', link: '/utilities/use-id' },
-          { text: 'useDateFormatter', link: '/utilities/use-date-formatter' },
-          { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
-          { text: 'useForwardExpose', link: '/utilities/use-forward-expose' },
-          { text: 'useForwardProps', link: '/utilities/use-forward-props' },
-          { text: 'useForwardPropsEmits', link: '/utilities/use-forward-props-emits' },
-        ],
-      },
+      // {
+      //   text: 'Utilities',
+      //   collapsed: false,
+      //   items: [
+      //     { text: 'Config Provider', link: '/utilities/config-provider' },
+      //     { text: 'Visually Hidden', link: '/utilities/visually-hidden' },
+      //     { text: 'Primitive', link: '/utilities/primitive' },
+      //     { text: 'Slot', link: '/utilities/slot' },
+      //     { text: 'useId', link: '/utilities/use-id' },
+      //     { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
+      //     { text: 'useForwardExpose', link: '/utilities/use-forward-expose' },
+      //     { text: 'useForwardProps', link: '/utilities/use-forward-props' },
+      //     { text: 'useForwardPropsEmits', link: '/utilities/use-forward-props-emits' },
+      //   ],
+      // },
     ],
 
     socialLinks: [

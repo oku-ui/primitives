@@ -5,12 +5,6 @@ description: A quick tutorial to get you up and running with Radix Primitives.
 name: popover
 ---
 
-<script setup>
-import HeroContainer from '../../components/HeroContainer.vue'
-import DemoGettingStarted from '../../components/demo/GettingStarted/index.vue'
-import HeroCodeGroup from '../../components/HeroCodeGroup.vue'
-</script>
-
 # Getting started
 
 <Description>
