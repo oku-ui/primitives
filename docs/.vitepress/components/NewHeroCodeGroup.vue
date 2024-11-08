@@ -29,7 +29,6 @@ const tabs = computed(
     const currentFramework = slots.default?.().find(slot => slot.props?.key?.toString().includes(cssFramework.value))
     const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => a?.props?.title?.localeCompare(b?.props?.title))
     return childSlots?.map((slot, index) => {
-      console.log(slot.props)
       return {
         label: slot.props?.title || `${index}`,
         component: slot,
@@ -73,6 +72,19 @@ watch(open, () => {
           </TabsTrigger>
         </TabsList>
         <div>
+          <select
+            v-model="cssFramework"
+            @change="currentTab = 'index.vue'"
+            class="bg-stone-800 rounded-sm w-[115px] text-xs py-1 pl-2 pr-1"
+          >
+            <option
+              v-for="framework in cssFrameworkOptions"
+              :key="framework.label"
+              :value="framework.value"
+            >
+              {{ capitalize(framework.label ?? '') }}
+            </option>
+          </select>
           <!-- <SelectRoot
             v-model="cssFramework"
             @update:model-value="currentTab = 'index.vue'"
