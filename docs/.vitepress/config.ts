@@ -175,10 +175,6 @@ export default defineConfig({
     editLink: {
       pattern: 'https://github.com/oku-ui/primitives/edit/main/docs/content/:path',
     },
-    // carbonAds: {
-    //   code: 'CW7DV27J',
-    //   placement: 'wwwoku-uicom',
-    // },
   },
   srcDir: 'content',
   appearance: 'dark',
