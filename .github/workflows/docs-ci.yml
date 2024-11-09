@@ -55,7 +55,8 @@ jobs:
       # - name: 👀 Lint
       #   run: pnpm lint
 
-      - name: 🚀 Build
+      - name: 🚀 Build Packages
+        run: pnpm build
+
+      - name: 🚀 Build Vitepress
         run: pnpm docs:build
-        env:
-          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}

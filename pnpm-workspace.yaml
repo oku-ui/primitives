@@ -2,4 +2,4 @@ packages:
   - 'playground/*'
   - 'packages/*'
   - 'packages/*/*'
-  - docs
+  - 'docs/*'
