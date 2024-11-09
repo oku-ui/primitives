@@ -145,7 +145,7 @@ body {
   font-family: system-ui;
   width: 100vw;
   height: 100vh;
-  background-image: linear-gradient(to bottom right, hsl(173, 80.0%, 36.0%) 0%, hsl(151, 55.0%, 41.5%) 100%);
+  background-image: linear-gradient(to bottom right, #4c1d95 0%, #d946ef 100%);
   display: flex;
   align-items: flex-start;
   justify-content: center;
