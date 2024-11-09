@@ -7,7 +7,6 @@ import fg from 'fast-glob'
 import MarkdownIt from 'markdown-it'
 import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import { createChecker } from 'vue-component-meta'
-// TODO add components
 import { components } from '../../packages/core/constant/components'
 import { transformJSDocLinks } from './utils'
 
@@ -22,9 +21,9 @@ const checkerOptions: MetaCheckerOptions = {
   forceUseTs: true,
   printer: { newLine: 1 },
 }
-
+const file = resolve(__dirname, '../../packages/core/tsconfig.app.json')
 const tsconfigChecker = createChecker(
-  resolve(__dirname, '../../packages/core/tsconfig.json'),
+  file,
   checkerOptions,
 )
 
@@ -32,19 +31,28 @@ const eventDescriptionMap = new Map<string, string>()
 const depTree = new Map<string, string[]>()
 let prevDeps: string[] = []
 
-const allComponents = fg.sync(['src/**/*.vue', '!src/**/story/*.vue', '!src/**/*.story.vue'], {
+const allComponents = fg.sync([
+  'src/**/*.vue', 
+  '!src/**/story/*.vue', 
+  '!src/**/*.story.vue',
+  '!src/**/story/*.vue',
+], {
   cwd: resolve(__dirname, '../../packages/core'),
   absolute: true,
 })
+
 
 const listOfComponents = Object.values(components).flatMap(i => i)
 const primitiveComponents = allComponents.filter(i => listOfComponents.includes(parse(i).name))
 
 // 1. Generate all the dependencies for each components
-allComponents.forEach((i) => {
-  generateDependencies(i)
-})
-
+try {
+  allComponents.forEach((i) => {
+    generateDependencies(i)
+  })
+} catch (error) {
+    console.error('1', error)
+}
 // 2. Generate component meta
 primitiveComponents.forEach((componentPath) => {
   const dir = parse(componentPath).dir.split('/').at(-1) ?? ''
@@ -55,11 +63,14 @@ primitiveComponents.forEach((componentPath) => {
     })
     prevDeps = flattenDeps
   }
-
+  
   const componentName = parse(componentPath).name
+  console.log(componentName, componentPath)
   const meta = parseMeta(tsconfigChecker.getComponentMeta(componentPath))
+  console.log(`Generating meta for ${meta}`)
 
   const metaDirPath = resolve(__dirname, '../content/meta')
+
   // if meta dir doesn't exist create
   if (!existsSync(metaDirPath))
     mkdirSync(metaDirPath)
