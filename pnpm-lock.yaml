@@ -159,7 +159,7 @@ importers:
         specifier: ^2.1.10
         version: 2.1.10(typescript@5.6.3)
 
-  docs:
+  .docs:
     dependencies:
       '@oku-ui/primitives':
         specifier: link:../packages/core

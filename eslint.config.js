@@ -15,7 +15,7 @@ export default antfu(
       '.nx',
       '.vitest-cache',
       '__snapshots__',
-      'docs',
+      '.docs',
       'packages/core/src/index.ts',
     ],
   },

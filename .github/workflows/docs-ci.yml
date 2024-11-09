@@ -13,13 +13,13 @@ on:
     branches:
       - main
     paths:
-      - "docs/**"
+      - "./docs/**"
 
   pull_request:
     branches:
       - main
     paths:
-      - "docs/**"
+      - "./docs/**"
 
 
 jobs:

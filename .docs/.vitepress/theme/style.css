@@ -81,6 +81,14 @@
   }
 }
 
+.vp-doc div[class*=language-]:not(:where(.vp-raw,.vp-raw *)),.vp-block:not(:where(.vp-raw,.vp-raw *)) {
+  position: relative;
+
+  background-color: var(--vp-code-block-bg);
+  overflow-x: auto;
+  transition: background-color .5s
+}
+
 
 /* Fix the layout shift for Vitepress https://github.com/vuejs/vitepress/pull/1844/files */
 @media (min-width: 768px) {
