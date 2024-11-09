@@ -12,8 +12,8 @@
     "resolveJsonModule": true,
     "types": [
       "vite/client",
-      "node",
-      "@vitest/browser/providers/wbdriverio"
+      "node"
+      // "@vitest/browser/providers/wbdriverio"
     ],
     "strict": true,
     "strictNullChecks": true,
@@ -22,8 +22,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
-  },
-  "include": [
-    "./vitest.setup.ts"
-  ]
+  }
+  // "include": [
+  //   "./vitest.setup.ts"
+  // ]
 }

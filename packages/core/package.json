@@ -49,7 +49,8 @@
     "eslint:fix": "eslint . --fix",
     "release": "pnpm build && pnpm bumpp --commit='version(primitives): release %s' --push --tag && pnpm publish --no-git-checks",
     "release:beta": "pnpm release --tag beta",
-    "release:alpha": "pnpm release --tag alpha"
+    "release:alpha": "pnpm release --tag alpha",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "@vue/shared": "^3.4.31"
