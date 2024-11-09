@@ -1,7 +1,7 @@
 import autoprefixer from 'autoprefixer'
 import tailwind from 'tailwindcss'
 import { defineConfig, postcssIsolateStyles } from 'vitepress'
-import { version } from '../../package.json'
+import { version } from '../../packages/core/package.json'
 import { teamMembers } from './contributors'
 import {
   discord,
