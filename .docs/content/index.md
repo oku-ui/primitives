@@ -12,7 +12,7 @@ hero:
     alt: Oku Primitives
   prelink:
     title: 🎉 Hooks News Struct
-    link: https://github.com/oku-ui/primitives/releases/tag/v1.9.0
+    link: https://github.com/oku-ui/primitives/releases/tag/v0.7.0
     target: _blank
   actions:
     - theme: brand

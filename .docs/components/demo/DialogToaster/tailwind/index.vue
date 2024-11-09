@@ -39,7 +39,7 @@ import { Toaster, toast } from 'vue-sonner'
           </DialogDescription>
 
           <button
-            class="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
+            class="bg-indigo4 text-indigo11 hover:bg-indigo5 focus:shadow-indigo7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
             @click="() => toast('Event has been created', {
               action: {
                 label: 'Undo',
@@ -51,7 +51,7 @@ import { Toaster, toast } from 'vue-sonner'
           </button>
 
           <DialogClose
-            class="text-mauve12 hover:bg-green4 focus:shadow-green7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+            class="text-mauve12 hover:bg-indigo4 focus:shadow-indigo7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
             aria-label="Close"
           >
             <Icon icon="lucide:x" />

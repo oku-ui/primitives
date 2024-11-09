@@ -14,7 +14,7 @@ const open = ref(false)
     <div style="display: flex; align-items: center; justify-content: space-between">
       <span class="text-white text-[15px] leading-[25px]"> @peduarte starred 3 repos </span>
       <CollapsibleTrigger
-        class="cursor-default rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-mauve12 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-green3 hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black"
+        class="cursor-default rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-mauve12 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-indigo3 hover:bg-indigo3 focus:shadow-[0_0_0_2px] focus:shadow-black"
       >
         <Icon
           v-if="open"

@@ -35,7 +35,7 @@ import { Icon } from '@iconify/vue'
           <div class="mt-[25px] flex gap-4 justify-end">
             <DialogClose as-child>
               <button
-                class="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
+                class="bg-indigo4 text-indigo11 hover:bg-indigo5 focus:shadow-indigo7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
               >
                 Close
               </button>
@@ -43,7 +43,7 @@ import { Icon } from '@iconify/vue'
 
             <DialogRoot>
               <DialogTrigger
-                class="bg-green9 font-semibold shadow-blackA7 hover:bg-green10  inline-flex h-[35px] items-center justify-center rounded-[4px] text-white px-[15px] leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
+                class="bg-indigo9 font-semibold shadow-blackA7 hover:bg-indigo10  inline-flex h-[35px] items-center justify-center rounded-[4px] text-white px-[15px] leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
               >
                 Open second
               </DialogTrigger>
@@ -63,7 +63,7 @@ import { Icon } from '@iconify/vue'
                   <div class="flex justify-end">
                     <DialogClose as-child>
                       <button
-                        class="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
+                        class="bg-indigo4 text-indigo11 hover:bg-indigo5 focus:shadow-indigo7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
                       >
                         Close
                       </button>
@@ -74,7 +74,7 @@ import { Icon } from '@iconify/vue'
             </DialogRoot>
           </div>
           <DialogClose
-            class="text-mauve12 hover:bg-green4 focus:shadow-green7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+            class="text-mauve12 hover:bg-indigo4 focus:shadow-indigo7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
             aria-label="Close"
           >
             <Icon icon="lucide:x" />

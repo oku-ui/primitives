@@ -15,7 +15,7 @@ const radioStateSingle = ref('default')
     <div class="flex items-center">
       <RadioGroupItem
         id="r1"
-        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
+        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-indigo3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
         value="default"
       >
         <RadioGroupIndicator
@@ -32,7 +32,7 @@ const radioStateSingle = ref('default')
     <div class="flex items-center">
       <RadioGroupItem
         id="r2"
-        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
+        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-indigo3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
         value="comfortable"
       >
         <RadioGroupIndicator
@@ -49,7 +49,7 @@ const radioStateSingle = ref('default')
     <div class="flex items-center">
       <RadioGroupItem
         id="r3"
-        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
+        class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-indigo3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
         value="compact"
       >
         <RadioGroupIndicator

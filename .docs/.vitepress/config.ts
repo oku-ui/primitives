@@ -19,7 +19,7 @@ import { preWrapperPlugin } from './plugins/preWrapper'
 import { snippetPlugin } from './plugins/snippet'
 
 function BadgeHTML(text: string, translucent = false) {
-  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 ${translucent ? 'bg-opacity-30' : ''} text-white">
+  return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-indigo8 ${translucent ? 'bg-opacity-30' : ''} text-white">
 ${text}
 </div>
 `

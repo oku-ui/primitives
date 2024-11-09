@@ -43,7 +43,7 @@ function handleClick() {
       >
         <ContextMenuItem
           value="New Tab"
-          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
           @click="handleClick"
         >
           New Tab <div
@@ -55,7 +55,7 @@ function handleClick() {
         <ContextMenuSub>
           <ContextMenuSubTrigger
             value="more toolsz"
-            class="group w-full text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-green4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1 data-[highlighted]:data-[state=open]:bg-green9 data-[highlighted]:data-[state=open]:text-green1"
+            class="group w-full text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-indigo4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1 data-[highlighted]:data-[state=open]:bg-indigo9 data-[highlighted]:data-[state=open]:text-indigo1"
           >
             More Tools <div
               class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -70,7 +70,7 @@ function handleClick() {
               :align-offset="-5"
             >
               <ContextMenuItem
-                class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Save Page As… <div
                   class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -79,18 +79,18 @@ function handleClick() {
                 </div>
               </ContextMenuItem>
               <ContextMenuItem
-                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Create Shortcut…
               </ContextMenuItem>
               <ContextMenuItem
-                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Name Window…
               </ContextMenuItem>
-              <ContextMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
+              <ContextMenuSeparator class="h-[1px] bg-indigo6 m-[5px]" />
               <ContextMenuItem
-                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Developer Tools
               </ContextMenuItem>
@@ -99,7 +99,7 @@ function handleClick() {
         </ContextMenuSub>
         <ContextMenuItem
           value="New Window"
-          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
         >
           New Window <div
             class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -109,7 +109,7 @@ function handleClick() {
         </ContextMenuItem>
         <ContextMenuItem
           value="New Private Window"
-          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
           disabled
         >
           New Private Window <div
@@ -121,7 +121,7 @@ function handleClick() {
         <ContextMenuSub>
           <ContextMenuSubTrigger
             value="more tools"
-            class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none w-full outline-none data-[state=open]:bg-green4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1 data-[highlighted]:data-[state=open]:bg-green9 data-[highlighted]:data-[state=open]:text-green1"
+            class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none w-full outline-none data-[state=open]:bg-indigo4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1 data-[highlighted]:data-[state=open]:bg-indigo9 data-[highlighted]:data-[state=open]:text-indigo1"
           >
             More Tools <div
               class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -136,7 +136,7 @@ function handleClick() {
               :align-offset="-5"
             >
               <ContextMenuItem
-                class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Save Page As… <div
                   class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -145,25 +145,25 @@ function handleClick() {
                 </div>
               </ContextMenuItem>
               <ContextMenuItem
-                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Create Shortcut…
               </ContextMenuItem>
               <ContextMenuItem
-                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Name Window…
               </ContextMenuItem>
-              <ContextMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
+              <ContextMenuSeparator class="h-[1px] bg-indigo6 m-[5px]" />
               <ContextMenuItem
-                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Developer Tools
               </ContextMenuItem>
               <ContextMenuSub>
                 <ContextMenuSubTrigger
                   value="more toolsz"
-                  class="group w-full text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-green4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1 data-[highlighted]:data-[state=open]:bg-green9 data-[highlighted]:data-[state=open]:text-green1"
+                  class="group w-full text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-indigo4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1 data-[highlighted]:data-[state=open]:bg-indigo9 data-[highlighted]:data-[state=open]:text-indigo1"
                 >
                   More Tools <div
                     class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -178,7 +178,7 @@ function handleClick() {
                     :align-offset="-5"
                   >
                     <ContextMenuItem
-                      class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                      class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                     >
                       Save Page As… <div
                         class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -187,25 +187,25 @@ function handleClick() {
                       </div>
                     </ContextMenuItem>
                     <ContextMenuItem
-                      class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                      class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                     >
                       Create Shortcut…
                     </ContextMenuItem>
                     <ContextMenuItem
-                      class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                      class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                     >
                       Name Window…
                     </ContextMenuItem>
-                    <ContextMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
+                    <ContextMenuSeparator class="h-[1px] bg-indigo6 m-[5px]" />
                     <ContextMenuItem
-                      class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                      class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                     >
                       Developer Tools
                     </ContextMenuItem>
                     <ContextMenuSub>
                       <ContextMenuSubTrigger
                         value="more toolsz"
-                        class="group w-full text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-green4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1 data-[highlighted]:data-[state=open]:bg-green9 data-[highlighted]:data-[state=open]:text-green1"
+                        class="group w-full text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-indigo4 data-[state=open]:text-mauve12 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1 data-[highlighted]:data-[state=open]:bg-indigo9 data-[highlighted]:data-[state=open]:text-indigo1"
                       >
                         More Tools <div
                           class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -220,7 +220,7 @@ function handleClick() {
                           :align-offset="-5"
                         >
                           <ContextMenuItem
-                            class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                            class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                           >
                             Save Page As… <div
                               class="ml-auto pl-[20px] text-mauve12 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
@@ -229,18 +229,18 @@ function handleClick() {
                             </div>
                           </ContextMenuItem>
                           <ContextMenuItem
-                            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                           >
                             Create Shortcut…
                           </ContextMenuItem>
                           <ContextMenuItem
-                            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                           >
                             Name Window…
                           </ContextMenuItem>
-                          <ContextMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
+                          <ContextMenuSeparator class="h-[1px] bg-indigo6 m-[5px]" />
                           <ContextMenuItem
-                            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
                           >
                             Developer Tools
                           </ContextMenuItem>
@@ -251,17 +251,17 @@ function handleClick() {
                 </ContextMenuPortal>
               </ContextMenuSub>
               <ContextMenuItem
-                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
               >
                 Developer Tools
               </ContextMenuItem>
             </ContextMenuSubContent>
           </ContextMenuPortal>
         </ContextMenuSub>
-        <ContextMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
+        <ContextMenuSeparator class="h-[1px] bg-indigo6 m-[5px]" />
         <ContextMenuCheckboxItem
           v-model="checkboxOne"
-          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+          class="group text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
         >
           <ContextMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
             <Icon icon="radix-icons:check" />
@@ -273,19 +273,19 @@ function handleClick() {
         </ContextMenuCheckboxItem>
         <ContextMenuCheckboxItem
           v-model="checkboxTwo"
-          class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+          class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
         >
           <ContextMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
             <Icon icon="radix-icons:check" />
           </ContextMenuItemIndicator> Show Full URLs
         </ContextMenuCheckboxItem>
-        <ContextMenuSeparator class="h-[1px] bg-green6 m-[5px]" />
+        <ContextMenuSeparator class="h-[1px] bg-indigo6 m-[5px]" />
         <ContextMenuLabel class="pl-[25px] text-xs leading-[25px] text-mauve12">
           People
         </ContextMenuLabel>
         <ContextMenuRadioGroup v-model="person">
           <ContextMenuRadioItem
-            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
             value="pedro"
           >
             <ContextMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
@@ -293,7 +293,7 @@ function handleClick() {
             </ContextMenuItemIndicator> Pedro Duarte
           </ContextMenuRadioItem>
           <ContextMenuRadioItem
-            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+            class="text-[13px] leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo9 data-[highlighted]:text-indigo1"
             value="colm"
           >
             <ContextMenuItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">

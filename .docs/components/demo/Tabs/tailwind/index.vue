@@ -36,29 +36,29 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '@oku-ui/primitives
       </p>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
-          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          class="text-[13px] leading-none mb-2.5 text-indigo12 block"
           for="name"
         > Name </label>
         <input
           id="name"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-indigo7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-indigo8 outline-none"
           value="Pedro Duarte"
         >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
-          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          class="text-[13px] leading-none mb-2.5 text-indigo12 block"
           for="username"
         > Username </label>
         <input
           id="username"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-indigo7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-indigo8 outline-none"
           value="@peduarte"
         >
       </fieldset>
       <div class="flex justify-end mt-5">
         <button
-          class="inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none font-medium h-[35px] bg-green4 text-green11 hover:bg-green5 focus:shadow-[0_0_0_2px] focus:shadow-green7 outline-none cursor-default"
+          class="inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none font-medium h-[35px] bg-indigo4 text-indigo11 hover:bg-indigo5 focus:shadow-[0_0_0_2px] focus:shadow-indigo7 outline-none cursor-default"
         >
           Save changes
         </button>
@@ -73,44 +73,44 @@ import { TabsContent, TabsList, TabsRoot, TabsTrigger } from '@oku-ui/primitives
       </p>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
-          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          class="text-[13px] leading-none mb-2.5 text-indigo12 block"
           for="currentPassword"
         >
           Current password
         </label>
         <input
           id="currentPassword"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-indigo7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-indigo8 outline-none"
           type="password"
         >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
-          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          class="text-[13px] leading-none mb-2.5 text-indigo12 block"
           for="newPassword"
         > New password </label>
         <input
           id="newPassword"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-indigo7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-indigo8 outline-none"
           type="password"
         >
       </fieldset>
       <fieldset class="mb-[15px] w-full flex flex-col justify-start">
         <label
-          class="text-[13px] leading-none mb-2.5 text-green12 block"
+          class="text-[13px] leading-none mb-2.5 text-indigo12 block"
           for="confirmPassword"
         >
           Confirm password
         </label>
         <input
           id="confirmPassword"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-indigo7 h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-indigo8 outline-none"
           type="password"
         >
       </fieldset>
       <div class="flex justify-end mt-5">
         <button
-          class="inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none font-medium h-[35px] bg-green4 text-green11 hover:bg-green5 focus:shadow-[0_0_0_2px] focus:shadow-green7 outline-none cursor-default"
+          class="inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none font-medium h-[35px] bg-indigo4 text-indigo11 hover:bg-indigo5 focus:shadow-[0_0_0_2px] focus:shadow-indigo7 outline-none cursor-default"
         >
           Change password
         </button>

@@ -26,6 +26,20 @@ export function makeStackblitzParams(componentName: string, sources: Record<stri
   })
 }
 
+export function makeDemoParams(componentName: string, type: 'storybook' | 'nuxt') {
+  console.log('componentName', componentName)
+  const storybookUrl = 'https://primitives-storybook.oku-ui.com/?path=/story/components-'
+  const nuxtUrl = 'https://primitives-nuxt.oku-ui.com/'
+  if (type === 'storybook') {
+    return `${storybookUrl}${componentName.toLowerCase().replace(/ /g, '-')}`
+  }
+
+  if (type === 'nuxt') {
+    // ScrollArea -> scroll-area
+    return nuxtUrl + componentName.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '');
+  }
+}
+
 const viteConfig = {
   'vite.config.js': {
     content: `import { defineConfig } from 'vite'

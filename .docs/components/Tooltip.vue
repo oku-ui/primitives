@@ -10,7 +10,7 @@ defineProps<{
   <TooltipProvider>
     <TooltipRoot>
       <TooltipTrigger
-        class="text-white hover:text-mauve12 focus:text-mauve12 shadow-blackA7 focus:bg-green3 hover:bg-green3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full shadow-none outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
+        class="text-white hover:text-mauve12 focus:text-mauve12 shadow-blackA7 focus:bg-indigo3 hover:bg-indigo3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full shadow-none outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
         as-child
       >
         <slot />

@@ -7,7 +7,7 @@ import { Icon } from '@iconify/vue'
   <TooltipProvider>
     <TooltipRoot>
       <TooltipTrigger
-        class="text-mauve12 shadow-blackA7 hover:bg-green3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
+        class="text-mauve12 shadow-blackA7 hover:bg-indigo3 inline-flex h-[35px] w-[35px] items-center justify-center rounded-full bg-white shadow-[0_2px_10px] outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
       >
         <Icon icon="radix-icons:plus" />
       </TooltipTrigger>

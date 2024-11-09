@@ -21,7 +21,7 @@ const checkerOptions: MetaCheckerOptions = {
   forceUseTs: true,
   printer: { newLine: 1 },
 }
-const file = resolve(__dirname, '../../packages/core/tsconfig.app.json')
+const file = resolve(__dirname, '../../packages/core/tsconfig.docs.json')
 const tsconfigChecker = createChecker(
   file,
   checkerOptions,
@@ -65,9 +65,7 @@ primitiveComponents.forEach((componentPath) => {
   }
   
   const componentName = parse(componentPath).name
-  console.log(componentName, componentPath)
   const meta = parseMeta(tsconfigChecker.getComponentMeta(componentPath))
-  console.log(`Generating meta for ${meta}`)
 
   const metaDirPath = resolve(__dirname, '../content/meta')
 

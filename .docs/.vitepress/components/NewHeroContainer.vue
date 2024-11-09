@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import CodeSandbox from '../../components/CodeSandbox.vue'
 import Stackblitz from '../../components/Stackblitz.vue'
+import Storybook from '../../components/Storybook.vue'
+import Nuxt from '../../components/Nuxt.vue'
 
 withDefaults(
   defineProps<{
@@ -33,6 +35,22 @@ withDefaults(
           v-if="folder"
           :key="cssFramework"
           class="hidden sm:block absolute bottom-4 right-12"
+          :name="folder"
+          :files="files"
+        />
+
+        <Storybook
+          v-if="folder"
+          :key="cssFramework"
+          class="hidden sm:block absolute bottom-4 left-4"
+          :name="folder"
+          :files="files"
+        />
+
+        <Nuxt
+          v-if="folder"
+          :key="cssFramework"
+          class="hidden sm:block absolute bottom-4 left-12"
           :name="folder"
           :files="files"
         />
