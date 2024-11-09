@@ -15,6 +15,8 @@ import {
 } from './meta'
 import ComponentPreviewPlugin from './plugins/ComponentPreview'
 import InstallationTabsPlugin from './plugins/InstallationTabs'
+import { preWrapperPlugin } from './plugins/preWrapper'
+import { snippetPlugin } from './plugins/snippet'
 
 function BadgeHTML(text: string, translucent = false) {
   return `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 ml-2 mt-1 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green8 ${translucent ? 'bg-opacity-30' : ''} text-white">
@@ -183,6 +185,10 @@ export default defineConfig({
     preConfig(md) {
       md.use(ComponentPreviewPlugin)
       md.use(InstallationTabsPlugin)
+      md.use(snippetPlugin)
+    },
+    config(md) {
+      md.use(preWrapperPlugin)
     },
   },
   transformPageData(pageData) {

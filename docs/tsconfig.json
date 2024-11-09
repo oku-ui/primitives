@@ -1,26 +1,31 @@
 {
-  // This tsconfig is for development. Allowing *.story.vue, and __test__/*.vue to have types support
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "target": "esnext",
     "jsx": "preserve",
-    "lib": ["esnext", "dom"],
+    "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
-      "@/*": ["./src/*"]
+      "~/*": [".vitepress/*"],
+      "@/*": ["../packages/*"]
     },
     "resolveJsonModule": true,
-    "types": ["unplugin-icons/types/vue", "vitepress/client", "vue"],
+    "types": [
+      "vite/client",
+      "vitepress"
+    ],
     "strict": true,
-    "declaration": false,
-    "outDir": "dist",
-    "sourceMap": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": false
   },
-  "include": ["/**/*.vue", "components/**/*.vue", ".vitepress/**/*.vue", "/**/*.ts", ".vitepress/**/*.ts", ".vitepress/**/*.vue", "src/lib/**/*"],
-  "exclude": ["node_modules"]
-
+  "include": [
+    "./*.ts",
+    "./.vitepress/**/*.ts",
+    "./.vitepress/**/*.vue"
+  ],
+  "exclude": ["dist", "node_modules"]
 }

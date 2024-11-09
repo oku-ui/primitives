@@ -1,9 +1,9 @@
-import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
-import { readdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
+import { readdirSync } from 'node:fs'
+import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 
-export const rawPathRegexp
-  = /^(.+?(?:\.([a-z0-9]+))?)(#[\w-]+)?(?: ?\{(\d+(?:[,-]\d+)*)? ?(\S+)?\})? ?(?:\[(.+)\])?$/
+// eslint-disable-next-line regexp/no-super-linear-backtracking
+export const rawPathRegexp = /^(.+?(?:\.([a-z0-9]+))?)(#[\w-]+)?(?: ?\{(\d+(?:[,-]\d+)*)? ?(\S+)?\})? ?(?:\[(.+)\])?$/
 
 function rawPathToToken(rawPath: string) {
   const [
@@ -72,15 +72,14 @@ export default function (md: MarkdownRenderer) {
         tokenArray.push(templateStart)
 
         value.forEach((file) => {
-          const { filepath, extension, lines, lang, title } = rawPathToToken(`${pathName}/${file}`)
-          const resolvedPath = resolve(dirname(realPath ?? _path), filepath)
+          const { filepath, extension, lines, lang, title } = rawPathToToken(`@/components/demo/${componentName}/${file}`)
+          const resolvedPath = resolve(dirname(realPath ?? _path), `${pathName}/${file}`)
 
           // Add code tokens for each line
           const token = new state.Token('fence', 'code', 0)
-          token.info = `${lang || extension}${lines ? `{${lines}}` : ''}${
+          token.info = `${lang || extension} ${lines ? `{${lines}}` : ''}${
             title ? `[${title}]` : ''
           }`
-
           token.content = `<<< ${filepath}`
           // @ts-expect-error token.src is for snippets plugin to handle importing snippet
           token.src = [resolvedPath]

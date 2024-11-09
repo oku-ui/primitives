@@ -1,5 +1,11 @@
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
+
+import '@shikijs/twoslash/style-rich.css'
+import '@shikijs/vitepress-twoslash/style.css'
+import 'floating-vue/dist/style.css'
+
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
 import Announcement from '../components/Announcement.vue'
@@ -37,5 +43,7 @@ export default {
     app.component('EmbedIframe', EmbedIframe)
     app.component('ComponentPreview', ComponentPreview)
     app.component('InstallationTabs', InstallationTabs)
+    app.use(TwoslashFloatingVue)
+
   },
 } satisfies Theme

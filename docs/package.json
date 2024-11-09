@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "@oku-ui/primitives": "link:../packages/core",
+    "@shikijs/vitepress-twoslash": "^1.22.2",
     "@stackblitz/sdk": "^1.11.0",
     "@vueuse/core": "^11.1.0",
     "vue": "^3.5.12",
     "vue-sonner": "^1.2.3"
   },
   "devDependencies": {
-    "destyler": "^0.0.6",
     "@babel/traverse": "^7.25.9",
     "@iconify/vue": "^4.1.2",
     "@radix-ui/colors": "^3.0.0",

@@ -8,17 +8,19 @@ defineOptions({
   inheritAttrs: false,
 })
 const props = defineProps<{
-  modelValue: 'css' | 'tailwind' | 'pinceau'
+  modelValue: 'css' | 'tailwind' | 'pinceau' | 'unocss'
 }>()
 const emits = defineEmits<{
-  'update:modelValue': [payload: 'css' | 'tailwind' | 'pinceau']
+  'update:modelValue': [payload: 'css' | 'tailwind' | 'pinceau' | 'unocss']
 }>()
+
 const cssFramework = useVModel(props, 'modelValue', emits)
 
 const slots = useSlots()
 const slotsFramework = computed(() => slots.default?.().map(slot => slot.props?.key?.toString()?.replace('_', '')) ?? [])
 
 const cssFrameworkOptions = computed(() => [
+  { label: 'UnoCSS', value: 'unocss' },
   { label: 'TailwindCSS', value: 'tailwind' },
   { label: 'CSS', value: 'css' },
   { label: 'Pinceau', value: 'pinceau' },
@@ -26,8 +28,23 @@ const cssFrameworkOptions = computed(() => [
 
 const tabs = computed(
   () => {
-    const currentFramework = slots.default?.().find(slot => slot.props?.key?.toString().includes(cssFramework.value))
-    const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => a?.props?.title?.localeCompare(b?.props?.title))
+    const currentFramework = slots.default?.().find((slot) => {
+      return slot.props?.key?.toString() === `_${cssFramework.value}`
+    })
+
+    const typeOrder = ['vue', 'ts', 'js', 'css']
+
+    const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => {
+      const aType = a?.props?.title.split('.').pop()
+      const bType = b?.props?.title.split('.').pop()
+      const typeComparison = typeOrder.indexOf(aType) - typeOrder.indexOf(bType)
+
+      if (typeComparison !== 0) {
+        return typeComparison
+      }
+      return a?.props?.title.localeCompare(b?.props?.title)
+    })
+
     return childSlots?.map((slot, index) => {
       return {
         label: slot.props?.title || `${index}`,
@@ -57,6 +74,7 @@ watch(open, () => {
     v-model="currentTab"
     class="bg-[var(--vp-code-block-bg)] border border-neutral-700/40 rounded-b-lg overflow-hidden"
     @update:model-value="open = true"
+    default-value="index.vue"
   >
     <div class="bg-[var(--vp-code-block-bg)] border-b-2 border-[#272727] flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">
