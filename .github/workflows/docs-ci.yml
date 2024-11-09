@@ -25,9 +25,9 @@ on:
 jobs:
   build-test:
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: docs
+    # defaults:
+    #   run:
+    #     working-directory: docs
 
     permissions:
       # Required to checkout the code
@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [20]
+        node_version: [22]
 
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
       - run: corepack enable
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: pnpm
 
       - name: 📦 Install dependencies
