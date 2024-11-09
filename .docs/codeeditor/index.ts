@@ -1,6 +1,6 @@
 import { getParameters } from 'codesandbox/lib/api/define'
 import sdk from '@stackblitz/sdk'
-import { version } from '../../package.json'
+import { version } from '../../packages/core/package.json'
 
 export function makeCodeSandboxParams(componentName: string, sources: Record<string, string>) {
   let files = {}
