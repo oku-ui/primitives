@@ -98,7 +98,6 @@ Enter the component you want most in the components, leave the emojis and follow
   </a>
 </p>
 
-
 ## Thanks
 
 Thanks to [@radix_ui](https://github.com/radix-ui/primitives) for the inspiration and the great work they've done with [Radix Primitives](https://radix-ui.com). We proceed through the initial stages of many codes by looking at them.
