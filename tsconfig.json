@@ -1,47 +1,29 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Default",
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ESNext",
     "jsx": "preserve",
-    "jsxImportSource": "vue",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "useDefineForClassFields": true,
+    "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
-    "module": "esnext",
-    "moduleResolution": "Node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "~/*": ["./"]
+    },
     "resolveJsonModule": true,
     "types": [
-      "vue",
-      "vite/client"
+      "vite/client",
+      "node",
+      "@vitest/browser/providers/wbdriverio"
     ],
-    "allowImportingTsExtensions": true,
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
-    "outDir": "dist",
-    "sourceMap": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
-    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-model",
-      "@vue-macros/volar/define-slots"
-    ]
-  },
   "include": [
-    "vitest-setup.ts",
-    "vitest.config.ts",
-    "scripts_c/**/*"
-  ],
-  "exclude": [
-
-    "**dist**",
-    "**node_modules**"
+    "./vitest.setup.ts"
   ]
 }
