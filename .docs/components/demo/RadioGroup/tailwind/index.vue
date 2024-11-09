@@ -19,7 +19,7 @@ const radioStateSingle = ref('default')
         value="default"
       >
         <RadioGroupIndicator
-          class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-grass11"
+          class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-mauve12"
         />
       </RadioGroupItem>
       <label
@@ -36,7 +36,7 @@ const radioStateSingle = ref('default')
         value="comfortable"
       >
         <RadioGroupIndicator
-          class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-grass11"
+          class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-mauve12"
         />
       </RadioGroupItem>
       <label
@@ -53,7 +53,7 @@ const radioStateSingle = ref('default')
         value="compact"
       >
         <RadioGroupIndicator
-          class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-grass11"
+          class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-mauve12"
         />
       </RadioGroupItem>
       <label

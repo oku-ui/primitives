@@ -23,10 +23,10 @@ defineProps<{
       />
     </a>
     <div
-      class="custom-justify-center p-4 md:p-10 min-h-[256px] lg:h-[400px] bg-gradient-to-br rounded-xl from-teal9 to-green9 w-full relative items-center flex"
-      :class="{ 'overflow-x-auto': overflow }"
-    >
-      <slot />
-    </div>
+  class="custom-justify-center p-4 md:p-10 min-h-[256px] lg:h-[400px] bg-gradient-to-br from-indigo-800 via-purple-700 to-pink-600 rounded-xl w-full relative items-center flex"
+  :class="{ 'overflow-x-auto': overflow }"
+>
+  <slot />
+</div>
   </div>
 </template>

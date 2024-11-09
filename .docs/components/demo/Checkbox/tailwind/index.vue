@@ -16,7 +16,7 @@ const checkboxOne = ref(true)
         <CheckboxIndicator class="bg-white h-full w-full rounded flex items-center justify-center">
           <Icon
             icon="radix-icons:check"
-            class="h-3.5 w-3.5 text-grass11"
+            class="h-3.5 w-3.5 text-mauve12"
           />
         </CheckboxIndicator>
       </CheckboxRoot>

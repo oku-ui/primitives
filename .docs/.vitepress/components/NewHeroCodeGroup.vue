@@ -121,7 +121,7 @@ watch(open, () => {
                   <SelectItem
                     v-for="framework in cssFrameworkOptions"
                     :key="framework.label"
-                    class="text-xs leading-none text-grass11 rounded-[3px] flex items-center h-[25px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
+                    class="text-xs leading-none text-mauve12 rounded-[3px] flex items-center h-[25px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-green9 data-[highlighted]:text-green1"
                     :value="framework.value"
                   >
                     <SelectItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">

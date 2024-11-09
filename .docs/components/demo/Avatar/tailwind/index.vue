@@ -11,7 +11,7 @@ import { AvatarFallback, AvatarImage, AvatarRoot } from '@oku-ui/primitives'
         alt="Colm Tuite"
       />
       <AvatarFallback
-        class="text-grass11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+        class="text-mauve12 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
         :delay-ms="600"
       >
         CT
@@ -24,14 +24,14 @@ import { AvatarFallback, AvatarImage, AvatarRoot } from '@oku-ui/primitives'
         alt="Pedro Duarte"
       />
       <AvatarFallback
-        class="text-grass11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
+        class="text-mauve12 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
         :delay-ms="600"
       >
         JD
       </AvatarFallback>
     </AvatarRoot>
     <AvatarRoot class="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle">
-      <AvatarFallback class="text-grass11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium">
+      <AvatarFallback class="text-mauve12 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium">
         PD
       </AvatarFallback>
     </AvatarRoot>

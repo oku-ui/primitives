@@ -6,7 +6,7 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
 <template>
   <PopoverRoot>
     <PopoverTrigger
-      class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-grass11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
+      class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-mauve12 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-green3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
       aria-label="Update dimensions"
     >
       <Icon icon="radix-icons:mixer-horizontal" />
@@ -23,51 +23,51 @@ import { PopoverArrow, PopoverClose, PopoverContent, PopoverPortal, PopoverRoot,
           </p>
           <fieldset class="flex gap-5 items-center">
             <label
-              class="text-[13px] text-grass11 w-[75px]"
+              class="text-[13px] text-mauve12 w-[75px]"
               for="width"
             > Width </label>
             <input
               id="width"
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
               defaultValue="100%"
             >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
             <label
-              class="text-[13px] text-grass11 w-[75px]"
+              class="text-[13px] text-mauve12 w-[75px]"
               for="maxWidth"
             > Max. width </label>
             <input
               id="maxWidth"
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
               defaultValue="300px"
             >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
             <label
-              class="text-[13px] text-grass11 w-[75px]"
+              class="text-[13px] text-mauve12 w-[75px]"
               for="height"
             > Height </label>
             <input
               id="height"
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
               defaultValue="25px"
             >
           </fieldset>
           <fieldset class="flex gap-5 items-center">
             <label
-              class="text-[13px] text-grass11 w-[75px]"
+              class="text-[13px] text-mauve12 w-[75px]"
               for="maxHeight"
             > Max. height </label>
             <input
               id="maxHeight"
-              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-grass11 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
+              class="w-full inline-flex items-center justify-center flex-1 rounded px-2.5 text-[13px] leading-none text-mauve12 shadow-[0_0_0_1px] shadow-green7 h-[25px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
               defaultValue="none"
             >
           </fieldset>
         </div>
         <PopoverClose
-          class="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-grass11 absolute top-[5px] right-[5px] hover:bg-green4 focus:shadow-[0_0_0_2px] focus:shadow-green7 outline-none cursor-default"
+          class="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-mauve12 absolute top-[5px] right-[5px] hover:bg-green4 focus:shadow-[0_0_0_2px] focus:shadow-green7 outline-none cursor-default"
           aria-label="Close"
         >
           <Icon icon="radix-icons:cross-2" />

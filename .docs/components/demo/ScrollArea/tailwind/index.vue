@@ -11,7 +11,7 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length
   >
     <ScrollAreaViewport class="w-full h-full rounded">
       <div class="py-[15px] px-5">
-        <div class="text-grass11 text-[15px] leading-[18px] font-semibold">
+        <div class="text-mauve12 text-[15px] leading-[18px] font-semibold">
           Tags
         </div>
         <div

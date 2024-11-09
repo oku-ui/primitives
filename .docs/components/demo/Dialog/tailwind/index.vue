@@ -15,7 +15,7 @@ import { Icon } from '@iconify/vue'
 <template>
   <DialogRoot>
     <DialogTrigger
-      class="text-grass11 font-semibold shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
+      class="text-mauve12 font-semibold shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
     >
       Edit profile
     </DialogTrigger>
@@ -27,28 +27,28 @@ import { Icon } from '@iconify/vue'
         <DialogTitle class="text-mauve12 m-0 text-[17px] font-semibold">
           Edit profile
         </DialogTitle>
-        <DialogDescription class="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal">
+        <DialogDescription class="text-mauve12 mt-[10px] mb-5 text-[15px] leading-normal">
           Make changes to your profile here. Click save when you're done.
         </DialogDescription>
         <fieldset class="mb-[15px] flex items-center gap-5">
           <label
-            class="text-grass11 w-[90px] text-right text-[15px]"
+            class="text-mauve12 w-[90px] text-right text-[15px]"
             for="name"
           > Name </label>
           <input
             id="name"
-            class="text-grass11 shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+            class="text-mauve12 shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
             defaultValue="Pedro Duarte"
           >
         </fieldset>
         <fieldset class="mb-[15px] flex items-center gap-5">
           <label
-            class="text-grass11 w-[90px] text-right text-[15px]"
+            class="text-mauve12 w-[90px] text-right text-[15px]"
             for="username"
           > Username </label>
           <input
             id="username"
-            class="text-grass11 shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+            class="text-mauve12 shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
             defaultValue="@peduarte"
           >
         </fieldset>
@@ -62,7 +62,7 @@ import { Icon } from '@iconify/vue'
           </DialogClose>
         </div>
         <DialogClose
-          class="text-grass11 hover:bg-green4 focus:shadow-green7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+          class="text-mauve12 hover:bg-green4 focus:shadow-green7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
           aria-label="Close"
         >
           <Icon icon="lucide:x" />

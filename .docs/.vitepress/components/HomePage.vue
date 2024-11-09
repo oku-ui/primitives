@@ -31,7 +31,7 @@ import Contributors from './Contributors.vue'
             <Contributors />
             <br>
             <a
-              href="https://chat.oku-ui.com"
+              href="https://discord.gg/RCGzQQPtAh"
               rel="noopener noreferrer"
             >Join the community</a> and get involved!
           </p>
