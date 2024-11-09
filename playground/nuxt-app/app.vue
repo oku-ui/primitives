@@ -48,7 +48,7 @@ const components = [
   <div class="page">
     <aside class="page-aside">
       <NuxtLink to="/" class="home-link">
-        OkuUI
+        OkuUI Nuxt Playground
       </NuxtLink>
 
       <div class="links-list">
@@ -62,7 +62,7 @@ const components = [
         </div>
 
         <div class="links-group">
-          <span class="links-group__title">Coponents</span>
+          <span class="links-group__title">Components</span>
           <div class="links-group__list">
             <NuxtLink v-for="component in components" :key="component.name" class="link" :to="component.to">
               {{ component.name }}
