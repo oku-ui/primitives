@@ -9,7 +9,7 @@ const hoverState = ref(false)
   <HoverCardRoot v-model:open="hoverState">
     <HoverCardTrigger
       class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
-      href="https://twitter.com/radix_ui"
+      href="https://twitter.com/oku_ui"
       target="_blank"
       rel="noreferrer noopener"
     >
@@ -36,7 +36,7 @@ const hoverState = ref(false)
                 Radix
               </div>
               <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                @radix_ui
+                @oku_ui
               </div>
             </div>
             <div class="text-mauve12 m-0 text-[15px] leading-[1.5]">

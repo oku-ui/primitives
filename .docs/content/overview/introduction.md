@@ -66,13 +66,13 @@ We compile all primitives into one package, so you just have to install once, an
 
 To get involved with the Radix community, ask questions, and share tips, join our Discord.
 
-[Join our Discord](https://discord.gg/jZUsrAADe5)
+[Join our Discord](https://discord.gg/RCGzQQPtAh)
 
 ### Twitter
 
 To receive updates on new primitives, announcements, blog posts, and general Radix tips, follow along on Twitter.
 
-[Follow Radix on Twitter](https://twitter.com/radix_vue)
+[Follow Radix on Twitter](https://twitter.com/oku-ui)
 
 ### GitHub
 

@@ -10,7 +10,7 @@ const hoverState = ref(false)
   <HoverCardRoot v-model:open="hoverState">
     <HoverCardTrigger
       class="ImageTrigger"
-      href="https://twitter.com/radix_ui"
+      href="https://twitter.com/oku_ui"
       target="_blank"
       rel="noreferrer noopener"
     >
@@ -37,7 +37,7 @@ const hoverState = ref(false)
                 Radix
               </div>
               <div class="Text faded">
-                @radix_ui
+                @oku_ui
               </div>
             </div>
             <div class="Text">
