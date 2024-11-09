@@ -1,26 +1,24 @@
 ---
-title: Server side rendering
-description: Radix Primitives can be rendered on the server.
+title: Server Side Rendering
+description: Oku Primitives can be rendered on the server.
 ---
 
-# Server side rendering
+# Server Side Rendering
 
 <Description>
-Radix Primitives can be rendered on the server.
+Oku Primitives can be rendered on the server.
 </Description>
 
 ## Overview
 
-Server side rendering or `SSR`, is a technique used to render components to HTML on the server, as opposed to rendering them only on the client.
+Server-side rendering, or `SSR`, is a technique used to render components to HTML on the server, instead of rendering only on the client.
 
-Static rendering is another similar approach. Instead it pre-renders pages to HTML at build time rather than on each request.
+Static rendering is a similar approach but pre-renders pages to HTML at build time rather than on each request.
 
-You should be able to use all of our primitives with both approaches, for example with [Nuxt.js](https://nuxt.com/).
+You should be able to use all of our primitives with both SSR and static rendering, for example with [Nuxt.js](https://nuxt.com/).
 
-## Nuxt Hydration issue (Vue < 3.5)
+## Nuxt Hydration Support (Vue 3.5+)
 
-Oku Primitives offers a [Nuxt module](/overview/installation.html#nuxt-modules) that supports auto importing components. However, if you are using Vue < 3.5, minor hydration issues might arise because as of vue <= 3.4 there is [currently no way](https://github.com/vuejs/rfcs/discussions/557) to ensure consistent DOM element `id` between the client and server renders. This is something that Oku Primitives relies on.
+Oku Primitives fully supports Vue 3.5 and above. If you're using Nuxt, you can use the [Oku Primitives Nuxt module](/overview/installation.html#nuxt-modules), which provides auto-import support for components.
 
-As a temporary workaround, we expose a way to allow Nuxt (with version > `3.10`) inject it's `useId` implementation to `@oku-ui/primitives`.
-
-To provide a custom `useId` implementation, please follow this [guide](/utilities/config-provider.html#hydration-issue-vue-3-5).
+For consistent performance and hydration behavior, we recommend using Vue 3.5 or later.

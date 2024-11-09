@@ -113,7 +113,6 @@ export default defineConfig({
           { text: 'Animation/Transition', link: '/guides/animation' },
           { text: 'Composition', link: '/guides/composition' },
           { text: 'Server side rendering', link: '/guides/server-side-rendering' },
-          { text: 'Internationalization (RTL)', link: '/guides/i18n' },
         ],
       },
       {
@@ -153,14 +152,6 @@ export default defineConfig({
       //   collapsed: false,
       //   items: [
       //     { text: 'Config Provider', link: '/utilities/config-provider' },
-      //     { text: 'Visually Hidden', link: '/utilities/visually-hidden' },
-      //     { text: 'Primitive', link: '/utilities/primitive' },
-      //     { text: 'Slot', link: '/utilities/slot' },
-      //     { text: 'useId', link: '/utilities/use-id' },
-      //     { text: 'useEmitAsProps', link: '/utilities/use-emit-as-props' },
-      //     { text: 'useForwardExpose', link: '/utilities/use-forward-expose' },
-      //     { text: 'useForwardProps', link: '/utilities/use-forward-props' },
-      //     { text: 'useForwardPropsEmits', link: '/utilities/use-forward-props-emits' },
       //   ],
       // },
     ],
