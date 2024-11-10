@@ -155,5 +155,5 @@ watch(open, () => {
 ```
 
 ::: tip
-Check out this [Stackblitz Demo]()
+Check out this
 :::
