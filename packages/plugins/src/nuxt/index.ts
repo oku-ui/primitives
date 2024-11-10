@@ -11,7 +11,7 @@ export interface ModuleOptions {
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@oku-ui/nuxt',
-    configKey: 'oku-ui-primitives',
+    configKey: 'primitives',
     compatibility: {
       nuxt: '>=3.14',
     },
