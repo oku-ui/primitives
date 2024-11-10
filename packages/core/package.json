@@ -1,18 +1,19 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.7.0",
+  "version": "0.7.1-beta.1",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/vue-primitives"
+    "directory": "packages/core"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
+
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -28,8 +29,8 @@
   "typesVersions": {
     "*": {
       "*": [
-        "./dist/*",
-        "./*"
+        "./dist/*/index.d.ts",
+        "./dist/index.d.ts"
       ]
     }
   },

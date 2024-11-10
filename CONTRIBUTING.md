@@ -49,10 +49,10 @@ pnpm build core utils # Build only core and utils package (packages/core) check 
 
 ```shell
 pnpm dev
-pnpm build # Build all packages with cache (packages/components)
-pnpm build:skip # Build without cache (packages/components)
+pnpm build # Build all packages with cache (packages)
+pnpm build:skip # Build without cache (packages)
 
-pnpm story # Run Storybook and live reload support (packages/vue/src)
+pnpm story # Run Storybook and live reload support (packages/core/src)
 pnpm build:storybook # Build Storybook
 
 pnpm lint # Run ESLint

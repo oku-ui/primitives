@@ -1,4 +1,4 @@
-export const components = {
+const components = {
   accordion: [
     'AccordionContent',
     'AccordionHeader',
@@ -38,10 +38,6 @@ export const components = {
     'CollapsibleRoot',
     'CollapsibleTrigger',
     'CollapsibleContent',
-  ],
-
-  configProvider: [
-    'ConfigProvider',
   ],
 
   contextMenu: [
@@ -125,18 +121,6 @@ export const components = {
     'MenubarMenu',
   ],
 
-  navigationMenu: [
-    'NavigationMenuContent',
-    'NavigationMenuIndicator',
-    'NavigationMenuItem',
-    'NavigationMenuLink',
-    'NavigationMenuList',
-    'NavigationMenuRoot',
-    'NavigationMenuSub',
-    'NavigationMenuTrigger',
-    'NavigationMenuViewport',
-  ],
-
   popover: [
     'PopoverRoot',
     'PopoverTrigger',
@@ -166,25 +150,6 @@ export const components = {
     'ScrollAreaCorner',
   ],
 
-  // select: [
-  //   'SelectRoot',
-  //   'SelectTrigger',
-  //   'SelectPortal',
-  //   'SelectContent',
-  //   'SelectArrow',
-  //   'SelectSeparator',
-  //   'SelectItemIndicator',
-  //   'SelectLabel',
-  //   'SelectGroup',
-  //   'SelectItem',
-  //   'SelectItemText',
-  //   'SelectViewport',
-  //   'SelectScrollUpButton',
-  //   'SelectScrollDownButton',
-  //   'SelectValue',
-  //   'SelectIcon',
-  // ],
-
   separator: [
     'Separator',
   ],
@@ -206,11 +171,9 @@ export const components = {
     'TabsList',
     'TabsContent',
     'TabsTrigger',
-    'TabsIndicator',
   ],
 
   toast: [
-    'ToastProvider',
     'ToastRoot',
     'ToastAction',
     'ToastClose',
@@ -248,7 +211,6 @@ export const components = {
 
   primitive: [
     'Primitive',
-    'Slot',
   ],
 
   visuallyHidden: [
@@ -256,17 +218,10 @@ export const components = {
   ],
 }
 
+export { components }
+export type Components = keyof typeof components
+
 // export const utilities = {
 //   utilities: [
-//     'useEmitAsProps',
-//     'useForwardProps',
-//     'useForwardPropsEmits',
-//     'useForwardExpose',
-//     'useId',
-//     'useStateMachine',
-//     'useBodyScrollLock',
-//     'useDateFormatter',
-//     'withDefault',
-//     'createContext',
 //   ],
 // }

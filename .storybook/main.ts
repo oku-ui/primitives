@@ -18,10 +18,11 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/vue3-vite',
     options: {
-      docgen: {
-        plugin: 'vue-component-meta',
-        tsconfig: 'tsconfig.app.json',
-      },
+      // TODO: ReferenceError: clamp is not defined
+      // docgen: {
+      //   plugin: 'vue-component-meta',
+      //   tsconfig: 'tsconfig.app.json',
+      // },
     },
   },
   docs: {

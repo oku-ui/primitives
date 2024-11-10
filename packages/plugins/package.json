@@ -1,0 +1,37 @@
+{
+  "name": "plugins",
+  "type": "module",
+  "version": "0.3.0",
+  "description": "Plugins for Oku Primitives",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oku-ui/primitives.git",
+    "directory": "packages/plugins"
+  },
+  "keywords": [
+    "radix",
+    "@oku-ui/primitives",
+    "nuxt-module",
+    "nuxt",
+    "nuxt3",
+    "vue3"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build:plugins": "unbuild",
+    "generate:plugins": "pnpm tsx ./src/namespaced/generate",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.14.159",
+    "@nuxt/schema": "^3.14.159",
+    "@oku-ui/primitives": "latest",
+    "tsx": "^4.19.2",
+    "unbuild": "^2.0.0",
+    "unplugin-vue-components": "^0.27.4"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5"
+  }
+}

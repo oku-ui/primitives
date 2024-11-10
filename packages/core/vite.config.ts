@@ -1,6 +1,8 @@
 import process from 'node:process'
 // import { externalizeDeps } from 'vite-plugin-externalize-deps'
 
+import { execSync } from 'node:child_process'
+import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -26,6 +28,12 @@ export default defineConfig({
         declarationMap: true,
       },
       tsconfigPath: 'tsconfig.app.json',
+      afterBuild: async () => {
+        console.log('dts afterBuild')
+        // pnpm build:plugins
+        execSync('pnpm build:plugins', { stdio: 'inherit', cwd: resolve(__dirname, '../plugins') })
+        execSync('pnpm generate:plugins', { stdio: 'inherit', cwd: resolve(__dirname, '../plugins') })
+      },
     }),
   ],
   build: {
@@ -33,7 +41,7 @@ export default defineConfig({
     minify: false,
     sourcemap: true,
     lib: {
-      name: 'radix',
+      name: 'oku-ui-primitives',
       formats: ['es'],
       entry: [
         ...globbySync('src/**/*.ts', { ignore: [

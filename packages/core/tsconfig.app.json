@@ -1,31 +1,25 @@
 {
+  "extends": "@oku/tsconfig/tsconfig.vue.json",
   "compilerOptions": {
+    /* Проекты */
+    "incremental": true,
     "composite": true,
-    "target": "ES2020",
-    "jsx": "preserve",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "useDefineForClassFields": true,
-    "module": "ESNext",
 
-    "moduleResolution": "bundler",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 
     "paths": {
-      "@/*": ["./src/*"]
-    },
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noEmit": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+      "@oku-ui/*": ["./src/*"]
+    }
   },
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "constant/**/*"
+
+  ],
   "exclude": [
     "src/**/__tests__/*",
     "src/**/stories/*"
   ]
-
 }
