@@ -1,1 +1,1 @@
-export { type Components, components } from './components.ts'
+export { type Components, components } from './components'
