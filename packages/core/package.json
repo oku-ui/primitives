@@ -1,18 +1,19 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.7.0",
+  "version": "0.7.1-beta.3",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/vue-primitives"
+    "directory": "packages/core"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
+
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -21,6 +22,36 @@
     "./*": {
       "types": "./dist/*/index.d.ts",
       "import": "./dist/*/index.mjs"
+    },
+    "./nuxt": {
+      "import": {
+        "types": "./dist/nuxt/index.d.mts",
+        "default": "./dist/nuxt/index.mjs"
+      },
+      "require": {
+        "types": "./dist/nuxt/index.d.cts",
+        "default": "./dist/nuxt/index.cjs"
+      }
+    },
+    "./resolver": {
+      "import": {
+        "types": "./dist/resolver/index.d.mts",
+        "default": "./dist/resolver/index.mjs"
+      },
+      "require": {
+        "types": "./dist/resolver/index.d.cts",
+        "default": "./dist/resolver/index.cjs"
+      }
+    },
+    "./namespaced": {
+      "import": {
+        "types": "./dist/namespaced/index.d.mts",
+        "default": "./dist/namespaced/index.mjs"
+      },
+      "require": {
+        "types": "./dist/namespaced/index.d.cts",
+        "default": "./dist/namespaced/index.cjs"
+      }
     }
   },
   "module": "./dist/index.mjs",
@@ -28,8 +59,20 @@
   "typesVersions": {
     "*": {
       "*": [
-        "./dist/*",
-        "./*"
+        "./dist/*/index.d.ts",
+        "./dist/index.d.ts"
+      ],
+      "nuxt": [
+        "./dist/nuxt/index.d.mts",
+        "./dist/nuxt/index.d.ts"
+      ],
+      "resolver": [
+        "./dist/resolver/index.d.mts",
+        "./dist/resolver/index.d.ts"
+      ],
+      "namespaced": [
+        "./dist/namespaced/index.d.mts",
+        "./dist/namespaced/index.d.ts"
       ]
     }
   },

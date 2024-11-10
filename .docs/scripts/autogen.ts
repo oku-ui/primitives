@@ -7,7 +7,7 @@ import fg from 'fast-glob'
 import MarkdownIt from 'markdown-it'
 import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import { createChecker } from 'vue-component-meta'
-import { components } from '../../packages/core/constant/components'
+import { components } from '../../packages/core/src/constant/components'
 import { transformJSDocLinks } from './utils'
 
 // @ts-expect-error ignore

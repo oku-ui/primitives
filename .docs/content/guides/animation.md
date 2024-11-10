@@ -89,9 +89,8 @@ import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPor
 ```
 
 ::: tip
-Futhemore, we discovered that [Motion One](https://motion.dev/vue/quick-start), a Web Animations API based animation library works perfectly with Oku Primitives.
+Futhemore, we discovered that [Motion One](https://motion.oku-ui.com), a Web Animations API based animation library works perfectly with Oku Primitives.
 
-Check out this [Stackblitz Demo](https://stackblitz.com/edit/hfxgtx-n6jbjp?file=src%2FApp.vue) 🤩
 :::
 
 ## Delegating unmounting for JavaScript Animation
@@ -156,5 +155,5 @@ watch(open, () => {
 ```
 
 ::: tip
-Check out this [Stackblitz Demo](https://stackblitz.com/edit/macsaz?file=src%2FApp.vue)
+Check out this
 :::

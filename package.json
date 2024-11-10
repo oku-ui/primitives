@@ -1,7 +1,6 @@
 {
   "name": "primitives",
   "type": "module",
-  "version": "0.6.1",
   "packageManager": "pnpm@9.12.1",
   "repository": "oku-ui/primitives",
   "engines": {
@@ -13,14 +12,9 @@
     "docs:build": "pnpm --filter docs docs:build",
     "nuxt:generate": "pnpm --filter nuxt-app generate",
     "build:skip": "pnpm nx run-many -t build --skip-nx-cache",
-    "oku": "pnpm jiti ./scripts/index.ts",
     "story": "pnpm storybook dev -p 6006 --no-open",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache",
-    "play:vue": "pnpm clean:dts && pnpm --filter=vue3 p:dev",
-    "play:nuxt": "pnpm clean:dts && pnpm --filter=nuxt3 p:dev",
-    "play": "pnpm clean:dts && pnpm --filter='./playground/**' p:dev",
-    "play:gencomponents": "pnpm jiti ./scripts/playground-generator.ts",
     "test": "vitest run",
     "test:watch": "vitest --watch",
     "test:nuxt": "vitest -c vitest.nuxt.config.ts --coverage",
@@ -30,10 +24,8 @@
     "clean": "pnpm nx run-many -t clean",
     "clean:node": "rimraf 'packages/**/node_modules' 'playground/**/node_modules' 'node_modules'",
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
-    "clean:dts": "rimraf 'playground/vue3/src/components.d.ts' 'playground/vue3/src/auto-imports.d.ts' 'playground/nuxt3/.nuxt'",
     "update:version": "esno scripts/update-version.ts",
     "prepare": "npx simple-git-hooks",
-    "release": "bumpp --commit --push --tag",
     "scripts:genpackage": "esno scripts/generateAliasCode.ts"
   },
   "devDependencies": {
@@ -42,6 +34,7 @@
     "@egoist/tailwindcss-icons": "^1.8.1",
     "@floating-ui/vue": "^1.1.5",
     "@iconify-json/ph": "^1.2.1",
+    "@oku-ui/primitives": "workspace:^",
     "@storybook/addon-essentials": "^8.4.2",
     "@storybook/addon-interactions": "^8.4.2",
     "@storybook/addon-links": "^8.4.2",
@@ -87,6 +80,11 @@
     "vitest-axe": "1.0.0-pre.3",
     "vue": "^3.5.12",
     "vue-component-meta": "^2.1.10"
+  },
+  "pnpm": {
+    "overrides": {
+      "@oku-ui/primitives": "workspace:^"
+    }
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
