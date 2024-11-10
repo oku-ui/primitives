@@ -110,7 +110,6 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Styling', link: '/guides/styling' },
-          { text: 'Animation/Transition', link: '/guides/animation' },
           { text: 'Composition', link: '/guides/composition' },
           { text: 'Server side rendering', link: '/guides/server-side-rendering' },
           { text: 'Namespaced', link: '/docs/guides/namespaced-components' },
