@@ -258,15 +258,5 @@ export const components = {
 
 // export const utilities = {
 //   utilities: [
-//     'useEmitAsProps',
-//     'useForwardProps',
-//     'useForwardPropsEmits',
-//     'useForwardExpose',
-//     'useId',
-//     'useStateMachine',
-//     'useBodyScrollLock',
-//     'useDateFormatter',
-//     'withDefault',
-//     'createContext',
 //   ],
 // }
