@@ -26,7 +26,7 @@
     "@radix-ui/colors": "^3.0.0",
     "@types/babel__traverse": "^7.20.6",
     "@types/markdown-it": "^14.1.2",
-    "@vue/tsconfig": "^0.5.1",
+    "@vue/tsconfig": "^0.6.0",
     "autoprefixer": "^10.4.20",
     "codesandbox": "^2.2.3",
     "fast-glob": "^3.3.2",
