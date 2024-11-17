@@ -15,8 +15,11 @@ export function createContext<T>(contextName: string, defaultValue?: T): readonl
     provide(key, state)
   }
 
-  const useContext = (consumerName?: string) => {
-    const state = inject(key, defaultValue)
+  const useContext = (consumerName?: string, value?: any) => {
+    const state = inject(key, value ?? defaultValue)
+
+    if (state === null)
+      return state as any
 
     if (!state) {
       throw new Error(`\`${consumerName}\` must be used within \`${contextName}\``)
