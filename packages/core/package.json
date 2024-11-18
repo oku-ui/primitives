@@ -90,9 +90,9 @@
     "build-storybook": "storybook build",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
-    "release": "pnpm build && pnpm bumpp --commit='version(primitives): release %s' --push --tag && pnpm publish --no-git-checks",
-    "release:beta": "pnpm release --tag beta",
-    "release:alpha": "pnpm release --tag alpha",
+    "release": "pnpm build && pnpm publish --no-git-checks --access public",
+    "release:beta": "pnpm release --tag beta --access public",
+    "release:alpha": "pnpm release --tag alpha --access public",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {

@@ -1,7 +1,10 @@
 {
-  "name": "primitives",
+  "name": "@oku-ui/primitives",
   "type": "module",
+  "version": "0.7.2",
+  "private": true,
   "packageManager": "pnpm@9.12.1",
+  "license": "MIT",
   "repository": "oku-ui/primitives",
   "engines": {
     "node": ">=20"
@@ -26,7 +29,12 @@
     "clean:dist": "rimraf 'packages/**/dist' 'playground/**/dist'",
     "update:version": "esno scripts/update-version.ts",
     "prepare": "npx simple-git-hooks",
-    "scripts:genpackage": "esno scripts/generateAliasCode.ts"
+    "scripts:genpackage": "esno scripts/generateAliasCode.ts",
+    "bumpp": "bumpp package.json packages/*/package.json .docs/package.json",
+    "pub:release": "cd packages/core && pnpm release",
+    "pub:beta": "cd packages/core && pnpm release:beta",
+    "pub:alpha": "cd packages/core && pnpm release:alpha"
+
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.8.0",
