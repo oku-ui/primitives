@@ -54,7 +54,7 @@ import './styles.css'
           >
         </fieldset>
         <div :style="{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }">
-          <DialogClose as-child>
+          <DialogClose as="template">
             <button
               class="Button green"
             >

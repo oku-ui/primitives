@@ -42,7 +42,7 @@ useToastProvider()
     <ToastTitle class="[grid-area:_title] mb-[5px] font-medium text-slate12 text-[15px]">
       Scheduled: Catch up
     </ToastTitle>
-    <ToastDescription as-child>
+    <ToastDescription as="template">
       <time
         class="[grid-area:_description] m-0 text-slate11 text-[13px] leading-[1.3]"
         :dateTime="eventDateRef.toISOString()"
@@ -52,7 +52,7 @@ useToastProvider()
     </ToastDescription>
     <ToastAction
       class="[grid-area:_action]"
-      as-child
+      as="template"
       alt-text="Goto schedule to undo"
     >
       <button class="inline-flex items-center justify-center rounded font-medium text-xs px-[10px] leading-[25px] h-[25px] bg-indigo2 text-indigo11 shadow-[inset_0_0_0_1px] shadow-indigo7 hover:shadow-[inset_0_0_0_1px] hover:shadow-indigo8 focus:shadow-[0_0_0_2px] focus:shadow-indigo8">

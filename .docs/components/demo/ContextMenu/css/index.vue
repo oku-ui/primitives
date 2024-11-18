@@ -32,7 +32,7 @@ function handleClick() {
 <template>
   <ContextMenuRoot>
     <ContextMenuTrigger
-      as-child
+      as="template"
       class="ContextMenuTrigger"
     >
       <span> Right click here. </span>

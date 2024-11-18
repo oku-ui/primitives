@@ -91,7 +91,7 @@ Contains all the parts of a collapsible section.
 
 ### Header
 
-Wraps an `AccordionTrigger`. Use the `asChild` prop to update it to the appropriate heading level for your page.
+Wraps an `AccordionTrigger`. Use the `as="template"` prop to update it to the appropriate heading level for your page.
 
 <!-- @include: @/meta/AccordionHeader.md -->
 

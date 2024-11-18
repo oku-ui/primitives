@@ -44,7 +44,7 @@ useToastProvider()
       <ToastTitle class="ToastTitle">
         Scheduled: Catch up
       </ToastTitle>
-      <ToastDescription as-child>
+      <ToastDescription as="template">
         <time
           class="ToastDescription"
           :dateTime="eventDateRef.toISOString()"
@@ -54,7 +54,7 @@ useToastProvider()
       </ToastDescription>
       <ToastAction
         class="ToastAction"
-        as-child
+        as="template"
         alt-text="Goto schedule to undo"
       >
         <button class="Button small green">

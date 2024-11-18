@@ -149,7 +149,7 @@ watch(open, () => {
         v-for="tab in tabs"
         :key="tab.label"
         :value="tab.label"
-        as-child
+        as="template"
       >
         <div class="relative -mt-5 text-base">
           <component

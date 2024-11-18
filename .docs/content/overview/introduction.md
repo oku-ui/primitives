@@ -52,7 +52,7 @@ Where applicable, components are uncontrolled by default but can also be control
 
 ### Developer experience
 
-One of our main goals is to provide the best possible developer experience. Radix Primitives provides a fully-typed API. All components share a similar API, creating a consistent and predictable experience. We've also implemented an `asChild` prop (It's not a problem for Vue), giving users full control over the rendered element.
+One of our main goals is to provide the best possible developer experience. Radix Primitives provides a fully-typed API. All components share a similar API, creating a consistent and predictable experience. We've also implemented an `as="template"` prop (It's not a problem for Vue), giving users full control over the rendered element.
 
 ### Tree-shaking friendly
 

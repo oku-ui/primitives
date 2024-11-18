@@ -53,7 +53,7 @@ import { Icon } from '@iconify/vue'
           >
         </fieldset>
         <div class="mt-[25px] flex justify-end">
-          <DialogClose as-child>
+          <DialogClose as="template">
             <button
               class="bg-indigo4 text-indigo11 hover:bg-indigo5 focus:shadow-indigo7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:shadow-[0_0_0_2px] focus:outline-none"
             >

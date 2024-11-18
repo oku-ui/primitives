@@ -368,7 +368,7 @@ defineProps<{
     </ToastTitle>
     <ToastDescription>{{ content }}</ToastDescription>
     <ToastAction
-      as-child
+      as="template"
       alt-text="toast"
     >
       <slot />

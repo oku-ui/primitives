@@ -61,10 +61,10 @@ Anything you put inside this component will be hidden from the screen but will b
       name: 'as',
       type: 'string | Component',
       default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>asChild</Code>'
+      description: 'The element or component this component should render as. Can be overwrite by <Code>as="template"</Code>'
     },
     {
-      name: 'asChild',
+      name: 'as="template"',
       required: false,
       type: 'boolean',
       default: 'false',
