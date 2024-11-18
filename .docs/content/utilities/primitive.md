@@ -23,7 +23,7 @@ When you are building a component, in some cases you might want to allow user to
       description: 'The element or component the current element should render as.',
     },
     {
-      name: 'as="template"',
+      name: "as=\"template\"",
       required: false,
       type: 'boolean',
       default: 'false',
