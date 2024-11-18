@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
-
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
