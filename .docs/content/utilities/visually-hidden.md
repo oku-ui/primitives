@@ -64,7 +64,7 @@ Anything you put inside this component will be hidden from the screen but will b
       description: 'The element or component this component should render as. Can be overwrite by <Code>as="template"</Code>'
     },
     {
-      name: 'as="template"',
+      name: "as=\"template\"",
       required: false,
       type: 'boolean',
       default: 'false',
