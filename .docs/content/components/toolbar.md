@@ -148,7 +148,7 @@ Used to visually separate items in the toolbar
 
 ### Use with other primitives
 
-All our primitives which expose a `Trigger` part, such as `Dialog`, `AlertDialog`, `Popover`, `DropdownMenu` can be composed within a toolbar by using the [`asChild` prop](/guides/composition).
+All our primitives which expose a `Trigger` part, such as `Dialog`, `AlertDialog`, `Popover`, `DropdownMenu` can be composed within a toolbar by using the [`as="template"` prop](/guides/composition).
 
 Here is an example using our `DropdownMenu` primitive.
 
@@ -172,7 +172,7 @@ import {
     <ToolbarButton>Action 1</ToolbarButton>
     <ToolbarSeparator />
     <DropdownMenuRoot>
-      <ToolbarButton as-child>
+      <ToolbarButton as="template">
         <DropdownMenuTrigger>Trigger</DropdownMenuTrigger>
       </ToolbarButton>
       <DropdownMenuContent>…</DropdownMenuContent>

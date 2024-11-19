@@ -37,7 +37,7 @@ defineProps<{
         v-for="pkg in PACKAGE_MANAGERS"
         :key="pkg"
         :value="pkg"
-        as-child
+        as="template"
       >
         <slot :name="pkg" />
       </TabsContent>

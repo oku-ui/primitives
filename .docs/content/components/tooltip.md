@@ -194,7 +194,7 @@ import { TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger } from '@o
 
 <template>
   <TooltipRoot>
-    <TooltipTrigger as-child>
+    <TooltipTrigger as="template">
       <span tabindex="0">
         <button
           disabled
@@ -386,7 +386,7 @@ import { Tooltip } from './your-tooltip'
 
 #### Implementation
 
-Use the [`asChild` prop](/guides/composition) to convert the trigger part into a slottable area. It will replace the trigger with the child that gets passed to it.
+Use the [`as="template"` prop](/guides/composition) to convert the trigger part into a slottable area. It will replace the trigger with the child that gets passed to it.
 
 ```vue line=13-15
 <!-- your-tooltip.vue  -->
@@ -401,7 +401,7 @@ const forward = useForwardPropsEmits(props, emits)
 
 <template>
   <TooltipRoot v-bind="forward">
-    <TooltipTrigger as-child>
+    <TooltipTrigger as="template">
       <slot />
     </TooltipTrigger>
     <TooltipContent

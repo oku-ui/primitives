@@ -299,7 +299,7 @@ import { PopoverAnchor, PopoverArrow, PopoverClose, PopoverContent, PopoverPorta
 
 <template>
   <PopoverRoot>
-    <PopoverAnchor as-child>
+    <PopoverAnchor as="template">
       <div class="Row">
         Row as anchor <PopoverTrigger>Trigger</PopoverTrigger>
       </div>

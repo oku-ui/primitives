@@ -14,7 +14,7 @@ import './styles.css'
       </TooltipTrigger>
       <TooltipPortal>
         <TooltipContent
-          as-child
+          as="template"
           class="TooltipContent"
           :side-offset="5"
         >

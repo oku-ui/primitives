@@ -134,7 +134,7 @@ The button that closes the dialog
 
 An accessible title to be announced when the dialog is opened.
 
-If you want to hide the title, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`.
+If you want to hide the title, wrap it inside our Visually Hidden utility like this `<VisuallyHidden as="template">`.
 
 <!-- @include: @/meta/DialogTitle.md -->
 
@@ -142,7 +142,7 @@ If you want to hide the title, wrap it inside our Visually Hidden utility like t
 
 An optional accessible description to be announced when the dialog is opened.
 
-If you want to hide the description, wrap it inside our Visually Hidden utility like this `<VisuallyHidden asChild>`. If you want to remove the description entirely, remove this part and pass `:aria-describedby="undefined"` to `DialogContent`.
+If you want to hide the description, wrap it inside our Visually Hidden utility like this `<VisuallyHidden as="template">`. If you want to remove the description entirely, remove this part and pass `:aria-describedby="undefined"` to `DialogContent`.
 
 <!-- @include: @/meta/DialogDescription.md -->
 

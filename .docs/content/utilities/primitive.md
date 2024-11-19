@@ -6,7 +6,9 @@ description: Compose Radix's functionality onto alternative element types or you
 # Primitive
 
 <Description>
+
 Compose Radix's functionality onto alternative element types or your own Vue components.
+
 </Description>
 
 When you are building a component, in some cases you might want to allow user to compose some functionalities onto the underlying element, or alternative element. This is where `Primitive` comes in handy as it expose this capability to the user.
@@ -23,7 +25,7 @@ When you are building a component, in some cases you might want to allow user to
       description: 'The element or component the current element should render as.',
     },
     {
-      name: 'asChild',
+      name: 'as=\'template\'',
       required: false,
       type: 'boolean',
       default: 'false',
@@ -55,6 +57,6 @@ const props = withDefaults(defineProps<PrimitiveProps>(), {
 </template>
 ```
 
-### Render `asChild`
+### Render "as=\"template\""
 
 Change the default rendered element for the one passed as a child, merging their props and behavior.<br><br>Read our <a href="/guides/composition">Composition</a> guide for more details.
