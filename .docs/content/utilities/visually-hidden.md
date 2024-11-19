@@ -37,8 +37,10 @@ Use the visually hidden primitive.
 
 ```vue
 <script setup lang="ts">
+
 import { VisuallyHidden } from '@oku-ui/primitives'
 import { GearIcon } from '@radix-icons/vue'
+
 </script>
 
 <template>
@@ -61,10 +63,10 @@ Anything you put inside this component will be hidden from the screen but will b
       name: 'as',
       type: 'string | Component',
       default: 'span',
-      description: 'The element or component this component should render as. Can be overwrite by <Code>as="template"</Code>'
+      description: 'The element or component this component should render as. Can be overwrite by <Code>as=\'template\'</Code>'
     },
     {
-      name: "as=\"template\"",
+      name: 'as=\'template\'',
       required: false,
       type: 'boolean',
       default: 'false',
