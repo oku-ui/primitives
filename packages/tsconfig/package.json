@@ -1,9 +1,0 @@
-{
-  "name": "@oku/tsconfig",
-  "version": "0.7.3",
-  "private": true,
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  }
-}
