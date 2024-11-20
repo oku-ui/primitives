@@ -9,6 +9,8 @@ import 'floating-vue/dist/style.css'
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
 import Announcement from '../components/Announcement.vue'
+import HomeLogo from '../components/Logo.vue'
+
 import ComponentPreview from '../components/ComponentPreview.vue'
 import EmbedIframe from '../components/EmbedIframe.vue'
 import HomePage from '../components/HomePage.vue'
@@ -28,6 +30,7 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       'home-hero-info-before': () => h(Announcement),
+      'home-hero-image': () => [h(HomeLogo)],
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       'home-features-after': () => h('div', [h(HomePageDemo), h(HomePage)]),
     })
