@@ -23,7 +23,5 @@ export * from './toggle/index.ts'
 export * from './toggle-group/index.ts'
 export * from './toolbar/index.ts'
 export * from './tooltip/index.ts'
-
-
-export { Primitive, type PrimitiveProps } from './primitive/index.ts'
-export { VisuallyHidden, type VisuallyHiddenProps } from './visually-hidden/index.ts'
+export * from './primitive/index.ts'
+export * from './visually-hidden/index.ts'
