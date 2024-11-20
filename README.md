@@ -9,7 +9,7 @@
   <a href="https://www.npmjs.com/package/@oku-ui/primitives"><img src="https://img.shields.io/npm/dm/@oku-ui/primitives.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a>
   <a href="https://github.com/oku-ui/primitives/tree/main/LICENSE"><img src="https://img.shields.io/github/license/nuxt/nuxt.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="License"></a>
   <a href="https://primitives.oku-ui.com"><img src="https://img.shields.io/badge/Oku Primitives%20Docs-18181B?logo=nuxt.js" alt="Website"></a>
-  <a href="https://discord.gg/RCGzQQPtAh"><img src="https://img.shields.io/badge/Oku%20Discord-18181B?logo=discord" alt="Discord"></a>
+  <a href="https://chat.oku-ui.com"><img src="https://img.shields.io/badge/Oku%20Discord-18181B?logo=discord" alt="Discord"></a>
 </p>
 
 # Oku Primitives
@@ -87,7 +87,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [VisuallyHidden](https://vue-primitives.netlify.app/?path=/story/utilities-visuallyhidden--basic)     | ✅ Completed | ❌         |                 |         |                                     |
 ## Community
 
-- [Discord](https://discord.gg/RCGzQQPtAh) - To get involved with the Oku community, ask questions and share tips.
+- [Discord](https://chat.oku-ui.com) - To get involved with the Oku community, ask questions and share tips.
 - [Twitter](https://twitter.com/oku_ui) - To receive updates, announcements, blog posts, and general Oku tips.
 
 ## Sponsors
