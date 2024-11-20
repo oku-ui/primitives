@@ -27,7 +27,7 @@ export default defineConfig({
         declaration: true,
         declarationMap: true,
       },
-      tsconfigPath: 'tsconfig.app.json',
+      tsconfigPath: 'tsconfig.build.json',
       afterBuild: async () => {
         console.log('dts afterBuild')
         // pnpm build:plugins

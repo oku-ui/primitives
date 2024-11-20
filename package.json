@@ -34,7 +34,6 @@
     "pub:release": "cd packages/core && pnpm release",
     "pub:beta": "cd packages/core && pnpm release:beta",
     "pub:alpha": "cd packages/core && pnpm release:alpha"
-
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.8.0",
@@ -54,6 +53,7 @@
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitest/coverage-v8": "^2.1.4",
     "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.6.0",
     "autoprefixer": "^10.4.20",
     "bumpp": "^9.8.1",
     "changelogen": "^0.5.7",

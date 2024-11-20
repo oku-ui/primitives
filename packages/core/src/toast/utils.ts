@@ -3,7 +3,10 @@ import type { SwipeDirection } from './ToastProvider'
 export function getAnnounceTextContent(container: HTMLElement): string[] {
   const textContent: string[] = []
 
-  for (const node of container.childNodes) {
+  // error TS2488: Type 'NodeListOf<ChildNode>' must have a '[Symbol.iterator]()' method that returns an iterator. (2488) is fixed.
+  const childNodes = Array.from(container?.childNodes || [])
+
+  for (const node of childNodes) {
     if (node.nodeType === node.TEXT_NODE && node.textContent)
       textContent.push(node.textContent)
 

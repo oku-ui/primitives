@@ -13,6 +13,7 @@
     "typescript": "*"
   },
   "dependencies": {
+    "@oku-ui/motion": "^0.4.1",
     "@oku-ui/primitives": "link:../packages/core",
     "@shikijs/vitepress-twoslash": "^1.22.2",
     "@stackblitz/sdk": "^1.11.0",

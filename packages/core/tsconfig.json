@@ -1,14 +1,20 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "composite": true
-  },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
     },
-    {
-      "path": "./tsconfig.app.json"
-    }
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*"
   ],
-  "files": []
+  "exclude": [
+    "node_modules",
+    "**/__tests__/*",
+    "**/.docs/**"
+  ]
 }

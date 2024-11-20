@@ -85,7 +85,7 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
+    "type-check": "vue-tsc --build tsconfig.build.json --force",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "eslint": "eslint .",
@@ -105,13 +105,13 @@
     "aria-hidden": "^1.2.4"
   },
   "devDependencies": {
-    "@oku/tsconfig": "workspace:*",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.6.0",
     "@vueuse/core": "^11.2.0",
     "filter-anything": "^4.0.0",
     "jsdom": "^25.0.1",
