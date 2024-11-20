@@ -66,7 +66,7 @@ We compile all primitives into one package, so you just have to install once, an
 
 To get involved with the Radix community, ask questions, and share tips, join our Discord.
 
-[Join our Discord](https://discord.gg/RCGzQQPtAh)
+[Join our Discord](https://chat.oku-ui.com)
 
 ### Twitter
 

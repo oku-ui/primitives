@@ -104,5 +104,5 @@ pnpm oku # Run Oku CLI (packages/cli) // pnpm oku publish (publish packages)
 Oku is made possible by a passionate team and a strong community of developers. If you have any questions or would like to get more involved in the Oku community you can check out:
 
 -   [Github Issues](https://github.com/oku-ui/primitives/issues)
--   [Discord](https://discord.gg/RCGzQQPtAh)
+-   [Discord](https://chat.oku-ui.com)
 -   [Twitter](https://twitter.com/oku_ui)
