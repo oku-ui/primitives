@@ -8,8 +8,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
-      "@/*": ["src/*"],
-      "@vue/shared": ["node_modules/@vue/shared"]
+      "@/*": ["src/*"]
     },
     "resolveJsonModule": true,
     "types": [
@@ -17,6 +16,8 @@
     ],
     "allowImportingTsExtensions": true,
     "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "declaration": false,
     "outDir": "dist",
     "sourceMap": true,
