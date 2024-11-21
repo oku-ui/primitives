@@ -62,8 +62,4 @@ export default defineConfig({
     },
 
   },
-  // Ön yükleme optimizasyonu
-  optimizeDeps: {
-    include: ['vue'],
-  },
 })
