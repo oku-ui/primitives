@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.7.4-alpha.5",
+  "version": "0.7.3",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
