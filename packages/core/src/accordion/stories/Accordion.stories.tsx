@@ -1,5 +1,5 @@
-import CAnimated from './Animated.vue'
 import CAnimated2D from './Animated2D.vue'
+import CAnimated from './Animated.vue'
 import CAnimatedControlled from './AnimatedControlled.vue'
 import CChromatic from './Chromatic.vue'
 import CHorizontal from './Horizontal.vue'
