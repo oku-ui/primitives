@@ -111,7 +111,7 @@
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/test-utils": "^2.4.6",
-    "@vue/tsconfig": "^0.6.0",
+    "@vue/tsconfig": "^0.7.0",
     "@vueuse/core": "^11.2.0",
     "filter-anything": "^4.0.0",
     "jsdom": "^25.0.1",
