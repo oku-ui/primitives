@@ -57,20 +57,12 @@ export default defineConfig({
         ...Object.keys(pkg.peerDependencies ?? {}),
       ],
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // vendor kodlarını gruplayalım
-            return 'vendor'
-          }
-          // src altındaki ana klasörleri ayrı chunk'lara bölelim
-          const match = id.match(/[/\\]src[/\\](.*?)[/\\]/)
-          if (match && match[1]) {
-            return match[1]
-          }
+        manualChunks: (id) => {
+          const chunks = id.match(/[/\\]src[/\\](.*?)[/\\]/)
+          return chunks ? chunks[1] : null
         },
         exports: 'named',
         chunkFileNames: '[name].mjs',
-        hoistTransitiveImports: true,
         minifyInternalExports: true,
       },
     },
