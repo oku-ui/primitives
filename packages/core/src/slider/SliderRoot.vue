@@ -30,6 +30,9 @@ const sliderRoot = useSliderRoot(convertPropsToHookProps(props, [
   onValueCommit(value) {
     emit('valueCommit', value)
   },
+  onUpdateModelValue(value) {
+    emit('update:modelValue', value)
+  },
 })))
 </script>
 
