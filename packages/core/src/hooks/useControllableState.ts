@@ -1,4 +1,4 @@
-import { computed, nextTick, onBeforeUnmount, type Ref, shallowRef, type UnwrapRef, watch } from 'vue'
+import { computed, nextTick, type Ref, shallowRef, type UnwrapRef, watch } from 'vue'
 
 // type NonUndefined<T> = T extends undefined ? never : T
 
@@ -148,50 +148,23 @@ export function useControllableStateV4<T>(
   onChange: ((value: T) => void) | undefined,
   defaultValue: (() => T) | T,
 ): Ref<T> {
-  type MaybeFunction = (() => T | undefined) | T | undefined
+  const isFunc = typeof prop === 'function'
+  const defValue = typeof defaultValue === 'function' ? (defaultValue as () => T)() : defaultValue
+  const proxy = shallowRef(isFunc ? (prop as () => T)() ?? defValue : prop ?? defValue)
 
-  // Type-safe function check
-  const isFunction = (value: unknown): value is (() => T | undefined) =>
-    typeof value === 'function'
+  if (!isFunc)
+    return computed({ get: () => proxy.value, set: v => onChange?.(v) })
 
-  // Type-safe value resolution with explicit undefined handling
-  const getValue = (value: MaybeFunction): T | undefined => {
-    if (isFunction(value)) {
-      const result = value()
-      return result
-    }
-    return value
-  }
-
-  // Ensure we have a valid initial value
-  const initialValue = getValue(prop) ?? getValue(defaultValue)
-  if (initialValue === undefined)
-    throw new Error('Either prop or defaultValue must provide a value')
-
-  const state = shallowRef<T>(initialValue)
-
-  // Watch with cleanup
-  let stopWatch: (() => void) | undefined
-
-  if (isFunction(prop)) {
-    stopWatch = watch(prop, (next) => {
-      if (next !== undefined && next !== state.value) {
-        state.value = next
-        onChange?.(next)
-      }
-    }, { flush: 'sync' })
-  }
-
-  // Basic cleanup
-  onBeforeUnmount(() => stopWatch?.())
-
-  return computed({
-    get: () => state.value,
-    set: (value) => {
-      if (value !== state.value) {
-        state.value = value
-        onChange?.(value)
-      }
-    },
+  let skip = false
+  watch(() => (prop as () => T)(), (v) => {
+    if (skip || v === undefined)
+      return
+    skip = true
+    proxy.value = v
+    nextTick(() => skip = false)
   })
+
+  watch(proxy, v => !skip && onChange?.(v))
+
+  return proxy
 }

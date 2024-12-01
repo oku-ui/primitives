@@ -68,13 +68,23 @@ export class PerformanceLogger {
     return comparison
   }
 
+  static clearWarmupResults() {
+    this.results = this.results.slice(-5) // Keep only last 5 results
+  }
+
   private static calculateAverage(results: PerformanceResult[]) {
     if (results.length === 0)
       return null
 
+    // Remove outliers
+    const sorted = [...results].sort((a, b) => a.executionTimeMs - b.executionTimeMs)
+    const q1Index = Math.floor(sorted.length * 0.25)
+    const q3Index = Math.floor(sorted.length * 0.75)
+    const validResults = sorted.slice(q1Index, q3Index + 1)
+
     return {
-      executionTimeMs: results.reduce((sum, r) => sum + r.executionTimeMs, 0) / results.length,
-      onChangeCallCount: results.reduce((sum, r) => sum + r.onChangeCallCount, 0) / results.length,
+      executionTimeMs: validResults.reduce((sum, r) => sum + r.executionTimeMs, 0) / validResults.length,
+      onChangeCallCount: validResults.reduce((sum, r) => sum + r.onChangeCallCount, 0) / validResults.length,
     }
   }
 
