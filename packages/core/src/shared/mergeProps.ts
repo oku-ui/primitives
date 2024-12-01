@@ -1,5 +1,6 @@
 import type { PrimitiveElAttrs, VNodeRef } from './typeUtils'
 import { isArray, isOn, NOOP } from '@vue/shared'
+import { isClient } from '@vueuse/core'
 import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
 import { getElFromTemplateRef } from './getElFromTemplateRef.ts'
 
@@ -61,6 +62,10 @@ export function normalizeAttrs(attrs: PrimitiveElAttrs): IAttrsData {
   let elRef: ((vNodeRef: VNodeRef) => void) | undefined
   if (_elRef) {
     elRef = (templateRef: VNodeRef) => {
+      // Skip DOM operations on server side
+      if (!isClient)
+        return
+
       const el = getElFromTemplateRef(templateRef)
 
       if (Array.isArray(_elRef)) {
@@ -82,6 +87,10 @@ export function normalizeAttrs(attrs: PrimitiveElAttrs): IAttrsData {
   if (_templateRef) {
     if (Array.isArray(_templateRef)) {
       templateRef = (templateRef: any) => {
+        // Handle array refs safely in SSR
+        if (!isClient && typeof templateRef === 'function')
+          return templateRef
+
         for (const setRef of _templateRef) {
           setRef(templateRef)
         }
@@ -89,17 +98,25 @@ export function normalizeAttrs(attrs: PrimitiveElAttrs): IAttrsData {
     }
   }
 
-  if (elRef && templateRef) {
-    attrs.ref = (vNodeRef: VNodeRef) => {
-      elRef(vNodeRef)
-      templateRef(vNodeRef)
+  // Combine refs only on client side
+  if (isClient) {
+    if (elRef && templateRef) {
+      attrs.ref = (vNodeRef: VNodeRef) => {
+        elRef(vNodeRef)
+        templateRef(vNodeRef)
+      }
+    }
+    else if (elRef) {
+      attrs.ref = elRef
+    }
+    else if (templateRef) {
+      attrs.ref = templateRef
     }
   }
-  else if (elRef) {
-    attrs.ref = elRef
-  }
-  else if (templateRef) {
-    attrs.ref = templateRef
+  else {
+    // In SSR, only pass through template refs
+    if (templateRef)
+      attrs.ref = templateRef
   }
 
   const disabled = attrs.disabled === true || attrs['data-disabled'] != null || attrs['aria-disabled'] === true
