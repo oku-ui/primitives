@@ -215,7 +215,7 @@ export function useControllableStateV5<T>(
 }
 
 export function useControllableStateV6<T>(
-  prop: (() => T | undefined) | T,
+  prop: (() => T | undefined) | T | undefined,
   onChange: ((value: T) => void) | undefined,
   defaultValue: (() => T) | T,
 ): Ref<T> {
