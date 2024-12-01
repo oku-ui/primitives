@@ -33,7 +33,7 @@
         "default": "./dist/nuxt/index.cjs"
       }
     },
-    "./contast": {
+    "./constant": {
       "import": {
         "types": "./dist/constant.d.mts",
         "default": "./dist/constant.mjs"
