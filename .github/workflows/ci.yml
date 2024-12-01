@@ -69,8 +69,8 @@ jobs:
       - name: 🚀 Build
         run: pnpm build
 
-      # - name: 🧪 Test with coverage
-      #   run: pnpm coverage
+      - name: 🧪 Test
+        run: pnpm test
 
       # - name: 📝 Upload coverage
       #   if: always()

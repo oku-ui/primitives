@@ -15,10 +15,6 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
-      'packages/nuxt-module/**',
-      'packages/example-package/**',
-      'packages/primitives/**',
-      'packages/tsconfig/**',
     ],
     include: ['./**/*.test.ts'],
     setupFiles: ['./vitest-setup.ts'],
@@ -29,7 +25,7 @@ export default defineConfig({
   },
   resolve: {
     alias: [
-      ...primitivesPackagesAlias('./packages/vue/src', resolve),
+      ...primitivesPackagesAlias('./packages/core/src', resolve),
     ],
   },
 })
