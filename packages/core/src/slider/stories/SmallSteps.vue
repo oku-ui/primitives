@@ -8,11 +8,11 @@ const value = shallowRef([0.1])
 
 <template>
   <SliderRoot
-    v-model:value="value"
+    v-model="value"
     class="slider_rootClass"
     :min="0.1"
     :max="0.2"
-    :step="0.003"
+    :step="0.001"
   >
     <SliderTrack class="slider_trackClass">
       <SliderRange class="slider_rangeClass" />

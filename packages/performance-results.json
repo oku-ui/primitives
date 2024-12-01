@@ -1,0 +1,29 @@
+{
+  "timestamp": "2024-12-01T05:56:10.497Z",
+  "results": [
+    {
+      "version": "useControllableStateV3",
+      "updateCount": 5,
+      "executionTimeMs": 0.18362499999784632,
+      "onChangeCallCount": 4,
+      "timestamp": "2024-12-01T05:56:10.385Z"
+    },
+    {
+      "version": "useControllableStateV5",
+      "updateCount": 5,
+      "executionTimeMs": 0.14108399999895482,
+      "onChangeCallCount": 4,
+      "timestamp": "2024-12-01T05:56:10.497Z"
+    }
+  ],
+  "comparison": {
+    "v3Average": {
+      "executionTimeMs": 0.18362499999784632,
+      "onChangeCallCount": 4
+    },
+    "v5Average": {
+      "executionTimeMs": 0.14108399999895482,
+      "onChangeCallCount": 4
+    }
+  }
+}
