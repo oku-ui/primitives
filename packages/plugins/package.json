@@ -1,7 +1,7 @@
 {
   "name": "plugins",
   "type": "module",
-  "version": "0.7.7",
+  "version": "0.7.8",
   "description": "Plugins for Oku Primitives",
   "license": "MIT",
   "repository": {
