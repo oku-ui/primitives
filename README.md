@@ -37,7 +37,7 @@ Enter the component you want most in the components, leave the emojis and follow
 ### Components
 ### Components
 
-| Component                                                                                       | Status       | 🔗 Hook v1 | 👀 Visual Check | 📄 Docs | 📝 Note                        |
+| Component                                                                                       | Status       | 🔗 Hook v1 | 👀 Visual Check | 📄 Test | 📝 Note                        |
 | ------------------------------------------------------------------------------------------------ | ------------ | ---------- | --------------- | ------- | ------------------------------ |
 | [Accordion](https://vue-primitives.netlify.app/?path=/story/components-accordion--single)       | ✅ Completed | ✅         | ✅              |         |                                |
 | [AlertDialog](https://vue-primitives.netlify.app/?path=/story/components-alertdialog--styled)   | ✅ Completed | ✅         |                 |         |                                |
@@ -50,7 +50,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [DropdownMenu](https://vue-primitives.netlify.app/?path=/story/components-dropdownmenu--styled) | ✅ Completed | ✅         |                 |         |                                |
 | Form                                                                                            | ❌ Not Started | ❌         |                 |         |                                |
 | [HoverCard](https://vue-primitives.netlify.app/?path=/story/components-hovercard--chromatic)    | ✅ Completed | ✅         |                 |         | 🔧 Needs polygon; fix close    |
-| [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)               | ✅ Completed | ✅         |                 |         |                                |
+| [Label](https://vue-primitives.netlify.app/?path=/story/components-label--styled)               | ✅ Completed | ✅         |                 |     ✅    |                                |
 | [Menubar](https://vue-primitives.netlify.app/?path=/story/components-menubar--styled)           | ✅ Completed | ✅         |                 |         |                                |
 | NavigationMenu                                                                                  | 🚧 In Progress | 🚧         |                 |         |                                |
 | [Popover](https://vue-primitives.netlify.app/?path=/story/components-popover--styled)           | ✅ Completed | ✅         |                 |         |                                |
