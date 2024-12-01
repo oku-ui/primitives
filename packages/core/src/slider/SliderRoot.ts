@@ -31,7 +31,6 @@ export interface SliderRootProps {
   value?: number[]
   defaultValue?: number[]
   inverted?: boolean
-  modelValue?: number[] // Add this
 }
 
 export const DEFAULT_SLIDER_ROOT_PROPS = {
