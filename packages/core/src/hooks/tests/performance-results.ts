@@ -33,28 +33,24 @@ export class PerformanceLogger {
 
   static compareVersions() {
     const v3Results = this.results.filter(r => r.version === 'useControllableStateV3')
-    const v5Results = this.results.filter(r => r.version === 'useControllableStateV5')
-    const v6Results = this.results.filter(r => r.version === 'useControllableStateV6')
+    const v4Results = this.results.filter(r => r.version === 'useControllableStateV4')
     const vueUseResults = this.results.filter(r => r.version === 'useVModel_VueUse')
 
     const v3Avg = this.calculateAverage(v3Results)
-    const v5Avg = this.calculateAverage(v5Results)
-    const v6Avg = this.calculateAverage(v6Results)
+    const v4Avg = this.calculateAverage(v4Results)
     const vueUseAvg = this.calculateAverage(vueUseResults)
 
     const comparison = {
       v3Average: v3Avg,
-      v5Average: v5Avg,
-      v6Average: v6Avg,
+      v4Average: v4Avg,
       vueUseAverage: vueUseAvg,
       performance: [] as string[],
     }
 
-    if (v3Avg && v5Avg && vueUseAvg && v6Avg) {
+    if (v3Avg && v4Avg && vueUseAvg) {
       const implementations = [
         { name: 'V3', time: v3Avg.executionTimeMs },
-        { name: 'V5', time: v5Avg.executionTimeMs },
-        { name: 'V6', time: v6Avg.executionTimeMs },
+        { name: 'V4', time: v4Avg.executionTimeMs },
         { name: 'VueUse', time: vueUseAvg.executionTimeMs },
       ].sort((a, b) => a.time - b.time)
 

@@ -1,7 +1,7 @@
 import { useVModel } from '@vueuse/core'
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { type ComponentInternalInstance, computed, nextTick, ref, type Ref, watch } from 'vue'
-import { useControllableStateV3, useControllableStateV5, useControllableStateV6 } from '../useControllableState'
+import { useControllableStateV3, useControllableStateV4 } from '../useControllableState'
 import { PerformanceLogger } from './performance-results'
 
 // Mock Vue's lifecycle hooks
@@ -228,17 +228,13 @@ const controllers: Record<string, ControllerFn> = {
   // eslint-disable-next-line ts/ban-ts-comment
   // @ts-ignore
   useControllableStateV3,
-  useControllableStateV5,
-  // eslint-disable-next-line ts/ban-ts-comment
-  // @ts-ignore
-  useControllableStateV6,
+  useControllableStateV4,
   createVModelWrapper,
 }
 
 // Use type-safe runner calls
 createControllerTests('useControllableStateV3', controllers.useControllableStateV3)
-createControllerTests('useControllableStateV5', controllers.useControllableStateV5)
-createControllerTests('useControllableStateV6', controllers.useControllableStateV6)
+createControllerTests('useControllableStateV4', controllers.useControllableStateV4)
 createControllerTests('useVModel_VueUse', controllers.createVModelWrapper)
 
 // Update VueUse specific tests
@@ -287,13 +283,13 @@ describe('performance Comparison', () => {
     const comparison = PerformanceLogger.compareVersions()
 
     // Remove strict performance assertion and replace with general check
-    if (comparison.v3Average && comparison.v5Average) {
+    if (comparison.v3Average && comparison.v4Average) {
       // Just verify both implementations complete successfully
       expect(comparison.v3Average.executionTimeMs).toBeGreaterThan(0)
-      expect(comparison.v5Average.executionTimeMs).toBeGreaterThan(0)
+      expect(comparison.v4Average.executionTimeMs).toBeGreaterThan(0)
 
       // Log relative performance without asserting
-      comparison.v5Average.executionTimeMs / comparison.v3Average.executionTimeMs
+      comparison.v4Average.executionTimeMs / comparison.v3Average.executionTimeMs
     }
   })
 
