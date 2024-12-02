@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import Animated from '../../../packages/core/src/accordion/stories/Animated.vue'
 import Animated2D from '../../../packages/core/src/accordion/stories/Animated2D.vue'
+import Animated from '../../../packages/core/src/accordion/stories/Animated.vue'
 import AnimatedControlled from '../../../packages/core/src/accordion/stories/AnimatedControlled.vue'
 import Chromatic from '../../../packages/core/src/accordion/stories/Chromatic.vue'
 import Horizontal from '../../../packages/core/src/accordion/stories/Horizontal.vue'
