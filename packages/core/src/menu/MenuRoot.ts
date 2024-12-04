@@ -38,7 +38,12 @@ export interface MenuRootContext {
 
 export const [provideMenuRootContext, useMenuRootContext] = createContext<MenuRootContext>('MenuRoot')
 
-export interface ItemData { menu: { disabled?: boolean, textValue: string } }
+export interface ItemData {
+  $menu: {
+    disabled?: boolean
+    textValue: string
+  }
+}
 export const [Collection, useCollection] = createCollection<HTMLElement, ItemData>('Menu')
 
 export interface UseMenuRootProps extends EmitsToHookProps<MenuRootEmits> {

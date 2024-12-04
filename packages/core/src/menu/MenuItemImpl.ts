@@ -19,7 +19,7 @@ export function useMenuItemImpl(props: UseMenuItemImplProps): RadixPrimitiveRetu
   const contentContext = useMenuContentContext('MenuItemImpl')
 
   const el = shallowRef<HTMLElement>()
-  const itemData: ItemData['menu'] = { disabled: props.disabled?.(), textValue: props.textValue || '' }
+  const itemData: ItemData['$menu'] = { disabled: props.disabled?.(), textValue: props.textValue || '' }
 
   watchEffect(() => {
     itemData.disabled = props.disabled?.()
@@ -28,7 +28,7 @@ export function useMenuItemImpl(props: UseMenuItemImplProps): RadixPrimitiveRetu
 
   function setElRef(v: HTMLElement | undefined) {
     el.value = v
-    Collection.useCollectionItem(v, itemData, 'menu')
+    Collection.useCollectionItem(v, itemData, '$menu')
   }
 
   const isFocused = shallowRef(false)

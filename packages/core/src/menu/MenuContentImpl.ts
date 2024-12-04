@@ -177,12 +177,12 @@ export function useMenuContentImplShared(props: UseMenuContentImplSharedProps = 
 
   function handleTypeaheadSearch(key: string) {
     const search = searchRef.value + key
-    const items = getItems().filter(item => !item.$$rcid.menu.disabled)
+    const items = getItems().filter(item => !item.$$rcid.$menu.disabled)
     const currentItem = document.activeElement
-    const currentMatch = items.find(item => item === currentItem)?.$$rcid.menu.textValue
-    const values = items.map(item => item.$$rcid.menu.textValue)
+    const currentMatch = items.find(item => item === currentItem)?.$$rcid.$menu.textValue
+    const values = items.map(item => item.$$rcid.$menu.textValue)
     const nextMatch = getNextMatch(values, search, currentMatch)
-    const newItem = items.find(item => item.$$rcid.menu.textValue === nextMatch);
+    const newItem = items.find(item => item.$$rcid.$menu.textValue === nextMatch);
 
     // Reset `searchRef` 1 second after it was last updated
     (function updateSearch(value: string) {
@@ -281,7 +281,7 @@ export function useMenuContentImplShared(props: UseMenuContentImplSharedProps = 
       return
 
     event.preventDefault()
-    const candidateNodes = getItems().filter(item => !item.$$rcid.menu.disabled)
+    const candidateNodes = getItems().filter(item => !item.$$rcid.$menu.disabled)
 
     if (LAST_KEYS.includes(event.key))
       candidateNodes.reverse()
