@@ -20,12 +20,12 @@ export function useDismissableLayerBranch(props: UseDismissableLayerBranchProps 
     context.branches.delete(elRef.value!)
   })
 
+  const attrs = {
+    elRef: setElRef,
+  }
+
   return {
     attrs(extraAttrs) {
-      const attrs = {
-        elRef: setElRef,
-      }
-
       if (extraAttrs && extraAttrs.length > 0) {
         mergePrimitiveAttrs(attrs, extraAttrs)
       }
