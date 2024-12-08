@@ -14,7 +14,7 @@ export interface AlertDialogContentContext {
 
 export const [provideAlertDialogContentContext, useAlertDialogContentContext] = createContext<AlertDialogContentContext>('AlertDialogContent')
 
-export interface UseAlertDialogContentImplProps extends Omit<UseDialogContentImplProps, 'onPointerDownOutside' | 'onInteractOutside'> {
+export interface UseAlertDialogContentImplProps extends Omit<UseDialogContentImplProps, 'onPointerdownOutside' | 'onInteractOutside'> {
 
 }
 

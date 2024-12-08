@@ -13,7 +13,7 @@ export type PickOptionalRecord<T> = Pick<T, OptionalKeys<T>>
 type PrimitiveProps<T> = (T extends { as?: any } ? Required<Pick<T, 'as'>> : unknown)
 
 export type PrimitiveDefaultProps<T extends object, BK extends BooleanKey<PickOptionalRecord<T>> = never, UK extends BooleanKey<PickOptionalRecord<T>> = Exclude<BooleanKey<PickOptionalRecord<T>>, BK>, K extends keyof PickOptionalRecord<T> = Exclude<keyof PickOptionalRecord<T>, BK>> =
-  Record<UK, undefined> & Record<BK, boolean> & PrimitiveProps<T> & Partial<Record<K, unknown>>
+  Record<UK, undefined> & Record<BK, boolean> & PrimitiveProps<T> & Partial<Record<K, T[K]>>
 
 export type EmitsToHookProps<T extends Record<string, any[]>> = {
   [K in keyof T as K extends `update:${infer Rest}`

@@ -17,7 +17,7 @@ export const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside'
  * Returns props to pass to the node we want to check for outside events.
  */
 export function usePointerdownOutside(
-  onPointerDownOutside: (event: PointerDownOutsideEvent) => void,
+  onPointerdownOutside: (event: PointerDownOutsideEvent) => void,
   node: Ref<HTMLElement | undefined>,
 ) {
   let isPointerInsideDOMTree = false
@@ -54,7 +54,7 @@ export function usePointerdownOutside(
         const eventDetail = { originalEvent: event }
 
         function handleAndDispatchPointerDownOutsideEvent() {
-          handleAndDispatchCustomEvent(POINTER_DOWN_OUTSIDE, onPointerDownOutside, eventDetail)
+          handleAndDispatchCustomEvent(POINTER_DOWN_OUTSIDE, onPointerdownOutside, eventDetail)
         }
 
         /**

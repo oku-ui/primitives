@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { Ref } from 'vue'
 import { createContext, type MutableRefObject } from '@oku-ui/hooks'
 
 export interface SelectContentContext {
@@ -17,9 +17,7 @@ export interface SelectContentContext {
   selectedItemText: Ref<HTMLElement | undefined>
   position?: 'item-aligned' | 'popper'
   isPositioned: Ref<boolean>
-  searchRef: MaybeRefOrGetter<string>
+  searchRef: MutableRefObject<string>
 }
 
 export const [provideSelectContentContext, useSelectContentContext] = createContext<SelectContentContext>('SelectContent')
-
-export const CONTENT_MARGIN = 10

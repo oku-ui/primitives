@@ -1,6 +1,9 @@
+import type { CollectionItemWithData } from '@oku-ui/collection'
 import type { PrimitiveProps } from '@oku-ui/primitive'
+import { useRef } from '@oku-ui/hooks'
+import { usePopperContext } from '@oku-ui/popper'
 import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '@oku-ui/shared'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { type ItemData, useCollection, useSelectContext } from './SelectRoot'
 import { findNextItem, shouldShowPlaceholder, useTypeaheadSearch } from './utils'
 
@@ -29,20 +32,26 @@ export function useSelectTrigger(props: UseSelectTriggerProps): RadixPrimitiveRe
   let pointerTypeRef: PointerEvent['pointerType'] = 'touch'
 
   const [searchRef, handleTypeaheadSearch, resetTypeahead] = useTypeaheadSearch((search) => {
-    const enabledItems: Array<ItemData['$select']> = []
+    const enabledItems: Array<CollectionItemWithData<HTMLElement, ItemData>> = []
+    let currentItem: CollectionItemWithData<HTMLElement, ItemData> | undefined
+    const _value = context.value.value
 
     for (const item of getItems()) {
       const data = item.$$rcid.$select
+
       if (!data.disabled) {
-        enabledItems.push(data)
+        enabledItems.push(item)
+
+        if (data.value === _value) {
+          currentItem = item
+        }
       }
     }
 
-    const _value = context.value.value
-    const currentItem = enabledItems.find(item => item.value === _value)
     const nextItem = findNextItem(enabledItems, search, currentItem)
+
     if (nextItem !== undefined) {
-      context.onValueChange(nextItem.value)
+      context.onValueChange(nextItem.$$rcid.$select.value)
     }
   })
 
@@ -107,7 +116,7 @@ export function useSelectTrigger(props: UseSelectTriggerProps): RadixPrimitiveRe
     if (event.defaultPrevented) {
       return
     }
-    const isTypingAhead = searchRef !== ''
+    const isTypingAhead = searchRef.value !== ''
     const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
     if (!isModifierKey && event.key.length === 1)
       handleTypeaheadSearch(event.key)
@@ -119,11 +128,25 @@ export function useSelectTrigger(props: UseSelectTriggerProps): RadixPrimitiveRe
     }
   }
 
+  // COMP::PopperAnchor
+
+  const popperContext = usePopperContext('HoverCardTrigger')
+
+  const el = useRef<HTMLElement>()
+  function setElRef(v: HTMLElement | undefined) {
+    el.value = v
+  }
+
+  onMounted(() => {
+    popperContext.onAnchorChange(el.value)
+  })
+
   return {
     attrs(extraAttrs) {
       const _open = context.open.value
       const _disabled = disabled.value
       const attrs: PrimitiveElAttrs = {
+        'elRef': setElRef,
         'type': 'button',
         'role': 'combobox',
         'aria-controls': context.contentId,

@@ -27,31 +27,33 @@ export function useAspectRatio(props: UseAspectRatioProps = {}): RadixPrimitiveR
 > {
   const { ratio = () => 1 } = props
 
+  const wrapperStyle = {
+    // ensures inner element is contained
+    position: 'relative',
+    // ensures padding bottom trick maths works
+    width: '100%',
+    paddingBottom: `${100 / (ratio())}%`,
+  }
+
+  const style: PrimitiveElAttrs['style'] = {
+    // ensures children expand in ratio
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  }
+
   return {
     wrapperAttrs() {
-      const attrs = {
-        'style': {
-        // ensures inner element is contained
-          position: 'relative',
-          // ensures padding bottom trick maths works
-          width: '100%',
-          paddingBottom: `${100 / (ratio())}%`,
-        },
+      return {
+        'style': wrapperStyle,
         'data-radix-aspect-ratio-wrapper': '',
       }
-
-      return attrs
     },
     attrs(extraAttrs) {
       const attrs: PrimitiveElAttrs = {
-        style: {
-          // ensures children expand in ratio
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-        },
+        style,
       }
 
       if (extraAttrs && extraAttrs.length > 0) {

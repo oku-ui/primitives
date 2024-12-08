@@ -1,3 +1,4 @@
+import { useRef } from '@oku-ui/hooks'
 import { wrapArray } from '@oku-ui/shared'
 import { onBeforeUnmount } from 'vue'
 
@@ -6,7 +7,7 @@ export function shouldShowPlaceholder(value?: string) {
 }
 
 export function useTypeaheadSearch(onSearchChange: (search: string) => void) {
-  let searchRef = ''
+  const searchRef = useRef('')
   let timerRef = 0
 
   function handleTypeaheadSearch(key: string) {
@@ -14,7 +15,7 @@ export function useTypeaheadSearch(onSearchChange: (search: string) => void) {
     onSearchChange(search);
 
     (function updateSearch(value: string) {
-      searchRef = value
+      searchRef.value = value
       if (timerRef)
         window.clearTimeout(timerRef)
       // Reset `searchRef` 1 second after it was last updated
@@ -28,14 +29,17 @@ export function useTypeaheadSearch(onSearchChange: (search: string) => void) {
   }
 
   function resetTypeahead() {
-    searchRef = ''
-    if (timerRef)
+    searchRef.value = ''
+
+    if (timerRef) {
       window.clearTimeout(timerRef)
+    }
   }
 
   onBeforeUnmount(() => {
-    if (timerRef)
+    if (timerRef) {
       window.clearTimeout(timerRef)
+    }
   })
 
   return [searchRef, handleTypeaheadSearch, resetTypeahead] as const
@@ -58,7 +62,7 @@ export function useTypeaheadSearch(onSearchChange: (search: string) => void) {
  * and focus would never move. This is as opposed to the regular case, where we
  * don't want focus to move if the current item still matches.
  */
-export function findNextItem<T extends { textValue: string }>(
+export function findNextItem<T extends { $$rcid: { $select: { textValue: string } } }>(
   items: T[],
   search: string,
   currentItem?: T,
@@ -73,6 +77,7 @@ export function findNextItem<T extends { textValue: string }>(
 
   const normalizedSearchLower = normalizedSearch.toLowerCase()
 
-  const nextItem = wrappedItems.find(item => item.textValue.toLowerCase().startsWith(normalizedSearchLower))
+  const nextItem = wrappedItems.find(item => item.$$rcid.$select.textValue.toLowerCase().startsWith(normalizedSearchLower))
+
   return nextItem !== currentItem ? nextItem : undefined
 }

@@ -1,7 +1,8 @@
 import type { Ref } from 'vue'
 import { createContext, type MutableRefObject, useRef } from '@oku-ui/hooks'
 import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '@oku-ui/shared'
-import { CONTENT_MARGIN, useSelectContentContext } from './SelectContent'
+import { useSelectContentContext } from './SelectContent'
+import { CONTENT_MARGIN } from './SelectContentImpl'
 
 export interface SelectViewportContext {
   contentWrapper: Ref<HTMLElement | undefined>

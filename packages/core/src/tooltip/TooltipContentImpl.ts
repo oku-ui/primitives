@@ -92,18 +92,20 @@ export function useTooltipContentImpl(props: UseTooltipContentImplProps): Return
     side: props.side ?? 'top',
   })
 
+  const style = {
+    '--radix-tooltip-content-transform-origin': 'var(--radix-popper-transform-origin)',
+    '--radix-tooltip-content-available-width': 'var(--radix-popper-available-width)',
+    '--radix-tooltip-content-available-height': 'var(--radix-popper-available-height)',
+    '--radix-tooltip-trigger-width': 'var(--radix-popper-anchor-width)',
+    '--radix-tooltip-trigger-height': 'var(--radix-popper-anchor-height)',
+  }
+
   return {
     wrapperAttrs: popperContent.wrapperAttrs,
     attrs(extraAttrs = []) {
       const popperAttrs = {
         'data-state': context.stateAttribute(),
-        'style': {
-          '--radix-tooltip-content-transform-origin': 'var(--radix-popper-transform-origin)',
-          '--radix-tooltip-content-available-width': 'var(--radix-popper-available-width)',
-          '--radix-tooltip-content-available-height': 'var(--radix-popper-available-height)',
-          '--radix-tooltip-trigger-width': 'var(--radix-popper-anchor-width)',
-          '--radix-tooltip-trigger-height': 'var(--radix-popper-anchor-height)',
-        },
+        style,
       }
 
       return popperContent.attrs([dismissableLayer.attrs(), popperAttrs, ...extraAttrs])

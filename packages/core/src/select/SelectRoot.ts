@@ -47,7 +47,13 @@ export interface SelectContextValue {
 
 export const [provideSelectContext, useSelectContext] = createContext<SelectContextValue>('Select')
 
-export interface ItemData { $select: { value: string, disabled?: boolean, textValue: string } }
+export interface ItemData {
+  $select: {
+    value: string
+    disabled?: boolean
+    textValue: string
+  }
+}
 export type CollectionItem = CollectionItemWithData<HTMLElement, ItemData>
 export const [Collection, useCollection] = createCollection<HTMLElement, ItemData>('Menu')
 
@@ -79,6 +85,7 @@ export function useSelectRoot(props: UseSelectRootProps = {}) {
 
   const open = useControllableStateV2(props.open, props.onUpdateOpen, defaultOpen)
   const value = useControllableStateV2(props.value, props.onUpdateValue, props.defaultValue)
+
   const triggerPointerDownPosRef = useRef<{ x: number, y: number }>()
 
   provideSelectContext({

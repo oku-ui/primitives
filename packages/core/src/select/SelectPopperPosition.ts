@@ -1,6 +1,6 @@
 import type { IAttrsData, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '@oku-ui/shared'
 import { usePopperContent, type UsePopperContentProps } from '@oku-ui/popper'
-import { CONTENT_MARGIN } from './SelectContent'
+import { CONTENT_MARGIN } from './SelectContentImpl.ts'
 
 export type UseSelectPopperPrivateProps = {
   onPlaced?: UsePopperContentProps['onPlaced']
@@ -10,9 +10,7 @@ export interface SelectPopperPositionProps {
 
 }
 
-export interface UseSelectPopperPosition extends UsePopperContentProps, UseSelectPopperPrivateProps {
-
-}
+export interface UseSelectPopperPosition extends UsePopperContentProps, UseSelectPopperPrivateProps {}
 
 export function useSelectPopperPosition(props: UseSelectPopperPosition = {}): RadixPrimitiveReturns<{
   wrapperAttrs: () => IAttrsData
