@@ -13,21 +13,21 @@ on:
     branches:
       - main
     paths:
-      - ".docs/**"
+      - "./docs/**"
 
   pull_request:
     branches:
       - main
     paths:
-      - ".docs/**"
+      - "./docs/**"
 
 
 jobs:
   build-test:
     runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: .docs
+    # defaults:
+    #   run:
+    #     working-directory: docs
 
     permissions:
       # Required to checkout the code
@@ -38,7 +38,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [20]
 
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +45,7 @@ jobs:
       - run: corepack enable
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: lts/*
           cache: pnpm
 
       - name: 📦 Install dependencies
@@ -55,7 +54,8 @@ jobs:
       # - name: 👀 Lint
       #   run: pnpm lint
 
-      - name: 🚀 Build
+      - name: 🚀 Build Packages
         run: pnpm build
-        env:
-          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
+
+      - name: 🚀 Build Vitepress
+        run: pnpm docs:build

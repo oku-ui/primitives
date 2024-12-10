@@ -1,75 +1,65 @@
-import process from 'node:process'
-// import { externalizeDeps } from 'vite-plugin-externalize-deps'
-
-import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { globbySync } from 'globby'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import pkg from './package.json'
 
-// https://vitejs.dev/config/
+const projectRootDir = resolve(__dirname)
+
 export default defineConfig({
-  define: {
-    __DEV__: process.env.NODE_ENV !== 'production',
-  },
   plugins: [
-    // externalizeDeps(),
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          hoistStatic: true,
+          cacheHandlers: true,
+        },
+      },
+    }),
     vueJsx(),
     dts({
-      outDir: 'dist',
-      exclude: ['src/**/__tests__/*', 'src/**/stories/*'],
-      compilerOptions: {
-        composite: false,
-        declaration: true,
-        declarationMap: true,
-      },
-      tsconfigPath: 'tsconfig.app.json',
+      tsconfigPath: 'tsconfig.build.json',
+      exclude: ['src/test/**', 'src/**/stories/**', 'src/**/*.stories.vue'],
+      rollupTypes: true,
     }),
   ],
-  build: {
-    copyPublicDir: false,
-    minify: false,
-    sourcemap: true,
-    lib: {
-      name: 'radix',
-      formats: ['es'],
-      entry: [
-        ...globbySync('src/**/*.ts', { ignore: [
-          '**/__tests__/**',
-          '**/stories/**',
-          '**/*.stories.ts',
-        ] }),
-        'src/index.ts',
-      ],
-    },
-    target: 'esnext',
-    rollupOptions: {
-      output: {
-        esModule: true,
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        entryFileNames: '[name].mjs',
-      },
-      external: [
-        'vue',
-        '@vue/shared',
-        '@floating-ui/dom',
-        '@floating-ui/utils',
-        '@floating-ui/vue',
-        'aria-hidden',
-      ],
-    },
-  },
   resolve: {
     alias: {
-      '@oku-ui': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': resolve(projectRootDir, 'src'),
     },
+    dedupe: ['vue', '@vue/runtime-core'],
   },
-  // resolve: {
-  //   alias: {
-  //     '~': fileURLToPath(new URL('./src', import.meta.url)),
-  //   },
-  // },
+  build: {
+    minify: false,
+    target: 'esnext',
+    sourcemap: true,
+    lib: {
+      name: 'oku-ui-primitives',
+      formats: ['es'],
+      fileName: (_, name) => `${name}.mjs`,
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+      },
+    },
+    rollupOptions: {
+      external: [
+        ...Object.keys(pkg.dependencies ?? {}),
+        ...Object.keys(pkg.peerDependencies ?? {}),
+      ],
+      output: {
+        manualChunks: (id) => {
+          // Daha basit chunk stratejisi
+          const chunks = id.match(/[/\\]src[/\\](.*?)[/\\]/)
+          return chunks ? chunks[1] : null
+        },
+        exports: 'named',
+        chunkFileNames: '[name].mjs',
+        assetFileNames: 'index.css',
+        hoistTransitiveImports: false,
+        minifyInternalExports: true,
+      },
+    },
+
+  },
 })

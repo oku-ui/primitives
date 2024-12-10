@@ -4,6 +4,14 @@
 
 ---
 
+<p>
+  <a href="https://www.npmjs.com/package/@oku-ui/primitives"><img src="https://img.shields.io/npm/v/@oku-ui/primitives.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/@oku-ui/primitives"><img src="https://img.shields.io/npm/dm/@oku-ui/primitives.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Downloads"></a>
+  <a href="https://github.com/oku-ui/primitives/tree/main/LICENSE"><img src="https://img.shields.io/github/license/nuxt/nuxt.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="License"></a>
+  <a href="https://primitives.oku-ui.com"><img src="https://img.shields.io/badge/Oku Primitives%20Docs-18181B?logo=nuxt.js" alt="Website"></a>
+  <a href="https://chat.oku-ui.com"><img src="https://img.shields.io/badge/Oku%20Discord-18181B?logo=discord" alt="Discord"></a>
+</p>
+
 # Oku Primitives
 
 **An open-source UI component library for building high-quality, accessible design systems and web apps.**
@@ -79,7 +87,7 @@ Enter the component you want most in the components, leave the emojis and follow
 | [VisuallyHidden](https://vue-primitives.netlify.app/?path=/story/utilities-visuallyhidden--basic)     | ✅ Completed | ❌         |                 |         |                                     |
 ## Community
 
-- [Discord](https://chat.productdevbook.com) - To get involved with the Oku community, ask questions and share tips.
+- [Discord](https://chat.oku-ui.com) - To get involved with the Oku community, ask questions and share tips.
 - [Twitter](https://twitter.com/oku_ui) - To receive updates, announcements, blog posts, and general Oku tips.
 
 ## Sponsors
@@ -102,13 +110,13 @@ Thanks to Daniel Roe [@danielroe](https://github.com/danielroe). Nuxt has helped
 Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the issues I was stuck in Vue. and [Vue Macros](https://vue-macros.sxzz.moe) is a great project.
 
 ## Credits
-
 - [Daniel Roe](https://github.com/danielroe)
 - [Johnson Chu](https://github.com/johnsoncodehk)
 - [Skirtle](https://github.com/skirtles-code)
 - [Jacek Karczmarczyk](https://github.com/jacekkarczmarczyk)
-- [Headless UI](https://headlessui.com/)
-- [Radix Primitives](https://radix-ui.com/)
+- [Headless UI](https://headlessui.com)
+- [Destyler](https://destyler.org)
+- [Radix Vue](https://github.com/unovue/radix-vue)
 - [Element Plus](https://github.com/element-plus/element-plus)
 
 ---

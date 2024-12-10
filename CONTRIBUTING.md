@@ -49,10 +49,10 @@ pnpm build core utils # Build only core and utils package (packages/core) check 
 
 ```shell
 pnpm dev
-pnpm build # Build all packages with cache (packages/components)
-pnpm build:skip # Build without cache (packages/components)
+pnpm build # Build all packages with cache (packages)
+pnpm build:skip # Build without cache (packages)
 
-pnpm story # Run Storybook and live reload support (packages/vue/src)
+pnpm story # Run Storybook and live reload support (packages/core/src)
 pnpm build:storybook # Build Storybook
 
 pnpm lint # Run ESLint
@@ -104,5 +104,5 @@ pnpm oku # Run Oku CLI (packages/cli) // pnpm oku publish (publish packages)
 Oku is made possible by a passionate team and a strong community of developers. If you have any questions or would like to get more involved in the Oku community you can check out:
 
 -   [Github Issues](https://github.com/oku-ui/primitives/issues)
--   [Discord](https://chat.productdevbook.com)
+-   [Discord](https://chat.oku-ui.com)
 -   [Twitter](https://twitter.com/oku_ui)

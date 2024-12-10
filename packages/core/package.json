@@ -1,18 +1,19 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.7.0-beta.4",
+  "version": "0.7.5",
   "license": "MIT",
   "funding": "https://github.com/sponsors/productdevbook",
   "homepage": "https://oku-ui.com/primitives",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oku-ui/primitives.git",
-    "directory": "packages/vue-primitives"
+    "directory": "packages/core"
   },
   "bugs": {
     "url": "https://github.com/oku-ui/primitives/issues"
   },
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -21,6 +22,36 @@
     "./*": {
       "types": "./dist/*/index.d.ts",
       "import": "./dist/*/index.mjs"
+    },
+    "./nuxt": {
+      "import": {
+        "types": "./dist/nuxt/index.d.mts",
+        "default": "./dist/nuxt/index.mjs"
+      },
+      "require": {
+        "types": "./dist/nuxt/index.d.cts",
+        "default": "./dist/nuxt/index.cjs"
+      }
+    },
+    "./resolver": {
+      "import": {
+        "types": "./dist/resolver/index.d.mts",
+        "default": "./dist/resolver/index.mjs"
+      },
+      "require": {
+        "types": "./dist/resolver/index.d.cts",
+        "default": "./dist/resolver/index.cjs"
+      }
+    },
+    "./namespaced": {
+      "import": {
+        "types": "./dist/namespaced/index.d.mts",
+        "default": "./dist/namespaced/index.mjs"
+      },
+      "require": {
+        "types": "./dist/namespaced/index.d.cts",
+        "default": "./dist/namespaced/index.cjs"
+      }
     }
   },
   "module": "./dist/index.mjs",
@@ -28,8 +59,20 @@
   "typesVersions": {
     "*": {
       "*": [
-        "./dist/*",
-        "./*"
+        "./dist/*/index.d.ts",
+        "./dist/index.d.ts"
+      ],
+      "nuxt": [
+        "./dist/nuxt/index.d.mts",
+        "./dist/nuxt/index.d.ts"
+      ],
+      "resolver": [
+        "./dist/resolver/index.d.mts",
+        "./dist/resolver/index.d.ts"
+      ],
+      "namespaced": [
+        "./dist/namespaced/index.d.mts",
+        "./dist/namespaced/index.d.ts"
       ]
     }
   },
@@ -42,47 +85,49 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force",
+    "type-check": "vue-tsc --build tsconfig.build.json --force",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
-    "release": "pnpm build && pnpm bumpp --commit='version(primitives): release %s' --push --tag && pnpm publish --no-git-checks",
-    "release:beta": "pnpm release --tag beta",
-    "release:alpha": "pnpm release --tag alpha"
+    "release": "pnpm build && pnpm publish --no-git-checks --access public",
+    "release:beta": "pnpm release --tag beta --access public",
+    "release:alpha": "pnpm release --tag alpha --access public",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@vue/shared": "^3.4.31"
+    "vue": ">= 3.5.0"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.6.11",
+    "@floating-ui/dom": "^1.6.12",
     "@floating-ui/utils": "^0.2.8",
     "@floating-ui/vue": "^1.1.5",
     "aria-hidden": "^1.2.4"
   },
   "devDependencies": {
-    "@oku/tsconfig": "workspace:*",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.16.11",
+    "@types/node": "^22.9.0",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/test-utils": "^2.4.6",
-    "@vueuse/core": "^11.1.0",
-    "filter-anything": "^3.0.7",
+    "@vue/tsconfig": "^0.6.0",
+    "@vueuse/core": "^11.2.0",
+    "filter-anything": "^4.0.0",
     "jsdom": "^25.0.1",
-    "npm-run-all2": "^6.2.3",
-    "storybook": "^8.3.5",
+    "npm-run-all2": "^7.0.0",
+    "storybook": "^8.4.2",
     "typescript": "^5.6.3",
-    "unplugin-vue-components": "^0.26.0",
-    "vite": "^5.4.9",
-    "vite-plugin-dts": "^4.2.4",
+    "unplugin-vue-components": "^0.27.0",
+    "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.3.0",
     "vite-plugin-externalize-deps": "^0.8.0",
     "vite-plugin-pages": "^0.32.3",
-    "vitest": "^2.1.3",
+    "vite-tsconfig-paths": "^5.1.3",
+    "vitest": "^2.1.4",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5",
-    "vue-tsc": "^2.1.6"
+    "vue-tsc": "^2.1.10"
   },
   "publishConfig": {
     "access": "public"
