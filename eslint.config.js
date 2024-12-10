@@ -32,7 +32,18 @@ export default antfu(
       '**/*.vue',
     ],
     rules: {
+      'import/first': 'off',
+      'sort-imports': 'off',
+      'import/no-duplicates': 'off',
+      'import/order': 'off',
+      'vue/block-order': ['error', {
+        order: ['script', 'template', 'style'],
+      }],
       'vue/block-tag-newline': 'off',
+      'vue/component-api-style': ['error', ['script-setup']],
+      'vue/component-tags-order': ['error', {
+        order: ['script', 'template', 'style'],
+      }],
     },
   },
 )
