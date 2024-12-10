@@ -1,6 +1,6 @@
-import { useRef } from '@oku-ui/hooks'
-import { wrapArray } from '@oku-ui/shared'
 import { onBeforeUnmount } from 'vue'
+import { useRef } from '../hooks'
+import { wrapArray } from '../shared'
 
 export function shouldShowPlaceholder(value?: string) {
   return value === '' || value === undefined

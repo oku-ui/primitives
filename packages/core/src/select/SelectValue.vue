@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive } from '../primitive'
 import { DEFAULT_SELECT_VALUE_PROPS, type SelectValueProps, useSelectValue } from './SelectValue'
 
 defineOptions({

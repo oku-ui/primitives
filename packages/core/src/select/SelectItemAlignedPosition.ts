@@ -1,6 +1,6 @@
 import type { UseSelectPopperPrivateProps } from './SelectPopperPosition'
-import { useRef } from '@oku-ui/hooks'
-import { clamp, mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '@oku-ui/shared'
+import { useRef } from '../hooks'
+import { clamp, mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared'
 import { nextTick, onMounted, shallowRef } from 'vue'
 import { useSelectContentContext } from './SelectContent'
 import { CONTENT_MARGIN } from './SelectContentImpl'

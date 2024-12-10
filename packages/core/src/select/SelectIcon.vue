@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
+import { Primitive } from '../primitive'
 import { DEFAULT_SELECT_ICON_PROPS, type SelectIconProps } from './SelectIcon'
 
 defineOptions({

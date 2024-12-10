@@ -1,7 +1,7 @@
+import type { MaybeRefOrGetter } from 'vue'
 import type { Direction } from '../direction/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
-import { type MaybeRefOrGetter, useId } from 'vue'
-import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
+import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 import { type MenuRootProps, useMenuRoot } from '../menu/index.ts'
 
 export interface DropdownMenuRootProps extends MenuRootProps {

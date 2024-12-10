@@ -1,7 +1,7 @@
-import type { EmitsToHookProps, PrimitiveDefaultProps } from '@oku-ui/shared'
-import { type CollectionItemWithData, createCollection } from '@oku-ui/collection'
-import { type Direction, useDirection } from '@oku-ui/direction'
-import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '@oku-ui/hooks'
+import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared'
+import { type CollectionItemWithData, createCollection } from '../collection'
+import { type Direction, useDirection } from '../direction'
+import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks'
 import { type MaybeRefOrGetter, type Ref, shallowRef, useId } from 'vue'
 
 export interface SelectRootProps {

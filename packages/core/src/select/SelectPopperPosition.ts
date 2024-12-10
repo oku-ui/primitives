@@ -1,5 +1,5 @@
-import type { IAttrsData, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '@oku-ui/shared'
-import { usePopperContent, type UsePopperContentProps } from '@oku-ui/popper'
+import type { IAttrsData, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared'
+import { usePopperContent, type UsePopperContentProps } from '../popper'
 import { CONTENT_MARGIN } from './SelectContentImpl.ts'
 
 export type UseSelectPopperPrivateProps = {

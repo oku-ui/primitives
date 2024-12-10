@@ -1,4 +1,4 @@
-import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '@oku-ui/shared'
+import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared'
 import { useSelectGroupContext } from './SelectGroup'
 
 export function useSelectLabel(): RadixPrimitiveReturns {

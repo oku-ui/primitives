@@ -1,6 +1,5 @@
-import { createContext } from '@oku-ui/hooks'
-import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '@oku-ui/shared'
-import { useId } from 'vue'
+import { createContext, useId } from '../hooks'
+import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared'
 
 export interface SelectGroupContextValue {
   id: string

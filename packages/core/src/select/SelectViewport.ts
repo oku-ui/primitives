@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
-import { createContext, type MutableRefObject, useRef } from '@oku-ui/hooks'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '@oku-ui/shared'
+import { createContext, type MutableRefObject, useRef } from '../hooks'
+import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared'
 import { useSelectContentContext } from './SelectContent'
 import { CONTENT_MARGIN } from './SelectContentImpl'
 

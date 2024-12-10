@@ -1,5 +1,5 @@
-import type { PrimitiveProps } from '@oku-ui/primitive'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '@oku-ui/shared'
+import type { PrimitiveProps } from '../primitive'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared'
 import { computed, type Ref } from 'vue'
 import { useSelectContext } from './SelectRoot'
 import { shouldShowPlaceholder } from './utils'

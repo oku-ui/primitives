@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { createContext, type MutableRefObject } from '@oku-ui/hooks'
+import { createContext, type MutableRefObject } from '../hooks'
 
 export interface SelectContentContext {
   content: Ref<HTMLElement | undefined>

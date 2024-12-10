@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '@oku-ui/shared'
+import { Primitive } from '../primitive'
+import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared'
 import { DEFAULT_SELECT_CONTENT_IMPL_PROPS, type SelectContetImplEmits, type SelectContetImplProps, useSelectContentImpl } from './SelectContentImpl'
 
 defineOptions({

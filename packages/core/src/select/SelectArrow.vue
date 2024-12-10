@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PopperAnchor } from '@oku-ui/popper'
+import { PopperAnchor } from '../popper'
 import { useSelectContentContext } from './SelectContent'
 import { useSelectContext } from './SelectRoot'
 

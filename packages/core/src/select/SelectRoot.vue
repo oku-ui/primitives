@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { convertPropsToHookProps, type EmitsToHookProps } from '@oku-ui/shared'
+import { convertPropsToHookProps, type EmitsToHookProps } from '../shared'
 import { type SelectRootEmits, type SelectRootProps, useSelectRoot } from './SelectRoot'
 
 defineOptions({

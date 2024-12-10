@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { normalizeAttrs } from '@oku-ui/shared'
+import { normalizeAttrs } from '../shared'
 import { useSelectViewport } from './SelectViewport'
 
 defineOptions({

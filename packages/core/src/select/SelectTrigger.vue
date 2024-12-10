@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Primitive } from '@oku-ui/primitive'
-import { normalizeAttrs } from '@oku-ui/shared'
+import { Primitive } from '../primitive'
+import { normalizeAttrs } from '../shared'
 import { DEFAULT_SELECT_TRIGGER_PROPS, type SelectTriggerProps, useSelectTrigger } from './SelectTrigger'
 
 defineOptions({

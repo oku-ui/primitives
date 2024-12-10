@@ -1,5 +1,5 @@
-import type { PrimitiveProps } from '@oku-ui/primitive'
-import type { PrimitiveDefaultProps } from '@oku-ui/shared'
+import type { PrimitiveProps } from '../primitive'
+import type { PrimitiveDefaultProps } from '../shared'
 
 export interface SelectIconProps {
   as?: PrimitiveProps['as']
