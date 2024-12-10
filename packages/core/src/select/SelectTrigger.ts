@@ -1,9 +1,9 @@
 import type { CollectionItemWithData } from '../collection'
 import type { PrimitiveProps } from '../primitive'
+import { computed, onMounted } from 'vue'
 import { useRef } from '../hooks'
 import { usePopperContext } from '../popper'
 import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared'
-import { computed, onMounted } from 'vue'
 import { type ItemData, useCollection, useSelectContext } from './SelectRoot'
 import { findNextItem, shouldShowPlaceholder, useTypeaheadSearch } from './utils'
 

@@ -32,8 +32,6 @@ export default antfu(
       '**/*.vue',
     ],
     rules: {
-      'import/first': 'off',
-      'import/order': 'off',
       'vue/block-tag-newline': 'off',
     },
   },

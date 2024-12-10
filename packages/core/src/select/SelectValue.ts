@@ -1,6 +1,6 @@
 import type { PrimitiveProps } from '../primitive'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared'
 import { computed, type Ref } from 'vue'
+import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared'
 import { useSelectContext } from './SelectRoot'
 import { shouldShowPlaceholder } from './utils'
 

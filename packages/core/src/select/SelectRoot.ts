@@ -1,8 +1,8 @@
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared'
+import { type MaybeRefOrGetter, type Ref, shallowRef, useId } from 'vue'
 import { type CollectionItemWithData, createCollection } from '../collection'
 import { type Direction, useDirection } from '../direction'
 import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks'
-import { type MaybeRefOrGetter, type Ref, shallowRef, useId } from 'vue'
 
 export interface SelectRootProps {
   value?: string

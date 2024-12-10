@@ -1,7 +1,7 @@
 import type { UseSelectPopperPrivateProps } from './SelectPopperPosition'
+import { nextTick, onMounted, shallowRef } from 'vue'
 import { useRef } from '../hooks'
 import { clamp, mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared'
-import { nextTick, onMounted, shallowRef } from 'vue'
 import { useSelectContentContext } from './SelectContent'
 import { CONTENT_MARGIN } from './SelectContentImpl'
 import { useCollection, useSelectContext } from './SelectRoot'

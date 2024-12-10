@@ -1,7 +1,7 @@
+import { computed, type Ref, shallowRef, watchEffect } from 'vue'
 import { createContext, useId, useRef } from '../hooks'
 import { SELECTION_KEYS } from '../menu/MenuRoot'
 import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared'
-import { computed, type Ref, shallowRef, watchEffect } from 'vue'
 import { useSelectContentContext } from './SelectContent'
 import { Collection, type ItemData, useSelectContext } from './SelectRoot'
 
