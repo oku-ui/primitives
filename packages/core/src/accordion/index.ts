@@ -3,9 +3,9 @@ export {
   DEFAULT_ACCORDION_CONTENT_PROPS,
   useAccordionContent,
   type UseAccordionContentProps,
-} from './AccordionContent.ts'
+} from './AccordionContent.vue'
 export { default as AccordionContent } from './AccordionContent.vue'
-export { type AccordionHeaderProps } from './AccordionHeader.ts'
+export { type AccordionHeaderProps } from './AccordionHeader.vue'
 export { default as AccordionHeader } from './AccordionHeader.vue'
 export {
   type AccordionItemContext,
@@ -13,7 +13,7 @@ export {
   DEFAULT_ACCORDION_ITEM_PROPS,
   provideAccordionItemContext,
   useAccordionItemContext,
-} from './AccordionItem.ts'
+} from './AccordionItem.vue'
 export { default as AccordionItem } from './AccordionItem.vue'
 export {
   type AccordionContext,
@@ -22,6 +22,6 @@ export {
   DEFAULT_ACCORDION_ROOT_PROPS,
   provideAccordionContext,
   useAccordionContext,
-} from './AccordionRoot.ts'
+} from './AccordionRoot.vue'
 export { default as AccordionRoot } from './AccordionRoot.vue'
 export { default as AccordionTrigger } from './AccordionTrigger.vue'
