@@ -1,30 +1,30 @@
-<script lang=">ts">
+<script lang="ts">
 import {
   type AriaAttributes,
   computed,
   type MaybeRefOrGetter,
-  type Ref
+  type Ref,
 } from 'vue'
 import {
   createCollection,
 } from '../collection/index.ts'
 import {
   type Direction,
-  useDirection
+  useDirection,
 } from '../direction/index.ts'
 import {
   createContext,
   type MutableRefObject,
   useControllableStateV2,
   useId,
-  useRef
+  useRef,
 } from '../hooks/index.ts'
 import {
   convertPropsToHookProps,
   type EmitsToHookProps,
   mergePrimitiveAttrs,
   type PrimitiveDefaultProps,
-  type RadixPrimitiveReturns
+  type RadixPrimitiveReturns,
 } from '../shared/index.ts'
 
 export type AccordionType = 'single' | 'multiple' | undefined

@@ -5,12 +5,12 @@ import {
   type CollapsibleContentProps,
   DEFAULT_COLLAPSIBLE_CONTENT_PROPS,
   useCollapsibleContent,
-  type UseCollapsibleContentProps
+  type UseCollapsibleContentProps,
 } from '../collapsible/index.ts'
 import {
   convertPropsToHookProps,
   mergePrimitiveAttrs,
-  normalizeAttrs
+  normalizeAttrs,
 } from '../shared/index.ts'
 import { useAccordionItemContext } from './AccordionItem.vue'
 import { useAccordionContext } from './AccordionRoot.vue'
