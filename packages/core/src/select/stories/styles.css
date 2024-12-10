@@ -1,0 +1,165 @@
+.select_triggerClass {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #111;
+  border-radius: 6px;
+  background-color: transparent;
+  height: 50px;
+  padding: 5px 15px;
+  font-family: -apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  overflow: hidden;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.select_contentClass {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  min-width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+
+  &:focus-within {
+    border-color: #111;
+  }
+}
+
+.select_contentClassWithPadding .select_contentClass {
+  padding: 5px;
+}
+
+.select_viewportClass {
+  padding: 5px,
+}
+
+.select_groupStyles {}
+
+.select_itemStyles {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  word-spacing: nowrap;
+  height: 25px;
+  padding: 0 25px;
+  font-family: -apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  font-size: 13px;
+  color: #111;
+  border-radius: 3px;
+}
+
+;
+
+.select_labelClass {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  word-spacing: nowrap;
+  height: 25px;
+  padding: 0 25px;
+  font-family: -apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  font-size: 13px;
+  color: #111;
+  border-radius: 3px;
+
+
+  color: #aaa;
+  font-weight: 500;
+}
+
+.select_itemClass {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  word-spacing: nowrap;
+  height: 25px;
+  padding: 0 25px;
+  font-family: -apple-system, BlinkMacSystemFont, helvetica, arial, sans-serif;
+  font-size: 13px;
+  color: #111;
+  border-radius: 3px;
+
+
+  position: relative;
+  outline: none;
+
+  &:active {
+    background-color: #ccc;
+  }
+
+  &[data-highlighted] {
+    background-color: #111;
+    color: white;
+  }
+
+  &[data-disabled] {
+    color: #ccc
+  }
+
+  [dir="rtl"] & {
+    font-size: 16;
+    font-weight: bold;
+  }
+}
+
+.select_itemInGroupClass .select_itemClass {
+  padding-left: 35px;
+}
+
+.select_indicatorClass {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+
+  & svg {
+    display: block;
+  }
+
+  [dir="rtl"] & {
+    left: auto;
+    right: 6px
+  }
+}
+
+.select_scrollButtonClass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 25px;
+  background-color: #fff;
+  color: #111;
+  cursor: default;
+  user-select: none;
+}
+
+.select_scrollUpButtonClass select_scrollButtonClass {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.select_scrollDownButtonClass .select_scrollButtonClass {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.select_separatorClass {
+  height: 1px;
+  margin: 5px -5px;
+  background-color: #ccc;
+}

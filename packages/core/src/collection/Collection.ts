@@ -31,23 +31,17 @@ export function createCollection<ItemElement extends HTMLElement, ItemData exten
   }
 
   function useCollectionItem<K extends keyof ItemData>(currentElement: ItemElement | undefined, attrs: ItemData[K], key: K) {
-    if (!key)
+    if (!key || !currentElement)
       return
 
-    const unrefElement = currentElement as Record<string, any> | CollectionItem | undefined
-    if (!unrefElement)
-      return
+    const element = currentElement as CollectionItem
 
-    if ('$$rcid' in unrefElement) {
-      if (key in unrefElement.$$rcid)
-        return
-
-      unrefElement.$$rcid[key] = attrs
+    if (!element.$$rcid) {
+      element.$$rcid = {} as ItemData
     }
-    else {
-      unrefElement.$$rcid = {
-        [key]: attrs,
-      }
+
+    if (!(key in element.$$rcid)) {
+      element.$$rcid[key] = attrs
     }
   }
 
