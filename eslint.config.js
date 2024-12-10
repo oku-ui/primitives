@@ -35,6 +35,7 @@ export default antfu(
       'import/first': 'off',
       'import/order': 'off',
       'vue/block-tag-newline': 'off',
+      'style/comma-dangle': 'off',
     },
   },
 )
