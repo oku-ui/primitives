@@ -1,6 +1,6 @@
-import type { Components } from '@oku-ui/primitives/constant'
+import type { Components } from '../../../core/src/constant'
 import { writeFileSync } from 'node:fs'
-import { components } from '@oku-ui/primitives/constant'
+import { components } from '../../../core/src/constant'
 
 const excludedComponent = ['primitive', 'visuallyHidden']
 const filteredComponent = Object.keys(components).filter(i => !excludedComponent.includes(i)) as Components[]

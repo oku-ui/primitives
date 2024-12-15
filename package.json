@@ -1,7 +1,7 @@
 {
   "name": "@oku-ui/primitives",
   "type": "module",
-  "version": "0.7.5",
+  "version": "0.7.8",
   "private": true,
   "packageManager": "pnpm@9.12.1",
   "license": "MIT",

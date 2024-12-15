@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process'
 import { resolve } from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -22,6 +23,13 @@ export default defineConfig({
       tsconfigPath: 'tsconfig.build.json',
       exclude: ['src/test/**', 'src/**/stories/**', 'src/**/*.stories.vue'],
       rollupTypes: true,
+      afterBuild: async () => {
+        console.log('dts afterBuild')
+        // pnpm build:plugins
+        execSync('pnpm build:plugins', { stdio: 'inherit', cwd: resolve(__dirname, '../plugins') })
+        execSync('pnpm generate:plugins', { stdio: 'inherit', cwd: resolve(__dirname, '../plugins') })
+        execSync('pnpm lint:fix', { stdio: 'inherit', cwd: resolve(__dirname, '../..') })
+      },
     }),
   ],
   resolve: {
@@ -37,9 +45,10 @@ export default defineConfig({
     lib: {
       name: 'oku-ui-primitives',
       formats: ['es'],
-      fileName: (_, name) => `${name}.mjs`,
+      fileName: (format, entryName) => `${entryName}.mjs`,
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
+        constant: resolve(__dirname, 'src/constant/index.ts'),
       },
     },
     rollupOptions: {
@@ -49,17 +58,13 @@ export default defineConfig({
       ],
       output: {
         manualChunks: (id) => {
-          // Daha basit chunk stratejisi
           const chunks = id.match(/[/\\]src[/\\](.*?)[/\\]/)
           return chunks ? chunks[1] : null
         },
         exports: 'named',
         chunkFileNames: '[name].mjs',
-        assetFileNames: 'index.css',
-        hoistTransitiveImports: false,
         minifyInternalExports: true,
       },
     },
-
   },
 })
