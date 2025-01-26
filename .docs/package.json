@@ -15,9 +15,9 @@
   "dependencies": {
     "@oku-ui/motion": "^0.4.1",
     "@oku-ui/primitives": "link:../packages/core",
-    "@shikijs/vitepress-twoslash": "^1.22.2",
+    "@shikijs/vitepress-twoslash": "^2.0.0",
     "@stackblitz/sdk": "^1.11.0",
-    "@vueuse/core": "^11.2.0",
+    "@vueuse/core": "^12.0.0",
     "vue": "^3.5.12",
     "vue-sonner": "^1.2.5"
   },
@@ -33,7 +33,7 @@
     "fast-glob": "^3.3.2",
     "markdown-it": "^14.1.0",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^4.0.0",
     "tsx": "^4.19.2",
     "vitepress": "^1.5.0",
     "vue-component-meta": "^2.1.10"
