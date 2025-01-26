@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ToggleGroupItemProps } from './ToggleGroupItem.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TOGGLE_GROUP_ITEM_PROPS, type ToggleGroupItemProps, useToggleGroupItem } from './ToggleGroupItem.ts'
+import { DEFAULT_TOGGLE_GROUP_ITEM_PROPS, useToggleGroupItem } from './ToggleGroupItem.ts'
 
 defineOptions({
   name: 'ToggleGroupItem',

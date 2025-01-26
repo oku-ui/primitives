@@ -1,8 +1,12 @@
 import type { MaybeRefOrGetter, Ref } from 'vue'
-import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
-import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import type { Direction } from '../direction/index.ts'
+import type { MutableRefObject } from '../hooks/index.ts'
+import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { useDirection } from '../direction/index.ts'
+import { createContext, useControllableStateV2, useRef } from '../hooks/index.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export interface RadioGroupRootProps {
   name?: string

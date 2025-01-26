@@ -1,5 +1,6 @@
+import type { MenuSubContentProps, UseMenuSubContentProps } from '../menu/index.ts'
 import type { PrimitiveDefaultProps } from '../shared'
-import { type MenuSubContentProps, useMenuSubContent, type UseMenuSubContentProps } from '../menu/index.ts'
+import { useMenuSubContent } from '../menu/index.ts'
 
 export interface MenubarSubContentProps extends MenuSubContentProps {}
 

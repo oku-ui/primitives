@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { MenubarSubContentProps } from './MenubarSubContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_MENUBAR_SUB_CONTENT_PROPS, type MenubarSubContentProps, useMenubarSubContent } from './MenubarSubContent.ts'
+import { DEFAULT_MENUBAR_SUB_CONTENT_PROPS, useMenubarSubContent } from './MenubarSubContent.ts'
 import MenubarSubContentImpl from './MenubarSubContentImpl.vue'
 
 defineOptions({

@@ -1,5 +1,6 @@
 import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared'
-import { type MenuItemEmits, type MenuItemProps, useMenuItem, type UseMenuItemProps } from './MenuItem.ts'
+import type { MenuItemEmits, MenuItemProps, UseMenuItemProps } from './MenuItem.ts'
+import { useMenuItem } from './MenuItem.ts'
 import { provideItemIndicatorContext } from './MenuItemIndicator.ts'
 import { useRadioGroupContext } from './MenuRadioGroup.ts'
 import { getCheckedState } from './utils.ts'

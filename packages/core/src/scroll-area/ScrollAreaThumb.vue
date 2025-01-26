@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { ScrollAreaThumbProps } from './ScrollAreaThumb.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_SCROLL_AREA_THUMB_PROPS, type ScrollAreaThumbProps, useScrollAreaThumb } from './ScrollAreaThumb.ts'
+import { DEFAULT_SCROLL_AREA_THUMB_PROPS, useScrollAreaThumb } from './ScrollAreaThumb.ts'
 import ScrollAreaThumbImpl from './ScrollAreaThumbImpl.vue'
 
 defineOptions({

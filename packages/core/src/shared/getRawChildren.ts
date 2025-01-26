@@ -1,5 +1,6 @@
+import type { VNode } from 'vue'
 import { PatchFlags } from '@vue/shared'
-import { Comment, Fragment, type VNode } from 'vue'
+import { Comment, Fragment } from 'vue'
 
 // TODO: wip
 export function getRawChildren(children: VNode[]): VNode[] {

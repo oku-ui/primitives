@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { RadioGroupIndicatorProps } from './RadioGroupIndicator.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_RADIO_GROUP_INDICATOR_PROPS, type RadioGroupIndicatorProps, useRadioGroupIndicator } from './RadioGroupIndicator.ts'
+import { DEFAULT_RADIO_GROUP_INDICATOR_PROPS, useRadioGroupIndicator } from './RadioGroupIndicator.ts'
 
 defineOptions({
   name: 'RadioGroupIndicator',

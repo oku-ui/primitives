@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { TabsTriggerProps } from './TabsTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TABS_TRIGGER_PROPS, type TabsTriggerProps, useTabsTrigger } from './TabsTrigger.ts'
+import { DEFAULT_TABS_TRIGGER_PROPS, useTabsTrigger } from './TabsTrigger.ts'
 
 defineOptions({
   name: 'TabsTrigger',

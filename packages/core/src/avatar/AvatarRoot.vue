@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { AvatarRootProps } from './AvatarRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { type AvatarRootProps, DEFAULT_AVATAR_ROOT_PROPS, useAvatarRoot } from './AvatarRoot.ts'
+import { DEFAULT_AVATAR_ROOT_PROPS, useAvatarRoot } from './AvatarRoot.ts'
 
 defineOptions({
   name: 'AvatarRoot',

@@ -1,4 +1,5 @@
-import { type MaybeRefOrGetter, onBeforeUnmount, onMounted, toValue } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
+import { onBeforeUnmount, onMounted, toValue } from 'vue'
 
 let registeredEscapeHandlers: ((e: KeyboardEvent) => void)[] = []
 

@@ -1,9 +1,10 @@
 import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { MenuItemImplProps, UseMenuItemImplProps } from './MenuItemImpl.ts'
 import type { Side } from './utils.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
 import { useMenuContentContext } from './MenuContentImpl.ts'
-import { type MenuItemImplProps, useMenuItemImpl, type UseMenuItemImplProps } from './MenuItemImpl.ts'
+import { useMenuItemImpl } from './MenuItemImpl.ts'
 import { SUB_OPEN_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'
 

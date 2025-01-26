@@ -1,6 +1,7 @@
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import type { ToggleGroupEmits, ToggleGroupProps, ToggleGroupType } from '../toggle-group/index.ts'
-import { useToggleGroup, type UseToggleGroupProps } from '../toggle-group/ToggleGroupRoot.ts'
+import type { UseToggleGroupProps } from '../toggle-group/ToggleGroupRoot.ts'
+import { useToggleGroup } from '../toggle-group/ToggleGroupRoot.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'
 
 export interface ToolbarToggleGroupProps<T extends ToggleGroupType> extends Omit<ToggleGroupProps<T>, 'rovingFocus'> {}

@@ -1,8 +1,11 @@
+import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { Direction } from '../direction/index.ts'
+import type { MutableRefObject } from '../hooks/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
-import { type MaybeRefOrGetter, onBeforeUnmount, onMounted, type Ref } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
+import { useDirection } from '../direction/index.ts'
+import { createContext, useRef } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/index.ts'
 
 export interface MenuRootProps {

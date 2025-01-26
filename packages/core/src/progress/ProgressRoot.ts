@@ -1,6 +1,7 @@
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed, toValue } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import { isNumber, mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { isNumber, mergePrimitiveAttrs } from '../shared/index.ts'
 import { DEFAULT_MAX, defaultGetValueLabel, getProgressState } from './utils.ts'
 
 export interface ProgressRootProps {

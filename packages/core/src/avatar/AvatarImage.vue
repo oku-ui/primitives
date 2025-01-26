@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { AvatarImageEmits, AvatarImageProps } from './AvatarImage.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type AvatarImageEmits, type AvatarImageProps, DEFAULT_AVATAR_IMAGE_PROPS, useAvatarImage } from './AvatarImage.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_AVATAR_IMAGE_PROPS, useAvatarImage } from './AvatarImage.ts'
 
 defineOptions({
   name: 'AvatarImage',

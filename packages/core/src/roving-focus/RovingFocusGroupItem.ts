@@ -1,9 +1,11 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { ItemData } from './RovingFocusGroupRoot.ts'
 import { computed, onWatcherCleanup, watch, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useId } from '../hooks/index.ts'
-import { focusFirst, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns, wrapArray } from '../shared/index.ts'
-import { Collection, type ItemData, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
+import { focusFirst, mergePrimitiveAttrs, wrapArray } from '../shared/index.ts'
+import { Collection, useCollection, useRovingFocusContext } from './RovingFocusGroupRoot.ts'
 import { getFocusIntent } from './utils.ts'
 
 export interface RovingFocusGroupItemProps {

@@ -1,6 +1,7 @@
+import type { MutableRefObject } from '../hooks/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
 import { onWatcherCleanup, useId, watchEffect } from 'vue'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
+import { createContext, useRef } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/index.ts'
 import { provideMenuContext, useMenuContext } from './MenuRoot.ts'
 

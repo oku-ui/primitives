@@ -1,8 +1,10 @@
 import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { Direction } from '../direction/index.ts'
 import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
-import { type Direction, useDirection } from '../direction/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export interface TabsRootProps {
   /** The value for the selected tab, if controlled */

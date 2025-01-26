@@ -1,6 +1,8 @@
+import type { MutableRefObject } from '../hooks/index.ts'
+import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import { type MutableRefObject, useRef } from '../hooks/index.ts'
-import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { useRef } from '../hooks/index.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 

@@ -1,6 +1,7 @@
+import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps } from '../shared/index.ts'
-import { type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { createContext } from '../hooks/index.ts'
 
 export interface AvatarRootProps {

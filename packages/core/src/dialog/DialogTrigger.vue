@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { DialogTriggerProps } from './DialogTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_DIALOG_TRIGGER_PROPS, type DialogTriggerProps, useDialogTrigger } from './DialogTrigger.ts'
+import { DEFAULT_DIALOG_TRIGGER_PROPS, useDialogTrigger } from './DialogTrigger.ts'
 
 defineOptions({
   name: 'DialogTrigger',

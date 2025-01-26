@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { TooltipContentProps } from './TooltipContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_TOOLTIP_CONTENT_PROPS, type TooltipContentProps, useTooltipContent } from './TooltipContent.ts'
+import { DEFAULT_TOOLTIP_CONTENT_PROPS, useTooltipContent } from './TooltipContent.ts'
 import TooltipContentImpl from './TooltipContentImpl.vue'
 
 defineOptions({

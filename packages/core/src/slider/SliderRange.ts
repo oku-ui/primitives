@@ -1,6 +1,7 @@
 import type { PrimitiveProps } from '../primitive'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { computed } from 'vue'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useSliderContext, useSliderOrientationContext } from './SliderRoot.ts'
 import { convertValueToPercentage } from './utils.ts'
 

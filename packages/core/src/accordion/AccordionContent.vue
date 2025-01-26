@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { AccordionContentProps } from './AccordionContent.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type AccordionContentProps, DEFAULT_ACCORDION_CONTENT_PROPS, useAccordionContent } from './AccordionContent.ts'
+import { DEFAULT_ACCORDION_CONTENT_PROPS, useAccordionContent } from './AccordionContent.ts'
 
 defineOptions({
   name: 'AccordionContent',

@@ -1,7 +1,9 @@
 import type { MaybeRefOrGetter, Ref } from 'vue'
 import type { Direction } from '../direction/index.ts'
-import { shallowRef, toValue, watch, watchEffect } from 'vue'
+import type { Placement, UseFloatingCofnig } from '../floating/index.ts'
 
+import type { EmitsToHookProps, IAttrsData, PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { shallowRef, toValue, watch, watchEffect } from 'vue'
 import {
   autoUpdate,
   flip,
@@ -9,14 +11,14 @@ import {
   hide,
   limitShift,
   offset,
-  type Placement,
+
   shift,
   size,
   useFloating,
-  type UseFloatingCofnig,
+
 } from '../floating/index.ts'
 import { createContext, useSize } from '../hooks/index.ts'
-import { type EmitsToHookProps, type IAttrsData, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { usePopperContext } from './PopperRoot.ts'
 import { getSideAndAlignFromPlacement, isNotNull, transformOrigin } from './utils.ts'
 

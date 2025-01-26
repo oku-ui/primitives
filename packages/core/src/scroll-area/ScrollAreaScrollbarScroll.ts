@@ -1,9 +1,11 @@
+import type { Ref } from 'vue'
+import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import type { ScrollAreaScrollbarVisibleProps, UseScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 import { isClient, useDebounceFn } from '@vueuse/core'
-import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useStateMachine } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarScrollProps {

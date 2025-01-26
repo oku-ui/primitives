@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { AlertDialogContentProps } from './AlertDialogContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type AlertDialogContentProps, DEFAULT_ALERT_DIALOG_CONTENT_PROPS, useAlertDialogContent } from './AlertDialogContent.ts'
+import { DEFAULT_ALERT_DIALOG_CONTENT_PROPS, useAlertDialogContent } from './AlertDialogContent.ts'
 import AlertDialogContentImpl from './AlertDialogContentImpl.vue'
 
 defineOptions({

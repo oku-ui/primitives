@@ -1,5 +1,6 @@
+import type { MutableRefObject } from '../hooks/index.ts'
 import { computed, useId, watch } from 'vue'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
+import { createContext, useRef } from '../hooks/index.ts'
 import { useMenuRoot } from '../menu/MenuRoot.ts'
 import { useMenubarContext } from './MenubarRoot.ts'
 

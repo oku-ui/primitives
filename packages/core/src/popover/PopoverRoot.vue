@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { DEFAULT_POPOVER_ROOT_PROPS, type PopoverRootEmits, type PopoverRootProps, usePopoverRoot } from './PopoverRoot.ts'
+import type { PopoverRootEmits, PopoverRootProps } from './PopoverRoot.ts'
+import { DEFAULT_POPOVER_ROOT_PROPS, usePopoverRoot } from './PopoverRoot.ts'
 
 defineOptions({
   name: 'PopoverRoot',

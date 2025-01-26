@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { ItemData } from './utils.ts'
 import { useAttrs } from 'vue'
 import { useComposedElements } from '../../hooks/index.ts'
 import { isPropFalsy } from '../../shared/index.ts'
 import { DATA_COLLECTION_ITEM } from '../index.ts'
-import { Collection, type ItemData } from './utils.ts'
+import { Collection } from './utils.ts'
 
 const attrs = useAttrs()
 

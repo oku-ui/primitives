@@ -1,11 +1,13 @@
+import type { DismissableLayerEmits } from '../dismissable-layer/index.ts'
+import type { PopperContentProps, UsePopperContentProps } from '../popper/index.ts'
 import type { EmitsToHookProps, IAttrsData, PrimitiveDefaultProps, RadixPrimitiveGetAttrs } from '../shared/index.ts'
 import { hideOthers } from 'aria-hidden'
 import { onBeforeUnmount, onMounted } from 'vue'
-import { type DismissableLayerEmits, useDismissableLayer } from '../dismissable-layer/index.ts'
+import { useDismissableLayer } from '../dismissable-layer/index.ts'
 import { useFocusGuards } from '../focus-guards/index.ts'
 import { useFocusScope } from '../focus-scope/index.ts'
 import { useBodyScrollLock } from '../hooks/index.ts'
-import { type PopperContentProps, usePopperContent, type UsePopperContentProps, usePopperContext } from '../popper/index.ts'
+import { usePopperContent, usePopperContext } from '../popper/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 export interface PopoverContentImplProps extends PopperContentProps { }

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { RadioGroupRootEmits, RadioGroupRootProps } from './RadioGroupRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_RADIO_GROUP_ROOT_PROPS, type RadioGroupRootEmits, type RadioGroupRootProps, useRadioGroupRoot } from './RadioGroupRoot.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_RADIO_GROUP_ROOT_PROPS, useRadioGroupRoot } from './RadioGroupRoot.ts'
 
 defineOptions({
   name: 'RadioGroup',

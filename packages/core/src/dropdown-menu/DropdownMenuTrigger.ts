@@ -1,7 +1,8 @@
 import type { PrimitiveProps } from '../primitive'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { onMounted } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useDropdownMenuContext } from './DropdownMenuRoot.ts'
 
 export interface DropdownMenuTriggerProps {

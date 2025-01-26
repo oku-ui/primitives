@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { MenubarRootEmits, MenubarRootProps } from './MenubarRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_MENUBAR_ROOT_PROPS, type MenubarRootEmits, type MenubarRootProps, useMenuvarRoot } from './MenubarRoot.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENUBAR_ROOT_PROPS, useMenuvarRoot } from './MenubarRoot.ts'
 
 defineOptions({
   name: 'MenubarRoot',

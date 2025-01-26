@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { ToastRootImplEmits, ToastRootImplProps } from './ToastRootImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import { VISUALLY_HIDDEN_STYLE } from '../visually-hidden/VisuallyHidden.ts'
 import { useToastAnnounce } from './ToastAnnounce.ts'
-import { type ToastRootImplEmits, type ToastRootImplProps, useToastRootImpl } from './ToastRootImpl.ts'
+import { useToastRootImpl } from './ToastRootImpl.ts'
 
 defineOptions({
   name: 'ToastRootImpl',

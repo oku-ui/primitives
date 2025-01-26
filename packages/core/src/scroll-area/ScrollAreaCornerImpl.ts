@@ -1,6 +1,8 @@
+import type { Ref } from 'vue'
+import type { PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, type Ref, shallowRef } from 'vue'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { computed, shallowRef } from 'vue'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export function useScrollAreaCornerImpl(): RadixPrimitiveReturns<{

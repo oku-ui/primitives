@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { DropdownMenuContentImplEmits, DropdownMenuContentImplProps } from './DropdownMenuContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type DropdownMenuContentImplEmits, type DropdownMenuContentImplProps, useDropdownMenuContentImpl } from './DropdownMenuContentImpl.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { useDropdownMenuContentImpl } from './DropdownMenuContentImpl.ts'
 
 defineOptions({
   name: 'DropdownMenuContentImpl',

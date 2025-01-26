@@ -1,8 +1,10 @@
+import type { MaybeRefOrGetter } from 'vue'
 import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
-import { computed, type MaybeRefOrGetter, toValue } from 'vue'
+import type { ToggleProps, UseToggleProps } from '../toggle/index.ts'
+import { computed, toValue } from 'vue'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
-import { type ToggleProps, useToggle, type UseToggleProps } from '../toggle/index.ts'
+import { useToggle } from '../toggle/index.ts'
 import { useToggleGroupContext } from './ToggleGroupRoot.ts'
 
 export interface ToggleGroupItemProps extends Omit<ToggleProps, 'pressed' | 'defaultPressed'> {
@@ -48,13 +50,13 @@ export function useToggleGroupItem(props: UseToggleGroupItemProps): RadixPrimiti
 
   const rovingFocusGroupItem = context.rovingFocus
     ? useRovingFocusGroupItem({
-      focusable() {
-        return !disabled.value
-      },
-      active() {
-        return pressed.value
-      },
-    })
+        focusable() {
+          return !disabled.value
+        },
+        active() {
+          return pressed.value
+        },
+      })
     : undefined
 
   return {

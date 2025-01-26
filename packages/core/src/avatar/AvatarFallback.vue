@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { AvatarFallbackProps } from './AvatarFallback.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type AvatarFallbackProps, useAvatarFallback } from './AvatarFallback.ts'
+import { useAvatarFallback } from './AvatarFallback.ts'
 
 defineOptions({
   name: 'AvatarFallback',

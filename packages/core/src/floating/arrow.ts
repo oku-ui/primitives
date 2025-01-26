@@ -1,10 +1,11 @@
+import type { Middleware, Padding } from '@floating-ui/dom'
+import type { MaybeRefOrGetter } from 'vue'
+
 import {
   arrow as arrowCore,
-  type Middleware,
-  type Padding,
-} from '@floating-ui/dom'
 
-import { type MaybeRefOrGetter, toValue } from 'vue'
+} from '@floating-ui/dom'
+import { toValue } from 'vue'
 
 export interface ArrowOptions {
   /**

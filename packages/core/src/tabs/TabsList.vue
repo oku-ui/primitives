@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { TabsListProps } from './TabsList.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TABS_LIST_PROPS, type TabsListProps, useTabsList } from './TabsList.ts'
+import { DEFAULT_TABS_LIST_PROPS, useTabsList } from './TabsList.ts'
 
 defineOptions({
   name: 'TabsList',

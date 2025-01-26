@@ -1,5 +1,6 @@
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { toValue } from 'vue'
-import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useProgressContext } from './ProgressRoot.ts'
 import { getProgressState } from './utils.ts'
 

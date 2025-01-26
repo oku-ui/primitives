@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ToastViewportProps } from './ToastViewport.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type ToastViewportProps, useToastViewport } from './ToastViewport.ts'
+import { useToastViewport } from './ToastViewport.ts'
 
 defineOptions({
   name: 'ToastViewport',

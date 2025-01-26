@@ -1,6 +1,8 @@
-import { computed, type CSSProperties, nextTick, onMounted, type Ref, shallowRef } from 'vue'
+import type { CSSProperties, Ref } from 'vue'
+import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { computed, nextTick, onMounted, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useCollapsibleContext } from './CollapsibleRoot.ts'
 
 export interface CollapsibleContentProps {
@@ -34,30 +36,30 @@ export function useCollapsibleContent(props: UseCollapsibleContentProps): RadixP
   const isPresent = props.forceMount
     ? shallowRef(true)
     : usePresence(el, context.open, () => {
-      const node = el.value
-      if (!node)
-        return
+        const node = el.value
+        if (!node)
+          return
 
-      const nodeStyle = node.style
+        const nodeStyle = node.style
 
-      originalStyles = originalStyles || {
-        transitionDuration: nodeStyle.transitionDuration,
-        animationName: nodeStyle.animationName,
-      }
+        originalStyles = originalStyles || {
+          transitionDuration: nodeStyle.transitionDuration,
+          animationName: nodeStyle.animationName,
+        }
 
-      // block any animations/transitions so the element renders at its full dimensions
-      nodeStyle.transitionDuration = '0s'
-      nodeStyle.animationName = 'none'
+        // block any animations/transitions so the element renders at its full dimensions
+        nodeStyle.transitionDuration = '0s'
+        nodeStyle.animationName = 'none'
 
-      // get width and height from full dimensions
-      const rect = node.getBoundingClientRect()
-      nodeStyle.setProperty('--radix-collapsible-content-height', `${rect.height}px`)
-      nodeStyle.setProperty('--radix-collapsible-content-width', `${rect.width}px`)
+        // get width and height from full dimensions
+        const rect = node.getBoundingClientRect()
+        nodeStyle.setProperty('--radix-collapsible-content-height', `${rect.height}px`)
+        nodeStyle.setProperty('--radix-collapsible-content-width', `${rect.width}px`)
 
-      // kick off any animations/transitions that were originally set up if it isn't the initial mount
-      nodeStyle.transitionDuration = originalStyles.transitionDuration
-      nodeStyle.animationName = originalStyles.animationName
-    })
+        // kick off any animations/transitions that were originally set up if it isn't the initial mount
+        nodeStyle.transitionDuration = originalStyles.transitionDuration
+        nodeStyle.animationName = originalStyles.animationName
+      })
 
   // when opening we want it to immediately open to retrieve dimensions
   // when closing we delay `present` to retrieve dimensions before closing

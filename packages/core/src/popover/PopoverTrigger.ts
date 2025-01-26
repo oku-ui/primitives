@@ -1,6 +1,7 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import { usePopperContext } from '../popper/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { usePopoverContext } from './PopoverRoot.ts'
 
 export interface PopoverTriggerProps {

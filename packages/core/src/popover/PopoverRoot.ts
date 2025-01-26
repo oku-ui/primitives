@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
+import type { MutableRefObject } from '../hooks/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
-import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
+import { createContext, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/index.ts'
 
 export interface PopoverRootProps {

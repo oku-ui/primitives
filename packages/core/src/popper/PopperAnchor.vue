@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { PopperAnchorProps } from './PopperAnchor.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type PopperAnchorProps, usePopperAnchor } from './PopperAnchor.ts'
+import { usePopperAnchor } from './PopperAnchor.ts'
 
 defineOptions({
   name: 'PopperAnchor',

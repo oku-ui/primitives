@@ -1,7 +1,9 @@
 <script setup lang="ts" generic="T extends AccordionType = undefined">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { AccordionRootEmits, AccordionRootProps, AccordionType } from './AccordionRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type AccordionRootEmits, type AccordionRootProps, type AccordionType, DEFAULT_ACCORDION_ROOT_PROPS, useAccordionRoot } from './AccordionRoot.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_ACCORDION_ROOT_PROPS, useAccordionRoot } from './AccordionRoot.ts'
 
 defineOptions({
   name: 'AccordionRoot',

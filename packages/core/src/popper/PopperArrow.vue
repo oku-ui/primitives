@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { PopperArrowProps } from './PopperArrow.ts'
 import { Primitive } from '../primitive/index.ts'
-import { DEFAULT_ARROW_PROPS, OPPOSITE_SIDE, type PopperArrowProps } from './PopperArrow.ts'
+import { DEFAULT_ARROW_PROPS, OPPOSITE_SIDE } from './PopperArrow.ts'
 import { useContentContext } from './PopperContent.ts'
 
 defineOptions({

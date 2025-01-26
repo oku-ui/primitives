@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { DropdownMenuRootEmits, DropdownMenuRootProps } from './DropdownMenuRoot.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_DROPDOWN_MENU_ROOT_PROPS, type DropdownMenuRootEmits, type DropdownMenuRootProps, useDropdownMenuRoot } from './DropdownMenuRoot.ts'
+import { DEFAULT_DROPDOWN_MENU_ROOT_PROPS, useDropdownMenuRoot } from './DropdownMenuRoot.ts'
 
 defineOptions({
   name: 'DropdownMenuRoot',

@@ -1,6 +1,8 @@
 import type { MutableRefObject } from '../hooks/index.ts'
-import { type Measurable, type PopperAnchorProps, usePopperContext } from '../popper/index.ts'
-import { mergePrimitiveAttrs, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import type { Measurable, PopperAnchorProps } from '../popper/index.ts'
+import type { RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { usePopperContext } from '../popper/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export interface PopoverAnchorProps extends PopperAnchorProps {
 

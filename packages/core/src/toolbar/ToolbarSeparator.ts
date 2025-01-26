@@ -1,5 +1,6 @@
+import type { SeparatorProps, UseSeparatorProps } from '../separator/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import { type SeparatorProps, useSeparator, type UseSeparatorProps } from '../separator/index.ts'
+import { useSeparator } from '../separator/index.ts'
 import { useToolbarContext } from './ToolbarRoot.ts'
 
 export interface ToolbarSeparatorProps extends Omit<SeparatorProps, 'orientation'> {}

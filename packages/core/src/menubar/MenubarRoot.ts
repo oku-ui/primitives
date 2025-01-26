@@ -1,9 +1,12 @@
+import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { Direction } from '../direction/index.ts'
+import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { type Direction, useDirection } from '../direction/index.ts'
+import { useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2, useRef } from '../hooks/index.ts'
-import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
 
 export interface MenubarRootProps {
   value?: string

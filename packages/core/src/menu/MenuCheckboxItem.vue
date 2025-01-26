@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { MenuCheckboxItemEmits, MenuCheckboxItemProps } from './MenuCheckboxItem.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_MENU_CHECKBOX_ITEM_PROPS, type MenuCheckboxItemEmits, type MenuCheckboxItemProps, useMenuCheckboxItem } from './MenuCheckboxItem.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_CHECKBOX_ITEM_PROPS, useMenuCheckboxItem } from './MenuCheckboxItem.ts'
 
 defineOptions({
   name: 'MenuCheckboxItem',

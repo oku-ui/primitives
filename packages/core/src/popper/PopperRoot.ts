@@ -1,6 +1,7 @@
 import type { VirtualElement } from '@floating-ui/utils'
+import type { Ref } from 'vue'
 import { isElement } from '@floating-ui/utils/dom'
-import { type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { createContext } from '../hooks/index.ts'
 
 export type Measurable = HTMLElement | VirtualElement

@@ -1,4 +1,5 @@
-import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export function useScrollAreaContent(): RadixPrimitiveReturns {

@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { PopperContentEmits, PopperContentProps } from './PopperContent.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
   DEFAULT_POPPER_CONTENT_PROPS,
-  type PopperContentEmits,
-  type PopperContentProps,
+
   usePopperContent,
 } from './PopperContent.ts'
 

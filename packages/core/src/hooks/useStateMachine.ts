@@ -1,4 +1,5 @@
-import { type Ref, shallowRef } from 'vue'
+import type { Ref } from 'vue'
+import { shallowRef } from 'vue'
 
 interface Machine<S> { [k: string]: { [k: string]: S } }
 type MachineState<T> = keyof T

@@ -1,3 +1,4 @@
+import type { CSSProperties, MaybeRefOrGetter } from 'vue'
 import type {
   ComputePositionConfig,
   MiddlewareData,
@@ -6,12 +7,11 @@ import type {
   UseFloatingOptions,
   UseFloatingReturn,
 } from './types.ts'
-import { computePosition } from '@floating-ui/dom'
 
+import { computePosition } from '@floating-ui/dom'
 import {
   computed,
-  type CSSProperties,
-  type MaybeRefOrGetter,
+
   onWatcherCleanup,
   shallowRef,
   toValue,

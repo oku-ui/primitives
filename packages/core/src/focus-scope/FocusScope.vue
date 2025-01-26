@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { FocusScopeEmits, FocusScopeProps } from './FocusScope.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
   DEFAULT_FOCUS_SCOPE_PROPS,
-  type FocusScopeEmits,
-  type FocusScopeProps,
+
   useFocusScope,
 } from './FocusScope.ts'
 

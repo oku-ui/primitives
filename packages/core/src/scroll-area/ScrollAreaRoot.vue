@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ScrollAreaRootProps } from './ScrollAreaRoot.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_SCROLL_AREA_PROPS, type ScrollAreaRootProps, useScrollAreaRoot } from './ScrollAreaRoot.ts'
+import { DEFAULT_SCROLL_AREA_PROPS, useScrollAreaRoot } from './ScrollAreaRoot.ts'
 
 defineOptions({
   name: 'ScrollAreaRoot',

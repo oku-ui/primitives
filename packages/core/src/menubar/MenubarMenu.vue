@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { MenubarMenuProps } from './MenubarMenu.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type MenubarMenuProps, useMenubarMenu } from './MenubarMenu.ts'
+import { useMenubarMenu } from './MenubarMenu.ts'
 
 defineOptions({
   name: 'MenubarMenu',

@@ -1,5 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useToastRootContext } from './ToastRoot.ts'
 
 export interface ToastCloseProps {

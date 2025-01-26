@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { TooltipTriggerProps } from './TooltipTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TOOLTIP_TRIGGER_PROPS, type TooltipTriggerProps, useTooltipTrigger } from './TooltipTrigger.ts'
+import { DEFAULT_TOOLTIP_TRIGGER_PROPS, useTooltipTrigger } from './TooltipTrigger.ts'
 
 defineOptions({
   name: 'TooltipTrigger',

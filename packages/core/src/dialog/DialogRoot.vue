@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { DialogRootEmits, DialogRootProps } from './DialogRoot.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
 import {
   DEFAULT_DIALOG_ROOT_PROPS,
-  type DialogRootEmits,
-  type DialogRootProps,
+
   useDialogRoot,
 } from './DialogRoot.ts'
 

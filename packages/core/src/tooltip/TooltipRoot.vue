@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { TooltipRootEmits, TooltipRootProps } from './TooltipRoot.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_TOOLTIP_ROOT_PROPS, type TooltipRootEmits, type TooltipRootProps, useTooltipRoot } from './TooltipRoot.ts'
+import { DEFAULT_TOOLTIP_ROOT_PROPS, useTooltipRoot } from './TooltipRoot.ts'
 
 defineOptions({
   name: 'TooltipRoot',

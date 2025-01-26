@@ -1,6 +1,7 @@
 import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { UseMenuItemImplProps } from './MenuItemImpl.ts'
 import { useMenuContentContext } from './MenuContentImpl.ts'
-import { useMenuItemImpl, type UseMenuItemImplProps } from './MenuItemImpl.ts'
+import { useMenuItemImpl } from './MenuItemImpl.ts'
 import { SELECTION_KEYS, useMenuRootContext } from './MenuRoot.ts'
 
 export type MenuItemProps = {

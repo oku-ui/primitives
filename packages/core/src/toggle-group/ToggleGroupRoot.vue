@@ -1,11 +1,11 @@
 <script setup lang="ts" generic="T extends ToggleGroupType = undefined">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { ToggleGroupEmits, ToggleGroupProps, ToggleGroupType } from './ToggleGroupRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
   DEFAULT_TOGGLE_GROUP_PROPS,
-  type ToggleGroupEmits,
-  type ToggleGroupProps,
-  type ToggleGroupType,
+
   useToggleGroup,
 } from './ToggleGroupRoot.ts'
 

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { MenuContentImplEmits, MenuContentImplProps } from './MenuContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_MENU_CONTENT_IMPL_PROPS, type MenuContentImplEmits, type MenuContentImplProps, useMenuContentImpl } from './MenuContentImpl.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_CONTENT_IMPL_PROPS, useMenuContentImpl } from './MenuContentImpl.ts'
 
 defineOptions({
   name: 'MenuContentImpl',

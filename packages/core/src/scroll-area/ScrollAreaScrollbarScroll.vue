@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { ScrollAreaScrollbarScrollProps } from './ScrollAreaScrollbarScroll.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_SCROLLBAR_SCROLL_PROPS, type ScrollAreaScrollbarScrollProps, useScrollAreaScrollbarScroll } from './ScrollAreaScrollbarScroll.ts'
+import { DEFAULT_SCROLLBAR_SCROLL_PROPS, useScrollAreaScrollbarScroll } from './ScrollAreaScrollbarScroll.ts'
 import ScrollAreaScrollbarVisible from './ScrollAreaScrollbarVisible.vue'
 
 defineOptions({

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { CollapsibleTriggerProps } from './CollapsibleTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type CollapsibleTriggerProps, useCollapsibleTrigger } from './CollapsibleTrigger.ts'
+import { useCollapsibleTrigger } from './CollapsibleTrigger.ts'
 
 defineOptions({
   name: 'CollapsibleTrigger',

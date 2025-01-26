@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
+import type { CollapsibleContentProps, UseCollapsibleContentProps } from '../collapsible/index.ts'
 import type { RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
-import { type CollapsibleContentProps, DEFAULT_COLLAPSIBLE_CONTENT_PROPS, useCollapsibleContent, type UseCollapsibleContentProps } from '../collapsible/index.ts'
+import { DEFAULT_COLLAPSIBLE_CONTENT_PROPS, useCollapsibleContent } from '../collapsible/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useAccordionItemContext } from './AccordionItem.ts'
 import { useAccordionContext } from './AccordionRoot.ts'

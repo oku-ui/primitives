@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { MenuRadioGroupEmits, MenuRadioGroupProps } from './MenuRadioGroup.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type MenuRadioGroupEmits, type MenuRadioGroupProps, useMenuRadioGroup } from './MenuRadioGroup.ts'
+import { useMenuRadioGroup } from './MenuRadioGroup.ts'
 
 defineOptions({
   name: 'MenuRadioGroup',

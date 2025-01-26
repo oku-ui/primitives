@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { CollapsibleContentProps } from './CollapsibleContent.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type CollapsibleContentProps, DEFAULT_COLLAPSIBLE_CONTENT_PROPS, useCollapsibleContent } from './CollapsibleContent.ts'
+import { DEFAULT_COLLAPSIBLE_CONTENT_PROPS, useCollapsibleContent } from './CollapsibleContent.ts'
 
 defineOptions({
   name: 'CollapsibleContent',

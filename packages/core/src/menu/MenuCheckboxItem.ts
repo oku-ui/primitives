@@ -1,6 +1,8 @@
+import type { CheckedState } from '../checkbox/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
-import { type CheckedState, isIndeterminate } from '../checkbox/index.ts'
-import { type MenuItemEmits, type MenuItemProps, useMenuItem, type UseMenuItemProps } from './MenuItem.ts'
+import type { MenuItemEmits, MenuItemProps, UseMenuItemProps } from './MenuItem.ts'
+import { isIndeterminate } from '../checkbox/index.ts'
+import { useMenuItem } from './MenuItem.ts'
 import { provideItemIndicatorContext } from './MenuItemIndicator.ts'
 import { getCheckedState } from './utils.ts'
 

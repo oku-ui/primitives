@@ -1,6 +1,7 @@
+import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import type { ScrollAreaScrollbarVisibleProps, UseScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
-import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'

@@ -1,4 +1,5 @@
-import { computed, type Ref, shallowRef, toRaw, toValue, watch } from 'vue'
+import type { Ref } from 'vue'
+import { computed, shallowRef, toRaw, toValue, watch } from 'vue'
 
 type ProgressValue = number | undefined
 

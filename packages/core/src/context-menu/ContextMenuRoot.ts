@@ -1,6 +1,7 @@
+import type { MaybeRefOrGetter, Ref } from 'vue'
 import type { Direction } from '../direction/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
-import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { createContext } from '../hooks/index.ts'
 import { useMenuRoot } from '../menu/MenuRoot.ts'
 

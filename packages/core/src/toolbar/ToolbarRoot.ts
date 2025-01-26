@@ -1,8 +1,12 @@
 import type { MaybeRefOrGetter, Ref } from 'vue'
-import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
-import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import type { Direction } from '../direction/index.ts'
+import type { MutableRefObject } from '../hooks/index.ts'
+import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { useDirection } from '../direction/index.ts'
+import { createContext, useRef } from '../hooks/index.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export interface ToolbarRootProps {
   orientation?: RovingFocusGroupRootProps['orientation']

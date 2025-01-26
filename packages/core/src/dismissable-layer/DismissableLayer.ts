@@ -1,5 +1,6 @@
+import type { Ref } from 'vue'
 import type { EmitsToHookProps, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
-import { computed, onWatcherCleanup, type Ref, shallowReactive, shallowRef, watch } from 'vue'
+import { computed, onWatcherCleanup, shallowReactive, shallowRef, watch } from 'vue'
 import { useEscapeKeydown } from '../hooks/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useFocusOutside, usePointerdownOutside } from './utils.ts'

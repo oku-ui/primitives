@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { MenuRadioItemEmits, MenuRadioItemProps } from './MenuRadioItem.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_MENU_RADIO_ITEM_PROPS, type MenuRadioItemEmits, type MenuRadioItemProps, useMenuRadioItem } from './MenuRadioItem.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_MENU_RADIO_ITEM_PROPS, useMenuRadioItem } from './MenuRadioItem.ts'
 
 defineOptions({
   name: 'MenuRadioItem',

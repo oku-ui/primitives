@@ -1,7 +1,9 @@
+import type { MutableRefObject } from '../hooks/index.ts'
+import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import { onBeforeUnmount, onMounted } from 'vue'
-import { type MutableRefObject, useRef } from '../hooks/index.ts'
 
-import { mergePrimitiveAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { useRef } from '../hooks/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { context } from './DismissableLayer.ts'
 
 export interface UseDismissableLayerBranchProps {

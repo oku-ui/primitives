@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { MenuItemIndicatorProps } from './MenuItemIndicator.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_MENU_ITEM_INDICATOR_PROPS, type MenuItemIndicatorProps, useMenuItemIndicator } from './MenuItemIndicator.ts'
+import { DEFAULT_MENU_ITEM_INDICATOR_PROPS, useMenuItemIndicator } from './MenuItemIndicator.ts'
 
 defineOptions({
   name: 'MenuItemIndicator',

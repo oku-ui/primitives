@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { HoverCardContentProps } from './HoverCardContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_HOVER_CARD_CONTENT_PROPS, type HoverCardContentProps, useHoverCardConten } from './HoverCardContent.ts'
+import { DEFAULT_HOVER_CARD_CONTENT_PROPS, useHoverCardConten } from './HoverCardContent.ts'
 import HoverCardContentImpl from './HoverCardContentImpl.vue'
 
 defineOptions({

@@ -1,9 +1,12 @@
-import { type AriaAttributes, computed, type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
+import type { AriaAttributes, MaybeRefOrGetter, Ref } from 'vue'
+import type { Direction } from '../direction/index.ts'
+import type { MutableRefObject } from '../hooks/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { computed, shallowRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
-import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
-import { useControllableStateV2 } from '../hooks/index.ts'
-import { type EmitsToHookProps, focusFirst, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { useDirection } from '../direction/index.ts'
+import { createContext, useControllableStateV2, useRef } from '../hooks/index.ts'
+import { focusFirst, mergePrimitiveAttrs } from '../shared/index.ts'
 import { ENTRY_FOCUS, EVENT_OPTIONS } from './utils.ts'
 
 type Orientation = AriaAttributes['aria-orientation']

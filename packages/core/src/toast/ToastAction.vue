@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ToastActionProps } from './ToastAction.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TOAST_ACTION_PROPS, type ToastActionProps, useToastAction } from './ToastAction.ts'
+import { DEFAULT_TOAST_ACTION_PROPS, useToastAction } from './ToastAction.ts'
 
 defineOptions({
   name: 'ToastAction',

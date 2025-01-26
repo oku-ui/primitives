@@ -1,5 +1,6 @@
+import type { DialogRootEmits, DialogRootProps, UseDialogRootProps } from '../dialog/index.ts'
 import type { PrimitiveDefaultProps } from '../shared/index.ts'
-import { type DialogRootEmits, type DialogRootProps, useDialogRoot, type UseDialogRootProps } from '../dialog/index.ts'
+import { useDialogRoot } from '../dialog/index.ts'
 
 export {
   type DialogContext as AlertDialogContext,

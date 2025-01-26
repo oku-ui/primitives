@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { MenuSubEmits, MenuSubProps } from './MenuSub.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_MENU_SUB_PROPS, type MenuSubEmits, type MenuSubProps, useMenuSub } from './MenuSub.ts'
+import { DEFAULT_MENU_SUB_PROPS, useMenuSub } from './MenuSub.ts'
 
 defineOptions({
   name: 'MenuSub',
