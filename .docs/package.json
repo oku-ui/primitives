@@ -27,7 +27,7 @@
     "@radix-ui/colors": "catalog:",
     "@types/babel__traverse": "catalog:",
     "@types/markdown-it": "catalog:",
-    "@vue/tsconfig": "^0.6.0",
+    "@vue/tsconfig": "^0.7.0",
     "autoprefixer": "catalog:",
     "codesandbox": "catalog:",
     "fast-glob": "catalog:",
