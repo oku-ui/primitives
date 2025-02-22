@@ -142,3 +142,29 @@ export function useControllableStateV3<P, U = P, V = P>(
 
   return proxy
 }
+
+export function useControllableStateV4<T>(
+  prop: (() => T | undefined) | T | undefined,
+  onChange: ((value: T) => void) | undefined,
+  defaultValue: (() => T) | T,
+): Ref<T> {
+  const isFunc = typeof prop === 'function'
+  const defValue = typeof defaultValue === 'function' ? (defaultValue as () => T)() : defaultValue
+  const proxy = shallowRef(isFunc ? (prop as () => T)() ?? defValue : prop ?? defValue)
+
+  if (!isFunc)
+    return computed({ get: () => proxy.value, set: v => onChange?.(v) })
+
+  let skip = false
+  watch(() => (prop as () => T)(), (v) => {
+    if (skip || v === undefined)
+      return
+    skip = true
+    proxy.value = v
+    nextTick(() => skip = false)
+  })
+
+  watch(proxy, v => !skip && onChange?.(v))
+
+  return proxy
+}

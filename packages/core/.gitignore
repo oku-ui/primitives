@@ -32,3 +32,4 @@ storybook-static
 *.tsbuildinfo
 
 *storybook.log
+.data

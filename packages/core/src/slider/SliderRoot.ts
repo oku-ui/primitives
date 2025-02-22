@@ -3,7 +3,7 @@ import type { EmitsToHookProps, LooseRequired, PrimitiveDefaultProps, RadixPrimi
 import { computed, type HTMLAttributes, type MaybeRefOrGetter, type Ref, type UnwrapRef } from 'vue'
 import { createCollection } from '../collection/index.ts'
 import { type Direction, useDirection } from '../direction/index.ts'
-import { createContext, type MutableRefObject, useControllableStateV3, useRef, type useSize } from '../hooks/index.ts'
+import { createContext, type MutableRefObject, useControllableStateV4, useRef, type useSize } from '../hooks/index.ts'
 import { clamp, getDecimalCount, isNumber, mergePrimitiveAttrs, roundValue } from '../shared/index.ts'
 import { getClosestValueIndex, getNextSortedValues, hasMinStepsBetweenValues, linearScale } from './utils.ts'
 
@@ -77,7 +77,7 @@ export const [provideSliderOrientationContext, useSliderOrientationContext] = cr
 
 export interface UseSliderRootProps extends EmitsToHookProps<SliderRootEmits> {
   el?: MutableRefObject<HTMLElement>
-  value?: () => number[] | undefined
+  value?: (() => number[] | undefined) | number[]
   defaultValue?: () => number[]
   name?: () => string | undefined
   disabled?: () => boolean | undefined
@@ -113,13 +113,13 @@ export function useSliderRoot(props: UseSliderRootProps): RadixPrimitiveReturns 
   const thumbs: SliderContext['thumbs'] = new Set()
   const valueIndexToChangeRef = useRef(0)
 
-  // TODO: is not reactive
-  const values = useControllableStateV3(
+  const values = useControllableStateV4(
     props.value,
     (v) => {
       const _thumbs = Array.from(thumbs)
       _thumbs[valueIndexToChangeRef.value]?.focus()
       props.onUpdateValue?.(v as number[])
+      props.onUpdateValue?.(v)
     },
     defaultValue,
   )
