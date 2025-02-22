@@ -18,7 +18,7 @@
     "@shikijs/vitepress-twoslash": "catalog:",
     "@stackblitz/sdk": "catalog:",
     "@vueuse/core": "^11.2.0",
-    "vue": "^3.5.12",
+    "vue": "catalog:",
     "vue-sonner": "catalog:"
   },
   "devDependencies": {

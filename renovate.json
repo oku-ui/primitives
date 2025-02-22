@@ -23,7 +23,7 @@
         "digest"
       ],
       "schedule": [
-        "every 1 month"
+        "every 6 month"
       ]
     },
     {
@@ -37,7 +37,7 @@
       ],
       "automerge": true,
       "schedule": [
-        "every 1 month"
+        "every 6 month"
       ]
     },
     {
@@ -51,7 +51,7 @@
       ],
       "automerge": true,
       "schedule": [
-        "every 1 month"
+        "every 6 month"
       ]
     },
     {
@@ -62,6 +62,9 @@
       ],
       "matchUpdateTypes": [
         "major"
+      ],
+      "schedule": [
+        "every 6 month"
       ]
     }
   ]

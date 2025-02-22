@@ -86,7 +86,7 @@
     "vite-plugin-dts": "catalog:",
     "vitest": "catalog:",
     "vitest-axe": "catalog:",
-    "vue": "^3.5.13",
+    "vue": "catalog:",
     "vue-component-meta": "^2.2.2"
   },
   "pnpm": {
