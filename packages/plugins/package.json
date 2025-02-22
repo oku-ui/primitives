@@ -24,14 +24,14 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.15.4",
-    "@nuxt/schema": "^3.15.4",
+    "@nuxt/kit": "catalog:",
+    "@nuxt/schema": "catalog:",
     "@oku-ui/primitives": "latest",
     "tsx": "^4.19.3",
-    "unbuild": "^3.3.1",
-    "unplugin-vue-components": "^28.4.0"
+    "unbuild": "catalog:",
+    "unplugin-vue-components": "catalog:"
   },
   "devDependencies": {
-    "tsup": "^8.3.6"
+    "tsup": "catalog:"
   }
 }
