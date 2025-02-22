@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { createContext, useControllableStateV2, useId } from '../hooks/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export interface CollapsibleRootProps {
   defaultOpen?: boolean

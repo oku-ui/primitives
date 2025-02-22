@@ -1,5 +1,6 @@
+import type { Ref } from 'vue'
 import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/typeUtils.ts'
-import { type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { createContext, useControllableStateV2 } from '../hooks/index.ts'
 import { usePresence } from '../presence/usePresence.ts'
 

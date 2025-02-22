@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { AccordionHeaderProps } from './AccordionHeader.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type AccordionHeaderProps, useAccordionHeader } from './AccordionHeader.ts'
+import { useAccordionHeader } from './AccordionHeader.ts'
 
 defineOptions({
   name: 'AccordionHeader',

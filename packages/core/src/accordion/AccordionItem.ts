@@ -1,5 +1,6 @@
+import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import { computed, type Ref } from 'vue'
+import { computed } from 'vue'
 import { useCollapsibleRoot } from '../collapsible/index.ts'
 import { createContext, useId } from '../hooks/index.ts'
 import { useAccordionContext } from './AccordionRoot.ts'

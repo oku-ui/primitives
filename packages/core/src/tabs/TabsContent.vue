@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { TabsContentProps } from './TabsContent.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TABS_CONTENT_PROPS, type TabsContentProps, useTabsContent } from './TabsContent.ts'
+import { DEFAULT_TABS_CONTENT_PROPS, useTabsContent } from './TabsContent.ts'
 
 defineOptions({
   name: 'TabsContent',

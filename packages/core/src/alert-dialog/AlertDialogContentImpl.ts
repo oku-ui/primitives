@@ -1,10 +1,12 @@
+import type { DialogContentImplEmits, UseDialogContentImplProps } from '../dialog/index.ts'
+import type { MutableRefObject } from '../hooks/index.ts'
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
 import {
-  type DialogContentImplEmits,
+
   useDialogContentImplModal,
-  type UseDialogContentImplProps,
+
 } from '../dialog/index.ts'
-import { createContext, type MutableRefObject, useRef } from '../hooks/index.ts'
+import { createContext, useRef } from '../hooks/index.ts'
 
 export type AlertDialogContentImplEmits = Omit<DialogContentImplEmits, 'pointerdownOutside' | 'interactOutside'>
 

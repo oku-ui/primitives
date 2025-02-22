@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { MenuRootEmits, MenuRootProps } from './MenuRoot.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
 import {
   DEFAULT_MENU_ROOT_PROPS,
-  type MenuRootEmits,
-  type MenuRootProps,
+
   useMenuRoot,
 } from './MenuRoot.ts'
 

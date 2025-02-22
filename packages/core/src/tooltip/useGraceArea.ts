@@ -1,8 +1,9 @@
 import type { VirtualElement } from '@floating-ui/utils'
+import type { Point, Polygon } from '../shared/index.ts'
 import { isClient } from '@vueuse/core'
 import { onBeforeUnmount, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { usePopperContext } from '../popper/index.ts'
-import { isPointInPolygon, type Point, type Polygon } from '../shared/index.ts'
+import { isPointInPolygon } from '../shared/index.ts'
 import { getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect } from './utils.ts'
 
 export interface UseGraceArea {

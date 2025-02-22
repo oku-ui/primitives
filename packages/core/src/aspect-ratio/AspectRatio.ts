@@ -1,10 +1,8 @@
+import type { IAttrsData, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
 import {
-  type IAttrsData,
+
   mergePrimitiveAttrs,
-  type PrimitiveDefaultProps,
-  type PrimitiveElAttrs,
-  type RadixPrimitiveGetAttrs,
-  type RadixPrimitiveReturns,
+
 } from '../shared/index.ts'
 
 export interface AspectRatioProps {

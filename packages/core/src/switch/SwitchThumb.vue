@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { SwitchThumbProps } from './SwitchThumb.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_SWITCH_THUMB_PROPS, type SwitchThumbProps, useSwitchThumb } from './SwitchThumb.ts'
+import { DEFAULT_SWITCH_THUMB_PROPS, useSwitchThumb } from './SwitchThumb.ts'
 
 defineOptions({
   name: 'SwitchThumb',

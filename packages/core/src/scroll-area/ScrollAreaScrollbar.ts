@@ -1,7 +1,9 @@
+import type { Ref } from 'vue'
+import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
-import { onBeforeUnmount, onMounted, type Ref } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import { createContext } from '../hooks/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaScrollbarProps {

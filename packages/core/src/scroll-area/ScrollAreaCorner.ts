@@ -1,5 +1,6 @@
+import type { Ref } from 'vue'
 import type { RadixPrimitiveReturns } from '../shared/index.ts'
-import { computed, type Ref } from 'vue'
+import { computed } from 'vue'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export function useScrollAreaCorner(): RadixPrimitiveReturns<{ hasCorner: Ref<boolean> }> {

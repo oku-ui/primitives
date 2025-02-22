@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { AccordionTriggerProps } from './AccordionTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type AccordionTriggerProps, useAccordionTrigger } from './AccordionTrigger.ts'
+import { useAccordionTrigger } from './AccordionTrigger.ts'
 
 defineOptions({
   name: 'AccordionTrigger',

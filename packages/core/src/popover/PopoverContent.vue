@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { PopoverContentProps } from './PopoverContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_POPOVER_CONTENT_PROPS, type PopoverContentProps, usePopoverContent } from './PopoverContent.ts'
+import { DEFAULT_POPOVER_CONTENT_PROPS, usePopoverContent } from './PopoverContent.ts'
 import PopoverContentImpl from './PopoverContentImpl.vue'
 
 defineOptions({

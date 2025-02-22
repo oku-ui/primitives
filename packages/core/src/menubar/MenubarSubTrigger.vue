@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { MenubarSubTriggerProps } from './MenubarSubTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_MENUBAR_SUB_TRIGGER_PROPS, type MenubarSubTriggerProps, useMenubarSubTrigger } from './MenubarSubTrigger.ts'
+import { DEFAULT_MENUBAR_SUB_TRIGGER_PROPS, useMenubarSubTrigger } from './MenubarSubTrigger.ts'
 
 defineOptions({
   name: 'MenubarSubTrigger',

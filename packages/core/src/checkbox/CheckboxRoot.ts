@@ -1,7 +1,9 @@
+import type { Ref } from 'vue'
+import type { MutableRefObject } from '../hooks/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
-import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
-import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
+import { createContext, useControllableStateV2, useRef } from '../hooks/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { getState, isIndeterminate } from './utils.ts'
 

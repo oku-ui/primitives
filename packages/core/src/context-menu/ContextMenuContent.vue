@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { ContextMenuContenttProps } from './ContextMenuContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type ContextMenuContenttProps, DEFAULT_CONTEXT_MENU_CONTENT_PROPS, useContextMenuContent } from './ContextMenuContent.ts'
+import { DEFAULT_CONTEXT_MENU_CONTENT_PROPS, useContextMenuContent } from './ContextMenuContent.ts'
 import ContextMenuContentImpl from './ContextMenuContentImpl.vue'
 
 defineOptions({

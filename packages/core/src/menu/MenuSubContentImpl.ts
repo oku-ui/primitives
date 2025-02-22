@@ -1,12 +1,11 @@
 import type { FocusOutsideEvent } from '../dismissable-layer/index.ts'
+import type { PopperContentProps } from '../popper/index.ts'
 import type { PrimitiveDefaultProps } from '../shared/index.ts'
-import { type PopperContentProps, usePopperContext } from '../popper/index.ts'
+import type { UseMenuContentImplSharedEmits, UseMenuContentImplSharedPeturns, UseMenuContentImplSharedPrivateProps, UseMenuContentImplSharedProps } from './MenuContentImpl.ts'
+import { usePopperContext } from '../popper/index.ts'
 import {
   useMenuContentImplShared,
-  type UseMenuContentImplSharedEmits,
-  type UseMenuContentImplSharedPeturns,
-  type UseMenuContentImplSharedPrivateProps,
-  type UseMenuContentImplSharedProps,
+
 } from './MenuContentImpl.ts'
 import { SUB_CLOSE_KEYS, useMenuContext, useMenuRootContext } from './MenuRoot.ts'
 import { useMenuSubContext } from './MenuSub.ts'

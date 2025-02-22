@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { MenuSubContentProps } from './MenuSubContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_MENU_SUB_CONTENT_PROPS, type MenuSubContentProps, useMenuSubContent } from './MenuSubContent.ts'
+import { DEFAULT_MENU_SUB_CONTENT_PROPS, useMenuSubContent } from './MenuSubContent.ts'
 import MenuSubContentImpl from './MenuSubContentImpl.vue'
 
 defineOptions({

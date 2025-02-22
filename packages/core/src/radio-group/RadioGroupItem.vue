@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { RadioGroupItemProps } from './RadioGroupItem.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_RADIO_GROUP_ITEM_PROPS, type RadioGroupItemProps, useRadioGroupItem } from './RadioGroupItem.ts'
+import { DEFAULT_RADIO_GROUP_ITEM_PROPS, useRadioGroupItem } from './RadioGroupItem.ts'
 
 defineOptions({
   name: 'RadioGroupItem',

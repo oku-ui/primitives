@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { HoverCardRootEmits, HoverCardRootProps } from './HoverCardRoot.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type HoverCardRootEmits, type HoverCardRootProps, useHoverCardRoot } from './HoverCardRoot.ts'
+import { useHoverCardRoot } from './HoverCardRoot.ts'
 
 defineOptions({
   name: 'HoverCardRoot',

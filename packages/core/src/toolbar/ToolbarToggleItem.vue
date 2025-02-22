@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ToolbarToggleItemProps } from './ToolbarToggleItem.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TOOLBAR_TOGGLE_ITEM_PROPS, type ToolbarToggleItemProps, useToolbarToggleItem } from './ToolbarToggleItem.ts'
+import { DEFAULT_TOOLBAR_TOGGLE_ITEM_PROPS, useToolbarToggleItem } from './ToolbarToggleItem.ts'
 
 defineOptions({
   name: 'ToolbarToggleItem',

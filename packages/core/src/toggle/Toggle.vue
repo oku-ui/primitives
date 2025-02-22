@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { ToggleEmits, ToggleProps } from './Toggle.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TOGGLE_PROPS, type ToggleEmits, type ToggleProps, useToggle } from './Toggle.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TOGGLE_PROPS, useToggle } from './Toggle.ts'
 
 defineOptions({
   name: 'Toggle',

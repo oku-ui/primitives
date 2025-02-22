@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { ToastProviderProps } from './ToastProvider.ts'
 import { convertPropsToHookProps } from '../shared/convertPropsToHookProps.ts'
-import { type ToastProviderProps, useToastProvider } from './ToastProvider.ts'
+import { useToastProvider } from './ToastProvider.ts'
 
 defineOptions({
   name: 'ToastProvider',

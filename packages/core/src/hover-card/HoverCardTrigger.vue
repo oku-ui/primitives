@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { HoverCardTriggerProps } from './HoverCardTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_HOVER_CARD_TRIGGER_PROPS, type HoverCardTriggerProps, useHoverCardTrigger } from './HoverCardTrigger.ts'
+import { DEFAULT_HOVER_CARD_TRIGGER_PROPS, useHoverCardTrigger } from './HoverCardTrigger.ts'
 
 defineOptions({
   name: 'HoverCardTrigger',

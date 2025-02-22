@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { convertPropsToHookProps, type EmitsToHookProps } from '../shared/index.ts'
-import { DEFAULT_TOAST_ROOT_PROPS, type ToastRootEmits, type ToastRootProps, useToastRoot } from './ToastRoot.ts'
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { ToastRootEmits, ToastRootProps } from './ToastRoot.ts'
+import { convertPropsToHookProps } from '../shared/index.ts'
+import { DEFAULT_TOAST_ROOT_PROPS, useToastRoot } from './ToastRoot.ts'
 import ToastRootImpl from './ToastRootImpl.vue'
 
 defineOptions({

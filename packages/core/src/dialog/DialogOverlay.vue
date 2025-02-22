@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { DialogOverlayProps } from './DialogOverlay.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_DIALOG_OVERLAY_PROPS, type DialogOverlayProps, useDialogOverlay } from './DialogOverlay.ts'
+import { DEFAULT_DIALOG_OVERLAY_PROPS, useDialogOverlay } from './DialogOverlay.ts'
 
 defineOptions({
   name: 'DialogOverlay',

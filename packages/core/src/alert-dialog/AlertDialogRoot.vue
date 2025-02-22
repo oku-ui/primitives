@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { AlertDialogRootEmits, AlertDialogRootProps } from './AlertDialogRoot.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type AlertDialogRootEmits, type AlertDialogRootProps, useAlertDialogRoot } from './AlertDialogRoot.ts'
+import { useAlertDialogRoot } from './AlertDialogRoot.ts'
 
 defineOptions({
   name: 'AlertDialogRoot',

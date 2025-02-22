@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { ScrollAreaScrollbarVisibleProps } from './ScrollAreaScrollbarVisible.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
   DEFAULT_SCROLL_AREA_SCROLLBAR_VISIBLE_PROPS,
-  type ScrollAreaScrollbarVisibleProps,
+
   useScrollAreaScrollbarVisible,
 } from './ScrollAreaScrollbarVisible.ts'
 

@@ -1,5 +1,6 @@
+import type { Ref } from 'vue'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
-import { type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { useMenuContext } from '../menu/MenuRoot.ts'
 import { usePopperContext } from '../popper/index.ts'
 import { usePresence } from '../presence/usePresence.ts'

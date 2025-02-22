@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { SliderThumbProps } from './SliderThumb.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import SliderBubbleInput from './SliderBubbleInput.vue'
-import { DEFAULT_SLIDER_THUMB_PROPS, type SliderThumbProps, useSliderThumb } from './SliderThumb.ts'
+import { DEFAULT_SLIDER_THUMB_PROPS, useSliderThumb } from './SliderThumb.ts'
 
 defineOptions({
   name: 'SliderThumb',

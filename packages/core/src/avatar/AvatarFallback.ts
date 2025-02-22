@@ -1,7 +1,8 @@
+import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { isClient } from '@vueuse/core'
-import { computed, onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
+import { computed, onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useAvatarContext } from './AvatarRoot.ts'
 
 export interface AvatarFallbackProps {

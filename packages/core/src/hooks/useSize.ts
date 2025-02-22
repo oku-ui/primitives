@@ -1,4 +1,5 @@
-import { type MaybeRefOrGetter, onWatcherCleanup, shallowRef, toValue, watch } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
+import { onWatcherCleanup, shallowRef, toValue, watch } from 'vue'
 
 interface Size {
   width: number

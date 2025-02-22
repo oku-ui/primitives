@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { RovingFocusGroupItemProps } from './RovingFocusGroupItem.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_ROVING_FOCUS_GROUP_ITEM_PROPS, type RovingFocusGroupItemProps, useRovingFocusGroupItem } from './RovingFocusGroupItem.ts'
+import { DEFAULT_ROVING_FOCUS_GROUP_ITEM_PROPS, useRovingFocusGroupItem } from './RovingFocusGroupItem.ts'
 
 defineOptions({
   name: 'RovingFocusGroupItem',

@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { CheckboxRootEmits, CheckboxRootProps } from './CheckboxRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
-  type CheckboxRootEmits,
-  type CheckboxRootProps,
+
   DEFAULT_CHECKBOX_ROOT_PROPS,
   useCheckboxRoot,
 } from './CheckboxRoot.ts'

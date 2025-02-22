@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { AlertDialogContentImplEmits } from './AlertDialogContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type AlertDialogContentImplEmits, useAlertDialogContentImpl } from './AlertDialogContentImpl.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { useAlertDialogContentImpl } from './AlertDialogContentImpl.ts'
 
 defineOptions({
   name: 'AlertDialogContentImpl',

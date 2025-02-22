@@ -1,7 +1,8 @@
 /* ----------------------------------------------------------------------------------------------- */
 
 import type { CheckedState } from '../checkbox/index.ts'
-import { isPointInPolygon, type Point, type Polygon, wrapArray } from '../shared/index.ts'
+import type { Point, Polygon } from '../shared/index.ts'
+import { isPointInPolygon, wrapArray } from '../shared/index.ts'
 
 function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
   return checked === 'indeterminate'

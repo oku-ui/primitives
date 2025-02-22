@@ -1,6 +1,7 @@
+import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
-import { type Ref, shallowRef } from 'vue'
+import { shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useCheckboxContext } from './CheckboxRoot.ts'

@@ -1,10 +1,9 @@
+import type { MenuSubContentImplEmits, MenuSubContentImplProps, UseMenuContentImplSharedPeturns, UseMenuSubContentImplProps } from '../menu/index.ts'
 import type { PrimitiveDefaultProps } from '../shared'
 import {
-  type MenuSubContentImplEmits,
-  type MenuSubContentImplProps,
-  type UseMenuContentImplSharedPeturns,
+
   useMenuSubContentImpl,
-  type UseMenuSubContentImplProps,
+
 } from '../menu/index.ts'
 
 export interface MenubarSubContentImplProps extends MenuSubContentImplProps { }

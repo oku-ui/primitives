@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { LabelEmits, LabelProps } from './Label.ts'
 import { Primitive } from '../primitive/index.ts'
-import { type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_LABEL_PROPS, type LabelEmits, type LabelProps, useLabel } from './Label.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_LABEL_PROPS, useLabel } from './Label.ts'
 
 defineOptions({
   name: 'RadixLabel',

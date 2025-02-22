@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { DropdownMenuContentProps } from './DropdownMenuContent.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { DEFAULT_DROPDOWN_MENU_CONTENT_PROPS, type DropdownMenuContentProps, useDropdownMenuContent } from './DropdownMenuContent.ts'
+import { DEFAULT_DROPDOWN_MENU_CONTENT_PROPS, useDropdownMenuContent } from './DropdownMenuContent.ts'
 import DropdownMenuContentImpl from './DropdownMenuContentImpl.vue'
 
 defineOptions({

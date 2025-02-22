@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { HoverCardContentImplEmits, HoverCardContentImplProps } from './HoverCardContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_HOVER_CARD_CONTENT_IMPL_PROPS, type HoverCardContentImplEmits, type HoverCardContentImplProps, useHoverCardContentImpl } from './HoverCardContentImpl.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_HOVER_CARD_CONTENT_IMPL_PROPS, useHoverCardContentImpl } from './HoverCardContentImpl.ts'
 
 defineOptions({
   name: 'HoverCardContentImpl',

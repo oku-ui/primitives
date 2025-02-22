@@ -1,6 +1,8 @@
+import type { Ref } from 'vue'
+import type { MutableRefObject } from '../hooks/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
-import { onBeforeUnmount, type Ref } from 'vue'
-import { createContext, type MutableRefObject, useControllableStateV2, useRef } from '../hooks/index.ts'
+import { onBeforeUnmount } from 'vue'
+import { createContext, useControllableStateV2, useRef } from '../hooks/index.ts'
 import { usePooperRoot } from '../popper/index.ts'
 
 export interface HoverCardRootProps {

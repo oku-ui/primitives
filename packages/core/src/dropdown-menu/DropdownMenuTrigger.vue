@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { DropdownMenuTriggerProps } from './DropdownMenuTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_DROPDOWN_MENU_TRIGGER_PROPS, type DropdownMenuTriggerProps, useDropdownMenuTrigger } from './DropdownMenuTrigger.ts'
+import { DEFAULT_DROPDOWN_MENU_TRIGGER_PROPS, useDropdownMenuTrigger } from './DropdownMenuTrigger.ts'
 
 defineOptions({
   name: 'DropdownMenuTrigger',

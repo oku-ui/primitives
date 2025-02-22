@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { SliderRootEmits, SliderRootProps } from './SliderRoot.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_SLIDER_ROOT_PROPS, type SliderRootEmits, type SliderRootProps, useSliderRoot } from './SliderRoot.ts'
+import { DEFAULT_SLIDER_ROOT_PROPS, useSliderRoot } from './SliderRoot.ts'
 
 defineOptions({
   name: 'SliderRoot',

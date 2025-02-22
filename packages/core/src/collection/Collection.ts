@@ -1,4 +1,5 @@
-import { createContext, type MutableRefObject } from '../hooks/index.ts'
+import type { MutableRefObject } from '../hooks/index.ts'
+import { createContext } from '../hooks/index.ts'
 
 export const DATA_COLLECTION_ITEM = 'data-radix-collection-item'
 

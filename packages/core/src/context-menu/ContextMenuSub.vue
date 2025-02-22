@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { EmitsToHookProps } from '../shared/index.ts'
+import type { ContextMenuSubEmits, ContextMenuSubProps } from './ContextMenuSub.ts'
 import { convertPropsToHookProps } from '../shared/index.ts'
-import { type ContextMenuSubEmits, type ContextMenuSubProps, DEFAULT_CONTEXT_MENU_SUB_PROPS, useContextMenuSub } from './ContextMenuSub.ts'
+import { DEFAULT_CONTEXT_MENU_SUB_PROPS, useContextMenuSub } from './ContextMenuSub.ts'
 
 defineOptions({
   name: 'ContextMenuSub',

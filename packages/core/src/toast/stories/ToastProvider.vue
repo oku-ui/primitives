@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type ToastProviderProps, useToastProvider } from '../index.ts'
+import type { ToastProviderProps } from '../index.ts'
+import { useToastProvider } from '../index.ts'
 
 const props = defineProps<ToastProviderProps>()
 

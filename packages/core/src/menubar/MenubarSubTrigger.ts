@@ -1,5 +1,6 @@
+import type { MenuSubTriggerProps, UseMenuSubTriggerProps } from '../menu/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared'
-import { type MenuSubTriggerProps, useMenuSubTrigger, type UseMenuSubTriggerProps } from '../menu/index.ts'
+import { useMenuSubTrigger } from '../menu/index.ts'
 
 export interface MenubarSubTriggerProps extends MenuSubTriggerProps {}
 

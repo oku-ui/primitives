@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { DialogContentImplEmits } from './DialogContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type DialogContentImplEmits, useDialogContentImpl } from './DialogContentImpl.ts'
+import { normalizeAttrs } from '../shared/index.ts'
+import { useDialogContentImpl } from './DialogContentImpl.ts'
 
 defineOptions({
   name: 'DialogContentImpl',

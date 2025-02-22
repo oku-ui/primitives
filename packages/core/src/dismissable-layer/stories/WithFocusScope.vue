@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { PointerdownOutsideEvent } from '../index.ts'
 import { shallowRef } from 'vue'
 import { FocusScope } from '../../focus-scope/index.ts'
-import { DismissableLayer, type PointerdownOutsideEvent } from '../index.ts'
+import { DismissableLayer } from '../index.ts'
 
 const open = shallowRef(false)
 const openButtonRef = shallowRef<HTMLElement | null>(null)

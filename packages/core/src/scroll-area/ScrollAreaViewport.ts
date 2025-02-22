@@ -1,6 +1,7 @@
+import type { PrimitiveElAttrs, RadixPrimitiveReturns, RefOrRefObject } from '../shared/index.ts'
 import { onMounted } from 'vue'
 import { useRef } from '../hooks/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveElAttrs, type RadixPrimitiveReturns, type RefOrRefObject } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useScrollAreaContext } from './ScrollAreaRoot.ts'
 
 export interface ScrollAreaViewportProps {

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
+import type { ProgressRootProps } from './ProgressRoot.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, isNumber, normalizeAttrs } from '../shared/index.ts'
-import { type ProgressRootProps, useProgressRoot } from './ProgressRoot.ts'
+import { useProgressRoot } from './ProgressRoot.ts'
 import { DEFAULT_MAX, defaultGetValueLabel, isValidMaxNumber, isValidValueNumber } from './utils.ts'
 
 defineOptions({

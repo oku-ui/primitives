@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { TabsRootEmits, TabsRootProps } from './TabsRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TABS_ROOT_PROPS, type TabsRootEmits, type TabsRootProps, useTabsRoot } from './TabsRoot.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TABS_ROOT_PROPS, useTabsRoot } from './TabsRoot.ts'
 
 defineOptions({
   name: 'TabsRoot',

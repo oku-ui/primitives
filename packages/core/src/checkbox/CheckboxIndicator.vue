@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { CheckboxIndicatorProps } from './CheckboxIndicator.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type CheckboxIndicatorProps, DEFAULT_CHECKBOX_INDICATOR_PROPS, useCheckboxIndicator } from './CheckboxIndicator.ts'
+import { DEFAULT_CHECKBOX_INDICATOR_PROPS, useCheckboxIndicator } from './CheckboxIndicator.ts'
 
 defineOptions({
   name: 'CheckboxIndicator',

@@ -1,7 +1,10 @@
-import { type MaybeRefOrGetter, type Ref, shallowRef } from 'vue'
-import { type Direction, useDirection } from '../direction/index.ts'
+import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { Direction } from '../direction/index.ts'
+import type { PrimitiveDefaultProps, PrimitiveElAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { shallowRef } from 'vue'
+import { useDirection } from '../direction/index.ts'
 import { createContext } from '../hooks/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type PrimitiveElAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 type ScrollAreaType = 'auto' | 'always' | 'scroll' | 'hover'
 

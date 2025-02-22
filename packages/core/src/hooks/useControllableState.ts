@@ -1,4 +1,5 @@
-import { computed, nextTick, type Ref, shallowRef, type UnwrapRef, watch } from 'vue'
+import type { Ref, UnwrapRef } from 'vue'
+import { computed, nextTick, shallowRef, watch } from 'vue'
 
 // type NonUndefined<T> = T extends undefined ? never : T
 

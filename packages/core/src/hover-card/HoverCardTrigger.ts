@@ -1,8 +1,9 @@
+import type { PopperAnchorProps } from '../popper/index.ts'
 import type { PrimitiveProps } from '../primitive/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
 import { onMounted } from 'vue'
 import { useRef } from '../hooks/index.ts'
-import { type PopperAnchorProps, usePopperContext } from '../popper/index.ts'
+import { usePopperContext } from '../popper/index.ts'
 import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useHoverCardContext } from './HoverCardRoot.ts'
 

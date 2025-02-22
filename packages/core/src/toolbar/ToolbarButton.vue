@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ToolbarButtonProps } from './ToolbarButton.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TOOLBAR_BUTTON_PROPS, type ToolbarButtonProps, useToolbarButton } from './ToolbarButton.ts'
+import { DEFAULT_TOOLBAR_BUTTON_PROPS, useToolbarButton } from './ToolbarButton.ts'
 
 defineOptions({
   name: 'ToolbarButton',

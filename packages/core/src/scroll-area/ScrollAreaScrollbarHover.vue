@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ScrollAreaScrollbarHoverProps } from './ScrollAreaScrollbarHover.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import ScrollAreaScrollbarAuto from './ScrollAreaScrollbarAuto.vue'
-import { DEFAULT_SCROLLBAR_HOVER_PROPS, type ScrollAreaScrollbarHoverProps, useScrollAreaScrollbarHover } from './ScrollAreaScrollbarHover.ts'
+import { DEFAULT_SCROLLBAR_HOVER_PROPS, useScrollAreaScrollbarHover } from './ScrollAreaScrollbarHover.ts'
 
 defineOptions({
   name: 'ScrollAreaScrollbarHover',

@@ -1,6 +1,8 @@
+import type { Ref } from 'vue'
+import type { MutableRefObject } from '../hooks/index.ts'
 import type { EmitsToHookProps, PrimitiveDefaultProps } from '../shared/index.ts'
-import { type Ref, shallowRef } from 'vue'
-import { createContext, type MutableRefObject, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
+import { shallowRef } from 'vue'
+import { createContext, useControllableStateV2, useId, useRef } from '../hooks/index.ts'
 
 export interface DialogRootProps {
   open?: boolean

@@ -1,5 +1,6 @@
+import type { MenuContentProps, UseMenuContentProps } from '../menu/index.ts'
 import type { PrimitiveDefaultProps } from '../shared/index.ts'
-import { type MenuContentProps, useMenuContent, type UseMenuContentProps } from '../menu/index.ts'
+import { useMenuContent } from '../menu/index.ts'
 
 export interface DropdownMenuContentProps extends MenuContentProps {}
 

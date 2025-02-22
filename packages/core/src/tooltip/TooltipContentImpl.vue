@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { TooltipContentImplEmits, TooltipContentImplProps } from './TooltipContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_TOOLTIP_CONTENT_IMPL_PROPS, type TooltipContentImplEmits, type TooltipContentImplProps, useTooltipContentImpl } from './TooltipContentImpl.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_TOOLTIP_CONTENT_IMPL_PROPS, useTooltipContentImpl } from './TooltipContentImpl.ts'
 
 defineOptions({
   name: 'TooltipContentImpl',

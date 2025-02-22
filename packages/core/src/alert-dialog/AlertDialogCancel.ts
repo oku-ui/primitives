@@ -1,5 +1,6 @@
+import type { DialogCloseProps } from '../dialog/index.ts'
 import type { PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared'
-import { type DialogCloseProps, useDialogClose } from '../dialog/index.ts'
+import { useDialogClose } from '../dialog/index.ts'
 import { useAlertDialogContentContext } from './AlertDialogContentImpl.ts'
 
 export interface AlertDialogCancelProps extends DialogCloseProps {}

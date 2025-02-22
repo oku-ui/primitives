@@ -1,6 +1,8 @@
-import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
+import type { Ref } from 'vue'
+import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useTabsContext } from './TabsRoot.ts'
 import { makeContentId, makeTriggerId } from './utils.ts'
 

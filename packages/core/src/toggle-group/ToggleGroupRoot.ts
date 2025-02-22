@@ -1,8 +1,12 @@
-import { computed, type MaybeRefOrGetter, type Ref } from 'vue'
-import { type Direction, useDirection } from '../direction/index.ts'
+import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { Direction } from '../direction/index.ts'
+import type { RovingFocusGroupRootProps } from '../roving-focus/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { computed } from 'vue'
+import { useDirection } from '../direction/index.ts'
 import { createContext, useControllableStateV2 } from '../hooks/index.ts'
-import { type RovingFocusGroupRootProps, useRovingFocusGroupRoot } from '../roving-focus/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { useRovingFocusGroupRoot } from '../roving-focus/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export type ToggleGroupType = 'single' | 'multiple' | undefined
 
@@ -141,10 +145,10 @@ export function useToggleGroup<T extends ToggleGroupType>(props: UseToggleGroupP
 
   const rovingFocusGroupRoot = rovingFocus
     ? useRovingFocusGroupRoot({
-      orientation: props.orientation,
-      dir: direction,
-      loop,
-    })
+        orientation: props.orientation,
+        dir: direction,
+        loop,
+      })
     : undefined
 
   return {

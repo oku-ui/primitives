@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { PopoverCloseProps } from './PopoverClose.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_POPOVER_CLOSE_PROPS, type PopoverCloseProps, usePopoverClose } from './PopoverClose.ts'
+import { DEFAULT_POPOVER_CLOSE_PROPS, usePopoverClose } from './PopoverClose.ts'
 
 defineOptions({
   name: 'PopoverClose',

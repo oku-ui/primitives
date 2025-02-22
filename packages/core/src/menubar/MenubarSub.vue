@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type MenubarSubEmits, type MenubarSubProps, useMenubarSub } from './MenubarSub.ts'
+import type { MenubarSubEmits, MenubarSubProps } from './MenubarSub.ts'
+import { useMenubarSub } from './MenubarSub.ts'
 
 defineOptions({
   name: 'MenubarSub',

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { ContextMenuTriggerProps } from './ContextMenuTrigger.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type ContextMenuTriggerProps, DEFAULT_CONTEXT_MENU_TRIGGER_PROPS, useContextMenuTrigger } from './ContextMenuTrigger.ts'
+import { DEFAULT_CONTEXT_MENU_TRIGGER_PROPS, useContextMenuTrigger } from './ContextMenuTrigger.ts'
 
 defineOptions({
   name: 'ContextMenuTrigger',

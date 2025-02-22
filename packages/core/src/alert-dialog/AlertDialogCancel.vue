@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { AlertDialogCancelProps } from './AlertDialogCancel.ts'
 import { DialogClose } from '../dialog/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { type AlertDialogCancelProps, DEFAULT_ALERT_DIALOG_CANCEL_PROPS, useAlretDialogCancel } from './AlertDialogCancel.ts'
+import { DEFAULT_ALERT_DIALOG_CANCEL_PROPS, useAlretDialogCancel } from './AlertDialogCancel.ts'
 
 defineOptions({
   name: 'AlertDialogCancel',

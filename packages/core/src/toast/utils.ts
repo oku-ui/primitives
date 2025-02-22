@@ -34,7 +34,7 @@ export function getAnnounceTextContent(container: HTMLElement): string[] {
 
 /* ---------------------------------------------------------------------------------------------- */
 
-export function handleAndDispatchCustomEvent< E extends CustomEvent, OriginalEvent extends Event>(
+export function handleAndDispatchCustomEvent<E extends CustomEvent, OriginalEvent extends Event>(
   name: string,
   handler: ((event: E) => void) | undefined,
   detail: { originalEvent: OriginalEvent } & (E extends CustomEvent<infer D> ? D : never),

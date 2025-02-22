@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { PopoverAnchorProps } from './PopoverAnchor.ts'
 import { Primitive } from '../primitive/index.ts'
 import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type PopoverAnchorProps, usePopoverAnchor } from './PopoverAnchor.ts'
+import { usePopoverAnchor } from './PopoverAnchor.ts'
 
 defineOptions({
   name: 'PopoverAnchor',

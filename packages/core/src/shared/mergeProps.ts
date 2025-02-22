@@ -1,6 +1,7 @@
+import type { VNodeProps } from 'vue'
 import type { PrimitiveElAttrs, VNodeRef } from './typeUtils'
 import { isArray, isOn, NOOP } from '@vue/shared'
-import { normalizeClass, normalizeStyle, type VNodeProps } from 'vue'
+import { normalizeClass, normalizeStyle } from 'vue'
 import { getElFromTemplateRef } from './getElFromTemplateRef.ts'
 
 export type IAttrsData = Record<string, unknown> & VNodeProps

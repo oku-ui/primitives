@@ -1,5 +1,6 @@
+import type { DialogContentProps, UseDialogContent } from '../dialog/index.ts'
 import type { PrimitiveDefaultProps } from '../shared/index.ts'
-import { type DialogContentProps, useDialogContent, type UseDialogContent } from '../dialog/index.ts'
+import { useDialogContent } from '../dialog/index.ts'
 
 export interface AlertDialogContentProps extends DialogContentProps {}
 

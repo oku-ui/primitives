@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { CollapsibleRootEmits, CollapsibleRootProps } from './CollapsibleRoot.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
-import { type CollapsibleRootEmits, type CollapsibleRootProps, DEFAULT_COLLAPSIBLE_ROOT_PROPS, useCollapsibleRoot } from './CollapsibleRoot.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { DEFAULT_COLLAPSIBLE_ROOT_PROPS, useCollapsibleRoot } from './CollapsibleRoot.ts'
 
 defineOptions({
   name: 'CollapsibleRoot',

@@ -1,8 +1,10 @@
+import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { computed, onBeforeUnmount, onMounted, type Ref, shallowRef } from 'vue'
+import type { IAttrsData, PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useSize } from '../hooks/index.ts'
-import { type IAttrsData, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useCollection, useSliderContext, useSliderOrientationContext } from './SliderRoot.ts'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset } from './utils.ts'
 

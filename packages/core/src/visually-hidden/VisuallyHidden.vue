@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { VisuallyHiddenProps } from './VisuallyHidden.ts'
 import { Primitive } from '../primitive/index.ts'
-import { VISUALLY_HIDDEN_STYLE, type VisuallyHiddenProps } from './VisuallyHidden.ts'
+import { VISUALLY_HIDDEN_STYLE } from './VisuallyHidden.ts'
 
 defineOptions({
   name: 'VisuallyHidden',

@@ -1,9 +1,10 @@
 import type { RadixPrimitiveReturns } from '../shared'
+import type { ItemData } from './MenuRoot.ts'
 import { shallowRef, watchEffect } from 'vue'
 import { DATA_COLLECTION_ITEM } from '../collection/index.ts'
 import { useRovingFocusGroupItem } from '../roving-focus/index.ts'
 import { useMenuContentContext } from './MenuContentImpl.ts'
-import { Collection, type ItemData } from './MenuRoot.ts'
+import { Collection } from './MenuRoot.ts'
 
 export interface MenuItemImplProps {
   disabled?: boolean

@@ -1,7 +1,9 @@
+import type { Ref } from 'vue'
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { type Ref, shallowRef } from 'vue'
+import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { shallowRef } from 'vue'
 import { usePresence } from '../presence/index.ts'
-import { mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveGetAttrs, type RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 import { useRadioContext } from './RadioGroupItem.ts'
 
 export interface RadioGroupIndicatorProps {

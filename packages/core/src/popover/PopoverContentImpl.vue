@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { PopoverContentImplEmits, PopoverContentImplProps } from './PopoverContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
   DEFAULT_POPOVER_CONTENT_IMPL_PROPS,
-  type PopoverContentImplEmits,
-  type PopoverContentImplProps,
+
   usePopoverContentImpl,
 } from './PopoverContentImpl.ts'
 

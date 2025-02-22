@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { EmitsToHookProps } from '../shared/index.ts'
+import type { ContextMenuContentImplEmits, ContextMenuContentImplProps } from './ContextMenuContentImpl.ts'
 import { Primitive } from '../primitive/index.ts'
-import { convertPropsToHookProps, type EmitsToHookProps, normalizeAttrs } from '../shared/index.ts'
+import { convertPropsToHookProps, normalizeAttrs } from '../shared/index.ts'
 import {
-  type ContextMenuContentImplEmits,
-  type ContextMenuContentImplProps,
+
   DEFAULT_CONTEXT_MENU_CONTENT_IMPL_PROPS,
   useContextMenuContentImpl,
 } from './ContextMenuContentImpl.ts'

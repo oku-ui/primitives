@@ -1,5 +1,6 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
 
 export interface LabelProps {
   as?: PrimitiveProps['as']

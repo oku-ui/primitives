@@ -1,7 +1,9 @@
 import type { PrimitiveProps } from '../primitive/index.ts'
+import type { EmitsToHookProps, PrimitiveDefaultProps, RadixPrimitiveReturns } from '../shared/index.ts'
+import type { ImageLoadingStatus } from './AvatarRoot.ts'
 import { watchEffect } from 'vue'
-import { type EmitsToHookProps, mergePrimitiveAttrs, type PrimitiveDefaultProps, type RadixPrimitiveReturns } from '../shared/index.ts'
-import { type ImageLoadingStatus, useAvatarContext } from './AvatarRoot.ts'
+import { mergePrimitiveAttrs } from '../shared/index.ts'
+import { useAvatarContext } from './AvatarRoot.ts'
 import { useImageLoadingStatus } from './utils.ts'
 
 export interface AvatarImageProps {

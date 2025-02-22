@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { SliderRangeProps } from './SliderRange.ts'
 import { Primitive } from '../primitive/index.ts'
 import { normalizeAttrs } from '../shared/index.ts'
-import { DEFAULT_SLIDER_RANGE_PROPS, type SliderRangeProps, useSliderRange } from './SliderRange.ts'
+import { DEFAULT_SLIDER_RANGE_PROPS, useSliderRange } from './SliderRange.ts'
 
 defineOptions({
   name: 'SliderRange',

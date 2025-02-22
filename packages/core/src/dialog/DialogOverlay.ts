@@ -1,11 +1,11 @@
-import { onWatcherCleanup, type Ref, shallowRef, watchEffect } from 'vue'
+import type { Ref } from 'vue'
+import type { PrimitiveDefaultProps, RadixPrimitiveGetAttrs, RadixPrimitiveReturns } from '../shared/index.ts'
+import { onWatcherCleanup, shallowRef, watchEffect } from 'vue'
 import { useBodyScrollLock } from '../hooks/index.ts'
 import { usePresence } from '../presence/index.ts'
 import {
   mergePrimitiveAttrs,
-  type PrimitiveDefaultProps,
-  type RadixPrimitiveGetAttrs,
-  type RadixPrimitiveReturns,
+
 } from '../shared/index.ts'
 import { useDialogContext } from './DialogRoot.ts'
 

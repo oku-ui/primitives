@@ -1,5 +1,7 @@
-import { type MenuContentImplEmits, type MenuContentImplProps, useMenuContentImpl, type UseMenuContentImplProps, type UseMenuContentImplSharedPeturns } from '../menu/index.ts'
-import { type PrimitiveDefaultProps, wrapArray } from '../shared/index.ts'
+import type { MenuContentImplEmits, MenuContentImplProps, UseMenuContentImplProps, UseMenuContentImplSharedPeturns } from '../menu/index.ts'
+import type { PrimitiveDefaultProps } from '../shared/index.ts'
+import { useMenuContentImpl } from '../menu/index.ts'
+import { wrapArray } from '../shared/index.ts'
 import { useMenubarMenuContext } from './MenubarMenu.ts'
 import { useCollection, useMenubarContext } from './MenubarRoot.ts'
 
