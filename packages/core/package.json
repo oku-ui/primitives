@@ -118,7 +118,7 @@
     "@vitejs/plugin-vue-jsx": "catalog:",
     "@vue/test-utils": "catalog:",
     "@vue/tsconfig": "^0.7.0",
-    "@vueuse/core": "^12.7.0",
+    "@vueuse/core": "^13.0.0",
     "filter-anything": "catalog:",
     "jsdom": "catalog:",
     "npm-run-all2": "catalog:",

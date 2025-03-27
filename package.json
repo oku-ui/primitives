@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.7.8",
   "private": true,
-  "packageManager": "pnpm@10.4.1",
+  "packageManager": "pnpm@10.7.0",
   "license": "MIT",
   "repository": "oku-ui/primitives",
   "engines": {
@@ -77,7 +77,7 @@
     "simple-git-hooks": "catalog:",
     "storybook": "catalog:",
     "storybook-dark-mode": "catalog:",
-    "tailwindcss": "^4.0.8",
+    "tailwindcss": "^4.0.17",
     "tsup": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
@@ -87,7 +87,7 @@
     "vitest": "catalog:",
     "vitest-axe": "catalog:",
     "vue": "catalog:",
-    "vue-component-meta": "^2.2.2"
+    "vue-component-meta": "^2.2.8"
   },
   "pnpm": {
     "overrides": {
