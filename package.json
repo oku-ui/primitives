@@ -10,7 +10,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "esno scripts/dev.ts",
+    "dev": "esno scripts_c/dev.ts",
     "build": "pnpm turbo build",
     "docs:build": "pnpm --filter docs docs:build",
     "nuxt:generate": "pnpm --filter nuxt-app generate",
