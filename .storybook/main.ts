@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/vue3-vite'
 import { mergeConfig } from 'vite'
-import { primitivesPackagesAlias } from '../scripts_c/output'
+import { primitivesPackagesAlias } from '../scripts_c/output.ts'
 
 const resolve = (val: string) => new URL(val, import.meta.url).pathname
 

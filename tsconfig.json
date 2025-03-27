@@ -15,15 +15,15 @@
       "node"
       // "@vitest/browser/providers/wbdriverio"
     ],
+    "allowImportingTsExtensions": true,
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
+    "noEmit": true,
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   }
-  // "include": [
-  //   "./vitest.setup.ts"
-  // ]
+
 }
