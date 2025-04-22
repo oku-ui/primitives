@@ -123,6 +123,6 @@ Thanks to Kevin Deng [@sxzz](https://github.com/sxzz). Helped me a lot with the 
 
 ## License
 
-Licensed under the MIT License, Copyright © 2023-present [productdevbook](https://twitter.com/productdevbook).
+Published under the [MIT](https://github.com/oku-ui/primitives/blob/main/LICENSE) license. [community](https://github.com/oku-ui/primitives/graphs/contributors) 💛
 
 See [LICENSE](./LICENSE) for more information.
