@@ -27,7 +27,7 @@ catalog:
   '@storybook/vue3': ^8.6.10
   '@storybook/vue3-vite': ^8.6.10
   '@testing-library/vue': ^8.1.0
-  '@tsconfig/node20': ^20.1.5
+  '@tsconfig/node22': ^22.0.0
   '@types/babel__traverse': ^7.20.7
   '@types/jsdom': ^21.1.7
   '@types/markdown-it': ^14.1.2
