@@ -87,7 +87,7 @@
     "vitest": "catalog:",
     "vitest-axe": "catalog:",
     "vue": "catalog:",
-    "vue-component-meta": "^2.2.8"
+    "vue-component-meta": "^3.0.0"
   },
   "pnpm": {
     "overrides": {
