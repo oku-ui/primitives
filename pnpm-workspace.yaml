@@ -76,7 +76,7 @@ catalog:
   vite-plugin-pages: ^0.32.5
   vite-tsconfig-paths: ^5.1.4
   vitepress: ^1.6.3
-  vitest: ^3.0.9
+  vitest: ^4.0.0
   vitest-axe: 1.0.0-pre.5
   vitest-canvas-mock: ^0.3.3
   vue: ^3.5.13
