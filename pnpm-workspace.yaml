@@ -55,7 +55,7 @@ catalog:
   lint-staged: ^15.5.0
   markdown-it: ^14.1.0
   npm-run-all2: ^7.0.2
-  nuxt: ^3.16.1
+  nuxt: ^4.0.0
   nx: ^20.6.4
   ofetch: ^1.4.1
   pathe: ^2.0.3
